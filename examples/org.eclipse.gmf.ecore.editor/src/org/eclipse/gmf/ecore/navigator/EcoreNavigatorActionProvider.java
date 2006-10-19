@@ -155,7 +155,7 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 			try {
 				page.openEditor(editorInput, EcoreDiagramEditor.ID);
 			} catch (PartInitException e) {
-				EcoreDiagramEditorPlugin.getInstance().logError("Exceptino while openning diagram", e);
+				EcoreDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e);
 			}
 		}
 

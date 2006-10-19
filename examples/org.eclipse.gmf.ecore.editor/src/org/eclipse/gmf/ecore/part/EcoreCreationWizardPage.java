@@ -13,9 +13,7 @@ package org.eclipse.gmf.ecore.part;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
@@ -60,7 +58,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public DiagramFileCreator getDiagramFileCreator() {
+	public EcoreDiagramFileCreator getDiagramFileCreator() {
 		return EcoreDiagramFileCreator.getInstance();
 	}
 
@@ -89,7 +87,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 			// appending file extension to correctly process file names including "." symbol
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
-			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
+			if (EcoreDiagramFileCreator.exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}

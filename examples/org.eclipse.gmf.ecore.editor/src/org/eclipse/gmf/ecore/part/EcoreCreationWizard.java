@@ -12,16 +12,15 @@ package org.eclipse.gmf.ecore.part;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -49,7 +48,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected IFile diagramFile;
+	protected URI diagramURI;
 
 	/**
 	 * @generated
@@ -73,8 +72,8 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public final IFile getDiagramFile() {
-		return diagramFile;
+	public final URI getDiagramURI() {
+		return diagramURI;
 	}
 
 	/**
@@ -119,7 +118,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramFile = EcoreDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
+				diagramURI = EcoreDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
 						EPackageEditPart.MODEL_ID, getWorkbench().getActiveWorkbenchWindow(), monitor, isOpenNewlyCreatedDiagramEditor(), true);
 			}
 		};
@@ -135,6 +134,6 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		return diagramFile != null;
+		return diagramURI != null;
 	}
 }

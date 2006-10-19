@@ -10,8 +10,8 @@
       editPartClassName="EPackageEditPart"
       itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy"
       notationViewFactoryClassName="EPackageViewFactory"
-      iconProviderPriority="Low"
       canonicalEditPolicyClassName="EPackageCanonicalEditPolicy"
+      iconProviderPriority="Low"
       creationWizardIconPath="icons/full/obj16/EcoreModelFile.gif"
       creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
     <diagramRunTimeClass
@@ -59,7 +59,7 @@
           xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern=""
           editPattern="">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -94,7 +94,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -129,7 +129,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </labelModelFacet>
     </childNodes>
@@ -165,7 +165,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -201,7 +201,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -238,7 +238,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -273,7 +273,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -307,7 +307,7 @@
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
       </modelFacet>
       <labelModelFacet
-          xsi:type="gmfgen:CompositeFeatureLabelModelFacet"
+          xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern="{0} : {1}"
           editPattern="{0} : {1}">
         <metaFeatures
@@ -347,7 +347,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>
@@ -394,7 +394,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -445,7 +445,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -494,7 +494,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
       </labels>
@@ -545,7 +545,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -594,7 +594,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -679,7 +679,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -746,7 +746,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -787,8 +787,8 @@
         editPartClassName="EClassAttributesEditPart"
         itemSemanticEditPolicyClassName="EClassAttributesItemSemanticEditPolicy"
         notationViewFactoryClassName="EClassAttributesViewFactory"
-        childNodes="//@diagram/@childNodes.0"
         canonicalEditPolicyClassName="EClassAttributesCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0"
         title="attributes"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
@@ -805,8 +805,8 @@
         editPartClassName="EClassOperationsEditPart"
         itemSemanticEditPolicyClassName="EClassOperationsItemSemanticEditPolicy"
         notationViewFactoryClassName="EClassOperationsViewFactory"
-        childNodes="//@diagram/@childNodes.1"
         canonicalEditPolicyClassName="EClassOperationsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1"
         title="operations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
@@ -823,8 +823,8 @@
         editPartClassName="EClassClassAnnotationsEditPart"
         itemSemanticEditPolicyClassName="EClassClassAnnotationsItemSemanticEditPolicy"
         notationViewFactoryClassName="EClassClassAnnotationsViewFactory"
-        childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EClassClassAnnotationsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.2"
         title="classAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
@@ -839,8 +839,8 @@
         editPartClassName="EPackageClassesEditPart"
         itemSemanticEditPolicyClassName="EPackageClassesItemSemanticEditPolicy"
         notationViewFactoryClassName="EPackageClassesViewFactory"
-        childNodes="//@diagram/@childNodes.3"
         canonicalEditPolicyClassName="EPackageClassesCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.3"
         title="classes"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
@@ -855,8 +855,8 @@
         editPartClassName="EPackagePackagesEditPart"
         itemSemanticEditPolicyClassName="EPackagePackagesItemSemanticEditPolicy"
         notationViewFactoryClassName="EPackagePackagesViewFactory"
-        childNodes="//@diagram/@childNodes.4"
         canonicalEditPolicyClassName="EPackagePackagesCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.4"
         title="packages"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
@@ -871,8 +871,8 @@
         editPartClassName="EPackageDataTypesEditPart"
         itemSemanticEditPolicyClassName="EPackageDataTypesItemSemanticEditPolicy"
         notationViewFactoryClassName="EPackageDataTypesViewFactory"
-        childNodes="//@diagram/@childNodes.5"
         canonicalEditPolicyClassName="EPackageDataTypesCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.5"
         title="dataTypes"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
@@ -887,8 +887,8 @@
         editPartClassName="EPackageEnumsEditPart"
         itemSemanticEditPolicyClassName="EPackageEnumsItemSemanticEditPolicy"
         notationViewFactoryClassName="EPackageEnumsViewFactory"
-        childNodes="//@diagram/@childNodes.6"
         canonicalEditPolicyClassName="EPackageEnumsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.6"
         title="enums"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
@@ -903,8 +903,8 @@
         editPartClassName="EPackagePackageAnnotationsEditPart"
         itemSemanticEditPolicyClassName="EPackagePackageAnnotationsItemSemanticEditPolicy"
         notationViewFactoryClassName="EPackagePackageAnnotationsViewFactory"
-        childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EPackagePackageAnnotationsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.2"
         title="packageAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
@@ -919,8 +919,8 @@
         editPartClassName="EAnnotationDetailsEditPart"
         itemSemanticEditPolicyClassName="EAnnotationDetailsItemSemanticEditPolicy"
         notationViewFactoryClassName="EAnnotationDetailsViewFactory"
-        childNodes="//@diagram/@childNodes.7"
         canonicalEditPolicyClassName="EAnnotationDetailsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.7"
         title="details"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.2">
@@ -935,8 +935,8 @@
         editPartClassName="EDataTypeDataTypeAnnotationsEditPart"
         itemSemanticEditPolicyClassName="EDataTypeDataTypeAnnotationsItemSemanticEditPolicy"
         notationViewFactoryClassName="EDataTypeDataTypeAnnotationsViewFactory"
-        childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EDataTypeDataTypeAnnotationsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.2"
         title="dataTypeAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.3">
@@ -951,8 +951,8 @@
         editPartClassName="EEnumLiteralsEditPart"
         itemSemanticEditPolicyClassName="EEnumLiteralsItemSemanticEditPolicy"
         notationViewFactoryClassName="EEnumLiteralsViewFactory"
-        childNodes="//@diagram/@childNodes.8"
         canonicalEditPolicyClassName="EEnumLiteralsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.8"
         title="literals"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.4">
@@ -967,8 +967,8 @@
         editPartClassName="EEnumEnumAnnotationsEditPart"
         itemSemanticEditPolicyClassName="EEnumEnumAnnotationsItemSemanticEditPolicy"
         notationViewFactoryClassName="EEnumEnumAnnotationsViewFactory"
-        childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EEnumEnumAnnotationsCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.2"
         title="enumAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.4">

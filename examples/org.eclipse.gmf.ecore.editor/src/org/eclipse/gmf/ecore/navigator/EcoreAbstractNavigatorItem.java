@@ -12,8 +12,6 @@ package org.eclipse.gmf.ecore.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
 
-import org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor;
-
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 
 /**
@@ -50,7 +48,7 @@ public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
 	 */
 	public Object getAdapter(Class adapter) {
 		if (ITabbedPropertySheetPageContributor.class.isAssignableFrom(adapter)) {
-			return new IReadOnlyDiagramPropertySheetPageContributor() {
+			return new ITabbedPropertySheetPageContributor() {
 
 				public String getContributorId() {
 					return "org.eclipse.gmf.ecore.editor";
