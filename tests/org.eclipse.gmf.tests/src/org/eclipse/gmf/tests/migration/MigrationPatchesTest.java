@@ -31,7 +31,7 @@ public class MigrationPatchesTest extends TestCase {
 	public MigrationPatchesTest(String name) {
 		super(name);
 	}
-		
+
 	/*
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
 	 */
@@ -47,8 +47,19 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtMapException instanceof IllegalArgumentException); //$NON-NLS-1$
 		
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
-	}	
-	
+	}
+
+	/*
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
+	 */
+	public void testPatch_161380() throws Exception {
+		String genmodelFileName = "patch_161380.gmfgen"; //$NON-NLS-1$
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
+
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+
 	private static URI createURI(String testModelFileName) {
 		try {
 			return Plugin.createURI("/models/migration/" + testModelFileName); //$NON-NLS-1$
