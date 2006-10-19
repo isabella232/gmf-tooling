@@ -26,7 +26,7 @@ public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=imp
 	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 <%@ include file="createVIDAnnotation.jetinc"%>
 <%
-if (genElement instanceof GenLinkLabel) {
+if (genElement instanceof GenLinkLabel || genElement instanceof GenExternalNodeLabel) {
 %>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%> location = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLocation();
 		((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>)view).setLayoutConstraint(location);

@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -88,12 +89,14 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getEditPartFactoryGenerator(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
 
+		boolean hasExternalLabels = false;
 		for (Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
 			final GenNode next = (GenNode) it.next();
 			if (!(next instanceof GenChildLabelNode)) {
 				internalGenerateJavaClass(myEmitters.getNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
 					final GenNodeLabel label = (GenNodeLabel) it2.next();
+					hasExternalLabels |= label instanceof GenExternalNodeLabel;
 					internalGenerateJavaClass(myEmitters.getNodeLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 					internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 				}
@@ -102,6 +105,9 @@ public class Generator extends GeneratorBase implements Runnable {
 				internalGenerateJavaClass(myEmitters.getChildNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			}
+		}
+		if (hasExternalLabels) {
+			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
 		}
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
@@ -124,10 +130,15 @@ public class Generator extends GeneratorBase implements Runnable {
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
-		if (isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) || isPathInsideGenerationTarget(myEditorGen.getEditor().getIconPathX())) {
-			// only these two at the moment may produce path that reference generated icon file, thus
-			// skip generation if neither path specifies relative path
-			generateDiagramIcon(isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) ? myDiagram.getCreationWizardIconPathX() : myEditorGen.getEditor().getIconPathX());
+		if (isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX())) {
+			// at the moment this may produce path that reference generated icon file, thus
+			// skip generation if the path is relative
+			generateDiagramIcon(myDiagram.getCreationWizardIconPathX());
+		}
+		if (isPathInsideGenerationTarget(myEditorGen.getEditor().getIconPathX())) {
+			// at the moment this may produce path that reference generated icon file, thus
+			// skip generation if the path is relative
+			generateDiagramIcon(myEditorGen.getEditor().getIconPathX());
 		}
 		generateWizardBanner();
 	}
@@ -181,7 +192,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
 		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {
 		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), argument);

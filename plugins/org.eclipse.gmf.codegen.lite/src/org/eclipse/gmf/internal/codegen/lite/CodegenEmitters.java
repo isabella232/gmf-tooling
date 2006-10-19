@@ -53,6 +53,7 @@ import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactor
 import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.DiagramEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.lite.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.LinkLabelEditPartGenerator;
@@ -110,6 +111,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 		put(tr, "/providers/LinkViewFactory.javajet", LinkViewFactoryGenerator.class);
 		put(tr, "/providers/NodeViewFactory.javajet", NodeViewFactoryGenerator.class);
+		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
@@ -172,6 +174,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getDiagramEditPartGenerator() throws UnexpectedBehaviourException {
 		return retrieve(DiagramEditPartGenerator.class);
+	}
+
+	public TextEmitter getDiagramExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+		return retrieve(DiagramExternalNodeLabelEditPartGenerator.class);
 	}
 
 	public TextEmitter getEditPartFactoryGenerator() throws UnexpectedBehaviourException {

@@ -1871,7 +1871,7 @@ RelatedNodesFinder myRelatedNodesFinder = new RelatedNodesFinder(genDiagram);
     
 class NodeEditPartHelper {
 	private final List myInnerLabels = new LinkedList();
-	private final List myAllInnerLabels = new LinkedList();
+	private final List myAllLabels = new LinkedList();
 	private final List myExternalLabels = new LinkedList();
 	private final List myPinnedCompartments = new LinkedList();
 	private final List myFloatingCompartments = new LinkedList();
@@ -1890,10 +1890,10 @@ class NodeEditPartHelper {
 			if (myPrimaryLabel == null && !next.isReadOnly()){
 				myPrimaryLabel = next;
 			}
+			myAllLabels.add(next);
 			if (next instanceof GenExternalNodeLabel) {
 				myExternalLabels.add(next);
 			} else {
-				myAllInnerLabels.add(next);
 				if (next.getViewmap() instanceof ParentAssignedViewmap) {
 					myInnerLabels.add(next);
 				}
@@ -2011,8 +2011,8 @@ class NodeEditPartHelper {
 		return myPinnedCompartments.iterator();
 	}
 
-	public Iterator getAllInnerLabels() {
-		return myAllInnerLabels.iterator();
+	public Iterator getAllLabels() {
+		return myAllLabels.iterator();
 	}
 
 	public Iterator getContainedFeatureModelFacetLinks() {
@@ -3399,7 +3399,7 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_502);
     
-		for (Iterator it = myHelper.getAllInnerLabels(); it.hasNext(); ) {
+		for (Iterator it = myHelper.getAllLabels(); it.hasNext(); ) {
 			GenNodeLabel genLabel = (GenNodeLabel) it.next();
 			if (genLabel.isReadOnly()) {
 				continue;

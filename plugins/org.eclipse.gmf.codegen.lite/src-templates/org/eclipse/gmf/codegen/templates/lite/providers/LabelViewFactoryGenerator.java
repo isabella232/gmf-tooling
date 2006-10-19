@@ -74,7 +74,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_13);
     
-if (genElement instanceof GenLinkLabel) {
+if (genElement instanceof GenLinkLabel || genElement instanceof GenExternalNodeLabel) {
 
     stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location"));
