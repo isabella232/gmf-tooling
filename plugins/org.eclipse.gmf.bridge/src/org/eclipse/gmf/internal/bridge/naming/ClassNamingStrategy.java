@@ -12,11 +12,12 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
-import java.util.Iterator;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -79,21 +80,22 @@ public class ClassNamingStrategy extends AbstractNamingStrategy {
 	}
 
 	public String get(LabelMapping mapping) {
-		StringBuffer sb = new StringBuffer();
-		for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
-			EAttribute feature = (EAttribute) features.next();
-			String name = feature.getName();
-			if (!isEmpty(name)) {
-				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-				sb.append(name);
+		if (mapping instanceof FeatureLabelMapping) {
+			StringBuffer sb = new StringBuffer();
+			for (EAttribute feature : (Collection<? extends EAttribute>) ((FeatureLabelMapping) mapping).getFeatures()) {
+				String name = feature.getName();
+				if (!isEmpty(name)) {
+					name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+					sb.append(name);
+				}
 			}
-		}
-		if (sb.length() > 0) {
-			String name = sb.toString();
-			if (name.length() > MAX_SEGMENT_LENGTH) {
-				name = name.substring(0, MAX_SEGMENT_LENGTH);
+			if (sb.length() > 0) {
+				String name = sb.toString();
+				if (name.length() > MAX_SEGMENT_LENGTH) {
+					name = name.substring(0, MAX_SEGMENT_LENGTH);
+				}
+				return createClassName(getLabelHostPrefix(mapping) + name);
 			}
-			return createClassName(getLabelHostPrefix(mapping) + name);
 		}
 		return super.get(mapping);
 	}

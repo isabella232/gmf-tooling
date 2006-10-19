@@ -28,6 +28,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -98,7 +99,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 				nodeA = GMFMapFactory.eINSTANCE.createNodeMapping();
 				nodeA.setDiagramNode(graphDef.getNodeDef());
 				nodeA.setDomainMetaElement(domainA);
-				LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+				FeatureLabelMapping lm = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
 				lm.setDiagramLabel(graphDef.getLabelDef());
 				lm.getFeatures().add(nameA);
 				nodeA.getLabelMappings().add(lm);
@@ -112,7 +113,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 				nodeB.setDiagramNode(graphDef.getNodeDef());
 				nodeB.setDomainMetaElement(domainB);
 				
-				lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+				lm = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
 				lm.setDiagramLabel(graphDef.getLabelDef());
 				lm.getFeatures().add(nameB);
 

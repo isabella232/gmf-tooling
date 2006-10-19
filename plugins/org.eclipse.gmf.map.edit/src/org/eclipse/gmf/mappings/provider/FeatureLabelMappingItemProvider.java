@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,20 +22,20 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LabelMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.FeatureLabelMapping} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LabelMappingItemProvider
-	extends ItemProviderAdapter
+public class FeatureLabelMappingItemProvider
+	extends LabelMappingItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +48,7 @@ public class LabelMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LabelMappingItemProvider(AdapterFactory adapterFactory) {
+	public FeatureLabelMappingItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,66 +62,91 @@ public class LabelMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramLabelPropertyDescriptor(object);
-			addReadOnlyPropertyDescriptor(object);
+			addFeaturesPropertyDescriptor(object);
+			addViewPatternPropertyDescriptor(object);
+			addEditPatternPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Label feature.
+	 * This adds a property descriptor for the Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	protected void addDiagramLabelPropertyDescriptor(Object object) {
+	protected void addFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LabelMapping_diagramLabel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_diagramLabel_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelMapping_DiagramLabel(),
+				 getString("_UI_FeatureLabelMapping_features_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_features_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_Features(),
+				 true,
+				 false,
 				 true,
 				 null,
 				 null,
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return FilterUtil.sort(super.getComboBoxObjects(object));
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (FeatureLabelMapping) object);
 						}
 			});
 	}
 
 	/**
-	 * This adds a property descriptor for the Read Only feature.
+	 * This adds a property descriptor for the View Pattern feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReadOnlyPropertyDescriptor(Object object) {
+	protected void addViewPatternPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LabelMapping_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_readOnly_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelMapping_ReadOnly(),
+				 getString("_UI_FeatureLabelMapping_viewPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_viewPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewPattern(),
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns LabelMapping.gif.
+	 * This adds a property descriptor for the Edit Pattern feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditPatternPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelMapping_editPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editPattern_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditPattern(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns FeatureLabelMapping.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/LabelMapping"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureLabelMapping"));
 	}
 
 	/**
@@ -129,8 +156,8 @@ public class LabelMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		LabelMapping labelMapping = (LabelMapping)object;
-		return getString("_UI_LabelMapping_type") + " " + labelMapping.isReadOnly();
+		FeatureLabelMapping featureLabelMapping = (FeatureLabelMapping)object;
+		return getString("_UI_FeatureLabelMapping_type") + " " + featureLabelMapping.isReadOnly();
 	}
 
 	/**
@@ -143,8 +170,9 @@ public class LabelMappingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(LabelMapping.class)) {
-			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
+		switch (notification.getFeatureID(FeatureLabelMapping.class)) {
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -208,6 +208,16 @@ public class MappingEntryItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
 				 GMFMapFactory.eINSTANCE.createLabelMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
+				 GMFMapFactory.eINSTANCE.createFeatureLabelMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
+				 GMFMapFactory.eINSTANCE.createDesignLabelMapping()));
 	}
 
 	/**

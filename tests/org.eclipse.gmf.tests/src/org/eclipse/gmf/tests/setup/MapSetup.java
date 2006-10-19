@@ -30,6 +30,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
@@ -214,7 +215,7 @@ public class MapSetup implements MapDefSource {
 		nme.setDiagramNode(nodeDef);
 		nme.setDomainMetaElement(domainMetaElement);
 		if (editFeature != null) {
-			final LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+			final FeatureLabelMapping lm = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
 			lm.getFeatures().add(editFeature);
 			lm.setDiagramLabel(labelDef);
 			nme.getLabelMappings().add(lm);

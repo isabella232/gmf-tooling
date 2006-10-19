@@ -190,6 +190,20 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.FEATURE_LABEL_MAPPING: {
+				FeatureLabelMapping featureLabelMapping = (FeatureLabelMapping)theEObject;
+				Object result = caseFeatureLabelMapping(featureLabelMapping);
+				if (result == null) result = caseLabelMapping(featureLabelMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.DESIGN_LABEL_MAPPING: {
+				DesignLabelMapping designLabelMapping = (DesignLabelMapping)theEObject;
+				Object result = caseDesignLabelMapping(designLabelMapping);
+				if (result == null) result = caseLabelMapping(designLabelMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.CONSTRAINT: {
 				Constraint constraint = (Constraint)theEObject;
 				Object result = caseConstraint(constraint);
@@ -494,6 +508,36 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseLabelMapping(LabelMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Feature Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Feature Label Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseFeatureLabelMapping(FeatureLabelMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Design Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Design Label Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDesignLabelMapping(DesignLabelMapping object) {
 		return null;
 	}
 

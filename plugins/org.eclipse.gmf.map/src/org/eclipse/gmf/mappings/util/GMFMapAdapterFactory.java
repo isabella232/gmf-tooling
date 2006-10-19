@@ -124,6 +124,12 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseLabelMapping(LabelMapping object) {
 				return createLabelMappingAdapter();
 			}
+			public Object caseFeatureLabelMapping(FeatureLabelMapping object) {
+				return createFeatureLabelMappingAdapter();
+			}
+			public Object caseDesignLabelMapping(DesignLabelMapping object) {
+				return createDesignLabelMappingAdapter();
+			}
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
 			}
@@ -348,6 +354,34 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLabelMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.FeatureLabelMapping <em>Feature Label Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.FeatureLabelMapping
+	 * @generated
+	 */
+	public Adapter createFeatureLabelMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.DesignLabelMapping <em>Design Label Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.DesignLabelMapping
+	 * @generated
+	 */
+	public Adapter createDesignLabelMappingAdapter() {
 		return null;
 	}
 

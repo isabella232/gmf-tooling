@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.bridge.genmodel;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -106,11 +108,13 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.DesignLabelMapping;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureInitializer;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -588,18 +592,19 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
-		if (mapping.getFeatures().size() > 0) {
+		if (mapping instanceof FeatureLabelMapping) {
+			FeatureLabelMapping flMapping = (FeatureLabelMapping) mapping;
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
-				modelFacet.getMetaFeatures().add(findGenFeature((EAttribute) features.next()));
+			for (EAttribute attr : (Collection<? extends EAttribute>) flMapping.getFeatures()) {
+				modelFacet.getMetaFeatures().add(findGenFeature(attr));
 			}
-			modelFacet.setViewPattern(mapping.getViewPattern());
-			modelFacet.setEditPattern(mapping.getEditPattern());
+			modelFacet.setViewPattern(flMapping.getViewPattern());
+			modelFacet.setEditPattern(flMapping.getEditPattern());
 			return modelFacet;
 		}
-		if (!mapping.isReadOnly()) {
-			// use design model facet if there are no features and label is editable
-			//return GMFGenFactory.eINSTANCE.createDesignLabelModelFacet();
+		if (mapping instanceof DesignLabelMapping) {
+			DesignLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createDesignLabelModelFacet();
+			return modelFacet;
 		}
 		return null;
 	}
@@ -682,21 +687,17 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private static boolean checkLabelMappings(MappingEntry entry) {
-		boolean ok = true;
-		for (Iterator it = entry.getLabelMappings().iterator(); ok && it.hasNext();) {
-			ok = checkLabelFeatureValidity((LabelMapping) it.next());
+		for (LabelMapping labelMapping : (Collection<? extends LabelMapping>) entry.getLabelMappings()) {
+			if (labelMapping instanceof FeatureLabelMapping) {
+				final EClass domainElement = labelMapping.getMapEntry().getDomainContext();
+				for (EAttribute attr : (Collection<? extends EAttribute>) ((FeatureLabelMapping) labelMapping).getFeatures()) {
+					if (!attr.getEContainingClass().isSuperTypeOf(domainElement)) {
+						return false;
+					}
+				}
+			}
 		}
-		return ok;
-	}
-
-	private static boolean checkLabelFeatureValidity(LabelMapping labelMapping) {
-		final EClass domainElement = labelMapping.getMapEntry().getDomainContext(); 
-		boolean isOk = true;
-		for (Iterator it = labelMapping.getFeatures().iterator(); isOk && it.hasNext(); ) {
-			EClass attrContainer = ((EAttribute) it.next()).getEContainingClass();
-			isOk = attrContainer.isSuperTypeOf(domainElement);
-		}
-		return isOk;
+		return true;
 	}
 
 	private GenPackage findGenPackage(EPackage ePackage) {

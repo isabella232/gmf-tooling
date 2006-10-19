@@ -39,10 +39,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getDiagramLabel <em>Diagram Label</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getViewPattern <em>View Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getEditPattern <em>Edit Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getMapEntry <em>Map Entry</em>}</li>
  * </ul>
  * </p>
@@ -59,16 +56,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * @ordered
 	 */
 	protected DiagramLabel diagramLabel = null;
-
-	/**
-	 * The cached value of the '{@link #getFeatures() <em>Features</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList features = null;
 
 	/**
 	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
@@ -89,46 +76,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * @ordered
 	 */
 	protected boolean readOnly = READ_ONLY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VIEW_PATTERN_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected String viewPattern = VIEW_PATTERN_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getEditPattern() <em>Edit Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EDIT_PATTERN_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEditPattern() <em>Edit Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected String editPattern = EDIT_PATTERN_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -191,18 +138,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFeatures() {
-		if (features == null) {
-			features = new EObjectResolvingEList(EAttribute.class, this, GMFMapPackage.LABEL_MAPPING__FEATURES);
-		}
-		return features;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isReadOnly() {
 		return readOnly;
 	}
@@ -217,48 +152,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 		readOnly = newReadOnly;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__READ_ONLY, oldReadOnly, readOnly));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getViewPattern() {
-		return viewPattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setViewPattern(String newViewPattern) {
-		String oldViewPattern = viewPattern;
-		viewPattern = newViewPattern;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN, oldViewPattern, viewPattern));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getEditPattern() {
-		return editPattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditPattern(String newEditPattern) {
-		String oldEditPattern = editPattern;
-		editPattern = newEditPattern;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN, oldEditPattern, editPattern));
 	}
 
 	/**
@@ -322,14 +215,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
 				if (resolve) return getDiagramLabel();
 				return basicGetDiagramLabel();
-			case GMFMapPackage.LABEL_MAPPING__FEATURES:
-				return getFeatures();
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
-				return getViewPattern();
-			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
-				return getEditPattern();
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
 				return getMapEntry();
 		}
@@ -346,18 +233,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
 				setDiagramLabel((DiagramLabel)newValue);
 				return;
-			case GMFMapPackage.LABEL_MAPPING__FEATURES:
-				getFeatures().clear();
-				getFeatures().addAll((Collection)newValue);
-				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
-				return;
-			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
-				setViewPattern((String)newValue);
-				return;
-			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
-				setEditPattern((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -373,17 +250,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
 				setDiagramLabel((DiagramLabel)null);
 				return;
-			case GMFMapPackage.LABEL_MAPPING__FEATURES:
-				getFeatures().clear();
-				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
-			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
-				setViewPattern(VIEW_PATTERN_EDEFAULT);
-				return;
-			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
-				setEditPattern(EDIT_PATTERN_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -398,14 +266,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
 				return diagramLabel != null;
-			case GMFMapPackage.LABEL_MAPPING__FEATURES:
-				return features != null && !features.isEmpty();
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				return readOnly != READ_ONLY_EDEFAULT;
-			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
-				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
-			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
-				return EDIT_PATTERN_EDEFAULT == null ? editPattern != null : !EDIT_PATTERN_EDEFAULT.equals(editPattern);
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
 				return getMapEntry() != null;
 		}
@@ -423,10 +285,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (readOnly: ");
 		result.append(readOnly);
-		result.append(", viewPattern: ");
-		result.append(viewPattern);
-		result.append(", editPattern: ");
-		result.append(editPattern);
 		result.append(')');
 		return result.toString();
 	}

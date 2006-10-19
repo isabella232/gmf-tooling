@@ -29,8 +29,8 @@ import org.eclipse.gmf.internal.bridge.wizards.strategy.CompositeStrategy;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.Hierarchy;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.LeafNodeStrategy;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.Strategy;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -159,7 +159,7 @@ public class MapDefFeeder {
 			// EDataType at = n.getEAttributeType();
 			// at != null && at.getEPackage() != null && at.getEPackage().getNsURI().equals(EcorePackage.eNS_URI) && at.getName().equals(EcorePackage.eINSTANCE.getEString().getName())
 			if (EcorePackage.eINSTANCE.getEString().equals(n.getEType())) {
-				LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+				FeatureLabelMapping lm = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
 				lm.getFeatures().add(n);
 				me.getLabelMappings().add(lm);
 				return;

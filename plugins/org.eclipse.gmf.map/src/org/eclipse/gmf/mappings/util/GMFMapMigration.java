@@ -10,8 +10,18 @@
  */
 package org.eclipse.gmf.mappings.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.common.migrate.MigrationConfig;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.MappingEntry;
 
 public class GMFMapMigration {
 
@@ -26,7 +36,32 @@ public class GMFMapMigration {
 		}
 
 		public MigrationConfig getConfig() {
-			MigrationConfig config = new MigrationConfig(GMFMapPackage.eNS_URI, new String[] { eNS_URI_1_0 });
+			MigrationConfig config = new MigrationConfig(GMFMapPackage.eNS_URI, new String[] { eNS_URI_1_0 }) {
+
+				@Override
+				protected void handleIgnoredAttributes(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
+					// https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
+					// replace FeatureLabelMappings without features by LabelMappings
+					for (Iterator it = resource.getAllContents(); it.hasNext();) {
+						EObject object = (EObject) it.next();
+						if (object instanceof MappingEntry) {
+							MappingEntry entry = (MappingEntry) object;
+							Collection<? extends LabelMapping> mappings = (Collection<? extends LabelMapping>) new ArrayList(entry.getLabelMappings());
+							for (LabelMapping mapping : mappings) {
+								if (mapping instanceof FeatureLabelMapping && ((FeatureLabelMapping) mapping).getFeatures().isEmpty()) {
+									entry.getLabelMappings().remove(mapping);
+									LabelMapping newMapping = GMFMapPackage.eINSTANCE.getGMFMapFactory().createLabelMapping();
+									newMapping.setDiagramLabel(mapping.getDiagramLabel());
+									if (mapping.isReadOnly()) {
+										newMapping.setReadOnly(true);
+									}
+									entry.getLabelMappings().add(newMapping);
+								}
+							}
+						}
+					}
+				}
+			};
 			initialize(config);
 			return config;
 		}
@@ -35,5 +70,7 @@ public class GMFMapMigration {
 	static void initialize(MigrationConfig config) {
 		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
 		config.addNarrowReferenceType(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_Initializers(), GMFMapPackage.eINSTANCE.getFeatureValueSpec());
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
+		config.addNarrowReferenceType(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(), GMFMapPackage.eINSTANCE.getFeatureLabelMapping());
 	}
 }

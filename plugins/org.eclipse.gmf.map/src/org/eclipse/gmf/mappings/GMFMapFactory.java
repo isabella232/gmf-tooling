@@ -71,6 +71,24 @@ public interface GMFMapFactory extends EFactory {
 	LabelMapping createLabelMapping();
 
 	/**
+	 * Returns a new object of class '<em>Feature Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Label Mapping</em>'.
+	 * @generated
+	 */
+	FeatureLabelMapping createFeatureLabelMapping();
+
+	/**
+	 * Returns a new object of class '<em>Design Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Design Label Mapping</em>'.
+	 * @generated
+	 */
+	DesignLabelMapping createDesignLabelMapping();
+
+	/**
 	 * Returns a new object of class '<em>Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
