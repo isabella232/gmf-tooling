@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenFeatureInitializer.java,v 1.1 2006/09/05 23:41:12 radvorak Exp $
+ * $Id: GenFeatureInitializer.java,v 1.2 2006/10/19 14:13:40 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -40,7 +40,7 @@ public interface GenFeatureInitializer extends EObject {
 	 * @see #setFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureInitializer_Feature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)' description='The feature is already initialized by another \'GenFeatureInitializer\' in the sequence'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)' description='The feature is already initialized by another \'GenFeatureInitializer\' in the sequence'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass.ecoreClass)' description='The \'feature\' of \'GenFeatureInitializer\' must be available in \'Meta Class\' of the initialized element'"
 	 * @generated
 	 */

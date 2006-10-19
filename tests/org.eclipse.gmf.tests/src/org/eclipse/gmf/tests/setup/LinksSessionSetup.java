@@ -17,12 +17,16 @@ import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -112,6 +116,7 @@ public class LinksSessionSetup extends SessionSetup {
 		return diaGenSetup;
 	}
 
+	@SuppressWarnings("synthetic-access")
 	protected MapDefSource createMapModel() {
 		MapSetup mapDefSource = new LinksMapSetup();
 		return mapDefSource.init(getGraphDefModel(), getDomainModel(), new ToolDefSetup());
@@ -145,7 +150,23 @@ public class LinksSessionSetup extends SessionSetup {
 			// Note: needs metrics to be initialized before audits as audits may reference metric
 			initMetricContainer(domainSource);
 			initAudits();
+			
+			// eliminate dangling HREFs diagnostics
+			bindToResourceSet(ddSource, toolDef, domainSource.getModel().eResource().getResourceSet());
 			return this;
+		}
+
+		private void bindToResourceSet(DiaDefSource ddSource, ToolDefSource toolDef, ResourceSet rs) {			
+			Resource mapRsrc = rs.createResource(URI.createURI("myTestUri/gmfmap")); //$NON-NLS-1$
+			mapRsrc.getContents().add(getMapping());
+
+			Resource graphRsrc = rs.createResource(URI.createURI("myTestUri/gmfgraph")); //$NON-NLS-1$
+			graphRsrc.getContents().add(ddSource.getCanvasDef());
+
+			Resource toolRsrc = rs.createResource(URI.createURI("myTestUri/gmftool")); //$NON-NLS-1$
+			toolRsrc.getContents().add(toolDef.getRegistry());
+			
+			Diagnostician.INSTANCE.validate(getMapping());
 		}
 
 		/* Setup element initializers */

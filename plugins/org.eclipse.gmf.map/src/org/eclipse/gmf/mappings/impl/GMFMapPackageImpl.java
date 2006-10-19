@@ -2235,7 +2235,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		  (getFeatureInitializer_Feature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)",
+			 "ocl", "feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)",
 			 "description", "The feature is already initialized by another \'FeatureInitializer\' in the sequence"
 		   });		
 		addAnnotation

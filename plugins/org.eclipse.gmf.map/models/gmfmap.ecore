@@ -350,7 +350,7 @@
         <details key="documentation" value="The feature for which is to be initialized by this initializer"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="feature &lt;> null implies not featureSeqInitializer.initializers->exists(i| i &lt;> self and feature = self.feature)"/>
+        <details key="ocl" value="feature &lt;> null implies not featureSeqInitializer.initializers->exists(i| i &lt;> self and i.feature = self.feature)"/>
         <details key="description" value="The feature is already initialized by another 'FeatureInitializer' in the sequence"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">

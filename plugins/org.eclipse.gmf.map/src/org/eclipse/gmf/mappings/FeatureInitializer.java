@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: FeatureInitializer.java,v 1.1 2006/09/28 18:20:40 radvorak Exp $
+ * $Id: FeatureInitializer.java,v 1.2 2006/10/19 14:13:36 radvorak Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -38,7 +38,7 @@ public interface FeatureInitializer extends EObject {
 	 * @see #setFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureInitializer_Feature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)' description='The feature is already initialized by another \'FeatureInitializer\' in the sequence'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)' description='The feature is already initialized by another \'FeatureInitializer\' in the sequence'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies feature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass)' description='The \'feature\' of \'FeatureInitializer\' must be available in \'Meta Class\' of the initialized element'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies feature.changeable' description='The \'feature\' of \'FeatureInitializer\' must be changeable'"
 	 * @generated
