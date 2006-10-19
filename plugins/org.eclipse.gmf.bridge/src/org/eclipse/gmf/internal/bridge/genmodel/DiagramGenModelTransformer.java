@@ -987,10 +987,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			genMetric.setRule(valueExpression);
 		}
 		
-		GenRuleTarget genTarget = createRuleTarget(metric.getTarget());
-		assert genTarget instanceof GenMeasurable;
-		if(genTarget instanceof GenMeasurable) {
-			genMetric.setTarget((GenMeasurable)genTarget);
+		if(metric.getTarget() != null) {		
+			GenRuleTarget genTarget = createRuleTarget(metric.getTarget());
+			assert genTarget instanceof GenMeasurable;
+			if(genTarget instanceof GenMeasurable) {
+				genMetric.setTarget((GenMeasurable)genTarget);
+			}
 		}
 		myHistory.log(metric, genMetric);
 		return genMetric;
