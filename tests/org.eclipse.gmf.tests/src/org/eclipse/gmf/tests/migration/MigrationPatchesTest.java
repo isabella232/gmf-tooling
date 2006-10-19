@@ -57,6 +57,12 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("expected diagnostic exception", caughtGenException != null); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
+
+		String gmfmapmodelFileName = "patch_161380.gmfmap"; //$NON-NLS-1$		
+		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		assertTrue("expected diagnostic exception", caughtMapException != null); //$NON-NLS-1$
+
+		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 	}
 
 	private static URI createURI(String testModelFileName) {

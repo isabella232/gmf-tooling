@@ -26,6 +26,10 @@
         <features
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier/defaultValue"/>
       </labelMappings>
+      <labelMappings>
+        <diagramLabel
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="patch_161380.gmftool#//@palette/@tools.0/@tools.0"/>

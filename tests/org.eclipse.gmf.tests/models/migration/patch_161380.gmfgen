@@ -94,6 +94,22 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClassifier/defaultValue"/>
         </modelFacet>
       </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5003"
+          editPartClassName="LabelEditPart"
+          itemSemanticEditPolicyClassName="LabelItemSemanticEditPolicy"
+          notationViewFactoryClassName="LabelViewFactory"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+      </labels>
     </topLevelNodes>
     <palette>
       <groups
