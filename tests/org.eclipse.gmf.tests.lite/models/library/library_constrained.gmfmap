@@ -77,6 +77,14 @@
         <features
             href="library.ecore#//Book/title"/>
       </labelMappings>
+      <labelMappings
+          viewPattern="{0} pages"
+          editPattern="{0}">
+        <diagramLabel
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
+        <features
+            href="library.ecore#//Book/pages"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="library_constrained.gmftool#//@palette/@tools.0/@tools.0"/>
@@ -153,6 +161,14 @@
             href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
             href="library.ecore#//Book/title"/>
+      </labelMappings>
+      <labelMappings
+          viewPattern="{0} pages"
+          editPattern="{0}">
+        <diagramLabel
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
+        <features
+            href="library.ecore#//Book/pages"/>
       </labelMappings>
       <diagramNode
           href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>

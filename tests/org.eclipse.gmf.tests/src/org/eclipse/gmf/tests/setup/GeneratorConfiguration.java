@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -48,4 +49,5 @@ public interface GeneratorConfiguration {
 	
 	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception;
 	
+	public Diagram createDiagram(EObject domainElement, SessionSetup setup) throws Exception;
 }

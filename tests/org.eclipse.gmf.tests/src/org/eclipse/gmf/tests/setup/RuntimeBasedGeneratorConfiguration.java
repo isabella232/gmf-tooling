@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +39,7 @@ import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
@@ -55,6 +57,7 @@ import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -76,6 +79,17 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 
 	protected EditPartViewer createViewerInstance() {
 		return new FakeViewer();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gmf.tests.setup.GeneratorConfiguration#createDiagram(org.eclipse.emf.ecore.EObject)
+	 */
+	public Diagram createDiagram(EObject domainElement, SessionSetup sessionSetup) throws Exception {
+		String pluginClassName = sessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName();
+		Class pluginClass = sessionSetup.getGenProject().getBundle().loadClass(pluginClassName);
+		Field field = pluginClass.getField("DIAGRAM_PREFERENCES_HINT");
+		final PreferencesHint hint = (PreferencesHint) field.get(null);
+		return ViewService.createDiagram(domainElement, sessionSetup.getGenModel().getGenDiagram().getEditorGen().getModelID(), hint);
 	}
 
 	protected static class DefaultViewerConfiguration extends AbstractViewerConfiguration {

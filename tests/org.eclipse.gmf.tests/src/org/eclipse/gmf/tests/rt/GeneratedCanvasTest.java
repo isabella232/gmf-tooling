@@ -11,40 +11,24 @@
  */
 package org.eclipse.gmf.tests.rt;
 
-import java.util.Iterator;
-
-import junit.framework.Assert;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
-import org.osgi.framework.Bundle;
 
 /**
  * @author artem
  */
-public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
+public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 
-	private ViewerConfiguration myViewerConfiguration;
 	private Composite myParentShell;
-	private Bundle myGenProject;
 	private RTSource myRTSource;
 	private EditPart myNodeEditPartA;
 	private EditPart myNodeEditPartB;
@@ -55,14 +39,18 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 		super(name);
 	}
 
-	protected void setUp() throws Exception {
-		super.setUp();
-		myGenProject = getSetup().getGenProject().getBundle();
-		myRTSource = createCanvasInstance();
-		myViewerConfiguration = createViewerConfiguration(myRTSource.getCanvas());
+	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception {
+		return createViewerConfiguration(getCanvasInstance().getCanvas());
 	}
 
 	protected final RTSource getCanvasInstance() {
+		if (myRTSource == null) {
+			try {
+				myRTSource = createCanvasInstance();
+			} catch (Exception e) {
+				fail(e.getMessage());
+			}
+		}
 		return myRTSource;
 	}
 
@@ -70,94 +58,14 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 		return new RTSetup().init(getSetup().getGenProject().getBundle(), getSetup().getGenModel());
 	}
 
-	protected final EditPart getDiagramEditPart() {
-		return myViewerConfiguration.getViewer().getContents();
-	}
-
-	public ViewerConfiguration getViewerConfiguration() {
-		return myViewerConfiguration;
-	}
-	
-	protected Node createNode(GenCommonBase nodeType, View notationContainer) {
-		final Object[] newObjHolder = new Object[1];
-
-		Adapter adapter = new AdapterImpl() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-				if (msg.getEventType() == Notification.ADD) {
-					newObjHolder[0] = msg.getNewValue();
-				}
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return true;
-			}
-		};
-		Command cmd = getViewerConfiguration().getCreateNodeCommand(notationContainer, nodeType);
-		Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
-		notationContainer.eAdapters().add(adapter);
-		try {
-			execute(cmd);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Node creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$			
-		} finally {
-			notationContainer.eAdapters().remove(adapter);
-		}
-		assertTrue("Faile to create notation model Node", newObjHolder[0] instanceof Node); //$NON-NLS-1$
-		return (Node) newObjHolder[0];
-	}
-	
-	protected Edge createLink(GenLink linkType, View source, View target) {
-		final Object[] newObjHolder = new Object[1];
-
-		Adapter adapter = new AdapterImpl() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-				if (msg.getEventType() == Notification.ADD && msg.getNewValue() instanceof Edge) {
-					newObjHolder[0] = msg.getNewValue();
-				}
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return true;
-			}
-		};
-		Diagram diagram = getDiagram();
-		diagram.eAdapters().add(adapter);
-		try {
-			Command targetCmd = getViewerConfiguration().getCreateLinkCommand(source, target, linkType);
-			if (targetCmd == null || !targetCmd.canExecute()) {
-				return null;
-			}
-			execute(targetCmd);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Edge creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$
-		} finally {
-			diagram.eAdapters().remove(adapter);
-		}
-		assertTrue("Faile to create notation model Edge", newObjHolder[0] instanceof Edge); //$NON-NLS-1$		
-		return (Edge) newObjHolder[0];
-	}
-
-	protected Diagram getDiagram() {
-		return (Diagram) getDiagramEditPart().getModel();
-	}
-
 	protected void tearDown() throws Exception {
 		if (myParentShell != null) {
 			myParentShell.dispose();
 			myParentShell = null;
-			myViewerConfiguration = null;
 		}
 		super.tearDown();
 	}
 
-	protected final EditPart findEditPart(View notationElement) {
-		return myViewerConfiguration.findEditPart(notationElement);
-	}
-	
 	protected final EditPart getNodeEditPartA() {
 		if (myNodeEditPartA == null) {
 			myNodeEditPartA = findEditPart(getCanvasInstance().getNodeA());
@@ -190,33 +98,6 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 		return (Node) editPart.getModel();
 	}
 	
-	protected static View findChildView(View parentView, GenCommonBase childType){
-		String notationType = String.valueOf(childType.getVisualID());
-		for (Iterator children = parentView.getChildren().iterator(); children.hasNext();){
-			View next = (View) children.next();
-			if (notationType.equals(next.getType())){
-				return next;
-			}
-		}
-		return null;
-	}
-
-	protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
-		return myGenProject.loadClass(qualifiedClassName);
-	}
-
-	/**
-	 * Use this instead of simple cmd.execute()
-	 * @param cmd
-	 */
-	protected final void execute(Command cmd) {
-		getCommandStack().execute(cmd);
-	}
-
-	protected final CommandStack getCommandStack() {
-		return myViewerConfiguration.getViewer().getEditDomain().getCommandStack();
-	}
-
 	protected ViewerConfiguration createViewerConfiguration(Diagram canvas) throws Exception {
 		myParentShell = new Shell(SWT.NONE);
 		return getSetup().getGeneratorConfiguration().createViewerConfiguration(myParentShell, getSetup(), canvas);

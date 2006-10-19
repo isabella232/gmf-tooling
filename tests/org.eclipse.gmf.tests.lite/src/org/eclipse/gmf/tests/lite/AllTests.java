@@ -16,6 +16,7 @@ import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramLinksTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramNodeCloneMoveTest;
+import org.eclipse.gmf.tests.lite.gef.ExternalNodeLabelsTest;
 import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTest;
 import org.eclipse.gmf.tests.lite.gen.RCPLiteCompilationTest;
@@ -42,6 +43,7 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		final LibraryConstrainedSetup sessionSetup3 = LibraryConstrainedSetup.getInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 
+		suite.addTest(feed(ExternalNodeLabelsTest.class, sessionSetup3));
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
 		suite.addTest(feed(DiagramNodeCloneMoveTest.class, sessionSetup3));
 		suite.addTest(feed(DiagramElementTest.class, sessionSetup2));

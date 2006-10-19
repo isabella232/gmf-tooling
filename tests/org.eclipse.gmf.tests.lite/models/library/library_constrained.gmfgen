@@ -52,7 +52,7 @@
           xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern="{0}"
           editPattern="{0}">
-        <metaFeature
+        <metaFeatures
             href="library.genmodel#//library/Book/title"/>
       </labelModelFacet>
     </childNodes>
@@ -86,7 +86,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="library.genmodel#//library/Review/title"/>
       </labelModelFacet>
     </childNodes>
@@ -122,7 +122,7 @@
           xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern="Chapter: {0}"
           editPattern="{0}">
-        <metaFeature
+        <metaFeatures
             href="library.genmodel#//library/Chapter/name"/>
       </labelModelFacet>
     </childNodes>
@@ -157,7 +157,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
-        <metaFeature
+        <metaFeatures
             href="library.genmodel#//library/Review/title"/>
       </labelModelFacet>
     </childNodes>
@@ -194,7 +194,7 @@
           xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern="{0}"
           editPattern="{0}">
-        <metaFeature
+        <metaFeatures
             href="library.genmodel#//library/Chapter/name"/>
       </labelModelFacet>
     </childNodes>
@@ -240,7 +240,7 @@
             figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="library.genmodel#//library/Writer/name"/>
         </modelFacet>
       </labels>
@@ -300,8 +300,29 @@
             figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="library.genmodel#//library/Book/title"/>
+        </modelFacet>
+      </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5004"
+          editPartClassName="BookPagesEditPart"
+          itemSemanticEditPolicyClassName="BookPagesItemSemanticEditPolicy"
+          notationViewFactoryClassName="BookPagesViewFactory">
+        <diagramRunTimeClass
+            href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewPattern="{0} pages"
+            editPattern="{0}">
+          <metaFeatures
+              href="library.genmodel#//library/Book/pages"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -360,8 +381,29 @@
             figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="library.genmodel#//library/Book/title"/>
+        </modelFacet>
+      </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5005"
+          editPartClassName="BookPages2EditPart"
+          itemSemanticEditPolicyClassName="BookPages2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="BookPages2ViewFactory">
+        <diagramRunTimeClass
+            href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewPattern="{0} pages"
+            editPattern="{0}">
+          <metaFeatures
+              href="library.genmodel#//library/Book/pages"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -412,7 +454,7 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             editPattern="">
-          <metaFeature
+          <metaFeatures
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>
@@ -490,7 +532,7 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             editPattern="">
-          <metaFeature
+          <metaFeatures
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>

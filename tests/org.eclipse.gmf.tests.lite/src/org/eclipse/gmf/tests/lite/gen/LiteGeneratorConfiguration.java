@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.lite.gen;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 
 import junit.framework.Assert;
@@ -39,7 +40,10 @@ import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
 import org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.CreateRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory;
+import org.eclipse.gmf.runtime.lite.services.IViewDecorator;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
@@ -60,6 +64,17 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 
 	protected EditPartViewer createViewerInstance() {
 		return new FakeLiteViewer();
+	}
+
+	public Diagram createDiagram(EObject domainElement, SessionSetup sessionSetup) throws Exception {
+		Diagram result = NotationFactory.eINSTANCE.createDiagram();
+		result.setElement(domainElement);
+		String diagramDecoratorClass = sessionSetup.getGenModel().getGenDiagram().getNotationViewFactoryQualifiedClassName();
+		Class pluginClass = sessionSetup.getGenProject().getBundle().loadClass(diagramDecoratorClass);
+		Field field = pluginClass.getField("INSTANCE");
+		IViewDecorator decorator = (IViewDecorator) field.get(null);
+		decorator.decorateView(result);
+		return result;
 	}
 
 	private static class LiteViewerConfiguration extends AbstractViewerConfiguration {
