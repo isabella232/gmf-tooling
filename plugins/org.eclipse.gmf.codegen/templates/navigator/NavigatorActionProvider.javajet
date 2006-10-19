@@ -131,7 +131,7 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 		 	try {
 				page.openEditor(editorInput, <%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
-				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exceptino while openning diagram", e);
+				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exception while openning diagram", e);
 			}
 		}
 		

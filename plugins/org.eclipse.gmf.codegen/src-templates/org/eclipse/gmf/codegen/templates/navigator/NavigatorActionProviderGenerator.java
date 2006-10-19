@@ -51,7 +51,7 @@ public class NavigatorActionProviderGenerator
   protected final String TEXT_34 = " page = myViewerSite.getPage();" + NL + "\t\t \ttry {" + NL + "\t\t\t\tpage.openEditor(editorInput, ";
   protected final String TEXT_35 = ".ID);" + NL + "\t\t\t} catch (";
   protected final String TEXT_36 = " e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_37 = ".getInstance().logError(\"Exceptino while openning diagram\", e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_37 = ".getInstance().logError(\"Exception while openning diagram\", e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
   protected final String TEXT_38 = NL;
 
   public String generate(Object argument)

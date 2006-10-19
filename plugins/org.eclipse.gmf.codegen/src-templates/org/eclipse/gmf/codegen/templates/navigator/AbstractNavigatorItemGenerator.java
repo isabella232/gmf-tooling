@@ -57,7 +57,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor"));
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genNavigator.getEditorGen().getPlugin().getID());
     stringBuffer.append(TEXT_11);

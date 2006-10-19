@@ -44,7 +44,7 @@ public abstract class <%=genNavigator.getAbstractNavigatorItemClassName()%> impl
 	 */	
 	public Object getAdapter(Class adapter) {
 		if (<%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor")%>.class.isAssignableFrom(adapter)) {
-			return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%>() {
+			return new <%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor")%>() {
 				public String getContributorId() {
 					return "<%=genNavigator.getEditorGen().getPlugin().getID()%>";
 				}
