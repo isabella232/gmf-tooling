@@ -109,7 +109,7 @@ public class MigrationResource extends ToolResource {
 	 */
 	protected void handlePostLoad(@SuppressWarnings("unused")Exception exception) {
 		if (exception == null && config != null) {
-			config.handleIgnoredAttributes(this, ignoredAttributes);
+			config.handleResourceLoaded(this, ignoredAttributes);
 		}
 	}
 

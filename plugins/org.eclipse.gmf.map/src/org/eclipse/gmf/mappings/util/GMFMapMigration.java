@@ -39,7 +39,7 @@ public class GMFMapMigration {
 			MigrationConfig config = new MigrationConfig(GMFMapPackage.eNS_URI, new String[] { eNS_URI_1_0 }) {
 
 				@Override
-				protected void handleIgnoredAttributes(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
+				protected void handleResourceLoaded(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
 					// https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
 					// replace FeatureLabelMappings without features by LabelMappings
 					for (Iterator it = resource.getAllContents(); it.hasNext();) {

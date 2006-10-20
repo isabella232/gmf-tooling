@@ -207,7 +207,7 @@ public class MigrationConfig {
 		backwardSupportedURIs.add(nsURI);		
 	}	
 
-	protected void handleIgnoredAttributes(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
+	protected void handleResourceLoaded(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
 		// override
 	}
 
