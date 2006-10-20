@@ -11,7 +11,8 @@
     <ownedChild>
       <domainMetaElement
           href="taipan.ecore#//Port"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="taipan.gmfgraph#PortLocation"/>
         <features
@@ -30,7 +31,8 @@
     <ownedChild>
       <domainMetaElement
           href="taipan.ecore#//Ship"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="taipan.gmfgraph#ShipName"/>
         <features
@@ -49,6 +51,7 @@
           <domainMetaElement
               href="taipan.ecore#//SmallItems"/>
           <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
               viewPattern="- {0} [{1,number,integer}]"
               editPattern="{0} : {1,number,integer}">
             <diagramLabel
@@ -72,13 +75,15 @@
         <ownedChild>
           <domainMetaElement
               href="taipan.ecore#//LargeItem"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="taipan.gmfgraph#LargeItemArticle"/>
             <features
                 href="taipan.ecore#//Item/article"/>
           </labelMappings>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="taipan.gmfgraph#LargeItemWeight"/>
             <features
@@ -118,7 +123,8 @@
     </ownedChild>
   </nodes>
   <links>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping">
       <diagramLabel
           href="taipan.gmfgraph#ShipDestinationMarker"/>
     </labelMappings>
@@ -147,6 +153,7 @@
       </initializers>
     </domainInitializer>
     <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="route : {0}"
         editPattern="{0}">
       <diagramLabel
@@ -155,6 +162,7 @@
           href="taipan.ecore#//Route/description"/>
     </labelMappings>
     <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="reliability : {0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
@@ -192,6 +200,7 @@
       </initializers>
     </domainInitializer>
     <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="route : {0}"
         editPattern="{0}">
       <diagramLabel
@@ -200,6 +209,7 @@
           href="taipan.ecore#//Route/description"/>
     </labelMappings>
     <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="reliability : {0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
