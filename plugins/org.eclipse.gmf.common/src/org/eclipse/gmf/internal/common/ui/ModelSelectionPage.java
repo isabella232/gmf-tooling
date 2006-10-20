@@ -67,6 +67,8 @@ public class ModelSelectionPage extends WizardPage {
 
 	private boolean modelRequired;
 
+	private boolean initialized;
+
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		super(pageId);
 		this.rloc = rloc;
@@ -100,7 +102,6 @@ public class ModelSelectionPage extends WizardPage {
 		createUriRow(plate);
 		createAdditionalControls(plate);
 		setControl(plate);
-		initControls();
 	}
 
 	protected void createTitleAndButtonsRow(Composite parent) {
@@ -363,6 +364,14 @@ public class ModelSelectionPage extends WizardPage {
 		if (modelRequired) {
 			setPageComplete(resource != null);
 		}
+	}
+
+	public void setVisible(boolean visible) {
+		if (!initialized && visible) {
+			initialized = true;
+			initControls();
+		}
+		super.setVisible(visible);
 	}
 
 	protected void resourceChanged() {
