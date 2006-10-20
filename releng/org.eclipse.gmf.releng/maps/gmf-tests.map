@@ -1,11 +1,11 @@
 !*** Graphical Modeling Framework (GMF) tests map *******************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.tests=v20060907-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
+feature@org.eclipse.gmf.tests=v20061020-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.tests=v20060919-0800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
-plugin@org.eclipse.gmf.tests.runtime.common.core=v20060721-1130,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
+plugin@org.eclipse.gmf.tests.runtime.common.core=v20061020-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services=v20061012-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=v20060925-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=v20060925-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
