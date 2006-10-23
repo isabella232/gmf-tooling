@@ -69,7 +69,7 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
                 proposals = new TypeProposalComputer().computeProposals(txt, ctx, f);
             } else if (p == XpandPartition.EXPRESSION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                final String expression = txt.substring(txt.lastIndexOf(XpandTokens.LT_CHAR));
+                final String expression = txt.substring(txt.lastIndexOf(XpandTokens.LT_CHAR) + 1);
                 proposals.addAll(new ExpressionProposalComputer().computeProposals(expression, ctx, f));
                 proposals.addAll(new KeywordProposalComputer().computeProposals(txt, ctx, f));
             } else if (p == XpandPartition.EXPAND_STATEMENT) {

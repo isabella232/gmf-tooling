@@ -42,9 +42,13 @@ public class TypeProposalComputer implements ProposalComputer {
         final StringBuilder result = new StringBuilder();
         int i = txt.length() - 1;
         char c = txt.charAt(i);
-        while ((i > 0) && (Character.isJavaIdentifierStart(c) || (c == ':'))) {
+        while (Character.isJavaIdentifierStart(c) || (c == ':')) {
             result.append(c);
-            c = txt.charAt(--i);
+            if (i > 0) {
+            	c = txt.charAt(--i);
+            } else {
+            	break;
+            }
         }
         return result.reverse().toString();
     }
