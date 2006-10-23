@@ -76,11 +76,14 @@ public class StatementParserTest extends AbstractXpandTest {
 
     public final void testImportDeclaration() throws Exception {
         Template t;
-        t = parse(tag("IMPORT \"http://ecore/x\"") + tag("IMPORT \"zzz\"")
+        final String im1 = "http://ecore/x";
+        final String im2 = "zzz";
+        t = parse(tag("IMPORT \"" + im1 + '"') + tag("IMPORT \"" + im2 + '"')
                 + tag("DEFINE test FOR ecore::EClass") + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
         assertEquals(2, t.getImports().length);
-
+        assertEquals(im1, t.getImports()[0].getImportString());
+        assertEquals(im2, t.getImports()[1].getImportString());
     }
 
     public final void testFileStatement() throws Exception {

@@ -1,19 +1,19 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+* Copyright (c) 2006 Eclipse.org
+* 
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*******************************************************************************/
 package org.eclipse.gmf.internal.xpand.parser;
 
 import lpg.lpgjavaruntime.*;
 
-import org.eclipse.gmf.internal.xpand.ast.*;
-import org.eclipse.gmf.internal.xpand.expression.ast.*;
 import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionFactory;
+import org.eclipse.gmf.internal.xpand.ast.*;
 
+import org.eclipse.gmf.internal.xpand.expression.ast.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -789,7 +789,7 @@ public class XpandParser extends PrsStream implements RuleAction
             //
             case 101: {
                 
-		setResult(xpandFactory.createNamespaceImport(getLeftIToken(),xpandFactory.createStringLiteral(getRightIToken())));
+		setResult(xpandFactory.createNamespaceImport(getLeftIToken(),xpandFactory.createStringLiteral(getRhsIToken(2))));
 	          break;
             } 
             //
