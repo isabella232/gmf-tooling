@@ -29,13 +29,13 @@ public class KeywordProposalComputer implements ProposalComputer {
     public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx, final ProposalFactory factory) {
         final String prefix = getPrefix(txt);
         final List<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
-        if (prefix.length() > 0) {
-            final String[] kw = XpandTokens.allKeywords();
-            for (final String string : kw) {
-                if (string.toLowerCase().startsWith(prefix.toLowerCase())) {
-                    result.add(factory.createKeywordProposal(string + " ", string, prefix));
-                }
-            }
+        if (prefix.length() > 0 || txt.endsWith(XpandTokens.LT)) {
+	        final String[] kw = XpandTokens.allKeywords();
+	        for (final String string : kw) {
+	            if (string.toLowerCase().startsWith(prefix.toLowerCase())) {
+	                result.add(factory.createKeywordProposal(string + " ", string, prefix));
+	            }
+	        }
         }
         return result;
     }
