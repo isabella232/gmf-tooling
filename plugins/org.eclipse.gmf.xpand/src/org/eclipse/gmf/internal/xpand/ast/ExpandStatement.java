@@ -157,7 +157,13 @@ public class ExpandStatement extends Statement {
                 final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
                 targetObject = var.getValue();
             }
-            invokeDefinition(defName, targetObject, params, paramTypes, ctx);
+            if (targetObject != null) {
+            	invokeDefinition(defName, targetObject, params, paramTypes, ctx);
+            } else {
+            	// XXX logInfo that feature value is null or conditionally fail?
+            	// perhaps, could check if target is feature and multiplicity of the feature is at least 1 and fail then?
+            	// though all these checks are not template's tasks
+            }
         }
     }
 
