@@ -24,14 +24,14 @@
             name="Insert LT"
             categoryId="org.openarchitectureware.xpand2.editor"
             description="Insert Xpand start terminal"
-            id="org.eclipse.xpand.editor.insertLT"
+            id="org.eclipse.gmf.xpand.editor.insertLT"
             >
       </command>
       <command
             name="Insert RT"
             categoryId="org.openarchitectureware.xpand2.editor"
             description="Insert Xpand end terminal"
-            id="org.eclipse.xpand.editor.insertRT"
+            id="org.eclipse.gmf.xpand.editor.insertRT"
             >
       </command>
    </extension>
@@ -41,13 +41,13 @@
             sequence="M1+&lt;"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.textEditorScope"
-            commandId="org.eclipse.xpand.editor.insertLT">
+            commandId="org.eclipse.gmf.xpand.editor.insertLT">
       </key>
       <key
             sequence="M1+&gt;"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.textEditorScope"
-            commandId="org.eclipse.xpand.editor.insertRT">
+            commandId="org.eclipse.gmf.xpand.editor.insertRT">
       </key>
    </extension>
 
