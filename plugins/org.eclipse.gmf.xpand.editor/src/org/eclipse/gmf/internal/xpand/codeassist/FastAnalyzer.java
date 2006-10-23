@@ -300,7 +300,7 @@ public class FastAnalyzer {
 		return XpandPartition.EXPRESSION;
 	}
 
-	public final static XpandExecutionContext computeExecutionContext(final String str, XpandExecutionContext ctx, final XpandDefinition[] definitions) {
+	public final static XpandExecutionContext computeExecutionContext(final String str, XpandExecutionContext ctx) {
 		final XpandPartition p = computePartition(str);
 		if (p != XpandPartition.TYPE_DECLARATION && p != XpandPartition.EXPRESSION) {
 			return ctx;
@@ -311,7 +311,15 @@ public class FastAnalyzer {
 		final XpandResource tpl = new XpandResource() {
 
 			public XpandDefinition[] getDefinitions() {
-				return definitions;
+				Exception e = new Exception("This code was refactored to return no definitions every time invoked, instead of definitions obtained from last saved state from resource subsystem");
+				e.fillInStackTrace();
+				e.printStackTrace();
+				// if we get to this point, we'd better start refactoring back.
+				// at this moment, looks like nobody ever invokes this method, so no reason to
+				// do all file parsing just to provide definitions here nobody uses.
+				// Moreover, what's the point of having definitions here from filesystem state rather than from 
+				// document string? I'd say str should be parsed for definitions, not resource.
+				return new XpandDefinition[0];
 			}
 
 			public String getFullyQualifiedName() {
@@ -327,6 +335,9 @@ public class FastAnalyzer {
 			}
 
 			public void analyze(XpandExecutionContext ctx, Set<AnalysationIssue> issues) {
+				Exception ex = new Exception("ANALYZE!!!");
+				ex.fillInStackTrace();
+				ex.printStackTrace();
 			}
 
 			public XpandAdvice[] getAdvices() {
