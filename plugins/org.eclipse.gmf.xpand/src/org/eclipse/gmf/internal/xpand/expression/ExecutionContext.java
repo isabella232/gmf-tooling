@@ -39,8 +39,6 @@ public interface ExecutionContext {
 
 	<T extends ExecutionContext> T cloneWithResource(ResourceMarker ns);
 
-	<T extends ExecutionContext> T cloneWithoutResource();
-
 	Variable getVariable(String name);
 
 	Map<String, Variable> getVisibleVariables();

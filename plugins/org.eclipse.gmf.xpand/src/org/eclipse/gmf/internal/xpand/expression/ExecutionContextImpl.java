@@ -261,13 +261,6 @@ public class ExecutionContextImpl implements ExecutionContext {
         return ctx;
     }
 
-    @SuppressWarnings("unchecked")
-    public ExecutionContext cloneWithoutResource() {
-        final ExecutionContextImpl ctx = (ExecutionContextImpl) cloneContext();
-        ctx.currentResource = null;
-        return ctx;
-    }
-
     public ResourceMarker currentResource() {
         return currentResource;
     }
