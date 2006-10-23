@@ -26,7 +26,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 
 public class WorkflowSlotExtensionStatement extends Extension {
 
-	private Identifier slotName = null;
+	private final Identifier slotName;
 
     public WorkflowSlotExtensionStatement(final int start, final int end, final int line, final Identifier name,
             final List<DeclaredParameter> formalParameters, final Identifier returnType, final Identifier slotName,

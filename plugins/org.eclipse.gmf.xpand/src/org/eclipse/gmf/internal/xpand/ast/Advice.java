@@ -29,17 +29,15 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class Advice extends AbstractDefinition implements XpandAdvice {
 
     public final static String DEF_VAR_NAME = "targetDef";
 
-    private Identifier pointCut = null;
+    private final Identifier pointCut;
 
-    private boolean wildParams;
+    private final boolean wildParams;
 
     public Advice(final int start, final int end, final int line, final Identifier pointCut, final Identifier type,
             final DeclaredParameter[] params, final boolean wildParams, final Statement[] body) {

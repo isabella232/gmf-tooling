@@ -26,17 +26,15 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class FileStatement extends Statement {
 
-    private Expression fileName;
+    private final Expression fileName;
 
-    private Statement[] body;
+    private final Statement[] body;
 
-    private Identifier mode;
+    private final Identifier mode;
 
     public FileStatement(final int start, final int end, final int line, final Expression fileName,
             final Statement[] body, final Identifier mode) {
@@ -86,5 +84,4 @@ public class FileStatement extends Statement {
         }
         ctx.getOutput().closeFile();
     }
-
 }

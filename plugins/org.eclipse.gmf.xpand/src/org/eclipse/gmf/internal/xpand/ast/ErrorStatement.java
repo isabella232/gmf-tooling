@@ -21,13 +21,11 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ErrorStatement extends Statement {
 
-    private Expression message;
+    private final Expression message;
 
     public ErrorStatement(final int start, final int end, final int line, final Expression msg) {
         super(start, end, line);

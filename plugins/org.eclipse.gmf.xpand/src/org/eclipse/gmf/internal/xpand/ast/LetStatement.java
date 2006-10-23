@@ -25,56 +25,52 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class LetStatement extends Statement {
 
-    private Identifier varName;
+	private final Identifier varName;
 
-    private Expression varValue;
+	private final Expression varValue;
 
-    private Statement[] body;
+	private final Statement[] body;
 
-    public LetStatement(final int start, final int end, final int line, final Identifier varName,
-            final Expression value, final Statement[] body) {
-        super(start, end, line);
-        this.varName = varName;
-        varValue = value;
-        this.body = body;
-    }
+	public LetStatement(final int start, final int end, final int line, final Identifier varName, final Expression value, final Statement[] body) {
+		super(start, end, line);
+		this.varName = varName;
+		this.varValue = value;
+		this.body = body;
+	}
 
-    public Statement[] getBody() {
-        return body;
-    }
+	public Statement[] getBody() {
+		return body;
+	}
 
-    public Identifier getVarName() {
-        return varName;
-    }
+	public Identifier getVarName() {
+		return varName;
+	}
 
-    public Expression getVarValue() {
-        return varValue;
-    }
+	public Expression getVarValue() {
+		return varValue;
+	}
 
-    public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-    	EClassifier t = getVarValue().analyze(ctx, issues);
-        if (t == null) {
-            t = EcorePackage.eINSTANCE.getEObject();
-        }
-        ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), t));
-        for (Statement statement : getBody()) {
-            statement.analyze(ctx, issues);
-        }
-    }
+	public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+		EClassifier t = getVarValue().analyze(ctx, issues);
+		if (t == null) {
+			t = EcorePackage.eINSTANCE.getEObject();
+		}
+		ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), t));
+		for (Statement statement : getBody()) {
+			statement.analyze(ctx, issues);
+		}
+	}
 
-    @Override
-    public void evaluateInternal(XpandExecutionContext ctx) {
-        ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), getVarValue()
-                .evaluate(ctx)));
-        for (Statement statement : getBody()) {
-            statement.evaluate(ctx);
-        }
-    }
+	@Override
+	public void evaluateInternal(XpandExecutionContext ctx) {
+		ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), getVarValue().evaluate(ctx)));
+		for (Statement statement : getBody()) {
+			statement.evaluate(ctx);
+		}
+	}
 
 }

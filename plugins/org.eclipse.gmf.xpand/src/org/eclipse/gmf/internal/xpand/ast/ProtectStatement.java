@@ -24,21 +24,19 @@ import org.eclipse.gmf.internal.xpand.model.ProtectedRegionSyntaxException;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ProtectStatement extends Statement {
 
-    private Expression commentStart;
+    private final Expression commentStart;
 
-    private Expression commentEnd;
+    private final Expression commentEnd;
 
-    private Statement[] body;
+    private final Statement[] body;
 
-    private Expression id;
+    private final Expression id;
 
-    private boolean disable;
+    private final boolean disable;
 
     public ProtectStatement(final int start, final int end, final int line, final Expression commentStart,
             final Expression commentEnd, final Statement[] body, final Expression id, final boolean disable) {

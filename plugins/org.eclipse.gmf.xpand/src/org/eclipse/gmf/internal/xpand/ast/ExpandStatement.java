@@ -32,21 +32,19 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ExpandStatement extends Statement {
 
-    private boolean foreach = false;
+    private final boolean foreach;
 
-    private Expression[] parameters = new Expression[0];
+    private final Expression[] parameters;
 
-    private Expression separator = null;
+    private final Expression separator;
 
-    private Expression target = null;
+    private final Expression target;
 
-    private Identifier definition;
+    private final Identifier definition;
 
     public ExpandStatement(final int start, final int end, final int line, final Identifier definition,
             final Expression target, final Expression separator, final Expression[] parameters, final boolean foreach) {

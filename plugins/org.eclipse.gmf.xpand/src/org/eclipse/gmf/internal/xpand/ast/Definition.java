@@ -20,12 +20,10 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class Definition extends AbstractDefinition implements XpandDefinition {
-    private Identifier name;
+    private final Identifier name;
 
     public Definition(final int start, final int end, final int line, final Identifier name, final Identifier type,
             final DeclaredParameter[] params, final Statement[] body) {

@@ -27,18 +27,16 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class Template extends SyntaxElement implements XpandResource {
-    private NamespaceImport[] imports;
+    private final NamespaceImport[] imports;
 
-    private Definition[] definitions;
+    private final Definition[] definitions;
 
-    private ImportDeclaration[] extensions;
+    private final ImportDeclaration[] extensions;
 
-    private Advice[] advices;
+    private final Advice[] advices;
 
 	private String qualifiedName;
 

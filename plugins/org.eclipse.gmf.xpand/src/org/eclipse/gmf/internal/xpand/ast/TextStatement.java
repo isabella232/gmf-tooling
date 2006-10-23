@@ -20,14 +20,12 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class TextStatement extends Statement {
-    private String value;
+    private final String value;
 
-    private boolean deleteLine;
+    private final boolean deleteLine;
 
     public TextStatement(final int start, final int end, final int line, final String text, final boolean nonl) {
         super(start, end, line);

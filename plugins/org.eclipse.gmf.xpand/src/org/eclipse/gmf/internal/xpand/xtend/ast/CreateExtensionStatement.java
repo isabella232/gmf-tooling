@@ -29,9 +29,9 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 
 public class CreateExtensionStatement extends Extension {
 
-    private Expression expression;
+    private final Expression expression;
 
-    private String returnVarName;
+    private final String returnVarName;
 
     public CreateExtensionStatement(final int start, final int end, final int line, final Identifier name,
             final Identifier returnType, final Identifier rtName, final List<DeclaredParameter> params, final Expression expr,

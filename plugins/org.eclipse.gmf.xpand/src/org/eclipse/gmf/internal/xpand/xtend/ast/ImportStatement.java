@@ -22,7 +22,7 @@ public class ImportStatement extends SyntaxElement {
     private final Identifier importedId;
     private final String nsImport;
 
-    private boolean exported;
+    private final boolean exported;
 
     public ImportStatement(int start, int end, int line, String nsImport) {
     	super(start, end, line);

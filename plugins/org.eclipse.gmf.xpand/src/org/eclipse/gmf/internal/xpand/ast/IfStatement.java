@@ -25,15 +25,13 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class IfStatement extends Statement {
 
-    private Expression condition;
+    private final Expression condition;
 
-    private Statement[] thenPart;
+    private final Statement[] thenPart;
 
     private IfStatement elseIf;
 
@@ -53,6 +51,7 @@ public class IfStatement extends Statement {
         return elseIf;
     }
 
+    // XXX modifiable AST
     public void setElseIf(final IfStatement elseIf) {
         this.elseIf = elseIf;
     }

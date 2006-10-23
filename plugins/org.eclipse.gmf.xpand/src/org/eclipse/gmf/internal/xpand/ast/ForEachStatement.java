@@ -30,23 +30,21 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ForEachStatement extends Statement {
 
     public static final String ITERATOR_VAR_NAME = "iterator";
 
-    private Statement[] body;
+    private final Statement[] body;
 
-    private Expression target;
+    private final Expression target;
 
-    private Expression separator;
+    private final Expression separator;
 
-    private Identifier variable;
+    private final Identifier variable;
 
-    private Identifier iteratorName;
+    private final Identifier iteratorName;
 
     public ForEachStatement(final int start, final int end, final int line, final Identifier variable,
             final Expression target, final Statement[] body, final Expression separator, final Identifier iterator) {
@@ -130,5 +128,4 @@ public class ForEachStatement extends Statement {
             iterator.increment();
         }
     }
-
 }

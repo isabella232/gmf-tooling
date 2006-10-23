@@ -19,7 +19,7 @@ package org.eclipse.gmf.internal.xpand.expression.ast;
  * @author Arno Haase
  */
 public class Identifier extends SyntaxElement {
-    private String value;
+    private final String value;
 
     public Identifier(final int start, final int end, final int line, final String value) {
         super(start, end, line);

@@ -18,13 +18,11 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ImportDeclaration extends SyntaxElement {
 
-    private Identifier importString;
+    private final Identifier importString;
 
     public ImportDeclaration(final int start, final int end, final int line, final Identifier importString) {
         super(start, end, line);

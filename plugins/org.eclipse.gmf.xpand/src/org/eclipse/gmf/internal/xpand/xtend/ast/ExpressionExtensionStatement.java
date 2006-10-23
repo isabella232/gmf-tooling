@@ -29,7 +29,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 
 public class ExpressionExtensionStatement extends Extension {
 
-    private Expression expression;
+    private final Expression expression;
 
     public ExpressionExtensionStatement(final int start, final int end, final int line, final Identifier name,
             final Identifier returnType, final List<DeclaredParameter> formalParameters, final Expression expression,

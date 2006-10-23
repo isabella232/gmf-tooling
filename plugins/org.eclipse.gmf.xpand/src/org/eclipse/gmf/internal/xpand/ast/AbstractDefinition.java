@@ -29,11 +29,11 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 public abstract class AbstractDefinition extends SyntaxElement implements XpandAnalyzable, XpandEvaluatable {
 
-    private Identifier type;
+    private final Identifier type;
 
-    private DeclaredParameter[] params;
+    private final DeclaredParameter[] params;
 
-    private Statement[] body;
+    private final Statement[] body;
 
     private Template owner = null;
 

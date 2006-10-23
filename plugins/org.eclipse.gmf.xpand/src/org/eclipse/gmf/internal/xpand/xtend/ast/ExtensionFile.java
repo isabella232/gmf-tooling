@@ -25,11 +25,11 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 public class ExtensionFile extends SyntaxElement implements XtendResource {
 
-    private List<ImportStatement> nsImports;
+    private final List<ImportStatement> nsImports;
 
-    private List<ImportStatement> extImports;
+    private final List<ImportStatement> extImports;
 
-    private List<Extension> extensions;
+    private final List<Extension> extensions;
 
     @SuppressWarnings("unchecked")
 	public ExtensionFile(final int start, final int end, final int line, final List<? extends SyntaxElement> nsImports, final List<? extends SyntaxElement> extImports,

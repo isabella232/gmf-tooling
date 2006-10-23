@@ -32,11 +32,11 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 
 public class JavaExtensionStatement extends Extension {
 
-    protected Identifier javaType;
+    protected final Identifier javaType;
 
-    protected Identifier javaMethod;
+    protected final Identifier javaMethod;
 
-    protected List<Identifier> javaParamTypes;
+    protected final List<Identifier> javaParamTypes;
 
     public JavaExtensionStatement(final int start, final int end, final int line, final Identifier name,
             final List<DeclaredParameter> formalParameters, final Identifier returnType, final Identifier defaultImplementation,

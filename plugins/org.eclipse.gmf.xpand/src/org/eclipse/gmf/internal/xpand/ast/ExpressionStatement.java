@@ -21,13 +21,11 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Statement {
 
-    private Expression expression;
+    private final Expression expression;
 
     public ExpressionStatement(final int start, final int end, final int line, final Expression expression) {
         super(start, end, line);
@@ -49,5 +47,4 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
             ctx.getOutput().write(val.toString());
         }
     }
-
 }

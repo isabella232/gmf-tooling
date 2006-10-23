@@ -16,6 +16,7 @@ package org.eclipse.gmf.internal.xpand.xtend.ast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -34,15 +35,19 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 public abstract class Extension extends SyntaxElement /*implements ParameterizedCallable*/ {
 
-    private Identifier name;
+    private final Identifier name;
 
-    private List formalParameters;
+    private final List formalParameters;
 
     protected ExtensionFile file;
 
-    protected boolean cached = false;
+    protected final boolean cached;
 
-    private boolean isPrivate = false;
+    private final boolean isPrivate;
+
+    protected final Identifier returnType;
+
+    private List<EClassifier> resolvedParameterTypes = null;
 
     public Extension(final int start, final int end, final int line, final Identifier name,
             final Identifier returnType, final List formalParameters, final boolean cached, final boolean isPrivate) {
@@ -136,9 +141,9 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
     }
 
     public void init(final ExecutionContext ctx) {
-        if (parameterTypes == null) {
+        if (resolvedParameterTypes == null) {
             try {
-                parameterTypes = new ArrayList<EClassifier>();
+                resolvedParameterTypes = new ArrayList<EClassifier>();
                 for (final Iterator iter = getFormalParameters().iterator(); iter.hasNext();) {
                     final String name = ((DeclaredParameter) iter.next()).getType().getValue();
                     final EClassifier t = ctx.getTypeForName(name);
@@ -146,21 +151,18 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
 						throw new EvaluationException("Couldn't resolve type for '" + name
                                 + "'. Did you forget to configure the corresponding metamodel?", this);
 					}
-                    parameterTypes.add(t);
+                    resolvedParameterTypes.add(t);
                 }
+                resolvedParameterTypes = Collections.unmodifiableList(resolvedParameterTypes);
             } catch (final RuntimeException e) {
-                parameterTypes = null;
+                resolvedParameterTypes = null;
                 throw e;
             }
         }
     }
 
-    private List<EClassifier> parameterTypes = null;
-
-    protected Identifier returnType;
-
     public List<EClassifier> getParameterTypes() {
-        return parameterTypes;
+        return resolvedParameterTypes;
     }
 
     public Identifier getReturnTypeIdentifier() {
