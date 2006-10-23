@@ -433,9 +433,9 @@ $Rules
 	collectionType ::= collectionTypeName LSQUARE simpleType RSQUARE
 		/.$BeginJava
 			Identifier id = (Identifier) getRhsSym(1);
-			id.append(getRhsIToken(2));
-			id.append((Identifier) getRhsSym(3));
-			id.append(getRhsIToken(4));
+			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+			id = id.append((Identifier) getRhsSym(3));
+			id = id.append(factory.createIdentifier(getRhsIToken(4)));
 			setResult(id);
 		$EndJava./
 
@@ -455,8 +455,8 @@ $Rules
 	simpleType ::= IDENT NOT qualifiedType
 		/.$BeginJava
 			Identifier id = factory.createIdentifier(getLeftIToken());
-			id.append(getRhsIToken(2));
-			id.append((Identifier) getRhsSym(3));
+			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+			id = id.append((Identifier) getRhsSym(3));
 			setResult(id);
 		$EndJava./
 	simpleType -> qualifiedType
@@ -468,8 +468,8 @@ $Rules
     qualifiedType ::= IDENT DCOLON qualifiedType
 		/.$BeginJava
 			Identifier id = factory.createIdentifier(getLeftIToken());
-			id.append(getRhsIToken(2));
-			id.append((Identifier) getRhsSym(3));
+			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+			id = id.append((Identifier) getRhsSym(3));
 			setResult(id);
 		$EndJava./
 

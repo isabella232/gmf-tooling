@@ -164,7 +164,7 @@ $Rules
 		/.$BeginJava
 			Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 			if (getRhsSym(2) != null) {
-				res.append((Identifier) getRhsSym(2));
+				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
 		$EndJava./
@@ -172,7 +172,7 @@ $Rules
 		/.$BeginJava
 			Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 			if (getRhsSym(2) != null) {
-				res.append((Identifier) getRhsSym(2));
+				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
 		$EndJava./
@@ -186,7 +186,7 @@ $Rules
 		/.$BeginJava
 			Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 			if (getRhsSym(2) != null) {
-				res.append((Identifier) getRhsSym(2));
+				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
 		$EndJava./

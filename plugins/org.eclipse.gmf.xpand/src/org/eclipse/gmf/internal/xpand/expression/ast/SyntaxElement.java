@@ -15,11 +15,11 @@
 package org.eclipse.gmf.internal.xpand.expression.ast;
 
 public abstract class SyntaxElement {
-    protected int start;
+    protected final int start;
 
-    protected int end;
+    protected final int end;
 
-    protected int line;
+    protected final int line;
 
     public SyntaxElement(final int start, final int end, final int line) {
         this.start = start;

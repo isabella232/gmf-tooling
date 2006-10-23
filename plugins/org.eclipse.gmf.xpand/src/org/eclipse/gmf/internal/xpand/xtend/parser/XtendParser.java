@@ -643,11 +643,11 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 81: {
                 
-		Identifier id = (Identifier) getRhsSym(1);
-		id.append(getRhsIToken(2));
-		id.append((Identifier) getRhsSym(3));
-		id.append(getRhsIToken(4));
-		setResult(id);
+    			Identifier id = (Identifier) getRhsSym(1);
+    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+    			id = id.append((Identifier) getRhsSym(3));
+    			id = id.append(factory.createIdentifier(getRhsIToken(4)));
+    			setResult(id);
 	          break;
             } 
             //
@@ -679,10 +679,10 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 85: {
                 
-		Identifier id = factory.createIdentifier(getLeftIToken());
-		id.append(getRhsIToken(2));
-		id.append((Identifier) getRhsSym(3));
-		setResult(id);
+    			Identifier id = factory.createIdentifier(getLeftIToken());
+    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+    			id = id.append((Identifier) getRhsSym(3));
+    			setResult(id);
 	          break;
             } 
             //
@@ -698,10 +698,10 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 88: {
                 
-		Identifier id = factory.createIdentifier(getLeftIToken());
-		id.append(getRhsIToken(2));
-		id.append((Identifier) getRhsSym(3));
-		setResult(id);
+    			Identifier id = factory.createIdentifier(getLeftIToken());
+    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
+    			id = id.append((Identifier) getRhsSym(3));
+    			setResult(id);
 	          break;
             } 
             //
@@ -889,7 +889,7 @@ public class XtendParser extends PrsStream implements RuleAction
                 
 		Identifier res = xtendFactory.createIdentifier(getRhsIToken(1));
 		for (Object o : (List) getRhsSym(2)) {
-			res.append((IToken) o);
+			res = res.append(factory.createIdentifier((IToken) o));
 		}
 		setResult(res);
 	          break;

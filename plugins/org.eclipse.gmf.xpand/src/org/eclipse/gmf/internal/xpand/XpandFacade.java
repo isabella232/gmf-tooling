@@ -28,9 +28,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class XpandFacade {
     private XpandExecutionContext ctx = null;

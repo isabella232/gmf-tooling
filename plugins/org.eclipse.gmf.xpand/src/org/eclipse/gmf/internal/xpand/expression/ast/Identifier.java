@@ -14,8 +14,6 @@
  */
 package org.eclipse.gmf.internal.xpand.expression.ast;
 
-import lpg.lpgjavaruntime.IToken;
-
 /**
  * @author Sven Efftinge
  * @author Arno Haase
@@ -28,16 +26,8 @@ public class Identifier extends SyntaxElement {
         this.value = value;
     }
 
-    // FIXME not good to depend from IToken here, especially when migrating to different parser ;)
-    public Identifier append(final IToken t) {
-        value = value + t.toString();
-        end = t.getEndColumn();
-        return this;
-    }
-
-    public void append(final Identifier t) {
-        value = value + t.value;
-        end = t.end;
+    public Identifier append(final Identifier t) {
+    	return new Identifier(this.start, t.end, this.line, value + t.value);
     }
 
     public String getValue() {

@@ -162,7 +162,7 @@ $Rules
 		/.$BeginJava
 			Identifier res = xtendFactory.createIdentifier(getRhsIToken(1));
 			for (Object o : (List) getRhsSym(2)) {
-				res.append((IToken) o);
+				res = res.append(factory.createIdentifier((IToken) o));
 			}
 			setResult(res);
 		$EndJava./
