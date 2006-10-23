@@ -58,9 +58,11 @@ public class FilterUtil {
 		EClass superType = null;
 		if (mappingEntry instanceof NodeMapping) {
 			NodeReference nodeReference = (NodeReference) mappingEntry.eContainer();
-			EReference modelReference = nodeReference.getChildrenFeature() != null ? nodeReference.getChildrenFeature() : nodeReference.getContainmentFeature();
-			if (modelReference != null) {
-				superType = modelReference.getEReferenceType();
+			if (nodeReference != null) {
+				EReference modelReference = nodeReference.getChildrenFeature() != null ? nodeReference.getChildrenFeature() : nodeReference.getContainmentFeature();
+				if (modelReference != null) {
+					superType = modelReference.getEReferenceType();
+				}
 			}
 		} else if (mappingEntry instanceof LinkMapping) {
 			if (((LinkMapping) mappingEntry).getContainmentFeature() != null) {
