@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Eclipse.org
+-- Copyright (c) 2006 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -18,21 +18,10 @@
 %options import_terminals=XtendLexer.g
 %options lalr=2
 
-$Notice
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
-$End
-
 $Globals
 	/.
 	import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionFactory;
-	import org.eclipse.xpand.internal.xtend.ast.*;
+	import org.eclipse.gmf.internal.xpand.xtend.ast.*;
 	./
 $End
 
