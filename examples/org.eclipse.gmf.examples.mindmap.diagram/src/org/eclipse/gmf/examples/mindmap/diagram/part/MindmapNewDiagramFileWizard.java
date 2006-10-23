@@ -26,6 +26,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
+import org.eclipse.emf.ecore.util.FeatureMap;
+
+import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 
@@ -66,8 +70,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
-import org.eclipse.ui.ide.IDE;
 
 /**
  * @generated
@@ -198,7 +200,8 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 			OperationHistoryFactory.getOperationHistory().execute(command,
 					new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			IDE.openEditor(myWorkbenchPage, diagramFile);
+			MindmapDiagramEditorUtil.openDiagramEditor(myWorkbenchPage,
+					diagramFile);
 		} catch (ExecutionException e) {
 			MindmapDiagramEditorPlugin.getInstance().logError(
 					"Unable to create model and diagram", e); //$NON-NLS-1$
@@ -284,9 +287,19 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 			if (event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection) event
 						.getSelection();
-				if (selection.size() == 1
-						&& selection.getFirstElement() instanceof EObject) {
-					myDiagramRoot = (EObject) selection.getFirstElement();
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof IWrapperItemProvider) {
+						selectedElement = ((IWrapperItemProvider) selectedElement)
+								.getValue();
+					}
+					if (selectedElement instanceof FeatureMap.Entry) {
+						selectedElement = ((FeatureMap.Entry) selectedElement)
+								.getValue();
+					}
+					if (selectedElement instanceof EObject) {
+						myDiagramRoot = (EObject) selectedElement;
+					}
 				}
 			}
 			setPageComplete(validatePage());

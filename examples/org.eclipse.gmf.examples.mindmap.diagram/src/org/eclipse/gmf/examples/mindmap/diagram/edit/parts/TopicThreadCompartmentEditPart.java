@@ -68,6 +68,7 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 				new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new TopicThreadCompartmentCanonicalEditPolicy());
+
 	}
 
 	/**

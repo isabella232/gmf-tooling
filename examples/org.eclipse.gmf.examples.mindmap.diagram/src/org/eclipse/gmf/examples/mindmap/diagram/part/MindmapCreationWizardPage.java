@@ -1,45 +1,24 @@
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-
-import org.eclipse.core.resources.ResourcesPlugin;
-
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 /**
  * @generated
  */
-public class MindmapCreationWizardPage extends EditorWizardPage {
+public class MindmapCreationWizardPage extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
 	 */
-	public MindmapCreationWizardPage(IWorkbench workbench,
+	public MindmapCreationWizardPage(String pageName,
 			IStructuredSelection selection) {
-		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create Mindmap Diagram");
-		setDescription("Create a new Mindmap diagram.");
-	}
-
-	/**
-	 * @generated
-	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName,
-			InputStream initialContents, String kind, IWorkbenchWindow dWindow,
-			IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return MindmapDiagramEditorUtil.createAndOpenDiagram(
-				getDiagramFileCreator(), containerPath, fileName,
-				initialContents, kind, dWindow, progressMonitor,
-				isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+		super(pageName, selection);
 	}
 
 	/**
@@ -52,15 +31,41 @@ public class MindmapCreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public DiagramFileCreator getDiagramFileCreator() {
+	public String getFileName() {
+		String fileName = super.getFileName();
+		if (fileName != null) {
+			fileName = getDiagramFileCreator().appendExtensionToFileName(
+					fileName);
+		}
+		return fileName;
+	}
+
+	/**
+	 * @generated
+	 */
+	public InputStream getInitialContents() {
+		return new ByteArrayInputStream(new byte[0]);
+	}
+
+	/**
+	 * @generated
+	 */
+	public MindmapDiagramFileCreator getDiagramFileCreator() {
 		return MindmapDiagramFileCreator.getInstance();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected String getDiagramKind() {
-		return MapEditPart.MODEL_ID;
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		IPath path = getContainerFullPath();
+		if (path != null) {
+			String fileName = getDiagramFileCreator().getUniqueFileName(path,
+					getDefaultFileName());
+			setFileName(fileName);
+		}
+		setPageComplete(validatePage());
 	}
 
 	/**
@@ -78,8 +83,8 @@ public class MindmapCreationWizardPage extends EditorWizardPage {
 							getDiagramFileCreator().appendExtensionToFileName(
 									fileName));
 			path = path.removeFileExtension().addFileExtension("mindmap"); //$NON-NLS-1$
-			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
-				setErrorMessage("Model File already exists: "
+			if (MindmapDiagramFileCreator.exists(path)) {
+				setErrorMessage("Model file already exists: "
 						+ path.lastSegment());
 				return false;
 			}
@@ -87,5 +92,4 @@ public class MindmapCreationWizardPage extends EditorWizardPage {
 		}
 		return false;
 	}
-
 }

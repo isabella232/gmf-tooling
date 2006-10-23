@@ -1,11 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Mindmap customization plug-in
 Bundle-SymbolicName: org.eclipse.gmf.examples.mindmap.diagram.custom; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: %providerName
+Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.mindmap.diagram.part
+Export-Package: org.eclipse.gmf.examples.mindmap.diagram.layout,
+ org.eclipse.gmf.examples.mindmap.diagram.part
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui.workbench,
@@ -17,4 +18,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.gmf.examples.mindmap,
  org.eclipse.gmf.examples.mindmap.diagram,
- org.eclipse.gmf.examples.mindmap.edit
+ org.eclipse.gmf.examples.mindmap.edit,
+ org.eclipse.gmf.runtime.diagram.ui.providers

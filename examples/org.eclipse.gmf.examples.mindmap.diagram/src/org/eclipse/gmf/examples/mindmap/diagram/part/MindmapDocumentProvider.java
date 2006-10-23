@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -34,6 +35,43 @@ import org.eclipse.ui.IFileEditorInput;
  * @generated
  */
 public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
+	/**
+	 * @generated
+	 */
+	private final String contentObjectURI;
+
+	/**
+	 * @generated
+	 */
+	public MindmapDocumentProvider() {
+		this(null);
+	}
+
+	/**
+	 * @generated
+	 */
+	public MindmapDocumentProvider(String rootObjectURI) {
+		this.contentObjectURI = rootObjectURI;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentContentFromStorage(IDocument document,
+			IStorage storage) throws CoreException {
+		super.setDocumentContentFromStorage(document, storage);
+		if (contentObjectURI == null
+				|| false == document.getContent() instanceof EObject) {
+			return;
+		}
+		EObject currentContent = (EObject) document.getContent();
+		if (currentContent.eResource().getURIFragment(currentContent) == contentObjectURI) {
+			return; // already there
+		}
+		EObject anotherContentObject = currentContent.eResource().getEObject(
+				contentObjectURI);
+		document.setContent(anotherContentObject);
+	}
 
 	/**
 	 * @generated
@@ -52,7 +90,7 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 		for (Iterator it = resources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			monitor.setTaskName("Saving " + nextResource.getURI()); //$NON-NLS-1$
-			if (nextResource != diagramResource) {
+			if (nextResource != diagramResource && nextResource.isLoaded()) {
 				try {
 					nextResource.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {

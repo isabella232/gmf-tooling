@@ -28,7 +28,6 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
@@ -58,8 +57,6 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
-import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -126,6 +123,7 @@ public class RelationshipLabelEditPart extends LabelEditPart implements
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
 				new LabelDirectEditPolicy());
+
 	}
 
 	/**

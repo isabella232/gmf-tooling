@@ -1,16 +1,23 @@
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
-import org.eclipse.core.resources.IWorkspaceRoot;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.ResourcesPlugin;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 
 /**
  * @generated
  */
-public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
+public class MindmapDiagramFileCreator {
 
 	/**
 	 * @generated
@@ -20,8 +27,15 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 	/**
 	 * @generated
 	 */
-	public static DiagramFileCreator getInstance() {
+	public static MindmapDiagramFileCreator getInstance() {
 		return INSTANCE;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
 	}
 
 	/**
@@ -38,23 +52,27 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 		int nFileNumber = 1;
 		fileName = removeExtensionFromFileName(fileName);
 		String newFileName = fileName;
-
 		IPath diagramFilePath = containerPath
 				.append(appendExtensionToFileName(newFileName));
-		IPath modelFilePath = containerPath
-				.append(appendExtensionToModelFileName(newFileName));
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-
-		while (workspaceRoot.exists(diagramFilePath)
-				|| workspaceRoot.exists(modelFilePath)) {
+		IPath modelFilePath = containerPath.append(newFileName + ".mindmap"); //$NON-NLS-1$
+		while (exists(diagramFilePath) || exists(modelFilePath)) {
 			nFileNumber++;
 			newFileName = fileName + nFileNumber;
 			diagramFilePath = containerPath
 					.append(appendExtensionToFileName(newFileName));
-			modelFilePath = containerPath
-					.append(appendExtensionToModelFileName(newFileName));
+			modelFilePath = containerPath.append(newFileName + ".mindmap"); //$NON-NLS-1$
 		}
 		return newFileName;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String appendExtensionToFileName(String fileName) {
+		if (!fileName.endsWith(getExtension())) {
+			return fileName + getExtension();
+		}
+		return fileName;
 	}
 
 	/**
@@ -71,8 +89,39 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 	/**
 	 * @generated
 	 */
-	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".mindmap"; //$NON-NLS-1$
+	public IFile createNewFile(IPath containerPath, String fileName,
+			InputStream initialContents, Shell shell) {
+		IPath newFilePath = containerPath
+				.append(appendExtensionToFileName(fileName));
+		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				newFilePath);
+		try {
+			createFile(newFileHandle, initialContents);
+		} catch (CoreException e) {
+			ErrorDialog.openError(shell, "Creation Problems", null, e
+					.getStatus());
+			return null;
+		}
+		return newFileHandle;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected void createFile(IFile fileHandle, InputStream contents)
+			throws CoreException {
+		try {
+			if (contents == null) {
+				contents = new ByteArrayInputStream(new byte[0]);
+			}
+			fileHandle.create(contents, false, new NullProgressMonitor());
+		} catch (CoreException e) {
+			// If the file already existed locally, just refresh to get contents
+			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
+				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
+			} else {
+				throw e;
+			}
+		}
+	}
 }

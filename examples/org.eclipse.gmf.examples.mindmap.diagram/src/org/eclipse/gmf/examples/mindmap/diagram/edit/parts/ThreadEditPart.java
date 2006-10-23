@@ -14,8 +14,6 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
 import org.eclipse.gef.requests.CreateRequest;
 
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadCanonicalEditPolicy;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemSemanticEditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -98,11 +96,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ThreadItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
-				new ThreadGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new ThreadCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**
@@ -169,8 +164,9 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode()
-				.DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
+				.DPtoLP(40), getMapMode().DPtoLP(40));
+		return result;
 	}
 
 	/**
@@ -253,9 +249,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 */
 		public StickyNoteFigure() {
 
-			this.setBackgroundColor(STICKYNOTEFIGURE_BACK
-
-			);
+			this.setBackgroundColor(STICKYNOTEFIGURE_BACK);
 			createContents();
 		}
 

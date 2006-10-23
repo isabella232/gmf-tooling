@@ -32,6 +32,7 @@ public class Relationship2EditPart extends ConnectionNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new Relationship2ItemSemanticEditPolicy());
+
 	}
 
 	/**

@@ -15,7 +15,7 @@ public class MapEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "Mindmap"; //$NON-NLS-1$
+	public final static String MODEL_ID = "Mindmap"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -38,5 +38,6 @@ public class MapEditPart extends DiagramEditPart {
 				new MapItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new MapCanonicalEditPolicy());
+
 	}
 }

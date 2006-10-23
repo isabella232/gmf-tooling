@@ -38,6 +38,7 @@ import org.eclipse.emf.ocl.utilities.PredefinedType;
  * @generated 
  */
 public class MindmapOCLFactory {
+
 	/**
 	 * @generated 
 	 */

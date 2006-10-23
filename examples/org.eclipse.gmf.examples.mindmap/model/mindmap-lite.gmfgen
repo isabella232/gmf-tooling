@@ -2,7 +2,9 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" diagramFileExtension="mmd">
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.examples.mindmap.diagram.lite"
+    sameFileForDiagramAndModel="true"
+    diagramFileExtension="mld">
   <audits
       id="org.eclipse.gmf.examples.mindmap"
       name="Mindmap Audits">
@@ -39,11 +41,7 @@
       itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy"
       notationViewFactoryClassName="MapViewFactory"
       canonicalEditPolicyClassName="MapCanonicalEditPolicy"
-      iconProviderPriority="Low"
-      validationProviderPriority="Medium"
-      validationEnabled="true"
-      validationDecorators="true"
-      validationDecoratorProviderPriority="Medium">
+      iconProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -73,12 +71,11 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="StickyNoteFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Label fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Label getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.draw2d.Label fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -99,7 +96,7 @@
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureStickyNoteNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -123,9 +120,8 @@
           editHelperClassName="ThreadItemEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+          figureQualifiedClassName="org.eclipse.draw2d.Label">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -157,12 +153,11 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="RoundedTopicFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE&#xA;);&#xA;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureTopicNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fTopicNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fTopicNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureTopicNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fTopicNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color ROUNDEDTOPICFIGURE_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public RoundedTopicFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE&#xA;);&#xA;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(20, 20));&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureTopicNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Label fTopicNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Label getFigureTopicNameFigure() {&#xA;&#x9;&#x9;return fTopicNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureTopicNameFigure(org.eclipse.draw2d.Label fig){&#xA;&#x9;&#x9;fTopicNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color ROUNDEDTOPICFIGURE_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"/>
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -183,7 +178,7 @@
         <viewmap
             xsi:type="gmfgen:ParentAssignedViewmap"
             getterName="getFigureTopicNameFigure"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+            figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeatures
@@ -207,12 +202,11 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="ResourceFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ResourceFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(false);&#xA;&#x9;&#x9;this.setOutline(false);&#xA;&#x9;&#x9;this.setLineWidth(0);&#xA;&#x9;&#x9;this.setPreferredSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));&#xA;&#x9;&#x9;this.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));&#xA;&#x9;&#x9;this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));&#xA;&#x9;&#x9;this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();&#xA;&#x9;&#x9;fig_0.setForegroundColor(HEAD_FORE&#xA;);&#xA;&#x9;&#x9;fig_0.setBackgroundColor(HEAD_BACK&#xA;);&#xA;&#x9;&#x9;fig_0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureHead(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;&#x9;org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();&#xA;&#x9;&#x9;fig_1.setFill(true);&#x9;&#x9;fig_1.setForegroundColor(BODY_FORE&#xA;);&#xA;&#x9;&#x9;fig_1.setBackgroundColor(BODY_BACK&#xA;);&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 36));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 48));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 53));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(20, 42));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 53));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 48));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 36));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 19));&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureBody(fig_1);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData1 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_1, layData1);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Ellipse fHead; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Ellipse getFigureHead() {&#xA;&#x9;&#x9;return fHead;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureHead(org.eclipse.draw2d.Ellipse fig){&#xA;&#x9;&#x9;fHead = fig;&#xA;&#x9;}&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Polygon fBody; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Polygon getFigureBody() {&#xA;&#x9;&#x9;return fBody;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureBody(org.eclipse.draw2d.Polygon fig){&#xA;&#x9;&#x9;fBody = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = true;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color HEAD_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color BODY_BACK = new org.eclipse.swt.graphics.Color(null, 230, 230, 255);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color BODY_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color HEAD_BACK = new org.eclipse.swt.graphics.Color(null, 230, 230, 255);&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ResourceFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(false);&#xA;&#x9;&#x9;this.setOutline(false);&#xA;&#x9;&#x9;this.setLineWidth(0);&#xA;&#x9;&#x9;this.setPreferredSize(40, 60);&#xA;&#x9;&#x9;this.setSize(40, 60);&#xA;&#x9;&#x9;this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(40, 60));&#xA;&#x9;&#x9;this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(40, 60));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();&#xA;&#x9;&#x9;fig_0.setForegroundColor(HEAD_FORE&#xA;);&#xA;&#x9;&#x9;fig_0.setBackgroundColor(HEAD_BACK&#xA;);&#xA;&#x9;&#x9;fig_0.setSize(40, 20);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureHead(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;&#x9;org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();&#xA;&#x9;&#x9;fig_1.setFill(true);&#x9;&#x9;fig_1.setForegroundColor(BODY_FORE&#xA;);&#xA;&#x9;&#x9;fig_1.setBackgroundColor(BODY_BACK&#xA;);&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 36));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 48));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 53));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(20, 42));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 53));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 48));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 36));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 29));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 24));&#xA;&#x9;&#x9;fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 19));&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureBody(fig_1);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData1 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_1, layData1);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Ellipse fHead; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Ellipse getFigureHead() {&#xA;&#x9;&#x9;return fHead;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureHead(org.eclipse.draw2d.Ellipse fig){&#xA;&#x9;&#x9;fHead = fig;&#xA;&#x9;}&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Polygon fBody; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Polygon getFigureBody() {&#xA;&#x9;&#x9;return fBody;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureBody(org.eclipse.draw2d.Polygon fig){&#xA;&#x9;&#x9;fBody = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = true;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color HEAD_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color BODY_BACK = new org.eclipse.swt.graphics.Color(null, 230, 230, 255);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color BODY_FORE = new org.eclipse.swt.graphics.Color(null, 220, 220, 250);&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color HEAD_BACK = new org.eclipse.swt.graphics.Color(null, 230, 230, 255);&#xA;">
         <attributes
             xsi:type="gmfgen:DefaultSizeAttributes"
             height="60"/>
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -232,9 +226,8 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
@@ -259,9 +252,8 @@
           editHelperAdviceClassName="TopicSubtopicsEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
+          figureQualifiedClassName="org.eclipse.draw2d.PolylineConnection">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
@@ -286,9 +278,8 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="DashedLineOpenArrow"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.draw2d.PolylineConnection {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(7, 3);&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
@@ -329,12 +320,11 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -357,9 +347,8 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="DashedLineOpenArrow"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.draw2d.PolylineConnection {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(7, 3);&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
@@ -400,12 +389,11 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -428,9 +416,8 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="DashedLineOpenArrow"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DashedLineOpenArrow extends org.eclipse.draw2d.PolylineConnection {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DashedLineOpenArrow() {&#xA;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;// dispatchNext?&#xA;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xA;&#x9;&#x9;df.setTemplate(pl);&#xA;&#x9;&#x9;df.setScale(7, 3);&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#x9;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet">
@@ -471,12 +458,11 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+            figureQualifiedClassName="org.eclipse.draw2d.Label">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -501,12 +487,11 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="StickyNoteFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Label fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Label getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.draw2d.Label fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </compartments>
     <compartments
@@ -525,12 +510,11 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="StickyNoteFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
+          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public StickyNoteFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;this.setBackgroundColor(STICKYNOTEFIGURE_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xA;fig_0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;setFigureStickyNoteNameFigure(fig_0);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Object layData0 = null;&#xA;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.Label fStickyNoteNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.Label getFigureStickyNoteNameFigure() {&#xA;&#x9;&#x9;return fStickyNoteNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureStickyNoteNameFigure(org.eclipse.draw2d.Label fig){&#xA;&#x9;&#x9;fStickyNoteNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;}&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(null, 250, 250, 190);&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </compartments>
     <palette>
@@ -586,7 +570,10 @@
       </groups>
     </palette>
   </diagram>
-  <plugin/>
+  <plugin
+      iD="org.eclipse.gmf.examples.mindmap.diagram.lite"
+      name="Mindmap Lite Plugin"
+      provider="Eclipse.org"/>
   <editor/>
   <navigator>
     <childReferences

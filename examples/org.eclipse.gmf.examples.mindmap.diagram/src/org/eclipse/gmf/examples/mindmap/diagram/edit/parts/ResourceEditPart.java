@@ -17,8 +17,6 @@ import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapExtNodeLabelHostLayoutEditPolicy;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceCanonicalEditPolicy;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceItemSemanticEditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -68,11 +66,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ResourceItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
-				new ResourceGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new ResourceCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**
@@ -125,8 +120,9 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode()
-				.DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
+				.DPtoLP(40), getMapMode().DPtoLP(60));
+		return result;
 	}
 
 	/**
@@ -277,12 +273,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 			org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();
-			fig_0.setForegroundColor(HEAD_FORE
-
-			);
-			fig_0.setBackgroundColor(HEAD_BACK
-
-			);
+			fig_0.setForegroundColor(HEAD_FORE);
+			fig_0.setBackgroundColor(HEAD_BACK);
 			fig_0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
 			setFigureHead(fig_0);
@@ -292,12 +284,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 			this.add(fig_0, layData0);
 			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
 			fig_1.setFill(true);
-			fig_1.setForegroundColor(BODY_FORE
-
-			);
-			fig_1.setBackgroundColor(BODY_BACK
-
-			);
+			fig_1.setForegroundColor(BODY_FORE);
+			fig_1.setBackgroundColor(BODY_BACK);
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));

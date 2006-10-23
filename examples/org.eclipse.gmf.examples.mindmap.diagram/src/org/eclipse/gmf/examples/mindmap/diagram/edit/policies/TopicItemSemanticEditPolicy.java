@@ -133,9 +133,6 @@ public class TopicItemSemanticEditPolicy extends
 		}
 		return getMSLWrapper(new CreateIncomingRelationship4002Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}
@@ -214,9 +211,6 @@ public class TopicItemSemanticEditPolicy extends
 		}
 		return getMSLWrapper(new CreateIncomingRelationship4003Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}
@@ -295,9 +289,6 @@ public class TopicItemSemanticEditPolicy extends
 		}
 		return getMSLWrapper(new CreateIncomingRelationship4004Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}

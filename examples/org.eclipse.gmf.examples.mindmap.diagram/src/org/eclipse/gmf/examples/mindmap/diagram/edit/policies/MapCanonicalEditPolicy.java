@@ -38,7 +38,8 @@ import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
-import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
@@ -137,8 +138,21 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected void refreshSemantic() {
-		super.refreshSemantic();
-		refreshConnections();
+		List createdViews = new LinkedList();
+		createdViews.addAll(refreshSemanticChildren());
+		List createdConnectionViews = new LinkedList();
+		createdConnectionViews.addAll(refreshSemanticConnections());
+		createdConnectionViews.addAll(refreshConnections());
+
+		if (createdViews.size() > 1) {
+			// perform a layout of the container
+			DeferredLayoutCommand layoutCmd = new DeferredLayoutCommand(host()
+					.getEditingDomain(), createdViews, host());
+			executeCommand(new ICommandProxy(layoutCmd));
+		}
+
+		createdViews.addAll(createdConnectionViews);
+		makeViewsImmutable(createdViews);
 	}
 
 	/**
@@ -154,7 +168,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void refreshConnections() {
+	private Collection refreshConnections() {
 		try {
 			collectAllLinks(getDiagram());
 			Collection existingLinks = new LinkedList(getDiagram().getEdges());
@@ -185,7 +199,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 			deleteViews(existingLinks.iterator());
-			createConnections(myLinkDescriptors);
+			return createConnections(myLinkDescriptors);
 		} finally {
 			myLinkDescriptors.clear();
 			myEObject2ViewMap.clear();
@@ -220,10 +234,11 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void createConnections(Collection linkDescriptors) {
+	private Collection createConnections(Collection linkDescriptors) {
 		if (linkDescriptors.isEmpty()) {
-			return;
+			return Collections.EMPTY_LIST;
 		}
+		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator
 				.hasNext();) {
 			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator
@@ -250,9 +265,12 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			if (cmd != null && cmd.canExecute()) {
 				executeCommand(cmd);
 				IAdaptable viewAdapter = (IAdaptable) ccr.getNewObject();
-				SetViewMutabilityCommand.makeImmutable(viewAdapter).execute();
+				if (viewAdapter != null) {
+					adapters.add(viewAdapter);
+				}
 			}
 		}
+		return adapters;
 	}
 
 	/**
@@ -281,6 +299,19 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	private void storeTypeModelFacetLinks(EObject container,
 			EClass containerMetaclass) {
+		storeTypeModelFacetLinks_Relationship_4002(container,
+				containerMetaclass);
+		storeTypeModelFacetLinks_Relationship_4003(container,
+				containerMetaclass);
+		storeTypeModelFacetLinks_Relationship_4004(container,
+				containerMetaclass);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_Relationship_4002(EObject container,
+			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
 					.hasNext();) {
@@ -303,6 +334,13 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_Relationship_4003(EObject container,
+			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
 					.hasNext();) {
@@ -325,6 +363,13 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_Relationship_4004(EObject container,
+			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
 					.hasNext();) {

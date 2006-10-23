@@ -39,6 +39,7 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 				new MindmapReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new TopicSubtopicsItemSemanticEditPolicy());
+
 	}
 
 	/**

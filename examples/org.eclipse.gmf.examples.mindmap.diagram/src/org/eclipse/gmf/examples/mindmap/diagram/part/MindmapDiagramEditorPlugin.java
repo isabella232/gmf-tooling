@@ -200,7 +200,7 @@ public class MindmapDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && message != null) {
+		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(

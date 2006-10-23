@@ -14,8 +14,6 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
 import org.eclipse.gef.requests.CreateRequest;
 
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicCanonicalEditPolicy;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicItemSemanticEditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -65,11 +63,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new TopicItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
-				new TopicGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new TopicCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**
@@ -136,8 +131,9 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode()
-				.DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
+				.DPtoLP(40), getMapMode().DPtoLP(40));
+		return result;
 	}
 
 	/**
@@ -220,9 +216,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 */
 		public RoundedTopicFigure() {
 
-			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE
-
-			);
+			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE);
 			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
 					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
 

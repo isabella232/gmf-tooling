@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings"
+    xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings/2.0"
     xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
   <nodes>
     <containmentFeature
@@ -11,7 +11,8 @@
     <ownedChild>
       <domainMetaElement
           href="mindmap.ecore#//Topic"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="mindmap.gmfgraph#TopicNameLabel"/>
         <features
@@ -29,7 +30,8 @@
         <ownedChild>
           <domainMetaElement
               href="mindmap.ecore#//Thread"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="mindmap.gmfgraph#StickyNoteNameLabel"/>
             <features
@@ -47,7 +49,8 @@
             <ownedChild>
               <domainMetaElement
                   href="mindmap.ecore#//ThreadItem"/>
-              <labelMappings>
+              <labelMappings
+                  xsi:type="gmfmap:FeatureLabelMapping">
                 <diagramLabel
                     href="mindmap.gmfgraph#ThreadItemLabel"/>
                 <features
@@ -81,6 +84,7 @@
       <domainMetaElement
           href="mindmap.ecore#//Resource"/>
       <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping"
           viewPattern="{0} [{1}]"
           editPattern="{0} : {1}">
         <diagramLabel
@@ -119,19 +123,22 @@
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="RelationshipType::EXTENDS">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/type"/>
       </initializers>
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="'extends'">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/label"/>
       </initializers>
     </domainInitializer>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
       <diagramLabel
           href="mindmap.gmfgraph#RelationshipLabel"/>
       <features
@@ -159,19 +166,22 @@
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="RelationshipType::DEPENDENCY">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/type"/>
       </initializers>
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="'depends'">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/label"/>
       </initializers>
     </domainInitializer>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
       <diagramLabel
           href="mindmap.gmfgraph#RelationshipLabel"/>
       <features
@@ -199,19 +209,22 @@
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="RelationshipType::INCLUDES">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/type"/>
       </initializers>
       <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
           body="'includes'">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/label"/>
       </initializers>
     </domainInitializer>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
       <diagramLabel
           href="mindmap.gmfgraph#RelationshipLabel"/>
       <features

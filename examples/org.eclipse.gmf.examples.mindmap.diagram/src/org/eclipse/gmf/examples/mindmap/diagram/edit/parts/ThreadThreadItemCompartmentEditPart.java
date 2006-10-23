@@ -73,6 +73,7 @@ public class ThreadThreadItemCompartmentEditPart extends
 				new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new ThreadThreadItemCompartmentCanonicalEditPolicy());
+
 	}
 
 	/**

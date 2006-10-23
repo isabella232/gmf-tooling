@@ -48,8 +48,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createThreadThreadSubject_5001Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getThread().getEStructuralFeature(
-						"subject")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getThread_Subject());
 		return parser;
 	}
 
@@ -73,8 +72,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createThreadItemThreadItem_3002Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getThreadItem().getEStructuralFeature(
-						"body")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getThreadItem_Body());
 		return parser;
 	}
 
@@ -98,8 +96,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createTopicTopicName_5002Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getTopic().getEStructuralFeature(
-						"name")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getTopic_Name());
 		return parser;
 	}
 
@@ -123,10 +120,8 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createResourceResourceNameEmail_5003Parser() {
 		List features = new ArrayList(2);
-		features.add(MindmapPackage.eINSTANCE.getResource()
-				.getEStructuralFeature("name")); //$NON-NLS-1$
-		features.add(MindmapPackage.eINSTANCE.getResource()
-				.getEStructuralFeature("email")); //$NON-NLS-1$
+		features.add(MindmapPackage.eINSTANCE.getResource_Name());
+		features.add(MindmapPackage.eINSTANCE.getResource_Email());
 		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(
 				features);
 		parser.setViewPattern("{0} [{1}]");
@@ -154,8 +149,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createRelationshipRelationshipLabel_6001Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship()
-						.getEStructuralFeature("label")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 
@@ -179,8 +173,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createRelationshipRelationshipLabel_6002Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship()
-						.getEStructuralFeature("label")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 
@@ -204,8 +197,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createRelationshipRelationshipLabel_6003Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship()
-						.getEStructuralFeature("label")); //$NON-NLS-1$
+				MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 
