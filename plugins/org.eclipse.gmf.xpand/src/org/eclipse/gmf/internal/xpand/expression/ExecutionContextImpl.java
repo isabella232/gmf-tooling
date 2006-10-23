@@ -58,24 +58,36 @@ public class ExecutionContextImpl implements ExecutionContext {
 	private final ResourceManager resourceManager;
 
     public ExecutionContextImpl(ResourceManager resourceManager) {
-        this (resourceManager, (Map<String, Variable>) null);
+        this (resourceManager, (Collection<Variable>) null);
     }
     
-    public ExecutionContextImpl(ResourceManager resourceManager, Map<String, Variable> globalVars) {
+    public ExecutionContextImpl(ResourceManager resourceManager, Collection<Variable> globalVars) {
         this (resourceManager, null, null, globalVars);
     }
 
-    public ExecutionContextImpl(ResourceManager resourceManager, ResourceMarker resource, Map<String, Variable> variables, Map<String, Variable> globalVars) {
+    public ExecutionContextImpl(ResourceManager resourceManager, ResourceMarker resource, Collection<Variable> variables, Collection<Variable> globalVars) {
         this.resourceManager = resourceManager;
 		this.currentResource = resource;
 		if (variables != null) {
-			this.variables.putAll(variables);
+			for (Variable v : variables) {
+				this.variables.put(v.getName(), v);
+			}
 		}
         if (globalVars != null) {
-			this.globalVars.putAll (globalVars);
+        	for (Variable v : globalVars) {
+        		this.globalVars.put(v.getName(), v);
+        	}
 		}
     }
-    
+
+    // copy constuctor
+    protected ExecutionContextImpl(ExecutionContextImpl original) {
+    	this.resourceManager = original.resourceManager;
+    	this.currentResource = original.currentResource;
+    	this.variables.putAll(original.variables);
+    	this.globalVars.putAll(original.globalVars);
+    }
+
     /*
      * Need this for code completion only? move to proposal computer than
      */
@@ -221,7 +233,7 @@ public class ExecutionContextImpl implements ExecutionContext {
     }
 
     public ExecutionContext cloneContext() {
-        return new ExecutionContextImpl (resourceManager, currentResource, variables, globalVars);
+        return new ExecutionContextImpl(this);
     }
 
     protected final ResourceManager getResourceManager() {
@@ -232,19 +244,30 @@ public class ExecutionContextImpl implements ExecutionContext {
         return variables.get(name);
     }
 
-    public Map<String, Variable> getVisibleVariables() {
-        return Collections.unmodifiableMap(variables);
+    public Collection<Variable> getVisibleVariables() {
+        return Collections.unmodifiableCollection(variables.values());
     }
 
-    public Map<String, Variable> getGlobalVariables () {
-        return Collections.unmodifiableMap(globalVars);
+    public Collection<Variable> getGlobalVariables() {
+        return Collections.unmodifiableCollection(globalVars.values());
+    }
+
+    public Variable getGlobalVariable(String name) {
+    	return globalVars.get(name);
     }
     
     @SuppressWarnings("unchecked")
-	public ExecutionContext cloneWithVariable(final Variable v) {
+	public ExecutionContext cloneWithVariable(final Variable... vars) {
         final ExecutionContextImpl result = (ExecutionContextImpl) cloneContext();
-        result.variables.put(v.getName(), v);
+        for (Variable v : vars) {
+        	result.variables.put(v.getName(), v);
+        }
         return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    public ExecutionContext cloneWithVariable(Collection<Variable> v) {
+    	return cloneWithVariable(v.toArray(new Variable[v.size()]));
     }
 
     @SuppressWarnings("unchecked")

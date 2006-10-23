@@ -119,7 +119,7 @@ public class ATypeModel {
 	}
 
 	public ExecutionContext newContext(ResourceMarker res, Variable var) {
-		return new ExecutionContextImpl(null, res, var == null ? null : Collections.singletonMap(var.getName(), var), null) {
+		return new ExecutionContextImpl(null, res, var == null ? null : Collections.singleton(var), null) {
         	protected EPackage[] getAllVisibleModels() {
         		return new EPackage[] {aTypeClass.getEPackage(), EcorePackage.eINSTANCE};
         	}

@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.util;
 
-import java.util.Map;
+import java.util.Collection;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
@@ -27,8 +27,7 @@ public class ContextFactory {
 		return new XpandExecutionContextImpl(resourceManager, null, null);
 	}
 
-	// FIXME no much sense in GlobalVarsMap<String, Varaible<String, value>> - nobody cares about variable's name in this case
-	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Map<String, Variable> globalVars) {
+	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars) {
 		return new XpandExecutionContextImpl(resourceManager, output, null, globalVars);
 	}
 

@@ -14,6 +14,7 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,13 +52,13 @@ public class XpandFacade {
             throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for "
                     + targetType.getName() + " could be found!", null);
 
-        ctx = (XpandExecutionContext) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE,
-                targetObject));
+        ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
+        vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject));
         for (int i = 0; i < params.length; i++) {
-            final Variable v = new Variable(def.getParams()[i].getName().getValue(), params[i]);
-            ctx = (XpandExecutionContext) ctx.cloneWithVariable(v);
+            vars.add(new Variable(def.getParams()[i].getName().getValue(), params[i]));
         }
-        ctx = (XpandExecutionContext) ctx.cloneWithResource(def.getOwner());
+        ctx = ctx.cloneWithVariable(vars);
+        ctx = ctx.cloneWithResource(def.getOwner());
         def.evaluate(ctx);
     }
 

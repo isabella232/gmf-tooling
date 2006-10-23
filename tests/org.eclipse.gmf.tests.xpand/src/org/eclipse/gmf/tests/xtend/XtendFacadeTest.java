@@ -10,20 +10,19 @@
  *******************************************************************************/
 package org.eclipse.gmf.tests.xtend;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.tests.xpand.TestsResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.gmf.tests.xpand.TestsResourceManager;
 
 public class XtendFacadeTest extends TestCase {
 
@@ -58,10 +57,8 @@ public class XtendFacadeTest extends TestCase {
 
     public void testGlobalVar() {
     	XtendResource xres = resourceManager.loadXtendResource(qualified("globalvarExt"));
-    	Map<String, Variable> globalVars = new HashMap<String, Variable>();
     	Variable v1 = new Variable("xy", new Short((short) 17));
-    	globalVars.put(v1.getName(), v1);
-		ExecutionContext ctx = new ExecutionContextImpl(resourceManager, xres, null, globalVars);
+		ExecutionContext ctx = new ExecutionContextImpl(resourceManager, xres, null, Arrays.asList(v1));
         final XtendFacade f = new XtendFacade(ctx);
     	Object result = f.call("abc");
 		assertEquals(v1.getValue(), result);

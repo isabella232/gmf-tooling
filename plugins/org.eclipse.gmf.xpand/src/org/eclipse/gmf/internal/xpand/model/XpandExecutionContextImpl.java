@@ -16,10 +16,10 @@ package org.eclipse.gmf.internal.xpand.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.Activator;
@@ -48,25 +48,30 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         this (resourceManager, output, prs, null);
     }
     
-    public XpandExecutionContextImpl(ResourceManager resourceManager, Output output, ProtectedRegionResolver prs, Map<String, Variable> globalVars) {
+    public XpandExecutionContextImpl(ResourceManager resourceManager, Output output, ProtectedRegionResolver prs, Collection<Variable> globalVars) {
         super(resourceManager, globalVars);
         this.output = output;
         this.protectedRegionResolver = prs;
     }
 
-    
-    protected XpandExecutionContextImpl (ResourceManager resourceManager, ResourceMarker currentResource, Map<String, Variable> vars, 
-            Map<String, Variable> globalVars, Output output, ProtectedRegionResolver protectedRegionResolver) {
-        super (resourceManager, currentResource, vars, globalVars);
+    protected XpandExecutionContextImpl (ResourceManager resourceManager, ResourceMarker currentResource, Collection<Variable> vars, 
+            Collection<Variable> globalVars, Output output, ProtectedRegionResolver protectedRegionResolver) {
+        super(resourceManager, currentResource, vars, globalVars);
         this.output = output;
         this.protectedRegionResolver = protectedRegionResolver;
     }
 
+    /*copy constructor*/
+    private XpandExecutionContextImpl(XpandExecutionContextImpl original) {
+    	super(original);
+    	this.output = original.output;
+    	this.protectedRegionResolver = original.protectedRegionResolver;
+    }
     
 
     @Override
     public XpandExecutionContextImpl cloneContext() {
-        final XpandExecutionContextImpl result = new XpandExecutionContextImpl (getResourceManager(), currentResource(), getVisibleVariables(), getGlobalVariables(), output, protectedRegionResolver);
+        final XpandExecutionContextImpl result = new XpandExecutionContextImpl(this);
         result.registeredAdvices.addAll(registeredAdvices); //todo: [aha] before I refactored, there was an assignment in this place. Is this modification correct?
         return result;
     }

@@ -14,7 +14,7 @@
  */
 package org.eclipse.gmf.internal.xpand.expression;
 
-import java.util.Map;
+import java.util.Collection;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
@@ -24,6 +24,9 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 /**
  * @author Sven Efftinge
  * @author Arno Haase
+ * XXX [artem] I'd better split this into two parts, "Scope" (no subtypes) with Variables and Resource - the part that 
+ * is actually being changed/cloned, and "Context" itself, with methods to access types/definition/templates/output/whatever
+ * XXX leave this as "Context" and add "Environment"? 
  */
 public interface ExecutionContext {
 
@@ -33,7 +36,8 @@ public interface ExecutionContext {
 	 */
 	public final static String IMPLICIT_VARIABLE = "this";
 
-	<T extends ExecutionContext> T cloneWithVariable(Variable v);
+	<T extends ExecutionContext> T cloneWithVariable(Variable... v);
+	<T extends ExecutionContext> T cloneWithVariable(Collection<Variable> v);
 
 	<T extends ExecutionContext> T cloneWithoutVariables();
 
@@ -41,12 +45,14 @@ public interface ExecutionContext {
 
 	Variable getVariable(String name);
 
-	Map<String, Variable> getVisibleVariables();
+	Collection<Variable> getVisibleVariables();
 
 	/**
 	 * accessible only through special extension methods
 	 */
-	Map<String, Variable> getGlobalVariables();
+	Collection<Variable> getGlobalVariables();
+
+	Variable getGlobalVariable(String name);
 
 	ResourceMarker currentResource();
 

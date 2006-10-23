@@ -81,7 +81,7 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
                 paramType = EcorePackage.eINSTANCE.getEObject();
             }
             final String name = param.getName().getValue();
-            ctx = (XpandExecutionContext) ctx.cloneWithVariable(new Variable(name, paramType));
+            ctx = ctx.cloneWithVariable(new Variable(name, paramType));
         }
         for (int i = 0; i < getBody().length; i++) {
             getBody()[i].analyze(ctx, issues);

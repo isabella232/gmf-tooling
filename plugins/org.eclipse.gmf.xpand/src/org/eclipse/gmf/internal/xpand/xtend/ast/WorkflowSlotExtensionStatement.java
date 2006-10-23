@@ -37,7 +37,7 @@ public class WorkflowSlotExtensionStatement extends Extension {
 
     @Override
     public Object evaluateInternal(final Object[] parameters, final ExecutionContext ctx) {
-    	final Variable result = ctx.getGlobalVariables().get(slotName.getValue());
+    	final Variable result = ctx.getGlobalVariable(slotName.getValue());
     	if (result == null) {
     		return null;
     	}

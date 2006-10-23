@@ -15,6 +15,7 @@
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -142,8 +143,8 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			}
 			if (targetType == null) {
 				// variables
-				final Map<String, Variable> vars = executionContext.getVisibleVariables();
-				for (String varName : vars.keySet()) {
+				for (Variable v : executionContext.getVisibleVariables()) {
+					String varName = v.getName();
 					if (varName.toLowerCase().startsWith(prefix.toLowerCase())) {
 						final Object o = executionContext.getVariable(varName).getValue();
 						proposals.add(factory.createVariableProposal(varName, (EClassifier) o, prefix));
