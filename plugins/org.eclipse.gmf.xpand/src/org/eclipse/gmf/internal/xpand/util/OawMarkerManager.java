@@ -14,120 +14,138 @@
  */
 package org.eclipse.gmf.internal.xpand.util;
 
-import org.eclipse.core.filebuffers.FileBuffers;
-import org.eclipse.core.filebuffers.ITextFileBuffer;
-import org.eclipse.core.filebuffers.ITextFileBufferManager;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.IDocument;
 
 public class OawMarkerManager {
 
-    private static final String getMARKER_TYPE() {
-        return Activator.getId() + ".problem";
-    }
+	public static void addMarkers(final IFile file, AnalysationIssue... issues) {
+		MarkerData[] data = new MarkerData[issues.length];
+		int i = 0;
+		for (AnalysationIssue issue : issues) {
+			data[i++] = createMarkerData(issue);
+		}
+		internalAddMarker(file, data);
+	}
 
-    public static void addMarker(final IFile file, final AnalysationIssue issue) {
-        try {
-            final IMarker marker = file.createMarker(getMARKER_TYPE());
-            final int severity = IMarker.SEVERITY_ERROR;
-            int start = -1, end = -1;
-            if (issue.getElement() != null) {
-                start = issue.getElement().getStart() - 1;
-                end = issue.getElement().getEnd() - 1;
-            }
-            internalAddMarker(file, marker, issue.getMessage(), severity, start, end);
-        } catch (final CoreException e) {
-        }
-    }
+	public static void addErrorMarker(final IFile file, final String message, final int start, final int end) {
+		internalAddMarker(file, new MarkerData(message, IMarker.SEVERITY_ERROR, start, end));
+	}
 
-    public static void addErrorMarker(final IFile file, final String message, final int severity, final int start,
-            final int end) {
-        try {
-            final IMarker marker = file.createMarker(getMARKER_TYPE());
-            internalAddMarker(file, marker, message, severity, start, end);
-        } catch (final CoreException e) {
-            Activator.log(e.getStatus());
-        }
-    }
+	private static MarkerData createMarkerData(AnalysationIssue issue) {
+		int start = -1, end = -1, line = -1;
+		if (issue.getElement() != null) {
+			start = issue.getElement().getStart() - 1;
+			end = issue.getElement().getEnd() - 1;
+			line = issue.getElement().getLine();
+		}
+		return new MarkerData(issue.getMessage(), IMarker.SEVERITY_ERROR, start, end, line);
+	}
 
-    public static void addWarningMarker(final IFile file, final String message, final int severity, final int start,
-            final int end) {
-        try {
-            final IMarker marker = file.createMarker(getMARKER_TYPE());
-            internalAddMarker(file, marker, message, severity, start, end);
-        } catch (final CoreException e) {
-        }
-    }
+	private static class MarkerData {
+		final String message;
 
-    private final static void internalAddMarker(final IFile file, final IMarker marker, final String message,
-            final int severity, final int start, final int end) {
+		final int severity;
+
+		final int start;
+
+		final int end;
+
+		final int line;
+
+		MarkerData(String message, int severity, int start, int end) {
+			this(message, severity, start, end, -1);
+		}
+
+		MarkerData(String message, int severity, int start, int end, int line) {
+			this.message = message;
+			this.severity = severity;
+			this.start = start;
+			this.end = end;
+			this.line = line;
+		}
+	}
+
+	private static final String getMARKER_TYPE() {
+		return Activator.getId() + ".problem";
+	}
+
+	private final static void internalAddMarker(final IFile file, final MarkerData... markerData) {
         try {
             file.getWorkspace().run(new IWorkspaceRunnable() {
 
-				public void run(IProgressMonitor monitor) throws CoreException {
-                    marker.setAttribute(IMarker.MESSAGE, message);
-                    marker.setAttribute(IMarker.SEVERITY, severity);
-                    int s = start;
-                    if (start == -1) {
-                        s = 1;
-                    }
-                    int e = end;
-                    if (end <= start) {
-                        e = start + 1;
-                    }
-                    marker.setAttribute(IMarker.CHAR_START, s);
-                    marker.setAttribute(IMarker.CHAR_END, e);
-                    final ITextFileBufferManager mgr = FileBuffers.getTextFileBufferManager();
-                    if (mgr != null) {
-                        final IPath location = file.getFullPath();
-                        try {
-                            mgr.connect(location, new NullProgressMonitor());
-                            final ITextFileBuffer buff = mgr.getTextFileBuffer(file.getFullPath());
-                            if (buff != null) {
-                                final IDocument doc = buff.getDocument();
-                                final int line = doc.getLineOfOffset(start);
-                                if (line > 0) {
-                                    marker.setAttribute(IMarker.LINE_NUMBER, doc.getLineOfOffset(start));
-                                    marker.setAttribute(IMarker.LOCATION, "line: " + line);
-                                }
-                            }
-                        } catch (BadLocationException ex) {
-                        	// IGNORE
-						} finally {
-                            mgr.disconnect(location, new NullProgressMonitor());
-                        }
-                    }
+            	public void run(IProgressMonitor monitor) throws CoreException {
+					for (MarkerData d : markerData) {
+						createMarker(d);
+					}
                 }
 
-            }, file, 0, new NullProgressMonitor());
+				private void createMarker(MarkerData data) throws CoreException {
+					final IMarker marker = file.createMarker(getMARKER_TYPE());
+                    marker.setAttribute(IMarker.MESSAGE, data.message);
+                    marker.setAttribute(IMarker.SEVERITY, data.severity);
+                    if (data.line != -1) {
+                    	marker.setAttribute(IMarker.LINE_NUMBER, data.line);
+                        marker.setAttribute(IMarker.LOCATION, toLocationString(data));
+                    } else {
+                    	// "else" clause here because in case we possess line number info, most probably
+                    	// start and end are relative to that line, and are not file buffer positions (as it seems to be assumed by CHAR_START|END).
+                    	if (data.start != -1 && data.end != -1) {
+                    		marker.setAttribute(IMarker.CHAR_START, data.start);
+                    		marker.setAttribute(IMarker.CHAR_END, data.end);
+                    		marker.setAttribute(IMarker.LOCATION, toLocationString(data));
+                    	}
+                    }
+				}
+
+				private String toLocationString(MarkerData data) {
+					StringBuilder sb = new StringBuilder();
+					if (data.line != -1) {
+						sb.append("line: ");
+						sb.append(data.line);
+					}
+					if (data.start != -1 && data.end != -1) {
+						boolean theOnlyData = sb.length() == 0;
+						if (!theOnlyData) {
+							sb.append(" (");
+						}
+						sb.append(data.start);
+						sb.append(" .. ");
+						sb.append(data.end);
+						if (!theOnlyData) {
+							sb.append(")");
+						}
+					}
+					return sb.toString();
+				}
+
+            }, file.getWorkspace().getRuleFactory().markerRule(file), 0, new NullProgressMonitor());
         } catch (final CoreException e) {
             Activator.log(e.getStatus());
         }
     }
 
-    public static void deleteMarkers(final IResource file) {
-        try {
-            if (file.exists()) {
-                file.getWorkspace().run(new IWorkspaceRunnable() {
+	public static void deleteMarkers(final IResource file) {
+		try {
+			if (!file.exists()) {
+				return;
+			}
+			file.getWorkspace().run(new IWorkspaceRunnable() {
 
-                    public void run(final IProgressMonitor monitor) throws CoreException {
-                        file.deleteMarkers(getMARKER_TYPE(), true, IResource.DEPTH_INFINITE);
-                    }
+				public void run(final IProgressMonitor monitor) throws CoreException {
+					file.deleteMarkers(getMARKER_TYPE(), true, IResource.DEPTH_INFINITE);
+				}
 
-                }, file, 0, new NullProgressMonitor());
-            }
-        } catch (CoreException ce) {
-            Activator.log(ce.getStatus());
-        }
-    }
+			}, file.getWorkspace().getRuleFactory().markerRule(file), 0, new NullProgressMonitor());
+		} catch (CoreException ce) {
+			Activator.log(ce.getStatus());
+		}
+	}
 }

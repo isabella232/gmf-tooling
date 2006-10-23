@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ast.Template;
@@ -67,7 +66,7 @@ public class XpandResourceParser {
 			final int start = scanner.getStreamIndex() - 1;
 			final int end = start + 1;
 			OawMarkerManager.deleteMarkers(file);
-			OawMarkerManager.addErrorMarker(file, e.getMessage(), IMarker.SEVERITY_ERROR, start, end);
+			OawMarkerManager.addErrorMarker(file, e.getMessage(), start, end);
 		}
 		if (tpl != null) {
 			tpl.setFullyQualifiedName(Activator.getQualifiedName(file));

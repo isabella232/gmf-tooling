@@ -144,9 +144,7 @@ public class OawBuilder extends IncrementalProjectBuilder {
 
 	private static void updateMarkers(IFile resource, Set<AnalysationIssue> issues) {
         OawMarkerManager.deleteMarkers(resource);
-        for (AnalysationIssue i : issues) {
-            OawMarkerManager.addMarker(resource, i);
-        }
+        OawMarkerManager.addMarkers(resource, issues.toArray(new AnalysationIssue[issues.size()]));
 	}
 
 	void reloadResource(final IFile resource) {
