@@ -12,7 +12,7 @@
 
   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
     <factory 
-       uri = "http://www.eclipse.org/gmf/2005/GenModel" 
+       uri = "http://www.eclipse.org/gmf/2005/GenModel/2.0" 
        class = "org.eclipse.gmf.codegen.gmfgen.provider.GMFGenItemProviderAdapterFactory"
        supportedTypes = 
          "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
