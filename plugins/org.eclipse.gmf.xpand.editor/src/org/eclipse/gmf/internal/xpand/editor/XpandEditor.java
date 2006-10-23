@@ -41,8 +41,9 @@ public class XpandEditor extends TextEditor {
 
     public XpandEditor() {
         super();
-        colorProvider = new ColorProvider();
-        setSourceViewerConfiguration(new XpandSourceViewerConfiguration(this, colorProvider));
+        colorProvider = new ColorProvider(Activator.getDefault().getPreferenceStore());
+        colorProvider.initializeDefaults();
+        setSourceViewerConfiguration(new XpandSourceViewerConfiguration(this));
         setDocumentProvider(new XpandDocumentProvider());
     }
 
@@ -52,6 +53,9 @@ public class XpandEditor extends TextEditor {
         super.dispose();
     }
 
+    /*package*/ ColorProvider getColorProvider() {
+		return colorProvider;
+	}
 
     @Override
     public void editorContextMenuAboutToShow(IMenuManager aMenu) {
@@ -119,11 +123,11 @@ public class XpandEditor extends TextEditor {
         setAction("ContentAssistTip", a);
 
         a = new InsertTextAction(rb, this, getSourceViewer(), XpandTokens.LT);
-        a.setActionDefinitionId(Activator.PLUGIN_ID + ".insertLT");
+        a.setActionDefinitionId(Activator.getPluginID() + ".insertLT");
         setAction("InsertLT", a);
 
         a = new InsertTextAction(rb, this, getSourceViewer(), XpandTokens.RT);
-        a.setActionDefinitionId(Activator.PLUGIN_ID + ".insertRT");
+        a.setActionDefinitionId(Activator.getPluginID() + ".insertRT");
         setAction("InsertRT", a);
 
     }

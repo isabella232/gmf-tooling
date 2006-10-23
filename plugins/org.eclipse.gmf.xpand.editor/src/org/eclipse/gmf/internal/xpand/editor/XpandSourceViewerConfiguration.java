@@ -30,14 +30,13 @@ import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
-import org.eclipse.ui.IEditorPart;
 
 /**
  * Example configuration for an <code>SourceViewer</code> which shows Template
  * code.
  */
 public class XpandSourceViewerConfiguration extends SourceViewerConfiguration {
-    private IEditorPart editor;
+    private final XpandEditor editor;
 
     private ContentScanner contentScanner;
 
@@ -45,13 +44,10 @@ public class XpandSourceViewerConfiguration extends SourceViewerConfiguration {
 
     private TemplateTagScanner tagScanner;
 
-    // private ColorProvider colorProvider;
-
     /**
      * Default constructor.
      */
-    public XpandSourceViewerConfiguration(IEditorPart editor, ColorProvider colorProvider) {
-        // this.colorProvider = colorProvider;
+    public XpandSourceViewerConfiguration(XpandEditor editor) {
         this.editor = editor;
     }
 
@@ -138,7 +134,7 @@ public class XpandSourceViewerConfiguration extends SourceViewerConfiguration {
      */
     private CommentScanner getCommentScanner() {
         if (commentScanner == null) {
-            commentScanner = new CommentScanner();
+            commentScanner = new CommentScanner(editor.getColorProvider());
         }
         return commentScanner;
     }
@@ -148,7 +144,7 @@ public class XpandSourceViewerConfiguration extends SourceViewerConfiguration {
      */
     protected ITokenScanner getTemplateTagScanner() {
         if (tagScanner == null) {
-            tagScanner = new TemplateTagScanner();
+            tagScanner = new TemplateTagScanner(editor.getColorProvider());
         }
         return tagScanner;
     }
@@ -158,7 +154,7 @@ public class XpandSourceViewerConfiguration extends SourceViewerConfiguration {
      */
     protected ITokenScanner getContentScanner() {
         if (contentScanner == null) {
-            contentScanner = new ContentScanner();
+            contentScanner = new ContentScanner(editor.getColorProvider());
         }
         return contentScanner;
     }

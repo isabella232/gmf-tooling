@@ -18,21 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gmf.internal.xpand.codeassist.XpandTokens;
+import org.eclipse.gmf.internal.xpand.editor.ColorProvider;
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.MultiLineRule;
+import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 
 /**
  * 
  */
-public class TemplateTagScanner extends AbstractXpandRuleBasedScanner {
+public class TemplateTagScanner extends RuleBasedScanner {
 
-    public TemplateTagScanner() {
+    public TemplateTagScanner(ColorProvider colorProvider) {
         final List<IRule> rules = new ArrayList<IRule>();
         // Add rule for strings
+        final Token string = XpandTokenFactory.newStringToken(colorProvider);
+        final Token terminals = XpandTokenFactory.newTerminalsToken(colorProvider);
+        final Token define = XpandTokenFactory.newDefineToken(colorProvider);
+        final Token keyword = XpandTokenFactory.newKeywordsToken(colorProvider);
+        final Token others = XpandTokenFactory.newOtherToken(colorProvider);
+
         rules.add(new MultiLineRule("\"", "\"", string,'\\',true));
         rules.add(new MultiLineRule("'", "'", string,'\\',true));
         // Add rule for brackets
@@ -56,6 +64,7 @@ public class TemplateTagScanner extends AbstractXpandRuleBasedScanner {
         rules.add(new WhitespaceRule(new WhitespaceDetector()));
 
         setRules(rules.toArray(new IRule[rules.size()]));
+        setDefaultReturnToken(others);
     }
 
 }

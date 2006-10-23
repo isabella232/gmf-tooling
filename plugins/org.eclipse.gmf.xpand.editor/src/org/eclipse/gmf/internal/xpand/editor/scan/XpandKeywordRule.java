@@ -24,8 +24,6 @@ import org.eclipse.jface.text.rules.Token;
 
 /**
  * @author Sven Efftinge
- * 
- * 
  */
 public class XpandKeywordRule implements IRule {
 
@@ -70,11 +68,6 @@ public class XpandKeywordRule implements IRule {
         return (currentWords != null) && (currentWords.length > 0);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.text.rules.IRule#evaluate(org.eclipse.jface.text.rules.ICharacterScanner)
-     */
     public IToken evaluate(final ICharacterScanner scanner) {
         final StringBuffer buff = new StringBuffer();
         boolean stopReading = false;

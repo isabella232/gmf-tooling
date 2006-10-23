@@ -14,7 +14,9 @@
  */
 package org.eclipse.gmf.internal.xpand.editor.scan;
 
+import org.eclipse.gmf.internal.xpand.editor.ColorProvider;
 import org.eclipse.jface.text.rules.IRule;
+import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 
 /**
@@ -22,14 +24,14 @@ import org.eclipse.jface.text.rules.WhitespaceRule;
  * 
  * 
  */
-public class CommentScanner extends AbstractXpandRuleBasedScanner {
+public class CommentScanner extends RuleBasedScanner {
 
-    public CommentScanner() {
+    public CommentScanner(ColorProvider colorProvider) {
         final IRule[] rules = new IRule[1];
         // Add generic whitespace rule.
         rules[0] = new WhitespaceRule(new WhitespaceDetector());
 
         setRules(rules);
-        setDefaultReturnToken(comment);
+        setDefaultReturnToken(XpandTokenFactory.newCommentToken(colorProvider));
     }
 }

@@ -16,14 +16,8 @@ import org.osgi.framework.BundleContext;
 
 public class Activator extends AbstractUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.xpand.editor";
-
-	// The shared instance
 	private static Activator plugin;
 
-	private ColorProvider colorProvider;
-	
 	/**
 	 * The constructor
 	 */
@@ -32,23 +26,10 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		PreferencesConstants.initializeDefaultValues(getPreferenceStore());
-		colorProvider = new ColorProvider();
-	}
-
-	@Override
 	public void stop(BundleContext context) throws Exception {
-		colorProvider.dispose();
-		colorProvider = null;
 		plugin = null;
 		super.stop(context);
 	}
-
-	public static ColorProvider getColorProvider() {
-        return getDefault().colorProvider;
-    }
 
 	/**
 	 * Returns the shared instance
@@ -59,11 +40,15 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
+	public static String getPluginID() {
+		return getDefault().getBundle().getSymbolicName();
+	}
+
 	public static void logError(Exception e) {
 		if (e instanceof CoreException) {
 			log(((CoreException) e).getStatus());
 		} else {
-			log(new Status(IStatus.ERROR, PLUGIN_ID, 0, e.getClass().getName(), e));
+			log(new Status(IStatus.ERROR, getPluginID(), 0, e.getClass().getName(), e));
 		}
 	}
 

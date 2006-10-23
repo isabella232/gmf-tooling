@@ -27,8 +27,6 @@ import org.eclipse.jface.text.rules.Token;
 
 /**
  * @author Sven Efftinge
- * 
- * 
  */
 public class XpandPartitionScanner extends RuleBasedPartitionScanner {
     public final static String TAG = "__tag";
