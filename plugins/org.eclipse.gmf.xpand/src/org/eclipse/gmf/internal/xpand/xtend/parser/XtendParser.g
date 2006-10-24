@@ -27,7 +27,7 @@ $End
 
 $Headers
 	/.
-		private final ExtensionFactory xtendFactory = new ExtensionFactory();
+		private final ExtensionFactory xtendFactory;
 	./
 $End
 
@@ -107,9 +107,10 @@ $Rules
 
 	extensionDef -> regularExtension | createExtension
 
-	regularExtension ::= visibilityOpt cachedOpt typeOpt IDENT LPAREN declaredParameterListOpt RPAREN COLON 'JAVA' javaType LPAREN javaParamsOpt RPAREN SEMI
+	-- though both JavaExtension and WorkflowExtensions do require type specified, changing typeOpt to type leads to grammar not being LALR(2), hence need more exploration
+	regularExtension ::= visibilityOpt cachedOpt typeOpt IDENT LPAREN declaredParameterListOpt RPAREN COLON 'JAVA' instanceSlotOpt javaType LPAREN javaParamsOpt RPAREN SEMI
 		/.$BeginJava
-			setResult(xtendFactory.createJavaExtension(getRhsIToken(4), getRightIToken(), (Identifier) getRhsSym(3), (List) getRhsSym(6), (Identifier) getRhsSym(10), (List) getRhsSym(12), (IToken) getRhsSym(2), (IToken) getRhsSym(1)));
+			setResult(xtendFactory.createJavaExtension(getRhsIToken(4), getRightIToken(), (Identifier) getRhsSym(3), (List) getRhsSym(6), (Identifier) getRhsSym(11), (List) getRhsSym(13), (IToken) getRhsSym(2), (IToken) getRhsSym(1), (Identifier) getRhsSym(10)));
 		$EndJava./
 	regularExtension ::= visibilityOpt cachedOpt typeOpt IDENT LPAREN declaredParameterListOpt RPAREN COLON 'GLOBALVAR' slot SEMI
 		/.$BeginJava
@@ -156,6 +157,15 @@ $Rules
 	identOpt ::= IDENT
 		/.$BeginJava
 			setResult(getLeftIToken());
+		$EndJava./
+
+	instanceSlotOpt ::= $empty
+		/.$BeginJava
+			setResult(null);
+		$EndJava./
+	instanceSlotOpt ::= '[' slot ']'
+		/.$BeginJava
+			setResult(getRhsSym(2));
 		$EndJava./
 
 	javaType ::= IDENT javaTypeSuffix

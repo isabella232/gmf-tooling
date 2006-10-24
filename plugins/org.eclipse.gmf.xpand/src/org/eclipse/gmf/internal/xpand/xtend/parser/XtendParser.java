@@ -1,19 +1,19 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+* Copyright (c) 2006 Eclipse.org
+* 
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*******************************************************************************/
 package org.eclipse.gmf.internal.xpand.xtend.parser;
 
 import lpg.lpgjavaruntime.*;
 
-import org.eclipse.gmf.internal.xpand.expression.ast.*;
 import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionFactory;
 import org.eclipse.gmf.internal.xpand.xtend.ast.*;
 
+import org.eclipse.gmf.internal.xpand.expression.ast.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -59,6 +59,8 @@ public class XtendParser extends PrsStream implements RuleAction
     public XtendParser(LexStream lexStream)
     {
         super(lexStream);
+        xtendFactory = new ExtensionFactory(lexStream.getFileName());
+        factory = new ExpressionFactory(lexStream.getFileName());
 
         try
         {
@@ -139,9 +141,9 @@ public class XtendParser extends PrsStream implements RuleAction
     }
 
 
-	private final ExtensionFactory xtendFactory = new ExtensionFactory();
+	private final ExtensionFactory xtendFactory;
 
-	private final ExpressionFactory factory = new ExpressionFactory();
+	private final ExpressionFactory factory;
 
     public void ruleAction(int ruleNumber)
     {
@@ -643,11 +645,11 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 81: {
                 
-    			Identifier id = (Identifier) getRhsSym(1);
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			id = id.append(factory.createIdentifier(getRhsIToken(4)));
-    			setResult(id);
+		Identifier id = (Identifier) getRhsSym(1);
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		id = id.append(factory.createIdentifier(getRhsIToken(4)));
+		setResult(id);
 	          break;
             } 
             //
@@ -679,10 +681,10 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 85: {
                 
-    			Identifier id = factory.createIdentifier(getLeftIToken());
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			setResult(id);
+		Identifier id = factory.createIdentifier(getLeftIToken());
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		setResult(id);
 	          break;
             } 
             //
@@ -698,10 +700,10 @@ public class XtendParser extends PrsStream implements RuleAction
             //
             case 88: {
                 
-    			Identifier id = factory.createIdentifier(getLeftIToken());
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			setResult(id);
+		Identifier id = factory.createIdentifier(getLeftIToken());
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		setResult(id);
 	          break;
             } 
             //
@@ -795,11 +797,11 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 101:  regularExtension ::= visibilityOpt cachedOpt typeOpt IDENT LPAREN declaredParameterListOpt RPAREN COLON JAVA javaType LPAREN javaParamsOpt RPAREN SEMI
+            // Rule 101:  regularExtension ::= visibilityOpt cachedOpt typeOpt IDENT LPAREN declaredParameterListOpt RPAREN COLON JAVA instanceSlotOpt javaType LPAREN javaParamsOpt RPAREN SEMI
             //
             case 101: {
                 
-		setResult(xtendFactory.createJavaExtension(getRhsIToken(4), getRightIToken(), (Identifier) getRhsSym(3), (List) getRhsSym(6), (Identifier) getRhsSym(10), (List) getRhsSym(12), (IToken) getRhsSym(2), (IToken) getRhsSym(1)));
+		setResult(xtendFactory.createJavaExtension(getRhsIToken(4), getRightIToken(), (Identifier) getRhsSym(3), (List) getRhsSym(6), (Identifier) getRhsSym(11), (List) getRhsSym(13), (IToken) getRhsSym(2), (IToken) getRhsSym(1), (Identifier) getRhsSym(10)));
 	          break;
             } 
             //
@@ -883,9 +885,25 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 113:  javaType ::= IDENT javaTypeSuffix
+            // Rule 113:  instanceSlotOpt ::= $Empty
             //
             case 113: {
+                
+		setResult(null);
+	          break;
+            } 
+            //
+            // Rule 114:  instanceSlotOpt ::= [ slot ]
+            //
+            case 114: {
+                
+		setResult(getRhsSym(2));
+	          break;
+            } 
+            //
+            // Rule 115:  javaType ::= IDENT javaTypeSuffix
+            //
+            case 115: {
                 
 		Identifier res = xtendFactory.createIdentifier(getRhsIToken(1));
 		for (Object o : (List) getRhsSym(2)) {
@@ -895,39 +913,15 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 114:  javaTypeSuffix ::= $Empty
+            // Rule 116:  javaTypeSuffix ::= $Empty
             //
-            case 114: {
+            case 116: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 115:  javaTypeSuffix ::= DOT IDENT javaTypeSuffix
-            //
-            case 115: {
-                
-		List res = new LinkedList();
-		res.add(getRhsIToken(1));
-		res.add(getRhsIToken(2));
-		res.addAll((List) getRhsSym(3));
-		setResult(res);
-	          break;
-            } 
-            //
-            // Rule 116:  javaTypeSuffix ::= DOT Collection javaTypeSuffix
-            //
-            case 116: {
-                
-		List res = new LinkedList();
-		res.add(getRhsIToken(1));
-		res.add(getRhsIToken(2));
-		res.addAll((List) getRhsSym(3));
-		setResult(res);
-	          break;
-            } 
-            //
-            // Rule 117:  javaTypeSuffix ::= DOT List javaTypeSuffix
+            // Rule 117:  javaTypeSuffix ::= DOT IDENT javaTypeSuffix
             //
             case 117: {
                 
@@ -939,7 +933,7 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 118:  javaTypeSuffix ::= DOT Set javaTypeSuffix
+            // Rule 118:  javaTypeSuffix ::= DOT Collection javaTypeSuffix
             //
             case 118: {
                 
@@ -951,25 +945,49 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 119:  javaParamsOpt ::= $Empty
+            // Rule 119:  javaTypeSuffix ::= DOT List javaTypeSuffix
             //
             case 119: {
+                
+		List res = new LinkedList();
+		res.add(getRhsIToken(1));
+		res.add(getRhsIToken(2));
+		res.addAll((List) getRhsSym(3));
+		setResult(res);
+	          break;
+            } 
+            //
+            // Rule 120:  javaTypeSuffix ::= DOT Set javaTypeSuffix
+            //
+            case 120: {
+                
+		List res = new LinkedList();
+		res.add(getRhsIToken(1));
+		res.add(getRhsIToken(2));
+		res.addAll((List) getRhsSym(3));
+		setResult(res);
+	          break;
+            } 
+            //
+            // Rule 121:  javaParamsOpt ::= $Empty
+            //
+            case 121: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 121:  javaParams ::= javaType
+            // Rule 123:  javaParams ::= javaType
             //
-            case 121: {
+            case 123: {
                 
 		setResult(Collections.singletonList(getRhsSym(1)));
 	          break;
             } 
             //
-            // Rule 122:  javaParams ::= javaType COMMA javaParams
+            // Rule 124:  javaParams ::= javaType COMMA javaParams
             //
-            case 122: {
+            case 124: {
                 
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -978,9 +996,9 @@ public class XtendParser extends PrsStream implements RuleAction
 	          break;
             } 
             //
-            // Rule 123:  slot ::= IDENT
+            // Rule 125:  slot ::= IDENT
             //
-            case 123: {
+            case 125: {
                 
 		setResult(xtendFactory.createIdentifier(getLeftIToken()));
 	          break;

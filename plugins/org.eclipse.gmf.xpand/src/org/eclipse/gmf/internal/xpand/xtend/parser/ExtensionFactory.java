@@ -34,11 +34,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 
 public class ExtensionFactory extends ExpressionFactory {
 
-	public ExtensionFactory() {
-		super();
-	}
-
-	public ExtensionFactory(final String string) {
+	public ExtensionFactory(String string) {
 		super(string);
 	}
 
@@ -54,7 +50,7 @@ public class ExtensionFactory extends ExpressionFactory {
 		return handle(new ImportStatement(start(s), end(e), line(s), t, exported != null));
 	}
 
-	public JavaExtensionStatement createJavaExtension(final IToken name, final IToken e, final Identifier type, final List<DeclaredParameter> params, final Identifier fqn, final List<Identifier> javaParamTypes, final IToken cached, final IToken priv) {
+	public JavaExtensionStatement createJavaExtension(final IToken name, final IToken endSemi, final Identifier type, final List<DeclaredParameter> params, final Identifier fqn, final List<Identifier> javaParamTypes, final IToken cached, final IToken isPrivate, final Identifier instanceSlot) {
 		final String txt = fqn.getValue();
 		final int index = txt.lastIndexOf('.');
 		final String typeName = txt.substring(0, index);
@@ -63,7 +59,7 @@ public class ExtensionFactory extends ExpressionFactory {
 		final int line = getExtensionLine(cached, type, name);
 		final Identifier javaMethod = new Identifier(fqn.getStart() + index + 1, fqn.getEnd(), fqn.getLine(), methodName);
 		final Identifier javaType = new Identifier(fqn.getStart(), fqn.getStart() + index, fqn.getLine(), typeName);
-		return handle(new JavaExtensionStatement(start, end(e), line, createIdentifier(name), params, type, javaType, javaMethod, javaParamTypes, cached != null, priv != null));
+		return handle(new JavaExtensionStatement(start, end(endSemi), line, createIdentifier(name), params, type, javaType, javaMethod, javaParamTypes, cached != null, isPrivate != null, instanceSlot));
 	}
 
 	public WorkflowSlotExtensionStatement createWorkflowSlotExtension(final IToken name, final IToken e, final Identifier type, final List<DeclaredParameter> params, final Identifier slotName, final IToken cached, final IToken priv) {
@@ -72,7 +68,8 @@ public class ExtensionFactory extends ExpressionFactory {
 		return handle(new WorkflowSlotExtensionStatement(start, end(e), line, createIdentifier(name), params, type, slotName, cached != null, priv != null));
 	}
 
-	protected int getExtensionStart(final IToken resentful, final Identifier type, final IToken name) {
+	protected static int getExtensionStart(final IToken resentful, final Identifier type, final IToken name) {
+		// XXX syntax ordering is smth like "resentful type name", and it's odd why start(type) gets higher precedence
 		int start = start(name);
 		if (resentful != null) {
 			start = start(resentful);
@@ -82,7 +79,7 @@ public class ExtensionFactory extends ExpressionFactory {
 		return start;
 	}
 
-	protected int getExtensionLine(final IToken resentful, final Identifier type, final IToken name) {
+	protected static int getExtensionLine(final IToken resentful, final Identifier type, final IToken name) {
 		int line = line(name);
 		if (resentful != null) {
 			line = line(resentful);
