@@ -238,8 +238,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void handleNotificationEvent(Notification event) {
-		Object feature = event.getFeature();
-		if (EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {
+		if (event.getNotifier() == getModel() && EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);

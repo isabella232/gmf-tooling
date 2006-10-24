@@ -754,8 +754,7 @@ if (genNode instanceof GenTopLevelNode && genDiagram.generateShortcutIcon()) {%>
 	 * @generated
 	 */
 	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> event) {
-		Object feature = event.getFeature();
-		if (<%=importManager.getImportedName("org.eclipse.emf.ecore.EcorePackage")%>.eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {
+		if (event.getNotifier() == getModel() && <%=importManager.getImportedName("org.eclipse.emf.ecore.EcorePackage")%>.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);

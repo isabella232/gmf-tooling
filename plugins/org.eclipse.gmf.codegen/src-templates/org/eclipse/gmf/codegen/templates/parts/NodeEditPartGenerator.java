@@ -238,8 +238,8 @@ public class NodeEditPartGenerator {
   protected final String TEXT_219 = ") it.next();" + NL + "\t\t\tif (isExternalLabel(childEditPart)) {" + NL + "\t\t\t\tIFigure labelFigure = ((";
   protected final String TEXT_220 = ") childEditPart).getFigure();" + NL + "\t\t\t\tgetExternalLabelsContainer().remove(labelFigure);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tsuper.removeNotify();" + NL + "\t}";
   protected final String TEXT_221 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
-  protected final String TEXT_222 = " event) {" + NL + "\t\tObject feature = event.getFeature();" + NL + "\t\tif (";
-  protected final String TEXT_223 = ".eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {" + NL + "\t\t\thandleMajorSemanticChange();" + NL + "\t\t} else {" + NL + "\t\t\tsuper.handleNotificationEvent(event);" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_222 = " event) {" + NL + "\t\tif (event.getNotifier() == getModel() && ";
+  protected final String TEXT_223 = ".eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {" + NL + "\t\t\thandleMajorSemanticChange();" + NL + "\t\t} else {" + NL + "\t\t\tsuper.handleNotificationEvent(event);" + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_224 = NL;
   protected final String TEXT_225 = NL;
   protected final String TEXT_226 = NL + "}";
