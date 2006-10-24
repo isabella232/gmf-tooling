@@ -13,6 +13,7 @@ package org.eclipse.gmf.internal.runtime.lite;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -97,5 +98,9 @@ public class Activator extends AbstractUIPlugin {
 		}
 		getLog().log(new Status(severity, getBundle().getSymbolicName(), IStatus.OK, error, throwable));
 		debug(error, throwable);
+	}
+
+	public static ImageDescriptor getImageDescriptor(String imageFilePath) {
+		return imageDescriptorFromPlugin(getDefault().getBundle().getSymbolicName(), imageFilePath);
 	}
 }
