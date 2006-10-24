@@ -344,6 +344,10 @@ public class BuiltinMetaModel {
 		if (type instanceof EClass) {
 			return ((EClass) type).getEStructuralFeature(name);
 		}
+		if (type instanceof EDataType && type == EcorePackage.eINSTANCE.getEEnumerator()) {
+			// I do not know where EMF uses EEnumLiteralImpl and where Enumerator for EEnum value. 
+			return EcorePackage.eINSTANCE.getEEnumLiteral().getEStructuralFeature(name);
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
