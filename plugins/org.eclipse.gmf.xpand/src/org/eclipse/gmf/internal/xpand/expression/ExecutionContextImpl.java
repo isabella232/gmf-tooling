@@ -46,8 +46,9 @@ public class ExecutionContextImpl implements ExecutionContext {
     private final Map<String, Variable> variables = new HashMap<String, Variable> ();
 
     private final Map<String, Variable> globalVars = new HashMap<String, Variable> ();
-    
-    
+
+    private ClassLoader contextClassLoader;
+
     /**
      * this field is conceptually final, i.e. it is set only at object construction time. To simplify implementation, it is however technically not
      *  final. This is done so that the cloneWith/WithoutResource methods can delegate to cloneContext and afterwards modify the instance. That 
@@ -86,6 +87,7 @@ public class ExecutionContextImpl implements ExecutionContext {
     	this.currentResource = original.currentResource;
     	this.variables.putAll(original.variables);
     	this.globalVars.putAll(original.globalVars);
+    	this.contextClassLoader = original.contextClassLoader;
     }
 
     /*
@@ -168,10 +170,23 @@ public class ExecutionContextImpl implements ExecutionContext {
         return result;
     }
 
+    /**
+     * {@link ClassLoader} to use in {@link #loadClass(String)}.
+     * @param classLoader loader to use or null to use default system-wide
+     */
+    public void setContextClassLoader(ClassLoader classLoader) {
+    	contextClassLoader = classLoader;
+    }
+
     public Class loadClass(String value) {
-    	// TODO Auto-generated method stub
-    	// XXX delegate to resourcemanager?
+    	// FIXME delegate to resourcemanager or Environment
     	try {
+    		if (contextClassLoader != null) {
+    			Class c = contextClassLoader.loadClass(value);
+    			if (c != null) {
+    				return c;
+    			}
+    		}
     		return Class.forName(value);
     	} catch (ClassNotFoundException ex) {
     		// IGNORE?
