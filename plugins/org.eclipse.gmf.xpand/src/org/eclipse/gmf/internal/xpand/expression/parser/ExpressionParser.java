@@ -1,11 +1,11 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+* Copyright (c) 2006 Eclipse.org
+* 
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*******************************************************************************/
 package org.eclipse.gmf.internal.xpand.expression.parser;
 
 import lpg.lpgjavaruntime.*;
@@ -56,6 +56,7 @@ public class ExpressionParser extends PrsStream implements RuleAction
     public ExpressionParser(LexStream lexStream)
     {
         super(lexStream);
+        factory = new ExpressionFactory(lexStream.getFileName());
 
         try
         {
@@ -136,7 +137,7 @@ public class ExpressionParser extends PrsStream implements RuleAction
     }
 
 
-	private final ExpressionFactory factory = new ExpressionFactory();
+	private final ExpressionFactory factory;
 
     public void ruleAction(int ruleNumber)
     {
@@ -638,11 +639,11 @@ public class ExpressionParser extends PrsStream implements RuleAction
             //
             case 81: {
                 
-    			Identifier id = (Identifier) getRhsSym(1);
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			id = id.append(factory.createIdentifier(getRhsIToken(4)));
-    			setResult(id);
+		Identifier id = (Identifier) getRhsSym(1);
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		id = id.append(factory.createIdentifier(getRhsIToken(4)));
+		setResult(id);
 	          break;
             } 
             //
@@ -674,10 +675,10 @@ public class ExpressionParser extends PrsStream implements RuleAction
             //
             case 85: {
                 
-    			Identifier id = factory.createIdentifier(getLeftIToken());
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			setResult(id);
+		Identifier id = factory.createIdentifier(getLeftIToken());
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		setResult(id);
 	          break;
             } 
             //
@@ -693,10 +694,10 @@ public class ExpressionParser extends PrsStream implements RuleAction
             //
             case 88: {
                 
-    			Identifier id = factory.createIdentifier(getLeftIToken());
-    			id = id.append(factory.createIdentifier(getRhsIToken(2)));
-    			id = id.append((Identifier) getRhsSym(3));
-    			setResult(id);
+		Identifier id = factory.createIdentifier(getLeftIToken());
+		id = id.append(factory.createIdentifier(getRhsIToken(2)));
+		id = id.append((Identifier) getRhsSym(3));
+		setResult(id);
 	          break;
             }
     
