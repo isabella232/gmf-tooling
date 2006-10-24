@@ -229,11 +229,11 @@ public class EClass2EditPart extends CompartmentEditPart implements ITextAwareEd
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		ImageDescriptor descriptor = EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(getParserElement());
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		EObject parserElement = getParserElement();
+		if (parserElement == null) {
+			return null;
 		}
-		return descriptor.createImage();
+		return EcoreElementTypes.getImage(parserElement.eClass());
 	}
 
 	/**
