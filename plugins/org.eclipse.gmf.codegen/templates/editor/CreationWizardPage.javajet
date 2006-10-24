@@ -5,6 +5,7 @@ final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenApplication application = editorGen.getApplication();
+final boolean hasDomainFile = !editorGen.isSameFileForDiagramAndModel() && editorGen.getDomainGenModel() != null;
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -20,7 +21,7 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
  * @generated
  */
 public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCreationPage {
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%if (hasDomainFile) {%>
 
 	/**
 	 * @generated
@@ -64,19 +65,19 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 	private String getUniqueFileName(IPath containerPath, String fileName) {
 		String newFileName = fileName;
 		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%if (hasDomainFile) {%>
 		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
 <%}%>
 		int i = 1;
 		while (exists(diagramFilePath)
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%if (hasDomainFile) {%>
 				|| exists(modelFilePath)
 <%}%>
 				) {
 			i++;
 			newFileName = fileName + i;
 			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%if (hasDomainFile) {%>
 			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
 <%}%>
 		}
@@ -97,7 +98,7 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 		}
 		setPageComplete(validatePage());
 	}
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%if (hasDomainFile) {%>
 
 	/**
 	 * @generated

@@ -48,6 +48,7 @@ final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenApplication application = editorGen.getApplication();
+final boolean hasDomainFile = !editorGen.isSameFileForDiagramAndModel() && editorGen.getDomainGenModel() != null;
 
     stringBuffer.append(TEXT_1);
     
@@ -64,7 +65,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_6);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (hasDomainFile) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_8);
@@ -74,19 +75,19 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_11);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (hasDomainFile) {
     stringBuffer.append(TEXT_12);
     }
     stringBuffer.append(TEXT_13);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (hasDomainFile) {
     stringBuffer.append(TEXT_14);
     }
     stringBuffer.append(TEXT_15);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (hasDomainFile) {
     stringBuffer.append(TEXT_16);
     }
     stringBuffer.append(TEXT_17);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (hasDomainFile) {
     stringBuffer.append(TEXT_18);
     }
     stringBuffer.append(TEXT_19);
