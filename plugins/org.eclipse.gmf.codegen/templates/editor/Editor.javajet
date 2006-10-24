@@ -257,11 +257,8 @@ if (!ifaces.isEmpty()) {
 		return super.getDocumentProvider(input);
 	}
 <%}
-/*
- * TODO: movel NavigatorItem to some public place and remove 
- * "genEditor.getEditorGen().getNavigator() != null" test
- */
-if (genEditor.getEditorGen().getNavigator() != null && genDiagram.generateCreateShortcutAction()) {%>
+
+if (genDiagram.generateCreateShortcutAction()) {%>
 
 	/**
 	 * @generated
@@ -280,13 +277,21 @@ if (genEditor.getEditorGen().getNavigator() != null && genDiagram.generateCreate
 							<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
 							for (<%=importManager.getImportedName("java.util.Iterator")%> it = selection.iterator(); it.hasNext();) {
 								Object nextSelectedObject = it.next();
+<%
+/*
+ * TODO: movel NavigatorItem to some public place and remove 
+ * "genEditor.getEditorGen().getNavigator() != null" test
+ */
+	if (genEditor.getEditorGen().getNavigator() != null) {%>
 								if (nextSelectedObject instanceof <%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) {
 									<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = ((<%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) nextSelectedObject).getView();
-									if (view.getElement() != null) {
-										<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = view.getElement();
-										<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelElementResource = modelElement.eResource();
-										uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));	
-									}
+									nextSelectedObject = view.getElement();
+								}
+<%	}%>								
+								if (nextSelectedObject instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
+									<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) nextSelectedObject;
+									<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelElementResource = modelElement.eResource();
+									uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));	
 								}
 							}
 						}

@@ -58,7 +58,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentPro
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -273,6 +272,9 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 		}
 	}
 
+	/**
+	 * @generated
+	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getDiagramGraphicalViewer().addDropTargetListener(new DiagramDropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
@@ -289,11 +291,12 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 								Object nextSelectedObject = it.next();
 								if (nextSelectedObject instanceof EcoreNavigatorItem) {
 									View view = ((EcoreNavigatorItem) nextSelectedObject).getView();
-									if (view.getElement() != null) {
-										EObject modelElement = view.getElement();
-										Resource modelElementResource = modelElement.eResource();
-										uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
-									}
+									nextSelectedObject = view.getElement();
+								}
+								if (nextSelectedObject instanceof EObject) {
+									EObject modelElement = (EObject) nextSelectedObject;
+									Resource modelElementResource = modelElement.eResource();
+									uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
 								}
 							}
 						}
