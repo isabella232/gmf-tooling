@@ -8,9 +8,6 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -46,13 +43,6 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
 		}
 		return fileName;
-	}
-
-	/**
-	 * @generated
-	 */
-	public InputStream getInitialContents() {
-		return new ByteArrayInputStream(new byte[0]);
 	}
 
 	/**
