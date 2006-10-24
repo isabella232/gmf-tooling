@@ -12,13 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import java.util.Map;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanPaletteFactory;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.palette.IPaletteProvider;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanPaletteFactory;
 
 /**
  * @generated

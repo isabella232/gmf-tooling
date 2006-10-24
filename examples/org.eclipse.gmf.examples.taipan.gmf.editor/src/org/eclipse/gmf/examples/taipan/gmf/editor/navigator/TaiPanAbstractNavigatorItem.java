@@ -12,9 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor;
-
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 
 /**

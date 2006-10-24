@@ -12,28 +12,20 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
-import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
 /**

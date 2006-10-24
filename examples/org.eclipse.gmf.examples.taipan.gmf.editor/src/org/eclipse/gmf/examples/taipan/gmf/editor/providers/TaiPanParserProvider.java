@@ -11,18 +11,11 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
-import org.eclipse.gmf.runtime.common.core.service.IOperation;
-import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
@@ -32,8 +25,13 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2Ed
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
+import org.eclipse.gmf.runtime.common.core.service.IOperation;
+import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

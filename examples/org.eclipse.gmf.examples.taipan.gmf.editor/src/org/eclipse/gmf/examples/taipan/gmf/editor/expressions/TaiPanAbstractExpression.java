@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.expressions;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -22,14 +21,11 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**

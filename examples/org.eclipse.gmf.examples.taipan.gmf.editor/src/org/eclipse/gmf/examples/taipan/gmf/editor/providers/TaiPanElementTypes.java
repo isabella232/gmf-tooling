@@ -11,31 +11,28 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
-import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
  * @generated
