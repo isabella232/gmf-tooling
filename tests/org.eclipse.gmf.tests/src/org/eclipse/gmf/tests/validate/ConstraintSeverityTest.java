@@ -54,17 +54,17 @@ public class ConstraintSeverityTest extends TestCase {
 		
 	public void testDefaultSeverity() throws Exception {
 		attachOCLConstraint(targetMetaElement, "false", null); //$NON-NLS-1$ 
-		assertEquals("error severity expected as default", Diagnostic.ERROR, getValidationStatus(targetInstance).getSeverity());	
+		assertEquals("error severity expected as default", Diagnostic.ERROR, getValidationStatus(targetInstance).getSeverity()); //$NON-NLS-1$	
 	}
 	
 	public void testInfoExplicitSeverity() throws Exception {
 		attachOCLConstraint(targetMetaElement, "false", Annotations.SEVERITY_INFO); //$NON-NLS-1$
-		assertEquals("info severity expected",Diagnostic.INFO, getValidationStatus(targetInstance).getSeverity());
+		assertEquals("info severity expected", Diagnostic.INFO, getValidationStatus(targetInstance).getSeverity()); //$NON-NLS-1$
 	}	
 	
 	public void testWarnExplicitSeverity() throws Exception {
 		attachOCLConstraint(targetMetaElement, "false", Annotations.SEVERITY_WARN); //$NON-NLS-1$		
-		assertEquals("warn severity expected",Diagnostic.WARNING, getValidationStatus(targetInstance).getSeverity());
+		assertEquals("warn severity expected",Diagnostic.WARNING, getValidationStatus(targetInstance).getSeverity()); //$NON-NLS-1$
 	}
 	
 	public void testErrorExplicitSeverity() throws Exception {
@@ -109,7 +109,7 @@ public class ConstraintSeverityTest extends TestCase {
 		List data = diagnostic.getData();
 		if(data != null) {
 			for (Iterator it = data.iterator(); it.hasNext();) {
-				Object element = (Object) it.next();
+				Object element = it.next();
 				if(element == validatedObject) {
 					return diagnostic;
 				}

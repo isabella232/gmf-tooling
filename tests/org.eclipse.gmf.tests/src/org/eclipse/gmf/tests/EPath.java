@@ -15,12 +15,16 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 
 /**
  * Utility class providing easy access and navigation to 
@@ -61,6 +65,23 @@ public class EPath {
 		};
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static final EPath createEcorePathFromModel(URI uri) {
+		ModelLoadHelper helper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		Assert.assertTrue(helper.getStatus().getMessage(), helper.getStatus().isOK());
+		EPackage.Registry reg = new EPackageRegistryImpl();
+		reg.putAll(EPackage.Registry.INSTANCE);
+		
+		for (Iterator it = helper.getLoadedResource().getContents().iterator(); it.hasNext();) {
+			Object element = it.next();
+			if(element instanceof EPackage) {
+				EPackage ePackage = (EPackage)element;
+				reg.put(ePackage.getNsURI(), ePackage);				
+			}
+		}
+		return EPath.createEcorePath(reg);
+	}
+	
 	public static final EPath GMFGRAPH = new EPath(new NamedElementAdapter() {
 		public String getName(EObject adaptee) {
 			if(adaptee instanceof Identity) {
@@ -83,17 +104,20 @@ public class EPath {
 	protected EObject resolveRootInitCtx(@SuppressWarnings("unused")String elementName) {
 		throw new UnsupportedOperationException("Don't know how to resolve init context"); //$NON-NLS-1$
 	}
-	
-	public EObject lookup(String elementPath) {
+		
+	public <T> T lookup(String elementPath, Class<T> type) {
 		String[] segments = elementPath.split(SEGMENT_DELIMITER);
 		if(segments.length > 0) {
 			EObject eRoot = resolveRootInitCtx(segments[0]);
 			if(segments.length == 1) {
-				return eRoot;
+				Assert.assertTrue(type.isInstance(eRoot));
+				return type.cast(eRoot);
 			}
 			String[] remainingPath = new String[segments.length - 1];
-			System.arraycopy(segments, 1, remainingPath, 0, segments.length - 1);			
-			return ECORE.lookup(eRoot, remainingPath);
+			System.arraycopy(segments, 1, remainingPath, 0, segments.length - 1);
+			Object target = ECORE.lookup(eRoot, remainingPath);
+			Assert.assertTrue(type.isInstance(target));			
+			return type.cast(target);
 		}
 		Assert.fail("Element " + elementPath + " not found"); //$NON-NLS-1$ //$NON-NLS-2$;		
 		return null;

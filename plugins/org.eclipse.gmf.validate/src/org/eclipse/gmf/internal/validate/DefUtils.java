@@ -598,7 +598,7 @@ public class DefUtils {
 		return EcorePackage.eINSTANCE.getEClassifier(classifier.getName());
 	}
 	
-	static EClassifier getCanonicalEClassifier(EClassifier classifier) {
+	public static EClassifier getCanonicalEClassifier(EClassifier classifier) {
 		EClassifier eCoreCanonical = getCanonicalEcorePackageClassifier(classifier);		
 		return (eCoreCanonical == null) ? classifier : eCoreCanonical;
 	}

@@ -18,8 +18,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.ETypedElement;
+import org.eclipse.emf.ocl.expressions.CollectionItem;
+import org.eclipse.emf.ocl.expressions.CollectionLiteralExp;
+import org.eclipse.emf.ocl.expressions.CollectionLiteralPart;
 import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.OCLExpression;
+import org.eclipse.emf.ocl.expressions.TypeExp;
 import org.eclipse.emf.ocl.expressions.Variable;
 import org.eclipse.emf.ocl.expressions.util.ExpressionsUtil;
 import org.eclipse.emf.ocl.parser.EcoreEnvironment;
@@ -27,8 +31,12 @@ import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
 import org.eclipse.emf.ocl.parser.Environment;
 import org.eclipse.emf.ocl.parser.EnvironmentFactory;
 import org.eclipse.emf.ocl.parser.ParserException;
+import org.eclipse.emf.ocl.parser.SemanticException;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
+import org.eclipse.emf.ocl.types.CollectionType;
+import org.eclipse.emf.ocl.types.TypeType;
+import org.eclipse.emf.ocl.types.impl.TypeUtil;
 import org.eclipse.emf.ocl.types.util.Types;
 import org.eclipse.gmf.internal.validate.DebugOptions;
 import org.eclipse.gmf.internal.validate.DefUtils;
@@ -47,7 +55,7 @@ class OCLExpressionAdapter extends AbstractExpression {
 	 */
 	public static final String OCL = "ocl"; //$NON-NLS-1$
 	
-	private Query query; 
+	private Query query;
 	
 	public OCLExpressionAdapter(String body, EClassifier context, IParseEnvironment extEnv) {
 		super(body, context, extEnv);
@@ -126,22 +134,85 @@ class OCLExpressionAdapter extends AbstractExpression {
 		return object == Types.OCL_INVALID ? null : object;
 	}
 	
-	boolean isOclConformantTo(EClassifier oclType) {
+	boolean isOclConformantTo(EClassifier anotherOclType) {
 		EClassifier thisOclType = getResultType();
+		
+		boolean isTargetCollection = anotherOclType instanceof CollectionType; 
+		if(isTargetCollection) {
+			CollectionType oclCollectionType = (CollectionType)anotherOclType;
+			if(oclCollectionType.getElementType() != null) {
+				anotherOclType = oclCollectionType.getElementType();
+			}
+		}
+		
+		if(thisOclType instanceof CollectionType) {
+			if(!isTargetCollection) {
+				return false; // can't assign CollectionType to scalar
+			}
+			CollectionType thisOclCollectionType = (CollectionType)thisOclType;
+			if(thisOclCollectionType.getElementType() != null) {
+				thisOclType = thisOclCollectionType.getElementType();
+			}
+		}
+
+		// handle OCL TypeType meta-types
+		if(thisOclType instanceof TypeType) {
+			// There is no way of getting the reffered type directly from the TypeType
+			// Handle only, TypeExp here as there should be no other use-case producing TypeType 
+			// except for the type literal.			
+			EClassifier thisRefferedClassifier = getReferredType(query.getExpression());	
+			if(thisRefferedClassifier != null) {
+				return DefUtils.getCanonicalEClassifier(anotherOclType).isInstance(thisRefferedClassifier);
+			}
+		}
+		
 		// Note: in OCL, Double extends Integer
-		if ((oclType.getInstanceClass() == Integer.class ||
-			oclType.getInstanceClass() == int.class) && 
-			(thisOclType.getInstanceClass() == Double.class || 
-				thisOclType.getInstanceClass() == double.class)) {
+		if ((thisOclType.getInstanceClass() == Integer.class ||
+				thisOclType.getInstanceClass() == int.class) && 
+			(anotherOclType.getInstanceClass() == Double.class || 
+				anotherOclType.getInstanceClass() == double.class)) {
 			return true;
 		}
 		
-		if(thisOclType instanceof EDataType && oclType instanceof EDataType) {
-			if(EDataTypeConversion.isConvertable((EDataType)oclType, (EDataType)thisOclType)) {
+		if(thisOclType instanceof EDataType && anotherOclType instanceof EDataType) {
+			if(EDataTypeConversion.isConvertable((EDataType)anotherOclType, (EDataType)thisOclType)) {
 				return true;
 			}
-		}		
-		return DefUtils.checkTypeAssignmentCompatibility(oclType, thisOclType);			
+		}
+		
+		return DefUtils.checkTypeAssignmentCompatibility(anotherOclType, thisOclType);			
+	}
+	
+	static EClassifier getReferredType(OCLExpression oclExpression) {
+		EClassifier referredType = null;
+		if(oclExpression instanceof TypeExp) {
+			// There is no way of getting the reffered type directly from the TypeType
+			// Handle only, TypeExp here as there should be no other use-case producing TypeType 
+			// except for the type literal.
+			referredType = ((TypeExp)oclExpression).getReferredType();
+		} else if(oclExpression instanceof CollectionLiteralExp) {
+			for (Iterator it = ((CollectionLiteralExp)oclExpression).getPart().iterator(); it.hasNext();) {
+				CollectionLiteralPart nextPart = (CollectionLiteralPart) it.next();
+				
+				if(nextPart.getType() instanceof TypeType && nextPart instanceof CollectionItem) {
+					EClassifier nextType = getReferredType(((CollectionItem)nextPart).getItem());
+					if(referredType == null) {
+						referredType = nextType;
+					} else {
+						try {
+							if(nextType != null) {
+								referredType = TypeUtil.commonSuperType(referredType, nextType);
+							}
+						} catch (SemanticException e) {
+							// Should never happen as the OCL expression should have been successfully parsed
+							assert false;
+							return null;
+						}
+					}
+				}
+			}
+		}
+		return referredType;
 	}
 	
 	void setInvalidOclExprStatus(Exception exception) {

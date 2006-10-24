@@ -21,6 +21,7 @@ public class AllValidateTests {
 		TestSuite suite = new TestSuite("Test for org.eclipse.gmf.tests.validate"); //$NON-NLS-1$
 		//$JUnit-BEGIN$
 		suite.addTestSuite(ConstraintSeverityTest.class);
+		suite.addTestSuite(OCLExpressionAdapterTest.class);		
 		//$JUnit-END$
 		return suite;
 	}

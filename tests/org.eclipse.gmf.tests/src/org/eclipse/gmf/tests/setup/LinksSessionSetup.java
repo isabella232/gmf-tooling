@@ -52,7 +52,7 @@ import org.eclipse.gmf.tests.Plugin;
 @SuppressWarnings("unchecked")
 public class LinksSessionSetup extends SessionSetup {
 
-	private static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
+	public static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
 	
 	protected LinksSessionSetup() {
 	}
@@ -241,7 +241,7 @@ public class LinksSessionSetup extends SessionSetup {
 		FeatureSeqInitializer newElementFSeqInit(FeatureInitDataHelper[] featureInits, String instanceClassQName) {
 			FeatureSeqInitializer elementInitializer = createFSeqInit(featureInits);
 			if(instanceClassQName != null) {
-				EClass elementClass = (EClass)ECORE.lookup(instanceClassQName);
+				EClass elementClass = ECORE.lookup(instanceClassQName, EClass.class);
 				elementInitializer.setElementClass(elementClass);
 			}
 			return elementInitializer;
@@ -251,7 +251,7 @@ public class LinksSessionSetup extends SessionSetup {
 			final EStructuralFeature feature;
 			
 			protected FeatureInitDataHelper(String featureQName) {
-				this.feature = (EStructuralFeature)ECORE.lookup(featureQName);
+				this.feature = ECORE.lookup(featureQName, EStructuralFeature.class);
 			}
 			
 			abstract FeatureInitializer createInitializer();
