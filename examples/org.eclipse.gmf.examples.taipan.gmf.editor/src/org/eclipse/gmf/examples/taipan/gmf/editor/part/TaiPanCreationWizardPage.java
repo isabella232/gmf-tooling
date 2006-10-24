@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -47,13 +44,6 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
 		}
 		return fileName;
-	}
-
-	/**
-	 * @generated
-	 */
-	public InputStream getInitialContents() {
-		return new ByteArrayInputStream(new byte[0]);
 	}
 
 	/**

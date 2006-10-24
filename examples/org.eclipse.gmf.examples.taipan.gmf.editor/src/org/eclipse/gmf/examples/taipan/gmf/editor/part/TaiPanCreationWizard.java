@@ -16,7 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -118,8 +117,8 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramURI = TaiPanDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
-						AquatoryEditPart.MODEL_ID, getWorkbench().getActiveWorkbenchWindow(), monitor, isOpenNewlyCreatedDiagramEditor(), true);
+				diagramURI = TaiPanDiagramEditorUtil.createAndOpenDiagram(page.getContainerFullPath(), page.getFileName(), getWorkbench().getActiveWorkbenchWindow(), monitor,
+						isOpenNewlyCreatedDiagramEditor(), true);
 			}
 		};
 		try {

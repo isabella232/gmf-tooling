@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -96,11 +95,11 @@ public class TaiPanDiagramFileCreator {
 	/**
 	 * @generated
 	 */
-	public IFile createNewFile(IPath containerPath, String fileName, InputStream initialContents, Shell shell) {
+	public IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
 		IPath newFilePath = containerPath.append(appendExtensionToFileName(fileName));
 		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
 		try {
-			createFile(newFileHandle, initialContents);
+			createFile(newFileHandle);
 		} catch (CoreException e) {
 			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
 			return null;
@@ -111,12 +110,9 @@ public class TaiPanDiagramFileCreator {
 	/**
 	 * @generated
 	 */
-	protected void createFile(IFile fileHandle, InputStream contents) throws CoreException {
+	protected void createFile(IFile fileHandle) throws CoreException {
 		try {
-			if (contents == null) {
-				contents = new ByteArrayInputStream(new byte[0]);
-			}
-			fileHandle.create(contents, false, new NullProgressMonitor());
+			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
 		} catch (CoreException e) {
 			// If the file already existed locally, just refresh to get contents
 			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {

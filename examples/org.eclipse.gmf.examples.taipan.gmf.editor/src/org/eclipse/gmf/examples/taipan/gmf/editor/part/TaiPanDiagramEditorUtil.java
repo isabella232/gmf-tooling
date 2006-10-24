@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +36,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
@@ -57,9 +57,8 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final URI createAndOpenDiagram(TaiPanDiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
-			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
+	public static final URI createAndOpenDiagram(IPath containerPath, String fileName, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
+		IFile diagramFile = createNewDiagramFile(containerPath, fileName, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
 			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
@@ -101,12 +100,11 @@ public class TaiPanDiagramEditorUtil {
 	 * @generated
 	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
-	public static final IFile createNewDiagramFile(TaiPanDiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
-			IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(IPath containerFullPath, String fileName, Shell shell, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell);
+		final IFile diagramFile = TaiPanDiagramFileCreator.getInstance().createNewFile(containerFullPath, fileName, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
@@ -114,13 +112,12 @@ public class TaiPanDiagramEditorUtil {
 		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
 		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
-		final String kindParam = kind;
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Aquatory model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
-				Diagram diagram = ViewService.createDiagram(model, kindParam, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(model, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());
