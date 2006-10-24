@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -20,6 +21,16 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
  * @generated
  */
 public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
+
+	/**
+	 * @generated
+	 */
+	private static final String DOMAIN_EXT = ".taipan"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static final String DIAGRAM_EXT = ".taipan_diagram"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -40,8 +51,8 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public String getFileName() {
 		String fileName = super.getFileName();
-		if (fileName != null) {
-			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
+		if (fileName != null && !fileName.endsWith(DIAGRAM_EXT)) {
+			fileName += DIAGRAM_EXT;
 		}
 		return fileName;
 	}
@@ -49,8 +60,18 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public TaiPanDiagramFileCreator getDiagramFileCreator() {
-		return TaiPanDiagramFileCreator.getInstance();
+	private String getUniqueFileName(IPath containerPath, String fileName) {
+		String newFileName = fileName;
+		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		int i = 1;
+		while (exists(diagramFilePath) || exists(modelFilePath)) {
+			i++;
+			newFileName = fileName + i;
+			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		}
+		return newFileName;
 	}
 
 	/**
@@ -60,8 +81,10 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 		super.createControl(parent);
 		IPath path = getContainerFullPath();
 		if (path != null) {
-			String fileName = getDiagramFileCreator().getUniqueFileName(path, getDefaultFileName());
+			String fileName = getUniqueFileName(path, getDefaultFileName());
 			setFileName(fileName);
+		} else {
+			setFileName(getDefaultFileName());
 		}
 		setPageComplete(validatePage());
 	}
@@ -75,15 +98,21 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 			if (fileName == null) {
 				return false;
 			}
-			// appending file extension to correctly process file names including "." symbol
-			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
-			path = path.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
-			if (TaiPanDiagramFileCreator.exists(path)) {
+			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
+			IPath path = getContainerFullPath().append(fileName);
+			if (exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
 	}
 }

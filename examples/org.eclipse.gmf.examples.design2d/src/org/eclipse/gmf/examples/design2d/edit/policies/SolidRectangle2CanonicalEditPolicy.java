@@ -30,6 +30,7 @@ public class SolidRectangle2CanonicalEditPolicy extends CanonicalEditPolicy {
 		List result = new LinkedList();
 		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
+
 		return result;
 	}
 

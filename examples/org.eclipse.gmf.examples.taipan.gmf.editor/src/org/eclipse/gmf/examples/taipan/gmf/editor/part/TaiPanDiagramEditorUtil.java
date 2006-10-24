@@ -104,7 +104,7 @@ public class TaiPanDiagramEditorUtil {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = TaiPanDiagramFileCreator.getInstance().createNewFile(containerFullPath, fileName, shell);
+		final IFile diagramFile = TaiPanDiagramFileCreator.createNewFile(containerFullPath, fileName, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);

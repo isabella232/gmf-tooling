@@ -11,73 +11,56 @@
  */
 package org.eclipse.gmf.examples.design2d.part;
 
+import java.io.ByteArrayInputStream;
+
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+
+import org.eclipse.core.runtime.NullProgressMonitor;
 
 /**
  * @generated
  */
-public class DesignDiagramFileCreator extends IDEEditorFileCreator {
+public class DesignDiagramFileCreator {
 
 	/**
 	 * @generated
 	 */
-	private static DesignDiagramFileCreator INSTANCE = new DesignDiagramFileCreator();
-
-	/**
-	 * @generated
-	 */
-	public static DiagramFileCreator getInstance() {
-		return INSTANCE;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getExtension() {
-		return ".design2d"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getUniqueFileName(IPath containerPath, String fileName) {
-		int nFileNumber = 1;
-		fileName = removeExtensionFromFileName(fileName);
-		String newFileName = fileName;
-
-		IPath diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-		IPath modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-
-		while (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {
-			nFileNumber++;
-			newFileName = fileName + nFileNumber;
-			diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-			modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
+		IPath newFilePath = containerPath.append(fileName);
+		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
+		try {
+			createFile(newFileHandle);
+		} catch (CoreException e) {
+			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
+			return null;
 		}
-		return newFileName;
+		return newFileHandle;
 	}
 
 	/**
 	 * @generated
 	 */
-	private String removeExtensionFromFileName(String fileName) {
-		if (fileName.endsWith(getExtension())) {
-			return fileName.substring(0, fileName.length() - getExtension().length());
+	protected static void createFile(IFile fileHandle) throws CoreException {
+		try {
+			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
+		} catch (CoreException e) {
+			// If the file already existed locally, just refresh to get contents
+			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
+				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
+			} else {
+				throw e;
+			}
 		}
-		return fileName;
 	}
-
-	/**
-	 * @generated
-	 */
-	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + "."; //$NON-NLS-1$
-	}
-
 }

@@ -21,12 +21,12 @@
       <initializer class="org.eclipse.gmf.examples.design2d.part.DesignDiagramPreferenceInitializer"/>
    </extension>
 
-  <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
          extension="design2d">
       </fileTypes>
-  </extension>
+   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
@@ -38,7 +38,7 @@
    <extension point="org.eclipse.ui.editors">
      <editor
         id="org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorID"
-        name="Design2D Diagram Editor"
+        name="%editorName"
         icon="icons/obj16/DiagramFile.gif"
         extensions="design2d"
         default="true"
@@ -50,14 +50,12 @@
 
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
-  	     name="Design2D Diagram"
+  	     name="%newWizardName"
   	     icon="icons/obj16/DiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.design2d.part.DesignCreationWizard"
   	     id="org.eclipse.gmf.examples.design2d.part.DesignCreationWizardID">
-  	  	 <description>
-  	  		Creates Design2D diagram.
-  	  	 </description>  
+  	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -70,7 +68,7 @@
                class="org.eclipse.gmf.examples.design2d.part.DesignLoadResourceAction"
                enablesFor="1"
                id="org.eclipse.gmf.examples.design2d.part.DesignLoadResourceActionID"
-               label="Load Resource..."
+               label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
@@ -155,14 +153,6 @@
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
-      <PropertiesProvider
-            verifyPluginLoaded="false"
-            class="org.eclipse.gmf.examples.design2d.providers.DesignPropertyProvider">
-         <Priority name="Lowest"/>
-      </PropertiesProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.examples.design2d.providers.DesignIconProvider">
          <Priority name="Low"/>
@@ -179,6 +169,7 @@
 
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Diagram_1000"
+               name="Design2D"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="1000"/>

@@ -202,7 +202,7 @@ public class DesignDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && message != null) {
+		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(new Status(IStatus.INFO, DesignDiagramEditorPlugin.ID, IStatus.OK, message, throwable));

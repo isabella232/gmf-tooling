@@ -26,7 +26,7 @@ public class Design2DEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "Design2D"; //$NON-NLS-1$
+	public static final String MODEL_ID = "Design2D"; //$NON-NLS-1$
 
 	/**
 	 * @generated

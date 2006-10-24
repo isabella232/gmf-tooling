@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -38,25 +39,59 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.core.runtime.CoreException;
+
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+
+import org.eclipse.ui.ide.IDE;
 
 /**
  * @generated
  */
-public class DesignDiagramEditorUtil extends IDEEditorUtil {
+public class DesignDiagramEditorUtil {
 
 	/**
 	 * @generated
 	 */
-	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
-			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = DesignDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
+	public static final URI createAndOpenDiagram(IPath containerPath, String fileName, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
+		IFile diagramFile = createNewDiagramFile(containerPath, fileName, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
-			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram, progressMonitor);
+			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
-		return diagramFile;
+		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString());
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {
+		IEditorPart editorPart = null;
+		try {
+			IWorkbenchPage page = window.getActivePage();
+			if (page != null) {
+				editorPart = openDiagramEditor(page, file);
+				if (saveDiagram) {
+					editorPart.doSave(progressMonitor);
+				}
+			}
+			file.refreshLocal(IResource.DEPTH_ZERO, null);
+			return editorPart;
+		} catch (Exception e) {
+			DesignDiagramEditorPlugin.getInstance().logError("Error opening diagram", e);
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {
+		return IDE.openEditor(page, file);
 	}
 
 	/**
@@ -66,27 +101,18 @@ public class DesignDiagramEditorUtil extends IDEEditorUtil {
 	 * @generated
 	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
-	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
-			IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(IPath containerFullPath, String fileName, Shell shell, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		progressMonitor.beginTask("Creating diagram and model files", 4); //$NON-NLS-1$
-		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
-		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
-
-			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-				runnable.run(subProgressMonitor);
-			}
-		});
+		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
+		final IFile diagramFile = DesignDiagramFileCreator.createNewFile(containerFullPath, fileName, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
-
-		final String kindParam = kind;
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				Diagram diagram = ViewService.createDiagram(kindParam, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(Design2DEditPart.MODEL_ID, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());

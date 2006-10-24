@@ -19,6 +19,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
+
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 
@@ -29,23 +32,23 @@ import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 /**
  * @generated
  */
-public class DesignCreationWizardPage extends EditorWizardPage {
+public class DesignCreationWizardPage extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
 	 */
-	public DesignCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
-		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create Design2D Diagram");
-		setDescription("Create a new Design2D diagram.");
-	}
+	private static final String DOMAIN_EXT = "."; //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return DesignDiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(),
-				saveDiagram);
+	private static final String DIAGRAM_EXT = ".design2d"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public DesignCreationWizardPage(String pageName, IStructuredSelection selection) {
+		super(pageName, selection);
 	}
 
 	/**
@@ -58,15 +61,44 @@ public class DesignCreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public DiagramFileCreator getDiagramFileCreator() {
-		return DesignDiagramFileCreator.getInstance();
+	public String getFileName() {
+		String fileName = super.getFileName();
+		if (fileName != null && !fileName.endsWith(DIAGRAM_EXT)) {
+			fileName += DIAGRAM_EXT;
+		}
+		return fileName;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected String getDiagramKind() {
-		return Design2DEditPart.MODEL_ID;
+	private String getUniqueFileName(IPath containerPath, String fileName) {
+		String newFileName = fileName;
+		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		int i = 1;
+		while (exists(diagramFilePath) || exists(modelFilePath)) {
+			i++;
+			newFileName = fileName + i;
+			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		}
+		return newFileName;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		IPath path = getContainerFullPath();
+		if (path != null) {
+			String fileName = getUniqueFileName(path, getDefaultFileName());
+			setFileName(fileName);
+		} else {
+			setFileName(getDefaultFileName());
+		}
+		setPageComplete(validatePage());
 	}
 
 	/**
@@ -78,11 +110,10 @@ public class DesignCreationWizardPage extends EditorWizardPage {
 			if (fileName == null) {
 				return false;
 			}
-			// appending file extension to correctly process file names including "." symbol
-			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
-			path = path.removeFileExtension().addFileExtension(""); //$NON-NLS-1$
-			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
-				setErrorMessage("Model File already exists: " + path.lastSegment());
+			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
+			IPath path = getContainerFullPath().append(fileName);
+			if (exists(path)) {
+				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
 			return true;
@@ -90,4 +121,10 @@ public class DesignCreationWizardPage extends EditorWizardPage {
 		return false;
 	}
 
+	/**
+	 * @generated
+	 */
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
+	}
 }

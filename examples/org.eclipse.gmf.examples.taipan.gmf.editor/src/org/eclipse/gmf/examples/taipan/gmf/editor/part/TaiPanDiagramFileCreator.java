@@ -31,72 +31,8 @@ public class TaiPanDiagramFileCreator {
 	/**
 	 * @generated
 	 */
-	private static TaiPanDiagramFileCreator INSTANCE = new TaiPanDiagramFileCreator();
-
-	/**
-	 * @generated
-	 */
-	public static TaiPanDiagramFileCreator getInstance() {
-		return INSTANCE;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean exists(IPath path) {
-		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getExtension() {
-		return ".taipan_diagram"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getUniqueFileName(IPath containerPath, String fileName) {
-		int nFileNumber = 1;
-		fileName = removeExtensionFromFileName(fileName);
-		String newFileName = fileName;
-		IPath diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-		IPath modelFilePath = containerPath.append(newFileName + ".taipan"); //$NON-NLS-1$
-		while (exists(diagramFilePath) || exists(modelFilePath)) {
-			nFileNumber++;
-			newFileName = fileName + nFileNumber;
-			diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-			modelFilePath = containerPath.append(newFileName + ".taipan"); //$NON-NLS-1$
-		}
-		return newFileName;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String appendExtensionToFileName(String fileName) {
-		if (!fileName.endsWith(getExtension())) {
-			return fileName + getExtension();
-		}
-		return fileName;
-	}
-
-	/**
-	 * @generated
-	 */
-	private String removeExtensionFromFileName(String fileName) {
-		if (fileName.endsWith(getExtension())) {
-			return fileName.substring(0, fileName.length() - getExtension().length());
-		}
-		return fileName;
-	}
-
-	/**
-	 * @generated
-	 */
-	public IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
-		IPath newFilePath = containerPath.append(appendExtensionToFileName(fileName));
+	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
+		IPath newFilePath = containerPath.append(fileName);
 		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
 		try {
 			createFile(newFileHandle);
@@ -110,7 +46,7 @@ public class TaiPanDiagramFileCreator {
 	/**
 	 * @generated
 	 */
-	protected void createFile(IFile fileHandle) throws CoreException {
+	protected static void createFile(IFile fileHandle) throws CoreException {
 		try {
 			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
 		} catch (CoreException e) {
