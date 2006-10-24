@@ -25,11 +25,6 @@ public class DesignCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	private static final String DOMAIN_EXT = "."; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	private static final String DIAGRAM_EXT = ".design2d"; //$NON-NLS-1$
 
 	/**
@@ -63,13 +58,11 @@ public class DesignCreationWizardPage extends WizardNewFileCreationPage {
 	private String getUniqueFileName(IPath containerPath, String fileName) {
 		String newFileName = fileName;
 		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
 		int i = 1;
-		while (exists(diagramFilePath) || exists(modelFilePath)) {
+		while (exists(diagramFilePath)) {
 			i++;
 			newFileName = fileName + i;
 			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
 		}
 		return newFileName;
 	}
@@ -87,26 +80,6 @@ public class DesignCreationWizardPage extends WizardNewFileCreationPage {
 			setFileName(getDefaultFileName());
 		}
 		setPageComplete(validatePage());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean validatePage() {
-		if (super.validatePage()) {
-			String fileName = getFileName();
-			if (fileName == null) {
-				return false;
-			}
-			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
-			IPath path = getContainerFullPath().append(fileName);
-			if (exists(path)) {
-				setErrorMessage("Model file already exists: " + path.lastSegment());
-				return false;
-			}
-			return true;
-		}
-		return false;
 	}
 
 	/**
