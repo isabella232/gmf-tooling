@@ -18,10 +18,22 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+
 /**
  * @generated
  */
 public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
+
+	/**
+	 * @generated
+	 */
+	private static final String DOMAIN_EXT = ".ecore"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	private static final String DIAGRAM_EXT = ".ecore_diagram"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -42,8 +54,8 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public String getFileName() {
 		String fileName = super.getFileName();
-		if (fileName != null) {
-			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
+		if (fileName != null && !fileName.endsWith(DIAGRAM_EXT)) {
+			fileName += DIAGRAM_EXT;
 		}
 		return fileName;
 	}
@@ -51,15 +63,18 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public InputStream getInitialContents() {
-		return new ByteArrayInputStream(new byte[0]);
-	}
-
-	/**
-	 * @generated
-	 */
-	public EcoreDiagramFileCreator getDiagramFileCreator() {
-		return EcoreDiagramFileCreator.getInstance();
+	private String getUniqueFileName(IPath containerPath, String fileName) {
+		String newFileName = fileName;
+		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		int i = 1;
+		while (exists(diagramFilePath) || exists(modelFilePath)) {
+			i++;
+			newFileName = fileName + i;
+			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
+			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		}
+		return newFileName;
 	}
 
 	/**
@@ -69,8 +84,10 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 		super.createControl(parent);
 		IPath path = getContainerFullPath();
 		if (path != null) {
-			String fileName = getDiagramFileCreator().getUniqueFileName(path, getDefaultFileName());
+			String fileName = getUniqueFileName(path, getDefaultFileName());
 			setFileName(fileName);
+		} else {
+			setFileName(getDefaultFileName());
 		}
 		setPageComplete(validatePage());
 	}
@@ -84,15 +101,21 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 			if (fileName == null) {
 				return false;
 			}
-			// appending file extension to correctly process file names including "." symbol
-			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
-			path = path.removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
-			if (EcoreDiagramFileCreator.exists(path)) {
+			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
+			IPath path = getContainerFullPath().append(fileName);
+			if (exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
 	}
 }

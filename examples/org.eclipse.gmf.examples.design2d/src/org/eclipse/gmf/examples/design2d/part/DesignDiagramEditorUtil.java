@@ -21,6 +21,8 @@ import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -29,7 +31,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.io.ByteArrayInputStream;
+
+import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.jface.dialogs.ErrorDialog;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
@@ -97,7 +106,7 @@ public class DesignDiagramEditorUtil {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = DesignDiagramFileCreator.createNewFile(containerFullPath, fileName, shell);
+		final IFile diagramFile = createNewFile(containerFullPath, fileName, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
@@ -132,5 +141,36 @@ public class DesignDiagramEditorUtil {
 		}
 
 		return diagramFile;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
+		IPath newFilePath = containerPath.append(fileName);
+		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
+		try {
+			createFile(newFileHandle);
+		} catch (CoreException e) {
+			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
+			return null;
+		}
+		return newFileHandle;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected static void createFile(IFile fileHandle) throws CoreException {
+		try {
+			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
+		} catch (CoreException e) {
+			// If the file already existed locally, just refresh to get contents
+			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
+				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
+			} else {
+				throw e;
+			}
+		}
 	}
 }

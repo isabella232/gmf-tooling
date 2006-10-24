@@ -38,10 +38,16 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.io.ByteArrayInputStream;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.ecore.EObject;
@@ -49,6 +55,10 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
+
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
+import org.eclipse.jface.dialogs.ErrorDialog;
 
 import org.eclipse.ui.ide.IDE;
 
@@ -60,9 +70,8 @@ public class EcoreDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final URI createAndOpenDiagram(EcoreDiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
-			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
+	public static final URI createAndOpenDiagram(IPath containerPath, String fileName, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
+		IFile diagramFile = createNewDiagramFile(containerPath, fileName, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
 			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
@@ -104,12 +113,11 @@ public class EcoreDiagramEditorUtil {
 	 * @generated
 	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
-	public static final IFile createNewDiagramFile(EcoreDiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
-			IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(IPath containerFullPath, String fileName, Shell shell, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell);
+		final IFile diagramFile = createNewFile(containerFullPath, fileName, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
@@ -117,13 +125,12 @@ public class EcoreDiagramEditorUtil {
 		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
 		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
-		final String kindParam = kind;
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				EPackage model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
-				Diagram diagram = ViewService.createDiagram(model, kindParam, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(model, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());
@@ -177,5 +184,36 @@ public class EcoreDiagramEditorUtil {
 	 */
 	private static EObject createInitialRoot(EPackage model) {
 		return model;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
+		IPath newFilePath = containerPath.append(fileName);
+		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
+		try {
+			createFile(newFileHandle);
+		} catch (CoreException e) {
+			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
+			return null;
+		}
+		return newFileHandle;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected static void createFile(IFile fileHandle) throws CoreException {
+		try {
+			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
+		} catch (CoreException e) {
+			// If the file already existed locally, just refresh to get contents
+			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
+				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
+			} else {
+				throw e;
+			}
+		}
 	}
 }
