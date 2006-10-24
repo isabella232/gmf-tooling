@@ -169,7 +169,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		// editor
 		generatePalette();
 		generateDiagramEditorUtil();
-		generateDiagramFileCreator();
 		generateVisualIDRegistry();
 		generateCreationWizard();
 		generateCreationWizardPage();
@@ -750,15 +749,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getDiagramEditorUtilEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getDiagramEditorUtilClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateDiagramFileCreator() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getDiagramFileCreatorEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getDiagramFileCreatorClassName(),
 			myDiagram
 		);
 	}
