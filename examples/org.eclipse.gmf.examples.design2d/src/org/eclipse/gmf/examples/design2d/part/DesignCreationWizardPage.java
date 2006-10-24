@@ -11,23 +11,11 @@
  */
 package org.eclipse.gmf.examples.design2d.part;
 
-import java.io.InputStream;
-
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-
-import org.eclipse.core.resources.ResourcesPlugin;
-
-import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 /**
  * @generated

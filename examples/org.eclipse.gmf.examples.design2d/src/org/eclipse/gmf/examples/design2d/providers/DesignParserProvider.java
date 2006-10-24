@@ -12,13 +12,13 @@
 package org.eclipse.gmf.examples.design2d.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 /**
  * @generated
