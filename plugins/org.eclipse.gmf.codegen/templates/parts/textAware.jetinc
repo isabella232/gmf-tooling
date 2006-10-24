@@ -94,12 +94,11 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
 <%if (useElementIcon) {%>
-		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> descriptor =
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(getParserElement());
-		if (descriptor == null) {
-			descriptor = <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor();
+		EObject parserElement = getParserElement();
+		if (parserElement == null) {
+			return null;
 		}
-		return descriptor.createImage();
+		return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(parserElement.eClass());
 <%} else {%>
 		return null;
 <%}%>
