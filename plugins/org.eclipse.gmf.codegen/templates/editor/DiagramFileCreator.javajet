@@ -4,6 +4,7 @@
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenApplication application = editorGen.getApplication();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -44,7 +45,11 @@ public class <%=importManager.getCompilationUnitName()%> {
 	 * @generated
 	 */
 	public static boolean exists(IPath path) {
+<%if (application == null) {%>
 		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
+<%} else {%>
+		return path.toFile().exists();
+<%}%>
 	}
 
 	/**
