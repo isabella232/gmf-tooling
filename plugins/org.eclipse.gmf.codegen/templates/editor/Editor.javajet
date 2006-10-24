@@ -5,6 +5,7 @@ final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenPropertySheet propertySheet = genDiagram.getEditorGen().getPropertySheet();
+importManager.registerInnerClass("DropTargetListener");
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -265,48 +266,79 @@ if (genDiagram.generateCreateShortcutAction()) {%>
 	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		getDiagramGraphicalViewer().addDropTargetListener(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener")%>(getDiagramGraphicalViewer(), <%=importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer")%>.getTransfer()) {
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), <%=importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer")%>.getTransfer()) {
 
-			protected <%=importManager.getImportedName("java.util.List")%> getObjectsBeingDropped() {
-				<%=importManager.getImportedName("org.eclipse.swt.dnd.TransferData")%>[] data = getCurrentEvent().dataTypes;
-				<%=importManager.getImportedName("java.util.Collection")%> uris = new <%=importManager.getImportedName("java.util.HashSet")%>();
-				for (int i=0; i<data.length; i++) {
-					if (<%=importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer")%>.getTransfer().isSupportedType(data[i])) {
-						Object result = <%=importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer")%>.getTransfer().nativeToJava(data[i]);
-						if (result instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) {
-							<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
-							for (<%=importManager.getImportedName("java.util.Iterator")%> it = selection.iterator(); it.hasNext();) {
-								Object nextSelectedObject = it.next();
+			protected Object getJavaObject(<%=importManager.getImportedName("org.eclipse.swt.dnd.TransferData")%> data) {
+				return <%=importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer")%>.getTransfer().nativeToJava(data);
+			}
+			
+		});
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), <%=importManager.getImportedName("org.eclipse.emf.edit.ui.dnd.LocalTransfer")%>.getInstance()) {
+
+			protected Object getJavaObject(<%=importManager.getImportedName("org.eclipse.swt.dnd.TransferData")%> data) {
+				return <%=importManager.getImportedName("org.eclipse.emf.edit.ui.dnd.LocalTransfer")%>.getInstance().nativeToJava(data);
+			}
+			
+		});
+	}
+	
+	/**
+	 * @generated
+	 */
+	private abstract class DropTargetListener extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener")%> {
+	
+		/**
+		 * @generated
+		 */
+		public DropTargetListener(<%=importManager.getImportedName("org.eclipse.gef.EditPartViewer")%> viewer, <%=importManager.getImportedName("org.eclipse.swt.dnd.Transfer")%> xfer) {
+			super(viewer, xfer);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("java.util.List")%> getObjectsBeingDropped() {
+			<%=importManager.getImportedName("org.eclipse.swt.dnd.TransferData")%> data = getCurrentEvent().currentDataType;
+			<%=importManager.getImportedName("java.util.Collection")%> uris = new <%=importManager.getImportedName("java.util.HashSet")%>();
+
+			Object transferedObject = getJavaObject(data);
+			if (transferedObject instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) {
+				<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) transferedObject;
+				for (<%=importManager.getImportedName("java.util.Iterator")%> it = selection.iterator(); it.hasNext();) {
+					Object nextSelectedObject = it.next();
 <%
 /*
  * TODO: movel NavigatorItem to some public place and remove 
  * "genEditor.getEditorGen().getNavigator() != null" test
  */
 	if (genEditor.getEditorGen().getNavigator() != null) {%>
-								if (nextSelectedObject instanceof <%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) {
-									<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = ((<%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) nextSelectedObject).getView();
-									nextSelectedObject = view.getElement();
-								}
+					if (nextSelectedObject instanceof <%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) {
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = ((<%=importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName())%>) nextSelectedObject).getView();
+						nextSelectedObject = view.getElement();
+					}
 <%	}%>								
-								if (nextSelectedObject instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
-									<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) nextSelectedObject;
-									<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelElementResource = modelElement.eResource();
-									uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));	
-								}
-							}
-						}
+					if (nextSelectedObject instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
+						<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) nextSelectedObject;
+						<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelElementResource = modelElement.eResource();
+						uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));	
 					}
 				}
-				<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-				for (<%=importManager.getImportedName("java.util.Iterator")%> it = uris.iterator(); it.hasNext();) {
-					<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> nextURI = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) it.next();
-					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
-					result.add(modelObject);
-				}
-				return result;
 			}
-			
-		});
+
+			<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+			for (<%=importManager.getImportedName("java.util.Iterator")%> it = uris.iterator(); it.hasNext();) {
+				<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> nextURI = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) it.next();
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
+				result.add(modelObject);
+			}
+			return result;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected abstract Object getJavaObject(<%=importManager.getImportedName("org.eclipse.swt.dnd.TransferData")%> data);
+	
 	}
 <%}%>
 	

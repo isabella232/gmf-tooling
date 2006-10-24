@@ -40,7 +40,11 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
+import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
+
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
+import org.eclipse.gef.EditPartViewer;
 
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
@@ -72,6 +76,7 @@ import org.eclipse.jface.window.Window;
 
 import org.eclipse.osgi.util.NLS;
 
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 
 import org.eclipse.swt.widgets.Shell;
@@ -277,41 +282,72 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		getDiagramGraphicalViewer().addDropTargetListener(new DiagramDropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
 
-			protected List getObjectsBeingDropped() {
-				TransferData[] data = getCurrentEvent().dataTypes;
-				Collection uris = new HashSet();
-				for (int i = 0; i < data.length; i++) {
-					if (LocalSelectionTransfer.getTransfer().isSupportedType(data[i])) {
-						Object result = LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
-						if (result instanceof IStructuredSelection) {
-							IStructuredSelection selection = (IStructuredSelection) LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
-							for (Iterator it = selection.iterator(); it.hasNext();) {
-								Object nextSelectedObject = it.next();
-								if (nextSelectedObject instanceof EcoreNavigatorItem) {
-									View view = ((EcoreNavigatorItem) nextSelectedObject).getView();
-									nextSelectedObject = view.getElement();
-								}
-								if (nextSelectedObject instanceof EObject) {
-									EObject modelElement = (EObject) nextSelectedObject;
-									Resource modelElementResource = modelElement.eResource();
-									uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
-								}
-							}
-						}
-					}
-				}
-				List result = new ArrayList();
-				for (Iterator it = uris.iterator(); it.hasNext();) {
-					URI nextURI = (URI) it.next();
-					EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
-					result.add(modelObject);
-				}
-				return result;
+			protected Object getJavaObject(TransferData data) {
+				return LocalSelectionTransfer.getTransfer().nativeToJava(data);
 			}
 
 		});
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalTransfer.getInstance()) {
+
+			protected Object getJavaObject(TransferData data) {
+				return LocalTransfer.getInstance().nativeToJava(data);
+			}
+
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	private abstract class DropTargetListener extends DiagramDropTargetListener {
+
+		/**
+		 * @generated
+		 */
+		public DropTargetListener(EditPartViewer viewer, Transfer xfer) {
+			super(viewer, xfer);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected List getObjectsBeingDropped() {
+			TransferData data = getCurrentEvent().currentDataType;
+			Collection uris = new HashSet();
+
+			Object transferedObject = getJavaObject(data);
+			if (transferedObject instanceof IStructuredSelection) {
+				IStructuredSelection selection = (IStructuredSelection) transferedObject;
+				for (Iterator it = selection.iterator(); it.hasNext();) {
+					Object nextSelectedObject = it.next();
+					if (nextSelectedObject instanceof EcoreNavigatorItem) {
+						View view = ((EcoreNavigatorItem) nextSelectedObject).getView();
+						nextSelectedObject = view.getElement();
+					}
+					if (nextSelectedObject instanceof EObject) {
+						EObject modelElement = (EObject) nextSelectedObject;
+						Resource modelElementResource = modelElement.eResource();
+						uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
+					}
+				}
+			}
+
+			List result = new ArrayList();
+			for (Iterator it = uris.iterator(); it.hasNext();) {
+				URI nextURI = (URI) it.next();
+				EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
+				result.add(modelObject);
+			}
+			return result;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected abstract Object getJavaObject(TransferData data);
+
 	}
 
 }
