@@ -57,7 +57,7 @@
             href="taipan.genmodel#//taipan/Ship/cargo"/>
       </modelFacet>
       <labelModelFacet
-          xsi:type="gmfgen:CompositeFeatureLabelModelFacet"
+          xsi:type="gmfgen:FeatureLabelModelFacet"
           viewPattern="- {0} [{1,number,integer}]"
           editPattern="{0} : {1,number,integer}">
         <metaFeatures
@@ -109,7 +109,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
       </labels>
@@ -126,7 +126,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
       </labels>
@@ -211,7 +211,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Port/location"/>
         </modelFacet>
       </labels>
@@ -258,7 +258,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
       </labels>
@@ -371,7 +371,7 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="route : {0}"
             editPattern="{0}">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
       </labels>
@@ -396,7 +396,7 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="reliability : {0,number,percent}"
             editPattern="{0,number,percent}">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
       </labels>
@@ -466,7 +466,7 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="route : {0}"
             editPattern="{0}">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Route/description"/>
         </modelFacet>
       </labels>
@@ -491,7 +491,7 @@
             xsi:type="gmfgen:FeatureLabelModelFacet"
             viewPattern="reliability : {0,number,percent}"
             editPattern="{0,number,percent}">
-          <metaFeature
+          <metaFeatures
               href="taipan.genmodel#//taipan/Route/reliability"/>
         </modelFacet>
       </labels>
