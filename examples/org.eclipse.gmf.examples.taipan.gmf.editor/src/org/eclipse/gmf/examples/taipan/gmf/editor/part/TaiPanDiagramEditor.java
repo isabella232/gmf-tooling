@@ -20,23 +20,47 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
+
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
+import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.util.LocalSelectionTransfer;
+
+import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.dnd.TransferData;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
@@ -214,4 +238,47 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 			progressMonitor.setCanceled(!success);
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void initializeGraphicalViewer() {
+		super.initializeGraphicalViewer();
+		getDiagramGraphicalViewer().addDropTargetListener(new DiagramDropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
+
+			protected List getObjectsBeingDropped() {
+				TransferData[] data = getCurrentEvent().dataTypes;
+				Collection uris = new HashSet();
+				for (int i = 0; i < data.length; i++) {
+					if (LocalSelectionTransfer.getTransfer().isSupportedType(data[i])) {
+						Object result = LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
+						if (result instanceof IStructuredSelection) {
+							IStructuredSelection selection = (IStructuredSelection) LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);
+							for (Iterator it = selection.iterator(); it.hasNext();) {
+								Object nextSelectedObject = it.next();
+								if (nextSelectedObject instanceof TaiPanNavigatorItem) {
+									View view = ((TaiPanNavigatorItem) nextSelectedObject).getView();
+									nextSelectedObject = view.getElement();
+								}
+								if (nextSelectedObject instanceof EObject) {
+									EObject modelElement = (EObject) nextSelectedObject;
+									Resource modelElementResource = modelElement.eResource();
+									uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
+								}
+							}
+						}
+					}
+				}
+				List result = new ArrayList();
+				for (Iterator it = uris.iterator(); it.hasNext();) {
+					URI nextURI = (URI) it.next();
+					EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
+					result.add(modelObject);
+				}
+				return result;
+			}
+
+		});
+	}
+
 }
