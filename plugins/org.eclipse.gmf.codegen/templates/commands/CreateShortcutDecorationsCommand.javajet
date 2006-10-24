@@ -1,0 +1,51 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.commands" class="CreateShortcutDecorationsCommand"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getCreateShortcutDecorationsCommandClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand")%> {
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.List")%> myDescriptors;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getCreateShortcutDecorationsCommandClassName()%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, <%=importManager.getImportedName("java.util.List")%> viewDescriptors) {
+		super(editingDomain, "Create Shortcuts", getWorkspaceFiles(parentView)); //$NON-NLS-1$
+		myDescriptors = viewDescriptors;
+	}
+	
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getCreateShortcutDecorationsCommandClassName()%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor viewDescriptor) {
+		this(editingDomain, parentView, <%=importManager.getImportedName("java.util.Collections")%>.singletonList(viewDescriptor));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecuteWithResult(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = myDescriptors.iterator(); it.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor nextDescriptor = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor) it.next();
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) nextDescriptor.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
+			if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+				<%/* Shortcut was created on the diagram with the same modelID */%>
+<%@ include file="createShortcutAnnotation.jetinc"%>
+			}
+		}
+		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%>.newOKCommandResult();
+	}
+
+}
+<%importManager.emitSortedImports();%>

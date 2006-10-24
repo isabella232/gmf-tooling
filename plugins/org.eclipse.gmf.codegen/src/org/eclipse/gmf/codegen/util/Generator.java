@@ -178,6 +178,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.getEditorGen().getApplication() == null) {
 			generateDocumentProvider();
 			generateCreateShortcutAction();
+			generateCreateShortcutDecorationCommand();
 			generateElementChooser();
 			if (myDiagram.generateInitDiagramAction()) {
 				generateInitDiagramFileAction();
@@ -807,6 +808,18 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEmitters.getCreateShortcutActionEmitter(),
 				myEditorGen.getEditor().getPackageName(), 
 				myDiagram.getCreateShortcutActionClassName(),
+				myDiagram
+			);
+	}
+	
+	private void generateCreateShortcutDecorationCommand() throws InterruptedException, UnexpectedBehaviourException {
+		if (!myDiagram.generateCreateShortcutAction()) {
+			return;
+		}
+		internalGenerateJavaClass(
+				myEmitters.getCreateShortcutDecorationCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(), 
+				myDiagram.getCreateShortcutDecorationsCommandClassName(),
 				myDiagram
 			);
 	}

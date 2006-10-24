@@ -90,7 +90,31 @@ public class EditorGenerator
   protected final String TEXT_72 = " input) {" + NL + "\t\tif (input instanceof ";
   protected final String TEXT_73 = ") {" + NL + "\t\t\treturn new ";
   protected final String TEXT_74 = "();" + NL + "\t\t}" + NL + "\t\treturn super.getDocumentProvider(input);" + NL + "\t}";
-  protected final String TEXT_75 = NL + "}";
+  protected final String TEXT_75 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void initializeGraphicalViewer() {" + NL + "\t\tsuper.initializeGraphicalViewer();" + NL + "\t\tgetDiagramGraphicalViewer().addDropTargetListener(new ";
+  protected final String TEXT_76 = "(getDiagramGraphicalViewer(), ";
+  protected final String TEXT_77 = ".getTransfer()) {" + NL + "" + NL + "\t\t\tprotected ";
+  protected final String TEXT_78 = " getObjectsBeingDropped() {" + NL + "\t\t\t\t";
+  protected final String TEXT_79 = "[] data = getCurrentEvent().dataTypes;" + NL + "\t\t\t\t";
+  protected final String TEXT_80 = " uris = new ";
+  protected final String TEXT_81 = "();" + NL + "\t\t\t\tfor (int i=0; i<data.length; i++) {" + NL + "\t\t\t\t\tif (";
+  protected final String TEXT_82 = ".getTransfer().isSupportedType(data[i])) {" + NL + "\t\t\t\t\t\tObject result = ";
+  protected final String TEXT_83 = ".getTransfer().nativeToJava(data[i]);" + NL + "\t\t\t\t\t\tif (result instanceof ";
+  protected final String TEXT_84 = ") {" + NL + "\t\t\t\t\t\t\t";
+  protected final String TEXT_85 = " selection = (";
+  protected final String TEXT_86 = ") LocalSelectionTransfer.getTransfer().nativeToJava(data[i]);" + NL + "\t\t\t\t\t\t\tfor (";
+  protected final String TEXT_87 = " it = selection.iterator(); it.hasNext();) {" + NL + "\t\t\t\t\t\t\t\tObject nextSelectedObject = it.next();" + NL + "\t\t\t\t\t\t\t\tif (nextSelectedObject instanceof ";
+  protected final String TEXT_88 = ") {" + NL + "\t\t\t\t\t\t\t\t\t";
+  protected final String TEXT_89 = " view = ((";
+  protected final String TEXT_90 = ") nextSelectedObject).getView();" + NL + "\t\t\t\t\t\t\t\t\tif (view.getElement() != null) {" + NL + "\t\t\t\t\t\t\t\t\t\t";
+  protected final String TEXT_91 = " modelElement = view.getElement();" + NL + "\t\t\t\t\t\t\t\t\t\t";
+  protected final String TEXT_92 = " modelElementResource = modelElement.eResource();" + NL + "\t\t\t\t\t\t\t\t\t\turis.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));\t" + NL + "\t\t\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t\t";
+  protected final String TEXT_93 = " result = new ";
+  protected final String TEXT_94 = "();" + NL + "\t\t\t\tfor (";
+  protected final String TEXT_95 = " it = uris.iterator(); it.hasNext();) {" + NL + "\t\t\t\t\t";
+  protected final String TEXT_96 = " nextURI = (";
+  protected final String TEXT_97 = ") it.next();" + NL + "\t\t\t\t\t";
+  protected final String TEXT_98 = " modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);" + NL + "\t\t\t\t\tresult.add(modelObject);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t});" + NL + "\t}";
+  protected final String TEXT_99 = NL + "\t" + NL + "}";
 
   public String generate(Object argument)
   {
@@ -268,7 +292,60 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider"));
     stringBuffer.append(TEXT_74);
     }
+/*
+ * TODO: movel NavigatorItem to some public place and remove 
+ * "genEditor.getEditorGen().getNavigator() != null" test
+ */
+if (genEditor.getEditorGen().getNavigator() != null && genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_75);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener"));
+    stringBuffer.append(TEXT_76);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer"));
+    stringBuffer.append(TEXT_77);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_78);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.dnd.TransferData"));
+    stringBuffer.append(TEXT_79);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_80);
+    stringBuffer.append(importManager.getImportedName("java.util.HashSet"));
+    stringBuffer.append(TEXT_81);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer"));
+    stringBuffer.append(TEXT_82);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.util.LocalSelectionTransfer"));
+    stringBuffer.append(TEXT_83);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection"));
+    stringBuffer.append(TEXT_84);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection"));
+    stringBuffer.append(TEXT_85);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection"));
+    stringBuffer.append(TEXT_86);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_87);
+    stringBuffer.append(importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_88);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(importManager.getImportedName(genEditor.getEditorGen().getNavigator().getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_95);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_98);
+    }
+    stringBuffer.append(TEXT_99);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }

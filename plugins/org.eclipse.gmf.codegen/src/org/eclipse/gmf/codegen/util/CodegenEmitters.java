@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.templates.application.URIDiagramDocumentProviderG
 import org.eclipse.gmf.codegen.templates.application.URIEditorInputProxyGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchWindowAdvisorGenerator;
+import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
@@ -227,6 +228,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
 		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
 		put(tr, "/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
+		put(tr, "/commands/CreateShortcutDecorationsCommand.javajet", CreateShortcutDecorationsCommand.class);
 		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
@@ -547,6 +549,10 @@ public class CodegenEmitters {
 	
 	public TextEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreateShortcutActionGenerator.class);
+	}
+	
+	public TextEmitter getCreateShortcutDecorationCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(CreateShortcutDecorationsCommand.class);
 	}
 
 	public TextEmitter getLoadResourceActionEmitter() throws UnexpectedBehaviourException {

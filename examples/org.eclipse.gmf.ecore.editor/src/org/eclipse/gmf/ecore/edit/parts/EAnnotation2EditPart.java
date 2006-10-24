@@ -13,6 +13,10 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -228,6 +232,18 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 			return;
 		}
 		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(Notification event) {
+		Object feature = event.getFeature();
+		if (EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
+		}
 	}
 
 	/**

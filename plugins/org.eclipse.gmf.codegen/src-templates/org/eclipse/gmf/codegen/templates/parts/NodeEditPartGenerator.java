@@ -237,10 +237,13 @@ public class NodeEditPartGenerator {
   protected final String TEXT_218 = " childEditPart = (";
   protected final String TEXT_219 = ") it.next();" + NL + "\t\t\tif (isExternalLabel(childEditPart)) {" + NL + "\t\t\t\tIFigure labelFigure = ((";
   protected final String TEXT_220 = ") childEditPart).getFigure();" + NL + "\t\t\t\tgetExternalLabelsContainer().remove(labelFigure);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tsuper.removeNotify();" + NL + "\t}";
-  protected final String TEXT_221 = "\t" + NL;
-  protected final String TEXT_222 = NL;
-  protected final String TEXT_223 = NL + "}";
+  protected final String TEXT_221 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
+  protected final String TEXT_222 = " event) {" + NL + "\t\tObject feature = event.getFeature();" + NL + "\t\tif (";
+  protected final String TEXT_223 = ".eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {" + NL + "\t\t\thandleMajorSemanticChange();" + NL + "\t\t} else {" + NL + "\t\t\tsuper.handleNotificationEvent(event);" + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_224 = NL;
+  protected final String TEXT_225 = NL;
+  protected final String TEXT_226 = NL + "}";
+  protected final String TEXT_227 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -1043,14 +1046,25 @@ if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 	}
 } // if hasFixedChildren || hasExternalLabels
 
+/*
+ * This code is important fore ferreshing shortcut decoration on 
+ * adding corresponding annotation to the View instance.
+ */
+if (genNode instanceof GenTopLevelNode && genDiagram.generateShortcutIcon()) {
     stringBuffer.append(TEXT_221);
-    if (genNode.getViewmap() instanceof InnerClassViewmap) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
     stringBuffer.append(TEXT_222);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EcorePackage"));
+    stringBuffer.append(TEXT_223);
+    }
+    stringBuffer.append(TEXT_224);
+    if (genNode.getViewmap() instanceof InnerClassViewmap) {
+    stringBuffer.append(TEXT_225);
     stringBuffer.append(((InnerClassViewmap) genNode.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_223);
+    stringBuffer.append(TEXT_226);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_224);
+    stringBuffer.append(TEXT_227);
     return stringBuffer.toString();
   }
 }

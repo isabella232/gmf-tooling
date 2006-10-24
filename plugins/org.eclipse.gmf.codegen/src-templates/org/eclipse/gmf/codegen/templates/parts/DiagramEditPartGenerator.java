@@ -31,12 +31,30 @@ public class DiagramEditPartGenerator
   protected final String TEXT_14 = "());";
   protected final String TEXT_15 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
   protected final String TEXT_16 = "());";
-  protected final String TEXT_17 = NL;
-  protected final String TEXT_18 = NL + "\t\tinstallEditPolicy(\"";
-  protected final String TEXT_19 = "\", new ";
-  protected final String TEXT_20 = "()); //$NON-NLS-1$";
-  protected final String TEXT_21 = NL + "\t}" + NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_17 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new ";
+  protected final String TEXT_18 = "() {" + NL + "\t\t\tpublic ";
+  protected final String TEXT_19 = " getDropObjectsCommand(";
+  protected final String TEXT_20 = " dropRequest) {" + NL + "\t\t\t\t";
+  protected final String TEXT_21 = " viewDescriptors = new ";
+  protected final String TEXT_22 = "();" + NL + "\t\t\t\tfor(";
+  protected final String TEXT_23 = " it = dropRequest.getObjects().iterator(); it.hasNext();) {" + NL + "\t\t\t\t\tviewDescriptors.add(new ";
+  protected final String TEXT_24 = ".ViewDescriptor(new ";
+  protected final String TEXT_25 = "((";
+  protected final String TEXT_26 = ") it.next()), ";
+  protected final String TEXT_27 = ".class, null, getDiagramPreferencesHint()));" + NL + "\t\t\t\t}" + NL + "" + NL + "\t\t\t\treturn createShortcutsCommand(dropRequest, viewDescriptors);" + NL + "\t\t\t}" + NL + "" + NL + "\t\t\tprivate ";
+  protected final String TEXT_28 = " createShortcutsCommand(";
+  protected final String TEXT_29 = " dropRequest, ";
+  protected final String TEXT_30 = " viewDescriptors) {" + NL + "\t\t\t\t";
+  protected final String TEXT_31 = " command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);" + NL + "\t\t\t\tif (command != null) {" + NL + "\t\t\t\t\treturn command.chain(new ";
+  protected final String TEXT_32 = "(new ";
+  protected final String TEXT_33 = "(getEditingDomain(), (";
+  protected final String TEXT_34 = ") getModel(), viewDescriptors)));" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t});";
+  protected final String TEXT_35 = NL;
+  protected final String TEXT_36 = NL + "\t\tinstallEditPolicy(\"";
+  protected final String TEXT_37 = "\", new ";
+  protected final String TEXT_38 = "()); //$NON-NLS-1$";
+  protected final String TEXT_39 = NL + "\t}" + NL + "}";
+  protected final String TEXT_40 = NL;
 
   public String generate(Object argument)
   {
@@ -80,21 +98,60 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_16);
     }
-    {	GenCommonBase genCommonBase = genDiagram;
+
+if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy"));
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest"));
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_26);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(TEXT_28);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest"));
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy"));
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCreateShortcutDecorationsCommandQualifiedClassName()));
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_34);
+    }
+
+{	GenCommonBase genCommonBase = genDiagram;
+    stringBuffer.append(TEXT_35);
     
 for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_36);
     stringBuffer.append(behaviour.getKey());
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName(behaviour.getEditPolicyQualifiedClassName()));
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_38);
     }
     }
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_39);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_40);
     return stringBuffer.toString();
   }
 }

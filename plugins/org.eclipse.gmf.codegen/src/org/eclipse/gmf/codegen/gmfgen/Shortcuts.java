@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderClassName <em>Shortcuts Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutDecorationsCommandClassName <em>Create Shortcut Decorations Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  * </ul>
@@ -113,6 +114,32 @@ public interface Shortcuts extends EObject {
 	void setCreateShortcutActionClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Create Shortcut Decorations Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Shortcut Decorations Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Shortcut Decorations Command Class Name</em>' attribute.
+	 * @see #setCreateShortcutDecorationsCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_CreateShortcutDecorationsCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreateShortcutDecorationsCommandClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutDecorationsCommandClassName <em>Create Shortcut Decorations Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Shortcut Decorations Command Class Name</em>' attribute.
+	 * @see #getCreateShortcutDecorationsCommandClassName()
+	 * @generated
+	 */
+	void setCreateShortcutDecorationsCommandClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Contains Shortcuts To</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
@@ -157,6 +184,14 @@ public interface Shortcuts extends EObject {
 	 * @generated
 	 */
 	String getCreateShortcutActionQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreateShortcutDecorationsCommandQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

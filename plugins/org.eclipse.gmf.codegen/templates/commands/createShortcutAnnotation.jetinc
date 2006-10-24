@@ -1,0 +1,4 @@
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> shortcutAnnotation = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
+			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID); //$NON-NLS-1$
+			view.getEAnnotations().add(shortcutAnnotation);

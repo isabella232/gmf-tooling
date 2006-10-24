@@ -42,8 +42,6 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -72,8 +70,6 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
-import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 

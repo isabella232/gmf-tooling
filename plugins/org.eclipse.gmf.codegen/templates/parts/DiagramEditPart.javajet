@@ -39,8 +39,30 @@ public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.get
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName())%>());
 <%if (genDiagram.needsCanonicalEditPolicy()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName())%>());
-<%}%>
-<%{	GenCommonBase genCommonBase = genDiagram;%>
+<%}
+
+if (genDiagram.generateCreateShortcutAction()) {%>
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy")%>() {
+			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDropObjectsCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest")%> dropRequest) {
+				<%=importManager.getImportedName("java.util.List")%> viewDescriptors = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+				for(<%=importManager.getImportedName("java.util.Iterator")%> it = dropRequest.getObjects().iterator(); it.hasNext();) {
+					viewDescriptors.add(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>((<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next()), <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class, null, getDiagramPreferencesHint()));
+				}
+
+				return createShortcutsCommand(dropRequest, viewDescriptors);
+			}
+
+			private <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createShortcutsCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest")%> dropRequest, <%=importManager.getImportedName("java.util.List")%> viewDescriptors) {
+				<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
+				if (command != null) {
+					return command.chain(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>(new <%=importManager.getImportedName(genDiagram.getCreateShortcutDecorationsCommandQualifiedClassName())%>(getEditingDomain(), (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel(), viewDescriptors)));
+				}
+				return null;
+			}
+		});
+<%}
+
+{	GenCommonBase genCommonBase = genDiagram;%>
 <%@ include file="customBehaviour.jetinc"%>
 <%}%>
 	}

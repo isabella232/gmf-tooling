@@ -11,7 +11,8 @@
     <ownedChild>
       <domainMetaElement
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
@@ -32,6 +33,7 @@
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
           <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
               viewPattern=""
               editPattern="">
             <diagramLabel
@@ -53,7 +55,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EOperation"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -73,7 +76,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -110,7 +114,8 @@
         relatedDiagrams="//@diagram">
       <domainMetaElement
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
@@ -128,7 +133,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -148,7 +154,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -170,7 +177,8 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDataType"/>
           <domainSpecialization
               body="not oclIsKindOf(ecore::EEnum)"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -190,7 +198,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnum"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -242,7 +251,8 @@
     <ownedChild>
       <domainMetaElement
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
@@ -261,6 +271,7 @@
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry"/>
           <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
               viewPattern="{0} : {1}"
               editPattern="{0} : {1}">
             <diagramLabel
@@ -292,7 +303,8 @@
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDataType"/>
       <domainSpecialization
           body="not oclIsKindOf(ecore::EEnum)"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
@@ -322,7 +334,8 @@
     <ownedChild>
       <domainMetaElement
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnum"/>
-      <labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features
@@ -340,7 +353,8 @@
         <ownedChild>
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnumLiteral"/>
-          <labelMappings>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
@@ -396,7 +410,8 @@
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
       <diagramLabel
           href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
       <features
@@ -432,7 +447,8 @@
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
       <diagramLabel
           href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
       <features

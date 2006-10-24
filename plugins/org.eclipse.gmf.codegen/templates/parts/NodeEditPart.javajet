@@ -743,7 +743,25 @@ if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 <%
 	}
 } // if hasFixedChildren || hasExternalLabels
-%>	
+
+/*
+ * This code is important fore ferreshing shortcut decoration on 
+ * adding corresponding annotation to the View instance.
+ */
+if (genNode instanceof GenTopLevelNode && genDiagram.generateShortcutIcon()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> event) {
+		Object feature = event.getFeature();
+		if (<%=importManager.getImportedName("org.eclipse.emf.ecore.EcorePackage")%>.eINSTANCE.getEModelElement_EAnnotations().equals(feature)) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
+		}
+	}
+<%}%>
 
 <%if (genNode.getViewmap() instanceof InnerClassViewmap) {%>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>

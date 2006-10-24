@@ -24,9 +24,9 @@ public class CreateShortcutActionGenerator
   protected final String TEXT_7 = " elementChooser = new ";
   protected final String TEXT_8 = "(myShell, view);" + NL + "\t\tint result = elementChooser.open();" + NL + "\t\tif (result != Window.OK) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tURI selectedModelElementURI = elementChooser.getSelectedModelElementURI();" + NL + "\t\tfinal EObject selectedElement;" + NL + "\t\ttry {" + NL + "\t\t\tselectedElement = mySelectedElement.getEditingDomain().getResourceSet().getEObject(selectedModelElementURI, true);" + NL + "\t\t} catch (WrappedException e) {" + NL + "\t\t\t";
   protected final String TEXT_9 = ".getInstance().logError(\"Exception while loading object: \" + selectedModelElementURI.toString(), e); //$NON-NLS-1$" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "" + NL + "\t\tif (selectedElement == null) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tCreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null, ";
-  protected final String TEXT_10 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tCreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {" + NL + "" + NL + "\t\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\t\tCommandResult result = super.doExecuteWithResult(monitor, info);" + NL + "\t\t\t\tView view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);" + NL + "\t\t\t\tif (view != null && view.getEAnnotation(\"Shortcut\") == null) { //$NON-NLS-1$";
-  protected final String TEXT_11 = NL + "\t\t\t\t\tEAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();" + NL + "\t\t\t\t\tshortcutAnnotation.setSource(\"Shortcut\"); //$NON-NLS-1$" + NL + "\t\t\t\t\tshortcutAnnotation.getDetails().put(\"modelID\", ";
-  protected final String TEXT_12 = ".MODEL_ID); //$NON-NLS-1$" + NL + "\t\t\t\t\tview.getEAnnotations().add(shortcutAnnotation);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t};\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
+  protected final String TEXT_10 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t";
+  protected final String TEXT_11 = " command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view);" + NL + "\t\tcommand = command.compose(new ";
+  protected final String TEXT_12 = "(mySelectedElement.getEditingDomain(), view, viewDescriptor));" + NL + "\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
   protected final String TEXT_13 = ".getInstance().logError(\"Unable to create shortcut\", e); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void selectionChanged(IAction action, ISelection selection) {" + NL + "\t\tmySelectedElement = null;" + NL + "\t\tif (selection instanceof IStructuredSelection) {" + NL + "\t\t\tIStructuredSelection structuredSelection = (IStructuredSelection) selection;" + NL + "\t\t\tif (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof ";
   protected final String TEXT_14 = ") {" + NL + "\t\t\t\tmySelectedElement = (";
   protected final String TEXT_15 = ") structuredSelection.getFirstElement();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\taction.setEnabled(isEnabled());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isEnabled() {" + NL + "\t\treturn mySelectedElement != null;" + NL + "\t}" + NL + "" + NL + "}";
@@ -52,15 +52,10 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 
 importManager.getImportedName("org.eclipse.core.commands.ExecutionException");
 importManager.getImportedName("org.eclipse.core.commands.operations.OperationHistoryFactory");
-importManager.getImportedName("org.eclipse.core.runtime.IAdaptable");
-importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor");
 importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor");
 importManager.getImportedName("org.eclipse.emf.common.util.URI");
 importManager.getImportedName("org.eclipse.emf.common.util.WrappedException");
-importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation");
 importManager.getImportedName("org.eclipse.emf.ecore.EObject");
-importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory");
-importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult");
 importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand");
 importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest");
 importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter");
@@ -88,9 +83,9 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    /* Shortcut was created on the diagram with the same modelID */
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand"));
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCreateShortcutDecorationsCommandQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_13);
