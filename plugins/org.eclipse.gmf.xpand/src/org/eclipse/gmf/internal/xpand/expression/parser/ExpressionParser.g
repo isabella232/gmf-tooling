@@ -41,7 +41,7 @@ $End
 
 $Headers
 	/.
-		private final ExpressionFactory factory = new ExpressionFactory();
+		private final ExpressionFactory factory;
 	./
 $End
 

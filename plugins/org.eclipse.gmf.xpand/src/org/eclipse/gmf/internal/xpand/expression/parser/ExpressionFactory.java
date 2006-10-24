@@ -53,10 +53,6 @@ public class ExpressionFactory {
 		fileName = string;
 	}
 
-	public ExpressionFactory() {
-		fileName = "nofile";
-	}
-
 	protected static int end(final IToken c) {
 		return c.getEndColumn();
 	}

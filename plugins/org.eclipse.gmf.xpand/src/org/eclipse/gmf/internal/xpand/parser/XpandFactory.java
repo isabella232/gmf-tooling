@@ -41,9 +41,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionFactory;
 
 /**
- * *
- * 
- * @author Sven Efftinge *
+ * @author Sven Efftinge
  */
 public class XpandFactory extends ExpressionFactory {
 

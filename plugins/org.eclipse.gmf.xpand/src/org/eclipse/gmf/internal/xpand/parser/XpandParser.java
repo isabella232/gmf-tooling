@@ -60,6 +60,7 @@ public class XpandParser extends PrsStream implements RuleAction
     {
         super(lexStream);
         xpandFactory = new XpandFactory(lexStream.getFileName());
+        factory = new ExpressionFactory(lexStream.getFileName());
 
         try
         {
@@ -142,7 +143,7 @@ public class XpandParser extends PrsStream implements RuleAction
 
     private final XpandFactory xpandFactory;
 
-	private final ExpressionFactory factory = new ExpressionFactory();
+	private final ExpressionFactory factory;
 
     public void ruleAction(int ruleNumber)
     {
