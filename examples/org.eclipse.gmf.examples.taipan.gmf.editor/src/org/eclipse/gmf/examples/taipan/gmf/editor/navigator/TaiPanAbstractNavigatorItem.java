@@ -49,7 +49,7 @@ public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
 	 */
 	public Object getAdapter(Class adapter) {
 		if (ITabbedPropertySheetPageContributor.class.isAssignableFrom(adapter)) {
-			return new IReadOnlyDiagramPropertySheetPageContributor() {
+			return new ITabbedPropertySheetPageContributor() {
 
 				public String getContributorId() {
 					return "org.eclipse.gmf.examples.taipan.gmf.editor";

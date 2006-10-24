@@ -26,6 +26,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
 /**
@@ -148,7 +149,7 @@ public class TaiPanNavigatorActionProvider extends CommonActionProvider {
 			try {
 				page.openEditor(editorInput, TaiPanDiagramEditor.ID);
 			} catch (PartInitException e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Exceptino while openning diagram", e);
+				TaiPanDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e);
 			}
 		}
 

@@ -105,8 +105,7 @@ public class TaiPanDiagramEditorUtil {
 			IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		progressMonitor.beginTask("Creating diagram and model files", 4); //$NON-NLS-1$
-		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
+		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
 		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
