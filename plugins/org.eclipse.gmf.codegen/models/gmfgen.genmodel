@@ -181,7 +181,6 @@
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardIconPath"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardCategoryID"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramEditorUtilClassName"/>
-      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramFileCreatorClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
       <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/newDiagramFileWizardClassName"/>
@@ -194,7 +193,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardPageQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramEditorUtilQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramFileCreatorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDocumentProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getInitDiagramFileActionQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getNewDiagramFileWizardQualifiedClassName"/>

@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}</li>
@@ -174,32 +173,6 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	void setDiagramEditorUtilClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Diagram File Creator Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Diagram File Creator Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Diagram File Creator Class Name</em>' attribute.
-	 * @see #setDiagramFileCreatorClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_DiagramFileCreatorClassName()
-	 * @model
-	 * @generated
-	 */
-	String getDiagramFileCreatorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Diagram File Creator Class Name</em>' attribute.
-	 * @see #getDiagramFileCreatorClassName()
-	 * @generated
-	 */
-	void setDiagramFileCreatorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Document Provider Class Name</b></em>' attribute.
@@ -458,14 +431,6 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getDiagramEditorUtilQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getDiagramFileCreatorQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
