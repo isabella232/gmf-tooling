@@ -20,6 +20,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -99,5 +100,12 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 			}
 		}
 		return null;
+	}
+
+	public void testExternalNodeLabelsWithZoom() throws Exception {
+		ZoomManager zoomManager = (ZoomManager) getDiagramEditPart().getViewer().getProperty(ZoomManager.class.toString());
+		assertNotNull(zoomManager);
+		zoomManager.setZoom(4.0);
+		testExternalNodeLabelsPosition();
 	}
 }

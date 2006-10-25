@@ -73,7 +73,9 @@ public abstract class <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%
 	 * @generated
 	 */
 	protected Point getLabelLocation(IFigure parent) {
-		return parent.getBounds().getBottom();
+		Point result = parent.getBounds().getBottom();
+		parent.translateToAbsolute(result);
+		return result;
 	}
 }
 <%importManager.emitSortedImports();%>
