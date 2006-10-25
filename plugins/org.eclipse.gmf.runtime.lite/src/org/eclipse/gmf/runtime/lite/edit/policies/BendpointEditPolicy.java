@@ -90,6 +90,7 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 			List newPoints = new ArrayList(oldPoints);
 			bendpointModifier.applyModification(newPoints, new BendpointConverter() {
 				public RelativeBendpoint convert(Point point) {
+					getConnection().translateToRelative(point);
 					Dimension s = point.getDifference(ptRef1);
 					Dimension t = point.getDifference(ptRef2);
 					return new RelativeBendpoint(s.width, s.height, t.width, t.height);
