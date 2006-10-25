@@ -9,17 +9,19 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Artem Tikhomirov - LPG lexer/parser and error reporting
  *
  * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.util;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.Reader;
+import java.util.ArrayList;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.gmf.internal.xpand.Activator;
+import lpg.lpgjavaruntime.LexStream;
+import lpg.lpgjavaruntime.ParseErrorCodes;
+
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 import org.eclipse.gmf.internal.xpand.xtend.parser.XtendLexer;
@@ -27,51 +29,51 @@ import org.eclipse.gmf.internal.xpand.xtend.parser.XtendParser;
 
 public class XtendResourceParser {
 
-    public XtendResource parse(final IFile file) {
+    public XtendResource parse(final Reader source, final String name) throws IOException, ParserException {
         ExtensionFile tpl = null;
         XtendLexer scanner = null;
-        final char[] buffer;
+        final ArrayList<ParserException.ErrorLocationInfo> errors = new ArrayList<ParserException.ErrorLocationInfo>();
+        final char[] buffer = new StreamConverter().toCharArray(source);
         try {
-            buffer = new StreamConverter().toCharArray(file);
-        } catch (final CoreException e1) {
-            Activator.log(e1.getStatus());
-            return null;
-		} catch (UnsupportedEncodingException ex) {
-			Activator.logError(ex);
-			return null;
-		} catch (IOException ex) {
-			Activator.logError(ex);
-			return null;
-		}
-        try {
-            scanner = new XtendLexer(buffer, file.getName());
+            scanner = new XtendLexer(buffer, name) {
+        		// FIXME move to XtendLexer.g template
+            	@Override
+            	public void reportError(int left_loc, int right_loc) {
+                    errors.add(createError(this, left_loc, right_loc));
+            		super.reportError(left_loc, right_loc);
+            	}
+            };
             XtendParser parser = new XtendParser(scanner);
             scanner.lexer(parser);
             tpl = parser.parser();
-			// FIXME handle errors
-//        } catch (final MismatchedTokenException e) {
-//            final Token t = e.token;
-//            OawMarkerManager.deleteMarkers(file);
-//            OawMarkerManager.addErrorMarker(file, e.getMessage(), IMarker.SEVERITY_ERROR, start(t), end(t));
-//        } catch (final NoViableAltException e) {
-//            final Token t = e.token;
-//            if (t.getType() == ExtensionParserTokenTypes.EOF) {
-//                OawMarkerManager.addErrorMarker(file, "Unexpected end of file. (Forget a semicolon?)",
-//                        IMarker.SEVERITY_ERROR, t.getColumn() - 2, t.getColumn() - 1);
-//            } else {
-//                OawMarkerManager.deleteMarkers(file);
-//                OawMarkerManager.addErrorMarker(file, e.getMessage(), IMarker.SEVERITY_ERROR, start(t), end(t));
-//            }
+			// FIXME handle errors - override Lexer#reportErrors, collect and 
         } catch (final Exception e) {
-            final int start = scanner.getStreamIndex() - 1;
-            final int end = start + 1;
-            OawMarkerManager.deleteMarkers(file);
-            OawMarkerManager.addErrorMarker(file, e.getMessage(), start, end);
+        	if (errors.isEmpty()) {
+        		throw new IOException("Unexpected exception while parsing");
+        	} else {
+        		throw new ParserException(errors);
+        	}
         }
         if (tpl != null) {
-            tpl.setFullyQualifiedName(Activator.getQualifiedName(file));
+            tpl.setFullyQualifiedName(name);
             return tpl;
         }
         return null;
+    }
+
+    public static ParserException.ErrorLocationInfo createError(LexStream lexStream, int left_loc, int right_loc) {
+		// COPY OF LexStream#reportError
+        int errorCode = (right_loc >= lexStream.getStreamLength() ? ParseErrorCodes.EOF_CODE : left_loc == right_loc ? ParseErrorCodes.LEX_ERROR_CODE : ParseErrorCodes.INVALID_TOKEN_CODE); 
+        int end_loc = (left_loc == right_loc ? right_loc : right_loc - 1);
+        String tokenText = (errorCode == ParseErrorCodes.EOF_CODE ? "End-of-file " : errorCode == ParseErrorCodes.INVALID_TOKEN_CODE
+                                ? "\"" + new String(lexStream.getInputChars(), left_loc, right_loc - left_loc) + "\" "
+                                : "\"" + lexStream.getCharValue(left_loc) + "\" ");
+        // END
+        final int startLine = lexStream.getLineNumberOfCharAt(left_loc);
+        final int startColumn = lexStream.getColumnOfCharAt(left_loc);
+        final int endLine = lexStream.getLineNumberOfCharAt(end_loc);
+        final int endColumn = lexStream.getColumnOfCharAt(end_loc);
+        final String message = tokenText + ParseErrorCodes.errorMsgText[errorCode];
+        return new ParserException.ErrorLocationInfo(message, startLine, startColumn, endLine, endColumn);
     }
 }

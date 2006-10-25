@@ -19,6 +19,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 
 /**
+ * TODO remove?
  * @author artem
  */
 public class ContextFactory {

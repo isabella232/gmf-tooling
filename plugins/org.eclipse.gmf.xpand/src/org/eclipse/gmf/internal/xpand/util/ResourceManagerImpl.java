@@ -8,53 +8,67 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.util;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
+import java.io.IOException;
+import java.io.Reader;
+
+import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 // FIXME it's not a good idea to parse file on every proposal computation
-public class ResourceManagerImpl implements ResourceManager {
-
-	private final IProject contextProject;
-
-	public ResourceManagerImpl(IProject context) {
-		this.contextProject = context;
-	}
+public abstract class ResourceManagerImpl implements ResourceManager {
 
 	public XtendResource loadXtendResource(String fullyQualifiedName) {
-		return loadXtendResource(resolve(fullyQualifiedName, XtendResource.FILE_EXTENSION));
-	}
-
-	public XtendResource loadXtendResource(IFile file) {
-		assert file.getProject() == contextProject;
-		return new XtendResourceParser().parse(file);
+		Reader r = null;
+		try {
+			r = resolve(fullyQualifiedName, XtendResource.FILE_EXTENSION);
+			return loadXtendResource(r, fullyQualifiedName);
+		} catch (IOException ex) {
+			Activator.logError(ex);
+		} catch (ParserException ex) {
+			handleParserException(fullyQualifiedName, ex);
+		} finally {
+			if (r != null) {
+				try {
+					r.close();
+				} catch (Exception ex) {/*IGNORE*/}
+			}
+		}
+		return null;
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
-		return loadXpandResource(resolve(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION));
-	}
-
-	public XpandResource loadXpandResource(IFile file) {
-		if (file == null) {
-			return null;
+		Reader r = null;
+		try {
+			r = resolve(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
+			return loadXpandResource(r, fullyQualifiedName);
+		} catch (IOException ex) {
+			Activator.logError(ex);
+		} catch (ParserException ex) {
+			handleParserException(fullyQualifiedName, ex);
+		} finally {
+			if (r != null) {
+				try {
+					r.close();
+				} catch (Exception ex) {/*IGNORE*/}
+			}
 		}
-		assert file.getProject() == contextProject;
-		return new XpandResourceParser().parse(file);
+		return null;
 	}
 
-	public void forget(IFile resource) {
-		// TODO Auto-generated method stub
-		// implement when caching
+	protected void handleParserException(String name, ParserException ex) {
+		Activator.logWarn(name + ":" + ex.getClass().getName());
 	}
 
-	private IFile resolve(String fqn, String ext) {
-		IPath p = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
-		// FIXME handle CCE
-		return (IFile) contextProject.findMember(p);
+	protected abstract Reader resolve(String fullyQualifiedName, String extension) throws IOException;
+
+	protected XtendResource loadXtendResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
+		return new XtendResourceParser().parse(reader, fullyQualifiedName);
 	}
+
+	protected XpandResource loadXpandResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
+		return new XpandResourceParser().parse(reader, fullyQualifiedName);
+	}
+
 }

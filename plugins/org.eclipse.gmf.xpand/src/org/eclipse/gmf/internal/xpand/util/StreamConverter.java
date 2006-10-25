@@ -25,19 +25,29 @@ import org.eclipse.gmf.internal.xpand.Activator;
  */
 public class StreamConverter {
 
+	/**
+	 * If this method completes successfully, whole input will be consumed, however, it won't be
+	 * 'closed', so it's up to invoker to close the input
+	 * @throws IOException
+	 */
 	public char[] toCharArray(Reader input) throws IOException {
 		return toCharWriter(input).toCharArray();
 	}
 
+	/**
+	 * @throws CoreException
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	public char[] toCharArray(IFile file) throws CoreException, UnsupportedEncodingException, IOException {
-		InputStream is = null;
+		Reader r = null;
 		try {
-			is = file.getContents();
-			return toCharArray(is, Charset.forName(file.getCharset(true)));
+			r = toContentsReader(file);
+			return toCharArray(r);
 		} finally {
-			if (is != null) {
+			if (r != null) {
 				try {
-					is.close();
+					r.close();
 				} catch (IOException ex) {
 					Activator.logError(ex);
 				}
@@ -45,13 +55,20 @@ public class StreamConverter {
 		}
 	}
 
-	public char[] toCharArray(InputStream is, Charset charSet) throws IOException {
-		return toCharWriter(new InputStreamReader(is, charSet)).toCharArray();
+	/**
+	 * It's caller's responsibility to close reader once it's no longer needed
+	 * @throws CoreException
+	 * @throws UnsupportedEncodingException
+	 */
+	public Reader toContentsReader(IFile file) throws CoreException, UnsupportedEncodingException {
+		InputStream is = file.getContents();
+		return new InputStreamReader(is, Charset.forName(file.getCharset(true)));
 	}
 
 	/**
 	 * @param input it's invoker's responsibility to close input
 	 * @return writer full of data taken from input
+	 * @throws IOException
 	 */
 	public CharArrayWriter toCharWriter(Reader input) throws IOException {
 		CharArrayWriter buffer = new CharArrayWriter(4096);

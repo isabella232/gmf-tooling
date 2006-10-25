@@ -14,7 +14,6 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
@@ -27,12 +26,6 @@ public interface ResourceManager {
 
     XtendResource loadXtendResource(String fullyQualifiedName);
 
-    XtendResource loadXtendResource(IFile file);
-
     XpandResource loadXpandResource(String fullyQualifiedName);
-
-    XpandResource loadXpandResource(IFile file);
-
-	void forget(IFile resource);
 
 }

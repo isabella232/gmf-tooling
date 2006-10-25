@@ -11,16 +11,13 @@ package org.eclipse.gmf.internal.xpand;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
-import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
+import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
@@ -58,19 +55,13 @@ public class Activator extends Plugin {
 		anInstance.getLog().log(status);
 	}
 
-	public static String getQualifiedName(final IFile file) {
-		IPath p = file.getProjectRelativePath().removeFileExtension().makeRelative();
-		final String fqn = p.toString().replace("/", SyntaxConstants.NS_DELIM);
-		return fqn;
-	}
-
 	private final Map<IProject, ResourceManager> resourceManagers = new HashMap<IProject, ResourceManager>();
 
 	public static ResourceManager getResourceManager(IProject context) {
 		if (anInstance.resourceManagers.containsKey(context)) {
 			return anInstance.resourceManagers.get(context);
 		}
-		ResourceManagerImpl resourceManager = new ResourceManagerImpl(context);
+		ResourceManager resourceManager = new WorkspaceResourceManager(context);
 		anInstance.resourceManagers.put(context, resourceManager);
 		try {
 			context.setSessionProperty(new QualifiedName("xpand","resourceManager"), resourceManager);

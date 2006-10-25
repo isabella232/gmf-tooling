@@ -23,7 +23,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
+/**
+ * FIXME fix syntax elements to keep not (only) line-relative column info, but buffer-related - otherwise
+ * it makes no much sense for us to show markers
+ */
 public class OawMarkerManager {
 
 	public static void addMarkers(final IFile file, AnalysationIssue... issues) {
@@ -31,6 +36,15 @@ public class OawMarkerManager {
 		int i = 0;
 		for (AnalysationIssue issue : issues) {
 			data[i++] = createMarkerData(issue);
+		}
+		internalAddMarker(file, data);
+	}
+
+	public static void addMarkers(IFile file, ErrorLocationInfo... issues) {
+		MarkerData[] data = new MarkerData[issues.length];
+		int i = 0;
+		for (ErrorLocationInfo issue : issues) {
+			data[i++] = new MarkerData(issue.message, IMarker.SEVERITY_ERROR, -1, -1, issue.startLine);
 		}
 		internalAddMarker(file, data);
 	}
@@ -51,13 +65,9 @@ public class OawMarkerManager {
 
 	private static class MarkerData {
 		final String message;
-
 		final int severity;
-
 		final int start;
-
 		final int end;
-
 		final int line;
 
 		MarkerData(String message, int severity, int start, int end) {
