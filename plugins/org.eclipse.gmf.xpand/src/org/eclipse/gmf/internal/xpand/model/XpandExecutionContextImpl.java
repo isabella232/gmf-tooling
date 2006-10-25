@@ -42,7 +42,7 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
     
     protected final ProtectedRegionResolver protectedRegionResolver;
     
-    private List<XpandAdvice> registeredAdvices = new ArrayList<XpandAdvice>();
+    private final List<XpandAdvice> registeredAdvices = new ArrayList<XpandAdvice>();
 
     public XpandExecutionContextImpl(ResourceManager resourceManager, Output output, ProtectedRegionResolver prs) {
         this (resourceManager, output, prs, null);
