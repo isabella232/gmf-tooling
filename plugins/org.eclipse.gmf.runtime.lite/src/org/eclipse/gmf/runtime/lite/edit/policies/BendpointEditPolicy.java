@@ -70,17 +70,24 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 	private class BendpointModificationCommand extends AbstractCommand {
 		private BendpointModifier bendpointModifier; 
 		private List oldPoints;
+		private Point mySourceRef;
+		private Point myTargetRef;
 
 		public BendpointModificationCommand(BendpointModifier bendpointModifier) {
 			this.bendpointModifier = bendpointModifier;
 		}
 
-		public void execute() {
+		@Override
+		protected boolean prepare() {
 			Connection connection = getConnection();
-			final Point ptRef1 = connection.getSourceAnchor().getReferencePoint().getCopy();
-			connection.translateToRelative(ptRef1);
-			final Point ptRef2 = connection.getTargetAnchor().getReferencePoint().getCopy();
-			connection.translateToRelative(ptRef2);
+			mySourceRef = connection.getSourceAnchor().getReferencePoint().getCopy();
+			connection.translateToRelative(mySourceRef);
+			myTargetRef = connection.getTargetAnchor().getReferencePoint().getCopy();
+			connection.translateToRelative(myTargetRef);
+			return true;
+		}
+
+		public void execute() {
 			RelativeBendpoints bendpoints = (RelativeBendpoints) getDiagramEdge().getBendpoints();
 			if (bendpoints == null) {
 				bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
@@ -91,8 +98,8 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 			bendpointModifier.applyModification(newPoints, new BendpointConverter() {
 				public RelativeBendpoint convert(Point point) {
 					getConnection().translateToRelative(point);
-					Dimension s = point.getDifference(ptRef1);
-					Dimension t = point.getDifference(ptRef2);
+					Dimension s = point.getDifference(mySourceRef);
+					Dimension t = point.getDifference(myTargetRef);
 					return new RelativeBendpoint(s.width, s.height, t.width, t.height);
 				}
 			});
@@ -106,10 +113,6 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 
 		public void redo() {
 			execute();
-		}
-
-		public boolean canExecute() {
-			return true;
 		}
 	}
 
