@@ -11,15 +11,23 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -27,6 +35,7 @@ import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -48,6 +57,7 @@ import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
+import org.osgi.framework.BundleException;
 
 @SuppressWarnings("unchecked")
 public class LinksSessionSetup extends SessionSetup {
@@ -64,6 +74,24 @@ public class LinksSessionSetup extends SessionSetup {
 		return new LinksSessionSetup();
 	}
 
+	@Override
+	protected GenProjectSetup createGenProject() throws BundleException, Exception {
+		GenProjectSetup genProjectSetup = super.createGenProject();
+
+		assertValid("Test gmfmap model must be valid", EcoreUtil.getRootContainer(getMapModel().getMapping())); //$NON-NLS-1$
+		assertValid("Test gmfgen model must be valid", EcoreUtil.getRootContainer(getGenModel().getGenDiagram())); //$NON-NLS-1$
+		return genProjectSetup;
+	}
+	
+	static void assertValid(String message, EObject target) {
+		Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(target);
+		IStatus validationStatus = BasicDiagnostic.toIStatus(validationDiagnostic);
+		if(!validationStatus.isOK()) {
+			Plugin.getInstance().getLog().log(validationStatus);
+		}
+		Assert.assertTrue(message + ". See error log for details.", validationStatus.isOK()); //$NON-NLS-1$		
+	}
+	
 	protected DomainModelSource createDomainModel() {
 		DomainModelFileSetup modelSetup = new DomainModelFileSetup() {
 			public EClass getDiagramElement() {
@@ -113,6 +141,10 @@ public class LinksSessionSetup extends SessionSetup {
 				nextGenPackage.setPrefix(buf.toString());
 			}
 		}
+		
+		ResourceSet rset = getMapModel().getMapping().eResource().getResourceSet();
+		bindGMFGenModelToResourceSet(diaGenSetup, rset);
+		
 		return diaGenSetup;
 	}
 
@@ -122,12 +154,34 @@ public class LinksSessionSetup extends SessionSetup {
 		return mapDefSource.init(getGraphDefModel(), getDomainModel(), new ToolDefSetup());
 	}
 	
+	private void bindGMFGenModelToResourceSet(DiaGenSetup diaGenSetup, ResourceSet rset) {
+		rset.createResource(URI.createURI("uri:/myTestModel/gmfgen")).getContents().add(EcoreUtil.getRootContainer(diaGenSetup.getGenDiagram())); //$NON-NLS-1$
+		
+		Set<GenModel> genModels = new HashSet<GenModel>();		
+		GenModel domainGenModel = diaGenSetup.getGenDiagram().getDomainDiagramElement().getGenModel();
+		genModels.add(domainGenModel);
+		
+		Map crossRefs = EcoreUtil.ExternalCrossReferencer.find(EcoreUtil.getRootContainer(diaGenSetup.getGenDiagram()));
+		for (Iterator it = crossRefs.keySet().iterator(); it.hasNext();) {
+			EObject crossReferenced = (EObject)it.next(); 
+			if(crossReferenced.eResource() == null && crossReferenced instanceof GenBase) {
+				genModels.add(((GenBase)crossReferenced).getGenModel());
+			}
+		}
+		
+		int modelID = 0;
+		for (Iterator it = genModels.iterator(); it.hasNext(); modelID++) {
+			GenModel nextGenModel = (GenModel) it.next();
+			rset.createResource(URI.createURI("uri:/myTestModel/genmodel/" + modelID)).getContents().add(nextGenModel); //$NON-NLS-1$			
+		}			
+	}	
+	
 	/*
 	 * Custom map-setup
 	 */
 	private static final class LinksMapSetup extends MapSetup {
 		private DomainModelSource domainSource;
-		EPath ECORE;
+		private EPath ECORE;
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 			this.domainSource = domainSource;
@@ -155,18 +209,16 @@ public class LinksSessionSetup extends SessionSetup {
 			bindToResourceSet(ddSource, toolDef, domainSource.getModel().eResource().getResourceSet());
 			return this;
 		}
-
+		
 		private void bindToResourceSet(DiaDefSource ddSource, ToolDefSource toolDef, ResourceSet rs) {			
-			Resource mapRsrc = rs.createResource(URI.createURI("myTestUri/gmfmap")); //$NON-NLS-1$
+			Resource mapRsrc = rs.createResource(URI.createURI("uri:/myTestModel/gmfmap")); //$NON-NLS-1$
 			mapRsrc.getContents().add(getMapping());
 
-			Resource graphRsrc = rs.createResource(URI.createURI("myTestUri/gmfgraph")); //$NON-NLS-1$
+			Resource graphRsrc = rs.createResource(URI.createURI("uri:/myTestModel/gmfgraph")); //$NON-NLS-1$
 			graphRsrc.getContents().add(ddSource.getCanvasDef());
 
-			Resource toolRsrc = rs.createResource(URI.createURI("myTestUri/gmftool")); //$NON-NLS-1$
+			Resource toolRsrc = rs.createResource(URI.createURI("uri:/myTestModel/gmftool")); //$NON-NLS-1$
 			toolRsrc.getContents().add(toolDef.getRegistry());
-			
-			Diagnostician.INSTANCE.validate(getMapping());
 		}
 
 		/* Setup element initializers */
@@ -250,6 +302,7 @@ public class LinksSessionSetup extends SessionSetup {
 		private abstract class FeatureInitDataHelper {
 			final EStructuralFeature feature;
 			
+			@SuppressWarnings("synthetic-access")
 			protected FeatureInitDataHelper(String featureQName) {
 				this.feature = ECORE.lookup(featureQName, EStructuralFeature.class);
 			}

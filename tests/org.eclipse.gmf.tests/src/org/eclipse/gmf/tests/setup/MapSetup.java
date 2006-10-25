@@ -32,7 +32,6 @@ import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -234,13 +233,17 @@ public class MapSetup implements MapDefSource {
 
 	protected void addCreationConstraints(LinkMapping linkMapping, String sourceConstraint, String endConstraint) {
 		LinkConstraints constraints = GMFMapFactory.eINSTANCE.createLinkConstraints();
-		Constraint source = GMFMapFactory.eINSTANCE.createConstraint();
-		source.setBody(sourceConstraint);
-		constraints.setSourceEnd(source);
+		if(sourceConstraint != null) {
+			Constraint source = GMFMapFactory.eINSTANCE.createConstraint();
+			source.setBody(sourceConstraint);
+			constraints.setSourceEnd(source);
+		}
 		
-		Constraint target = GMFMapFactory.eINSTANCE.createConstraint();
-		target.setBody(endConstraint);
-		constraints.setTargetEnd(target);
+		if(endConstraint != null) {
+			Constraint target = GMFMapFactory.eINSTANCE.createConstraint();
+			target.setBody(endConstraint);
+			constraints.setTargetEnd(target);
+		}
 		
 		linkMapping.setCreationConstraints(constraints);
 	}		
