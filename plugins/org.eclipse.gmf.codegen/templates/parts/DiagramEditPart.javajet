@@ -41,7 +41,7 @@ public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.get
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}
 
-if (genDiagram.generateCreateShortcutAction()) {%>
+if (genDiagram.generateCreateShortcutAction() && genDiagram.getEditorGen().getApplication() == null) {%>
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy")%>() {
 			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDropObjectsCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest")%> dropRequest) {
 				<%=importManager.getImportedName("java.util.List")%> viewDescriptors = new <%=importManager.getImportedName("java.util.ArrayList")%>();

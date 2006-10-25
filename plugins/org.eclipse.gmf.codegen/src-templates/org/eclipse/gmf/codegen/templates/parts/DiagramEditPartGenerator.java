@@ -99,7 +99,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_16);
     }
 
-if (genDiagram.generateCreateShortcutAction()) {
+if (genDiagram.generateCreateShortcutAction() && genDiagram.getEditorGen().getApplication() == null) {
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy"));
     stringBuffer.append(TEXT_18);
