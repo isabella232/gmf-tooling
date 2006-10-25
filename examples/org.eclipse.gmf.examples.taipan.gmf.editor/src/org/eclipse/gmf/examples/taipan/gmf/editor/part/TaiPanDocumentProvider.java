@@ -97,7 +97,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		for (Iterator it = resources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			monitor.setTaskName("Saving " + nextResource.getURI()); //$NON-NLS-1$
-			if (nextResource != diagramResource && nextResource.isLoaded()) {
+			if (nextResource != diagramResource && nextResource.isLoaded() && nextResource.isModified()) {
 				try {
 					nextResource.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {
