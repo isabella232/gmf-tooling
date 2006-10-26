@@ -18,6 +18,23 @@
 				public void relocate(<%=importManager.getImportedName("org.eclipse.jface.viewers.CellEditor")%> celleditor) {
 					<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect = getLabel().getTextBounds();
 					getLabel().translateToAbsolute(rect);
+					<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%> zoomManager = (<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%>) getViewer().getProperty(<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%>.class.toString());
+					double zoomLevel = zoomManager == null ? 1.0 : zoomManager.getZoom();
+					if (zoomLevel > 1.0 && getLabel().getFont() != null) {
+						<%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%>[] datas = getLabel().getFont().getFontData();
+						for(int i = 0; i < datas.length; i++) {
+							datas[i].height *= zoomLevel;
+						}
+						final <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%> font = new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(getLabel().getFont().getDevice(), datas);
+						celleditor.getControl().setFont(font);
+						celleditor.getControl().addDisposeListener(new <%=importManager.getImportedName("org.eclipse.swt.events.DisposeListener")%>() {
+							public void widgetDisposed(<%=importManager.getImportedName("org.eclipse.swt.events.DisposeEvent")%> e) {
+								font.dispose();
+							}
+						});
+					}
+					int avr = <%=importManager.getImportedName("org.eclipse.draw2d.FigureUtilities")%>.getFontMetrics(celleditor.getControl().getFont()).getAverageCharWidth();
+					rect.setSize(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(celleditor.getControl().computeSize(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.DEFAULT, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.DEFAULT)).expand(avr * 2, 0));
 					celleditor.getControl().setBounds(rect.x, rect.y, rect.width, rect.height);
 				}
 			}) {
