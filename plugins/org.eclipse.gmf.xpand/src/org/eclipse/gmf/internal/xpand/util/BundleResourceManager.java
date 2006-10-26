@@ -11,7 +11,7 @@ import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 
 /**
- * Node: no support for relative paths
+ * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')
  * @author artem
  */
 public class BundleResourceManager extends ResourceManagerImpl {
@@ -19,7 +19,26 @@ public class BundleResourceManager extends ResourceManagerImpl {
 
 	public BundleResourceManager(URL... paths) {
 		assert paths != null && paths.length > 0; 
-		this.paths = paths;
+		this.paths = new URL[paths.length];
+		for (int i = 0; i < paths.length; i++) {
+			this.paths[i] = fixTrailingSlash(paths[i]);
+		}
+	}
+
+	/**
+	 * new URL("base:url/path1/withoutTrailingSlash", "path2/noLeadingSlash")
+	 * results in "base:url/path/path2/noLeadingSlash" - note lost "withoutTrailingSlash" part
+	 * XXX Perhaps, would be better for clients do this 'normalization'?
+	 */
+	private static URL fixTrailingSlash(URL u) {
+		try {
+			if (u.getPath() != null && !u.getPath().endsWith("/")) {
+				return new URL(u, u.getPath() + '/');
+			}
+		} catch (MalformedURLException ex) {
+			/*IGNORE*/
+		}
+		return u;
 	}
 
 	@Override
@@ -35,6 +54,7 @@ public class BundleResourceManager extends ResourceManagerImpl {
 			} catch (MalformedURLException ex) {
 				/*IGNORE*/
 			} catch (IOException ex) {
+				// XXX perhaps, conditionally turn logging on to debug template loading issues?
 				/*IGNORE*/
 			} catch (Exception ex) {
 				// just in case
