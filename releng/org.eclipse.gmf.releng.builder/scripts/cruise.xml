@@ -68,6 +68,9 @@ ccweb.ftp.user=${ccweb.ftp.user}
 		<echo file="${basedir}/cc.properties" append="true">
 ccweb.ftp.passwd=${ccweb.ftp.passwd}
 		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+		cvs.root=${cvs.root}
+				</echo>
 
 
 		<mkdir dir="${logs}/continuous"/>
