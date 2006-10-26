@@ -23,6 +23,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		Reader r = null;
 		try {
 			r = resolve(fullyQualifiedName, XtendResource.FILE_EXTENSION);
+			if (r == null) {
+				return null;
+			}
 			return loadXtendResource(r, fullyQualifiedName);
 		} catch (IOException ex) {
 			Activator.logError(ex);
@@ -42,6 +45,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		Reader r = null;
 		try {
 			r = resolve(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
+			if (r == null) {
+				return null;
+			}
 			return loadXpandResource(r, fullyQualifiedName);
 		} catch (IOException ex) {
 			Activator.logError(ex);
