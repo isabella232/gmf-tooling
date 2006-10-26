@@ -118,13 +118,21 @@
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfUpdateVersion}.jar" property="emfExists" />
 	</target>
 
-	<!-- This installs EMFT as well. TODO: do check installed for EMFT components as well. -->
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
+<!-- Alternative, download zip method... 
+		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
+		<antcall target="getEMF"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
+-->
+	</target>
+	
+	<!-- TODO: do check installed for EMFT components as well. -->
+	<target name="installEMFT">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
@@ -160,11 +168,7 @@
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
-<!-- Alternative, download zip method... 
-		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
-		<antcall target="getEMF"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
-
+<!-- Alternative, download zip method...
 		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
 		<antcall target="getEMFOCL"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
@@ -354,6 +358,7 @@
 		<antcall target="installTestingFramework" />
 		<antcall target="installGEF" />
 		<antcall target="installEMF" />	
+		<antcall target="installEMFT" />
 		<antcall target="installEMFExamples" />
 		<antcall target="installXerces" />
 		<antcall target="installBatik" />
