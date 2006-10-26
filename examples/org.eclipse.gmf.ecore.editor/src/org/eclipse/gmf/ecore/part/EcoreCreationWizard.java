@@ -21,8 +21,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
