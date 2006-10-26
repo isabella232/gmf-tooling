@@ -30,16 +30,16 @@
 			whether to run the build -->
 		<modificationset quietperiod="10">
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/plugins" />
 				<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/features" />
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/tests" />
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/examples" />
 		</modificationset>
 
@@ -235,16 +235,16 @@
 			whether to run the build -->
 		<modificationset quietperiod="10">
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/plugins" />
 				<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/features" />
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/tests" />
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				cvsroot="${cvs.root}"
 				module="org.eclipse.gmf/examples" />
 		</modificationset>
 

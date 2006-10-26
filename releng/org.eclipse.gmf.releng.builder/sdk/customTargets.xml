@@ -31,10 +31,10 @@
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${cvs.root}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 		<!-- Check out target platform config -->
 		<property name="targetConfigTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 	</target>
 
 	<target name="checkLocalMaps">
@@ -153,7 +153,7 @@
 	<target name="runJavadoc" unless="skipJavadoc">
 		<!-- Retrieve doclet -->
 		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
-		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
+		     cvsRoot="${cvs.root}" 
 		     dest="${buildDirectory}" />
 		<!-- Compile and package doclet -->
 		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 

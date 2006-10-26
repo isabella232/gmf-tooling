@@ -6,7 +6,7 @@
 		<antcall target="wipe"/>
 		<mkdir dir="${buildDirectory}" />
 		<touch file="${user.home}/.cvspass" />
-		<cvs command="export -d component" cvsRoot="${componentsRepo}" package="${componentsRoot}/${component}" dest="${buildDirectory}" tag="${componentsTag}" />		
+		<cvs command="export -d component" cvsRoot="${cvs.root}" package="${componentsRoot}/${component}" dest="${buildDirectory}" tag="${componentsTag}" />		
 		<available file="label.properties" property="label.properties.present"/>
 		<antcall target="create.label.properties"/>
 		<property file="label.properties" />		
@@ -55,7 +55,7 @@
 	           changes in GMF's site.xml -->
 	<!-- TODO: copy css, xsl from scripts directory to the local CC web app for consistent look & feel, when modified -->
 	<target name="initLocalMirror">		
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updates" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${localUpdateSitePath}/../" />
+		<cvs cvsRoot="${cvs.root}" command="export -r HEAD -d updates" package="${updateModule}" dest="${localUpdateSitePath}/../" />
 		<mkdir dir="${localUpdateSitePath}/WEB-INF"/>
 		<move file="${localUpdateSitePath}/web/web.xml" todir="${localUpdateSitePath}/WEB-INF"/>
 	</target>

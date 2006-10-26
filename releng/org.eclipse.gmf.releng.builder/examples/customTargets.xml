@@ -34,10 +34,10 @@
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${cvs.root}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 		<!-- Check out target platform config -->
 		<property name="targetConfigTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${cvs.root}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 	</target>
 
 	<target name="checkLocalMaps">
