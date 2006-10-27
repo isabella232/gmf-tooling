@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
@@ -201,7 +202,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	 * Passes initialized ImportManager as second template argument
 	 */
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
-		ImportUtil importUtil = new ImportUtil(packageName, className);
+		ImportAssistant importUtil = createImportAssistant(packageName, className);
 		doGenerateJavaClass(emitter, packageName, className, new Object[] { new Object[] {argument, importUtil } });
 	}
 

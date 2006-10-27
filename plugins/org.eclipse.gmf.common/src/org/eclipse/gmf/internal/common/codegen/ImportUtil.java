@@ -17,6 +17,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.codegen.util.ImportManager;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaModelException;
 
 /**
  * Copy of GenModelImpl functionality
@@ -29,6 +32,20 @@ public class ImportUtil implements ImportAssistant {
 	private StringBuffer importStringBuffer;
 
 	private int importInsertionPoint;
+
+	public ImportUtil(String compilationUnitPackage, String compilationUnitName, IPackageFragmentRoot sourceRoot) {
+		this(compilationUnitPackage, compilationUnitName);
+		if (sourceRoot != null) {
+			ICompilationUnit existingCU = sourceRoot.getPackageFragment(compilationUnitPackage).getCompilationUnit(compilationUnitName + ".java");	//$NON-NLS-1$
+			if (existingCU.exists()) {
+				try {
+					myImportManager.addCompilationUnitImports(existingCU.getSource());
+				} catch (JavaModelException e) {
+					//Ignore. The compilation unit imports will not be added, but we may proceed.
+				}
+			}
+		}
+	}
 
 	public ImportUtil(String compilationUnitPackage, String compilationUnitName) {
 		assert compilationUnitName != null && compilationUnitName.trim().length() > 0;

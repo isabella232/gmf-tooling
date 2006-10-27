@@ -38,6 +38,7 @@ import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -206,7 +207,7 @@ public abstract class GeneratorBase implements Runnable {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
 	}
-	
+
 	/**
 	 * Generate ordinary file.
 	 * @param emitter template to use
@@ -291,6 +292,10 @@ public abstract class GeneratorBase implements Runnable {
 			handleException(newStatus(IStatus.WARNING, ex));
 			return null;
 		}
+	}
+
+	protected final ImportAssistant createImportAssistant(String packageName, String className) {
+		return new ImportUtil(packageName, className, myDestRoot);
 	}
 
 	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object[] input) throws InterruptedException {

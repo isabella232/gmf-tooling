@@ -18,7 +18,7 @@ import org.eclipse.gmf.tests.lite.gef.DiagramLinksTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramNodeCloneMoveTest;
 import org.eclipse.gmf.tests.lite.gef.ExternalNodeLabelsTest;
 import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
-import org.eclipse.gmf.tests.lite.gen.LiteCompilationTest;
+import org.eclipse.gmf.tests.lite.gen.LiteCompilationTestWithImportConflicts;
 import org.eclipse.gmf.tests.lite.gen.RCPLiteCompilationTest;
 import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
@@ -35,7 +35,7 @@ import junit.framework.TestSuite;
 public class AllTests extends org.eclipse.gmf.tests.AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side, lite mode");
-		suite.addTestSuite(LiteCompilationTest.class);
+		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
 		suite.addTestSuite(RCPLiteCompilationTest.class);
 
 		final SessionSetup sessionSetup = LiteSessionSetup.getInstance();
