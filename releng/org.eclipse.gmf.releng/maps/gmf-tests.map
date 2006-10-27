@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) tests map *******************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.tests=v20061020-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
+feature@org.eclipse.gmf.tests=v20061027-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.tests=v20060919-0800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
