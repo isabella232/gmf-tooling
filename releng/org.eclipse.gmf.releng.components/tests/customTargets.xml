@@ -184,13 +184,13 @@
 	<target name="test" unless="skipTests">
 		<ant antfile="${scripts}/install.xml" target="installTests"/>
 		<!-- discover feature version -->
-		<var file="${buildRoot}/tests/finalFeaturesVersions.properties"/>
-		<property name="featureVersion" value="${org.eclipse.gmf.tests}"/>		
+		<var file="${buildRoot}/tests/finalPluginsVersions.properties"/>
+		<property name="sourceVersion" value="${org.eclipse.gmf.tests.source}"/>		
 	  	<var name="org.eclipse.gmf.tests" unset="true"/>
 		<!-- run the tests -->
-		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
