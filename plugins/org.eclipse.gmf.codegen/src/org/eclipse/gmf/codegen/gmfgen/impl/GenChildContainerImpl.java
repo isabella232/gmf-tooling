@@ -7,9 +7,11 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -90,7 +92,8 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @generated NOT
 	 */
 	public EList getContainedNodes() {
-		return getChildNodes();
+		List childNodes = getChildNodes();
+		return new BasicEList.UnmodifiableEList(childNodes.size(), childNodes.toArray());
 	}
 
 	/**
@@ -204,10 +207,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
-				getContainedNodes().clear();
-				getContainedNodes().addAll((Collection)newValue);
-				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName((String)newValue);
 				return;
@@ -226,9 +225,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
-				getContainedNodes().clear();
-				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;

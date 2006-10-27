@@ -59,33 +59,10 @@ public class GenChildContainerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addContainedNodesPropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addChildNodesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Contained Nodes feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContainedNodesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenContainerBase_containedNodes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_containedNodes_feature", "_UI_GenContainerBase_type"),
-				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
-				 true,
-				 false,
-				 false,
-				 null,
-				 getString("_UI_DiagramContainmentPropertyCategory"),
-				 null));
 	}
 
 	/**

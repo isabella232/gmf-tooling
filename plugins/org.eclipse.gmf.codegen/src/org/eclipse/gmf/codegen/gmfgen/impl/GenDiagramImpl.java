@@ -1563,7 +1563,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public EList getContainedNodes() {
-		return getTopLevelNodes();
+		List topLevelNodes = getTopLevelNodes();
+		return new BasicEList.UnmodifiableEList(topLevelNodes.size(), topLevelNodes.toArray());
 	}
 
 	/**
@@ -4001,10 +4002,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
-				getContainedNodes().clear();
-				getContainedNodes().addAll((Collection)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName((String)newValue);
 				return;
@@ -4244,9 +4241,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
-				getContainedNodes().clear();
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;

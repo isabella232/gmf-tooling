@@ -37,7 +37,7 @@ public interface GenContainerBase extends GenCommonBase {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Contained Nodes</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContainerBase_ContainedNodes()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode" transient="true" volatile="true" derived="true"
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList getContainedNodes();
