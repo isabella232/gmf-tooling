@@ -175,7 +175,7 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 
     /**
      * resolves the correct definition (using parametric polymorphism)
-     * 
+     * XXX why not filter with name right here, and not in PolymorphicResolver?
      * @param definitions
      * @param target
      * @param paramTypes
