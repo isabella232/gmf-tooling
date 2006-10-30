@@ -15,6 +15,7 @@
 package org.eclipse.gmf.internal.xpand.expression;
 
 /**
+ * FIXME !!! either make value final or do not use it to calculate hash code!!!
  * @author Sven Efftinge
  * @author Arno Haase
  */
