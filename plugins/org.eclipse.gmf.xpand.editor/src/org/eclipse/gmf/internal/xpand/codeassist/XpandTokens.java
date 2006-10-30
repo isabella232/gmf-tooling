@@ -101,7 +101,7 @@ public class XpandTokens {
 
     public static final String AROUND = "AROUND";
 
-    public final static String[] allKeywords() {
+    public final static String[] allKeywords() { // XXX REM and ENDREM are not included, why? (code completion misses)
         return new String[] { AROUND, ENDAROUND, AS, CEND, CSTART, DEFINE, DISABLE, ELSE, ELSEIF, ENDDEFINE, ENDFILE,
                 ENDFOREACH, ENDIF, ENDLET, ENDPROTECT, ERROR, EXPAND, EXTENSION, FILE, FOR, FOREACH, ID, IF, IMPORT,
                 ITERATOR, LET, NEW, PROTECT, SEPARATOR, TRUE_CONST, FALSE_CONST, NULL_CONST, THIS, LET_EXPR, SWITCH,
