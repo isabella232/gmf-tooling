@@ -89,7 +89,10 @@ public class FeatureCall extends Expression {
         if (target == null) {
             final EEnumLiteral staticProp = getEnumLiteral(ctx);
             if (staticProp != null) {
-				return staticProp;
+            	// XXX write tests to make sure
+            	// switch (enumField) case EnumName::LITERAL1 
+            	// works
+				return staticProp.getInstance();
 			}
             Variable var = ctx.getVariable(getName().getValue());
             if (var != null) {
