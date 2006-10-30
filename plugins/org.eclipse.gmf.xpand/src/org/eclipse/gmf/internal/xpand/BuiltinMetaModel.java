@@ -888,6 +888,9 @@ public class BuiltinMetaModel {
 			return true;
 		}
 		if (false == (t instanceof EClass)) {
+			if (c1 instanceof EEnum && t == EcorePackage.eINSTANCE.getEEnumerator()) {
+				return true; // HACK - any enumerator instance can be assigned to any enum attribute. 
+			}
 			if (c1 instanceof EDataType && t instanceof EDataType) {
 				return isCompatibleDataTypes((EDataType) c1, (EDataType) t);
 			}
