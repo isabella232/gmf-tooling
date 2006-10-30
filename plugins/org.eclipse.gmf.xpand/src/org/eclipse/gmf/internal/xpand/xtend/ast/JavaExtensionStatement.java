@@ -18,6 +18,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -66,6 +67,7 @@ public class JavaExtensionStatement extends Extension {
 				}
 				throw new EvaluationException(javaMethodToString() + " not found, problems were: \n" + b, this);
 			}
+			transformParameters(method.getParameterTypes(), parameters);
 			if (Modifier.isStatic(method.getModifiers())) {
 				return method.invoke(null, parameters);
 			} else {
@@ -87,6 +89,17 @@ public class JavaExtensionStatement extends Extension {
 			throw e;
 		} catch (final Exception e) {
 			throw new EvaluationException(e, this);
+		}
+	}
+
+	private void transformParameters(Class[] paramTypes, Object[] parameters) {
+		assert paramTypes.length == parameters.length;
+		for (int i = 0; i < parameters.length; i++) {
+			// XXX no support for arrays of arrays
+			if (parameters[i] instanceof List && paramTypes[i].isArray()) {
+				List list = (List) parameters[i];
+				parameters[i] = list.toArray((Object[]) Array.newInstance(paramTypes[i].getComponentType(), list.size()));
+			}
 		}
 	}
 
