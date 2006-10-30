@@ -26,7 +26,7 @@ public interface Output {
 
     public void exitStatement(SyntaxElement stmt);
 
-    public void openFile(String path, String fileMode);
+    public void openFile(String path, String outletName);
 
     public void closeFile();
 
