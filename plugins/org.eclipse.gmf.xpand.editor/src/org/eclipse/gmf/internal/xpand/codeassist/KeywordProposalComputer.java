@@ -33,7 +33,7 @@ public class KeywordProposalComputer implements ProposalComputer {
 	        final String[] kw = XpandTokens.allKeywords();
 	        for (final String string : kw) {
 	            if (string.toLowerCase().startsWith(prefix.toLowerCase())) {
-	                result.add(factory.createKeywordProposal(string + " ", string, prefix));
+	                result.add(factory.createKeywordProposal(string + (string.startsWith("END") ? XpandTokens.RT : " "), string, prefix));
 	            }
 	        }
         }
