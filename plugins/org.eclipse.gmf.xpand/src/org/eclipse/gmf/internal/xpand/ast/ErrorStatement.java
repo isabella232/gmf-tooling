@@ -42,7 +42,9 @@ public class ErrorStatement extends Statement {
 
     @Override
     public void evaluateInternal(final XpandExecutionContext ctx) {
-        System.err.println(message.evaluate(ctx));
+    	String result = String.valueOf(message.evaluate(ctx));
+        System.err.println("ERROR:" + result); // FIXME syserr is not an error reporting!!!
+        throw new RuntimeException(result);
     }
 
 }
