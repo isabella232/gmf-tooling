@@ -152,9 +152,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 */
 	public EList getSourceTypes() {
 		EList sources = new BasicEList();
-		if (getSourceMetaFeature() != null) {
+		if (getSourceMetaFeature() != null && getSourceMetaFeature().getTypeGenClass() != null) {
 			sources.add(getSourceMetaFeature().getTypeGenClass());
-		} else if (getContainmentMetaFeature() != null) {
+		} else if (getContainmentMetaFeature() != null && getContainmentMetaFeature().getGenClass() != null) {
 			sources.add(getContainmentMetaFeature().getGenClass());
 		}
 		return sources;
