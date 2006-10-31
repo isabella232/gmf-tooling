@@ -15,7 +15,6 @@ import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.ScrollBar;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
@@ -56,9 +55,9 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getEcoreContainmentRef());
-		gallery.getFigures().add(getFigure1());
-		gallery.getFigures().add(getFigure2());
-		gallery.getFigures().add(getFigure3());
+		gallery.getFigures().add(getCustomFigure());
+		gallery.getFigures().add(getSimpleShape());
+		gallery.getFigures().add(getComplexShape());
 		gallery.getFigures().add(getLink());
 		gallery.getFigures().add(getCustom());
 		gallery.getFigures().add(getRoot());
@@ -218,7 +217,7 @@ public class FigureCodegenSetup extends AbstractFigureGeneratorSetup {
 			myCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
 			myCustom.setBundleName(FigureGeneratorUtil.DRAW2D);
 			myCustom.setQualifiedClassName(ScrollBar.class.getName());
-			myCustom.setName(CodeGenUtil.getSimpleClassName(ScrollBar.class.getName()));
+			myCustom.setName(ScrollBar.class.getSimpleName());
 		}
 		return myCustom;
 	}

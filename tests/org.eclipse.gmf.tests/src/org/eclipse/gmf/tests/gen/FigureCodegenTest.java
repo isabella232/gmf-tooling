@@ -56,15 +56,15 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenCustomFigure() {
-		performTests(getSessionSetup().getFigure1());
+		performTests(getSessionSetup().getCustomFigure());
 	}
 
 	public void testGenSimpleShape() {
-		performTests(getSessionSetup().getFigure2());
+		performTests(getSessionSetup().getSimpleShape());
 	}
 
 	public void testGenComplexShape() {
-		performTests(getSessionSetup().getFigure3());
+		performTests(getSessionSetup().getComplexShape());
 	}
 	
 	public void testGenCustomFigureWithAttributes(){

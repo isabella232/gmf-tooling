@@ -13,7 +13,6 @@ package org.eclipse.gmf.tests.setup.figures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -28,20 +27,14 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
-import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
-import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.Label;
-import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
-import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.RGBColor;
-import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
@@ -61,6 +54,7 @@ import org.osgi.framework.Bundle;
 
 public class FigureGeneratorUtil {
 
+	// XXX use .class.getPackage().getName instead?
 	public static final String DRAW2D = "org.eclipse.draw2d";
 
 	public static final String DEFAULT_FIGURE_PACKAGE = "org.eclipse.gmf.tests.sample.figures";
@@ -68,11 +62,7 @@ public class FigureGeneratorUtil {
 	public static final String DEFAULT_PLUGIN_ACTIVATOR = DEFAULT_FIGURE_PACKAGE + ".PluginActivator";
 
 	// FigureGenerator: utility methods to generate/compile/instantiate figures
-	
-	private static void performTests(Figure f, FigureCheck check) {
-		performTests(f, check, createStandaloneGeneratorConfig());
-	}
-	
+
 	public static void performTests(Figure f, FigureCheck check, Config config) {
 		generateAndParse(f);
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
@@ -205,57 +195,7 @@ public class FigureGeneratorUtil {
 		}
 	}
 
-	// GMFGRAPH: Common figures + utility methods reused across all the tests.
-
-	public static Figure createFigure1() {
-		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
-		cf.setName("MyRRectangleAsCustom");
-		cf.setBundleName(DRAW2D);
-		cf.setQualifiedClassName(org.eclipse.draw2d.RoundedRectangle.class.getName());
-		Point p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(1023);
-		p.setY(33);
-		cf.setSize(p);
-		cf.getChildren().add(createFigure2());
-		Ellipse e = GMFGraphFactory.eINSTANCE.createEllipse();
-		e.setName("Elli");
-		e.setFill(true);
-		cf.getChildren().add(e);
-		return cf;
-	}
-
-	public static Figure createFigure2() {
-		Rectangle r = GMFGraphFactory.eINSTANCE.createRectangle();
-		r.setName("MyRect");
-		r.setFill(true);
-		r.setLineWidth(3);
-		r.setLineKind(LineKind.LINE_DASHDOT_LITERAL);
-		Label l1 = GMFGraphFactory.eINSTANCE.createLabel();
-		l1.setText("aaaaa");
-		l1.setName("L1");
-		l1.setFont(createBasicFont("Arial", 9, FontStyle.ITALIC_LITERAL));
-		l1.setForegroundColor(createConstantColor(ColorConstants.CYAN_LITERAL));
-		Label l2 = GMFGraphFactory.eINSTANCE.createLabel();
-		l2.setText("bbbbb");
-		l2.setName("L2");
-		l2.setFont(createBasicFont("Helvetica", 12, FontStyle.BOLD_LITERAL));
-		r.getChildren().add(l1);
-		r.getChildren().add(l2);
-		return r;
-	}
-
-	public static Figure createFigure3() {
-		Figure myFigure3 = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
-		myFigure3.setName("Rounded1");
-		Polygon pg = GMFGraphFactory.eINSTANCE.createPolygon();
-		pg.setName("Polygon1");
-		pg.getTemplate().add(createPoint(1, 2));
-		pg.getTemplate().add(createPoint(0, 3));
-		pg.getTemplate().add(createPoint(-2, -1));
-		myFigure3.getChildren().add(pg);
-		myFigure3.getChildren().add(createFigure1());
-		return myFigure3;
-	}
+	// GMFGRAPH: utility methods reused across all the tests.
 
 	public static ConstantColor createConstantColor(ColorConstants constant) {
 		ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();

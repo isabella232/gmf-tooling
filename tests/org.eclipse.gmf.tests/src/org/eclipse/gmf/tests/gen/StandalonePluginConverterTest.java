@@ -41,6 +41,7 @@ import org.eclipse.gmf.internal.graphdef.codegen.CanvasProcessor;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor.GenerationInfo;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
+import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
@@ -85,10 +86,11 @@ public class StandalonePluginConverterTest extends TestCase {
 
 	public void testStandaloneGalleryConverter() throws Exception {
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		FigureCodegenSetup sss = new FigureCodegenSetup(); // XXX sss#getFigureGallery() instead?
 		Figure[] originals = new Figure[] {
-				FigureGeneratorUtil.createFigure1(), 
-				FigureGeneratorUtil.createFigure2(), 
-				FigureGeneratorUtil.createFigure3(), 
+				sss.getCustomFigure(), 
+				sss.getSimpleShape(), 
+				sss.getComplexShape(), 
 		};
 		
 		gallery.getFigures().addAll(Arrays.asList(originals));

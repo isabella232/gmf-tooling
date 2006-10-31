@@ -14,11 +14,19 @@ package org.eclipse.gmf.tests.setup.figures;
 import junit.framework.Assert;
 
 import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
@@ -103,26 +111,75 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		return df;
 	}
 	
-	public Figure getFigure1() {
+	public final Figure getCustomFigure() {
 		if (myFigure1 == null) {
-			myFigure1 = FigureGeneratorUtil.createFigure1();
+			myFigure1 = createFigure1();
 		}
 		return myFigure1;
 	}
 	
 
-	public Figure getFigure2() {
+	public final Figure getSimpleShape() {
 		if (myFigure2 == null) {
-			myFigure2 = FigureGeneratorUtil.createFigure2();
+			myFigure2 = createFigure2();
 		}
 		return myFigure2;
 	}
 	
-	public Figure getFigure3() {
+	public final Figure getComplexShape() {
 		if (myFigure3 == null) {
-			myFigure3 = FigureGeneratorUtil.createFigure3();
+			myFigure3 = createFigure3();
 		}
 		return myFigure3;
 	}
-	
+
+	protected static Figure createFigure1() {
+		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		cf.setName("MyRRectangleAsCustom");
+		cf.setBundleName(FigureGeneratorUtil.DRAW2D);
+		cf.setQualifiedClassName(org.eclipse.draw2d.RoundedRectangle.class.getName());
+		Point p = GMFGraphFactory.eINSTANCE.createPoint();
+		p.setX(1023);
+		p.setY(33);
+		cf.setSize(p);
+		cf.getChildren().add(createFigure2());
+		Ellipse e = GMFGraphFactory.eINSTANCE.createEllipse();
+		e.setName("Elli");
+		e.setFill(true);
+		cf.getChildren().add(e);
+		return cf;
+	}
+
+	protected static Figure createFigure2() {
+		Rectangle r = GMFGraphFactory.eINSTANCE.createRectangle();
+		r.setName("MyRect");
+		r.setFill(true);
+		r.setLineWidth(3);
+		r.setLineKind(LineKind.LINE_DASHDOT_LITERAL);
+		Label l1 = GMFGraphFactory.eINSTANCE.createLabel();
+		l1.setText("aaaaa");
+		l1.setName("L1");
+		l1.setFont(FigureGeneratorUtil.createBasicFont("Arial", 9, FontStyle.ITALIC_LITERAL));
+		l1.setForegroundColor(FigureGeneratorUtil.createConstantColor(ColorConstants.CYAN_LITERAL));
+		Label l2 = GMFGraphFactory.eINSTANCE.createLabel();
+		l2.setText("bbbbb");
+		l2.setName("L2");
+		l2.setFont(FigureGeneratorUtil.createBasicFont("Helvetica", 12, FontStyle.BOLD_LITERAL));
+		r.getChildren().add(l1);
+		r.getChildren().add(l2);
+		return r;
+	}
+
+	private static Figure createFigure3() {
+		Figure myFigure3 = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		myFigure3.setName("Rounded1");
+		Polygon pg = GMFGraphFactory.eINSTANCE.createPolygon();
+		pg.setName("Polygon1");
+		pg.getTemplate().add(FigureGeneratorUtil.createPoint(1, 2));
+		pg.getTemplate().add(FigureGeneratorUtil.createPoint(0, 3));
+		pg.getTemplate().add(FigureGeneratorUtil.createPoint(-2, -1));
+		myFigure3.getChildren().add(pg);
+		myFigure3.getChildren().add(createFigure1());
+		return myFigure3;
+	}
 }

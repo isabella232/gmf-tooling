@@ -32,7 +32,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -193,7 +192,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 
 	public Figure getParent8() {
 		if (myParent8 == null) {
-			Figure actualContainer = FigureGeneratorUtil.createFigure2();
+			Figure actualContainer = createFigure2();
 			Figure referencedFigure = (Figure) actualContainer.getChildren().get(0);
 			
 			myParent8 = GMFGraphFactory.eINSTANCE.createRectangle();
@@ -236,7 +235,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 
 	public Figure getParent6() {
 		if (myParent6 == null) {
-			myParent6 = FigureGeneratorUtil.createFigure1();
+			myParent6 = createFigure1();
 			myParent6.setName("Parent");
 			GridLayout layout = createGridLayoutAllProperties();
 			layout.setNumColumns(1);
@@ -257,7 +256,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 	
 	public Figure getParent5() {
 		if (myParent5 == null) {
-			myParent5 = FigureGeneratorUtil.createFigure2();
+			myParent5 = createFigure2();
 			myParent5.setName("Parent5");
 			EList children = myParent5.getChildren();
 			Assert.assertFalse("Precondition -- children required to test layout", children.isEmpty());
@@ -278,7 +277,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 	
 	public Figure getParent4() {
 		if (myParent4 == null) {
-			myParent4 = FigureGeneratorUtil.createFigure2();
+			myParent4 = createFigure2();
 			myParent4.setName("Parent4");
 			myParent4.setLayout(createGridLayoutAllProperties());
 		}
@@ -435,29 +434,21 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 
 	private Figure createRGBGroup(String rootName){
 		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
-		setColor(parent, 0, 0, 255);
+		parent.setForegroundColor(FigureGeneratorUtil.createRGBColor(0, 0, 255));
 		parent.setName(rootName);
 		
 		Figure greenEllipse = GMFGraphFactory.eINSTANCE.createEllipse();
 		greenEllipse.setName("GreenEllipse");
-		setColor(greenEllipse, 0, 255, 0);
+		greenEllipse.setForegroundColor(FigureGeneratorUtil.createRGBColor(0, 255, 0));
 		
 		Figure redRRectangle = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		redRRectangle.setName("RedRoundedRectangle");
-		setColor(redRRectangle, 255, 0, 0);
+		redRRectangle.setForegroundColor(FigureGeneratorUtil.createRGBColor(255, 0, 0));
 		
 		parent.getChildren().add(greenEllipse);
 		parent.getChildren().add(redRRectangle);
 		
 		return parent;
-	}
-
-	private void setColor(Figure figure, int red, int green, int blue){
-		RGBColor color = GMFGraphFactory.eINSTANCE.createRGBColor();
-		color.setRed(red);
-		color.setGreen(green);
-		color.setBlue(blue);
-		figure.setForegroundColor(color);
 	}
 
 	private void setupXYLayout(final Figure group, final Figure left, final Figure right){
@@ -468,9 +459,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		group.setLayout(GMFGraphFactory.eINSTANCE.createXYLayout());
 		
 		XYLayoutData leftDataCorrect =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
-		leftDataCorrect.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
-		leftDataCorrect.getTopLeft().setX(12);
-		leftDataCorrect.getTopLeft().setY(13);
+		leftDataCorrect.setTopLeft(FigureGeneratorUtil.createPoint(12, 13));
 		leftDataCorrect.setSize(FigureGeneratorUtil.createDimension(20, 30));
 		leftDataCorrect.setOwner(left);
 		

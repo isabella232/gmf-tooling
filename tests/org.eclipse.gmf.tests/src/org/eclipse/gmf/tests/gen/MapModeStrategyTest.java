@@ -14,7 +14,6 @@ package org.eclipse.gmf.tests.gen;
 import junit.framework.TestCase;
 
 import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
@@ -57,12 +56,9 @@ public class MapModeStrategyTest extends TestCase {
 	}
 	
 	private Figure createFigureWithPrefferedSize(){
-		Figure figure = FigureGeneratorUtil.createFigure2();
+		Figure figure = GMFGraphFactory.eINSTANCE.createRectangle();
 		figure.setName("Figure2WithPreferredSize");
-		Dimension preferredSize = GMFGraphFactory.eINSTANCE.createDimension();
-		preferredSize.setDx(234);
-		preferredSize.setDy(567);
-		figure.setPreferredSize(preferredSize);
+		figure.setPreferredSize(FigureGeneratorUtil.createDimension(234, 567));
 		return figure;
 	}
 	
