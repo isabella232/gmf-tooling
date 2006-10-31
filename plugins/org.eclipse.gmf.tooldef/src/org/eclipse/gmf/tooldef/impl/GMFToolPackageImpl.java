@@ -54,6 +54,7 @@ import org.eclipse.gmf.tooldef.Toolbar;
  * @generated
  */
 public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -458,8 +459,17 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getToolGroup_Stack() {
+		return (EAttribute) toolGroupEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getToolGroup_Active() {
-		return (EReference) toolGroupEClass.getEStructuralFeatures().get(1);
+		return (EReference) toolGroupEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -878,6 +888,7 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 
 		toolGroupEClass = createEClass(TOOL_GROUP);
 		createEAttribute(toolGroupEClass, TOOL_GROUP__COLLAPSIBLE);
+		createEAttribute(toolGroupEClass, TOOL_GROUP__STACK);
 		createEReference(toolGroupEClass, TOOL_GROUP__ACTIVE);
 
 		paletteEClass = createEClass(PALETTE);
@@ -1021,6 +1032,8 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		initEClass(toolGroupEClass, ToolGroup.class, "ToolGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getToolGroup_Collapsible(), ecorePackage.getEBoolean(), "collapsible", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getToolGroup_Stack(), ecorePackage.getEBoolean(), "stack", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 		initEReference(getToolGroup_Active(), this.getAbstractTool(), null, "active", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1035,7 +1048,7 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		initEClass(creationToolEClass, CreationTool.class, "CreationTool", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(genericToolEClass, GenericTool.class, "GenericTool", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenericTool_ToolClass(), ecorePackage.getEJavaClass(), "toolClass", null, 0, 1, GenericTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getGenericTool_ToolClass(), ecorePackage.getEString(), "toolClass", null, 0, 1, GenericTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(itemBaseEClass, ItemBase.class, "ItemBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

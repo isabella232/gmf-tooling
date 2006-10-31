@@ -55,6 +55,7 @@ public class ToolGroupItemProvider extends ToolContainerItemProvider implements 
 			super.getPropertyDescriptors(object);
 
 			addCollapsiblePropertyDescriptor(object);
+			addStackPropertyDescriptor(object);
 			addActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -69,7 +70,19 @@ public class ToolGroupItemProvider extends ToolContainerItemProvider implements 
 	protected void addCollapsiblePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ToolGroup_collapsible_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_collapsible_feature", "_UI_ToolGroup_type"), GMFToolPackage.eINSTANCE
-						.getToolGroup_Collapsible(), true, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						.getToolGroup_Collapsible(), true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Stack feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStackPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_ToolGroup_stack_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_stack_feature", "_UI_ToolGroup_type"), GMFToolPackage.eINSTANCE.getToolGroup_Stack(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -80,7 +93,8 @@ public class ToolGroupItemProvider extends ToolContainerItemProvider implements 
 	 */
 	protected void addActivePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_ToolGroup_active_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_active_feature", "_UI_ToolGroup_type"), GMFToolPackage.eINSTANCE.getToolGroup_Active(), true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_active_feature", "_UI_ToolGroup_type"), GMFToolPackage.eINSTANCE.getToolGroup_Active(), true, false, false, null, null,
+				null));
 	}
 
 	/**
@@ -116,6 +130,7 @@ public class ToolGroupItemProvider extends ToolContainerItemProvider implements 
 
 		switch (notification.getFeatureID(ToolGroup.class)) {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
+		case GMFToolPackage.TOOL_GROUP__STACK:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

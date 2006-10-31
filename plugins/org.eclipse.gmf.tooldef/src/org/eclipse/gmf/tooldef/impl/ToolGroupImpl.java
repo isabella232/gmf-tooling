@@ -25,6 +25,7 @@ import org.eclipse.gmf.tooldef.ToolGroup;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.tooldef.impl.ToolGroupImpl#isCollapsible <em>Collapsible</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooldef.impl.ToolGroupImpl#isStack <em>Stack</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooldef.impl.ToolGroupImpl#getActive <em>Active</em>}</li>
  * </ul>
  * </p>
@@ -32,6 +33,7 @@ import org.eclipse.gmf.tooldef.ToolGroup;
  * @generated
  */
 public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
+
 	/**
 	 * The default value of the '{@link #isCollapsible() <em>Collapsible</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -51,6 +53,26 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 	 * @ordered
 	 */
 	protected boolean collapsible = COLLAPSIBLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isStack() <em>Stack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isStack()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean STACK_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isStack() <em>Stack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isStack()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean stack = STACK_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getActive() <em>Active</em>}' reference.
@@ -106,6 +128,27 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isStack() {
+		return stack;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStack(boolean newStack) {
+		boolean oldStack = stack;
+		stack = newStack;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFToolPackage.TOOL_GROUP__STACK, oldStack, stack));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AbstractTool getActive() {
 		if (active != null && active.eIsProxy()) {
 			InternalEObject oldActive = (InternalEObject) active;
@@ -148,6 +191,8 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
 			return isCollapsible() ? Boolean.TRUE : Boolean.FALSE;
+		case GMFToolPackage.TOOL_GROUP__STACK:
+			return isStack() ? Boolean.TRUE : Boolean.FALSE;
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			if (resolve)
 				return getActive();
@@ -166,6 +211,9 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
 			setCollapsible(((Boolean) newValue).booleanValue());
 			return;
+		case GMFToolPackage.TOOL_GROUP__STACK:
+			setStack(((Boolean) newValue).booleanValue());
+			return;
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			setActive((AbstractTool) newValue);
 			return;
@@ -183,6 +231,9 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
 			setCollapsible(COLLAPSIBLE_EDEFAULT);
 			return;
+		case GMFToolPackage.TOOL_GROUP__STACK:
+			setStack(STACK_EDEFAULT);
+			return;
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			setActive((AbstractTool) null);
 			return;
@@ -199,6 +250,8 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
 			return collapsible != COLLAPSIBLE_EDEFAULT;
+		case GMFToolPackage.TOOL_GROUP__STACK:
+			return stack != STACK_EDEFAULT;
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			return active != null;
 		}
@@ -217,6 +270,8 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (collapsible: ");
 		result.append(collapsible);
+		result.append(", stack: ");
+		result.append(stack);
 		result.append(')');
 		return result.toString();
 	}

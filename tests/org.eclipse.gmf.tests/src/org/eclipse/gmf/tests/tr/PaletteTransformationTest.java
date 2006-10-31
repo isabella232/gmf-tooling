@@ -51,6 +51,8 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	private CreationTool myToolFromWrongPalette;
 	private org.eclipse.gmf.tooldef.ToolGroup myGroupWithWrongTool; 
 	private org.eclipse.gmf.tooldef.ToolGroup myGroupWithOrderAndSeparators;
+	private org.eclipse.gmf.tooldef.ToolGroup myToolStackGroup;
+	
 
 	public PaletteTransformationTest(String name) {
 		super(name);
@@ -67,7 +69,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		init.getNodeB().setTool(myTool2Reuse);
 		myToolWithClass = GMFToolFactory.eINSTANCE.createGenericTool();
 		myToolWithClass.setTitle("ToolWithClass");
-		myToolWithClass.setToolClass(Object.class);
+		myToolWithClass.setToolClass(Object.class.getName());
 		// and explicitly add it as a top-level tool
 		init.getMapping().getDiagram().getPalette().getTools().add(myToolWithClass);
 		myToolFromWrongPalette = GMFToolFactory.eINSTANCE.createCreationTool();
@@ -82,6 +84,13 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		myGroupWithOrderAndSeparators.getTools().add(SEP_1_POS, GMFToolFactory.eINSTANCE.createPaletteSeparator());
 		myGroupWithOrderAndSeparators.getTools().add(SEP_2_POS, GMFToolFactory.eINSTANCE.createPaletteSeparator());
 		toolDefSetup.getPalette().getTools().add(myGroupWithOrderAndSeparators);
+		
+		myToolStackGroup = GMFToolFactory.eINSTANCE.createToolGroup();
+		myToolStackGroup.setTitle("StackGroup");
+		myToolStackGroup.setStack(true);
+		myToolStackGroup.getTools().addAll(createToolsForOrderCheck(2));
+		toolDefSetup.getPalette().getTools().add(myToolStackGroup);
+		
 		return init;
 	}
 
@@ -92,7 +101,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 			// testOrderPreserved relies on fact there are GenericTools
 			GenericTool t = GMFToolFactory.eINSTANCE.createGenericTool();
 			t.setTitle("ToolOrder" + i);
-			t.setToolClass(Object.class);
+			t.setToolClass(Object.class.getName());
 			rv.add(t);
 		}
 		return rv;
@@ -120,7 +129,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		ToolEntry te = findToolEntry(myToolWithClass);
 		assertNotNull("Present", te);
 		assertNotNull(te.getQualifiedToolName());
-		assertEquals(myToolWithClass.getToolClass().getName(), te.getQualifiedToolName());
+		assertEquals(myToolWithClass.getToolClass(), te.getQualifiedToolName());
 	}
 
 	public void testTopLevelToolDefMovedToDefaultGroup() {
@@ -177,6 +186,16 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		assertTrue(item instanceof Separator);
 		item = (ToolGroupItem) transformed.getEntries().get(SEP_2_POS);
 		assertTrue(item instanceof Separator);
+	}
+	
+	public void testStackGroup(){
+		ToolGroup explicitlyStack = findTransformedGroup(myToolStackGroup);
+		assertNotNull(explicitlyStack);
+		assertTrue(explicitlyStack.isStack());
+		
+		ToolGroup byDefaultNotStack = findTransformedGroup(myGroupWithOrderAndSeparators);
+		assertNotNull(byDefaultNotStack);
+		assertFalse(byDefaultNotStack.isStack());
 	}
 
 	private ToolGroup findTransformedGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {

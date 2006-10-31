@@ -45,6 +45,7 @@
     <genClasses ecoreClass="tooldef.ecore#//PaletteSeparator"/>
     <genClasses ecoreClass="tooldef.ecore#//ToolGroup">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tooldef.ecore#//ToolGroup/collapsible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tooldef.ecore#//ToolGroup/stack"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference tooldef.ecore#//ToolGroup/active"/>
     </genClasses>
     <genClasses ecoreClass="tooldef.ecore#//Palette">

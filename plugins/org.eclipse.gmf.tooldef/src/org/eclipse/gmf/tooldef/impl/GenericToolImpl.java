@@ -37,7 +37,7 @@ public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Class TOOL_CLASS_EDEFAULT = null;
+	protected static final String TOOL_CLASS_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getToolClass() <em>Tool Class</em>}' attribute.
@@ -47,7 +47,7 @@ public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
 	 * @generated
 	 * @ordered
 	 */
-	protected Class toolClass = TOOL_CLASS_EDEFAULT;
+	protected String toolClass = TOOL_CLASS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Class getToolClass() {
+	public String getToolClass() {
 		return toolClass;
 	}
 
@@ -81,8 +81,8 @@ public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setToolClass(Class newToolClass) {
-		Class oldToolClass = toolClass;
+	public void setToolClass(String newToolClass) {
+		String oldToolClass = toolClass;
 		toolClass = newToolClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFToolPackage.GENERIC_TOOL__TOOL_CLASS, oldToolClass, toolClass));
@@ -109,7 +109,7 @@ public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.GENERIC_TOOL__TOOL_CLASS:
-			setToolClass((Class) newValue);
+			setToolClass((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

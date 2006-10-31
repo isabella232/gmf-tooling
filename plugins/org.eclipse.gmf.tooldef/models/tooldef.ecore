@@ -30,6 +30,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PaletteSeparator" eSuperTypes="#//AbstractTool"/>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroup" eSuperTypes="#//ToolContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stack" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="active" eType="#//AbstractTool"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette" eSuperTypes="#//ToolContainer">
@@ -51,7 +52,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CreationTool" eSuperTypes="#//AbstractTool"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenericTool" eSuperTypes="#//AbstractTool">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ItemBase" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Menu" abstract="true">

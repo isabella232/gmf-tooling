@@ -32,12 +32,12 @@ public interface GenericTool extends AbstractTool {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tool Class</em>' attribute.
-	 * @see #setToolClass(Class)
+	 * @see #setToolClass(String)
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getGenericTool_ToolClass()
 	 * @model
 	 * @generated
 	 */
-	Class getToolClass();
+	String getToolClass();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.tooldef.GenericTool#getToolClass <em>Tool Class</em>}' attribute.
@@ -47,6 +47,6 @@ public interface GenericTool extends AbstractTool {
 	 * @see #getToolClass()
 	 * @generated
 	 */
-	void setToolClass(Class value);
+	void setToolClass(String value);
 
 } // GenericTool

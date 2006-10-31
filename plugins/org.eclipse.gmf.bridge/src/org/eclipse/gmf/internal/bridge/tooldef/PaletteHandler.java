@@ -249,7 +249,7 @@ public class PaletteHandler {
 				return null;
 			}
 			ToolEntry ne = GMFGenFactory.eINSTANCE.createToolEntry();
-			ne.setQualifiedToolName(tool.getToolClass().getName());
+			ne.setQualifiedToolName(tool.getToolClass());
 			setupCommonToolEntry(ne, tool);
 			return ne;
 		}
@@ -258,7 +258,7 @@ public class PaletteHandler {
 		public Object caseToolGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
 			ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 			tg.setCollapse(toolGroup.isCollapsible());
-			tg.setStack(false);
+			tg.setStack(toolGroup.isStack());
 			setupCommonToolEntry(tg, toolGroup);
 			tg.getEntries().addAll(toGroupItems(toolGroup.getTools()));
 			return tg;

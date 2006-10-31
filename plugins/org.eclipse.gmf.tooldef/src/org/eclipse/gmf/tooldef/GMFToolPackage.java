@@ -345,13 +345,22 @@ public interface GMFToolPackage extends EPackage {
 	int TOOL_GROUP__COLLAPSIBLE = TOOL_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Stack</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__STACK = TOOL_CONTAINER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Active</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__ACTIVE = TOOL_CONTAINER_FEATURE_COUNT + 1;
+	int TOOL_GROUP__ACTIVE = TOOL_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Tool Group</em>' class.
@@ -360,7 +369,7 @@ public interface GMFToolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP_FEATURE_COUNT = TOOL_CONTAINER_FEATURE_COUNT + 2;
+	int TOOL_GROUP_FEATURE_COUNT = TOOL_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tooldef.impl.PaletteImpl <em>Palette</em>}' class.
@@ -1335,6 +1344,17 @@ public interface GMFToolPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getToolGroup_Collapsible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooldef.ToolGroup#isStack <em>Stack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Stack</em>'.
+	 * @see org.eclipse.gmf.tooldef.ToolGroup#isStack()
+	 * @see #getToolGroup()
+	 * @generated
+	 */
+	EAttribute getToolGroup_Stack();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.tooldef.ToolGroup#getActive <em>Active</em>}'.
