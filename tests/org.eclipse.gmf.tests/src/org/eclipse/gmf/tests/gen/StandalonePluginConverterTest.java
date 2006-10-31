@@ -55,6 +55,7 @@ public class StandalonePluginConverterTest extends TestCase {
 
 	public void testEachGeneratedClassUsesItsOwnImportAssistant(){
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		gallery.setName("zz");
 		gallery.setImplementationBundle("org.eclipse.draw2d");
 		
 		CustomFigure usesLayeredPane = GMFGraphFactory.eINSTANCE.createCustomFigure();

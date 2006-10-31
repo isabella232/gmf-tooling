@@ -12,7 +12,9 @@
 package org.eclipse.gmf.tests.setup.figures;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -99,28 +101,24 @@ public class FigureGeneratorUtil {
 	}
 
 	public static GeneratedClassData[] generateAndCompile(FigureGallery gallery, StandaloneGenerator.Config config) {
-		if (gallery.getName() == null){
-			gallery.setName("NameDoesNotMakeSense");
-		}
+		Assert.assertTrue(gallery.getName() != null && gallery.getName().trim().length() > 0);
 		Assert.assertFalse(gallery.getFigures().isEmpty());
 
-		generate(config, new GalleryProcessor(gallery));
+		final Map<Figure, String> fqns = new HashMap<Figure, String>();
+		generate(config, new GalleryProcessor(gallery) {
+			@Override
+			protected void handle(Figure next, String fqn) {
+				fqns.put(next, fqn);
+			}
+		});
 		
 		try {
 			Bundle bundle = installPlugin(config.getPluginID());
-			
-			ArrayList result = new ArrayList();
-			for (Iterator figures = gallery.getFigures().iterator(); figures.hasNext();){
-				Figure next = (Figure) figures.next();
-				String fqnName;
-				if (config.getMainPackageName() == null || config.getMainPackageName().trim().length() == 0) {
-					fqnName = next.getName();
-				} else {
-					fqnName = config.getMainPackageName() + '.' + next.getName();
-				}
-				result.add(new GeneratedClassData(next, bundle.loadClass(fqnName))); 
+			ArrayList<GeneratedClassData> result = new ArrayList<GeneratedClassData>();
+			for (Figure next : fqns.keySet()) {
+				result.add(new GeneratedClassData(next, bundle.loadClass(fqns.get(next)))); 
 			}
-			return (GeneratedClassData[]) result.toArray(new GeneratedClassData[result.size()]);
+			return result.toArray(new GeneratedClassData[result.size()]);
 		} catch (Exception e){
 			Assert.fail(e.getClass().getSimpleName() + ":" + e.getMessage());
 		}
