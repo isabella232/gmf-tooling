@@ -34,7 +34,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
@@ -218,7 +217,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			}
 
 			private IStatus validate(GenEditorGenerator genBurdern) {
-				Diagnostic d = Diagnostician.INSTANCE.validate(genBurdern);
+				Diagnostic d = ValidationHelper.validate(genBurdern, true);
 				if (d.getSeverity() == Diagnostic.OK) {
 					return Status.OK_STATUS;
 				}
@@ -356,11 +355,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		try {
 			progressService.run(false, true, new IRunnableWithProgress() {
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-					// there's no real progress reporting in diagnostician (didn't find references to Monitor there), 
-					// at least make them look like there's smth to happen
-					monitor.beginTask("", 3);
-					monitor.worked(1);
-					result[0] = Diagnostician.INSTANCE.validate(mapping);
+					result[0] = ValidationHelper.validate(mapping, true, monitor);
 					monitor.done();
 				}
 			});
