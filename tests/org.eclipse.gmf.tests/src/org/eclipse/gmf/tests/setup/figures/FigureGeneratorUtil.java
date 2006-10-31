@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.setup.figures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,20 +63,6 @@ public class FigureGeneratorUtil {
 
 	// FigureGenerator: utility methods to generate/compile/instantiate figures
 
-	public static void performTests(Figure f, FigureCheck check, Config config) {
-		Assert.assertNotNull(check);
-		generateAndParse(f);
-		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
-		gallery.setName("bb");
-		gallery.getFigures().add(f);
-
-		GeneratedClassData[] theOnly = generateAndCompile(gallery, config);
-		Assert.assertNotNull(theOnly);
-		Assert.assertEquals(1, theOnly.length);
-		Class figureClass = theOnly[0].getLoadedClass();
-		check.go(figureClass);
-	}
-	
 	public static void generate(StandaloneGenerator.Config config, Processor processor) {
 		StandaloneGenerator generator = new StandaloneGenerator(processor, config, new RuntimeFQNSwitch());
 		generator.run();
@@ -84,6 +71,13 @@ public class FigureGeneratorUtil {
 	
 	public static GeneratedClassData[] generateAndCompile(FigureGallery gallery) {
 		return generateAndCompile(gallery, createStandaloneGeneratorConfig());
+	}
+
+	public static GeneratedClassData[] generateAndCompile(StandaloneGenerator.Config config, Figure... figures) {
+		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		gallery.setName("bb");
+		gallery.getFigures().addAll(Arrays.asList(figures));
+		return generateAndCompile(gallery, config);
 	}
 
 	public static GeneratedClassData[] generateAndCompile(FigureGallery gallery, StandaloneGenerator.Config config) {
@@ -129,7 +123,7 @@ public class FigureGeneratorUtil {
 		generateAndParse(f, generator, DEFAULT_FIGURE_PACKAGE);
 	}
 
-	public static void generateAndParse(Figure f, FigureGenerator generator, String packageName) {
+	private static void generateAndParse(Figure f, FigureGenerator generator, String packageName) {
 		ImportAssistant importManager = createImportManager(packageName, f);
 		String res = generator.go(f, importManager);
 

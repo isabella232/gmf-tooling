@@ -28,8 +28,12 @@ import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeTypes;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
+import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
 import org.osgi.framework.Bundle;
 
+/**
+ * @see MapModeStrategyTest
+ */
 public class StandaloneMapModeTest extends TestCase {
 
 	public StandaloneMapModeTest(String name) {
@@ -38,17 +42,19 @@ public class StandaloneMapModeTest extends TestCase {
 	
 	public void testStaticIdentityMapMode(){
 		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, false);
-		FigureGeneratorUtil.performTests(createTestFigure(), new FigureSizeCheck(123, 456), config);
+		GeneratedClassData[] theOnly = FigureGeneratorUtil.generateAndCompile(config, createTestFigure());
+		assertEquals(1, theOnly.length);
+		new FigureSizeCheck(123, 456).go(theOnly[0].getLoadedClass());
 	}
 	
-	public void testRuntimeIdentityMapMode(){
+	public void testRuntimeIdentityAndHiMetricMapMode(){
 		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, true);
-		FigureGeneratorUtil.performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.IDENTITY_MM, config), config);
-	}
-	
-	public void testRuntimeHiMetricsMapMode(){
-		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, true);
-		FigureGeneratorUtil.performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, config), config);		
+		GeneratedClassData[] theOnly = FigureGeneratorUtil.generateAndCompile(config, createTestFigure());
+		assertNotNull(theOnly);
+		assertEquals(1, theOnly.length);
+		Class figureClass = theOnly[0].getLoadedClass();
+		new InstantiateFigureHook(123, 456, MapModeTypes.IDENTITY_MM, config).go(figureClass);
+		new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, config).go(figureClass);
 	}
 	
 	private Figure createTestFigure(){
