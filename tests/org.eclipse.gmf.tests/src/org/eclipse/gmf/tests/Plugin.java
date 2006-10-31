@@ -63,6 +63,7 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 	}
 
 	/**
+	 * Revisit uses of this method - some tests use it as a mere string
 	 * @return
 	 */
 	public static String getPluginID() {

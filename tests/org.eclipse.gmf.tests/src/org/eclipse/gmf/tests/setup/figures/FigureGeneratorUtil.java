@@ -78,7 +78,6 @@ public class FigureGeneratorUtil {
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		gallery.setName("bb");
 		gallery.getFigures().add(f);
-		gallery.setImplementationBundle(Plugin.getPluginID());
 
 		GeneratedClassData[] theOnly = generateAndCompile(gallery, config);
 		Assert.assertNotNull(theOnly);

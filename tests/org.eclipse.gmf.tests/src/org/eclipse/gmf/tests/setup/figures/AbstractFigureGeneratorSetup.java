@@ -20,7 +20,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
-import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
 
@@ -72,7 +71,6 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		if (myFigureGallery == null) {
 			myFigureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 			myFigureGallery.setName("bb");
-			myFigureGallery.setImplementationBundle(Plugin.getPluginID());
 			addFigures(myFigureGallery);
 			Assert.assertFalse("No figures was added to the gallery by subclasses", myFigureGallery.getFigures().isEmpty());
 		}
