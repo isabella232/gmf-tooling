@@ -63,7 +63,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		usesLayeredPane.setQualifiedClassName(LayeredPane.class.getName());
 		
 		Rectangle layeredPaneItself = GMFGraphFactory.eINSTANCE.createRectangle();
-		layeredPaneItself.setName(CodeGenUtil.getSimpleClassName(LayeredPane.class.getName()));
+		layeredPaneItself.setName(LayeredPane.class.getSimpleName());
 		
 		Figure[] originals = new Figure[] {
 				usesLayeredPane, 
