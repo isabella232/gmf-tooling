@@ -1048,7 +1048,7 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		initEClass(creationToolEClass, CreationTool.class, "CreationTool", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(genericToolEClass, GenericTool.class, "GenericTool", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenericTool_ToolClass(), ecorePackage.getEString(), "toolClass", null, 0, 1, GenericTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getGenericTool_ToolClass(), ecorePackage.getEString(), "toolClass", null, 1, 1, GenericTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(itemBaseEClass, ItemBase.class, "ItemBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

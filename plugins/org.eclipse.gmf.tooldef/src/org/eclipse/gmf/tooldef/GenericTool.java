@@ -34,7 +34,7 @@ public interface GenericTool extends AbstractTool {
 	 * @return the value of the '<em>Tool Class</em>' attribute.
 	 * @see #setToolClass(String)
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getGenericTool_ToolClass()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getToolClass();

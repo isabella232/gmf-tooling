@@ -11,6 +11,10 @@ package org.eclipse.gmf.tooldef;
  * A representation of the model object '<em><b>Bundle Image</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Image bundled as part of distribution
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface BundleImage extends Image {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Relative path to image
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getBundleImage_Path()
@@ -58,6 +65,9 @@ public interface BundleImage extends Image {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Empty value means image path is relative to generated bundle
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bundle</em>' attribute.
 	 * @see #setBundle(String)
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getBundleImage_Bundle()
