@@ -40,11 +40,11 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 
 	private PolylineConnection myEcoreContainmentRef;
 
-	private Figure myFigure1;
+	private Figure myCustomFigure;
 
-	private Figure myFigure2;
+	private Figure mySimpleShape;
 
-	private Figure myFigure3;
+	private Figure myComplexShape;
 
 	private Config myConfig;
 	
@@ -112,25 +112,25 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 	}
 	
 	public final Figure getCustomFigure() {
-		if (myFigure1 == null) {
-			myFigure1 = createFigure1();
+		if (myCustomFigure == null) {
+			myCustomFigure = createFigure1();
 		}
-		return myFigure1;
+		return myCustomFigure;
 	}
 	
 
 	public final Figure getSimpleShape() {
-		if (myFigure2 == null) {
-			myFigure2 = createFigure2();
+		if (mySimpleShape == null) {
+			mySimpleShape = createFigure2();
 		}
-		return myFigure2;
+		return mySimpleShape;
 	}
 	
 	public final Figure getComplexShape() {
-		if (myFigure3 == null) {
-			myFigure3 = createFigure3();
+		if (myComplexShape == null) {
+			myComplexShape = createFigure3();
 		}
-		return myFigure3;
+		return myComplexShape;
 	}
 
 	protected static Figure createFigure1() {
