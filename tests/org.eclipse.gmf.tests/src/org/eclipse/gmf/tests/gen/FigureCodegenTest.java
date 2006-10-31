@@ -49,7 +49,7 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	
 	public void testGenPolylineConnection() {
 		performTests(getSessionSetup().getEcoreContainmentRef(), new FigureCheck() {
-			public void checkFigure(IFigure figure) {
+			protected void checkFigure(IFigure figure) {
 				assertTrue(figure instanceof PolylineConnectionEx);
 			}
 		});
@@ -69,28 +69,28 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	
 	public void testGenCustomFigureWithAttributes(){
 		FigureCheck defaultCheckWithoutChildren = new GenericFigureCheck(getSessionSetup().getResult2()){
-			protected void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure) {
-				//ScrollBar creates additional children that are missed in the model
-				//Thus nothing to check here
-			}
-		};  
-		FigureCheck customCheck = new FigureCheck(){
-			public void checkFigure(IFigure figure) {
+			protected void checkFigure(IFigure figure) {
 				assertTrue(figure instanceof ScrollBar);
 				ScrollBar custom = (ScrollBar)figure;
 				assertEquals(1, custom.getMinimum());
 				assertEquals(99, custom.getMaximum());
 				assertTrue(custom.isHorizontal());
-
 				assertEquals(new org.eclipse.draw2d.geometry.Dimension(100, 100), custom.getPreferredSize());
+
+				super.checkFigure(figure);
 			}
-		};
-		performTests(getSessionSetup().getResult2(), FigureCheck.combineChecks(customCheck, defaultCheckWithoutChildren));  
+
+			protected void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure) {
+				//ScrollBar creates additional children that are missed in the model
+				//Thus nothing to check here
+			}
+		};  
+		performTests(getSessionSetup().getResult2(), defaultCheckWithoutChildren);  
 	}
 	
 	public void testGenCustomDecoration(){
 		FigureCheck customCheck = new FigureCheck(){
-			public void checkFigure(IFigure figure) {
+			protected void checkFigure(IFigure figure) {
 				assertTrue(figure instanceof PolygonDecoration);
 				PolygonDecoration decoration = (PolygonDecoration)figure;
 				//we can not check scale directly, but following line checks it implicitly
@@ -98,7 +98,7 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 			}
 		};
 		
-		performTests(getSessionSetup().getResult1(), FigureCheck.combineChecks(customCheck, new GenericFigureCheck(getSessionSetup().getResult1())));
+		performTests(getSessionSetup().getResult1(), customCheck.chain(new GenericFigureCheck(getSessionSetup().getResult1())));
 	}
 	
 	public void testGenCustomConnection(){
@@ -126,14 +126,14 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	
 	public void testFigureWithTwoBorderedChildren(){
 		FigureCheck staticFieldsCheck = new StaticFieldsChecker(1, Color.class);
-		performTests(getSessionSetup().getRoot1(), FigureCheck.combineChecks(new GenericFigureCheck(getSessionSetup().getRoot1()), staticFieldsCheck));
+		performTests(getSessionSetup().getRoot1(), new GenericFigureCheck(getSessionSetup().getRoot1()).chain(staticFieldsCheck));
 	}
 	
 	public void testFigureWithStaticFieldsForColorAndFonts(){
 		FigureCheck fontFieldsCheck = new StaticFieldsChecker(4, Font.class); //root + 3 labels
 		FigureCheck colorFieldsCheck = new StaticFieldsChecker(2, Color.class); // only RGB colors should get field
 	
-		performTests(getSessionSetup().getRoot(), FigureCheck.combineChecks(fontFieldsCheck, colorFieldsCheck));
+		performTests(getSessionSetup().getRoot(), fontFieldsCheck.chain(colorFieldsCheck));
 	}
 	
 	public void testConnectionWithColor(){
@@ -150,7 +150,7 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 			myFieldClazz = fieldClazz;
 		}
 		
-		public void checkFigure(IFigure figure) {
+		protected void checkFigure(IFigure figure) {
 			Class figureClazz = figure.getClass();
 			Field[] fields = figureClazz.getDeclaredFields();
 			int staticFinalFields = 0;

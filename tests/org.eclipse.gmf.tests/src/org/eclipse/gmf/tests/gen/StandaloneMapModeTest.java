@@ -12,7 +12,6 @@
 
 package org.eclipse.gmf.tests.gen;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
@@ -22,7 +21,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
@@ -36,10 +34,6 @@ public class StandaloneMapModeTest extends TestCase {
 
 	public StandaloneMapModeTest(String name) {
 		super(name);
-	}
-	
-	protected void setUp() throws Exception {
-		super.setUp();
 	}
 	
 	public void testStaticIdentityMapMode(){
@@ -60,10 +54,7 @@ public class StandaloneMapModeTest extends TestCase {
 	private Figure createTestFigure(){
 		Rectangle result = GMFGraphFactory.eINSTANCE.createRectangle();
 		result.setName("TestFigure");
-		Point size = GMFGraphFactory.eINSTANCE.createPoint();
-		size.setX(123);
-		size.setY(456);
-		result.setSize(size);
+		result.setSize(FigureGeneratorUtil.createPoint(123, 456));
 		return result;
 	}	
 	
@@ -71,14 +62,10 @@ public class StandaloneMapModeTest extends TestCase {
 		private final Dimension mySize;
 		
 		public FigureSizeCheck(int width, int height){
-			this(new Dimension(width, height));
+			mySize = new Dimension(width, height);
 		}
 
-		public FigureSizeCheck(Dimension size){
-			mySize = size;
-		}
-		
-		public void checkFigure(IFigure figure) {
+		protected void checkFigure(IFigure figure) {
 			assertEquals(mySize, figure.getSize());
 		}
 	}
@@ -93,7 +80,7 @@ public class StandaloneMapModeTest extends TestCase {
 			myConfig = config;
 		}
 		
-		public IFigure instantiateFigure(Class figureClass) {
+		protected IFigure instantiateFigure(Class figureClass) {
 			try {
 				hookMapMode();
 			} catch (Exception e) {
@@ -102,7 +89,7 @@ public class StandaloneMapModeTest extends TestCase {
 			return super.instantiateFigure(figureClass);
 		}
 		
-		private void hookMapMode() throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		private void hookMapMode() throws Exception {
 			Bundle bundle = Platform.getBundle(myConfig.getPluginID());
 			assertNotNull(bundle);
 			Class activatorClass = bundle.loadClass(myConfig.getPluginActivatorPackageName() + "." + myConfig.getPluginActivatorClassName());

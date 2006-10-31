@@ -60,7 +60,7 @@ public class GenericFigureCheck extends FigureCheck {
 		myGMFRootFigure = eFigure;
 	}
 
-	public void checkFigure(IFigure figure) {
+	protected void checkFigure(IFigure figure) {
 		assertNotNull(figure);
 		checkFigure(myGMFRootFigure, figure);
 	}

@@ -28,6 +28,10 @@ public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 
 	protected AbstractFigureGeneratorSetup mySessionSetup;
 
+	public FigureCodegenTestBase(String name) {
+		super(name);
+	}
+
 	public void configure(AbstractFigureGeneratorSetup sessionSetup) {
 		mySessionSetup = sessionSetup;
 	}
@@ -39,13 +43,6 @@ public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 	protected void performTests(Figure f, FigureCheck check) {
 		FigureGeneratorUtil.generateAndParse(f);
 		Class figureClass = mySessionSetup.getFigureClass(f);
-		IFigure figure = check.instantiateFigure(figureClass);
-		assertNotNull(figure);
-		check.checkFigure(figure);
+		check.go(figureClass);
 	}
-
-	public FigureCodegenTestBase(String name) {
-		super(name);
-	}
-
 }

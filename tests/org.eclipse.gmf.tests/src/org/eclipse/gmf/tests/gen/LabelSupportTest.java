@@ -47,34 +47,31 @@ public class LabelSupportTest extends FigureCodegenTestBase {
 	}
 	
 	public void testDeepLabelGraphdefOnly(){
-		performTests(getSessionSetup().getRoot(), FigureCheck.combineChecks(new GenericFigureCheck(getSessionSetup().getRoot()), new LabelAccessorCheck(getSessionSetup().getLabelName())));		
+		performTests(getSessionSetup().getRoot());		
 	}
 	
 	protected void performTests(Figure figure) {
-		performTests(figure, FigureCheck.combineChecks(new GenericFigureCheck(figure), new LabelAccessorCheck(getSessionSetup().getLabelName())));
+		performTests(figure, new GenericFigureCheck(figure).chain(new LabelAccessorCheck(getSessionSetup().getLabelName())));
 	}
 
 	private static class LabelAccessorCheck extends FigureCheck {
 		private final String myLabelName;
-		private static final Class[] NO_PARAMS = new Class[0];
 
 		public LabelAccessorCheck(String labelName){
 			myLabelName = labelName;
 		}
 		
-		public void checkFigure(IFigure figure) {
+		protected void checkFigure(IFigure figure) {
 			assertNotNull(figure);
 			assertTrue("NodeEditPart requires this method in the inner figure class", 
-					hasMethod(figure, "getFigure" + CodeGenUtil.capName(myLabelName), NO_PARAMS));
+					hasMethod(figure, "getFigure" + CodeGenUtil.capName(myLabelName), null));
 		}	
 		
-		private boolean hasMethod(Object instance, String methodName, Class[] params) {
+		private static boolean hasMethod(Object instance, String methodName, Class[] params) {
 			try {
 				Method method = instance.getClass().getMethod(methodName, params);
 				return method != null;
-			} catch (SecurityException e) {
-				return false;
-			} catch (NoSuchMethodException e) {
+			} catch (Exception e) {
 				return false;
 			}
 		}

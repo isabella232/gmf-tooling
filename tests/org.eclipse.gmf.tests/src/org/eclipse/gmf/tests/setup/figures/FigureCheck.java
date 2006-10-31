@@ -14,53 +14,61 @@ package org.eclipse.gmf.tests.setup.figures;
 import junit.framework.Assert;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 
 public abstract class FigureCheck extends Assert {
 	
 	public static final FigureCheck CHECK_CAN_CREATE_INSTANCE = new FigureCheck(){
-		public void checkFigure(IFigure figure) {
-			//
+		protected void checkFigure(IFigure figure) {
+			Assert.assertNotNull(figure);
 		}
 	};
-	
-	public static FigureCheck combineChecks(final FigureCheck[] checks){
-		assertNotNull(checks);
-		assertTrue(checks.length > 0);
-		
-		return new FigureCheck(){
-			public IFigure instantiateFigure(Class figureClass) {
-				//can not instantiate twice
-				return checks[0].instantiateFigure(figureClass);
-			}
-			
-			public void checkFigure(IFigure figure) {
-				for (int i = 0; i < checks.length; i++){
-					checks[i].checkFigure(figure);
-				}
-			}
-		};
+
+	private FigureCheck next;
+
+	/**
+	 * Allows both
+	 * 		c1.chain(c2).chain(c3)
+	 * and
+	 * 		c1.chain(c2.chain(c3)).chain(c4);
+	 * @return this, head of the chain
+	 */
+	public final FigureCheck chain(FigureCheck next) {
+		Assert.assertFalse(this == next);
+		FigureCheck last = this;
+		while (last.next != null) {
+			last = last.next;
+		}
+		last.next = next;
+		return this;
 	}
-	
-	public static FigureCheck combineChecks(FigureCheck first, FigureCheck second){
-		return combineChecks(new FigureCheck[] {first, second});
+
+	public final void go(Class figureClass) {
+		IFigure figure = instantiateFigure(figureClass);
+		assertNotNull(figure);
+		go(figure);
+	}
+
+	public final void go(IFigure figure) {
+		checkFigure(figure);
+		if (next != null) {
+			next.go(figure);
+		}
 	}
 
 	/**
 	 * Overridable to allow not default construction
 	 */
-	public IFigure instantiateFigure(Class figureClass) {
+	protected IFigure instantiateFigure(Class figureClass) {
 		Object result = null;
 		try {
 			result = figureClass.newInstance();
-		} catch (InstantiationException e) {
-			fail(e.getMessage());
-		} catch (IllegalAccessException e) {
-			fail(e.getMessage());
+		} catch (Exception e) {
+			fail(e.getClass().getSimpleName() + ":" + e.getMessage());
 		}
-		assertNotNull(result);
 		assertTrue(figureClass.getName(), result instanceof IFigure);
 		return (IFigure) result;
 	}
 
-	public abstract void checkFigure(IFigure figure);
+	protected abstract void checkFigure(IFigure figure);
 }

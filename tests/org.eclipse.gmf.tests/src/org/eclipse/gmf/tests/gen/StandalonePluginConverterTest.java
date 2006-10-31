@@ -80,7 +80,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		
 		for (int i = 0; i < genResults.length; i++){
 			GeneratedClassData next = genResults[i];
-			assertNotNull(FigureCheck.CHECK_CAN_CREATE_INSTANCE.instantiateFigure(next.getLoadedClass()));
+			FigureCheck.CHECK_CAN_CREATE_INSTANCE.go(next.getLoadedClass());
 		}
 	}
 
@@ -127,8 +127,7 @@ public class StandalonePluginConverterTest extends TestCase {
 			Class nextClass = searchForFigureName(mirroredClasses, nextOriginal.getName());
 			assertNotNull("Missed class for : " + nextOriginal.getName(), nextClass);
 			
-			FigureCheck nextCheck = new GenericFigureCheck(nextOriginal);
-			nextCheck.checkFigure(nextCheck.instantiateFigure(nextClass));
+			new GenericFigureCheck(nextOriginal).go(nextClass);
 		}
 	}
 

@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BasicFont;
@@ -64,6 +63,7 @@ public class FigureGeneratorUtil {
 	// FigureGenerator: utility methods to generate/compile/instantiate figures
 
 	public static void performTests(Figure f, FigureCheck check, Config config) {
+		Assert.assertNotNull(check);
 		generateAndParse(f);
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		gallery.setName("bb");
@@ -73,11 +73,7 @@ public class FigureGeneratorUtil {
 		Assert.assertNotNull(theOnly);
 		Assert.assertEquals(1, theOnly.length);
 		Class figureClass = theOnly[0].getLoadedClass();
-		if (check != null){
-			IFigure figure = check.instantiateFigure(figureClass);
-			Assert.assertNotNull(figure);
-			check.checkFigure(figure);
-		}
+		check.go(figureClass);
 	}
 	
 	public static void generate(StandaloneGenerator.Config config, Processor processor) {
