@@ -28,7 +28,7 @@ public class MapModeStrategyTest extends TestCase {
 	}
 	
 	public void testPreferredSize(){
-		checkAllStrategies(createFigureWithPrefferedSize());
+		checkAllStrategies(createFigureWithPreferredSize());
 	}
 	
 	public void testRoundedRectangleCorners(){
@@ -55,7 +55,7 @@ public class MapModeStrategyTest extends TestCase {
 		}
 	}
 	
-	private Figure createFigureWithPrefferedSize(){
+	private Figure createFigureWithPreferredSize(){
 		Figure figure = GMFGraphFactory.eINSTANCE.createRectangle();
 		figure.setName("Figure2WithPreferredSize");
 		figure.setPreferredSize(FigureGeneratorUtil.createDimension(234, 567));
