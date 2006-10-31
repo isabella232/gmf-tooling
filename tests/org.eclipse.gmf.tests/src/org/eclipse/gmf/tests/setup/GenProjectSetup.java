@@ -70,7 +70,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		} catch (BundleException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			Assert.fail(ex.getMessage());
+			Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 		} finally {
 			RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
 		}

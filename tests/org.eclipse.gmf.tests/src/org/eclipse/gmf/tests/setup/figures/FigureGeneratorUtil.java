@@ -69,7 +69,7 @@ public class FigureGeneratorUtil {
 
 	// FigureGenerator: utility methods to generate/compile/instantiate figures
 	
-	public static void performTests(Figure f, FigureCheck check) {
+	private static void performTests(Figure f, FigureCheck check) {
 		performTests(f, check, createStandaloneGeneratorConfig());
 	}
 	
@@ -124,16 +124,8 @@ public class FigureGeneratorUtil {
 				result.add(new GeneratedClassData(next, bundle.loadClass(fqnName))); 
 			}
 			return (GeneratedClassData[]) result.toArray(new GeneratedClassData[result.size()]);
-		} catch (MalformedURLException e) {
-			Assert.fail(e.getMessage());
-		} catch (BundleException e) {
-			Assert.fail(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			Assert.fail(e.getMessage());
-		} catch (CoreException e){
-			Assert.fail(e.getMessage());
 		} catch (Exception e){
-			Assert.fail(e.getMessage());
+			Assert.fail(e.getClass().getSimpleName() + ":" + e.getMessage());
 		}
 		Assert.fail("Should not be here!");
 		return null;

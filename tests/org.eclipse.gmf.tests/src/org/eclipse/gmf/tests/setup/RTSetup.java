@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
@@ -280,16 +279,8 @@ public class RTSetup implements RTSource {
 				Class factoryClass = getFactoryClass(genClass);
 				Method m = factoryClass.getMethod("create" + genClass.getName(), new Class[0]);
 				return (EObject) m.invoke(getInstance(factoryClass), new Object[0]);
-			} catch (NoSuchFieldException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (NoSuchMethodException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (InvocationTargetException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (IllegalAccessException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (ClassNotFoundException ex) {
-				Assert.fail(ex.getMessage());
+			} catch (Exception ex) {
+				Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 			}
 			Assert.fail();
 			return null;
@@ -305,20 +296,8 @@ public class RTSetup implements RTSource {
 				} else {
 					src.eSet(feature, value);
 				}
-			} catch (ClassNotFoundException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (SecurityException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (NoSuchMethodException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (IllegalArgumentException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (IllegalAccessException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (InvocationTargetException ex) {
-				Assert.fail(ex.getMessage());
-			} catch (NoSuchFieldException ex) {
-				Assert.fail(ex.getMessage());
+			} catch (Exception ex) {
+				Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 			}
 		}
 		private Class getFactoryClass(GenClass genClass) throws ClassNotFoundException {
