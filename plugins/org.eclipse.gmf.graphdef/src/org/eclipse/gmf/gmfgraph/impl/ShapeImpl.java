@@ -35,6 +35,7 @@ import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Shape;
@@ -1436,6 +1437,19 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == Layoutable.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.SHAPE__LAYOUT_DATA: return GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA;
+				case GMFGraphPackage.SHAPE__LAYOUT: return GMFGraphPackage.LAYOUTABLE__LAYOUT;
+				default: return -1;
+			}
+		}
+		if (baseClass == FigureMarker.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.SHAPE__PARENT: return GMFGraphPackage.FIGURE_MARKER__PARENT;
+				default: return -1;
+			}
+		}
 		if (baseClass == FigureHandle.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
@@ -1457,6 +1471,19 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == Layoutable.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA: return GMFGraphPackage.SHAPE__LAYOUT_DATA;
+				case GMFGraphPackage.LAYOUTABLE__LAYOUT: return GMFGraphPackage.SHAPE__LAYOUT;
+				default: return -1;
+			}
+		}
+		if (baseClass == FigureMarker.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.FIGURE_MARKER__PARENT: return GMFGraphPackage.SHAPE__PARENT;
+				default: return -1;
+			}
+		}
 		if (baseClass == FigureHandle.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS;

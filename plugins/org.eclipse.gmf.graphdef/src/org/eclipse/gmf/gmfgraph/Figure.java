@@ -8,6 +8,8 @@ package org.eclipse.gmf.gmfgraph;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Figure</b></em>'.
@@ -38,7 +40,7 @@ import org.eclipse.emf.common.util.EList;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Figure extends FigureMarker, FigureHandle, Identity {
+public interface Figure extends EObject, FigureMarker, FigureHandle, Identity {
 	/**
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureMarker}.
