@@ -22,11 +22,12 @@ import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.DelegateImportManager;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 public class StandaloneGenerator extends GeneratorBase {
 	private final Config myArgs;
-	private final FigureGenerator myFigureGenerator;
+	private final TextEmitter myFigureGenerator;
 	private DelegateImportManager myMapModeImportHack;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
@@ -130,10 +131,14 @@ public class StandaloneGenerator extends GeneratorBase {
 			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
 		}
 		
-		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, false);
+		myFigureGenerator = createFigureGenerator(fqnSwitch, strategy);
 		myAuxiliaryGenerators = new StandaloneEmitters();
 	}
-	
+
+	protected TextEmitter createFigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy strategy) {
+		return new FigureGenerator(fqnSwitch, strategy, false);
+	}
+
 	/**
 	 * Allows clients to skip generating of manifest.mf, pligin and build properties files. 
 	 * "New-plugin-by-template" generator uses this feature because it delegates this generation to PDE defaults.
