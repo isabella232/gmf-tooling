@@ -66,7 +66,7 @@ public class GenericStyleSelectorItemProvider extends ItemProviderAdapter implem
 	protected void addValuesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_GenericStyleSelector_values_feature"), getString("_UI_PropertyDescriptor_description", "_UI_GenericStyleSelector_values_feature", "_UI_GenericStyleSelector_type"),
-				GMFToolPackage.eINSTANCE.getGenericStyleSelector_Values(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				GMFToolPackage.eINSTANCE.getGenericStyleSelector_Values(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

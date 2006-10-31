@@ -69,7 +69,7 @@ public class PopupMenuItemProvider extends MenuItemProvider implements IEditingD
 	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ContributionItem_title_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ContributionItem_title_feature", "_UI_ContributionItem_type"),
-				GMFToolPackage.eINSTANCE.getContributionItem_Title(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				GMFToolPackage.eINSTANCE.getContributionItem_Title(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class PopupMenuItemProvider extends MenuItemProvider implements IEditingD
 	 */
 	protected void addIDPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_PopupMenu_iD_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PopupMenu_iD_feature", "_UI_PopupMenu_type"), GMFToolPackage.eINSTANCE.getPopupMenu_ID(), true,
+				getString("_UI_PropertyDescriptor_description", "_UI_PopupMenu_iD_feature", "_UI_PopupMenu_type"), GMFToolPackage.eINSTANCE.getPopupMenu_ID(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 

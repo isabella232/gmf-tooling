@@ -72,7 +72,7 @@ public class MenuActionItemProvider extends ItemProviderAdapter implements IEdit
 	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ContributionItem_title_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ContributionItem_title_feature", "_UI_ContributionItem_type"),
-				GMFToolPackage.eINSTANCE.getContributionItem_Title(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				GMFToolPackage.eINSTANCE.getContributionItem_Title(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class MenuActionItemProvider extends ItemProviderAdapter implements IEdit
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_MenuAction_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_MenuAction_kind_feature", "_UI_MenuAction_type"), GMFToolPackage.eINSTANCE.getMenuAction_Kind(), true,
+				getString("_UI_PropertyDescriptor_description", "_UI_MenuAction_kind_feature", "_UI_MenuAction_type"), GMFToolPackage.eINSTANCE.getMenuAction_Kind(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -96,7 +96,7 @@ public class MenuActionItemProvider extends ItemProviderAdapter implements IEdit
 	protected void addHotKeyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_MenuAction_hotKey_feature"), getString("_UI_PropertyDescriptor_description", "_UI_MenuAction_hotKey_feature", "_UI_MenuAction_type"), GMFToolPackage.eINSTANCE
-						.getMenuAction_HotKey(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						.getMenuAction_HotKey(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

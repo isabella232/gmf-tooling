@@ -64,7 +64,7 @@ public class ContextMenuItemProvider extends MenuItemProvider implements IEditin
 	protected void addDefaultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ContextMenu_default_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ContextMenu_default_feature", "_UI_ContextMenu_type"), GMFToolPackage.eINSTANCE
-						.getContextMenu_Default(), true, null, null, null));
+						.getContextMenu_Default(), true, false, false, null, null, null));
 	}
 
 	/**

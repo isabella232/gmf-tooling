@@ -73,7 +73,7 @@ public class AbstractToolItemProvider extends ItemProviderAdapter implements IEd
 	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_AbstractTool_title_feature"), getString("_UI_PropertyDescriptor_description", "_UI_AbstractTool_title_feature", "_UI_AbstractTool_type"), GMFToolPackage.eINSTANCE
-						.getAbstractTool_Title(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						.getAbstractTool_Title(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class AbstractToolItemProvider extends ItemProviderAdapter implements IEd
 	protected void addDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_AbstractTool_description_feature"), getString("_UI_PropertyDescriptor_description", "_UI_AbstractTool_description_feature", "_UI_AbstractTool_type"),
-				GMFToolPackage.eINSTANCE.getAbstractTool_Description(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				GMFToolPackage.eINSTANCE.getAbstractTool_Description(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class PredefinedItemItemProvider extends ItemProviderAdapter implements I
 	protected void addIdentifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_PredefinedItem_identifier_feature"), getString("_UI_PropertyDescriptor_description", "_UI_PredefinedItem_identifier_feature", "_UI_PredefinedItem_type"),
-				GMFToolPackage.eINSTANCE.getPredefinedItem_Identifier(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				GMFToolPackage.eINSTANCE.getPredefinedItem_Identifier(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

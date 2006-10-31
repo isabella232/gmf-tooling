@@ -69,7 +69,7 @@ public class BundleImageItemProvider extends ItemProviderAdapter implements IEdi
 	 */
 	protected void addPathPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_BundleImage_path_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BundleImage_path_feature", "_UI_BundleImage_type"), GMFToolPackage.eINSTANCE.getBundleImage_Path(), true,
+				getString("_UI_PropertyDescriptor_description", "_UI_BundleImage_path_feature", "_UI_BundleImage_type"), GMFToolPackage.eINSTANCE.getBundleImage_Path(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -82,7 +82,7 @@ public class BundleImageItemProvider extends ItemProviderAdapter implements IEdi
 	protected void addBundlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_BundleImage_bundle_feature"), getString("_UI_PropertyDescriptor_description", "_UI_BundleImage_bundle_feature", "_UI_BundleImage_type"), GMFToolPackage.eINSTANCE
-						.getBundleImage_Bundle(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						.getBundleImage_Bundle(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

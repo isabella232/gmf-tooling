@@ -64,8 +64,9 @@ public class PaletteItemProvider extends ToolContainerItemProvider implements IE
 	 * @generated
 	 */
 	protected void addDefaultPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Palette_default_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Palette_default_feature", "_UI_Palette_type"), GMFToolPackage.eINSTANCE.getPalette_Default(), true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Palette_default_feature"), getString(
+						"_UI_PropertyDescriptor_description", "_UI_Palette_default_feature", "_UI_Palette_type"), GMFToolPackage.eINSTANCE.getPalette_Default(), true, false, false, null, null, null));
 	}
 
 	/**

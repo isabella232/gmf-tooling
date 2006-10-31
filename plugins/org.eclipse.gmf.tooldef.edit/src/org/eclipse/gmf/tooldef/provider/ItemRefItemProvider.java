@@ -64,7 +64,7 @@ public class ItemRefItemProvider extends ItemProviderAdapter implements IEditing
 	 */
 	protected void addItemPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_ItemRef_item_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ItemRef_item_feature", "_UI_ItemRef_type"), GMFToolPackage.eINSTANCE.getItemRef_Item(), true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ItemRef_item_feature", "_UI_ItemRef_type"), GMFToolPackage.eINSTANCE.getItemRef_Item(), true, false, false, null, null, null));
 	}
 
 	/**

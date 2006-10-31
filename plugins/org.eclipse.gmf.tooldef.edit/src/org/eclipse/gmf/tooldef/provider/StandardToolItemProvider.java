@@ -68,7 +68,7 @@ public class StandardToolItemProvider extends AbstractToolItemProvider implement
 	protected void addToolKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_StandardTool_toolKind_feature"), getString("_UI_PropertyDescriptor_description", "_UI_StandardTool_toolKind_feature", "_UI_StandardTool_type"), GMFToolPackage.eINSTANCE
-						.getStandardTool_ToolKind(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						.getStandardTool_ToolKind(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
