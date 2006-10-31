@@ -252,7 +252,7 @@ public class PluginXML
   protected final String TEXT_234 = NL;
   protected final String TEXT_235 = "          <propertyTab";
   protected final String TEXT_236 = NL + "             category=\"domain\"";
-  protected final String TEXT_237 = "category=\"extra\"";
+  protected final String TEXT_237 = NL + "             category=\"extra\"";
   protected final String TEXT_238 = NL + "             id=\"property.tab.";
   protected final String TEXT_239 = "\"" + NL + "             label=\"%tab.";
   protected final String TEXT_240 = "\"/>";
