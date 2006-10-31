@@ -134,9 +134,9 @@ GenCommonBase genCommonBase = genDiagram;%>
 	 * @generated
 	 */
 	public void addNotify() {
+		super.addNotify();
 		getDiagram().eAdapters().add(getUpdateManager());
 		getDiagram().getElement().eAdapters().add(domainModelRefresher);
-		super.addNotify();
 	}
 
 	/**
