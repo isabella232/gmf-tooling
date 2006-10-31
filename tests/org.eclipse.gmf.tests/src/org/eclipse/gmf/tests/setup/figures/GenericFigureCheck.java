@@ -13,7 +13,6 @@
 package org.eclipse.gmf.tests.setup.figures;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
@@ -346,15 +345,9 @@ public class GenericFigureCheck extends FigureCheck {
 			//we are not sure that instance provides getter, 
 			//just skip the check if getter is not found
 			return;
-		} catch (SecurityException e) {
+		} catch (Exception e) {
 			//strange 
-			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
+			throw new RuntimeException(e.getClass().getSimpleName() + "; getter: " + getterName + ", instance: " + instance, e);
 		}
 		
 		//it is pure check, but it should be enough for integers/strings
