@@ -66,12 +66,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		Rectangle layeredPaneItself = GMFGraphFactory.eINSTANCE.createRectangle();
 		layeredPaneItself.setName(LayeredPane.class.getSimpleName());
 		
-		Figure[] originals = new Figure[] {
-				usesLayeredPane, 
-				layeredPaneItself,  
-		};
-		
-		gallery.getFigures().addAll(Arrays.asList(originals));
+		gallery.getFigures().addAll(Arrays.asList(usesLayeredPane, layeredPaneItself));
 		
 		final StandaloneGenerator.Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(CUSTOM_FIGURES_PACKAGE, false);
 		GeneratedClassData[] genResults = FigureGeneratorUtil.generateAndCompile(gallery, config);
@@ -144,12 +139,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		LabeledContainer labeledContainer = GMFGraphFactory.eINSTANCE.createLabeledContainer();
 		labeledContainer.setName("GraphLabeledContainer");
 		
-		gallery.getFigures().addAll(Arrays.asList(new Figure[] {
-				label, 
-				connection, 
-				rectangle, 
-				labeledContainer, 
-		}));
+		gallery.getFigures().addAll(Arrays.asList(label, connection, rectangle, labeledContainer));
 		
 		Node node = GMFGraphFactory.eINSTANCE.createNode();
 		node.setName("DiagramNode");

@@ -61,7 +61,7 @@ public class LayoutAwareCheck extends GenericFigureCheck {
 		}
 		LayoutManager layouter = d2dFigure.getParent().getLayoutManager(); 
 		if (layouter == null){
-			//ok -- say there are no GMF layout for parent
+			//ok -- there is no GMF layout for parent
 			return;
 		}
 		Object constraint = layouter.getConstraint(d2dFigure);

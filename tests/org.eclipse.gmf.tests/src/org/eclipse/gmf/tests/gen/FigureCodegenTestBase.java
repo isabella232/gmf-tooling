@@ -13,13 +13,11 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.tests.NeedsSetup;
 import org.eclipse.gmf.tests.setup.figures.AbstractFigureGeneratorSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureCheck;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
-import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 
 /**
  * @author artem
@@ -34,10 +32,6 @@ public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 
 	public void configure(AbstractFigureGeneratorSetup sessionSetup) {
 		mySessionSetup = sessionSetup;
-	}
-
-	protected void performTests(Figure f) {
-		performTests(f, new GenericFigureCheck(f));
 	}
 
 	protected void performTests(Figure f, FigureCheck check) {

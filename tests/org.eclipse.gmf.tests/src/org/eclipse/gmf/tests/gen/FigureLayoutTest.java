@@ -31,7 +31,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		//XXX: This test now fails due to absence of the GridLayout.
 		//However, some less restictive checks done for grid layout in the performGridLayputTests() method    	
 		//If this test passes, it is safe to replace performGridLayputTests() with perfromTests() in the whole class.
-		performTests(getSessionSetup().getParent4());
+		doPerformTests(getSessionSetup().getParent4());
 	}
 	
 	public void testConcreteShapeLayoutAllProperties(){
@@ -43,7 +43,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	public void testDeepChildrenLayout(){
-		performTests(getSessionSetup().getParent());
+		doPerformTests(getSessionSetup().getParent());
 	}
 	
 	public void testLayoutDefaults(){
@@ -55,15 +55,15 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	public void testMissedLayoutPresentLayoutData(){
-		performTests(getSessionSetup().getParent1());
+		doPerformTests(getSessionSetup().getParent1());
 	}
 	
 	public void testBorderLayout(){
-		performTests(getSessionSetup().getParent2());
+		doPerformTests(getSessionSetup().getParent2());
 	}
 	
 	public void testBorderLayoutDataCenter(){
-		performTests(getSessionSetup().getParent3());
+		doPerformTests(getSessionSetup().getParent3());
 	}
 	
 	public void testCustomLayout(){
@@ -72,43 +72,34 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	public void testStackLayout(){
-		performTests(getSessionSetup().getGroup());
+		doPerformTests(getSessionSetup().getGroup());
 	}
 	
 	public void testFlowLayout(){
-		performTests(getSessionSetup().getGroup1());
+		doPerformTests(getSessionSetup().getGroup1());
 	}
 
 	public void testToolbarLayoutUnusedAndIncorrectValues(){
-		performTests(getSessionSetup().getGroup2());
+		doPerformTests(getSessionSetup().getGroup2());
 	}
 
 	public void testToolbarLayout(){
-		performTests(getSessionSetup().getGroup3());
+		doPerformTests(getSessionSetup().getGroup3());
 	}
 	
 	public void testXYLayout(){
-		Figure group = getSessionSetup().getGroup4();
-// [AS]: Removed because child figures will be "checked" in any case and
-// it does not makes sence to generate code for these figures separately 
-// in this test.
-//		Figure left = (Figure) group.getChildren().get(0);
-//		Figure right = (Figure) group.getChildren().get(1);
-		
-		performTests(group);
-//		performTests(right);
-//		performTests(left);
+		doPerformTests(getSessionSetup().getGroup4());
 	}
 	
 	public void testXYLayoutForCustomFigure(){
-		performTests(getSessionSetup().getGroup5());
+		doPerformTests(getSessionSetup().getGroup5());
 	}
 	
 	private void performGridLayoutTests(Figure figure){
 		FigureGeneratorUtil.generateAndParse(figure);
 	}
 	
-	protected void performTests(Figure f) {
+	protected void doPerformTests(Figure f) {
 		super.performTests(f, new LayoutAwareCheck(f));
 	}
 	

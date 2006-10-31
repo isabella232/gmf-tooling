@@ -14,7 +14,6 @@ package org.eclipse.gmf.tests.setup.figures;
 import junit.framework.Assert;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
 
 public abstract class FigureCheck extends Assert {
 	

@@ -35,22 +35,22 @@ public class LabelSupportTest extends FigureCodegenTestBase {
 	}
 	
 	public void testCustomFugureWithLabel(){
-		performTests(getSessionSetup().getCustom());
+		doPerformTests(getSessionSetup().getCustom());
 	}
 	
 	public void testRectangleWithLabel(){
-		performTests(getSessionSetup().getSimple());
+		doPerformTests(getSessionSetup().getSimple());
 	}
 	
 	public void testLabeledContainer(){
-		performTests(getSessionSetup().getLabeledContainer());
+		doPerformTests(getSessionSetup().getLabeledContainer());
 	}
 	
 	public void testDeepLabelGraphdefOnly(){
-		performTests(getSessionSetup().getRoot());		
+		doPerformTests(getSessionSetup().getRoot());		
 	}
 	
-	protected void performTests(Figure figure) {
+	protected void doPerformTests(Figure figure) {
 		performTests(figure, new GenericFigureCheck(figure).chain(new LabelAccessorCheck(getSessionSetup().getLabelName())));
 	}
 

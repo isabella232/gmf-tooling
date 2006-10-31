@@ -14,6 +14,8 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.Assert;
 
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.gmf.tests.setup.figures.ShapePropertiesSetup;
 
 public class ShapePropertiesTest extends FigureCodegenTestBase {
@@ -31,51 +33,55 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 	}
 	
 	public void testShapeLineStyle() {
-		performTests(getSessionSetup().getContainer());
+		doPerformTests(getSessionSetup().getContainer());
 	}
 
 	public void testShapeLineWidth() {
-		performTests(getSessionSetup().getShape());
+		doPerformTests(getSessionSetup().getShape());
 	}
 	
 	public void testShapeFont(){
-		performTests(getSessionSetup().getShape1());
+		doPerformTests(getSessionSetup().getShape1());
 	}
 
 	public void testShapeInsets() {
-		performTests(getSessionSetup().getWithInsets());
+		doPerformTests(getSessionSetup().getWithInsets());
 	}
 
 	public void testLineBorder() {
-		performTests(getSessionSetup().getContainer1());
+		doPerformTests(getSessionSetup().getContainer1());
 	}
 	
 	public void testCompoundBorder(){
-		performTests(getSessionSetup().getTester());
+		doPerformTests(getSessionSetup().getTester());
 	}
 	
 	public void testMarginBorder(){
-		performTests(getSessionSetup().getMarginTester());
+		doPerformTests(getSessionSetup().getMarginTester());
 	}
 	
 	public void testCustomBorder(){
-		performTests(getSessionSetup().getCustomBorderTester());
+		doPerformTests(getSessionSetup().getCustomBorderTester());
 	}
 	
 	public void testConstantColors(){
-		performTests(getSessionSetup().getRainbow());
+		doPerformTests(getSessionSetup().getRainbow());
 	}
 	
 	public void testMaxAndMinSize(){
-		performTests(getSessionSetup().getWithMinAndMaxSize());
+		doPerformTests(getSessionSetup().getWithMinAndMaxSize());
 	}
 	
 	public void testDefaultFontName(){
-		performTests(getSessionSetup().getRoot());
+		doPerformTests(getSessionSetup().getRoot());
 	}
 	
 	public void testScalablePolygon(){
-		performTests(getSessionSetup().getScalablePolygon());
-		performTests(getSessionSetup().getInnerScalablePolygonTester());
+		doPerformTests(getSessionSetup().getScalablePolygon());
+		doPerformTests(getSessionSetup().getInnerScalablePolygonTester());
+	}
+
+	protected void doPerformTests(Figure f) {
+		super.performTests(f, new GenericFigureCheck(f));
 	}
 }

@@ -56,15 +56,18 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenCustomFigure() {
-		performTests(getSessionSetup().getCustomFigure());
+		final Figure f = getSessionSetup().getCustomFigure();
+		performTests(f, new GenericFigureCheck(f));
 	}
 
 	public void testGenSimpleShape() {
-		performTests(getSessionSetup().getSimpleShape());
+		final Figure f = getSessionSetup().getSimpleShape();
+		performTests(f, new GenericFigureCheck(f));
 	}
 
 	public void testGenComplexShape() {
-		performTests(getSessionSetup().getComplexShape());
+		final Figure f = getSessionSetup().getComplexShape();
+		performTests(f, new GenericFigureCheck(f));
 	}
 	
 	public void testGenCustomFigureWithAttributes(){
