@@ -31,40 +31,40 @@ import org.eclipse.ui.IWorkbenchPart;
  * 
  * @author artem
  */
-public class TransformToGenModel implements IObjectActionDelegate {
+public class TransformToGenModelAction implements IObjectActionDelegate {
 
 	private IWorkbenchPart myPart;
 
-	private IFile myMapFile;
+	private IFile mapFile;
 
-	private IFile myDestFile;
+	private IFile genFile;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
-		myMapFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		mapFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
 	}
 
 	public void run(IAction action) {
 		initDestinationFile();
-		if (myDestFile == null) {
+		if (genFile == null) {
 			return;
 		}
 		TransformToGenModelOperation op = new TransformToGenModelOperation();
 		op.setName(action.getText());
 		op.setShell(getShell());
-		op.setMapModelURI(URI.createPlatformResourceURI(myMapFile.getFullPath().toString()));
-		op.setGenModelURI(URI.createPlatformResourceURI(myDestFile.getFullPath().toString()));
+		op.setMapModelURI(URI.createPlatformResourceURI(mapFile.getFullPath().toString()));
+		op.setGenModelURI(URI.createPlatformResourceURI(genFile.getFullPath().toString()));
 		op.setUseRuntimeFigures(Boolean.TRUE);
 		op.setUseMapMode(Boolean.TRUE);
 		op.run();
 	}
 
 	private void initDestinationFile() {
-		myDestFile = null;
-		final IPath destPath = myMapFile.getFullPath().removeFileExtension().addFileExtension("gmfgen"); //$NON-NLS-1$
+		genFile = null;
+		final IPath destPath = mapFile.getFullPath().removeFileExtension().addFileExtension("gmfgen"); //$NON-NLS-1$
 		final IPath destLocation = destPath.removeLastSegments(1);
 		final String defFileName = destPath.lastSegment();
 		InputDialog dlg = new InputDialog(getShell(), "Target model file", "Please specify name of the file to save diagram genmodel to", defFileName, new IInputValidator() {
@@ -77,11 +77,11 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		if (dlg.open() != InputDialog.OK) {
 			return;
 		}
-		myDestFile = ResourcesPlugin.getWorkspace().getRoot().getFile(destLocation.append(dlg.getValue()));
+		genFile = ResourcesPlugin.getWorkspace().getRoot().getFile(destLocation.append(dlg.getValue()));
 	}
 
 	public IFile getGenModelFile() {
-		return myDestFile;
+		return genFile;
 	}
 
 	private Shell getShell() {

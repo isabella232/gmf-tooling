@@ -10,7 +10,7 @@
             nameFilter="*.gmfmap"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               class="org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel"
+               class="org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModelAction"
                enablesFor="1"
                id="gmf.codegen.ui.transformToGenModelFileAction"
                label="%transform.action"
