@@ -11,12 +11,13 @@
  */
 package org.eclipse.gmf.internal.codegen.lite.popup.actions;
 
+import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction;
 import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesOperation;
 
 /**
  * @author artem
  */
-public class ExecuteTemplatesAction extends org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction {
+public class ExecuteLiteTemplatesAction extends ExecuteTemplatesAction {
 
 	protected ExecuteTemplatesOperation createOperation() {
 		return new ExecuteLiteTemplatesOperation();

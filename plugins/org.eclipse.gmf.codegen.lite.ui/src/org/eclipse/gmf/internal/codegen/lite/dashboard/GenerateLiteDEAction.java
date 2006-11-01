@@ -19,7 +19,7 @@ import org.eclipse.gmf.internal.codegen.lite.popup.actions.ExecuteLiteTemplatesO
 /**
  * @author dstadnik
  */
-public class GenerateDEAction implements DashboardAction {
+public class GenerateLiteDEAction implements DashboardAction {
 
 	private DashboardFacade context;
 
