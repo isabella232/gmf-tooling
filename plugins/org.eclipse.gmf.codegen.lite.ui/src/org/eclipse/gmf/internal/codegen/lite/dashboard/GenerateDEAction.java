@@ -34,7 +34,7 @@ public class GenerateDEAction implements DashboardAction {
 				return false;
 			}
 		}
-		return context.getProject() != null && state.getGM() != null;
+		return state.getGM() != null;
 	}
 
 	public void run() {

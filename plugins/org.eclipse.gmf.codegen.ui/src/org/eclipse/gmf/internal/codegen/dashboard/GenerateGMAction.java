@@ -35,7 +35,7 @@ public class GenerateGMAction implements DashboardAction {
 				return false;
 			}
 		}
-		return context.getProject() != null && state.getMM() != null;
+		return state.getMM() != null;
 	}
 
 	public void run() {

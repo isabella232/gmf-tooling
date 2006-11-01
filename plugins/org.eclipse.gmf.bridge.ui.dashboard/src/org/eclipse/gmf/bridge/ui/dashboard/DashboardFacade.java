@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.bridge.ui.dashboard;
 
-import org.eclipse.core.resources.IProject;
-
 /**
  * EXPERIMENTAL
  * 
@@ -35,8 +33,6 @@ public interface DashboardFacade {
 	public static final String LOCATION_MM2GM = "map_model-genmodel"; //$NON-NLS-1$
 
 	public DashboardState getState();
-
-	public IProject getProject();
 
 	public void updateStatus();
 
