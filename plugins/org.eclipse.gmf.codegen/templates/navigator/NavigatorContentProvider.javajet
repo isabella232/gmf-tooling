@@ -104,7 +104,7 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 				getterName = getterNameBase + "_" + i;
 			}
 			getter2ReferenceMap.put(getterName, nextReference);
-			%><%=getterName%>(navigatorItem.getView(), <%=parentVariable%>)<%
+			%><%=getterName%>(<%if (nextCommonBase instanceof GenLink) {%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) <%}%>navigatorItem.getView(), <%=parentVariable%>)<%
 		} else {
 			/* Put processing of other types of the references here. */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
@@ -253,12 +253,21 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 for (Iterator it = getter2ReferenceMap.entrySet().iterator(); it.hasNext();) {
 	Map.Entry nextEntry = (Map.Entry) it.next();
 	GenNavigatorChildReference childReference = (GenNavigatorChildReference) nextEntry.getValue();
+	String parameterClassFQName;
+	String parameterName;
+	if (childReference.getParent() instanceof GenLink) {
+		parameterClassFQName = "org.eclipse.gmf.runtime.notation.Edge";
+		parameterName = "edge";
+	} else {
+		parameterClassFQName = "org.eclipse.gmf.runtime.notation.View";
+		parameterName = "view";
+	}
 	List<List<GenCommonBase>> paths = graphAnalyzer.getConnectionPaths(childReference);%>
 
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("java.util.Collection")%> <%=(String) nextEntry.getKey()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view, <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> parent) {
+	private <%=importManager.getImportedName("java.util.Collection")%> <%=(String) nextEntry.getKey()%>(<%=importManager.getImportedName(parameterClassFQName)%> <%=parameterName%>, <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> parent) {
 		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 <%	boolean connectedViewsDeclared = false;
 	for (List<GenCommonBase> nextPath : paths) {
@@ -287,7 +296,7 @@ for (Iterator it = getter2ReferenceMap.entrySet().iterator(); it.hasNext();) {
 				}
 			}%>(<%
 			if (i == 0) {
-				%><%=importManager.getImportedName("java.util.Collections")%>.singleton(view)<%
+				%><%=importManager.getImportedName("java.util.Collections")%>.singleton(<%=parameterName%>)<%
 			} else {
 				%>connectedViews<%
 			}%>, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextPathSegment.getEditPartQualifiedClassName())%>.VISUAL_ID));
