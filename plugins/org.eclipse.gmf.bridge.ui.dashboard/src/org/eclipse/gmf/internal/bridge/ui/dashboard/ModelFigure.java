@@ -146,4 +146,13 @@ public class ModelFigure extends RectangleFigure implements ActionContainer {
 		}
 		getLabel(1).setText(name);
 	}
+
+	public void setFullName(String name) {
+		if (name == null || name.trim().length() == 0) {
+			setToolTip(null);
+		} else {
+			Label tooltip = new Label(name);
+			setToolTip(tooltip);
+		}
+	}
 }
