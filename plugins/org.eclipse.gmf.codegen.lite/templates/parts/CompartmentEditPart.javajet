@@ -150,6 +150,22 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 		return result;
 	}
 
+<%
+if (!genCompartment.isListLayout()) {
+%>
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class key) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.SnapToHelper")%>.class == key) {
+			return new <%=importManager.getImportedName("org.eclipse.gef.SnapToGrid")%>(this);
+		}
+		return super.getAdapter(key);
+	}
+<%
+}
+%>
+
 	/**
 	 * @generated
 	 */

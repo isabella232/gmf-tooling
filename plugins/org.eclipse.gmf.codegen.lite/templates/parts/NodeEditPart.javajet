@@ -1105,6 +1105,15 @@ if (myHelper.hasExternalLabels()) {
 	 * @generated
 	 */
 	public Object getAdapter(Class key) {
+<%
+if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
+%>
+		if (<%=importManager.getImportedName("org.eclipse.gef.SnapToHelper")%>.class == key) {
+			return new <%=importManager.getImportedName("org.eclipse.gef.SnapToGrid")%>(this);
+		}
+<%
+}
+%>
 		if (<%=importManager.getImportedName("org.eclipse.gef.TreeEditPart")%>.class == key) {
 			return getTreeEditPartAdapter();
 		}
