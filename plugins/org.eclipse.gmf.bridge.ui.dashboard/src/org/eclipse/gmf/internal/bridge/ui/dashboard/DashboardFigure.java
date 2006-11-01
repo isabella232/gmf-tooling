@@ -233,7 +233,7 @@ public class DashboardFigure extends RectangleFigure {
 
 	private class DashboardLayout extends AbstractLayout {
 
-		private static final int MAX_BOX_WIDTH = 400;
+		private static final int MAX_BOX_WIDTH = 300;
 
 		private static final int BOX_SPACING = 20;
 
