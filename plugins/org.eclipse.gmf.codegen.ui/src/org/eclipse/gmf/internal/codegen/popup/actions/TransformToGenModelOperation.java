@@ -65,6 +65,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
 /**
+ * Operation that transforms mapping model to generator model.
+ * Clients should call run() method to invoke it.
+ * Configured operation should normally run without interacting
+ * with the user so it could be used as part of diagram editor
+ * build process.
+ * 
  * @author dstadnik
  */
 public class TransformToGenModelOperation {

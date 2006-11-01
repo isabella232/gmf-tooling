@@ -37,6 +37,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 /**
+ * Operation that processes templates to generate diagram editor.
+ * Clients should call run() method to invoke it.
+ * Configured operation should normally run without interacting
+ * with the user so it could be used as part of diagram editor
+ * build process.
+ * 
  * @author dstadnik
  */
 public class ExecuteTemplatesOperation implements IRunnableWithProgress {
