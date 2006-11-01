@@ -267,10 +267,31 @@ public class LinkMappingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		return getString("_UI_LinkMapping_type");
+		StringBuffer sb = new StringBuffer();
+		LinkMapping mapping = (LinkMapping) object;
+		sb.append('<');
+		if (mapping.getDomainMetaElement() != null) {
+			sb.append(mapping.getDomainMetaElement().getName());
+		}
+		sb.append('{');
+		if (mapping.getSourceMetaFeature() != null) {
+			sb.append(GMFMapEditPlugin.getFeatureLabel(mapping.getSourceMetaFeature()));
+			sb.append('-');
+			sb.append('>');
+		}
+		if (mapping.getLinkMetaFeature() != null) {
+			sb.append(GMFMapEditPlugin.getFeatureLabel(mapping.getLinkMetaFeature()));
+		}
+		sb.append('}');
+		sb.append('/');
+		if (mapping.getDiagramLink() != null) {
+			sb.append(mapping.getDiagramLink().getName());
+		}
+		sb.append('>');
+		return getString("_UI_LinkMapping_type") + ' ' + sb;
 	}
 
 	/**

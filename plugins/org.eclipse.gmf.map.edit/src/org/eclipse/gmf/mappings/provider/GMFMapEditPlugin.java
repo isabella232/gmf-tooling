@@ -9,6 +9,8 @@ package org.eclipse.gmf.mappings.provider;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
 import org.eclipse.gmf.tooldef.provider.GMFToolEditPlugin;
 
@@ -69,6 +71,21 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 	 */
 	public static Implementation getPlugin() {
 		return plugin;
+	}
+
+	static String getFeatureLabel(EStructuralFeature feature) {
+		StringBuffer sb = new StringBuffer();
+		if (feature.getEContainingClass() != null) {
+			sb.append(feature.getEContainingClass().getName());
+			sb.append('.');
+		}
+		sb.append(feature.getName());
+		EClassifier type = feature.getEType();
+		if (type != null) {
+			sb.append(':');
+			sb.append(type.getName());
+		}
+		return sb.toString();
 	}
 
 	/**

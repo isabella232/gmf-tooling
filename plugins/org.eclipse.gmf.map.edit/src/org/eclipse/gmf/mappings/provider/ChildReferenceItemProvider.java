@@ -162,9 +162,8 @@ public class ChildReferenceItemProvider
             if (reference.isSetChild()) {
             	NodeMapping mapping = reference.getChild();
                 if (mapping.getDomainMetaElement() != null) {
-                	result += "(";
+                	result += ":";
                 	result += mapping.getDomainMetaElement().getName();
-                	result += ")";
                 }
                 result += "/";
                 if (mapping.getDiagramNode() != null) { 
