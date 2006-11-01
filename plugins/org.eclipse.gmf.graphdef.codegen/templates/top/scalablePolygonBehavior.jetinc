@@ -41,9 +41,8 @@
 	 * @generated
 	 */
 	private org.eclipse.draw2d.geometry.Rectangle getTemplateBounds(){
-		if (myTemplateBounds == null){
-			myTemplateBounds = new org.eclipse.draw2d.geometry.Rectangle();
-			myTemplateBounds = myTemplate.getBounds().union(0, 0);
+		if (myTemplateBounds == null) {
+			myTemplateBounds = myTemplate.getBounds().getCopy().union(0, 0);
 			//just safety -- we are going to use this as divider 
 			if (myTemplateBounds.width < 1){
 				myTemplateBounds.width = 1;
