@@ -74,7 +74,7 @@ public class EcoreDiagramEditorUtil {
 		if (diagramFile != null && openEditor) {
 			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
-		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString());
+		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 	}
 
 	/**
@@ -117,12 +117,12 @@ public class EcoreDiagramEditorUtil {
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
 		final IFile diagramFile = createNewFile(containerFullPath, fileName, shell);
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
 		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
 		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
+		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true));
 		affectedFiles.add(modelFile);
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 

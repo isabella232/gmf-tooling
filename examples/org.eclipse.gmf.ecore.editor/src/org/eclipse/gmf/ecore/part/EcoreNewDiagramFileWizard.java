@@ -171,7 +171,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		}
 
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 
 		List affectedFiles = new LinkedList();
 		affectedFiles.add(mySelectedModelFile);

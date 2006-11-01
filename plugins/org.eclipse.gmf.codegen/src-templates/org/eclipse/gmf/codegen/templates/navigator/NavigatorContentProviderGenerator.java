@@ -4,6 +4,7 @@ import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 import java.util.*;
 import org.eclipse.emf.codegen.util.*;
+import org.eclipse.gmf.codegen.util.*;
 
 public class NavigatorContentProviderGenerator
 {
@@ -46,131 +47,159 @@ public class NavigatorContentProviderGenerator
   protected final String TEXT_27 = NL + "\t\t\t\t\t";
   protected final String TEXT_28 = ".addChildren(";
   protected final String TEXT_29 = NL + "\t\t\t\t\tresult.addAll(";
-  protected final String TEXT_30 = "getChildByType(navigatorItem.getView().getChildren(), ";
-  protected final String TEXT_31 = ".getType(";
-  protected final String TEXT_32 = ".VISUAL_ID), ";
-  protected final String TEXT_33 = ")";
-  protected final String TEXT_34 = "getViewByType(navigatorItem.getView().eResource().getContents(), ";
-  protected final String TEXT_35 = ".MODEL_ID, ";
+  protected final String TEXT_30 = "getViewByType(navigatorItem.getView().eResource().getContents(), ";
+  protected final String TEXT_31 = ".MODEL_ID, ";
+  protected final String TEXT_32 = ")";
+  protected final String TEXT_33 = "getViewByType(navigatorItem.getView().getDiagram().getChildren(), ";
+  protected final String TEXT_34 = ".getType(";
+  protected final String TEXT_35 = ".VISUAL_ID), ";
   protected final String TEXT_36 = ")";
-  protected final String TEXT_37 = "getViewByType(navigatorItem.getView().getDiagram().getChildren(), ";
+  protected final String TEXT_37 = "getViewByType(navigatorItem.getView().getDiagram().getEdges(), ";
   protected final String TEXT_38 = ".getType(";
   protected final String TEXT_39 = ".VISUAL_ID), ";
   protected final String TEXT_40 = ")";
-  protected final String TEXT_41 = "getViewByType(navigatorItem.getView().getDiagram().getEdges(), ";
-  protected final String TEXT_42 = ".getType(";
-  protected final String TEXT_43 = ".VISUAL_ID), ";
-  protected final String TEXT_44 = ")";
-  protected final String TEXT_45 = ".EMPTY_LIST";
-  protected final String TEXT_46 = "getConnectedViews(navigatorItem.getView(), ";
-  protected final String TEXT_47 = ".getType(";
-  protected final String TEXT_48 = ".VISUAL_ID), ";
-  protected final String TEXT_49 = ", ";
-  protected final String TEXT_50 = ")";
-  protected final String TEXT_51 = ".EMPTY_LIST";
-  protected final String TEXT_52 = ".EMPTY_LIST";
-  protected final String TEXT_53 = ");";
-  protected final String TEXT_54 = NL + "\t\t\t\tif (!";
-  protected final String TEXT_55 = ".isEmpty()) {";
-  protected final String TEXT_56 = NL + "\t\t\t\tresult.add(";
-  protected final String TEXT_57 = ");";
-  protected final String TEXT_58 = NL + "\t\t\t\t}";
-  protected final String TEXT_59 = NL + "\t\t\t\treturn result.toArray();" + NL + "\t\t\t\t}";
-  protected final String TEXT_60 = NL + "\t\t\t\t}" + NL + "\t\t\t} else if (abstractNavigatorItem instanceof ";
-  protected final String TEXT_61 = ") {" + NL + "\t\t\t\t";
-  protected final String TEXT_62 = " group = (";
-  protected final String TEXT_63 = ") parentElement;" + NL + "\t\t\t\treturn group.getChildren();" + NL + "\t\t\t}" + NL + "    \t} else if (parentElement instanceof ";
-  protected final String TEXT_64 = ") {" + NL + "\t    \t";
-  protected final String TEXT_65 = " file = (";
-  protected final String TEXT_66 = ") parentElement;" + NL + "\t\t\t";
-  protected final String TEXT_67 = " editingDomain = (";
-  protected final String TEXT_68 = ") ";
-  protected final String TEXT_69 = ".INSTANCE.createEditingDomain();" + NL + "\t\t\teditingDomain.setResourceToReadOnlyMap(new ";
-  protected final String TEXT_70 = "() {" + NL + "\t\t\t\tpublic Object get(Object key) {" + NL + "\t\t\t\t\tif (!containsKey(key)) {" + NL + "\t\t\t\t\t\tput(key, Boolean.TRUE);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn super.get(key);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t\t";
-  protected final String TEXT_71 = " resourceSet = editingDomain.getResourceSet();" + NL + "\t\t\t" + NL + "\t\t\t";
-  protected final String TEXT_72 = " fileURI = ";
-  protected final String TEXT_73 = ".createPlatformResourceURI(file.getFullPath().toString());" + NL + "\t\t\t";
-  protected final String TEXT_74 = " resource = resourceSet.getResource(fileURI, true);" + NL + "\t\t\t" + NL + "\t\t\t";
-  protected final String TEXT_75 = " result = new ";
-  protected final String TEXT_76 = "();";
-  protected final String TEXT_77 = NL + "\t\t\t";
-  protected final String TEXT_78 = " ";
-  protected final String TEXT_79 = " = new ";
-  protected final String TEXT_80 = "(\"";
-  protected final String TEXT_81 = "\", \"";
-  protected final String TEXT_82 = "\", ";
-  protected final String TEXT_83 = ".MODEL_ID, file);";
-  protected final String TEXT_84 = NL + "\t\t\t";
-  protected final String TEXT_85 = ".addChildren(";
-  protected final String TEXT_86 = NL + "\t\t\tresult.addAll(";
-  protected final String TEXT_87 = "getViewByType(resource.getContents(), ";
-  protected final String TEXT_88 = ".MODEL_ID, ";
-  protected final String TEXT_89 = ")";
-  protected final String TEXT_90 = ".EMPTY_LIST";
-  protected final String TEXT_91 = "getChildByType(resource.getContents(), ";
-  protected final String TEXT_92 = ".getType(";
-  protected final String TEXT_93 = ".VISUAL_ID), ";
-  protected final String TEXT_94 = ")";
-  protected final String TEXT_95 = ".EMPTY_LIST";
-  protected final String TEXT_96 = ");";
-  protected final String TEXT_97 = NL + "\t\t\tif (!";
-  protected final String TEXT_98 = ".isEmpty()) {";
-  protected final String TEXT_99 = NL + "\t\t\tresult.add(";
-  protected final String TEXT_100 = ");";
-  protected final String TEXT_101 = NL + "\t\t\t}";
-  protected final String TEXT_102 = NL + "\t\t\treturn result.toArray();" + NL + "\t\t}" + NL + "\t\treturn EMPTY_ARRAY;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    public Object getParent(Object element) {" + NL + "    \tif (element instanceof ";
-  protected final String TEXT_103 = ") {" + NL + "    \t\t";
-  protected final String TEXT_104 = " abstractNavigatorItem = (";
-  protected final String TEXT_105 = ") element;" + NL + "\t\t\tif (!";
-  protected final String TEXT_106 = ".MODEL_ID.equals(abstractNavigatorItem.getModelID())) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t\treturn abstractNavigatorItem.getParent();" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    public boolean hasChildren(Object element) {" + NL + "    \treturn element instanceof ";
-  protected final String TEXT_107 = " || getChildren(element).length > 0;" + NL + "    }" + NL + "    " + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
-  protected final String TEXT_108 = " aConfig) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
-  protected final String TEXT_109 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
-  protected final String TEXT_110 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_111 = " getViewByType(";
-  protected final String TEXT_112 = " childViews, String type, Object parent) {" + NL + "\t\t";
+  protected final String TEXT_41 = ".EMPTY_LIST";
+  protected final String TEXT_42 = "(navigatorItem.getView(), ";
+  protected final String TEXT_43 = ")";
+  protected final String TEXT_44 = ".EMPTY_LIST";
+  protected final String TEXT_45 = ");";
+  protected final String TEXT_46 = NL + "\t\t\t\tif (!";
+  protected final String TEXT_47 = ".isEmpty()) {";
+  protected final String TEXT_48 = NL + "\t\t\t\tresult.add(";
+  protected final String TEXT_49 = ");";
+  protected final String TEXT_50 = NL + "\t\t\t\t}";
+  protected final String TEXT_51 = NL + "\t\t\t\treturn result.toArray();" + NL + "\t\t\t\t}";
+  protected final String TEXT_52 = NL + "\t\t\t\t}" + NL + "\t\t\t} else if (abstractNavigatorItem instanceof ";
+  protected final String TEXT_53 = ") {" + NL + "\t\t\t\t";
+  protected final String TEXT_54 = " group = (";
+  protected final String TEXT_55 = ") parentElement;" + NL + "\t\t\t\treturn group.getChildren();" + NL + "\t\t\t}" + NL + "    \t} else if (parentElement instanceof ";
+  protected final String TEXT_56 = ") {" + NL + "\t    \t";
+  protected final String TEXT_57 = " file = (";
+  protected final String TEXT_58 = ") parentElement;" + NL + "\t\t\t";
+  protected final String TEXT_59 = " editingDomain = (";
+  protected final String TEXT_60 = ") ";
+  protected final String TEXT_61 = ".INSTANCE.createEditingDomain();" + NL + "\t\t\teditingDomain.setResourceToReadOnlyMap(new ";
+  protected final String TEXT_62 = "() {" + NL + "\t\t\t\tpublic Object get(Object key) {" + NL + "\t\t\t\t\tif (!containsKey(key)) {" + NL + "\t\t\t\t\t\tput(key, Boolean.TRUE);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn super.get(key);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t\t";
+  protected final String TEXT_63 = " resourceSet = editingDomain.getResourceSet();" + NL + "\t\t\t" + NL + "\t\t\t";
+  protected final String TEXT_64 = " fileURI = ";
+  protected final String TEXT_65 = ".createPlatformResourceURI(file.getFullPath().toString(), true);" + NL + "\t\t\t";
+  protected final String TEXT_66 = " resource = resourceSet.getResource(fileURI, true);" + NL + "\t\t\t" + NL + "\t\t\t";
+  protected final String TEXT_67 = " result = new ";
+  protected final String TEXT_68 = "();";
+  protected final String TEXT_69 = NL + "\t\t\t";
+  protected final String TEXT_70 = " ";
+  protected final String TEXT_71 = " = new ";
+  protected final String TEXT_72 = "(\"";
+  protected final String TEXT_73 = "\", \"";
+  protected final String TEXT_74 = "\", ";
+  protected final String TEXT_75 = ".MODEL_ID, file);";
+  protected final String TEXT_76 = NL + "\t\t\t";
+  protected final String TEXT_77 = ".addChildren(";
+  protected final String TEXT_78 = NL + "\t\t\tresult.addAll(";
+  protected final String TEXT_79 = "getViewByType(resource.getContents(), ";
+  protected final String TEXT_80 = ".MODEL_ID, ";
+  protected final String TEXT_81 = ")";
+  protected final String TEXT_82 = ".EMPTY_LIST";
+  protected final String TEXT_83 = ".EMPTY_LIST";
+  protected final String TEXT_84 = ");";
+  protected final String TEXT_85 = NL + "\t\t\tif (!";
+  protected final String TEXT_86 = ".isEmpty()) {";
+  protected final String TEXT_87 = NL + "\t\t\tresult.add(";
+  protected final String TEXT_88 = ");";
+  protected final String TEXT_89 = NL + "\t\t\t}";
+  protected final String TEXT_90 = NL + "\t\t\treturn result.toArray();" + NL + "\t\t}" + NL + "\t\treturn EMPTY_ARRAY;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    public Object getParent(Object element) {" + NL + "    \tif (element instanceof ";
+  protected final String TEXT_91 = ") {" + NL + "    \t\t";
+  protected final String TEXT_92 = " abstractNavigatorItem = (";
+  protected final String TEXT_93 = ") element;" + NL + "\t\t\tif (!";
+  protected final String TEXT_94 = ".MODEL_ID.equals(abstractNavigatorItem.getModelID())) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t\treturn abstractNavigatorItem.getParent();" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    public boolean hasChildren(Object element) {" + NL + "    \treturn element instanceof ";
+  protected final String TEXT_95 = " || getChildren(element).length > 0;" + NL + "    }" + NL + "    " + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
+  protected final String TEXT_96 = " aConfig) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
+  protected final String TEXT_97 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
+  protected final String TEXT_98 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_99 = " getViewByType(";
+  protected final String TEXT_100 = " childViews, String type, Object parent) {" + NL + "\t\t";
+  protected final String TEXT_101 = " result = new ";
+  protected final String TEXT_102 = "();" + NL + "\t\tfor (";
+  protected final String TEXT_103 = " it = childViews.iterator(); it.hasNext();) {" + NL + "\t\t\tObject next = it.next();" + NL + "\t\t\tif (false == next instanceof ";
+  protected final String TEXT_104 = ") {" + NL + "\t\t\t\tcontinue;" + NL + "\t\t\t}" + NL + "\t\t\t";
+  protected final String TEXT_105 = " nextView = (";
+  protected final String TEXT_106 = ") next;" + NL + "\t\t\tif (type.equals(nextView.getType())) {" + NL + "\t\t\t\tresult.add(new ";
+  protected final String TEXT_107 = "(nextView, parent));" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn result;" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_108 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_109 = " ";
+  protected final String TEXT_110 = "(";
+  protected final String TEXT_111 = " view, ";
+  protected final String TEXT_112 = " parent) {" + NL + "\t\t";
   protected final String TEXT_113 = " result = new ";
-  protected final String TEXT_114 = "();" + NL + "\t\tfor (";
-  protected final String TEXT_115 = " it = childViews.iterator(); it.hasNext();) {" + NL + "\t\t\tObject next = it.next();" + NL + "\t\t\tif (false == next instanceof ";
-  protected final String TEXT_116 = ") {" + NL + "\t\t\t\tcontinue;" + NL + "\t\t\t}" + NL + "\t\t\t";
-  protected final String TEXT_117 = " nextView = (";
-  protected final String TEXT_118 = ") next;" + NL + "\t\t\tif (type.equals(nextView.getType())) {" + NL + "\t\t\t\tresult.add(new ";
-  protected final String TEXT_119 = "(nextView, parent));" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_120 = " getChildByType(";
-  protected final String TEXT_121 = " childViews, String type, Object parent) {" + NL + "\t\t";
-  protected final String TEXT_122 = " result = new ";
-  protected final String TEXT_123 = "();" + NL + "\t\t";
-  protected final String TEXT_124 = " children = new ";
-  protected final String TEXT_125 = "(childViews);" + NL + "\t\tfor (int i = 0; i < children.size(); i++) {" + NL + "\t\t\tif (false == children.get(i) instanceof ";
-  protected final String TEXT_126 = ") {" + NL + "\t\t\t\tcontinue;" + NL + "\t\t\t}" + NL + "\t\t\t";
-  protected final String TEXT_127 = " nextChild = (";
-  protected final String TEXT_128 = ") children.get(i);" + NL + "\t\t\tif (type.equals(nextChild.getType())) {" + NL + "\t\t\t\tresult.add(new ";
-  protected final String TEXT_129 = "(nextChild, parent));" + NL + "\t\t\t} else if (!stopGettingChildren(nextChild, type)) {" + NL + "\t\t\t\tchildren.addAll(nextChild.getChildren());" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn result;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean stopGettingChildren(";
-  protected final String TEXT_130 = " child, String type) {" + NL + "\t\treturn false;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_131 = " getConnectedViews(";
-  protected final String TEXT_132 = " rootView, String type, boolean isOutTarget, Object parent) {" + NL + "\t\t";
-  protected final String TEXT_133 = " result = new ";
-  protected final String TEXT_134 = "();" + NL + "\t\t";
-  protected final String TEXT_135 = " connectedViews = new ";
-  protected final String TEXT_136 = "();" + NL + "\t\tconnectedViews.add(rootView);" + NL + "\t\t";
-  protected final String TEXT_137 = " visitedViews = new ";
-  protected final String TEXT_138 = "();" + NL + "\t\tfor (int i = 0; i < connectedViews.size(); i++) {" + NL + "\t\t\t";
-  protected final String TEXT_139 = " nextView = (";
-  protected final String TEXT_140 = ") connectedViews.get(i);" + NL + "\t\t\tif (visitedViews.contains(nextView)) {" + NL + "\t\t\t\tcontinue;" + NL + "\t\t\t}" + NL + "\t\t\tvisitedViews.add(nextView);" + NL + "\t\t\tif (type.equals(nextView.getType()) && nextView != rootView) {" + NL + "\t\t\t\tresult.add(new ";
-  protected final String TEXT_141 = "(nextView, parent));" + NL + "\t\t\t} else {" + NL + "\t\t\t\tif (isOutTarget && !stopGettingOutTarget(nextView, rootView, type)) {" + NL + "\t\t\t\t\tconnectedViews.addAll(nextView.getSourceEdges());" + NL + "\t\t\t\t\tif (nextView instanceof ";
-  protected final String TEXT_142 = ") {" + NL + "\t\t\t\t\t\tconnectedViews.add(((Edge) nextView).getTarget());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t} " + NL + "\t\t\t\tif (!isOutTarget && !stopGettingInSource(nextView, rootView, type)) {" + NL + "\t\t\t\t\tconnectedViews.addAll(nextView.getTargetEdges());" + NL + "\t\t\t\t\tif (nextView instanceof ";
-  protected final String TEXT_143 = ") {" + NL + "\t\t\t\t\t\tconnectedViews.add(((Edge) nextView).getSource());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean stopGettingInSource(";
-  protected final String TEXT_144 = " nextView, ";
-  protected final String TEXT_145 = " rootView, String type) {" + NL + "\t\treturn !isOneHopConnection(nextView, rootView);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean stopGettingOutTarget(";
-  protected final String TEXT_146 = " nextView, ";
-  protected final String TEXT_147 = " rootView, String type) {" + NL + "\t\treturn !isOneHopConnection(nextView, rootView);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOneHopConnection(";
-  protected final String TEXT_148 = " targetView, ";
-  protected final String TEXT_149 = " sourceView) {" + NL + "\t\tif (sourceView == targetView) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\tif (sourceView instanceof ";
-  protected final String TEXT_150 = ") {" + NL + "\t\t\treturn targetView instanceof ";
-  protected final String TEXT_151 = ";" + NL + "\t\t} if (sourceView instanceof ";
-  protected final String TEXT_152 = ") {" + NL + "\t\t\treturn targetView instanceof ";
-  protected final String TEXT_153 = ";" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_154 = NL;
+  protected final String TEXT_114 = "();";
+  protected final String TEXT_115 = NL + "\t\t";
+  protected final String TEXT_116 = " connectedViews = ";
+  protected final String TEXT_117 = NL + "\t\tconnectedViews = ";
+  protected final String TEXT_118 = "getLinksTargetByType";
+  protected final String TEXT_119 = "getLinksSourceByType";
+  protected final String TEXT_120 = "getOutgoingLinksByType";
+  protected final String TEXT_121 = "getIncomingLinksByType";
+  protected final String TEXT_122 = "getChildrenByType";
+  protected final String TEXT_123 = "(";
+  protected final String TEXT_124 = ".singleton(view)";
+  protected final String TEXT_125 = "connectedViews";
+  protected final String TEXT_126 = ", ";
+  protected final String TEXT_127 = ".getType(";
+  protected final String TEXT_128 = ".VISUAL_ID));";
+  protected final String TEXT_129 = NL + "\t\tcreateNavigatorItems(connectedViews, parent, result);";
+  protected final String TEXT_130 = NL + "\t\treturn result;" + NL + "\t}";
+  protected final String TEXT_131 = NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private ";
+  protected final String TEXT_132 = " getLinksSourceByType(";
+  protected final String TEXT_133 = " edges, String type) {" + NL + "\t\t";
+  protected final String TEXT_134 = " result = new ";
+  protected final String TEXT_135 = "();" + NL + "\t \tfor (";
+  protected final String TEXT_136 = " it = edges.iterator(); it.hasNext();) {" + NL + "\t \t\t";
+  protected final String TEXT_137 = " nextEdge = (";
+  protected final String TEXT_138 = ") it.next();" + NL + "\t \t\t";
+  protected final String TEXT_139 = " nextEdgeSource = nextEdge.getSource();" + NL + "\t \t\tif (type.equals(nextEdgeSource.getType())) {" + NL + "\t \t\t\tresult.add(nextEdgeSource);" + NL + "\t \t\t}" + NL + "\t \t}" + NL + "\t \treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private ";
+  protected final String TEXT_140 = " getLinksTargetByType(";
+  protected final String TEXT_141 = " edges, String type) {" + NL + "\t\t";
+  protected final String TEXT_142 = " result = new ";
+  protected final String TEXT_143 = "();" + NL + "\t \tfor (";
+  protected final String TEXT_144 = " it = edges.iterator(); it.hasNext();) {" + NL + "\t \t\t";
+  protected final String TEXT_145 = " nextEdge = (";
+  protected final String TEXT_146 = ") it.next();" + NL + "\t \t\t";
+  protected final String TEXT_147 = " nextEdgeSource = nextEdge.getTarget();" + NL + "\t \t\tif (type.equals(nextEdgeSource.getType())) {" + NL + "\t \t\t\tresult.add(nextEdgeSource);" + NL + "\t \t\t}" + NL + "\t \t}" + NL + "\t \treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private ";
+  protected final String TEXT_148 = " getOutgoingLinksByType(";
+  protected final String TEXT_149 = " nodes, String type) {" + NL + "\t\t";
+  protected final String TEXT_150 = " result = new ";
+  protected final String TEXT_151 = "();" + NL + "\t \tfor (";
+  protected final String TEXT_152 = " it = nodes.iterator(); it.hasNext();) {" + NL + "\t \t\t";
+  protected final String TEXT_153 = " nextNode = (";
+  protected final String TEXT_154 = ") it.next();" + NL + "\t\t\tresult.addAll(selectViewsByType(nextNode.getSourceEdges(), type));" + NL + "\t \t}" + NL + "\t \treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private ";
+  protected final String TEXT_155 = " getIncomingLinksByType(";
+  protected final String TEXT_156 = " nodes, String type) {" + NL + "\t\t";
+  protected final String TEXT_157 = " result = new ";
+  protected final String TEXT_158 = "();" + NL + "\t \tfor (";
+  protected final String TEXT_159 = " it = nodes.iterator(); it.hasNext();) {" + NL + "\t \t\t";
+  protected final String TEXT_160 = " nextNode = (";
+  protected final String TEXT_161 = ") it.next();" + NL + "\t\t\tresult.addAll(selectViewsByType(nextNode.getTargetEdges(), type));" + NL + "\t \t}" + NL + "\t \treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private ";
+  protected final String TEXT_162 = " getChildrenByType(";
+  protected final String TEXT_163 = " nodes, String type) {" + NL + "\t\t";
+  protected final String TEXT_164 = " result = new ";
+  protected final String TEXT_165 = "();" + NL + "\t \tfor (";
+  protected final String TEXT_166 = " it = nodes.iterator(); it.hasNext();) {" + NL + "\t \t\t";
+  protected final String TEXT_167 = " nextNode = (";
+  protected final String TEXT_168 = ") it.next();" + NL + "\t\t\tresult.addAll(selectViewsByType(nextNode.getChildren(), type));" + NL + "\t \t}" + NL + "\t \treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_169 = " selectViewsByType(";
+  protected final String TEXT_170 = " views, String type) {" + NL + "\t\t";
+  protected final String TEXT_171 = " result = new ";
+  protected final String TEXT_172 = "();" + NL + "\t\tfor (";
+  protected final String TEXT_173 = " it = views.iterator(); it.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_174 = " nextView = (";
+  protected final String TEXT_175 = ") it.next();" + NL + "\t\t\tif (type.equals(nextView.getType())) {" + NL + "\t\t\t\tresult.add(nextView);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn result;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void createNavigatorItems(";
+  protected final String TEXT_176 = " views, ";
+  protected final String TEXT_177 = " parent, ";
+  protected final String TEXT_178 = " result) {" + NL + "\t\tfor (";
+  protected final String TEXT_179 = " it = views.iterator(); it.hasNext();) {" + NL + "\t\t\tresult.add(new ";
+  protected final String TEXT_180 = "((";
+  protected final String TEXT_181 = ") it.next(), parent));" + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_182 = NL;
 
   public String generate(Object argument)
   {
@@ -215,7 +244,8 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_15);
-    for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
+    Map getter2ReferenceMap = new HashMap();
+for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
 	Collection childReferences = genNavigator.getChildReferencesFrom(nextCommonBase);
 	if (childReferences.size() == 0) {
@@ -260,26 +290,26 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     
 		}
 		
-		if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-			
-    stringBuffer.append(TEXT_30);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_32);
-    stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_33);
-    
-		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
+		if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
 			if (nextReference.getChild() instanceof GenDiagram) {
 			
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(parentVariable);
+    stringBuffer.append(TEXT_32);
+    
+			} else if (nextReference.getChild() instanceof GenTopLevelNode) {
+			
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_35);
     stringBuffer.append(parentVariable);
     stringBuffer.append(TEXT_36);
     
-			} else if (nextReference.getChild() instanceof GenTopLevelNode) {
+			} else if (nextReference.getChild() instanceof GenLink) {
 			
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
@@ -289,104 +319,93 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(parentVariable);
     stringBuffer.append(TEXT_40);
     
-			} else if (nextReference.getChild() instanceof GenLink) {
-			
-    stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_44);
-    
 			} else {
 			/* Any other "Default" child refrences are not supported */
 			
     stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_45);
+    stringBuffer.append(TEXT_41);
     
 			}
-		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL || nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
-			boolean isOutTarget = nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL;
-			if (nextCommonBase instanceof GenNode || nextCommonBase instanceof GenLink) {
+		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL || nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL || nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
+			String getterNameBase = "get" + nextCommonBase.getUniqueIdentifier() + "To" + nextReference.getChild().getUniqueIdentifier();
+			if (nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
+				getterNameBase = getterNameBase + "OutTarget";
+			} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
+				getterNameBase = getterNameBase + "InSource";
+			} else { /*nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL*/
+				getterNameBase = getterNameBase + "Children";
+			}
+			String getterName = getterNameBase;
+			for (int i = 1; getter2ReferenceMap.containsKey(getterName); i++) {
+				getterName = getterNameBase + "_" + i;
+			}
+			getter2ReferenceMap.put(getterName, nextReference);
 			
-    stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_47);
-    stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_48);
-    stringBuffer.append(isOutTarget);
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(getterName);
+    stringBuffer.append(TEXT_42);
     stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_50);
+    stringBuffer.append(TEXT_43);
     
-			} else {
-			/* Any other "OUT_TAGET_LITERAL || IN_SOURCE_LITERAL" child refrences are not supported */
-			
-    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_51);
-    
-			}
 		} else {
 			/* Put processing of other types of the references here. */
 			
     stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_52);
+    stringBuffer.append(TEXT_44);
     
 		}
-    stringBuffer.append(TEXT_53);
+    stringBuffer.append(TEXT_45);
     	}
 	
 	for (Iterator it = createdGroups.keySet().iterator(); it.hasNext();) {
 		String nextGroupKey = (String) it.next();
 		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) createdGroups.get(nextGroupKey);
 		if (nextReference.isHideIfEmpty()) {
-    stringBuffer.append(TEXT_54);
+    stringBuffer.append(TEXT_46);
     stringBuffer.append(nextGroupKey);
-    stringBuffer.append(TEXT_55);
+    stringBuffer.append(TEXT_47);
     		}
-    stringBuffer.append(TEXT_56);
+    stringBuffer.append(TEXT_48);
     stringBuffer.append(nextGroupKey);
-    stringBuffer.append(TEXT_57);
+    stringBuffer.append(TEXT_49);
     		if (nextReference.isHideIfEmpty()) {
-    stringBuffer.append(TEXT_58);
+    stringBuffer.append(TEXT_50);
     		}
 	}
-    stringBuffer.append(TEXT_59);
+    stringBuffer.append(TEXT_51);
     }
+    stringBuffer.append(TEXT_52);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_53);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_54);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_55);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
+    stringBuffer.append(TEXT_56);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
+    stringBuffer.append(TEXT_57);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
+    stringBuffer.append(TEXT_58);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain"));
+    stringBuffer.append(TEXT_59);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain"));
     stringBuffer.append(TEXT_60);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_61);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_62);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_63);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
-    stringBuffer.append(TEXT_64);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
-    stringBuffer.append(TEXT_65);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
-    stringBuffer.append(TEXT_66);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain"));
-    stringBuffer.append(TEXT_67);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain"));
-    stringBuffer.append(TEXT_68);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory"));
-    stringBuffer.append(TEXT_69);
+    stringBuffer.append(TEXT_61);
     stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
-    stringBuffer.append(TEXT_70);
+    stringBuffer.append(TEXT_62);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet"));
-    stringBuffer.append(TEXT_71);
+    stringBuffer.append(TEXT_63);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
-    stringBuffer.append(TEXT_72);
+    stringBuffer.append(TEXT_64);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_65);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
-    stringBuffer.append(TEXT_74);
+    stringBuffer.append(TEXT_66);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_75);
+    stringBuffer.append(TEXT_67);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
-    stringBuffer.append(TEXT_76);
+    stringBuffer.append(TEXT_68);
     Map createdDiagramGroups = new HashMap();
 for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
@@ -395,186 +414,289 @@ for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasN
 		parentVariable = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
 		if (!createdDiagramGroups.containsKey(parentVariable)) {
 			createdDiagramGroups.put(parentVariable, nextReference);
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_69);
     stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_70);
     stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_71);
     stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_80);
+    stringBuffer.append(TEXT_72);
     stringBuffer.append(nextReference.getGroupName());
-    stringBuffer.append(TEXT_81);
+    stringBuffer.append(TEXT_73);
     stringBuffer.append(nextReference.getGroupIcon());
-    stringBuffer.append(TEXT_82);
+    stringBuffer.append(TEXT_74);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_83);
+    stringBuffer.append(TEXT_75);
     		}
-    stringBuffer.append(TEXT_84);
+    stringBuffer.append(TEXT_76);
     stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_85);
+    stringBuffer.append(TEXT_77);
     
 	} else {
 		parentVariable = "file";
-    stringBuffer.append(TEXT_86);
+    stringBuffer.append(TEXT_78);
     
 	}
 	if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
 		if (nextReference.getChild() instanceof GenDiagram) {
 			
-    stringBuffer.append(TEXT_87);
+    stringBuffer.append(TEXT_79);
     stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_88);
+    stringBuffer.append(TEXT_80);
     stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_89);
+    stringBuffer.append(TEXT_81);
     
 		} else {
 			/* Any other "Default" child refrences are not supported for resource */
 			
     stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_90);
+    stringBuffer.append(TEXT_82);
     
 		}
-	} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-		
-    stringBuffer.append(TEXT_91);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append(importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_93);
-    stringBuffer.append(parentVariable);
-    stringBuffer.append(TEXT_94);
-    
 	} else {
 		/* Any other ReferenceTypes are not supported for the resource */
 		
     stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_95);
+    stringBuffer.append(TEXT_83);
     
 	}
-    stringBuffer.append(TEXT_96);
+    stringBuffer.append(TEXT_84);
     }
 
 for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 	String groupNameKey = (String) it.next();
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) createdDiagramGroups.get(groupNameKey);
 	if (nextReference.isHideIfEmpty()) {
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_85);
     stringBuffer.append(groupNameKey);
-    stringBuffer.append(TEXT_98);
+    stringBuffer.append(TEXT_86);
     	}
-    stringBuffer.append(TEXT_99);
+    stringBuffer.append(TEXT_87);
     stringBuffer.append(groupNameKey);
-    stringBuffer.append(TEXT_100);
+    stringBuffer.append(TEXT_88);
     	if (nextReference.isHideIfEmpty()) {
-    stringBuffer.append(TEXT_101);
+    stringBuffer.append(TEXT_89);
     	}
 }
 
-    stringBuffer.append(TEXT_102);
+    stringBuffer.append(TEXT_90);
     stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_103);
+    stringBuffer.append(TEXT_91);
     stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_104);
+    stringBuffer.append(TEXT_92);
     stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_105);
+    stringBuffer.append(TEXT_93);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_106);
+    stringBuffer.append(TEXT_94);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
-    stringBuffer.append(TEXT_107);
+    stringBuffer.append(TEXT_95);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(TEXT_98);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_100);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_102);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_103);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_104);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_105);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_106);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_107);
+    GenModelGraphAnalyzer graphAnalyzer = new GenModelGraphAnalyzer(genDiagram);
+for (Iterator it = getter2ReferenceMap.entrySet().iterator(); it.hasNext();) {
+	Map.Entry nextEntry = (Map.Entry) it.next();
+	GenNavigatorChildReference childReference = (GenNavigatorChildReference) nextEntry.getValue();
+	List<List<GenCommonBase>> paths = graphAnalyzer.getConnectionPaths(childReference);
     stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append((String) nextEntry.getKey());
     stringBuffer.append(TEXT_110);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_112);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_113);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_114);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    	boolean connectedViewsDeclared = false;
+	for (List<GenCommonBase> nextPath : paths) {
+		for (int i = 0; i < nextPath.size() - 1; i++) {
+			GenCommonBase currentPathSegment = nextPath.get(i);
+			GenCommonBase nextPathSegment = nextPath.get(i + 1);
+			if (!connectedViewsDeclared) {
+				connectedViewsDeclared = true;
     stringBuffer.append(TEXT_115);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_116);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    
+			}else {
     stringBuffer.append(TEXT_117);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    
+			}
+			if (currentPathSegment instanceof GenLink) {
+				if (childReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
+					
     stringBuffer.append(TEXT_118);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    
+				} else { /*childReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL*/
+					
     stringBuffer.append(TEXT_119);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    
+				}
+			} else {
+				if (childReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
+					
     stringBuffer.append(TEXT_120);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    
+				} else if (childReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
+					
     stringBuffer.append(TEXT_121);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    
+				} else { /*childReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL*/
+					
     stringBuffer.append(TEXT_122);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    
+				}
+			}
     stringBuffer.append(TEXT_123);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    
+			if (i == 0) {
+				
+    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
     stringBuffer.append(TEXT_124);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    
+			} else {
+				
     stringBuffer.append(TEXT_125);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    
+			}
     stringBuffer.append(TEXT_126);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_127);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName(nextPathSegment.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_128);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    		}
     stringBuffer.append(TEXT_129);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    	}
     stringBuffer.append(TEXT_130);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    }
     stringBuffer.append(TEXT_131);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_132);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_133);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_134);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_135);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_135);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_136);
-    stringBuffer.append(importManager.getImportedName("java.util.Set"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_137);
-    stringBuffer.append(importManager.getImportedName("java.util.HashSet"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_138);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_139);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_140);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_141);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_142);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_143);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_144);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_145);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_146);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_147);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_148);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_149);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_150);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_151);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_152);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_153);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_154);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_155);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_156);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_157);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_158);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_159);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_160);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_161);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_162);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_163);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_164);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_165);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_166);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_167);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_168);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_169);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_170);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_171);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_172);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_173);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_174);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_175);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_176);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_177);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_178);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_179);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_180);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_181);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_182);
     return stringBuffer.toString();
   }
 }

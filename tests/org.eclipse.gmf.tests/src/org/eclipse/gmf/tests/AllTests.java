@@ -53,6 +53,7 @@ import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
 import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
 import org.eclipse.gmf.tests.setup.figures.ShapePropertiesSetup;
 import org.eclipse.gmf.tests.tr.EcoreGenModelMatcherTest;
+import org.eclipse.gmf.tests.tr.GenModelGraphAnalyzerTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
 import org.eclipse.gmf.tests.tr.HistoryTest;
@@ -137,6 +138,7 @@ public class AllTests {
 		suite.addTestSuite(HandcodedGMFMapItemProvidersTest.class);
 		suite.addTest(AllMigrationTests.suite());
 		suite.addTest(AllValidateTests.suite());
+		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

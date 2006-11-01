@@ -91,7 +91,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate {
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		EObject diagramRoot = null;
 		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString(), true), true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
