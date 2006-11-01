@@ -11,16 +11,10 @@
  */
 package org.eclipse.gmf.internal.codegen.lite.dashboard;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardAction;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardFacade;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
-import org.eclipse.gmf.internal.codegen.lite.popup.actions.ExecuteTemplatesAction;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.gmf.internal.codegen.lite.popup.actions.ExecuteLiteTemplatesOperation;
 
 /**
  * @author dstadnik
@@ -36,21 +30,16 @@ public class GenerateDEAction implements DashboardAction {
 	public boolean isEnabled() {
 		DashboardState state = context.getState();
 		if (context.isStrict()) {
-			if (state.dmFileName == null || state.dgmFileName == null) {
+			if (state.getDM() == null || state.getDGM() == null) {
 				return false;
 			}
 		}
-		return context.getProject() != null && state.gmFileName != null;
+		return context.getProject() != null && state.getGM() != null;
 	}
 
 	public void run() {
-		IFile file = context.getFile(context.getState().gmFileName);
-		ExecuteTemplatesAction action = new ExecuteTemplatesAction();
-		IAction uiAction = new Action() {
-		};
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		action.setActivePart(uiAction, window.getPartService().getActivePart());
-		action.selectionChanged(uiAction, new StructuredSelection(file));
-		action.run(uiAction);
+		ExecuteLiteTemplatesOperation op = new ExecuteLiteTemplatesOperation();
+		op.setGenModelURI(context.getState().getGM());
+		op.run();
 	}
 }

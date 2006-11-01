@@ -11,16 +11,11 @@
  */
 package org.eclipse.gmf.internal.codegen.dashboard;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardAction;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardFacade;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
-import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModelOperation;
 
 /**
  * @author dstadnik
@@ -36,25 +31,30 @@ public class GenerateGMAction implements DashboardAction {
 	public boolean isEnabled() {
 		DashboardState state = context.getState();
 		if (context.isStrict()) {
-			if (state.dmFileName == null || state.dgmFileName == null || state.tdmFileName == null) {
+			if (state.getDM() == null || state.getDGM() == null || state.getTDM() == null) {
 				return false;
 			}
 		}
-		return context.getProject() != null && state.mmFileName != null;
+		return context.getProject() != null && state.getMM() != null;
 	}
 
 	public void run() {
 		DashboardState state = context.getState();
-		IFile file = context.getFile(state.mmFileName);
-		TransformToGenModel action = new TransformToGenModel();
-		IAction uiAction = new Action() {
-		};
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		action.setActivePart(uiAction, window.getPartService().getActivePart());
-		action.selectionChanged(uiAction, new StructuredSelection(file));
-		action.run(uiAction);
-		IFile gfile = action.getGenModelFile();
-		state.gmFileName = context.getName(gfile);
-		context.updateStatus();
+		URI mm = state.getMM();
+		URI gm = state.getGM();
+		if (gm == null) {
+			gm = mm.trimFileExtension().appendFileExtension("gmfgen"); //$NON-NLS-1$
+			state.setGM(gm);
+		}
+		try {
+			TransformToGenModelOperation op = new TransformToGenModelOperation();
+			op.setUseRuntimeFigures(Boolean.TRUE);
+			op.setUseMapMode(Boolean.TRUE);
+			op.setMapModelURI(mm);
+			op.setGenModelURI(gm);
+			op.run();
+		} finally {
+			context.updateStatus();
+		}
 	}
 }

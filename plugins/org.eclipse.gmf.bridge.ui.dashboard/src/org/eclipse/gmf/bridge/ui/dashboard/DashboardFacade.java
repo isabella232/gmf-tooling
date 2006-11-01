@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.bridge.ui.dashboard;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 
 /**
@@ -38,10 +37,6 @@ public interface DashboardFacade {
 	public DashboardState getState();
 
 	public IProject getProject();
-
-	public IFile getFile(String fileName);
-
-	public String getName(IFile file);
 
 	public void updateStatus();
 

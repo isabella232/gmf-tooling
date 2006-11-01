@@ -6,15 +6,16 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
-            id="gmf.codegen.ui.contribution1"
+            id="gmf.codegen.ui.transformToGenModelFile"
             nameFilter="*.gmfmap"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                class="org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel"
                enablesFor="1"
-               id="gmf.codegen.ui.step1Action"
+               id="gmf.codegen.ui.transformToGenModelFileAction"
                label="%transform.action"
-               menubarPath="additions"/>
+               menubarPath="additions">
+         </action>
          <!-- action
                class="org.eclipse.gmf.internal.codegen.popup.actions.CreateSpecificDiagramRunTimeModelAction"
                enablesFor="1"
@@ -24,7 +25,7 @@
       </objectContribution>
       <objectContribution
             adaptable="true"
-            id="gmf.codegen.ui.contribution2"
+            id="gmf.codegen.ui.executeTemplates"
             nameFilter="*.gmfgen"
             objectClass="org.eclipse.core.resources.IFile">
          <action
@@ -32,7 +33,7 @@
                class="org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction"
                menubarPath="additions"
                enablesFor="1"
-               id="gmf.codegen.ui.step2Action">
+               id="gmf.codegen.ui.executeTemplatesAction">
          </action>
       </objectContribution>
 	<objectContribution

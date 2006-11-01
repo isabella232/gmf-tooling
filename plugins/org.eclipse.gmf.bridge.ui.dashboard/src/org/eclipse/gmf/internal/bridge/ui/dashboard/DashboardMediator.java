@@ -21,8 +21,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
 import org.eclipse.emf.importer.ui.EMFModelWizard;
 import org.eclipse.emf.importer.ui.GenModelReloadActionDelegate;
@@ -36,6 +36,7 @@ import org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.WizardOperationMode;
+import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.FileSelector;
 import org.eclipse.gmf.mappings.presentation.GMFMapModelWizard;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
@@ -157,17 +158,6 @@ public class DashboardMediator implements DashboardFacade {
 		return linkFigure;
 	}
 
-	public IFile getFile(String fileName) {
-		return project.getFile(new Path(fileName));
-	}
-
-	public String getName(IFile file) {
-		if (file == null) {
-			return null;
-		}
-		return file.getProjectRelativePath().toString();
-	}
-
 	public IProject getProject() {
 		return project;
 	}
@@ -194,17 +184,18 @@ public class DashboardMediator implements DashboardFacade {
 			double done = (double) state.getSpecifiedModelsCount() / state.getModelsCount();
 			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_Progress, new Object[] { new Double(done) }));
 		}
-		setModelName(view.getDGMFigure(), state.dgmFileName);
-		setModelName(view.getGDMFigure(), state.gdmFileName);
-		setModelName(view.getDMFigure(), state.dmFileName);
-		setModelName(view.getTDMFigure(), state.tdmFileName);
-		setModelName(view.getMMFigure(), state.mmFileName);
-		setModelName(view.getGMFigure(), state.gmFileName);
+		setModelName(view.getDGMFigure(), state.getDGM());
+		setModelName(view.getGDMFigure(), state.getGDM());
+		setModelName(view.getDMFigure(), state.getDM());
+		setModelName(view.getTDMFigure(), state.getTDM());
+		setModelName(view.getMMFigure(), state.getMM());
+		setModelName(view.getGMFigure(), state.getGM());
 		view.repaint(); // update hyperlinks
 	}
 
-	protected void setModelName(ModelFigure figure, String name) {
-		figure.setName(name);
+	protected void setModelName(ModelFigure figure, URI uri) {
+		figure.setName(uri == null ? null : uri.lastSegment());
+		figure.setFullName(uri == null ? null : uri.toString());
 	}
 
 	protected abstract class SelectFileAction implements DashboardAction {
@@ -217,21 +208,20 @@ public class DashboardMediator implements DashboardFacade {
 		}
 
 		public void run() {
-			IFile file = null;
-			String fileName = getFileName();
-			if (fileName != null) {
-				file = getFile(fileName);
-			}
+			IFile file = getURI() == null ? null : URIUtil.getFile(getURI());
 			file = FileSelector.selectFile(shell, getFigure().getDescription(), project, file, getFileExtension());
-			setFileName(getName(file));
+			if (file == null) {
+				return;
+			}
+			setURI(URI.createPlatformResourceURI(file.getFullPath().toString()));
 			updateStatus();
 		}
 
 		protected abstract ModelFigure getFigure();
 
-		protected abstract String getFileName();
+		protected abstract URI getURI();
 
-		protected abstract void setFileName(String fileName);
+		protected abstract void setURI(URI uri);
 
 		protected abstract String getFileExtension();
 	}
@@ -242,25 +232,25 @@ public class DashboardMediator implements DashboardFacade {
 		}
 
 		public boolean isEnabled() {
-			return project != null && getFileName() != null;
+			return project != null && getURI() != null;
 		}
 
 		public void run() {
 			IWorkbench workbench = PlatformUI.getWorkbench();
 			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 			IWorkbenchPage page = workbenchWindow.getActivePage();
-			IFile modelFile = getFile(getFileName());
+			IFile modelFile = URIUtil.getFile(getURI());
 			try {
 				String fileName = modelFile.getFullPath().toString();
 				String editorId = workbench.getEditorRegistry().getDefaultEditor(fileName).getId();
 				page.openEditor(new FileEditorInput(modelFile), editorId);
 			} catch (PartInitException pie) {
-				String msg = MessageFormat.format(Messages.DashboardMediator_FailToOpen, new Object[] { getFileName() });
+				String msg = MessageFormat.format(Messages.DashboardMediator_FailToOpen, new Object[] { getURI() });
 				MessageDialog.openError(workbenchWindow.getShell(), msg, pie.getMessage());
 			}
 		}
 
-		protected abstract String getFileName();
+		protected abstract URI getURI();
 	}
 
 	protected abstract class RunWizardAction implements DashboardAction {
@@ -295,20 +285,23 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected IStructuredSelection getSelection() {
 			List<IFile> selection = new ArrayList<IFile>();
-			addFile(selection, state.dmFileName);
-			addFile(selection, state.dgmFileName);
-			addFile(selection, state.gdmFileName);
-			addFile(selection, state.tdmFileName);
-			addFile(selection, state.mmFileName);
-			addFile(selection, state.gmFileName);
+			addFile(selection, state.getDM());
+			addFile(selection, state.getDGM());
+			addFile(selection, state.getGDM());
+			addFile(selection, state.getTDM());
+			addFile(selection, state.getMM());
+			addFile(selection, state.getGM());
 			return new StructuredSelection(selection);
 		}
 
-		protected void addFile(List<IFile> files, String name) {
-			if (name == null) {
+		protected void addFile(List<IFile> files, URI uri) {
+			if (uri == null) {
 				return;
 			}
-			files.add(project.getFile(name));
+			IFile file = URIUtil.getFile(uri);
+			if (file != null) {
+				files.add(file);
+			}
 		}
 
 		protected abstract IWizard createWizard();
@@ -323,12 +316,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getDGMFigure();
 		}
 
-		protected String getFileName() {
-			return state.dgmFileName;
+		protected URI getURI() {
+			return state.getDGM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.dgmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setDGM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -342,12 +335,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getGDMFigure();
 		}
 
-		protected String getFileName() {
-			return state.gdmFileName;
+		protected URI getURI() {
+			return state.getGDM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.gdmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setGDM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -361,12 +354,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getDMFigure();
 		}
 
-		protected String getFileName() {
-			return state.dmFileName;
+		protected URI getURI() {
+			return state.getDM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.dmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setDM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -380,12 +373,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getTDMFigure();
 		}
 
-		protected String getFileName() {
-			return state.tdmFileName;
+		protected URI getURI() {
+			return state.getTDM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.tdmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setTDM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -399,12 +392,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getMMFigure();
 		}
 
-		protected String getFileName() {
-			return state.mmFileName;
+		protected URI getURI() {
+			return state.getMM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.mmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setMM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -418,12 +411,12 @@ public class DashboardMediator implements DashboardFacade {
 			return DashboardMediator.this.view.getGMFigure();
 		}
 
-		protected String getFileName() {
-			return state.gmFileName;
+		protected URI getURI() {
+			return state.getDM();
 		}
 
-		protected void setFileName(String fileName) {
-			state.gmFileName = fileName;
+		protected void setURI(URI uri) {
+			state.setDM(uri);
 		}
 
 		protected String getFileExtension() {
@@ -433,43 +426,43 @@ public class DashboardMediator implements DashboardFacade {
 
 	private class EditDGMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.dgmFileName;
+		protected URI getURI() {
+			return state.getDGM();
 		}
 	}
 
 	private class EditGDMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.gdmFileName;
+		protected URI getURI() {
+			return state.getGDM();
 		}
 	}
 
 	private class EditDMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.dmFileName;
+		protected URI getURI() {
+			return state.getDM();
 		}
 	}
 
 	private class EditTDMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.tdmFileName;
+		protected URI getURI() {
+			return state.getTDM();
 		}
 	}
 
 	private class EditMMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.mmFileName;
+		protected URI getURI() {
+			return state.getMM();
 		}
 	}
 
 	private class EditGMAction extends EditFileAction {
 
-		protected String getFileName() {
-			return state.gmFileName;
+		protected URI getURI() {
+			return state.getGM();
 		}
 	}
 
@@ -481,7 +474,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFGraphModelWizard) wizard).getModelFile();
-			state.gdmFileName = getName(file);
+			state.setGDM(file);
 			updateStatus();
 		}
 	}
@@ -494,7 +487,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((EcoreModelWizard) wizard).getModelFile();
-			state.dmFileName = getName(file);
+			state.setDM(file);
 			updateStatus();
 		}
 	}
@@ -507,7 +500,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFToolModelWizard) wizard).getModelFile();
-			state.tdmFileName = getName(file);
+			state.setTDM(file);
 			updateStatus();
 		}
 	}
@@ -520,7 +513,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFMapModelWizard) wizard).getModelFile();
-			state.mmFileName = getName(file);
+			state.setMM(file);
 			updateStatus();
 		}
 	}
@@ -533,7 +526,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFGenModelWizard) wizard).getModelFile();
-			state.gmFileName = getName(file);
+			state.setGM(file);
 			updateStatus();
 		}
 	}
@@ -544,11 +537,11 @@ public class DashboardMediator implements DashboardFacade {
 		}
 
 		public boolean isEnabled() {
-			return state.dgmFileName != null;
+			return state.getDGM() != null;
 		}
 
 		public void run() {
-			IFile file = getFile(state.dgmFileName);
+			IFile file = URIUtil.getFile(state.getDGM());
 			GenModelReloadActionDelegate action = new GenModelReloadActionDelegate();
 			IAction uiAction = new Action() {
 			};
@@ -561,7 +554,7 @@ public class DashboardMediator implements DashboardFacade {
 	private class DeriveDGMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
-			return super.isEnabled() && state.dmFileName != null;
+			return super.isEnabled() && state.getDM() != null;
 		}
 
 		protected IWizard createWizard() {
@@ -570,12 +563,12 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((OpenEMFModelWizard) wizard).getModelFile();
-			state.dgmFileName = getName(file);
+			state.setDGM(file);
 			updateStatus();
 		}
 
 		protected IStructuredSelection getSelection() {
-			return new StructuredSelection(getFile(state.dmFileName));
+			return new StructuredSelection(URIUtil.getFile(state.getDM()));
 		}
 	}
 
@@ -590,7 +583,7 @@ public class DashboardMediator implements DashboardFacade {
 	private class DeriveGDMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
-			return super.isEnabled() && state.dmFileName != null;
+			return super.isEnabled() && state.getDM() != null;
 		}
 
 		protected IWizard createWizard() {
@@ -601,7 +594,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFGraphSimpleModelWizard) wizard).getModelFile();
-			state.gdmFileName = getName(file);
+			state.setGDM(file);
 			updateStatus();
 		}
 	}
@@ -609,7 +602,7 @@ public class DashboardMediator implements DashboardFacade {
 	private class DeriveTDMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
-			return super.isEnabled() && state.dmFileName != null;
+			return super.isEnabled() && state.getDM() != null;
 		}
 
 		protected IWizard createWizard() {
@@ -620,7 +613,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFToolSimpleModelWizard) wizard).getModelFile();
-			state.tdmFileName = getName(file);
+			state.setTDM(file);
 			updateStatus();
 		}
 	}
@@ -628,7 +621,7 @@ public class DashboardMediator implements DashboardFacade {
 	private class CombineMMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
-			return project != null && state.gdmFileName != null && state.dmFileName != null && state.tdmFileName != null;
+			return project != null && state.getGDM() != null && state.getDM() != null && state.getTDM() != null;
 		}
 
 		protected IWizard createWizard() {
@@ -637,7 +630,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((NewGMFMapModelWizard) wizard).getModelFile();
-			state.mmFileName = getName(file);
+			state.setMM(file);
 			updateStatus();
 		}
 	}
