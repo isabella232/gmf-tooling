@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
@@ -218,7 +217,7 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 	}
 
 	private IStatus validateGenModel() {
-		return BasicDiagnostic.toIStatus(Diagnostician.INSTANCE.validate(getGenModel()));
+		return BasicDiagnostic.toIStatus(ValidationHelper.validate(getGenModel(), true));
 	}
 
 	private static IPreferenceStore getPreferences() {
