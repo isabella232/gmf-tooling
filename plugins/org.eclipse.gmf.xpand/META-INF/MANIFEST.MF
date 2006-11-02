@@ -7,7 +7,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.resources
 Export-Package: lpg.lpgjavaruntime;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
- org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
+ org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen",
  org.eclipse.gmf.internal.xpand.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.build;x-friends:="org.eclipse.gmf.xpand.editor",
  org.eclipse.gmf.internal.xpand.expression;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen",
