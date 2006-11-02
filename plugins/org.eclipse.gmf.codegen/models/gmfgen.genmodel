@@ -43,7 +43,6 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/children"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/out_taget"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/in_source"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/default"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//GeneratedType">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GeneratedType/abstractNavigatorItem"/>

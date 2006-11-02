@@ -29,9 +29,15 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	public EcoreNavigatorItem(View view, Object parent) {
+	private boolean myLeaf = false;
+
+	/**
+	 * @generated
+	 */
+	public EcoreNavigatorItem(View view, Object parent, boolean isLeaf) {
 		super(parent);
 		myView = view;
+		myLeaf = isLeaf;
 	}
 
 	/**
@@ -53,6 +59,13 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 	 */
 	public int getVisualID() {
 		return EcoreVisualIDRegistry.getVisualID(myView);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isLeaf() {
+		return myLeaf;
 	}
 
 	/**

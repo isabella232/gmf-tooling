@@ -149,11 +149,15 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		navigatorChildReference.setChild(myStartNode);
 		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myDiagram, myStartNode });
-
+		
 		GenLink link = GMFGenFactory.eINSTANCE.createGenLink();
 		GenLinkLabel linkLabel = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 		link.getLabels().add(linkLabel);
 		myDiagram.getLinks().add(link);
+		
+		navigatorChildReference.setChild(link);
+		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		assertOnePath(paths, new GenCommonBase[] { myDiagram, link });
 
 		navigatorChildReference.setParent(link);
 		navigatorChildReference.setChild(linkLabel);

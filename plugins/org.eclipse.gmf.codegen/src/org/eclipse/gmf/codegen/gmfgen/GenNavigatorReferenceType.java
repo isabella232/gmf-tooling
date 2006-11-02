@@ -68,21 +68,6 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 	public static final int IN_SOURCE = 2;
 
 	/**
-	 * The '<em><b>Default</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Default</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #DEFAULT_LITERAL
-	 * @model name="default"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DEFAULT = 3;
-
-	/**
 	 * The '<em><b>Children</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -113,16 +98,6 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 	public static final GenNavigatorReferenceType IN_SOURCE_LITERAL = new GenNavigatorReferenceType(IN_SOURCE, "in_source", "in_source");
 
 	/**
-	 * The '<em><b>Default</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DEFAULT
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenNavigatorReferenceType DEFAULT_LITERAL = new GenNavigatorReferenceType(DEFAULT, "default", "default");
-
-	/**
 	 * An array of all the '<em><b>Gen Navigator Reference Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,7 +108,6 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 			CHILDREN_LITERAL,
 			OUT_TAGET_LITERAL,
 			IN_SOURCE_LITERAL,
-			DEFAULT_LITERAL,
 		};
 
 	/**
@@ -187,7 +161,6 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 			case CHILDREN: return CHILDREN_LITERAL;
 			case OUT_TAGET: return OUT_TAGET_LITERAL;
 			case IN_SOURCE: return IN_SOURCE_LITERAL;
-			case DEFAULT: return DEFAULT_LITERAL;
 		}
 		return null;	
 	}

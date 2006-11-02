@@ -137,6 +137,9 @@ public class GenModelGraphAnalyzer {
 			if (source instanceof GenContainerBase) {
 				children.addAll(((GenContainerBase) source).getContainedNodes());
 			}
+			if (source instanceof GenDiagram) {
+				children.addAll(((GenDiagram) source).getLinks());
+			}
 			if (source instanceof GenNode) {
 				children.addAll(((GenNode) source).getCompartments());
 				children.addAll(((GenNode) source).getLabels());

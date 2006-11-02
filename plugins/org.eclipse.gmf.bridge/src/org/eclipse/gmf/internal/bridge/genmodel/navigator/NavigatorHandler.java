@@ -57,7 +57,7 @@ public class NavigatorHandler {
 	}
 
 	public void process(GenDiagram diagram) {
-		createChildReference(diagram, null, GenNavigatorReferenceType.DEFAULT_LITERAL);
+		createChildReference(diagram, null, GenNavigatorReferenceType.CHILDREN_LITERAL);
 	}
 
 	public void process(GenTopLevelNode topLevelNode) {
@@ -76,7 +76,7 @@ public class NavigatorHandler {
 	}
 
 	public void process(GenLink link) {
-		GenNavigatorChildReference childReference = createChildReference(link, myDiagram, GenNavigatorReferenceType.DEFAULT_LITERAL);
+		GenNavigatorChildReference childReference = createChildReference(link, myDiagram, GenNavigatorReferenceType.CHILDREN_LITERAL);
 		childReference.setGroupName("links");
 		childReference.setGroupIcon("icons/linksNavigatorGroup.gif");
 

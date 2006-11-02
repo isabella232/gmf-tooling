@@ -6109,7 +6109,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.CHILDREN_LITERAL);
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.DEFAULT_LITERAL);
 
 		initEEnum(generatedTypeEEnum, GeneratedType.class, "GeneratedType");
 		addEEnumLiteral(generatedTypeEEnum, GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL);

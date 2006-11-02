@@ -22,12 +22,12 @@ public class NavigatorItemGenerator
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate ";
-  protected final String TEXT_8 = " myView;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
+  protected final String TEXT_8 = " myView;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate boolean myLeaf = false;\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
   protected final String TEXT_9 = "(";
-  protected final String TEXT_10 = " view, Object parent) {" + NL + "\t\tsuper(parent);" + NL + "\t\tmyView = view;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
+  protected final String TEXT_10 = " view, Object parent, boolean isLeaf) {" + NL + "\t\tsuper(parent);" + NL + "\t\tmyView = view;" + NL + "\t\tmyLeaf = isLeaf;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
   protected final String TEXT_11 = " getView() {" + NL + "\t\treturn myView;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getModelID() {" + NL + "\t\treturn ";
   protected final String TEXT_12 = ".getModelID(myView);" + NL + "\t}" + NL + "\t" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int getVisualID() {" + NL + "\t\treturn ";
-  protected final String TEXT_13 = ".getVisualID(myView);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\tif (";
+  protected final String TEXT_13 = ".getVisualID(myView);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isLeaf() {" + NL + "\t\treturn myLeaf;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\tif (";
   protected final String TEXT_14 = ".class.isAssignableFrom(adapter) || ";
   protected final String TEXT_15 = ".class.isAssignableFrom(adapter)) {" + NL + "\t\t\treturn myView;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(adapter);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean equals(Object obj) {" + NL + "\t\tif (obj instanceof ";
   protected final String TEXT_16 = ") {" + NL + "\t\t\t";

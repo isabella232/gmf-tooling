@@ -112,6 +112,9 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 
 			if (abstractNavigatorItem instanceof EcoreNavigatorItem) {
 				EcoreNavigatorItem navigatorItem = (EcoreNavigatorItem) abstractNavigatorItem;
+				if (navigatorItem.isLeaf()) {
+					return EMPTY_ARRAY;
+				}
 				switch (navigatorItem.getVisualID()) {
 				case EClassEditPart.VISUAL_ID: {
 					Collection result = new ArrayList();
@@ -288,10 +291,10 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 					result.addAll(getEPackage_1000ToEDataType_2004Children(navigatorItem.getView(), navigatorItem));
 					result.addAll(getEPackage_1000ToEEnum_2005Children(navigatorItem.getView(), navigatorItem));
 					EcoreNavigatorGroup links = new EcoreNavigatorGroup("links", "icons/linksNavigatorGroup.gif", EPackageEditPart.MODEL_ID, navigatorItem);
-					links.addChildren(getViewByType(navigatorItem.getView().getDiagram().getEdges(), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID), links));
-					links.addChildren(getViewByType(navigatorItem.getView().getDiagram().getEdges(), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID), links));
-					links.addChildren(getViewByType(navigatorItem.getView().getDiagram().getEdges(), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID), links));
-					links.addChildren(getViewByType(navigatorItem.getView().getDiagram().getEdges(), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID), links));
+					links.addChildren(getEPackage_1000ToEAnnotationReferences_4001Children(navigatorItem.getView(), links));
+					links.addChildren(getEPackage_1000ToEReference_4002Children(navigatorItem.getView(), links));
+					links.addChildren(getEPackage_1000ToEReference_4003Children(navigatorItem.getView(), links));
+					links.addChildren(getEPackage_1000ToEClassESuperTypes_4004Children(navigatorItem.getView(), links));
 					if (!links.isEmpty()) {
 						result.add(links);
 					}
@@ -403,7 +406,7 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Resource resource = resourceSet.getResource(fileURI, true);
 
 			Collection result = new ArrayList();
-			result.addAll(getViewByType(resource.getContents(), EPackageEditPart.MODEL_ID, file));
+			result.addAll(createNavigatorItems(selectViewsByType(resource.getContents(), EPackageEditPart.MODEL_ID), file));
 			return result.toArray();
 		}
 		return EMPTY_ARRAY;
@@ -451,29 +454,18 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getViewByType(Collection childViews, String type, Object parent) {
+	private Collection getEClassESuperTypes_4004ToEClass_3004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
-		for (Iterator it = childViews.iterator(); it.hasNext();) {
-			Object next = it.next();
-			if (false == next instanceof View) {
-				continue;
-			}
-			View nextView = (View) next;
-			if (type.equals(nextView.getType())) {
-				result.add(new EcoreNavigatorItem(nextView, parent));
-			}
-		}
+		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isEClassESuperTypes_4004ToEClass_3004OutTargetLeaf(edge));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection getEClassESuperTypes_4004ToEClass_3004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
-		return result;
+	private boolean isEClassESuperTypes_4004ToEClass_3004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -482,8 +474,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_2005ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_2005ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_2005ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -493,8 +492,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEOperation_3002ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEOperation_3002ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -503,8 +509,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotation_3003ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotation_3003ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotation_3003ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -513,8 +526,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -523,8 +543,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEAnnotation_2003InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEAnnotation_2003InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEAnnotation_2003InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -533,8 +560,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEClass_2001OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEClass_2001OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEClass_2001OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -543,8 +577,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEEnum_3007OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEEnum_3007OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEEnum_3007OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -553,8 +594,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEClass_2001InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEClass_2001InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEClass_2001InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -564,8 +612,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEAnnotation_3003ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEAnnotation_3003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -574,8 +629,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEClassESuperTypes_4004OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEClassESuperTypes_4004OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEClassESuperTypes_4004OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -585,8 +647,32 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationDetailsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EStringToStringMapEntryEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotation_2003ToEStringToStringMapEntry_3008ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotation_2003ToEStringToStringMapEntry_3008ChildrenLeaf(View view) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getEPackage_1000ToEClassESuperTypes_4004Children(View view, EcoreAbstractNavigatorItem parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEClassESuperTypes_4004ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEClassESuperTypes_4004ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -595,8 +681,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEReference_4002InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -605,8 +698,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_1000ToEClass_2001Children(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEClass_2001ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEClass_2001ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -615,8 +715,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClassESuperTypes_4004ToEClass_3004InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClassESuperTypes_4004ToEClass_3004InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClassESuperTypes_4004ToEClass_3004InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -625,8 +732,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -635,8 +749,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_2005ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_2005ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_2005ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -646,8 +767,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEAttribute_3001ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEAttribute_3001ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -656,8 +784,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEClassESuperTypes_4004InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEClassESuperTypes_4004InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEClassESuperTypes_4004InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -666,8 +801,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEEnum_3007OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEEnum_3007OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEEnum_3007OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -676,8 +818,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEClass_3004InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEClass_3004InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEClass_3004InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -687,8 +836,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEPackage_3005ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEPackage_3005ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -697,8 +853,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_1000ToEPackage_2002Children(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackage2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEPackage_2002ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEPackage_2002ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -707,8 +870,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEDataType_3006OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEDataType_3006OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEDataType_3006OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -717,8 +887,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEClass_3004InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEClass_3004InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEClass_3004InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -727,8 +904,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_2004ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_2004ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_2004ToEReference_4002InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -737,8 +921,32 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEPackage_2002OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EPackage2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEPackage_2002OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEPackage_2002OutTargetLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getEPackage_1000ToEReference_4003Children(View view, EcoreAbstractNavigatorItem parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEReference_4003ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEReference_4003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -747,8 +955,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEReference_4003OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEReference_4003OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEReference_4003OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -757,8 +972,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -767,8 +989,32 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEOperation_3002ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEOperation_3002ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEOperation_3002ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getEPackage_1000ToEAnnotationReferences_4001Children(View view, EcoreAbstractNavigatorItem parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEAnnotationReferences_4001ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEAnnotationReferences_4001ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -778,8 +1024,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEEnum_3007ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEEnum_3007ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -788,8 +1041,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_3006ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_3006ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_3006ToEReference_4002InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -798,8 +1058,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_1000ToEEnum_2005Children(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEEnum_2005ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEEnum_2005ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -808,8 +1075,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEReference_4002InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -818,8 +1092,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEEnum_2005OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEEnum_2005OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEEnum_2005OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -828,8 +1109,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEEnumLiteral_3009OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEEnumLiteral_3009OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEEnumLiteral_3009OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -838,8 +1126,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEDataType_2004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEDataType_2004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEDataType_2004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -848,8 +1143,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEEnum_2005OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEEnum_2005OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEEnum_2005OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -858,8 +1160,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotation_2003ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotation_2003ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotation_2003ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -869,8 +1178,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEDataType_3006ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEDataType_3006ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -879,8 +1195,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEDataType_2004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEDataType_2004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEDataType_2004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -889,8 +1212,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_1000ToEDataType_2004Children(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEDataType_2004ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEDataType_2004ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -899,8 +1229,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEClass_2001InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEClass_2001InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEClass_2001InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -909,8 +1246,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEEnum_2005OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEEnum_2005OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEEnum_2005OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -919,8 +1263,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnumLiteral_3009ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnumLiteral_3009ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnumLiteral_3009ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -929,8 +1280,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEReference_4002OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEReference_4002OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEReference_4002OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -939,8 +1297,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEAnnotation_3003OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEAnnotation_3003OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEAnnotation_3003OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -949,8 +1314,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClassESuperTypes_4004ToEClass_2001InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClassESuperTypes_4004ToEClass_2001InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClassESuperTypes_4004ToEClass_2001InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -959,8 +1331,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_2004ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_2004ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_2004ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -969,8 +1348,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEAnnotation_3003InSource(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEAnnotation_3003InSourceLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEAnnotation_3003InSourceLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -979,8 +1365,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEAnnotation_2003OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEAnnotation_2003OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEAnnotation_2003OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -989,8 +1382,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEDataType_2004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEDataType_2004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEDataType_2004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -999,8 +1399,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEClass_3004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEClass_3004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEClass_3004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1009,8 +1416,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_3006ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_3006ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_3006ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1019,8 +1433,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_3007ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_3007ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_3007ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1029,8 +1450,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEClass_2001OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEClass_2001OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEClass_2001OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1039,8 +1467,32 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_2005ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_2005ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_2005ToEReference_4002InSourceLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getEPackage_1000ToEReference_4002Children(View view, EcoreAbstractNavigatorItem parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEReference_4002ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEReference_4002ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1049,8 +1501,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_2002ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1059,8 +1518,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEClass_2001OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEClass_2001OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEClass_2001OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1069,8 +1535,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEClass_3004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEClass_3004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEClass_3004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1080,8 +1553,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEClass_3004ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEClass_3004ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1090,8 +1570,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_3007ToEReference_4002InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_3007ToEReference_4002InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_3007ToEReference_4002InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1100,8 +1587,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1110,8 +1604,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClassESuperTypes_4004ToEClass_2001OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClassESuperTypes_4004ToEClass_2001OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClassESuperTypes_4004ToEClass_2001OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1120,8 +1621,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4003ToEDataType_3006OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4003ToEDataType_3006OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4003ToEDataType_3006OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1130,8 +1638,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEOperation_3002OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEOperation_3002OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEOperation_3002OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1140,8 +1655,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_1000ToEAnnotation_2003Children(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_1000ToEAnnotation_2003ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_1000ToEAnnotation_2003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1150,8 +1672,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEDataType_3006OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEDataType_3006OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEDataType_3006OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1161,8 +1690,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_2002ToEAnnotation_3003ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_2002ToEAnnotation_3003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1171,8 +1707,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotation_3003ToEAnnotationReferences_4001OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotation_3003ToEAnnotationReferences_4001OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotation_3003ToEAnnotationReferences_4001OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1182,8 +1725,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_2005ToEEnumLiteral_3009ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_2005ToEEnumLiteral_3009ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1192,8 +1742,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEClassESuperTypes_4004OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEClassESuperTypes_4004OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEClassESuperTypes_4004OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1202,8 +1759,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEEnum_3007OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEEnum_3007OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEEnum_3007OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1212,8 +1776,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAttribute_3001ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAttribute_3001ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAttribute_3001ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1222,8 +1793,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEEnum_3007ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_3007ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_3007ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1233,8 +1811,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_2004ToEAnnotation_3003ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_2004ToEAnnotation_3003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1243,8 +1828,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEClassESuperTypes_4004InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEClassESuperTypes_4004InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEClassESuperTypes_4004InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1253,8 +1845,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_3006ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_3006ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_3006ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1263,8 +1862,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotation_2003ToEAnnotationReferences_4001OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotation_2003ToEAnnotationReferences_4001OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotation_2003ToEAnnotationReferences_4001OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1273,8 +1879,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEDataType_2004ToEReference_4003InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEDataType_2004ToEReference_4003InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEDataType_2004ToEReference_4003InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1283,8 +1896,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_2001ToEReference_4003OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_2001ToEReference_4003OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_2001ToEReference_4003OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1293,8 +1913,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEPackage_3005OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEPackage_3005OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEPackage_3005OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1303,8 +1930,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEClass_3004ToEReference_4002OutTarget(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEClass_3004ToEReference_4002OutTargetLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEClass_3004ToEReference_4002OutTargetLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1313,8 +1947,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEAnnotationReferences_4001ToEAttribute_3001OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEAnnotationReferences_4001ToEAttribute_3001OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEAnnotationReferences_4001ToEAttribute_3001OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1324,8 +1965,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumEnumAnnotationsEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEEnum_2005ToEAnnotation_3003ChildrenLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEEnum_2005ToEAnnotation_3003ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -1334,8 +1982,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEPackage_3005ToEAnnotationReferences_4001InSource(View view, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEPackage_3005ToEAnnotationReferences_4001InSourceLeaf(view));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEPackage_3005ToEAnnotationReferences_4001InSourceLeaf(View view) {
+		return true;
 	}
 
 	/**
@@ -1344,8 +1999,15 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	private Collection getEReference_4002ToEClass_3004OutTarget(Edge edge, EcoreAbstractNavigatorItem parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result);
+		createNavigatorItems(connectedViews, parent, result, isEReference_4002ToEClass_3004OutTargetLeaf(edge));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEReference_4002ToEClass_3004OutTargetLeaf(Edge edge) {
+		return true;
 	}
 
 	/**
@@ -1431,9 +2093,20 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private void createNavigatorItems(Collection views, EcoreAbstractNavigatorItem parent, Collection result) {
+	private Collection createNavigatorItems(Collection views, Object parent) {
+		Collection result = new ArrayList();
 		for (Iterator it = views.iterator(); it.hasNext();) {
-			result.add(new EcoreNavigatorItem((View) it.next(), parent));
+			result.add(new EcoreNavigatorItem((View) it.next(), parent, false));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createNavigatorItems(Collection views, EcoreAbstractNavigatorItem parent, Collection result, boolean isLeafs) {
+		for (Iterator it = views.iterator(); it.hasNext();) {
+			result.add(new EcoreNavigatorItem((View) it.next(), parent, isLeafs));
 		}
 	}
 

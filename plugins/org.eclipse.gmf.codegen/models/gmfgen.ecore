@@ -1539,7 +1539,6 @@
     <eLiterals name="children"/>
     <eLiterals name="out_taget" value="1"/>
     <eLiterals name="in_source" value="2"/>
-    <eLiterals name="default" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorChildReference">
     <eOperations name="isInsideGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
