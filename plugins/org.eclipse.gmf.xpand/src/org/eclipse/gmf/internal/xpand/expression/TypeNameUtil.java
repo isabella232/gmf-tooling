@@ -62,13 +62,13 @@ public class TypeNameUtil {
 	}
 
 	public static String toCanonicalNameFromAlias(String potentialAlias) {
-		if ("String".equals(potentialAlias)) {
+		if ("String".equals(potentialAlias) || "string".equals(potentialAlias)) {
 			return "EString";
 		}
 		if ("boolean".equals(potentialAlias) || "Boolean".equals(potentialAlias)) {
 			return "EBoolean";
 		}
-		if ("Integer".equals(potentialAlias)) {
+		if ("Integer".equals(potentialAlias) || "int".equals(potentialAlias)) {
 			return "EInt";
 		}
 		if ("Object".equals(potentialAlias)) {
