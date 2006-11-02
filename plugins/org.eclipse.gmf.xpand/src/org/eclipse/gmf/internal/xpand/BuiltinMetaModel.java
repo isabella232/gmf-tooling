@@ -209,15 +209,19 @@ public class BuiltinMetaModel {
 		if (obj instanceof EObject) {
 			return ((EObject) obj).eClass();
 		}
-		// FIXME reuse
 		if (obj instanceof Collection) {
+			EClassifier type = null;
+			if (!((Collection) obj).isEmpty()) {
+				// FIXME respect all! elements in the collection, not only the first one
+				type = getType(((Collection) obj).iterator().next());
+			}
 			if (obj instanceof Set) {
-				return CollectionTypesSupport.SET_OF_OBJECT;
+				return collectionTypes.getSetType(type);
 			}
 			if (obj instanceof List) {
-				return CollectionTypesSupport.LIST_OF_OBJECT;
+				return collectionTypes.getListType(type);
 			}
-			return CollectionTypesSupport.COLLECTION_OF_OBJECT;
+			return collectionTypes.getCollectionType(type);
 		}
 		if (obj instanceof Boolean) {
 			return EcorePackage.eINSTANCE.getEBoolean();
