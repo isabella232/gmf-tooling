@@ -1,0 +1,55 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION Util»
+
+«DEFINE Init(EString figureVarName) FOR gmfgraph::Border-»
+«figureVarName».setBorder(«EXPAND border(figureVarName)»);
+«ENDDEFINE»
+
+«DEFINE border(EString figureVarName) FOR gmfgraph::Border»
+«ERROR "This is an abstract definition"»
+«ENDDEFINE»
+
+«DEFINE border(EString figureVarName) FOR gmfgraph::LineBorder-»
+new org.eclipse.draw2d.LineBorder(«IF null == color»null«ELSE»«EXPAND attr::Figure::color(figureVarName + "_BORDER") FOR color»«ENDIF», «EXPAND MapMode::map FOR width»)
+«ENDDEFINE»
+
+«DEFINE border(EString figureVarName) FOR gmfgraph::CompoundBorder-»
+new org.eclipse.draw2d.CompoundBorder(«IF null == outer»null«ELSE»«EXPAND border(figureVarName) FOR outer»«ENDIF», «IF null == inner»null«ELSE»«EXPAND border(figureVarName) FOR inner»«ENDIF»)
+«ENDDEFINE»
+
+«DEFINE border(EString figureVarName) FOR gmfgraph::MarginBorder-»
+new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::map FOR insets»)
+«ENDDEFINE»
+
+«DEFINE border(EString figureVarName) FOR gmfgraph::CustomBorder-»
+«LET methodName(figureVarName) AS methodName-»
+«methodName»()
+«EXPAND customBorderMethod(methodName)-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE customBorderMethod(String methodName) FOR gmfgraph::CustomBorder-»
+«FILE "" additionalMethods-»
+	/**
+	 * @generated
+	 */
+	private org.eclipse.draw2d.Border «methodName»() {
+		«qualifiedClassNameGEF()» result = new «qualifiedClassNameGEF()»();
+		«EXPAND attr::CustomClass::Init("result")»
+		return result;
+	}
+«ENDFILE-»
+«ENDDEFINE»

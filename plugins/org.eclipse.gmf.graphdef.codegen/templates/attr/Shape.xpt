@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+// XXX call figureAttrs from this?
+«DEFINE shapeAttrs(EString figureVarName) FOR Shape-»
+«EXPAND fill(figureVarName)-»
+«EXPAND xorFill(figureVarName)-»
+«EXPAND outline(figureVarName)-»
+«EXPAND xorOutline(figureVarName)-»
+«EXPAND lineWidth(figureVarName)-»
+«EXPAND lineKind(figureVarName)-»
+«ENDDEFINE»
+
+«DEFINE fill(EString figureVarName) FOR Shape-»
+«figureVarName».setFill(«fill»);
+«ENDDEFINE»
+
+«DEFINE xorFill(EString figureVarName) FOR Shape-»
+«figureVarName».setFillXOR(«xorFill»);
+«ENDDEFINE»
+
+«DEFINE outline(EString figureVarName) FOR Shape-»
+«figureVarName».setOutline(«outline»);
+«ENDDEFINE»
+
+«DEFINE xorOutline(EString figureVarName) FOR Shape-»
+«figureVarName».setOutlineXOR(«xorOutline»);
+«ENDDEFINE»
+
+«DEFINE lineWidth(EString figureVarName) FOR Shape-»
+«figureVarName».setLineWidth(«lineWidth»);
+«ENDDEFINE»
+
+«DEFINE lineKind(EString figureVarName) FOR Shape-»
+«figureVarName».setLineStyle(org.eclipse.draw2d.Graphics.«lineKind.literal»);
+«ENDDEFINE»

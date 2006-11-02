@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION Util»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::Layout»
+«owningFigureVariable».setLayoutManager(new «qualifiedClassNameGEF()»());
+«ENDDEFINE»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::BorderLayout»
+«LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
+	«qualifiedClassNameGEF()» «layoutVarName» = new «qualifiedClassNameGEF()»();
+«IF null != spacing-»
+	«layoutVarName».setHorizontalSpacing(«spacing.dx»);// TODO mapMode?
+	«layoutVarName».setVerticalSpacing(«spacing.dy»);
+«ENDIF-»
+	«owningFigureVariable».setLayoutManager(«layoutVarName»);
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::FlowLayout»
+«LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
+	«qualifiedClassNameGEF()» «layoutVarName» = new «qualifiedClassNameGEF()»();
+	«layoutVarName».setStretchMinorAxis(«matchMinorSize»);
+	«layoutVarName».setMinorAlignment(«qualifiedClassNameGEF()».«EXPAND alignment(forceSingleLine) FOR minorAlignment»);
+«IF forceSingleLine»
+	«layoutVarName».setSpacing(«majorSpacing»);
+	«layoutVarName».setVertical(«vertical»);
+«ELSE»
+	«layoutVarName».setMajorAlignment(«qualifiedClassNameGEF()».«EXPAND alignment(forceSingleLine) FOR majorAlignment»);
+	«layoutVarName».setMajorSpacing(«majorSpacing»);
+	«layoutVarName».setMinorSpacing(«minorSpacing»);
+	«layoutVarName».setHorizontal(«!vertical»);
+«ENDIF»
+	«owningFigureVariable».setLayoutManager(«layoutVarName»);
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::CustomLayout»
+«LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
+	«qualifiedClassNameGEF()» «layoutVarName» = new «qualifiedClassNameGEF()»();
+«EXPAND attr::CustomClass::Init(layoutVarName)-»
+	«owningFigureVariable».setLayoutManager(«layoutVarName»);
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE alignment(EBoolean forceSingleLine) FOR gmfgraph::Alignment»
+«IF value == Alignment::BEGINNING.value-»
+«IF forceSingleLine»ALIGN_TOPLEFT«ELSE»ALIGN_LEFTTOP«ENDIF-»
+«ELSEIF value == Alignment::END.value-»
+«IF forceSingleLine»ALIGN_BOTTOMRIGHT«ELSE»ALIGN_RIGHTBOTTOM«ENDIF-»
+«ELSE-»
+ALIGN_CENTER
+«ENDIF»
+«REM»XXX implement as extension
+switch (value) {
+  case Alignment.BEGINNING : ""
+  default : ""
+}«ENDREM»
+«ENDDEFINE»

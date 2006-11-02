@@ -13,7 +13,6 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
@@ -43,13 +42,13 @@ public class MapModeStrategyTest extends TestCase {
 		String baseName = figure.getName();
 		try {
 			figure.setName(baseName + "_StaticIdentity");
-			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createStaticIdentity()));
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(MapModeCodeGenStrategy.STATIC, null));
 			
 			figure.setName(baseName + "_DefaultMapMode");
-			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createDefaultStrategy()));
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(MapModeCodeGenStrategy.DYNAMIC, null));
 	
 			figure.setName(baseName + "_StandaloneMapMode");
-			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createStandaloneStrategy(FigureGeneratorUtil.createImportManager(figure))));
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(MapModeCodeGenStrategy.DYNAMIC, FigureGeneratorUtil.DEFAULT_PLUGIN_ACTIVATOR + ".getDefault()."));
 		} finally {
 			figure.setName(baseName);
 		}
@@ -62,19 +61,7 @@ public class MapModeStrategyTest extends TestCase {
 		return figure;
 	}
 	
-	private MapModeCodeGenStrategy createStaticIdentity(){
-		return new MapModeCodeGenStrategy.StaticIdentityMapMode();
-	}
-	
-	private MapModeCodeGenStrategy createDefaultStrategy(){
-		return new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode();
-	}
-	
-	private MapModeCodeGenStrategy createStandaloneStrategy(ImportAssistant assistant){
-		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(assistant, FigureGeneratorUtil.DEFAULT_PLUGIN_ACTIVATOR);
-	}
-
-	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {
-		return new FigureGenerator(new RuntimeFQNSwitch(), strategy, false);
+	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy, String accessor) {
+		return new FigureGenerator(new RuntimeFQNSwitch(), strategy, accessor, false);
 	}
 }

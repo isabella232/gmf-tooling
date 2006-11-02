@@ -15,6 +15,9 @@ package org.eclipse.gmf.graphdef.codegen;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.Figure;
 
+/**
+ * FIXME [artem] no reason for singleton
+ */
 public class NamingStrategy {
 	public static NamingStrategy INSTANCE = new NamingStrategy();
 	

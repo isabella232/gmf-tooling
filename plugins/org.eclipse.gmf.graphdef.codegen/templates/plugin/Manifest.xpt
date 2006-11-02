@@ -1,0 +1,38 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«DEFINE Init(String pluginID, String pluginActivatorQualifiedName, List[String] exportedPackages, List[String] requiredBundles) FOR Object-»
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: «pluginID»; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: %providerName
+Bundle-Activator: «pluginActivatorQualifiedName»
+Bundle-Localization: plugin
+Export-Package:«EXPAND exportPackageHeader FOR exportedPackages»
+«LET requiredBundles.union({"org.eclipse.core.runtime","org.eclipse.draw2d"}) AS s-»
+Require-Bundle:«EXPAND requireBundleHeader FOR s»
+«ENDLET-»
+Eclipse-LazyStart: true
+«ENDDEFINE»
+
+«DEFINE exportPackageHeader FOR List[String]-»
+«EXPAND print FOREACH this SEPARATOR ",\n"-»
+«ENDDEFINE»
+
+«REM»FIXME Set[String] - improve union recognition«ENDREM»
+«DEFINE requireBundleHeader FOR Set[Object]-»
+«EXPAND print FOREACH this.typeSelect(String) SEPARATOR ",\n"-»
+«ENDDEFINE»
+
+«DEFINE print FOR string» «this»«ENDDEFINE»

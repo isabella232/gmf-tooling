@@ -29,6 +29,6 @@ public class LiteCompilationTest extends CompilationTest {
 	}
 
 	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), new MapModeCodeGenStrategy.StaticIdentityMapMode());
+		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC);
 	}
 }

@@ -43,7 +43,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		public String getPluginActivatorClassName();
 		public String getPluginActivatorPackageName();
 
-		public boolean needsMapMode(); // FIXME remove
+		public boolean needsMapMode(); // FIXME remove or (?) return MapModeCodeGenStrategy
 	}
 
 	public static class ConfigImpl implements Config {
@@ -124,19 +124,18 @@ public class StandaloneGenerator extends GeneratorBase {
 		myFigureNameSwitch = fqnSwitch;
 		String pluginActivatorFQN = composePluginActivatorClassFQN(config);
 		MapModeCodeGenStrategy strategy;
+		String accessor;
 		if (config.needsMapMode()) {
 			myMapModeImportHack = new DelegateImportManager();
 			strategy = MapModeCodeGenStrategy.DYNAMIC;
+			accessor = pluginActivatorFQN + ".getDefault().";
 		} else {
-			strategy = MapModeCodeGenStrategy.StaticIdentity;
+			strategy = MapModeCodeGenStrategy.STATIC;
+			accessor = null;
 		}
 		
-		myFigureGenerator = createFigureGenerator(fqnSwitch, strategy);
-		myAuxiliaryGenerators = new StandaloneEmitters();
-	}
-
-	protected TextEmitter createFigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy strategy) {
-		return new FigureGenerator(fqnSwitch, strategy, false);
+		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, accessor, false);
+		myAuxiliaryGenerators = new StandaloneEmitters(strategy);
 	}
 
 	/**
@@ -176,6 +175,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), new Object[] {args});		
 	}
 	
+	// FIXME do not wrap array of arguments into another array (new Object[] { new Object[] {)
 	protected void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myArgs });
 		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { new Object[] { myArgs, myProcessor.getRequiredBundles(myFigureNameSwitch) } });

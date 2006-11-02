@@ -15,9 +15,21 @@ package org.eclipse.gmf.graphdef.codegen;
 /**
  * @author artem
  */
-public enum MapModeCodeGenStrategy {
-	
-	StaticIdentity,
+public enum MapModeCodeGenStrategy { 
+	STATIC(""), 
+	DYNAMIC("rt_mm");
 
-	DYNAMIC,
+	private final String token;
+
+	private MapModeCodeGenStrategy(String token) {
+		assert token != null;
+		this.token = token;
+	}
+
+	/**
+	 * @return identifying token of this strategy 
+	 */
+	public String getToken() {
+		return token;
+	}
 }

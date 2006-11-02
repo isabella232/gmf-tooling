@@ -380,16 +380,16 @@ public class TransformToGenModelOperation {
 		if (getUseRuntimeFigures() != null && getUseMapMode() != null) {
 			// allow to run without dialogs
 			FigureQualifiedNameSwitch fSwitch = getUseRuntimeFigures().booleanValue() ? new RuntimeFQNSwitch() : new RuntimeLiteFQNSwitch();
-			MapModeCodeGenStrategy mmStrategy = getUseMapMode().booleanValue() ? new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode() : new MapModeCodeGenStrategy.StaticIdentityMapMode();
+			MapModeCodeGenStrategy mmStrategy = getUseMapMode().booleanValue() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 			return new InnerClassViewmapProducer(fSwitch, mmStrategy);
 		}
 		if (!checkLiteOptionPresent()) {
 			MapModeCodeGenStrategy strategy;
 			final String msg = "Would you like to use IMapMode?";
 			if (MessageDialog.openQuestion(shell, "Create Generator Model", msg)) {
-				strategy = new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode();
+				strategy = MapModeCodeGenStrategy.DYNAMIC;
 			} else {
-				strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
+				strategy = MapModeCodeGenStrategy.STATIC;
 			}
 			return new InnerClassViewmapProducer(new RuntimeFQNSwitch(), strategy);
 		}

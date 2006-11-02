@@ -56,14 +56,14 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	private final Set<Figure> processedFigures;
 
 	public InnerClassViewmapProducer() {
-		this(new RuntimeFQNSwitch(), new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
+		this(new RuntimeFQNSwitch(), MapModeCodeGenStrategy.DYNAMIC);
 	}
 
 	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
 		processedFigures = new HashSet<Figure>();
-		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, true);
+		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, null, true);
 	}
 
 	public Viewmap create(Node node) {
