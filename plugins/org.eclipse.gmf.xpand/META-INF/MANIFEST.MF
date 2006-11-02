@@ -10,12 +10,12 @@ Export-Package: lpg.lpgjavaruntime;x-friends:="org.eclipse.gmf.xpand.editor,org.
  org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.build;x-friends:="org.eclipse.gmf.xpand.editor",
- org.eclipse.gmf.internal.xpand.expression;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
+ org.eclipse.gmf.internal.xpand.expression;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen",
  org.eclipse.gmf.internal.xpand.expression.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.parser;x-friends:="org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor",
- org.eclipse.gmf.internal.xpand.model;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
+ org.eclipse.gmf.internal.xpand.model;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen",
  org.eclipse.gmf.internal.xpand.parser;x-friends:="org.eclipse.gmf.tests.xpand",
- org.eclipse.gmf.internal.xpand.util;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
+ org.eclipse.gmf.internal.xpand.util;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen",
  org.eclipse.gmf.internal.xpand.xtend.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.xtend.parser;x-friends:="org.eclipse.gmf.tests.xpand"
 Bundle-Activator: org.eclipse.gmf.internal.xpand.Activator
