@@ -90,7 +90,7 @@ public class FigureGenerator implements TextEmitter {
 	private final boolean myIsInnerClassCode;
 
 	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, boolean asInnerClass) {
-		this(figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(), asInnerClass);
+		this(figureNameSwitch, MapModeCodeGenStrategy.DYNAMIC, asInnerClass);
 	}
 
 	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy, boolean placeStaticFieldsOutsideClassBody) {

@@ -112,9 +112,9 @@ public class FigureGeneratorOptionsDialog extends TitleAreaDialog {
 
     public MapModeCodeGenStrategy getMapModeCodeGenStrategy() {
     	if (useMapMode) {
-    		return new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode();
+    		return MapModeCodeGenStrategy.DYNAMIC;
     	} else {
-    		return new MapModeCodeGenStrategy.StaticIdentityMapMode();
+    		return MapModeCodeGenStrategy.StaticIdentity;
     	}
     }
 

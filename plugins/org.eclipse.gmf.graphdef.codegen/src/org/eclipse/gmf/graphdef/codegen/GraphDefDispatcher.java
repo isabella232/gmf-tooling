@@ -47,11 +47,11 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	}
 	
 	public String DPtoLP(int deviceUnit){
-		return myMapModeStrategy.DPtoLP(deviceUnit);
+		return String.valueOf(deviceUnit);
 	}
 	
 	public String LPtoDP(int logicalUnit){
-		return myMapModeStrategy.LPtoDP(logicalUnit);
+		return String.valueOf(logicalUnit);
 	}
 	
 	public ImportAssistant getImportManager() {

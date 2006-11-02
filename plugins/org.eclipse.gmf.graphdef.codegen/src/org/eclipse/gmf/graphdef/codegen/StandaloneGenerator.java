@@ -26,13 +26,13 @@ import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 public class StandaloneGenerator extends GeneratorBase {
-	private final Config myArgs;
+	protected final Config myArgs;
 	private final TextEmitter myFigureGenerator;
 	private DelegateImportManager myMapModeImportHack;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
-	private final FigureQualifiedNameSwitch myFigureNameSwitch;
-	private Processor myProcessor;
+	protected final FigureQualifiedNameSwitch myFigureNameSwitch;
+	protected Processor myProcessor;
 	
 	public interface Config {
 		public String getPluginID();
@@ -43,7 +43,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		public String getPluginActivatorClassName();
 		public String getPluginActivatorPackageName();
 
-		public boolean needsMapMode();
+		public boolean needsMapMode(); // FIXME remove
 	}
 
 	public static class ConfigImpl implements Config {
@@ -126,9 +126,9 @@ public class StandaloneGenerator extends GeneratorBase {
 		MapModeCodeGenStrategy strategy;
 		if (config.needsMapMode()) {
 			myMapModeImportHack = new DelegateImportManager();
-			strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(myMapModeImportHack, pluginActivatorFQN);
+			strategy = MapModeCodeGenStrategy.DYNAMIC;
 		} else {
-			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
+			strategy = MapModeCodeGenStrategy.StaticIdentity;
 		}
 		
 		myFigureGenerator = createFigureGenerator(fqnSwitch, strategy);
@@ -171,12 +171,12 @@ public class StandaloneGenerator extends GeneratorBase {
 		}
 	}
 	
-	private void generatePluginActivator() throws UnexpectedBehaviourException, InterruptedException{
+	protected void generatePluginActivator() throws UnexpectedBehaviourException, InterruptedException{
 		Object[] args = new Object[] {myArgs, new ImportUtil(myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName())};
 		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), new Object[] {args});		
 	}
 	
-	private void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
+	protected void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myArgs });
 		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { new Object[] { myArgs, myProcessor.getRequiredBundles(myFigureNameSwitch) } });
 		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), new Object[] { myArgs });
