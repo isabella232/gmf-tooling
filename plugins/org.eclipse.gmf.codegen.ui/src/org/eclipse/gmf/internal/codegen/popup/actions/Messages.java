@@ -16,6 +16,12 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.codegen.popup.actions.messages"; //$NON-NLS-1$
 
+	public static String DiagnosticsDialog_Copy_menuItem;
+
+	public static String DiagnosticsDialog_exceptStackTrace_toolTip;
+
+	public static String DiagnosticsDialog_gotoProblem_menuItem;
+
 	public static String migration_confirmModelOverwriteMessage;
 
 	public static String migration_confirmModelOverwriteTitle;

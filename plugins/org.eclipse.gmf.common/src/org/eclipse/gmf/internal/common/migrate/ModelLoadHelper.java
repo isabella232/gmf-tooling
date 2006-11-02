@@ -86,11 +86,13 @@ public class ModelLoadHelper {
 		IStatus loadStatus = Status.OK_STATUS;
 		Resource resource = resourceSet.createResource(uri);
 		assert resource != null;
+		Exception rootException = null;
 		try {
 			resource.load(resourceSet.getLoadOptions());
 		} catch(IOException e) {
-			resource.getErrors().add(MigrationUtil.createDiagnostic(resource, e)); 
-		} catch(RuntimeException e) {
+			rootException = e;
+			//no need to include in resource.getErrors(), as it done automatically. 
+		} catch(RuntimeException e) {			
 			EcorePlugin.INSTANCE.getPluginLogger().log(e);			
 			resource.getErrors().add(MigrationUtil.createDiagnostic(resource, e));
 		}
@@ -101,7 +103,7 @@ public class ModelLoadHelper {
 			String message = MessageFormat.format(Messages.modelLoadedWithProblems, 
 					 new Object[] { severityOpt, resource.getURI() });			
 			
-			BasicDiagnostic loadDiagnostic = new BasicDiagnostic(DIAGNOSTIC_SOURCE, 0, message, null);			
+			BasicDiagnostic loadDiagnostic = new BasicDiagnostic(DIAGNOSTIC_SOURCE, resourceDiagnostic.getCode(), message, (rootException != null) ? new Object[] { rootException } : null);
 			loadDiagnostic.addAll(resourceDiagnostic);			
 			loadStatus = BasicDiagnostic.toIStatus(loadDiagnostic);
 		}
