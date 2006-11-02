@@ -637,8 +637,7 @@
   <editor/>
   <navigator>
     <childReferences
-        child="//@diagram"
-        referenceType="default"/>
+        child="//@diagram"/>
     <childReferences
         parent="//@diagram/@topLevelNodes.0"
         child="//@diagram/@childNodes.0"/>
@@ -666,7 +665,6 @@
     <childReferences
         parent="//@diagram"
         child="//@diagram/@links.0"
-        referenceType="default"
         groupName="links"
         groupIcon="icons/linksNavigatorGroup.gif"/>
     <childReferences
@@ -720,7 +718,6 @@
     <childReferences
         parent="//@diagram"
         child="//@diagram/@links.1"
-        referenceType="default"
         groupName="links"
         groupIcon="icons/linksNavigatorGroup.gif"/>
     <childReferences
@@ -774,7 +771,6 @@
     <childReferences
         parent="//@diagram"
         child="//@diagram/@links.2"
-        referenceType="default"
         groupName="links"
         groupIcon="icons/linksNavigatorGroup.gif"/>
     <childReferences
