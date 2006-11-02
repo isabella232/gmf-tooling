@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import org.eclipse.emf.ecore.EcorePackage;
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -834,7 +832,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LAYOUT_DATA = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int FIGURE__LAYOUT_DATA = FIGURE_MARKER__LAYOUT_DATA;
 
 	/**
 	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
@@ -843,7 +841,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LAYOUT = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int FIGURE__LAYOUT = FIGURE_MARKER__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -852,7 +850,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__PARENT = EcorePackage.EOBJECT_FEATURE_COUNT + 2;
+	int FIGURE__PARENT = FIGURE_MARKER__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
@@ -861,7 +859,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__REFERENCING_ELEMENTS = EcorePackage.EOBJECT_FEATURE_COUNT + 3;
+	int FIGURE__REFERENCING_ELEMENTS = FIGURE_MARKER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -870,7 +868,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__NAME = EcorePackage.EOBJECT_FEATURE_COUNT + 4;
+	int FIGURE__NAME = FIGURE_MARKER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -879,7 +877,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__CHILDREN = EcorePackage.EOBJECT_FEATURE_COUNT + 5;
+	int FIGURE__CHILDREN = FIGURE_MARKER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -888,7 +886,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__FOREGROUND_COLOR = EcorePackage.EOBJECT_FEATURE_COUNT + 6;
+	int FIGURE__FOREGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
@@ -897,7 +895,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__BACKGROUND_COLOR = EcorePackage.EOBJECT_FEATURE_COUNT + 7;
+	int FIGURE__BACKGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
@@ -906,7 +904,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__MAXIMUM_SIZE = EcorePackage.EOBJECT_FEATURE_COUNT + 8;
+	int FIGURE__MAXIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
@@ -915,7 +913,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__MINIMUM_SIZE = EcorePackage.EOBJECT_FEATURE_COUNT + 9;
+	int FIGURE__MINIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
@@ -924,7 +922,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__PREFERRED_SIZE = EcorePackage.EOBJECT_FEATURE_COUNT + 10;
+	int FIGURE__PREFERRED_SIZE = FIGURE_MARKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Font</b></em>' containment reference.
@@ -933,7 +931,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__FONT = EcorePackage.EOBJECT_FEATURE_COUNT + 11;
+	int FIGURE__FONT = FIGURE_MARKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
@@ -942,7 +940,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__INSETS = EcorePackage.EOBJECT_FEATURE_COUNT + 12;
+	int FIGURE__INSETS = FIGURE_MARKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Border</b></em>' containment reference.
@@ -951,7 +949,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__BORDER = EcorePackage.EOBJECT_FEATURE_COUNT + 13;
+	int FIGURE__BORDER = FIGURE_MARKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -960,7 +958,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LOCATION = EcorePackage.EOBJECT_FEATURE_COUNT + 14;
+	int FIGURE__LOCATION = FIGURE_MARKER_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -969,7 +967,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__SIZE = EcorePackage.EOBJECT_FEATURE_COUNT + 15;
+	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of structural features of the '<em>Figure</em>' class.
@@ -978,7 +976,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 16;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -4359,7 +4357,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ATTRIBUTE__NAME = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int CUSTOM_ATTRIBUTE__NAME = 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -4368,7 +4366,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ATTRIBUTE__VALUE = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int CUSTOM_ATTRIBUTE__VALUE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Direct Access</b></em>' attribute.
@@ -4377,7 +4375,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ATTRIBUTE__DIRECT_ACCESS = EcorePackage.EOBJECT_FEATURE_COUNT + 2;
+	int CUSTOM_ATTRIBUTE__DIRECT_ACCESS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Multi Statement Value</b></em>' attribute.
@@ -4386,7 +4384,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE = EcorePackage.EOBJECT_FEATURE_COUNT + 3;
+	int CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Custom Attribute</em>' class.
@@ -4395,7 +4393,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ATTRIBUTE_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 4;
+	int CUSTOM_ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureAccessorImpl <em>Figure Accessor</em>}' class.
@@ -5017,7 +5015,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLOR_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int COLOR_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Red</b></em>' attribute.
@@ -5080,7 +5078,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FONT_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int FONT_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Face Name</b></em>' attribute.
@@ -5125,7 +5123,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POINT__X = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int POINT__X = 0;
 
 	/**
 	 * The feature id for the '<em><b>Y</b></em>' attribute.
@@ -5134,7 +5132,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POINT__Y = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int POINT__Y = 1;
 
 	/**
 	 * The number of structural features of the '<em>Point</em>' class.
@@ -5143,7 +5141,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 2;
+	int POINT_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Dx</b></em>' attribute.
@@ -5152,7 +5150,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIMENSION__DX = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int DIMENSION__DX = 0;
 
 	/**
 	 * The feature id for the '<em><b>Dy</b></em>' attribute.
@@ -5161,7 +5159,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIMENSION__DY = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int DIMENSION__DY = 1;
 
 	/**
 	 * The number of structural features of the '<em>Dimension</em>' class.
@@ -5170,7 +5168,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIMENSION_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 2;
+	int DIMENSION_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Top</b></em>' attribute.
@@ -5179,7 +5177,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSETS__TOP = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int INSETS__TOP = 0;
 
 	/**
 	 * The feature id for the '<em><b>Left</b></em>' attribute.
@@ -5188,7 +5186,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSETS__LEFT = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int INSETS__LEFT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Bottom</b></em>' attribute.
@@ -5197,7 +5195,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSETS__BOTTOM = EcorePackage.EOBJECT_FEATURE_COUNT + 2;
+	int INSETS__BOTTOM = 2;
 
 	/**
 	 * The feature id for the '<em><b>Right</b></em>' attribute.
@@ -5206,7 +5204,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSETS__RIGHT = EcorePackage.EOBJECT_FEATURE_COUNT + 3;
+	int INSETS__RIGHT = 3;
 
 	/**
 	 * The number of structural features of the '<em>Insets</em>' class.
@@ -5215,7 +5213,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSETS_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 4;
+	int INSETS_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of structural features of the '<em>Border</em>' class.
@@ -5224,7 +5222,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BORDER_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int BORDER_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Color</b></em>' containment reference.
@@ -5341,7 +5339,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LAYOUT_DATA__OWNER = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int LAYOUT_DATA__OWNER = 0;
 
 	/**
 	 * The number of structural features of the '<em>Layout Data</em>' class.
@@ -5350,7 +5348,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LAYOUT_DATA_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 1;
+	int LAYOUT_DATA_FEATURE_COUNT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -5530,7 +5528,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LAYOUT_FEATURE_COUNT = EcorePackage.EOBJECT_FEATURE_COUNT + 0;
+	int LAYOUT_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.

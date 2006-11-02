@@ -32,7 +32,6 @@ import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.Point;
 
 /**
@@ -1148,19 +1147,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == Layoutable.class) {
-			switch (derivedFeatureID) {
-				case GMFGraphPackage.LABEL__LAYOUT_DATA: return GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA;
-				case GMFGraphPackage.LABEL__LAYOUT: return GMFGraphPackage.LAYOUTABLE__LAYOUT;
-				default: return -1;
-			}
-		}
-		if (baseClass == FigureMarker.class) {
-			switch (derivedFeatureID) {
-				case GMFGraphPackage.LABEL__PARENT: return GMFGraphPackage.FIGURE_MARKER__PARENT;
-				default: return -1;
-			}
-		}
 		if (baseClass == FigureHandle.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
@@ -1182,19 +1168,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == Layoutable.class) {
-			switch (baseFeatureID) {
-				case GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA: return GMFGraphPackage.LABEL__LAYOUT_DATA;
-				case GMFGraphPackage.LAYOUTABLE__LAYOUT: return GMFGraphPackage.LABEL__LAYOUT;
-				default: return -1;
-			}
-		}
-		if (baseClass == FigureMarker.class) {
-			switch (baseFeatureID) {
-				case GMFGraphPackage.FIGURE_MARKER__PARENT: return GMFGraphPackage.LABEL__PARENT;
-				default: return -1;
-			}
-		}
 		if (baseClass == FigureHandle.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.LABEL__REFERENCING_ELEMENTS;
