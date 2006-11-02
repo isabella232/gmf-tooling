@@ -80,6 +80,10 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	protected Reader resolve(String fqn, String ext) throws IOException {
 		IPath p = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
 		IResource r = contextProject.findMember(p);
+		if (r == null) {
+			// XXX confiugre manager with path defined as preference/resource variable
+			r = contextProject.findMember(new Path("templates/").append(p));
+		}
 		if (false == r instanceof IFile) {
 			throw new FileNotFoundException(p.toString());
 		}
