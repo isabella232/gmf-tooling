@@ -14,9 +14,6 @@
  */
 package org.eclipse.gmf.internal.xpand.editor.scan;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
@@ -27,18 +24,13 @@ import org.eclipse.jface.text.rules.Token;
  */
 public class XpandKeywordRule implements IRule {
 
-    private IToken token;
+    private final IToken token;
 
-    private String[] keywords;
+    private final String[] keywords;
 
-    private String[] getKeywords(final String prefix) {
-        final List<String> result = new ArrayList<String>();
-        for (final String w : keywords) {
-            if (w.startsWith(prefix)) {
-				result.add(w);
-			}
-        }
-        return  result.toArray(new String[result.size()]);
+    public XpandKeywordRule(final IToken token, final String[] keywords) {
+        this.token = token;
+        this.keywords = keywords;
     }
 
     private boolean isKeyword(final String word) {
@@ -51,25 +43,17 @@ public class XpandKeywordRule implements IRule {
         return false;
     }
 
-    /**
-     * 
-     */
-    public XpandKeywordRule(final IToken token, final String[] keywords) {
-        this.token = token;
-        this.keywords = keywords;
-    }
-
-    /**
-     * @param prefix
-     * @return
-     */
     private boolean keywordExists(final String prefix) {
-        final String[] currentWords = getKeywords(prefix.toString());
-        return (currentWords != null) && (currentWords.length > 0);
+        for (final String w : keywords) {
+            if (w.startsWith(prefix)) {
+				return true;
+			}
+        }
+        return false;
     }
 
     public IToken evaluate(final ICharacterScanner scanner) {
-        final StringBuffer buff = new StringBuffer();
+        final StringBuilder buff = new StringBuilder();
         boolean stopReading = false;
         int reads = 0;
         while (!stopReading) {
