@@ -3,19 +3,8 @@
 <plugin>
 
    <extension
-         id="org.openarchitectureware.base.oawNature"
-         name="oAW Project Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.gmf.internal.xpand.build.OawNature">
-         </run>
-      </runtime>
-   </extension>
-   
-   <extension
-         id="org.openarchitectureware.base.oawBuilder"
-         name="Oaw Builder"
+         id="oawBuilder"
+         name="Xpand Template Builder"
          point="org.eclipse.core.resources.builders">
       <builder
             hasNature="false">
@@ -25,7 +14,7 @@
    
    <extension
          id="problem"
-         name="oAW Problem"
+         name="Xpand Problem"
          point="org.eclipse.core.resources.markers">
       <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.core.resources.textmarker"/>

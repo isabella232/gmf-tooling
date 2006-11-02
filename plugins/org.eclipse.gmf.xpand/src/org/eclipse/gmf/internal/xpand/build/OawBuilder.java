@@ -49,7 +49,7 @@ public class OawBuilder extends IncrementalProjectBuilder {
 	private final Map<XpandResource, IFile> xpandResourcesToAnalyze = new HashMap<XpandResource, IFile>();
 
 	public static final String getBUILDER_ID() {
-		return "org.openarchitectureware.base.oawBuilder";
+		return Activator.getId() + ".oawBuilder";
 	}
 
 	private static boolean isFileOfInterest(IFile file) {

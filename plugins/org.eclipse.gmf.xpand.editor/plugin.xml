@@ -8,7 +8,7 @@
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="xpt"
             icon="icons/templatefile.gif"
-            id="org.eclipse.xpand.editor.XpandEditor"
+            id="org.eclipse.gmf.xpand.XpandEditor"
             name="Xpand Editor">
       </editor>
    </extension>
@@ -18,18 +18,18 @@
       <category
             name="Xpand Editor"
             description="Xpand Editor Commands"
-            id="org.openarchitectureware.xpand2.editor">
+            id="org.eclipse.gmf.xpand.editor">
       </category>
       <command
             name="Insert LT"
-            categoryId="org.openarchitectureware.xpand2.editor"
+            categoryId="org.eclipse.gmf.xpand.editor"
             description="Insert Xpand start terminal"
             id="org.eclipse.gmf.xpand.editor.insertLT"
             >
       </command>
       <command
             name="Insert RT"
-            categoryId="org.openarchitectureware.xpand2.editor"
+            categoryId="org.eclipse.gmf.xpand.editor"
             description="Insert Xpand end terminal"
             id="org.eclipse.gmf.xpand.editor.insertRT"
             >
@@ -54,16 +54,16 @@
 	<extension
 	      point = "org.eclipse.ui.newWizards">
 		<category 
-		   id = "org.openarchitectureware.newWizards"
-		   name="openArchitectureWare">
+		   id = "org.eclipse.gmf.xpand.newWizards"
+		   name="GMF-Xpand">
 		</category>
 		 <wizard
-		   id = "org.openarchitectureware.xpand2.wizard.NewTemplateFileWizard"
+		   id = "org.eclipse.gmf.xpand.wizard.NewTemplateFileWizard"
 		   name = "xPand Template"
 		   class="org.eclipse.gmf.internal.xpand.editor.ui.NewTemplateFileWizard"
-		   category="org.openarchitectureware.newWizards"
+		   category="org.eclipse.gmf.xpand.newWizards"
 		   icon="icons/templatefile.gif">
-	       <description>Create a new oAW Template File</description>
+	       <description>Create a new Xpand Template File</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
 	</extension>      
