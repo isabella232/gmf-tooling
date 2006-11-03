@@ -15,7 +15,7 @@
 «IMPORT "templates"»
 «EXTENSION Util»
 
-«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::Figure»
+«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::Figure-»
 «packageStatement()»
 /**
  * @generated
@@ -47,7 +47,7 @@ public class «compilationUnitName()» extends «qualifiedClassNameGEF()» {
 «ENDDEFINE»
 
 
-«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::PolylineConnection»
+«DEFINE FigureClass(boolean isInnerClass) FOR gmfgraph::PolylineConnection-»
 «packageStatement()»
 /**
  * @generated
