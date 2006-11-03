@@ -84,8 +84,7 @@ public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 		if (selectedElement == null) {
 			return;
 		}
-		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null,
-				TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 		ICommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view);
 		command = command.compose(new TaiPanCreateShortcutDecorationsCommand(mySelectedElement.getEditingDomain(), view, viewDescriptor));
 		try {

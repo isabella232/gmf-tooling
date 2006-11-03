@@ -339,8 +339,7 @@ public class TaiPanElementChooserDialog extends Dialog {
 					}
 					if (selectedElement instanceof EObject) {
 						mySelectedModelElement = (EObject) selectedElement;
-						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
-								TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 						return;
 					}
 				}

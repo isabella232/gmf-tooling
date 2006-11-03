@@ -140,9 +140,8 @@ public class TaiPanReferenceConnectionEditPolicy extends ConnectionEditPolicy {
 	 * @generated
 	 */
 	private boolean showMessageDialog() {
-		MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(Display.getCurrent().getActiveShell(), DELETE_FROM_DIAGRAM_DLG_TITLE, DELETE_FROM_DIAGRAM_DLG_MESSAGE,
-				DELETE_FROM_MODEL_DLG_TOGGLE_LABEL, false, (IPreferenceStore) ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint().getPreferenceStore(),
-				IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
+		MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(Display.getCurrent().getActiveShell(), DELETE_FROM_DIAGRAM_DLG_TITLE, DELETE_FROM_DIAGRAM_DLG_MESSAGE, DELETE_FROM_MODEL_DLG_TOGGLE_LABEL, false,
+				(IPreferenceStore) ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint().getPreferenceStore(), IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
 		if (dialog.getReturnCode() == IDialogConstants.YES_ID)
 			return true;
 		else

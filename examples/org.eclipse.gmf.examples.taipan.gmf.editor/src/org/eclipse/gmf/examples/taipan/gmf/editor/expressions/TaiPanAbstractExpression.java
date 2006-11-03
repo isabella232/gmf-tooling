@@ -36,8 +36,7 @@ public abstract class TaiPanAbstractExpression {
 	/**
 	 * @generated
 	 */
-	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(
-			Platform.getDebugOption(TaiPanDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(Platform.getDebugOption(TaiPanDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();
 
 	/**
 	 * @generated

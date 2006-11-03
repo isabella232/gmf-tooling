@@ -504,8 +504,8 @@ public class RouteReliabilityEditPart extends LabelEditPart implements ITextAwar
 			refreshUnderline();
 		} else if (NotationPackage.eINSTANCE.getFontStyle_StrikeThrough().equals(feature)) {
 			refreshStrikeThrough();
-		} else if (NotationPackage.eINSTANCE.getFontStyle_FontHeight().equals(feature) || NotationPackage.eINSTANCE.getFontStyle_FontName().equals(feature)
-				|| NotationPackage.eINSTANCE.getFontStyle_Bold().equals(feature) || NotationPackage.eINSTANCE.getFontStyle_Italic().equals(feature)) {
+		} else if (NotationPackage.eINSTANCE.getFontStyle_FontHeight().equals(feature) || NotationPackage.eINSTANCE.getFontStyle_FontName().equals(feature) || NotationPackage.eINSTANCE.getFontStyle_Bold().equals(feature)
+				|| NotationPackage.eINSTANCE.getFontStyle_Italic().equals(feature)) {
 			refreshFont();
 		} else {
 			if (getParser() != null && getParser().isAffectingEvent(event, getParserOptions().intValue())) {

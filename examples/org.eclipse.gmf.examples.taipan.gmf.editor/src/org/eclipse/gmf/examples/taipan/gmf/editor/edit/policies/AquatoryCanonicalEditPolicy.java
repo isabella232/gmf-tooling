@@ -170,8 +170,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				int diagramLinkVisualID = TaiPanVisualIDRegistry.getVisualID(nextDiagramLink);
 				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
 					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
-					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
-							&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 						diagramLinks.remove();
 						modelLinkDescriptors.remove();
 					}
@@ -225,8 +224,8 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
-			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), null, ViewUtil.APPEND,
-					false, ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint());
+			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), null, ViewUtil.APPEND, false, ((IGraphicalEditPart) getHost())
+					.getDiagramPreferencesHint());
 			CreateConnectionViewRequest ccr = new CreateConnectionViewRequest(descriptor);
 			ccr.setType(RequestConstants.REQ_CONNECTION_START);
 			ccr.setSourceEditPart(sourceEditPart);
