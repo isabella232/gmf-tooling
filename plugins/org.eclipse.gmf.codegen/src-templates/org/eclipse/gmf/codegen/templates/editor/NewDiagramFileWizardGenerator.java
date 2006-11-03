@@ -39,7 +39,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_20 = NL + "\t\t\t\tdiagramResource.getContents().add(diagram.getElement());";
   protected final String TEXT_21 = NL + "\t\t\t\tinitDiagramContents(diagram, myDiagramRoot);";
   protected final String TEXT_22 = NL + "\t\t\t\treturn CommandResult.newOKCommandResult();" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\t\t" + NL + "\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);" + NL + "\t\t\tdiagramResource.save(Collections.EMPTY_MAP);" + NL + "\t\t\t";
-  protected final String TEXT_23 = ".openDiagramEditor(myWorkbenchPage, diagramFile);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
+  protected final String TEXT_23 = ".openDiagram(diagramResource);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
   protected final String TEXT_24 = ".getInstance().logError(\"Unable to create model and diagram\", e); //$NON-NLS-1$" + NL + "\t\t} catch (IOException ex) {" + NL + "\t\t\t";
   protected final String TEXT_25 = ".getInstance().logError(\"Save operation failed for: \" + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$" + NL + "\t\t} catch (PartInitException ex) {" + NL + "\t\t\t";
   protected final String TEXT_26 = ".getInstance().logError(\"Unable to open editor\", ex); //$NON-NLS-1$" + NL + "\t\t}\t\t\t" + NL + "\t\treturn true;" + NL + "\t}" + NL + "\t\t";

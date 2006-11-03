@@ -9,30 +9,22 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%importManager.emitPackageStatement(stringBuffer);%>
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -45,41 +37,9 @@ public class <%=importManager.getCompilationUnitName()%> {
 	/**
 	 * @generated
 	 */
-	public static final URI createAndOpenDiagram(IPath containerPath, String fileName, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = createNewDiagramFile(containerPath, fileName, window.getShell(), progressMonitor);
-		if (diagramFile != null && openEditor) {
-			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
-		}
-		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {
-		IEditorPart editorPart = null;
-		try {
-			IWorkbenchPage page = window.getActivePage();
-			if (page != null) {
-				editorPart = openDiagramEditor(page, file);
-				if (saveDiagram) {
-					editorPart.doSave(progressMonitor);
-				}
-			}
-			file.refreshLocal(IResource.DEPTH_ZERO, null);
-			return editorPart;
-		} catch (Exception e) {
-			<%=importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Error opening diagram", e);
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {
+	public static boolean openDiagram(Resource diagram) throws PartInitException {
 <%if (editorGen.getApplication() == null) {%>
-		return <%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(page, file);
+		return <%=importManager.getImportedName("org.eclipse.emf.edit.ui.util.EditUIUtil")%>.openEditor((EObject) diagram.getContents().get(0));
 <%} else {%>
 		URI fileURI = URI.createFileURI(file.getLocation().toString());
 		<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());
@@ -93,30 +53,39 @@ public class <%=importManager.getCompilationUnitName()%> {
 	}
 
 	/**
+	 * @generated
+	 */
+	private static void setCharset(IPath path) {
+		IFile file = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
+		try {
+			file.setCharset("UTF-8", new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>()); //$NON-NLS-1$
+		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to set charset for file " + path, e); //$NON-NLS-1$
+		}
+	}
+
+	/**
+<%if (editorGen.getApplication() == null) {%>
 	 * <p>
 	 * This method should be called within a workspace modify operation since it creates resources.
 	 * </p>
+<%}%>
 	 * @generated
-	 * @return the created file resource, or <code>null</code> if the file was not created
+	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final IFile createNewDiagramFile(IPath containerFullPath, String fileName, Shell shell, IProgressMonitor progressMonitor) {
+	public static final Resource createDiagram(IPath containerFullPath, final String fileName, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = createNewFile(containerFullPath, fileName, shell);
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
-		List affectedFiles = new ArrayList();
-		affectedFiles.add(diagramFile);
+		IPath diagramPath = containerFullPath.append(fileName);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(diagramPath.toString()));
 <%
 final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
 if (standaloneDomainModel) {
 %>
-		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
-		IFile modelFile = diagramFile.getParent().getFile(new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true));
-		affectedFiles.add(modelFile);
+		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+		final Resource modelResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(modelPath.toString()));
 <%}%>
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 <%
 if (genDiagram.getDomainDiagramElement() != null) {%>
@@ -137,18 +106,18 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 					<%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
-					diagram.setName(diagramFile.getName());
+					diagram.setName(fileName);
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
 					diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
 <%}%>
 				}
 			try {
-<%if (standaloneDomainModel) {%>
 				<%=importManager.getImportedName("java.util.Map")%> options = new <%=importManager.getImportedName("java.util.HashMap")%>();
 				options.put(<%=importManager.getImportedName("org.eclipse.emf.ecore.xmi.XMIResource")%>.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+<%if (standaloneDomainModel) {%>
 				modelResource.save(options);
 <%}%>
-				diagramResource.save(Collections.EMPTY_MAP);
+				diagramResource.save(options);
 			} catch (IOException e) {
 				<%// TODO CommandResult.newErrorCommandResult(e) would be better? %>
 				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
@@ -164,19 +133,10 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 		}
 		
 <%if (standaloneDomainModel) {%>
-		try {
-			modelFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to set charset for model file", e); //$NON-NLS-1$
-		}
+		setCharset(modelPath);
 <%}%>
-		try {
-			diagramFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
-		
-		return diagramFile;
+		setCharset(diagramPath);
+		return diagramResource;
 	}
 <%if (genDiagram.getDomainDiagramElement() != null) {
 final String diagramElementImportedName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
@@ -221,37 +181,5 @@ for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); 
 	}
 <%} /*if standaloneDomainModel*/
 } /* domainDiagramElement != null */%>
-
-	/**
-	 * @generated
-	 */
-	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
-		IPath newFilePath = containerPath.append(fileName);
-		IFile newFileHandle = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(newFilePath);
-		try {
-			createFile(newFileHandle);
-		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
-			<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(shell, "Creation Problems", null, e.getStatus());
-			return null;
-		}
-		return newFileHandle;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected static void createFile(IFile fileHandle) throws <%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> {
-		try {
-			fileHandle.create(new <%=importManager.getImportedName("java.io.ByteArrayInputStream")%>(new byte[0]),
-					false, new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>());
-		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
-			// If the file already existed locally, just refresh to get contents
-			if (e.getStatus().getCode() == <%=importManager.getImportedName("org.eclipse.core.resources.IResourceStatus")%>.PATH_OCCUPIED) {
-				fileHandle.refreshLocal(<%=importManager.getImportedName("org.eclipse.core.resources.IResource")%>.DEPTH_ZERO, null);
-			} else {
-				throw e;
-			}
-		}
-	}
 }
 <%importManager.emitSortedImports();%>

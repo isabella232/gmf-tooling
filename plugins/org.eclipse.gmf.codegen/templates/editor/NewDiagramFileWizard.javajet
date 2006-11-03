@@ -161,7 +161,7 @@ if (!genDiagram.isSynchronized()) {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagramEditor(myWorkbenchPage, diagramFile);
+			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			<%=pluginActivatorClass%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {

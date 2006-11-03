@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -43,7 +43,7 @@ public class <%=importManager.getCompilationUnitName()%> extends Wizard implemen
 	/**
 	 * @generated
 	 */
-	protected URI diagramURI;
+	protected Resource diagram;
 
 	/**
 	 * @generated
@@ -67,8 +67,8 @@ public class <%=importManager.getCompilationUnitName()%> extends Wizard implemen
 	/**
 	 * @generated
 	 */
-	public final URI getDiagramURI() {
-		return diagramURI;
+	public final Resource getDiagram() {
+		return diagram;
 	}
 
 	/**
@@ -130,13 +130,10 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 <%}%>
-				diagramURI = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createAndOpenDiagram(
-						page.getContainerFullPath(),
-						page.getFileName(),
-						getWorkbench().getActiveWorkbenchWindow(),
-						monitor,
-						isOpenNewlyCreatedDiagramEditor(),
-						true);
+				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
+				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
+					<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagram(diagram);
+				}
 			}
 		};
 		try {
@@ -151,7 +148,7 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 			}
 			return false;
 		}
-		return diagramURI != null;
+		return diagram != null;
 	}
 }
 <%importManager.emitSortedImports();%>
