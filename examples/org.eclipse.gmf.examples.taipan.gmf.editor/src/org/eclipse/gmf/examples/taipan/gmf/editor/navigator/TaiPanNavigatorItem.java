@@ -28,9 +28,15 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	public TaiPanNavigatorItem(View view, Object parent) {
+	private boolean myLeaf = false;
+
+	/**
+	 * @generated
+	 */
+	public TaiPanNavigatorItem(View view, Object parent, boolean isLeaf) {
 		super(parent);
 		myView = view;
+		myLeaf = isLeaf;
 	}
 
 	/**
@@ -52,6 +58,13 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	 */
 	public int getVisualID() {
 		return TaiPanVisualIDRegistry.getVisualID(myView);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isLeaf() {
+		return myLeaf;
 	}
 
 	/**
