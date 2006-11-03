@@ -17,7 +17,7 @@ package org.eclipse.gmf.tests.xpand;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gmf.tests.xpand.output.BufferOutput;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.ast.Definition;
 import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;

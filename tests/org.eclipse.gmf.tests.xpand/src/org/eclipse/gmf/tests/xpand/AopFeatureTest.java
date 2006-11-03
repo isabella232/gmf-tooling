@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.tests.xpand.output.BufferOutput;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 
@@ -28,7 +28,7 @@ public class AopFeatureTest extends TestCase {
         super.setUp();
 
         buffer = new StringBuilder();
-        execCtx = new XpandExecutionContextImpl(new TestsResourceManager(), new BufferOutput(buffer), null);
+		execCtx = new XpandExecutionContextImpl(new TestsResourceManager(), new BufferOutput(buffer), null);
 
         // ADDED encoding
         // XXX fileEncoding for execContext is odd; perhaps, resourceManager? execCtx.setFileEncoding("ISO-8859-1");

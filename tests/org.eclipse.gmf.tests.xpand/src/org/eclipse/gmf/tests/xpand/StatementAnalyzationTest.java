@@ -16,7 +16,7 @@ package org.eclipse.gmf.tests.xpand;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.tests.xpand.output.BufferOutput;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
