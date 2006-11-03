@@ -100,8 +100,8 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit,org.eclipse.gmf.tooldef.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/releng/org.eclipse.gmf.updatesite,org.eclipse.gmf.updatesite"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.validate"/>		
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.xpand"/>		
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.xpand.editor"/>		
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand,org.eclipse.gmf.xpand"/>		
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.editor,org.eclipse.gmf.xpand.editor"/>		
 	<!-- Experimental SDK -->
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature,org.eclipse.gmf.sdk.experimental-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite,org.eclipse.gmf.runtime.lite"/>
