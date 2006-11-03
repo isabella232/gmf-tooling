@@ -10,8 +10,12 @@
  *******************************************************************************/
 package org.eclipse.gmf.tests.xpand.output;
 
+import java.util.Collections;
+import java.util.Map;
+
 import junit.framework.TestCase;
 
+import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ast.ExpressionStatement;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
 import org.eclipse.gmf.internal.xpand.model.Output;
@@ -25,7 +29,8 @@ public class OutputImplTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		buffer = new StringBuilder(50);
-		output = new BufferOutput(buffer);
+		final Map<String, StringBuilder> emptyMap = Collections.emptyMap();
+		output = new BufferOutput(buffer, emptyMap);
 	}
 
 	private Output getOutput() {
@@ -34,6 +39,25 @@ public class OutputImplTest extends TestCase {
 
 	private StringBuilder getBuffer() {
 		return buffer;
+	}
+
+	public final void testDeleteLineSingleNewlineChar() {
+		final Output bo = getOutput();
+
+		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.write("w  ");
+		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.write("     \n");
+
+		assertEquals("w  ", getBuffer().toString());
+
+		getBuffer().setLength(0);
+		bo.enterStatement(new TextStatement(0, 1, 1, "", false));
+		bo.write("w  ");
+		bo.enterStatement(new TextStatement(0, 1, 1, "", true));
+		bo.write("     \r");
+
+		assertEquals("w  ", getBuffer().toString());
 	}
 
 	public final void testDeleteLine1() {
