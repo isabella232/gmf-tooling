@@ -16,6 +16,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -57,8 +58,11 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		op.setShell(getShell());
 		op.setMapModelURI(URI.createPlatformResourceURI(mapFile.getFullPath().toString()));
 		op.setGenModelURI(URI.createPlatformResourceURI(genFile.getFullPath().toString()));
-		op.setUseRuntimeFigures(Boolean.TRUE);
-		op.setUseMapMode(Boolean.TRUE);
+		//Temporary fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=163358
+		if (Platform.getBundle("org.eclipse.gmf.codegen.lite") == null) {
+			op.setUseRuntimeFigures(Boolean.TRUE);
+			op.setUseMapMode(Boolean.TRUE);
+		}
 		op.run();
 	}
 
