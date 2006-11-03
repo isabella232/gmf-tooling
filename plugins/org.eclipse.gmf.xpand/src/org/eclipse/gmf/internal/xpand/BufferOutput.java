@@ -1,5 +1,6 @@
 package org.eclipse.gmf.internal.xpand;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Stack;
 
@@ -17,13 +18,20 @@ public class BufferOutput implements Output {
 
 	private final Map<String, StringBuilder> namedSlots;
 
+	public BufferOutput(StringBuilder buffer) {
+		this(buffer, null);
+	}
+
 	// XXX not map but config to show whether to append/overwrite content
 	public BufferOutput(StringBuilder buffer, Map<String, StringBuilder> namedSlots) {
 		assert buffer != null;
-		assert namedSlots != null;
 		outletStack = new Stack<StringBuilder>();
 		outletStack.push(buffer);
-		this.namedSlots = namedSlots;
+		if (namedSlots != null) {
+			this.namedSlots = namedSlots;
+		} else {
+			this.namedSlots = Collections.emptyMap();
+		}
 	}
 
 	public void closeFile() {
@@ -77,5 +85,4 @@ public class BufferOutput implements Output {
 			outletStack.peek().append(text);
 		}
 	}
-
 }
