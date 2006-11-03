@@ -85,7 +85,18 @@ while (!toolGroupsQueue.isEmpty()) {
 <%if (toolGroup.isCollapse() && toolGroup.isToolsOnly()) { %>
 		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteDrawer")%>("<%=toolGroup.getTitle()%>");
 <%} else if (toolGroup.isStack()) {%>
-		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteStack")%>("<%=toolGroup.getTitle()%>");
+<%
+	if (toolGroup.getSmallIconPath() != null) {
+%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> smallImage = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.findImageDescriptor("<%=toolGroup.getSmallIconPath()%>");
+<%
+	} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> smallImage = null;
+<%
+	}
+%>
+		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteStack")%>("<%=toolGroup.getTitle()%>", <%if (toolGroup.getDescription() != null) {%>"<%=toolGroup.getDescription()%>"<%} else {%>null<%}%>, smallImage);
 <%} else {%>
 		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteGroup")%>("<%=toolGroup.getTitle()%>");
 <%}
@@ -101,6 +112,9 @@ for(Iterator it = toolGroup.getEntries().iterator(); it.hasNext(); ) {
 		paletteContainer.add(<%=((ToolEntry) groupItem).getCreateMethodName()%>());
 <%	} else if (groupItem instanceof ToolGroup) {
 		toolGroupsQueue.addLast((ToolGroup) groupItem);
+%>
+		paletteContainer.add(<%=((ToolGroup) groupItem).getCreateMethodName()%>());
+<%
 	} else if (groupItem instanceof Separator) {%>
 		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
 <%	} /*else - no more options possible, log warning? */%>

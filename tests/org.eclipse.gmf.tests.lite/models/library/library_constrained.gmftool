@@ -18,13 +18,19 @@
           title="Author"
           description="Create New Author"/>
       <tools
-          xsi:type="gmftool:CreationTool"
-          title="Chapter"
-          description="Create New Chapter"/>
-      <tools
-          xsi:type="gmftool:CreationTool"
-          title="Review"
-          description="Create New Review"/>
+          xsi:type="gmftool:ToolGroup"
+          title="Inner elements"
+          description="Inner elements"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Chapter"
+            description="Create New Chapter"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Review"
+            description="Create New Review"/>
+      </tools>
     </tools>
     <tools
         xsi:type="gmftool:ToolGroup"
