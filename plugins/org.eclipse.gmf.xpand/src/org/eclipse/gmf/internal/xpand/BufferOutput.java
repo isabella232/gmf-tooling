@@ -61,7 +61,7 @@ public class BufferOutput implements Output {
 			while (i < text.length()) {
 				char charAt = text.charAt(i);
 				if (Character.isWhitespace(charAt)) {
-					if (charAt == '\r' || charAt == '\n') {
+					if ((charAt == '\r' || charAt == '\n') && (i+1 < text.length())) {
 						char nextToLF = text.charAt(++i);
 						if (nextToLF != charAt && (nextToLF == '\n' || nextToLF == '\r')) {
 							i++;
