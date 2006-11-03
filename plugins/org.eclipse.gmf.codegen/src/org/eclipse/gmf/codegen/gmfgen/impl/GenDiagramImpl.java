@@ -111,6 +111,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutDecorationsCommandClassName <em>Create Shortcut Decorations Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutPropertyTesterClassName <em>Shortcut Property Tester Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
@@ -1220,6 +1221,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String createShortcutDecorationsCommandClassName = CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getShortcutPropertyTesterClassName() <em>Shortcut Property Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutPropertyTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SHORTCUT_PROPERTY_TESTER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShortcutPropertyTesterClassName() <em>Shortcut Property Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutPropertyTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String shortcutPropertyTesterClassName = SHORTCUT_PROPERTY_TESTER_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getContainsShortcutsTo() <em>Contains Shortcuts To</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1962,6 +1983,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		createShortcutDecorationsCommandClassName = newCreateShortcutDecorationsCommandClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME, oldCreateShortcutDecorationsCommandClassName, createShortcutDecorationsCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getShortcutPropertyTesterClassNameGen() {
+		return shortcutPropertyTesterClassName;
+	}
+	
+	public String getShortcutPropertyTesterClassName() {
+		String value = getShortcutPropertyTesterClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ShortcutPropertyTester"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortcutPropertyTesterClassName(String newShortcutPropertyTesterClassName) {
+		String oldShortcutPropertyTesterClassName = shortcutPropertyTesterClassName;
+		shortcutPropertyTesterClassName = newShortcutPropertyTesterClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME, oldShortcutPropertyTesterClassName, shortcutPropertyTesterClassName));
 	}
 
 	/**
@@ -3668,6 +3718,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getShortcutPropertyTesterQualifiedClassName() {
+		return getEditorPackageName() + '.' + getShortcutPropertyTesterClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getElementChooserQualifiedClassName() {
 		return getEditorPackageName() + '.' + getElementChooserClassName();
 	}
@@ -3948,6 +4007,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCreateShortcutActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME:
 				return getCreateShortcutDecorationsCommandClassName();
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME:
+				return getShortcutPropertyTesterClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 				return getContainsShortcutsTo();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
@@ -4163,6 +4224,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME:
 				setCreateShortcutDecorationsCommandClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME:
+				setShortcutPropertyTesterClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 				getContainsShortcutsTo().clear();
@@ -4403,6 +4467,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME:
 				setCreateShortcutDecorationsCommandClassName(CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME:
+				setShortcutPropertyTesterClassName(SHORTCUT_PROPERTY_TESTER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 				getContainsShortcutsTo().clear();
 				return;
@@ -4584,6 +4651,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT == null ? createShortcutActionClassName != null : !CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT.equals(createShortcutActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME:
 				return CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME_EDEFAULT == null ? createShortcutDecorationsCommandClassName != null : !CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME_EDEFAULT.equals(createShortcutDecorationsCommandClassName);
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME:
+				return SHORTCUT_PROPERTY_TESTER_CLASS_NAME_EDEFAULT == null ? shortcutPropertyTesterClassName != null : !SHORTCUT_PROPERTY_TESTER_CLASS_NAME_EDEFAULT.equals(shortcutPropertyTesterClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 				return containsShortcutsTo != null && !containsShortcutsTo.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
@@ -4716,6 +4785,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME: return GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME: return GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME: return GMFGenPackage.SHORTCUTS__SHORTCUT_PROPERTY_TESTER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO: return GMFGenPackage.SHORTCUTS__CONTAINS_SHORTCUTS_TO;
 				case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR: return GMFGenPackage.SHORTCUTS__SHORTCUTS_PROVIDED_FOR;
 				default: return -1;
@@ -4831,6 +4901,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY;
 				case GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME;
 				case GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME;
+				case GMFGenPackage.SHORTCUTS__SHORTCUT_PROPERTY_TESTER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME;
 				case GMFGenPackage.SHORTCUTS__CONTAINS_SHORTCUTS_TO: return GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO;
 				case GMFGenPackage.SHORTCUTS__SHORTCUTS_PROVIDED_FOR: return GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR;
 				default: return -1;
@@ -5294,6 +5365,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(createShortcutActionClassName);
 		result.append(", createShortcutDecorationsCommandClassName: ");
 		result.append(createShortcutDecorationsCommandClassName);
+		result.append(", shortcutPropertyTesterClassName: ");
+		result.append(shortcutPropertyTesterClassName);
 		result.append(", containsShortcutsTo: ");
 		result.append(containsShortcutsTo);
 		result.append(", shortcutsProvidedFor: ");

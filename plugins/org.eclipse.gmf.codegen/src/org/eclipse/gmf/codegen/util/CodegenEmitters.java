@@ -101,6 +101,7 @@ import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGene
 import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeaturesParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationDecoratorProviderGenerator;
@@ -215,6 +216,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ValidationDecoratorProvider.javajet", ValidationDecoratorProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
@@ -485,6 +487,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getShortcutsDecoratorProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ShortcutsDecoratorProviderGenerator.class);
+	}
+	
+	public TextEmitter getShortcutPropertyTesterEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ShortcutsPropertyTester.class);
 	}
 
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {

@@ -1,3 +1,15 @@
+<%if (genDiagram.generateShortcutIcon()) {%>
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+           id="<%=editorGen.getPlugin().getID()%>.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="<%=editorGen.getPlugin().getID()%>"
+           properties="isShortcut"
+           class="<%=genDiagram.getShortcutPropertyTesterQualifiedClassName()%>">
+       </propertyTester>
+   </extension>
+   
+<%}%>
    <extension point="org.eclipse.ui.navigator.viewer">
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
@@ -5,6 +17,11 @@
             <contentExtension pattern="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"/>
          </includes>
       </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="<%=editorGen.getNavigator().getActionProviderID()%>"/>
+         </includes>
+      </viewerActionBinding>
    </extension>
 
    <extension point="org.eclipse.ui.navigator.navigatorContent">
@@ -18,11 +35,16 @@
             activeByDefault="true">
          <triggerPoints>
             <or>
-	            <and>
-    	           <instanceof value="org.eclipse.core.resources.IFile"/>
-        	       <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
-            	</and>
-            	<instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
+               </and>
+               <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (genDiagram.generateShortcutIcon()) {%>
+           		<adapt type="org.eclipse.gmf.runtime.notation.View">
+           		   <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           		</adapt>
+<%}%>
             </or>
          </triggerPoints>
          <possibleChildren>
@@ -41,11 +63,21 @@
                </or>
             </parentExpression>
          </commonSorter>
-         <actionProvider
-               id="<%=editorGen.getNavigator().getActionProviderID()%>"
-               class="<%=editorGen.getNavigator().getActionProviderQualifiedClassName()%>">
-         </actionProvider>
       </navigatorContent>
+      <actionProvider
+            id="<%=editorGen.getNavigator().getActionProviderID()%>"
+            class="<%=editorGen.getNavigator().getActionProviderQualifiedClassName()%>">
+         <enablement>
+            <or>
+               <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (genDiagram.generateShortcutIcon()) {%>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
+<%}%>
+            </or>
+         </enablement>
+      </actionProvider>
    </extension>
    
    <extension point="org.eclipse.ui.navigator.linkHelper">

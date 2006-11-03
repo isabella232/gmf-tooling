@@ -14,6 +14,7 @@ for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 		groupVisualID = nextCommonBase.getVisualID();
 	}
 }
+int shortcutsVisualID = groupVisualID++;
 groupVisualID++;
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -30,6 +31,13 @@ public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.get
 	 * @generated
 	 */	
 	private static final int GROUP_CATEGORY = <%=groupVisualID%>;
+<%if (genDiagram.generateCreateShortcutAction()) {%>
+
+	/**
+	 * @generated
+	 */	
+	private static final int SHORTCUTS_CATEGORY = <%=shortcutsVisualID%>;
+<%}%>
 
 	/**
 	 * @generated
@@ -37,9 +45,12 @@ public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.get
 	public int category(Object element) {
 		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> item = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
-			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(item.getModelID())) {
-				return item.getVisualID();
-			}	
+<%if (genDiagram.generateCreateShortcutAction()) {%>
+			if (item.getView().getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				return SHORTCUTS_CATEGORY;
+			}
+<%}%>
+			return item.getVisualID();
 		}
 		return GROUP_CATEGORY;
 	}

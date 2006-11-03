@@ -108,6 +108,8 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 				Object selectedElement = selection.getFirstElement();
 				if (selectedElement instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
 					selectedElement = ((<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) selectedElement).getView();
+				} else if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+					selectedElement = ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) selectedElement).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
 				}
 				if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) selectedElement;

@@ -920,7 +920,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "LinkConstraints:LinkCreationConstraints", genDiagram.getLinkCreationConstraintsClassName(), genDiagram.getLinkCreationConstraintsQualifiedClassName());
 		checkClassName(state, "Shortcuts:CreateShortcutAction", genDiagram.getCreateShortcutActionClassName(), genDiagram.getCreateShortcutActionQualifiedClassName());
 		checkClassName(state, "Shortcuts:ShortcutsDecoratorProvider", genDiagram.getShortcutsDecoratorProviderClassName(), genDiagram.getShortcutsDecoratorProviderQualifiedClassName());
-		checkClassName(state, "Shortcuts:CreateShortcutDecorationsCommand", genDiagram.getCreateShortcutDecorationsCommandClassName(), genDiagram.getCreateShortcutDecorationsCommandQualifiedClassName());		
+		checkClassName(state, "Shortcuts:CreateShortcutDecorationsCommand", genDiagram.getCreateShortcutDecorationsCommandClassName(), genDiagram.getCreateShortcutDecorationsCommandQualifiedClassName());
+		checkClassName(state, "Shortcuts:ShortcutPropertyTester", genDiagram.getShortcutPropertyTesterClassName(), genDiagram.getShortcutPropertyTesterQualifiedClassName());
 		checkClassName(state, "EditorCandies:ElementChooser", genDiagram.getElementChooserClassName(), genDiagram.getElementChooserQualifiedClassName());
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:ValidationDecoratorProvider", genDiagram.getValidationDecoratorProviderClassName(), genDiagram.getValidationDecoratorProviderQualifedClassName());

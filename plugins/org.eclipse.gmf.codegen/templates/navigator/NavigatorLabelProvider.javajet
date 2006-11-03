@@ -131,34 +131,47 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage(Object element) {
-		if (false == element instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
-			return super.getImage(element);
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) element;
+			return <%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage(group.getIcon());
 		}
 		
-   		<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> abstractNavigatorItem = (<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) element;
-		if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getImage(element);
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
+    		if (!isOwnView(navigatorItem.getView())) {
+    			return super.getImage(element);
+    		}
+    		return getImage(navigatorItem.getView());
 		}
-	
-		if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
-   			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
+
+<%if (genDiagram.generateShortcutIcon()) {%>
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) element).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
+			if (view != null) {
+				return getImage(view);
+			}
+		}<%
+}%>
+		return super.getImage(element);
+	}
+		
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
 <%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
 		RegistryKey registryKey = new RegistryKey(nextCommonBase);%>
-			case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				return getImage("<%=registryKey.getKey()%>", <%if (nextCommonBase.getElementType() != null) {%><%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextCommonBase.getUniqueIdentifier()%><%} else {%>null<%}%>);
+		case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
+			return getImage("<%=registryKey.getKey()%>", <%if (nextCommonBase.getElementType() != null) {%><%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextCommonBase.getUniqueIdentifier()%><%} else {%>null<%}%>);
 <%	}
 }%>
-				default:
-					return getImage("<%=unknownElementKey%>", null);
-			}
-		} else if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
-			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) element;
-			return <%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage(group.getIcon());
+		default:
+			return getImage("<%=unknownElementKey%>", null);
 		}
-		return super.getImage(element);
 	}
 	
 	/**
@@ -183,33 +196,46 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 	 * @generated
 	 */
 	public String getText(Object element) {
-		if (false == element instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
-			return super.getText(element);
-		}
-		
-   		<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> abstractNavigatorItem = (<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) element;
-		if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getText(element);
-		}
-	
-		if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
-			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
-<%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
-	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {%>
-			case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				return get<%=nextCommonBase.getUniqueIdentifier()%>Text(navigatorItem.getView());
-<%	}
-}%>
-			default:
-				return getUnknownElementText(navigatorItem.getView());
-			}
-		} else if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) element;
 			return group.getGroupName();
 		}
+		
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
+    		if (!isOwnView(navigatorItem.getView())) {
+    			return super.getText(element);
+    		}
+    		return getText(navigatorItem.getView());
+		}
+	
+<%if (genDiagram.generateShortcutIcon()) {%>
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) element).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
+			if (view != null) {
+				return getText(view);
+			}
+		}<%
+}%>
 		return super.getText(element);
+	}
+		
+	/**
+	 * @generated
+	 */
+	public String getText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
+<%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
+	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {%>
+		case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
+			return get<%=nextCommonBase.getUniqueIdentifier()%>Text(view);
+<%	}
+}%>
+		default:
+			return getUnknownElementText(view);
+		}
 	}
 
 <%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
@@ -336,6 +362,13 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 	 */
 	public String getDescription(Object anElement) {
 		return null;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private boolean isOwnView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(view));
 	}
 
 }

@@ -14,6 +14,26 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
  * @generated
  */
 public class <%=genNavigator.getNavigatorItemClassName()%> extends <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> {
+	
+	/**
+	 * @generated
+	 */	
+	static {
+		final Class[] supportedTypes = new Class[] { <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>.class };
+		<%=importManager.getImportedName("org.eclipse.core.runtime.Platform")%>.getAdapterManager().registerAdapters(new <%=importManager.getImportedName("org.eclipse.core.runtime.IAdapterFactory")%>() {
+		
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof <%=genNavigator.getNavigatorItemClassName()%> && (adapterType == <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class || adapterType == <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>.class)) {
+					return ((<%=genNavigator.getNavigatorItemClassName()%>) adaptableObject).getView();
+				}
+				return null;
+			}
+
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, <%=genNavigator.getNavigatorItemClassName()%>.class);
+	}
 
 	/**
 	 * @generated
@@ -61,16 +81,6 @@ public class <%=genNavigator.getNavigatorItemClassName()%> extends <%=importMana
 	 */	
 	public boolean isLeaf() {
 		return myLeaf;
-	}
-	
-	/**
-	 * @generated
-	 */	
-	public Object getAdapter(Class adapter) {
-		if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class.isAssignableFrom(adapter) || <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>.class.isAssignableFrom(adapter)) {
-			return myView;
-		}
-		return super.getAdapter(adapter);
 	}
 	
 	/**

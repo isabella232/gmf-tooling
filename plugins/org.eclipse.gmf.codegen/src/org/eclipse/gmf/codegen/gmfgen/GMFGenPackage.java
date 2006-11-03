@@ -1021,13 +1021,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 52;
 
 	/**
+	 * The feature id for the '<em><b>Shortcut Property Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 53;
+
+	/**
 	 * The feature id for the '<em><b>Contains Shortcuts To</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO = GEN_CONTAINER_BASE_FEATURE_COUNT + 53;
+	int GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO = GEN_CONTAINER_BASE_FEATURE_COUNT + 54;
 
 	/**
 	 * The feature id for the '<em><b>Shortcuts Provided For</b></em>' attribute list.
@@ -1036,7 +1045,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR = GEN_CONTAINER_BASE_FEATURE_COUNT + 54;
+	int GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR = GEN_CONTAINER_BASE_FEATURE_COUNT + 55;
 
 	/**
 	 * The feature id for the '<em><b>Validation Provider Class Name</b></em>' attribute.
@@ -1045,7 +1054,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 55;
+	int GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 56;
 
 	/**
 	 * The feature id for the '<em><b>Validation Provider Priority</b></em>' attribute.
@@ -1054,7 +1063,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 56;
+	int GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 57;
 
 	/**
 	 * The feature id for the '<em><b>Marker Navigation Provider Class Name</b></em>' attribute.
@@ -1063,7 +1072,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 57;
+	int GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 58;
 
 	/**
 	 * The feature id for the '<em><b>Marker Navigation Provider Priority</b></em>' attribute.
@@ -1072,7 +1081,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 58;
+	int GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 59;
 
 	/**
 	 * The feature id for the '<em><b>Validation Enabled</b></em>' attribute.
@@ -1081,7 +1090,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_ENABLED = GEN_CONTAINER_BASE_FEATURE_COUNT + 59;
+	int GEN_DIAGRAM__VALIDATION_ENABLED = GEN_CONTAINER_BASE_FEATURE_COUNT + 60;
 
 	/**
 	 * The feature id for the '<em><b>Metric Provider Class Name</b></em>' attribute.
@@ -1090,7 +1099,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 60;
+	int GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 61;
 
 	/**
 	 * The feature id for the '<em><b>Metric Provider Priority</b></em>' attribute.
@@ -1099,7 +1108,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 61;
+	int GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 62;
 
 	/**
 	 * The feature id for the '<em><b>Validation Decorator Provider Class Name</b></em>' attribute.
@@ -1108,7 +1117,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 62;
+	int GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 63;
 
 	/**
 	 * The feature id for the '<em><b>Validation Decorators</b></em>' attribute.
@@ -1117,7 +1126,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_DECORATORS = GEN_CONTAINER_BASE_FEATURE_COUNT + 63;
+	int GEN_DIAGRAM__VALIDATION_DECORATORS = GEN_CONTAINER_BASE_FEATURE_COUNT + 64;
 
 	/**
 	 * The feature id for the '<em><b>Validation Decorator Provider Priority</b></em>' attribute.
@@ -1126,7 +1135,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 64;
+	int GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 65;
 
 	/**
 	 * The feature id for the '<em><b>Units</b></em>' attribute.
@@ -1135,7 +1144,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__UNITS = GEN_CONTAINER_BASE_FEATURE_COUNT + 65;
+	int GEN_DIAGRAM__UNITS = GEN_CONTAINER_BASE_FEATURE_COUNT + 66;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -1144,7 +1153,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 66;
+	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 67;
 
 	/**
 	 * The feature id for the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -1153,7 +1162,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 67;
+	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 68;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -1162,7 +1171,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 68;
+	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 69;
 
 	/**
 	 * The feature id for the '<em><b>Top Level Nodes</b></em>' containment reference list.
@@ -1171,7 +1180,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 69;
+	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 70;
 
 	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
@@ -1180,7 +1189,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 70;
+	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 71;
 
 	/**
 	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
@@ -1189,7 +1198,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 71;
+	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 72;
 
 	/**
 	 * The feature id for the '<em><b>Palette</b></em>' containment reference.
@@ -1198,7 +1207,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 72;
+	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 73;
 
 	/**
 	 * The feature id for the '<em><b>Synchronized</b></em>' attribute.
@@ -1207,7 +1216,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SYNCHRONIZED = GEN_CONTAINER_BASE_FEATURE_COUNT + 73;
+	int GEN_DIAGRAM__SYNCHRONIZED = GEN_CONTAINER_BASE_FEATURE_COUNT + 74;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
@@ -1216,7 +1225,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 74;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 75;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl <em>Gen Editor View</em>}' class.
@@ -1637,13 +1646,22 @@ public interface GMFGenPackage extends EPackage {
 	int SHORTCUTS__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME = 3;
 
 	/**
+	 * The feature id for the '<em><b>Shortcut Property Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHORTCUTS__SHORTCUT_PROPERTY_TESTER_CLASS_NAME = 4;
+
+	/**
 	 * The feature id for the '<em><b>Contains Shortcuts To</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHORTCUTS__CONTAINS_SHORTCUTS_TO = 4;
+	int SHORTCUTS__CONTAINS_SHORTCUTS_TO = 5;
 
 	/**
 	 * The feature id for the '<em><b>Shortcuts Provided For</b></em>' attribute list.
@@ -1652,7 +1670,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHORTCUTS__SHORTCUTS_PROVIDED_FOR = 5;
+	int SHORTCUTS__SHORTCUTS_PROVIDED_FOR = 6;
 
 	/**
 	 * The number of structural features of the '<em>Shortcuts</em>' class.
@@ -1661,7 +1679,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHORTCUTS_FEATURE_COUNT = 6;
+	int SHORTCUTS_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.PackageNames <em>Package Names</em>}' class.
@@ -8240,6 +8258,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getShortcuts_CreateShortcutDecorationsCommandClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutPropertyTesterClassName <em>Shortcut Property Tester Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Shortcut Property Tester Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutPropertyTesterClassName()
+	 * @see #getShortcuts()
+	 * @generated
+	 */
+	EAttribute getShortcuts_ShortcutPropertyTesterClassName();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getContainsShortcutsTo <em>Contains Shortcuts To</em>}'.

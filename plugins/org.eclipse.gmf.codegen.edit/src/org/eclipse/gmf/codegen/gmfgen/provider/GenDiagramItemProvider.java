@@ -115,6 +115,7 @@ public class GenDiagramItemProvider
 			addShortcutsDecoratorProviderPriorityPropertyDescriptor(object);
 			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addCreateShortcutDecorationsCommandClassNamePropertyDescriptor(object);
+			addShortcutPropertyTesterClassNamePropertyDescriptor(object);
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
 			addValidationProviderClassNamePropertyDescriptor(object);
@@ -346,6 +347,28 @@ public class GenDiagramItemProvider
 				 getString("_UI_Shortcuts_createShortcutDecorationsCommandClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_createShortcutDecorationsCommandClassName_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_CreateShortcutDecorationsCommandClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Shortcut Property Tester Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortcutPropertyTesterClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shortcuts_shortcutPropertyTesterClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutPropertyTesterClassName_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutPropertyTesterClassName(),
 				 true,
 				 false,
 				 false,
@@ -1772,6 +1795,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUT_PROPERTY_TESTER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:

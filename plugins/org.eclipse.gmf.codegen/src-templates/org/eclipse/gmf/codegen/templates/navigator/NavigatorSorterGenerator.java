@@ -23,12 +23,16 @@ public class NavigatorSorterGenerator
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int GROUP_CATEGORY = ";
-  protected final String TEXT_8 = ";" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int category(Object element) {" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_9 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_10 = " item = (";
-  protected final String TEXT_11 = ") element;" + NL + "\t\t\tif (";
-  protected final String TEXT_12 = ".MODEL_ID.equals(item.getModelID())) {" + NL + "\t\t\t\treturn item.getVisualID();" + NL + "\t\t\t}\t" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_13 = NL;
+  protected final String TEXT_8 = ";";
+  protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final int SHORTCUTS_CATEGORY = ";
+  protected final String TEXT_10 = ";";
+  protected final String TEXT_11 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int category(Object element) {" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_12 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_13 = " item = (";
+  protected final String TEXT_14 = ") element;";
+  protected final String TEXT_15 = NL + "\t\t\tif (item.getView().getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\t\t\treturn SHORTCUTS_CATEGORY;" + NL + "\t\t\t}";
+  protected final String TEXT_16 = NL + "\t\t\treturn item.getVisualID();" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_17 = NL;
 
   public String generate(Object argument)
   {
@@ -47,6 +51,7 @@ for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 		groupVisualID = nextCommonBase.getVisualID();
 	}
 }
+int shortcutsVisualID = groupVisualID++;
 groupVisualID++;
 
     stringBuffer.append(TEXT_1);
@@ -68,16 +73,24 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(groupVisualID);
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(shortcutsVisualID);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    }
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_12);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_13);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_14);
+    if (genDiagram.generateCreateShortcutAction()) {
+    stringBuffer.append(TEXT_15);
+    }
+    stringBuffer.append(TEXT_16);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_17);
     return stringBuffer.toString();
   }
 }

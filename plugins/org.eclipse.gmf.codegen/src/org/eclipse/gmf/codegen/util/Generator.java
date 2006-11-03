@@ -211,6 +211,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.generateShortcutIcon()) {
 			generateShortcutIcon();
 			generateShortcutsDecoratorProvider();
+			generateShortcutPropertyTester();
 		}
 		if (isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX())) {
 			// at the moment this may produce path that reference generated icon file, thus
@@ -658,6 +659,14 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getShortcutsDecoratorProviderClassName(),
 			myDiagram);
+	}
+	
+	private void generateShortcutPropertyTester() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getShortcutPropertyTesterEmitter(),
+				myEditorGen.getEditor().getPackageName(),
+				myDiagram.getShortcutPropertyTesterClassName(),
+				myDiagram);
 	}
 
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {

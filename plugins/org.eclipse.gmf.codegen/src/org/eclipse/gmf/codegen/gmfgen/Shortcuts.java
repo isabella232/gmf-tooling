@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutDecorationsCommandClassName <em>Create Shortcut Decorations Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutPropertyTesterClassName <em>Shortcut Property Tester Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  * </ul>
@@ -140,6 +141,32 @@ public interface Shortcuts extends EObject {
 	void setCreateShortcutDecorationsCommandClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Shortcut Property Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Shortcut Property Tester Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shortcut Property Tester Class Name</em>' attribute.
+	 * @see #setShortcutPropertyTesterClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_ShortcutPropertyTesterClassName()
+	 * @model
+	 * @generated
+	 */
+	String getShortcutPropertyTesterClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutPropertyTesterClassName <em>Shortcut Property Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shortcut Property Tester Class Name</em>' attribute.
+	 * @see #getShortcutPropertyTesterClassName()
+	 * @generated
+	 */
+	void setShortcutPropertyTesterClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Contains Shortcuts To</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
@@ -192,6 +219,14 @@ public interface Shortcuts extends EObject {
 	 * @generated
 	 */
 	String getCreateShortcutDecorationsCommandQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getShortcutPropertyTesterQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

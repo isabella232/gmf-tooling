@@ -40,6 +40,8 @@ Export-Package: <%=genPlugin.getEditorGen().getDiagram().getEditPartsPackageName
  <%=genPlugin.getEditorGen().getDiagram().getProvidersPackageName()%>
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
+<%if (genPlugin.getEditorGen().getDiagram().generateShortcutIcon()) {%>
+ org.eclipse.core.expressions,<%}%>
  org.eclipse.jface,
 <%if (genPlugin.getEditorGen().getApplication() == null) {%>
  org.eclipse.ui.ide,<%}%>
