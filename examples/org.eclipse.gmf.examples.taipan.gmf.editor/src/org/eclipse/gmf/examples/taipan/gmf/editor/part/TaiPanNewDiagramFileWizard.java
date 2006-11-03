@@ -147,7 +147,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		}
 
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 
 		List affectedFiles = new LinkedList();
 		affectedFiles.add(mySelectedModelFile);
@@ -169,7 +169,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			TaiPanDiagramEditorUtil.openDiagramEditor(myWorkbenchPage, diagramFile);
+			TaiPanDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
@@ -265,8 +265,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 				setErrorMessage("No diagram root element selected");
 				return false;
 			}
-			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			boolean result = ViewService.getInstance().provides(new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null : "Invalid diagram root element was selected");
 			return result;
 		}

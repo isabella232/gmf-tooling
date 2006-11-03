@@ -11,32 +11,26 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
@@ -46,13 +40,7 @@ import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.ide.IDE;
 
 /**
  * @generated
@@ -62,40 +50,20 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final URI createAndOpenDiagram(IPath containerPath, String fileName, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = createNewDiagramFile(containerPath, fileName, window.getShell(), progressMonitor);
-		if (diagramFile != null && openEditor) {
-			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
-		}
-		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString());
+	public static boolean openDiagram(Resource diagram) throws PartInitException {
+		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {
-		IEditorPart editorPart = null;
+	private static void setCharset(IPath path) {
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 		try {
-			IWorkbenchPage page = window.getActivePage();
-			if (page != null) {
-				editorPart = openDiagramEditor(page, file);
-				if (saveDiagram) {
-					editorPart.doSave(progressMonitor);
-				}
-			}
-			file.refreshLocal(IResource.DEPTH_ZERO, null);
-			return editorPart;
-		} catch (Exception e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Error opening diagram", e);
+			file.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
+		} catch (CoreException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + path, e); //$NON-NLS-1$
 		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {
-		return IDE.openEditor(page, file);
 	}
 
 	/**
@@ -103,21 +71,16 @@ public class TaiPanDiagramEditorUtil {
 	 * This method should be called within a workspace modify operation since it creates resources.
 	 * </p>
 	 * @generated
-	 * @return the created file resource, or <code>null</code> if the file was not created
+	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final IFile createNewDiagramFile(IPath containerFullPath, String fileName, Shell shell, IProgressMonitor progressMonitor) {
+	public static final Resource createDiagram(IPath containerFullPath, final String fileName, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = createNewFile(containerFullPath, fileName, shell);
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
-		List affectedFiles = new ArrayList();
-		affectedFiles.add(diagramFile);
-		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
-		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
-		affectedFiles.add(modelFile);
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
+		IPath diagramPath = containerFullPath.append(fileName);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(diagramPath.toString()));
+		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+		final Resource modelResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(modelPath.toString()));
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Aquatory model = createInitialModel();
@@ -125,14 +88,14 @@ public class TaiPanDiagramEditorUtil {
 				Diagram diagram = ViewService.createDiagram(model, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
-					diagram.setName(diagramFile.getName());
+					diagram.setName(fileName);
 					diagram.setElement(model);
 				}
 				try {
 					Map options = new HashMap();
 					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 					modelResource.save(options);
-					diagramResource.save(Collections.EMPTY_MAP);
+					diagramResource.save(options);
 				} catch (IOException e) {
 
 					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
@@ -147,18 +110,9 @@ public class TaiPanDiagramEditorUtil {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 
-		try {
-			modelFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (CoreException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for model file", e); //$NON-NLS-1$
-		}
-		try {
-			diagramFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (CoreException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
-
-		return diagramFile;
+		setCharset(modelPath);
+		setCharset(diagramPath);
+		return diagramResource;
 	}
 
 	/**
@@ -176,36 +130,5 @@ public class TaiPanDiagramEditorUtil {
 	 */
 	private static EObject createInitialRoot(Aquatory model) {
 		return model;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static IFile createNewFile(IPath containerPath, String fileName, Shell shell) {
-		IPath newFilePath = containerPath.append(fileName);
-		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
-		try {
-			createFile(newFileHandle);
-		} catch (CoreException e) {
-			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
-			return null;
-		}
-		return newFileHandle;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected static void createFile(IFile fileHandle) throws CoreException {
-		try {
-			fileHandle.create(new ByteArrayInputStream(new byte[0]), false, new NullProgressMonitor());
-		} catch (CoreException e) {
-			// If the file already existed locally, just refresh to get contents
-			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
-				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
-			} else {
-				throw e;
-			}
-		}
 	}
 }
