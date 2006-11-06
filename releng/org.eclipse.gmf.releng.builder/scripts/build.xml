@@ -14,10 +14,10 @@
 	</target>
 	
 	<target name="initCC">
-		<copy todir="${ccwebapplocation}/css" forceoverwrite="true">
+		<copy todir="${ccwebapplocation}/css" overwrite="true">
 		    <fileset dir="${scripts}/css"/>
 		</copy>
-		<copy todir="${ccwebapplocation}/xsl" forceoverwrite="true">
+		<copy todir="${ccwebapplocation}/xsl" overwrite="true">
 		    <fileset dir="${scripts}/xsl"/>
 		</copy>
 	</target>
