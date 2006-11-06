@@ -42,6 +42,10 @@ public class ScannerTest extends TestCase {
         assertEquals("Token with kind == bad should be detected on unterminated string quoted with \"", 0, scan("\"test").getTokenAt(1).getKind());
     }
 
+    public void testDollarSign() {
+    	doTest("\"dollar sign $ should be ok\"");
+    }
+
     private void doTest(final String txt) {
     	PrsStream scan = scan(txt);
     	// there are start and eof tokens

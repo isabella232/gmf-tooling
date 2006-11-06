@@ -17,6 +17,7 @@ package org.eclipse.gmf.tests.xpand;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.gmf.internal.xpand.ast.AbstractDefinition;
 import org.eclipse.gmf.internal.xpand.ast.Definition;
 import org.eclipse.gmf.internal.xpand.ast.FileStatement;
 import org.eclipse.gmf.internal.xpand.ast.IfStatement;
@@ -41,6 +42,15 @@ public class StatementParserTest extends AbstractXpandTest {
     public final void testSimpleDefine() throws Exception {
         final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
+    }
+
+    public final void testTextStmtWithUnusualChars() throws Exception {
+    	final String unusualChars = "$";
+        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + unusualChars + tag("ENDDEFINE"));
+        assertEquals(1, t.getDefinitions().length);
+        Statement st = ((AbstractDefinition) t.getDefinitions()[0]).getBody()[0];
+        assertTrue(st instanceof TextStatement);
+        assertEquals(unusualChars, ((TextStatement) st).getValue());
     }
 
     public final void testDoubleDefine() throws Exception {
