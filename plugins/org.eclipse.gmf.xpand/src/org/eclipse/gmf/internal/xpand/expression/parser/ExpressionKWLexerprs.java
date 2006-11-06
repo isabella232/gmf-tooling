@@ -17,7 +17,7 @@ public class ExpressionKWLexerprs implements lpg.lpgjavaruntime.ParseTable, Expr
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0
+            0,0,0
         };
     };
     public final static byte isKeyword[] = IsKeyword.isKeyword;
@@ -80,7 +80,7 @@ public class ExpressionKWLexerprs implements lpg.lpgjavaruntime.ParseTable, Expr
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0
+            0,0,0,0,0,0,0
         };
     };
     public final static byte termCheck[] = TermCheck.termCheck;
@@ -134,17 +134,17 @@ public class ExpressionKWLexerprs implements lpg.lpgjavaruntime.ParseTable, Expr
 
     public final static int
            NUM_STATES        = 87,
-           NT_OFFSET         = 54,
+           NT_OFFSET         = 53,
            LA_STATE_OFFSET   = 129,
            MAX_LA            = 0,
            NUM_RULES         = 19,
            NUM_NONTERMINALS  = 2,
-           NUM_SYMBOLS       = 56,
+           NUM_SYMBOLS       = 55,
            SEGMENT_SIZE      = 8192,
            START_STATE       = 20,
            IDENTIFIER_SYMBOL = 0,
            EOFT_SYMBOL       = 26,
-           EOLT_SYMBOL       = 55,
+           EOLT_SYMBOL       = 54,
            ACCEPT_ACTION     = 109,
            ERROR_ACTION      = 110;
 

@@ -10,9 +10,9 @@ package org.eclipse.gmf.internal.xpand.expression.parser;
 
 public interface ExpressionLexersym {
     public final static int
-      Char_CtlCharNotWS = 100,
-      Char_LF = 97,
-      Char_CR = 98,
+      Char_CtlCharNotWS = 101,
+      Char_LF = 98,
+      Char_CR = 99,
       Char_HT = 88,
       Char_FF = 89,
       Char_a = 13,
@@ -86,14 +86,14 @@ public interface ExpressionLexersym {
       Char_Exclamation = 75,
       Char_AtSign = 91,
       Char_BackQuote = 92,
-      Char_Acute = 101,
+      Char_Acute = 102,
       Char_Tilde = 93,
       Char_Sharp = 94,
-      Char_DollarSign = 102,
+      Char_DollarSign = 95,
       Char_Ampersand = 69,
-      Char_Caret = 95,
+      Char_Caret = 96,
       Char_Colon = 70,
-      Char_SemiColon = 96,
+      Char_SemiColon = 97,
       Char_BackSlash = 76,
       Char_LeftBrace = 77,
       Char_RightBrace = 78,
@@ -112,7 +112,7 @@ public interface ExpressionLexersym {
       Char_RightParen = 87,
       Char_Equal = 27,
       Char_AfterASCII = 103,
-      Char_EOF = 99;
+      Char_EOF = 100;
 
       public final static String orderedTerminalSymbols[] = {
                  "",
@@ -210,6 +210,7 @@ public interface ExpressionLexersym {
                  "BackQuote",
                  "Tilde",
                  "Sharp",
+                 "DollarSign",
                  "Caret",
                  "SemiColon",
                  "LF",
@@ -217,7 +218,6 @@ public interface ExpressionLexersym {
                  "EOF",
                  "CtlCharNotWS",
                  "Acute",
-                 "DollarSign",
                  "AfterASCII"
              };
 

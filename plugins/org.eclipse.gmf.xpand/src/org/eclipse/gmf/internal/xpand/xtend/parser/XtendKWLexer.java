@@ -8,7 +8,6 @@
 *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.xtend.parser;
 
-import lpg.lpgjavaruntime.*;
 
 public class XtendKWLexer extends XtendKWLexerprs implements XtendParsersym
 {
@@ -45,10 +44,7 @@ public class XtendKWLexer extends XtendKWLexerprs implements XtendParsersym
 
 
     final static int tokenKind[] = new int[128];
-    static
-    {
-        tokenKind['$'] = Char_DollarSign;
-
+    static {
         tokenKind['a'] = Char_a;
         tokenKind['b'] = Char_b;
         tokenKind['c'] = Char_c;
@@ -104,8 +100,7 @@ public class XtendKWLexer extends XtendKWLexerprs implements XtendParsersym
         tokenKind['Z'] = Char_Z;
     };
 
-    final int getKind(char c)
-    {
+    final int getKind(char c) {
         return (c < 128 ? tokenKind[c] : 0);
     }
 

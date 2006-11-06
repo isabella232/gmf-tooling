@@ -12,7 +12,7 @@
 
 %options fp=XpandLexer,prefix=Char_
 %options package=org.eclipse.gmf.internal.xpand.parser
-%options template=LexerTemplateD.g
+%options template=../expression/parser/LexerTemplateD.g
 %options export_terminals=("XpandParsersym.java", "TK_")
 %options filter=XpandKWLexer.g
 -- stupid endrem needs 6

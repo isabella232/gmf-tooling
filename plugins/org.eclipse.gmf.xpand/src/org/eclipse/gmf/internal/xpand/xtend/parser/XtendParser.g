@@ -13,7 +13,7 @@
 %options fp=XtendParser,prefix=TK_
 %options programming_language=java
 %options package=org.eclipse.gmf.internal.xpand.xtend.parser
-%options template=dtParserTemplateD.g
+%options template=../../expression/parser/dtParserTemplateD.g
 %options ast_type=ExtensionFile
 %options import_terminals=XtendLexer.g
 %options lalr=2

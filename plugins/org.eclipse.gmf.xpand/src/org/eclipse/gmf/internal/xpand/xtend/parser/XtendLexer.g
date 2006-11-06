@@ -12,7 +12,7 @@
 
 %options fp=XtendLexer,prefix=Char_
 %options package=org.eclipse.gmf.internal.xpand.xtend.parser
-%options template=LexerTemplateD.g
+%options template=../../expression/parser/LexerTemplateD.g
 %options export_terminals=("XtendParsersym.java", "TK_")
 %options filter=XtendKWLexer.g
 

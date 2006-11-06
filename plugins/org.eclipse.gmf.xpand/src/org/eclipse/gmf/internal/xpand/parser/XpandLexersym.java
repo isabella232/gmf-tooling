@@ -10,9 +10,9 @@ package org.eclipse.gmf.internal.xpand.parser;
 
 public interface XpandLexersym {
     public final static int
-      Char_CtlCharNotWS = 100,
-      Char_LF = 97,
-      Char_CR = 98,
+      Char_CtlCharNotWS = 101,
+      Char_LF = 98,
+      Char_CR = 99,
       Char_HT = 88,
       Char_FF = 89,
       Char_a = 15,
@@ -86,14 +86,14 @@ public interface XpandLexersym {
       Char_Exclamation = 75,
       Char_AtSign = 91,
       Char_BackQuote = 92,
-      Char_Acute = 104,
+      Char_Acute = 105,
       Char_Tilde = 93,
       Char_Sharp = 94,
-      Char_DollarSign = 105,
+      Char_DollarSign = 95,
       Char_Ampersand = 67,
-      Char_Caret = 95,
+      Char_Caret = 96,
       Char_Colon = 68,
-      Char_SemiColon = 96,
+      Char_SemiColon = 97,
       Char_BackSlash = 76,
       Char_LeftBrace = 77,
       Char_RightBrace = 78,
@@ -111,10 +111,10 @@ public interface XpandLexersym {
       Char_LeftParen = 86,
       Char_RightParen = 87,
       Char_Equal = 30,
-      Char_AfterASCII = 101,
-      Char_LG = 102,
-      Char_RG = 99,
-      Char_EOF = 103;
+      Char_AfterASCII = 102,
+      Char_LG = 103,
+      Char_RG = 100,
+      Char_EOF = 104;
 
       public final static String orderedTerminalSymbols[] = {
                  "",
@@ -212,6 +212,7 @@ public interface XpandLexersym {
                  "BackQuote",
                  "Tilde",
                  "Sharp",
+                 "DollarSign",
                  "Caret",
                  "SemiColon",
                  "LF",
@@ -221,8 +222,7 @@ public interface XpandLexersym {
                  "AfterASCII",
                  "LG",
                  "EOF",
-                 "Acute",
-                 "DollarSign"
+                 "Acute"
              };
 
     public final static boolean isValidForParser = true;

@@ -537,9 +537,9 @@ public class XtendLexer extends LpgLexStream implements XtendParsersym, XtendLex
 	          break;
             } 
             //
-            // Rule 223:  Token ::= ;
+            // Rule 225:  Token ::= ;
             //
-            case 223: { 
+            case 225: { 
 			makeToken(TK_SEMI);
 	          break;
             }

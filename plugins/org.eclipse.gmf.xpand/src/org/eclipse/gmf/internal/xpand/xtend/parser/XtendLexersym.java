@@ -10,9 +10,9 @@ package org.eclipse.gmf.internal.xpand.xtend.parser;
 
 public interface XtendLexersym {
     public final static int
-      Char_CtlCharNotWS = 99,
-      Char_LF = 97,
-      Char_CR = 98,
+      Char_CtlCharNotWS = 100,
+      Char_LF = 98,
+      Char_CR = 99,
       Char_HT = 89,
       Char_FF = 90,
       Char_a = 13,
@@ -86,12 +86,12 @@ public interface XtendLexersym {
       Char_Exclamation = 75,
       Char_AtSign = 92,
       Char_BackQuote = 93,
-      Char_Acute = 101,
+      Char_Acute = 102,
       Char_Tilde = 94,
       Char_Sharp = 95,
-      Char_DollarSign = 102,
+      Char_DollarSign = 96,
       Char_Ampersand = 67,
-      Char_Caret = 96,
+      Char_Caret = 97,
       Char_Colon = 68,
       Char_SemiColon = 76,
       Char_BackSlash = 77,
@@ -112,7 +112,7 @@ public interface XtendLexersym {
       Char_RightParen = 88,
       Char_Equal = 27,
       Char_AfterASCII = 103,
-      Char_EOF = 100;
+      Char_EOF = 101;
 
       public final static String orderedTerminalSymbols[] = {
                  "",
@@ -211,13 +211,13 @@ public interface XtendLexersym {
                  "BackQuote",
                  "Tilde",
                  "Sharp",
+                 "DollarSign",
                  "Caret",
                  "LF",
                  "CR",
                  "CtlCharNotWS",
                  "EOF",
                  "Acute",
-                 "DollarSign",
                  "AfterASCII"
              };
 

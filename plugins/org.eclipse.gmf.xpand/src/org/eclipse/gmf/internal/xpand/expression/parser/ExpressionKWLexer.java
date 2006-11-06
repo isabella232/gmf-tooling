@@ -43,10 +43,7 @@ public class ExpressionKWLexer extends ExpressionKWLexerprs implements Expressio
 
 
     final static int tokenKind[] = new int[128];
-    static
-    {
-        tokenKind['$'] = Char_DollarSign;
-
+    static {
         tokenKind['a'] = Char_a;
         tokenKind['b'] = Char_b;
         tokenKind['c'] = Char_c;
@@ -102,8 +99,7 @@ public class ExpressionKWLexer extends ExpressionKWLexerprs implements Expressio
         tokenKind['Z'] = Char_Z;
     };
 
-    final int getKind(char c)
-    {
+    final int getKind(char c) {
         return (c < 128 ? tokenKind[c] : 0);
     }
 

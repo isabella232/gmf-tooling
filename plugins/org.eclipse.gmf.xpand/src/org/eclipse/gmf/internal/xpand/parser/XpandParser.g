@@ -13,7 +13,7 @@
 %options fp=XpandParser,prefix=TK_
 %options programming_language=java
 %options package=org.eclipse.gmf.internal.xpand.parser
-%options template=dtParserTemplateD.g
+%options template=../expression/parser/dtParserTemplateD.g
 %options ast_type=Template
 %options import_terminals=XpandLexer.g
 %options lalr=2

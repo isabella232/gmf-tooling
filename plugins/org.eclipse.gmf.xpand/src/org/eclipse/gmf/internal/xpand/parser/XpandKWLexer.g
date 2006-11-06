@@ -12,7 +12,7 @@
 
 %options fp=XpandKWLexer,prefix=Char_
 %options package=org.eclipse.gmf.internal.xpand.parser
-%options template=KeywordTemplateD.g
+%options template=../expression/parser/KeywordTemplateD.g
 %options export_terminals=("XpandParsersym.java", "TK_")
 
 $Import

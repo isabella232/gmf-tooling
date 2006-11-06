@@ -547,23 +547,23 @@ private final static int getNonAsciiKind(char c) {
 	          break;
             } 
             //
-            // Rule 223:  Token ::= LG
+            // Rule 225:  Token ::= LG
             //
-            case 223: { 
+            case 225: { 
 		makeToken(TK_LG);
 	          break;
             } 
             //
-            // Rule 224:  Token ::= RG textAny lgOpt
+            // Rule 226:  Token ::= RG textAny lgOpt
             //
-            case 224: { 
+            case 226: { 
 		makeToken(TK_TEXT);
 	          break;
             } 
             //
-            // Rule 234:  Token ::= R E M RG commentAny lgPlus E N D R E M
+            // Rule 236:  Token ::= R E M RG commentAny lgPlus E N D R E M
             //
-            case 234: { 
+            case 236: { 
 		//makeToken(getRhsFirstTokenIndex(1), getRhsLastTokenIndex(12), TK_COMMENT);
 		makeToken(TK_COMMENT);
 	          break;
