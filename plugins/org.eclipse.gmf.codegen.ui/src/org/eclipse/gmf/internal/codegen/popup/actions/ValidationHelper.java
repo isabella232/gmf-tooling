@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -46,33 +47,35 @@ import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 public class ValidationHelper {
 
 	/**
-	 * Enhanced diagnostician class supporting progress monitoring and object labels. 
+	 * Enhanced diagnostician class supporting progress monitoring and object
+	 * labels.
 	 */
 	private static class SmartDiagnostician extends Diagnostician {
-		
+
 		private static ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		
+
 		private IProgressMonitor monitor;
 
 		/**
 		 * Constructs diagnostician with progress monitor.
 		 * 
-		 * @param progressMonitor non-null progress monitor to track validation progress
+		 * @param progressMonitor
+		 *            non-null progress monitor to track validation progress
 		 */
 		SmartDiagnostician(IProgressMonitor progressMonitor) {
 			this.monitor = progressMonitor;
 		}
-		
+
 		/*
-		 * Utilizes the adapter factory registry to provide labels. 
+		 * Utilizes the adapter factory registry to provide labels.
 		 */
-		@Override		
+		@Override
 		public String getObjectLabel(EObject eObject) {
-			if(eObject != null) {
-				IItemLabelProvider itemLabelProvider = (IItemLabelProvider)adapterFactory.adapt(eObject, IItemLabelProvider.class);
+			if (eObject != null) {
+				IItemLabelProvider itemLabelProvider = (IItemLabelProvider) adapterFactory.adapt(eObject, IItemLabelProvider.class);
 				if (itemLabelProvider != null) {
 					return itemLabelProvider.getText(eObject);
-				}	
+				}
 			} else {
 				return ""; //$NON-NLS-1$
 			}
@@ -83,15 +86,19 @@ public class ValidationHelper {
 		 * Notifies the monitor about the unit of work done.
 		 */
 		@Override
-        public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context)
-        {
-          monitor.worked(1);
-          return super.validate(eClass, eObject, diagnostics, context);
-        }
+		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+			if(monitor.isCanceled()) {
+				return true;
+			}
+
+			monitor.worked(1);
+			return super.validate(eClass, eObject, diagnostics, context);
+		}
 	}	
 		
 	/**
-	 * Helper class for binding validation diagnostics to corresponding problem markers.
+	 * Helper class for binding validation diagnostics to corresponding problem
+	 * markers.
 	 */
 	private static class GMFMarkerHelper extends EditUIMarkerHelper {
 		
@@ -111,7 +118,7 @@ public class ValidationHelper {
 
 			// adjust marker to support IGotoMarker for standard EMF generated editors 
 			List data = diagnostic.getData();
-			if (!data.isEmpty()) {
+			if (data != null && !data.isEmpty()) {
 				Object target = data.get(0);
 				if (target instanceof EObject) {
 					marker.setAttribute(EValidator.URI_ATTRIBUTE, EcoreUtil.getURI((EObject) target).toString());
@@ -186,7 +193,10 @@ public class ValidationHelper {
 	
 	/**
 	 * Indicates whether the severiti of the given diagnostic matches the given 
-	 * bitmask.
+	 * bitmask.<p>
+	 * Note that a diagnostic with severity <code>OK</code> will never match; 
+	 * use <code>isOK</code> instead to detect a diagnostic with a severity of <code>OK</code>.
+	 *  
 	 * @param diagnostic a diagnostic to test for severity match
 	 * @param severityBitMask a mask formed by bitwise or'ing severity mask constants
 	 * 	(<code>ERROR</code>, <code>WARNING</code>, <code>INFO</code>, <code>CANCEL</code>)
@@ -200,7 +210,18 @@ public class ValidationHelper {
 	 */
     public static boolean matches(Diagnostic diagnostic, int severityBitMask) {
     	return (diagnostic.getSeverity() & severityBitMask) != 0;
-    }	
+    }
+    
+	/**
+	 * Returns whether this diagnostic indicates everything is OK. (neither
+	 * info, warning, nor error).
+	 * 
+	 * @return <code>true</code> if this diagnostic has severity
+	 *         <code>OK</code>, and <code>false</code> otherwise
+	 */    
+    public static boolean isOK(Diagnostic diagnostic) {
+    	return diagnostic.getSeverity() == Diagnostic.OK;
+    }
 
     /**
 	 * Validates the given <code>EObject</code> and its all contents.
@@ -225,24 +246,28 @@ public class ValidationHelper {
 	 * @return the validation result diagnostic
 	 */
 	public static Diagnostic validate(EObject eObject, boolean createMarkers, IProgressMonitor progressMonitor) {		
-		IProgressMonitor monitor = (progressMonitor != null) ? progressMonitor : new NullProgressMonitor(); 
-		try {
-			int count = 0;
-			for (Iterator i = eObject.eAllContents(); i.hasNext(); i.next()) {
-				++count;
+		IProgressMonitor monitor = null;
+		try {			
+			int count = IProgressMonitor.UNKNOWN;
+			if(progressMonitor != null) {
+				for (Iterator i = eObject.eAllContents(); i.hasNext(); i.next()) {
+					++count;
+				}
 			}
 
+			monitor = (progressMonitor != null) ? new SubProgressMonitor(progressMonitor, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
 		    monitor.beginTask("", count); //$NON-NLS-1$
-		    
-			Diagnostic validationStatus = new SmartDiagnostician(monitor).validate(eObject);
+		    monitor.subTask(Messages.ValidationHelper_validationTaskLabel);
+			
+		    Diagnostic validationStatus = new SmartDiagnostician(monitor).validate(eObject);
 			if(validationStatus.getSeverity() == Diagnostic.CANCEL) {
 				return validationStatus;
 			}
 				
-			List<Object> data = validationStatus.getData();
+			List<Object> data = validationStatus.getData() != null ? (List<Object>)validationStatus.getData() : Collections.emptyList();			
 			if(createMarkers) {
 				DiagnosticMarkerMap markerMap = createMarkers(validationStatus);			
-				data = new ArrayList<Object>(data.size() + 1);
+				data = new ArrayList<Object>(data);
 				data.add(markerMap);
 			}
 			
@@ -288,7 +313,8 @@ public class ValidationHelper {
 	 * @see #validate(EObject, boolean, IProgressMonitor)
 	 */
 	public static DiagnosticMarkerMap getDiagnosticMarkerMap(Diagnostic diagnostic) {
-		for (Iterator it = diagnostic.getData().iterator(); it.hasNext();) {
+		List data = (diagnostic.getData() != null) ? diagnostic.getData() : Collections.EMPTY_LIST;
+		for (Iterator it = data.iterator(); it.hasNext();) {
 			Object dataItem = it.next();
 			if (dataItem instanceof DiagnosticMarkerMap) {
 				return (DiagnosticMarkerMap) dataItem;

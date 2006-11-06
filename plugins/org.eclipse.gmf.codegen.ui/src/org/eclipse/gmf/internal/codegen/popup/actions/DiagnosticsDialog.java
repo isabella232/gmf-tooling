@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.codegen.popup.actions;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,12 +28,14 @@ import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.popup.actions.ValidationHelper.DiagnosticMarkerMap;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IconAndMessageDialog;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
@@ -43,6 +44,7 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -194,12 +196,7 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
      * Indicates whether the error details viewer is currently created.
      */
     private boolean detailsCreated = false;
-
-    /**
-     * Filter mask for determining which rootDiagnotic items to display.
-     */
-    private int displayMask = 0xFFFF;
-
+  
     /**
      * The main rootDiagnotic object.
      */
@@ -211,49 +208,55 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
     private Clipboard clipboard;
 
 	private boolean shouldIncludeTopLevelErrorInDetails;	
-	private boolean showProceedButton;
+	
+	private final String[] buttonLabels;
+
+	private final int[] buttonIDs;
+	
+	private final int defaultButtonIndex;
 	
     /**
-     * Creates an error dialog. Note that the dialog will have no visual
+     * Creates an diagnostic dialog. Note that the dialog will have no visual
      * representation (no widgets) until it is told to open.
      * <p>
-     * Normally one should use <code>openError</code> to create and open one
-     * of these. This constructor is useful only if the error object being
-     * displayed contains child items <it>and </it> you need to specify a mask
-     * which will be used to filter the displaying of these children.
-     * </p>
      * 
      * @param parentShell
      *            the shell under which to create this dialog
      * @param dialogTitle
      *            the title to use for this dialog, or <code>null</code> to
      *            indicate that the default title should be used
-     * @param message
+     * @param dialogMessage
      *            the message to show in this dialog, or <code>null</code> to
      *            indicate that the error's message should be shown as the
      *            primary message
-     * @param rootDiagnotic
+     * @param diagnostic
      *            the diagnostic grouping all errors to be shown to the user
-     * @param displayMask
-     *            the mask to use to filter the displaying of child items, as
-     *            per {@link ValidationHelper#matches(Diagnostic, int)}
-     *            
-     * @see org.eclipse.core.runtime.IStatus#matches(int)
+     * @param dialogButtonLabels array of labels for buttons to create in the dialog button bar
+     * @param dialogButtonIDs array of IDs for buttons to create in the dialog button bar
+     * @param defaultDialogButtonIndex the index of the default button
      */
-    public DiagnosticsDialog(Shell parentShell, String dialogTitle, String message,
-            Diagnostic diagnostic, int displayMask, boolean showProceedButton) {
+    public DiagnosticsDialog(Shell parentShell, String dialogTitle, String dialogMessage,
+            Diagnostic diagnostic, String[] dialogButtonLabels, int[] dialogButtonIDs, int defaultDialogButtonIndex) {
         super(parentShell);
         
         if(diagnostic == null) {
         	throw new IllegalArgumentException("Null diagnostic"); //$NON-NLS-1$
         }
         
-        this.title = dialogTitle == null ? "" : dialogTitle; //$NON-NLS-1$;
-        this.message = message == null ? diagnostic.getMessage() : MessageFormat.format("Reason {0}. {1}", new Object[] { message, diagnostic.getMessage() }); //$NON-NLS-1$
+        this.title = (dialogTitle == null) ? JFaceResources.getString("Problem_Occurred") : dialogTitle; //$NON-NLS-1$
+        this.message = (dialogMessage == null) ? diagnostic.getMessage() : 
+        	JFaceResources.format("Reason", new Object[] { dialogMessage, diagnostic.getMessage() }); //$NON-NLS-1$;
+        
         this.rootDiagnotic = diagnostic;
-        this.displayMask = (displayMask != 0) ? displayMask : Diagnostic.ERROR | Diagnostic.WARNING | Diagnostic.INFO;
-        this.showProceedButton = showProceedButton;
-        this.shouldIncludeTopLevelErrorInDetails = true;        
+        this.shouldIncludeTopLevelErrorInDetails = true;
+        
+        assert dialogButtonIDs != null && dialogButtonLabels != null; 
+        assert dialogButtonIDs.length == dialogButtonLabels.length;        
+        assert defaultDialogButtonIndex >= 0 && defaultDialogButtonIndex < dialogButtonIDs.length;
+        
+        buttonIDs = dialogButtonIDs;
+        buttonLabels = dialogButtonLabels;
+        defaultButtonIndex = defaultDialogButtonIndex;
         
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }
@@ -279,12 +282,10 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-    	if(showProceedButton) {
-    		createButton(parent, IDialogConstants.PROCEED_ID, IDialogConstants.PROCEED_LABEL, true);
-    	}
-        createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, !showProceedButton);        
-        
-        createDetailsButton(parent);
+		for (int i = 0; i < buttonLabels.length; i++) {
+			createButton(parent, buttonIDs[i], buttonLabels[i], defaultButtonIndex == i);
+		}
+    	createDetailsButton(parent);
     }
 
 	protected void createDetailsButton(Composite parent) {
@@ -367,82 +368,16 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
         
         diagnosticTree.setLabelProvider(new DiagnosticLabelProvider());                
         diagnosticTree.setContentProvider(new DiagnosticContentProvider(shouldIncludeTopLevelErrorInDetails));                
-        diagnosticTree.setInput(rootDiagnotic);
+        diagnosticTree.setInput(rootDiagnotic);    
+
+    	diagnosticTree.expandToLevel(2);
+        diagnosticTree.setSelection(new StructuredSelection(rootDiagnotic), true);    	
+    	diagnosticTree.getTree().setFocus();         
     }
 
     /**
-     * Extends <code>Window.open()</code>. Opens an error dialog to display
-     * the error. If you specified a mask to filter the displaying of these
-     * children, the error dialog will only be displayed if there is at least
-     * one child rootDiagnotic matching the mask.
-     */
-	@Override
-    public int open() {
-        if (shouldDisplay(rootDiagnotic, displayMask)) {
-            return super.open();
-        }
-        setReturnCode(OK);
-        return OK;
-    }
-
-    /**
-     * Opens an error dialog to display the given error. Use this method if the
-     * error object being displayed does not contain child items, or if you wish
-     * to display all such items without filtering.
-     * 
-     * @param parent
-     *            the parent shell of the dialog, or <code>null</code> if none
-     * @param dialogTitle
-     *            the title to use for this dialog, or <code>null</code> to
-     *            indicate that the default title should be used
-     * @param message
-     *            the message to show in this dialog, or <code>null</code> to
-     *            indicate that the error's message should be shown as the
-     *            primary message
-     * @param rootDiagnotic
-     *            the error to show to the user
-     * @return the code of the button that was pressed that resulted in this
-     *         dialog closing. This will be <code>Dialog.OK</code> if the OK
-     *         button was pressed, or <code>Dialog.CANCEL</code> if this
-     *         dialog's close window decoration or the ESC key was used.
-     */
-    public static int openError(Shell parent, String dialogTitle,
-            String message, Diagnostic status) {
-        return openError(parent, dialogTitle, message, status, Diagnostic.OK
-                | Diagnostic.INFO | Diagnostic.WARNING | Diagnostic.ERROR);
-    }
-    
-    /**
-     * Opens an error dialog to display the given error. Use this method if the
-     * error object being displayed does not contain child items, or if you wish
-     * to display all such items without filtering.
-     * 
-     * @param parent
-     *            the parent shell of the dialog, or <code>null</code> if none
-     * @param dialogTitle
-     *            the title to use for this dialog, or <code>null</code> to
-     *            indicate that the default title should be used
-     * @param message
-     *            the message to show in this dialog, or <code>null</code> to
-     *            indicate that the error's message should be shown as the
-     *            primary message
-     * @param rootStatus
-     *            the error to show to the user
-     * @return the code of the button that was pressed that resulted in this
-     *         dialog closing. This will be <code>Dialog.OK</code> if the OK
-     *         button was pressed, or <code>Dialog.CANCEL</code> if this
-     *         dialog's close window decoration or the ESC key was used.
-     */    
-    public static int openErrorStatus(Shell parent, String dialogTitle, String message, IStatus status) {
-        return openError(parent, dialogTitle, message, toDiagnostic(status));
-    }    
-
-    /**
-     * Opens an error dialog to display the given error. Use this method if the
-     * error object being displayed contains child items <it>and </it> you wish
-     * to specify a mask which will be used to filter the displaying of these
-     * children. The error dialog will only be displayed if there is at least
-     * one child rootDiagnotic matching the mask.
+     * Opens an dialog to display the given diagnostic and proceed, cancel buttons.
+     * <p>
      * 
      * @param parentShell
      *            the parent shell of the dialog, or <code>null</code> if none
@@ -454,48 +389,88 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
      *            indicate that the error's message should be shown as the
      *            primary message
      * @param rootDiagnotic
-     *            the error to show to the user
-     * @param displayMask
-     *            the mask to use to filter the displaying of child items, as
-     *            per {@link ValidationHelper#matches(Diagnostic, int)}
+     *            the diagnostic to show to the user
+     *            
      * @return the code of the button that was pressed that resulted in this
      *         dialog closing. This will be <code>Dialog.OK</code> if the OK
-     *         button was pressed, or <code>Dialog.CANCEL</code> if this
-     *         dialog's close window decoration or the ESC key was used.
-     *         
-     * @see ValidationHelper#matches(Diagnostic, int)
+     *         or <code>Dialog.CANCEL</code> if this dialog's close window decoration 
+     *         or the ESC key was used.         
      */
-    public static int openError(Shell parentShell, String title, String message, Diagnostic rootDiagnostic, int displayMask) {
-        DiagnosticsDialog dialog = new DiagnosticsDialog(parentShell, title, message, rootDiagnostic, displayMask, true);
+    public static int openProceedCancel(Shell parentShell, String title, String message, Diagnostic rootDiagnostic) {
+    	return openProceedCancel(parentShell, title, message, rootDiagnostic, false);
+    }
+    
+    /**
+	 * Opens an dialog to display the given diagnostic and proceed, cancel
+	 * buttons.
+	 * <p>
+	 * 
+	 * @param parentShell
+	 *            the parent shell of the dialog, or <code>null</code> if none
+	 * @param title
+	 *            the title to use for this dialog, or <code>null</code> to
+	 *            indicate that the default title should be used
+	 * @param message
+	 *            the message to show in this dialog, or <code>null</code> to
+	 *            indicate that the error's message should be shown as the
+	 *            primary message
+	 * @param rootDiagnotic
+	 *            the diagnostic to show to the user
+	 * 
+	 * @param disableProceed
+	 *            indicates whether the <code>PROCEED</code> button should be
+	 *            disabled.
+	 * @return the code of the button that was pressed that resulted in this
+	 *         dialog closing. This will be <code>Dialog.OK</code> if the OK
+	 *         or <code>Dialog.CANCEL</code> if this dialog's close window
+	 *         decoration or the ESC key was used.
+	 */
+    public static int openProceedCancel(Shell parentShell, String title, String message, Diagnostic rootDiagnostic, final boolean disableProceed) {
+        DiagnosticsDialog dialog = new DiagnosticsDialog(parentShell, title, message, rootDiagnostic, 
+        		new String[] { IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL },
+        		new int[] { IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID }, 0) {
+        	@Override
+        	protected Control createButtonBar(Composite parent) {        
+        		Control buttonBar = super.createButtonBar(parent);
+        		Button proceedButton = getButton(IDialogConstants.PROCEED_ID);
+        		assert proceedButton != null;
+        		
+        		if(proceedButton != null) {
+        			proceedButton.setEnabled(!disableProceed);
+        		}
+        		return buttonBar;
+        	}
+        };
         return dialog.open();
     }
-
-    /**
-     * Returns whether the given rootDiagnotic object should be displayed.
-     * 
-     * @param rootDiagnotic
-     *            a rootDiagnotic object
-     * @param mask
-     *            a mask as per <code>IStatus.matches</code>
-     * @return <code>true</code> if the given rootDiagnotic should be displayed, and
-     *         <code>false</code> otherwise
-     * @see org.eclipse.core.runtime.IStatus#matches(int)
-     */
-    protected static boolean shouldDisplay(Diagnostic status, int mask) {
-        List children = status.getChildren();
-        if (children == null || children.isEmpty()) {
-            return ValidationHelper.matches(status, mask);
-        }
-        for (Iterator it = children.iterator(); it.hasNext();) {
-			Diagnostic nextDiagnostic = (Diagnostic) it.next();
-            if (ValidationHelper.matches(nextDiagnostic, mask)) {
-				return true;
-			}
-        }
-        return false;
-    }
-
     
+    /**
+	 * Opens an dialog to display the given diagnostic and <code>OK</code> button.
+	 * <p>
+	 * 
+	 * @param parentShell
+	 *            the parent shell of the dialog, or <code>null</code> if none
+	 * @param title
+	 *            the title to use for this dialog, or <code>null</code> to
+	 *            indicate that the default title should be used
+	 * @param message
+	 *            the message to show in this dialog, or <code>null</code> to
+	 *            indicate that the error's message should be shown as the
+	 *            primary message
+	 * @param rootDiagnotic
+	 *            the diagnostic to show to the user
+	 *
+	 * @return the code of the button that was pressed that resulted in this
+	 *         dialog closing. This will be <code>Dialog.OK</code> if the OK
+	 *         or <code>Dialog.CANCEL</code> if this dialog's close window
+	 *         decoration or the ESC key was used.
+	 */
+    public static int openOk(Shell parentShell, String title, String message, Diagnostic rootDiagnostic) {
+        return new DiagnosticsDialog(parentShell, title, message, rootDiagnostic, 
+        		new String[] { IDialogConstants.OK_LABEL },
+        		new int[] { IDialogConstants.OK_ID }, 0).open();
+    }    
+
     private Object getSelection() {
         if (diagnosticTree != null && !diagnosticTree.getTree().isDisposed()) {
 	        ISelection selection = diagnosticTree.getSelection();
@@ -510,12 +485,7 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
     private Diagnostic getDiagnosticSelection() {
     	Object selection = getSelection();
     	return selection instanceof Diagnostic ? (Diagnostic)selection : null; 
-    }
-    
-    private Throwable getExceptionSelection() {
-    	Diagnostic selection = getDiagnosticSelection();
-    	return selection.getException();
-    }    
+    } 
     
     /**
      * Toggles the unfolding of the details area. This is triggered by the user
@@ -548,9 +518,7 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
      */
     private void populateCopyBuffer(Diagnostic buildingDiagnostic,
             StringBuffer buffer, int nesting) {
-        if (!ValidationHelper.matches(buildingDiagnostic, displayMask)) {
-            return;
-        }
+ 
         for (int i = 0; i < nesting; i++) {
             buffer.append(NESTING_INDENT);
         }
@@ -615,10 +583,10 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
         
     private void createDetailsArea(Composite parent) {
     	createDropDownTree(parent);
-    	createDropDownText(parent);
+    	createDropDownText(parent, diagnosticTree.getTree().getBackground());
     	
-    	this.diagnosticTree.addSelectionChangedListener(new ISelectionChangedListener() {
-			public void selectionChanged(SelectionChangedEvent event) {				
+    	this.diagnosticTree.addPostSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
 				Throwable throwable = getExceptionSelection();
 				String textValue = ""; //$NON-NLS-1$
 				if(throwable != null) {
@@ -638,22 +606,22 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
 				stackTraceText.setText(textValue);				
 			}
     	});
-    	
-    	this.detailsCreated = true;    	
+    	   	
+    	this.detailsCreated = true;
     }
     
-    private void createDropDownText(Composite parent) {
+    private void createDropDownText(Composite parent, Color backgroundColor) {
         // create the list
-    	stackTraceText = new Text(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+    	stackTraceText = new Text(parent, SWT.BORDER | SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
+    	stackTraceText.setBackground(backgroundColor);
         stackTraceText.setFont(parent.getFont());
 
-        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-                | GridData.GRAB_HORIZONTAL | GridData.VERTICAL_ALIGN_FILL
-                | GridData.GRAB_VERTICAL);
+        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL | 
+        		GridData.VERTICAL_ALIGN_FILL | GridData.GRAB_VERTICAL);        
         data.heightHint = stackTraceText.getLineHeight() * STACK_TRACE_TEXT_LINE_COUNT;
         data.horizontalSpan = 2;
         stackTraceText.setLayoutData(data);
-        
+       
         stackTraceText.setToolTipText(Messages.DiagnosticsDialog_exceptStackTrace_toolTip);
     }    
     
@@ -758,7 +726,12 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
 		}
     }    
     
-	private static Diagnostic toDiagnostic(IStatus status) {
+	private Throwable getExceptionSelection() {
+		Diagnostic selection = getDiagnosticSelection();
+		return (selection != null) ? selection.getException() : null;
+	}
+
+	static Diagnostic toDiagnostic(IStatus status) {
 		Object[] data = null;
 		if(status.getException() != null) {
 			data = new Object[] { status.getException() }; 			

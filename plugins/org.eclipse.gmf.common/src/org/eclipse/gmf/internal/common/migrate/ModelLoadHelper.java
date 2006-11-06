@@ -14,10 +14,10 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -32,26 +32,9 @@ public class ModelLoadHelper {
 	private static final String DIAGNOSTIC_SOURCE = "gmf.common.modelLoadHelper"; //$NON-NLS-1$
 	
 	private IStatus status;
+	private Diagnostic diagnostic;	
 	private URI uri;
 	private ResourceSet resourceSet;
-	
-	/**
-	 * Constructs helper for loading resource refered by URI into given
-	 * resourceset.
-	 * 
-	 * @param targetResSet
-	 *            resourceset into which the resource will be loaded
-	 * @param resourceURI
-	 *            URI referencing the resource to load
-	 */
-	public ModelLoadHelper(ResourceSet targetResSet, URI resourceURI) {
-		if(targetResSet == null || resourceURI == null) {
-			throw new IllegalArgumentException("null resourceSet or resourceURI"); //$NON-NLS-1$
-		}
-		this.resourceSet = targetResSet;
-		this.uri = resourceURI;
-		this.status = internalLoad(targetResSet, uri);
-	}
 	
 	/**
 	 * Gets resource loaded by this helper.
@@ -73,17 +56,80 @@ public class ModelLoadHelper {
 		return null;
 	}
 
+	public boolean isOK() {
+		return diagnostic.getSeverity() == Diagnostic.OK;
+	}
+	
 	/**
 	 * Gets the status resulted from the load resource operation.
 	 * @return the status object
 	 */
 	public IStatus getStatus() {
+		if(status == null) {
+			status = BasicDiagnostic.toIStatus(diagnostic);
+		}
 		return status;
 	}
 	
+	public Diagnostic getDiagnostics() {
+		return diagnostic;
+	}
+	
+	/**
+	 * Creates resource diagnostic wrapping the given exception.
+	 * @param resource the resource associated with the created diagnostic
+	 * @param exception non-<code>null</code> exception to be wrapped as diagnostic
+	 * 
+	 * @return diagnostic object
+	 */
+	static Resource.Diagnostic createDiagnostic(Resource resource, Exception exception) {
+		if(exception == null) {
+			throw new IllegalArgumentException("null diagnostic exception"); //$NON-NLS-1$
+		}
+		final String location = resource.getURI() == null ? null : resource.getURI().toString();
+		class ExceptionDiagnostic extends WrappedException implements Resource.Diagnostic {
+			
+			public ExceptionDiagnostic(Exception exception) {
+				super(exception);
+			}
+	
+			public String getLocation() {
+				return location;
+			}
+	
+			public int getColumn() {
+				return 0;
+			}
+	
+			public int getLine() {
+				return 0;
+			}
+		}
+		
+		return new ExceptionDiagnostic(exception);
+	}
+	
+	/**
+	 * Constructs helper for loading resource refered by URI into given
+	 * resourceset.
+	 * 
+	 * @param targetResSet
+	 *            resourceset into which the resource will be loaded
+	 * @param resourceURI
+	 *            URI referencing the resource to load
+	 */
+	public ModelLoadHelper(ResourceSet targetResSet, URI resourceURI) {
+		if(targetResSet == null || resourceURI == null) {
+			throw new IllegalArgumentException("null resourceSet or resourceURI"); //$NON-NLS-1$
+		}
+		this.resourceSet = targetResSet;
+		this.uri = resourceURI;
+		this.diagnostic = internalLoad(targetResSet, uri);
+	}	
+
 	@SuppressWarnings("unchecked")
-	private static IStatus internalLoad(ResourceSet resourceSet, URI uri) {
-		IStatus loadStatus = Status.OK_STATUS;
+	private static Diagnostic internalLoad(ResourceSet resourceSet, URI uri) {
+		Diagnostic diagnostic = Diagnostic.OK_INSTANCE;
 		Resource resource = resourceSet.createResource(uri);
 		assert resource != null;
 		Exception rootException = null;
@@ -94,7 +140,7 @@ public class ModelLoadHelper {
 			//no need to include in resource.getErrors(), as it done automatically. 
 		} catch(RuntimeException e) {			
 			EcorePlugin.INSTANCE.getPluginLogger().log(e);			
-			resource.getErrors().add(MigrationUtil.createDiagnostic(resource, e));
+			resource.getErrors().add(ModelLoadHelper.createDiagnostic(resource, e));
 		}
 		
 		if(!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
@@ -104,9 +150,9 @@ public class ModelLoadHelper {
 					 new Object[] { severityOpt, resource.getURI() });			
 			
 			BasicDiagnostic loadDiagnostic = new BasicDiagnostic(DIAGNOSTIC_SOURCE, resourceDiagnostic.getCode(), message, (rootException != null) ? new Object[] { rootException } : null);
-			loadDiagnostic.addAll(resourceDiagnostic);			
-			loadStatus = BasicDiagnostic.toIStatus(loadDiagnostic);
+			loadDiagnostic.addAll(resourceDiagnostic);
+			diagnostic = loadDiagnostic;
 		}
-		return loadStatus;
+		return diagnostic;
 	}
 }

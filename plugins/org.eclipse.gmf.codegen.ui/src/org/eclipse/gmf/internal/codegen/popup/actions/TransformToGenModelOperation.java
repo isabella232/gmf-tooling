@@ -25,13 +25,12 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
@@ -59,6 +58,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -165,23 +165,20 @@ public class TransformToGenModelOperation {
 		}
 
 		final Mapping mapping = (Mapping) loadHelper.getContentsRoot();
-		IStatus mapIsValid = validate(mapping);
-		if (mapIsValid.matches(IStatus.CANCEL)) {
+		Diagnostic mapIsValid = validate(mapping);
+		if (ValidationHelper.matches(mapIsValid, Diagnostic.CANCEL)) {
 			return;
 		}
-		if (mapIsValid.matches(IStatus.ERROR)) {
-			final String[] buttons = new String[] { IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
-			final int[] buttonIDs = new int[] { IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+		if (ValidationHelper.matches(mapIsValid, Diagnostic.ERROR)) {
 			final String msg = CodeGenUIPlugin.getBundleString("transform.err"); //$NON-NLS-1$
-			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), getName(), msg, mapIsValid, buttons, buttonIDs, 0);
-			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+			if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), msg, mapIsValid) == IDialogConstants.CANCEL_ID) {
 				return;
 			}
-		} else if ((mapIsValid.matches(IStatus.INFO | IStatus.WARNING))) {
+		} else if ((ValidationHelper.matches(mapIsValid, Diagnostic.INFO | Diagnostic.WARNING))) {
 			if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_WARN))) {
 				String warn = CodeGenUIPlugin.getBundleString("transform.warn"); //$NON-NLS-1$
 				String nwarn = CodeGenUIPlugin.getBundleString("transform.neverwarn"); //$NON-NLS-1$
-				if (MessageDialogWithToggle.OK != MessageDialogWithToggle.openOkCancelConfirm(getShell(), getName(), warn, nwarn, false, getPreferences(), ASK_WARN).getReturnCode()) {
+				if (Window.OK != MessageDialogWithToggle.openOkCancelConfirm(getShell(), getName(), warn, nwarn, false, getPreferences(), ASK_WARN).getReturnCode()) {
 					return;
 				}
 			}
@@ -268,7 +265,8 @@ public class TransformToGenModelOperation {
 					if (monitor.isCanceled()) {
 						return Status.CANCEL_STATUS;
 					}
-					return validate(genEditor);
+
+					return validate(genEditor, monitor);
 				} catch (IOException ex) {
 					return CodeGenUIPlugin.createError(ex.getMessage(), ex);
 				} catch (IllegalArgumentException ex) {
@@ -277,17 +275,21 @@ public class TransformToGenModelOperation {
 					monitor.done();
 				}
 			}
-
-			private IStatus validate(GenEditorGenerator genBurdern) {
-				Diagnostic d = ValidationHelper.validate(genBurdern, true);
-				if (d.getSeverity() == Diagnostic.OK) {
-					return Status.OK_STATUS;
-				}
-				if ((d.getSeverity() & Diagnostic.CANCEL) != 0) {
+			
+			
+			private IStatus validate(GenEditorGenerator genBurdern, IProgressMonitor monitor) {
+				final Diagnostic d = ValidationHelper.validate(genBurdern, true, monitor);
+				if(ValidationHelper.matches(d, Diagnostic.ERROR)) {
+					Display.getDefault().asyncExec(new Runnable() {
+				           public void run() {
+				        	   DiagnosticsDialog.openOk(getShell(), getName(), CodeGenUIPlugin.getBundleString("transform.result.error"), d); //$NON-NLS-1$
+				           }
+				        });						
+				}				
+				if (ValidationHelper.matches(d, Diagnostic.CANCEL)) {
 					return Status.CANCEL_STATUS;
-				} else {
-					return BasicDiagnostic.toIStatus(d);
 				}
+				return Status.OK_STATUS;
 			}
 
 			@SuppressWarnings("unchecked")
@@ -299,7 +301,7 @@ public class TransformToGenModelOperation {
 
 			protected Map getSaveOptions() {
 				HashMap<String, Object> saveOptions = new HashMap<String, Object>();
-				saveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+				saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 				return saveOptions;
 			}
 
@@ -356,16 +358,11 @@ public class TransformToGenModelOperation {
 	 */
 	private boolean canProcessMappingModel(ModelLoadHelper loadHelper) {
 		if (!loadHelper.getStatus().isOK()) {
-			String[] buttons = new String[] { IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
-			int[] buttonIDs = new int[] { IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
-
-			if (!(loadHelper.getContentsRoot() instanceof Mapping)) {
-				// we cannot proceed further as there is no mapping, allow only cancel
-				buttons = new String[] { buttons[1] };
-				buttonIDs = new int[] { buttonIDs[1] };
-			}
-			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), getName(), CodeGenUIPlugin.getBundleString("transform.err"), loadHelper.getStatus(), buttons, buttonIDs, 0); //$NON-NLS-1$
-			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+			boolean disableProceed = !(loadHelper.getContentsRoot() instanceof Mapping);
+			String message = CodeGenUIPlugin.getBundleString("transform.err"); //$NON-NLS-1$
+			Diagnostic loadDiagnostic = DiagnosticsDialog.toDiagnostic(loadHelper.getStatus());
+			
+			if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), message, loadDiagnostic, disableProceed) == IDialogConstants.CANCEL_ID) {
 				return false;
 			}
 		}
@@ -420,25 +417,26 @@ public class TransformToGenModelOperation {
 		return drtModelHelper;
 	}
 
-	private IStatus validate(final Mapping mapping) {
+	private Diagnostic validate(final Mapping mapping) {
 		IProgressService progressService = PlatformUI.getWorkbench().getProgressService();
 		final Diagnostic[] result = new Diagnostic[1];
 		try {
 			progressService.run(false, true, new IRunnableWithProgress() {
 
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+					monitor.beginTask("", 1); //$NON-NLS-1$					
 					result[0] = ValidationHelper.validate(mapping, true, monitor);
 					monitor.done();
 				}
 			});
 			if (result[0] == null) {
-				return Status.CANCEL_STATUS;
+				return Diagnostic.CANCEL_INSTANCE;
 			}
-			return BasicDiagnostic.toIStatus(result[0]);
+			return result[0];
 		} catch (InvocationTargetException ex) {
-			return Status.CANCEL_STATUS;
+			return Diagnostic.CANCEL_INSTANCE;
 		} catch (InterruptedException ex) {
-			return Status.CANCEL_STATUS;
+			return Diagnostic.CANCEL_INSTANCE;
 		}
 	}
 
@@ -449,7 +447,7 @@ public class TransformToGenModelOperation {
 		// IPath p = myMapFile.getFullPath();
 		// String defValue = p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("genmodel").toString();
 		InputDialog dlg = new InputDialog(getShell(), "Diagram RunTime Model", "Please specify path to genmodel file that describes specific diagram runtime model, or press Cancel if you don't need one", null, null);
-		if (dlg.open() == InputDialog.OK) {
+		if (dlg.open() == Window.OK) {
 			return URI.createPlatformResourceURI(dlg.getValue());
 		}
 		return null;

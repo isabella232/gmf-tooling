@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -94,19 +94,16 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 			return;
 		}
 		try {
-			IStatus loadStatus = loadGenModel();
+			Diagnostic loadStatus = loadGenModel();
 			if (!canProcessGMFGenModel(loadStatus)) {
 				return;
 			}
 
 			assert getGenModel() != null;
-			IStatus isGenModelValid = validateGenModel();
-			if (!isGenModelValid.isOK()) {
-				final String[] buttons = new String[] { IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
-				final int[] buttonIDs = new int[] { IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+			Diagnostic isGenModelValid = validateGenModel();
+			if (!ValidationHelper.isOK(isGenModelValid)) {
 				final String msg = CodeGenUIPlugin.getBundleString("generatecode.badsrc"); //$NON-NLS-1$
-				ErrorDialogEx dlg = new ErrorDialogEx(getShell(), getName(), msg, isGenModelValid, buttons, buttonIDs, 0);
-				if (dlg.open() == IDialogConstants.CANCEL_ID) {
+				if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), msg, isGenModelValid) == IDialogConstants.CANCEL_ID) {
 					return;
 				}
 			}
@@ -145,18 +142,11 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 	 *            the action in execution
 	 * @return <code>true</code> if gmfgen model is available with OK status or in case of load problems, user decided to proceed, <code>false</code> otherwise.
 	 */
-	private boolean canProcessGMFGenModel(IStatus loadStatus) {
-		if (!loadStatus.isOK()) {
-			String[] buttons = new String[] { IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
-			int[] buttonIDs = new int[] { IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
-			if (myGenModel == null) {
-				// we cannot proceed further as there is no gmfgen, allow only cancel
-				buttons = new String[] { buttons[1] };
-				buttonIDs = new int[] { buttonIDs[1] };
-			}
-			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.badsrc"), //$NON-NLS-1$ 
-					loadStatus, buttons, buttonIDs, 0);
-			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+	private boolean canProcessGMFGenModel(Diagnostic loadStatus) {
+		if (!ValidationHelper.isOK(loadStatus)) {
+			boolean disableProceed = myGenModel == null; // we cannot proceed further as there is no gmfgen, disable proceed button
+			if (IDialogConstants.CANCEL_ID == 
+				DiagnosticsDialog.openProceedCancel(getShell(), getName(), null, loadStatus, disableProceed)) {
 				return false;
 			}
 		}
@@ -194,7 +184,7 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		return myGenModel;
 	}
 
-	private IStatus loadGenModel() {
+	private Diagnostic loadGenModel() {
 		ResourceSet srcResSet = new ResourceSetImpl();
 		ModelLoadHelper loadHelper = new ModelLoadHelper(srcResSet, getGenModelURI());
 		Object root = loadHelper.getContentsRoot();
@@ -206,7 +196,7 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		if (myGenModel != null && myGenModel.getDomainGenModel() != null) {
 			myGenModel.getDomainGenModel().reconcile();
 		}
-		return loadHelper.getStatus();
+		return loadHelper.getDiagnostics();
 	}
 
 	private void unloadGenModel() {
@@ -216,8 +206,8 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		myGenModel = null;
 	}
 
-	private IStatus validateGenModel() {
-		return BasicDiagnostic.toIStatus(ValidationHelper.validate(getGenModel(), true));
+	private Diagnostic validateGenModel() {
+		return ValidationHelper.validate(getGenModel(), true);
 	}
 
 	private static IPreferenceStore getPreferences() {

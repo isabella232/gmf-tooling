@@ -119,7 +119,7 @@ public class GenericMigrationTest extends TestCase {
 				}
 
 			});
-			Resource migrated = MigrationUtil.migrateModel(uri);
+			Resource migrated = MigrationUtil.migrateModel(uri).getLoadedResource();
 			assertNotNull(migrated);
 			assertTrue(migrated.getErrors().isEmpty() && migrated.getWarnings().isEmpty());
 			assertEquals(1, migrated.getContents().size());

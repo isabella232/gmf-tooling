@@ -10,11 +10,7 @@
  */
 package org.eclipse.gmf.internal.common.migrate;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryRegistryImpl;
@@ -35,9 +31,10 @@ public class MigrationUtil {
 	 * as {@link Resource.Diagnostic}.
 	 *  
 	 * @param modelResourceURI the resource uri containing the model to migrate
-	 * @return resource in loaded state.
+	 * 
+	 * @return model-load-helper encapsulating the resource and its in-memory migrated contents.
 	 */
-	public static Resource migrateModel(URI modelResourceURI) {
+	public static ModelLoadHelper migrateModel(URI modelResourceURI) {
 		if(modelResourceURI == null) {
 			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
 		}
@@ -52,23 +49,8 @@ public class MigrationUtil {
 			}
 		});
 
-		Resource resource = rset.createResource(modelResourceURI);
-		assert resource != null;
-		
-		Resource.Diagnostic loadException = null;
-		try {
-			resource.load(Collections.EMPTY_MAP);				
-		} catch (IOException e) {
-			loadException = createDiagnostic(resource, e);		
-		} catch (RuntimeException e) {
-			loadException = createDiagnostic(resource, e);
-		}
-
-		if(loadException != null) {			
-			logException(resource, loadException);
-		}
-
-		return resource;
+		ModelLoadHelper loadHelper = new ModelLoadHelper(rset, modelResourceURI);
+		return loadHelper;
 	}	
 	
 	/**
@@ -98,45 +80,6 @@ public class MigrationUtil {
 				return 0;
 			}
 		};
-	}
-	
-	/**
-	 * Creates resource diagnostic wrapping the given exception.
-	 * @param resource the resource associated with the created diagnostic
-	 * @param exception non-<code>null</code> exception to be wrapped as diagnostic
-	 * 
-	 * @return diagnostic object
-	 */
-	public static Resource.Diagnostic createDiagnostic(Resource resource, Exception exception) {
-		if(exception == null) {
-			throw new IllegalArgumentException("null diagnostic exception"); //$NON-NLS-1$
-		}
-		final String location = resource.getURI() == null ? null : resource.getURI().toString();
-		class ExceptionDiagnostic extends WrappedException implements Resource.Diagnostic {
-			
-			public ExceptionDiagnostic(Exception exception) {
-				super(exception);
-			}
-
-			public String getLocation() {
-				return location;
-			}
-
-			public int getColumn() {
-				return 0;
-			}
-
-			public int getLine() {
-				return 0;
-			}
-		}
-		
-		return new ExceptionDiagnostic(exception);
-	};
-
-	@SuppressWarnings("unchecked")
-	private static void logException(Resource resource, Resource.Diagnostic exception) {
-		resource.getErrors().add(exception);
 	}
 	
 	/**

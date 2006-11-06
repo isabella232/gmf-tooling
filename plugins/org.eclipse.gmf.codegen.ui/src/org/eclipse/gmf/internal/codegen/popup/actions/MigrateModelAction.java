@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -67,14 +67,10 @@ public class MigrateModelAction implements IObjectActionDelegate {
 	public void run(IAction action) {		
 		final IFile modelFile = this.fileSelection;
 		URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString());
-		Resource resource = MigrationUtil.migrateModel(fileURI);
-		if (resource == null) {
-			return;
-		}
+		ModelLoadHelper loadHelper = MigrationUtil.migrateModel(fileURI);
 
-		if (!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
-			IStatus loadStatus = BasicDiagnostic.toIStatus(EcoreUtil.computeDiagnostic(resource, true));
-			openErrorDialog(action.getText(), Messages.migration_problemsDetectedTitle, loadStatus);
+		if (!loadHelper.isOK()) {
+			DiagnosticsDialog.openOk(getShell(), action.getText(), Messages.migration_problemsDetectedTitle, loadHelper.getDiagnostics());
 			return;
 		}
 		String modelExtension = modelFile.getFileExtension();
@@ -91,6 +87,8 @@ public class MigrateModelAction implements IObjectActionDelegate {
 		if (dlg.open() != Window.OK) {
 			return;
 		}
+		
+		Resource resource = loadHelper.getLoadedResource();
 
 		String destFileName = dlg.getValue();
 		if (fileSelection.getParent().findMember(destFileName) != null) {
