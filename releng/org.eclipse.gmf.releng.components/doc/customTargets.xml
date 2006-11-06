@@ -1,13 +1,14 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
-	<property name="id" value="org.eclipse.gmf" />
-	<property name="archiveName" value="GMF-runtime-${buildId}.zip"/>
+	<property name="id" value="org.eclipse.gmf.doc"/>
+	<property name="archiveName" value="GMF-docs-${buildId}.zip"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
 	<!-- Add on <ant> task for each top level element being built. -->
 	<!-- ===================================================================== -->
 	<target name="allElements">
+		
 		<ant antfile="${genericTargets}" target="${target}">
 			<property name="type" value="feature" />
 			<property name="id" value="${id}"/>
@@ -21,13 +22,9 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf">		
+	<target name="assemble.org.eclipse.gmf.doc">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
-	</target>	
-
-	<target name="assemble.org.eclipse.gmf.win32.win32.x86">		
-		<antcall target="assemble.org.eclipse.gmf"/>
-	</target>	
+	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
@@ -35,8 +32,9 @@
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
-		<property name="targetConfigTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<!-- Check out target platform config -->
+		<property name="targetConfigTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 	</target>
 
@@ -84,13 +82,12 @@
 	<!-- ===================================================================== -->
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+		<ant antfile="${scripts}/install.xml" target="installBase" />	
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFT" />
-		<ant antfile="${scripts}/install.xml" target="installXerces" />
-		<ant antfile="${scripts}/install.xml" target="installBatik" />
+		<ant antfile="${scripts}/install.xml" target="installGMF" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -105,7 +102,7 @@
 	<target name="postFetch">
 		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
 			<include name="**/about.mappings" />
-		</replace>		
+		</replace>
 	</target>
 
 	<!-- ===================================================================== -->
@@ -124,7 +121,17 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
-	<target name="preProcess">
+	<target name="preProcess" unless="skipJavadoc">
+		<!-- Retrieve doclet -->
+		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
+		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
+		     dest="${buildDirectory}" />
+		<!-- Compile and package doclet -->
+		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
+		     target="build.jar" 
+		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
+		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -148,7 +155,7 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running package. -->
 	<!-- ===================================================================== -->
-	<target name="prePackage">	
+	<target name="prePackage">		
 	</target>
 
 	<!-- ===================================================================== -->
@@ -161,15 +168,11 @@
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
 	<target name="postBuild">
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="gatherLogs" />
-		<!-- A temporary directory leftover? -->
-		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" >
-			<property name="packageBatik" value="true"/>
-			<property name="packageXerces" value="true"/>
-		</ant>
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 	</target>
 	
 	<target name="pack200" if="pack200">
@@ -178,10 +181,11 @@
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
+	<!-- TODO: improve packaging for easier standalone testing? -->
 	<!-- ===================================================================== -->
 	<target name="test">
 	</target>
-
+	
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
