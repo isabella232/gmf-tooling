@@ -14,10 +14,8 @@
 	</target>
 	
 	<target name="initCC">
-		<copy todir="${ccwebapplocation}">
-		    <fileset dir="${scripts}/css"/>
-		    <fileset dir="${scripts}/xsl"/>
-		</copy>
+		<copydir src="${scripts}/css" todir="${ccwebapplocation}"/>
+		<copydir src="${scripts}/xsl" todir="${ccwebapplocation}"/>
 	</target>
 	
 	<target name="main" depends="checkArgs,init">
