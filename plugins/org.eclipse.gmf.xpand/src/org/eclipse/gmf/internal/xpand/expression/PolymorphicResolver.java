@@ -35,19 +35,17 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
  */
 public class PolymorphicResolver {
 
-	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, String name, EClassifier targetType, List<EClassifier> paramTypes) {
+	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, EClassifier targetType, List<EClassifier> paramTypes) {
         final List<EClassifier> allParams = new ArrayList<EClassifier>();
         allParams.add(targetType);
         allParams.addAll(paramTypes);
 
         final List<XpandDefinition> candidateDefinition = new ArrayList<XpandDefinition>();
         for (XpandDefinition def : resolvedDefs.keySet()) {
-            if (def.getName().equals(name)) {
-                final List<? extends EClassifier> featureParamTypes = resolvedDefs.get(def);
-                if ((featureParamTypes.size() == allParams.size())
-                        && (typesComparator.compare(featureParamTypes, allParams) >= 0)) {
-                	candidateDefinition.add(def);
-                }
+            final List<? extends EClassifier> featureParamTypes = resolvedDefs.get(def);
+            if ((featureParamTypes.size() == allParams.size())
+                    && (typesComparator.compare(featureParamTypes, allParams) >= 0)) {
+            	candidateDefinition.add(def);
             }
         }
 		final Comparator<XpandDefinition> comparator = new Comparator<XpandDefinition>() {

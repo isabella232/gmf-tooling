@@ -175,7 +175,6 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 
     /**
      * resolves the correct definition (using parametric polymorphism)
-     * XXX why not filter with name right here, and not in PolymorphicResolver?
      * @param definitions
      * @param target
      * @param paramTypes
@@ -186,10 +185,14 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         if (paramTypes == null) {
             paramTypes = new EClassifier[0];
         }
+        final String unqualifiedName = TypeNameUtil.getLastSegment(name);
         // XXX Instead of using map as a mere pair storage, do it like Extension does with init(ctx)
         // to resolve and keep typed arguments
         HashMap<XpandDefinition, List<EClassifier>> resolvedDefs = new HashMap<XpandDefinition, List<EClassifier>>();
         for (final XpandDefinition def : definitions) {
+        	if (!def.getName().equals(unqualifiedName)) {
+        		continue;
+        	}
             if (def.getParams().length == paramTypes.length) {
                 final LinkedList<EClassifier> defsParamTypes = new LinkedList<EClassifier>();
                 EClassifier t = null;
@@ -212,6 +215,6 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
                 }
             }
         }
-        return PolymorphicResolver.filterDefinition(resolvedDefs, TypeNameUtil.getLastSegment(name), target, Arrays.asList(paramTypes));
+		return PolymorphicResolver.filterDefinition(resolvedDefs, target, Arrays.asList(paramTypes));
     }
 }
