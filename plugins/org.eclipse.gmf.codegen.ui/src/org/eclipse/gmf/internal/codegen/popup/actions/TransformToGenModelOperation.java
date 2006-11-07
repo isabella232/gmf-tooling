@@ -357,11 +357,10 @@ public class TransformToGenModelOperation {
 	 * @return <code>true</code> if mapping model is available with OK status or in case of load problems, user decided to proceed. Returns <code>false</code> otherwise.
 	 */
 	private boolean canProcessMappingModel(ModelLoadHelper loadHelper) {
+		Diagnostic loadDiagnostic = ValidationHelper.createResourceProblemMarkers(loadHelper.getDiagnostics());		
 		if (!loadHelper.getStatus().isOK()) {
 			boolean disableProceed = !(loadHelper.getContentsRoot() instanceof Mapping);
 			String message = CodeGenUIPlugin.getBundleString("transform.err"); //$NON-NLS-1$
-			Diagnostic loadDiagnostic = DiagnosticsDialog.toDiagnostic(loadHelper.getStatus());
-			
 			if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), message, loadDiagnostic, disableProceed) == IDialogConstants.CANCEL_ID) {
 				return false;
 			}

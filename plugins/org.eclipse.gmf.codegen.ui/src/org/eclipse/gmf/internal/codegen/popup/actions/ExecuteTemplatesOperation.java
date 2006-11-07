@@ -196,7 +196,7 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		if (myGenModel != null && myGenModel.getDomainGenModel() != null) {
 			myGenModel.getDomainGenModel().reconcile();
 		}
-		return loadHelper.getDiagnostics();
+		return ValidationHelper.createResourceProblemMarkers(loadHelper.getDiagnostics());
 	}
 
 	private void unloadGenModel() {

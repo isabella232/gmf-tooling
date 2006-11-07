@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -33,6 +34,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -99,13 +101,34 @@ public class ValidationHelper {
 	/**
 	 * Helper class for binding validation diagnostics to corresponding problem
 	 * markers.
+	 * <p>
+	 * This class ensures that markers are managed for both {@link Diagnostic}}
+	 * and {@link Resource.Diagnostic} diagnostic types.
 	 */
 	private static class GMFMarkerHelper extends EditUIMarkerHelper {
 		
 		private LinkedHashMap<Diagnostic, IMarker> diagnostic2Marker;
+		private String markerID;
 		
+		/**
+		 * Constructs marker helper with default markerID taken from its super-type.
+		 */
 		GMFMarkerHelper() {
 			super();
+		}
+		
+		/**
+		 * Constructs marker helper with given marker ID.
+		 * 
+		 * @param markerID
+		 *            string ID used as IMarker.TYPE.
+		 *            <p>
+		 *            If <code>null</code>, the default is
+		 *            <code>resource-problem-marker</code> taken from
+		 *            {@link MarkerHelper#getMarkerID()}
+		 */
+		GMFMarkerHelper(String markerID) {
+			this.markerID = markerID;
 		}
 		
 		public IFile getFileFromDiagnostic(Diagnostic diagnostic) {
@@ -146,8 +169,8 @@ public class ValidationHelper {
 		
 		
 		@Override
-		protected String getMarkerID() {		
-			return EValidator.MARKER;
+		protected String getMarkerID() {
+			return markerID != null ? markerID : super.getMarkerID();
 		}
 
 		LinkedHashMap<Diagnostic, IMarker> getDiagnostic2MarkerMap() {
@@ -241,7 +264,11 @@ public class ValidationHelper {
 	 * 
 	 * @param progressMonitor
 	 *            the progress monitor to track validation progress, or
-	 *            <code>null</code> if no progress monitoring is required
+	 *            <code>null</code> if no progress monitoring is required.
+	 *            The implementation creates {@link SubProgressMonitor} as
+	 *            a sub-task of the given parent <code>progressMonitor</code> 
+	 *            allocating 1 tick from the parent. #beginTask and #done operation 
+	 *            on the subprogress monitor is called.
 	 * 
 	 * @return the validation result diagnostic
 	 */
@@ -264,19 +291,11 @@ public class ValidationHelper {
 				return validationStatus;
 			}
 				
-			List<Object> data = validationStatus.getData() != null ? (List<Object>)validationStatus.getData() : Collections.emptyList();			
 			if(createMarkers) {
-				DiagnosticMarkerMap markerMap = createMarkers(validationStatus);			
-				data = new ArrayList<Object>(data);
-				data.add(markerMap);
+				return createMarkers(validationStatus, EValidator.MARKER);
 			}
 			
-			BasicDiagnostic result = new BasicDiagnostic(
-					validationStatus.getSource(), validationStatus.getCode(),
-					validationStatus.getMessage(), data.toArray());
-	
-			result.addAll(validationStatus);
-			return result;
+			return validationStatus;
 			
 		} finally {
 			monitor.done();
@@ -334,18 +353,46 @@ public class ValidationHelper {
 	 *         existing in the workspace.
 	 */
 	public static IFile getFileFromDiagnostic(Diagnostic diagnostic) {
-		return new GMFMarkerHelper().getFileFromDiagnostic(diagnostic);
+		return new GMFMarkerHelper(EValidator.MARKER).getFileFromDiagnostic(diagnostic);
 	}
 	
-	public static DiagnosticMarkerMap createMarkers(Diagnostic diagnostic) {
-		GMFMarkerHelper markerHelper = new GMFMarkerHelper();
+	/**
+	 * Creates resource problem markers {@link Resource.Diagnostic} encapsualted
+	 * in the given diagnostic object.
+	 * 
+	 * @param diagnostic
+	 *            non-null diagnostic eventually containing a hiearchy of
+	 *            diagnostics for which markers are to be created.
+	 * 
+	 * @see #getDiagnosticMarkerMap(Diagnostic)
+	 * @see Resource.Diagnostic
+	 */
+	public static Diagnostic createResourceProblemMarkers(Diagnostic diagnostic) {
+		return createMarkers(diagnostic, null /* resource problem markers*/);
+	}	
+	
+	private static Diagnostic createMarkers(Diagnostic diagnostic, String markerID) {
+		GMFMarkerHelper markerHelper = new GMFMarkerHelper(markerID);
 		try {
-			markerHelper.deleteMarkers(diagnostic, true, IResource.DEPTH_ZERO);
-			markerHelper.createMarkers(diagnostic);
+			markerHelper.deleteMarkers(diagnostic, false, IResource.DEPTH_ZERO);
+			if(!diagnostic.getChildren().isEmpty() && !isOK(diagnostic)) {
+				markerHelper.createMarkers(diagnostic);
+			}
 		} catch (CoreException e) {
 			IStatus status = new Status(IStatus.ERROR, CodeGenUIPlugin.getPluginID(), 0, "Marker creation failure", e); //$NON-NLS-1$ 
 			CodeGenUIPlugin.getDefault().getLog().log(status);
 		}
-		return new DiagnosticMarkerMap(markerHelper.getDiagnostic2MarkerMap());
+		DiagnosticMarkerMap markerMap = new DiagnosticMarkerMap(markerHelper.getDiagnostic2MarkerMap());
+		
+		List<Object> data = diagnostic.getData() != null ? (List<Object>)diagnostic.getData() : Collections.emptyList();			
+		data = new ArrayList<Object>(data);
+		data.add(markerMap);
+		
+		BasicDiagnostic result = new BasicDiagnostic(
+				diagnostic.getSource(), diagnostic.getCode(),
+				diagnostic.getMessage(), data.toArray());
+
+		result.addAll(diagnostic);
+		return result;
 	}	
 }

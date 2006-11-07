@@ -5,7 +5,7 @@
  * available under the terms of the Eclipse Public License v1.0 which
  * accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  
  * Contributors: dvorak - initial API and implementation
  */
 package org.eclipse.gmf.internal.codegen.popup.actions;
@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.popup.actions.ValidationHelper.DiagnosticMarkerMap;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -57,6 +58,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
@@ -66,6 +68,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * A dialog to display one or more errors to the user, as contained in an
@@ -691,35 +695,57 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
     		return;
     	}
     	
-    	DiagnosticMarkerMap markerMap = ValidationHelper.getDiagnosticMarkerMap(rootDiagnotic);   	
-    	IMarker marker = (markerMap != null) ? markerMap.getMap().get(diagnostic) : null;
-    			
+    	DiagnosticMarkerMap markerMap = ValidationHelper.getDiagnosticMarkerMap(rootDiagnotic);
+    	IMarker marker = null;
+    	if(markerMap != null) {
+        	if(!markerMap.getMap().containsKey(diagnostic) && 
+        			diagnostic == rootDiagnotic && !diagnostic.getChildren().isEmpty()) {
+        		// the root is usually just a wrapper containing real diagnostics with markers 
+        		// -> take the first one
+        		diagnostic = (Diagnostic)diagnostic.getChildren().get(0);
+        	}
+        	marker = markerMap.getMap().get(diagnostic);        	
+    	}    	
+ 			
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		IWorkbenchPage page = (workbenchWindow != null) ? workbenchWindow.getActivePage() : null;			
+		if(page == null) {
+			return;
+		}
+		 				
+		try {
+			// activate the problem view to			
+			page.showView("org.eclipse.ui.views.ProblemView"); //$NON-NLS-1$
+		} catch (PartInitException e) {
+			CodeGenUIPlugin.getDefault().getLog().log(e.getStatus());			
+		} 
+    	
 		IFile file = ValidationHelper.getFileFromDiagnostic(diagnostic);		
 		if(file != null) {
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-			IWorkbenchPage page = (workbenchWindow != null) ? workbenchWindow.getActivePage() : null;			
-			if(page == null) {
-				return;
-			}
-			
 			try {
-				IEditorPart editorPart = IDE.openEditor(page, file, true);
-				IGotoMarker gotoMarkerSupport = (editorPart != null) ? (IGotoMarker)editorPart.getAdapter(IGotoMarker.class) : null;
+			    String editorId = "org.eclipse.ui.DefaultTextEditor"; //$NON-NLS-1$			   
+			    IEditorPart editorPart = null;			    
+			    if(marker == null || marker.getAttribute(EValidator.URI_ATTRIBUTE, null) != null) {
+			    	IEditorDescriptor[] editorDescriptors = PlatformUI.getWorkbench()
+						.getEditorRegistry().getEditors(file.getName());				    	
+			    	if(editorDescriptors.length > 0) {
+			    		editorId = editorDescriptors[0].getId();
+			    	}
+			    }
+			    
+			    editorPart = page.openEditor(new FileEditorInput(file), editorId, true, IWorkbenchPage.MATCH_INPUT | IWorkbenchPage.MATCH_ID);			    
+				IGotoMarker gotoMarkerSupport = null;
+				if(editorPart != null) {
+					gotoMarkerSupport = (IGotoMarker)editorPart.getAdapter(IGotoMarker.class);
+					cancelPressed();					
+				}
 
 				if(gotoMarkerSupport != null && marker != null) {
-					cancelPressed();
 					// delegate to goto marker of the activated editor
-					gotoMarkerSupport.gotoMarker(marker);					
-				} else {
-					// no marker support or target marker is available
-					return;
-				}				
-				
-				// activate the problem view to 
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-					.showView("org.eclipse.ui.views.ProblemView"); //$NON-NLS-1$
-				
+					gotoMarkerSupport.gotoMarker(marker);
+				}			
+								
 			} catch (PartInitException e) {
 				CodeGenUIPlugin.getDefault().getLog().log(e.getStatus());
 			}			

@@ -148,8 +148,9 @@ public class ModelLoadHelper {
 			Integer severityOpt = new Integer(resourceDiagnostic.getSeverity() == Diagnostic.ERROR ? 0 : 1);    
 			String message = MessageFormat.format(Messages.modelLoadedWithProblems, 
 					 new Object[] { severityOpt, resource.getURI() });			
-			
-			BasicDiagnostic loadDiagnostic = new BasicDiagnostic(DIAGNOSTIC_SOURCE, resourceDiagnostic.getCode(), message, (rootException != null) ? new Object[] { rootException } : null);
+
+			Object[] data = (rootException != null) ? new Object[] { rootException, resource } : new Object[] { resource };			
+			BasicDiagnostic loadDiagnostic = new BasicDiagnostic(DIAGNOSTIC_SOURCE, resourceDiagnostic.getCode(), message, data);
 			loadDiagnostic.addAll(resourceDiagnostic);
 			diagnostic = loadDiagnostic;
 		}
