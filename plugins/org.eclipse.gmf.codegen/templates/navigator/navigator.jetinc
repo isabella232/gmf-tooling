@@ -41,14 +41,21 @@
                </and>
                <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
 <%if (genDiagram.generateShortcutIcon()) {%>
-           		<adapt type="org.eclipse.gmf.runtime.notation.View">
-           		   <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
-           		</adapt>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
 <%}%>
             </or>
          </triggerPoints>
          <possibleChildren>
-         	<instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+            <or>
+         	   <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (genDiagram.generateShortcutIcon()) {%>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
+<%}%>
+            </or>
          </possibleChildren>
          <commonSorter 
                id="<%=editorGen.getNavigator().getSorterExtensionID()%>" 

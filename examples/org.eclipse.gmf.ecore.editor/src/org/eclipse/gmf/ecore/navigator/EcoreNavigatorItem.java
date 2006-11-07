@@ -10,6 +10,9 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
+import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -20,6 +23,26 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
+
+	/**
+	 * @generated
+	 */
+	static {
+		final Class[] supportedTypes = new Class[] { View.class, EObject.class };
+		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
+
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof EcoreNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((EcoreNavigatorItem) adaptableObject).getView();
+				}
+				return null;
+			}
+
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, EcoreNavigatorItem.class);
+	}
 
 	/**
 	 * @generated
@@ -66,16 +89,6 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 	 */
 	public boolean isLeaf() {
 		return myLeaf;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Object getAdapter(Class adapter) {
-		if (View.class.isAssignableFrom(adapter) || EObject.class.isAssignableFrom(adapter)) {
-			return myView;
-		}
-		return super.getAdapter(adapter);
 	}
 
 	/**

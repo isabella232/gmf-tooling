@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -46,7 +46,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected URI diagramURI;
+	protected Resource diagram;
 
 	/**
 	 * @generated
@@ -70,8 +70,8 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public final URI getDiagramURI() {
-		return diagramURI;
+	public final Resource getDiagram() {
+		return diagram;
 	}
 
 	/**
@@ -116,8 +116,10 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramURI = EcoreDiagramEditorUtil.createAndOpenDiagram(page.getContainerFullPath(), page.getFileName(), getWorkbench().getActiveWorkbenchWindow(), monitor,
-						isOpenNewlyCreatedDiagramEditor(), true);
+				diagram = EcoreDiagramEditorUtil.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
+				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
+					EcoreDiagramEditorUtil.openDiagram(diagram);
+				}
 			}
 		};
 		try {
@@ -132,6 +134,6 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		return diagramURI != null;
+		return diagram != null;
 	}
 }

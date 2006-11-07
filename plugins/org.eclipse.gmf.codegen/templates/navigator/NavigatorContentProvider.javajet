@@ -430,7 +430,7 @@ for (Iterator it = getter2ReferenceMap.entrySet().iterator(); it.hasNext();) {
 		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		for (<%=importManager.getImportedName("java.util.Iterator")%> it = diagram.getChildren().iterator(); it.hasNext();) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
-			if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$)
+			if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 				result.add(nextView);
 			}
 		}

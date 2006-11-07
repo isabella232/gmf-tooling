@@ -60,7 +60,10 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 
+import org.eclipse.jface.viewers.ITreePathLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.ViewerLabel;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -72,7 +75,7 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 /**
  * @generated
  */
-public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider {
+public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
 	 * @generated
@@ -86,65 +89,88 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	/**
 	 * @generated
 	 */
+	public void updateLabel(ViewerLabel label, TreePath elementPath) {
+		Object element = elementPath.getLastSegment();
+		if (element instanceof EcoreNavigatorItem && !isOwnView(((EcoreNavigatorItem) element).getView())) {
+			return;
+		}
+		label.setText(getText(element));
+		label.setImage(getImage(element));
+	}
+
+	/**
+	 * @generated
+	 */
 	public Image getImage(Object element) {
-		if (false == element instanceof EcoreAbstractNavigatorItem) {
-			return super.getImage(element);
-		}
-
-		EcoreAbstractNavigatorItem abstractNavigatorItem = (EcoreAbstractNavigatorItem) element;
-		if (!EPackageEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getImage(element);
-		}
-
-		if (abstractNavigatorItem instanceof EcoreNavigatorItem) {
-			EcoreNavigatorItem navigatorItem = (EcoreNavigatorItem) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
-			case EClassEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EClass", EcoreElementTypes.EClass_2001);
-			case EPackage2EditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_2002);
-			case EAnnotation2EditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EAnnotation", EcoreElementTypes.EAnnotation_2003);
-			case EDataType2EditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EDataType", EcoreElementTypes.EDataType_2004);
-			case EEnum2EditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EEnum", EcoreElementTypes.EEnum_2005);
-			case EAttributeEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EAttribute", EcoreElementTypes.EAttribute_3001);
-			case EOperationEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EOperation", EcoreElementTypes.EOperation_3002);
-			case EAnnotationEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EAnnotation", EcoreElementTypes.EAnnotation_3003);
-			case EClass2EditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EClass", EcoreElementTypes.EClass_3004);
-			case EPackage3EditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_3005);
-			case EDataTypeEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EDataType", EcoreElementTypes.EDataType_3006);
-			case EEnumEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EEnum", EcoreElementTypes.EEnum_3007);
-			case EStringToStringMapEntryEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EStringToStringMapEntry", EcoreElementTypes.EStringToStringMapEntry_3008);
-			case EEnumLiteralEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EEnumLiteral", EcoreElementTypes.EEnumLiteral_3009);
-			case EPackageEditPart.VISUAL_ID:
-				return getImage("Navigator?Diagram?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_1000);
-			case EAnnotationReferencesEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EAnnotation?references", EcoreElementTypes.EAnnotationReferences_4001);
-			case EReferenceEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EReference", EcoreElementTypes.EReference_4002);
-			case EReference2EditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EReference", EcoreElementTypes.EReference_4003);
-			case EClassESuperTypesEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EClass?eSuperTypes", EcoreElementTypes.EClassESuperTypes_4004);
-			default:
-				return getImage("Navigator?UnknownElement", null);
-			}
-		} else if (abstractNavigatorItem instanceof EcoreNavigatorGroup) {
+		if (element instanceof EcoreNavigatorGroup) {
 			EcoreNavigatorGroup group = (EcoreNavigatorGroup) element;
 			return EcoreDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
 		}
+
+		if (element instanceof EcoreNavigatorItem) {
+			EcoreNavigatorItem navigatorItem = (EcoreNavigatorItem) element;
+			if (!isOwnView(navigatorItem.getView())) {
+				return super.getImage(element);
+			}
+			return getImage(navigatorItem.getView());
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getImage(view);
+			}
+		}
 		return super.getImage(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public Image getImage(View view) {
+		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EClassEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EClass", EcoreElementTypes.EClass_2001);
+		case EPackage2EditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_2002);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EAnnotation", EcoreElementTypes.EAnnotation_2003);
+		case EDataType2EditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EDataType", EcoreElementTypes.EDataType_2004);
+		case EEnum2EditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/emf/2002/Ecore?EEnum", EcoreElementTypes.EEnum_2005);
+		case EAttributeEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EAttribute", EcoreElementTypes.EAttribute_3001);
+		case EOperationEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EOperation", EcoreElementTypes.EOperation_3002);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EAnnotation", EcoreElementTypes.EAnnotation_3003);
+		case EClass2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EClass", EcoreElementTypes.EClass_3004);
+		case EPackage3EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_3005);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EDataType", EcoreElementTypes.EDataType_3006);
+		case EEnumEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EEnum", EcoreElementTypes.EEnum_3007);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EStringToStringMapEntry", EcoreElementTypes.EStringToStringMapEntry_3008);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/emf/2002/Ecore?EEnumLiteral", EcoreElementTypes.EEnumLiteral_3009);
+		case EPackageEditPart.VISUAL_ID:
+			return getImage("Navigator?Diagram?http://www.eclipse.org/emf/2002/Ecore?EPackage", EcoreElementTypes.EPackage_1000);
+		case EAnnotationReferencesEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EAnnotation?references", EcoreElementTypes.EAnnotationReferences_4001);
+		case EReferenceEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EReference", EcoreElementTypes.EReference_4002);
+		case EReference2EditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EReference", EcoreElementTypes.EReference_4003);
+		case EClassESuperTypesEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/emf/2002/Ecore?EClass?eSuperTypes", EcoreElementTypes.EClassESuperTypes_4004);
+		default:
+			return getImage("Navigator?UnknownElement", null);
+		}
 	}
 
 	/**
@@ -169,64 +195,75 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	public String getText(Object element) {
-		if (false == element instanceof EcoreAbstractNavigatorItem) {
-			return super.getText(element);
-		}
-
-		EcoreAbstractNavigatorItem abstractNavigatorItem = (EcoreAbstractNavigatorItem) element;
-		if (!EPackageEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getText(element);
-		}
-
-		if (abstractNavigatorItem instanceof EcoreNavigatorItem) {
-			EcoreNavigatorItem navigatorItem = (EcoreNavigatorItem) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
-			case EClassEditPart.VISUAL_ID:
-				return getEClass_2001Text(navigatorItem.getView());
-			case EPackage2EditPart.VISUAL_ID:
-				return getEPackage_2002Text(navigatorItem.getView());
-			case EAnnotation2EditPart.VISUAL_ID:
-				return getEAnnotation_2003Text(navigatorItem.getView());
-			case EDataType2EditPart.VISUAL_ID:
-				return getEDataType_2004Text(navigatorItem.getView());
-			case EEnum2EditPart.VISUAL_ID:
-				return getEEnum_2005Text(navigatorItem.getView());
-			case EAttributeEditPart.VISUAL_ID:
-				return getEAttribute_3001Text(navigatorItem.getView());
-			case EOperationEditPart.VISUAL_ID:
-				return getEOperation_3002Text(navigatorItem.getView());
-			case EAnnotationEditPart.VISUAL_ID:
-				return getEAnnotation_3003Text(navigatorItem.getView());
-			case EClass2EditPart.VISUAL_ID:
-				return getEClass_3004Text(navigatorItem.getView());
-			case EPackage3EditPart.VISUAL_ID:
-				return getEPackage_3005Text(navigatorItem.getView());
-			case EDataTypeEditPart.VISUAL_ID:
-				return getEDataType_3006Text(navigatorItem.getView());
-			case EEnumEditPart.VISUAL_ID:
-				return getEEnum_3007Text(navigatorItem.getView());
-			case EStringToStringMapEntryEditPart.VISUAL_ID:
-				return getEStringToStringMapEntry_3008Text(navigatorItem.getView());
-			case EEnumLiteralEditPart.VISUAL_ID:
-				return getEEnumLiteral_3009Text(navigatorItem.getView());
-			case EPackageEditPart.VISUAL_ID:
-				return getEPackage_1000Text(navigatorItem.getView());
-			case EAnnotationReferencesEditPart.VISUAL_ID:
-				return getEAnnotationReferences_4001Text(navigatorItem.getView());
-			case EReferenceEditPart.VISUAL_ID:
-				return getEReference_4002Text(navigatorItem.getView());
-			case EReference2EditPart.VISUAL_ID:
-				return getEReference_4003Text(navigatorItem.getView());
-			case EClassESuperTypesEditPart.VISUAL_ID:
-				return getEClassESuperTypes_4004Text(navigatorItem.getView());
-			default:
-				return getUnknownElementText(navigatorItem.getView());
-			}
-		} else if (abstractNavigatorItem instanceof EcoreNavigatorGroup) {
+		if (element instanceof EcoreNavigatorGroup) {
 			EcoreNavigatorGroup group = (EcoreNavigatorGroup) element;
 			return group.getGroupName();
 		}
+
+		if (element instanceof EcoreNavigatorItem) {
+			EcoreNavigatorItem navigatorItem = (EcoreNavigatorItem) element;
+			if (!isOwnView(navigatorItem.getView())) {
+				return null;
+			}
+			return getText(navigatorItem.getView());
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getText(view);
+			}
+		}
 		return super.getText(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getText(View view) {
+		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EClassEditPart.VISUAL_ID:
+			return getEClass_2001Text(view);
+		case EPackage2EditPart.VISUAL_ID:
+			return getEPackage_2002Text(view);
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_2003Text(view);
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_2004Text(view);
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_2005Text(view);
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001Text(view);
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002Text(view);
+		case EAnnotationEditPart.VISUAL_ID:
+			return getEAnnotation_3003Text(view);
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004Text(view);
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005Text(view);
+		case EDataTypeEditPart.VISUAL_ID:
+			return getEDataType_3006Text(view);
+		case EEnumEditPart.VISUAL_ID:
+			return getEEnum_3007Text(view);
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008Text(view);
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009Text(view);
+		case EPackageEditPart.VISUAL_ID:
+			return getEPackage_1000Text(view);
+		case EAnnotationReferencesEditPart.VISUAL_ID:
+			return getEAnnotationReferences_4001Text(view);
+		case EReferenceEditPart.VISUAL_ID:
+			return getEReference_4002Text(view);
+		case EReference2EditPart.VISUAL_ID:
+			return getEReference_4003Text(view);
+		case EClassESuperTypesEditPart.VISUAL_ID:
+			return getEClassESuperTypes_4004Text(view);
+		default:
+			return getUnknownElementText(view);
+		}
 	}
 
 	/**
@@ -670,6 +707,13 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 */
 	public String getDescription(Object anElement) {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isOwnView(View view) {
+		return EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view));
 	}
 
 }

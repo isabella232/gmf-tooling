@@ -10,6 +10,8 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
+import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditor;
@@ -19,6 +21,7 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -132,6 +135,8 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 				Object selectedElement = selection.getFirstElement();
 				if (selectedElement instanceof EcoreNavigatorItem) {
 					selectedElement = ((EcoreNavigatorItem) selectedElement).getView();
+				} else if (selectedElement instanceof IAdaptable) {
+					selectedElement = ((IAdaptable) selectedElement).getAdapter(View.class);
 				}
 				if (selectedElement instanceof Diagram) {
 					Diagram diagram = (Diagram) selectedElement;

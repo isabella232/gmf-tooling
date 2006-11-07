@@ -213,7 +213,7 @@ public class NavigatorContentProviderGenerator
   protected final String TEXT_193 = "();" + NL + "\t\tfor (";
   protected final String TEXT_194 = " it = diagram.getChildren().iterator(); it.hasNext();) {" + NL + "\t\t\t";
   protected final String TEXT_195 = " nextView = (";
-  protected final String TEXT_196 = ") it.next();" + NL + "\t\t\tif (!isOwnView(nextView) && nextView.getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$)" + NL + "\t\t\t\tresult.add(nextView);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createNavigatorItems(result, parent);" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_196 = ") it.next();" + NL + "\t\t\tif (!isOwnView(nextView) && nextView.getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\t\t\tresult.add(nextView);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createNavigatorItems(result, parent);" + NL + "\t}" + NL + "\t";
   protected final String TEXT_197 = NL + "}";
   protected final String TEXT_198 = NL;
 

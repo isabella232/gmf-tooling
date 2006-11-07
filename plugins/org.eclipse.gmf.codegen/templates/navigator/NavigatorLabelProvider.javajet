@@ -116,7 +116,7 @@ final class RegistryKey {
 /**
  * @generated
  */
-public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.LabelProvider")%> implements <%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonLabelProvider")%> {
+public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.LabelProvider")%> implements <%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonLabelProvider")%>, <%=importManager.getImportedName("org.eclipse.jface.viewers.ITreePathLabelProvider")%> {
 
 	/**
 	 * @generated
@@ -125,6 +125,18 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 		<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getImageRegistry().put("<%=invalidElementKey%>", <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor());
 		<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getImageRegistry().put("<%=unknownElementKey%>", <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor());
 		<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getImageRegistry().put("<%=notFoundElementKey%>", <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor());
+	}
+	
+	/**
+	 * @generated
+	 */
+	public void updateLabel(<%=importManager.getImportedName("org.eclipse.jface.viewers.ViewerLabel")%> label, <%=importManager.getImportedName("org.eclipse.jface.viewers.TreePath")%> elementPath) {
+		Object element = elementPath.getLastSegment();
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> && !isOwnView(((<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element).getView())) {
+			return;
+		}
+		label.setText(getText(element));
+		label.setImage(getImage(element));
 	}
 
 	/**
@@ -136,7 +148,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 			return <%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage(group.getIcon());
 		}
 		
-		if (element instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
     		if (!isOwnView(navigatorItem.getView())) {
     			return super.getImage(element);
@@ -148,7 +160,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 		// Due to plugin.xml content will be called only for "own" views
 		if (element instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) element).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
-			if (view != null) {
+			if (view != null && isOwnView(view)) {
 				return getImage(view);
 			}
 		}<%
@@ -204,7 +216,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
     		if (!isOwnView(navigatorItem.getView())) {
-    			return super.getText(element);
+    			return null;
     		}
     		return getText(navigatorItem.getView());
 		}
@@ -213,7 +225,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 		// Due to plugin.xml content will be called only for "own" views
 		if (element instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) element).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
-			if (view != null) {
+			if (view != null && isOwnView(view)) {
 				return getText(view);
 			}
 		}<%

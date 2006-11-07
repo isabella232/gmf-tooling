@@ -10,8 +10,6 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
@@ -22,7 +20,12 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int GROUP_CATEGORY = 7013;
+	private static final int GROUP_CATEGORY = 7014;
+
+	/**
+	 * @generated
+	 */
+	private static final int SHORTCUTS_CATEGORY = 7012;
 
 	/**
 	 * @generated
@@ -30,9 +33,10 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 	public int category(Object element) {
 		if (element instanceof EcoreNavigatorItem) {
 			EcoreNavigatorItem item = (EcoreNavigatorItem) element;
-			if (EPackageEditPart.MODEL_ID.equals(item.getModelID())) {
-				return item.getVisualID();
+			if (item.getView().getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				return SHORTCUTS_CATEGORY;
 			}
+			return item.getVisualID();
 		}
 		return GROUP_CATEGORY;
 	}

@@ -193,7 +193,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			EcoreDiagramEditorUtil.openDiagramEditor(myWorkbenchPage, diagramFile);
+			EcoreDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {

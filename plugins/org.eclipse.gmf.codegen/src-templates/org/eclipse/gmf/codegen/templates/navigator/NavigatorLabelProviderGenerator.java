@@ -25,107 +25,112 @@ public class NavigatorLabelProviderGenerator {
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " implements ";
-  protected final String TEXT_8 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tstatic {" + NL + "\t\t";
-  protected final String TEXT_9 = ".getInstance().getImageRegistry().put(\"";
-  protected final String TEXT_10 = "\", ";
-  protected final String TEXT_11 = ".getMissingImageDescriptor());" + NL + "\t\t";
-  protected final String TEXT_12 = ".getInstance().getImageRegistry().put(\"";
-  protected final String TEXT_13 = "\", ";
-  protected final String TEXT_14 = ".getMissingImageDescriptor());" + NL + "\t\t";
-  protected final String TEXT_15 = ".getInstance().getImageRegistry().put(\"";
-  protected final String TEXT_16 = "\", ";
-  protected final String TEXT_17 = ".getMissingImageDescriptor());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_18 = " getImage(Object element) {" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_19 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_20 = " group = (";
-  protected final String TEXT_21 = ") element;" + NL + "\t\t\treturn ";
-  protected final String TEXT_22 = ".getInstance().getBundledImage(group.getIcon());" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_23 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_24 = " navigatorItem = (";
-  protected final String TEXT_25 = ") element;" + NL + "    \t\tif (!isOwnView(navigatorItem.getView())) {" + NL + "    \t\t\treturn super.getImage(element);" + NL + "    \t\t}" + NL + "    \t\treturn getImage(navigatorItem.getView());" + NL + "\t\t}" + NL;
-  protected final String TEXT_26 = NL + "\t\t// Due to plugin.xml content will be called only for \"own\" views" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_27 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_28 = " view = (";
-  protected final String TEXT_29 = ") ((";
-  protected final String TEXT_30 = ") element).getAdapter(";
-  protected final String TEXT_31 = ".class);" + NL + "\t\t\tif (view != null) {" + NL + "\t\t\t\treturn getImage(view);" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_32 = NL + "\t\treturn super.getImage(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_33 = " getImage(";
-  protected final String TEXT_34 = " view) {" + NL + "\t\tswitch (";
-  protected final String TEXT_35 = ".getVisualID(view)) {";
-  protected final String TEXT_36 = NL + "\t\tcase ";
-  protected final String TEXT_37 = ".VISUAL_ID:" + NL + "\t\t\treturn getImage(\"";
-  protected final String TEXT_38 = "\", ";
-  protected final String TEXT_39 = ".";
-  protected final String TEXT_40 = "null";
-  protected final String TEXT_41 = ");";
-  protected final String TEXT_42 = NL + "\t\tdefault:" + NL + "\t\t\treturn getImage(\"";
-  protected final String TEXT_43 = "\", null);" + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_44 = " getImage(String key, ";
-  protected final String TEXT_45 = " elementType) {" + NL + "\t\t";
-  protected final String TEXT_46 = " imageRegistry = ";
-  protected final String TEXT_47 = ".getInstance().getImageRegistry();" + NL + "\t\t";
-  protected final String TEXT_48 = " image = imageRegistry.get(key);" + NL + "\t\tif (image == null && elementType != null && ";
-  protected final String TEXT_49 = ".isKnownElementType(elementType)) {" + NL + "\t\t\timage = ";
-  protected final String TEXT_50 = ".getImage(elementType);" + NL + "\t\t\timageRegistry.put(key, image);" + NL + "\t\t}" + NL + "\t\t\t" + NL + "\t\tif (image == null) {" + NL + "\t\t\timage = imageRegistry.get(\"";
-  protected final String TEXT_51 = "\");" + NL + "\t\t\timageRegistry.put(key, image);" + NL + "\t\t}" + NL + "\t\treturn image;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(Object element) {" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_52 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_53 = " group = (";
-  protected final String TEXT_54 = ") element;" + NL + "\t\t\treturn group.getGroupName();" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_55 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_56 = " navigatorItem = (";
-  protected final String TEXT_57 = ") element;" + NL + "    \t\tif (!isOwnView(navigatorItem.getView())) {" + NL + "    \t\t\treturn super.getText(element);" + NL + "    \t\t}" + NL + "    \t\treturn getText(navigatorItem.getView());" + NL + "\t\t}" + NL + "\t";
-  protected final String TEXT_58 = NL + "\t\t// Due to plugin.xml content will be called only for \"own\" views" + NL + "\t\tif (element instanceof ";
-  protected final String TEXT_59 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_60 = " view = (";
-  protected final String TEXT_61 = ") ((";
-  protected final String TEXT_62 = ") element).getAdapter(";
-  protected final String TEXT_63 = ".class);" + NL + "\t\t\tif (view != null) {" + NL + "\t\t\t\treturn getText(view);" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_64 = NL + "\t\treturn super.getText(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(";
-  protected final String TEXT_65 = " view) {" + NL + "\t\tswitch (";
-  protected final String TEXT_66 = ".getVisualID(view)) {";
-  protected final String TEXT_67 = NL + "\t\tcase ";
-  protected final String TEXT_68 = ".VISUAL_ID:" + NL + "\t\t\treturn get";
-  protected final String TEXT_69 = "Text(view);";
-  protected final String TEXT_70 = NL + "\t\tdefault:" + NL + "\t\t\treturn getUnknownElementText(view);" + NL + "\t\t}" + NL + "\t}" + NL;
-  protected final String TEXT_71 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String get";
-  protected final String TEXT_72 = "Text(";
-  protected final String TEXT_73 = " view) {";
-  protected final String TEXT_74 = NL + "\t\t";
-  protected final String TEXT_75 = " parser = ";
-  protected final String TEXT_76 = ".getInstance().getParser(new ";
-  protected final String TEXT_77 = "() {" + NL + "\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\tif (String.class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
-  protected final String TEXT_78 = ".DESCRIPTION";
-  protected final String TEXT_79 = ".getType(";
-  protected final String TEXT_80 = ".VISUAL_ID)";
-  protected final String TEXT_81 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (";
-  protected final String TEXT_82 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
-  protected final String TEXT_83 = ".";
-  protected final String TEXT_84 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tif (parser != null) {" + NL + "\t\t\treturn parser.getPrintString(new ";
-  protected final String TEXT_85 = "(view.getElement() != null ? view.getElement() : view), ";
-  protected final String TEXT_86 = ".NONE.intValue());" + NL + "\t\t} else {" + NL + "\t\t\t";
-  protected final String TEXT_87 = ".getInstance().logError(\"Parser was not found for label \" + ";
-  protected final String TEXT_88 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
-  protected final String TEXT_89 = NL + "\t\treturn \"";
-  protected final String TEXT_90 = "\";";
-  protected final String TEXT_91 = NL + "\t\t";
-  protected final String TEXT_92 = " domainModelElement = view.getElement();" + NL + "\t\tif (domainModelElement != null) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_93 = "String.valueOf(";
-  protected final String TEXT_94 = ")";
-  protected final String TEXT_95 = ";" + NL + "\t\t} else {" + NL + "\t\t\t";
-  protected final String TEXT_96 = ".getInstance().logError(\"No domain element for view with visualID = \" + ";
-  protected final String TEXT_97 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
-  protected final String TEXT_98 = NL + "\t\treturn \"\";";
-  protected final String TEXT_99 = NL + "\t}";
-  protected final String TEXT_100 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnknownElementText(";
-  protected final String TEXT_101 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
-  protected final String TEXT_102 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
-  protected final String TEXT_103 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
-  protected final String TEXT_104 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
-  protected final String TEXT_105 = " view) {" + NL + "\t\treturn ";
-  protected final String TEXT_106 = ".MODEL_ID.equals(";
-  protected final String TEXT_107 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_108 = NL;
+  protected final String TEXT_8 = ", ";
+  protected final String TEXT_9 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tstatic {" + NL + "\t\t";
+  protected final String TEXT_10 = ".getInstance().getImageRegistry().put(\"";
+  protected final String TEXT_11 = "\", ";
+  protected final String TEXT_12 = ".getMissingImageDescriptor());" + NL + "\t\t";
+  protected final String TEXT_13 = ".getInstance().getImageRegistry().put(\"";
+  protected final String TEXT_14 = "\", ";
+  protected final String TEXT_15 = ".getMissingImageDescriptor());" + NL + "\t\t";
+  protected final String TEXT_16 = ".getInstance().getImageRegistry().put(\"";
+  protected final String TEXT_17 = "\", ";
+  protected final String TEXT_18 = ".getMissingImageDescriptor());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void updateLabel(";
+  protected final String TEXT_19 = " label, ";
+  protected final String TEXT_20 = " elementPath) {" + NL + "\t\tObject element = elementPath.getLastSegment();" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_21 = " && !isOwnView(((";
+  protected final String TEXT_22 = ") element).getView())) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tlabel.setText(getText(element));" + NL + "\t\tlabel.setImage(getImage(element));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_23 = " getImage(Object element) {" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_24 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_25 = " group = (";
+  protected final String TEXT_26 = ") element;" + NL + "\t\t\treturn ";
+  protected final String TEXT_27 = ".getInstance().getBundledImage(group.getIcon());" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_28 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_29 = " navigatorItem = (";
+  protected final String TEXT_30 = ") element;" + NL + "    \t\tif (!isOwnView(navigatorItem.getView())) {" + NL + "    \t\t\treturn super.getImage(element);" + NL + "    \t\t}" + NL + "    \t\treturn getImage(navigatorItem.getView());" + NL + "\t\t}" + NL;
+  protected final String TEXT_31 = NL + "\t\t// Due to plugin.xml content will be called only for \"own\" views" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_32 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_33 = " view = (";
+  protected final String TEXT_34 = ") ((";
+  protected final String TEXT_35 = ") element).getAdapter(";
+  protected final String TEXT_36 = ".class);" + NL + "\t\t\tif (view != null && isOwnView(view)) {" + NL + "\t\t\t\treturn getImage(view);" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_37 = NL + "\t\treturn super.getImage(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_38 = " getImage(";
+  protected final String TEXT_39 = " view) {" + NL + "\t\tswitch (";
+  protected final String TEXT_40 = ".getVisualID(view)) {";
+  protected final String TEXT_41 = NL + "\t\tcase ";
+  protected final String TEXT_42 = ".VISUAL_ID:" + NL + "\t\t\treturn getImage(\"";
+  protected final String TEXT_43 = "\", ";
+  protected final String TEXT_44 = ".";
+  protected final String TEXT_45 = "null";
+  protected final String TEXT_46 = ");";
+  protected final String TEXT_47 = NL + "\t\tdefault:" + NL + "\t\t\treturn getImage(\"";
+  protected final String TEXT_48 = "\", null);" + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_49 = " getImage(String key, ";
+  protected final String TEXT_50 = " elementType) {" + NL + "\t\t";
+  protected final String TEXT_51 = " imageRegistry = ";
+  protected final String TEXT_52 = ".getInstance().getImageRegistry();" + NL + "\t\t";
+  protected final String TEXT_53 = " image = imageRegistry.get(key);" + NL + "\t\tif (image == null && elementType != null && ";
+  protected final String TEXT_54 = ".isKnownElementType(elementType)) {" + NL + "\t\t\timage = ";
+  protected final String TEXT_55 = ".getImage(elementType);" + NL + "\t\t\timageRegistry.put(key, image);" + NL + "\t\t}" + NL + "\t\t\t" + NL + "\t\tif (image == null) {" + NL + "\t\t\timage = imageRegistry.get(\"";
+  protected final String TEXT_56 = "\");" + NL + "\t\t\timageRegistry.put(key, image);" + NL + "\t\t}" + NL + "\t\treturn image;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(Object element) {" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_57 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_58 = " group = (";
+  protected final String TEXT_59 = ") element;" + NL + "\t\t\treturn group.getGroupName();" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_60 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_61 = " navigatorItem = (";
+  protected final String TEXT_62 = ") element;" + NL + "    \t\tif (!isOwnView(navigatorItem.getView())) {" + NL + "    \t\t\treturn null;" + NL + "    \t\t}" + NL + "    \t\treturn getText(navigatorItem.getView());" + NL + "\t\t}" + NL + "\t";
+  protected final String TEXT_63 = NL + "\t\t// Due to plugin.xml content will be called only for \"own\" views" + NL + "\t\tif (element instanceof ";
+  protected final String TEXT_64 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_65 = " view = (";
+  protected final String TEXT_66 = ") ((";
+  protected final String TEXT_67 = ") element).getAdapter(";
+  protected final String TEXT_68 = ".class);" + NL + "\t\t\tif (view != null && isOwnView(view)) {" + NL + "\t\t\t\treturn getText(view);" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_69 = NL + "\t\treturn super.getText(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(";
+  protected final String TEXT_70 = " view) {" + NL + "\t\tswitch (";
+  protected final String TEXT_71 = ".getVisualID(view)) {";
+  protected final String TEXT_72 = NL + "\t\tcase ";
+  protected final String TEXT_73 = ".VISUAL_ID:" + NL + "\t\t\treturn get";
+  protected final String TEXT_74 = "Text(view);";
+  protected final String TEXT_75 = NL + "\t\tdefault:" + NL + "\t\t\treturn getUnknownElementText(view);" + NL + "\t\t}" + NL + "\t}" + NL;
+  protected final String TEXT_76 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String get";
+  protected final String TEXT_77 = "Text(";
+  protected final String TEXT_78 = " view) {";
+  protected final String TEXT_79 = NL + "\t\t";
+  protected final String TEXT_80 = " parser = ";
+  protected final String TEXT_81 = ".getInstance().getParser(new ";
+  protected final String TEXT_82 = "() {" + NL + "\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\tif (String.class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
+  protected final String TEXT_83 = ".DESCRIPTION";
+  protected final String TEXT_84 = ".getType(";
+  protected final String TEXT_85 = ".VISUAL_ID)";
+  protected final String TEXT_86 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (";
+  protected final String TEXT_87 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
+  protected final String TEXT_88 = ".";
+  protected final String TEXT_89 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tif (parser != null) {" + NL + "\t\t\treturn parser.getPrintString(new ";
+  protected final String TEXT_90 = "(view.getElement() != null ? view.getElement() : view), ";
+  protected final String TEXT_91 = ".NONE.intValue());" + NL + "\t\t} else {" + NL + "\t\t\t";
+  protected final String TEXT_92 = ".getInstance().logError(\"Parser was not found for label \" + ";
+  protected final String TEXT_93 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
+  protected final String TEXT_94 = NL + "\t\treturn \"";
+  protected final String TEXT_95 = "\";";
+  protected final String TEXT_96 = NL + "\t\t";
+  protected final String TEXT_97 = " domainModelElement = view.getElement();" + NL + "\t\tif (domainModelElement != null) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_98 = "String.valueOf(";
+  protected final String TEXT_99 = ")";
+  protected final String TEXT_100 = ";" + NL + "\t\t} else {" + NL + "\t\t\t";
+  protected final String TEXT_101 = ".getInstance().logError(\"No domain element for view with visualID = \" + ";
+  protected final String TEXT_102 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
+  protected final String TEXT_103 = NL + "\t\treturn \"\";";
+  protected final String TEXT_104 = NL + "\t}";
+  protected final String TEXT_105 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnknownElementText(";
+  protected final String TEXT_106 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
+  protected final String TEXT_107 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
+  protected final String TEXT_108 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
+  protected final String TEXT_109 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
+  protected final String TEXT_110 = " view) {" + NL + "\t\treturn ";
+  protected final String TEXT_111 = ".MODEL_ID.equals(";
+  protected final String TEXT_112 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_113 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -352,149 +357,159 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonLabelProvider"));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.ITreePathLabelProvider"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(invalidElementKey);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor"));
+    stringBuffer.append(invalidElementKey);
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor"));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(unknownElementKey);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor"));
+    stringBuffer.append(unknownElementKey);
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_15);
-    stringBuffer.append(notFoundElementKey);
-    stringBuffer.append(TEXT_16);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor"));
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(notFoundElementKey);
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor"));
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.ViewerLabel"));
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.TreePath"));
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
-    stringBuffer.append(TEXT_25);
-    if (genDiagram.generateShortcutIcon()) {
-    stringBuffer.append(TEXT_26);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_30);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_31);
-    
-}
-    stringBuffer.append(TEXT_32);
     stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(TEXT_26);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_28);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(TEXT_30);
+    if (genDiagram.generateShortcutIcon()) {
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_33);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_35);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_36);
+    
+}
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_40);
     for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
 		RegistryKey registryKey = new RegistryKey(nextCommonBase);
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_41);
     stringBuffer.append(importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_42);
     stringBuffer.append(registryKey.getKey());
-    stringBuffer.append(TEXT_38);
+    stringBuffer.append(TEXT_43);
     if (nextCommonBase.getElementType() != null) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_44);
     stringBuffer.append(nextCommonBase.getUniqueIdentifier());
     } else {
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_45);
     }
-    stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_46);
     	}
 }
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(unknownElementKey);
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
-    stringBuffer.append(TEXT_44);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageRegistry"));
-    stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_47);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
+    stringBuffer.append(unknownElementKey);
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
     stringBuffer.append(TEXT_49);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(notFoundElementKey);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.resource.ImageRegistry"));
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_52);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_54);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_55);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(notFoundElementKey);
     stringBuffer.append(TEXT_56);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
     stringBuffer.append(TEXT_57);
-    if (genDiagram.generateShortcutIcon()) {
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName()));
     stringBuffer.append(TEXT_59);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_60);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_61);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName()));
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    if (genDiagram.generateShortcutIcon()) {
     stringBuffer.append(TEXT_63);
-    
-}
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_64);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_65);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_66);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(TEXT_67);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_68);
+    
+}
+    stringBuffer.append(TEXT_69);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_70);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_71);
     for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
-    stringBuffer.append(TEXT_67);
+    stringBuffer.append(TEXT_72);
     stringBuffer.append(importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_68);
+    stringBuffer.append(TEXT_73);
     stringBuffer.append(nextCommonBase.getUniqueIdentifier());
-    stringBuffer.append(TEXT_69);
+    stringBuffer.append(TEXT_74);
     	}
 }
-    stringBuffer.append(TEXT_70);
+    stringBuffer.append(TEXT_75);
     for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
-    stringBuffer.append(TEXT_71);
+    stringBuffer.append(TEXT_76);
     stringBuffer.append(nextCommonBase.getUniqueIdentifier());
-    stringBuffer.append(TEXT_72);
+    stringBuffer.append(TEXT_77);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_78);
     		LabelModelFacet labelModelFacet = null;
 		GenCommonBase hintHolder = null;
 		GenCommonBase elementTypeHolder = null;
@@ -526,47 +541,47 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 		
 		if (elementTypeHolder != null) {
 /* 1. Label was detected. */
-    stringBuffer.append(TEXT_74);
+    stringBuffer.append(TEXT_79);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
-    stringBuffer.append(TEXT_75);
+    stringBuffer.append(TEXT_80);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
-    stringBuffer.append(TEXT_76);
+    stringBuffer.append(TEXT_81);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_82);
     
 			if (labelModelFacet instanceof DesignLabelModelFacet) {
 				
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint"));
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_83);
     
 			} else {
 				
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_84);
     stringBuffer.append(importManager.getImportedName(hintHolder.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_80);
+    stringBuffer.append(TEXT_85);
     
 			}
-    stringBuffer.append(TEXT_81);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_82);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_83);
-    stringBuffer.append(elementTypeHolder.getUniqueIdentifier());
-    stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
-    stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions"));
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
     stringBuffer.append(TEXT_87);
-    stringBuffer.append(String.valueOf(hintHolder.getVisualID()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_88);
+    stringBuffer.append(elementTypeHolder.getUniqueIdentifier());
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions"));
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(String.valueOf(hintHolder.getVisualID()));
+    stringBuffer.append(TEXT_93);
     		} else if (nextCommonBase instanceof GenCompartment) {
 /* 2. Compartment was detected. */
-    stringBuffer.append(TEXT_89);
+    stringBuffer.append(TEXT_94);
     stringBuffer.append(((GenCompartment) nextCommonBase).getTitle());
-    stringBuffer.append(TEXT_90);
+    stringBuffer.append(TEXT_95);
     		} else {
 			GenClass domainElement = null;
 			if (nextCommonBase instanceof GenDiagram) {
@@ -583,46 +598,46 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 /* 3. Underlying doman model element recognized. */
 				GenFeature labelFeature = domainElement.getLabelFeature();
 				boolean notString = EcorePackage.eINSTANCE.getEString() != labelFeature.getEcoreFeature().getEType();
-    stringBuffer.append(TEXT_91);
+    stringBuffer.append(TEXT_96);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_92);
+    stringBuffer.append(TEXT_97);
     if (notString) {
-    stringBuffer.append(TEXT_93);
+    stringBuffer.append(TEXT_98);
     }
     stringBuffer.append(getFeatureValueGetter("domainModelElement", domainElement.getLabelFeature(), true, importManager));
     if (notString) {
-    stringBuffer.append(TEXT_94);
+    stringBuffer.append(TEXT_99);
     }
-    stringBuffer.append(TEXT_95);
+    stringBuffer.append(TEXT_100);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_96);
+    stringBuffer.append(TEXT_101);
     stringBuffer.append(String.valueOf(nextCommonBase.getVisualID()));
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_102);
     			} else {
 /* 4. None of above. */
-    stringBuffer.append(TEXT_98);
+    stringBuffer.append(TEXT_103);
     			}
 		}
-    stringBuffer.append(TEXT_99);
+    stringBuffer.append(TEXT_104);
     	}
 }
-    stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_101);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
-    stringBuffer.append(TEXT_102);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
-    stringBuffer.append(TEXT_103);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
-    stringBuffer.append(TEXT_104);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_105);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
     stringBuffer.append(TEXT_107);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
     stringBuffer.append(TEXT_108);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(TEXT_109);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_110);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_111);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_112);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_113);
     return stringBuffer.toString();
   }
 }
