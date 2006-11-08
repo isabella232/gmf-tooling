@@ -136,8 +136,11 @@ public class ModelLoadHelper {
 		try {
 			resource.load(resourceSet.getLoadOptions());
 		} catch(IOException e) {
-			rootException = e;
-			//no need to include in resource.getErrors(), as it done automatically. 
+			rootException = e instanceof Resource.IOWrappedException ? (Exception)e.getCause() : e;
+			// include only non diagnostic exception in resource.getErrors()			
+			if(!(e instanceof Resource.Diagnostic)) {
+				resource.getErrors().add(ModelLoadHelper.createDiagnostic(resource, rootException));
+			} 
 		} catch(RuntimeException e) {			
 			EcorePlugin.INSTANCE.getPluginLogger().log(e);			
 			resource.getErrors().add(ModelLoadHelper.createDiagnostic(resource, e));
