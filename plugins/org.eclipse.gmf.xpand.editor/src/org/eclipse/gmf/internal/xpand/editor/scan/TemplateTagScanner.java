@@ -46,7 +46,7 @@ public class TemplateTagScanner extends RuleBasedScanner {
         // Add rule for brackets
         rules.add(new IRule() {
             public IToken evaluate(final ICharacterScanner scanner) {
-                final byte c = (byte) scanner.read();
+                final int c = scanner.read();
                 if ((XpandTokens.LT_CHAR == c) || (XpandTokens.RT_CHAR == c)) {
 					return terminals;
 				} else {
