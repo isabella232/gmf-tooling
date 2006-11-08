@@ -39,6 +39,11 @@ $Import
 	../../expression/parser/ExpressionParser.g
 $End
 
+$Define
+	$initialization_code /.xtendFactory = new ExtensionFactory(lexStream.getFileName());
+            factory = new ExpressionFactory(lexStream.getFileName());./
+$End
+
 $Terminals
 	import extension reexport private create cached
 	JAVA GLOBALVAR 

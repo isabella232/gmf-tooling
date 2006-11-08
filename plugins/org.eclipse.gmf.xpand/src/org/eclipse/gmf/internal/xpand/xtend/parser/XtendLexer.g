@@ -21,8 +21,7 @@ $Import
 $End
 
 $Define
-	$kw_lexer_class /.$XtendKWLexer./
-	$_IDENTIFIER /.$_IDENT./
+	$kw_lexer_class /.XtendKWLexer./
 $End
 
 $Export
