@@ -81,7 +81,6 @@ $Rules
 
 	Token ::= R E M RG commentAny lgPlus E N D R E M 
 		/.$BeginAction
-			//makeToken(getRhsFirstTokenIndex(1), getRhsLastTokenIndex(12), $_COMMENT);
 			makeToken($_COMMENT);
 		$EndAction./
 
