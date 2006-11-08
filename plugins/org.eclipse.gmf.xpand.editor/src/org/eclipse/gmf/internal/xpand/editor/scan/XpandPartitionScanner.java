@@ -69,8 +69,6 @@ public class XpandPartitionScanner extends RuleBasedScanner implements IPartitio
 				//fOffset = offset;
 				return;
 			}
-		} else {
-			System.err.println("partitionOffset <= -1");
 		}
 		super.setRange(document, offset, length);
 	}
