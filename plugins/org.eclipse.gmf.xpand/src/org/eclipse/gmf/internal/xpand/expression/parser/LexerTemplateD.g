@@ -161,6 +161,7 @@ $Headers
             }
 
             this.prsStream = prsStream;
+            resetErrors();
 
             prsStream.makeToken(0, 0, 0); // Token list must start with a bad token
                 
@@ -173,6 +174,10 @@ $Headers
             return;
         }
     ./
+$End
+
+$Import
+	errorHandling.g
 $End
 
 $Rules

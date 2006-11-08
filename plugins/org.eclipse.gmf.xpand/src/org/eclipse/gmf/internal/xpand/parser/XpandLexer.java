@@ -9,6 +9,12 @@
 package org.eclipse.gmf.internal.xpand.parser;
 
 import lpg.lpgjavaruntime.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLexersym, RuleAction {
     private static ParseTable prs = new XpandLexerprs();
@@ -50,6 +56,7 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
         }
 
         this.prsStream = prsStream;
+        resetErrors();
 
         prsStream.makeToken(0, 0, 0); // Token list must start with a bad token
             
@@ -61,6 +68,62 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             
         return;
     }
+
+	public ErrorLocationInfo[] getErrors() {
+		return errors.toArray(new ErrorLocationInfo[errors.size()]);
+	}
+
+	private void resetErrors() {
+		errors.clear();
+	}
+
+	private final List<ErrorLocationInfo> errors = new LinkedList<ErrorLocationInfo>();
+
+	@Override
+	public void reportError(int errorCode, String locationInfo, int leftToken, int rightToken, String tokenText) {
+		final int leftTokenLine = getLine(leftToken);
+		final int leftTokenColumn = getColumn(leftToken);
+		final int rightTokenLine = getEndLine(rightToken);
+		final int rightTokenColumn = getEndColumn(rightToken);
+		final String msg = tokenText + errorMsgText[errorCode];
+		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+		super.reportError(errorCode, locationInfo, leftToken, rightToken, tokenText);
+	}
+/*
+	@Override
+	public void reportError(int leftToken, int rightToken) {
+		int errorCode = (rightToken >= getStreamLength() ? EOF_CODE : leftToken == rightToken ? LEX_ERROR_CODE : INVALID_TOKEN_CODE);
+		int endToken = (leftToken == rightToken ? rightToken : rightToken - 1);
+		String msg = (errorCode == EOF_CODE ? "End-of-file " : errorCode == INVALID_TOKEN_CODE
+					? "\"" + new String(getInputChars(), leftToken, rightToken - leftToken) + "\" "
+					: "\"" + getCharValue(leftToken) + "\" ");
+
+		final int leftTokenLine = getLine(leftToken);
+		final int leftTokenColumn = getColumn(leftToken);
+		final int rightTokenLine = getEndLine(endToken);
+		final int rightTokenColumn = getEndColumn(endToken);
+		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+		super.reportError(leftToken, rightToken);
+	}
+*/
+	@Override
+	public void reportError(int errorCode, String locationInfo, String tokenText) {
+		try {
+			Matcher m = Pattern.compile("[^:]+:(\\d+):(\\d+):(\\d+):(\\d+):.*").matcher(locationInfo);
+			boolean t = m.matches(); // ignore return value, rely on exception if anything wrong
+			assert t;
+			final int leftTokenLine = getLine(Integer.parseInt(m.group(1)));
+			final int leftTokenColumn = getColumn(Integer.parseInt(m.group(2)));
+			final int rightTokenLine = getEndLine(Integer.parseInt(m.group(3)));
+			final int rightTokenColumn = getEndColumn(Integer.parseInt(m.group(4)));
+			final String msg = tokenText + errorMsgText[errorCode];
+			errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
+		} catch (Exception ex) {
+			// ignore
+			errors.add(new ErrorLocationInfo(tokenText + errorMsgText[errorCode]));
+		}
+		super.reportError(errorCode, locationInfo, tokenText);
+	}
 
     //
     // The Lexer contains an array of characters as the input stream to be parsed.
@@ -541,7 +604,6 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             // Rule 236:  Token ::= R E M RG commentAny lgPlus E N D R E M
             //
             case 236: { 
-		//makeToken(getRhsFirstTokenIndex(1), getRhsLastTokenIndex(12), TK_COMMENT);
 		makeToken(TK_COMMENT);
 	          break;
             }

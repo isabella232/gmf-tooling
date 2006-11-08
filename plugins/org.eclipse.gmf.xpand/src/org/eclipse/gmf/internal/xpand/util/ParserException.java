@@ -27,6 +27,10 @@ public class ParserException extends Exception {
 		public final int endColumn;
 		public final String message;
 
+		public ErrorLocationInfo(String message) {
+			this(message, -1, -1, -1, -1);
+		}
+
 		public ErrorLocationInfo(String message, int startLine, int startColumn, int endLine, int endColumn) {
 			this.message = message;
 			this.startLine = startLine;

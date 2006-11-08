@@ -34,8 +34,6 @@ $Globals
 	import org.eclipse.gmf.internal.xpand.expression.ast.*;
 
 	import java.util.Collections;
-	import java.util.LinkedList;
-	import java.util.List;
 	./
 $End
 

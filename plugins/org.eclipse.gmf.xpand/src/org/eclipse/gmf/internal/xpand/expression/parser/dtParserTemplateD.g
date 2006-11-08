@@ -183,6 +183,7 @@ $Headers
             
         public $ast_class parser(Monitor monitor, int error_repair_count) {
             try {
+            	resetErrors();
                 dtParser = new DeterministicParser(monitor, (TokenStream)this, prs, (RuleAction)this);
             }
             catch (NotDeterministicParseTableException e) {
@@ -208,6 +209,10 @@ $Headers
 
     ./
 
+$End
+
+$Import
+	errorHandling.g
 $End
 
 $Rules

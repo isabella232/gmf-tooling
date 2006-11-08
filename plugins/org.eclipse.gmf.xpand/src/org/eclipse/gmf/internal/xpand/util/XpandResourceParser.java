@@ -17,7 +17,6 @@ package org.eclipse.gmf.internal.xpand.util;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
@@ -31,23 +30,16 @@ public class XpandResourceParser {
 		Template tpl = null;
 		XpandParser parser = null;
 		XpandLexer scanner = null;
-		final ArrayList<ParserException.ErrorLocationInfo> errors = new ArrayList<ParserException.ErrorLocationInfo>();
 		final char[] buffer = new StreamConverter().toCharArray(source);
 		try {
-			scanner = new XpandLexer(buffer, qualifiedTemplateName) {
-        		// FIXME move to XpandLexer.g template
-            	@Override
-            	public void reportError(int left_loc, int right_loc) {
-                    errors.add(XtendResourceParser.createError(this, left_loc, right_loc));
-            		super.reportError(left_loc, right_loc);
-            	}
-			};
+			scanner = new XpandLexer(buffer, qualifiedTemplateName);
 			parser = new XpandParser(scanner);
 			scanner.lexer(parser);
 			tpl = parser.parser();
 			// FIXME handle errors if find out how to force generated parser to throw exception instead of consuming it
 		} catch (final Exception e) {
-        	if (errors.isEmpty()) {
+			ParserException.ErrorLocationInfo[] errors = scanner.getErrors();
+        	if (errors.length == 0) {
         		throw new IOException("Unexpected exception while parsing");
         	} else {
         		throw new ParserException(errors);
@@ -60,7 +52,9 @@ public class XpandResourceParser {
 			tpl.setFullyQualifiedName(qualifiedTemplateName);
 			return tpl;
 		}
-		return null;
+		ParserException.ErrorLocationInfo[] errors = scanner.getErrors();
+		assert errors.length > 0 : "otherwise, no reason not to get template";
+		throw new ParserException(errors);
 	}
 
 }
