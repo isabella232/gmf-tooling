@@ -44,7 +44,9 @@ public class OawMarkerManager {
 		MarkerData[] data = new MarkerData[issues.length];
 		int i = 0;
 		for (ErrorLocationInfo issue : issues) {
-			data[i++] = new MarkerData(issue.message, IMarker.SEVERITY_ERROR, -1, -1, issue.startLine);
+			int start = issue.startLine == issue.endLine ? issue.startColumn : -1;
+			int end = issue.startLine == issue.endLine ? issue.endColumn : -1;
+			data[i++] = new MarkerData(issue.message, IMarker.SEVERITY_ERROR, start, end, issue.startLine);
 		}
 		internalAddMarker(file, data);
 	}
