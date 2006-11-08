@@ -31,8 +31,9 @@ public class NavigatorSorterGenerator
   protected final String TEXT_13 = " item = (";
   protected final String TEXT_14 = ") element;";
   protected final String TEXT_15 = NL + "\t\t\tif (item.getView().getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\t\t\treturn SHORTCUTS_CATEGORY;" + NL + "\t\t\t}";
-  protected final String TEXT_16 = NL + "\t\t\treturn item.getVisualID();" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_17 = NL;
+  protected final String TEXT_16 = NL + "\t\t\treturn ";
+  protected final String TEXT_17 = ".getVisualID(item.getView());" + NL + "\t\t}" + NL + "\t\treturn GROUP_CATEGORY;" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -89,8 +90,10 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_15);
     }
     stringBuffer.append(TEXT_16);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_17);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }

@@ -28,6 +28,11 @@ public class <%=genDiagram.getMatchingStrategyClassName()%> implements <%=import
         if (editorInput.equals(input)) {
         	return true;
         }
+        
+        <% /* Workaround for IFileEditorInputProxy comparision.. */ %>
+        if (editorInput instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%> && input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
+        	return ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) editorInput).getFile().equals(((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) input).getFile());
+        }
 
 		<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = editorRef.getEditor(false);
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%> && editor instanceof <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>) {

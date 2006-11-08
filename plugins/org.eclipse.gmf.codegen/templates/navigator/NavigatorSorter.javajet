@@ -50,7 +50,7 @@ public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.get
 				return SHORTCUTS_CATEGORY;
 			}
 <%}%>
-			return item.getVisualID();
+			return <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(item.getView());
 		}
 		return GROUP_CATEGORY;
 	}

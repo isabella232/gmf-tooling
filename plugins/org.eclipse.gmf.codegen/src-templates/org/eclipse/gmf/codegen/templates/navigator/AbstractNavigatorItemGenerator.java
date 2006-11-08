@@ -31,7 +31,7 @@ public class AbstractNavigatorItemGenerator
   protected final String TEXT_14 = " && adapterType == ";
   protected final String TEXT_15 = ".class) {" + NL + "\t\t\t\t\treturn propertySheetPageContributor;\t\t\t\t" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "" + NL + "\t\t\tpublic Class[] getAdapterList() {" + NL + "\t\t\t\treturn supportedTypes;" + NL + "\t\t\t}" + NL + "\t\t}, ";
   protected final String TEXT_16 = ".class);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate Object myParent;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprotected ";
-  protected final String TEXT_17 = "(Object parent) {" + NL + "\t\tmyParent = parent;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tabstract public String getModelID();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getParent() {" + NL + "\t\treturn myParent;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\treturn ";
+  protected final String TEXT_17 = "(Object parent) {" + NL + "\t\tmyParent = parent;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getParent() {" + NL + "\t\treturn myParent;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\treturn ";
   protected final String TEXT_18 = ".getAdapterManager().getAdapter(this, adapter);" + NL + "\t}" + NL + "\t" + NL + "}";
   protected final String TEXT_19 = NL;
 

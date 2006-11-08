@@ -34,14 +34,12 @@ public class NavigatorItemGenerator
   protected final String TEXT_17 = " myView;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate boolean myLeaf = false;\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
   protected final String TEXT_18 = "(";
   protected final String TEXT_19 = " view, Object parent, boolean isLeaf) {" + NL + "\t\tsuper(parent);" + NL + "\t\tmyView = view;" + NL + "\t\tmyLeaf = isLeaf;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic ";
-  protected final String TEXT_20 = " getView() {" + NL + "\t\treturn myView;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getModelID() {" + NL + "\t\treturn ";
-  protected final String TEXT_21 = ".getModelID(myView);" + NL + "\t}" + NL + "\t" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic int getVisualID() {" + NL + "\t\treturn ";
-  protected final String TEXT_22 = ".getVisualID(myView);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isLeaf() {" + NL + "\t\treturn myLeaf;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean equals(Object obj) {" + NL + "\t\tif (obj instanceof ";
-  protected final String TEXT_23 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_24 = " eObject = getView().getElement();" + NL + "\t\t\t";
-  protected final String TEXT_25 = " anotherEObject = ((";
-  protected final String TEXT_26 = ") obj).getView().getElement();" + NL + "\t\t\tif (eObject == null) {" + NL + "\t\t\t\treturn anotherEObject == null;" + NL + "\t\t\t} else if (anotherEObject == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\treturn eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));" + NL + "\t\t}" + NL + "\t\treturn super.equals(obj);" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_27 = NL;
+  protected final String TEXT_20 = " getView() {" + NL + "\t\treturn myView;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isLeaf() {" + NL + "\t\treturn myLeaf;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean equals(Object obj) {" + NL + "\t\tif (obj instanceof ";
+  protected final String TEXT_21 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_22 = " eObject = getView().getElement();" + NL + "\t\t\t";
+  protected final String TEXT_23 = " anotherEObject = ((";
+  protected final String TEXT_24 = ") obj).getView().getElement();" + NL + "\t\t\tif (eObject == null) {" + NL + "\t\t\t\treturn anotherEObject == null;" + NL + "\t\t\t} else if (anotherEObject == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\treturn eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));" + NL + "\t\t}" + NL + "\t\treturn super.equals(obj);" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_25 = NL;
 
   public String generate(Object argument)
   {
@@ -94,20 +92,16 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(genNavigator.getNavigatorItemClassName());
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(genNavigator.getNavigatorItemClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_25);
     stringBuffer.append(genNavigator.getNavigatorItemClassName());
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_24);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_25);
     return stringBuffer.toString();
   }
 }

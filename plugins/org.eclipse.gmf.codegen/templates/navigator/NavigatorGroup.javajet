@@ -28,21 +28,15 @@ public class <%=genNavigator.getNavigatorGroupClassName()%> extends <%=importMan
 	/**
 	 * @generated
 	 */	
-	private String myModelID;
-
-	/**
-	 * @generated
-	 */	
 	private <%=importManager.getImportedName("java.util.Collection")%> myChildren = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 	
 	/**
 	 * @generated
 	 */	
-	<%=genNavigator.getNavigatorGroupClassName()%>(String groupName, String icon, String modelID, Object parent) {
+	<%=genNavigator.getNavigatorGroupClassName()%>(String groupName, String icon, Object parent) {
 		super(parent);
 		myGroupName = groupName;
 		myIcon = icon;
-		myModelID = modelID;
 	}
 	
 	/**
@@ -85,13 +79,6 @@ public class <%=genNavigator.getNavigatorGroupClassName()%> extends <%=importMan
 	 */	
 	public boolean isEmpty() {
 		return myChildren.size() == 0;
-	}
-	
-	/**
-	 * @generated
-	 */	
-	public String getModelID() {
-		return myModelID;
 	}
 	
 	/**

@@ -55,11 +55,6 @@ public abstract class <%=genNavigator.getAbstractNavigatorItemClassName()%> impl
 	/**
 	 * @generated
 	 */	
-	abstract public String getModelID();
-	
-	/**
-	 * @generated
-	 */	
 	public Object getParent() {
 		return myParent;
 	}

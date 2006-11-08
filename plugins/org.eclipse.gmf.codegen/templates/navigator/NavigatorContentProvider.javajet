@@ -73,7 +73,7 @@ for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasN
 		parentVariable = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
 		if (!createdDiagramGroups.containsKey(parentVariable)) {
 			createdDiagramGroups.put(parentVariable, nextReference);%>
-			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, file);
+			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", file);
 <%		}%>
 			<%=parentVariable%>.addChildren(<%
 	} else {
@@ -155,7 +155,7 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 			parentVariable = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
 			if (!createdGroups.containsKey(parentVariable)) {
 				createdGroups.put(parentVariable, nextReference);%>
-			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, parentElement);
+			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", parentElement);
 <%			}%>
 			<%=parentVariable%>.addChildren(<%
 		} else {

@@ -64,21 +64,6 @@ public class <%=genNavigator.getNavigatorItemClassName()%> extends <%=importMana
 	/**
 	 * @generated
 	 */	
-	public String getModelID() {
-		return <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(myView);
-	}
-	
-	
-	/**
-	 * @generated
-	 */	
-	public int getVisualID() {
-		return <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(myView);
-	}
-	
-	/**
-	 * @generated
-	 */	
 	public boolean isLeaf() {
 		return myLeaf;
 	}
