@@ -71,6 +71,7 @@ public class XpandFactory extends ExpressionFactory {
 
 	public TextStatement createTextStatement(final IToken t, final IToken m) {
 		String text = t.toString();
+		// XXX in fact, XpandLexer allows TEXT to be RG char only, in which case we'd get NPE here
 		text = text.substring(1, text.length() - 1);
 		return handle(new TextStatement(start(m != null ? m : t), end(t), line(m != null ? m : t), text, m != null));
 	}
