@@ -10,6 +10,8 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
@@ -36,7 +38,7 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 			if (item.getView().getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 				return SHORTCUTS_CATEGORY;
 			}
-			return item.getVisualID();
+			return EcoreVisualIDRegistry.getVisualID(item.getView());
 		}
 		return GROUP_CATEGORY;
 	}

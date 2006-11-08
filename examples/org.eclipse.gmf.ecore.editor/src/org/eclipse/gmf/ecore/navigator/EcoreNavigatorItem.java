@@ -15,8 +15,6 @@ import org.eclipse.core.runtime.Platform;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -68,20 +66,6 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 	 */
 	public View getView() {
 		return myView;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getModelID() {
-		return EcoreVisualIDRegistry.getModelID(myView);
-	}
-
-	/**
-	 * @generated
-	 */
-	public int getVisualID() {
-		return EcoreVisualIDRegistry.getVisualID(myView);
 	}
 
 	/**

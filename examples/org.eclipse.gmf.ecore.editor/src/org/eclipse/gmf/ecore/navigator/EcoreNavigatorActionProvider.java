@@ -35,7 +35,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
-import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
 /**
@@ -91,16 +90,6 @@ public class EcoreNavigatorActionProvider extends CommonActionProvider {
 	 * @generated
 	 */
 	public void fillContextMenu(IMenuManager menu) {
-		/*		if (!myContribute || getContext().getSelection().isEmpty()) {
-		 return;
-		 }
-
-		 IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-
-		 myOpenDiagramAction.selectionChanged(selection);
-		 if (myOpenDiagramAction.isEnabled()) {
-		 menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, myOpenDiagramAction);
-		 }*/
 	}
 
 	/**

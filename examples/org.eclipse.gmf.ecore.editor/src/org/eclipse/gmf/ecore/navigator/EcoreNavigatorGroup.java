@@ -31,21 +31,15 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	private String myModelID;
-
-	/**
-	 * @generated
-	 */
 	private Collection myChildren = new LinkedList();
 
 	/**
 	 * @generated
 	 */
-	EcoreNavigatorGroup(String groupName, String icon, String modelID, Object parent) {
+	EcoreNavigatorGroup(String groupName, String icon, Object parent) {
 		super(parent);
 		myGroupName = groupName;
 		myIcon = icon;
-		myModelID = modelID;
 	}
 
 	/**
@@ -88,13 +82,6 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	 */
 	public boolean isEmpty() {
 		return myChildren.size() == 0;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getModelID() {
-		return myModelID;
 	}
 
 	/**
