@@ -45,6 +45,10 @@ $Headers
 	./
 $End
 
+$Define
+	$initialization_code /.factory = new ExpressionFactory(lexStream.getFileName());./
+$End
+
 $Start
 	expression
 $End

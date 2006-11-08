@@ -10,11 +10,10 @@ package org.eclipse.gmf.internal.xpand.expression.parser;
 
 import lpg.lpgjavaruntime.*;
 
-public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym, ExpressionLexersym, RuleAction
-{
+public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym, ExpressionLexersym, RuleAction {
     private static ParseTable prs = new ExpressionLexerprs();
     private PrsStream prsStream;
-    private LexParser lexParser = new LexParser(this, prs, this);
+    private final LexParser lexParser = new LexParser(this, prs, this);
 
     public PrsStream getPrsStream() { return prsStream; }
     public int getToken(int i) { return lexParser.getToken(i); }
@@ -24,18 +23,15 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
     public int getLeftSpan() { return lexParser.getFirstToken(); }
     public int getRightSpan() { return lexParser.getLastToken(); }
 
-    public ExpressionLexer(String filename, int tab) throws java.io.IOException 
-    {
+    public ExpressionLexer(String filename, int tab) throws java.io.IOException {
         super(filename, tab);
     }
 
-    public ExpressionLexer(char[] input_chars, String filename, int tab)
-    {
+    public ExpressionLexer(char[] input_chars, String filename, int tab) {
         super(input_chars, filename, tab);
     }
 
-    public ExpressionLexer(char[] input_chars, String filename)
-    {
+    public ExpressionLexer(char[] input_chars, String filename) {
         this(input_chars, filename, 1);
     }
 
@@ -44,15 +40,14 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
     public String[] orderedExportedSymbols() { return ExpressionParsersym.orderedTerminalSymbols; }
     public LexStream getLexStream() { return (LexStream) this; }
 
-    public void lexer(PrsStream prsStream)
-    {
+    public void lexer(PrsStream prsStream) {
         lexer(null, prsStream);
     }
     
-    public void lexer(Monitor monitor, PrsStream prsStream)
-    {
-        if (getInputChars() == null)
+    public void lexer(Monitor monitor, PrsStream prsStream) {
+        if (getInputChars() == null) {
             throw new NullPointerException("LexStream was not initialized");
+        }
 
         this.prsStream = prsStream;
 
@@ -75,66 +70,51 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
     // method getKind.  The template defines the Lexer class and the lexer() method.
     // A driver creates the action class, "Lexer", passing an Option object to the constructor.
     //
-    ExpressionKWLexer kwLexer;
-    boolean printTokens;
+    private ExpressionKWLexer kwLexer;
     private final static int ECLIPSE_TAB_VALUE = 4;
 
     public int [] getKeywordKinds() { return kwLexer.getKeywordKinds(); }
 
-    public ExpressionLexer(String filename) throws java.io.IOException
-    {
+    public ExpressionLexer(String filename) throws java.io.IOException {
         this(filename, ECLIPSE_TAB_VALUE);
         this.kwLexer = new ExpressionKWLexer(getInputChars(), TK_IDENT);
     }
 
-    public void initialize(char [] content, String filename)
-    {
+    public void initialize(char [] content, String filename) {
         super.initialize(content, filename);
-        if (this.kwLexer == null)
+        if (this.kwLexer == null) {
              this.kwLexer = new ExpressionKWLexer(getInputChars(), TK_IDENT);
-        else this.kwLexer.setInputChars(getInputChars());
+        } else {
+        	this.kwLexer.setInputChars(getInputChars());
+        }
     }
     
-    final void makeToken(int kind)
-    {
+    final void makeToken(int kind) {
         int startOffset = getLeftSpan(),
             endOffset = getRightSpan();
         makeToken(startOffset, endOffset, kind);
-        if (printTokens) printValue(startOffset, endOffset);
     }
 
-    final void makeComment(int kind)
-    {
+    final void makeComment(int kind) {
         int startOffset = getLeftSpan(),
             endOffset = getRightSpan();
         super.getPrsStream().makeAdjunct(startOffset, endOffset, kind);
     }
 
-    final void skipToken()
-    {
-        if (printTokens) printValue(getLeftSpan(), getRightSpan());
+    final void skipToken() {
     }
     
-    final void checkForKeyWord()
-    {
+    final void checkForKeyWord() {
         int startOffset = getLeftSpan(),
             endOffset = getRightSpan(),
         kwKind = kwLexer.lexer(startOffset, endOffset);
         makeToken(startOffset, endOffset, kwKind);
-        if (printTokens) printValue(startOffset, endOffset);
     }
     
-    final void printValue(int startOffset, int endOffset)
-    {
-        String s = new String(getInputChars(), startOffset, endOffset - startOffset + 1);
-        System.out.print(s);
-    }
-
     //
     //
     //
-    public final static int tokenKind[] =
-    {
+    public final static int tokenKind[] = {
         Char_CtlCharNotWS,    // 000    0x00
         Char_CtlCharNotWS,    // 001    0x01
         Char_CtlCharNotWS,    // 002    0x02
@@ -267,8 +247,7 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
         Char_EOF              // for '\uffff' or 65535 
     };
             
-    public final int getKind(int i)  // Classify character at ith location
-    {
+    public final int getKind(int i) { // Classify character at ith location
         char c = (i >= getStreamLength() ? '\uffff' : getCharValue(i));
         return (c < 128 // ASCII Character
                   ? tokenKind[c]
@@ -277,10 +256,8 @@ public class ExpressionLexer extends LpgLexStream implements ExpressionParsersym
                        : Char_AfterASCII);
     }
 
-    public void ruleAction( int ruleNumber)
-    {
-        switch(ruleNumber)
-        {
+    public void ruleAction( int ruleNumber) {
+        switch(ruleNumber) {
  
             //
             // Rule 1:  Token ::= Identifier

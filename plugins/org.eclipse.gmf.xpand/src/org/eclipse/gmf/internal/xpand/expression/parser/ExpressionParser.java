@@ -16,8 +16,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ExpressionParser extends PrsStream implements RuleAction
-{
+public class ExpressionParser extends PrsStream implements RuleAction {
     private static ParseTable prs = new ExpressionParserprs();
     private DeterministicParser dtParser;
 
@@ -40,34 +39,29 @@ public class ExpressionParser extends PrsStream implements RuleAction
     public int getRightSpan() { return dtParser.getLastToken(); }
     public IToken getRightIToken() { return super.getIToken(getRightSpan()); }
 
-    public int getRhsErrorTokenIndex(int i)
-    {
+    public int getRhsErrorTokenIndex(int i) {
         int index = dtParser.getToken(i);
         IToken err = super.getIToken(index);
         return (err instanceof ErrorToken ? index : 0);
     }
-    public ErrorToken getRhsErrorIToken(int i)
-    {
+    public ErrorToken getRhsErrorIToken(int i) {
         int index = dtParser.getToken(i);
         IToken err = super.getIToken(index);
         return (ErrorToken) (err instanceof ErrorToken ? err : null);
     }
 
-    public ExpressionParser(LexStream lexStream)
-    {
+    public ExpressionParser(LexStream lexStream) {
         super(lexStream);
         factory = new ExpressionFactory(lexStream.getFileName());
 
-        try
-        {
+        try {
             super.remapTerminalSymbols(orderedTerminalSymbols(), ExpressionParserprs.EOFT_SYMBOL);
         }
         catch(NullExportedSymbolsException e) {
         }
         catch(NullTerminalSymbolsException e) {
         }
-        catch(UnimplementedTerminalsException e)
-        {
+        catch(UnimplementedTerminalsException e) {
             java.util.ArrayList unimplemented_symbols = e.getSymbols();
             System.out.println("The Lexer will not scan the following token(s):");
             for (int i = 0; i < unimplemented_symbols.size(); i++)
@@ -77,8 +71,7 @@ public class ExpressionParser extends PrsStream implements RuleAction
             }
             System.out.println();                        
         }
-        catch(UndefinedEofSymbolException e)
-        {
+        catch(UndefinedEofSymbolException e) {
             throw new Error(new UndefinedEofSymbolException
                                 ("The Lexer does not implement the Eof symbol " +
                                  ExpressionParsersym.orderedTerminalSymbols[ExpressionParserprs.EOFT_SYMBOL]));
@@ -90,43 +83,34 @@ public class ExpressionParser extends PrsStream implements RuleAction
     public int getEOFTokenKind() { return ExpressionParserprs.EOFT_SYMBOL; }
     public PrsStream getParseStream() { return (PrsStream) this; }
 
-    public Expression parser()
-    {
+    public Expression parser() {
         return parser(null, 0);
     }
         
-    public Expression parser(Monitor monitor)
-    {
+    public Expression parser(Monitor monitor) {
         return parser(monitor, 0);
     }
         
-    public Expression parser(int error_repair_count)
-    {
+    public Expression parser(int error_repair_count) {
         return parser(null, error_repair_count);
     }
         
-    public Expression parser(Monitor monitor, int error_repair_count)
-    {
-        try
-        {
+    public Expression parser(Monitor monitor, int error_repair_count) {
+        try {
             dtParser = new DeterministicParser(monitor, (TokenStream)this, prs, (RuleAction)this);
         }
-        catch (NotDeterministicParseTableException e)
-        {
+        catch (NotDeterministicParseTableException e) {
             throw new Error(new NotDeterministicParseTableException
                                 ("Regenerate ExpressionParserprs.java with -NOBACKTRACK option"));
         }
-        catch (BadParseSymFileException e)
-        {
+        catch (BadParseSymFileException e) {
             throw new Error(new BadParseSymFileException("Bad Parser Symbol File -- ExpressionParsersym.java. Regenerate ExpressionParserprs.java"));
         }
 
-        try
-        {
+        try {
             return (Expression) dtParser.parse();
         }
-        catch (BadParseException e)
-        {
+        catch (BadParseException e) {
             reset(e.error_token); // point to error token
 
             DiagnoseParser diagnoseParser = new DiagnoseParser(this, prs);
@@ -139,10 +123,8 @@ public class ExpressionParser extends PrsStream implements RuleAction
 
 	private final ExpressionFactory factory;
 
-    public void ruleAction(int ruleNumber)
-    {
-        switch (ruleNumber)
-        {
+    public void ruleAction(int ruleNumber) {
+        switch (ruleNumber) {
  
             //
             // Rule 2:  letExpression ::= let IDENT ASSIGN castedExpression COLON castedExpression

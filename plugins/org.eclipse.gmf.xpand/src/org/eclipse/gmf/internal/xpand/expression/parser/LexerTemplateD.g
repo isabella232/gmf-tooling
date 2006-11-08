@@ -90,10 +90,8 @@ $Define
 
     $BeginActions
     /.
-        public void ruleAction( int ruleNumber)
-        {
-            switch(ruleNumber)
-            {./
+        public void ruleAction( int ruleNumber) {
+            switch(ruleNumber) {./
 
     $SplitActions
     /.
@@ -104,10 +102,8 @@ $Define
 	        return;
 	    }
 	
-	    public void ruleAction$rule_number(int ruleNumber)
-	    {
-	        switch (ruleNumber)
-	        {./
+	    public void ruleAction$rule_number(int ruleNumber) {
+	        switch (ruleNumber) {./
 
     $EndActions
     /.
@@ -125,11 +121,10 @@ $End
 
 $Headers
     /.
-    public class $action_type extends $super_stream_class implements $exp_type, $sym_type, RuleAction$additional_interfaces
-    {
+    public class $action_type extends $super_stream_class implements $exp_type, $sym_type, RuleAction$additional_interfaces {
         private static ParseTable prs = new $prs_type();
         private $prs_stream_class prsStream;
-        private LexParser lexParser = new LexParser(this, prs, this);
+        private final LexParser lexParser = new LexParser(this, prs, this);
 
         public $prs_stream_class getPrsStream() { return prsStream; }
         public int getToken(int i) { return lexParser.getToken(i); }
@@ -139,18 +134,15 @@ $Headers
         public int getLeftSpan() { return lexParser.getFirstToken(); }
         public int getRightSpan() { return lexParser.getLastToken(); }
   
-        public $action_type(String filename, int tab) throws java.io.IOException 
-        {
+        public $action_type(String filename, int tab) throws java.io.IOException {
             super(filename, tab);
         }
 
-        public $action_type(char[] input_chars, String filename, int tab)
-        {
+        public $action_type(char[] input_chars, String filename, int tab) {
             super(input_chars, filename, tab);
         }
 
-        public $action_type(char[] input_chars, String filename)
-        {
+        public $action_type(char[] input_chars, String filename) {
             this(input_chars, filename, 1);
         }
 
@@ -159,15 +151,14 @@ $Headers
         public String[] orderedExportedSymbols() { return $exp_type.orderedTerminalSymbols; }
         public LexStream getLexStream() { return (LexStream) this; }
 
-        public void lexer($prs_stream_class prsStream)
-        {
+        public void lexer($prs_stream_class prsStream) {
             lexer(null, prsStream);
         }
         
-        public void lexer(Monitor monitor, $prs_stream_class prsStream)
-        {
-            if (getInputChars() == null)
+        public void lexer(Monitor monitor, $prs_stream_class prsStream) {
+            if (getInputChars() == null) {
                 throw new NullPointerException("LexStream was not initialized");
+            }
 
             this.prsStream = prsStream;
 

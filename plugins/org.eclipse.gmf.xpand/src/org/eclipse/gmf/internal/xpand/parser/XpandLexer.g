@@ -22,22 +22,30 @@ $Import
 	../expression/parser/ExpressionLexer.g
 $End
 
-$Headers
-	/.
-	private final static int getNonAsciiKind(char c) {
-		if (c == '\u00AB') {
-			return Char_LG;
-		}
-		if (c == '\u00BB') {
-			return Char_RG;
-		}
-		return Char_AfterASCII;
-	}
-	./
+$Define
+	$kw_lexer_class /.XpandKWLexer./
+	$getKindMethodImpl /.public final int getKind(int i) { // Classify character at ith location
+            char c = (i >= getStreamLength() ? '\uffff' : getCharValue(i));
+            return (c < 128 // ASCII Character
+                      ? tokenKind[c]
+                      : c == '\uffff'
+                           ? Char_EOF
+                           : getNonAsciiKind(c));
+        }./
 $End
 
-$Define
-	$kw_lexer_class /.$XpandKWLexer./
+$Headers
+	/.
+		private final static int getNonAsciiKind(char c) {
+			if (c == '\u00AB') {
+				return Char_LG;
+			}
+			if (c == '\u00BB') {
+				return Char_RG;
+			}
+			return Char_AfterASCII;
+		}
+./
 $End
 
 $Export

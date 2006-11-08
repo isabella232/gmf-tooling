@@ -27,7 +27,7 @@ $End
 
 $Headers
 	/.
-	private final XpandFactory xpandFactory;
+		private final XpandFactory xpandFactory;
 	./
 $End
 
@@ -37,6 +37,12 @@ $End
 
 $Import
 	../expression/parser/ExpressionParser.g
+$End
+
+$Define
+	-- definition of init code should go *after* import
+	$initialization_code /.xpandFactory = new XpandFactory(lexStream.getFileName());
+			factory = new ExpressionFactory(lexStream.getFileName());./
 $End
 
 $Terminals
