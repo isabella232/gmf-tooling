@@ -64,16 +64,20 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 	 * @generated
 	 */
 	public void fillContextMenu(<%=importManager.getImportedName("org.eclipse.jface.action.IMenuManager")%> menu) {
-/*		if (!myContribute || getContext().getSelection().isEmpty()) {
+<%
+/*
+ * Put following code into the template to generate popup menu
+ *
+		if (!myContribute || getContext().getSelection().isEmpty()) {
 			return;
 		}
 
-		<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) getContext().getSelection();
+		< %=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")% > selection = (< %=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")% >) getContext().getSelection();
 
 		myOpenDiagramAction.selectionChanged(selection);
 		if (myOpenDiagramAction.isEnabled()) {
-			menu.insertAfter(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonMenuConstants")%>.GROUP_OPEN, myOpenDiagramAction);
-		}*/
+			menu.insertAfter(< %=importManager.getImportedName("org.eclipse.ui.navigator.ICommonMenuConstants")% >.GROUP_OPEN, myOpenDiagramAction);
+		}*/%>		
 	}
 	
 	/**
