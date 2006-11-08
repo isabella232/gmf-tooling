@@ -22,6 +22,7 @@ import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
 import org.eclipse.gmf.internal.xpand.parser.XpandParser;
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 public class XpandResourceParser {
 
@@ -38,7 +39,7 @@ public class XpandResourceParser {
 			tpl = parser.parser();
 			// FIXME handle errors if find out how to force generated parser to throw exception instead of consuming it
 		} catch (final Exception e) {
-			ParserException.ErrorLocationInfo[] errors = scanner.getErrors();
+			ErrorLocationInfo[] errors = extractErrors(scanner, parser);
         	if (errors.length == 0) {
         		throw new IOException("Unexpected exception while parsing");
         	} else {
@@ -52,9 +53,19 @@ public class XpandResourceParser {
 			tpl.setFullyQualifiedName(qualifiedTemplateName);
 			return tpl;
 		}
-		ParserException.ErrorLocationInfo[] errors = scanner.getErrors();
+		ErrorLocationInfo[] errors = extractErrors(scanner, parser);
 		assert errors.length > 0 : "otherwise, no reason not to get template";
 		throw new ParserException(errors);
 	}
 
+	// FIXME do it in the parser itself, though keeping errors separate may help
+	// those willing to report them separately
+	private static ErrorLocationInfo[] extractErrors(XpandLexer scanner, XpandParser parser) {
+		ErrorLocationInfo[] e1 = scanner.getErrors();
+		ErrorLocationInfo[] e2 = parser.getErrors();
+		ErrorLocationInfo[] res = new ErrorLocationInfo[e1.length + e2.length];
+		System.arraycopy(e1, 0, res, 0, e1.length);
+		System.arraycopy(e2, 0, res, e1.length, e2.length);
+		return res;
+	}
 }

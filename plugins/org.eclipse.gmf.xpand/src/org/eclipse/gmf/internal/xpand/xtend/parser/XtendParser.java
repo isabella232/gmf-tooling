@@ -148,7 +148,6 @@ public class XtendParser extends PrsStream implements RuleAction {
 		final int rightTokenColumn = getEndColumn(rightToken);
 		final String msg = tokenText + errorMsgText[errorCode];
 		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-		super.reportError(errorCode, locationInfo, leftToken, rightToken, tokenText);
 	}
 /*
 	@Override
@@ -164,7 +163,6 @@ public class XtendParser extends PrsStream implements RuleAction {
 		final int rightTokenLine = getEndLine(endToken);
 		final int rightTokenColumn = getEndColumn(endToken);
 		errors.add(new ErrorLocationInfo(msg, leftTokenLine, leftTokenColumn, rightTokenLine, rightTokenColumn));
-		super.reportError(leftToken, rightToken);
 	}
 */
 	@Override
@@ -183,7 +181,6 @@ public class XtendParser extends PrsStream implements RuleAction {
 			// ignore
 			errors.add(new ErrorLocationInfo(tokenText + errorMsgText[errorCode]));
 		}
-		super.reportError(errorCode, locationInfo, tokenText);
 	}
 
 	private final ExtensionFactory xtendFactory;
