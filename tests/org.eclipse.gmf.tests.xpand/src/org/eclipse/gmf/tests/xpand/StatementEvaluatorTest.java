@@ -22,6 +22,7 @@ import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.ast.Definition;
 import org.eclipse.gmf.internal.xpand.ast.ForEachStatement;
 import org.eclipse.gmf.internal.xpand.ast.IfStatement;
+import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.model.Output;
@@ -103,6 +104,47 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		tests.add("da");
 		foreachSt.evaluate((XpandExecutionContextImpl) createCtx(out).cloneWithVariable(new Variable("tests", tests)));
 		assertEquals("hallo,Du,da", buffer.toString());
+	}
+
+	public final void testMultilineText() throws Exception {
+		String text = "abc\r\ncba";
+		String str = tag("DEFINE z FOR o") + text + tag("ENDDEFINE");
+		Template t = parse(str);
+		assertNotNull(t);
+		TextStatement textStmt = (TextStatement) ((Definition) t.getDefinitions()[0]).getBody()[0];
+		assertEquals(text, textStmt.getValue());
+	}
+
+	public final void testTrailingText() {
+		String str = tag("DEFINE z FOR o") + "abc" + tag("ENDDEFINExxx");
+		try {
+			Template t = parse(str);
+			assertNull(t);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			fail("Parsing should not fail with exception ("+ ex.getClass().getSimpleName() +")even when the grammar is incorrect");
+		}
+	}
+
+//	public final void testCommentOnly() throws Exception {
+//		assertNotNull(parse(tag("REM") + "zx" + tag("ENDREM")));
+//	}
+	
+	public final void testCommentNestedTag() throws Exception {
+		String nestedTag = tag("DEFINE") + "placeholder" + tag("ENDDEFINE");
+		String string = tag("REM") + " bla-bla " + nestedTag + " foo"+ tag("ENDREM");
+		// just to add any define after comment to actually check nested comment but not comment-only file
+		string += tag("DEFINE z FOR o") + tag("ENDDEFINE"); 
+		assertNotNull(parse(string));
+	}
+
+	public final void testWhitespacesAtTopLevel() throws Exception {
+		String text = tag("REM") + "zx" + tag("ENDREM");
+		//String text = tag("IMPORT 'aaaa'");
+		text += "\r\n"; // intermediate
+		text += tag("DEFINE test FOR Object") + tag("ENDDEFINE");
+		text += "\r"; // trailing
+		assertNotNull(parse(text));
 	}
 
 	public final void testComment() throws Exception {
