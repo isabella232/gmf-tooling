@@ -32,7 +32,7 @@ public abstract class Expression extends SyntaxElement implements Analyzable, Ev
     protected EClassifier findType(final Identifier type, final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier toCast = ctx.getTypeForName(type.getValue());
         if (toCast == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, type.getValue(), type));
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, type.getValue(), type));
         }
         return toCast;
     }

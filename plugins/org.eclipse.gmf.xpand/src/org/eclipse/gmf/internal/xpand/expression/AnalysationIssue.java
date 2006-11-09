@@ -22,24 +22,19 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
  */
 public class AnalysationIssue {
 
-    public final static Type INCOMPATIBLE_TYPES = new Type("Incompatible types");
+    public enum Type {
+        INCOMPATIBLE_TYPES("Incompatible types"),
+        UNNECESSARY_CAST("Unnecessary cast"),
+        FEATURE_NOT_FOUND("Callable not found"),
+        TYPE_NOT_FOUND ("Type not found"),
+        INTERNAL_ERROR("Internal error"),
+        JAVA_TYPE_NOT_FOUND("Java Type not found"),
+        SYNTAX_ERROR("Syntax error"),
+        DEFINITION_NOT_FOUND("Definition not found");
 
-    public final static Type UNNECESSARY_CAST = new Type("Unnecessary cast");
-
-    public final static Type FEATURE_NOT_FOUND = new Type("Callable not found");
-
-    public static final Type TYPE_NOT_FOUND = new Type("Type not found");
-
-    public static final Type INTERNAL_ERROR = new Type("Internal error");
-
-    public static final Type JAVA_TYPE_NOT_FOUND = new Type("Java Type not found");
-
-    public static final Type SYNTAX_ERROR = new Type("Syntax error");
-
-    public final static class Type {
         private String name;
 
-        public Type(final String name) {
+        private Type(final String name) {
             this.name = name;
         }
 
@@ -49,16 +44,27 @@ public class AnalysationIssue {
         }
     }
 
-    private Type type;
+    private final Type type;
 
-    private String message;
+    private final String message;
 
-    private SyntaxElement element;
+    private final SyntaxElement element;
+
+    private final boolean isWarningNotError;
 
     public AnalysationIssue(final Type type, final String message, final SyntaxElement element) {
+    	this(type, message, element, false);
+    }
+
+    public AnalysationIssue(final Type type, final String message, final SyntaxElement element, boolean isWarningNotError) {
         this.type = type;
         this.message = message;
         this.element = element;
+        this.isWarningNotError = isWarningNotError;
+    }
+
+    public boolean isWarningNotError() {
+    	return isWarningNotError;
     }
 
     public SyntaxElement getElement() {

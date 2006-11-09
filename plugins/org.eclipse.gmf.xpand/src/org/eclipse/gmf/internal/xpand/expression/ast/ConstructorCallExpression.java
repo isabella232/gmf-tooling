@@ -42,15 +42,15 @@ public class ConstructorCallExpression extends Expression {
     public EClassifier analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier t = ctx.getTypeForName(type.getValue());
         if (t == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Type not found : " + type, type));
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Type not found : " + type, type));
             return null;
         }
         if (t instanceof EEnum) {
-        	issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Can't instantiate enum " + type, type));
+        	issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Can't instantiate enum " + type, type));
         	return null;
         }
         if ((t instanceof EClass) && (((EClass) t).isAbstract() || ((EClass) t).isInterface())) {
-        	issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Can't instantiate abstract type " + type, type));
+        	issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Can't instantiate abstract type " + type, type));
         	return null;
         }
         return t;

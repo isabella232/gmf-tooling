@@ -72,7 +72,7 @@ public class IfExpression extends Expression {
     public EClassifier analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier conditionEClassifier = getCondition().analyze(ctx, issues);
         if ((conditionEClassifier != null) && !conditionEClassifier.equals(EcorePackage.eINSTANCE.getEBoolean())) {
-            issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Boolean expected", getCondition()));
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected", getCondition()));
         }
 
         final EClassifier thenPartEClassifier = getThenPart().analyze(ctx, issues);

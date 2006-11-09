@@ -52,7 +52,7 @@ public class ExtensionAnalyzationTest extends AbstractXtendTest {
 		file.analyze(ec, issues);
 		dumpIssues();
 		assertEquals(1, issues.size());
-		assertEquals(AnalysationIssue.FEATURE_NOT_FOUND, issues.iterator().next().getType());
+		assertEquals(AnalysationIssue.Type.FEATURE_NOT_FOUND, issues.iterator().next().getType());
 	}
 
 	public void testNonStaticJavaExtensionWithSlot() {
@@ -74,7 +74,7 @@ public class ExtensionAnalyzationTest extends AbstractXtendTest {
 		file.analyze(ec, issues);
 		dumpIssues();
 		assertEquals(1, issues.size());
-		assertEquals(AnalysationIssue.FEATURE_NOT_FOUND, issues.iterator().next().getType());
+		assertEquals(AnalysationIssue.Type.FEATURE_NOT_FOUND, issues.iterator().next().getType());
 	}
 
 	public final void testExpressionExtension() {

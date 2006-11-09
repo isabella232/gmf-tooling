@@ -98,10 +98,10 @@ public class BooleanOperation extends Expression {
 
 		final EDataType dt = EcorePackage.eINSTANCE.getEBoolean();
 		if (!dt.equals(l)) {
-			issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Boolean expected! Found : " + l.getName(), left));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected! Found : " + l.getName(), left));
 		}
 		if (!dt.equals(r)) {
-			issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Boolean expected! Found : " + r.getName(), right));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected! Found : " + r.getName(), right));
 		}
 
 		return dt;

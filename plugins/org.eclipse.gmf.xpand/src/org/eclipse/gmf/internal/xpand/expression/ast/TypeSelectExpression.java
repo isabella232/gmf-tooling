@@ -97,14 +97,14 @@ public class TypeSelectExpression extends FeatureCall {
 		}
 
         if (!BuiltinMetaModel.isParameterizedType(targetType)) {
-            issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Collection type expected! was : "
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected! was : "
                     + targetType, getTarget()));
             return null;
         }
 
         final EClassifier closureEClassifier = ctx.getTypeForName(typeLiteral.getValue());
         if (closureEClassifier == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Couldn't find type " + typeLiteral,
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Couldn't find type " + typeLiteral,
                     typeLiteral));
             return null;
         }

@@ -169,7 +169,7 @@ public class CollectionExpression extends FeatureCall {
 		}
 
 		if (!(BuiltinMetaModel.isParameterizedType(targetType))) {
-			issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Collection type expected! was : " + targetType, getTarget()));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected! was : " + targetType, getTarget()));
 			return null;
 		}
 
@@ -194,11 +194,11 @@ public class CollectionExpression extends FeatureCall {
 			return BuiltinMetaModel.getListType(closureEClassifier);
 		} else if (getName().getValue().equals(SyntaxConstants.EXISTS) || getName().getValue().equals(SyntaxConstants.NOT_EXISTS) || getName().getValue().equals(SyntaxConstants.FOR_ALL)) {
 			if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEBoolean(), closureEClassifier)) {
-				issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Boolean type expected! was : " + closureEClassifier, closure));
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean type expected! was : " + closureEClassifier, closure));
 			}
 			result = EcorePackage.eINSTANCE.getEBoolean();
 		} else {
-			issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR, "Unknown operation : " + getName().getValue(), this));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Unknown operation : " + getName().getValue(), this));
 		}
 		return result;
 	}

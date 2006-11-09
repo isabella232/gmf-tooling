@@ -96,13 +96,13 @@ public class ExpandStatement extends Statement {
                     targetType = EcorePackage.eINSTANCE.getEJavaObject();
                 }
             } else {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Collection type expected!", target));
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected!", target));
                 return;
             }
         } else {
             final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
             if (var == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR,
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
                         "No implicite variable 'this' could be found!", target));
                 return;
             }
@@ -116,7 +116,7 @@ public class ExpandStatement extends Statement {
 		}
         final XpandDefinition def = ctx.findDefinition(getDefinition().getValue(), targetType, paramTypes);
         if (def == null) {
-            issues.add(new AnalysationIssue(new AnalysationIssue.Type("Definition not found"),
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.DEFINITION_NOT_FOUND,
                     "Couldn't find definition " + getDefinition().getValue() + getParamTypeString(paramTypes)
                             + " for type " + targetType.getName(), this));
         }

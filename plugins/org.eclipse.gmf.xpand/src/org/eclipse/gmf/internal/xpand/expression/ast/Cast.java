@@ -56,7 +56,7 @@ public class Cast extends Expression {
 
         final EClassifier toCast = findType(getType(), ctx, issues);
         if (toCast == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, getType().getValue(), getType()));
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, getType().getValue(), getType()));
             return null;
         }
         if (t == null) {
@@ -68,7 +68,7 @@ public class Cast extends Expression {
             	// narrowing conversion (toCast is more specific, t is more general), like (String) anObject
                 final EClassifier innerEClassifier = getCastedType(BuiltinMetaModel.getInnerType(t), BuiltinMetaModel.getInnerType(toCast));
                 if (innerEClassifier == null) {
-                    issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "cannot cast from "
+                    issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "cannot cast from "
                             + t.toString() + " to " + toCast.toString(), this));
                     return null;
                 }
@@ -77,20 +77,20 @@ public class Cast extends Expression {
             	// widening conversion, toCast is more general, like (Object) aString
                 final EClassifier innerEClassifier = getCastedType(BuiltinMetaModel.getInnerType(t), BuiltinMetaModel.getInnerType(toCast));
                 if (innerEClassifier == null) {
-                    issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "cannot cast from "
+                    issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "cannot cast from "
                             + t.toString() + " to " + toCast.toString(), this));
                     return null;
                 }
                 return BuiltinMetaModel.cloneParametrizedType(t, innerEClassifier);
             } else {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "cannot cast from " + t.toString()
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "cannot cast from " + t.toString()
                         + " to " + toCast.toString(), this));
                 return null;
             }
         } else {
             final EClassifier rt = getCastedType(t, toCast);
             if (rt == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "cannot cast from " + t.toString()
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "cannot cast from " + t.toString()
                         + " to " + toCast.toString(), this));
             }
             return rt;

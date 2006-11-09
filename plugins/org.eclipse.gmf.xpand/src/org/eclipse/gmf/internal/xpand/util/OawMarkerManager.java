@@ -62,7 +62,8 @@ public class OawMarkerManager {
 			end = issue.getElement().getEnd() - 1;
 			line = issue.getElement().getLine();
 		}
-		return new MarkerData(issue.getMessage(), IMarker.SEVERITY_ERROR, start, end, line);
+		int severity = issue.isWarningNotError() ? IMarker.SEVERITY_WARNING : IMarker.SEVERITY_ERROR;
+		return new MarkerData(issue.getMessage(), severity, start, end, line);
 	}
 
 	private static class MarkerData {

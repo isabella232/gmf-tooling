@@ -64,7 +64,7 @@ public class IfStatement extends Statement {
         if (condition != null) {
             final EClassifier conType = getCondition().analyze(ctx, issues);
             if ((conType != null) && !BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEBoolean(), conType)) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Boolean expected!",
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected!",
                         getCondition()));
             }
         }

@@ -59,7 +59,7 @@ public class FileStatement extends Statement {
     public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier result = getTargetFileName().analyze(ctx, issues);
         if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), result)) {
-            issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "String expected!",
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!",
                     getTargetFileName()));
         }
         for (Statement element : body) {

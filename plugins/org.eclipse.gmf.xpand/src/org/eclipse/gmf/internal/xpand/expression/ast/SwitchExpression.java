@@ -75,7 +75,7 @@ public class SwitchExpression extends Expression {
             final EClassifier caseCondEClassifier = c.getCondition().analyze(ctx, issues);
             if (caseCondEClassifier != null) {
                 if (!BuiltinMetaModel.isAssignableFrom(condEClassifier, caseCondEClassifier)) {
-                    issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, condEClassifier.getName()
+                    issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, condEClassifier.getName()
                             + " expected!", c.getCondition()));
                 }
             }

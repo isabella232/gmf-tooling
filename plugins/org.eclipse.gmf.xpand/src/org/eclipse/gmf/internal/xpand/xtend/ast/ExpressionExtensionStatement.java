@@ -95,7 +95,7 @@ public class ExpressionExtensionStatement extends Extension {
             }
         } else {
             if (returnType == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR,
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
                         "Recursive extensions need to have a return type specified!", this));
                 return null;
             }

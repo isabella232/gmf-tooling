@@ -18,7 +18,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -97,7 +96,7 @@ public class JavaExtensionStatement extends Extension {
 		for (int i = 0; i < parameters.length; i++) {
 			// XXX no support for arrays of arrays
 			if (parameters[i] instanceof List && paramTypes[i].isArray()) {
-				List list = (List) parameters[i];
+				List<?> list = (List<?>) parameters[i];
 				parameters[i] = list.toArray((Object[]) Array.newInstance(paramTypes[i].getComponentType(), list.size()));
 			}
 		}
@@ -120,7 +119,7 @@ public class JavaExtensionStatement extends Extension {
 			Class clazz = null;
 			clazz = ctx.loadClass(javaType.getValue());
 			if (clazz == null) {
-				issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, javaType.getValue(), javaType));
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.JAVA_TYPE_NOT_FOUND, javaType.getValue(), javaType, true));
 				return null;
 			}
 			final Class[] paramTypes = new Class[javaParamTypes.size()];
@@ -134,7 +133,7 @@ public class JavaExtensionStatement extends Extension {
 				}
 				paramTypes[i] = ctx.loadClass(value);
 				if (paramTypes[i] == null) {
-					issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, value, javaParamType));
+					issues.add(new AnalysationIssue(AnalysationIssue.Type.JAVA_TYPE_NOT_FOUND, value, javaParamType, true));
 					return null;
 				}
 				if (isList) {
@@ -145,14 +144,14 @@ public class JavaExtensionStatement extends Extension {
 			}
 			final Method m = clazz.getMethod(javaMethod.getValue(), paramTypes);
 			if (instanceSlot == null && !Modifier.isStatic(m.getModifiers())) {
-				issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, javaMethod.getValue() + " must be static (unless slot to get instance from is specified)!", javaMethod));
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, javaMethod.getValue() + " must be static (unless slot to get instance from is specified)!", javaMethod));
 			}
 			if (!Modifier.isPublic(m.getModifiers())) {
-				issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, javaMethod.getValue() + " must be public!", javaMethod));
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, javaMethod.getValue() + " must be public!", javaMethod));
 			}
 			return m;
 		} catch (final NoSuchMethodException e) {
-			issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, javaMethod.getValue(), javaMethod));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, javaMethod.getValue(), javaMethod));
 		}
 		return null;
 	}
@@ -160,7 +159,7 @@ public class JavaExtensionStatement extends Extension {
 	@Override
 	public void analyzeInternal(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
 		if (returnType == null) {
-			issues.add(new AnalysationIssue(AnalysationIssue.SYNTAX_ERROR, "A return type must be specified for java extensions!", this));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, "A return type must be specified for java extensions!", this));
 		}
 		getJavaMethod(ctx, issues);
 	}
@@ -168,7 +167,7 @@ public class JavaExtensionStatement extends Extension {
 	@Override
 	protected EClassifier internalGetReturnType(final EClassifier[] parameters, final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
 		if (returnType == null) {
-			issues.add(new AnalysationIssue(AnalysationIssue.SYNTAX_ERROR, "A return type must be specified for java extensions!", this));
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, "A return type must be specified for java extensions!", this));
 			return null;
 		} else {
 			return ctx.getTypeForName(returnType.getValue());

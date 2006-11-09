@@ -48,7 +48,7 @@ public class WorkflowSlotExtensionStatement extends Extension {
     @Override
     public void analyzeInternal(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         if (returnType == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.SYNTAX_ERROR,
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR,
                     "A return type must be specified for workflow slot extensions!", this));
         }
     }
@@ -56,7 +56,7 @@ public class WorkflowSlotExtensionStatement extends Extension {
     @Override
     protected EClassifier internalGetReturnType(final EClassifier[] parameters, final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         if (returnType == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.SYNTAX_ERROR,
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR,
                     "A return type must be specified for workflow slot extensions!", this));
             return null;
         } else {

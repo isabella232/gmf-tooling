@@ -231,12 +231,12 @@ public class FeatureCall extends Expression {
             if (targetType != null) {
                 txt = targetType.getName() + " property, ";
             }
-            issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, "Unknown " + txt
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, "Unknown " + txt
                     + "variable, type or enumeration literal '" + getName().getValue() + "'", this));
             return null;
         }
 
-        issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, "Couldn't find property '"
+        issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, "Couldn't find property '"
                 + getName().getValue() + "' for type '" + targetType.getName() + "'" + additionalMsg, this));
         return null;
 

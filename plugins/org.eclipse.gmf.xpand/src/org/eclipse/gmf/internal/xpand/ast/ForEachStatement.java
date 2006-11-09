@@ -77,7 +77,7 @@ public class ForEachStatement extends Statement {
         if (getSeparator() != null) {
             final EClassifier sepT = getSeparator().analyze(ctx, issues);
             if (!BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEString(), sepT)) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "String expected!", target));
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "String expected!", target));
             }
         }
         if (t != null) {
@@ -88,7 +88,7 @@ public class ForEachStatement extends Statement {
                     t = EcorePackage.eINSTANCE.getEJavaObject();
                 }
             } else {
-                issues.add(new AnalysationIssue(AnalysationIssue.INCOMPATIBLE_TYPES, "Collection type expected!",
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Collection type expected!",
                         target));
                 return;
             }

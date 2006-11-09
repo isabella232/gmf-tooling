@@ -162,7 +162,7 @@ public class OperationCall extends FeatureCall {
             try {
                 f = ctx.getExtension(getName().getValue(), paramTypes);
             } catch (final Exception e) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR, "Error parsing extensions : "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Error parsing extensions : "
                         + e.getMessage(), this));
             }
             if (f != null) {
@@ -173,7 +173,7 @@ public class OperationCall extends FeatureCall {
                 targetType = (EClassifier) var.getValue();
             } else {
             	// FIXME could not find *this*
-                issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, "Couldn't find extensions : "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, "Couldn't find extensions : "
                         + toString(), this));
             }
         } else {
@@ -213,7 +213,7 @@ public class OperationCall extends FeatureCall {
             additionalMsg = " or type '" + innerType + "'";
         }
 
-        issues.add(new AnalysationIssue(AnalysationIssue.FEATURE_NOT_FOUND, "Couldn't find operation '"
+        issues.add(new AnalysationIssue(AnalysationIssue.Type.FEATURE_NOT_FOUND, "Couldn't find operation '"
                 + getName().getValue() + getParamsString(paramTypes) + "' for type '" + targetType.getName() + "'"
                 + additionalMsg, this));
         return null;
@@ -229,14 +229,14 @@ public class OperationCall extends FeatureCall {
         try {
             f = ctx.getExtension(getName().getValue(), pts);
         } catch (final Exception e) {
-            issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR, "Error parsing extensions : "
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Error parsing extensions : "
                     + e.getMessage(), this));
         }
         if (f != null) {
             final Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
             final EClassifier rt = f.getReturnType(pts, ctx, temp);
             if (rt == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR,
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
                         "couldn't resolve return type for extension " + f + "! Errors : " + temp.toString(), this));
             }
             return rt;
@@ -244,14 +244,14 @@ public class OperationCall extends FeatureCall {
             try {
                 f = ctx.getExtension(getName().getValue(), paramEClassifiers);
             } catch (final Exception e) {
-                issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR, "Error parsing extensions : "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR, "Error parsing extensions : "
                         + e.getMessage(), this));
             }
             if (f != null) {
                 final Set<AnalysationIssue> temp = new HashSet<AnalysationIssue>();
                 final EClassifier rt = f.getReturnType(pts, ctx, temp);
                 if (rt == null) {
-                    issues.add(new AnalysationIssue(AnalysationIssue.INTERNAL_ERROR,
+                    issues.add(new AnalysationIssue(AnalysationIssue.Type.INTERNAL_ERROR,
                             "couldn't resolve return type for extension " + f + "! Errors : " + temp.toString(), this));
                 }
                 return rt;

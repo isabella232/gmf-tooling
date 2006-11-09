@@ -81,11 +81,11 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
             final DeclaredParameter p = (DeclaredParameter) iter.next();
             final EClassifier pt = ctx.getTypeForName(p.getType().getValue());
             if (pt == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Type not found: "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Type not found: "
                         + p.getType().getValue(), p.getType()));
             }
             if (!usedNames.add(p.getName().getValue())) {
-                issues.add(new AnalysationIssue(AnalysationIssue.SYNTAX_ERROR, "Duplicate parameter name: "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.SYNTAX_ERROR, "Duplicate parameter name: "
                         + p.getName().getValue(), p.getName()));
             }
             ctx = ctx.cloneWithVariable(new Variable(p.getName().getValue(), pt));
@@ -93,7 +93,7 @@ public abstract class Extension extends SyntaxElement /*implements Parameterized
         if (returnType != null) {
             final EClassifier pt = ctx.getTypeForName(returnType.getValue());
             if (pt == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Type not found: "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Type not found: "
                         + returnType.getValue(), returnType));
             }
         }

@@ -50,7 +50,7 @@ public class CreateExtensionStatement extends Extension {
     public void analyzeInternal(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier t = ctx.getTypeForName(returnType.getValue());
         if (t == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Couldn't resolve type " + returnType
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Couldn't resolve type " + returnType
                     + "!", returnType));
             return;
         }

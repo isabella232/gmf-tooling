@@ -68,7 +68,7 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
     public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
         final EClassifier thisType = ctx.getTypeForName(getType().getValue());
         if (thisType == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Couldn't find " + getType().getValue(),
+            issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Couldn't find " + getType().getValue(),
                     getType()));
         }
         ctx = ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, thisType));
@@ -76,7 +76,7 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
             final DeclaredParameter param = getParams()[i];
             EClassifier paramType = ctx.getTypeForName(param.getType().getValue());
             if (paramType == null) {
-                issues.add(new AnalysationIssue(AnalysationIssue.TYPE_NOT_FOUND, "Couldn't find "
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.TYPE_NOT_FOUND, "Couldn't find "
                         + param.getType().getValue(), param.getType()));
                 paramType = EcorePackage.eINSTANCE.getEObject();
             }
