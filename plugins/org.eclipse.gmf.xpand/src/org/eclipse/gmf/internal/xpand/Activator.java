@@ -15,7 +15,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.osgi.framework.BundleContext;
@@ -62,12 +61,12 @@ public class Activator extends Plugin {
 			return anInstance.resourceManagers.get(context);
 		}
 		ResourceManager resourceManager = new WorkspaceResourceManager(context);
-		anInstance.resourceManagers.put(context, resourceManager);
-		try {
-			context.setSessionProperty(new QualifiedName("xpand","resourceManager"), resourceManager);
-		} catch (CoreException ex) {
-			log(ex.getStatus());
-		}
+		registerResourceManager(context, resourceManager);
 		return resourceManager;
+	}
+
+	public static void registerResourceManager(IProject project, ResourceManager resourceManager) {
+		assert !anInstance.resourceManagers.containsKey(project);
+		anInstance.resourceManagers.put(project, resourceManager);
 	}
 }
