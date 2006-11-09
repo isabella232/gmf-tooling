@@ -26,14 +26,27 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 
 public class KeywordProposalComputer implements ProposalComputer {
 
+	private final String textPastInsertionPoint;
+
+	public KeywordProposalComputer(String textPastInsertionPoint) {
+		this.textPastInsertionPoint = textPastInsertionPoint;
+	}
+
     public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx, final ProposalFactory factory) {
         final String prefix = getPrefix(txt);
         final List<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
         if (prefix.length() > 0 || txt.endsWith(XpandTokens.LT)) {
+        	final boolean needsRT = !textPastInsertionPoint.trim().startsWith(XpandTokens.RT);
 	        final String[] kw = XpandTokens.allKeywords();
 	        for (final String string : kw) {
 	            if (string.toLowerCase().startsWith(prefix.toLowerCase())) {
-	                result.add(factory.createKeywordProposal(string + (string.startsWith("END") ? XpandTokens.RT : " "), string, prefix));
+	            	String insertString = string;
+	            	if (!string.startsWith("END")) {
+	            		insertString += " ";
+	            	} else if (needsRT) {
+	            		insertString += XpandTokens.RT;
+	            	}
+	                result.add(factory.createKeywordProposal(insertString, string, prefix));
 	            }
 	        }
         }

@@ -30,6 +30,7 @@ import org.eclipse.gmf.internal.xpand.expression.codeassist.ExpressionProposalCo
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ProposalFactory;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.TypeProposalComputer;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -52,7 +53,10 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 
     public ICompletionProposal[] computeCompletionProposals(final ITextViewer viewer, final int documentOffset) {
         try {
-            final String txt = viewer.getDocument().get(0, documentOffset);
+            final IDocument doc = viewer.getDocument();
+			final String txt = doc.get(0, documentOffset);
+			final int additionalTextLen = Math.min(doc.getLength(), documentOffset + doc.getLineLength(doc.getLineOfOffset(documentOffset))) - documentOffset;
+			final String textPastInsertionPoint = doc.get(documentOffset, additionalTextLen);
 
             XpandExecutionContext ctx = editor.getContext(); 
 
@@ -71,7 +75,7 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 final String expression = txt.substring(txt.lastIndexOf(XpandTokens.LT_CHAR) + 1);
                 proposals.addAll(new ExpressionProposalComputer().computeProposals(expression, ctx, f));
-                proposals.addAll(new KeywordProposalComputer().computeProposals(txt, ctx, f));
+                proposals.addAll(new KeywordProposalComputer(textPastInsertionPoint).computeProposals(txt, ctx, f));
             } else if (p == XpandPartition.EXPAND_STATEMENT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 proposals.addAll(new ExpandProposalComputer().computeProposals(txt, ctx, f));
@@ -83,10 +87,8 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
             }
             Collections.sort(proposals, new Comparator<ICompletionProposal>() {
                 public int compare(final ICompletionProposal p1, final ICompletionProposal p2) {
-                	// [artem] originally there was compareTo, but e.g. ExpressionProposalComputer
-                	// ignores case when deciding what to take, so why should we
                 	// XXX better would be put most matching proposal first!!!
-                    return p1.getDisplayString().compareToIgnoreCase(p2.getDisplayString());
+                    return p1.getDisplayString().compareTo(p2.getDisplayString());
                 }
             });
             return proposals.toArray(new ICompletionProposal[proposals.size()]);
