@@ -75,8 +75,14 @@ if (isExternal) {
 <%
 	}
 %>
+<%{
+GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%@include file="openEditPolicy.jetinc"%>
+<%}%>
 	}
 
+<%@ include file="labelPerformRequest.jetinc"%>
 <%
 	if (!isReadOnly) {
 %>

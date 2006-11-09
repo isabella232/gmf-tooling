@@ -563,6 +563,11 @@ if (myHelper.getPrimaryLabel() != null) {
 <%
 }
 %>
+<%{
+GenCommonBase genCommonBase = genNode;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%@include file="openEditPolicy.jetinc"%>
+<%}%>
 <%
 if (!genNode.getChildNodes().isEmpty()) {
 %>
@@ -813,7 +818,7 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
 	 * @generated
 	 */
 	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
-		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT.equals(req.getType())) {
 			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> labelToEdit;
 			if (req instanceof <%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) {
 				labelToEdit = getLabelEditPart((<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>)req);
@@ -824,6 +829,8 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
 				labelToEdit.performRequest(req);
 			}
 		}
+<%@include file="performOpen.jetinc"%>
+		super.performRequest(req);
 	}
 
 	/**

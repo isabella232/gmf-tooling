@@ -24,6 +24,9 @@ public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=imp
 	 * @generated
 	 */
 	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		if (view.eIsSet(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Type())) {
+			return;
+		}
 <%@ include file="createVIDAnnotation.jetinc"%>
 		//XXX: init styles from attributes!!!
 <%
@@ -34,6 +37,7 @@ for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
 <%
 }/*iterate over labels*/
 %>
+<%@ include file="createOpenDiagramAnnotation.jetinc"%>
 	}
 
 <%

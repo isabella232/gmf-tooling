@@ -1,0 +1,12 @@
+<%
+{
+	List<OpenDiagramBehaviour> behaviours = genCommonBase.getBehaviour(OpenDiagramBehaviour.class);
+	for(int i = 0, iMax = behaviours.size(); i < iMax; i++) {
+	/*doesn't make sense to install more than one policy for the same role*/ 
+		OpenDiagramBehaviour next = behaviours.get(i);
+%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.EditPolicyRoles")%>.OPEN_ROLE<%if (i > 0) {%> + "<%=i+1%>" <%}%>, new <%=importManager.getImportedName(genCommonBase.getBehaviour(OpenDiagramBehaviour.class).get(0).getEditPolicyQualifiedClassName())%>());
+<%
+	}
+}
+%>

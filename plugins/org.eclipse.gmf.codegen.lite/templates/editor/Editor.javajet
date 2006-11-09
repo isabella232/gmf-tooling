@@ -20,6 +20,11 @@ if (!isRichClientPlatform) {
  * @generated
  */
 public class <%=genEditor.getClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditor")%> {
+	/**
+	 * @generated
+	 */
+	public static final String ID = "<%=genEditor.getID()%>"; //$NON-NLS-1$
+
 <%
 if (!isRichClientPlatform) {
 %>
@@ -39,9 +44,12 @@ if (!isRichClientPlatform) {
 		public void resourceChanged(<%=importManager.getImportedName("org.eclipse.core.resources.IResourceChangeEvent")%> event) {
 			<%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%> delta = event.getDelta();
 			if (delta != null) {
-				<%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%> fileDelta = delta.findMember(((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) getEditorInput()).getFile().getFullPath());
-				if (fileDelta != null) {
-					processFileDelta(fileDelta);
+				<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> file = getFileFromInput(getEditorInput());
+				if (file != null) {
+					<%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%> fileDelta = delta.findMember(file.getFullPath());
+					if (fileDelta != null) {
+						processFileDelta(fileDelta);
+					}
 				}
 			}
 		}
@@ -50,7 +58,7 @@ if (!isRichClientPlatform) {
 		 * @generated
 		 */
 		private void processFileDelta(<%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%> delta) {
-			assert (delta != null && delta.getResource().equals(((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) getEditorInput()).getFile()));
+			assert (delta != null && delta.getResource().equals(getFileFromInput(getEditorInput())));
 			if (delta.getKind() == <%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%>.REMOVED) {
 				if ((<%=importManager.getImportedName("org.eclipse.core.resources.IResourceDelta")%>.MOVED_TO & delta.getFlags()) == 0) {
 					<%/*XXX: make sure unsaved deleted file is handled correctly*/%>
@@ -60,10 +68,21 @@ if (!isRichClientPlatform) {
 				} else {
 					// else if it was moved or renamed
 					final <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> newFile = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(delta.getMovedToPath());
+					final <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> newEditorInput;
+					if (getEditorInput() instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+						<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> newFileURI = <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(newFile.getFullPath().toString());
+						<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> oldFileURI = ((<%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) getEditorInput()).getURI();
+						if (oldFileURI.fragment() != null) {
+							newFileURI = newFileURI.appendFragment(oldFileURI.fragment());
+						}
+						newEditorInput = new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(newFileURI);
+					} else {
+						newEditorInput = new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(newFile);
+					}
 					<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%> display = getSite().getShell().getDisplay();
 					display.asyncExec(new Runnable() {
 						public void run() {
-							setInput(new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(newFile));
+							setInput(newEditorInput);
 						}
 					});
 				}
@@ -221,13 +240,13 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	protected void setInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input)  {
+	protected void setInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 <%
 if (!isRichClientPlatform) {
 %>
-		if (getEditorInput() instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> resource = ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) getEditorInput()).getFile();
-			resource.getWorkspace().removeResourceChangeListener(getResourceTracker());
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> oldResource = getFileFromInput(getEditorInput());
+		if (oldResource != null) {
+			oldResource.getWorkspace().removeResourceChangeListener(getResourceTracker());
 		}
 <%
 }
@@ -239,31 +258,53 @@ if (!isRichClientPlatform) {
 <%
 if (!isRichClientPlatform) {
 %>
-		if (getEditorInput() instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> resource = ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) getEditorInput()).getFile();
-			resource.getWorkspace().addResourceChangeListener(getResourceTracker());
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> newResource = getFileFromInput(getEditorInput());
+		if (newResource != null) {
+			newResource.getWorkspace().addResourceChangeListener(getResourceTracker());
 		}
 <%
 }
 %>
 	}
 
+<%if (!isRichClientPlatform) {%>
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> getFileFromInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
+			return ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) input).getFile();
+		}
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = ((<%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) input).getURI();
+			if (uri != null) {
+				if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { //$NON-NLS-1$
+					if ("resource".equals(uri.segment(0))) { //$NON-NLS-1$
+						<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> path = new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.decode(uri.path())).removeFirstSegments(1);
+						return <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+<%}%>
 	/**
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> getURIFromInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
-<%if (isRichClientPlatform) {%>
+<%if (!isRichClientPlatform) {%>
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
+			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(((IFileEditorInput)input).getFile().getFullPath().toString());
+		}
+<%}%>
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
 			return ((<%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) input).getURI();
 		}
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IPathEditorInput")%>) {
 			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(((IPathEditorInput)input).getPath().toOSString());
 		}
-<%} else {%>
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(((IFileEditorInput)input).getFile().getFullPath().toString());
-		}
-<%}%>
 		return null;
 	}
 
@@ -297,27 +338,39 @@ for (int i = 0; i < genPackages.size(); i++) {
 		if (diagramFile == null) {
 			return;
 		}
+		final <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = diagramFile;
 		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = getEditingDomain();
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = editingDomain.getResourceSet();
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.getResource(diagramFile, true);
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = editingDomain.getResourceSet();
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.getResource(diagramFile.trimFragment(), true);
 		if (diagramResource == null) {
-			diagramResource = resourceSet.createResource(diagramFile);
+			return;
 		}
-		diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) findInResource(diagramResource, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>.class);
-		if (diagram == null) {
-			diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
-			diagramResource.getContents().add(0, diagram);
-			//Auxiliary creation should not be undoable.
-			try {
-				diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
-			} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {
-				diagram = null;
-				diagramRoot = null;
-				return;
-			}
-		}
-		diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) diagram.getElement();
-		if (diagramRoot == null) {
+		<%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%> operation = new <%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%>(editingDomain, "Load diagram", null) {
+			protected <%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
+				if (diagramFileURI.fragment() != null) {
+					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> possibleDiagram = diagramResource.getEObject(diagramFileURI.fragment());
+					if (possibleDiagram instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) {
+						diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) possibleDiagram;
+					} else {
+						return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.CANCEL_STATUS;
+					}
+				} else {
+					diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) findInResource(diagramResource, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>.class);
+					if (diagram == null) {
+						diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+						diagramResource.getContents().add(0, diagram);
+						//Auxiliary creation should not be undoable.
+						try {
+							diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+						} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {
+							diagram = null;
+							diagramRoot = null;
+							return Status.CANCEL_STATUS;
+						}
+					}
+				}
+				diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) diagram.getElement();
+				if (diagramRoot == null) {
 <%
 {
 %>
@@ -326,33 +379,47 @@ for (int i = 0; i < genPackages.size(); i++) {
 	String resourceToUse;
 	if (!sameFile) {
 %>
-			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> modelFile = <%=genDiagram.getDiagramEditorUtilClassName()%>.getModelFileURI(diagramFile);
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelResource = resourceSet.getResource(modelFile, true);
-			if (modelResource == null) {
-				modelResource = resourceSet.createResource(modelFile);
-			}
+					<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> modelFile = <%=genDiagram.getDiagramEditorUtilClassName()%>.getModelFileURI(diagramFileURI);
+					<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> modelResource = resourceSet.getResource(modelFile, true);
+					if (modelResource == null) {
+						diagram = null;
+						return Status.CANCEL_STATUS;
+					}
 <%
 		resourceToUse = "modelResource";
 	} else {
 		resourceToUse = "diagramResource";
 	}
 %>
-			diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
-			if (diagramRoot == null) {
-				diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
-				<%=resourceToUse%>.getContents().add(0, diagramRoot);
-				//We don't want this auxiliary creation to be undoable.
-				try {
-					<%=resourceToUse%>.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
-				} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {
-					diagram = null;
-					diagramRoot = null;
-					return;
+					diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
+					if (diagramRoot == null) {
+						diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+						<%=resourceToUse%>.getContents().add(0, diagramRoot);
+						//We don't want this auxiliary creation to be undoable.
+						try {
+							<%=resourceToUse%>.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+						} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {
+							diagram = null;
+							diagramRoot = null;
+							return Status.CANCEL_STATUS;
+						}
+					}
+					if (!diagramRoot.equals(diagram.getElement())) {
+						diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>diagramRoot);
+					}
 				}
+				if (!diagram.eIsSet(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Type())) {
+					<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(diagram);
+					doSave(new NullProgressMonitor());
+				}
+				return Status.OK_STATUS;
 			}
-			if (!diagram.isSetElement()) {
-				diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>diagramRoot);
-			}
+		};
+		try {
+			operation.execute(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>(), null);
+		} catch (<%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> e) {
+			diagram = null;
+			diagramRoot = null;
 		}
 	}
 <%

@@ -81,10 +81,16 @@ if (labelModelFacet instanceof FeatureLabelModelFacet && !isReadOnly) {
 <%
 }
 %>
+<%{
+GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%@include file="openEditPolicy.jetinc"%>
+<%}%>
 	}
 
+<%@ include file="labelPerformRequest.jetinc"%>
 <%
-if (labelModelFacet instanceof FeatureLabelModelFacet && !isReadOnly) {
+if (!isReadOnly) {
 %>
 <%@ include file="directEdit.javajetinc"%>
 <%

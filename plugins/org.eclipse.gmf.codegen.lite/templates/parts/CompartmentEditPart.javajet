@@ -116,7 +116,20 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 				return null;
 			}
 		});
+<%{
+GenCommonBase genCommonBase = genCompartment;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%@include file="openEditPolicy.jetinc"%>
+<%}%>
 		installNotationModelRefresher();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
+<%@include file="performOpen.jetinc"%>
+		super.performRequest(req);
 	}
 
 	/**

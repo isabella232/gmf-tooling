@@ -1,0 +1,9 @@
+<%
+if (genElement.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> diagramFacet = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
+		diagramFacet.setSource("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
+		view.getEAnnotations().add(diagramFacet);
+<%
+}
+%>

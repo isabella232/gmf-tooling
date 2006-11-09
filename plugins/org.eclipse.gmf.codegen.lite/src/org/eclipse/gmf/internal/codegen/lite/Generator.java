@@ -11,12 +11,14 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -29,10 +31,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
-import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
@@ -64,7 +66,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	protected TextMerger createMergeService() {
 		return myEmitters.createMergeService();
 	}
-	
+
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		final String pluginID = myEditorGen.getPlugin().getID();
 		final Path examplaryLocation = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
@@ -89,6 +91,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		internalGenerateJavaClass(myEmitters.getEditPartFactoryGenerator(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
+		HashSet<OpenDiagramBehaviour> openDiagramBehaviors = new HashSet<OpenDiagramBehaviour>();
+		generateBehaviors(myDiagram, openDiagramBehaviors);
 
 		boolean hasExternalLabels = false;
 		for (Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
@@ -106,6 +110,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				internalGenerateJavaClass(myEmitters.getChildNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			}
+			generateBehaviors(next, openDiagramBehaviors);
 		}
 		if (hasExternalLabels) {
 			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
@@ -119,6 +124,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 			}
 			internalGenerateJavaClass(myEmitters.getLinkViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
+			generateBehaviors(next, openDiagramBehaviors);
 		}
 		for (Iterator it = myDiagram.getCompartments().iterator(); it.hasNext(); ) {
 			final GenCompartment next = (GenCompartment) it.next();
@@ -192,6 +198,19 @@ public class Generator extends GeneratorBase implements Runnable {
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
 		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
 		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	private void generateBehaviors(GenCommonBase element, HashSet<OpenDiagramBehaviour> generatedBehaviors) throws UnexpectedBehaviourException, InterruptedException {
+		for (OpenDiagramBehaviour behaviour : element.getBehaviour(OpenDiagramBehaviour.class)) {
+			if (!generatedBehaviors.contains(behaviour)) {
+				generatedBehaviors.add(behaviour);
+				generateOpenDiagramEditPolicy(behaviour);
+			}
+		}
+	}
+
+	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {

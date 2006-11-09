@@ -189,6 +189,10 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
 		});
+<%{
+GenCommonBase genCommonBase = genDiagram;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 		installNotationModelRefresher();
 <%
 //link notation model refresher should always be installed for the diagram edit part, because it tracks the uncontained links

@@ -23,11 +23,18 @@ public class DiagramViewFactoryGenerator
   protected final String TEXT_6 = " {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static ";
   protected final String TEXT_7 = " INSTANCE = new ";
   protected final String TEXT_8 = "();" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void decorateView(";
-  protected final String TEXT_9 = " view) {" + NL + "\t\tview.setType(";
-  protected final String TEXT_10 = ".MODEL_ID);" + NL + "\t\t";
-  protected final String TEXT_11 = " style = ";
-  protected final String TEXT_12 = ".eINSTANCE.createDiagramStyle();" + NL + "\t\tview.getStyles().add(style);" + NL + "\t\t//XXX: init styles from attributes!!!" + NL + "\t}" + NL + "}";
-  protected final String TEXT_13 = NL;
+  protected final String TEXT_9 = " view) {" + NL + "\t\tif (view.eIsSet(";
+  protected final String TEXT_10 = ".eINSTANCE.getView_Type())) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tview.setType(";
+  protected final String TEXT_11 = ".MODEL_ID);" + NL + "\t\t";
+  protected final String TEXT_12 = " style = ";
+  protected final String TEXT_13 = ".eINSTANCE.createDiagramStyle();" + NL + "\t\tview.getStyles().add(style);" + NL + "\t\t//XXX: init styles from attributes!!!";
+  protected final String TEXT_14 = NL;
+  protected final String TEXT_15 = NL + "\t\t";
+  protected final String TEXT_16 = " diagramFacet = ";
+  protected final String TEXT_17 = ".eINSTANCE.createEAnnotation();" + NL + "\t\tdiagramFacet.setSource(\"";
+  protected final String TEXT_18 = "\");" + NL + "\t\tview.getEAnnotations().add(diagramFacet);";
+  protected final String TEXT_19 = NL + "\t}" + NL + "}";
+  protected final String TEXT_20 = NL;
 
   public String generate(Object argument)
   {
@@ -61,14 +68,31 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DiagramStyle"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DiagramStyle"));
     stringBuffer.append(TEXT_12);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
     stringBuffer.append(TEXT_13);
+    stringBuffer.append(TEXT_14);
+    
+if (genElement.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {
+
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory"));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE);
+    stringBuffer.append(TEXT_18);
+    
+}
+
+    stringBuffer.append(TEXT_19);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_20);
     return stringBuffer.toString();
   }
 }

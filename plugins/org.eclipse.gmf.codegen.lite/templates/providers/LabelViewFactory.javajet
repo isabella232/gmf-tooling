@@ -24,6 +24,9 @@ public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=imp
 	 * @generated
 	 */
 	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		if (view.eIsSet(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Type())) {
+			return;
+		}
 <%@ include file="createVIDAnnotation.jetinc"%>
 <%
 if (genElement instanceof GenLinkLabel || genElement instanceof GenExternalNodeLabel) {
@@ -33,6 +36,7 @@ if (genElement instanceof GenLinkLabel || genElement instanceof GenExternalNodeL
 <%
 }
 %>
+<%@ include file="createOpenDiagramAnnotation.jetinc"%>
 	}
 }
 <%importManager.emitSortedImports();%>

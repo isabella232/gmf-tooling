@@ -23,16 +23,23 @@ public class CompartmentViewFactoryGenerator
   protected final String TEXT_6 = " {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static ";
   protected final String TEXT_7 = " INSTANCE = new ";
   protected final String TEXT_8 = "();" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void decorateView(";
-  protected final String TEXT_9 = " view) {";
-  protected final String TEXT_10 = NL;
-  protected final String TEXT_11 = "view.setType(";
-  protected final String TEXT_12 = ".getType(";
-  protected final String TEXT_13 = ".VISUAL_ID));" + NL + "\t\t";
-  protected final String TEXT_14 = " drawerStyle = ";
-  protected final String TEXT_15 = ".eINSTANCE.createDrawerStyle();" + NL + "\t\tview.getStyles().add(drawerStyle);" + NL + "\t\t//XXX: init styles from attributes!!!" + NL + "\t\t";
-  protected final String TEXT_16 = " titleStyle = ";
-  protected final String TEXT_17 = ".eINSTANCE.createTitleStyle();" + NL + "\t\tview.getStyles().add(titleStyle);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_18 = NL;
+  protected final String TEXT_9 = " view) {" + NL + "\t\tif (view.eIsSet(";
+  protected final String TEXT_10 = ".eINSTANCE.getView_Type())) {" + NL + "\t\t\treturn;" + NL + "\t\t}";
+  protected final String TEXT_11 = NL;
+  protected final String TEXT_12 = "view.setType(";
+  protected final String TEXT_13 = ".getType(";
+  protected final String TEXT_14 = ".VISUAL_ID));" + NL + "\t\t";
+  protected final String TEXT_15 = " drawerStyle = ";
+  protected final String TEXT_16 = ".eINSTANCE.createDrawerStyle();" + NL + "\t\tview.getStyles().add(drawerStyle);" + NL + "\t\t//XXX: init styles from attributes!!!" + NL + "\t\t";
+  protected final String TEXT_17 = " titleStyle = ";
+  protected final String TEXT_18 = ".eINSTANCE.createTitleStyle();" + NL + "\t\tview.getStyles().add(titleStyle);";
+  protected final String TEXT_19 = NL;
+  protected final String TEXT_20 = NL + "\t\t";
+  protected final String TEXT_21 = " diagramFacet = ";
+  protected final String TEXT_22 = ".eINSTANCE.createEAnnotation();" + NL + "\t\tdiagramFacet.setSource(\"";
+  protected final String TEXT_23 = "\");" + NL + "\t\tview.getEAnnotations().add(diagramFacet);";
+  protected final String TEXT_24 = NL + "\t}" + NL + "}";
+  protected final String TEXT_25 = NL;
 
   public String generate(Object argument)
   {
@@ -66,22 +73,39 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_9);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_10);
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
+    stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle"));
-    stringBuffer.append(TEXT_16);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle"));
     stringBuffer.append(TEXT_17);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_19);
+    
+if (genElement.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {
+
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory"));
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE);
+    stringBuffer.append(TEXT_23);
+    
+}
+
+    stringBuffer.append(TEXT_24);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_25);
     return stringBuffer.toString();
   }
 }

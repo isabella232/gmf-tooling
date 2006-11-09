@@ -1,0 +1,17 @@
+	/**
+	 * @generated
+	 */
+	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
+<%
+if (!isReadOnly) {
+%>
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT.equals(req.getType())) {
+			performDirectEdit();
+			return;
+		}
+<%
+}
+%>
+<%@include file="performOpen.jetinc"%>
+		super.performRequest(req);
+	}

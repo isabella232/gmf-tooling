@@ -34,7 +34,7 @@ public class InitDiagramFileActionGenerator
   protected final String TEXT_17 = ") {" + NL + "\t\t\tmySelectedModelFileURI = (";
   protected final String TEXT_18 = ") ((";
   protected final String TEXT_19 = ") firstElement).getAdapter(";
-  protected final String TEXT_20 = ".class);" + NL + "\t\t}" + NL + "\t\taction.setEnabled(true);" + NL + "\t}";
+  protected final String TEXT_20 = ".class);" + NL + "\t\t}" + NL + "\t\tif (mySelectedModelFileURI != null) {" + NL + "\t\t\tmySelectedModelFileURI = mySelectedModelFileURI.trimFragment();" + NL + "\t\t}" + NL + "\t\taction.setEnabled(true);" + NL + "\t}";
   protected final String TEXT_21 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_22 = " myPart;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_23 = " mySelectedModelFile;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";

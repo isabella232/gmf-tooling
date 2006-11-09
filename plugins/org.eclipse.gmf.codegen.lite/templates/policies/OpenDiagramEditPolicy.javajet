@@ -1,0 +1,181 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.policies" class="OpenDiagramPolicyGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final OpenDiagramBehaviour behaviour = (OpenDiagramBehaviour) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenDiagram genDiagram = behaviour.getSubject().getDiagram();
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%
+importManager.registerInnerClass("OpenDiagramCommand");
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.OpenDiagramEditPolicy")%> {
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getOpenCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> openRequest) {
+		<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> targetEditPart = getTargetEditPart(openRequest);
+		if (false == targetEditPart.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+			return null;
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) targetEditPart.getModel();
+		return getOpenCommand(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getOpenCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = view.getEAnnotation("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
+		if (annotation == null) {
+			return null;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(annotation);
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> result = new OpenDiagramCommand(annotation);
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domain, result);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected static class OpenDiagramCommand extends <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> {
+		/**
+		 * @generated
+		 */
+		private final <%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> myAnnotation;
+
+		/**
+		 * @generated
+		 */
+		protected OpenDiagramCommand(<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation) {
+			myAnnotation = annotation;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean prepare() {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void execute() {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagramToOpen = getDiagramToOpen();
+			if (diagramToOpen == null) {
+				diagramToOpen = createNewDiagram();
+			}
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramURI = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(diagramToOpen);
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagramURI);
+			<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = <%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			try {
+				page.openEditor(editorInput, getEditorID());
+			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
+				throw new RuntimeException("Can't open diagram", e);
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		public void redo() {
+			execute();
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canUndo() {
+			return false;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagramToOpen() {
+			// take first that matches the given model ID.
+			for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.getReferences().iterator(); it.hasNext(); ) {
+				Object next = it.next();
+				if (next instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) next;
+					if (result.getType().equals(getDiagramKind())) {
+						return result;
+					}
+				}
+			}
+			return null;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> createNewDiagram() {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+			myAnnotation.getReferences().add(result);
+			result.setElement(getDiagramDomainElement());
+			addToResource(result);
+			try {
+				for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {
+					<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> next = (<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) it.next();
+					if (next.isLoaded() && (!next.isTrackingModification() || next.isModified())) {
+						next.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+					}
+				}
+			} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {
+				<%/*XXX: Throwing runtime exceptions is definitely not the most elegant way*/%>
+				throw new RuntimeException("Can't create diagram of '" + getDiagramKind() + "' kind", e);
+			}
+			return result;
+		}
+
+		/**
+		 * Returns the element that should be the underlying model element for the diagram.
+		 * By default, the element associated with the edit part is returned.
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getDiagramDomainElement() {
+			return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) myAnnotation.getEModelElement()).getElement();
+		}
+
+		/**
+		 * Adds the created diagram to a resource. By default, the diagram is added to the resource which contains the annotation.
+		 * @generated
+		 */
+		protected void addToResource(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram) {
+			assert diagram.eResource() == null;
+			assert myAnnotation.eResource() != null;
+			myAnnotation.eResource().getContents().add(diagram);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected String getDiagramKind() {
+<%if (behaviour.getDiagramKind() == null) {%>
+			return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID;
+<%} else {%>
+			return "<%=behaviour.getDiagramKind()%>";
+<%}%>
+		}
+
+		/**
+		 * @generated
+		 */
+		protected String getEditorID() {
+<%if (behaviour.getEditorID() == null) { %>
+			return <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID;
+<%} else {%>
+			return "<%=behaviour.getEditorID()%>";
+<%}%>
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

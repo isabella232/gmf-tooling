@@ -47,7 +47,7 @@ public class LayoutDiagramAction extends WorkbenchPartAction {
 		Command layoutCommand = layouter.layout((GraphicalEditPart) viewer.getContents());
 		if (layoutCommand != null && layoutCommand.canExecute()) {
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(viewer.getContents().getModel());
-			new WrappingCommand(editingDomain, layoutCommand).execute();
+			viewer.getEditDomain().getCommandStack().execute(new WrappingCommand(editingDomain, layoutCommand));
 		}
 	}
 }

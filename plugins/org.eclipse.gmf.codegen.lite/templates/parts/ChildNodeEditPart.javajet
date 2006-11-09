@@ -71,8 +71,14 @@ if (!isReadOnly) {
 }
 %>
 <%@ include file="componentEditPolicy.javajetinc"%>
+<%{
+GenCommonBase genCommonBase = genChildNode;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%@include file="openEditPolicy.jetinc"%>
+<%}%>
 	}
 
+<%@ include file="labelPerformRequest.jetinc"%>
 <%
 if (!isReadOnly) {
 %>

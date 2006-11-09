@@ -39,6 +39,9 @@ if (isRichClientPlatform) {
 		} else if (firstElement instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
 			mySelectedModelFileURI = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) firstElement).getAdapter(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.class);
 		}
+		if (mySelectedModelFileURI != null) {
+			mySelectedModelFileURI = mySelectedModelFileURI.trimFragment();
+		}
 		action.setEnabled(true);
 	}
 <%

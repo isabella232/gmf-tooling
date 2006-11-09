@@ -24,10 +24,14 @@ public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=imp
 	 * @generated
 	 */
 	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		if (view.eIsSet(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Type())) {
+			return;
+		}
 		view.setType(<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID);
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DiagramStyle")%> style = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagramStyle();
 		view.getStyles().add(style);
 		//XXX: init styles from attributes!!!
+<%@ include file="createOpenDiagramAnnotation.jetinc"%>
 	}
 }
 <%importManager.emitSortedImports();%>
