@@ -8,11 +8,14 @@
  *******************************************************************************/
 package org.eclipse.gmf.tests.expression.ast;
 
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionLexer;
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParser;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import java.util.Formatter;
 
 import junit.framework.TestCase;
+
+import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionLexer;
+import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParser;
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 public abstract class AbstractExpressionTest extends TestCase {
 
@@ -21,10 +24,21 @@ public abstract class AbstractExpressionTest extends TestCase {
         final ExpressionParser parser = new ExpressionParser(scanner);
         scanner.lexer(parser);
         try {
-            return (Expression) parser.parser();
+            Expression rv = parser.parser();
+            for (ErrorLocationInfo l : scanner.getErrors()) {
+            	System.out.println("Scanner:" + locationInfo(l) + l.message);
+            }
+            for (ErrorLocationInfo l : parser.getErrors()) {
+            	System.out.println("Parser:" + locationInfo(l) + l.message);
+            }
+            return rv;
         } catch (final Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    private static String locationInfo(ErrorLocationInfo l) {
+    	return new Formatter(new StringBuilder()).format("%d:%d:%d:%d:", l.startLine, l.startColumn, l.endLine, l.endColumn).out().toString();
     }
 }

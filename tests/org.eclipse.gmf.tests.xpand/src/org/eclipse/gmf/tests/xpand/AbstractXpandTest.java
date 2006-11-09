@@ -8,9 +8,13 @@
  *******************************************************************************/
 package org.eclipse.gmf.tests.xpand;
 
+import java.util.Formatter;
+
 import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
 import org.eclipse.gmf.internal.xpand.parser.XpandParser;
+import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 import org.eclipse.gmf.internal.xpand.ast.Template;
+import org.eclipse.gmf.tests.expression.ast.AbstractExpressionTest;
 
 import junit.framework.TestCase;
 
@@ -24,15 +28,24 @@ public abstract class AbstractXpandTest extends TestCase {
 	    final XpandLexer scanner = new XpandLexer(expr.toCharArray(), "nofile");
 	    final XpandParser parser = new XpandParser(scanner);
 	    scanner.lexer(parser);
-	    return parser.parser();
-	}
-
-	public AbstractXpandTest() {
-		super();
+        for (ErrorLocationInfo l : scanner.getErrors()) {
+        	System.out.println("Scanner:" + locationInfo(l) + l.message);
+        }
+	    Template rv = parser.parser();
+        for (ErrorLocationInfo l : parser.getErrors()) {
+        	System.out.println("Parser:" + locationInfo(l) + l.message);
+        }
+        return rv;
 	}
 
 	protected String tag(final String str) {
 	    return LG + str + RG;
 	}
 
+	/**
+	 * copy from {@link AbstractExpressionTest}
+	 */
+	private static String locationInfo(ErrorLocationInfo l) {
+    	return new Formatter(new StringBuilder()).format("%d:%d:%d:%d:", l.startLine, l.startColumn, l.endLine, l.endColumn).out().toString();
+    }
 }
