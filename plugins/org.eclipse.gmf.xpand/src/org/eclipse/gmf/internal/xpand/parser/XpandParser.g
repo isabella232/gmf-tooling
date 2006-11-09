@@ -65,14 +65,16 @@ $End
 
 $Rules
 
-	-- original xpand allows empty templates, not sure what for
-	template ::= $empty
+	template ::= emptyTemplate
 		/.$BeginJava
 			setResult(xpandFactory.createTemplate(Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, getRightIToken()));
 		$EndJava./
 
+	-- original xpand allows empty templates, not sure what for; added support to handle comments-only content
+	emptyTemplate -> $empty | LG TEXT commentTextPairAny
+
 	-- unlike original xpand, do not allow mixed order of imports (ext and regular)
-	template ::= lgOpt commentTextPairAny imports extensionImports defineOrAroundSeq
+	template ::= LG commentTextPairAny imports extensionImports defineOrAroundSeq
 		/.$BeginJava
 			List imports = (List) getRhsSym(3);
 			List extensionImports = (List) getRhsSym(4);
@@ -112,7 +114,7 @@ $Rules
 	defineOrAroundSuffix -> defineOrAroundSeq
 
 	lgOpt -> $empty | LG
-	commentTextPairAny ::= $empty | TEXT commentTextPairAny
+	commentTextPairAny -> $empty | TEXT commentTextPairAny
 
 	imports ::= $empty
 		/.$BeginJava

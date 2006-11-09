@@ -126,9 +126,9 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		}
 	}
 
-//	public final void testCommentOnly() throws Exception {
-//		assertNotNull(parse(tag("REM") + "zx" + tag("ENDREM")));
-//	}
+	public final void testCommentOnly() throws Exception {
+		assertNotNull(parse(tag("REM") + "zx" + tag("ENDREM")));
+	}
 	
 	public final void testCommentNestedTag() throws Exception {
 		String nestedTag = tag("DEFINE") + "placeholder" + tag("ENDDEFINE");

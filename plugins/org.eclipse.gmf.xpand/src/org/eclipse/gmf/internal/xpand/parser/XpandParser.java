@@ -747,7 +747,7 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 89:  template ::= $Empty
+            // Rule 89:  template ::= emptyTemplate
             //
             case 89: {
                 
@@ -755,9 +755,9 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 90:  template ::= lgOpt commentTextPairAny imports extensionImports defineOrAroundSeq
+            // Rule 92:  template ::= LG commentTextPairAny imports extensionImports defineOrAroundSeq
             //
-            case 90: {
+            case 92: {
                 
 		List imports = (List) getRhsSym(3);
 		List extensionImports = (List) getRhsSym(4);
@@ -777,47 +777,47 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 91:  defineOrAroundSeq ::= define TEXT commentTextPairAny defineOrAroundSuffix
-            //
-            case 91: {
-                
-		List result = new LinkedList();
-		result.add(getRhsSym(1));
-		result.addAll((List) getRhsSym(4));
-		setResult(result);
-	          break;
-            } 
-            //
-            // Rule 92:  defineOrAroundSeq ::= around TEXT commentTextPairAny defineOrAroundSuffix
-            //
-            case 92: {
-                
-		List result = new LinkedList();
-		result.add(getRhsSym(1));
-		result.addAll((List) getRhsSym(4));
-		setResult(result);
-	          break;
-            } 
-            //
-            // Rule 93:  defineOrAroundSuffix ::= $Empty
+            // Rule 93:  defineOrAroundSeq ::= define TEXT commentTextPairAny defineOrAroundSuffix
             //
             case 93: {
                 
-		setResult(Collections.EMPTY_LIST);
+		List result = new LinkedList();
+		result.add(getRhsSym(1));
+		result.addAll((List) getRhsSym(4));
+		setResult(result);
 	          break;
             } 
             //
-            // Rule 99:  imports ::= $Empty
+            // Rule 94:  defineOrAroundSeq ::= around TEXT commentTextPairAny defineOrAroundSuffix
             //
-            case 99: {
+            case 94: {
+                
+		List result = new LinkedList();
+		result.add(getRhsSym(1));
+		result.addAll((List) getRhsSym(4));
+		setResult(result);
+	          break;
+            } 
+            //
+            // Rule 95:  defineOrAroundSuffix ::= $Empty
+            //
+            case 95: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 100:  imports ::= anImport imports
+            // Rule 101:  imports ::= $Empty
             //
-            case 100: {
+            case 101: {
+                
+		setResult(Collections.EMPTY_LIST);
+	          break;
+            } 
+            //
+            // Rule 102:  imports ::= anImport imports
+            //
+            case 102: {
                 
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -826,25 +826,25 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 101:  anImport ::= IMPORT STRING TEXT commentTextPairAny
+            // Rule 103:  anImport ::= IMPORT STRING TEXT commentTextPairAny
             //
-            case 101: {
+            case 103: {
                 
 		setResult(xpandFactory.createNamespaceImport(getLeftIToken(),xpandFactory.createStringLiteral(getRhsIToken(2))));
 	          break;
             } 
             //
-            // Rule 102:  extensionImports ::= $Empty
+            // Rule 104:  extensionImports ::= $Empty
             //
-            case 102: {
+            case 104: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 103:  extensionImports ::= anExtensionImport extensionImports
+            // Rule 105:  extensionImports ::= anExtensionImport extensionImports
             //
-            case 103: {
+            case 105: {
                 
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -853,81 +853,81 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 104:  anExtensionImport ::= EXTENSION simpleType TEXT commentTextPairAny
+            // Rule 106:  anExtensionImport ::= EXTENSION simpleType TEXT commentTextPairAny
             //
-            case 104: {
+            case 106: {
                 
 		setResult(xpandFactory.createImportDeclaration(getLeftIToken(), (Identifier) getRhsSym(2)));
 	          break;
             } 
             //
-            // Rule 105:  around ::= AROUND pointcut FOR type sequence ENDAROUND
+            // Rule 107:  around ::= AROUND pointcut FOR type sequence ENDAROUND
             //
-            case 105: {
+            case 107: {
                 
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.EMPTY_LIST, false, (Identifier) getRhsSym(4), (List) getRhsSym(5)));
 	          break;
             } 
             //
-            // Rule 106:  around ::= AROUND pointcut LPAREN declaredParameterList RPAREN FOR type sequence ENDAROUND
+            // Rule 108:  around ::= AROUND pointcut LPAREN declaredParameterList RPAREN FOR type sequence ENDAROUND
             //
-            case 106: {
+            case 108: {
                 
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(4), false, (Identifier) getRhsSym(7), (List) getRhsSym(8)));
 	          break;
             } 
             //
-            // Rule 107:  around ::= AROUND pointcut LPAREN declaredParameterList COMMA MULTI RPAREN FOR type sequence ENDAROUND
+            // Rule 109:  around ::= AROUND pointcut LPAREN declaredParameterList COMMA MULTI RPAREN FOR type sequence ENDAROUND
             //
-            case 107: {
+            case 109: {
                 
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(4), true, (Identifier) getRhsSym(9), (List) getRhsSym(10)));
 	          break;
             } 
             //
-            // Rule 108:  around ::= AROUND pointcut LPAREN MULTI RPAREN FOR type sequence ENDAROUND
+            // Rule 110:  around ::= AROUND pointcut LPAREN MULTI RPAREN FOR type sequence ENDAROUND
             //
-            case 108: {
+            case 110: {
                 
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.EMPTY_LIST, true, (Identifier) getRhsSym(7), (List) getRhsSym(8)));
 	          break;
             } 
             //
-            // Rule 109:  pointcut ::= MULTI pointcutSuffix
-            //
-            case 109: {
-                
-		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
-		if (getRhsSym(2) != null) {
-			res = res.append((Identifier) getRhsSym(2));
-		}
-		setResult(res);
-	          break;
-            } 
-            //
-            // Rule 110:  pointcut ::= IDENT pointcutSuffix
-            //
-            case 110: {
-                
-		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
-		if (getRhsSym(2) != null) {
-			res = res.append((Identifier) getRhsSym(2));
-		}
-		setResult(res);
-	          break;
-            } 
-            //
-            // Rule 111:  pointcutSuffix ::= $Empty
+            // Rule 111:  pointcut ::= MULTI pointcutSuffix
             //
             case 111: {
+                
+		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
+		if (getRhsSym(2) != null) {
+			res = res.append((Identifier) getRhsSym(2));
+		}
+		setResult(res);
+	          break;
+            } 
+            //
+            // Rule 112:  pointcut ::= IDENT pointcutSuffix
+            //
+            case 112: {
+                
+		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
+		if (getRhsSym(2) != null) {
+			res = res.append((Identifier) getRhsSym(2));
+		}
+		setResult(res);
+	          break;
+            } 
+            //
+            // Rule 113:  pointcutSuffix ::= $Empty
+            //
+            case 113: {
                 
 		setResult(null);
 	          break;
             } 
             //
-            // Rule 113:  pointcutSuffix ::= DCOLON pointcutSuffix
+            // Rule 115:  pointcutSuffix ::= DCOLON pointcutSuffix
             //
-            case 113: {
+            case 115: {
                 
 		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 		if (getRhsSym(2) != null) {
@@ -937,25 +937,25 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 114:  define ::= DEFINE IDENT FOR type sequence ENDDEFINE
+            // Rule 116:  define ::= DEFINE IDENT FOR type sequence ENDDEFINE
             //
-            case 114: {
+            case 116: {
                 
 		setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), Collections.EMPTY_LIST, (Identifier) getRhsSym(4), (List) getRhsSym(5)));
 	          break;
             } 
             //
-            // Rule 115:  define ::= DEFINE IDENT LPAREN declaredParameterList RPAREN FOR type sequence ENDDEFINE
+            // Rule 117:  define ::= DEFINE IDENT LPAREN declaredParameterList RPAREN FOR type sequence ENDDEFINE
             //
-            case 115: {
+            case 117: {
                 
 		setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), (List) getRhsSym(4), (Identifier) getRhsSym(7), (List) getRhsSym(8)));
 	          break;
             } 
             //
-            // Rule 116:  sequence ::= text sequenceSuffix
+            // Rule 118:  sequence ::= text sequenceSuffix
             //
-            case 116: {
+            case 118: {
                 
 		List res = new LinkedList();
 		res.addAll((List) getRhsSym(1));
@@ -964,17 +964,17 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 117:  sequenceSuffix ::= $Empty
+            // Rule 119:  sequenceSuffix ::= $Empty
             //
-            case 117: {
+            case 119: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 118:  sequenceSuffix ::= statement text sequenceSuffix
+            // Rule 120:  sequenceSuffix ::= statement text sequenceSuffix
             //
-            case 118: {
+            case 120: {
                 
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -984,26 +984,7 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 125:  text ::= minusOpt TEXT textSuffix
-            //
-            case 125: {
-                
-		List res = new LinkedList();
-		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
-		res.addAll((List) getRhsSym(3));
-		setResult(res);
-	          break;
-            } 
-            //
-            // Rule 126:  textSuffix ::= $Empty
-            //
-            case 126: {
-                
-		setResult(Collections.EMPTY_LIST);
-	          break;
-            } 
-            //
-            // Rule 127:  textSuffix ::= minusOpt TEXT textSuffix
+            // Rule 127:  text ::= minusOpt TEXT textSuffix
             //
             case 127: {
                 
@@ -1014,127 +995,130 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 128:  minusOpt ::= $Empty
+            // Rule 128:  textSuffix ::= $Empty
             //
             case 128: {
-                
-		setResult(null);
-	          break;
-            } 
-            //
-            // Rule 129:  minusOpt ::= MINUS
-            //
-            case 129: {
-                
-		setResult(getLeftIToken());
-	          break;
-            } 
-            //
-            // Rule 133:  errorStatement ::= ERROR expression
-            //
-            case 133: {
-                
-		setResult(xpandFactory.createErrorStatement(getLeftIToken(), (Expression) getRhsSym(2)));
-	          break;
-            } 
-            //
-            // Rule 134:  expandStatement ::= EXPAND definitionName parameterListOpt
-            //
-            case 134: {
-                
-		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), null, false, null));
-	          break;
-            } 
-            //
-            // Rule 135:  expandStatement ::= EXPAND definitionName parameterListOpt FOR expression
-            //
-            case 135: {
-                
-		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), (Expression) getRhsSym(5), false, null));
-	          break;
-            } 
-            //
-            // Rule 136:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH expression separatorOpt
-            //
-            case 136: {
-                
-		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), (Expression) getRhsSym(5), true, (Expression) getRhsSym(6)));
-	          break;
-            } 
-            //
-            // Rule 137:  parameterListOpt ::= $Empty
-            //
-            case 137: {
                 
 		setResult(Collections.EMPTY_LIST);
 	          break;
             } 
             //
-            // Rule 138:  parameterListOpt ::= LPAREN parameterList RPAREN
+            // Rule 129:  textSuffix ::= minusOpt TEXT textSuffix
+            //
+            case 129: {
+                
+		List res = new LinkedList();
+		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
+		res.addAll((List) getRhsSym(3));
+		setResult(res);
+	          break;
+            } 
+            //
+            // Rule 130:  minusOpt ::= $Empty
+            //
+            case 130: {
+                
+		setResult(null);
+	          break;
+            } 
+            //
+            // Rule 131:  minusOpt ::= MINUS
+            //
+            case 131: {
+                
+		setResult(getLeftIToken());
+	          break;
+            } 
+            //
+            // Rule 135:  errorStatement ::= ERROR expression
+            //
+            case 135: {
+                
+		setResult(xpandFactory.createErrorStatement(getLeftIToken(), (Expression) getRhsSym(2)));
+	          break;
+            } 
+            //
+            // Rule 136:  expandStatement ::= EXPAND definitionName parameterListOpt
+            //
+            case 136: {
+                
+		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), null, false, null));
+	          break;
+            } 
+            //
+            // Rule 137:  expandStatement ::= EXPAND definitionName parameterListOpt FOR expression
+            //
+            case 137: {
+                
+		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), (Expression) getRhsSym(5), false, null));
+	          break;
+            } 
+            //
+            // Rule 138:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH expression separatorOpt
             //
             case 138: {
+                
+		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (Identifier) getRhsSym(2), (List) getRhsSym(3), (Expression) getRhsSym(5), true, (Expression) getRhsSym(6)));
+	          break;
+            } 
+            //
+            // Rule 139:  parameterListOpt ::= $Empty
+            //
+            case 139: {
+                
+		setResult(Collections.EMPTY_LIST);
+	          break;
+            } 
+            //
+            // Rule 140:  parameterListOpt ::= LPAREN parameterList RPAREN
+            //
+            case 140: {
                 
 		setResult(getRhsSym(2));
 	          break;
             } 
             //
-            // Rule 140:  expressionStmt ::= expression
+            // Rule 142:  expressionStmt ::= expression
             //
-            case 140: {
+            case 142: {
                 
 		setResult(xpandFactory.createExpressionStatement((Expression) getRhsSym(1)));
 	          break;
             } 
             //
-            // Rule 141:  fileStatement ::= FILE expression identOpt sequence ENDFILE
+            // Rule 143:  fileStatement ::= FILE expression identOpt sequence ENDFILE
             //
-            case 141: {
+            case 143: {
                 
 		setResult(xpandFactory.createFileStatement(getLeftIToken(), getRightIToken(), (Expression) getRhsSym(2), (Identifier) getRhsSym(3), (List) getRhsSym(4)));
 	          break;
             } 
             //
-            // Rule 142:  identOpt ::= $Empty
+            // Rule 144:  identOpt ::= $Empty
             //
-            case 142: {
+            case 144: {
                 
 		setResult(null);
 	          break;
             } 
             //
-            // Rule 143:  identOpt ::= IDENT
+            // Rule 145:  identOpt ::= IDENT
             //
-            case 143: {
+            case 145: {
                 
 		setResult(xpandFactory.createIdentifier(getLeftIToken()));
 	          break;
             } 
             //
-            // Rule 144:  foreachStatement ::= FOREACH expression AS IDENT iteratorOpt separatorOpt sequence ENDFOREACH
+            // Rule 146:  foreachStatement ::= FOREACH expression AS IDENT iteratorOpt separatorOpt sequence ENDFOREACH
             //
-            case 144: {
+            case 146: {
                 
 		setResult(xpandFactory.createForEachStatement(getLeftIToken(), getRightIToken(), (Expression) getRhsSym(2), getRhsIToken(4), (Expression) getRhsSym(6), (IToken) getRhsSym(5), (List) getRhsSym(7)));
 	          break;
             } 
             //
-            // Rule 145:  iteratorOpt ::= $Empty
-            //
-            case 145: {
-                
-		setResult(null);
-	          break;
-            } 
-            //
-            // Rule 146:  iteratorOpt ::= ITERATOR IDENT
-            //
-            case 146: {
-                
-		setResult(getRightIToken());
-	          break;
-            } 
-            //
-            // Rule 147:  separatorOpt ::= $Empty
+            // Rule 147:  iteratorOpt ::= $Empty
             //
             case 147: {
                 
@@ -1142,17 +1126,33 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 148:  separatorOpt ::= SEPARATOR expression
+            // Rule 148:  iteratorOpt ::= ITERATOR IDENT
             //
             case 148: {
+                
+		setResult(getRightIToken());
+	          break;
+            } 
+            //
+            // Rule 149:  separatorOpt ::= $Empty
+            //
+            case 149: {
+                
+		setResult(null);
+	          break;
+            } 
+            //
+            // Rule 150:  separatorOpt ::= SEPARATOR expression
+            //
+            case 150: {
                 
 		setResult(getRhsSym(2));
 	          break;
             } 
             //
-            // Rule 149:  ifStatement ::= IF expression sequence elseifAny elseOpt ENDIF
+            // Rule 151:  ifStatement ::= IF expression sequence elseifAny elseOpt ENDIF
             //
-            case 149: {
+            case 151: {
                 
 		IfStatement i = xpandFactory.createIfStatement(getLeftIToken(), (Expression) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement elseIf = (IfStatement) getRhsSym(4);
@@ -1172,17 +1172,17 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 150:  elseifAny ::= $Empty
+            // Rule 152:  elseifAny ::= $Empty
             //
-            case 150: {
+            case 152: {
                 
 		setResult(null);
 	          break;
             } 
             //
-            // Rule 151:  elseifAny ::= ELSEIF expression sequence elseifAny
+            // Rule 153:  elseifAny ::= ELSEIF expression sequence elseifAny
             //
-            case 151: {
+            case 153: {
                 
 		IfStatement elseIf = xpandFactory.createIfStatement(getLeftIToken(), (Expression) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement restElseIf = (IfStatement) getRhsSym(4);
@@ -1191,49 +1191,49 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 152:  elseOpt ::= $Empty
+            // Rule 154:  elseOpt ::= $Empty
             //
-            case 152: {
+            case 154: {
                 
 		setResult(null);
 	          break;
             } 
             //
-            // Rule 153:  elseOpt ::= ELSE sequence
+            // Rule 155:  elseOpt ::= ELSE sequence
             //
-            case 153: {
+            case 155: {
                 
 		setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
 	          break;
             } 
             //
-            // Rule 154:  letStatement ::= LET expression AS IDENT sequence ENDLET
+            // Rule 156:  letStatement ::= LET expression AS IDENT sequence ENDLET
             //
-            case 154: {
+            case 156: {
                 
 		setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (Expression) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
 	          break;
             } 
             //
-            // Rule 155:  protectStatement ::= PROTECT CSTART expression CEND expression ID expression disabledOpt sequence ENDPROTECT
+            // Rule 157:  protectStatement ::= PROTECT CSTART expression CEND expression ID expression disabledOpt sequence ENDPROTECT
             //
-            case 155: {
+            case 157: {
                 
 		setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (Expression) getRhsSym(3), (Expression) getRhsSym(5), (Expression) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
 	          break;
             } 
             //
-            // Rule 156:  disabledOpt ::= $Empty
+            // Rule 158:  disabledOpt ::= $Empty
             //
-            case 156: {
+            case 158: {
                 
 		setResult(null);
 	          break;
             } 
             //
-            // Rule 157:  disabledOpt ::= DISABLE
+            // Rule 159:  disabledOpt ::= DISABLE
             //
-            case 157: {
+            case 159: {
                 
 		setResult(getLeftIToken());
 	          break;
