@@ -1003,13 +1003,13 @@ public class XpandParser extends PrsStream implements RuleAction {
 	          break;
             } 
             //
-            // Rule 127:  textSuffix ::= COMMENT minusOpt TEXT textSuffix
+            // Rule 127:  textSuffix ::= minusOpt TEXT textSuffix
             //
             case 127: {
                 
 		List res = new LinkedList();
-		res.add(xpandFactory.createTextStatement(getRhsIToken(3), (IToken) getRhsSym(2)));
-		res.addAll((List) getRhsSym(4));
+		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
+		res.addAll((List) getRhsSym(3));
 		setResult(res);
 	          break;
             } 

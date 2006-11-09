@@ -71,7 +71,6 @@ $Rules
 			setResult(xpandFactory.createTemplate(Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, getRightIToken()));
 		$EndJava./
 
--- passing COMMENT up to parser seems superfluous, perhaps, could remove it during lexing?
 	-- unlike original xpand, do not allow mixed order of imports (ext and regular)
 	template ::= lgOpt commentTextPairAny imports extensionImports defineOrAroundSeq
 		/.$BeginJava
@@ -113,7 +112,7 @@ $Rules
 	defineOrAroundSuffix -> defineOrAroundSeq
 
 	lgOpt -> $empty | LG
-	commentTextPairAny ::= $empty | COMMENT TEXT commentTextPairAny
+	commentTextPairAny ::= $empty | TEXT commentTextPairAny
 
 	imports ::= $empty
 		/.$BeginJava
@@ -245,11 +244,11 @@ $Rules
 		/.$BeginJava
 			setResult(Collections.EMPTY_LIST);
 		$EndJava./
-	textSuffix ::= COMMENT minusOpt TEXT textSuffix
+	textSuffix ::= minusOpt TEXT textSuffix
 		/.$BeginJava
 			List res = new LinkedList();
-			res.add(xpandFactory.createTextStatement(getRhsIToken(3), (IToken) getRhsSym(2)));
-			res.addAll((List) getRhsSym(4));
+			res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
+			res.addAll((List) getRhsSym(3));
 			setResult(res);
 		$EndJava./
 

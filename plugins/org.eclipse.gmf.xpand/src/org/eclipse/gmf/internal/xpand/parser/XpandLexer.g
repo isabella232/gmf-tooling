@@ -50,7 +50,6 @@ $End
 
 $Export
 	TEXT
-	COMMENT
 	LG
 --	RG
 $End
@@ -81,7 +80,7 @@ $Rules
 
 	Token ::= R E M RG commentAny lgPlus E N D R E M 
 		/.$BeginAction
-			makeToken($_COMMENT);
+			skipToken();
 		$EndAction./
 
 	commentAny -> $empty
