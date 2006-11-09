@@ -11,7 +11,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 importManager.registerInnerClass("Initializers");
 importManager.registerInnerClass("IObjectInitializer");
 importManager.registerInnerClass("ObjectInitializer");
-importManager.registerInnerClass("FeatureInitializer");
+importManager.registerInnerClass("IFeatureInitializer");
 final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
 %>
@@ -361,7 +361,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 			/** 
 			 * @generated
 			 */
-			protected final FeatureInitializer add(FeatureInitializer initializer) {
+			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
 				featureInitializers.add(initializer);
 				return initializer;
 			}
@@ -370,7 +370,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 			 */		
 			public void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
 				for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					FeatureInitializer nextExpr = (FeatureInitializer)it.next();
+					IFeatureInitializer nextExpr = (IFeatureInitializer)it.next();
 					try {
 						nextExpr.init(instance);
 					} catch(RuntimeException e) {
@@ -383,7 +383,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/** 
 		 * @generated
 		 */
-		interface FeatureInitializer {
+		interface IFeatureInitializer {
 			/**
 			 * @generated
 			 */
@@ -393,10 +393,10 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/**
 		 * @generated
 		 */		
-		static FeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
+		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
 			final EStructuralFeature feature = initFeature;
 			final ObjectInitializer[] initializers = newObjectInitializers;
-			return new FeatureInitializer() {
+			return new IFeatureInitializer() {
 				public void init(EObject contextInstance) {
 					for (int i = 0; i < initializers.length; i++) {
 						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
@@ -414,10 +414,10 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/**
 		 * @generated
 		 */		
-		static FeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> valueExpression) {
+		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> valueExpression) {
 			final EStructuralFeature feature = initFeature;
 			final <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression = valueExpression;
-			return new FeatureInitializer() {				
+			return new IFeatureInitializer() {				
 				public void init(EObject contextInstance) {
 					expression.assignTo(feature, contextInstance);
 				}
