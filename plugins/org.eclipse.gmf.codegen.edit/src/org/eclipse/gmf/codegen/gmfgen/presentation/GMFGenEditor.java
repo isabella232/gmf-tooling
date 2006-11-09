@@ -1498,10 +1498,26 @@ public class GMFGenEditor
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Ensures that the tree editor page is selected for the marker target navigation
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void gotoMarker(IMarker marker) {
+		updateProblemIndication = false;
+		try {
+			setActivePage(0);
+			gotoMarkerGen(marker);
+		} finally {
+			updateProblemIndication = true;
+		}
+	}	
+	
+	/**
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void gotoMarker(IMarker marker) {
+	public void gotoMarkerGen(IMarker marker) {
 		try {
 			if (marker.getType().equals(EValidator.MARKER)) {
 				String uriAttribute = marker.getAttribute(EValidator.URI_ATTRIBUTE, null);
