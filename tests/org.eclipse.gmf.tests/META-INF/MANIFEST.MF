@@ -28,3 +28,4 @@ Export-Package: org.eclipse.gmf.tests;x-friends:="org.eclipse.gmf.tests.lite",
  org.eclipse.gmf.tests.rt;x-friends:="org.eclipse.gmf.tests.lite",
  org.eclipse.gmf.tests.setup;x-friends:="org.eclipse.gmf.tests.lite",
  org.eclipse.gmf.tests.tr;x-friends:="org.eclipse.gmf.tests.lite"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
