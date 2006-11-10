@@ -19,3 +19,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.gmf.bridge.ui;bundle-version="[1.0.0,2.0.0)"
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.gmf.bridge.ui.dashboard
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
