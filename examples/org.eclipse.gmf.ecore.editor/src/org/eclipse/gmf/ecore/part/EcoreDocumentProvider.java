@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.DemultiplexingListener;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -37,7 +36,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModif
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramDocumentProvider;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramModificationListener;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.ui.IFileEditorInput;
 
@@ -165,48 +163,64 @@ public class EcoreDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	private class CustomModificationListener extends FileDiagramModificationListener {
+	public void fireElementDirtyStateChanged(TransactionalEditingDomain editingDomain, IFileEditorInput fileEditorInput) {
+		boolean modified = false;
+		for (Iterator it = editingDomain.getResourceSet().getResources().iterator(); it.hasNext() && !modified;) {
+			Resource nextResource = (Resource) it.next();
+			if (nextResource.isLoaded()) {
+				modified = nextResource.isModified();
+			}
+		}
+		ElementInfo info = getElementInfo(fileEditorInput);
+		if (modified) {
+			info.fCanBeSaved = modified;
+		} else {
+			info.fCanBeSaved = false;
+			if (info instanceof FileInfo) {
+				((FileInfo) info).fModificationStamp = computeModificationStamp(fileEditorInput.getFile());
+			}
+		}
+		fireElementDirtyStateChanged(fileEditorInput, modified);
+	}
+
+	/**
+	 * @generated
+	 */
+	private class CustomModificationListener extends DiagramModificationListener {
 
 		/**
 		 * @generated
 		 */
-		private DemultiplexingListener myListener = null;
+		private NotificationFilter myModifiedFilter;
+
+		/**
+		 * @generated
+		 */
+		private IFileEditorInput myFileEditorInput;
 
 		/**
 		 * @generated
 		 */
 		public CustomModificationListener(EcoreDocumentProvider documentProviderParameter, DiagramDocument documentParameter, IFileEditorInput inputParameter) {
-			super(documentProviderParameter, documentParameter, inputParameter);
-			final DiagramDocument document = documentParameter;
-			NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createEventTypeFilter(Notification.SET);
-			myListener = new DemultiplexingListener(diagramResourceModifiedFilter) {
+			super(documentProviderParameter, documentParameter);
+			myFileEditorInput = inputParameter;
+			myModifiedFilter = NotificationFilter.createEventTypeFilter(Notification.SET).or(NotificationFilter.createEventTypeFilter(Notification.UNSET)).and(
+					NotificationFilter.createFeatureFilter(Resource.class, Resource.RESOURCE__IS_MODIFIED));
+		}
 
-				protected void handleNotification(TransactionalEditingDomain domain, Notification notification) {
-					if (notification.getNotifier() instanceof EObject) {
-						Resource modifiedResource = ((EObject) notification.getNotifier()).eResource();
-						if (modifiedResource != document.getDiagram().eResource()) {
-							document.setContent(document.getContent());
-						}
+		/**
+		 * @generated
+		 */
+		public void notifyChanged(Notification notification) {
+			if (myModifiedFilter.matches(notification)) {
+				if (notification.getNotifier() instanceof Resource) {
+					Resource resource = (Resource) notification.getNotifier();
+					if (resource.isLoaded()) {
+						fireElementDirtyStateChanged(getEditingDomain(), myFileEditorInput);
 					}
 
 				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		public void startListening() {
-			super.startListening();
-			getEditingDomain().addResourceSetListener(myListener);
-		}
-
-		/**
-		 * @generated
-		 */
-		public void stopListening() {
-			getEditingDomain().removeResourceSetListener(myListener);
-			super.stopListening();
+			}
 		}
 
 	}
