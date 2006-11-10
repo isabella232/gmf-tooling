@@ -13,6 +13,7 @@ package org.eclipse.gmf.runtime.lite.parts;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
@@ -27,7 +28,11 @@ import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.parts.ScrollableThumbnail;
 import org.eclipse.draw2d.parts.Thumbnail;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
@@ -37,6 +42,7 @@ import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RootEditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
@@ -379,14 +385,50 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
-		setInput(input);
-		setEditDomain(new DefaultEditDomain(this));
+		DefaultEditDomain domain = new DefaultEditDomain(this);
+		domain.setCommandStack(new CommandStack(){
+			@Override
+			public void execute(Command command) {
+				super.execute(command);
+				if (isSaved()) {
+					markSaveLocation();
+				}
+			}
+			@Override
+			public void undo() {
+				super.undo();
+				if (isSaved()) {
+					markSaveLocation();
+				}
+			}
+			@Override
+			public void redo() {
+				super.redo();
+				if (isSaved()) {
+					markSaveLocation();
+				}
+			}
+			private boolean isSaved() {
+				for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
+					Resource next = (Resource) it.next();
+					if (!next.isLoaded()) {
+						continue;
+					}
+					if (!next.isTrackingModification() || next.isModified()) {
+						return false;
+					}
+				}
+				return true;
+			}
+		});
+		setEditDomain(domain);
 
 		// add CommandStackListener
 		getCommandStack().addCommandStackListener(getStackActionsListener());
 
 		// add selection change listener
 		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(getSelectionListener());
+		setInput(input);
 	}
 
 	public void dispose() {
@@ -398,7 +440,6 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 
 		// dispose the ActionRegistry (will dispose all actions)
 		getActionRegistry().dispose();
-
 	}
 
 	protected void save(IProgressMonitor progressMonitor) throws CoreException {
@@ -490,7 +531,8 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
         return ID_OVERVIEW;
     }
 
-    protected PropertySheetPage getPropertySheetPage() {
+
+	protected PropertySheetPage getPropertySheetPage() {
 		if (undoablePropertySheetPage == null) {
 			undoablePropertySheetPage = new PropertySheetPage();
 			UndoablePropertySheetEntry rootEntry = new UndoablePropertySheetEntry(getCommandStack());
@@ -521,6 +563,7 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 			editingDomain = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain();
 			//editingDomain.setAdapterFactory(getDomainAdapterFactory());
 			editingDomain.getResourceSet().eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(editingDomain));
+			editingDomain.getResourceSet().eAdapters().add(new ForceTrackingModificationAdapter());
 		}
 		return editingDomain;
 	}
@@ -535,5 +578,38 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 		super.createPartControl(parent);
 		// initialize actions
 		createActions();
+	}
+
+	private static class ForceTrackingModificationAdapter extends AdapterImpl {
+		@Override
+		public void setTarget(Notifier newTarget) {
+			super.setTarget(newTarget);
+			if (newTarget instanceof ResourceSet) {
+				ResourceSet resourceSet = (ResourceSet) newTarget;
+				for(Iterator it = resourceSet.getResources().iterator(); it.hasNext(); ) {
+					((Resource) it.next()).setTrackingModification(true);
+				}
+			}
+		}
+		@Override
+		public void notifyChanged(Notification msg) {
+			if (msg.getNotifier() == getTarget() && msg.getFeatureID(ResourceSet.class) == ResourceSet.RESOURCE_SET__RESOURCES) {
+				switch (msg.getEventType()) {
+				case Notification.ADD:
+				{
+					Resource resource = (Resource) msg.getNewValue();
+					resource.setTrackingModification(true);
+				}
+				break;
+				case Notification.ADD_MANY:
+				{
+					Collection resources = (Collection) msg.getNewValue();
+					for(Iterator it = resources.iterator(); it.hasNext(); ) {
+						((Resource) it.next()).setTrackingModification(true);
+					}
+				}
+				}
+			}
+		}
 	}
 }
