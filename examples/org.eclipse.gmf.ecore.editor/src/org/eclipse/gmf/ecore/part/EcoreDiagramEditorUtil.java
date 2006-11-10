@@ -84,7 +84,7 @@ public class EcoreDiagramEditorUtil {
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
 		IPath diagramPath = containerFullPath.append(fileName);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(diagramPath.toString()));
-		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
 		final Resource modelResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(modelPath.toString()));
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
 
