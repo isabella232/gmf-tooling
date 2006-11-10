@@ -9,13 +9,17 @@
 package org.eclipse.gmf.internal.xpand;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.gmf.internal.xpand.build.MetaModelSource;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.osgi.framework.BundleContext;
 
@@ -68,5 +72,21 @@ public class Activator extends Plugin {
 	public static void registerResourceManager(IProject project, ResourceManager resourceManager) {
 		assert !anInstance.resourceManagers.containsKey(project);
 		anInstance.resourceManagers.put(project, resourceManager);
+	}
+
+	private final Set<MetaModelSource> modelSources = new LinkedHashSet<MetaModelSource>();
+	public static void registerModelSource(MetaModelSource modelSource) {
+		assert modelSource != null;
+		anInstance.modelSources.add(modelSource);
+	}
+
+	public static EPackage findMetaModel(String nsURI) {
+		for (MetaModelSource s : anInstance.modelSources) {
+			EPackage p = s.find(nsURI);
+			if (p != null) {
+				return p;
+			}
+		}
+		return EPackage.Registry.INSTANCE.getEPackage(nsURI);
 	}
 }

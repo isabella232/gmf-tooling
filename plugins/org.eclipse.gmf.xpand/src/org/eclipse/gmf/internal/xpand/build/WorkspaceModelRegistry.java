@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-class WorkspaceModelRegistry {
+class WorkspaceModelRegistry implements MetaModelSource {
 	private static class Descriptor {
 		final String workspacePath;
 		final String nsURI;
@@ -35,16 +35,21 @@ class WorkspaceModelRegistry {
 	private final Map<String, Descriptor> pathToDescriptor = new TreeMap<String, Descriptor>();
 	private final Map<String, Descriptor> uriToDescriptor = new TreeMap<String, Descriptor>();
 
-	public void DEBUG_DUMP() {
-		System.err.println(">>> " + WorkspaceModelRegistry.class.getSimpleName());
-		for (Map.Entry<String, Descriptor> e : uriToDescriptor.entrySet()) {
-			assert e.getKey().equals(e.getValue().nsURI);
-			System.err.println(e.getKey() + " ==> " + e.getValue().workspacePath);
-		}
-		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
-	}
+//	void DEBUG_DUMP() {
+//		System.err.println(">>> " + WorkspaceModelRegistry.class.getSimpleName());
+//		for (Map.Entry<String, Descriptor> e : uriToDescriptor.entrySet()) {
+//			assert e.getKey().equals(e.getValue().nsURI);
+//			System.err.println(e.getKey() + " ==> " + e.getValue().workspacePath);
+//		}
+//		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
+//	}
 	
 	public WorkspaceModelRegistry() {
+	}
+
+	public EPackage find(String nsURI) {
+		Descriptor d = uriToDescriptor.get(nsURI);
+		return d == null ? null : (EPackage) d.resource.getContents().get(0);
 	}
 
 	public void build(IProject project, IProgressMonitor monitor) throws CoreException {
@@ -124,7 +129,6 @@ class WorkspaceModelRegistry {
 		if (nsURI == null) {
 			throw new IllegalArgumentException("Invalid model file (missed nsURI) " + path);
 		}
-		res.unload(); // no need to keep the resource loaded
 		return new Descriptor(path, nsURI, res);
 	}
 

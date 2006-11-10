@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
@@ -189,6 +190,7 @@ public class ExecutionContextImpl implements ExecutionContext {
     		}
     		return Class.forName(value);
     	} catch (ClassNotFoundException ex) {
+    		ex.getMessage();
     		// IGNORE?
     	}
     	return null;
@@ -200,7 +202,7 @@ public class ExecutionContextImpl implements ExecutionContext {
 		// TODO respect meta-models imported not only with nsURI
 		LinkedList<EPackage> result = new LinkedList<EPackage>();
 		for (String namespace : importedNamespaces) {
-			EPackage pkg = EPackage.Registry.INSTANCE.getEPackage(namespace);
+			EPackage pkg = Activator.findMetaModel(namespace);
 			if (pkg != null) {
 				result.add(pkg);
 			}

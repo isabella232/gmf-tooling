@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
@@ -41,8 +42,9 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 public class OawBuilder extends IncrementalProjectBuilder {
 
-	private static boolean firstBuild = true; // XXX odd
+	private boolean firstBuild = true; // XXX odd
 	private WorkspaceResourceManager resourceManager;
+	private WorkspaceModelRegistry modelRegistry;
 
 	// XXX again, using map as mere pairs
 	private final Map<XtendResource, IFile> xtendResourcesToAnalyze = new HashMap<XtendResource, IFile>();
@@ -52,22 +54,20 @@ public class OawBuilder extends IncrementalProjectBuilder {
 		return Activator.getId() + ".oawBuilder";
 	}
 
-	private static boolean isFileOfInterest(IFile file) {
-		return XpandResource.TEMPLATE_EXTENSION.equals(file.getFileExtension()) || XtendResource.FILE_EXTENSION.equals(file.getFileExtension());
-	}
-
 	@Override
 	protected void startupOnInitialize() {
-		// TODO Auto-generated method stub
 		super.startupOnInitialize();
 		resourceManager = new WorkspaceResourceManager(getProject());
+		Activator.registerResourceManager(getProject(), resourceManager);
+		firstBuild = true;
+		modelRegistry = new WorkspaceModelRegistry();
+		Activator.registerModelSource(modelRegistry);
 	}
 
 	@Override
 	protected IProject[] build(final int kind, final Map args, final IProgressMonitor monitor) throws CoreException {
 		try {
 			if (firstBuild || (kind == FULL_BUILD)) {
-				System.err.println("First build, kind:" + kind + " and is FULLBUILD:" + (kind == FULL_BUILD));
 				fullBuild(monitor);
 			} else {
 				final IResourceDelta delta = getDelta(getProject());
@@ -107,12 +107,12 @@ public class OawBuilder extends IncrementalProjectBuilder {
 		}
 		getResourceManager().forget(resource);
 		try {
-			if (XpandResource.TEMPLATE_EXTENSION.equals(resource.getFileExtension())) {
+			if (isXpand(resource)) {
 				XpandResource r = getResourceManager().loadXpandResource(resource);
 				if (r != null) {
 					xpandResourcesToAnalyze.put(r, resource);
 				}
-			} else if (XtendResource.FILE_EXTENSION.equals(resource.getFileExtension())) {
+			} else if (isXtend(resource)) {
 				XtendResource r = getResourceManager().loadXtendResource(resource);
 				if (r != null) {
 					xtendResourcesToAnalyze.put(r, resource);
@@ -128,18 +128,23 @@ public class OawBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
-
 	public void handleRemovement(final IFile resource) {
 		OawMarkerManager.deleteMarkers(resource);
 		getResourceManager().forget(resource);
 	}
 
 	protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
-		getProject().accept(new XpandResourceVisitor(monitor));
+		monitor.beginTask(null, 2);
+		getProject().accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
+		modelRegistry.build(getProject(), new SubProgressMonitor(monitor, 1));
+		monitor.done();
 	}
 
 	protected void incrementalBuild(final IResourceDelta delta, final IProgressMonitor monitor) throws CoreException {
-		delta.accept(new XpandResourceVisitor(monitor));
+		monitor.beginTask(null, 2);
+		delta.accept(new XpandResourceVisitor(new SubProgressMonitor(monitor, 1)));
+		modelRegistry.build(getProject(), delta, new SubProgressMonitor(monitor, 1));
+		monitor.done();
 	}
 
 	private WorkspaceResourceManager getResourceManager() {
@@ -156,8 +161,20 @@ public class OawBuilder extends IncrementalProjectBuilder {
         OawMarkerManager.addMarkers(resource, parsingErrors);
 	}
 
+	private static boolean isXtend(final IFile resource) {
+		return XtendResource.FILE_EXTENSION.equals(resource.getFileExtension());
+	}
+
+	private static boolean isXpand(final IFile resource) {
+		return XpandResource.TEMPLATE_EXTENSION.equals(resource.getFileExtension());
+	}
+
+	private static boolean isFileOfInterest(IFile file) {
+		return isXpand(file) || isXtend(file);
+	}
+
 	private class XpandResourceVisitor implements IResourceVisitor, IResourceDeltaVisitor {
-		private IProgressMonitor monitor;
+		private final IProgressMonitor monitor;
 
 		public XpandResourceVisitor(final IProgressMonitor monitor) {
 			this.monitor = monitor;
