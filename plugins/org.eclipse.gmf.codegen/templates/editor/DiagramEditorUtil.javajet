@@ -83,7 +83,7 @@ public class <%=importManager.getCompilationUnitName()%> {
 final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
 if (standaloneDomainModel) {
 %>
-		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
 		final Resource modelResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(modelPath.toString()));
 <%}%>
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$

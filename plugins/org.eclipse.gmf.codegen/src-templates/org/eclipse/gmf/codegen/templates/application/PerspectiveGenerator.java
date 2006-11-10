@@ -20,8 +20,9 @@ public class PerspectiveGenerator
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import org.eclipse.ui.IFolderLayout;" + NL + "import org.eclipse.ui.IPageLayout;" + NL + "import org.eclipse.ui.IPerspectiveFactory;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " implements IPerspectiveFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void createInitialLayout(IPageLayout layout) {" + NL + "\t\tlayout.setEditorAreaVisible(true);" + NL + "\t\tlayout.addPerspectiveShortcut(TaiPanWorkbenchAdvisor.PERSPECTIVE_ID);" + NL + "\t\tIFolderLayout right = layout.createFolder(\"right\", IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$" + NL + "\t\tright.addView(IPageLayout.ID_OUTLINE);" + NL + "\t\tIFolderLayout bottomRight = layout.createFolder(\"bottomRight\", IPageLayout.BOTTOM, 0.6f, \"right\"); //$NON-NLS-1$ //$NON-NLS-2$" + NL + "\t\tbottomRight.addView(IPageLayout.ID_PROP_SHEET);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_7 = NL;
+  protected final String TEXT_6 = " implements IPerspectiveFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void createInitialLayout(IPageLayout layout) {" + NL + "\t\tlayout.setEditorAreaVisible(true);" + NL + "\t\tlayout.addPerspectiveShortcut(";
+  protected final String TEXT_7 = ".PERSPECTIVE_ID);" + NL + "\t\tIFolderLayout right = layout.createFolder(\"right\", IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$" + NL + "\t\tright.addView(IPageLayout.ID_OUTLINE);" + NL + "\t\tIFolderLayout bottomRight = layout.createFolder(\"bottomRight\", IPageLayout.BOTTOM, 0.6f, \"right\"); //$NON-NLS-1$ //$NON-NLS-2$" + NL + "\t\tbottomRight.addView(IPageLayout.ID_PROP_SHEET);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_8 = NL;
 
   public String generate(Object argument)
   {
@@ -49,8 +50,10 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_6);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(application.getWorkbenchAdvisorQualifiedClassName()));
     stringBuffer.append(TEXT_7);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_8);
     return stringBuffer.toString();
   }
 }
