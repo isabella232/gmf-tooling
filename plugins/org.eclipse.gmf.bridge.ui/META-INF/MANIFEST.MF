@@ -24,3 +24,4 @@ Export-Package: org.eclipse.gmf.internal.bridge.resolver;x-internal:=true,
  org.eclipse.gmf.internal.bridge.wizards;x-friends:="org.eclipse.gmf.bridge.ui.dashboard,org.eclipse.gmf.doc.ui",
  org.eclipse.gmf.internal.bridge.wizards.pages;x-friends:="org.eclipse.gmf.doc.ui",
  org.eclipse.gmf.internal.bridge.wizards.strategy;x-internal:=true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
