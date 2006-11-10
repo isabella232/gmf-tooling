@@ -18,3 +18,4 @@ Export-Package: org.eclipse.gmf.internal.bridge;x-friends:="org.eclipse.gmf.test
  org.eclipse.gmf.internal.bridge.naming;x-friends:="org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.bridge.naming.gen;x-friends:="org.eclipse.gmf.tests,org.eclipse.gmf.codegen.ui"
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
