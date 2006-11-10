@@ -142,13 +142,22 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
         for (String name : possibleNames) {
             final XpandResource tpl = getResourceManager().loadXpandResource(name);
             if (tpl != null) {
+            	installAspectsFor(templateName);
 				return tpl;
 			}
         }
         return null;
     }
 
-    private List<String> getPossibleNames(final String name, final String[] importedNs) {
+    private void installAspectsFor(String templateName) {
+    	String aspectsTemplateName = "aspects" + SyntaxConstants.NS_DELIM + templateName;
+    	XpandResource aspects = getResourceManager().loadXpandResource(aspectsTemplateName);
+    	if (aspects != null) {
+    		registeredAdvices.addAll(Arrays.asList(aspects.getAdvices()));
+    	}
+	}
+
+	private List<String> getPossibleNames(final String name, final String[] importedNs) {
         final String typeName = TypeNameUtil.getTypeName(name);
         final String typesMetamodelName = TypeNameUtil.getMetaModelName(name);
         final String collectionTypeName = TypeNameUtil.getCollectionTypeName(name);
