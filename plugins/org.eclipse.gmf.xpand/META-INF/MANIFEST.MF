@@ -28,3 +28,4 @@ Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/lpgjavaruntime.jar
 Bundle-Vendor: Eclipse.org
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
