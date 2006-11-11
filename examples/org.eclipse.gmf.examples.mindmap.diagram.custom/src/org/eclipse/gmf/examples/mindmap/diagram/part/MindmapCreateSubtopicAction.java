@@ -10,8 +10,7 @@
  ******************************************************************************/
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Point;
@@ -21,18 +20,18 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.common.core.util.ObjectAdapter;
-import org.eclipse.gmf.runtime.diagram.ui.commands.CreateViewAndOptionallyElementCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredCreateConnectionViewAndElementCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequestFactory;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -49,54 +48,46 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 	private TopicEditPart selectedElement;
 
 	public void run(IAction action) {
-		CreateConnectionRequest connectionRequest = getCreateConnectionRequest();
-		Command c = getConnectionAndEndCommands(connectionRequest);
-		selectedElement.getDiagramEditDomain().getDiagramCommandStack().execute(c);
-		Collection newObjects = DiagramCommandStack.getReturnValues(c);
-		Iterator i = newObjects.iterator();
-		if (i.hasNext()) {
-			Object obj = i.next();
-			View view = (View) ((IAdaptable) obj).getAdapter(View.class);
-			final EditPart elementPart = selectedElement.findEditPart(selectedElement.getParent(), (EObject) view.getElement());
-			final EditPartViewer v = elementPart.getViewer();
+		CompoundCommand cc = new CompoundCommand("Create Subtopic and Link");
+
+		// Create the new topic for the other end.
+		CreateViewRequest topicRequest = CreateViewRequestFactory.getCreateShapeRequest(MindmapElementTypes.Topic_2001, selectedElement.getDiagramPreferencesHint());
+
+		Point p = selectedElement.getFigure().getBounds().getTopRight().getCopy();
+		selectedElement.getFigure().translateToAbsolute(p);
+		int edgeCount = selectedElement.getNotationView().getSourceEdges().size();
+		// A quick hack to get subtopics to layout to the right, from top to bottom
+		int offset = (edgeCount * 50) - 100;
+		topicRequest.setLocation(p.translate(100, offset));
+
+		MapEditPart mapEditPart = (MapEditPart) selectedElement.getParent();
+		Command createTopicCmd = mapEditPart.getCommand(topicRequest);
+		IAdaptable topicViewAdapter = (IAdaptable) ((List) topicRequest.getNewObject()).get(0);
+
+		cc.add(createTopicCmd);
+
+		// create the subtopics link command
+		ICommand createSubTopicsCmd = new DeferredCreateConnectionViewAndElementCommand(new CreateConnectionViewAndElementRequest(MindmapElementTypes.TopicSubtopics_4001,
+				((IHintedType) MindmapElementTypes.TopicSubtopics_4001).getSemanticHint(), selectedElement.getDiagramPreferencesHint()), new EObjectAdapter((EObject) selectedElement.getModel()),
+				topicViewAdapter, selectedElement.getViewer());
+
+		cc.add(new ICommandProxy(createSubTopicsCmd));
+
+		selectedElement.getDiagramEditDomain().getDiagramCommandStack().execute(cc);
+
+		// put the new topic in edit mode
+		final EditPartViewer viewer = selectedElement.getViewer();
+		final EditPart elementPart = (EditPart) viewer.getEditPartRegistry().get(topicViewAdapter.getAdapter(View.class));
+		if (elementPart != null) {
 			Display.getCurrent().asyncExec(new Runnable() {
 
 				public void run() {
-					v.setSelection(new StructuredSelection(elementPart));
+					viewer.setSelection(new StructuredSelection(elementPart));
 					Request der = new Request(RequestConstants.REQ_DIRECT_EDIT);
 					elementPart.performRequest(der);
 				}
 			});
 		}
-	}
-
-	protected CreateConnectionRequest getCreateConnectionRequest() {
-		CreateConnectionRequest connectionRequest = CreateViewRequestFactory.getCreateConnectionRequest(MindmapElementTypes.TopicSubtopics_4001, selectedElement.getDiagramPreferencesHint());
-		connectionRequest.setType(RequestConstants.REQ_CONNECTION_START);
-		Point p = selectedElement.getFigure().getBounds().getTopRight().getCopy();
-		selectedElement.getFigure().translateToAbsolute(p);
-		int edgeCount = selectedElement.getNotationView().getSourceEdges().size();
-		// A quick hack to get subtopics to layout to the right, from top to
-		// bottom
-		int offset = (edgeCount * 50) - 100;
-		connectionRequest.setLocation(p.translate(100, offset));
-		connectionRequest.setSourceEditPart(selectedElement);
-		return connectionRequest;
-	}
-
-	protected Command getConnectionAndEndCommands(CreateConnectionRequest request) {
-		CompoundCommand cc = new CompoundCommand("Create Subtopic and Link");
-		ObjectAdapter connectionAdapter = new ObjectAdapter();
-		connectionAdapter.setObject(MindmapElementTypes.TopicSubtopics_4001);
-		ObjectAdapter endAdapter = new ObjectAdapter();
-		endAdapter.setObject(MindmapElementTypes.Topic_2001);
-		MapEditPart map = (MapEditPart) selectedElement.getParent();
-		CreateViewAndOptionallyElementCommand createOtherEndCmd = new CreateViewAndOptionallyElementCommand(endAdapter, map, request.getLocation(), selectedElement.getDiagramPreferencesHint());
-		cc.add(new ICommandProxy(createOtherEndCmd));
-		ICommand connectionCommand = new DeferredCreateConnectionViewAndElementCommand(request, connectionAdapter, request.getSourceEditPart(), createOtherEndCmd.getResult(), selectedElement
-				.getViewer());
-		cc.add(new ICommandProxy(connectionCommand));
-		return cc;
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
