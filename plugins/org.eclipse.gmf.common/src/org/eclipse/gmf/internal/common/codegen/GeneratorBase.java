@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
+import org.eclipse.gmf.internal.common.Activator;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -87,7 +88,7 @@ public abstract class GeneratorBase implements Runnable {
 		try {
 			doRun();
 		} catch (InterruptedException ex) {
-			myRunStatus = new Status(IStatus.CANCEL, "org.eclipse.gmf.common", 0, GeneratorBaseMessages.interrupted, ex);
+			myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, GeneratorBaseMessages.interrupted, ex);
 		}
 	}
 	
@@ -131,7 +132,7 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	protected static IStatus newStatus(int severity, Throwable ex) {
-		return new Status(severity, "org.eclipse.gmf.common", 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
+		return new Status(severity, Activator.getID(), 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
 	}
 
 	protected final IProject getDestProject() {
@@ -426,9 +427,9 @@ public abstract class GeneratorBase implements Runnable {
 			myRunStatus = getExceptionsStatus();
 			// XXX consider catching CCE and provide "programming error" to help users with their templates
 		} catch (NullPointerException ex) {
-			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, NullPointerException.class.getName(), ex);
+			myRunStatus = new Status(IStatus.ERROR, Activator.getID(), 0, NullPointerException.class.getName(), ex);
 		} catch (UnexpectedBehaviourException ex) {
-			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.common", 0, GeneratorBaseMessages.unexpected, ex);
+			myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, GeneratorBaseMessages.unexpected, ex);
 		} finally {
 			getProgress().done();
 			clearExceptionsList();
@@ -451,7 +452,7 @@ public abstract class GeneratorBase implements Runnable {
 			return Status.OK_STATUS;
 		} else {
 			IStatus[] s = myExceptions.toArray(new IStatus[myExceptions.size()]);
-			return new MultiStatus("org.eclipse.gmf.common", 0, s, GeneratorBaseMessages.problems, null);
+			return new MultiStatus(Activator.getID(), 0, s, GeneratorBaseMessages.problems, null);
 		}
 	}
 
