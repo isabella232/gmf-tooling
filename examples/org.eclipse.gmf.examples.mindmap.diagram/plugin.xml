@@ -557,4 +557,20 @@
          </propertySection>
       </propertySections>
    </extension>
+   
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders"> 
+  		<paletteProvider class="org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider">
+    		<Priority name="High"/>
+    		<contribution>
+     			<predefinedEntry id="standardGroup/zoomTool" remove="true"/>
+     			<predefinedEntry id="standardGroup/noteStack/noteTool" remove="true"/> 
+				<predefinedEntry id="standardGroup/noteStack/textTool" remove="true"/> 
+				<predefinedEntry id="standardGroup/noteStack/noteattachmentTool" remove="true"/>
+    		</contribution>
+      <editor
+            id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+      </editor>
+  	</paletteProvider>
+</extension>
+
 </plugin>
