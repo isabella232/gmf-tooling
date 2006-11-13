@@ -745,12 +745,12 @@ if (genDiagram.getEditorGen().hasAudits()) {
 
     stringBuffer.append(TEXT_155);
     
-	java.util.HashMap idMap = new java.util.HashMap();
+	java.util.HashMap<GenAuditContainer, String> idMap = new java.util.HashMap<GenAuditContainer, String>();
 	for(int i = 0; i < containers.size(); i++) {
 		GenAuditContainer container = (GenAuditContainer)containers.get(i);
 		idMap.put(container, container.getId() != null ? container.getId() : "category" + Integer.toString(i + 1));
 	}
-	java.util.HashMap pathMap = new java.util.HashMap();
+	java.util.HashMap<GenAuditContainer, String> pathMap = new java.util.HashMap<GenAuditContainer, String>();
 	for(int i = 0; i < containers.size(); i++) {
 		GenAuditContainer category = (GenAuditContainer)containers.get(i);
 		java.util.List path = category.getPath();
