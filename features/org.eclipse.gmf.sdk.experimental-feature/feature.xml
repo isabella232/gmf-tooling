@@ -27,7 +27,48 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import feature="org.eclipse.gmf.sdk" version="1.0.2.qualifier"/>
+      <import feature="org.eclipse.gmf.sdk" version="1.0.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.common" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen.lite" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge.ui.dashboard" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.core"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
+      <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.emf.query.ocl"/>
+      <import plugin="org.eclipse.emf.ocl"/>
+      <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.gmf.graphdef"/>
+      <import plugin="org.eclipse.gmf.graphdef.edit"/>
+      <import plugin="org.eclipse.gmf.bridge"/>
    </requires>
 
    <plugin
