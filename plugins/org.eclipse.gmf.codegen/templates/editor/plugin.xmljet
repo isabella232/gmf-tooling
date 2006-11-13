@@ -15,10 +15,12 @@ final GenApplication application = editorGen.getApplication();
 <!-- gmf generator persistent region end -->
 
    <extension point="org.eclipse.core.runtime.preferences">
+      <?gmfgen generated="true"?>
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
    </extension>
 
    <extension point="org.eclipse.team.core.fileTypes">
+      <?gmfgen generated="true"?>
       <fileTypes
          type="text"
          extension="<%=editorGen.getDiagramFileExtension()%>">
@@ -26,6 +28,7 @@ final GenApplication application = editorGen.getApplication();
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
+      <?gmfgen generated="true"?>
       <parser
          type="<%=editorGen.getDiagramFileExtension()%>"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
@@ -33,6 +36,7 @@ final GenApplication application = editorGen.getApplication();
    </extension>
 
    <extension point="org.eclipse.ui.editors">
+      <?gmfgen generated="true"?>
      <editor
         id="<%=editorGen.getEditor().getID()%>"
         name="%editorName"
@@ -46,6 +50,7 @@ final GenApplication application = editorGen.getApplication();
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
+      <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
   	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
@@ -57,6 +62,7 @@ final GenApplication application = editorGen.getApplication();
    </extension>
 
    <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
 <%if (editorGen.getApplication() == null && genDiagram.generateInitDiagramAction()) {%>
       <objectContribution
             id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
@@ -101,6 +107,7 @@ if (editorGen.getApplication() == null && genDiagram.generateCreateShortcutActio
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
 <%if (genPlugin.isPrintingEnabled()) {%>
       <contributionItemProvider class="<%=genDiagram.getContributionItemProviderQualifiedClassName()%>">
          <Priority name="Low">
@@ -170,6 +177,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="<%=editorGen.getModelID()%>Presentation">
@@ -222,6 +230,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <?gmfgen generated="true"?>
       <viewProvider class="<%=genDiagram.getNotationViewProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getNotationViewProviderPriority()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genPlugin.getEditorGen().getModelID()%>"/>
@@ -231,12 +240,14 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <?gmfgen generated="true"?>
       <editpartProvider class="<%=genDiagram.getEditPartProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getEditPartProviderPriority()%>"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
+      <?gmfgen generated="true"?>
       <paletteProvider class="<%=genDiagram.getPaletteProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getPaletteProviderPriority()%>"/>
          <editor id="<%=editorGen.getEditor().getID()%>"/>
@@ -244,18 +255,21 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <?gmfgen generated="true"?>
       <modelingAssistantProvider class="<%=genDiagram.getModelingAssistantProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getModelingAssistantProviderPriority()%>"/>
       </modelingAssistantProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <?gmfgen generated="true"?>
       <IconProvider class="<%=genDiagram.getIconProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getIconProviderPriority()%>"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <?gmfgen generated="true"?>
       <ParserProvider class="<%=genDiagram.getParserProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getParserProviderPriority()%>"/>
       </ParserProvider>
@@ -263,6 +277,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%if (genDiagram.generateShortcutIcon()) {%>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
       <decoratorProvider class="<%=genDiagram.getShortcutsDecoratorProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getShortcutsDecoratorProviderPriority()%>"/>
       </decoratorProvider>
@@ -270,6 +285,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%}%>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+      <?gmfgen generated="true"?>
 <%GenCommonBase genElement = genDiagram;%>
 <%@ include file="elementType.jetinc"%>
 <%
@@ -288,6 +304,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <?gmfgen generated="true"?>
       <clientContext id="<%=editorGen.getModelID()%>ClientContext">
          <enablement>
             <test
@@ -315,12 +332,14 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 <%if(genDiagram.isValidationEnabled() || editorGen.hasAudits()) {%>
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <?gmfgen generated="true"?>
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
          <MarkerType name="<%=genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
          <Priority name="<%=genDiagram.getMarkerNavigationProviderPriority()%>"/>
       </MarkerNavigationProvider>
    </extension>
    <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
       <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>
@@ -328,6 +347,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%	if(genDiagram.isValidationEnabled()) { %>
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
       <contributionItemProvider checkPluginLoaded="true"
          class="<%=genDiagram.getValidationProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getValidationProviderPriority()%>"/>
@@ -340,6 +360,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%	} /* validationEnabled == true */ %>
 <%	if(genDiagram.isValidationDecorators()) { %>
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
       <decoratorProvider class="<%=genDiagram.getValidationDecoratorProviderQualifedClassName()%>">
          <Priority name="<%=genDiagram.getValidationDecoratorProviderPriority()%>"/>
          <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
@@ -353,6 +374,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%if (editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) {%>   
 	<extension id="MetricContributionItemProvider" name="Metrics"
 		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+		<?gmfgen generated="true"?>
 		<contributionItemProvider checkPluginLoaded="true" class="<%=genDiagram.getMetricProviderQualifiedClassName()%>">
 			<Priority name="<%=genDiagram.getMetricProviderPriority()%>"/>		
 			<partContribution id="<%=editorGen.getEditor().getID()%>">
@@ -363,6 +385,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	</extension>
 
 	<extension point="org.eclipse.ui.views">
+	    <?gmfgen generated="true"?>
    		<view class="<%=genDiagram.getMetricProviderQualifiedClassName()%>$ResultView"
 			id="<%=genDiagram.getMetricViewID()%>"
 			name="<%=editorGen.getModelID()%> Diagram Metrics"/>
@@ -377,12 +400,14 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%if (application != null) {%>
 
    <extension id="<%=application.getID()%>" point="org.eclipse.core.runtime.applications">
+      <?gmfgen generated="true"?>
       <application>
          <run class="<%=application.getApplicationQualifiedClassName()%>"/>
       </application>
    </extension>
 
    <extension point="org.eclipse.ui.perspectives">
+      <?gmfgen generated="true"?>
       <perspective
             id="<%=application.getPerspectiveId()%>"
             name="<%=editorGen.getModelID()%> Perspective"
