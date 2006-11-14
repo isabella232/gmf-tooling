@@ -38,7 +38,7 @@ public class NavigatorItemGenerator
   protected final String TEXT_21 = ") {" + NL + "\t\t\t";
   protected final String TEXT_22 = " eObject = getView().getElement();" + NL + "\t\t\t";
   protected final String TEXT_23 = " anotherEObject = ((";
-  protected final String TEXT_24 = ") obj).getView().getElement();" + NL + "\t\t\tif (eObject == null) {" + NL + "\t\t\t\treturn anotherEObject == null;" + NL + "\t\t\t} else if (anotherEObject == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\treturn eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));" + NL + "\t\t}" + NL + "\t\treturn super.equals(obj);" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_24 = ") obj).getView().getElement();" + NL + "\t\t\tif (eObject == null) {" + NL + "\t\t\t\treturn anotherEObject == null;" + NL + "\t\t\t} else if (anotherEObject == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\tif (eObject.eResource() != null) {" + NL + "\t\t\t\treturn eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn super.equals(obj);" + NL + "\t}" + NL + "\t" + NL + "}";
   protected final String TEXT_25 = NL;
 
   public String generate(Object argument)
