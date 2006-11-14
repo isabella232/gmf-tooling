@@ -80,7 +80,9 @@ public class <%=genNavigator.getNavigatorItemClassName()%> extends <%=importMana
 			} else if (anotherEObject == null) {
 				return false;
 			}
-			return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
+			if (eObject.eResource() != null) {
+				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
+			}
 		}
 		return super.equals(obj);
 	}
