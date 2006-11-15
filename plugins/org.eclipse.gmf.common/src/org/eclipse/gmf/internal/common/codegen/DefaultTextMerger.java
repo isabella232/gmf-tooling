@@ -29,10 +29,13 @@ public class DefaultTextMerger extends TextMerger {
 
 	private final TaggedTextMerger myXmlMerger;
 
+	private final PluginXMLTextMerger myPluginXmlMerger;
+
 	public DefaultTextMerger(JControlModel jModel) {
 		assert jModel != null;
 		myControlModel = jModel;
 		myXmlMerger = new TaggedTextMerger("<!-- " + BEGIN_TAG + " -->", "<!-- " + END_TAG + " -->");
+		myPluginXmlMerger = new PluginXMLTextMerger("gmfgen", "generated", "true");
 	}
 
 	@Override
@@ -58,6 +61,9 @@ public class DefaultTextMerger extends TextMerger {
 
 	@Override
 	public String mergeXML(String oldText, String newText) {
+		if (myPluginXmlMerger.isRecognizedDocument(oldText)) {
+			return myPluginXmlMerger.process(oldText, newText);
+		}
 		return myXmlMerger.process(oldText, newText);
 	}
 

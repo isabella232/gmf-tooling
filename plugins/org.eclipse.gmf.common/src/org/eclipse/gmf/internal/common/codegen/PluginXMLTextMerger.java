@@ -63,7 +63,15 @@ public class PluginXMLTextMerger {
 //		myPIAttrValue = piAttrValue;
 		this.myPITag = MessageFormat.format("<?{0} {1}=\"{2}\"?>", piTarget, piAttrName, piAttrValue); //$NON-NLS-1$
 	}
-	
+
+	public boolean isRecognizedDocument(String xml) {
+		try {
+			return parseDocument(xml) != null;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+
 	public String process(String oldXML, String newXML) {
 		ParsedPluginXML newDoc;
 		try {
