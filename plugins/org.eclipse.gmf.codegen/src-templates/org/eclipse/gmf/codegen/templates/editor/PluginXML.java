@@ -21,7 +21,7 @@ public class PluginXML
   protected final String TEXT_3 = NL + "<!--";
   protected final String TEXT_4 = NL;
   protected final String TEXT_5 = NL + "-->";
-  protected final String TEXT_6 = NL + "<plugin>" + NL + "" + NL + "<!-- gmf generator persistent region begin -->" + NL + "<!-- gmf generator persistent region end -->" + NL + "" + NL + "   <extension point=\"org.eclipse.core.runtime.preferences\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <initializer class=\"";
+  protected final String TEXT_6 = NL + "<plugin>" + NL + "" + NL + "   <extension point=\"org.eclipse.core.runtime.preferences\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <initializer class=\"";
   protected final String TEXT_7 = "\"/>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
   protected final String TEXT_8 = "\">" + NL + "      </fileTypes>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.emf.ecore.extension_parser\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <parser" + NL + "         type=\"";
   protected final String TEXT_9 = "\"" + NL + "         class=\"org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory\">" + NL + "      </parser>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.editors\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "     <editor" + NL + "        id=\"";
@@ -217,14 +217,14 @@ public class PluginXML
   protected final String TEXT_199 = "\"" + NL + "\t\t\tname=\"";
   protected final String TEXT_200 = " Diagram Metrics\"/>" + NL + "\t</extension>";
   protected final String TEXT_201 = NL;
-  protected final String TEXT_202 = NL + "   <extension point=\"org.eclipse.core.expressions.propertyTesters\">" + NL + "       <propertyTester" + NL + "           id=\"";
+  protected final String TEXT_202 = NL + "   <extension point=\"org.eclipse.core.expressions.propertyTesters\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "       <propertyTester" + NL + "           id=\"";
   protected final String TEXT_203 = ".ShortcutPropertyTester\"" + NL + "           type=\"org.eclipse.gmf.runtime.notation.View\"" + NL + "           namespace=\"";
   protected final String TEXT_204 = "\"" + NL + "           properties=\"isShortcut\"" + NL + "           class=\"";
   protected final String TEXT_205 = "\">" + NL + "       </propertyTester>" + NL + "   </extension>" + NL + "   ";
-  protected final String TEXT_206 = NL + "   <extension point=\"org.eclipse.ui.navigator.viewer\">" + NL + "      <viewerContentBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <contentExtension pattern=\"";
+  protected final String TEXT_206 = NL + "   <extension point=\"org.eclipse.ui.navigator.viewer\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <viewerContentBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <contentExtension pattern=\"";
   protected final String TEXT_207 = "\"/>" + NL + "            <contentExtension pattern=\"";
   protected final String TEXT_208 = "\"/>" + NL + "         </includes>" + NL + "      </viewerContentBinding>" + NL + "      <viewerActionBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <actionExtension pattern=\"";
-  protected final String TEXT_209 = "\"/>" + NL + "         </includes>" + NL + "      </viewerActionBinding>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.navigator.navigatorContent\">" + NL + "      <navigatorContent " + NL + "            id=\"";
+  protected final String TEXT_209 = "\"/>" + NL + "         </includes>" + NL + "      </viewerActionBinding>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.navigator.navigatorContent\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <navigatorContent " + NL + "            id=\"";
   protected final String TEXT_210 = "\" " + NL + "            name=\"";
   protected final String TEXT_211 = "\" " + NL + "            priority=\"";
   protected final String TEXT_212 = "\" " + NL + "            contentProvider=\"";
@@ -249,7 +249,7 @@ public class PluginXML
   protected final String TEXT_231 = "\"/>";
   protected final String TEXT_232 = NL + "           \t   <adapt type=\"org.eclipse.gmf.runtime.notation.View\">" + NL + "           \t      <test property=\"";
   protected final String TEXT_233 = ".isShortcut\"/>" + NL + "           \t   </adapt>";
-  protected final String TEXT_234 = NL + "            </or>" + NL + "         </enablement>" + NL + "      </actionProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension point=\"org.eclipse.ui.navigator.linkHelper\">" + NL + "      <linkHelper" + NL + "            id=\"";
+  protected final String TEXT_234 = NL + "            </or>" + NL + "         </enablement>" + NL + "      </actionProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension point=\"org.eclipse.ui.navigator.linkHelper\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <linkHelper" + NL + "            id=\"";
   protected final String TEXT_235 = "\"" + NL + "            class=\"";
   protected final String TEXT_236 = "\">" + NL + "         <editorInputEnablement>" + NL + "            <instanceof value=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy\"/>" + NL + "         </editorInputEnablement>" + NL + "         <selectionEnablement>" + NL + "            <instanceof value=\"";
   protected final String TEXT_237 = "\"/>" + NL + "         </selectionEnablement>" + NL + "      </linkHelper>" + NL + "   </extension>";

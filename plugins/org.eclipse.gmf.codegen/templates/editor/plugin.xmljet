@@ -11,9 +11,6 @@ final GenApplication application = editorGen.getApplication();
 <%@ include file="../copyright4xml.jetinc"%>
 <plugin>
 
-<!-- gmf generator persistent region begin -->
-<!-- gmf generator persistent region end -->
-
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
