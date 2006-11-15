@@ -1,5 +1,6 @@
 <%if (genDiagram.generateShortcutIcon()) {%>
    <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
        <propertyTester
            id="<%=editorGen.getPlugin().getID()%>.ShortcutPropertyTester"
            type="org.eclipse.gmf.runtime.notation.View"
@@ -11,6 +12,7 @@
    
 <%}%>
    <extension point="org.eclipse.ui.navigator.viewer">
+      <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="<%=editorGen.getNavigator().getContentExtensionID()%>"/>
@@ -25,6 +27,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <?gmfgen generated="true"?>
       <navigatorContent 
             id="<%=editorGen.getNavigator().getContentExtensionID()%>" 
             name="<%=editorGen.getNavigator().getContentExtensionName()%>" 
@@ -88,6 +91,7 @@
    </extension>
    
    <extension point="org.eclipse.ui.navigator.linkHelper">
+      <?gmfgen generated="true"?>
       <linkHelper
             id="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"
             class="<%=editorGen.getNavigator().getLinkHelperQualifiedClassName()%>">
