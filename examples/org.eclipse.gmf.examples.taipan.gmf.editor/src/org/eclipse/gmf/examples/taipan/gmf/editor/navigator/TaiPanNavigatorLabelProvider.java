@@ -40,7 +40,11 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.jface.viewers.ITreePathLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.ViewerLabel;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
@@ -49,7 +53,7 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 /**
  * @generated
  */
-public class TaiPanNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider {
+public class TaiPanNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
 	 * @generated
@@ -63,45 +67,68 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	/**
 	 * @generated
 	 */
+	public void updateLabel(ViewerLabel label, TreePath elementPath) {
+		Object element = elementPath.getLastSegment();
+		if (element instanceof TaiPanNavigatorItem && !isOwnView(((TaiPanNavigatorItem) element).getView())) {
+			return;
+		}
+		label.setText(getText(element));
+		label.setImage(getImage(element));
+	}
+
+	/**
+	 * @generated
+	 */
 	public Image getImage(Object element) {
-		if (false == element instanceof TaiPanAbstractNavigatorItem) {
-			return super.getImage(element);
-		}
-
-		TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) element;
-		if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getImage(element);
-		}
-
-		if (abstractNavigatorItem instanceof TaiPanNavigatorItem) {
-			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
-			case PortEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Port", TaiPanElementTypes.Port_2001);
-			case ShipEditPart.VISUAL_ID:
-				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Ship", TaiPanElementTypes.Ship_2002);
-			case SmallItemsEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?SmallItems", TaiPanElementTypes.SmallItems_3001);
-			case LargeItemEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?LargeItem", TaiPanElementTypes.LargeItem_3002);
-			case EmptyBoxEditPart.VISUAL_ID:
-				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?EmptyBox", TaiPanElementTypes.EmptyBox_3003);
-			case AquatoryEditPart.VISUAL_ID:
-				return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/taipan?Aquatory", TaiPanElementTypes.Aquatory_1000);
-			case ShipDestinationEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Ship?destination", TaiPanElementTypes.ShipDestination_4001);
-			case RouteEditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4002);
-			case Route2EditPart.VISUAL_ID:
-				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4003);
-			default:
-				return getImage("Navigator?UnknownElement", null);
-			}
-		} else if (abstractNavigatorItem instanceof TaiPanNavigatorGroup) {
+		if (element instanceof TaiPanNavigatorGroup) {
 			TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) element;
 			return TaiPanDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
 		}
+
+		if (element instanceof TaiPanNavigatorItem) {
+			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) element;
+			if (!isOwnView(navigatorItem.getView())) {
+				return super.getImage(element);
+			}
+			return getImage(navigatorItem.getView());
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getImage(view);
+			}
+		}
 		return super.getImage(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public Image getImage(View view) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case PortEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Port", TaiPanElementTypes.Port_2001);
+		case ShipEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Ship", TaiPanElementTypes.Ship_2002);
+		case SmallItemsEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?SmallItems", TaiPanElementTypes.SmallItems_3001);
+		case LargeItemEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?LargeItem", TaiPanElementTypes.LargeItem_3002);
+		case EmptyBoxEditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?EmptyBox", TaiPanElementTypes.EmptyBox_3003);
+		case AquatoryEditPart.VISUAL_ID:
+			return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/taipan?Aquatory", TaiPanElementTypes.Aquatory_1000);
+		case ShipDestinationEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Ship?destination", TaiPanElementTypes.ShipDestination_4001);
+		case RouteEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4002);
+		case Route2EditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4003);
+		default:
+			return getImage("Navigator?UnknownElement", null);
+		}
 	}
 
 	/**
@@ -126,44 +153,55 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	public String getText(Object element) {
-		if (false == element instanceof TaiPanAbstractNavigatorItem) {
-			return super.getText(element);
-		}
-
-		TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) element;
-		if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-			return super.getText(element);
-		}
-
-		if (abstractNavigatorItem instanceof TaiPanNavigatorItem) {
-			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) abstractNavigatorItem;
-			switch (navigatorItem.getVisualID()) {
-			case PortEditPart.VISUAL_ID:
-				return getPort_2001Text(navigatorItem.getView());
-			case ShipEditPart.VISUAL_ID:
-				return getShip_2002Text(navigatorItem.getView());
-			case SmallItemsEditPart.VISUAL_ID:
-				return getSmallItems_3001Text(navigatorItem.getView());
-			case LargeItemEditPart.VISUAL_ID:
-				return getLargeItem_3002Text(navigatorItem.getView());
-			case EmptyBoxEditPart.VISUAL_ID:
-				return getEmptyBox_3003Text(navigatorItem.getView());
-			case AquatoryEditPart.VISUAL_ID:
-				return getAquatory_1000Text(navigatorItem.getView());
-			case ShipDestinationEditPart.VISUAL_ID:
-				return getShipDestination_4001Text(navigatorItem.getView());
-			case RouteEditPart.VISUAL_ID:
-				return getRoute_4002Text(navigatorItem.getView());
-			case Route2EditPart.VISUAL_ID:
-				return getRoute_4003Text(navigatorItem.getView());
-			default:
-				return getUnknownElementText(navigatorItem.getView());
-			}
-		} else if (abstractNavigatorItem instanceof TaiPanNavigatorGroup) {
+		if (element instanceof TaiPanNavigatorGroup) {
 			TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) element;
 			return group.getGroupName();
 		}
+
+		if (element instanceof TaiPanNavigatorItem) {
+			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) element;
+			if (!isOwnView(navigatorItem.getView())) {
+				return null;
+			}
+			return getText(navigatorItem.getView());
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getText(view);
+			}
+		}
 		return super.getText(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getText(View view) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case PortEditPart.VISUAL_ID:
+			return getPort_2001Text(view);
+		case ShipEditPart.VISUAL_ID:
+			return getShip_2002Text(view);
+		case SmallItemsEditPart.VISUAL_ID:
+			return getSmallItems_3001Text(view);
+		case LargeItemEditPart.VISUAL_ID:
+			return getLargeItem_3002Text(view);
+		case EmptyBoxEditPart.VISUAL_ID:
+			return getEmptyBox_3003Text(view);
+		case AquatoryEditPart.VISUAL_ID:
+			return getAquatory_1000Text(view);
+		case ShipDestinationEditPart.VISUAL_ID:
+			return getShipDestination_4001Text(view);
+		case RouteEditPart.VISUAL_ID:
+			return getRoute_4002Text(view);
+		case Route2EditPart.VISUAL_ID:
+			return getRoute_4003Text(view);
+		default:
+			return getUnknownElementText(view);
+		}
 	}
 
 	/**
@@ -384,6 +422,13 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 */
 	public String getDescription(Object anElement) {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isOwnView(View view) {
+		return AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view));
 	}
 
 }

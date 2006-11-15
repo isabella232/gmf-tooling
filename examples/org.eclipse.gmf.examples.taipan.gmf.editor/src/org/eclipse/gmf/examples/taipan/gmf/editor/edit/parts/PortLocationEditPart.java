@@ -541,15 +541,7 @@ public class PortLocationEditPart extends TaiPanExtNodeLabelEditPart implements 
 		 * @generated
 		 */
 		public PortLocationFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

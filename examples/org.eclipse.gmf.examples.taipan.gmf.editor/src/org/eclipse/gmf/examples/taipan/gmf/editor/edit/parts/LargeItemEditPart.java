@@ -215,10 +215,16 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 */
 		public LargeItemFigure() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout myGenLayoutManager = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
+			org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layoutThis = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
 
-			this.setLayoutManager(myGenLayoutManager);
+			this.setLayoutManager(layoutThis);
 
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 			createContents();
 		}
 
@@ -226,22 +232,19 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			fig_0.setText("<...>");
 
-			setFigureLargeItemArticleFigure(fig_0);
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemArticleFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			largeItemArticleFigure0.setText("<...>");
 
-			Object layData0 = null;
+			this.add(largeItemArticleFigure0);
+			setFigureLargeItemArticleFigure(largeItemArticleFigure0);
 
-			this.add(fig_0, layData0);
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_1 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			fig_1.setText("<...>");
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemWeightFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			largeItemWeightFigure0.setText("<...>");
 
-			setFigureLargeItemWeightFigure(fig_1);
+			this.add(largeItemWeightFigure0);
+			setFigureLargeItemWeightFigure(largeItemWeightFigure0);
 
-			Object layData1 = null;
-
-			this.add(fig_1, layData1);
 		}
 
 		/**

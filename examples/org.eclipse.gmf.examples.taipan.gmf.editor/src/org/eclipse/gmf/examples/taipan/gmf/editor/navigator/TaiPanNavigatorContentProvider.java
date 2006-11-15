@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -35,6 +37,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditP
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.Viewer;
@@ -75,108 +78,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	 * @generated
 	 */
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof TaiPanAbstractNavigatorItem) {
-			TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) parentElement;
-			if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-				return EMPTY_ARRAY;
-			}
-
-			if (abstractNavigatorItem instanceof TaiPanNavigatorItem) {
-				TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) abstractNavigatorItem;
-				if (navigatorItem.isLeaf()) {
-					return EMPTY_ARRAY;
-				}
-				switch (navigatorItem.getVisualID()) {
-				case PortEditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					incominglinks.addChildren(getPort_2001ToShipDestination_4001InSource(navigatorItem.getView(), incominglinks));
-					incominglinks.addChildren(getPort_2001ToRoute_4002InSource(navigatorItem.getView(), incominglinks));
-					TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					outgoinglinks.addChildren(getPort_2001ToRoute_4002OutTarget(navigatorItem.getView(), outgoinglinks));
-					incominglinks.addChildren(getPort_2001ToRoute_4003InSource(navigatorItem.getView(), incominglinks));
-					outgoinglinks.addChildren(getPort_2001ToRoute_4003OutTarget(navigatorItem.getView(), outgoinglinks));
-					if (!outgoinglinks.isEmpty()) {
-						result.add(outgoinglinks);
-					}
-					if (!incominglinks.isEmpty()) {
-						result.add(incominglinks);
-					}
-					return result.toArray();
-				}
-				case ShipEditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					result.addAll(getShip_2002ToSmallItems_3001Children(navigatorItem.getView(), navigatorItem));
-					result.addAll(getShip_2002ToLargeItem_3002Children(navigatorItem.getView(), navigatorItem));
-					result.addAll(getShip_2002ToEmptyBox_3003Children(navigatorItem.getView(), navigatorItem));
-					TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					outgoinglinks.addChildren(getShip_2002ToShipDestination_4001OutTarget(navigatorItem.getView(), outgoinglinks));
-					if (!outgoinglinks.isEmpty()) {
-						result.add(outgoinglinks);
-					}
-					return result.toArray();
-				}
-				case AquatoryEditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					result.addAll(getAquatory_1000ToPort_2001Children(navigatorItem.getView(), navigatorItem));
-					result.addAll(getAquatory_1000ToShip_2002Children(navigatorItem.getView(), navigatorItem));
-					TaiPanNavigatorGroup links = new TaiPanNavigatorGroup("links", "icons/linksNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					links.addChildren(getAquatory_1000ToShipDestination_4001Children(navigatorItem.getView(), links));
-					links.addChildren(getAquatory_1000ToRoute_4002Children(navigatorItem.getView(), links));
-					links.addChildren(getAquatory_1000ToRoute_4003Children(navigatorItem.getView(), links));
-					if (!links.isEmpty()) {
-						result.add(links);
-					}
-					return result.toArray();
-				}
-				case ShipDestinationEditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					target.addChildren(getShipDestination_4001ToPort_2001OutTarget((Edge) navigatorItem.getView(), target));
-					TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					source.addChildren(getShipDestination_4001ToShip_2002InSource((Edge) navigatorItem.getView(), source));
-					if (!target.isEmpty()) {
-						result.add(target);
-					}
-					if (!source.isEmpty()) {
-						result.add(source);
-					}
-					return result.toArray();
-				}
-				case RouteEditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					target.addChildren(getRoute_4002ToPort_2001OutTarget((Edge) navigatorItem.getView(), target));
-					TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					source.addChildren(getRoute_4002ToPort_2001InSource((Edge) navigatorItem.getView(), source));
-					if (!target.isEmpty()) {
-						result.add(target);
-					}
-					if (!source.isEmpty()) {
-						result.add(source);
-					}
-					return result.toArray();
-				}
-				case Route2EditPart.VISUAL_ID: {
-					Collection result = new ArrayList();
-					TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					target.addChildren(getRoute_4003ToPort_2001OutTarget((Edge) navigatorItem.getView(), target));
-					TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", AquatoryEditPart.MODEL_ID, navigatorItem);
-					source.addChildren(getRoute_4003ToPort_2001InSource((Edge) navigatorItem.getView(), source));
-					if (!target.isEmpty()) {
-						result.add(target);
-					}
-					if (!source.isEmpty()) {
-						result.add(source);
-					}
-					return result.toArray();
-				}
-				}
-			} else if (abstractNavigatorItem instanceof TaiPanNavigatorGroup) {
-				TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) parentElement;
-				return group.getChildren();
-			}
-		} else if (parentElement instanceof IFile) {
+		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
 			AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 			editingDomain.setResourceToReadOnlyMap(new HashMap() {
@@ -197,6 +99,122 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			result.addAll(createNavigatorItems(selectViewsByType(resource.getContents(), AquatoryEditPart.MODEL_ID), file));
 			return result.toArray();
 		}
+
+		if (parentElement instanceof TaiPanNavigatorGroup) {
+			TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) parentElement;
+			return group.getChildren();
+		}
+
+		if (parentElement instanceof TaiPanNavigatorItem) {
+			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) parentElement;
+			if (navigatorItem.isLeaf() || !isOwnView(navigatorItem.getView())) {
+				return EMPTY_ARRAY;
+			}
+			return getViewChildren(navigatorItem.getView(), parentElement);
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (parentElement instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) parentElement).getAdapter(View.class);
+			if (view != null) {
+				return getViewChildren(view, parentElement);
+			}
+		}
+
+		return EMPTY_ARRAY;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Object[] getViewChildren(View view, Object parentElement) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case PortEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
+			incominglinks.addChildren(getPort_2001ToShipDestination_4001InSource(view, incominglinks));
+			incominglinks.addChildren(getPort_2001ToRoute_4002InSource(view, incominglinks));
+			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			outgoinglinks.addChildren(getPort_2001ToRoute_4002OutTarget(view, outgoinglinks));
+			incominglinks.addChildren(getPort_2001ToRoute_4003InSource(view, incominglinks));
+			outgoinglinks.addChildren(getPort_2001ToRoute_4003OutTarget(view, outgoinglinks));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+		case ShipEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			result.addAll(getShip_2002ToSmallItems_3001Children(view, parentElement));
+			result.addAll(getShip_2002ToLargeItem_3002Children(view, parentElement));
+			result.addAll(getShip_2002ToEmptyBox_3003Children(view, parentElement));
+			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			outgoinglinks.addChildren(getShip_2002ToShipDestination_4001OutTarget(view, outgoinglinks));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+		case AquatoryEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
+			result.addAll(getAquatory_1000ToPort_2001Children(view, parentElement));
+			result.addAll(getAquatory_1000ToShip_2002Children(view, parentElement));
+			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup("links", "icons/linksNavigatorGroup.gif", parentElement);
+			links.addChildren(getAquatory_1000ToShipDestination_4001Children(view, links));
+			links.addChildren(getAquatory_1000ToRoute_4002Children(view, links));
+			links.addChildren(getAquatory_1000ToRoute_4003Children(view, links));
+			if (!links.isEmpty()) {
+				result.add(links);
+			}
+			return result.toArray();
+		}
+		case ShipDestinationEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
+			target.addChildren(getShipDestination_4001ToPort_2001OutTarget((Edge) view, target));
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			source.addChildren(getShipDestination_4001ToShip_2002InSource((Edge) view, source));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+		case RouteEditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
+			target.addChildren(getRoute_4002ToPort_2001OutTarget((Edge) view, target));
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			source.addChildren(getRoute_4002ToPort_2001InSource((Edge) view, source));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+		case Route2EditPart.VISUAL_ID: {
+			Collection result = new ArrayList();
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
+			target.addChildren(getRoute_4003ToPort_2001OutTarget((Edge) view, target));
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			source.addChildren(getRoute_4003ToPort_2001InSource((Edge) view, source));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+		}
 		return EMPTY_ARRAY;
 	}
 
@@ -206,9 +224,6 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	public Object getParent(Object element) {
 		if (element instanceof TaiPanAbstractNavigatorItem) {
 			TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) element;
-			if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
-				return null;
-			}
 			return abstractNavigatorItem.getParent();
 		}
 		return null;
@@ -242,9 +257,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getAquatory_1000ToShipDestination_4001Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getAquatory_1000ToShipDestination_4001Children(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
+		Collection connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isAquatory_1000ToShipDestination_4001ChildrenLeaf(view));
 		return result;
 	}
@@ -259,9 +274,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getAquatory_1000ToRoute_4002Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getAquatory_1000ToRoute_4002Children(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
+		Collection connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isAquatory_1000ToRoute_4002ChildrenLeaf(view));
 		return result;
 	}
@@ -276,7 +291,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getPort_2001ToRoute_4002InSource(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getPort_2001ToRoute_4002InSource(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isPort_2001ToRoute_4002InSourceLeaf(view));
@@ -293,7 +308,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShip_2002ToShipDestination_4001OutTarget(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShip_2002ToShipDestination_4001OutTarget(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isShip_2002ToShipDestination_4001OutTargetLeaf(view));
@@ -310,7 +325,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getPort_2001ToRoute_4002OutTarget(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getPort_2001ToRoute_4002OutTarget(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isPort_2001ToRoute_4002OutTargetLeaf(view));
@@ -327,7 +342,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShip_2002ToEmptyBox_3003Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShip_2002ToEmptyBox_3003Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(EmptyBoxEditPart.VISUAL_ID));
@@ -345,7 +360,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getAquatory_1000ToPort_2001Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getAquatory_1000ToPort_2001Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isAquatory_1000ToPort_2001ChildrenLeaf(view));
@@ -362,7 +377,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getRoute_4002ToPort_2001InSource(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getRoute_4002ToPort_2001InSource(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isRoute_4002ToPort_2001InSourceLeaf(edge));
@@ -379,7 +394,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getPort_2001ToRoute_4003OutTarget(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getPort_2001ToRoute_4003OutTarget(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isPort_2001ToRoute_4003OutTargetLeaf(view));
@@ -396,7 +411,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShipDestination_4001ToShip_2002InSource(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShipDestination_4001ToShip_2002InSource(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(ShipEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isShipDestination_4001ToShip_2002InSourceLeaf(edge));
@@ -413,7 +428,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getPort_2001ToShipDestination_4001InSource(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getPort_2001ToShipDestination_4001InSource(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isPort_2001ToShipDestination_4001InSourceLeaf(view));
@@ -430,7 +445,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getRoute_4003ToPort_2001OutTarget(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getRoute_4003ToPort_2001OutTarget(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isRoute_4003ToPort_2001OutTargetLeaf(edge));
@@ -447,7 +462,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getRoute_4002ToPort_2001OutTarget(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getRoute_4002ToPort_2001OutTarget(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isRoute_4002ToPort_2001OutTargetLeaf(edge));
@@ -464,7 +479,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShip_2002ToLargeItem_3002Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShip_2002ToLargeItem_3002Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(LargeItemEditPart.VISUAL_ID));
@@ -482,7 +497,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShipDestination_4001ToPort_2001OutTarget(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShipDestination_4001ToPort_2001OutTarget(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isShipDestination_4001ToPort_2001OutTargetLeaf(edge));
@@ -499,7 +514,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getPort_2001ToRoute_4003InSource(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getPort_2001ToRoute_4003InSource(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isPort_2001ToRoute_4003InSourceLeaf(view));
@@ -516,7 +531,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getShip_2002ToSmallItems_3001Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getShip_2002ToSmallItems_3001Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipSmallCargoEditPart.VISUAL_ID));
 		connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(SmallItemsEditPart.VISUAL_ID));
@@ -534,7 +549,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getRoute_4003ToPort_2001InSource(Edge edge, TaiPanAbstractNavigatorItem parent) {
+	private Collection getRoute_4003ToPort_2001InSource(Edge edge, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isRoute_4003ToPort_2001InSourceLeaf(edge));
@@ -551,9 +566,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getAquatory_1000ToRoute_4003Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getAquatory_1000ToRoute_4003Children(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
+		Collection connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isAquatory_1000ToRoute_4003ChildrenLeaf(view));
 		return result;
 	}
@@ -568,7 +583,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getAquatory_1000ToShip_2002Children(View view, TaiPanAbstractNavigatorItem parent) {
+	private Collection getAquatory_1000ToShip_2002Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipEditPart.VISUAL_ID));
 		createNavigatorItems(connectedViews, parent, result, isAquatory_1000ToShip_2002ChildrenLeaf(view));
@@ -590,7 +605,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeSource = nextEdge.getSource();
-			if (type.equals(nextEdgeSource.getType())) {
+			if (type.equals(nextEdgeSource.getType()) && !isOwnView(nextEdgeSource)) {
 				result.add(nextEdgeSource);
 			}
 		}
@@ -605,7 +620,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeSource = nextEdge.getTarget();
-			if (type.equals(nextEdgeSource.getType())) {
+			if (type.equals(nextEdgeSource.getType()) && !isOwnView(nextEdgeSource)) {
 				result.add(nextEdgeSource);
 			}
 		}
@@ -651,11 +666,23 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
+	private Collection getDiagramLinksByType(Collection diagrams, String type) {
+		Collection result = new ArrayList();
+		for (Iterator it = diagrams.iterator(); it.hasNext();) {
+			Diagram nextDiagram = (Diagram) it.next();
+			result.addAll(selectViewsByType(nextDiagram.getEdges(), type));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	private Collection selectViewsByType(Collection views, String type) {
 		Collection result = new ArrayList();
 		for (Iterator it = views.iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
-			if (type.equals(nextView.getType())) {
+			if (type.equals(nextView.getType()) && isOwnView(nextView)) {
 				result.add(nextView);
 			}
 		}
@@ -667,19 +694,38 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	 */
 	private Collection createNavigatorItems(Collection views, Object parent) {
 		Collection result = new ArrayList();
-		for (Iterator it = views.iterator(); it.hasNext();) {
-			result.add(new TaiPanNavigatorItem((View) it.next(), parent, false));
-		}
+		createNavigatorItems(views, parent, result, false);
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createNavigatorItems(Collection views, TaiPanAbstractNavigatorItem parent, Collection result, boolean isLeafs) {
+	private void createNavigatorItems(Collection views, Object parent, Collection result, boolean isLeafs) {
 		for (Iterator it = views.iterator(); it.hasNext();) {
 			result.add(new TaiPanNavigatorItem((View) it.next(), parent, isLeafs));
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isOwnView(View view) {
+		return AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view));
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getForeignShortcuts(Diagram diagram, Object parent) {
+		Collection result = new ArrayList();
+		for (Iterator it = diagram.getChildren().iterator(); it.hasNext();) {
+			View nextView = (View) it.next();
+			if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				result.add(nextView);
+			}
+		}
+		return createNavigatorItems(result, parent);
 	}
 
 }

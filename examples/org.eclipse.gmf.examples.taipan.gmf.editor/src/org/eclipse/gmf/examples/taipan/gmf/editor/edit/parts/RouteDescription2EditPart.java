@@ -554,15 +554,7 @@ public class RouteDescription2EditPart extends LabelEditPart implements ITextAwa
 		 * @generated
 		 */
 		public UnreliableRouteDescriptionFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

@@ -550,15 +550,7 @@ public class RouteReliabilityEditPart extends LabelEditPart implements ITextAwar
 		 * @generated
 		 */
 		public ReliableRouteReliabilityFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

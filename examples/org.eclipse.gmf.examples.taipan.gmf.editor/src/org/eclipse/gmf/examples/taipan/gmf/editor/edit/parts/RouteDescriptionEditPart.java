@@ -554,15 +554,7 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 		 * @generated
 		 */
 		public ReliableRouteDescriptionFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

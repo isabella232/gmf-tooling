@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
+import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.notation.View;
@@ -19,6 +22,26 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
+
+	/**
+	 * @generated
+	 */
+	static {
+		final Class[] supportedTypes = new Class[] { View.class, EObject.class };
+		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
+
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof TaiPanNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((TaiPanNavigatorItem) adaptableObject).getView();
+				}
+				return null;
+			}
+
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, TaiPanNavigatorItem.class);
+	}
 
 	/**
 	 * @generated
@@ -49,32 +72,8 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	public String getModelID() {
-		return TaiPanVisualIDRegistry.getModelID(myView);
-	}
-
-	/**
-	 * @generated
-	 */
-	public int getVisualID() {
-		return TaiPanVisualIDRegistry.getVisualID(myView);
-	}
-
-	/**
-	 * @generated
-	 */
 	public boolean isLeaf() {
 		return myLeaf;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Object getAdapter(Class adapter) {
-		if (View.class.isAssignableFrom(adapter) || EObject.class.isAssignableFrom(adapter)) {
-			return myView;
-		}
-		return super.getAdapter(adapter);
 	}
 
 	/**
@@ -89,7 +88,9 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 			} else if (anotherEObject == null) {
 				return false;
 			}
-			return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
+			if (eObject.eResource() != null) {
+				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
+			}
 		}
 		return super.equals(obj);
 	}

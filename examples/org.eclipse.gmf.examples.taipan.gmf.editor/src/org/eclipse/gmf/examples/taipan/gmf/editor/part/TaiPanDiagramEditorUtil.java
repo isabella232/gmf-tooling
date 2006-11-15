@@ -73,7 +73,8 @@ public class TaiPanDiagramEditorUtil {
 	 * @generated
 	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final Resource createDiagram(IPath containerFullPath, final String fileName, IProgressMonitor progressMonitor) {
+	public static final Resource createDiagram(IPath containerFullPath, String fileNameParameter, IProgressMonitor progressMonitor) {
+		final String fileName = fileNameParameter;
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
 		IPath diagramPath = containerFullPath.append(fileName);

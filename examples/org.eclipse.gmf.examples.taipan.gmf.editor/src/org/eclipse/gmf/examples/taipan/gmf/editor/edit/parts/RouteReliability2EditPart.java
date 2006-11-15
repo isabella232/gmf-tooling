@@ -550,15 +550,7 @@ public class RouteReliability2EditPart extends LabelEditPart implements ITextAwa
 		 * @generated
 		 */
 		public UnreliableRouteReliabilityFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

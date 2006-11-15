@@ -32,21 +32,15 @@ public class TaiPanNavigatorGroup extends TaiPanAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	private String myModelID;
-
-	/**
-	 * @generated
-	 */
 	private Collection myChildren = new LinkedList();
 
 	/**
 	 * @generated
 	 */
-	TaiPanNavigatorGroup(String groupName, String icon, String modelID, Object parent) {
+	TaiPanNavigatorGroup(String groupName, String icon, Object parent) {
 		super(parent);
 		myGroupName = groupName;
 		myIcon = icon;
-		myModelID = modelID;
 	}
 
 	/**
@@ -89,13 +83,6 @@ public class TaiPanNavigatorGroup extends TaiPanAbstractNavigatorItem {
 	 */
 	public boolean isEmpty() {
 		return myChildren.size() == 0;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getModelID() {
-		return myModelID;
 	}
 
 	/**

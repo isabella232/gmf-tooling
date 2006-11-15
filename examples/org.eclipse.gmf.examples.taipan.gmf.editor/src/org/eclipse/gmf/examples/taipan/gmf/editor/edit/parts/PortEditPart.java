@@ -274,15 +274,12 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 */
 		public PortFigure() {
 
-			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
 
-			this.setLayoutManager(myGenLayoutManager);
-
-			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
+			this.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-
+			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
 			createContents();
 		}
 
@@ -290,101 +287,49 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.draw2d.RectangleFigure fig_0 = new org.eclipse.draw2d.RectangleFigure();
-			fig_0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
-			fig_0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
 
-			setFigureWalls(fig_0);
-			org.eclipse.draw2d.geometry.Rectangle layData0 = new org.eclipse.draw2d.geometry.Rectangle();
-			layData0.x = 10;
-			layData0.y = 40;
-			layData0.width = 40;
-			layData0.height = 10;
+			org.eclipse.draw2d.RectangleFigure walls0 = new org.eclipse.draw2d.RectangleFigure();
+			walls0.setFill(true);
+			walls0.setFillXOR(false);
+			walls0.setOutline(true);
+			walls0.setOutlineXOR(false);
+			walls0.setLineWidth(1);
+			walls0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			walls0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
+			walls0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
 
-			this.add(fig_0, layData0);
-			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
-			fig_1.setFill(true);
-			fig_1.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			fig_1.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(30, 10));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(60, 40));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(0, 40));
+			this.add(walls0, new org.eclipse.draw2d.geometry.Rectangle(getMapMode().DPtoLP(10), getMapMode().DPtoLP(40), getMapMode().DPtoLP(40), getMapMode().DPtoLP(10)));
 
-			setFigureMainRoof(fig_1);
+			org.eclipse.draw2d.Polygon mainRoof0 = new org.eclipse.draw2d.Polygon();
+			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(10)));
+			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(60), getMapMode().DPtoLP(40)));
+			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0), getMapMode().DPtoLP(40)));
+			mainRoof0.setFill(true);
+			mainRoof0.setFillXOR(false);
+			mainRoof0.setOutline(true);
+			mainRoof0.setOutlineXOR(false);
+			mainRoof0.setLineWidth(1);
+			mainRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			mainRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			mainRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
 
-			Object layData1 = null;
+			this.add(mainRoof0);
 
-			this.add(fig_1, layData1);
-			org.eclipse.draw2d.Polygon fig_2 = new org.eclipse.draw2d.Polygon();
-			fig_2.setFill(true);
-			fig_2.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			fig_2.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(30, 0));
-			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(50, 20));
-			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(10, 20));
+			org.eclipse.draw2d.Polygon topRoof0 = new org.eclipse.draw2d.Polygon();
+			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(0)));
+			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(50), getMapMode().DPtoLP(20)));
+			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(10), getMapMode().DPtoLP(20)));
+			topRoof0.setFill(true);
+			topRoof0.setFillXOR(false);
+			topRoof0.setOutline(true);
+			topRoof0.setOutlineXOR(false);
+			topRoof0.setLineWidth(1);
+			topRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			topRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			topRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
 
-			setFigureTopRoof(fig_2);
+			this.add(topRoof0);
 
-			Object layData2 = null;
-
-			this.add(fig_2, layData2);
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.RectangleFigure fWalls;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.RectangleFigure getFigureWalls() {
-			return fWalls;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureWalls(org.eclipse.draw2d.RectangleFigure fig) {
-			fWalls = fig;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Polygon fMainRoof;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.Polygon getFigureMainRoof() {
-			return fMainRoof;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureMainRoof(org.eclipse.draw2d.Polygon fig) {
-			fMainRoof = fig;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Polygon fTopRoof;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.Polygon getFigureTopRoof() {
-			return fTopRoof;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureTopRoof(org.eclipse.draw2d.Polygon fig) {
-			fTopRoof = fig;
 		}
 
 		/**

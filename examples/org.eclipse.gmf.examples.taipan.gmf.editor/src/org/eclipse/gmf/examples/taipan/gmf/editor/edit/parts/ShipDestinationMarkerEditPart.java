@@ -551,15 +551,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 		 * @generated
 		 */
 		public ShipDestinationMarkerFigure() {
-
 			this.setText("destination");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

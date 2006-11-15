@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.jface.viewers.ViewerSorter;
 
@@ -22,7 +24,12 @@ public class TaiPanNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int GROUP_CATEGORY = 7003;
+	private static final int GROUP_CATEGORY = 7004;
+
+	/**
+	 * @generated
+	 */
+	private static final int SHORTCUTS_CATEGORY = 7002;
 
 	/**
 	 * @generated
@@ -30,9 +37,10 @@ public class TaiPanNavigatorSorter extends ViewerSorter {
 	public int category(Object element) {
 		if (element instanceof TaiPanNavigatorItem) {
 			TaiPanNavigatorItem item = (TaiPanNavigatorItem) element;
-			if (AquatoryEditPart.MODEL_ID.equals(item.getModelID())) {
-				return item.getVisualID();
+			if (item.getView().getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				return SHORTCUTS_CATEGORY;
 			}
+			return TaiPanVisualIDRegistry.getVisualID(item.getView());
 		}
 		return GROUP_CATEGORY;
 	}

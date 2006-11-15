@@ -570,15 +570,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 		 * @generated
 		 */
 		public SmallItemsFigure() {
-
 			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
 		}
 
 		/**

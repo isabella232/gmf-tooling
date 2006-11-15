@@ -19,6 +19,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 
 /**
@@ -39,6 +40,10 @@ public class TaiPanMatchingStrategy implements IEditorMatchingStrategy {
 
 		if (editorInput.equals(input)) {
 			return true;
+		}
+
+		if (editorInput instanceof IFileEditorInput && input instanceof IFileEditorInput) {
+			return ((IFileEditorInput) editorInput).getFile().equals(((IFileEditorInput) input).getFile());
 		}
 
 		IEditorPart editor = editorRef.getEditor(false);

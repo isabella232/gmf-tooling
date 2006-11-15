@@ -247,7 +247,12 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public ShipFigure() {
-
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 			createContents();
 		}
 
@@ -255,14 +260,13 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			fig_0.setText("<...>");
 
-			setFigureShipNameFigure(fig_0);
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			shipNameFigure0.setText("<...>");
 
-			Object layData0 = null;
+			this.add(shipNameFigure0);
+			setFigureShipNameFigure(shipNameFigure0);
 
-			this.add(fig_0, layData0);
 		}
 
 		/**

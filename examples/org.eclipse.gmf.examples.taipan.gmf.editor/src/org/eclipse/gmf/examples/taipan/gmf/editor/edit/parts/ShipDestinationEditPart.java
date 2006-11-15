@@ -60,6 +60,12 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public ShipDestinationFigure() {
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -67,10 +73,14 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {
+		private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {
 			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
-			// dispatchNext?
-
+			df.setFill(true);
+			df.setFillXOR(false);
+			df.setOutline(true);
+			df.setOutlineXOR(false);
+			df.setLineWidth(1);
+			df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 			return df;
 		}
 

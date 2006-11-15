@@ -64,6 +64,12 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public ReliableRouteFigure() {
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 
 		}
 
