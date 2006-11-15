@@ -388,7 +388,7 @@ public class EcoreElementTypes {
 			/** 
 			 * @generated
 			 */
-			protected final FeatureInitializer add(FeatureInitializer initializer) {
+			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
 				featureInitializers.add(initializer);
 				return initializer;
 			}
@@ -398,7 +398,7 @@ public class EcoreElementTypes {
 			 */
 			public void init(EObject instance) {
 				for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					FeatureInitializer nextExpr = (FeatureInitializer) it.next();
+					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
 					try {
 						nextExpr.init(instance);
 					} catch (RuntimeException e) {
@@ -411,7 +411,7 @@ public class EcoreElementTypes {
 		/** 
 		 * @generated
 		 */
-		interface FeatureInitializer {
+		interface IFeatureInitializer {
 
 			/**
 			 * @generated
@@ -422,10 +422,10 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		static FeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
+		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
 			final EStructuralFeature feature = initFeature;
 			final ObjectInitializer[] initializers = newObjectInitializers;
-			return new FeatureInitializer() {
+			return new IFeatureInitializer() {
 
 				public void init(EObject contextInstance) {
 					for (int i = 0; i < initializers.length; i++) {
@@ -444,10 +444,10 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		static FeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, EcoreAbstractExpression valueExpression) {
+		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, EcoreAbstractExpression valueExpression) {
 			final EStructuralFeature feature = initFeature;
 			final EcoreAbstractExpression expression = valueExpression;
-			return new FeatureInitializer() {
+			return new IFeatureInitializer() {
 
 				public void init(EObject contextInstance) {
 					expression.assignTo(feature, contextInstance);
