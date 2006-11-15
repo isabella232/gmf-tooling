@@ -15,8 +15,8 @@ public class PluginXML
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<?eclipse version=\"3.0\"?>" + NL + "<plugin>" + NL + "" + NL + "<!-- gmf generator persistent region begin -->" + NL + "<!-- gmf generator persistent region end -->" + NL + "" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
-  protected final String TEXT_2 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.editors\">" + NL + "     <editor" + NL + "        id=\"";
+  protected final String TEXT_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + NL + "<?eclipse version=\"3.0\"?>" + NL + "<plugin>" + NL + "" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "    <?gmfgen generated=\"true\"?>" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
+  protected final String TEXT_2 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.editors\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "     <editor" + NL + "        id=\"";
   protected final String TEXT_3 = "\"" + NL + "        name=\"";
   protected final String TEXT_4 = " Diagram Editor\"" + NL + "        icon=\"";
   protected final String TEXT_5 = "\"" + NL + "        extensions=\"";
@@ -24,15 +24,15 @@ public class PluginXML
   protected final String TEXT_7 = "\"" + NL + "        contributorClass=\"";
   protected final String TEXT_8 = "\">" + NL + "     </editor>" + NL + "   </extension>" + NL;
   protected final String TEXT_9 = NL + "  <extension" + NL + "    point=\"org.eclipse.core.runtime.applications\"" + NL + "    id=\"";
-  protected final String TEXT_10 = "DiagramApplication\">" + NL + "    <application>" + NL + "      <run" + NL + "        class=\"";
-  protected final String TEXT_11 = "$Application\">" + NL + "      </run>" + NL + "    </application>" + NL + "  </extension>" + NL + "" + NL + "   <extension" + NL + "    point=\"org.eclipse.ui.perspectives\">" + NL + "    <perspective" + NL + "      name=\"%_UI_Perspective_label\"" + NL + "      class=\"";
+  protected final String TEXT_10 = "DiagramApplication\">" + NL + "    <?gmfgen generated=\"true\"?>" + NL + "    <application>" + NL + "      <run" + NL + "        class=\"";
+  protected final String TEXT_11 = "$Application\">" + NL + "      </run>" + NL + "    </application>" + NL + "  </extension>" + NL + "" + NL + "   <extension" + NL + "    point=\"org.eclipse.ui.perspectives\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <perspective" + NL + "      name=\"%_UI_Perspective_label\"" + NL + "      class=\"";
   protected final String TEXT_12 = "$Perspective\"" + NL + "      id=\"";
   protected final String TEXT_13 = ".Perspective\">" + NL + "    </perspective>" + NL + "  </extension>";
-  protected final String TEXT_14 = NL + "  <extension" + NL + "    point=\"org.eclipse.ui.commands\">" + NL + "    <command" + NL + "      name=\"%_UI_Menu_OpenURI_label\"" + NL + "      description=\"%_UI_Menu_OpenURI_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
+  protected final String TEXT_14 = NL + "  <extension" + NL + "    point=\"org.eclipse.ui.commands\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <command" + NL + "      name=\"%_UI_Menu_OpenURI_label\"" + NL + "      description=\"%_UI_Menu_OpenURI_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
   protected final String TEXT_15 = "OpenURICommand\" />  " + NL + "    <command" + NL + "      name=\"%_UI_Menu_Open_label\"" + NL + "      description=\"%_UI_Menu_Open_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
-  protected final String TEXT_16 = "OpenCommand\" />  " + NL + "  </extension> " + NL + "" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.bindings\">" + NL + "    <key" + NL + "      commandId=\"";
+  protected final String TEXT_16 = "OpenCommand\" />  " + NL + "  </extension> " + NL + "" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.bindings\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <key" + NL + "      commandId=\"";
   protected final String TEXT_17 = "OpenURICommand\"" + NL + "      sequence=\"M1+U\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "    <key" + NL + "      commandId=\"";
-  protected final String TEXT_18 = "OpenCommand\"" + NL + "      sequence=\"M1+O\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "  </extension>" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.actionSets\">" + NL + "    <actionSet" + NL + "      label=\"%_UI_";
+  protected final String TEXT_18 = "OpenCommand\"" + NL + "      sequence=\"M1+O\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "  </extension>" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.actionSets\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <actionSet" + NL + "      label=\"%_UI_";
   protected final String TEXT_19 = "_ActionSet_label\"" + NL + "      visible=\"true\"" + NL + "      id=\"";
   protected final String TEXT_20 = "ActionSet\">";
   protected final String TEXT_21 = NL + "      <action" + NL + "        label=\"%_UI_Menu_About_label\"" + NL + "        class=\"";
@@ -51,13 +51,13 @@ public class PluginXML
   protected final String TEXT_34 = " diagram file\"" + NL + "        class=\"";
   protected final String TEXT_35 = "\"" + NL + "        menubarPath=\"file/additions\"" + NL + "        id=\"";
   protected final String TEXT_36 = "ID\">" + NL + "      </action>" + NL + "    </actionSet> " + NL + "  </extension>";
-  protected final String TEXT_37 = NL + "   <extension point=\"org.eclipse.ui.newWizards\">" + NL + "  \t  <wizard" + NL + "  \t     name=\"";
+  protected final String TEXT_37 = NL + "   <extension point=\"org.eclipse.ui.newWizards\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "  \t  <wizard" + NL + "  \t     name=\"";
   protected final String TEXT_38 = " Diagram\"" + NL + "  \t     icon=\"";
   protected final String TEXT_39 = "\"" + NL + "  \t     category=\"";
   protected final String TEXT_40 = "\"" + NL + "  \t     class=\"";
   protected final String TEXT_41 = "\"" + NL + "  \t     id=\"";
   protected final String TEXT_42 = "ID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
-  protected final String TEXT_43 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL + "   <extension point=\"org.eclipse.ui.popupMenus\">" + NL + "      <objectContribution" + NL + "            id=\"";
+  protected final String TEXT_43 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL + "   <extension point=\"org.eclipse.ui.popupMenus\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "      <objectContribution" + NL + "            id=\"";
   protected final String TEXT_44 = ".ui.objectContribution.IFile1\"" + NL + "            nameFilter=\"*.";
   protected final String TEXT_45 = "\"" + NL + "            objectClass=\"org.eclipse.core.resources.IFile\">" + NL + "         <action" + NL + "               label=\"Initialize ";
   protected final String TEXT_46 = " diagram file\"" + NL + "               class=\"";

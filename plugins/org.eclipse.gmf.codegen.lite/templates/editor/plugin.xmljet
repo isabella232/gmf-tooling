@@ -11,10 +11,8 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
 <?eclipse version="3.0"?>
 <plugin>
 
-<!-- gmf generator persistent region begin -->
-<!-- gmf generator persistent region end -->
-
   <extension point="org.eclipse.team.core.fileTypes">
+    <?gmfgen generated="true"?>
       <fileTypes
          type="text"
          extension="<%=editorGen.getDiagramFileExtension()%>">
@@ -22,6 +20,7 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
   </extension>
 
    <extension point="org.eclipse.ui.editors">
+     <?gmfgen generated="true"?>
      <editor
         id="<%=editorGen.getEditor().getID()%>"
         name="<%=genModel.getModelName()%> Diagram Editor"
@@ -41,6 +40,7 @@ if (isRichClientPlatform) {
   <extension
     point="org.eclipse.core.runtime.applications"
     id="<%=genModel.getModelName()%>DiagramApplication">
+    <?gmfgen generated="true"?>
     <application>
       <run
         class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Application">
@@ -50,6 +50,7 @@ if (isRichClientPlatform) {
 
    <extension
     point="org.eclipse.ui.perspectives">
+     <?gmfgen generated="true"?>
     <perspective
       name="%_UI_Perspective_label"
       class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Perspective"
@@ -61,6 +62,7 @@ if (isRichClientPlatform) {
 %>
   <extension
     point="org.eclipse.ui.commands">
+     <?gmfgen generated="true"?>
     <command
       name="%_UI_Menu_OpenURI_label"
       description="%_UI_Menu_OpenURI_description"
@@ -75,6 +77,7 @@ if (isRichClientPlatform) {
 
   <extension
     point="org.eclipse.ui.bindings">
+     <?gmfgen generated="true"?>
     <key
       commandId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand"
       sequence="M1+U"
@@ -86,6 +89,7 @@ if (isRichClientPlatform) {
   </extension>
   <extension
     point="org.eclipse.ui.actionSets">
+     <?gmfgen generated="true"?>
     <actionSet
       label="%_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>_ActionSet_label"
       visible="true"
@@ -134,6 +138,7 @@ if (isRichClientPlatform) {
 } else {
 %>
    <extension point="org.eclipse.ui.newWizards">
+     <?gmfgen generated="true"?>
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
   	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
@@ -146,6 +151,7 @@ if (isRichClientPlatform) {
       </wizard>
    </extension>
    <extension point="org.eclipse.ui.popupMenus">
+     <?gmfgen generated="true"?>
       <objectContribution
             id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
             nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
