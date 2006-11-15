@@ -29,21 +29,9 @@ import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 public class TestDefaultMergeService extends TestCase {
 
 	private DefaultTextMerger myMergeService;
-	private final String myBeginTagXML;
-	private final String myEndTagXML;
 
 	public TestDefaultMergeService(String name) {
 		super(name);
-		final String[] r = new String[2];
-		new DefaultTextMerger(new JControlModel()) {
-			{
-				r[0] = BEGIN_TAG;
-				r[1] = END_TAG;
-			}
-		};
-		// Copy from DefaultTextMerger cons
-		myBeginTagXML =  "<!-- " + r[0] + " -->";
-		myEndTagXML = "<!-- " + r[1] + " -->";
 	}
 
 	@Override
@@ -58,15 +46,6 @@ public class TestDefaultMergeService extends TestCase {
 
 	protected final DefaultTextMerger createMergeService(JControlModel controlModel) {
 		return new DefaultTextMerger(controlModel);
-	}
-
-	public void testXML() {
-		final String pieceToKeep = "<b>keep this</b>";
-		final String xmlOld = "<p>aaa" + myBeginTagXML + pieceToKeep + myEndTagXML + "<i>bbb</i>ccc</p>";
-		final String xmlNew = "<p>bbb" + myBeginTagXML + myEndTagXML + "<i>bbb</i><b>e</b>ccc</p>";
-		String result = myMergeService.mergeXML(xmlOld, xmlNew);
-		assertNotNull(result);
-		assertEquals("<p>bbb" + myBeginTagXML + pieceToKeep + myEndTagXML + "<i>bbb</i><b>e</b>ccc</p>", result);
 	}
 
 	public void testProperties() throws Exception {
