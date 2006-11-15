@@ -66,7 +66,8 @@ public class PluginXMLTextMerger {
 
 	public boolean isRecognizedDocument(String xml) {
 		try {
-			return parseDocument(xml) != null;
+			final ParsedPluginXML doc = parseDocument(xml);
+			return doc != null && doc.getExtensionsStart() > 0 & doc.getExtensionsEnd() >= doc.getExtensionsStart();
 		} catch (Exception ex) {
 			return false;
 		}
