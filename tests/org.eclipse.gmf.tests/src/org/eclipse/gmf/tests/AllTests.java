@@ -21,6 +21,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
+import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
@@ -122,10 +123,7 @@ public class AllTests {
 		suite.addTest(feed(CompartmentPropertiesTest.class, sessionSetup));
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
-// Test was disabled due to the following problems with openned editor:
-// https://bugs.eclipse.org/bugs/show_bug.cgi?id=154748
-// https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-//		suite.addTest(feed(DiagramEditorTest.class, sessionSetup));
+		suite.addTest(feed(DiagramEditorTest.class, sessionSetup));
 
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 

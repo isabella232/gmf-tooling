@@ -52,10 +52,13 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.part.FileEditorInput;
 
 
 public class DiagramEditorTest extends ConfiguredTestCase {
@@ -82,9 +85,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		assertTrue("Editor was not marked as dirty", editorPart.isDirty());
 		editorPart.doSave(new NullProgressMonitor());
 		assertFalse("Editor was not saved", editorPart.isDirty());
-// Disabled due to the following problem:
-// https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-//		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorPart, true);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorPart, true);
 	}
 
 	private ViewerConfiguration createViewerConfiguration(EditPartViewer viewer) {
@@ -101,7 +102,6 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		EditPart diagramEditPart = viewer.getContents();
 		assertTrue(diagramEditPart.getModel() instanceof Diagram);
 		Diagram diagram = (Diagram) diagramEditPart.getModel();
-		assertNotNull(diagram);
 		return diagram;
 	}
 	
@@ -110,17 +110,22 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		EditPartViewer viewer = getViewer(editorPart);
 		Diagram diagram = getDiagram(viewer);
 		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
-		
-		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram);
-		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(nodeA, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
+		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram, editorPart);
+		assertTrue("Created node invisible", nodeA.isVisible());
+		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(nodeA, NotationPackage.eINSTANCE.getView_Visible(), Boolean.FALSE);
 		checkEditorDirtyState(setNameCommand, editorPart, viewer);
 	}
 
-	private Node createNodeA(EditPartViewer viewer, ViewerConfiguration viewerConfiguration, Diagram diagram) {
+	/**
+	 * Creating Node, saving editor
+	 */
+	private Node createNodeA(EditPartViewer viewer, ViewerConfiguration viewerConfiguration, Diagram diagram, IEditorPart editorPart) {
 		assertTrue(diagram.getChildren().size() == 0);
 		Command createElementCommand = viewerConfiguration.getCreateNodeCommand(diagram, getSetup().getGenModel().getNodeA());
 		viewer.getEditDomain().getCommandStack().execute(createElementCommand);
 		assertTrue(diagram.getChildren().size() == 1);
+		editorPart.doSave(new NullProgressMonitor());
+		assertFalse("Editor was not saved", editorPart.isDirty());
 		return (Node) diagram.getChildren().get(0);
 	}
 
@@ -138,7 +143,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		Diagram diagram = getDiagram(viewer);
 		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
 		
-		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram);
+		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram, editorPart);
 		Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
 		checkEditorDirtyState(setLabelCommand, editorPart, viewer);
 	}
@@ -160,8 +165,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 
 // Changing + saving editor
 		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
-		viewer.getEditDomain().getCommandStack().execute(setNameCommand);
-		editorPart.doSave(new NullProgressMonitor());
+		checkEditorDirtyState(setNameCommand, editorPart, viewer);
 
 // Checking contents of unloaded resource.
 		checkAdditionalModelResource(anotherResourceURI);
@@ -323,9 +327,14 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
-
 		try {
-			return IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile, true);
+	        IEditorDescriptor editorDesc = IDE.getEditorDescriptor(diagramFile, true);
+	        return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile) {
+	        	public IPersistableElement getPersistable() {
+	        		//Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
+	        		return null;
+	        	}
+	        }, editorDesc.getId(), true);
 		} catch (PartInitException e) {
 			fail(e.getMessage());
 		}
