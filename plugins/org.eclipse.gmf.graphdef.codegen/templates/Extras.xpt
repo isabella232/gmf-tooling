@@ -34,7 +34,10 @@
 	}
 «ENDDEFINE»
 
-«DEFINE localCoordinates FOR gmfgraph::Polyline»
+«DEFINE localCoordinates FOR gmfgraph::Polyline-»
+«ENDDEFINE»
+
+«DEFINE localCoordinates FOR gmfgraph::Label-»
 «ENDDEFINE»
 
 
