@@ -12,19 +12,11 @@
 package org.eclipse.gmf.tests.gef;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -40,44 +32,28 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
-import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IPersistableElement;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.part.FileEditorInput;
 
-
-public class DiagramEditorTest extends ConfiguredTestCase {
-
-	private static final String PREFERENCES_HINT_FIELD = "DIAGRAM_PREFERENCES_HINT";
+public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorTest(String name) {
 		super(name);
 	}
 
 	public void testSaveDiagramChanges() {
-		IEditorPart editorPart = createAndOpenEditor(createProject(), false);
+		IEditorPart editorPart = getEditor();
 		assertFalse("Created Editor is dirty", editorPart.isDirty());
-		EditPartViewer viewer = getViewer(editorPart);
-		Diagram diagram = getDiagram(viewer);
-		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
-		
-		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
-		checkEditorDirtyState(setNameCommand, editorPart, viewer);
+		Diagram diagram = getDiagram();
+		Command setNameCommand = getViewerConfiguration().getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
+		checkEditorDirtyState(setNameCommand, editorPart, getViewerConfiguration().getViewer());
 	}
 
 	private void checkEditorDirtyState(Command setNameCommand, IEditorPart editorPart, EditPartViewer viewer) {
@@ -88,45 +64,24 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorPart, true);
 	}
 
-	private ViewerConfiguration createViewerConfiguration(EditPartViewer viewer) {
-		ViewerConfiguration viewerConfiguration = null;
-		try {
-			viewerConfiguration = getSetup().getGeneratorConfiguration().createViewerConfiguration(getSetup(), viewer);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-		return viewerConfiguration;
-	}
-
-	private Diagram getDiagram(EditPartViewer viewer) {
-		EditPart diagramEditPart = viewer.getContents();
-		assertTrue(diagramEditPart.getModel() instanceof Diagram);
-		Diagram diagram = (Diagram) diagramEditPart.getModel();
-		return diagram;
-	}
-	
 	public void testSaveNotaitonElementChanges() {
-		IEditorPart editorPart = createAndOpenEditor(createProject(), false);
-		EditPartViewer viewer = getViewer(editorPart);
-		Diagram diagram = getDiagram(viewer);
-		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
-		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram, editorPart);
+		IEditorPart editorPart = getEditor();
+		ViewerConfiguration viewerConfiguration = getViewerConfiguration();
+		Diagram diagram = getDiagram();
+		Node nodeA = createNodeA(diagram, editorPart);
 		assertTrue("Created node invisible", nodeA.isVisible());
 		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(nodeA, NotationPackage.eINSTANCE.getView_Visible(), Boolean.FALSE);
-		checkEditorDirtyState(setNameCommand, editorPart, viewer);
+		checkEditorDirtyState(setNameCommand, editorPart, getViewerConfiguration().getViewer());
 	}
 
 	/**
 	 * Creating Node, saving editor
 	 */
-	private Node createNodeA(EditPartViewer viewer, ViewerConfiguration viewerConfiguration, Diagram diagram, IEditorPart editorPart) {
-		assertTrue(diagram.getChildren().size() == 0);
-		Command createElementCommand = viewerConfiguration.getCreateNodeCommand(diagram, getSetup().getGenModel().getNodeA());
-		viewer.getEditDomain().getCommandStack().execute(createElementCommand);
-		assertTrue(diagram.getChildren().size() == 1);
+	private Node createNodeA(Diagram diagram, IEditorPart editorPart) {
+		Node result = createNode(getSetup().getGenModel().getNodeA(), diagram);
 		editorPart.doSave(new NullProgressMonitor());
 		assertFalse("Editor was not saved", editorPart.isDirty());
-		return (Node) diagram.getChildren().get(0);
+		return result;
 	}
 
 	public void testSaveDomainElementChangesSeparateFiles() {
@@ -134,49 +89,57 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 	}
 
 	public void testSaveDomainElementChangesSameFile() {
-		checkSaveDomainElementChanges(true);	
+		checkSaveDomainElementChanges(true);
 	}
-	
+
 	private void checkSaveDomainElementChanges(boolean sameFile) {
-		IEditorPart editorPart = createAndOpenEditor(createProject(), sameFile);
-		EditPartViewer viewer = getViewer(editorPart);
-		Diagram diagram = getDiagram(viewer);
-		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
-		
-		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram, editorPart);
-		Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
-		checkEditorDirtyState(setLabelCommand, editorPart, viewer);
+		try {
+			IFile diagramFile = createDiagram(sameFile);
+			IEditorPart editorPart = openEditor(diagramFile);
+			ViewerConfiguration viewerConfiguration = createViewerConfiguration(editorPart);
+			// Substituting viewer configuraration with the custom one
+			setViewerConfiguration(viewerConfiguration);
+			EditPartViewer viewer = viewerConfiguration.getViewer();
+			Diagram diagram = getDiagram();
+
+			Node nodeA = createNodeA(diagram, editorPart);
+			Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
+			checkEditorDirtyState(setLabelCommand, editorPart, viewer);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	/**
-	 * Testing fix of request: https://bugs.eclipse.org/bugs/show_bug.cgi?id=153893
+	 * Testing fix of request:
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=153893
 	 */
 	public void testSaveWithUnloadedResource() {
-		IEditorPart editorPart = createAndOpenEditor(createProject(), false);
-		EditPartViewer viewer = getViewer(editorPart);
-		Diagram diagram = getDiagram(viewer);
-		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
+		IEditorPart editorPart = getEditor();
+		ViewerConfiguration viewerConfiguration = getViewerConfiguration();
+		EditPartViewer viewer = viewerConfiguration.getViewer();
+		Diagram diagram = getDiagram();
 
-// Creating arbitratry model resource + unloading it
+		// Creating arbitratry model resource + unloading it
 		URI anotherResourceURI = diagram.eResource().getURI().trimFileExtension().appendFileExtension("additional." + getSetup().getGenModel().getGenDiagram().getEditorGen().getDomainFileExtension());
 		createAdditionalModelResource(anotherResourceURI);
 		Resource anotherResource = diagram.eResource().getResourceSet().getResource(anotherResourceURI, true);
 		anotherResource.unload();
 
-// Changing + saving editor
+		// Changing + saving editor
 		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
 		checkEditorDirtyState(setNameCommand, editorPart, viewer);
 
-// Checking contents of unloaded resource.
+		// Checking contents of unloaded resource.
 		checkAdditionalModelResource(anotherResourceURI);
 	}
-	
+
 	public void testUnspecifiedTypeRequest() {
-		IEditorPart editorPart = createAndOpenEditor(createProject(), false);
-		EditPartViewer viewer = getViewer(editorPart);
-		Diagram diagram = getDiagram(viewer);
+		IEditorPart editorPart = getEditor();
+		EditPartViewer viewer = getViewerConfiguration().getViewer();
+		Diagram diagram = getDiagram();
 		CreationTool creationTool = getNodeCreationTool(viewer);
-		
+
 		GenNode genNodeA = getSetup().getGenModel().getNodeA();
 		Node aNode = checkCreateNode(viewer, diagram, creationTool, genNodeA.getVisualID());
 
@@ -185,10 +148,10 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		assertTrue("Incorrect setup passed", genCompartment.getChildNodes().size() > 0);
 		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
 		assertNotNull("Incorrect setup passed", childNode);
-		
+
 		Node compartment = findChildnode(aNode, genCompartment);
 		checkCreateNode(viewer, compartment, creationTool, childNode.getVisualID());
-		
+
 		editorPart.doSave(new NullProgressMonitor());
 	}
 
@@ -210,7 +173,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		EditPart parentEP = (EditPart) viewer.getEditPartRegistry().get(parentView);
 		assertNotNull(parentEP);
 		Command createANodeCommand = parentEP.getCommand(request);
-		
+
 		viewer.getEditDomain().getCommandStack().execute(createANodeCommand);
 		assertTrue(parentView.getChildren().size() == 1);
 		Node aNode = (Node) parentView.getChildren().get(0);
@@ -232,7 +195,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		creationTool.setEditDomain(viewer.getEditDomain());
 		return creationTool;
 	}
-	
+
 	private PaletteContainer findPaletteContainer(PaletteRoot paletteRoot, String groupName) {
 		for (Iterator it = paletteRoot.getChildren().iterator(); it.hasNext();) {
 			PaletteContainer nextContainer = (PaletteContainer) it.next();
@@ -253,161 +216,17 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 	private void createAdditionalModelResource(URI anotherResourceURI) {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(anotherResourceURI);
-		EObject domainDiagramElement = createDiagramDomainObject();
-		resource.getContents().add(domainDiagramElement);
+		try {
+			EObject domainDiagramElement = createDiagramDomainObject();
+			resource.getContents().add(domainDiagramElement);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 		try {
 			resource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
 			fail(e.getMessage());
-		}	
-	}
-
-	// TODO: Move this method to GeneratorConfiguration
-	private EditPartViewer getViewer(IEditorPart editorPart) {
-		assertTrue("Passed EditorPart is not instance of IDiagramWorkbenchPart", editorPart instanceof IDiagramWorkbenchPart);
-		return ((IDiagramWorkbenchPart) editorPart).getDiagramGraphicalViewer();
-	}
-
-	private IProject createProject() {
-		String projectName = getUniqueString();
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		assertFalse("Project with this name already present in the workspace: " + projectName, project.exists());
-		try {
-			project.create(new NullProgressMonitor());
-			project.open(new NullProgressMonitor());
-		} catch (CoreException e) {
-			fail(e.getMessage());
 		}
-		assertTrue("Project was not created: " + projectName, project.exists());
-		return project;
 	}
 	
-	private String getUniqueString() {
-		return "DiagramEditorTest_" + String.valueOf(System.currentTimeMillis());
-	}
-	
-	private IEditorPart createAndOpenEditor(IProject project, final boolean storeModelInDiagramFile) {
-		GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
-		
-		String uniqueName = getUniqueString();
-		final String diagramFileName = uniqueName + "." + genDiagram.getEditorGen().getDiagramFileExtension();
-		IFile diagramFile = project.getFile(diagramFileName);
-		assertFalse("Diagram file was already created", diagramFile.exists());
-
-		IFile modelFile = null;
-		if (!storeModelInDiagramFile) {
-			String modelFileName = uniqueName + "." + genDiagram.getEditorGen().getDomainFileExtension();	
-			modelFile = project.getFile(modelFileName);
-			assertFalse("Model file was already created", modelFile.exists());
-		}
-		
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString()));
-		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString())) : null;		
-		
-		EObject domainDiagramElement = createDiagramDomainObject();
-		final PreferencesHint hint = getpreferencesHint();
-
-		if (modelResource != null) {
-			modelResource.getContents().add(domainDiagramElement);
-		} else {
-			diagramResource.getContents().add(domainDiagramElement);
-		}
-		Diagram diagram = ViewService.createDiagram(domainDiagramElement, getSetup().getGenModel().getGenDiagram().getEditorGen().getModelID(), hint);
-		if (diagram != null) {
-			diagramResource.getContents().add(diagram);
-			diagram.setName(diagramFileName);
-			diagram.setElement(domainDiagramElement);
-		}
-		try {
-			if (modelResource != null) {
-				modelResource.save(Collections.EMPTY_MAP);
-			}
-			diagramResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
-		try {
-	        IEditorDescriptor editorDesc = IDE.getEditorDescriptor(diagramFile, true);
-	        return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile) {
-	        	public IPersistableElement getPersistable() {
-	        		//Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-	        		return null;
-	        	}
-	        }, editorDesc.getId(), true);
-		} catch (PartInitException e) {
-			fail(e.getMessage());
-		}
-		return null;
-	}
-
-	private EObject createDiagramDomainObject() {
-		GenClass diagramElementGenClass = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement();
-		GenPackage domainGenPackage = diagramElementGenClass.getGenPackage();
-		Class factoryInterface = null;
-		try {
-			factoryInterface = getSetup().getGenProject().getBundle().loadClass(domainGenPackage.getQualifiedFactoryInterfaceName());
-			assertNotNull("Factory interface not found", factoryInterface);
-			Field accessor = null;
-			accessor = factoryInterface.getField(domainGenPackage.getFactoryInstanceName());
-			assertNotNull("Accessor field not found", accessor);
-			Object factory = null;
-			factory = accessor.get(null);
-			assertNotNull("Factory unavailable", factory);
-			Method createMethod = null;
-			createMethod = factory.getClass().getMethod("create" + diagramElementGenClass.getName(), new Class[0]);
-			assertNotNull("Create method unavailable", createMethod);
-			EObject domainDiagramElement = null;
-			domainDiagramElement = (EObject) createMethod.invoke(factory, new Object[0]);
-			assertNotNull("Domain diagram element was not created", domainDiagramElement);
-			return domainDiagramElement;
-		} catch (ClassNotFoundException e) {
-			fail(e.getMessage());
-		} catch (SecurityException e) {
-			fail(e.getMessage());
-		} catch (NoSuchFieldException e) {
-			fail(e.getMessage());
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-		} catch (IllegalAccessException e) {
-			fail(e.getMessage());
-		} catch (NoSuchMethodException e) {
-			fail(e.getMessage());
-		} catch (InvocationTargetException e) {
-			fail(e.getMessage());
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-		return null;
-	}
-
-	private PreferencesHint getpreferencesHint() {
-		String pluginClassName = getSetup().getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName();
-		Class pluginClass = null;
-		try {
-			pluginClass = getSetup().getGenProject().getBundle().loadClass(pluginClassName);
-		} catch (ClassNotFoundException e) {
-			fail(e.getMessage());
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-		assertNotNull("Plugin class not available", pluginClass);
-		Field field = null;
-		try {
-			field = pluginClass.getField(PREFERENCES_HINT_FIELD);
-		} catch (SecurityException e) {
-			fail(e.getMessage());
-		} catch (NoSuchFieldException e) {
-			fail(e.getMessage());
-		}
-		try {
-			return (PreferencesHint) field.get(null);
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-		} catch (IllegalAccessException e) {
-			fail(e.getMessage());
-		}
-		return null;
-	}
-
 }

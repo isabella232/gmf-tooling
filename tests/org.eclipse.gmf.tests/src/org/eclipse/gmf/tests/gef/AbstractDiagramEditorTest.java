@@ -61,10 +61,18 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		myDiagramFile = createDiagram();
 		myEditor = openEditor(myDiagramFile);
 	}
+	
+	protected IEditorPart getEditor() {
+		return myEditor;
+	}
 
 	@Override
 	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception {
-		GraphicalViewer viewer = (GraphicalViewer) myEditor.getAdapter(GraphicalViewer.class);
+		return createViewerConfiguration(myEditor);
+	}
+	
+	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration(IEditorPart editorPart) throws Exception {
+		GraphicalViewer viewer = (GraphicalViewer) editorPart.getAdapter(GraphicalViewer.class);
 		return getSetup().getGeneratorConfiguration().createViewerConfiguration(getSetup(), viewer);
 	}
 

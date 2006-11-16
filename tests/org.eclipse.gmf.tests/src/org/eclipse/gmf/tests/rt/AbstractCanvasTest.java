@@ -64,6 +64,10 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	protected final Diagram getDiagram() {
 		return (Diagram) getDiagramEditPart().getModel();
 	}
+	
+	protected void setViewerConfiguration(ViewerConfiguration configuration) {
+		myViewerConfiguration = configuration;
+	}
 
 	public ViewerConfiguration getViewerConfiguration() {
 		if (myViewerConfiguration == null) {
