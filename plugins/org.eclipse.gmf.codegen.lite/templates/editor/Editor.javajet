@@ -195,7 +195,7 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	protected void configurePalette(<%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> paletteRoot) {
+	public void configurePalette(<%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> paletteRoot) {
 <%
 {
 	final Palette palette = genDiagram.getPalette();
@@ -220,6 +220,16 @@ if (!isRichClientPlatform) {
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
 		return diagram;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> getEditingDomain(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%>) {
+			return <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%>) input).getDiagram());
+		}
+		return null;
 	}
 
 	/**
@@ -275,14 +285,12 @@ if (!isRichClientPlatform) {
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
 			return ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) input).getFile();
 		}
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
-			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = ((<%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) input).getURI();
-			if (uri != null) {
-				if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { //$NON-NLS-1$
-					if ("resource".equals(uri.segment(0))) { //$NON-NLS-1$
-						<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> path = new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.decode(uri.path())).removeFirstSegments(1);
-						return <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
-					}
+		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = getURIFromInput(input);
+		if (uri != null) {
+			if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { //$NON-NLS-1$
+				if ("resource".equals(uri.segment(0))) { //$NON-NLS-1$
+					<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> path = new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.decode(uri.path())).removeFirstSegments(1);
+					return <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
 				}
 			}
 		}
@@ -296,14 +304,18 @@ if (!isRichClientPlatform) {
 	private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> getURIFromInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 <%if (!isRichClientPlatform) {%>
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(((IFileEditorInput)input).getFile().getFullPath().toString());
+			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>)input).getFile().getFullPath().toString());
 		}
 <%}%>
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
 			return ((<%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) input).getURI();
 		}
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IPathEditorInput")%>) {
-			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(((IPathEditorInput)input).getPath().toOSString());
+			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(((<%=importManager.getImportedName("org.eclipse.ui.IPathEditorInput")%>)input).getPath().toOSString());
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) input.getAdapter(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.class);
+		if (uri != null) {
+			return uri;
 		}
 		return null;
 	}
@@ -311,7 +323,7 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.emf.common.notify.AdapterFactory")%> getDomainAdapterFactory() {
+	public <%=importManager.getImportedName("org.eclipse.emf.common.notify.AdapterFactory")%> getDomainAdapterFactory() {
 		if (domainAdapterFactory == null) {
 			<%=importManager.getImportedName("java.util.List")%> factories = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 			factories.add(new <%=importManager.getImportedName("org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory")%>());
@@ -442,8 +454,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 	/**
 	 * @generated
 	 */
-	protected void createGraphicalViewer(<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> parent) {
-		super.createGraphicalViewer(parent);
+	public void initializeGraphicalViewer() {
 		// initialize the viewer with input
 		<%=importManager.getImportedName("org.eclipse.gef.editparts.ScalableFreeformRootEditPart")%> root = new <%=importManager.getImportedName("org.eclipse.gef.editparts.ScalableFreeformRootEditPart")%>();
 		getGraphicalViewer().setRootEditPart(root);
@@ -459,7 +470,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 	/**
 	 * @generated
 	 */
-	protected void configureGraphicalViewer() {
+	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		<%=importManager.getImportedName("org.eclipse.gef.GraphicalViewer")%> viewer = getGraphicalViewer();
 		// configure the context menu
@@ -471,6 +482,13 @@ for (int i = 0; i < genPackages.size(); i++) {
 		viewer.setKeyHandler(keyHandler);
 
 		viewer.setProperty(<%=importManager.getImportedName("org.eclipse.gef.MouseWheelHandler")%>.KeyGenerator.getKey(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.CTRL), <%=importManager.getImportedName("org.eclipse.gef.MouseWheelZoomHandler")%>.SINGLETON);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isFlyoutPalette() {
+		return <%=genDiagram.getPalette() != null && genDiagram.getPalette().isFlyout()%>;
 	}
 
 	/**
