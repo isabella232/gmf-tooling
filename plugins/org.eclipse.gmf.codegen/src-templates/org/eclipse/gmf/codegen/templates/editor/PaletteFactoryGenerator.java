@@ -95,9 +95,11 @@ public class PaletteFactoryGenerator
   protected final String TEXT_77 = "\");";
   protected final String TEXT_78 = NL + "\t\treturn result;" + NL + "\t}" + NL;
   protected final String TEXT_79 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class NodeToolEntry extends ToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final List elementTypes;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate NodeToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List elementTypes) {" + NL + "\t\t\tsuper(title, description, smallIcon, largeIcon);" + NL + "\t\t\tthis.elementTypes = elementTypes;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool tool = new ";
-  protected final String TEXT_80 = "(elementTypes);" + NL + "\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\treturn tool;" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class LinkToolEntry extends ToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final List relationshipTypes;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List relationshipTypes) {" + NL + "\t\t\tsuper(title, description, smallIcon, largeIcon);" + NL + "\t\t\tthis.relationshipTypes = relationshipTypes;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool tool = new ";
-  protected final String TEXT_81 = "(relationshipTypes);" + NL + "\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\treturn tool;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_82 = NL;
+  protected final String TEXT_80 = "(elementTypes);" + NL + "\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\treturn tool;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_81 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class LinkToolEntry extends ToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final List relationshipTypes;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List relationshipTypes) {" + NL + "\t\t\tsuper(title, description, smallIcon, largeIcon);" + NL + "\t\t\tthis.relationshipTypes = relationshipTypes;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool tool = new ";
+  protected final String TEXT_82 = "(relationshipTypes);" + NL + "\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\treturn tool;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_83 = NL + "}";
+  protected final String TEXT_84 = NL;
 
   public String generate(Object argument)
   {
@@ -122,6 +124,8 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 importManager.registerInnerClass("LinkToolEntry");
 importManager.registerInnerClass("NodeToolEntry");
 importManager.markImportLocation(stringBuffer);
+boolean needNodeToolEntry = false;
+boolean needLinkToolEntry = false;
     stringBuffer.append(TEXT_5);
     stringBuffer.append(palette.getFactoryClassName());
     stringBuffer.append(TEXT_6);
@@ -265,6 +269,7 @@ if (toolEntry.getElements().isEmpty()) {
     stringBuffer.append(nextNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_58);
     		}
+		needNodeToolEntry = true;
     stringBuffer.append(TEXT_59);
     stringBuffer.append(toolEntry.getTitle());
     stringBuffer.append(TEXT_60);
@@ -287,6 +292,7 @@ if (toolEntry.getElements().isEmpty()) {
     stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_67);
     		}
+		needLinkToolEntry = true;
     stringBuffer.append(TEXT_68);
     stringBuffer.append(toolEntry.getTitle());
     stringBuffer.append(TEXT_69);
@@ -315,13 +321,19 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 } /*properties presence check*/ 
     stringBuffer.append(TEXT_78);
     } /*while toolsQueue*/ 
+    if (needNodeToolEntry) {
     stringBuffer.append(TEXT_79);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool"));
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool"));
+    }
+if (needLinkToolEntry) {
     stringBuffer.append(TEXT_81);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool"));
     stringBuffer.append(TEXT_82);
+    }
+    stringBuffer.append(TEXT_83);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_84);
     return stringBuffer.toString();
   }
 }

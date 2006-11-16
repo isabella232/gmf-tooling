@@ -17,7 +17,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 <%
 importManager.registerInnerClass("LinkToolEntry");
 importManager.registerInnerClass("NodeToolEntry");
-importManager.markImportLocation(stringBuffer);%>
+importManager.markImportLocation(stringBuffer);
+boolean needNodeToolEntry = false;
+boolean needLinkToolEntry = false;%>
 
 /**
  * @generated
@@ -119,7 +121,8 @@ if (toolEntry.getElements().isEmpty()) {%>
 			GenNode nextNode = (GenNode) genNodesIterator.next();
 %>
 		elementTypes.add(<%=importedElementTypesClassName%>.<%=nextNode.getUniqueIdentifier()%>);
-<%		}%>		
+<%		}
+		needNodeToolEntry = true;%>		
 		ToolEntry result = new NodeToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, elementTypes);
 <%}
 	else if (firstGenElement instanceof GenLink) {
@@ -129,7 +132,8 @@ if (toolEntry.getElements().isEmpty()) {%>
 			GenLink nextLink = (GenLink) genLinksIterator.next();
 %>
 		relationshipTypes.add(<%=importedElementTypesClassName%>.<%=nextLink.getUniqueIdentifier()%>);
-<%		}%>		
+<%		}
+		needLinkToolEntry = true;%>		
 		ToolEntry result = new LinkToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, relationshipTypes);
 <%} /*else - has no more ideas what's there*/ %>
 
@@ -150,6 +154,7 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 	}
 
 <%} /*while toolsQueue*/ %>
+<%if (needNodeToolEntry) {%>
 	/**
 	 * @generated
 	 */
@@ -177,7 +182,8 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 			return tool;
 		}
 	}
-
+<%}
+if (needLinkToolEntry) {%>
 	/**
 	 * @generated
 	 */
@@ -205,5 +211,6 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 			return tool;
 		}
 	}
+<%}%>
 }
 <%importManager.emitSortedImports();%>
