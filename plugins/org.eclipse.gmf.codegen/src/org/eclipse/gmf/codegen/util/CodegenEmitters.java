@@ -98,7 +98,6 @@ import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
@@ -208,7 +207,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ElementTypes.javajet", ElementTypesGenerator.class);
 		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
-		put(tr, "/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
@@ -449,10 +447,6 @@ public class CodegenEmitters {
 		return retrieve(EditPartProviderGenerator.class);
 	}
 
-	public TextEmitter getPaletteProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PaletteProviderGenerator.class);
-	}
-	
 	public TextEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ContributionItemProviderGenerator.class);
 	}

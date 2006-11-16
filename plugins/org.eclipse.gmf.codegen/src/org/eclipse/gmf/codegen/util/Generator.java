@@ -145,7 +145,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateElementTypes();
 		generateViewProvider();
 		generateEditPartProvider();
-		generatePaletteProvider();
 		if (myEditorGen.getPlugin().isPrintingEnabled()) {
 			generateContributionItemProvider();
 		}
@@ -595,15 +594,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generatePaletteProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getPaletteProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getPaletteProviderClassName(),
-			myDiagram
-		);
-	}
-	
 	private void generateContributionItemProvider() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 				myEmitters.getContributionItemProviderEmitter(),
