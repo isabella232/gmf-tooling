@@ -46,6 +46,10 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 	private EClassifier context;
 	/**
 	 * @generated
+	 */
+	private Map env;	
+	/**
+	 * @generated
 	 */	
 	private IStatus status = Status.OK_STATUS;	
 
@@ -62,6 +66,7 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 	protected <%=providerContainer.getAbstractExpressionClassName()%>(String body, EClassifier context, Map env) {
 		this.body = body;
 		this.context = context;
+		this.env = env;
 	}
 	
 	/**
@@ -127,6 +132,13 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 	public EClassifier context() {
 		return context;
 	}
+	
+	/**
+	 * @generated
+	 */	
+	public Map environment() {
+		return env;
+	}	
 
 	/**
 	 * @generated
