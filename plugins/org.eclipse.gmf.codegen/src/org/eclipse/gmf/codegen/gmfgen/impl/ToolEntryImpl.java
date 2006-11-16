@@ -359,6 +359,6 @@ public class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return CodeGenUtil.validJavaIdentifier("create" + getTitle() + getEntryID() + "CreationTool");
+		return CodeGenUtil.validJavaIdentifier("create" + CodeGenUtil.capName(String.valueOf(getTitle())) + getEntryID() + "CreationTool");
 	}
 } //ToolEntryImpl
