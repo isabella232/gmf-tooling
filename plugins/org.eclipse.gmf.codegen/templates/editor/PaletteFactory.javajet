@@ -19,7 +19,8 @@ importManager.registerInnerClass("LinkToolEntry");
 importManager.registerInnerClass("NodeToolEntry");
 importManager.markImportLocation(stringBuffer);
 boolean needNodeToolEntry = false;
-boolean needLinkToolEntry = false;%>
+boolean needLinkToolEntry = false;
+final String activatorFQN = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());%>
 
 /**
  * @generated
@@ -53,16 +54,16 @@ while (!toolGroupsQueue.isEmpty()) {
 	private PaletteContainer <%=toolGroup.getCreateMethodName()%>() {
 <%if (toolGroup.isCollapse() && toolGroup.isToolsOnly()) {
 		String containerClassName = importManager.getImportedName("org.eclipse.gef.palette.PaletteDrawer");%>
-		<%=containerClassName%> paletteContainer = new <%=containerClassName%>("<%=toolGroup.getTitle()%>");
+		<%=containerClassName%> paletteContainer = new <%=containerClassName%>(<%=activatorFQN%>.getString("<%=toolGroup.getIntKey()%>.title")); //$NON-NLS-1$
 <%} else if (toolGroup.isStack()) {
 		String containerClassName = importManager.getImportedName("org.eclipse.gef.palette.PaletteStack");%>
-		<%=containerClassName%> paletteContainer = new <%=containerClassName%>("<%=toolGroup.getTitle()%>", null, null);
+		<%=containerClassName%> paletteContainer = new <%=containerClassName%>(<%=activatorFQN%>.getString("<%=toolGroup.getIntKey()%>.title"), null, null); //$NON-NLS-1$
 <%} else {
 		String containerClassName = importManager.getImportedName("org.eclipse.gef.palette.PaletteGroup");%>
-		<%=containerClassName%> paletteContainer = new <%=containerClassName%>("<%=toolGroup.getTitle()%>");
+		<%=containerClassName%> paletteContainer = new <%=containerClassName%>(<%=activatorFQN%>.getString("<%=toolGroup.getIntKey()%>.title")); //$NON-NLS-1$
 <%}
 if (toolGroup.getDescription() != null) {%>
-		paletteContainer.setDescription("<%=toolGroup.getDescription()%>");
+		paletteContainer.setDescription(<%=activatorFQN%>.getString("<%=toolGroup.getIntKey()%>.desc")); //$NON-NLS-1$
 <%}%>
 <%for (Iterator itGroupItems = toolGroup.getEntries().iterator(); itGroupItems.hasNext(); ) {
 	ToolGroupItem groupItem = (ToolGroupItem) itGroupItems.next();
@@ -99,20 +100,20 @@ while (!toolsQueue.isEmpty()) {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 		<%if (toolEntry.getSmallIconPath() != null) {%>
-		smallImage = <%=importedPluginClassName%>.findImageDescriptor("<%=toolEntry.getSmallIconPath()%>");
+		smallImage = <%=importedPluginClassName%>.findImageDescriptor("<%=toolEntry.getSmallIconPath()%>"); //$NON-NLS-1$
 		<%} else if (firstGenElement != null) {%>
 		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=firstGenElement.getUniqueIdentifier()%>); 
 		<%} else {%>
 		smallImage = null;
 		<%}%>
 		<%if (toolEntry.getLargeIconPath() != null) {%>
-		largeImage = <%=importedPluginClassName%>.findImageDescriptor("<%=toolEntry.getLargeIconPath()%>");
+		largeImage = <%=importedPluginClassName%>.findImageDescriptor("<%=toolEntry.getLargeIconPath()%>"); //$NON-NLS-1$
 		<%} else {%>
 		largeImage = smallImage;
 		<%}%>
 <%
 if (toolEntry.getElements().isEmpty()) {%>
-		ToolEntry result = new ToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage) {};
+		ToolEntry result = new ToolEntry(<%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.title"), <%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.desc"), smallImage, largeImage) {}; //$NON-NLS-1$ $NON-NLS-2$
 <%}
 	else if (firstGenElement instanceof GenNode) {
 %>
@@ -123,7 +124,7 @@ if (toolEntry.getElements().isEmpty()) {%>
 		elementTypes.add(<%=importedElementTypesClassName%>.<%=nextNode.getUniqueIdentifier()%>);
 <%		}
 		needNodeToolEntry = true;%>		
-		ToolEntry result = new NodeToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(<%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.title"), <%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 <%}
 	else if (firstGenElement instanceof GenLink) {
 %>
@@ -134,7 +135,7 @@ if (toolEntry.getElements().isEmpty()) {%>
 		relationshipTypes.add(<%=importedElementTypesClassName%>.<%=nextLink.getUniqueIdentifier()%>);
 <%		}
 		needLinkToolEntry = true;%>		
-		ToolEntry result = new LinkToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, relationshipTypes);
+		ToolEntry result = new LinkToolEntry(<%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.title"), <%=activatorFQN%>.getString("<%=toolEntry.getIntKey()%>.desc"), smallImage, largeImage, relationshipTypes); //$NON-NLS-1$ $NON-NLS-2$
 <%} /*else - has no more ideas what's there*/ %>
 
 <%

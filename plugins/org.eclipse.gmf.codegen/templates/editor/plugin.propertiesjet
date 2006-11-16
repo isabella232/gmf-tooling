@@ -27,4 +27,10 @@ navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> d
 <%@include file="../propsheet/i18n.jetinc"%>
 ###
 <%}%>
-	
+<%if (genDiagram.getPalette() != null) {
+	final Palette palette = genDiagram.getPalette();%>
+###
+# Palette Factory
+<%@include file="i18n_palette.jetinc"%>
+###
+<%}%>

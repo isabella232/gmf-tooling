@@ -1,0 +1,10 @@
+<%for (Iterator it = palette.eAllContents(); it.hasNext();) {
+	Object next = it.next();
+	if (next instanceof EntryBase) {
+		EntryBase b = (EntryBase) next;%>
+<%=b.getIntKey()%>.title=<%=b.getTitle()%>
+<%if (b.getDescription() != null) {%>
+<%=b.getIntKey()%>.desc=<%=b.getDescription()%>
+<%}%>
+<%	} /*EntryBase*/%>
+<%}%>

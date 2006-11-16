@@ -31,8 +31,13 @@ public class PluginPropertiesGenerator
   protected final String TEXT_14 = NL + "tab.";
   protected final String TEXT_15 = "=";
   protected final String TEXT_16 = NL + "###";
-  protected final String TEXT_17 = NL + "\t";
+  protected final String TEXT_17 = NL + "###" + NL + "# Palette Factory";
   protected final String TEXT_18 = NL;
+  protected final String TEXT_19 = NL;
+  protected final String TEXT_20 = ".title=";
+  protected final String TEXT_21 = NL;
+  protected final String TEXT_22 = ".desc=";
+  protected final String TEXT_23 = NL + "###";
 
   public String generate(Object argument)
   {
@@ -76,8 +81,28 @@ if (genDiagram.generateCreateShortcutAction()) {
     }
     stringBuffer.append(TEXT_16);
     }
+    if (genDiagram.getPalette() != null) {
+	final Palette palette = genDiagram.getPalette();
     stringBuffer.append(TEXT_17);
     stringBuffer.append(TEXT_18);
+    for (Iterator it = palette.eAllContents(); it.hasNext();) {
+	Object next = it.next();
+	if (next instanceof EntryBase) {
+		EntryBase b = (EntryBase) next;
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(b.getIntKey());
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(b.getTitle());
+    if (b.getDescription() != null) {
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(b.getIntKey());
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(b.getDescription());
+    }
+    	} /*EntryBase*/
+    }
+    stringBuffer.append(TEXT_23);
+    }
     return stringBuffer.toString();
   }
 }
