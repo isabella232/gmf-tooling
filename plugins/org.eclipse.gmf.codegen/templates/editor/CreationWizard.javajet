@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -132,7 +133,11 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 <%}%>
 				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
-					<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagram(diagram);
+					try {
+						<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagram(diagram);
+					} catch (PartInitException e) {
+						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+					}
 				}
 			}
 		};
