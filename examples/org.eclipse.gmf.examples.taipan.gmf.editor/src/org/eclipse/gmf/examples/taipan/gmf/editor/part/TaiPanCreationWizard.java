@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -119,7 +120,11 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
 				diagram = TaiPanDiagramEditorUtil.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
-					TaiPanDiagramEditorUtil.openDiagram(diagram);
+					try {
+						TaiPanDiagramEditorUtil.openDiagram(diagram);
+					} catch (PartInitException e) {
+						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+					}
 				}
 			}
 		};
