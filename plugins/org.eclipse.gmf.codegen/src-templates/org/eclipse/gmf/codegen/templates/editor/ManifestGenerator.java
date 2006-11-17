@@ -28,7 +28,7 @@ public class ManifestGenerator
   protected final String TEXT_10 = NL + " org.eclipse.core.expressions,";
   protected final String TEXT_11 = NL + " org.eclipse.jface,";
   protected final String TEXT_12 = NL + " org.eclipse.ui.ide,";
-  protected final String TEXT_13 = NL + " org.eclipse.ui.views," + NL + " org.eclipse.ui.workbench," + NL + " org.eclipse.ui.workbench.texteditor,";
+  protected final String TEXT_13 = NL + " org.eclipse.ui.views,";
   protected final String TEXT_14 = NL + " org.eclipse.ui.navigator,";
   protected final String TEXT_15 = NL + " org.eclipse.emf.ecore," + NL + " org.eclipse.emf.ecore.xmi," + NL + " org.eclipse.emf.edit.ui," + NL + " org.eclipse.gef;visibility:=reexport," + NL + " org.eclipse.gmf.runtime.emf.core," + NL + " org.eclipse.gmf.runtime.emf.commands.core," + NL + " org.eclipse.gmf.runtime.emf.ui.properties," + NL + " org.eclipse.gmf.runtime.diagram.ui,";
   protected final String TEXT_16 = NL + " org.eclipse.gmf.runtime.diagram.ui.printing.render," + NL + " org.eclipse.gmf.runtime.diagram.ui.printing,";
