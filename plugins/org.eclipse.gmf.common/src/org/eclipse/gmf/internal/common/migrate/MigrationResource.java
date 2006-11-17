@@ -172,6 +172,7 @@ public class MigrationResource extends ToolResource {
 	 */
 	private static class BCKWDCompatibleHandler extends SAXXMIHandler {
 		MigrationConfig config;
+		protected boolean fixmePotentiallyCompatibilityIssues;
 
 		BCKWDCompatibleHandler(MigrationResource xmiResource, XMLHelper helper, Map options) {
 			super(xmiResource, helper, options);
@@ -201,9 +202,25 @@ public class MigrationResource extends ToolResource {
 					
 					return super.getPackageForURI(config.getMetamodelNsURI());
 				}
+				if (config.getMetamodelNsURI().equals(uriString)) {
+					// assume new version always needs migration, at least between milestones
+					// FIXME better detection algorithm
+					// FIXME delete this code after genmodel freeze in 2.0
+					fixmePotentiallyCompatibilityIssues = true;
+				}
 			}
 
 			return super.getPackageForURI(uriString);
+		}
+
+		@Override
+		protected void handleUnknownFeature(String prefix, String name, boolean isElement, EObject peekObject, String value) {
+			if (fixmePotentiallyCompatibilityIssues) {
+				if (config.shouldIgnoreAttribute(peekObject, name)) {
+					resource().handleOldVersionDetected();
+				}
+			}
+			super.handleUnknownFeature(prefix, name, isElement, peekObject, value);
 		}
 		
 		MigrationResource resource() {
@@ -226,7 +243,7 @@ public class MigrationResource extends ToolResource {
 
 		@Override
 		protected void setAttribValue(EObject object, String name, String value) {
-			if (isMigrationEnabled() && config.shouldIgnoreAttribute(object, name)) {
+			if ((isMigrationEnabled() || fixmePotentiallyCompatibilityIssues) && config.shouldIgnoreAttribute(object, name)) {
 				Map<EObject, Map<String, String>> ignoredAttributes = resource().ignoredAttributes;
 				if (ignoredAttributes != null) {
 					Map<String, String> attrs = ignoredAttributes.get(object);
