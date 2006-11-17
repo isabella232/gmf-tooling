@@ -13,7 +13,6 @@ import java.util.Collections;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -52,18 +51,20 @@ public class <%=importManager.getCompilationUnitName()%> {
 		return true;
 <%}%>
 	}
+<%if (editorGen.getApplication() == null) {%>
 
 	/**
 	 * @generated
 	 */
 	private static void setCharset(IPath path) {
-		IFile file = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> file = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().getFile(path);
 		try {
 			file.setCharset("UTF-8", new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>()); //$NON-NLS-1$
 		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to set charset for file " + path, e); //$NON-NLS-1$
 		}
 	}
+<%}%>
 
 	/**
 <%if (editorGen.getApplication() == null) {%>
@@ -134,10 +135,12 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 		
-<%if (standaloneDomainModel) {%>
+<%if (editorGen.getApplication() == null) {%>
+<%	if (standaloneDomainModel) {%>
 		setCharset(modelPath);
-<%}%>
+<%	}%>
 		setCharset(diagramPath);
+<%}%>
 		return diagramResource;
 	}
 <%if (genDiagram.getDomainDiagramElement() != null) {
