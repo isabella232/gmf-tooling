@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.examples.design2d"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.examples.design2d"
     modelID="Design2D"
     diagramFileExtension="design2d"
     copyrightText=" Copyright (c) 2006 Borland Software Corporation&#xA; &#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA; Contributors:&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
@@ -11,8 +11,8 @@
       editPartClassName="Design2DEditPart"
       itemSemanticEditPolicyClassName="Design2DItemSemanticEditPolicy"
       notationViewFactoryClassName="Design2DViewFactory"
-      iconProviderPriority="Low"
       canonicalEditPolicyClassName="Design2DCanonicalEditPolicy"
+      iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -26,8 +26,8 @@
         editPartClassName="SolidRectangle2EditPart"
         itemSemanticEditPolicyClassName="SolidRectangle2ItemSemanticEditPolicy"
         notationViewFactoryClassName="SolidRectangle2ViewFactory"
-        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         canonicalEditPolicyClassName="SolidRectangle2CanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidRectangle2GraphicalNodeEditPolicy"
         containers="//@diagram/@childNodes.0 //@diagram/@childNodes.1 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -38,7 +38,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="SolidRectangleFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -48,8 +48,8 @@
         editPartClassName="SolidEllipseEditPart"
         itemSemanticEditPolicyClassName="SolidEllipseItemSemanticEditPolicy"
         notationViewFactoryClassName="SolidEllipseViewFactory"
-        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         canonicalEditPolicyClassName="SolidEllipseCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidEllipseGraphicalNodeEditPolicy"
         containers="//@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -60,7 +60,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="SolidEllipseFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -70,8 +70,8 @@
         editPartClassName="SolidRectangleEditPart"
         itemSemanticEditPolicyClassName="SolidRectangleItemSemanticEditPolicy"
         notationViewFactoryClassName="SolidRectangleViewFactory"
-        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         canonicalEditPolicyClassName="SolidRectangleCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidRectangleGraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -81,7 +81,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="SolidRectangleFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidRectangleFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -91,8 +91,8 @@
         editPartClassName="SolidEllipse2EditPart"
         itemSemanticEditPolicyClassName="SolidEllipse2ItemSemanticEditPolicy"
         notationViewFactoryClassName="SolidEllipse2ViewFactory"
-        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         canonicalEditPolicyClassName="SolidEllipse2CanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidEllipse2GraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -102,7 +102,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="SolidEllipseFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidEllipseFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -119,7 +119,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SolidLineFigure"
-          classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidLineFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidLineFigure() {&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;}">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SolidLineFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SolidLineFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -139,8 +139,6 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet
-            xsi:type="gmfgen:DesignLabelModelFacet"/>
       </labels>
     </links>
     <palette>
@@ -168,4 +166,148 @@
       provider="Eclipse.org"/>
   <editor
       iconPath="{reuseEMFIcon}"/>
+  <navigator>
+    <childReferences
+        child="//@diagram"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.0"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.0"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@childNodes.0"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.0"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@childNodes.0"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.1"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.0"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.0"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.1"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.0"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+  </navigator>
+  <propertySheet>
+    <tabs
+        xsi:type="gmfgen:GenStandardPropertyTab"
+        iD="appearance"/>
+    <tabs
+        xsi:type="gmfgen:GenStandardPropertyTab"
+        iD="diagram"
+        label="Rulers &amp; Grid"/>
+  </propertySheet>
 </gmfgen:GenEditorGenerator>
