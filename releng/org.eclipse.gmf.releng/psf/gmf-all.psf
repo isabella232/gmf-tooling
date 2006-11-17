@@ -3,8 +3,8 @@
 	<provider id="org.eclipse.team.cvs.core.cvsnature">
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.apache.batik,org.apache.batik"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.apache.batik-feature,org.apache.batik-feature"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/home/webtools,wst/components/xml/thirdparty/org.apache.xerces,org.apache.xerces"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/home/webtools,wst/components/xml/thirdparty/org.apache.xerces.feature,org.apache.xerces.feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/webtools,wst/components/xml/thirdparty/org.apache.xerces,org.apache.xerces"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/webtools,wst/components/xml/thirdparty/org.apache.xerces.feature,org.apache.xerces.feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf,org.eclipse.gmf"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge,org.eclipse.gmf.bridge"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui,org.eclipse.gmf.bridge.ui"/>
