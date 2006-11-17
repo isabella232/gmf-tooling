@@ -41,14 +41,15 @@ public class <%=importManager.getCompilationUnitName()%> {
 <%if (editorGen.getApplication() == null) {%>
 		return <%=importManager.getImportedName("org.eclipse.emf.edit.ui.util.EditUIUtil")%>.openEditor((EObject) diagram.getContents().get(0));
 <%} else {%>
-		URI fileURI = URI.createFileURI(file.getLocation().toString());
-		<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());
+		<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = <%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(diagram.getURI().toFileString());
 		if (editorDescriptor == null) {
 			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(page.getWorkbenchWindow().getShell(), "Error",
-					<%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("There is no editor registered for the file ''{0}''.", fileURI.toFileString()));
-			return null;
+					<%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("There is no editor registered for the file ''{0}''.", diagram.getURI()));
+			return false;
 		}
-		return page.openEditor(new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(fileURI), editorDescriptor.getId());
+		page.openEditor(new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagram.getURI()), editorDescriptor.getId());
+		return true;
 <%}%>
 	}
 
