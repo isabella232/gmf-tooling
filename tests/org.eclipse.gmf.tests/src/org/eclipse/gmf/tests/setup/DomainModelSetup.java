@@ -68,6 +68,10 @@ public class DomainModelSetup implements DomainModelSource {
 		r0.setEType(superNode);
 		r0.setUpperBound(-1);
 		containmentNode.getEStructuralFeatures().add(r0);
+		final EAttribute da1 = EcoreFactory.eINSTANCE.createEAttribute();
+		da1.setName("diagramAttribute");
+		da1.setEType(EcorePackage.eINSTANCE.getEString());
+		containmentNode.getEStructuralFeatures().add(da1);
 
 		EClass nodeA = EcoreFactory.eINSTANCE.createEClass();
 		nodeA.setName("NodeSrcA");

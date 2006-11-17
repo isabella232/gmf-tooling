@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.tests.rt.AbstractCanvasTest;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPersistableElement;
@@ -62,6 +63,10 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		myEditor = openEditor(myDiagramFile);
 	}
 	
+	protected IProject getProject() {
+		return myProject;
+	}
+	
 	protected IEditorPart getEditor() {
 		return myEditor;
 	}
@@ -78,14 +83,24 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 
 	@Override
 	protected void tearDown() throws Exception {
-		myEditor.doSave(new NullProgressMonitor());
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
+		closeEditor(myEditor);
 		deleteProject();
 		myProject = null;
 		myDiagramFile = null;
 		super.tearDown();
 	}
 
+	protected void closeEditor(IEditorPart editor) {
+		myEditor.doSave(new NullProgressMonitor());
+		redispatchEvents();
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
+	}
+	
+	protected void redispatchEvents() {
+		while (Display.getCurrent().readAndDispatch()) {
+		}
+	}
+	
 	protected IProject createProject() {
 		String projectName = getUniqueString();
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
@@ -101,12 +116,12 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	}
 	
 	protected void deleteProject() throws CoreException {
-		if (myProject != null) {
-			if (myProject.isOpen()) {
-				myProject.close(new NullProgressMonitor());
+		if (getProject() != null) {
+			if (getProject().isOpen()) {
+				getProject().close(new NullProgressMonitor());
 			}
-			if (myProject.exists()) {
-				myProject.delete(true, new NullProgressMonitor());
+			if (getProject().exists()) {
+				getProject().delete(true, new NullProgressMonitor());
 			}
 		}
 	}
@@ -119,14 +134,14 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
 		String uniqueName = getUniqueString();
 		final String diagramFileName = uniqueName + "." + genDiagram.getEditorGen().getDiagramFileExtension();
-		IFile diagramFile = myProject.getFile(diagramFileName);
+		IFile diagramFile = getProject().getFile(diagramFileName);
 		assertFalse("Diagram file was already created", diagramFile.exists());
 
 		IFile modelFile = null;
 		if (!storeModelInDiagramFile) {
 			IPath diagramFilePath = diagramFile.getProjectRelativePath();
 			IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension(genDiagram.getEditorGen().getDomainFileExtension());	
-			modelFile = myProject.getFile(modelFilePath);
+			modelFile = getProject().getFile(modelFilePath);
 			assertFalse("Model file was already created", modelFile.exists());
 		}
 
@@ -182,13 +197,14 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected IEditorPart openEditor(IFile diagramFile) {
 		try {
 	        IEditorDescriptor editorDesc = IDE.getEditorDescriptor(diagramFile, true);
-	        return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile) {
+	        IEditorPart result = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile) {
 	        	@Override
 	        	public IPersistableElement getPersistable() {
 	        		//Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
 	        		return null;
 	        	}
 	        }, editorDesc.getId(), true);
+	        return result;
 		} catch (PartInitException e) {
 			fail(e.getMessage());
 		}
