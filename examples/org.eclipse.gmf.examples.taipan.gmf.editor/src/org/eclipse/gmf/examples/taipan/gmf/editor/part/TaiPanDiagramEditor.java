@@ -49,6 +49,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
 
@@ -160,6 +161,15 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
 		scaledFeedbackLayer.setEnabled(false);
 		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
+		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
+		new TaiPanPaletteFactory().fillPalette(root);
+		return root;
 	}
 
 	/**

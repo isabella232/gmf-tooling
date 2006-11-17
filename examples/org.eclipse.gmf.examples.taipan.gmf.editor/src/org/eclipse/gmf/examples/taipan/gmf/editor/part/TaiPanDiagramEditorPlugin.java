@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -156,6 +157,14 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
+	 * Returns string from plug-in's resource bundle
+	 * @generated
+	 */
+	public static String getString(String key) {
+		return Platform.getResourceString(getInstance().getBundle(), "%" + key); //$NON-NLS-1$
+	}
+
+	/**
 	 * Returns an image for the image file at the given plug-in relative path.
 	 * Client do not need to dispose this image. Images will be disposed automatically.
 	 *
@@ -224,5 +233,4 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 			throwable.printStackTrace();
 		}
 	}
-
 }

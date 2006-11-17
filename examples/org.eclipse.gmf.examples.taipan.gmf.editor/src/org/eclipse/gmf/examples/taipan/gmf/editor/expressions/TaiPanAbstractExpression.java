@@ -51,6 +51,11 @@ public abstract class TaiPanAbstractExpression {
 	/**
 	 * @generated
 	 */
+	private Map env;
+
+	/**
+	 * @generated
+	 */
 	private IStatus status = Status.OK_STATUS;
 
 	/**
@@ -66,6 +71,7 @@ public abstract class TaiPanAbstractExpression {
 	protected TaiPanAbstractExpression(String body, EClassifier context, Map env) {
 		this.body = body;
 		this.context = context;
+		this.env = env;
 	}
 
 	/**
@@ -128,6 +134,13 @@ public abstract class TaiPanAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Map environment() {
+		return env;
 	}
 
 	/**

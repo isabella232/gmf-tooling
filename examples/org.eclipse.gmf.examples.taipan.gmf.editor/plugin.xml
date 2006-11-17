@@ -244,13 +244,7 @@
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
-      <?gmfgen generated="true"?>
-      <paletteProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanPaletteProvider">
-         <Priority name="Lowest"/>
-         <editor id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"/>
-      </paletteProvider>
-   </extension>
+   
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <?gmfgen generated="true"?>
