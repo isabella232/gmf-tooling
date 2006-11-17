@@ -57,6 +57,10 @@ public class GMFGenMigration {
 	static void initialize(MigrationConfig config) {
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getEditorCandies(), "diagramFileCreatorClassName"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet(), "metaFeature"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "paletteProviderClassName"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "paletteProviderPriority"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "propertyProviderClassName"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "propertyProviderPriority"); //$NON-NLS-1$
 		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
 		config.addNarrowReferenceType(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers(), GMFGenPackage.eINSTANCE.getGenFeatureValueSpec());
 	}

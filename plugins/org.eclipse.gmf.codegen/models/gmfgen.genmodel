@@ -121,12 +121,8 @@
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderPriority"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderPriority"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderClassName"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderPriority"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderPriority"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderPriority"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderPriority"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
@@ -138,9 +134,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getEditPartProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPaletteProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getModelingAssistantProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPropertyProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getIconProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getParserProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getAbstractParserQualifiedClassName"/>
