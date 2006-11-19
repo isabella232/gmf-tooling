@@ -115,7 +115,7 @@
 	</target>
 
 	<target name="checkEMFInstalled">
-		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfUpdateVersion}.jar" property="emfExists" />
+		<available file="${baseLocation}/features/${emfFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExists" />
 	</target>
 
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
@@ -131,8 +131,22 @@
 -->
 	</target>
 	
+	<target name="checkEMFTInstalled">
+		<condition property="emftExists">
+			<and>
+				<available file="${baseLocation}/features/${emfOCLFeatureId}_${emfOCLUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfQueryFeatureId}_${emfQueryUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfQueryOCLFeatureId}_${emfQueryOCLUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfValidationFeatureId}_${emfValidationUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfValidationOCLFeatureId}_${emfValidationOCLUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfTransactionFeatureId}_${emfTransactionUpdateVersion}/feature.xml"/>
+				<available file="${baseLocation}/features/${emfWorkspaceFeatureId}_${emfWorkspaceUpdateVersion}/feature.xml"/>
+			</and>
+		</condition>
+	</target>
+			
 	<!-- TODO: do check installed for EMFT components as well. -->
-	<target name="installEMFT">
+	<target name="installEMFT" unless="emftExists" depends="checkEMFTInstalled">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
@@ -208,7 +222,7 @@
 	</target>
 	
 	<target name="checkEMFExamplesInstalled">
-		<available file="${baseLocation}/plugins/org.eclipse.emf.examples.library_${fullEmfVersion}.jar" property="emfExampleExists" />
+		<available file="${baseLocation}/features/${emfExamplesFeatureId}_${emfUpdateVersion}/feature.xml" property="emfExampleExists" />
 	</target>
 	
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
@@ -228,7 +242,7 @@
 	</target>
 	
 	<target name="checkGEFInstalled">
-		<available file="${baseLocation}/plugins/org.eclipse.gef_${fullGefVersion}.jar" property="gefExists" />
+		<available file="${baseLocation}/features/${gefFeatureId}_${gefUpdateVersion}/feature.xml" property="gefExists" />
 	</target>
 
 	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
@@ -321,7 +335,7 @@
 	</target>
 	
 	<target name="checkXercesInstalled">
-		<available file="${baseLocation}/plugins/org.apache.xerces_${xercesUpdateVersion}.jar" property="xercesExists" />
+		<available file="${baseLocation}/features/${xercesFeatureId}_${xercesUpdateVersion}/feature.xml" property="xercesExists" />
 	</target>
 
 	<target name="installXerces" unless="xercesExists" depends="checkXercesInstalled">	
@@ -333,7 +347,7 @@
 	</target>
 	
 	<target name="checkBatikInstalled">
-		<available file="${baseLocation}/plugins/org.apache.batik_${batikUpdateVersion}.jar" property="batikExists" />
+		<available file="${baseLocation}/features/${batikFeatureId}_${batikUpdateVersion}/feature.xml" property="batikExists" />
 	</target>
 
 	<target name="installBatik" unless="batikExists" depends="checkBatikInstalled">	
