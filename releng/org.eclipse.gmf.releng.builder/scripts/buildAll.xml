@@ -57,7 +57,6 @@
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
@@ -66,6 +65,7 @@
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk-experimental" />
+			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -124,7 +124,6 @@
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
@@ -133,6 +132,7 @@
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk-experimental" />
+			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -192,7 +192,6 @@
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${integration.maps}" />
 			<property name="targetConfigTag" value="${integration.target}" />
@@ -201,6 +200,7 @@
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk-experimental" />
+			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${integration.maps}" />
@@ -261,10 +261,17 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
+		<echo message="Building callisto feature..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="callisto" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="componentsTag" value="${stable.components}" />
+		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
@@ -273,6 +280,7 @@
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk-experimental" />
+			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -282,15 +290,6 @@
 		<echo message="Building sdk experimental tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests-experimental" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable.maps}" />
-			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="componentsTag" value="${stable.components}" />
-		</ant>
-		<echo message="Building callisto feature..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="callisto" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
@@ -355,7 +354,6 @@
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
 			<property name="targetConfigTag" value="${maintenance.target}" />
@@ -364,6 +362,7 @@
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk-experimental" />
+			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
