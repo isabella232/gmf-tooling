@@ -90,6 +90,7 @@
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFT" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
+		<ant antfile="${scripts}/install.xml" target="installExamples" />
 		<ant antfile="${scripts}/install.xml" target="installGMFExperimental"/>
 		<ant antfile="${scripts}/install.xml" target="installTests" />
 	</target>
