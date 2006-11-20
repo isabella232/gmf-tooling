@@ -120,6 +120,8 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		// remove selection listener
 		myDiagramManager.getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(selectionListener);
 
+		myDiagramManager.getSite().getPart().removePropertyListener(propertyListener);
+
 		getEditDomain().setActiveTool(null);
 
 		// dispose the ActionRegistry (will dispose all actions)
