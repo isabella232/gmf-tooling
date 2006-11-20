@@ -276,7 +276,7 @@ final class RegistryKey {
 	}
 	
 	private String getKey(GenNode node) {
-		return getCommonPrefix() + (node instanceof GenTopLevelNode ? "TopLevelNode?" : "Node?") + getKeyFragment(node.getModelFacet().getMetaClass());
+		return getCommonPrefix() + (node instanceof GenTopLevelNode ? "TopLevelNode?" : "Node?") + (node.getModelFacet() != null ? getKeyFragment(node.getModelFacet().getMetaClass()) : getKeyFragment(node.getViewmap()));
 	}
 	
 	private String getKey(GenLink link) {
@@ -286,11 +286,11 @@ final class RegistryKey {
 		} else if (modelFacet instanceof FeatureLinkModelFacet) {
 			return getCommonPrefix() + "Link?" + getKeyFragment(((FeatureLinkModelFacet) modelFacet).getMetaFeature());
 		}
-		return getInvalidElementKey();
+		return getCommonPrefix() + "Link?" + getKeyFragment(link.getViewmap());
 	}
 	
 	private String getKey(GenCompartment compartment) {
-		return getCommonPrefix() + "Compartment?" + getKeyFragment(compartment.getNode().getModelFacet().getMetaClass()) + "?" + compartment.getTitle();
+		return getKey(compartment.getNode()) + "?Compartment?" + compartment.getTitle();
 	}
 	
 	private String getKey(GenLabel label) {
@@ -313,6 +313,9 @@ final class RegistryKey {
 	}
 	
 	private String getKeyFragment(GenClass genClass) {
+		if (genClass == null) {
+			return "";
+		}
 		return genClass.getGenPackage().getNSURI() + "?" + genClass.getName();
 	}
 	
@@ -330,9 +333,20 @@ final class RegistryKey {
 			}
 			return result;
 		} else if (modelFacet instanceof DesignLabelModelFacet) {
-			return "DesignLabel";
+			return getKeyFragment(genLabel.getViewmap());
 		}
 		return getInvalidElementKey();
+	}
+	
+	private String getKeyFragment(Viewmap viewmap) {
+		if (viewmap instanceof FigureViewmap) {
+			return ((FigureViewmap) viewmap).getFigureQualifiedClassName();
+		} else if (viewmap instanceof InnerClassViewmap) {
+			return ((InnerClassViewmap) viewmap).getClassName();
+		} else if (viewmap instanceof ParentAssignedViewmap) {
+			return ((ParentAssignedViewmap) viewmap).getFigureQualifiedClassName();
+		}
+		return "";
 	}
 
 }
@@ -587,7 +601,10 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 			if (nextCommonBase instanceof GenDiagram) {
 				domainElement = ((GenDiagram) nextCommonBase).getDomainDiagramElement();
 			} else if (nextCommonBase instanceof GenNode) {
-				domainElement = ((GenNode) nextCommonBase).getModelFacet().getMetaClass();
+				GenNode genNode = (GenNode) nextCommonBase;
+				if (genNode.getModelFacet() != null) {
+					domainElement = genNode.getModelFacet().getMetaClass();
+				}
 			} else if (nextCommonBase instanceof GenLink) {
 				LinkModelFacet modelFacet = ((GenLink) nextCommonBase).getModelFacet();
 				if (modelFacet instanceof TypeModelFacet) {

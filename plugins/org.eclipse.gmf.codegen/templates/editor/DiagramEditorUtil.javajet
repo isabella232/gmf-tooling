@@ -38,7 +38,7 @@ public class <%=importManager.getCompilationUnitName()%> {
 	 */
 	public static boolean openDiagram(Resource diagram) throws PartInitException {
 <%if (editorGen.getApplication() == null) {%>
-		return <%=importManager.getImportedName("org.eclipse.emf.edit.ui.util.EditUIUtil")%>.openEditor((EObject) diagram.getContents().get(0));
+		return <%=importManager.getImportedName("org.eclipse.emf.edit.ui.util.EditUIUtil")%>.openEditor((<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) diagram.getContents().get(0));
 <%} else {%>
 		<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = <%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(diagram.getURI().toFileString());
