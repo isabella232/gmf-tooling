@@ -43,8 +43,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createNodes1Group() {
-		PaletteContainer paletteContainer = new PaletteGroup("Nodes");
-		paletteContainer.setDescription("Diagram Nodes");
+		PaletteGroup paletteContainer = new PaletteGroup(EcoreDiagramEditorPlugin.getString("Nodes1Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(EcoreDiagramEditorPlugin.getString("Nodes1Group.desc")); //$NON-NLS-1$
 		paletteContainer.add(createEClass1CreationTool());
 		paletteContainer.add(createEPackage2CreationTool());
 		paletteContainer.add(createEAnnotation3CreationTool());
@@ -57,8 +57,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createChildNodes2Group() {
-		PaletteContainer paletteContainer = new PaletteGroup("Child Nodes");
-		paletteContainer.setDescription("Child Nodes");
+		PaletteGroup paletteContainer = new PaletteGroup(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.desc")); //$NON-NLS-1$
 		paletteContainer.add(createEAttribute1CreationTool());
 		paletteContainer.add(createEOperation2CreationTool());
 		paletteContainer.add(createAnnotationdetails3CreationTool());
@@ -70,8 +70,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createLinks3Group() {
-		PaletteContainer paletteContainer = new PaletteGroup("Links");
-		paletteContainer.setDescription("Links");
+		PaletteGroup paletteContainer = new PaletteGroup(EcoreDiagramEditorPlugin.getString("Links3Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(EcoreDiagramEditorPlugin.getString("Links3Group.desc")); //$NON-NLS-1$
 		paletteContainer.add(createEAnnotationreference1CreationTool());
 		paletteContainer.add(createAssociation2CreationTool());
 		paletteContainer.add(createAggregation3CreationTool());
@@ -93,7 +93,8 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EClass_2001);
 		elementTypes.add(EcoreElementTypes.EClass_3004);
-		ToolEntry result = new NodeToolEntry("EClass", "Create Class", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EClass1CreationTool.title"), EcoreDiagramEditorPlugin.getString("EClass1CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -112,7 +113,8 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EPackage_2002);
 		elementTypes.add(EcoreElementTypes.EPackage_3005);
-		ToolEntry result = new NodeToolEntry("EPackage", "Create Package", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EPackage2CreationTool.title"), EcoreDiagramEditorPlugin.getString("EPackage2CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -131,7 +133,8 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAnnotation_3003);
 		elementTypes.add(EcoreElementTypes.EAnnotation_2003);
-		ToolEntry result = new NodeToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EAnnotation3CreationTool.title"), EcoreDiagramEditorPlugin.getString("EAnnotation3CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -150,7 +153,8 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EDataType_3006);
 		elementTypes.add(EcoreElementTypes.EDataType_2004);
-		ToolEntry result = new NodeToolEntry("EDataType", "Create DataType", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EDataType4CreationTool.title"), EcoreDiagramEditorPlugin.getString("EDataType4CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -169,7 +173,8 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EEnum_3007);
 		elementTypes.add(EcoreElementTypes.EEnum_2005);
-		ToolEntry result = new NodeToolEntry("EEnum", "Create Enumeration", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EEnum5CreationTool.title"), EcoreDiagramEditorPlugin.getString("EEnum5CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -187,7 +192,8 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAttribute_3001);
-		ToolEntry result = new NodeToolEntry("EAttribute", "Create Attribute", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.title"), EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -205,7 +211,8 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EOperation_3002);
-		ToolEntry result = new NodeToolEntry("EOperation", "Create Operation", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.title"), EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -223,7 +230,8 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_3008);
-		ToolEntry result = new NodeToolEntry("Annotation details", "Create Annotation details", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.title"), EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -241,7 +249,8 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EEnumLiteral_3009);
-		ToolEntry result = new NodeToolEntry("EEnumLiteral", "Create Enumeration literal", smallImage, largeImage, elementTypes);
+		ToolEntry result = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.title"), EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.desc"), smallImage, largeImage, elementTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -259,7 +268,8 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EAnnotationReferences_4001);
-		ToolEntry result = new LinkToolEntry("EAnnotation reference", "Create Annotation reference link", smallImage, largeImage, relationshipTypes);
+		ToolEntry result = new LinkToolEntry(
+				EcoreDiagramEditorPlugin.getString("EAnnotationreference1CreationTool.title"), EcoreDiagramEditorPlugin.getString("EAnnotationreference1CreationTool.desc"), smallImage, largeImage, relationshipTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -277,7 +287,8 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EReference_4002);
-		ToolEntry result = new LinkToolEntry("Association", "Create Association link", smallImage, largeImage, relationshipTypes);
+		ToolEntry result = new LinkToolEntry(
+				EcoreDiagramEditorPlugin.getString("Association2CreationTool.title"), EcoreDiagramEditorPlugin.getString("Association2CreationTool.desc"), smallImage, largeImage, relationshipTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -295,7 +306,8 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EReference_4003);
-		ToolEntry result = new LinkToolEntry("Aggregation", "Create Aggregation link", smallImage, largeImage, relationshipTypes);
+		ToolEntry result = new LinkToolEntry(
+				EcoreDiagramEditorPlugin.getString("Aggregation3CreationTool.title"), EcoreDiagramEditorPlugin.getString("Aggregation3CreationTool.desc"), smallImage, largeImage, relationshipTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}
@@ -313,7 +325,8 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EClassESuperTypes_4004);
-		ToolEntry result = new LinkToolEntry("Generalization", "Create Generalization link", smallImage, largeImage, relationshipTypes);
+		ToolEntry result = new LinkToolEntry(
+				EcoreDiagramEditorPlugin.getString("Generalization4CreationTool.title"), EcoreDiagramEditorPlugin.getString("Generalization4CreationTool.desc"), smallImage, largeImage, relationshipTypes); //$NON-NLS-1$ $NON-NLS-2$
 
 		return result;
 	}

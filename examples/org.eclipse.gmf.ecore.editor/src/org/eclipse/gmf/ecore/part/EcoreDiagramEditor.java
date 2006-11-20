@@ -14,6 +14,7 @@ import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -177,6 +178,15 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
 		scaledFeedbackLayer.setEnabled(false);
 		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
+		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
+		new EcorePaletteFactory().fillPalette(root);
+		return root;
 	}
 
 	/**

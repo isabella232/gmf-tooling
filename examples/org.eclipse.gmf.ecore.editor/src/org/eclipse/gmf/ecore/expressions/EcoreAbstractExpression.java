@@ -55,6 +55,11 @@ public abstract class EcoreAbstractExpression {
 	/**
 	 * @generated
 	 */
+	private Map env;
+
+	/**
+	 * @generated
+	 */
 	private IStatus status = Status.OK_STATUS;
 
 	/**
@@ -70,6 +75,7 @@ public abstract class EcoreAbstractExpression {
 	protected EcoreAbstractExpression(String body, EClassifier context, Map env) {
 		this.body = body;
 		this.context = context;
+		this.env = env;
 	}
 
 	/**
@@ -132,6 +138,13 @@ public abstract class EcoreAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Map environment() {
+		return env;
 	}
 
 	/**

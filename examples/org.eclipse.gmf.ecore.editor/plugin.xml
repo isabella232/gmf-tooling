@@ -290,13 +290,7 @@
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
-      <?gmfgen generated="true"?>
-      <paletteProvider class="org.eclipse.gmf.ecore.providers.EcorePaletteProvider">
-         <Priority name="Lowest"/>
-         <editor id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/>
-      </paletteProvider>
-   </extension>
+   
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <?gmfgen generated="true"?>

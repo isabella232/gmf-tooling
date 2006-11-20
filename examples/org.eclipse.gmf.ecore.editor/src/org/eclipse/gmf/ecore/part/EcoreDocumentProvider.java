@@ -246,8 +246,6 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 				if (file != null && file.isReadOnly()) {
 					files2Validate.add(file);
 				}
-				IWorkspace workspace = file.getWorkspace();
-				workspace.validateEdit(new IFile[] { file }, computationContext);
 			}
 			ResourcesPlugin.getWorkspace().validateEdit((IFile[]) files2Validate.toArray(new IFile[files2Validate.size()]), computationContext);
 		}
