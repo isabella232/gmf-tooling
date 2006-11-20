@@ -129,7 +129,7 @@ public class EditorGenerator
   protected final String TEXT_110 = ".getWorkspace().getRoot().getFile(path);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL;
   protected final String TEXT_111 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_112 = " getURIFromInput(";
-  protected final String TEXT_113 = " input) {";
+  protected final String TEXT_113 = " input) {" + NL + "\t\tif (input == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}";
   protected final String TEXT_114 = NL + "\t\tif (input instanceof ";
   protected final String TEXT_115 = ") {" + NL + "\t\t\treturn ";
   protected final String TEXT_116 = ".createPlatformResourceURI(((";

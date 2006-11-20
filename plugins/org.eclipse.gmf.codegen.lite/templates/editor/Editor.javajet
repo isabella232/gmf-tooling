@@ -302,6 +302,9 @@ if (!isRichClientPlatform) {
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> getURIFromInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input == null) {
+			return null;
+		}
 <%if (!isRichClientPlatform) {%>
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
 			return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>)input).getFile().getFullPath().toString());
