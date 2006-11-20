@@ -40,9 +40,11 @@ import org.osgi.util.tracker.ServiceTracker;
 public class GenProjectSetup extends GenProjectBaseSetup {
 
 	private Bundle myBundle;
+	private final boolean myIsFullRuntimeRun;
 
 	public GenProjectSetup(GeneratorConfiguration generatorFactory) {
 		super(generatorFactory);
+		myIsFullRuntimeRun = generatorFactory instanceof RuntimeBasedGeneratorConfiguration;
 	}
 
 	/**
@@ -58,13 +60,17 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			}
 		};
 		try {
-			RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
+			if (myIsFullRuntimeRun) {
+				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
+			}
 			myBundle = null;
 			super.generateAndCompile(rtWorkspace, diaGenSource);
 			myBundle.start();
 			registerExtensions(myBundle);
-			// there should be hit, any .diagram plugin is supposed to include element types
-			monitorExtensionLoad(extensionChangeNotification, 60);
+			if (myIsFullRuntimeRun) {
+				// there should be hit, any .diagram plugin is supposed to include element types
+				monitorExtensionLoad(extensionChangeNotification, 60);
+			}
 			
 			disabledNoExprImplDebugOption();
 		} catch (BundleException ex) {
@@ -72,7 +78,9 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		} catch (Exception ex) {
 			Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 		} finally {
-			RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
+			if (myIsFullRuntimeRun) {
+				RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
+			}
 		}
 		return this;
 	}
