@@ -176,6 +176,16 @@ if (!isRichClientPlatform) {
 	 * @generated
 	 */
 	public void dispose() {
+<%
+if (!isRichClientPlatform) {
+%>
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> oldResource = getFileFromInput(getEditorInput());
+		if (oldResource != null) {
+			oldResource.getWorkspace().removeResourceChangeListener(getResourceTracker());
+		}
+<%
+}
+%>
 		// important: always call super implementation of dispose
 		super.dispose();
 	}
