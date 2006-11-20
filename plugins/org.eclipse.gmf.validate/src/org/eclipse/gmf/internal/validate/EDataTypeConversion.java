@@ -30,7 +30,7 @@ public class EDataTypeConversion {
 			new Class[] { BigInteger.class, BigDecimal.class }
 	};
 	
-	private static final List integrals = new ArrayList();	
+	private static final List<Class> integrals = new ArrayList<Class>();	
 	static {
 		for (int i = 0; i < integralsToFloatsArray.length; i++) {
 			integrals.add(integralsToFloatsArray[i][0]);
@@ -57,7 +57,7 @@ public class EDataTypeConversion {
 		return leftClass.equals(rightClass);
 	}
 	
-	private static boolean isConvertable(Class left, Class right) {
+	private static boolean isConvertable(Class<?> left, Class<?> right) {
 		if(left == null || right == null) {
 			throw new IllegalArgumentException("null Class argument"); //$NON-NLS-1$
 		}

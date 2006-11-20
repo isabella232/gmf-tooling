@@ -38,7 +38,7 @@ public abstract class AbstractExpression implements IModelExpression  {
 	private IStatus status;
 	private String body;
 	private EClassifier contextClassifier; 
-	private Map extEnv;
+	private Map<String, EClassifier> extEnv;
 			
 	/**
 	 * Constructs expression from its body, with specified context.
@@ -63,13 +63,13 @@ public abstract class AbstractExpression implements IModelExpression  {
 		this.contextClassifier = context;
 		this.status = Status.OK_STATUS;
 		if(extendedEnv != null) {
-			this.extEnv = new HashMap(5);			
+			this.extEnv = new HashMap<String, EClassifier>(5);			
 			for (Iterator it = extendedEnv.getVariableNames().iterator(); it.hasNext();) {
 				String nextVar = (String) it.next();
 				extEnv.put(nextVar, extendedEnv.getTypeOf(nextVar));
 			}
 		} else {
-			this.extEnv = Collections.EMPTY_MAP;
+			this.extEnv = Collections.emptyMap();
 		}
 	}
 	

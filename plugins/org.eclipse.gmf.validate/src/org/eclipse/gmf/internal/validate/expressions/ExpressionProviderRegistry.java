@@ -36,10 +36,10 @@ import org.eclipse.osgi.util.NLS;
 public class ExpressionProviderRegistry {
 	private static final ExpressionProviderRegistry INSTANCE = new ExpressionProviderRegistry(); 
 			
-	private Map registry;
+	private Map<String, Descriptor> registry;
 	
 	private ExpressionProviderRegistry() {
-		registry = new HashMap();
+		registry = new HashMap<String, Descriptor>();
 		initialiaze();
 	}
 	
@@ -84,7 +84,7 @@ public class ExpressionProviderRegistry {
 	 *         such provider is found.
 	 */
 	public Descriptor getDescriptor(String language) {
-		return (Descriptor)registry.get(language); 
+		return registry.get(language); 
 	}
 	
 	
@@ -97,7 +97,7 @@ public class ExpressionProviderRegistry {
 			if(descriptor.getStatus().isOK()) {
 				String lang = descriptor.getLanguage();
 				assert lang != null;
-				Descriptor currentDsc = (Descriptor)registry.get(lang);				
+				Descriptor currentDsc = registry.get(lang);				
 				if(currentDsc == null) {
 					registry.put(lang, descriptor);
 				} else {

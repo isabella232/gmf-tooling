@@ -41,6 +41,7 @@ public class ExternModelImport {
 	
 	private static final EValidator VALIDATOR = new AbstractValidator() {
 		
+		@SuppressWarnings("synthetic-access")
 		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
 			super.validate(eClass, eObject, diagnostics, context);
 			ExternModelImport importer = getImporter(context, eObject);
@@ -58,7 +59,7 @@ public class ExternModelImport {
 	
 	private ResourceSet importedModels;
 	private EPackage.Registry registry;
-	private HashSet processedPackages;
+	private HashSet<EPackage> processedPackages;
 	
 
 	private ExternModelImport(EObject validatedObject) {
@@ -67,13 +68,14 @@ public class ExternModelImport {
 		if(targetModel != null) {
 			this.importedModels.setURIConverter(targetModel.getResourceSet().getURIConverter());
 		}
-		this.processedPackages = new HashSet();
+		this.processedPackages = new HashSet<EPackage>();
 	}
 	
 	public static EValidator getImportValidator() {
 		return VALIDATOR;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static ExternModelImport getImporter(Map context, EObject validatedEObject) {
 		if(context != null) {
 			Object value = context.get(ExternModelImport.class);
@@ -160,11 +162,12 @@ public class ExternModelImport {
 				EPackage p = EPackage.Registry.INSTANCE.getEPackage(importVal);
 				if (p != null) {
 					return true;
-				} else {
-					if (!loadAsResourceURI(importVal, annotation, diagnostics)) {
-						result = false;
-					}
+				} 
+
+				if (!loadAsResourceURI(importVal, annotation, diagnostics)) {
+					result = false;
 				}
+
 			} else {
 				result = false;				
 				reportInvalidModelURI(importVal, annotation.getEModelElement(), diagnostics);					

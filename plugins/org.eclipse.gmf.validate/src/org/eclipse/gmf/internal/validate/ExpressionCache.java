@@ -67,6 +67,7 @@ public abstract class ExpressionCache {
 	 * @return the constraint proxy encapsulating the parsed constraint
 	 *         expression
 	 */
+	@SuppressWarnings("unchecked")
 	public IModelExpression getExpression(String body, EClassifier context, IParseEnvironment env) {
 		if (body == null || context == null) {
 			throw new IllegalArgumentException("Null expression body or context"); //$NON-NLS-1$

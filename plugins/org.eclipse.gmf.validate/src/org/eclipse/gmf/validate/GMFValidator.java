@@ -86,6 +86,7 @@ public class GMFValidator extends ValidatorChain {
 		private EValidator gmfValidator;
 		private EValidator noEcoreValidator;
 		
+		@SuppressWarnings("synthetic-access")
 		DelegateRegistry() {
 			this(null);
 			gmfValidator = GMFValidator.INSTANCE;
@@ -96,6 +97,7 @@ public class GMFValidator extends ValidatorChain {
 			this.options = options;
 		}
 		
+		@SuppressWarnings("synthetic-access")
 		private EValidator getGmfValidator() {
 			if(gmfValidator == null) {
 				gmfValidator = new ValidatorChain(ALL_VALIDATORS, options);
@@ -103,6 +105,7 @@ public class GMFValidator extends ValidatorChain {
 			return gmfValidator;
 		}
 		
+		@SuppressWarnings("synthetic-access")
 		private EValidator getNoEcoreValidator() {
 			if(noEcoreValidator == null) {
 				noEcoreValidator = new ValidatorChain(GMF_VALIDATORS, options);
@@ -121,6 +124,7 @@ public class GMFValidator extends ValidatorChain {
 			return createDelegator(ePackage, delegateValidator);
 		}
 		
+		@SuppressWarnings("unchecked")
 		private EValidator createDelegator(Object key, EValidator delegate) {		
 			// extend custom validator retrieved from the registry only with GMF validators
 			EValidator delegatingValidator = new ValidatorChain(new EValidator[] { delegate, getNoEcoreValidator() });

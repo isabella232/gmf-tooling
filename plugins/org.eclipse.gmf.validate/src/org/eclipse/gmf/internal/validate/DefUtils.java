@@ -156,7 +156,7 @@ public class DefUtils {
 	}
 
 	public static class LookupByNameContextProvider extends ExpressionBasedProvider implements ContextProvider {
-		private Map contextCache = new HashMap(5);
+		private Map<Object, EClassifier> contextCache = new HashMap<Object, EClassifier>(5);
 		private EPackage.Registry registry;		
 		
 		public LookupByNameContextProvider(IModelExpression expression, EPackage.Registry registry) {
@@ -169,10 +169,10 @@ public class DefUtils {
 				Object typeNameObj = evaluate(resolutionContext);
 				if(typeNameObj instanceof String) {
 					if(contextCache.containsKey(typeNameObj)) {
-						return (EClassifier)contextCache.get(typeNameObj);
+						return contextCache.get(typeNameObj);
 					}
 					String[] typeName = ((String)typeNameObj).split("::"); //$NON-NLS-1$
-					List nameSeq = new ArrayList(Arrays.asList(typeName));
+					List nameSeq = new ArrayList<String>(Arrays.asList(typeName));
 					if(typeName.length > 1) {
 						nameSeq.remove(typeName.length - 1);
 						EPackage ePackage = EcoreEnvironment.findPackage(nameSeq, registry);
@@ -233,7 +233,7 @@ public class DefUtils {
 		
 	public static class ReferencedContextProvider extends AbstractProvider implements ContextProvider {
 		private EReference contextRef;
-		private Map/*<EClass, ContextProvider>*/ referencedContexts = Collections.EMPTY_MAP;		
+		private Map<EClass, ContextProvider> referencedContexts = Collections.emptyMap();		
 		
 		public ReferencedContextProvider(EClass context, String referenceName, IModelExpressionProvider oclExprProvider, EPackage.Registry registry) {
 			if(context == null) {
@@ -255,9 +255,9 @@ public class DefUtils {
 			
 			if(contextRef != null) {
 				EClass referencedClass = contextRef.getEReferenceType();
-				List subTypes  = getSubTypes(getRootEPackage(referencedClass.getEPackage()), referencedClass, new ArrayList());
+				List<EClassifier> subTypes  = getSubTypes(getRootEPackage(referencedClass.getEPackage()), referencedClass, new ArrayList<EClassifier>());
 				
-				referencedContexts = new HashMap(5);				
+				referencedContexts = new HashMap<EClass, ContextProvider>(5);				
 				for (Iterator it = subTypes.iterator(); it.hasNext();) {
 					EClass nextClass = (EClass) it.next();
 					ContextProvider referencedContext = DefUtils.getContextClass(nextClass, oclExprProvider, null, registry);
@@ -267,7 +267,7 @@ public class DefUtils {
 					}
 				}
 				// perform coverage check
-				List statuses = Collections.EMPTY_LIST;
+				List<IStatus> statuses = Collections.emptyList();
 				for (Iterator it = subTypes.iterator(); it.hasNext();) {
 					EClass nextClass = (EClass) it.next();
 					
@@ -276,16 +276,16 @@ public class DefUtils {
 								LabelProvider.INSTANCE.getObjectLabel(nextClass),
 								LabelProvider.INSTANCE.getFeatureLabel(contextRef));
 						if(statuses.isEmpty()) {
-							statuses = new ArrayList();
+							statuses = new ArrayList<IStatus>();
 						}
 						statuses.add(GMFValidationPlugin.createStatus(IStatus.ERROR, -1, message, null));
 					}
 				}
 				if(statuses.size() == 1) {
-					setStatus((IStatus)statuses.get(0));					
+					setStatus(statuses.get(0));					
 				} else {
 					setStatus(new MultiStatus(GMFValidationPlugin.getPluginId(), -1,
-							(IStatus[])statuses.toArray(new IStatus[statuses.size()]),
+							statuses.toArray(new IStatus[statuses.size()]),
 							Messages.def_MissingCtxDefInReferencedCtxProviders, null));
 				}
 			}
@@ -310,10 +310,10 @@ public class DefUtils {
 		}		
 		
 		private ContextProvider getProvider(EClass contextProviderEClass) {
-			ContextProvider provider = (ContextProvider)referencedContexts.get(contextProviderEClass);
+			ContextProvider provider = referencedContexts.get(contextProviderEClass);
 			if(provider == null) {
 				for(Iterator it = contextProviderEClass.getESuperTypes().iterator(); it.hasNext();) {
-					ContextProvider nextProvider = (ContextProvider)referencedContexts.get(it.next());
+					ContextProvider nextProvider = referencedContexts.get(it.next());
 					if(nextProvider != null) {
 						return nextProvider;
 					}
@@ -492,7 +492,7 @@ public class DefUtils {
 			}
 		} else {
 			Class rightClass = right.getInstanceClass();
-			Class leftClass = left.getInstanceClass();			
+			Class<?> leftClass = left.getInstanceClass();			
 			if(leftClass != null && rightClass != null && leftClass.isAssignableFrom(rightClass)) {
 				return true;
 			} 
@@ -551,6 +551,7 @@ public class DefUtils {
 		return null;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public static List getAnnotationsWithKeyAndValue(EModelElement eModelElement, String sourceURI, String key, String value) {
 		List annotations = null;
 		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -568,6 +569,7 @@ public class DefUtils {
 		return annotations != null ? annotations : Collections.EMPTY_LIST;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public static List getAnnotationValues(EModelElement eModelElement, String sourceURI, String key) {
 		List annotations = null;
 		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -662,7 +664,7 @@ public class DefUtils {
 	 *            placeholder for the collected sub-types
 	 * @return passed <code>foundSubTypes</code> list for convenience
 	 */
-	static List getSubTypes(EPackage ePackage, EClass superType, List foundSubTypes) {
+	static List<EClassifier> getSubTypes(EPackage ePackage, EClass superType, List<EClassifier> foundSubTypes) {
 		for (Iterator it = ePackage.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier classifier = (EClassifier) it.next();
 			if(classifier instanceof EClass && (superType).isSuperTypeOf((EClass)classifier)) {

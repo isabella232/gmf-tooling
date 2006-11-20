@@ -98,11 +98,13 @@ public class AbstractValidator implements EValidator {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void setRootTargetObject(EObject targetObject, Map context) {
 		assert !context.containsKey(ROOT_TARGET_OBJECT_KEY);
 		context.put(ROOT_TARGET_OBJECT_KEY, EcoreUtil.getRootContainer(targetObject, true)); 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static MultiProviderCache getExpressionCache(Map context) {
 		if(context != null) {
 			MultiProviderCache cache = (MultiProviderCache)context.get(MultiProviderCache.class);
@@ -136,6 +138,7 @@ public class AbstractValidator implements EValidator {
 	 * @param context
 	 * @throws IllegalArgumentException
 	 */
+	@SuppressWarnings("unchecked")
 	static void setOptions(ValidationOptions options, Map context) {
 		if(context == null) {
 			throw new IllegalArgumentException("Null validation options"); //$NON-NLS-1$
@@ -178,7 +181,7 @@ public class AbstractValidator implements EValidator {
 	
 	
 	private static class MultiProviderCache {
-		private HashMap lang2ProviderMap = new HashMap();
+		private HashMap<String, ExpressionCache> lang2ProviderMap = new HashMap<String, ExpressionCache>();
 		
 		public MultiProviderCache() { 			
 		}
@@ -193,7 +196,7 @@ public class AbstractValidator implements EValidator {
 		 *         language.
 		 */
 		public ExpressionCache getCache(String language) {
-			ExpressionCache cache = (ExpressionCache) lang2ProviderMap.get(language);
+			ExpressionCache cache = lang2ProviderMap.get(language);
 			if (cache == null) {
 				IModelExpressionProvider provider = ExpressionProviderRegistry.getInstance().getProvider(language);
 				if (provider == null) {

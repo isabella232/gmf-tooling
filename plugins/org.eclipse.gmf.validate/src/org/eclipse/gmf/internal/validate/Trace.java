@@ -58,7 +58,7 @@ public class Trace {
 	/**
 	 * The cached debug options (for optimization).
 	 */
-	private static final Map cachedOptions = new HashMap();
+	private static final Map<String, Boolean> cachedOptions = new HashMap<String, Boolean>();
 
 	/**
 	 * Retrieves a Boolean value indicating whether tracing is enabled.
@@ -82,7 +82,7 @@ public class Trace {
 			Boolean value = null;
 			
 			synchronized (cachedOptions) {
-				value = (Boolean) cachedOptions.get(option);
+				value = cachedOptions.get(option);
 	
 				if (null == value) {
 					value = Boolean.valueOf(Platform.getDebugOption(option));

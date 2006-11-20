@@ -464,7 +464,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			return null;
 		}
 		
-		Map env = null;
+		Map<String, TypeProvider> env = null;
 		for (Iterator it = varDefs.iterator(); it.hasNext();) {
 			EAnnotation nextVarAnnotation = (EAnnotation) it.next();
 			
@@ -489,24 +489,26 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 				continue;
 			}
 			if(env == null) {
-				env = new HashMap();
+				env = new HashMap<String, TypeProvider>();
 			}
 			env.put(name, type);
 		}
 		return env;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void registerCtxBinding(EStructuralFeature contextDefOwner, ContextData contextData, Map context) {
 		if(context != null) {			
 			Map bindMap = (Map)context.get(ContextProvider.class);
 			if(bindMap == null) {
-				bindMap = new HashMap();
+				bindMap = new HashMap<EStructuralFeature, ContextData>();
 				context.put(ContextProvider.class, bindMap);
 			}
 			bindMap.put(contextDefOwner, contextData);
 		}
 	}		
 	
+	@SuppressWarnings("unchecked")
 	private static void registerDefinition(EClass eClass, ValueSpecDef definition, Map context) {
 		assert definition != null;
 		assert eClass != null;
@@ -514,7 +516,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		if(context != null) {
 			Map defMap = (Map)context.get(ValueSpecDef.class);
 			if(defMap == null) {
-				defMap = new HashMap();
+				defMap = new HashMap<EClass, ValueSpecDef>();
 				context.put(ValueSpecDef.class, defMap);
 			}
 			defMap.put(eClass, definition);

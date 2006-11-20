@@ -27,7 +27,7 @@ public interface IParseEnvironment {
 	 * Gets the names of all variables currently set in this environments.
 	 * @return set of String objects representing the names, never <code>null</code>   
 	 */
-	Set/*String*/ getVariableNames();
+	Set<String> getVariableNames();
 		
 	/**
 	 * Declare variable in this environment.

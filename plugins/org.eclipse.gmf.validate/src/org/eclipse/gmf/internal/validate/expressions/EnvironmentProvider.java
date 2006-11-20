@@ -43,7 +43,7 @@ public class EnvironmentProvider {
 	}
 		
 
-	private static class EnvImpl extends HashMap implements IParseEnvironment {
+	private static class EnvImpl extends HashMap<String, EClassifier> implements IParseEnvironment {
 		private EPackage.Registry importReg;		
 		EnvImpl() {
 			super(5);			
@@ -61,10 +61,10 @@ public class EnvironmentProvider {
 		}
 		
 		public EClassifier getTypeOf(String name) {		
-			return (EClassifier)get(name);
+			return get(name);
 		}
 		
-		public Set getVariableNames() {		
+		public Set<String> getVariableNames() {		
 			return keySet();
 		}
 		
@@ -82,7 +82,7 @@ public class EnvironmentProvider {
 		}
 	}
 	
-	private static class EvalEnvImpl extends HashMap implements IEvaluationEnvironment {
+	private static class EvalEnvImpl extends HashMap<String, Object> implements IEvaluationEnvironment {
 		EvalEnvImpl() {
 			super(5);
 		}
