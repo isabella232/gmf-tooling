@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * @author artem
@@ -76,5 +77,20 @@ public class Utils {
 	public static String createUniquePluginID() {
 		Calendar c = Calendar.getInstance();
 		return "sample.d" + c.get(Calendar.DAY_OF_YEAR)+ ".h" + c.get(Calendar.HOUR_OF_DAY) + ".m" + c.get(Calendar.MINUTE) + ".s" + c.get(Calendar.SECOND);
+	}
+
+	/**
+	 * @return false if timeout broke the loop
+	 */
+	public static boolean dispatchDisplayMessages(boolean[] condition, int timeoutSeconds) {
+		assert Display.getCurrent() != null;
+		final long start = System.currentTimeMillis();
+		final long deltaMillis = timeoutSeconds * 1000; 
+		do {
+			while (Display.getCurrent().readAndDispatch()) {
+				;
+			}
+		} while (condition[0] && (System.currentTimeMillis() - start) < deltaMillis);
+		return !condition[0];
 	}
 }

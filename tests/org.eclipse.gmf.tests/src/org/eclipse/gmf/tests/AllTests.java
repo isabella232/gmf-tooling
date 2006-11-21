@@ -101,7 +101,7 @@ public class AllTests {
 		suite.addTestSuite(XmlTextMergerTest.class);
 		suite.addTestSuite(TestDefaultMergeService.class);
 		suite.addTestSuite(PluginXMLTextMergerTest.class);
-		
+
 		suite.addTest(feed(FigureCodegenTest.class, new FigureCodegenSetup()));
 		suite.addTest(feed(LabelSupportTest.class, new LabelSupportSetup()));
 		suite.addTest(feed(ShapePropertiesTest.class, new ShapePropertiesSetup()));
@@ -139,18 +139,12 @@ public class AllTests {
 		suite.addTest(AllMigrationTests.suite());
 		suite.addTest(AllValidateTests.suite());
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
+
 		//$JUnit-END$
-		suite.addTest(new TestCase("testCleanup") {
-			protected void runTest() throws Throwable {
-				try {
-					sessionSetup.cleanup();
-					sessionSetup2.cleanup();
-				} catch (RuntimeException ex) {
-					throw ex;
-				} catch (Exception ex) {
-					Plugin.logError("cleanup failed", ex);
-					fail(ex.getMessage());
-				}
+		suite.addTest(new CleanupTest("testCleanup") {
+			protected void performCleanup() throws Exception {
+				sessionSetup.cleanup();
+				sessionSetup2.cleanup();
 			}
 		});
 		
