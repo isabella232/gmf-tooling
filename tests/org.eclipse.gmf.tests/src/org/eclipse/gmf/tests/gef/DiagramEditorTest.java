@@ -247,8 +247,15 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		}
 	}
 
-	public void testDiagramAndModelResorcesExternalModification() {
-		// TODO: same test with "true"
+	public void testDiagramAndModelExternalModificationSameResource() {
+		checkDiagramAndModelExternalModification(true);
+	}
+
+	public void testDiagramAndModelExternalModificationSeparateResources() {
+		checkDiagramAndModelExternalModification(false);
+	}
+
+	private void checkDiagramAndModelExternalModification(boolean sameFile) {
 		IEditorPart editorPart = setupCustomEditorPart(false);
 		try {
 			Diagram diagram = getDiagram();
@@ -270,7 +277,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 			redispatchEvents();
 
 			diagram = getDiagram();
-			assertFalse(editorPart.isDirty());
+			assertFalse("Editor is dirty", editorPart.isDirty());
 			assertTrue("Diagram content was not refreshed", diagram.getChildren().size() > 0);
 			assertTrue("Domain model content was not refreshed", diagram.getElement().eContents().size() > 0);
 		} finally {
@@ -280,7 +287,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public void testDiagramResorceExternalModification() {
 		Diagram diagram = getDiagram();
-		String newDiagramName = diagram.getName() + getUniqueString();
+		String newDiagramName = getUniqueString();
 
 		Diagram diagramCopy = reloadInSeparateResoruceSet(diagram);
 		try {
@@ -296,6 +303,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		redispatchEvents();
 
 		diagram = getDiagram();
+		assertFalse("Editor is dirty", getEditor().isDirty());
 		assertEquals("Diagram name was not updated", newDiagramName, diagram.getName());
 	}
 
@@ -315,6 +323,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		redispatchEvents();
 
 		diagram = getDiagram();
+		assertFalse("Editor is dirty", getEditor().isDirty());
 		EObject diagramModel = diagram.getElement();
 		EStructuralFeature stFeature = diagramModel.eClass().getEStructuralFeature("diagramAttribute");
 		assertNotNull("Name feature not found", stFeature);
