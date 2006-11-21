@@ -33,10 +33,12 @@ public class CreationWizardGenerator
   protected final String TEXT_16 = "(null) {" + NL + "" + NL + "\t\t\tprotected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {";
   protected final String TEXT_17 = NL + "\t\t\t\tnew IRunnableWithProgress() {" + NL + "" + NL + "\t\t\tpublic void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {";
   protected final String TEXT_18 = NL + "\t\t\t\tdiagram = ";
-  protected final String TEXT_19 = ".createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);" + NL + "\t\t\t\tif (isOpenNewlyCreatedDiagramEditor() && diagram != null) {" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_20 = ".openDiagram(diagram);" + NL + "\t\t\t\t\t} catch (PartInitException e) {" + NL + "\t\t\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Error opening diagram editor\", null, e.getStatus());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tgetContainer().run(false, true, op);" + NL + "\t\t} catch (InterruptedException e) {" + NL + "\t\t\treturn false;" + NL + "\t\t} catch (InvocationTargetException e) {" + NL + "\t\t\tif (e.getTargetException() instanceof CoreException) {" + NL + "\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Creation Problems\", null, ((CoreException) e.getTargetException()).getStatus());" + NL + "\t\t\t} else {" + NL + "\t\t\t\t";
-  protected final String TEXT_21 = ".getInstance().logError(\"Error creating diagram\", e.getTargetException()); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn diagram != null;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_19 = ".createDiagram(page.getDiagramURI(),";
+  protected final String TEXT_20 = NL + "\t\t\t\t\t\tpage.getModelURI(),";
+  protected final String TEXT_21 = NL + "\t\t\t\t\t\tmonitor);" + NL + "\t\t\t\tif (isOpenNewlyCreatedDiagramEditor() && diagram != null) {" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_22 = ".openDiagram(diagram);" + NL + "\t\t\t\t\t} catch (PartInitException e) {" + NL + "\t\t\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Error opening diagram editor\", null, e.getStatus());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tgetContainer().run(false, true, op);" + NL + "\t\t} catch (InterruptedException e) {" + NL + "\t\t\treturn false;" + NL + "\t\t} catch (InvocationTargetException e) {" + NL + "\t\t\tif (e.getTargetException() instanceof CoreException) {" + NL + "\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Creation Problems\", null, ((CoreException) e.getTargetException()).getStatus());" + NL + "\t\t\t} else {" + NL + "\t\t\t\t";
+  protected final String TEXT_23 = ".getInstance().logError(\"Error creating diagram\", e.getTargetException()); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn diagram != null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_24 = NL;
 
   public String generate(Object argument)
   {
@@ -92,15 +94,20 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
     } else {
     stringBuffer.append(TEXT_17);
     }
+    final boolean standaloneDomainModel = !genDiagram.getEditorGen().isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
     stringBuffer.append(TEXT_18);
     stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    if (standaloneDomainModel) {
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(pluginClassName);
+    }
     stringBuffer.append(TEXT_21);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_22);
+    stringBuffer.append(pluginClassName);
+    stringBuffer.append(TEXT_23);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }

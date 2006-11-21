@@ -131,7 +131,12 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 <%}%>
-				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
+<%final boolean standaloneDomainModel = !genDiagram.getEditorGen().isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;%>
+				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(page.getDiagramURI(),
+<%if (standaloneDomainModel) {%>
+						page.getModelURI(),
+<%}%>
+						monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagram(diagram);
