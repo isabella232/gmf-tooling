@@ -403,5 +403,20 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
             class="<%=application.getPerspectiveQualifiedClassName()%>">
       </perspective>
    </extension>
+
+   <extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%newDiagramActionSetLabel"
+            visible="true"
+            id="<%=genPlugin.getID()%>.NewDiagramActionSet">
+         <action
+               label="%newDiagramActionLabel"
+               class="<%=editorGen.getApplication().getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="<%=genPlugin.getID()%>.NewDiagramAction">
+         </action>
+      </actionSet>
+   </extension>  
 <%}%>
 </plugin>

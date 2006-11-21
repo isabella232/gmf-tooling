@@ -18,7 +18,10 @@ if (genDiagram.generateCreateShortcutAction()) {%>
 createShortcutActionLabel=Create Shortcut...
 <%}%>
 loadResourceActionLabel=Load Resource...
-
+<%if (genPlugin.getEditorGen().getApplication() != null) {%>
+newDiagramActionSetLabel=New <%=genPlugin.getEditorGen().getModelID()%> Diagram
+newDiagramActionLabel=<%=genPlugin.getEditorGen().getModelID()%> Diagram
+<%}%>
 navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> diagram contents
 <%if (genPlugin.getEditorGen().getPropertySheet() != null) {
 	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();%>

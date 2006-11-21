@@ -292,8 +292,11 @@ public class PluginXML
   protected final String TEXT_274 = "\"/>" + NL + "      </application>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.perspectives\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <perspective" + NL + "            id=\"";
   protected final String TEXT_275 = "\"" + NL + "            name=\"";
   protected final String TEXT_276 = " Perspective\"" + NL + "            class=\"";
-  protected final String TEXT_277 = "\">" + NL + "      </perspective>" + NL + "   </extension>";
-  protected final String TEXT_278 = NL + "</plugin>";
+  protected final String TEXT_277 = "\">" + NL + "      </perspective>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.actionSets\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <actionSet" + NL + "            label=\"%newDiagramActionSetLabel\"" + NL + "            visible=\"true\"" + NL + "            id=\"";
+  protected final String TEXT_278 = ".NewDiagramActionSet\">" + NL + "         <action" + NL + "               label=\"%newDiagramActionLabel\"" + NL + "               class=\"";
+  protected final String TEXT_279 = "$NewDiagramAction\"" + NL + "               menubarPath=\"file/new/additions\"" + NL + "               id=\"";
+  protected final String TEXT_280 = ".NewDiagramAction\">" + NL + "         </action>" + NL + "      </actionSet>" + NL + "   </extension>  ";
+  protected final String TEXT_281 = NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -1053,8 +1056,14 @@ for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) 
     stringBuffer.append(TEXT_276);
     stringBuffer.append(application.getPerspectiveQualifiedClassName());
     stringBuffer.append(TEXT_277);
-    }
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_278);
+    stringBuffer.append(editorGen.getApplication().getActionBarAdvisorQualifiedClassName());
+    stringBuffer.append(TEXT_279);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_280);
+    }
+    stringBuffer.append(TEXT_281);
     return stringBuffer.toString();
   }
 }
