@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.Utils;
 import org.eclipse.osgi.service.debug.DebugOptions;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
@@ -90,14 +91,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	 */
 	private void monitorExtensionLoad(boolean[] flag, int timeoutSeconds) {
 		if (null != Display.getCurrent()) {
-			final long start = System.currentTimeMillis();
-			final long deltaMillis = timeoutSeconds * 1000; 
-			do {
-				while (Display.getCurrent().readAndDispatch()) {
-					;
-				}
-			} while (flag[0] && (System.currentTimeMillis() - start) < deltaMillis);
-			if (flag[0]) {
+			if (!Utils.dispatchDisplayMessages(flag, timeoutSeconds)) {
 				// timeout
 				Plugin.logError("Timeout while waiting for extension point registry to refresh !!!");
 				// left caller on its own... 
@@ -148,23 +142,8 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
-// TODO: uninstall not only myBundle, but all the bundles installed in hookProjectBuild() method
-// Commented-out code is important for fixing problems with uninstalling bundles with opened editors.
-// Should be uncommented on switching on corresponding test (DiagramEditorTest)
-//		final boolean[] extensionChangeNotification = new boolean[] {true};
-//		IExtensionChangeHandler listener = new IExtensionChangeHandler() {
-//			public void addExtension(IExtensionTracker tracker, IExtension extension) {
-//			}
-//			public void removeExtension(IExtension extension, Object[] objects) {
-//				extensionChangeNotification[0] = false;
-//			}
-//		};
-//
-//		IExtensionTracker tracker = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getExtensionTracker();
-//        tracker.registerHandler(listener, null);
+		// TODO: uninstall not only myBundle, but all the bundles installed in hookProjectBuild() method
 		myBundle.uninstall();
-//		// there should be hit, any .diagram plugin is supposed to include editor declaration
-//		monitorExtensionLoad(extensionChangeNotification, 60);
 	}
 	
 	private void disabledNoExprImplDebugOption() {
