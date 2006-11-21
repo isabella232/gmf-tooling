@@ -13,6 +13,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
@@ -37,6 +39,41 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public TaiPanCreationWizardPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
+	}
+
+	/**
+	 * @generated
+	 */
+	public URI getDiagramURI() {
+		IPath path = getFilePath();
+		if (path.getFileExtension() == null) {
+			path = path.addFileExtension("taipan_diagram"); //$NON-NLS-1$
+		}
+		return URI.createPlatformResourceURI(path.toString());
+	}
+
+	/**
+	 * @generated
+	 */
+	public URI getModelURI() {
+		IPath path = getFilePath();
+		path = path.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+		return URI.createPlatformResourceURI(path.toString());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IPath getFilePath() {
+		IPath path = getContainerFullPath();
+		if (path == null) {
+			path = new Path(""); //$NON-NLS-1$
+		}
+		String fileName = getFileName();
+		if (fileName != null) {
+			path = path.append(fileName);
+		}
+		return path;
 	}
 
 	/**
@@ -99,7 +136,11 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 				return false;
 			}
 			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
-			IPath path = getContainerFullPath().append(fileName);
+			IPath path = getContainerFullPath();
+			if (path == null) {
+				path = new Path(""); //$NON-NLS-1$
+			}
+			path = path.append(fileName);
 			if (exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;

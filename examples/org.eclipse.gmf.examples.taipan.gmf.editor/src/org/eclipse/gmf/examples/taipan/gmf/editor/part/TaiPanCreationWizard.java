@@ -118,7 +118,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagram = TaiPanDiagramEditorUtil.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
+				diagram = TaiPanDiagramEditorUtil.createDiagram(page.getDiagramURI(), page.getModelURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						TaiPanDiagramEditorUtil.openDiagram(diagram);
