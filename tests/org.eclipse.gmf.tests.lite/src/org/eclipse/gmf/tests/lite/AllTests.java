@@ -11,7 +11,10 @@
  */
 package org.eclipse.gmf.tests.lite;
 
-import org.eclipse.gmf.tests.Plugin;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.eclipse.gmf.tests.CleanupTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramLinksTest;
@@ -27,10 +30,6 @@ import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class AllTests extends org.eclipse.gmf.tests.AllTests {
 	public static Test suite() {
@@ -52,18 +51,11 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(NotationRefreshTest.class, sessionSetup3));
 
-		suite.addTest(new TestCase("testCleanup") {
-			protected void runTest() throws Throwable {
-				try {
-					sessionSetup.cleanup();
-					sessionSetup2.cleanup();
-					sessionSetup3.cleanup();
-				} catch (RuntimeException ex) {
-					throw ex;
-				} catch (Exception ex) {
-					Plugin.logError("cleanup failed", ex);
-					fail(ex.getMessage());
-				}
+		suite.addTest(new CleanupTest("testCleanup") {
+			protected void performCleanup() throws Exception {
+				sessionSetup.cleanup();
+				sessionSetup2.cleanup();
+				sessionSetup3.cleanup();
 			}
 		});
 		return suite;
