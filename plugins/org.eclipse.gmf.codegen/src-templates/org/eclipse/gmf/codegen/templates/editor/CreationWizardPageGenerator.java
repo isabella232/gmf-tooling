@@ -33,7 +33,6 @@ public class CreationWizardPageGenerator
   protected final String TEXT_16 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IPath getFilePath() {" + NL + "\t\tIPath path = getContainerFullPath();" + NL + "\t\tif (path == null) {" + NL + "\t\t\tpath = new Path(\"\"); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\tString fileName = getFileName();" + NL + "\t\tif (fileName != null) {" + NL + "\t\t\tpath = path.append(fileName);" + NL + "\t\t}" + NL + "\t\treturn path;" + NL + "\t}";
   protected final String TEXT_17 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUniqueFileName(IPath containerFullPath, String fileName) {" + NL + "\t\tif (containerFullPath == null) {" + NL + "\t\t\tcontainerFullPath = new Path(\"\"); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\tif (fileName == null || fileName.trim().length() == 0) {" + NL + "\t\t\tfileName = \"default\"; //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\tIPath filePath = containerFullPath.append(fileName);" + NL + "\t\tString extension = getExtension();" + NL + "\t\tif (extension != null && !extension.equals(filePath.getFileExtension())) {" + NL + "\t\t\tfilePath = filePath.addFileExtension(extension);" + NL + "\t\t}" + NL + "" + NL + "\t\textension = filePath.getFileExtension();" + NL + "\t\tfileName = filePath.removeFileExtension().lastSegment();" + NL + "\t\tint i = 1;" + NL + "\t\twhile (";
   protected final String TEXT_18 = ".exists(filePath)) {" + NL + "\t\t\ti++;" + NL + "\t\t\tfilePath = containerFullPath.append(fileName + i);" + NL + "\t\t\tif (extension != null) {" + NL + "\t\t\t\tfilePath = filePath.addFileExtension(extension);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn filePath.lastSegment();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void createControl(Composite parent) {" + NL + "\t\tsuper.createControl(parent);" + NL + "\t\tsetFileName(getUniqueFileName(getContainerFullPath(), getFileName()));" + NL + "\t\tsetPageComplete(validatePage());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean validatePage() {" + NL + "\t\tif (!super.validatePage()) {" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\tString extension = getExtension();" + NL + "\t\tif (extension != null && !extension.equals(getFilePath().getFileExtension())) {" + NL + "\t\t\tsetErrorMessage(NLS.bind(\"File name should have ''{0}'' extension.\", extension));" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn true;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_19 = NL;
 
   public String generate(Object argument)
   {
@@ -43,7 +42,6 @@ final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenApplication application = editorGen.getApplication();
-final boolean hasDomainFile = !editorGen.isSameFileForDiagramAndModel() && editorGen.getDomainGenModel() != null;
 
     stringBuffer.append(TEXT_1);
     
@@ -85,7 +83,6 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_18);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_19);
     return stringBuffer.toString();
   }
 }
