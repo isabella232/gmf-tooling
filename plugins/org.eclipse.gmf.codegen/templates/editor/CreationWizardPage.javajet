@@ -16,13 +16,18 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCreationPage {
+public class <%=importManager.getCompilationUnitName()%> extends
+<%if (application == null) {%>
+<%=importManager.getImportedName("org.eclipse.ui.dialogs.WizardNewFileCreationPage")%>	
+<%} else {%>
+<%=importManager.getImportedName(application.getApplicationPackageName() + ".WizardNewFileCreationPage")%>	
+<%}%>
+	{
 
 	/**
 	 * @generated

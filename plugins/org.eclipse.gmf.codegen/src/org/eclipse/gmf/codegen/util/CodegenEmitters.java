@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.templates.application.ApplicationGenerator;
 import org.eclipse.gmf.codegen.templates.application.PerspectiveGenerator;
 import org.eclipse.gmf.codegen.templates.application.URIDiagramDocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.application.URIEditorInputProxyGenerator;
+import org.eclipse.gmf.codegen.templates.application.WizardNewFileCreationPageGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchWindowAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
@@ -257,6 +258,7 @@ public class CodegenEmitters {
 		put(tr, "/application/WorkbenchWindowAdvisor.javajet", WorkbenchWindowAdvisorGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/URIDiagramDocumentProvider.javajet", URIDiagramDocumentProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/URIEditorInputProxy.javajet", URIEditorInputProxyGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/WizardNewFileCreationPage.javajet", WizardNewFileCreationPageGenerator.class); //$NON-NLS-1$
 		return tr;
 	}
 
@@ -667,6 +669,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getURIEditorInputProxyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(URIEditorInputProxyGenerator.class);
+	}
+
+	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
+		return retrieve(WizardNewFileCreationPageGenerator.class);
 	}
 
 	// util

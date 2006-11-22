@@ -1062,6 +1062,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateWorkbenchWindowAdvisor(application);
 			generateURIDiagramDocumentProvider(application);
 			generateURIEditorInputProxy(application);
+			generateWizardNewFileCreationPage(application);
 		}
 	}
 
@@ -1124,6 +1125,15 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getURIEditorInputProxyEmitter(),
 			application.getApplicationPackageName(),
 			"URIEditorInputProxy", //$NON-NLS-1$
+			application
+		);
+	}
+
+	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getWizardNewFileCreationPageEmitter(),
+			application.getApplicationPackageName(),
+			"WizardNewFileCreationPage", //$NON-NLS-1$
 			application
 		);
 	}
