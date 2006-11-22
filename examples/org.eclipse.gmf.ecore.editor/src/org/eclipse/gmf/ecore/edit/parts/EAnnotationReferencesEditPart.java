@@ -14,8 +14,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
 
-import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gmf.ecore.edit.policies.EAnnotationReferencesItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -42,7 +40,6 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		/*		installEditPolicy(EditPolicy.CONNECTION_ROLE, new EcoreReferenceConnectionEditPolicy());*/
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EAnnotationReferencesItemSemanticEditPolicy());
 
 	}

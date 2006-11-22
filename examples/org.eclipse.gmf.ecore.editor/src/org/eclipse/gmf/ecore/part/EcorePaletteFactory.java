@@ -40,6 +40,7 @@ public class EcorePaletteFactory {
 	}
 
 	/**
+	 * Creates "Nodes" palette tool group
 	 * @generated
 	 */
 	private PaletteContainer createNodes1Group() {
@@ -54,6 +55,7 @@ public class EcorePaletteFactory {
 	}
 
 	/**
+	 * Creates "Child Nodes" palette tool group
 	 * @generated
 	 */
 	private PaletteContainer createChildNodes2Group() {
@@ -67,6 +69,7 @@ public class EcorePaletteFactory {
 	}
 
 	/**
+	 * Creates "Links" palette tool group
 	 * @generated
 	 */
 	private PaletteContainer createLinks3Group() {
