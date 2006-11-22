@@ -87,9 +87,9 @@ public class PaletteFactoryGenerator
   protected final String TEXT_68 = "\", smallImage, largeImage) {};";
   protected final String TEXT_69 = NL + "\t\tresult.setToolClass(";
   protected final String TEXT_70 = ".class);";
-  protected final String TEXT_71 = NL + "\t\tresult.setToolProperty(\"";
-  protected final String TEXT_72 = "\", \"";
-  protected final String TEXT_73 = "\");";
+  protected final String TEXT_71 = NL + "\t\tresult.setToolProperty(";
+  protected final String TEXT_72 = ", ";
+  protected final String TEXT_73 = ");";
   protected final String TEXT_74 = NL + "\t\treturn result;" + NL + "\t}";
   protected final String TEXT_75 = NL;
   protected final String TEXT_76 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class NodeToolEntry extends ";

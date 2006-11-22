@@ -205,7 +205,7 @@ for(ToolEntry toolEntry : toolsQueue) {
 		for (Iterator it = toolEntry.getProperties().entrySet().iterator(); it.hasNext();) {
 			Map.Entry entry = (Map.Entry) it.next();
 %>
-		result.setToolProperty("<%=entry.getKey()%>", "<%=entry.getValue()%>");
+		result.setToolProperty(<%=entry.getKey()%>, <%=entry.getValue()%>);
 <%
 		} /*properties iterator*/
 	} /*properties presence check*/
