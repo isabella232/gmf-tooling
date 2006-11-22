@@ -23,12 +23,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.Separator;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntryKind;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
@@ -40,8 +43,10 @@ import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.GenericTool;
 import org.eclipse.gmf.tooldef.PaletteSeparator;
 import org.eclipse.gmf.tooldef.StandardTool;
+import org.eclipse.gmf.tooldef.StandardToolKind;
 import org.eclipse.gmf.tooldef.ToolContainer;
 import org.eclipse.gmf.tooldef.util.GMFToolSwitch;
+import org.eclipse.jdt.core.ToolFactory;
 import org.osgi.framework.Bundle;
 
 /**
@@ -238,9 +243,24 @@ public class PaletteHandler {
 			return ne;
 		}
 
-		public Object caseStandardTool(StandardTool object) {
-			// FIXME
-			return super.caseStandardTool(object);
+		public Object caseStandardTool(StandardTool standardTool) {
+			StandardEntry entry = GMFGenFactory.eINSTANCE.createStandardEntry();
+			switch (standardTool.getToolKind().getValue()) {
+				case StandardToolKind.SELECT : {
+					entry.setKind(StandardEntryKind.SELECT_LITERAL);
+					break;
+				}
+				case StandardToolKind.MARQUEE : {
+					entry.setKind(StandardEntryKind.MARQUEE_LITERAL);
+					break;
+				}
+				case StandardToolKind.ZOOM_PAN : {
+					entry.setKind(StandardEntryKind.ZOOM_LITERAL);
+					break;
+				}
+			}
+			setupCommonToolEntry(entry, standardTool);
+			return entry;
 		}
 
 		public Object caseGenericTool(GenericTool tool) {
@@ -261,6 +281,15 @@ public class PaletteHandler {
 			tg.setStack(toolGroup.isStack());
 			setupCommonToolEntry(tg, toolGroup);
 			tg.getEntries().addAll(toGroupItems(toolGroup.getTools()));
+			if (toolGroup.getActive() != null) {
+				assert false == toolHistory.get(toolGroup.getActive()) instanceof Separator;
+				EntryBase eb = (EntryBase) toolHistory.get(toolGroup.getActive());
+				if (eb == null || false == eb instanceof AbstractToolEntry) {
+					logWarning("Can't find entry to became default in the group:" + toolGroup);
+				} else {
+					((AbstractToolEntry) eb).setDefault(true);
+				}
+			}
 			return tg;
 		}
 
