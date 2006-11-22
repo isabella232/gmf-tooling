@@ -100,9 +100,9 @@ public class PaletteFactoryGenerator
   protected final String TEXT_82 = NL + "\t\tresult.setToolClass(";
   protected final String TEXT_83 = ".class);";
   protected final String TEXT_84 = NL;
-  protected final String TEXT_85 = NL + "\t\tresult.setToolProperty(\"";
-  protected final String TEXT_86 = "\", \"";
-  protected final String TEXT_87 = "\");";
+  protected final String TEXT_85 = NL + "\t\tresult.setToolProperty(";
+  protected final String TEXT_86 = ", ";
+  protected final String TEXT_87 = ");";
   protected final String TEXT_88 = NL + "\t\treturn result;" + NL + "\t}" + NL;
   protected final String TEXT_89 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class NodeToolEntry extends ToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final List elementTypes;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate NodeToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List elementTypes) {" + NL + "\t\t\tsuper(title, description, smallIcon, largeIcon);" + NL + "\t\t\tthis.elementTypes = elementTypes;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool tool = new ";
   protected final String TEXT_90 = "(elementTypes);" + NL + "\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\treturn tool;" + NL + "\t\t}" + NL + "\t}";
