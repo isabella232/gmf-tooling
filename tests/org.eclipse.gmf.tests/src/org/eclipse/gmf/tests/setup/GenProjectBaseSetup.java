@@ -45,7 +45,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
-import org.eclipse.gmf.tests.JDTUtil;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;

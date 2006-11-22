@@ -146,8 +146,8 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		}
 
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString()));
-		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString())) : null;		
+		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString(), true));
+		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString(), true)) : null;		
 		
 		EObject domainDiagramElement = createDiagramDomainObject();
 
