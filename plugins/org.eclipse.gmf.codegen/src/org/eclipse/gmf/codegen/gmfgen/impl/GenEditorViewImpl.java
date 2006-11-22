@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getIconPath <em>Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getID <em>ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#isEclipseEditor <em>Eclipse Editor</em>}</li>
  * </ul>
  * </p>
  *
@@ -135,6 +136,26 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * @ordered
 	 */
 	protected String iD = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEclipseEditor() <em>Eclipse Editor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEclipseEditor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ECLIPSE_EDITOR_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isEclipseEditor() <em>Eclipse Editor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEclipseEditor()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean eclipseEditor = ECLIPSE_EDITOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -335,6 +356,27 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEclipseEditor() {
+		return eclipseEditor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEclipseEditor(boolean newEclipseEditor) {
+		boolean oldEclipseEditor = eclipseEditor;
+		eclipseEditor = newEclipseEditor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR, oldEclipseEditor, eclipseEditor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getActionBarContributorQualifiedClassName() {
@@ -410,6 +452,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return getIconPath();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return getID();
+			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
+				return isEclipseEditor() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -435,6 +479,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				setID((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
+				setEclipseEditor(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -462,6 +509,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				setID(ID_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
+				setEclipseEditor(ECLIPSE_EDITOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -485,6 +535,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return ICON_PATH_EDEFAULT == null ? iconPath != null : !ICON_PATH_EDEFAULT.equals(iconPath);
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
+			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
+				return eclipseEditor != ECLIPSE_EDITOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -508,6 +560,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 		result.append(iconPath);
 		result.append(", iD: ");
 		result.append(iD);
+		result.append(", eclipseEditor: ");
+		result.append(eclipseEditor);
 		result.append(')');
 		return result.toString();
 	}

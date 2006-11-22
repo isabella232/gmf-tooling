@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getEditPolicyClassName <em>Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getDiagramKind <em>Diagram Kind</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getEditorID <em>Editor ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#isOpenAsEclipseEditor <em>Open As Eclipse Editor</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,6 +99,26 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 * @ordered
 	 */
 	protected String editorID = EDITOR_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOpenAsEclipseEditor() <em>Open As Eclipse Editor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOpenAsEclipseEditor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OPEN_AS_ECLIPSE_EDITOR_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isOpenAsEclipseEditor() <em>Open As Eclipse Editor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOpenAsEclipseEditor()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean openAsEclipseEditor = OPEN_AS_ECLIPSE_EDITOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -200,6 +221,27 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOpenAsEclipseEditor() {
+		return openAsEclipseEditor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOpenAsEclipseEditor(boolean newOpenAsEclipseEditor) {
+		boolean oldOpenAsEclipseEditor = openAsEclipseEditor;
+		openAsEclipseEditor = newOpenAsEclipseEditor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR, oldOpenAsEclipseEditor, openAsEclipseEditor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getEditPolicyQualifiedClassName() {
@@ -262,6 +304,8 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				return getDiagramKind();
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
 				return getEditorID();
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
+				return isOpenAsEclipseEditor() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -281,6 +325,9 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				return;
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
 				setEditorID((String)newValue);
+				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
+				setOpenAsEclipseEditor(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -302,6 +349,9 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
 				setEditorID(EDITOR_ID_EDEFAULT);
 				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
+				setOpenAsEclipseEditor(OPEN_AS_ECLIPSE_EDITOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -321,6 +371,8 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				return DIAGRAM_KIND_EDEFAULT == null ? diagramKind != null : !DIAGRAM_KIND_EDEFAULT.equals(diagramKind);
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
 				return EDITOR_ID_EDEFAULT == null ? editorID != null : !EDITOR_ID_EDEFAULT.equals(editorID);
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
+				return openAsEclipseEditor != OPEN_AS_ECLIPSE_EDITOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -340,6 +392,8 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 		result.append(diagramKind);
 		result.append(", editorID: ");
 		result.append(editorID);
+		result.append(", openAsEclipseEditor: ");
+		result.append(openAsEclipseEditor);
 		result.append(')');
 		return result.toString();
 	}

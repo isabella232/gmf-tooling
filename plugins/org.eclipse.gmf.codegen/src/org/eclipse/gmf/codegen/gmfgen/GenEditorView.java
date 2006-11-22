@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPath <em>Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getID <em>ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor <em>Eclipse Editor</em>}</li>
  * </ul>
  * </p>
  *
@@ -182,6 +183,33 @@ public interface GenEditorView extends EObject {
 	 * @generated
 	 */
 	void setID(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Eclipse Editor</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Eclipse Editor</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Eclipse Editor</em>' attribute.
+	 * @see #setEclipseEditor(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorView_EclipseEditor()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isEclipseEditor();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor <em>Eclipse Editor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Eclipse Editor</em>' attribute.
+	 * @see #isEclipseEditor()
+	 * @generated
+	 */
+	void setEclipseEditor(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

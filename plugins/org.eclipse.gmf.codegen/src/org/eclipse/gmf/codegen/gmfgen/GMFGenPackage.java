@@ -1247,13 +1247,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_VIEW__ID = 5;
 
 	/**
+	 * The feature id for the '<em><b>Eclipse Editor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_VIEW__ECLIPSE_EDITOR = 6;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_VIEW_FEATURE_COUNT = 6;
+	int GEN_EDITOR_VIEW_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation <em>Batch Validation</em>}' class.
@@ -2205,13 +2214,22 @@ public interface GMFGenPackage extends EPackage {
 	int OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID = BEHAVIOUR_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Open As Eclipse Editor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR = BEHAVIOUR_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Open Diagram Behaviour</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPEN_DIAGRAM_BEHAVIOUR_FEATURE_COUNT = BEHAVIOUR_FEATURE_COUNT + 3;
+	int OPEN_DIAGRAM_BEHAVIOUR_FEATURE_COUNT = BEHAVIOUR_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl <em>Element Type</em>}' class.
@@ -7777,6 +7795,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenEditorView_ID();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor <em>Eclipse Editor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Eclipse Editor</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor()
+	 * @see #getGenEditorView()
+	 * @generated
+	 */
+	EAttribute getGenEditorView_EclipseEditor();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation <em>Batch Validation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8956,6 +8985,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOpenDiagramBehaviour_EditorID();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#isOpenAsEclipseEditor <em>Open As Eclipse Editor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Open As Eclipse Editor</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#isOpenAsEclipseEditor()
+	 * @see #getOpenDiagramBehaviour()
+	 * @generated
+	 */
+	EAttribute getOpenDiagramBehaviour_OpenAsEclipseEditor();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase <em>Gen Container Base</em>}'.

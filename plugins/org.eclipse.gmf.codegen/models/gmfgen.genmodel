@@ -93,6 +93,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/className"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/iconPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/eclipseEditor"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
     </genClasses>
@@ -266,6 +267,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/editPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/diagramKind"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/editorID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/openAsEclipseEditor"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures property="None" notify="false" createChild="false" propertyCategory="Diagram Containment"
