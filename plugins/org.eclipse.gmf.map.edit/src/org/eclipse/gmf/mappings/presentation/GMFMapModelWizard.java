@@ -123,7 +123,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 
 							// Get the URI of the model file.
 							//
-							URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString());
+							URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
 
 							// Create a resource for this file.
 							//
