@@ -77,6 +77,7 @@ Items marked with <img src="./icons/plus.gif"/> expand when selected.
             <ul id="ex_txMenu" class="submenu">
               <li><a href="#ex_define">Defining an Element Type</a></li>
               <li><a href="#ex_bind">Binding Advice to an Existing Element Type</a></li>
+              <li><a href="#ex_client_context">Defining a Client Context</a></li>
               <li><a href="#ex_context">Changing the Edit Helper Context during Element Creation</a></li>
               <li><a href="#ex_configure">Configuring a new Element</a></li>
               <li><a href="#ex_factory">Defining a Factory to Instantiate Custom Element Types</a></li>
@@ -106,9 +107,11 @@ the metaclasses defined by an Ecore metamodel. It allows GMF clients to describe
 <P>This document describes the concepts behind the  Extensible Type Registy and outlines how it is used in other parts of GMF. It includes code examples illustrating how to implement some of the key concepts as well as an overview of the registry design.</P><HR>
 <H2><A name="ext_points"></A>Extension Points and API</H2>
 <P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-The extensible type registry defines the following extension point:
+The extensible type registry defines the following extension points:
 <ul>
 	<li><a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html">org.eclipse.gmf.runtime.emf.type.core.elementTypes</a></li>
+	<li><a
+		href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html">org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings</a></li>
 </ul>
 The extensible type registry API is defined in the following packages:
 <ul>
@@ -135,7 +138,7 @@ types and <I>specialization</I> types.</P>
 <P>A <I>metamodel</I> type corresponds directly with an EClass in the
 domain's EMF model, with no futher qualifications. It is not permitted
 to define more than <I></I>one metamodel type for <I></I>a single
-EClass. All model objects with the same EClass have the same metamodel
+EClass in a given client context. All model objects with the same EClass and client context have the same metamodel
 type. The metamodel type defines the editing behaviour for these
 matching model objects in its <I>edit helper</I>. By defining a metamodel type for an EClass, the application-specific editing behaviour for that type of element can be defined, and third parties can extend the editing behaviour. An icon and display name other than those defined in the Ecore model can also be associated with this type of element.</P>
 <P><I>Specialization</I> types can extend a single metamodel type or any
@@ -207,8 +210,17 @@ its kind.</P>
 	specializations.
 	</LI>
 </UL>
-<P></P>
-<H3>Edit Requests</H3>
+<h3>Client Context</h3>
+<p>A client can define its own context and bind it to the element types and advice that it contributes to the element type registry. In this way, the contents of the element type registry are partitioned by  client context and two or more clients that work with the same metamodel can be co-deployed without interfering with each other's editing behaviour. </p>
+<p>The use of client contexts in the element type API is optional. A default client context is implicitly bound to any types and advice that are not explicity bound to a client context.</p>
+<p>When using the element type registry API for editing the model, all editing is done with reference to one or more client contexts. Is it possible to explicitly specify the client context in which the editing should be performed through the public methods on the ElementTypeRegistry and the
+IEditCommandRequest. If the client context is not specified, then a set of applicable
+contexts are found that match the EObject being edited. When an EObject
+is found to belong to more that one client context, only the element
+types and advice that are bound to <b>all</b> client contexts will be applied
+when editing that object. This means that when two clients are co-deployed that edit
+objects from the same metamodel, their element types must be integrated in such a way that  the editing behaviour from one context
+does not conflict with the editing behaviour from the other.</p><H3>Edit Requests</H3>
 <P>An edit request carries the information required to obtain an edit
 command from an edit helper.</P>
 <P>The edit request carries a collection of parameters which are used to
@@ -381,6 +393,27 @@ like:</P>
 <P>Note that in this last case, it was not necessary to specify the
 metamodel namespace URI, because there are no references to the domain
 model (e.g., EClasses, reference features) in the XML definition.</P>
+
+
+<h3><A name="ex_client_context"></A>Defining a Client Context</h3>
+<p>Client contexts are declared and bound to element types and advice on the <a
+	href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html"><code>elementTypeBindings</code></a>
+extension point.</p>
+<p>The following example shows a client context for all model objects that are in the logic editing domain. The client context is bound to all of the logic element types, as well as two specific pieces of advice from GMF:</p>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings&quot;&gt;
+    &lt;clientContext id=&quot;org.eclipse.gmf.example.runtime.diagram.logic.context&quot;&gt;
+       &lt;enablement&gt;
+          &lt;test
+             property=&quot;org.eclipse.gmf.runtime.emf.core.editingDomain&quot;
+             value=&quot;org.eclipse.gmf.examples.runtime.diagram.logicEditingDomain&quot;/&gt;
+       &lt;/enablement&gt;
+    &lt;/clientContext&gt; 
+    &lt;binding context=&quot;org.eclipse.gmf.example.runtime.diagram.logic.context&quot;&gt;
+       &lt;elementType pattern=&quot;logic.*&quot;/&gt;
+       &lt;advice ref=&quot;org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents&quot;/&gt;
+       &lt;advice ref=&quot;org.eclipse.gmf.runtime.diagram.core.advice.removeBookmarks&quot;/&gt;
+    &lt;/binding&gt;
+&lt;/extension&gt;</PRE>
 <H3><A name="ex_bind"></A>Binding Advice to an Existing Element Type</H3>
 <P class="MsoBodyText">Edit advice can be bound to any existing element
 type to decorate the resulting edit command with additional behaviour.
