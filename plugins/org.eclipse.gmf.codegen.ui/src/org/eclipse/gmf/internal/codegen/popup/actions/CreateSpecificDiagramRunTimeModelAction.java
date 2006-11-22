@@ -59,12 +59,12 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 
 	private URI getDestEcoreURI() {
 		IPath p = myMapFile.getFullPath();
-		return URI.createPlatformResourceURI(p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("ecore").toString());
+		return URI.createPlatformResourceURI(p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("ecore").toString(), true);
 	}
 
 	private URI getDestGenModelURI() {
 		IPath p = myMapFile.getFullPath();
-		return URI.createPlatformResourceURI(p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("genmodel").toString());
+		return URI.createPlatformResourceURI(p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("genmodel").toString(), true);
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
@@ -72,7 +72,7 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 	}
 
 	private URI getMapModelURI() {
-		return URI.createPlatformResourceURI(myMapFile.getFullPath().toString());
+		return URI.createPlatformResourceURI(myMapFile.getFullPath().toString(), true);
 	}
 
 	protected Shell getShell() {

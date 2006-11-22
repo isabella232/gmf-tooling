@@ -169,7 +169,7 @@ class GenModelDetector {
 				gma.setPluginID(myPatternResource.getProject().getName());
 				GenModel model = gma.create();
 				result[0] = createDefaultResourcePath();
-				Resource res = new ResourceSetImpl().createResource(URI.createPlatformResourceURI(result[0].toString()));
+				Resource res = new ResourceSetImpl().createResource(URI.createPlatformResourceURI(result[0].toString(), true));
 				res.getContents().add(model);
 				try {
 					res.save(null);

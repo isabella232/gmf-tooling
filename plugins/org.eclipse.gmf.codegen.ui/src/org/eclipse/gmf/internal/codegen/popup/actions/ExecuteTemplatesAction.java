@@ -43,7 +43,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate {
 		ExecuteTemplatesOperation op = createOperation();
 		op.setName(action.getText());
 		op.setShell(getShell());
-		op.setGenModelURI(URI.createPlatformResourceURI(gmFile.getFullPath().toString()));
+		op.setGenModelURI(URI.createPlatformResourceURI(gmFile.getFullPath().toString(), true));
 		op.run();
 	}
 

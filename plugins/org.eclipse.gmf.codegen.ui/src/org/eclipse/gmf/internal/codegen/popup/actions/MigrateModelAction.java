@@ -66,7 +66,7 @@ public class MigrateModelAction implements IObjectActionDelegate {
 
 	public void run(IAction action) {		
 		final IFile modelFile = this.fileSelection;
-		URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString());
+		URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
 		ModelLoadHelper loadHelper = MigrationUtil.migrateModel(fileURI);
 
 		if (!loadHelper.isOK()) {

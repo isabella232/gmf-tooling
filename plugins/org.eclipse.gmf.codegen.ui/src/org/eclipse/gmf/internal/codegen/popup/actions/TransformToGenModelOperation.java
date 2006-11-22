@@ -447,7 +447,7 @@ public class TransformToGenModelOperation {
 		// String defValue = p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("genmodel").toString();
 		InputDialog dlg = new InputDialog(getShell(), "Diagram RunTime Model", "Please specify path to genmodel file that describes specific diagram runtime model, or press Cancel if you don't need one", null, null);
 		if (dlg.open() == Window.OK) {
-			return URI.createPlatformResourceURI(dlg.getValue());
+			return URI.createPlatformResourceURI(dlg.getValue(), true);
 		}
 		return null;
 	}

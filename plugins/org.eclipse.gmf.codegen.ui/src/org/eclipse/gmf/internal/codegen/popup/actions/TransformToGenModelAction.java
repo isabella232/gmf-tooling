@@ -56,8 +56,8 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		TransformToGenModelOperation op = new TransformToGenModelOperation();
 		op.setName(action.getText());
 		op.setShell(getShell());
-		op.setMapModelURI(URI.createPlatformResourceURI(mapFile.getFullPath().toString()));
-		op.setGenModelURI(URI.createPlatformResourceURI(genFile.getFullPath().toString()));
+		op.setMapModelURI(URI.createPlatformResourceURI(mapFile.getFullPath().toString(), true));
+		op.setGenModelURI(URI.createPlatformResourceURI(genFile.getFullPath().toString(), true));
 		//Temporary fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=163358
 		if (Platform.getBundle("org.eclipse.gmf.codegen.lite") == null) {
 			op.setUseRuntimeFigures(Boolean.TRUE);
