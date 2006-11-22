@@ -84,8 +84,8 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 					if (!generator.getRunStatus().isOK()) {
 						return generator.getRunStatus();
 					}
-					URI galleryURI = URI.createPlatformResourceURI(decideOnDestinationFile("bundled").getFullPath().toString());
-					URI canvasURI = URI.createPlatformResourceURI(decideOnDestinationFile("mirrored").getFullPath().toString());
+					URI galleryURI = URI.createPlatformResourceURI(decideOnDestinationFile("bundled").getFullPath().toString(), true);
+					URI canvasURI = URI.createPlatformResourceURI(decideOnDestinationFile("mirrored").getFullPath().toString(), true);
 					return converterOutcome.createResources(rs, galleryURI, canvasURI);					
 
 				} catch (InterruptedException e) {
@@ -132,7 +132,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		int i = 0;
 		for (Iterator it = mySelectedFiles.iterator(); it.hasNext(); i++) {
 			IFile next = (IFile) it.next();
-			rv[i] = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString()), true);
+			rv[i] = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString(), true), true);
 		}
 		return rv;
 	}
