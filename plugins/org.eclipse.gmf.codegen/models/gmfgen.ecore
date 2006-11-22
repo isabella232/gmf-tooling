@@ -956,9 +956,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="smallIconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createMethodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ToolEntry" eSuperTypes="#//EntryBase #//ToolGroupItem">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractToolEntry" abstract="true" eSuperTypes="#//EntryBase #//ToolGroupItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedToolName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Optional"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ToolEntry" eSuperTypes="#//AbstractToolEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="genNodes" upperBound="-1"
         eType="#//GenNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="genLinks" upperBound="-1"
@@ -970,14 +980,14 @@
         <details key="documentation" value="Enforces 'tool for either node or link' - if there are values in genNodes list, returns it (no respect to values in genLinks); returns value of genLinks otherwise"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedToolName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Optional"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry"
-        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StandardEntry" eSuperTypes="#//AbstractToolEntry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//StandardEntryKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StandardEntryKind">
+    <eLiterals name="SELECT"/>
+    <eLiterals name="MARQUEE" value="1"/>
+    <eLiterals name="ZOOM" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroupItem" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Separator" eSuperTypes="#//ToolGroupItem"/>

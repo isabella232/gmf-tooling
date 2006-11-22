@@ -577,11 +577,29 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY: {
+				AbstractToolEntry abstractToolEntry = (AbstractToolEntry)theEObject;
+				Object result = caseAbstractToolEntry(abstractToolEntry);
+				if (result == null) result = caseEntryBase(abstractToolEntry);
+				if (result == null) result = caseToolGroupItem(abstractToolEntry);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.TOOL_ENTRY: {
 				ToolEntry toolEntry = (ToolEntry)theEObject;
 				Object result = caseToolEntry(toolEntry);
+				if (result == null) result = caseAbstractToolEntry(toolEntry);
 				if (result == null) result = caseEntryBase(toolEntry);
 				if (result == null) result = caseToolGroupItem(toolEntry);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.STANDARD_ENTRY: {
+				StandardEntry standardEntry = (StandardEntry)theEObject;
+				Object result = caseStandardEntry(standardEntry);
+				if (result == null) result = caseAbstractToolEntry(standardEntry);
+				if (result == null) result = caseEntryBase(standardEntry);
+				if (result == null) result = caseToolGroupItem(standardEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1669,6 +1687,21 @@ public class GMFGenSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Abstract Tool Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Abstract Tool Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAbstractToolEntry(AbstractToolEntry object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Tool Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1680,6 +1713,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseToolEntry(ToolEntry object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Standard Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Standard Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseStandardEntry(StandardEntry object) {
 		return null;
 	}
 

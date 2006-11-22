@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.Behaviour;
@@ -110,6 +111,8 @@ import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntryKind;
 import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
@@ -535,7 +538,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass abstractToolEntryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass toolEntryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass standardEntryEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -816,6 +833,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EEnum viewmapLayoutTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum standardEntryKindEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3277,6 +3301,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractToolEntry() {
+		return abstractToolEntryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractToolEntry_Default() {
+		return (EAttribute)abstractToolEntryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractToolEntry_QualifiedToolName() {
+		return (EAttribute)abstractToolEntryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractToolEntry_Properties() {
+		return (EReference)abstractToolEntryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getToolEntry() {
 		return toolEntryEClass;
 	}
@@ -3286,17 +3346,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getToolEntry_Default() {
-		return (EAttribute)toolEntryEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getToolEntry_GenNodes() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(1);
+		return (EReference)toolEntryEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3305,7 +3356,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolEntry_GenLinks() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(2);
+		return (EReference)toolEntryEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3314,7 +3365,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolEntry_Elements() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(3);
+		return (EReference)toolEntryEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3322,8 +3373,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getToolEntry_QualifiedToolName() {
-		return (EAttribute)toolEntryEClass.getEStructuralFeatures().get(4);
+	public EClass getStandardEntry() {
+		return standardEntryEClass;
 	}
 
 	/**
@@ -3331,8 +3382,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getToolEntry_Properties() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(5);
+	public EAttribute getStandardEntry_Kind() {
+		return (EAttribute)standardEntryEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4609,6 +4660,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getStandardEntryKind() {
+		return standardEntryKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGenSeverity() {
 		return genSeverityEEnum;
 	}
@@ -4986,13 +5046,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(entryBaseEClass, ENTRY_BASE__SMALL_ICON_PATH);
 		createEAttribute(entryBaseEClass, ENTRY_BASE__CREATE_METHOD_NAME);
 
+		abstractToolEntryEClass = createEClass(ABSTRACT_TOOL_ENTRY);
+		createEAttribute(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__DEFAULT);
+		createEAttribute(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME);
+		createEReference(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__PROPERTIES);
+
 		toolEntryEClass = createEClass(TOOL_ENTRY);
-		createEAttribute(toolEntryEClass, TOOL_ENTRY__DEFAULT);
 		createEReference(toolEntryEClass, TOOL_ENTRY__GEN_NODES);
 		createEReference(toolEntryEClass, TOOL_ENTRY__GEN_LINKS);
 		createEReference(toolEntryEClass, TOOL_ENTRY__ELEMENTS);
-		createEAttribute(toolEntryEClass, TOOL_ENTRY__QUALIFIED_TOOL_NAME);
-		createEReference(toolEntryEClass, TOOL_ENTRY__PROPERTIES);
+
+		standardEntryEClass = createEClass(STANDARD_ENTRY);
+		createEAttribute(standardEntryEClass, STANDARD_ENTRY__KIND);
 
 		toolGroupItemEClass = createEClass(TOOL_GROUP_ITEM);
 
@@ -5173,6 +5238,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
 		viewmapLayoutTypeEEnum = createEEnum(VIEWMAP_LAYOUT_TYPE);
+		standardEntryKindEEnum = createEEnum(STANDARD_ENTRY_KIND);
 		genSeverityEEnum = createEEnum(GEN_SEVERITY);
 		genLanguageEEnum = createEEnum(GEN_LANGUAGE);
 		genNavigatorReferenceTypeEEnum = createEEnum(GEN_NAVIGATOR_REFERENCE_TYPE);
@@ -5252,8 +5318,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		innerClassViewmapEClass.getESuperTypes().add(this.getViewmap());
 		parentAssignedViewmapEClass.getESuperTypes().add(this.getViewmap());
 		genConstraintEClass.getESuperTypes().add(this.getValueExpression());
-		toolEntryEClass.getESuperTypes().add(this.getEntryBase());
-		toolEntryEClass.getESuperTypes().add(this.getToolGroupItem());
+		abstractToolEntryEClass.getESuperTypes().add(this.getEntryBase());
+		abstractToolEntryEClass.getESuperTypes().add(this.getToolGroupItem());
+		toolEntryEClass.getESuperTypes().add(this.getAbstractToolEntry());
+		standardEntryEClass.getESuperTypes().add(this.getAbstractToolEntry());
 		separatorEClass.getESuperTypes().add(this.getToolGroupItem());
 		toolGroupEClass.getESuperTypes().add(this.getEntryBase());
 		toolGroupEClass.getESuperTypes().add(this.getToolGroupItem());
@@ -5769,13 +5837,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getEntryBase_SmallIconPath(), ecorePackage.getEString(), "smallIconPath", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEntryBase_CreateMethodName(), ecorePackage.getEString(), "createMethodName", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(abstractToolEntryEClass, AbstractToolEntry.class, "AbstractToolEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAbstractToolEntry_Default(), ecorePackage.getEBoolean(), "default", "false", 0, 1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractToolEntry_QualifiedToolName(), ecorePackage.getEString(), "qualifiedToolName", null, 0, 1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractToolEntry_Properties(), ecorePackage.getEStringToStringMapEntry(), null, "properties", null, 0, -1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(toolEntryEClass, ToolEntry.class, "ToolEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getToolEntry_Default(), ecorePackage.getEBoolean(), "default", "false", 0, 1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getToolEntry_GenNodes(), this.getGenNode(), null, "genNodes", null, 0, -1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getToolEntry_GenLinks(), this.getGenLink(), null, "genLinks", null, 0, -1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getToolEntry_Elements(), this.getGenCommonBase(), null, "elements", null, 0, -1, ToolEntry.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getToolEntry_QualifiedToolName(), ecorePackage.getEString(), "qualifiedToolName", null, 0, 1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getToolEntry_Properties(), ecorePackage.getEStringToStringMapEntry(), null, "properties", null, 0, -1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(standardEntryEClass, StandardEntry.class, "StandardEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStandardEntry_Kind(), this.getStandardEntryKind(), "kind", null, 1, 1, StandardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(toolGroupItemEClass, ToolGroupItem.class, "ToolGroupItem", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -6067,6 +6140,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.XY_LAYOUT_LITERAL);
 		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.FLOW_LAYOUT_LITERAL);
 		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL);
+
+		initEEnum(standardEntryKindEEnum, StandardEntryKind.class, "StandardEntryKind");
+		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.SELECT_LITERAL);
+		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.MARQUEE_LITERAL);
+		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.ZOOM_LITERAL);
 
 		initEEnum(genSeverityEEnum, GenSeverity.class, "GenSeverity");
 		addEEnumLiteral(genSeverityEEnum, GenSeverity.INFO_LITERAL);

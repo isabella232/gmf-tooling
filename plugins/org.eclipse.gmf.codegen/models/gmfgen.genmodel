@@ -28,6 +28,11 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ViewmapLayoutType/FLOW_LAYOUT"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ViewmapLayoutType/TOOLBAR_LAYOUT"/>
     </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//StandardEntryKind">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardEntryKind/SELECT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardEntryKind/MARQUEE"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardEntryKind/ZOOM"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//GenSeverity">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/INFO"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/WARNING"/>
@@ -452,13 +457,18 @@
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/createMethodName"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//AbstractToolEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//AbstractToolEntry/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//AbstractToolEntry/qualifiedToolName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//AbstractToolEntry/properties"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//ToolEntry">
-      <genFeatures createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/default"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genNodes"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genLinks"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/elements"/>
-      <genFeatures createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/qualifiedToolName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//StandardEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//StandardEntry/kind"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ToolGroupItem"/>
     <genClasses ecoreClass="gmfgen.ecore#//Separator"/>

@@ -1,0 +1,13 @@
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry <%=toolEntry.getCreateMethodName()%>() {
+<%if (toolEntry.getKind() == StandardEntryKind.SELECT_LITERAL) {%>
+		org.eclipse.gef.palette.PanningSelectionToolEntry result = new org.eclipse.gef.palette.PanningSelectionToolEntry();
+<%} else if (toolEntry.getKind() == StandardEntryKind.MARQUEE_LITERAL) {%>
+		org.eclipse.gef.palette.MarqueeToolEntry result = new org.eclipse.gef.palette.MarqueeToolEntry();
+<%}%>
+<%@include file="palette-tool-props.jetinc"%>
+		return result;
+	}

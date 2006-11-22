@@ -151,4 +151,5 @@ public interface Palette extends EObject {
 	 */
 	String getFactoryQualifiedClassName();
 
+	boolean definesStandardTools();
 } // Palette

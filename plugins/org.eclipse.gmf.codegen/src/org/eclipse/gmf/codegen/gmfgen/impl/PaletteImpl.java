@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -389,4 +391,12 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		return result.toString();
 	}
 
+	public boolean definesStandardTools() {
+		for (Iterator it = eAllContents(); it.hasNext();) {
+			if (it.next() instanceof StandardEntry) {
+				return true;
+			}
+		}
+		return false;
+	}
 } //PaletteImpl

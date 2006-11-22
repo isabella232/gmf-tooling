@@ -313,8 +313,14 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseEntryBase(EntryBase object) {
 				return createEntryBaseAdapter();
 			}
+			public Object caseAbstractToolEntry(AbstractToolEntry object) {
+				return createAbstractToolEntryAdapter();
+			}
 			public Object caseToolEntry(ToolEntry object) {
 				return createToolEntryAdapter();
+			}
+			public Object caseStandardEntry(StandardEntry object) {
+				return createStandardEntryAdapter();
 			}
 			public Object caseToolGroupItem(ToolGroupItem object) {
 				return createToolGroupItemAdapter();
@@ -1216,6 +1222,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry <em>Abstract Tool Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry
+	 * @generated
+	 */
+	public Adapter createAbstractToolEntryAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry <em>Tool Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1226,6 +1246,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createToolEntryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntry <em>Standard Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.StandardEntry
+	 * @generated
+	 */
+	public Adapter createStandardEntryAdapter() {
 		return null;
 	}
 

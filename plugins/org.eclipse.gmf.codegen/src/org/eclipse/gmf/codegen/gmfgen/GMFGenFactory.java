@@ -341,6 +341,15 @@ public interface GMFGenFactory extends EFactory {
 	ToolEntry createToolEntry();
 
 	/**
+	 * Returns a new object of class '<em>Standard Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Standard Entry</em>'.
+	 * @generated
+	 */
+	StandardEntry createStandardEntry();
+
+	/**
 	 * Returns a new object of class '<em>Separator</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

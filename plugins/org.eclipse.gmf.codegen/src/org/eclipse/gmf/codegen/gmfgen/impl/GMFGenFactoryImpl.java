@@ -145,6 +145,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CONSTRAINT: return createGenConstraint();
 			case GMFGenPackage.PALETTE: return createPalette();
 			case GMFGenPackage.TOOL_ENTRY: return createToolEntry();
+			case GMFGenPackage.STANDARD_ENTRY: return createStandardEntry();
 			case GMFGenPackage.SEPARATOR: return createSeparator();
 			case GMFGenPackage.TOOL_GROUP: return createToolGroup();
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER: return createGenFeatureSeqInitializer();
@@ -189,6 +190,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
 				return createViewmapLayoutTypeFromString(eDataType, initialValue);
+			case GMFGenPackage.STANDARD_ENTRY_KIND:
+				return createStandardEntryKindFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return createGenSeverityFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_LANGUAGE:
@@ -215,6 +218,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
 				return convertViewmapLayoutTypeToString(eDataType, instanceValue);
+			case GMFGenPackage.STANDARD_ENTRY_KIND:
+				return convertStandardEntryKindToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return convertGenSeverityToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_LANGUAGE:
@@ -603,6 +608,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public StandardEntry createStandardEntry() {
+		StandardEntryImpl standardEntry = new StandardEntryImpl();
+		return standardEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Separator createSeparator() {
 		SeparatorImpl separator = new SeparatorImpl();
 		return separator;
@@ -915,6 +930,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertViewmapLayoutTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StandardEntryKind createStandardEntryKindFromString(EDataType eDataType, String initialValue) {
+		StandardEntryKind result = StandardEntryKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStandardEntryKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

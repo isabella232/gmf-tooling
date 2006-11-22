@@ -1,0 +1,13 @@
+<%
+// there's a problem with qualifieToolName - we should also respect different tools 
+// in NodeToolEntry and LinkToolEntry (right now there's hardcoded name of the tool) 
+if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName().trim().length() > 0 ) {%>
+		result.setToolClass(<%=importManager.getImportedName(toolEntry.getQualifiedToolName())%>.class);
+<%} /*tool class presence*/%>
+
+<%if (!toolEntry.getProperties().isEmpty()) {
+	for (Iterator it = toolEntry.getProperties().entrySet().iterator(); it.hasNext();) {
+		Map.Entry entry = (Map.Entry) it.next();%>
+		result.setToolProperty(<%=entry.getKey()%>, <%=entry.getValue()%>);
+<%	} /*properties iterator*/
+} /*properties presence check*/ %>
