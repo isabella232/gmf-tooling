@@ -67,6 +67,7 @@ public class OpenDiagramBehaviourItemProvider
 			addEditPolicyClassNamePropertyDescriptor(object);
 			addDiagramKindPropertyDescriptor(object);
 			addEditorIDPropertyDescriptor(object);
+			addOpenAsEclipseEditorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -138,6 +139,28 @@ public class OpenDiagramBehaviourItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Open As Eclipse Editor feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOpenAsEclipseEditorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_OpenDiagramBehaviour_openAsEclipseEditor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_OpenDiagramBehaviour_openAsEclipseEditor_feature", "_UI_OpenDiagramBehaviour_type"),
+				 GMFGenPackage.eINSTANCE.getOpenDiagramBehaviour_OpenAsEclipseEditor(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns OpenDiagramBehaviour.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,6 +197,7 @@ public class OpenDiagramBehaviourItemProvider
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND:
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
