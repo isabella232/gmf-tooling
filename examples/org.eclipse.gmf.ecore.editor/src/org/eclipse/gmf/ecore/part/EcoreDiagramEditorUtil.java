@@ -16,6 +16,7 @@ import java.util.Collections;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -36,6 +37,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+
+import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -62,13 +65,30 @@ public class EcoreDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static void setCharset(IPath path) {
-		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+	private static void setCharset(URI uri) {
+		IFile file = getFile(uri);
+		if (file == null) {
+			return;
+		}
 		try {
 			file.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
 		} catch (CoreException e) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + path, e); //$NON-NLS-1$
+			EcoreDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IFile getFile(URI uri) {
+		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
+			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
+			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+			if (workspaceResource instanceof IFile) {
+				return (IFile) workspaceResource;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -78,14 +98,12 @@ public class EcoreDiagramEditorUtil {
 	 * @generated
 	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final Resource createDiagram(IPath containerFullPath, String fileNameParameter, IProgressMonitor progressMonitor) {
-		final String fileName = fileNameParameter;
+	public static final Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		IPath diagramPath = containerFullPath.append(fileName);
-		final Resource diagramResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(diagramPath.toString()));
-		IPath modelPath = diagramPath.removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
-		final Resource modelResource = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(modelPath.toString()));
+		progressMonitor.beginTask("Creating diagram and model files", 3);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
+		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
+		final String diagramName = diagramURI.lastSegment();
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -94,7 +112,7 @@ public class EcoreDiagramEditorUtil {
 				Diagram diagram = ViewService.createDiagram(model, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
-					diagram.setName(fileName);
+					diagram.setName(diagramName);
 					diagram.setElement(model);
 				}
 				try {
@@ -109,15 +127,13 @@ public class EcoreDiagramEditorUtil {
 				return CommandResult.newOKCommandResult();
 			}
 		};
-
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
-
-		setCharset(modelPath);
-		setCharset(diagramPath);
+		setCharset(modelURI);
+		setCharset(diagramURI);
 		return diagramResource;
 	}
 

@@ -117,7 +117,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagram = EcoreDiagramEditorUtil.createDiagram(page.getContainerFullPath(), page.getFileName(), monitor);
+				diagram = EcoreDiagramEditorUtil.createDiagram(page.getDiagramURI(), page.getModelURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						EcoreDiagramEditorUtil.openDiagram(diagram);

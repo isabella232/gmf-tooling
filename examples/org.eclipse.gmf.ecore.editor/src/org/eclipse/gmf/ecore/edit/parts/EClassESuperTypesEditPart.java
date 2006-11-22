@@ -17,7 +17,6 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.ecore.edit.policies.EClassESuperTypesItemSemanticEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EcoreReferenceConnectionEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 
@@ -43,7 +42,7 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, new EcoreReferenceConnectionEditPolicy());
+		/*		installEditPolicy(EditPolicy.CONNECTION_ROLE, new EcoreReferenceConnectionEditPolicy());*/
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EClassESuperTypesItemSemanticEditPolicy());
 
 	}
