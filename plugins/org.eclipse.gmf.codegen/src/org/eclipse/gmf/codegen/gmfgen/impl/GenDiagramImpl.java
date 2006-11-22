@@ -85,7 +85,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTextSelectionEditPolicyClassName <em>Text Selection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTextNonResizableEditPolicyClassName <em>Text Non Resizable Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getExternalNodeLabelHostLayoutEditPolicyClassName <em>External Node Label Host Layout Edit Policy Class Name</em>}</li>
@@ -695,26 +694,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String baseGraphicalNodeEditPolicyClassName = BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getReferenceConnectionEditPolicyClassName() <em>Reference Connection Edit Policy Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferenceConnectionEditPolicyClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getReferenceConnectionEditPolicyClassName() <em>Reference Connection Edit Policy Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferenceConnectionEditPolicyClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String referenceConnectionEditPolicyClassName = REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getTextSelectionEditPolicyClassName() <em>Text Selection Edit Policy Class Name</em>}' attribute.
@@ -2596,35 +2575,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getReferenceConnectionEditPolicyClassNameGen() {
-		return referenceConnectionEditPolicyClassName;
-	}
-
-	public String getReferenceConnectionEditPolicyClassName() {
-		String value = getReferenceConnectionEditPolicyClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "ReferenceConnectionEditPolicy"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReferenceConnectionEditPolicyClassName(String newReferenceConnectionEditPolicyClassName) {
-		String oldReferenceConnectionEditPolicyClassName = referenceConnectionEditPolicyClassName;
-		referenceConnectionEditPolicyClassName = newReferenceConnectionEditPolicyClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME, oldReferenceConnectionEditPolicyClassName, referenceConnectionEditPolicyClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getCanonicalEditPolicyClassNameGen() {
 		return canonicalEditPolicyClassName;
 	}
@@ -3771,8 +3721,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getBaseItemSemanticEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return getBaseGraphicalNodeEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				return getReferenceConnectionEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 				return getTextSelectionEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
@@ -3954,9 +3902,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setBaseGraphicalNodeEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				setReferenceConnectionEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 				setTextSelectionEditPolicyClassName((String)newValue);
@@ -4185,9 +4130,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setBaseGraphicalNodeEditPolicyClassName(BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				setReferenceConnectionEditPolicyClassName(REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 				setTextSelectionEditPolicyClassName(TEXT_SELECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
@@ -4383,8 +4325,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseItemSemanticEditPolicyClassName != null : !BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseItemSemanticEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseGraphicalNodeEditPolicyClassName != null : !BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseGraphicalNodeEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 				return TEXT_SELECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? textSelectionEditPolicyClassName != null : !TEXT_SELECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(textSelectionEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
@@ -4525,7 +4465,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME;
@@ -4637,7 +4576,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
-				case GMFGenPackage.EDIT_PART_CANDIES__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME;
@@ -4788,16 +4726,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getBaseGraphicalNodeEditPolicyQualifiedClassName() {
 		return getEditPoliciesPackageName() + '.' + getBaseGraphicalNodeEditPolicyClassName();
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getReferenceConnectionEditPolicyQualifiedClassName() {
-		return getEditPoliciesPackageName() + '.' + getReferenceConnectionEditPolicyClassName();
 	}
 
 	/**
@@ -5063,8 +4991,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(baseItemSemanticEditPolicyClassName);
 		result.append(", baseGraphicalNodeEditPolicyClassName: ");
 		result.append(baseGraphicalNodeEditPolicyClassName);
-		result.append(", referenceConnectionEditPolicyClassName: ");
-		result.append(referenceConnectionEditPolicyClassName);
 		result.append(", textSelectionEditPolicyClassName: ");
 		result.append(textSelectionEditPolicyClassName);
 		result.append(", textNonResizableEditPolicyClassName: ");

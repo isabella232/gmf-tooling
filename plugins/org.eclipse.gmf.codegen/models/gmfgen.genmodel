@@ -205,7 +205,6 @@
       <genFeatures createChild="false" propertyCategory="Edit Parts" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseExternalNodeLabelEditPartClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
-      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textNonResizableEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/externalNodeLabelHostLayoutEditPolicyClassName"/>
@@ -215,7 +214,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextSelectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextNonResizableEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName"/>

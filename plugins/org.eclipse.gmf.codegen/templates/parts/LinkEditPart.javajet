@@ -37,11 +37,7 @@ public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImp
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-<%if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ROLE, new <%=importManager.getImportedName(genDiagram.getReferenceConnectionEditPolicyQualifiedClassName())%>());
-<%
-} 
-if (genLink.getModelFacet() == null) {%>
+<%if (genLink.getModelFacet() == null) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy")%>());
 <%}%>
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName())%>()
