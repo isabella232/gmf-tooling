@@ -32,7 +32,7 @@ public class FileGenModelAccess implements GenModelAccess {
 	}
 
 	public FileGenModelAccess(IFile genModelWorkspaceFile) {
-		this(URI.createPlatformResourceURI(genModelWorkspaceFile.getFullPath().toString()));
+		this(URI.createPlatformResourceURI(genModelWorkspaceFile.getFullPath().toString(), true));
 	}
 
 	public GenModel model() {
