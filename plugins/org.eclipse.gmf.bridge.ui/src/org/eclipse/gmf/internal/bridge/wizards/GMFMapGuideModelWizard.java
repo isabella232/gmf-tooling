@@ -157,7 +157,7 @@ public class GMFMapGuideModelWizard extends Wizard implements INewWizard {
 			toolDefFile = toolDefFile.removeLastSegments(1).append(baseName + i).addFileExtension(WizardInput.TOOLDEF_FILE_EXT);
 			i++;
 		}
-		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString());
+		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString(), true);
 		myRegistry = GMFToolFactory.eINSTANCE.createToolRegistry();
 		myRegistry.setPalette(GMFToolFactory.eINSTANCE.createPalette());
 		myHolder.getResourceSet().createResource(toolDefURI).getContents().add(myRegistry);

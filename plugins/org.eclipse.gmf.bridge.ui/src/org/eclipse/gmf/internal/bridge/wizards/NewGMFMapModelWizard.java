@@ -84,15 +84,15 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 	private void initDefaultFileNames() {
 		IFile f = WizardUtil.findExistingFile(mySelection, WizardInput.ECORE_FILE_EXT);
 		if (myHolder.getInitialECoreFile() == null && f != null) {
-			myHolder.setInitialECoreFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+			myHolder.setInitialECoreFile(URI.createPlatformResourceURI(f.getFullPath().toString(), true).toString());
 		}
 		f = WizardUtil.findExistingFile(mySelection, WizardInput.GRAPHDEF_FILE_EXT);
 		if (myHolder.getInitialGraphFile() == null && f != null) {
-			myHolder.setInitialGraphFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+			myHolder.setInitialGraphFile(URI.createPlatformResourceURI(f.getFullPath().toString(), true).toString());
 		}
 		f = WizardUtil.findExistingFile(mySelection, WizardInput.TOOLDEF_FILE_EXT);
 		if (myHolder.getInitialToolFile() == null && f != null) {
-			myHolder.setInitialToolFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+			myHolder.setInitialToolFile(URI.createPlatformResourceURI(f.getFullPath().toString(), true).toString());
 		}
 	}
 

@@ -100,7 +100,7 @@ public abstract class WizardInput {
 	public Mapping getMapping() {
 		if (mapInstance == null) {
 			mapInstance = GMFMapFactory.eINSTANCE.createMapping();
-			URI res = URI.createPlatformResourceURI(getMappingFile().getFullPath().toString());
+			URI res = URI.createPlatformResourceURI(getMappingFile().getFullPath().toString(), true);
 			getResourceSet().createResource(res).getContents().add(mapInstance);
 			CanvasMapping cm = GMFMapFactory.eINSTANCE.createCanvasMapping();
 			mapInstance.setDiagram(cm);

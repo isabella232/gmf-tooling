@@ -195,7 +195,7 @@ public class ModelURISelector implements Listener {
 		if (result != null) {
 			IResource resource = (IResource) result[0];
 			if (isValidWorkspaceResource(resource)) {
-				setURIText(URI.createURI(URI.createPlatformResourceURI(resource.getFullPath().toString()).toString(), true).toString());
+				setURIText(URI.createURI(URI.createPlatformResourceURI(resource.getFullPath().toString(), true).toString(), true).toString());
 				enableLoad();
 			}
 		}

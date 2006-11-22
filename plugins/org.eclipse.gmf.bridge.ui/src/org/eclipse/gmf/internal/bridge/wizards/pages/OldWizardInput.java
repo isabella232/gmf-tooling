@@ -76,7 +76,7 @@ public class OldWizardInput extends WizardInput {
 			toolDefFile = toolDefFile.removeLastSegments(1).append(baseName + i).addFileExtension(TOOLDEF_FILE_EXT);
 			i++;
 		}
-		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString());
+		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString(), true);
 		myRegistry = GMFToolFactory.eINSTANCE.createToolRegistry();
 		myRegistry.setPalette(GMFToolFactory.eINSTANCE.createPalette());
 		getResourceSet().createResource(toolDefURI).getContents().add(myRegistry);
