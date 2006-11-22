@@ -43,7 +43,12 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected TaiPanCreationWizardPage page;
+	protected TaiPanCreationWizardPage diagramModelFilePage;
+
+	/**
+	 * @generated
+	 */
+	protected TaiPanCreationWizardPage domainModelFilePage;
 
 	/**
 	 * @generated
@@ -105,10 +110,25 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		page = new TaiPanCreationWizardPage("CreationWizardPage", getSelection()); //$NON-NLS-1$
-		page.setTitle("Create TaiPan Diagram");
-		page.setDescription("Create a new TaiPan diagram.");
-		addPage(page);
+		diagramModelFilePage = new TaiPanCreationWizardPage("DiagramModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "taipan_diagram"; //$NON-NLS-1$
+			}
+		};
+		diagramModelFilePage.setTitle("Create TaiPan Diagram");
+		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+		addPage(diagramModelFilePage);
+
+		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "taipan"; //$NON-NLS-1$
+			}
+		};
+		domainModelFilePage.setTitle("Create TaiPan Diagram");
+		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		addPage(domainModelFilePage);
 	}
 
 	/**
@@ -118,7 +138,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagram = TaiPanDiagramEditorUtil.createDiagram(page.getDiagramURI(), page.getModelURI(), monitor);
+				diagram = TaiPanDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						TaiPanDiagramEditorUtil.openDiagram(diagram);
