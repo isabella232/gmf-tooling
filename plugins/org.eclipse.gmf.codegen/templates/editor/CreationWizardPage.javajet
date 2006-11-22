@@ -5,7 +5,6 @@ final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenApplication application = editorGen.getApplication();
-final boolean hasDomainFile = !editorGen.isSameFileForDiagramAndModel() && editorGen.getDomainGenModel() != null;
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>

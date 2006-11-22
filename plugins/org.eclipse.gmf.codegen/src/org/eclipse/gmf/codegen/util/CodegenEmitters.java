@@ -146,7 +146,7 @@ public class CodegenEmitters {
 		};
 		myTemplatePath = new String[] {
 				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? //$NON-NLS-1$
-						URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
+						URI.createPlatformResourceURI(templateDirectory, true).toString() : templateDirectory,
 				getTemplatesBundle().getEntry("/templates/").toString() //$NON-NLS-1$
 		};
 		// actually, that's new JETEmitterFactory with JETTemplateRegistry
