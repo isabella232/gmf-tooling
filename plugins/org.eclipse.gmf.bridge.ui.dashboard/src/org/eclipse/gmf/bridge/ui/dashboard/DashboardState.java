@@ -131,7 +131,7 @@ public final class DashboardState {
 		if (file == null) {
 			return null;
 		}
-		return URI.createPlatformResourceURI(file.getFullPath().toString());
+		return URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 	}
 
 	public int getModelsCount() {

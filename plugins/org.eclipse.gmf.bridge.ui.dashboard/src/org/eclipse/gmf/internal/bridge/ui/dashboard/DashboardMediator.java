@@ -213,7 +213,7 @@ public class DashboardMediator implements DashboardFacade {
 			if (file == null) {
 				return;
 			}
-			setURI(URI.createPlatformResourceURI(file.getFullPath().toString()));
+			setURI(URI.createPlatformResourceURI(file.getFullPath().toString(), true));
 			updateStatus();
 		}
 
