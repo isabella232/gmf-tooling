@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -22,18 +23,6 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
  * @generated
  */
 public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCreationPage {
-<%if (hasDomainFile) {%>
-
-	/**
-	 * @generated
-	 */
-	private static final String DOMAIN_EXT = ".<%=editorGen.getDomainFileExtension()%>"; //$NON-NLS-1$
-<%}%>
-
-	/**
-	 * @generated
-	 */
-	private static final String DIAGRAM_EXT = ".<%=editorGen.getDiagramFileExtension()%>"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -43,34 +32,24 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 	}
 
 	/**
+	 * Override to create files with this extension.
+	 * 
 	 * @generated
 	 */
-	public URI getDiagramURI() {
-		IPath path = getFilePath();
-		if (path.getFileExtension() == null) {
-			path = path.addFileExtension("<%=editorGen.getDiagramFileExtension()%>"); //$NON-NLS-1$
-		}
-<%if (application == null) {%>
-		return URI.createPlatformResourceURI(path.toString());
-<%} else {%>
-		return URI.createFileURI(path.toString());
-<%}%>
+	protected String getExtension() {
+		return null;
 	}
-<%if (hasDomainFile) {%>
 
 	/**
 	 * @generated
 	 */
-	public URI getModelURI() {
-		IPath path = getFilePath();
-		path = path.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
+	public URI getURI() {
 <%if (application == null) {%>
-		return URI.createPlatformResourceURI(path.toString());
+		return URI.createPlatformResourceURI(getFilePath().toString());
 <%} else {%>
-		return URI.createFileURI(path.toString());
+		return URI.createFileURI(getFilePath().toString());
 <%}%>
 	}
-<%}%>
 <%if (application == null) {%>
 
 	/**
@@ -92,44 +71,30 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 	/**
 	 * @generated
 	 */
-	protected String getDefaultFileName() {
-		return "default"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getFileName() {
-		String fileName = super.getFileName();
-		if (fileName != null && !fileName.endsWith(DIAGRAM_EXT)) {
-			fileName += DIAGRAM_EXT;
+	private String getUniqueFileName(IPath containerFullPath, String fileName) {
+		if (containerFullPath == null) {
+			containerFullPath = new Path(""); //$NON-NLS-1$
 		}
-		return fileName;
-	}
+		if (fileName == null || fileName.trim().length() == 0) {
+			fileName = "default"; //$NON-NLS-1$
+		}
+		IPath filePath = containerFullPath.append(fileName);
+		String extension = getExtension();
+		if (extension != null && !extension.equals(filePath.getFileExtension())) {
+			filePath = filePath.addFileExtension(extension);
+		}
 
-	/**
-	 * @generated
-	 */
-	private String getUniqueFileName(IPath containerPath, String fileName) {
-		String newFileName = fileName;
-		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-<%if (hasDomainFile) {%>
-		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
-<%}%>
+		extension = filePath.getFileExtension();
+		fileName = filePath.removeFileExtension().lastSegment();
 		int i = 1;
-		while (exists(diagramFilePath)
-<%if (hasDomainFile) {%>
-				|| exists(modelFilePath)
-<%}%>
-				) {
+		while (<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.exists(filePath)) {
 			i++;
-			newFileName = fileName + i;
-			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-<%if (hasDomainFile) {%>
-			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
-<%}%>
+			filePath = containerFullPath.append(fileName + i);
+			if (extension != null) {
+				filePath = filePath.addFileExtension(extension);
+			}
 		}
-		return newFileName;
+		return filePath.lastSegment();
 	}
 
 	/**
@@ -137,51 +102,23 @@ public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCr
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		IPath path = getContainerFullPath();
-		if (path != null) {
-			String fileName = getUniqueFileName(path, getDefaultFileName());
-			setFileName(fileName);
-		} else {
-			setFileName(getDefaultFileName());
-		}
+		setFileName(getUniqueFileName(getContainerFullPath(), getFileName()));
 		setPageComplete(validatePage());
 	}
-<%if (hasDomainFile) {%>
 
 	/**
 	 * @generated
 	 */
 	protected boolean validatePage() {
-		if (super.validatePage()) {
-			String fileName = getFileName();
-			if (fileName == null) {
-				return false;
-			}
-			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
-			IPath path = getContainerFullPath();
-			if (path == null) {
-				path = new Path(""); //$NON-NLS-1$
-			}
-			path = path.append(fileName);
-			if (exists(path)) {
-				setErrorMessage("Model file already exists: " + path.lastSegment());
-				return false;
-			}
-			return true;
+		if (!super.validatePage()) {
+			return false;
 		}
-		return false;
-	}
-<%}%>
-
-	/**
-	 * @generated
-	 */
-	public static boolean exists(IPath path) {
-<%if (application == null) {%>
-		return <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path);
-<%} else {%>
-		return path.toFile().exists();
-<%}%>
+		String extension = getExtension();
+		if (extension != null && !extension.equals(getFilePath().getFileExtension())) {
+			setErrorMessage(NLS.bind("File name should have ''{0}'' extension.", extension));
+			return false;
+		}
+		return true;
 	}
 }
 <%importManager.emitSortedImports();%>

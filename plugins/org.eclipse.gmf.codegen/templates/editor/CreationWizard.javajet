@@ -3,6 +3,7 @@
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final boolean standaloneDomainModel = !genDiagram.getEditorGen().isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -39,7 +40,14 @@ public class <%=importManager.getCompilationUnitName()%> extends Wizard implemen
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%> page;
+	protected <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%> diagramModelFilePage;
+<%if (standaloneDomainModel) {%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%> domainModelFilePage;
+<%}%>
 
 	/**
 	 * @generated
@@ -111,10 +119,31 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 	 * @generated
 	 */
 	public void addPages() {
-		page = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("CreationWizardPage", getSelection()); //$NON-NLS-1$
-		page.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
-		page.setDescription("Create a new <%=genDiagram.getEditorGen().getModelID()%> diagram.");
-		addPage(page);
+		diagramModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DiagramModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "<%=genDiagram.getEditorGen().getDiagramFileExtension()%>"; //$NON-NLS-1$
+			}
+		};
+		diagramModelFilePage.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
+<%if (standaloneDomainModel) {%>
+		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+<%} else {%>
+		diagramModelFilePage.setDescription("Select file that will contain diagram and domain models.");
+<%}%>
+		addPage(diagramModelFilePage);
+<%if (standaloneDomainModel) {%>
+
+		domainModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DomainModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "<%=genDiagram.getEditorGen().getDomainFileExtension()%>"; //$NON-NLS-1$
+			}
+		};
+		domainModelFilePage.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
+		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		addPage(domainModelFilePage);
+<%}%>
 	}
 
 	/**
@@ -131,10 +160,9 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 <%}%>
-<%final boolean standaloneDomainModel = !genDiagram.getEditorGen().isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;%>
-				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(page.getDiagramURI(),
+				diagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagram(diagramModelFilePage.getURI(),
 <%if (standaloneDomainModel) {%>
-						page.getModelURI(),
+						domainModelFilePage.getURI(),
 <%}%>
 						monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {

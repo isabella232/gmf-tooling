@@ -78,6 +78,17 @@ public class <%=importManager.getCompilationUnitName()%> {
 <%}%>
 
 	/**
+	 * @generated
+	 */
+	public static boolean exists(<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> path) {
+<%if (editorGen.getApplication() == null) {%>
+		return <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path);
+<%} else {%>
+		return path.toFile().exists();
+<%}%>
+	}
+
+	/**
 <%if (editorGen.getApplication() == null) {%>
 	 * <p>
 	 * This method should be called within a workspace modify operation since it creates resources.
