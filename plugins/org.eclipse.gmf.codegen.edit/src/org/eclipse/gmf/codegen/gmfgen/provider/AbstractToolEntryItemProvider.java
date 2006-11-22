@@ -12,7 +12,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,18 +25,20 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ToolEntry} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ToolEntryItemProvider
-	extends AbstractToolEntryItemProvider
+public class AbstractToolEntryItemProvider
+	extends EntryBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -45,7 +51,7 @@ public class ToolEntryItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ToolEntryItemProvider(AdapterFactory adapterFactory) {
+	public AbstractToolEntryItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,54 +65,70 @@ public class ToolEntryItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGenNodesPropertyDescriptor(object);
-			addGenLinksPropertyDescriptor(object);
+			addDefaultPropertyDescriptor(object);
+			addQualifiedToolNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Gen Nodes feature.
+	 * This adds a property descriptor for the Default feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGenNodesPropertyDescriptor(Object object) {
+	protected void addDefaultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ToolEntry_genNodes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genNodes_feature", "_UI_ToolEntry_type"),
-				 GMFGenPackage.eINSTANCE.getToolEntry_GenNodes(),
+				 getString("_UI_AbstractToolEntry_default_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractToolEntry_default_feature", "_UI_AbstractToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getAbstractToolEntry_Default(),
 				 true,
 				 false,
 				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
-				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Gen Links feature.
+	 * This adds a property descriptor for the Qualified Tool Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGenLinksPropertyDescriptor(Object object) {
+	protected void addQualifiedToolNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ToolEntry_genLinks_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genLinks_feature", "_UI_ToolEntry_type"),
-				 GMFGenPackage.eINSTANCE.getToolEntry_GenLinks(),
+				 getString("_UI_AbstractToolEntry_qualifiedToolName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractToolEntry_qualifiedToolName_feature", "_UI_AbstractToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getAbstractToolEntry_QualifiedToolName(),
 				 true,
 				 false,
 				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
-				 getString("_UI_ToolPropertyCategory"),
 				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Collection getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getAbstractToolEntry_Properties());
+		}
+		return childrenFeatures;
 	}
 
 	/**
@@ -116,10 +138,10 @@ public class ToolEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((ToolEntry)object).getCreateMethodName();
+		String label = ((AbstractToolEntry)object).getCreateMethodName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ToolEntry_type") :
-			getString("_UI_ToolEntry_type") + " " + label;
+			getString("_UI_AbstractToolEntry_type") :
+			getString("_UI_AbstractToolEntry_type") + " " + label;
 	}
 
 	/**
@@ -131,6 +153,16 @@ public class ToolEntryItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(AbstractToolEntry.class)) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
@@ -141,8 +173,13 @@ public class ToolEntryItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptorsGen(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
+		collectNewChildDescriptorsGen(newChildDescriptors, object);
+		newChildDescriptors.add(createChildParameter(GMFGenPackage.eINSTANCE.getAbstractToolEntry_Properties(), EcoreFactory.eINSTANCE.create(EcorePackage.eINSTANCE.getEStringToStringMapEntry())));
 	}
 
 	/**

@@ -844,6 +844,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.StandardEntry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StandardEntryItemProvider standardEntryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.StandardEntry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createStandardEntryAdapter() {
+		if (standardEntryItemProvider == null) {
+			standardEntryItemProvider = new StandardEntryItemProvider(this);
+		}
+
+		return standardEntryItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.Separator} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1592,6 +1614,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genConstraintItemProvider != null) genConstraintItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();
 		if (toolEntryItemProvider != null) toolEntryItemProvider.dispose();
+		if (standardEntryItemProvider != null) standardEntryItemProvider.dispose();
 		if (separatorItemProvider != null) separatorItemProvider.dispose();
 		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
 		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();

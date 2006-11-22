@@ -213,6 +213,11 @@ public class ToolGroupItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getToolGroup_Entries(),
+				 GMFGenFactory.eINSTANCE.createStandardEntry()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getToolGroup_Entries(),
 				 GMFGenFactory.eINSTANCE.createSeparator()));
 
 		newChildDescriptors.add

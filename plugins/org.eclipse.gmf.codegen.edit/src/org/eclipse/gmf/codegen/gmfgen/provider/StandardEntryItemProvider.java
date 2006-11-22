@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,17 +23,19 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
+import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ToolEntry} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.StandardEntry} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ToolEntryItemProvider
+public class StandardEntryItemProvider
 	extends AbstractToolEntryItemProvider
 	implements	
 		IEditingDomainItemProvider,	
@@ -45,7 +49,7 @@ public class ToolEntryItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ToolEntryItemProvider(AdapterFactory adapterFactory) {
+	public StandardEntryItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,54 +63,41 @@ public class ToolEntryItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGenNodesPropertyDescriptor(object);
-			addGenLinksPropertyDescriptor(object);
+			addKindPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Gen Nodes feature.
+	 * This adds a property descriptor for the Kind feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGenNodesPropertyDescriptor(Object object) {
+	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ToolEntry_genNodes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genNodes_feature", "_UI_ToolEntry_type"),
-				 GMFGenPackage.eINSTANCE.getToolEntry_GenNodes(),
+				 getString("_UI_StandardEntry_kind_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StandardEntry_kind_feature", "_UI_StandardEntry_type"),
+				 GMFGenPackage.eINSTANCE.getStandardEntry_Kind(),
 				 true,
 				 false,
 				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
-				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Gen Links feature.
+	 * This returns StandardEntry.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGenLinksPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ToolEntry_genLinks_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genLinks_feature", "_UI_ToolEntry_type"),
-				 GMFGenPackage.eINSTANCE.getToolEntry_GenLinks(),
-				 true,
-				 false,
-				 false,
-				 null,
-				 getString("_UI_ToolPropertyCategory"),
-				 null));
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/StandardEntry"));
 	}
 
 	/**
@@ -116,10 +107,10 @@ public class ToolEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((ToolEntry)object).getCreateMethodName();
+		String label = ((StandardEntry)object).getCreateMethodName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ToolEntry_type") :
-			getString("_UI_ToolEntry_type") + " " + label;
+			getString("_UI_StandardEntry_type") :
+			getString("_UI_StandardEntry_type") + " " + label;
 	}
 
 	/**
@@ -131,6 +122,12 @@ public class ToolEntryItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(StandardEntry.class)) {
+			case GMFGenPackage.STANDARD_ENTRY__KIND:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
