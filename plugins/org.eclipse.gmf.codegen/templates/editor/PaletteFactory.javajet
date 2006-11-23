@@ -42,6 +42,7 @@ for (int i = 0; i < palette.getGroups().size(); i++) {
 
 <%if (palette.definesStandardTools()) {%>
 	/**
+	 * Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159289
 	 * @generated
 	 */
 	private void cleanStandardTools(PaletteRoot paletteRoot) {
