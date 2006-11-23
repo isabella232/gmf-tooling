@@ -42,6 +42,7 @@ import org.eclipse.gmf.codegen.templates.lite.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
+import org.eclipse.gmf.codegen.templates.lite.editor.OpenDiagramFileInViewGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginPropertiesGenerator;
@@ -126,6 +127,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
+		put(tr, "/editor/OpenDiagramInViewAction.javajet", OpenDiagramFileInViewGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
 		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
 		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
@@ -212,6 +214,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getActionBarContributorGenerator() throws UnexpectedBehaviourException {
 		return retrieve(ActionBarContributorGenerator.class);
+	}
+
+	public TextEmitter getOpenDiagramInViewActionGenerator() throws UnexpectedBehaviourException {
+		return retrieve(OpenDiagramFileInViewGenerator.class);
 	}
 
 	public TextEmitter getEditorGenerator() throws UnexpectedBehaviourException {

@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.codegen.util.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
@@ -19,6 +19,9 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
       </fileTypes>
   </extension>
 
+<%
+if (editorGen.getEditor().isEclipseEditor()) {
+%>
    <extension point="org.eclipse.ui.editors">
      <?gmfgen generated="true"?>
      <editor
@@ -31,7 +34,22 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
         contributorClass="<%=editorGen.getEditor().getActionBarContributorQualifiedClassName()%>">
      </editor>
    </extension>
-
+<%
+} else {
+%>
+   <extension point="org.eclipse.ui.views">
+     <?gmfgen generated="true"?>
+      <view
+            allowMultiple="false"
+            category="<%=genDiagram.getCreationWizardCategoryID()%>"<%/*XXX: replace with gmfgen property*/%>
+            class="<%=editorGen.getEditor().getQualifiedClassName()%>"
+            icon="<%=editorGen.getEditor().getIconPathX()%>"
+            id="<%=editorGen.getEditor().getID()%>"
+            name="<%=genModel.getModelName()%> Diagram View"/>
+   </extension>
+<%
+}
+%>
 <%
 if (isRichClientPlatform) {
 	final boolean shouldGenerateApplication = true;	/*XXX: option in gmfgen*/
@@ -164,6 +182,29 @@ if (isRichClientPlatform) {
                id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
          </action>
       </objectContribution>  
+<%
+	if (!editorGen.getEditor().isEclipseEditor()) {
+%>
+      <objectContribution
+            id="<%=genPlugin.getID()%>.ui.objectContribution.IFile2"
+            nameFilter="*.<%=editorGen.getDiagramFileExtension()%>"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Open diagram in <%=genModel.getModelName()%> Diagram View"
+<%
+		/*XXX: property in gmfgen?*/
+		String className = "OpenDiagramIn" + genModel.getModelName() + "DiagramViewAction";
+		className = CodeGenUtil.validJavaIdentifier(className);
+%>
+               class="<%=editorGen.getEditor().getPackageName()%>.<%=className%>"
+               menubarPath="additions"
+               enablesFor="1"
+               id="<%=editorGen.getEditor().getPackageName()%>.<%=className%>ID">
+         </action>
+      </objectContribution>  
+<%
+	}
+%>
    </extension>
 
 <%

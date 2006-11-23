@@ -46,6 +46,9 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 		}
 	}
 
+<%
+if (editorGen.getEditor().isEclipseEditor()) {
+%>
 	/**
 	 * @generated
 	 */
@@ -73,6 +76,35 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 			}
 		}
 	}
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	public static <%=importManager.getImportedName("org.eclipse.ui.IViewPart")%> showView(URI fileURI) {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		IWorkbenchPage page = workbenchWindow.getActivePage();
+
+
+		try {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%> diagramView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%>) page.showView(<%=importManager.getImportedName(editorGen.getEditor().getQualifiedClassName())%>.ID);
+			if (!diagramView.showDiagram(null, fileURI)) {
+				return null;
+			}
+			return diagramView;
+		} catch (PartInitException exception) {
+			MessageDialog.openError(
+			workbenchWindow.getShell(),
+			"Error Opening View",
+			exception.getMessage());
+			return null;
+		}
+	}
+<%
+}
+%>
 
 <%
 if (!genDiagram.getEditorGen().isSameFileForDiagramAndModel()) {
@@ -385,7 +417,17 @@ if (isRichClientPlatform) {
 		public void run(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action) {
 			String filePath = openFilePathDialog(getWindow().getShell(), "*.<%=editorGen.getDiagramFileExtension()%>", <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.OPEN);	//$NON-NLS-1$
 			if (filePath != null) {
+<%
+if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
 				openEditor(URI.createFileURI(filePath));
+<%
+} else {
+%>
+				showView(URI.createFileURI(filePath));
+<%
+}
+%>
 			}
 		}
  	}
@@ -403,7 +445,17 @@ if (isRichClientPlatform) {
 			<%=importManager.getImportedName("org.eclipse.emf.edit.ui.action.LoadResourceAction")%>.LoadResourceDialog loadResourceDialog = new <%=importManager.getImportedName("org.eclipse.emf.edit.ui.action.LoadResourceAction")%>.LoadResourceDialog(getWindow().getShell());
 			if (<%=importManager.getImportedName("org.eclipse.jface.dialogs.Dialog")%>.OK == loadResourceDialog.open()) {
 				for (<%=importManager.getImportedName("java.util.Iterator")%> it = loadResourceDialog.getURIs().iterator(); it.hasNext(); ) {
+<%
+if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
 					openEditor((URI) it.next());
+<%
+} else {
+%>
+					showView((URI) it.next());
+<%
+}
+%>
 				}
 			}
 		}

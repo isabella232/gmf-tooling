@@ -30,6 +30,21 @@ import org.eclipse.ui.actions.ActionFactory;
  * @generated
  */
 public class <%=editorView.getActionBarContributorClassName()%> extends ActionBarContributor {
+<%
+if (!editorView.isEclipseEditor()) {
+%>
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.List")%> globalActionKeys = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+
+	/**
+	 * @generated
+	 */
+	private ZoomComboContributionItem myZoomContributionItem;
+<%
+}
+%>
 	/**
 	 * @generated
 	 */
@@ -50,18 +65,43 @@ public class <%=editorView.getActionBarContributorClassName()%> extends ActionBa
 		addGlobalActionKey(ActionFactory.DELETE.getId());
     }
 
+<%
+if (!editorView.isEclipseEditor()) {
+%>
+	/**
+	 * @generated
+	 */
+	protected void addGlobalActionKey(String key) {
+		super.addGlobalActionKey(key);
+		globalActionKeys.add(key);
+	}
+
+<%
+}
+%>
 	/**
 	 * @generated
 	 */
     public void contributeToMenu(IMenuManager menuManager) {
         super.contributeToMenu(menuManager);
 
+<%
+if (editorView.isEclipseEditor()) {
+%>
         // add a "View" menu after "Edit"
         MenuManager viewMenu = new MenuManager("View");
         viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
         viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
         
         menuManager.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
+<%
+} else {
+%>
+		menuManager.add(getAction(GEFActionConstants.ZOOM_IN));
+		menuManager.add(getAction(GEFActionConstants.ZOOM_OUT));
+<%
+}
+%>
     }
 
 	/**
@@ -74,6 +114,43 @@ public class <%=editorView.getActionBarContributorClassName()%> extends ActionBa
         toolBarManager.add(getAction(ActionFactory.REDO.getId()));
     
         toolBarManager.add(new Separator());
+<%
+if (editorView.isEclipseEditor()) {
+%>
         toolBarManager.add(new ZoomComboContributionItem(getPage()));
-    }
+<%
+} else {
+%>
+		myZoomContributionItem = new ZoomComboContributionItem(getPage());
+		toolBarManager.add(myZoomContributionItem);
+<%
 }
+%>
+    }
+
+<%
+if (!editorView.isEclipseEditor()) {
+%>
+	/**
+	 * @generated
+	 */
+	public void updateGlobalActions(<%=importManager.getImportedName("org.eclipse.ui.IViewPart")%> viewPart) {
+		<%=importManager.getImportedName("org.eclipse.gef.ui.actions.ActionRegistry")%> registry = viewPart == null ? null : (<%=importManager.getImportedName("org.eclipse.gef.ui.actions.ActionRegistry")%>) viewPart.getAdapter(<%=importManager.getImportedName("org.eclipse.gef.ui.actions.ActionRegistry")%>.class);
+		<%=importManager.getImportedName("org.eclipse.ui.IActionBars")%> bars = getActionBars();
+		if (registry == null) {
+			bars.clearGlobalActionHandlers();
+		} else {
+			for (int i = 0; i < globalActionKeys.size(); i++) {
+				String id = (String) globalActionKeys.get(i);
+				bars.setGlobalActionHandler(id, registry.getAction(id));
+			}
+		}
+		<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%> zoomManager = viewPart == null ? null : (<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%>) viewPart.getAdapter(<%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%>.class);
+		myZoomContributionItem.setZoomManager(zoomManager);
+		bars.updateActionBars();
+	}
+<%
+}
+%>
+}
+<%importManager.emitSortedImports();%>

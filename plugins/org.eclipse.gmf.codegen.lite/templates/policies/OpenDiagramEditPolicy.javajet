@@ -4,6 +4,7 @@
 final OpenDiagramBehaviour behaviour = (OpenDiagramBehaviour) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenDiagram genDiagram = behaviour.getSubject().getDiagram();
+final boolean openAsEditor = behaviour.isOpenAsEclipseEditor();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -74,13 +75,28 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 				diagramToOpen = createNewDiagram();
 			}
 			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramURI = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(diagramToOpen);
-			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagramURI);
 			<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = <%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+<%
+if (openAsEditor) {
+%>
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagramURI);
 			try {
 				page.openEditor(editorInput, getEditorID());
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
 				throw new RuntimeException("Can't open diagram", e);
 			}
+<%
+} else {
+%>
+			try {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%> diagramView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%>)page.showView(getViewID());
+				diagramView.showDiagram(null, diagramURI);
+			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
+				throw new RuntimeException("Can't open diagram", e);
+			}
+<%
+}
+%>
 		}
 
 		/**
@@ -169,7 +185,17 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		/**
 		 * @generated
 		 */
+<%
+if (openAsEditor) {
+%>
 		protected String getEditorID() {
+<%
+} else {
+%>
+		protected String getViewID() {
+<%
+}
+%>
 <%if (behaviour.getEditorID() == null) { %>
 			return <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID;
 <%} else {%>

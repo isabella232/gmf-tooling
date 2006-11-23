@@ -167,7 +167,6 @@ if (isRichClientPlatform) {
 if (isRichClientPlatform) {
 %>
 		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = myDiagramURISelectorPage.getNewFileURI();
-		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(diagramFileURI);
 <%
 } else {
 %>
@@ -178,10 +177,11 @@ if (isRichClientPlatform) {
 			<%=pluginActivatorClass%>.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
 		}
 
-		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 <%
 }
 %>
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(diagramFileURI);
 		<%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> command = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Initializing diagram contents") { //$NON-NLS-1$
 			private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> myCreatedDiagram;
 
@@ -215,14 +215,20 @@ if (isRichClientPlatform) {
 			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, command).execute();
 			diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
 <%
-if (isRichClientPlatform) {
+if (!genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 %>
-			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openEditor(diagramResource.getURI());
+			<%=importManager.getImportedName("org.eclipse.ui.IViewPart")%> editor = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.showView(diagramFileURI);
 <%
 } else {
+	if (isRichClientPlatform) {
+%>
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openEditor(diagramFileURI);
+<%
+	} else {
 %>
 			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = <%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(myWorkbenchPage, diagramFile);
 <%
+	}
 }
 %>
 			if (editor != null) {
@@ -246,9 +252,13 @@ if (isRichClientPlatform) {
 } else {
 %>
 			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+<%
+	if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
 		} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> ex) {
 			<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
 <%
+	}
 }
 %>
 		}

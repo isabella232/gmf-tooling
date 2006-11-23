@@ -1,0 +1,78 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="OpenDiagramFileInViewGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.util.*"%>
+<%
+final GenEditorView editorView = (GenEditorView) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = editorView.getEditorGen();
+final GenDiagram genDiagram = editorGen.getDiagram();
+final GenModel genModel = editorGen.getDomainGenModel();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@include file="../copyright4java.jetinc" %>
+<%
+importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getCompilationUnitName()%> implements <%=importManager.getImportedName("org.eclipse.ui.IObjectActionDelegate")%> {
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPart")%> myPart;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> mySelectedModelFile;
+
+	/**
+	 * @generated
+	 */
+	public void setActivePart(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action, <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPart")%> targetPart) {
+		myPart = targetPart;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void selectionChanged(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action, <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelection")%> selection) {
+		mySelectedModelFile = null;
+		action.setEnabled(false);
+		if (selection instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> == false
+				|| selection.isEmpty()) {
+			return;
+		}
+		mySelectedModelFile = (<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%>) ((<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) selection).getFirstElement();
+		action.setEnabled(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void run(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = null;
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.workspace.WorkspaceEditingDomainFactory")%>.INSTANCE
+				.createEditingDomain();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = editingDomain.getResourceSet();
+		try {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = resourceSet.getResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) resource.getContents().get(0);
+		} catch (<%=importManager.getImportedName("org.eclipse.emf.common.util.WrappedException")%> ex) {
+			<%=importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(
+							"Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
+			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(myPart.getSite().getShell(), "Error",
+					"Diagram file failed to load");
+			return;
+		}
+		try {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%> part = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart")%>) myPart.getSite().getPage().showView(<%=importManager.getImportedName(editorView.getQualifiedClassName())%>.ID);
+			part.showDiagram(editingDomain, <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(diagram));
+		} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> ex) {
+			<%=importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
+			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(myPart.getSite().getShell(), "Error", "Unable to open diagram");
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

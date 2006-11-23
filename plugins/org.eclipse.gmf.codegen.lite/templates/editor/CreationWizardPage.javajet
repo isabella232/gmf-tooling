@@ -381,7 +381,7 @@ if (isRichClientPlatform) {
 			diagramFilePath = diagramFilePath.addFileExtension("<%=editorGen.getDiagramFileExtension()%>");		//$NON-NLS-1$
 		}
 		final IFile diagramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(diagramFilePath);
-		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFilePath.toString()));
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFilePath.toString(), true));
 <%
 }
 %>
@@ -395,7 +395,7 @@ if (standaloneDomainModel) {
 	} else {
 %>
 		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFilePath.toString()));
+		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFilePath.toString(), true));
 <%
 	}
 }
@@ -455,13 +455,26 @@ if (genDiagram.getDomainDiagramElement() != null) {
 <%
 if (isRichClientPlatform) {
 %>
+<%
+	if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
 		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.openEditor(getDiagramFileURI()) != null;
+<%
+	} else {
+%>
+		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.showView(getDiagramFileURI()) != null;
+<%
+	}
+%>
 		if (!result) {
 			return null;
 		}
 		return getDiagramFileURI();
 <%
 } else {
+%>
+<%
+	if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 %>
 		try {
 			<%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(<%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile);
@@ -470,6 +483,18 @@ if (isRichClientPlatform) {
 			return null;
 		}
 		return diagramFile;
+<%
+	} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = diagramResource.getURI();
+		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.showView(diagramFileURI) != null;
+		if (!result) {
+			return null;
+		}
+		return diagramFile;
+<%
+	}
+%>
 <%
 }
 %>
