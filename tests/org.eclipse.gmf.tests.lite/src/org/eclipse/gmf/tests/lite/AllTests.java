@@ -22,7 +22,9 @@ import org.eclipse.gmf.tests.lite.gef.DiagramNodeCloneMoveTest;
 import org.eclipse.gmf.tests.lite.gef.ExternalNodeLabelsTest;
 import org.eclipse.gmf.tests.lite.gef.NotationRefreshTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTestWithImportConflicts;
+import org.eclipse.gmf.tests.lite.gen.LiteViewCompilationTest;
 import org.eclipse.gmf.tests.lite.gen.RCPLiteCompilationTest;
+import org.eclipse.gmf.tests.lite.gen.RCPLiteViewCompilationTest;
 import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
@@ -35,7 +37,9 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side, lite mode");
 		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
+		suite.addTestSuite(LiteViewCompilationTest.class);
 		suite.addTestSuite(RCPLiteCompilationTest.class);
+		suite.addTestSuite(RCPLiteViewCompilationTest.class);
 
 		final SessionSetup sessionSetup = LiteSessionSetup.getInstance();
 		final LinksSessionSetup sessionSetup2 = LiteLinksSessionSetup.getInstance();
