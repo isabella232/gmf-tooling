@@ -4,6 +4,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 	java.util.List containers = rootContainer.getAllAuditContainers();
 %>
 <extension point="org.eclipse.emf.validation.constraintProviders">
+	<?gmfgen generated="true"?>
 <%
 	java.util.HashMap<GenAuditContainer, String> idMap = new java.util.HashMap<GenAuditContainer, String>();
 	for(int i = 0; i < containers.size(); i++) {
@@ -78,6 +79,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 </extension>
 
 <extension point="org.eclipse.emf.validation.constraintBindings">
+	<?gmfgen generated="true"?>
 <%
 	String pluginID = genDiagram.getEditorGen().getPlugin().getID();
 	for(java.util.Iterator it = rootContainer.getAllRulesToTargetContextMap().entrySet().iterator(); it.hasNext();) {

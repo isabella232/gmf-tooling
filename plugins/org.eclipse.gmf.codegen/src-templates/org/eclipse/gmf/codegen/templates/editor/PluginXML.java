@@ -167,7 +167,7 @@ public class PluginXML
   protected final String TEXT_149 = "\">" + NL + "         <Priority name=\"";
   protected final String TEXT_150 = "\"/>" + NL + "         <object class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)\" id=\"PRIMARY_VIEW\"/>" + NL + "         <context decoratorTargets=\"PRIMARY_VIEW\"/>" + NL + "      </decoratorProvider>" + NL + "   </extension>";
   protected final String TEXT_151 = NL;
-  protected final String TEXT_152 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">";
+  protected final String TEXT_152 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">" + NL + "\t<?gmfgen generated=\"true\"?>";
   protected final String TEXT_153 = NL + "\t<category" + NL + "\t\tid=\"";
   protected final String TEXT_154 = "\"" + NL + "\t\tmandatory=\"false\"" + NL + "\t\tname=\"";
   protected final String TEXT_155 = "\">" + NL + "\t<![CDATA[";
@@ -194,7 +194,7 @@ public class PluginXML
   protected final String TEXT_176 = "]]></message>" + NL + "\t\t\t\t<target class=\"";
   protected final String TEXT_177 = "\"/>" + NL + "\t\t\t</constraint>";
   protected final String TEXT_178 = NL + "\t\t</constraints>";
-  protected final String TEXT_179 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">";
+  protected final String TEXT_179 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">" + NL + "\t<?gmfgen generated=\"true\"?>";
   protected final String TEXT_180 = NL + "\t<clientContext default=\"false\" id=\"";
   protected final String TEXT_181 = ".";
   protected final String TEXT_182 = "\">" + NL + "\t\t<selector class=\"";
@@ -251,11 +251,11 @@ public class PluginXML
   protected final String TEXT_233 = "\">" + NL + "         <editorInputEnablement>" + NL + "            <instanceof value=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy\"/>" + NL + "         </editorInputEnablement>" + NL + "         <selectionEnablement>" + NL + "            <instanceof value=\"";
   protected final String TEXT_234 = "\"/>" + NL + "         </selectionEnablement>" + NL + "      </linkHelper>" + NL + "   </extension>";
   protected final String TEXT_235 = NL;
-  protected final String TEXT_236 = NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyContributor\">" + NL + "      <propertyContributor contributorId=\"";
+  protected final String TEXT_236 = NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyContributor\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <propertyContributor contributorId=\"";
   protected final String TEXT_237 = "\"";
   protected final String TEXT_238 = NL + "            labelProvider=\"";
   protected final String TEXT_239 = "\"";
-  protected final String TEXT_240 = ">" + NL + "         <propertyCategory category=\"domain\"/>" + NL + "         <propertyCategory category=\"visual\"/>" + NL + "         <propertyCategory category=\"extra\"/>" + NL + "      </propertyContributor>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyTabs\">" + NL + "      <propertyTabs contributorId=\"";
+  protected final String TEXT_240 = ">" + NL + "         <propertyCategory category=\"domain\"/>" + NL + "         <propertyCategory category=\"visual\"/>" + NL + "         <propertyCategory category=\"extra\"/>" + NL + "      </propertyContributor>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyTabs\">" + NL + "      <?gmfgen generated=\"true\"?>   " + NL + "      <propertyTabs contributorId=\"";
   protected final String TEXT_241 = "\">";
   protected final String TEXT_242 = NL;
   protected final String TEXT_243 = "         <propertyTab" + NL + "             category=\"visual\"" + NL + "             id=\"property.tab.AppearancePropertySection\"" + NL + "             label=\"%tab.appearance\"/>";
@@ -268,7 +268,7 @@ public class PluginXML
   protected final String TEXT_250 = NL + "             id=\"property.tab.";
   protected final String TEXT_251 = "\"" + NL + "             label=\"%tab.";
   protected final String TEXT_252 = "\"/>";
-  protected final String TEXT_253 = NL + "      </propertyTabs>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertySections\">" + NL + "      <propertySections contributorId=\"";
+  protected final String TEXT_253 = NL + "      </propertyTabs>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertySections\">" + NL + "      <?gmfgen generated=\"true\"?>   " + NL + "      <propertySections contributorId=\"";
   protected final String TEXT_254 = "\">";
   protected final String TEXT_255 = NL;
   protected final String TEXT_256 = NL + "         <propertySection id=\"property.section.ConnectorAppearancePropertySection\" " + NL + "            filter=\"org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter\" " + NL + "            class=\"org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection\" " + NL + "            tab=\"property.tab.AppearancePropertySection\">" + NL + "         </propertySection>" + NL + "         <propertySection id=\"property.section.ShapeColorAndFontPropertySection\" " + NL + "            filter=\"org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter\" " + NL + "            class=\"org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection\" " + NL + "            tab=\"property.tab.AppearancePropertySection\">" + NL + "         </propertySection> " + NL + "         <propertySection id=\"property.section.DiagramColorsAndFontsPropertySection\" " + NL + "            filter=\"org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter\" " + NL + "            class=\"org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection\" " + NL + "            tab=\"property.tab.AppearancePropertySection\">" + NL + "         </propertySection>     ";
