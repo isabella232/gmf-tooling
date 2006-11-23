@@ -97,16 +97,19 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 		return editingDomain;
 	}
 
+	protected abstract void createActions();
+
 	/**
 	 * Shows the given diagram in the viewer. 
 	 * @param editingDomain the editing domain that should be used for loading the diagram or <code>null</code> if the viewer should create {@link #createEditingDomain() a default instance}.
 	 * @param diagramURI the URI to load the diagram from.
 	 */
-	public final void showDiagram(TransactionalEditingDomain editingDomain, URI diagramURI) {
+	public final boolean showDiagram(TransactionalEditingDomain editingDomain, URI diagramURI) {
 		DiagramDisplayer oldDiagramDisplayer = myDiagramDisplayer;
+		boolean result = false;
 		if (diagramURI == null) {
 			if (oldDiagramDisplayer == null) {
-				return;
+				return true;
 			}
 			myBook.showPage(myUninitializedControl);
 		} else {
@@ -114,16 +117,19 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 				editingDomain = createEditingDomain();
 			}
 			myDiagramDisplayer = new DiagramDisplayer(this, createEditDomain(), editingDomain);
-			myDiagramDisplayer.createViewer(myBook);
 			try {
 				setInput(diagramURI);
+				myDiagramDisplayer.createViewer(myBook);
+				createActions();
 				myBook.showPage(myDiagramDisplayer.getTopLevelControl());
+				result = true;
 			} catch (CoreException e) {
 				Activator.getDefault().getLog().log(e.getStatus());
 				ErrorDialog.openError(getSite().getShell(), "Error", "Failed to open diagram", e.getStatus());
 				if (myDiagramDisplayer.getTopLevelControl() != null && !myDiagramDisplayer.getTopLevelControl().isDisposed()) {
 					myDiagramDisplayer.getTopLevelControl().dispose();
 					myDiagramDisplayer.dispose();
+					myDiagramDisplayer = oldDiagramDisplayer;
 					//prevent navigation from the old diagram.
 					oldDiagramDisplayer = null;
 				}
@@ -133,7 +139,11 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 			oldDiagramDisplayer.getTopLevelControl().dispose();
 			oldDiagramDisplayer.dispose();
 		}
+		updateActionBars();
+		return result;
 	}
+
+	protected abstract void updateActionBars();
 
 	public void configureGraphicalViewer() {
 		getGraphicalViewer().getControl().setBackground(ColorConstants.listBackground);
