@@ -19,7 +19,12 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
@@ -58,6 +63,7 @@ public class TypeLinkModelFacetItemProvider
 
 			addSourceMetaFeaturePropertyDescriptor(object);
 			addTargetMetaFeaturePropertyDescriptor(object);
+			addCreateCommandClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -107,6 +113,28 @@ public class TypeLinkModelFacetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Create Command Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreateCommandClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TypeLinkModelFacet_createCommandClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TypeLinkModelFacet_createCommandClassName_feature", "_UI_TypeLinkModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getTypeLinkModelFacet_CreateCommandClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns TypeLinkModelFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -123,7 +151,10 @@ public class TypeLinkModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_TypeLinkModelFacet_type");
+		String label = ((TypeLinkModelFacet)object).getCreateCommandClassName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_TypeLinkModelFacet_type") :
+			getString("_UI_TypeLinkModelFacet_type") + " " + label;
 	}
 
 	/**
@@ -135,6 +166,12 @@ public class TypeLinkModelFacetItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(TypeLinkModelFacet.class)) {
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
