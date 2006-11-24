@@ -145,6 +145,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final ViewmapProducer myViewmaps;
 	private final VisualIdentifierDispenser myVisualIDs;
+	private final boolean rcp;
 	private final History myHistory;
 	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
 	private final Set myProcessedExpressions = new HashSet();
@@ -156,15 +157,16 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
-		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser());
+		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false);
 	}
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD) {
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD, boolean rcp) {
 		assert drtHelper != null && namingStrategy != null && viewmaps != null;
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
 		myViewmaps = viewmaps;
 		myVisualIDs = visualIdD;
+		this.rcp = rcp;
 		myHistory = new History();
 		myPaletteProcessor = new PaletteHandler();
 		myNavigatorProcessor = new NavigatorHandler();
@@ -243,7 +245,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			myPaletteProcessor.initialize(createGenPalette());
 			myPaletteProcessor.process(mapping.getPalette());
 		}
-		myNavigatorProcessor.initialize(getGenDiagram(), genGenNavigator());
+		if (!rcp) {
+			myNavigatorProcessor.initialize(getGenDiagram(), genGenNavigator());
+		}
 		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
@@ -263,7 +267,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		myPropertySheetProcessor.initialize(createPropertySheet());
 		myPropertySheetProcessor.process(mapping);
-
+		
+		if (rcp) {
+			if (getGenEssence().getApplication() == null) {
+				getGenEssence().setApplication(GMFGenFactory.eINSTANCE.createGenApplication());
+			}
+		}
+		
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
 	}
@@ -288,7 +298,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		processAbstractNode(nme, genNode);
 		myHistory.log(nme, genNode);
 		
-		myNavigatorProcessor.process(genNode);
+		if (!rcp) {
+			myNavigatorProcessor.process(genNode);
+		}
 	}
 	
 	protected void process(AuditContainer audits) {
@@ -334,7 +346,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			((GenCompartment)container).setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
-		myNavigatorProcessor.process(childNode, container);
+		if (!rcp) {
+			myNavigatorProcessor.process(childNode, container);
+		}
 	}
 
 	/**
@@ -528,7 +542,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		
 		myHistory.log(lme, gl);
-		myNavigatorProcessor.process(gl);
+		if (!rcp) {
+			myNavigatorProcessor.process(gl);
+		}
 	}
 
 //	private void process(AppearanceSteward appSteward) {
