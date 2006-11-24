@@ -26,6 +26,7 @@ import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSelection
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSourceImpl;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.ToolDefBuilder;
+import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.ModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.tooldef.ToolRegistry;
@@ -145,7 +146,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
 	public IFile getModelFile() {
 		if (isInReconcileMode()) {
-			return WizardUtil.getFile(toolingModelSelectionPage.getResource().getURI());
+			return URIUtil.getFile(toolingModelSelectionPage.getResource().getURI());
 		}
 		return super.getModelFile();
 	}

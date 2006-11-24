@@ -16,10 +16,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -46,8 +43,6 @@ import org.eclipse.ui.part.ISetSelectionTarget;
  * @author dstadnik
  */
 public class WizardUtil {
-
-	// Wizard operation modes
 
 	private WizardUtil() {
 	}
@@ -115,21 +110,6 @@ public class WizardUtil {
 			}
 		};
 		container.run(false, false, operation);
-	}
-
-	public static IFile getFile(URI uri) {
-		String fileName = uri.toFileString();
-		if (fileName != null) {
-			return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
-		}
-		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
-			String path = uri.toString().substring("platform:/resources".length()); //$NON-NLS-1$
-			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
-			if (workspaceResource instanceof IFile) {
-				return (IFile) workspaceResource;
-			}
-		}
-		return null;
 	}
 
 	public static boolean openEditor(IFile modelFile) {

@@ -28,6 +28,7 @@ import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSelection
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSourceImpl;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.GraphDefBuilder;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.StructureBuilder;
+import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.ModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 
@@ -145,7 +146,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
 	public IFile getModelFile() {
 		if (isInReconcileMode()) {
-			return WizardUtil.getFile(graphicalModelSelectionPage.getResource().getURI());
+			return URIUtil.getFile(graphicalModelSelectionPage.getResource().getURI());
 		}
 		return super.getModelFile();
 	}
