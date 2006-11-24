@@ -20,7 +20,7 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="library_constrained.gmftool#//@palette/@tools.0/@tools.1"/>
+          href="library_constrained.gmftool#//@palette/@tools.1/@tools.1"/>
       <diagramNode
           href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children
@@ -43,7 +43,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="library_constrained.gmftool#//@palette/@tools.0/@tools.0"/>
+              href="library_constrained.gmftool#//@palette/@tools.1/@tools.0"/>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
@@ -91,7 +91,7 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="library_constrained.gmftool#//@palette/@tools.0/@tools.0"/>
+          href="library_constrained.gmftool#//@palette/@tools.1/@tools.0"/>
       <diagramNode
           href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children
@@ -110,7 +110,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="library_constrained.gmftool#//@palette/@tools.0/@tools.2/@tools.1"/>
+              href="library_constrained.gmftool#//@palette/@tools.1/@tools.2/@tools.1"/>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
@@ -132,7 +132,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="library_constrained.gmftool#//@palette/@tools.0/@tools.2/@tools.0"/>
+              href="library_constrained.gmftool#//@palette/@tools.1/@tools.2/@tools.0"/>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
@@ -196,7 +196,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="library_constrained.gmftool#//@palette/@tools.0/@tools.2/@tools.1"/>
+              href="library_constrained.gmftool#//@palette/@tools.1/@tools.2/@tools.1"/>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
@@ -218,7 +218,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="library_constrained.gmftool#//@palette/@tools.0/@tools.2/@tools.0"/>
+              href="library_constrained.gmftool#//@palette/@tools.1/@tools.2/@tools.0"/>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
@@ -247,7 +247,7 @@
         href="library.ecore#//Writer/opinions"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="library_constrained.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="library_constrained.gmftool#//@palette/@tools.2/@tools.0"/>
     <diagramLink
         href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <linkMetaFeature
@@ -261,7 +261,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="library_constrained.gmftool#//@palette/@tools.1/@tools.1"/>
+        href="library_constrained.gmftool#//@palette/@tools.2/@tools.1"/>
     <diagramLink
         href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <linkMetaFeature
@@ -285,7 +285,7 @@
         href="library.ecore#//Writer/opinions"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="library_constrained.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="library_constrained.gmftool#//@palette/@tools.2/@tools.0"/>
     <diagramLink
         href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <linkMetaFeature

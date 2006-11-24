@@ -7,6 +7,40 @@
       title="">
     <tools
         xsi:type="gmftool:ToolGroup"
+        title="Standard"
+        description="Standard Tools">
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Selection"
+          description="Selection"/>
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Pan Selection"
+          description="Pan Selection"
+          toolKind="SELECT_PAN"/>
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Marquee"
+          description="Marquee"
+          toolKind="MARQUEE"/>
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Pan Zoom"
+          description="Pan Zoom"
+          toolKind="ZOOM_PAN"/>
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Zoom In"
+          description="Zoom In"
+          toolKind="ZOOM_IN"/>
+      <tools
+          xsi:type="gmftool:StandardTool"
+          title="Zoom Out"
+          description="Zoom Out"
+          toolKind="ZOOM_OUT"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
         title="Nodes"
         collapsible="true">
       <tools
