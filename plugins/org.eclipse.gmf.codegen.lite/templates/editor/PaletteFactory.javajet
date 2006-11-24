@@ -17,7 +17,6 @@ importManager.addImport("org.eclipse.gef.palette.PaletteGroup");
 importManager.addImport("org.eclipse.gef.palette.PaletteRoot");
 importManager.addImport("org.eclipse.gef.palette.ConnectionCreationToolEntry");
 importManager.addImport("org.eclipse.gef.palette.MarqueeToolEntry");
-importManager.addImport("org.eclipse.gef.palette.SelectionToolEntry");
 importManager.addImport("org.eclipse.gef.palette.ToolEntry");
 importManager.addImport("org.eclipse.jface.resource.ImageDescriptor");
 importManager.addImport("org.eclipse.emf.edit.provider.IItemLabelProvider");
@@ -50,14 +49,20 @@ public class <%=palette.getFactoryClassName()%> {
 	 * @generated
 	 */
 	public void contributeToPalette(PaletteRoot paletteRoot) {
+<%
+if (!palette.definesStandardTools()) {
+%>
         PaletteGroup controls = new PaletteGroup("Controls");
         paletteRoot.add(controls);
 
-        ToolEntry tool = new SelectionToolEntry();
+        ToolEntry tool = new <%=importManager.getImportedName("org.eclipse.gef.palette.SelectionToolEntry")%>();
         controls.add(tool);
         paletteRoot.setDefaultEntry(tool);
 
         controls.add(new MarqueeToolEntry());
+<%
+}
+%>
 <%
 List toolGroups = palette.getGroups();
 for (int i = 0; i < toolGroups.size(); i++) {
@@ -72,7 +77,7 @@ final LinkedList<ToolGroup> toolGroupsQueue = new LinkedList<ToolGroup>();
 for(Object next : palette.getGroups()) {
 	toolGroupsQueue.add((ToolGroup) next);
 }
-final LinkedList<ToolEntry> toolsQueue = new LinkedList<ToolEntry>();
+final LinkedList<AbstractToolEntry> toolsQueue = new LinkedList<AbstractToolEntry>();
 while (!toolGroupsQueue.isEmpty()) {
 	// TODO with additional counter and hashmap here it's easy to add "unique method name" check here
 	ToolGroup toolGroup = (ToolGroup) toolGroupsQueue.removeFirst();
@@ -104,16 +109,23 @@ if (toolGroup.getDescription() != null) {%>
 		paletteContainer.setDescription("<%=toolGroup.getDescription()%>");
 <%}%>
 <%
+boolean hasDeclaredPaletteEntry = false;
 for(Iterator it = toolGroup.getEntries().iterator(); it.hasNext(); ) {
 	ToolGroupItem groupItem = (ToolGroupItem) it.next();
-	if (groupItem instanceof ToolEntry) {
-		toolsQueue.add((ToolEntry) groupItem);
+	if (groupItem instanceof AbstractToolEntry) {
+		toolsQueue.add((AbstractToolEntry) groupItem);
 %>
-		paletteContainer.add(<%=((ToolEntry) groupItem).getCreateMethodName()%>());
+		<%if (!hasDeclaredPaletteEntry) { hasDeclaredPaletteEntry = true;%> <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteEntry")%> <%}%>paletteEntry = <%=((AbstractToolEntry) groupItem).getCreateMethodName()%>();
+		if (paletteEntry != null) {
+			paletteContainer.add(paletteEntry);
+		}
 <%	} else if (groupItem instanceof ToolGroup) {
 		toolGroupsQueue.addLast((ToolGroup) groupItem);
 %>
-		paletteContainer.add(<%=((ToolGroup) groupItem).getCreateMethodName()%>());
+		<%if (!hasDeclaredPaletteEntry) { hasDeclaredPaletteEntry = true;%> <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteEntry")%> <%}%>paletteEntry = <%=((ToolGroup) groupItem).getCreateMethodName()%>();
+		if (paletteEntry != null) {
+			paletteContainer.add(paletteEntry);
+		}
 <%
 	} else if (groupItem instanceof Separator) {%>
 		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
@@ -125,7 +137,42 @@ for(Iterator it = toolGroup.getEntries().iterator(); it.hasNext(); ) {
 } /*while*/
 boolean hasNodeEntries = false;
 boolean hasLinkEntries = false;
-for(ToolEntry toolEntry : toolsQueue) {
+for(AbstractToolEntry abstractToolEntry : toolsQueue) {
+	if (abstractToolEntry instanceof StandardEntry) {
+		StandardEntry toolEntry = (StandardEntry) abstractToolEntry;
+%>
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry <%=toolEntry.getCreateMethodName()%>() {
+<%
+		String toolEntryQualifiedName;
+		if (toolEntry.getKind() == StandardEntryKind.SELECT_LITERAL) {
+			toolEntryQualifiedName = "org.eclipse.gef.palette.PanningSelectionToolEntry";
+		} else if (toolEntry.getKind() == StandardEntryKind.MARQUEE_LITERAL) {
+			toolEntryQualifiedName = "org.eclipse.gef.palette.MarqueeToolEntry";
+		} else {
+			toolEntryQualifiedName = null;
+		}
+		if (toolEntryQualifiedName == null) {
+%>
+		return null;
+<%
+		} else {
+%>
+		<%=importManager.getImportedName(toolEntryQualifiedName)%> result = new <%=importManager.getImportedName(toolEntryQualifiedName)%>();
+<%@include file="palette-tool-props.jetinc"%>
+		return result;
+<%
+		}
+%>
+	}
+
+<%
+		continue;
+	}
+	ToolEntry toolEntry = (ToolEntry) abstractToolEntry;
 	GenCommonBase firstGenElement = toolEntry.getElements().isEmpty() ? null : (GenCommonBase) toolEntry.getElements().get(0);
 	String domainElementInstanceCreationCode = null;
 	if (firstGenElement instanceof GenNode) {
@@ -194,22 +241,8 @@ for(ToolEntry toolEntry : toolsQueue) {
 		ToolEntry result = new ToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage) {};
 <%
 	}
-	// there's a problem with qualifiedToolName - we should also respect different tools 
-	// in NodeToolEntry and LinkToolEntry (right now there's hardcoded name of the tool) 
-	if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName().trim().length() > 0 ) {
 %>
-		result.setToolClass(<%=importManager.getImportedName(toolEntry.getQualifiedToolName())%>.class);
-<%
-	} /*tool class presence*/
-	if (!toolEntry.getProperties().isEmpty()) {
-		for (Iterator it = toolEntry.getProperties().entrySet().iterator(); it.hasNext();) {
-			Map.Entry entry = (Map.Entry) it.next();
-%>
-		result.setToolProperty(<%=entry.getKey()%>, <%=entry.getValue()%>);
-<%
-		} /*properties iterator*/
-	} /*properties presence check*/
-%>
+<%@include file="palette-tool-props.jetinc"%>
 		return result;
 	}
 <%
