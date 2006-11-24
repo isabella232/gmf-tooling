@@ -130,6 +130,7 @@ public class LinksSessionSetup extends SessionSetup {
 		DiaGenSetup diaGenSetup = new DiaGenSetup().init(getMapModel());
 		// force generation of validation support 
 		diaGenSetup.getGenDiagram().setValidationEnabled(true);
+		diaGenSetup.getGenDiagram().setLiveValidationUIFeedback(true);		
 		diaGenSetup.getGenDiagram().setValidationDecorators(true);
 		// fix Prefixes for nested packages
 		GenModel genModel = diaGenSetup.getGenDiagram().getDiagram().getDomainDiagramElement().getGenModel();
