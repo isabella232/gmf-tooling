@@ -50,7 +50,6 @@ import org.eclipse.gmf.internal.codegen.GMFGenConfig;
 import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
-import org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -90,6 +89,8 @@ public class TransformToGenModelOperation {
 	private Boolean useRuntimeFigures;
 
 	private Boolean useMapMode;
+
+	private Boolean rcp;
 
 	private ResourceSet myResourceSet;
 
@@ -145,6 +146,14 @@ public class TransformToGenModelOperation {
 
 	public void setUseRuntimeFigures(Boolean useRuntimeFigures) {
 		this.useRuntimeFigures = useRuntimeFigures;
+	}
+
+	public Boolean getRCP() {
+		return rcp;
+	}
+
+	public void setRCP(Boolean rcp) {
+		this.rcp = rcp;
 	}
 
 	protected ResourceSet getResourceSet() {
@@ -211,7 +220,7 @@ public class TransformToGenModelOperation {
 
 		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
 
-		final ViewmapProducer viewmapProducer = detectViewmapProducer(getShell());
+		final ViewmapProducer viewmapProducer = detectTransformationOptions(getShell());
 		if (viewmapProducer == null) {
 			return;
 		}
@@ -329,7 +338,7 @@ public class TransformToGenModelOperation {
 	}
 
 	private GenModelProducer createGenModelProducer(GenModel domainGenModel, final DiagramRunTimeModelHelper drtModelHelper, final ViewmapProducer viewmapProducer, final VisualIdentifierDispenser idDespenser) {
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer, idDespenser);
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer, idDespenser, getRCP() == null ? false : getRCP());
 		if (domainGenModel != null) {
 			t.setEMFGenModel(domainGenModel);
 		}
@@ -372,14 +381,20 @@ public class TransformToGenModelOperation {
 		return new VisualIdentifierDispenserProvider(getGenModelURI());
 	}
 
-	private ViewmapProducer detectViewmapProducer(Shell shell) {
-		if (getUseRuntimeFigures() != null && getUseMapMode() != null) {
+	private ViewmapProducer detectTransformationOptions(Shell shell) {
+		if (getUseRuntimeFigures() != null && getUseMapMode() != null && getRCP() != null) {
 			// allow to run without dialogs
 			FigureQualifiedNameSwitch fSwitch = getUseRuntimeFigures().booleanValue() ? new RuntimeFQNSwitch() : new RuntimeLiteFQNSwitch();
 			MapModeCodeGenStrategy mmStrategy = getUseMapMode().booleanValue() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 			return new InnerClassViewmapProducer(fSwitch, mmStrategy);
 		}
 		if (!checkLiteOptionPresent()) {
+			final String rcpmsg = "Would you like to generate RCP application?";
+			if (MessageDialog.openQuestion(shell, "Create Generator Model", rcpmsg)) {
+				rcp = true;
+			} else {
+				rcp = false;
+			}
 			MapModeCodeGenStrategy strategy;
 			final String msg = "Would you like to use IMapMode?";
 			if (MessageDialog.openQuestion(shell, "Create Generator Model", msg)) {
@@ -389,10 +404,14 @@ public class TransformToGenModelOperation {
 			}
 			return new InnerClassViewmapProducer(new RuntimeFQNSwitch(), strategy);
 		}
-		FigureGeneratorOptionsDialog dlg = new FigureGeneratorOptionsDialog(shell, "Create Generator Model", getUseRuntimeFigures() == null ? true : getUseRuntimeFigures().booleanValue(), getUseMapMode() == null ? true : getUseMapMode().booleanValue());
+		TransformToGenModelOptionsDialog dlg = new TransformToGenModelOptionsDialog(shell, "Create Generator Model",
+				getUseRuntimeFigures() == null ? true : getUseRuntimeFigures(),
+				getUseMapMode() == null ? true : getUseMapMode(),
+				getRCP() == null ? false : getRCP());
 		if (dlg.open() != IDialogConstants.OK_ID) {
 			return null;
 		}
+		setRCP(dlg.isRCP());
 		return new InnerClassViewmapProducer(dlg.getFigureQualifiedNameSwitch(), dlg.getMapModeCodeGenStrategy());
 	}
 

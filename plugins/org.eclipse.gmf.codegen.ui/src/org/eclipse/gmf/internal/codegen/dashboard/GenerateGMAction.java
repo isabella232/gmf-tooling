@@ -48,8 +48,9 @@ public class GenerateGMAction implements DashboardAction {
 		}
 		try {
 			TransformToGenModelOperation op = new TransformToGenModelOperation();
-			op.setUseRuntimeFigures(Boolean.TRUE);
-			op.setUseMapMode(Boolean.TRUE);
+			op.setUseRuntimeFigures(true);
+			op.setUseMapMode(true);
+			op.setRCP(false);
 			op.setMapModelURI(mm);
 			op.setGenModelURI(gm);
 			op.run();

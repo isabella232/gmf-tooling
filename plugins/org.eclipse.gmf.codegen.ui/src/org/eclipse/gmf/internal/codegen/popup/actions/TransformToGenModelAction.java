@@ -60,8 +60,9 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		op.setGenModelURI(URI.createPlatformResourceURI(genFile.getFullPath().toString(), true));
 		//Temporary fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=163358
 		if (Platform.getBundle("org.eclipse.gmf.codegen.lite") == null) {
-			op.setUseRuntimeFigures(Boolean.TRUE);
-			op.setUseMapMode(Boolean.TRUE);
+			op.setUseRuntimeFigures(true);
+			op.setUseMapMode(true);
+			op.setRCP(false);
 		}
 		op.run();
 	}
