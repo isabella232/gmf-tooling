@@ -114,6 +114,7 @@
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecorators"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/liveValidationUIFeedback"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>

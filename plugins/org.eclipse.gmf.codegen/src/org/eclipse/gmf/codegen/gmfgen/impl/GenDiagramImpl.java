@@ -119,6 +119,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationDecorators <em>Validation Decorators</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isLiveValidationUIFeedback <em>Live Validation UI Feedback</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
@@ -1356,6 +1357,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected ProviderPriority validationDecoratorProviderPriority = VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isLiveValidationUIFeedback() <em>Live Validation UI Feedback</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLiveValidationUIFeedback()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LIVE_VALIDATION_UI_FEEDBACK_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isLiveValidationUIFeedback() <em>Live Validation UI Feedback</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLiveValidationUIFeedback()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean liveValidationUIFeedback = LIVE_VALIDATION_UI_FEEDBACK_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getUnits() <em>Units</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2334,6 +2355,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		validationDecoratorProviderPriority = newValidationDecoratorProviderPriority == null ? VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT : newValidationDecoratorProviderPriority;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY, oldValidationDecoratorProviderPriority, validationDecoratorProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLiveValidationUIFeedback() {
+		return liveValidationUIFeedback;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLiveValidationUIFeedback(boolean newLiveValidationUIFeedback) {
+		boolean oldLiveValidationUIFeedback = liveValidationUIFeedback;
+		liveValidationUIFeedback = newLiveValidationUIFeedback;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK, oldLiveValidationUIFeedback, liveValidationUIFeedback));
 	}
 
 	/**
@@ -3789,6 +3831,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return isValidationDecorators() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				return getValidationDecoratorProviderPriority();
+			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
+				return isLiveValidationUIFeedback() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -4006,6 +4050,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				setValidationDecoratorProviderPriority((ProviderPriority)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
+				setLiveValidationUIFeedback(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
@@ -4232,6 +4279,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				setValidationDecoratorProviderPriority(VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
+				setLiveValidationUIFeedback(LIVE_VALIDATION_UI_FEEDBACK_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits(UNITS_EDEFAULT);
 				return;
@@ -4393,6 +4443,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return validationDecorators != VALIDATION_DECORATORS_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				return validationDecoratorProviderPriority != VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
+				return liveValidationUIFeedback != LIVE_VALIDATION_UI_FEEDBACK_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -4514,6 +4566,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATORS;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY;
+				case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK: return GMFGenPackage.BATCH_VALIDATION__LIVE_VALIDATION_UI_FEEDBACK;
 				default: return -1;
 			}
 		}
@@ -4625,6 +4678,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATORS: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY;
+				case GMFGenPackage.BATCH_VALIDATION__LIVE_VALIDATION_UI_FEEDBACK: return GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK;
 				default: return -1;
 			}
 		}
@@ -5059,6 +5113,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(validationDecorators);
 		result.append(", validationDecoratorProviderPriority: ");
 		result.append(validationDecoratorProviderPriority);
+		result.append(", liveValidationUIFeedback: ");
+		result.append(liveValidationUIFeedback);
 		result.append(", units: ");
 		result.append(units);
 		result.append(", synchronized: ");

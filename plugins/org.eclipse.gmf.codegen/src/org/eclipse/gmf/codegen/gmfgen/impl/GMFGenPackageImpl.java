@@ -1375,6 +1375,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBatchValidation_LiveValidationUIFeedback() {
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getProviderClassNames() {
 		return providerClassNamesEClass;
 	}
@@ -4778,6 +4787,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATORS);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY);
+		createEAttribute(batchValidationEClass, BATCH_VALIDATION__LIVE_VALIDATION_UI_FEEDBACK);
 
 		providerClassNamesEClass = createEClass(PROVIDER_CLASS_NAMES);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME);
@@ -5418,6 +5428,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getBatchValidation_ValidationDecoratorProviderClassName(), ecorePackage.getEString(), "validationDecoratorProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_ValidationDecorators(), ecorePackage.getEBoolean(), "validationDecorators", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_ValidationDecoratorProviderPriority(), this.getProviderPriority(), "validationDecoratorProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBatchValidation_LiveValidationUIFeedback(), ecorePackage.getEBoolean(), "liveValidationUIFeedback", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationProviderQualifiedClassName", 0, 1);
 

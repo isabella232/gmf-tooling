@@ -106,6 +106,24 @@ if (genDiagram.getEditorGen().hasAudits()) {
 	} // end of contexts iteration
 %>		
 </extension>
+
+<%
+	if(genDiagram.isLiveValidationUIFeedback()) { // UIRegisteredClientContext
+%>
+<extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+	<?gmfgen generated="true"?>
+<%
+		for(java.util.Iterator it = rootContainer.getAllRulesToTargetContextMap().keySet().iterator(); it.hasNext();) {
+			String qualifiedCtxID = pluginID + "." + (String)it.next();
+%>
+	<clientContext id="<%=qualifiedCtxID%>"/>
+<%
+		} // URI registered ctx iteration
+%>
+</extension>
+<%
+	} // UIRegisteredClientContext
+%>
 <%
 }
 %>

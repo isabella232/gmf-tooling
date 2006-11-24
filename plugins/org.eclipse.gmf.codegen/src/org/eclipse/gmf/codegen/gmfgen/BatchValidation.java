@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationDecorators <em>Validation Decorators</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isLiveValidationUIFeedback <em>Live Validation UI Feedback</em>}</li>
  * </ul>
  * </p>
  *
@@ -304,6 +305,32 @@ public interface BatchValidation extends EObject {
 	 * @generated
 	 */
 	void setValidationDecoratorProviderPriority(ProviderPriority value);
+
+	/**
+	 * Returns the value of the '<em><b>Live Validation UI Feedback</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Live Validation UI Feedback</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Live Validation UI Feedback</em>' attribute.
+	 * @see #setLiveValidationUIFeedback(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_LiveValidationUIFeedback()
+	 * @model
+	 * @generated
+	 */
+	boolean isLiveValidationUIFeedback();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isLiveValidationUIFeedback <em>Live Validation UI Feedback</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Live Validation UI Feedback</em>' attribute.
+	 * @see #isLiveValidationUIFeedback()
+	 * @generated
+	 */
+	void setLiveValidationUIFeedback(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->
