@@ -33,8 +33,8 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.ui.dashboard.DashboardActionRegistry.DashboardActionDescriptor;
 import org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard;
+import org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard;
-import org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.WizardOperationMode;
 import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.FileSelector;
@@ -625,11 +625,11 @@ public class DashboardMediator implements DashboardFacade {
 		}
 
 		protected IWizard createWizard() {
-			return new NewGMFMapModelWizard();
+			return new GMFMapGuideModelWizard();
 		}
 
 		protected void wizardFinished(IWizard wizard) {
-			IFile file = ((NewGMFMapModelWizard) wizard).getModelFile();
+			IFile file = ((GMFMapGuideModelWizard) wizard).getModelFile();
 			state.setMM(file);
 			updateStatus();
 		}
