@@ -147,7 +147,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenFeature childFeature = modelFacet.getChildMetaFeature();
 		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
 		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
-		boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
 		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
 
 /**
@@ -307,72 +306,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>				
-		return getMSLWrapper(new Create<%=namePart%>Command(req) {
-
-			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class Create<%=namePart%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand")%> {
-
-		/**
-		 * @generated
-		 */
-		public Create<%=namePart%>Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
-			return <%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
-			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
-			if (newElement != null) {
-				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
-<%			if (modelFacet.getSourceMetaFeature() != null) {%>
-				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) getTarget());
-<%
-			}
-			if (processChildFeature) {
-%>
-				<%=containerClassName%> container = (<%=containerClassName%>) getElementToEdit();
-				if (container != null) {
-<%				if (childFeature.isListType()) {%>
-					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
-					featureValues.add(newElement);
-<%				} else {%>
-				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%				}%>
-				}
-<%
-			}
-			if (modelFacet.getModelElementInitializer() != null) { 
-%>
-				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%			}%>
-			}
-			return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;
-		}
+		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, element, (<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) req.getTarget(), (<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) req.getSource()));
 	}
 <%
 		}
@@ -463,72 +397,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
-		return getMSLWrapper(new Create<%=namePart%>Command(req) {
-
-			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class Create<%=namePart%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand")%> {
-
-		/**
-		 * @generated
-		 */
-		public Create<%=namePart%>Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
-			return <%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
-			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
-			if (newElement != null) {
-				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
-<%			if (modelFacet.getSourceMetaFeature() != null) {%>
-				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) getSource());
-<%
-			}
-			if (processChildFeature) {
-%>
-				<%=containerClassName%> container = (<%=containerClassName%>) getElementToEdit();
-				if (container != null) {
-<%				if (childFeature.isListType()) {%>
-					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
-					featureValues.add(newElement);
-<%				} else {%>
-				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%				}%>
-				}
-<%
-			}
-				if (modelFacet.getModelElementInitializer() != null) { 
-%>
-				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%			}%>
-			}
-			return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;
-		}
+		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, element, (<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) req.getSource(), (<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) req.getTarget()));
 	}
 <%
 		}

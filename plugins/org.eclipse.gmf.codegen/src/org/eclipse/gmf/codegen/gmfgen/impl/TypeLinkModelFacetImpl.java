@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
 /**
@@ -25,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeLinkModelFacetImpl#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeLinkModelFacetImpl#getTargetMetaFeature <em>Target Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeLinkModelFacetImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,6 +52,26 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * @ordered
 	 */
 	protected GenFeature targetMetaFeature = null;
+
+	/**
+	 * The default value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATE_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String createCommandClassName = CREATE_COMMAND_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -148,6 +170,40 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCreateCommandClassNameGen() {
+		return createCommandClassName;
+	}
+
+	public String getCreateCommandClassName() {
+		return GenCommonBaseImpl.getValidClassName(getCreateCommandClassNameGen(), getLink(), CREATE_COMMAND_SUFFIX);
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreateCommandClassName(String newCreateCommandClassName) {
+		String oldCreateCommandClassName = createCommandClassName;
+		createCommandClassName = newCreateCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME, oldCreateCommandClassName, createCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getCreateCommandQualifiedClassName() {
+		return getDiagramImpl().getEditCommandsPackageName() + '.' + getCreateCommandClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList getSourceTypes() {
@@ -186,6 +242,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:
 				if (resolve) return getTargetMetaFeature();
 				return basicGetTargetMetaFeature();
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
+				return getCreateCommandClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -202,6 +260,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				return;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:
 				setTargetMetaFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -220,6 +281,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:
 				setTargetMetaFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName(CREATE_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -235,8 +299,33 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				return sourceMetaFeature != null;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:
 				return targetMetaFeature != null;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
+				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 		}
 		return super.eIsSet(featureID);
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (createCommandClassName: ");
+		result.append(createCommandClassName);
+		result.append(')');
+		return result.toString();
+	}
+
+	private GenLink getLink() {
+		return (GenLink) eContainer();
+	}
+
+	private GenDiagramImpl getDiagramImpl() {
+		return ((GenDiagramImpl) getLink().getDiagram());
+	}
+	
 } //TypeLinkModelFacetImpl

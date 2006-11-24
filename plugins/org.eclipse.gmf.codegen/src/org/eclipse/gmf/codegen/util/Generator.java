@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
@@ -130,6 +131,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateLinkEditPart(next);
 			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
+			generateLinkCreateCommand(next);
 			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 				GenLinkLabel label = (GenLinkLabel) labels.next();
 				generateLinkLabelEditPart(label);
@@ -499,6 +501,19 @@ public class Generator extends GeneratorBase implements Runnable {
 			genLink.getItemSemanticEditPolicyClassName(),
 			genLink
 		);
+	}
+	
+	private void generateLinkCreateCommand(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {
+		if (false == genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+			return;
+		}
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		internalGenerateJavaClass(
+				myEmitters.getCreateTypeLinkCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				modelFacet.getCreateCommandClassName(),
+				genLink
+			);
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

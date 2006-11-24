@@ -4531,13 +4531,22 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Create Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Type Link Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_LINK_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
+	int TYPE_LINK_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLinkModelFacetImpl <em>Feature Link Model Facet</em>}' class.
@@ -9910,6 +9919,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTypeLinkModelFacet_TargetMetaFeature();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Create Command Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName()
+	 * @see #getTypeLinkModelFacet()
+	 * @generated
+	 */
+	EAttribute getTypeLinkModelFacet_CreateCommandClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet <em>Feature Link Model Facet</em>}'.

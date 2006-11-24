@@ -24,7 +24,13 @@ public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=impor
 <%	for (Iterator it = genNode.getReorientedIncomingGenLinks().iterator(); it.hasNext();) {
 		GenLink nextLink = (GenLink) it.next();%>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextLink.getUniqueIdentifier()%> == elementType) {
+<%		if (nextLink.isOutgoingCreationAllowed()) {%>
+			if (request.getSourceEditPart() != getHost()) {
+<%		}%>
 			return getConnectionWithReorientedViewCompleteCommand(request);
+<%		if (nextLink.isOutgoingCreationAllowed()) {%>
+			}
+<%		}%>
 		}
 <%	}%>
 		return super.getConnectionCompleteCommand(request);
@@ -33,11 +39,11 @@ public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=impor
 	/**
 	 * @generated
 	 */
-	protected IElementType getElementType(CreateConnectionRequest request) {
-		if (request instanceof CreateConnectionViewAndElementRequest) {
-			CreateElementRequestAdapter requestAdapter = ((CreateConnectionViewAndElementRequest) request)
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> getElementType(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+		if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter")%> requestAdapter = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest")%>) request)
 					.getConnectionViewAndElementDescriptor().getCreateElementRequestAdapter();
-			return (IElementType) requestAdapter.getAdapter(IElementType.class);
+			return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) requestAdapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
 		}
 		return null;
 	}
@@ -45,10 +51,10 @@ public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=impor
 	/**
 	 * @generated
 	 */
-	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
-		ICommandProxy c = (ICommandProxy) super.getConnectionCompleteCommand(request);
-		CompositeCommand cc = (CompositeCommand) c.getICommand();
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionWithReorientedViewCompleteCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%> c = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>) super.getConnectionCompleteCommand(request);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand")%> cc = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand")%>) c.getICommand();
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getEditingDomain();
 		<%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%> rcvCommand =
 			new <%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%>(editingDomain, null);
 		rcvCommand.setEdgeAdaptor(getViewAdapter());

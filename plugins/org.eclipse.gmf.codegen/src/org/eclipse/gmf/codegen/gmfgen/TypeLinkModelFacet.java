@@ -22,6 +22,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getTargetMetaFeature <em>Target Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,5 +86,41 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
 	 * @generated
 	 */
 	void setTargetMetaFeature(GenFeature value);
+
+	/**
+	 * Returns the value of the '<em><b>Create Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #setCreateCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_CreateCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreateCommandClassName();
+
+	public static final String CREATE_COMMAND_SUFFIX = "TypeLinkCreateCommand"; //$NON-NLS-1$
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 */
+	void setCreateCommandClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreateCommandQualifiedClassName();
 
 } // TypeLinkModelFacet

@@ -1,0 +1,123 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.commands" class="CreateTypeLinkCommandGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"
+	skeleton="../common.skeleton"%>
+<%GenLink link = (GenLink) ((Object[]) argument)[0];
+GenDiagram genDiagram = link.getDiagram(); 
+
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+if (false == link.getModelFacet() instanceof TypeLinkModelFacet) {
+	throw new IllegalArgumentException("TypeLinkModelFacet required");
+} 
+TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) link.getModelFacet();
+
+GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+GenFeature childFeature = modelFacet.getChildMetaFeature();
+GenFeature targetFeature = modelFacet.getTargetMetaFeature();
+GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+
+GenClass outgoingClass = sourceFeature == null ? containmentFeature.getGenClass() : sourceFeature.getTypeGenClass();
+GenClass incomingClass = targetFeature.getTypeGenClass();
+GenClass containerClass = containmentFeature.getGenClass();
+
+boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
+String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand")%> {
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> myContainer;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> mySource;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> myTarget;
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getCompilationUnitName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> container, <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> source, <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> target) {
+		super(req);
+		super.setElementToEdit(<%if (containerClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>container);
+		myContainer = container;
+		mySource = source;
+		myTarget = target;
+	}
+	
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> getContainer() {
+		return myContainer;
+	}
+	
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getSource() {
+		return <%if (outgoingClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>mySource;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getTarget() {
+		return <%if (incomingClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>myTarget;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
+		return <%=importManager.getImportedName(containerClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containerClass.getClassifierAccessorName()%>();
+	};
+
+	/**
+	 * @generated
+	 */
+	protected void setElementToEdit(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element) {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
+		<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
+		if (newElement != null) {
+			<%=getFeatureValueSetterPrefix("newElement", targetFeature, false, importManager)%>myTarget);
+<%if (modelFacet.getSourceMetaFeature() != null) {%>
+			<%=getFeatureValueSetterPrefix("newElement", sourceFeature, false, importManager)%>mySource);
+<%}
+
+if (processChildFeature) {
+	if (childFeature.isListType()) {%>
+				<%=importManager.getImportedName("java.util.Collection")%> featureValues = myContainer.<%=childFeature.getGetAccessor()%>();
+				featureValues.add(newElement);
+<%	} else {%>
+			 	<%=getFeatureValueSetterPrefix("myContainer", childFeature, false, importManager)%>newElement);
+<%	}
+}
+
+if (modelFacet.getModelElementInitializer() != null) {%>
+			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=link.getUniqueIdentifier()%>.init(newElement);
+<%}%>
+		}
+		return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;
+	}
+
+}
+<%importManager.emitSortedImports();%>

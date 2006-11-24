@@ -34,7 +34,13 @@ public class TextNonResizableEditPolicyGenerator {
 			if (feature.isListType()) {
 				result.append(importManager.getImportedName("java.util.Collection"));
 			} else {
-				result.append(importManager.getImportedName(feature.getEcoreFeature().getEType().getInstanceClassName()));
+				if (feature.getTypeGenClass() != null) {
+					result.append(importManager.getImportedName(feature.getTypeGenClass().getQualifiedInterfaceName()));
+				} else {
+					// EDataType
+					result.append(importManager.getImportedName(feature.getTypeGenClassifier().getEcoreClassifier().getInstanceClassName()));
+				}
+
 			}
 			result.append(")");
 			if (!isContainerEObject) {
