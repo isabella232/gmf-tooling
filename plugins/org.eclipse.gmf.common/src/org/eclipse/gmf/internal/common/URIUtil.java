@@ -26,6 +26,10 @@ public class URIUtil {
 	}
 
 	public static IFile getFile(URI uri) {
+		String fileName = uri.toFileString();
+		if (fileName != null) {
+			return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
+		}
 		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
 			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
