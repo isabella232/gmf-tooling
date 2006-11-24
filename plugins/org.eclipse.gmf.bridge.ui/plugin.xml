@@ -21,15 +21,6 @@
        <description>%newProjectWizard.desc</description>
     </wizard>
     <wizard
-      id = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizardID"
-      name = "%mapWizard.name"
-      class = "org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard"
-      category = "org.eclipse.gmf.tooling.wizardCategory"
-      icon = "icons/obj16/GMFMapModelFile.gif">
-      <description>%mapWizard.desc</description>
-      <selection class = "org.eclipse.core.resources.IResource" />
-    </wizard>
-    <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.GMFMapGuideModelWizardID"
       name = "%_UI_GMFMapGuideModelWizard_label"
       class = "org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard"
