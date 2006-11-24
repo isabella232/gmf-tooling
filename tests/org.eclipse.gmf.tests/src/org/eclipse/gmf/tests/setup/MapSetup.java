@@ -60,6 +60,10 @@ public class MapSetup implements MapDefSource {
 	 * Has link figure with color
 	 */
 	private LinkMapping myRefLink;
+	private LinkMapping myClassLink_Cardinality2;
+	private LinkMapping myClassLink_Cardinality1;
+	private LinkMapping myRefLink_Cardinality2;
+	private LinkMapping myRefLink_Cardinality1;
 	
 	public MapSetup() {
 	}
@@ -83,6 +87,13 @@ public class MapSetup implements MapDefSource {
 	}
 
 	private void initSpecificMapping(DiaDefSetup ddSetup, DomainModelSetup dmSetup, ToolDefSource toolDef) {
+		myClassLink_Cardinality2 = createLinkMapping(ddSetup.getLinkDef(), dmSetup.getLinkAsClass_Cardinality2());
+		myClassLink_Cardinality2.setTool(toolDef.getLinkCreationTool());
+		myClassLink_Cardinality1 = createLinkMapping(ddSetup.getLinkDef(), dmSetup.getLinkAsClass_Cardinality1());
+		myClassLink_Cardinality1.setTool(toolDef.getLinkCreationTool());
+		myRefLink_Cardinality2 = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkAsRef_Cardinality2(), null);
+		myRefLink_Cardinality1 = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkAsRef_Cardinality1(), null);
+
 		ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
 		myNodeAChild = childReference.getOwnedChild();
 		myNodeAChild.setTool(toolDef.getNodeCreationTool());
@@ -287,9 +298,25 @@ public class MapSetup implements MapDefSource {
 	public LinkMapping getClassLink() {
 		return myClassLink;
 	}
+	
+	public LinkMapping getClassLink_Cardinality2() {
+		return myClassLink_Cardinality2;
+	}
+	
+	public LinkMapping getClassLink_Cardinality1() {
+		return myClassLink_Cardinality1;
+	}
 
 	public LinkMapping getReferenceLink() {
 		return myRefLink;
+	}
+	
+	public LinkMapping getReferenceLink_Cardinality2() {
+		return myRefLink_Cardinality2;
+	}
+	
+	public LinkMapping getReferenceLink_Cardinality1() {
+		return myRefLink_Cardinality1;
 	}
 
 	public NodeMapping getNodeAChild() {

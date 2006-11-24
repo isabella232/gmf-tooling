@@ -42,6 +42,10 @@ public class DomainModelSetup implements DomainModelSource {
 	private NodeData myChildOfChildOfB;
 	private NodeData myChild2OfA;
 	private NodeData myNodeD;
+	private LinkData myLinkA2C_Cardinalyty2;
+	private LinkData myLinkA2C_Cardinality1;
+	private EReference myLinkAsRef_Cardinality2;
+	private EReference myLinkAsRef_Cardinality1;
 
 	public DomainModelSetup() {
 	}
@@ -85,6 +89,10 @@ public class DomainModelSetup implements DomainModelSource {
 		nodeD.setName("NodeTargetD");
 		EClass nodeLinkA2C = EcoreFactory.eINSTANCE.createEClass();
 		nodeLinkA2C.setName("LinkAtoC");
+		EClass nodeLinkA2C2 = EcoreFactory.eINSTANCE.createEClass();
+		nodeLinkA2C2.setName("LinkAtoC_Cardinality2");
+		EClass nodeLinkA2C3 = EcoreFactory.eINSTANCE.createEClass();
+		nodeLinkA2C3.setName("LinkAtoC_Cardinality1");
 		EClass childNode = EcoreFactory.eINSTANCE.createEClass();
 		childNode.setName("Child");
 
@@ -109,19 +117,67 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToB.setName("refLinkToB");
 		linkToB.setEType(nodeB);
 		linkToB.setUpperBound(-1);
+		linkToB.setUnique(false);
 		nodeA.getEStructuralFeatures().add(linkToB);
+		
+		EReference linkToB2 = EcoreFactory.eINSTANCE.createEReference();
+		linkToB2.setName("refLinkToB_Cardinality2");
+		linkToB2.setEType(nodeB);
+		linkToB2.setUpperBound(2);
+		linkToB.setUnique(true);
+		nodeA.getEStructuralFeatures().add(linkToB2);
+		
+		EReference linkToB3 = EcoreFactory.eINSTANCE.createEReference();
+		linkToB3.setName("refLinkToB_Cardinality1");
+		linkToB3.setEType(nodeB);
+		linkToB3.setUpperBound(1);
+		linkToB.setUnique(false);
+		nodeA.getEStructuralFeatures().add(linkToB3);
 
 		EReference linkToC = EcoreFactory.eINSTANCE.createEReference();
 		linkToC.setName("classLinkToC");
 		linkToC.setEType(nodeLinkA2C);
 		linkToC.setUpperBound(-1);
 		linkToC.setContainment(true);
+		linkToC.setUnique(false);
 		nodeA.getEStructuralFeatures().add(linkToC);
 
 		EReference refCfromLink = EcoreFactory.eINSTANCE.createEReference();
 		refCfromLink.setName("trg");
 		refCfromLink.setEType(nodeC);
+		refCfromLink.setUpperBound(1);
+		refCfromLink.setUnique(false);
 		nodeLinkA2C.getEStructuralFeatures().add(refCfromLink);
+		
+		EReference linkToC2 = EcoreFactory.eINSTANCE.createEReference();
+		linkToC2.setName("classLinkToC_Cardinality2");
+		linkToC2.setEType(nodeLinkA2C2);
+		linkToC2.setUpperBound(2);
+		linkToC2.setContainment(true);
+		linkToC2.setUnique(true);
+		nodeA.getEStructuralFeatures().add(linkToC2);
+
+		EReference refCfromLink2 = EcoreFactory.eINSTANCE.createEReference();
+		refCfromLink2.setName("trg");
+		refCfromLink2.setEType(nodeC);
+		refCfromLink2.setUpperBound(-1);
+		refCfromLink2.setUnique(true);
+		nodeLinkA2C2.getEStructuralFeatures().add(refCfromLink2);
+		
+		EReference linkToC3 = EcoreFactory.eINSTANCE.createEReference();
+		linkToC3.setName("classLinkToC_Cardinality1");
+		linkToC3.setEType(nodeLinkA2C3);
+		linkToC3.setUpperBound(1);
+		linkToC3.setContainment(true);
+		linkToC3.setUnique(false);
+		nodeA.getEStructuralFeatures().add(linkToC3);
+
+		EReference refCfromLink3 = EcoreFactory.eINSTANCE.createEReference();
+		refCfromLink3.setName("trg");
+		refCfromLink3.setEType(nodeC);
+		refCfromLink3.setUpperBound(1);
+		refCfromLink3.setUnique(false);
+		nodeLinkA2C3.getEStructuralFeatures().add(refCfromLink3);
 		
 		EReference containment1ForA = EcoreFactory.eINSTANCE.createEReference();
 		containment1ForA.setContainment(true);
@@ -158,6 +214,8 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeC);
 		p.getEClassifiers().add(nodeD);
 		p.getEClassifiers().add(nodeLinkA2C);
+		p.getEClassifiers().add(nodeLinkA2C2);
+		p.getEClassifiers().add(nodeLinkA2C3);
 		p.getEClassifiers().add(childNode);
 
 		confineInResource(p);
@@ -167,11 +225,15 @@ public class DomainModelSetup implements DomainModelSource {
 		myChild1OfA = new NodeData(childNode, childLabel, containment1ForA);
 		myChild2OfA = new NodeData(childNode, childLabel, containment2ForA);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
+		myLinkA2C_Cardinalyty2 = new LinkData(nodeLinkA2C2, refCfromLink2, linkToC2);
+		myLinkA2C_Cardinality1 = new LinkData(nodeLinkA2C3, refCfromLink3, linkToC3);
 		myNodeB = new NodeData(nodeC, a2, r0);
 		myNodeD = new NodeData(nodeD, a2, r0);
 		myChildOfB = new NodeData(childNode, childLabel, containmentForB);
 		myChildOfChildOfB = new NodeData(childNode, childLabel, selfContainment);
 		myLinkAsRef = linkToB;
+		myLinkAsRef_Cardinality2 = linkToB2;
+		myLinkAsRef_Cardinality1 = linkToB3;
 		myDiagramElement = containmentNode;
 		return this;
 	}
@@ -219,8 +281,24 @@ public class DomainModelSetup implements DomainModelSource {
 		return myLinkA2C;
 	}
 
+	public final LinkData getLinkAsClass_Cardinality2() {
+		return myLinkA2C_Cardinalyty2;
+	}
+	
+	public final LinkData getLinkAsClass_Cardinality1() {
+		return myLinkA2C_Cardinality1;
+	}
+	
 	public final EReference getLinkAsRef() {
 		return myLinkAsRef;
+	}
+	
+	public final EReference getLinkAsRef_Cardinality2() {
+		return myLinkAsRef_Cardinality2;
+	}
+	
+	public final EReference getLinkAsRef_Cardinality1() {
+		return myLinkAsRef_Cardinality1;
 	}
 
 	public EClass getDiagramElement() {

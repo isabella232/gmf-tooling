@@ -45,6 +45,7 @@ import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
+import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -128,8 +129,9 @@ public class AllTests {
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
-//		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
+//		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965
 		
+		suite.addTest(feed(LinkCreationTest.class, sessionSetup));
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);

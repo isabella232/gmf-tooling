@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -202,6 +203,9 @@ public class DiaGenSetup implements DiaGenSource {
 				myLinkD = l;
 			}
 		}
+		if (mapSource instanceof MapSetup) {
+			initSpecific((MapSetup) mapSource);
+		}
 		assert myNodeA != null;
 		assert myLinkC != null;
 		assert myLinkD != null;
@@ -209,6 +213,32 @@ public class DiaGenSetup implements DiaGenSource {
 		return this;
 	}
 	
+	private void initSpecific(MapSetup setup) {
+		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
+			GenLink nextLink = (GenLink) it.next();
+			if (nextLink == myLinkC || nextLink == myLinkD) {
+				continue;
+			}
+			if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+				nextLink.setIncomingCreationAllowed(true);
+				if (modelFacet.getContainmentMetaFeature().getEcoreFeature().getUpperBound() == 1) {
+					nextLink.setOutgoingCreationAllowed(false);
+				} else {
+					nextLink.setOutgoingCreationAllowed(true);
+				}
+			} else if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+				FeatureLinkModelFacet modelFacet = (FeatureLinkModelFacet) nextLink.getModelFacet();
+				nextLink.setIncomingCreationAllowed(true);
+				if (modelFacet.getMetaFeature().getEcoreFeature().getUpperBound() == 1) {
+					nextLink.setOutgoingCreationAllowed(false);
+				} else {
+					nextLink.setOutgoingCreationAllowed(true);
+				}
+			}
+		}
+	}
+
 	protected GenModel initGenModel(EPackage domainModel) {
 		return Utils.createGenModel(domainModel);
 	}

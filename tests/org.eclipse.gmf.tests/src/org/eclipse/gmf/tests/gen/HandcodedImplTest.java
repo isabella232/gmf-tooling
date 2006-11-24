@@ -1008,6 +1008,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		} else {
 			state.add("GenAuditRule:ContextSelector");
 		}
+		
+		GenLink genLink = getSetup().getGenModel().getLinkC();
+		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+			checkClassName(state, "TypeLinkModelFacet:CreateCommand", modelFacet.getCreateCommandClassName(), modelFacet.getCreateCommandQualifiedClassName());
+		} else {
+			state.add("TypeLinkModelFacet:CreateCommand");
+		}
 
 		// test model may not contain them
 		state.add("GenCommonBase:EditPart");
@@ -1021,6 +1029,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("OpenDiagramBehaviour:EditPolicy");
 
 		// disable explicitly
+		state.add("ElementType:EditHelper");
 		state.add("ElementType:EditHelper");
 		state.add("FigureViewmap:Figure");
 		state.add("ExternalLabel:TextEditPart");
