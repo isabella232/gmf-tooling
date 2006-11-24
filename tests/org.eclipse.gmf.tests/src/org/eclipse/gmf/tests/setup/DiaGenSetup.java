@@ -174,7 +174,7 @@ public class DiaGenSetup implements DiaGenSource {
 	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser(), false);
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult().getDiagram();
