@@ -603,7 +603,6 @@
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
-        <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
   </propertySheet>
