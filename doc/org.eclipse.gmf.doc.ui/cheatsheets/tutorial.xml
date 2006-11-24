@@ -60,10 +60,11 @@
   	<action
 		pluginId="org.eclipse.gmf.doc.ui"
 		class="org.eclipse.gmf.internal.doc.ui.actions.OpenMapWizardAction"
-		param1="mindmap.gmfmap"
-		param2="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.ecore"
-		param3="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfgraph"
-		param4="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmftool"
+		param1="org.eclipse.gmf.examples.mindmap/model"
+		param2="mindmap.gmfmap"
+		param3="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.ecore"
+		param4="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfgraph"
+		param5="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmftool"
 		/>
      <description>Now it's time to map our graphical elements and their tools to our domain model.
      	<br/><br/>The following steps are required:
