@@ -123,6 +123,7 @@ public class GenDiagramItemProvider
 			addValidationDecoratorProviderClassNamePropertyDescriptor(object);
 			addValidationDecoratorsPropertyDescriptor(object);
 			addValidationDecoratorProviderPriorityPropertyDescriptor(object);
+			addLiveValidationUIFeedbackPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addSynchronizedPropertyDescriptor(object);
@@ -743,6 +744,28 @@ public class GenDiagramItemProvider
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_ProvidersPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Live Validation UI Feedback feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLiveValidationUIFeedbackPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_liveValidationUIFeedback_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_liveValidationUIFeedback_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_LiveValidationUIFeedback(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -1688,6 +1711,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
+			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
