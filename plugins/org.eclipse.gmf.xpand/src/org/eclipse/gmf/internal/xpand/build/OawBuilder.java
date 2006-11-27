@@ -58,6 +58,7 @@ public class OawBuilder extends IncrementalProjectBuilder {
 	protected void startupOnInitialize() {
 		super.startupOnInitialize();
 		resourceManager = new WorkspaceResourceManager(getProject());
+		// FIXME if codesense has been activated, there's already manager instance and we fail with exception here
 		Activator.registerResourceManager(getProject(), resourceManager);
 		firstBuild = true;
 		modelRegistry = new WorkspaceModelRegistry();
