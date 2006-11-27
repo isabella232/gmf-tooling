@@ -81,6 +81,10 @@ public class Activator extends Plugin {
 	}
 
 	public static EPackage findMetaModel(String nsURI) {
+		if (anInstance == null) {
+			// this is for tests execution (which doesn't take place in plugin env)
+			return null;
+		}
 		for (MetaModelSource s : anInstance.modelSources) {
 			EPackage p = s.find(nsURI);
 			if (p != null) {
