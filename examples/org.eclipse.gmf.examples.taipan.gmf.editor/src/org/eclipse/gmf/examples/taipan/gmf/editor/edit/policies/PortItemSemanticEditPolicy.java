@@ -21,6 +21,8 @@ import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteTypeLinkCreateCommand;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
@@ -106,52 +108,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new CreateIncomingRoute4002Command(req) {
-
-			protected EObject getElementToEdit() {
-				return element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateIncomingRoute4002Command extends CreateRelationshipCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateIncomingRoute4002Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getAquatory();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(EObject element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject doDefaultElementCreation() {
-			Route newElement = (Route) super.doDefaultElementCreation();
-			if (newElement != null) {
-				newElement.setDestination((Port) getTarget());
-				newElement.setSource((Port) getSource());
-				TaiPanElementTypes.Initializers.Route_4002.init(newElement);
-			}
-			return newElement;
-		}
+		return getMSLWrapper(new RouteTypeLinkCreateCommand(req, element, (Port) req.getSource(), (Port) req.getTarget()));
 	}
 
 	/**
@@ -176,51 +133,6 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new CreateIncomingRoute4003Command(req) {
-
-			protected EObject getElementToEdit() {
-				return element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateIncomingRoute4003Command extends CreateRelationshipCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateIncomingRoute4003Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getAquatory();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(EObject element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject doDefaultElementCreation() {
-			Route newElement = (Route) super.doDefaultElementCreation();
-			if (newElement != null) {
-				newElement.setDestination((Port) getTarget());
-				newElement.setSource((Port) getSource());
-				TaiPanElementTypes.Initializers.Route_4003.init(newElement);
-			}
-			return newElement;
-		}
+		return getMSLWrapper(new RouteTypeLinkCreateCommand(req, element, (Port) req.getSource(), (Port) req.getTarget()));
 	}
 }
