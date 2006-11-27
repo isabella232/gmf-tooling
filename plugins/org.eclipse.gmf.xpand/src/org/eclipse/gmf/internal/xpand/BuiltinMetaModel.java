@@ -436,6 +436,9 @@ public class BuiltinMetaModel {
 		InternalOperation subStringOp = opf.createReflective(String.class, "substring", int.class, int.class);
 		subStringOp.metaOp.setName("subString");
 		stringOps.add(subStringOp);
+		subStringOp = opf.createReflective(String.class, "substring", int.class);
+		subStringOp.metaOp.setName("subString");
+		stringOps.add(subStringOp);
 		stringOps.add(opf.createReflective(String.class, "toUpperCase"));
 		stringOps.add(opf.createReflective(String.class, "toLowerCase"));
 		stringOps.add(opf.createReflective(String.class, "replaceAll", String.class, String.class));
@@ -579,10 +582,17 @@ public class BuiltinMetaModel {
 				return target.isEmpty();
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("add", collectionTypes.getCollectionType(ecorePkg.getEJavaObject()), ecorePkg.getEJavaObject())) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("add", CollectionTypesSupport.COLLECTION_OF_OBJECT, ecorePkg.getEJavaObject())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				target.add(params[0]);
+				return target;
+			}
+		});
+		collectionOps.add(new InternalOperation<Collection>(opf.create("addAll", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+			@Override
+			public Object evaluate(Collection target, Object[] params) {
+				target.addAll((Collection) params[0]);
 				return target;
 			}
 		});
@@ -592,7 +602,7 @@ public class BuiltinMetaModel {
 				return target.size();
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("union", collectionTypes.getSetType(ecorePkg.getEJavaObject()), collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("union", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				HashSet<Object> rv = new HashSet<Object>(target);
@@ -600,7 +610,7 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("intersect", collectionTypes.getSetType(ecorePkg.getEJavaObject()), collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("intersect", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				HashSet<Object> rv = new HashSet<Object>(target);
@@ -608,7 +618,7 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("without", collectionTypes.getSetType(ecorePkg.getEJavaObject()), collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("without", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				HashSet<Object> rv = new HashSet<Object>(target);
@@ -616,13 +626,13 @@ public class BuiltinMetaModel {
 				return rv;
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("toSet", collectionTypes.getSetType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("toSet", CollectionTypesSupport.SET_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return new HashSet<Object>(target);
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("toList", collectionTypes.getListType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("toList", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return new LinkedList<Object>(target);
@@ -634,7 +644,7 @@ public class BuiltinMetaModel {
 				return target.contains(params[0]);
 			}
 		});
-		collectionOps.add(new InternalOperation<Collection>(opf.create("containsAll", ecorePkg.getEBoolean(), collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		collectionOps.add(new InternalOperation<Collection>(opf.create("containsAll", ecorePkg.getEBoolean(), CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
 				return target.containsAll((Collection) params[0]);
