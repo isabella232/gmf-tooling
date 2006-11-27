@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -309,12 +310,16 @@ public class BuiltinMetaModel {
 		return PolymorphicResolver.filterOperation(allOp, name, targetType, Arrays.asList(args));
 	}
 
+	private static Map<String, String> attrNameSubsts = new TreeMap<String, String>();
+	static {
+		attrNameSubsts.put("default_", "default");
+	}
 	public static EStructuralFeature getAttribute(EClassifier type, String name) {
 		if (hasBuiltinSupport(type)) {
 			return findInternalAttr(type, name);
 		}
 		if (type instanceof EClass) {
-			return ((EClass) type).getEStructuralFeature(name);
+			return ((EClass) type).getEStructuralFeature(attrNameSubsts.containsKey(name) ? attrNameSubsts.get(name): name);
 		}
 		if (type instanceof EEnum || type == EcorePackage.eINSTANCE.getEEnumLiteral() || type == EcorePackage.eINSTANCE.getEEnumerator()) {
 			return EcorePackage.eINSTANCE.getEEnumLiteral().getEStructuralFeature(name);
