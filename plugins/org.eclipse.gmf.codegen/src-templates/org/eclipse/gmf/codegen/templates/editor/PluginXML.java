@@ -299,8 +299,21 @@ public class PluginXML
   protected final String TEXT_281 = "\">" + NL + "      </perspective>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.actionSets\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <actionSet" + NL + "            label=\"%newDiagramActionSetLabel\"" + NL + "            visible=\"true\"" + NL + "            id=\"";
   protected final String TEXT_282 = ".NewDiagramActionSet\">" + NL + "         <action" + NL + "               label=\"%newDiagramActionLabel\"" + NL + "               class=\"";
   protected final String TEXT_283 = "$NewDiagramAction\"" + NL + "               menubarPath=\"file/new/additions\"" + NL + "               id=\"";
-  protected final String TEXT_284 = ".NewDiagramAction\">" + NL + "         </action>" + NL + "      </actionSet>" + NL + "   </extension>  ";
-  protected final String TEXT_285 = NL + "</plugin>";
+  protected final String TEXT_284 = ".NewDiagramAction\">" + NL + "         </action>" + NL + "      </actionSet>" + NL + "   </extension>  " + NL + "" + NL + "   <extension point=\"org.eclipse.ui.commands\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <command" + NL + "            name=\"%openURIActionLabel\"" + NL + "            description=\"%openURIActionDescription\"" + NL + "            categoryId=\"org.eclipse.ui.category.file\"" + NL + "            id=\"";
+  protected final String TEXT_285 = ".OpenURICommand\"/>  " + NL + "      <command" + NL + "            name=\"%openActionLabel\"" + NL + "            description=\"%openActionDescription\"" + NL + "            categoryId=\"org.eclipse.ui.category.file\"" + NL + "            id=\"";
+  protected final String TEXT_286 = ".OpenCommand\"/>  " + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.bindings\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <key" + NL + "            commandId=\"";
+  protected final String TEXT_287 = ".OpenURICommand\"" + NL + "            sequence=\"M1+U\"" + NL + "            schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\"/>" + NL + "      <key" + NL + "            commandId=\"";
+  protected final String TEXT_288 = ".OpenCommand\"" + NL + "            sequence=\"M1+O\"" + NL + "            schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\"/>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.actionSets\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <actionSet" + NL + "            label=\"%applicationActionSetLabel\"" + NL + "            visible=\"true\"" + NL + "            id=\"";
+  protected final String TEXT_289 = ".ActionSet\">" + NL + "         <action" + NL + "               label=\"%aboutActionLabel\"" + NL + "               class=\"";
+  protected final String TEXT_290 = "$AboutAction\"" + NL + "               menubarPath=\"help/additions\"" + NL + "               id=\"";
+  protected final String TEXT_291 = ".AboutAction\">" + NL + "         </action>" + NL + "         <action" + NL + "               label=\"%openURIActionLabel\"" + NL + "               definitionId=\"";
+  protected final String TEXT_292 = ".OpenURICommand\"" + NL + "               class=\"";
+  protected final String TEXT_293 = "$OpenURIAction\"" + NL + "               menubarPath=\"file/additions\"" + NL + "               id=\"";
+  protected final String TEXT_294 = ".OpenURIAction\">" + NL + "         </action>" + NL + "         <action" + NL + "               label=\"%openActionLabel\"" + NL + "               definitionId=\"";
+  protected final String TEXT_295 = ".OpenCommand\"" + NL + "               class=\"";
+  protected final String TEXT_296 = "$OpenAction\"" + NL + "               menubarPath=\"file/additions\"" + NL + "               id=\"";
+  protected final String TEXT_297 = ".OpenAction\">" + NL + "         </action>" + NL + "      </actionSet>" + NL + "   </extension>";
+  protected final String TEXT_298 = NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -1084,8 +1097,34 @@ for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) 
     stringBuffer.append(TEXT_283);
     stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_284);
-    }
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_285);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_286);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_287);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_288);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_289);
+    stringBuffer.append(editorGen.getApplication().getActionBarAdvisorQualifiedClassName());
+    stringBuffer.append(TEXT_290);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_291);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_292);
+    stringBuffer.append(editorGen.getApplication().getActionBarAdvisorQualifiedClassName());
+    stringBuffer.append(TEXT_293);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_294);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_295);
+    stringBuffer.append(editorGen.getApplication().getActionBarAdvisorQualifiedClassName());
+    stringBuffer.append(TEXT_296);
+    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(TEXT_297);
+    }
+    stringBuffer.append(TEXT_298);
     return stringBuffer.toString();
   }
 }
