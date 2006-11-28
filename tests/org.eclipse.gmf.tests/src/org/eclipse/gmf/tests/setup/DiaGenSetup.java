@@ -222,21 +222,29 @@ public class DiaGenSetup implements DiaGenSource {
 			if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
 				nextLink.setIncomingCreationAllowed(true);
-				if (modelFacet.getContainmentMetaFeature().getEcoreFeature().getUpperBound() == 1) {
-					nextLink.setOutgoingCreationAllowed(false);
+				if (isSelfLink(modelFacet) || modelFacet.getContainmentMetaFeature().getEcoreFeature().getUpperBound() > 1) {
+					nextLink.setOutgoingCreationAllowed(true);					
 				} else {
-					nextLink.setOutgoingCreationAllowed(true);
+					nextLink.setOutgoingCreationAllowed(false);
 				}
 			} else if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 				FeatureLinkModelFacet modelFacet = (FeatureLinkModelFacet) nextLink.getModelFacet();
 				nextLink.setIncomingCreationAllowed(true);
-				if (modelFacet.getMetaFeature().getEcoreFeature().getUpperBound() == 1) {
-					nextLink.setOutgoingCreationAllowed(false);
-				} else {
+				if (isSelfLink(modelFacet) || modelFacet.getMetaFeature().getEcoreFeature().getUpperBound() > 1) {
 					nextLink.setOutgoingCreationAllowed(true);
+				} else {
+					nextLink.setOutgoingCreationAllowed(false);
 				}
 			}
 		}
+	}
+	
+	private boolean isSelfLink(FeatureLinkModelFacet modelFacet) {
+		return modelFacet.getMetaFeature().getTypeGenClass() == modelFacet.getMetaFeature().getGenClass();
+	}
+
+	private boolean isSelfLink(TypeLinkModelFacet modelFacet) {
+		return modelFacet.getTargetMetaFeature().getTypeGenClass() == modelFacet.getContainmentMetaFeature().getGenClass();
 	}
 
 	protected GenModel initGenModel(EPackage domainModel) {
