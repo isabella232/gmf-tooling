@@ -157,7 +157,7 @@ public class ModelSelectionPage extends WizardPage {
 				if (fileName == null) {
 					return;
 				}
-				uri = URI.createFileURI(fileName);
+				setURI(URI.createFileURI(fileName));
 				updateURI();
 			};
 		});
@@ -183,7 +183,7 @@ public class ModelSelectionPage extends WizardPage {
 				if (files == null || files.length == 0) {
 					return;
 				}
-				uri = URI.createPlatformResourceURI(files[0].getFullPath().toString(), true);
+				setURI(URI.createPlatformResourceURI(files[0].getFullPath().toString(), true));
 				updateURI();
 			}
 		});
@@ -197,7 +197,7 @@ public class ModelSelectionPage extends WizardPage {
 				if (file == null) {
 					return;
 				}
-				uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+				setURI(URI.createPlatformResourceURI(file.getFullPath().toString(), true));
 				updateURI();
 			};
 		});
@@ -270,7 +270,7 @@ public class ModelSelectionPage extends WizardPage {
 		}
 		List<URI> uris = rloc.getSelectedURIs(getModelFileExtension());
 		if (!uris.isEmpty()) {
-			uri = uris.get(0);
+			setURI(uris.get(0));
 			updateURI();
 		}
 	}
@@ -311,14 +311,14 @@ public class ModelSelectionPage extends WizardPage {
 		}
 		try {
 			uri = URI.createURI(uriText.trim());
+			loadBtn.setEnabled(true);
+			setErrorMessage(null);
 		} catch (IllegalArgumentException iae) {
 			uri = null;
 			loadBtn.setEnabled(false);
 			setErrorMessage(NLS.bind(Messages.ModelSelectionPageBadURI, iae.getLocalizedMessage()));
 			return;
 		}
-		loadBtn.setEnabled(true);
-		setErrorMessage(null);
 	}
 
 	public void setURI(URI uri) {
