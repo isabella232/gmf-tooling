@@ -510,12 +510,8 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%				if (upperBound == 1) {%>
 		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%> != null) {
 <%				} else {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%>
-<%					if (metaFeature.getEcoreFeature().isUnique()) {%>
-			|| <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())
+		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%> || <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())) {
 <%				}%>
-				) {
-<%			}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -587,11 +583,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%				if (upperBound == 1) {%>
 		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%> != null) {
 <%				} else {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%>
-<%					if (metaFeature.getEcoreFeature().isUnique()) {%>
-			|| <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getTarget())
-<%					}%>
-				) {
+		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%> || <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getTarget())) {
 <%				}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
