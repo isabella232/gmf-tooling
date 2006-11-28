@@ -299,7 +299,7 @@ public abstract class GeneratorBase implements Runnable {
 		return new ImportUtil(packageName, className, myDestRoot);
 	}
 
-	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object[] input) throws InterruptedException {
+	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object... input) throws InterruptedException {
 		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
 	}
 
@@ -308,7 +308,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
 	 * return qualified class names.  
 	 */
-	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object[] input) throws InterruptedException {
+	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object... input) throws InterruptedException {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			setProgressTaskName(className);
