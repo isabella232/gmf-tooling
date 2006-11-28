@@ -106,7 +106,7 @@
 		<echo message="Updating update site ${updateSiteName} ..."/>
 	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
 	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
-	  	<antcall target= "build.site.xml">
+	  	<antcall target= "build.site.manifesto">
 			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	  	</antcall>	
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
