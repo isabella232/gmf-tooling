@@ -16,9 +16,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 
@@ -29,6 +30,8 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#isStack <em>Stack</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#isCollapse <em>Collapse</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getEntries <em>Entries</em>}</li>
@@ -122,9 +125,37 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ToolGroup getGroup() {
+		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__GROUP) return null;
+		return (ToolGroup)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Palette getPaletteGen() {
+		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
+		return (Palette)eContainer();
+	}
+
+	public Palette getPalette() {
+		Palette p = getPaletteGen();
+		if (p != null) {
+			return p;
+		}
+		return getGroup() == null ? null : getGroup().getPalette();
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList getEntries() {
 		if (entries == null) {
-			entries = new EObjectContainmentEList(ToolGroupItem.class, this, GMFGenPackage.TOOL_GROUP__ENTRIES);
+			entries = new EObjectContainmentWithInverseEList(ToolGroupItem.class, this, GMFGenPackage.TOOL_GROUP__ENTRIES, GMFGenPackage.TOOL_GROUP_ITEM__GROUP);
 		}
 		return entries;
 	}
@@ -141,6 +172,27 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__GROUP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__GROUP, msgs);
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				return ((InternalEList)getEntries()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -192,6 +244,10 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__GROUP:
+				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__GROUP, msgs);
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
 				return ((InternalEList)getEntries()).basicRemove(otherEnd, msgs);
 		}
@@ -203,8 +259,27 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.TOOL_GROUP__GROUP:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.PALETTE__GROUPS, Palette.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__GROUP:
+				return getGroup();
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return getPalette();
 			case GMFGenPackage.TOOL_GROUP__STACK:
 				return isStack() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
@@ -265,6 +340,10 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__GROUP:
+				return getGroup() != null;
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return getPalette() != null;
 			case GMFGenPackage.TOOL_GROUP__STACK:
 				return stack != STACK_EDEFAULT;
 			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
@@ -275,6 +354,36 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				return isToolsOnly() != TOOLS_ONLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == ToolGroupItem.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.TOOL_GROUP__GROUP: return GMFGenPackage.TOOL_GROUP_ITEM__GROUP;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == ToolGroupItem.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.TOOL_GROUP_ITEM__GROUP: return GMFGenPackage.TOOL_GROUP__GROUP;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

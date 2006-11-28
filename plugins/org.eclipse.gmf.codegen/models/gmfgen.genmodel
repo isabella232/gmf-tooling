@@ -452,6 +452,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/packageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/factoryClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Palette/getFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Palette/definesStandardTools"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//EntryBase">
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/title"/>
@@ -473,9 +474,12 @@
     <genClasses ecoreClass="gmfgen.ecore#//StandardEntry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//StandardEntry/kind"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//ToolGroupItem"/>
+    <genClasses ecoreClass="gmfgen.ecore#//ToolGroupItem">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroupItem/group"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Separator"/>
     <genClasses ecoreClass="gmfgen.ecore#//ToolGroup">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/palette"/>
       <genFeatures createChild="false" propertyCategory="Group" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/stack"/>
       <genFeatures createChild="false" propertyCategory="Group" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/collapse"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/entries"/>

@@ -5433,13 +5433,22 @@ public interface GMFGenPackage extends EPackage {
 	int ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TOOL_ENTRY__GROUP = ENTRY_BASE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TOOL_ENTRY__DEFAULT = ENTRY_BASE_FEATURE_COUNT + 0;
+	int ABSTRACT_TOOL_ENTRY__DEFAULT = ENTRY_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Tool Name</b></em>' attribute.
@@ -5448,7 +5457,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME = ENTRY_BASE_FEATURE_COUNT + 1;
+	int ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME = ENTRY_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' map.
@@ -5457,7 +5466,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TOOL_ENTRY__PROPERTIES = ENTRY_BASE_FEATURE_COUNT + 2;
+	int ABSTRACT_TOOL_ENTRY__PROPERTIES = ENTRY_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Abstract Tool Entry</em>' class.
@@ -5466,7 +5475,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TOOL_ENTRY_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 3;
+	int ABSTRACT_TOOL_ENTRY_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -5512,6 +5521,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TOOL_ENTRY__CREATE_METHOD_NAME = ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__GROUP = ABSTRACT_TOOL_ENTRY__GROUP;
 
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
@@ -5632,6 +5650,15 @@ public interface GMFGenPackage extends EPackage {
 	int STANDARD_ENTRY__CREATE_METHOD_NAME = ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STANDARD_ENTRY__GROUP = ABSTRACT_TOOL_ENTRY__GROUP;
+
+	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5687,13 +5714,22 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_GROUP_ITEM = 60;
 
 	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP_ITEM__GROUP = 0;
+
+	/**
 	 * The number of structural features of the '<em>Tool Group Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP_ITEM_FEATURE_COUNT = 0;
+	int TOOL_GROUP_ITEM_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.SeparatorImpl <em>Separator</em>}' class.
@@ -5704,6 +5740,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int SEPARATOR = 61;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEPARATOR__GROUP = TOOL_GROUP_ITEM__GROUP;
 
 	/**
 	 * The number of structural features of the '<em>Separator</em>' class.
@@ -5760,13 +5805,31 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_GROUP__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Group</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__GROUP = ENTRY_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Palette</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__PALETTE = ENTRY_BASE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Stack</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__STACK = ENTRY_BASE_FEATURE_COUNT + 0;
+	int TOOL_GROUP__STACK = ENTRY_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Collapse</b></em>' attribute.
@@ -5775,7 +5838,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__COLLAPSE = ENTRY_BASE_FEATURE_COUNT + 1;
+	int TOOL_GROUP__COLLAPSE = ENTRY_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
@@ -5784,7 +5847,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__ENTRIES = ENTRY_BASE_FEATURE_COUNT + 2;
+	int TOOL_GROUP__ENTRIES = ENTRY_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Tools Only</b></em>' attribute.
@@ -5793,7 +5856,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__TOOLS_ONLY = ENTRY_BASE_FEATURE_COUNT + 3;
+	int TOOL_GROUP__TOOLS_ONLY = ENTRY_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Tool Group</em>' class.
@@ -5802,7 +5865,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 4;
+	int TOOL_GROUP_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer <em>Gen Element Initializer</em>}' class.
@@ -10594,6 +10657,17 @@ public interface GMFGenPackage extends EPackage {
 	EClass getToolGroupItem();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroupItem#getGroup <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Group</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroupItem#getGroup()
+	 * @see #getToolGroupItem()
+	 * @generated
+	 */
+	EReference getToolGroupItem_Group();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Separator <em>Separator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10612,6 +10686,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getToolGroup();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette <em>Palette</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Palette</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette()
+	 * @see #getToolGroup()
+	 * @generated
+	 */
+	EReference getToolGroup_Palette();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isStack <em>Stack</em>}'.

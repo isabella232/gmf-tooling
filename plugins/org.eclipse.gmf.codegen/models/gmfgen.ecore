@@ -941,12 +941,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette">
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="definesStandardTools" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/palette"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="flyout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="groups" lowerBound="1"
-        upperBound="-1" eType="#//ToolGroup" containment="true">
+        upperBound="-1" eType="#//ToolGroup" containment="true" eOpposite="#//ToolGroup/palette">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="GEF allows only containers as palette immediate children"/>
       </eAnnotations>
@@ -994,13 +995,18 @@
     <eLiterals name="MARQUEE" value="1"/>
     <eLiterals name="ZOOM" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ToolGroupItem" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ToolGroupItem" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" lowerBound="1" eType="#//ToolGroup"
+        changeable="false" eOpposite="#//ToolGroup/entries"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Separator" eSuperTypes="#//ToolGroupItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroup" eSuperTypes="#//EntryBase #//ToolGroupItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="palette" lowerBound="1"
+        eType="#//Palette" changeable="false" eOpposite="#//Palette/groups"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stack" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entries" lowerBound="1"
-        upperBound="-1" eType="#//ToolGroupItem" containment="true"/>
+        upperBound="-1" eType="#//ToolGroupItem" containment="true" eOpposite="#//ToolGroupItem/group"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolsOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>

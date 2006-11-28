@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isStack <em>Stack</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isCollapse <em>Collapse</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getEntries <em>Entries</em>}</li>
@@ -29,6 +30,23 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ToolGroup extends EntryBase, ToolGroupItem {
+	/**
+	 * Returns the value of the '<em><b>Palette</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Palette</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Palette</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroup_Palette()
+	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getGroups
+	 * @model opposite="groups" required="true" changeable="false"
+	 * @generated
+	 */
+	Palette getPalette();
+
 	/**
 	 * Returns the value of the '<em><b>Stack</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -84,6 +102,7 @@ public interface ToolGroup extends EntryBase, ToolGroupItem {
 	/**
 	 * Returns the value of the '<em><b>Entries</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.ToolGroupItem}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroupItem#getGroup <em>Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Entries</em>' containment reference list isn't clear,
@@ -92,7 +111,8 @@ public interface ToolGroup extends EntryBase, ToolGroupItem {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Entries</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroup_Entries()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroupItem" containment="true" required="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroupItem#getGroup
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroupItem" opposite="group" containment="true" required="true"
 	 * @generated
 	 */
 	EList getEntries();

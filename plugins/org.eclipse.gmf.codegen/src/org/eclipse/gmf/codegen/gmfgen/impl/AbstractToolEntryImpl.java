@@ -25,6 +25,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
+import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Abstract Tool Entry</b></em>'.
@@ -32,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.AbstractToolEntryImpl#getGroup <em>Group</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.AbstractToolEntryImpl#isDefault <em>Default</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.AbstractToolEntryImpl#getQualifiedToolName <em>Qualified Tool Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.AbstractToolEntryImpl#getProperties <em>Properties</em>}</li>
@@ -114,6 +118,16 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ToolGroup getGroup() {
+		if (eContainerFeatureID != GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP) return null;
+		return (ToolGroup)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isDefault() {
 		return default_;
 	}
@@ -168,8 +182,25 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				return eBasicSetContainer(null, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES:
 				return ((InternalEList)getProperties()).basicRemove(otherEnd, msgs);
 		}
@@ -181,8 +212,23 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				return getGroup();
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
 				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME:
@@ -241,6 +287,8 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
+				return getGroup() != null;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
 				return default_ != DEFAULT_EDEFAULT;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME:
@@ -249,6 +297,36 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 				return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == ToolGroupItem.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP: return GMFGenPackage.TOOL_GROUP_ITEM__GROUP;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == ToolGroupItem.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.TOOL_GROUP_ITEM__GROUP: return GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -168,7 +168,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	public EList getGroups() {
 		if (groups == null) {
-			groups = new EObjectContainmentEList(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS);
+			groups = new EObjectContainmentWithInverseEList(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS, GMFGenPackage.TOOL_GROUP__PALETTE);
 		}
 		return groups;
 	}
@@ -240,6 +240,15 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		return getPackageName() + '.' + getFactoryClassName();
 	}
 
+	public boolean definesStandardTools() {
+		for (Iterator it = eAllContents(); it.hasNext();) {
+			if (it.next() instanceof StandardEntry) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -251,6 +260,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
+			case GMFGenPackage.PALETTE__GROUPS:
+				return ((InternalEList)getGroups()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -391,12 +402,4 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		return result.toString();
 	}
 
-	public boolean definesStandardTools() {
-		for (Iterator it = eAllContents(); it.hasNext();) {
-			if (it.next() instanceof StandardEntry) {
-				return true;
-			}
-		}
-		return false;
-	}
 } //PaletteImpl

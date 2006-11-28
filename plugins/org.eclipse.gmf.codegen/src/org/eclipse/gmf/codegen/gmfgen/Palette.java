@@ -79,6 +79,7 @@ public interface Palette extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Groups</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.ToolGroup}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette <em>Palette</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -86,7 +87,8 @@ public interface Palette extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Groups</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Groups()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" containment="true" required="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" opposite="palette" containment="true" required="true"
 	 * @generated
 	 */
 	EList getGroups();
@@ -151,5 +153,12 @@ public interface Palette extends EObject {
 	 */
 	String getFactoryQualifiedClassName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
 	boolean definesStandardTools();
+
 } // Palette
