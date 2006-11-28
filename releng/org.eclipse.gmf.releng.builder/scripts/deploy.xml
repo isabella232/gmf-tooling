@@ -143,7 +143,7 @@
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/plugins"/>
 	</target>
 	
-	<target name="build.site.xml">       
+	<target name="build.site.manifesto">       
 		<property name="excludes" value=""/>
 		<property name="includes" value=""/>
         <echo message="Building site.xml"/>                                                                             
@@ -161,7 +161,13 @@
         	   <arg value="${excludes}"/>
         	   <arg value="-include"/>
         	   <arg value="${includes}"/>       	
-        </java>                                                                                                         
+        </java>
+	     <java jar="${buildRoot}/eclipse/startup.jar" fork="true" failonerror="true">
+	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
+	         <arg line="-digestBuilder
+	         	  -digestOutputDir=${buildRoot}/artifacts/updates/${buildLabel} -siteXML=${siteXml}"/>
+	       </java>
+		
     </target>  
 		
 	<target name="download.EMFT">
