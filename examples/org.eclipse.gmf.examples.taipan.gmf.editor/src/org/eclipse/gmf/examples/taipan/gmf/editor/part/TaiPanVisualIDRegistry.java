@@ -193,23 +193,28 @@ public class TaiPanVisualIDRegistry {
 		case EmptyBoxEditPart.VISUAL_ID:
 			return getUnrecognizedEmptyBox_3003ChildNodeID(domainElement, semanticHint);
 		case ShipSmallCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNodeSmallItems_3001((SmallItems) domainElement))) {
+			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeSmallItems_3001((SmallItems) domainElement))) {
 				return SmallItemsEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipSmallCargo_7001ChildNodeID(domainElement, semanticHint);
 		case ShipLargeCargoEditPart.VISUAL_ID:
-			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNodeLargeItem_3002((LargeItem) domainElement))) {
+			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeLargeItem_3002((LargeItem) domainElement))) {
 				return LargeItemEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNodeEmptyBox_3003((EmptyBox) domainElement))) {
+			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeEmptyBox_3003((EmptyBox) domainElement))) {
 				return EmptyBoxEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipLargeCargo_7002ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
-			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNodePort_2001((Port) domainElement))) {
+			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodePort_2001((Port) domainElement))) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNodeShip_2002((Ship) domainElement))) {
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeShip_2002((Ship) domainElement))) {
 				return ShipEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
