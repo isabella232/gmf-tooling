@@ -46,7 +46,6 @@ import org.eclipse.gmf.tooldef.StandardTool;
 import org.eclipse.gmf.tooldef.StandardToolKind;
 import org.eclipse.gmf.tooldef.ToolContainer;
 import org.eclipse.gmf.tooldef.util.GMFToolSwitch;
-import org.eclipse.jdt.core.ToolFactory;
 import org.osgi.framework.Bundle;
 
 /**
