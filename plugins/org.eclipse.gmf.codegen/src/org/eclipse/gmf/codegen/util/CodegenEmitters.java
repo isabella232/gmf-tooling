@@ -11,8 +11,13 @@
  */
 package org.eclipse.gmf.codegen.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -45,7 +50,6 @@ import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
-import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
@@ -109,6 +113,7 @@ import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
@@ -122,6 +127,14 @@ import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
+import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.osgi.framework.Bundle;
 
 /**
@@ -134,6 +147,7 @@ public class CodegenEmitters {
 	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen"; //$NON-NLS-1$
 	private final EmitterFactory myFactory;
 	private final String[] myTemplatePath;
+	private ResourceManager myResourceManager;
 
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
 		TemplateRegistry registry = initRegistry();
@@ -145,13 +159,16 @@ public class CodegenEmitters {
 				"org.eclipse.gmf.common", //$NON-NLS-1$
 				"org.eclipse.gmf.codegen" //$NON-NLS-1$
 		};
+		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
 		myTemplatePath = new String[] {
 				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? //$NON-NLS-1$
 						URI.createPlatformResourceURI(templateDirectory, true).toString() : templateDirectory,
-				getTemplatesBundle().getEntry("/templates/").toString() //$NON-NLS-1$
+				baseURL.toString()
 		};
 		// actually, that's new JETEmitterFactory with JETTemplateRegistry
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
+
+		myResourceManager = new BundleResourceManager(baseURL);
 	}
 
 	/**
@@ -220,7 +237,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
-		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 		put(tr, "/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
@@ -520,7 +536,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PaletteFactoryGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::editor::palette::PaletteFactory::Factory");
 	}
 
 	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
@@ -697,5 +713,47 @@ public class CodegenEmitters {
 			throw new UnexpectedBehaviourException("Template " + relativePath +" not found");
 		}
 		return templateLocation;
+	}
+
+	private static class XpandTextEmitter implements TextEmitter {
+		private final ResourceManager myResourceManager;
+		private final String myTemplateFQN;
+
+		public XpandTextEmitter(ResourceManager manager, String templateFQN) {
+			myResourceManager = manager;
+			myTemplateFQN = templateFQN;
+		}
+
+		public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
+			StringBuilder result = new StringBuilder();
+			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
+			return result.toString();
+		}
+
+		protected Object extractTarget(Object[] arguments) {
+			assert arguments != null && arguments.length > 0;
+			return arguments[0];
+		}
+
+		protected Object[] extractArguments(Object[] arguments) {
+			assert arguments != null && arguments.length > 0;
+			ArrayList<Object> res = new ArrayList<Object>(arguments.length);
+			// strip first one off, assume it's target
+			for (int i = 1; i < arguments.length; i++) {
+				if (false == arguments[i] instanceof ImportAssistant) {
+					// strip assistant off
+					res.add(arguments[i]);
+				}
+			}
+			return res.toArray();
+		}
+
+		private XpandExecutionContext createContext(StringBuilder result) {
+			final BufferOutput output = new BufferOutput(result);
+			final List<Variable> globals = Collections.emptyList();
+			final XpandExecutionContext xpandContext = ContextFactory.createXpandContext(myResourceManager, output, globals);
+			((XpandExecutionContextImpl) xpandContext).setContextClassLoader(getClass().getClassLoader());
+			return xpandContext;
+		}
 	}
 }

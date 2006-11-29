@@ -740,12 +740,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.getPalette() == null) {
 			return;
 		}
-		internalGenerateJavaClass(
-			myEmitters.getPaletteEmitter(),
-			myDiagram.getPalette().getPackageName(),
-			myDiagram.getPalette().getFactoryClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getPaletteEmitter(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram.getPalette());
 	}
 
 	private void generateDiagramEditorUtil() throws UnexpectedBehaviourException, InterruptedException {
