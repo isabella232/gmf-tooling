@@ -1,0 +1,46 @@
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+// TODO instead, use smth like plugin::Utils::activatorFQN(palette.diagram.editorGen.plugin)
+// i.e. create a system of extensions 
+private String activatorFQN(gmfgen::Palette palette) :
+	palette.diagram.editorGen.plugin.getActivatorQualifiedClassName()
+;
+
+String activatorFQN(gmfgen::AbstractToolEntry toolEntry) :
+	activatorFQN(toolEntry.group.palette)
+;
+
+String activatorFQN(gmfgen::ToolGroup toolGroup) :
+	activatorFQN(toolGroup.palette)
+;
+
+String i18nKey(gmfgen::EntryBase group) :
+	let rv = group.createMethodName :
+	rv.startsWith("get") ? rv.subString(3) : (rv.startsWith("create") ? rv.subString(6) : rv)
+;
+
+List[gmfgen::ToolGroup] collectGroups(gmfgen::Palette palette) :
+	palette.groups.union(palette.groups.collectSubGroups())
+;
+
+private List[gmfgen::ToolGroup] collectSubGroups(gmfgen::ToolGroup group) :
+	let rv = group.entries.typeSelect(gmfgen::ToolGroup) :
+	rv.addAll(rv.collect(g| g.collectSubGroups()).flatten())
+;
+
+List[gmfgen::AbstractToolEntry] collectTools(gmfgen::Palette palette) :
+	palette.collectGroups().collect(g | g.entries.typeSelect(gmfgen::AbstractToolEntry)).flatten()
+;
+
+boolean needsNodeToolEntryClass(gmfgen::Palette palette) :
+	collectTools(palette).typeSelect(gmfgen::ToolEntry).exists(e | !e.genNodes.isEmpty())
+;
+
+boolean needsLinkToolEntryClass(gmfgen::Palette palette) :
+	collectTools(palette).typeSelect(gmfgen::ToolEntry).exists(e | !e.genLinks.isEmpty())
+;
+
+String elementTypesClass(gmfgen::ToolEntry entry) :
+	entry.group.palette.diagram.getElementTypesQualifiedClassName()
+;
