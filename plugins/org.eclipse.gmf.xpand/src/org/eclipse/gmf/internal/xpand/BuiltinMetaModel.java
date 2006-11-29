@@ -601,6 +601,21 @@ public class BuiltinMetaModel {
 				return target;
 			}
 		});
+		collectionOps.add(new InternalOperation<Collection>(opf.create("flatten", CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
+			@Override
+			public Object evaluate(Collection target, Object[] params) {
+				LinkedList rv = new LinkedList();
+				for (Object o : target) {
+					if (o instanceof Collection) {
+						// XXX unlike original xpand, we do not flatten recursively
+						rv.addAll((Collection) o);
+					} else {
+						rv.add(o);
+					}
+				}
+				return rv;
+			}
+		});
 		collectionOps.add(new InternalOperation<Collection>(opf.create("size", ecorePkg.getEInt())) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
