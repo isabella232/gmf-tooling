@@ -514,6 +514,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getSourceEndContextClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getTargetEndContextClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getConstraintsInstanceFieldName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/isValid"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenRuleContainerBase">
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenRuleContainerBase/editor"/>

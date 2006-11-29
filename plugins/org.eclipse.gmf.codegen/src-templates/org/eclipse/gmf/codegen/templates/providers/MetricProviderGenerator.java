@@ -382,8 +382,9 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
     
 { /*begin the scope*/
 /*
-java.util.Map __exprEnvVariables
+java.util.Map __exprEnvVariables;
 String __outEnvVarName;
+ValueExpression __genValueExpression;
 */
 if(!__exprEnvVariables.isEmpty() && genDiagram.getEditorGen().getExpressionProviders() != null && 
 	genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) 

@@ -170,4 +170,12 @@ public interface GenLinkConstraints extends EObject {
 	 */
 	String getConstraintsInstanceFieldName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	boolean isValid();
+
 } // GenLinkConstraints

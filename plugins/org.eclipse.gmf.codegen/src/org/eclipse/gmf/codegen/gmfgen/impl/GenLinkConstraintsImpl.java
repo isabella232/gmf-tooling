@@ -276,6 +276,15 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isValid() {
+		return getSourceEndContextClass() != null && getTargetEndContextClass() != null && (getSourceEnd() != null || getTargetEnd() != null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {

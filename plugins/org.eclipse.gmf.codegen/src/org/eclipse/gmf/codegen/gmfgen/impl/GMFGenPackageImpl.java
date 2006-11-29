@@ -5944,6 +5944,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genLinkConstraintsEClass, ecorePackage.getEString(), "getConstraintsInstanceFieldName", 1, 1);
 
+		addEOperation(genLinkConstraintsEClass, ecorePackage.getEBoolean(), "isValid", 0, 1);
+
 		initEClass(genRuleContainerBaseEClass, GenRuleContainerBase.class, "GenRuleContainerBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenRuleContainerBase_Editor(), this.getGenEditorGenerator(), null, "editor", null, 1, 1, GenRuleContainerBase.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
