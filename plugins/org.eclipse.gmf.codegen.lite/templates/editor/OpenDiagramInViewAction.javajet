@@ -1,10 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="OpenDiagramFileInViewGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenEditorView editorView = (GenEditorView) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = editorView.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
-final GenModel genModel = editorGen.getDomainGenModel();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@include file="../copyright4java.jetinc" %>

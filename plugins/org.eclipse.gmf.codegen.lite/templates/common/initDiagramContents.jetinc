@@ -82,6 +82,7 @@ private void create<%=nextContainer.getUniqueIdentifier()%>Children(<%=importMan
 <%
 		}
 	}
+	if (!nextContainer.getContainedNodes().isEmpty()) {
 %>
 	<%=importManager.getImportedName("java.util.List")%> semanticChildren = get<%=nextContainer.getUniqueIdentifier()%>SemanticChildNodes(viewObject);
 	for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticChildren.iterator(); it.hasNext(); ) {
@@ -90,51 +91,57 @@ private void create<%=nextContainer.getUniqueIdentifier()%>Children(<%=importMan
 		if (createCommand != null && createCommand.canExecute()) {
 			createCommand.execute();
 <%
-	boolean shouldIterateToGenerate = false;
-	for(Iterator containedNodes = nextContainer.getContainedNodes().iterator(); containedNodes.hasNext(); ) {
-		GenNode nextNode = (GenNode) containedNodes.next();
-		if (containers2Generate.contains(nextNode)) {
-			shouldIterateToGenerate = true;
-			break;
+		boolean shouldIterateToGenerate = false;
+		for(Iterator containedNodes = nextContainer.getContainedNodes().iterator(); containedNodes.hasNext(); ) {
+			GenNode nextNode = (GenNode) containedNodes.next();
+			if (containers2Generate.contains(nextNode)) {
+				shouldIterateToGenerate = true;
+				break;
+			}
 		}
-	}
-	if (shouldIterateToGenerate) {
+		if (shouldIterateToGenerate) {
 %>
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = createCommand.getCreatedView();
 			int childVisualID = nextDescriptor.getVisualID();
 			switch (childVisualID) {
 <%
-		for(Iterator containedNodes = nextContainer.getContainedNodes().iterator(); containedNodes.hasNext(); ) {
-			GenNode nextNode = (GenNode) containedNodes.next();
-			if (containers2Generate.contains(nextNode)) {
+			for(Iterator containedNodes = nextContainer.getContainedNodes().iterator(); containedNodes.hasNext(); ) {
+				GenNode nextNode = (GenNode) containedNodes.next();
+				if (containers2Generate.contains(nextNode)) {
 %>
 			case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				create<%=nextNode.getUniqueIdentifier()%>Children(nextChild);
 				break;
 <%
-			}
-		}
+				}
+			}	//iterate over contained nodes
 %>
 			}
 <%
-	}
+		}	//if (shouldIterateToGenerate)
 %>
 		}
 	}
+<%
+	}	//if (!nextContainer.getContainedNodes().isEmpty())
+%>
 }
 
+<%
+	if (!nextContainer.getContainedNodes().isEmpty()) {
+%>
 /**
  * @generated
  */
 private <%=importManager.getImportedName("java.util.List")%> get<%=nextContainer.getUniqueIdentifier()%>SemanticChildNodes(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView) {
 <%
-	{
-		String _getViewCode = "parentView";
-		List childNodes = nextContainer.getContainedNodes();
+		{
+			String _getViewCode = "parentView";
+			List childNodes = nextContainer.getContainedNodes();
 %>
 <%@ include file="semanticChildren.jetinc" %>
 <%
-	}
+		}
 %>
 }
 
@@ -143,26 +150,27 @@ private <%=importManager.getImportedName("java.util.List")%> get<%=nextContainer
  */
 protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand")%> getCreate<%=nextContainer.getUniqueIdentifier()%>NotationalChildNodeCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%> descriptor) {
 <%
-	{
-		String _parentNode = "parentView";
-		List childNodes = nextContainer.getContainedNodes();
-		boolean isListLayout;
-		if (nextContainer instanceof GenNode) {
-			isListLayout = !org.eclipse.gmf.codegen.gmfgen.util.ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions((GenNode) nextContainer);
-		} else if (nextContainer instanceof GenCompartment) {
-			isListLayout = ((GenCompartment) nextContainer).isListLayout(); 
-		} else if (nextContainer instanceof GenDiagram) {
-			isListLayout = false;
-		} else {
-			throw new RuntimeException("Unexpected container");
-		}
+		{
+			String _parentNode = "parentView";
+			List childNodes = nextContainer.getContainedNodes();
+			boolean isListLayout;
+			if (nextContainer instanceof GenNode) {
+				isListLayout = !org.eclipse.gmf.codegen.gmfgen.util.ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions((GenNode) nextContainer);
+			} else if (nextContainer instanceof GenCompartment) {
+				isListLayout = ((GenCompartment) nextContainer).isListLayout(); 
+			} else if (nextContainer instanceof GenDiagram) {
+				isListLayout = false;
+			} else {
+				throw new RuntimeException("Unexpected container");
+			}
 %>
 <%@ include file="createNotationalNodeCommand.jetinc"%>
 <%
-	}
+		}	//local declarations
 %>
 }
 <%
+	}	//if (!nextContainer.getContainedNodes().isEmpty())
 }
 class LinksCollection {
 	private Collection<GenLink> myTypeModelFacetLinks = new LinkedList<GenLink>();

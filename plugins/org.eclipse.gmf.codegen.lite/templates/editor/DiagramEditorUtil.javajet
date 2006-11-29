@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="DiagramEditorUtilGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -23,7 +23,11 @@ importManager.addImport("org.eclipse.swt.widgets.FileDialog");
 importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 importManager.addImport("org.eclipse.emf.common.util.URI");
 importManager.addImport("org.eclipse.emf.common.ui.URIEditorInput");
+
+importManager.registerInnerClass("DiagramInitializer");
 %>
+
+<%@include file="../common/featureGetAccessor.jetinc"%>
 
 /**
  * @generated
@@ -106,6 +110,26 @@ if (editorGen.getEditor().isEclipseEditor()) {
 }
 %>
 
+	/**
+	 * @generated
+	 */
+	public static <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> createDiagramFor(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramRoot) {
+		if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID != <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramRoot)) {
+			return null;
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> result = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+		result.setElement(diagramRoot);
+		<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(result);
+		new DiagramInitializer().initDiagramContents(result);
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class DiagramInitializer {
+<%@ include file="../common/initDiagramContents.jetinc"%>
+	}
 <%
 if (!genDiagram.getEditorGen().isSameFileForDiagramAndModel()) {
 %>

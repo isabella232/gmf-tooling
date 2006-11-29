@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="NewDiagramFileWizardGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
@@ -19,8 +19,6 @@ if (isRichClientPlatform) {
 	importManager.registerInnerClass("DiagramURISelectorPage");
 }
 %>
-<%@ include file="../common/featureGetAccessor.jetinc"%>
-
 
 /**
  * @generated
@@ -193,16 +191,14 @@ if (isRichClientPlatform) {
 				return true;
 			}
 			public void execute() {
-				myCreatedDiagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
-				myCreatedDiagram.setElement(myDiagramRoot);
-				<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(myCreatedDiagram);
+				myCreatedDiagram = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createDiagramFor(myDiagramRoot);
+				assert myCreatedDiagram != null;
 				diagramResource.getContents().add(myCreatedDiagram);
 <%if (editorGen.isSameFileForDiagramAndModel()) {%>
 				diagramResource.getContents().add(myCreatedDiagram.getElement());
 <%
 }
 %>
-				initDiagramContents(myCreatedDiagram);
 			}
 			public void redo() {
 				execute();
@@ -264,8 +260,6 @@ if (isRichClientPlatform) {
 		}
 		return true;
 	}
-
-<%@ include file="../common/initDiagramContents.jetinc"%>
 
 <%
 if (isRichClientPlatform) {

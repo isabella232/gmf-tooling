@@ -1,9 +1,7 @@
 package org.eclipse.gmf.codegen.templates.lite.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.emf.codegen.util.*;
 
 public class OpenDiagramFileInViewGenerator
 {
@@ -59,7 +57,6 @@ public class OpenDiagramFileInViewGenerator
 final GenEditorView editorView = (GenEditorView) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = editorView.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
-final GenModel genModel = editorGen.getDomainGenModel();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
     stringBuffer.append(TEXT_1);
