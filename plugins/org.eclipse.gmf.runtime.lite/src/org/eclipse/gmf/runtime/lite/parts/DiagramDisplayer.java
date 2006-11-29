@@ -21,7 +21,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.GraphicalViewer;
@@ -108,9 +110,20 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		setEditDomain(gefEditDomain);
 		editingDomain = emfEditingDomain;
 
+		gefEditDomain.setCommandStack(createCommandStack());
 		getCommandStack().addCommandStackListener(commandStackListener);
 		myDiagramManager.getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(selectionListener);
 		myDiagramManager.getSite().getPart().addPropertyListener(propertyListener);
+	}
+
+	private CommandStack createCommandStack() {
+		CommandStackAdapterManager manager = (CommandStackAdapterManager) EcoreUtil.getExistingAdapter(editingDomain.getResourceSet(), CommandStackAdapterManager.class);
+		if (manager == null) {
+			manager = new CommandStackAdapterManager();
+			editingDomain.getResourceSet().eAdapters().add(manager);
+		}
+		manager.acquire();
+		return manager.getCommandStack();
 	}
 
 	public void dispose() {
@@ -123,6 +136,13 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		myDiagramManager.getSite().getPart().removePropertyListener(propertyListener);
 
 		getEditDomain().setActiveTool(null);
+
+		CommandStackAdapterManager manager = (CommandStackAdapterManager) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), CommandStackAdapterManager.class);
+		assert manager != null;
+		manager.release();
+		if (manager.isReleased()) {
+			getEditingDomain().getResourceSet().eAdapters().remove(manager);
+		}
 
 		// dispose the ActionRegistry (will dispose all actions)
 		getActionRegistry().dispose();
@@ -396,5 +416,41 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		} finally {
 			progressMonitor.done();
 		}
+	}
+
+	private static class CommandStackAdapterManager extends AdapterImpl {
+		@Override
+		public boolean isAdapterForType(Object type) {
+			return CommandStackAdapterManager.class.equals(type);
+		}
+
+		public CommandStack getCommandStack() {
+			if (myCommandStack == null) {
+				myCommandStack = new CommandStack();
+			}
+			return myCommandStack;
+		}
+
+		public void acquire() {
+			myRefCount++;
+		}
+
+		public void release() {
+			if (myRefCount == 0) {
+				throw new IllegalStateException();
+			}
+			myRefCount--;
+			if (myRefCount == 0) {
+				myCommandStack.dispose();
+				myCommandStack = null;
+			}
+		}
+
+		public boolean isReleased() {
+			return myRefCount == 0;
+		}
+
+		private CommandStack myCommandStack;
+		private int myRefCount;
 	}
 }

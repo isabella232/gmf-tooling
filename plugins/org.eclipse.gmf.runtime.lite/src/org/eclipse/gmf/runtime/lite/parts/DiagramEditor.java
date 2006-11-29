@@ -25,16 +25,19 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CommandStackEvent;
+import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -65,6 +68,26 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	private CommandStackListener commandStackListener = new CommandStackListener() {
 		public void commandStackChanged(EventObject event) {
 			setDirty(((CommandStack) event.getSource()).isDirty());
+		}
+	};
+
+	private CommandStackEventListener mySaveListener = new CommandStackEventListener() {
+		public void stackChanged(CommandStackEvent event) {
+			if (event.isPostChangeEvent() && isSaved()) {
+				getCommandStack().markSaveLocation();
+			}
+		}
+		private boolean isSaved() {
+			for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
+				Resource next = (Resource) it.next();
+				if (!next.isLoaded()) {
+					continue;
+				}
+				if (!next.isTrackingModification() || next.isModified()) {
+					return false;
+				}
+			}
+			return true;
 		}
 	};
 
@@ -137,15 +160,23 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 		}
 		myDiagramDisplayer = new DiagramDisplayer(this, createEditDomain(), editingDomain);
 		getCommandStack().addCommandStackListener(commandStackListener);
+		getCommandStack().addCommandStackEventListener(mySaveListener);
 		setInput(input);
 	}
 
 	@Override
 	public void dispose() {
 		if (myDiagramDisplayer != null) {
+			getCommandStack().removeCommandStackEventListener(mySaveListener);
 			getCommandStack().removeCommandStackListener(commandStackListener);
 			myDiagramDisplayer.dispose();
 			myDiagramDisplayer = null;
+		}
+		ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
+		assert adapter != null;
+		adapter.release();
+		if (adapter.isReleased()) {
+			getEditingDomain().getResourceSet().eAdapters().remove(adapter);
 		}
 		super.dispose();
 	}
@@ -256,7 +287,19 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	 * a {@link #createEditDomain() default instance} will be created and used.
 	 * By default, return <code>null</code>. Subclasses may reimplement.
 	 */
-	protected TransactionalEditingDomain getEditingDomain(IEditorInput editorInput) {
+	protected TransactionalEditingDomain getEditingDomain(IEditorInput input) {
+		if (input instanceof DiagramEditorInput) {
+			TransactionalEditingDomain result = TransactionUtil.getEditingDomain(((DiagramEditorInput) input).getDiagram());
+			if (result != null) {
+				ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(result.getResourceSet(), ForceTrackingModificationAdapter.class);
+				if (adapter == null) {
+					adapter = new ForceTrackingModificationAdapter();
+					result.getResourceSet().eAdapters().add(adapter);
+				}
+				adapter.acquire();
+			}
+			return result;
+		}
 		return null;
 	}
 
@@ -283,41 +326,6 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	 */
 	protected EditDomain createEditDomain() {
 		DefaultEditDomain domain = new DefaultEditDomain(this);
-		domain.setCommandStack(new CommandStack(){
-			@Override
-			public void execute(Command command) {
-				super.execute(command);
-				if (isSaved()) {
-					markSaveLocation();
-				}
-			}
-			@Override
-			public void undo() {
-				super.undo();
-				if (isSaved()) {
-					markSaveLocation();
-				}
-			}
-			@Override
-			public void redo() {
-				super.redo();
-				if (isSaved()) {
-					markSaveLocation();
-				}
-			}
-			private boolean isSaved() {
-				for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
-					Resource next = (Resource) it.next();
-					if (!next.isLoaded()) {
-						continue;
-					}
-					if (!next.isTrackingModification() || next.isModified()) {
-						return false;
-					}
-				}
-				return true;
-			}
-		});
 		return domain;
 	}
 
@@ -360,5 +368,25 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 				}
 			}
 		}
+		@Override
+		public boolean isAdapterForType(Object type) {
+			return ForceTrackingModificationAdapter.class.equals(type);
+		}
+		public void acquire() {
+			myRefCount++;
+		}
+
+		public void release() {
+			if (myRefCount == 0) {
+				throw new IllegalStateException();
+			}
+			myRefCount--;
+		}
+
+		public boolean isReleased() {
+			return myRefCount == 0;
+		}
+
+		private int myRefCount;
 	}
 }

@@ -12,6 +12,7 @@
 package org.eclipse.gmf.runtime.lite.parts;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -23,8 +24,9 @@ import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CommandStackEvent;
+import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -57,6 +59,20 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 	private PageBook myBook;
 	private Control myUninitializedControl;
 
+	private CommandStackEventListener mySaveListener = new CommandStackEventListener() {
+		public void stackChanged(CommandStackEvent event) {
+			assert event.getSource() == myDiagramDisplayer.getCommandStack();
+			if (event.isPostChangeEvent()) {
+				try {
+					myDiagramDisplayer.save(new NullProgressMonitor());
+					myDiagramDisplayer.getCommandStack().markSaveLocation();
+				} catch (CoreException e) {
+					Activator.getDefault().getLog().log(e.getStatus());
+				}
+			}
+		}
+	};
+
 	@Override
 	public void init(IViewSite site) throws PartInitException {
 		super.init(site);
@@ -65,7 +81,7 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 	@Override
 	public void dispose() {
 		if (myDiagramDisplayer != null) {
-			myDiagramDisplayer.dispose();
+			disposeDisplayer(myDiagramDisplayer);
 		}
 		myDiagramDisplayer = null;
 		super.dispose();
@@ -117,6 +133,7 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 				editingDomain = createEditingDomain();
 			}
 			myDiagramDisplayer = new DiagramDisplayer(this, createEditDomain(), editingDomain);
+			initDisplayer(myDiagramDisplayer);
 			try {
 				setInput(diagramURI);
 				myDiagramDisplayer.createViewer(myBook);
@@ -127,8 +144,7 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 				Activator.getDefault().getLog().log(e.getStatus());
 				ErrorDialog.openError(getSite().getShell(), "Error", "Failed to open diagram", e.getStatus());
 				if (myDiagramDisplayer.getTopLevelControl() != null && !myDiagramDisplayer.getTopLevelControl().isDisposed()) {
-					myDiagramDisplayer.getTopLevelControl().dispose();
-					myDiagramDisplayer.dispose();
+					disposeDisplayer(myDiagramDisplayer);
 					myDiagramDisplayer = oldDiagramDisplayer;
 					//prevent navigation from the old diagram.
 					oldDiagramDisplayer = null;
@@ -136,11 +152,22 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 			}
 		}
 		if (oldDiagramDisplayer != null) {
-			oldDiagramDisplayer.getTopLevelControl().dispose();
-			oldDiagramDisplayer.dispose();
+			disposeDisplayer(oldDiagramDisplayer);
 		}
 		updateActionBars();
 		return result;
+	}
+
+	protected void initDisplayer(DiagramDisplayer diagramDisplayer) {
+		diagramDisplayer.getCommandStack().addCommandStackEventListener(mySaveListener);
+	}
+
+	protected void disposeDisplayer(DiagramDisplayer diagramDisplayer) {
+		if (diagramDisplayer.getTopLevelControl() != null) {
+			diagramDisplayer.getTopLevelControl().dispose();
+		}
+		diagramDisplayer.getCommandStack().removeCommandStackEventListener(mySaveListener);
+		diagramDisplayer.dispose();
 	}
 
 	protected abstract void updateActionBars();
@@ -163,30 +190,6 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 	 */
 	protected EditDomain createEditDomain() {
 		EditDomain domain = new EditDomain();
-		domain.setCommandStack(new CommandStack() {
-			@Override
-			public void execute(Command command) {
-				super.execute(command);
-				save();
-			}
-			@Override
-			public void undo() {
-				super.undo();
-				save();
-			}
-			@Override
-			public void redo() {
-				super.redo();
-				save();
-			}
-			private void save() {
-				try {
-					myDiagramDisplayer.save(null);
-				} catch (CoreException e) {
-					Activator.getDefault().getLog().log(e.getStatus());
-				}
-			}
-		});
 		return domain;
 	}
 
