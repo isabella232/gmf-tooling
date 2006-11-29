@@ -278,16 +278,6 @@ if (isEclipseEditor) {
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> getEditingDomain(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%>) {
-			return <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%>) input).getDiagram());
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
 	public void init(<%=importManager.getImportedName("org.eclipse.ui.IEditorSite")%> site, <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) throws <%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> {
 		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> file = getURIFromInput(input);
 		if (file == null) {
