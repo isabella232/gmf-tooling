@@ -116,12 +116,15 @@ public class OperationCall extends FeatureCall {
                     }
                 } else {
                     // extension as members
-                    ps = new EClassifier[params.length + 1];
+                    ps = new EClassifier[paramTypes.length + 1];
                     ps[0] = BuiltinMetaModel.getType(element);
-                    System.arraycopy(params, 0, ps, 1, params.length);
+                    System.arraycopy(paramTypes, 0, ps, 1, paramTypes.length);
                     f = ctx.getExtension(getName().getValue(), ps);
                     if (f != null) {
-                        final Object r = f.evaluate(ps, ctx);
+                    	Object[] paramsAll = new Object[params.length + 1];
+                    	paramsAll[0] = element;
+                    	System.arraycopy(params, 0, paramsAll, 1, params.length);
+                        final Object r = f.evaluate(paramsAll, ctx);
                         if (r instanceof Collection) {
                             result.addAll((Collection<?>) r);
                         } else {
