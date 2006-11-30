@@ -105,7 +105,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 
 	public void testUniqueIdentifier_IsUnique() {
-		HashSet allIds = new HashSet(1<<7);
+		HashSet<String> allIds = new HashSet<String>(1<<7);
 		for (GenCommonBaseIterator it = new GenCommonBaseIterator(myGenModel); it.hasNext();) {
 			GenCommonBase next = it.nextElement();
 			assertFalse("There should be no two same 'unique' identifiers in GMFGen", allIds.contains(next.getUniqueIdentifier()));
@@ -116,7 +116,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 
 	public void testUniqueIdentifier_IsConstant() {
-		LinkedList/*<String>*/ allIdsOrdered = new LinkedList/*<String>*/();
+		LinkedList<String> allIdsOrdered = new LinkedList<String>();
 		for (GenCommonBaseIterator it = new GenCommonBaseIterator(myGenModel); it.hasNext();) {
 			GenCommonBase next = it.nextElement();
 			allIdsOrdered.add(next.getUniqueIdentifier());
