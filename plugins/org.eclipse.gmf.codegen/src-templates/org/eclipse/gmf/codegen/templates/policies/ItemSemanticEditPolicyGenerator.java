@@ -109,44 +109,69 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_90 = NL + ";" + NL + "\t\t}";
   protected final String TEXT_91 = NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tpublic static boolean canCreate";
   protected final String TEXT_92 = "(";
-  protected final String TEXT_93 = " req, boolean isBackDirected) {" + NL + "\t\t\tboolean canCreate = true;";
-  protected final String TEXT_94 = NL + "\t\t\tEObject source = req.getSource();" + NL + "\t\t\tEObject target = req.getTarget();" + NL + "" + NL + "\t\t\t";
-  protected final String TEXT_95 = " sourceConstraint = isBackDirected ? ";
-  protected final String TEXT_96 = " : ";
-  protected final String TEXT_97 = ";" + NL + "\t\t\t";
-  protected final String TEXT_98 = " targetConstraint = null;" + NL + "\t\t\tif(req.getTarget() != null) {" + NL + "\t\t\t\ttargetConstraint = isBackDirected ? ";
-  protected final String TEXT_99 = " : ";
-  protected final String TEXT_100 = ";" + NL + "\t\t\t}" + NL + "\t\t\tcanCreate &= sourceConstraint == null || evaluate(sourceConstraint, source, target, false);" + NL + "\t\t\tcanCreate &= targetConstraint == null || evaluate(targetConstraint, target, source, true);";
-  protected final String TEXT_101 = NL + "\t\t\treturn canCreate;" + NL + "\t\t}";
-  protected final String TEXT_102 = NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprivate static boolean evaluate(";
-  protected final String TEXT_103 = " constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {" + NL + "\t\t\t";
-  protected final String TEXT_104 = " evalEnv = ";
-  protected final String TEXT_105 = ".singletonMap(OPPOSITE_END_VAR, oppositeEnd);\t\t\t" + NL + "\t\t\ttry {" + NL + "\t\t\t\tObject val = constraint.evaluate(sourceEnd, evalEnv);" + NL + "\t\t\t\treturn (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;" + NL + "\t\t\t} catch(Exception e) {\t" + NL + "\t\t\t\t";
-  protected final String TEXT_106 = ".getInstance().logError(\"Link constraint evaluation error\", e); //$NON-NLS-1$" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_107 = "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate static class ";
-  protected final String TEXT_108 = " {";
-  protected final String TEXT_109 = NL;
-  protected final String TEXT_110 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
-  protected final String TEXT_111 = " ";
-  protected final String TEXT_112 = "(";
-  protected final String TEXT_113 = " self";
-  protected final String TEXT_114 = ", ";
-  protected final String TEXT_115 = " ";
-  protected final String TEXT_116 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
-  protected final String TEXT_117 = ".NoImplException(\"No user java implementation provided in '";
-  protected final String TEXT_118 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_119 = NL;
-  protected final String TEXT_120 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
-  protected final String TEXT_121 = " ";
-  protected final String TEXT_122 = "(";
-  protected final String TEXT_123 = " self";
-  protected final String TEXT_124 = ", ";
-  protected final String TEXT_125 = " ";
-  protected final String TEXT_126 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
-  protected final String TEXT_127 = ".NoImplException(\"No user java implementation provided in '";
-  protected final String TEXT_128 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_129 = NL + "\t\t} // ";
-  protected final String TEXT_130 = "\t" + NL + "\t}" + NL + "" + NL + "}\t";
+  protected final String TEXT_93 = " container, ";
+  protected final String TEXT_94 = " source, ";
+  protected final String TEXT_95 = " target) {";
+  protected final String TEXT_96 = NL + "\t\t\tif (";
+  protected final String TEXT_97 = " != null) {";
+  protected final String TEXT_98 = NL + "\t\t\t\tif (";
+  protected final String TEXT_99 = " != null) {";
+  protected final String TEXT_100 = NL + "\t\t\t\tif (";
+  protected final String TEXT_101 = ".size() >= ";
+  protected final String TEXT_102 = ") {";
+  protected final String TEXT_103 = NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}";
+  protected final String TEXT_104 = NL + "\t\t\t\tif (";
+  protected final String TEXT_105 = " != null) {";
+  protected final String TEXT_106 = NL + "\t\t\t\tif (";
+  protected final String TEXT_107 = ".size() >= ";
+  protected final String TEXT_108 = ") {";
+  protected final String TEXT_109 = NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}";
+  protected final String TEXT_110 = NL + "\t\t\t}";
+  protected final String TEXT_111 = NL + "\t\t\tif (source != null) {";
+  protected final String TEXT_112 = NL + "\t\t\t\tif (";
+  protected final String TEXT_113 = " != null) {";
+  protected final String TEXT_114 = NL + "\t\t\t\tif (";
+  protected final String TEXT_115 = ".size() >= ";
+  protected final String TEXT_116 = " || ";
+  protected final String TEXT_117 = ".contains(target)) {";
+  protected final String TEXT_118 = NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}";
+  protected final String TEXT_119 = NL + "\t\t\t\tif (";
+  protected final String TEXT_120 = ".contains(target)) {" + NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}";
+  protected final String TEXT_121 = NL + "\t\t\t}";
+  protected final String TEXT_122 = NL + "\t\t\tif (!evaluate(";
+  protected final String TEXT_123 = "_SourceExpression, source, target, false)) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}";
+  protected final String TEXT_124 = NL + "\t\t\tif (!evaluate(";
+  protected final String TEXT_125 = "_TargetExpression, target, source, true)) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}";
+  protected final String TEXT_126 = NL + "\t\t\treturn true;" + NL + "\t\t}";
+  protected final String TEXT_127 = NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprivate static boolean evaluate(";
+  protected final String TEXT_128 = " constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {" + NL + "\t\t\tif (sourceEnd == null) {" + NL + "\t\t\t\treturn true;" + NL + "\t\t\t}" + NL + "\t\t\t";
+  protected final String TEXT_129 = " evalEnv = ";
+  protected final String TEXT_130 = ".singletonMap(OPPOSITE_END_VAR, oppositeEnd);\t\t\t" + NL + "\t\t\ttry {" + NL + "\t\t\t\tObject val = constraint.evaluate(sourceEnd, evalEnv);" + NL + "\t\t\t\treturn (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;" + NL + "\t\t\t} catch(Exception e) {\t" + NL + "\t\t\t\t";
+  protected final String TEXT_131 = ".getInstance().logError(\"Link constraint evaluation error\", e); //$NON-NLS-1$" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_132 = "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate static class ";
+  protected final String TEXT_133 = " {";
+  protected final String TEXT_134 = NL;
+  protected final String TEXT_135 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_136 = " ";
+  protected final String TEXT_137 = "(";
+  protected final String TEXT_138 = " self";
+  protected final String TEXT_139 = ", ";
+  protected final String TEXT_140 = " ";
+  protected final String TEXT_141 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_142 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_143 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_144 = NL;
+  protected final String TEXT_145 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_146 = " ";
+  protected final String TEXT_147 = "(";
+  protected final String TEXT_148 = " self";
+  protected final String TEXT_149 = ", ";
+  protected final String TEXT_150 = " ";
+  protected final String TEXT_151 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_152 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_153 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_154 = NL + "\t\t} // ";
+  protected final String TEXT_155 = "\t" + NL + "\t}" + NL + "" + NL + "}\t";
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -610,51 +635,147 @@ String __javaOperationContainer;
 	
 for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
+	boolean separateContainer;
+	GenClass outgoingClass;
+	GenClass incomingClass;
+	GenClass containerClass = null;
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+		separateContainer = sourceFeature != null;
+		if (separateContainer) {
+			outgoingClass = sourceFeature.getTypeGenClass();
+			containerClass = containmentFeature.getGenClass();
+		} else {
+			outgoingClass = containmentFeature.getGenClass();
+		}
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+	} else if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
+		outgoingClass = metaFeature.getGenClass();
+		incomingClass = metaFeature.getTypeGenClass();
+		separateContainer = false;
+	} else {
+		continue;
+	}
     stringBuffer.append(TEXT_91);
     stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_92);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest"));
+    if (separateContainer) {
+    stringBuffer.append(importManager.getImportedName(containerClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_93);
-    	if (expressionProviders != null && nextLink.getCreationConstraints() != null && nextLink.getCreationConstraints().isValid()) {
-		String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());
-		GenLinkConstraints constraints = nextLink.getCreationConstraints();
-		String sourceExpression = constraints.getSourceEnd() != null ? nextLink.getUniqueIdentifier() + "_SourceExpression" : "null";
-		String targetExpression = constraints.getTargetEnd() != null ? nextLink.getUniqueIdentifier() + "_TargetExpression" : "null";
+    }
+    stringBuffer.append(importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_94);
-    stringBuffer.append(importedAbstractExprCls);
+    stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_95);
-    stringBuffer.append(targetExpression);
+    	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature childFeature = modelFacet.getChildMetaFeature();
+
+		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
+		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
+		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
+		String containerVarName = separateContainer ? "container" : "source";
+		if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
     stringBuffer.append(TEXT_96);
-    stringBuffer.append(sourceExpression);
+    stringBuffer.append(containerVarName);
     stringBuffer.append(TEXT_97);
-    stringBuffer.append(importedAbstractExprCls);
+    /* check that containment feature is not set / has capacity for the new element */ 
+			if (upperContainmentBound > 0) {
+				if (upperContainmentBound == 1) {
     stringBuffer.append(TEXT_98);
-    stringBuffer.append(sourceExpression);
+    stringBuffer.append(getFeatureValueGetter(containerVarName, containmentFeature, false, importManager));
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(targetExpression);
+    				} else {
     stringBuffer.append(TEXT_100);
-    	}
+    stringBuffer.append(getFeatureValueGetter(containerVarName, containmentFeature, false, importManager));
     stringBuffer.append(TEXT_101);
+    stringBuffer.append(upperContainmentBound);
+    stringBuffer.append(TEXT_102);
+    				}
+    stringBuffer.append(TEXT_103);
+    			}
+			if (checkChildFeatureUpperBound) {
+				if (upperChildBound == 1) {
+    stringBuffer.append(TEXT_104);
+    stringBuffer.append(getFeatureValueGetter(containerVarName, childFeature, false, importManager));
+    stringBuffer.append(TEXT_105);
+    				} else {
+    stringBuffer.append(TEXT_106);
+    stringBuffer.append(getFeatureValueGetter(containerVarName, childFeature, false, importManager));
+    stringBuffer.append(TEXT_107);
+    stringBuffer.append(upperChildBound);
+    stringBuffer.append(TEXT_108);
+    				}
+    stringBuffer.append(TEXT_109);
+    			}
+    stringBuffer.append(TEXT_110);
+    		}		
+	} else { /* nextLink.getModelFacet() instanceof FeatureLinkModelFacet */
+		GenFeature metaFeature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
+		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
+    stringBuffer.append(TEXT_111);
+     /* check that feature is not set / has capacity for the new value / is unique */
+		if (upperBound > 0) {
+			if (upperBound == 1) {
+    stringBuffer.append(TEXT_112);
+    stringBuffer.append(getFeatureValueGetter("source", metaFeature, false, importManager));
+    stringBuffer.append(TEXT_113);
+    			} else {
+    stringBuffer.append(TEXT_114);
+    stringBuffer.append(getFeatureValueGetter("source", metaFeature, false, importManager));
+    stringBuffer.append(TEXT_115);
+    stringBuffer.append(upperBound);
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(getFeatureValueGetter("source", metaFeature, false, importManager));
+    stringBuffer.append(TEXT_117);
+    			}
+    stringBuffer.append(TEXT_118);
+    		} else {
+    stringBuffer.append(TEXT_119);
+    stringBuffer.append(getFeatureValueGetter("source", metaFeature, false, importManager));
+    stringBuffer.append(TEXT_120);
+    		}
+    stringBuffer.append(TEXT_121);
+    	}
+	
+	if (expressionProviders != null && nextLink.getCreationConstraints() != null && nextLink.getCreationConstraints().isValid()) {
+		GenLinkConstraints constraints = nextLink.getCreationConstraints();
+		if (constraints.getSourceEnd() != null) {
+    stringBuffer.append(TEXT_122);
+    stringBuffer.append(nextLink.getUniqueIdentifier());
+    stringBuffer.append(TEXT_123);
+    		}
+		if (constraints.getTargetEnd() != null) {
+    stringBuffer.append(TEXT_124);
+    stringBuffer.append(nextLink.getUniqueIdentifier());
+    stringBuffer.append(TEXT_125);
+    		}
+	}
+    stringBuffer.append(TEXT_126);
     }
 	
 if (expressionProviders != null) {
 	String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());
-    stringBuffer.append(TEXT_102);
+    stringBuffer.append(TEXT_127);
     stringBuffer.append(importedAbstractExprCls);
-    stringBuffer.append(TEXT_103);
+    stringBuffer.append(TEXT_128);
     stringBuffer.append(importManager.getImportedName("java.util.Map"));
-    stringBuffer.append(TEXT_104);
+    stringBuffer.append(TEXT_129);
     stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_105);
+    stringBuffer.append(TEXT_130);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_106);
+    stringBuffer.append(TEXT_131);
     }
 	
 if(expressionProviders != null && hasJavaConstraints) {
 
-    stringBuffer.append(TEXT_107);
+    stringBuffer.append(TEXT_132);
     stringBuffer.append(javaExprContainer);
-    stringBuffer.append(TEXT_108);
+    stringBuffer.append(TEXT_133);
     
 	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
@@ -669,7 +790,7 @@ if(expressionProviders != null && hasJavaConstraints) {
 		if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {				
 			__exprEnvVariables.put(oppositeEndVarName, targetContext);
 
-    stringBuffer.append(TEXT_109);
+    stringBuffer.append(TEXT_134);
     
 /* 
 ValueExpression __genValueExpression
@@ -690,13 +811,13 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
-    stringBuffer.append(TEXT_110);
+    stringBuffer.append(TEXT_135);
     stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
-    stringBuffer.append(TEXT_111);
+    stringBuffer.append(TEXT_136);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_112);
+    stringBuffer.append(TEXT_137);
     stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
-    stringBuffer.append(TEXT_113);
+    stringBuffer.append(TEXT_138);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
@@ -704,17 +825,17 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
-    stringBuffer.append(TEXT_114);
+    stringBuffer.append(TEXT_139);
     stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
-    stringBuffer.append(TEXT_115);
+    stringBuffer.append(TEXT_140);
     stringBuffer.append(__nextVarName);
     	} 
 
-    stringBuffer.append(TEXT_116);
+    stringBuffer.append(TEXT_141);
     stringBuffer.append(__importedAbstractExpr);
-    stringBuffer.append(TEXT_117);
+    stringBuffer.append(TEXT_142);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_118);
+    stringBuffer.append(TEXT_143);
     
 } /* end of GenJavaExpressionProvider */
 
@@ -725,7 +846,7 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 			__genExprContext = targetContext;
 			__exprEnvVariables.put(oppositeEndVarName, srcContext);
 
-    stringBuffer.append(TEXT_119);
+    stringBuffer.append(TEXT_144);
     
 /* 
 ValueExpression __genValueExpression
@@ -746,13 +867,13 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
-    stringBuffer.append(TEXT_120);
+    stringBuffer.append(TEXT_145);
     stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
-    stringBuffer.append(TEXT_121);
+    stringBuffer.append(TEXT_146);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_122);
+    stringBuffer.append(TEXT_147);
     stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
-    stringBuffer.append(TEXT_123);
+    stringBuffer.append(TEXT_148);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
@@ -760,17 +881,17 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
-    stringBuffer.append(TEXT_124);
+    stringBuffer.append(TEXT_149);
     stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
-    stringBuffer.append(TEXT_125);
+    stringBuffer.append(TEXT_150);
     stringBuffer.append(__nextVarName);
     	} 
 
-    stringBuffer.append(TEXT_126);
+    stringBuffer.append(TEXT_151);
     stringBuffer.append(__importedAbstractExpr);
-    stringBuffer.append(TEXT_127);
+    stringBuffer.append(TEXT_152);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_128);
+    stringBuffer.append(TEXT_153);
     
 } /* end of GenJavaExpressionProvider */
 
@@ -778,12 +899,12 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		}
 	} /*java constraints iteration*/
 
-    stringBuffer.append(TEXT_129);
+    stringBuffer.append(TEXT_154);
     stringBuffer.append(javaExprContainer);
     
 } /* end of hasJavaConstraints */
 
-    stringBuffer.append(TEXT_130);
+    stringBuffer.append(TEXT_155);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }

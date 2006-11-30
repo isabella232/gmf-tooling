@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink()
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Edge\')' description='Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='outgoingCreationAllowed or incomingCreationAllowed' description='Either outgoingCreationAllowed or incomingCreationAllowed property should be true'"
  * @generated
  */
 public interface GenLink extends GenCommonBase {

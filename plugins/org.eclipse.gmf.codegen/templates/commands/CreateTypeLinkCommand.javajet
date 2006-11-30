@@ -20,6 +20,7 @@ GenClass incomingClass = targetFeature.getTypeGenClass();
 GenClass containerClass = containmentFeature.getGenClass();
 
 boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
+boolean separateContainer = modelFacet.getSourceMetaFeature() != null;
 String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -30,11 +31,13 @@ String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().g
  * @generated
  */
 public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand")%> {
+<%if (separateContainer) {%>
 
 	/**
 	 * @generated
 	 */
 	private <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> myContainer;
+<%}%>
 
 	/**
 	 * @generated
@@ -49,13 +52,18 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	/**
 	 * @generated
 	 */
-	public <%=importManager.getCompilationUnitName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> container, <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> source, <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> target) {
+	public <%=importManager.getCompilationUnitName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, <%if (separateContainer) {%><%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> container, <%}%><%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> source, <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> target) {
 		super(req);
+<%if (separateContainer) {%>
 		super.setElementToEdit(<%if (containerClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>container);
 		myContainer = container;
+<%} else {%>
+		super.setElementToEdit(<%if (outgoingClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>source);
+<%}%>
 		mySource = source;
 		myTarget = target;
 	}
+<%if (separateContainer) {%>
 	
 	/**
 	 * @generated
@@ -63,6 +71,7 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	public <%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> getContainer() {
 		return myContainer;
 	}
+<%}%>
 	
 	/**
 	 * @generated
@@ -104,11 +113,12 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 <%}
 
 if (processChildFeature) {
+	String containerVarName = separateContainer ? "myContainer" : "mySource";
 	if (childFeature.isListType()) {%>
-				<%=importManager.getImportedName("java.util.Collection")%> featureValues = myContainer.<%=childFeature.getGetAccessor()%>();
+				<%=importManager.getImportedName("java.util.Collection")%> featureValues = <%=containerVarName%>.<%=childFeature.getGetAccessor()%>();
 				featureValues.add(newElement);
 <%	} else {%>
-			 	<%=getFeatureValueSetterPrefix("myContainer", childFeature, false, importManager)%>newElement);
+			 	<%=getFeatureValueSetterPrefix(containerVarName, childFeature, false, importManager)%>newElement);
 <%	}
 }
 

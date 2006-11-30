@@ -538,6 +538,10 @@
       <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Edge')"/>
       <details key="description" value="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="outgoingCreationAllowed or incomingCreationAllowed"/>
+      <details key="description" value="Either outgoingCreationAllowed or incomingCreationAllowed property should be true"/>
+    </eAnnotations>
     <eOperations name="getSources" upperBound="-1" eType="#//GenCommonBase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Returns link sources in this genmodel"/>

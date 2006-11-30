@@ -305,30 +305,103 @@ if (expressionProviders != null) {%>
 }
 	
 for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
-	GenLink nextLink = (GenLink) it.next();%>
+	GenLink nextLink = (GenLink) it.next();
+	boolean separateContainer;
+	GenClass outgoingClass;
+	GenClass incomingClass;
+	GenClass containerClass = null;
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+		separateContainer = sourceFeature != null;
+		if (separateContainer) {
+			outgoingClass = sourceFeature.getTypeGenClass();
+			containerClass = containmentFeature.getGenClass();
+		} else {
+			outgoingClass = containmentFeature.getGenClass();
+		}
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+	} else if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
+		outgoingClass = metaFeature.getGenClass();
+		incomingClass = metaFeature.getTypeGenClass();
+		separateContainer = false;
+	} else {
+		continue;
+	}%>
 	
 		/**
 		 * @generated 
 		 */
-		public static boolean canCreate<%=nextLink.getUniqueIdentifier()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, boolean isBackDirected) {
-			boolean canCreate = true;
-<%	if (expressionProviders != null && nextLink.getCreationConstraints() != null && nextLink.getCreationConstraints().isValid()) {
-		String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());
-		GenLinkConstraints constraints = nextLink.getCreationConstraints();
-		String sourceExpression = constraints.getSourceEnd() != null ? nextLink.getUniqueIdentifier() + "_SourceExpression" : "null";
-		String targetExpression = constraints.getTargetEnd() != null ? nextLink.getUniqueIdentifier() + "_TargetExpression" : "null";%>
-			EObject source = req.getSource();
-			EObject target = req.getTarget();
+		public static boolean canCreate<%=nextLink.getUniqueIdentifier()%>(<%if (separateContainer) {%><%=importManager.getImportedName(containerClass.getQualifiedInterfaceName())%> container, <%}%><%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> source, <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> target) {
+<%	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature childFeature = modelFacet.getChildMetaFeature();
 
-			<%=importedAbstractExprCls%> sourceConstraint = isBackDirected ? <%=targetExpression%> : <%=sourceExpression%>;
-			<%=importedAbstractExprCls%> targetConstraint = null;
-			if(req.getTarget() != null) {
-				targetConstraint = isBackDirected ? <%=sourceExpression%> : <%=targetExpression%>;
+		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
+		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
+		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
+		String containerVarName = separateContainer ? "container" : "source";
+		if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {%>
+			if (<%=containerVarName%> != null) {
+<%/* check that containment feature is not set / has capacity for the new element */ 
+			if (upperContainmentBound > 0) {
+				if (upperContainmentBound == 1) {%>
+				if (<%=getFeatureValueGetter(containerVarName, containmentFeature, false, importManager)%> != null) {
+<%				} else {%>
+				if (<%=getFeatureValueGetter(containerVarName, containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
+<%				}%>
+					return false;
+				}
+<%			}
+			if (checkChildFeatureUpperBound) {
+				if (upperChildBound == 1) {%>
+				if (<%=getFeatureValueGetter(containerVarName, childFeature, false, importManager)%> != null) {
+<%				} else {%>
+				if (<%=getFeatureValueGetter(containerVarName, childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
+<%				}%>
+					return false;
+				}
+<%			}%>
 			}
-			canCreate &= sourceConstraint == null || evaluate(sourceConstraint, source, target, false);
-			canCreate &= targetConstraint == null || evaluate(targetConstraint, target, source, true);
-<%	}%>
-			return canCreate;
+<%		}		
+	} else { /* nextLink.getModelFacet() instanceof FeatureLinkModelFacet */
+		GenFeature metaFeature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
+		int upperBound = metaFeature.getEcoreFeature().getUpperBound();%>
+			if (source != null) {
+<% /* check that feature is not set / has capacity for the new value / is unique */
+		if (upperBound > 0) {
+			if (upperBound == 1) {%>
+				if (<%=getFeatureValueGetter("source", metaFeature, false, importManager)%> != null) {
+<%			} else {%>
+				if (<%=getFeatureValueGetter("source", metaFeature, false, importManager)%>.size() >= <%=upperBound%> || <%=getFeatureValueGetter("source", metaFeature, false, importManager)%>.contains(target)) {
+<%			}%>
+					return false;
+				}
+<%		} else {%>
+				if (<%=getFeatureValueGetter("source", metaFeature, false, importManager)%>.contains(target)) {
+					return false;
+				}
+<%		}%>
+			}
+<%	}
+	
+	if (expressionProviders != null && nextLink.getCreationConstraints() != null && nextLink.getCreationConstraints().isValid()) {
+		GenLinkConstraints constraints = nextLink.getCreationConstraints();
+		if (constraints.getSourceEnd() != null) {%>
+			if (!evaluate(<%=nextLink.getUniqueIdentifier()%>_SourceExpression, source, target, false)) {
+				return false;
+			}
+<%		}
+		if (constraints.getTargetEnd() != null) {%>
+			if (!evaluate(<%=nextLink.getUniqueIdentifier()%>_TargetExpression, target, source, true)) {
+				return false;
+			}
+<%		}
+	}%>
+			return true;
 		}
 <%}
 	
@@ -339,6 +412,9 @@ if (expressionProviders != null) {
 		 * @generated 
 		 */
 		private static boolean evaluate(<%=importedAbstractExprCls%> constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			if (sourceEnd == null) {
+				return true;
+			}
 			<%=importManager.getImportedName("java.util.Map")%> evalEnv = <%=importManager.getImportedName("java.util.Collections")%>.singletonMap(OPPOSITE_END_VAR, oppositeEnd);			
 			try {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);

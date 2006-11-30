@@ -6242,7 +6242,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																														
+		   });																																																																																																																																																																																															
 	}
 
 	/**
@@ -6307,6 +6307,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Edge\')",
 			 "description", "Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class"
+		   });		
+		addAnnotation
+		  (genLinkEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "outgoingCreationAllowed or incomingCreationAllowed",
+			 "description", "Either outgoingCreationAllowed or incomingCreationAllowed property should be true"
 		   });												
 		addAnnotation
 		  (genNodeLabelEClass, 
@@ -6464,7 +6471,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																						
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																							
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

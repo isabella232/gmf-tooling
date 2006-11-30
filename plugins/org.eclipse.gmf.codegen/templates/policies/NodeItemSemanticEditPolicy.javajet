@@ -143,11 +143,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
-		GenFeature childFeature = modelFacet.getChildMetaFeature();
-		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
-		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
-		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
-
 /**
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
@@ -190,46 +185,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that containment feature is not set / has capacity for the new element %>
-<%
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-				if (modelFacet.getSourceMetaFeature() == null) {
-%>
-		<%=containerClassName%> element = (<%=containerClassName%>) getSemanticElement();
-<%				} else {%>
-		<%=containerClassName%> element = (<%=containerClassName%>) getRelationshipContainer(getSemanticElement(),
-			<%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
-		if (element == null) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-			}
-%>
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, false)) {
+<%			boolean reversedRequest = false;
+			boolean nullTargetAllowed = true;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+<%@ include file="defineLinkContainer.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(<%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%>source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <% // create always executable command %>
@@ -250,58 +210,18 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that source is valid %>
-		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+<%			boolean reversedRequest = true;
+			boolean nullTargetAllowed = false;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+<%@ include file="defineLinkContainer.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(<%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%>source, target)) {
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-<%
-			String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-			if (modelFacet.getSourceMetaFeature() == null) {
-%>
-		final <%=containerClassName%> element = (<%=containerClassName%>) getSemanticElement();
-<%			} else {%>
-		final <%=containerClassName%> element = (<%=containerClassName%>) getRelationshipContainer(getSemanticElement(),
-			<%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
-		if (element == null) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%			}%>
-<% // check that containment feature is not set / has capacity for the new element %>
-<%
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-			}
-%>
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>());
 		}
-		
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, true)) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
-		}
-		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, element, (<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) req.getTarget(), (<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) req.getSource()));
+		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, <%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%>source, target));
 	}
 <%
 		}
@@ -317,10 +237,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, true)) {
+<%			boolean reversedRequest = true;
+			boolean nullTargetAllowed = true;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+<%@ include file="defineLinkContainer.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(<%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%>source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-<% // no feasible restrictions here %>
+<% // create always executable command %>
 		return new Command() {
 		};
 	}
@@ -338,57 +262,18 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that source is valid %>
-		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-			String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-			if (modelFacet.getSourceMetaFeature() == null) {
-%>
-		final <%=containerClassName%> element = (<%=containerClassName%>) req.getSource();
-<%				} else {%>
-		final <%=containerClassName%> element = (<%=containerClassName%>) getRelationshipContainer(req.getSource(),
-			<%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
-		if (element == null) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%			}%>
-<% // check that containment feature is not set / has capacity for the new element %>
-<%
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
-%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%					} else {%>
-		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%					}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-				}
-			}
-%>
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, false)) {
+<%			boolean reversedRequest = false;
+			boolean nullTargetAllowed = false;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+<%@ include file="defineLinkContainer.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(<%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%>source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
-		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, element, (<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) req.getSource(), (<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) req.getTarget()));
+		return getMSLWrapper(new <%=importManager.getImportedName(modelFacet.getCreateCommandQualifiedClassName())%>(req, <%if (modelFacet.getSourceMetaFeature() != null) {%>container, <%}%> source, target));
 	}
 <%
 		}
@@ -404,7 +289,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 //
 //
 		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
-		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
 		
@@ -450,24 +334,12 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that feature is not set / has capacity for the new value %>
-<%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-%>
-		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
-<%				if (upperBound == 1) {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%>) {
-<%				}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%			}%>
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, false)) {
+<%			boolean reversedRequest = false;
+			boolean nullTargetAllowed = true;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-
 <% // create always executable command %>
 		return new Command() {
 		};
@@ -486,33 +358,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that source is valid %>
-		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<% // check that feature is not set / has capacity for the new value / is unique %>
-<%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-%>
-		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
-<%				if (upperBound == 1) {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%> || <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())) {
-<%				}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-			} else if (metaFeature.getEcoreFeature().isUnique()) {
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-%>
-		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%			}%>
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, true)) {
+<%			boolean reversedRequest = true;
+			boolean nullTargetAllowed = false;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <% // create semantic command %>
@@ -534,7 +383,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, true)) {
+<%			boolean reversedRequest = true;
+			boolean nullTargetAllowed = true;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <% // no feasible restrictions here %>
@@ -555,33 +407,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
-<% // check that source is valid %>
-		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<% // check that feature is not set / has capacity for the new value / is unique %>
-<%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-%>
-		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
-<%				if (upperBound == 1) {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%> || <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getTarget())) {
-<%				}%>
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%
-			} else if (metaFeature.getEcoreFeature().isUnique()) {
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-%>
-		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
-		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getTarget())) {
-			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-		}
-<%			}%>
-		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(req, false)) {
+<%			boolean reversedRequest = false;
+			boolean nullTargetAllowed = false;%>
+<%@ include file="defineLinkSourceTarget.jetinc"%>
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+".canCreate"+genLink.getUniqueIdentifier()%>(source, target)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <% // create semantic command %>
