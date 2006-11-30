@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - GridLayout attributes
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
@@ -24,6 +25,23 @@
 «IF null != spacing-»
 	«layoutVarName».setHorizontalSpacing(«spacing.dx»);// TODO mapMode?
 	«layoutVarName».setVerticalSpacing(«spacing.dy»);
+«ENDIF-»
+	«owningFigureVariable».setLayoutManager(«layoutVarName»);
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE Init(EString owningFigureVariable) FOR gmfgraph::GridLayout»
+«LET "layout" + owningFigureVariable.toFirstUpper() AS layoutVarName»
+	«qualifiedClassNameGEF()» «layoutVarName» = new «qualifiedClassNameGEF()»();
+	«layoutVarName».numColumns = «numColumns»;
+	«layoutVarName».makeColumnsEqualWidth = «equalWidth»;
+«IF null != spacing-»
+	«layoutVarName».horizontalSpacing = «spacing.dx»;
+	«layoutVarName».verticalSpacing = «spacing.dy»;
+«ENDIF-»
+«IF null != margins-»
+	«layoutVarName».marginWidth = «margins.dx»;
+	«layoutVarName».marginHeight = «margins.dy»;
 «ENDIF-»
 	«owningFigureVariable».setLayoutManager(«layoutVarName»);
 «ENDLET»
