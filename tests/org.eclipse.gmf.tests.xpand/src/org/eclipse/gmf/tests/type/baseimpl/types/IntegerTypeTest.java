@@ -30,12 +30,39 @@ public class IntegerTypeTest extends TestCase {
     }
 
     public final void testUpTo1() {
-        Map<String, ?> emptyMap = Collections.emptyMap();
+        final Map<String, ?> emptyMap = Collections.emptyMap();
 		final List r = (List) ef.evaluate("1.upTo(5)", emptyMap);
         final List<Integer> c = new ArrayList<Integer>();
         for (int i = 1; i <= 5; i++) {
             c.add(i);
         }
         assertEquals(c, r);
+    }
+
+    public void testComparisonOps() {
+    	final Map<String, ?> emptyMap = Collections.emptyMap();
+    	assertTrue((Boolean) ef.evaluate("1 > 0", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("2 >= 2", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("1 < 4", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("1 <= 3", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("1 != 2", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("2 == 2", emptyMap));
+
+    	assertFalse((Boolean) ef.evaluate("1 < 0", emptyMap));
+    	assertFalse((Boolean) ef.evaluate("1 >= 2", emptyMap));
+    	assertFalse((Boolean) ef.evaluate("1 > 4", emptyMap));
+    	assertFalse((Boolean) ef.evaluate("3 <= 1", emptyMap));
+    	assertFalse((Boolean) ef.evaluate("2 != 2", emptyMap));
+    	assertFalse((Boolean) ef.evaluate("1 == 0", emptyMap));
+
+    }
+
+    public void testCompareNonLiterals() {
+    	final Map<String, ?> emptyMap = Collections.emptyMap();
+    	assertTrue((Boolean) ef.evaluate("\"sdf \".trim().length() > 0", emptyMap));
+    	assertTrue((Boolean) ef.evaluate("\"sdf \".trim().length() == 3", emptyMap));
+
+    	assertTrue((Boolean) ef.evaluate("a.trim().length() == 3", Collections.singletonMap("a", "sdf ")));
+    	assertTrue((Boolean) ef.evaluate("\" sdf\".trim().length() == b", Collections.singletonMap("b", 3)));
     }
 }
