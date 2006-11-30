@@ -544,7 +544,7 @@ public class BuiltinMetaModel {
 //			}
 //			
 //		});
-		intOps.add(new InternalOperation<Number>(opf.create(">=", int.class, int.class)) {
+		intOps.add(new InternalOperation<Number>(opf.create(">=", boolean.class, int.class, int.class)) {
 			@Override
 			public Object evaluate(Number target, Object[] params) {
 				return Boolean.valueOf(target.intValue() >= ((Number) params[0]).intValue());
