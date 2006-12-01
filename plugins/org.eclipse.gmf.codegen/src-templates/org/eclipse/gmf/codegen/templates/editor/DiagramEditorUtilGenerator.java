@@ -102,8 +102,30 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_83 = "();" + NL + "\t\tdocRoot.set";
   protected final String TEXT_84 = "(model);" + NL + "\t\treturn docRoot;";
   protected final String TEXT_85 = NL + "\t}";
-  protected final String TEXT_86 = NL + "}";
-  protected final String TEXT_87 = NL;
+  protected final String TEXT_86 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int findElementsInDiagram(";
+  protected final String TEXT_87 = " diagramPart, ";
+  protected final String TEXT_88 = " elementURI, ";
+  protected final String TEXT_89 = "/*EditPart*/ editPartCollector) {" + NL + "\t\tfinal int originalNumOfEditParts = editPartCollector.size();" + NL + "\t\t";
+  protected final String TEXT_90 = " element = null;" + NL + "\t\ttry {" + NL + "\t\t\telement = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);" + NL + "\t\t} catch(RuntimeException e) {" + NL + "\t\t\t";
+  protected final String TEXT_91 = ".getInstance().logError(\"Failed to get EObject by uri: \" + elementURI, e); //$NON-NLS-1$" + NL + "\t\t\treturn 0;" + NL + "\t\t}" + NL + "\t\tif(element == null) {" + NL + "\t\t\treturn 0;" + NL + "\t\t} else if(element instanceof ";
+  protected final String TEXT_92 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_93 = " editPart = (";
+  protected final String TEXT_94 = ")diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);" + NL + "\t\t\tif(editPart != null) {" + NL + "\t\t\t\teditPartCollector.add(editPart);" + NL + "\t\t\t\treturn 1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tString elementID = ";
+  protected final String TEXT_95 = ".getProxyID(element);" + NL + "\t\t";
+  protected final String TEXT_96 = " associatedParts = diagramPart.getDiagramGraphicalViewer()" + NL + "\t\t\t.findEditPartsForElement(elementID, ";
+  protected final String TEXT_97 = ".class);" + NL + "\t\t// peform the possible hierarchy disjoint -> take the top-most parts" + NL + "\t\tfor (";
+  protected final String TEXT_98 = " editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_99 = " nextPart = (org.eclipse.gef.EditPart)editPartIt.next();" + NL + "\t\t\t";
+  protected final String TEXT_100 = " parentPart = nextPart.getParent();" + NL + "\t\t\twhile(parentPart != null && !associatedParts.contains(parentPart)) {" + NL + "\t\t\t\tparentPart = parentPart.getParent();" + NL + "\t\t\t}\t\t" + NL + "\t\t\tif(parentPart == null) {" + NL + "\t\t\t\teditPartCollector.add(nextPart);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tif(originalNumOfEditParts == editPartCollector.size()) {" + NL + "\t\t\tif(!associatedParts.isEmpty()) {" + NL + "\t\t\t\teditPartCollector.add(associatedParts.iterator().next());" + NL + "\t\t\t} else {" + NL + "\t\t\t\telement = element.eContainer();" + NL + "\t\t\t\tif(element != null) {" + NL + "\t\t\t\t\treturn findElementsInDiagram(diagramPart, ";
+  protected final String TEXT_101 = ".getURI(element), editPartCollector);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn editPartCollector.size() - originalNumOfEditParts;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic static void selectElementsInDiagram(";
+  protected final String TEXT_102 = " diagramPart, ";
+  protected final String TEXT_103 = "/*EditPart*/ editParts) {" + NL + "\t\tdiagramPart.getDiagramGraphicalViewer().deselectAll();" + NL + "" + NL + "\t\t";
+  protected final String TEXT_104 = " firstPrimary = null;" + NL + "\t\tfor (java.util.Iterator it = editParts.iterator(); it.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_105 = " nextPart = (";
+  protected final String TEXT_106 = ") it.next();" + NL + "\t\t\tdiagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);" + NL + "\t\t\tif(firstPrimary == null && nextPart instanceof ";
+  protected final String TEXT_107 = ") {" + NL + "\t\t\t\tfirstPrimary = nextPart;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\tif(!editParts.isEmpty()) {" + NL + "\t\t\tdiagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (";
+  protected final String TEXT_108 = ")editParts.get(0));" + NL + "\t\t}" + NL + "\t}\t" + NL + "}";
+  protected final String TEXT_109 = NL;
 
   public String generate(Object argument)
   {
@@ -309,8 +331,52 @@ for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); 
     } /*if standaloneDomainModel*/
 } /* domainDiagramElement != null */
     stringBuffer.append(TEXT_86);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart"));
     stringBuffer.append(TEXT_87);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_88);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil"));
+    stringBuffer.append(TEXT_95);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_98);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_100);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil"));
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart"));
+    stringBuffer.append(TEXT_102);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_103);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_104);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_105);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_106);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart"));
+    stringBuffer.append(TEXT_107);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_108);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_109);
     return stringBuffer.toString();
   }
 }

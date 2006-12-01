@@ -205,5 +205,75 @@ for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); 
 	}
 <%} /*if standaloneDomainModel*/
 } /* domainDiagramElement != null */%>
+
+	/**
+	 * @generated
+	 */
+	public static int findElementsInDiagram(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%> diagramPart, <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> elementURI, <%=importManager.getImportedName("java.util.List")%>/*EditPart*/ editPartCollector) {
+		final int originalNumOfEditParts = editPartCollector.size();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = null;
+		try {
+			element = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);
+		} catch(RuntimeException e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Failed to get EObject by uri: " + elementURI, e); //$NON-NLS-1$
+			return 0;
+		}
+		if(element == null) {
+			return 0;
+		} else if(element instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> editPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);
+			if(editPart != null) {
+				editPartCollector.add(editPart);
+				return 1;
+			}
+		}
+		
+		String elementID = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil")%>.getProxyID(element);
+		<%=importManager.getImportedName("java.util.List")%> associatedParts = diagramPart.getDiagramGraphicalViewer()
+			.findEditPartsForElement(elementID, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>.class);
+		// peform the possible hierarchy disjoint -> take the top-most parts
+		for (<%=importManager.getImportedName("java.util.Iterator")%> editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> nextPart = (org.eclipse.gef.EditPart)editPartIt.next();
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> parentPart = nextPart.getParent();
+			while(parentPart != null && !associatedParts.contains(parentPart)) {
+				parentPart = parentPart.getParent();
+			}		
+			if(parentPart == null) {
+				editPartCollector.add(nextPart);
+			}
+		}
+		
+		if(originalNumOfEditParts == editPartCollector.size()) {
+			if(!associatedParts.isEmpty()) {
+				editPartCollector.add(associatedParts.iterator().next());
+			} else {
+				element = element.eContainer();
+				if(element != null) {
+					return findElementsInDiagram(diagramPart, <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(element), editPartCollector);
+				}
+			}
+		}
+		return editPartCollector.size() - originalNumOfEditParts;
+	}
+
+	/**
+	 * @generated
+	 */	
+	public static void selectElementsInDiagram(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%> diagramPart, <%=importManager.getImportedName("java.util.List")%>/*EditPart*/ editParts) {
+		diagramPart.getDiagramGraphicalViewer().deselectAll();
+
+		<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> firstPrimary = null;
+		for (java.util.Iterator it = editParts.iterator(); it.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> nextPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) it.next();
+			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
+			if(firstPrimary == null && nextPart instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart")%>) {
+				firstPrimary = nextPart;
+			}
+		}
+
+		if(!editParts.isEmpty()) {
+			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)editParts.get(0));
+		}
+	}	
 }
 <%importManager.emitSortedImports();%>

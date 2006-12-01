@@ -207,14 +207,14 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */		
-		private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile;
+		private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramURI;
 		/**
 		 * @generated
 		 */	    
 	    void setInput(IDiagramWorkbenchPart diagramPart) {
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = diagramPart.getDiagram().eResource();
-			this.diagramFile = <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(resource);
-			setTitleToolTip(diagramFile.getFullPath().toString());
+			this.diagramURI = resource.getURI();
+			setTitleToolTip(diagramURI.path());
 			
 			<%=importManager.getImportedName("java.util.List")%> metrics = calculateMetrics(diagramPart);
 	    	adjustLayout(metrics);
@@ -318,7 +318,20 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		 */				
 		private void handleOpen(OpenEvent event) {
 			try {
-				<%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(getSite().getPage(), diagramFile, true);
+				<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editorPart = getSite().getPage()
+					.openEditor(new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getFile(diagramURI)),
+							<%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
+				if(editorPart == null) {
+					return;
+				}
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%> diagramPart = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%>)
+					editorPart.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%>.class);
+				
+				ElementMetrics selection = (ElementMetrics)((<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>)event.getSelection()).getFirstElement();
+				<%=importManager.getImportedName("java.util.List")%> targetEditParts = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+				<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.findElementsInDiagram(diagramPart, selection.elementURI, targetEditParts);
+				<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.selectElementsInDiagram(diagramPart, targetEditParts);
+
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
 				<%=pluginActivatorClass%>.getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
 			}
@@ -435,9 +448,14 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */
+		final <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> elementURI;		
+		/**
+		 * @generated
+		 */
 		ElementMetrics(EObject target, Metric[] metrics) {
-			this.metrics = metrics;
+			this.metrics = metrics;	
 			assert metrics.length > 0;
+			this.elementURI = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(target);	
 			
 			EClass imageTarget = target.eClass();			
 			if (target instanceof View) {
