@@ -32,7 +32,6 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.Assistant;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.tests.Plugin;
 
 /**
  * @author artem
@@ -41,25 +40,6 @@ public class TestSetupTest extends TestCase {
 
 	public TestSetupTest(String name) {
 		super(name);
-	}
-
-	public void testLibraryMap() {
-		try {
-			MapDefSource s = new MapDefFileSetup().init(Plugin.createURI("/models/library/library.gmfmap"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getMapping().getDiagram()));
-		} catch (IOException ex) {
-			fail(ex.getMessage());
-		}
-	}
-	
-	public void testLibraryGen() {
-		try {
-			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
-			
-		} catch (IOException ex) {
-			fail(ex.getMessage());
-		}
 	}
 
 	public void testBasicGraphDefModel() {
