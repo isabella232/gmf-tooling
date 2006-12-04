@@ -12,12 +12,14 @@
 package org.eclipse.gmf.tests.setup;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-public abstract class DomainModelFileSetup implements DomainModelSource {
+public class DomainModelFileSetup implements DomainModelSource {
 
 	private EPackage myModelPackage;
 
@@ -30,5 +32,25 @@ public abstract class DomainModelFileSetup implements DomainModelSource {
 
 	public EPackage getModel() {
 		return myModelPackage;
+	}
+
+	public EClass getDiagramElement() {
+		return null;
+	}
+
+	public LinkData getLinkAsClass() {
+		return null;
+	}
+
+	public EReference getLinkAsRef() {
+		return null;
+	}
+
+	public NodeData getNodeA() {
+		return null;
+	}
+
+	public NodeData getNodeB() {
+		return null;
 	}
 }
