@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import java.io.IOException;
 import java.util.HashSet;
 
 import junit.framework.TestCase;
@@ -22,9 +21,10 @@ import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
-import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
+import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.DomainModelFileSetup;
 import org.eclipse.gmf.tests.setup.DomainModelSetup;
 import org.eclipse.gmf.tests.setup.DomainModelSetupInstanceClassName;
 import org.eclipse.gmf.tests.setup.DomainModelSource;
@@ -37,6 +37,11 @@ import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
+import org.eclipse.gmf.tests.setup.ToolDefSource;
+import org.eclipse.gmf.tests.setup.annotated.GenASetup;
+import org.eclipse.gmf.tests.setup.annotated.GraphDefASetup;
+import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
+import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
 
 /**
  * TODO add compilation check for CustomFigure(FigureAccessor(no fqn), FigureAccessor(fqn));  
@@ -54,20 +59,29 @@ public class CompilationTest extends TestCase {
 		SessionSetup.getRuntimeWorkspaceSetup();
 	}
 
+	public DiaGenSource getLibraryGen() throws Exception {
+		URI selected = Plugin.createURI("/models/library/library.ecore");
+		DomainModelSource dmSource =  new DomainModelFileSetup().init(selected);
+		ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
+		DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
+		MapDefSource mmSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
+		return new GenASetup(mmSource.getMapping());
+	}
+
 	public void testCompileDistinctModelAndDiagramFiles() throws Exception {
-		DiaGenSource gmfGenSource = loadSource();
+		DiaGenSource gmfGenSource = getLibraryGen();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
 		generateAndCompile(gmfGenSource);
 	}
 
 	public void testCompileSingleDiagramFile() throws Exception {
-		DiaGenSource gmfGenSource = loadSource();
+		DiaGenSource gmfGenSource = getLibraryGen();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
 		generateAndCompile(gmfGenSource);
 	}
 	
 	public void testCompileNONsynchronizedDiagram() throws Exception {
-		DiaGenSource gmfGenSource = loadSource();
+		DiaGenSource gmfGenSource = getLibraryGen();
 		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
 		generateAndCompile(gmfGenSource);
 	}
@@ -98,13 +112,6 @@ public class CompilationTest extends TestCase {
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
 		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
 		generateAndCompile(gmfGenSource);
-	}
-	
-	protected final DiaGenSource loadSource() throws IOException {
-//		TODO: specify unique project name to generate code each time into a new project.
-		URI selected = Plugin.createURI("/models/library/library.gmfgen");
-		DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
-		return gmfGenSource;
 	}
 
 	public void testCompileMultiPackageDomain() throws Exception {
