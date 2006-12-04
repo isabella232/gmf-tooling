@@ -65,6 +65,9 @@
 «DEFINE color(String variableName) FOR gmfgraph::RGBColor-»
 «variableName-»
 «FILE "" staticFields»
+/**
+ * @generated
+ */
 static final org.eclipse.swt.graphics.Color «variableName» = new org.eclipse.swt.graphics.Color(null, «red», «green», «blue»);
 «ENDFILE»
 «ENDDEFINE»
@@ -77,6 +80,9 @@ org.eclipse.draw2d.ColorConstants.«value.literal-»
 «LET figure.name + "_FONT" AS variableName»
 «figureVarName».setFont(«variableName»);
 «FILE "" staticFields»
+/**
+ * @generated
+ */
 static final org.eclipse.swt.graphics.Font «variableName» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), «IF null == faceName || faceName.trim().length() == 0»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()«ELSE»"«faceName»"«ENDIF», «height», org.eclipse.swt.SWT.«style.literal»);
 «ENDFILE»
 «ENDLET»
