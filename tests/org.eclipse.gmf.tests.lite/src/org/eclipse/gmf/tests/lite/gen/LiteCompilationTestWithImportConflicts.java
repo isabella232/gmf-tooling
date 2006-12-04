@@ -31,7 +31,7 @@ public class LiteCompilationTestWithImportConflicts extends LiteCompilationTest 
 	}
 
 	public void testPreexistingImportConflicts() throws Exception {
-		DiaGenSource gmfGenSource = loadSource();
+		DiaGenSource gmfGenSource = getLibraryGen();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
 		String pluginId = gmfGenSource.getGenDiagram().getEditorGen().getPlugin().getID();
 		IProject diagramProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
