@@ -44,7 +44,7 @@ import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryProcessor;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -108,7 +108,7 @@ public class FigureGeneratorUtil {
 	
 	public static Bundle installPlugin(String pluginId) throws CoreException, Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
-		SessionSetup.getRuntimeWorkspaceSetup().updateClassPath(project);
+		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
 		IStatus compileStatus = new CompileUtil().build(project);
 		Assert.assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
 		String url = project.getLocation().toFile().toURL().toExternalForm();

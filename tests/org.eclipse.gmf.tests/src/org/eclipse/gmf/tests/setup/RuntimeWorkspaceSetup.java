@@ -70,6 +70,8 @@ public class RuntimeWorkspaceSetup {
 
 	private boolean isDevLaunchMode;
 
+	public static RuntimeWorkspaceSetup INSTANCE;
+
 	public RuntimeWorkspaceSetup() {
 		isDevLaunchMode = isDevLaunchMode();
 	}
@@ -87,57 +89,66 @@ public class RuntimeWorkspaceSetup {
 		return false;
 	}
 
-	/**
-	 * @return <code>this</code> for convenience
-	 */
+	public RuntimeWorkspaceSetup initFull() throws Exception {
+		init(new String[] {
+//				"org.apache.batik",
+				"org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.draw2d.ui.render", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.gef.ui", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui.services", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.type.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.clipboard.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui.services.action", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui.action", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui.action.ide", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.ui", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.commands.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.core", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.common.ui.services.properties", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.ui.properties", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.actions", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.properties", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.providers", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.providers.ide", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.render", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.resources.editor", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide", //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$			
+				"org.eclipse.emf.ocl", //$NON-NLS-1$
+				"org.eclipse.emf.query", //$NON-NLS-1$	
+				"org.eclipse.emf.query.ocl", //$NON-NLS-1$
+				//
+				"org.eclipse.emf.edit", //$NON-NLS-1$
+				"org.eclipse.emf.transaction", //$NON-NLS-1$
+				"org.eclipse.emf.workspace", //$NON-NLS-1$
+				"org.eclipse.emf.validation", //$NON-NLS-1$
+		});
+		return this;
+	}
+
+	public RuntimeWorkspaceSetup initLite() throws Exception {
+		init("org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
+			"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
+			"org.eclipse.emf.transaction", //$NON-NLS-1$
+			"org.eclipse.emf.workspace", //$NON-NLS-1$
+			"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
+			"org.eclipse.gmf.runtime.lite"); //$NON-NLS-1$
+		return this;
+	}
+	
 	// TODO Refactor to clear away similar code (CodeCompilationTest, RuntimeWorkspaceSetup, GenProjectSetup)
-	public RuntimeWorkspaceSetup init() throws Exception {
+	private void init(String... pluginsToImport) throws Exception {
 		ensureJava14();
 		if (isDevLaunchMode) {
 			// Need to get some gmf source code into target workspace 
-			importDevPluginsIntoRunTimeWorkspace(new String[] {
-//					"org.apache.batik",
-					"org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.draw2d.ui.render", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.gef.ui", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui.services", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.type.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.clipboard.core", //$NON-NLS-1$
-					"org.eclipse.emf.validation", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui.services.action", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui.action", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui.action.ide", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.ui", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.commands.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.common.ui.services.properties", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.ui.properties", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.actions", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.properties", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.providers", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.providers.ide", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.render", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.resources.editor", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$			
-					"org.eclipse.emf.ocl", //$NON-NLS-1$
-					"org.eclipse.emf.query", //$NON-NLS-1$	
-					"org.eclipse.emf.query.ocl", //$NON-NLS-1$
-					//
-					"org.eclipse.emf.edit", //$NON-NLS-1$
-					"org.eclipse.emf.transaction", //$NON-NLS-1$
-					"org.eclipse.emf.workspace", //$NON-NLS-1$
-					// For the lite generator
-					"org.eclipse.gmf.runtime.lite", //$NON-NLS-1$
-			});
+			importDevPluginsIntoRunTimeWorkspace(pluginsToImport);
 		}
-		return this;
 	}
 
 	public static IProject getSOSProject() {
@@ -246,7 +257,7 @@ public class RuntimeWorkspaceSetup {
 	 * at least
 	 */
 	@SuppressWarnings("unchecked")
-	public void ensureJava14() {
+	private void ensureJava14() {
 		if (!JavaCore.VERSION_1_4.equals(JavaCore.getOption(JavaCore.COMPILER_SOURCE))) {
 			Hashtable<String,String> options = JavaCore.getOptions();
 			options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_4);

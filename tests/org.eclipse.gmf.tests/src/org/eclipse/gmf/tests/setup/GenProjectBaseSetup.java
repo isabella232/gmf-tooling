@@ -58,7 +58,7 @@ import org.osgi.framework.Constants;
  * @author artem
  */
 public class GenProjectBaseSetup {
-	private final Set projectsToInit = new LinkedHashSet(); 
+	private final Set<String> projectsToInit = new LinkedHashSet<String>(); 
 	private CompileUtil compileUtil;
 	private GeneratorConfiguration myGeneratorFactory;
 	
@@ -68,9 +68,7 @@ public class GenProjectBaseSetup {
 		myGeneratorFactory = generatorFactory;
 	}
 
-	public void generateAndCompile(RuntimeWorkspaceSetup rtWorkspace, DiaGenSource diaGenSource) throws Exception {
-		rtWorkspace.ensureJava14();
-
+	public void generateAndCompile(DiaGenSource diaGenSource) throws Exception {
 		projectsToInit.clear(); // just in case
 		compileUtil = new CompileUtil();
 		final GenDiagram d = diaGenSource.getGenDiagram();
@@ -83,8 +81,8 @@ public class GenProjectBaseSetup {
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
-		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
-		
+		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
+
 		projectsToInit.add(gmfEditorId);
 		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
 			String pluginID = (String) it.next();
@@ -185,8 +183,8 @@ public class GenProjectBaseSetup {
 		}
 	}
 
-	public List/*<String>*/ getGeneratedProjectNames() {
-		return Collections.unmodifiableList(new LinkedList(projectsToInit));
+	public List<String> getGeneratedProjectNames() {
+		return Collections.unmodifiableList(new LinkedList<String>(projectsToInit));
 	}
 
 	protected void hookProjectBuild(IProject p) throws Exception {

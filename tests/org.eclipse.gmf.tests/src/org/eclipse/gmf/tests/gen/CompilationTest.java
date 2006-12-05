@@ -35,7 +35,6 @@ import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.MultiPackageGenSetup;
 import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 import org.eclipse.gmf.tests.setup.annotated.GenASetup;
@@ -53,11 +52,6 @@ public class CompilationTest extends TestCase {
 	}
 
 	// TODO EditPartViewer[Source|Setup]
-
-	protected void setUp() throws Exception {
-		super.setUp();
-		SessionSetup.getRuntimeWorkspaceSetup();
-	}
 
 	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
 		URI selected = Plugin.createURI("/models/library/library.ecore"); //$NON-NLS-1$
@@ -141,7 +135,7 @@ public class CompilationTest extends TestCase {
 	}
 
 	protected void generateAndCompile(DiaGenSource genSource) throws Exception {
-		new GenProjectBaseSetup(getGeneratorConfiguration()).generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), genSource);
+		new GenProjectBaseSetup(getGeneratorConfiguration()).generateAndCompile(genSource);
 	}
 
 	protected GeneratorConfiguration getGeneratorConfiguration() {

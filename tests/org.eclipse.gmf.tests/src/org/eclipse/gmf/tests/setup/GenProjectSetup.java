@@ -53,7 +53,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	 * @return <code>this</code> for convenience
 	 * @throws BundleException only when shouldInstallInRuntime is true and bundle install fails
 	 */
-	public GenProjectSetup init(RuntimeWorkspaceSetup rtWorkspace, DiaGenSource diaGenSource) throws BundleException {
+	public GenProjectSetup init(DiaGenSource diaGenSource) throws BundleException {
 		final boolean[] extensionChangeNotification = new boolean[] {true};
 		final IRegistryChangeListener listener = new IRegistryChangeListener() {
 			public void registryChanged(IRegistryChangeEvent event) {
@@ -65,7 +65,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
 			}
 			myBundle = null;
-			super.generateAndCompile(rtWorkspace, diaGenSource);
+			super.generateAndCompile(diaGenSource);
 			myBundle.start();
 			registerExtensions(myBundle);
 			if (myIsFullRuntimeRun) {
@@ -127,13 +127,13 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 	private IConfigurationElement[] getConfigurationElements(String bundlID, String extensionPointID) {
 		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionPointID);
-		Collection ownConfigs = new LinkedList();
+		Collection<IConfigurationElement> ownConfigs = new LinkedList<IConfigurationElement>();
 		for (int i = 0; i < configs.length; i++) {
 			if (bundlID.equals(configs[i].getContributor().getName())) {
 				ownConfigs.add(configs[i]);
 			}
 		}		
-		return (IConfigurationElement[]) ownConfigs.toArray(new IConfigurationElement[ownConfigs.size()]);
+		return ownConfigs.toArray(new IConfigurationElement[ownConfigs.size()]);
 	}
 
 	public final Bundle getBundle() {

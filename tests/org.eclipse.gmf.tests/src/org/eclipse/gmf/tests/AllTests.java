@@ -49,6 +49,7 @@ import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
@@ -70,7 +71,7 @@ import org.eclipse.gmf.tests.validate.AllValidateTests;
 
 public class AllTests {
 
-	public static Test suite() {
+	public static Test suite() throws Exception {
 		EMFTypePlugin.startDynamicAwareMode();
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		//$JUnit-BEGIN$
@@ -78,18 +79,15 @@ public class AllTests {
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
-		
+		RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
+
 		/*
 		 * [AS++] Temporary workaround: loading all the projects in the
 		 * beggining to get rid of the problems with runtime registries
 		 * reloading. In particular - ViewService.
 		 */
-		try {
-			sessionSetup.getGenProject();
-			sessionSetup2.getGenProject();
-		} catch (Exception e){
-			throw new RuntimeException(e);
-		}
+		sessionSetup.getGenProject();
+		sessionSetup2.getGenProject();
 		/* [AS--] */
 		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests

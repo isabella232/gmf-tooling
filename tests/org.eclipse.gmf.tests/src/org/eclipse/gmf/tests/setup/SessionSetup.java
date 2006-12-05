@@ -25,7 +25,6 @@ public class SessionSetup implements TestConfiguration {
 	private MapDefSource myMapModel;
 	private DiaDefSource myGraphDefModel;
 	private int myUses;
-	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 	protected static boolean factoryClosed = false;
 	private GeneratorConfiguration myGeneratorConfiguration;
 
@@ -82,7 +81,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected GenProjectSetup createGenProject() throws BundleException, Exception {
-		return new GenProjectSetup(getGeneratorConfiguration()).init(getRuntimeWorkspaceSetup(), getGenModel());
+		return new GenProjectSetup(getGeneratorConfiguration()).init(getGenModel());
 	}
 
 	public GeneratorConfiguration getGeneratorConfiguration() {
@@ -116,14 +115,6 @@ public class SessionSetup implements TestConfiguration {
 
 	protected DiaDefSource createGraphDefModel() {
 		return new DiaDefSetup().init();
-	}
-
-	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {
-		if (myRuntimeWorkspaceSetup == null) {
-			myRuntimeWorkspaceSetup = new RuntimeWorkspaceSetup();
-			myRuntimeWorkspaceSetup.init();
-		}
-		return myRuntimeWorkspaceSetup;
 	}
 
 	public void cleanup() throws Exception {
