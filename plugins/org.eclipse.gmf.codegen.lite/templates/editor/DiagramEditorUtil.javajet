@@ -245,8 +245,15 @@ if (isRichClientPlatform) {
 
 			<%=importManager.getImportedName("org.eclipse.ui.IFolderLayout")%> right = layout.createFolder("right", <%=importManager.getImportedName("org.eclipse.ui.IPageLayout")%>.RIGHT, (float)0.66, layout.getEditorArea());	//$NON-NLS-1$
 			right.addView(IPageLayout.ID_OUTLINE);
-
-			<%=importManager.getImportedName("org.eclipse.ui.IFolderLayout")%> bottomRight = layout.createFolder("bottonRight", <%=importManager.getImportedName("org.eclipse.ui.IPageLayout")%>.BOTTOM, (float)0.60, "right");	//$NON-NLS-1$	//$NON-NLS-2$
+<%
+if (!genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
+			<%=importManager.getImportedName("org.eclipse.ui.IFolderLayout")%> top = layout.createFolder("top", <%=importManager.getImportedName("org.eclipse.ui.IPageLayout")%>.TOP, (float)0.5, layout.getEditorArea());	//$NON-NLS-1$
+			top.addView(<%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
+<%
+}
+%>
+			<%=importManager.getImportedName("org.eclipse.ui.IFolderLayout")%> bottomRight = layout.createFolder("bottomRight", <%=importManager.getImportedName("org.eclipse.ui.IPageLayout")%>.BOTTOM, (float)0.60, "right");	//$NON-NLS-1$	//$NON-NLS-2$
 			bottomRight.addView(<%=importManager.getImportedName("org.eclipse.ui.IPageLayout")%>.ID_PROP_SHEET);
 		}
 	}
