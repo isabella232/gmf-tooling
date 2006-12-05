@@ -59,29 +59,41 @@ public class CompilationTest extends TestCase {
 		SessionSetup.getRuntimeWorkspaceSetup();
 	}
 
-	public DiaGenSource getLibraryGen() throws Exception {
-		URI selected = Plugin.createURI("/models/library/library.ecore");
+	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
+		URI selected = Plugin.createURI("/models/library/library.ecore"); //$NON-NLS-1$
 		DomainModelSource dmSource =  new DomainModelFileSetup().init(selected);
 		ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
 		DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
 		MapDefSource mmSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
-		return new GenASetup(mmSource.getMapping());
+		return new GenASetup(mmSource.getMapping(), rcp);
 	}
 
 	public void testCompileDistinctModelAndDiagramFiles() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen();
+		DiaGenSource gmfGenSource = getLibraryGen(false);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
 		generateAndCompile(gmfGenSource);
 	}
 
 	public void testCompileSingleDiagramFile() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen();
+		DiaGenSource gmfGenSource = getLibraryGen(false);
+		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
+		generateAndCompile(gmfGenSource);
+	}
+
+	public void testRCPCompileDistinctModelAndDiagramFiles() throws Exception {
+		DiaGenSource gmfGenSource = getLibraryGen(true);
+		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
+		generateAndCompile(gmfGenSource);
+	}
+
+	public void testRCPCompileSingleDiagramFile() throws Exception {
+		DiaGenSource gmfGenSource = getLibraryGen(true);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
 		generateAndCompile(gmfGenSource);
 	}
 	
 	public void testCompileNONsynchronizedDiagram() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen();
+		DiaGenSource gmfGenSource = getLibraryGen(false);
 		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
 		generateAndCompile(gmfGenSource);
 	}
@@ -139,5 +151,4 @@ public class CompilationTest extends TestCase {
 	protected ViewmapProducer getViewmapProducer() {
 		return new InnerClassViewmapProducer();
 	}
-	
 }
