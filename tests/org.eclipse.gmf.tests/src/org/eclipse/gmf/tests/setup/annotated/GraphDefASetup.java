@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup.annotated;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,15 +44,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 
 	protected Canvas canvas;
 
-	protected List<Node> nodes;
-
-	protected List<Compartment> compartments;
-
-	protected List<Connection> links;
-
-	protected List<DiagramLabel> labels;
-
-	protected List<Figure> figures;
+	protected FigureGallery fGallery;
 
 	protected Map<EObject, DiagramElement> owners;
 
@@ -66,52 +57,28 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	}
 
 	protected void createCanvas() {
-		nodes = new ArrayList<Node>();
-		compartments = new ArrayList<Compartment>();
-		links = new ArrayList<Connection>();
-		labels = new ArrayList<DiagramLabel>();
-		figures = new ArrayList<Figure>();
 		owners = new HashMap<EObject, DiagramElement>();
-
-		// extract diagram elements from domain model
-		processDomainModel();
-
-		// if canvas not defined create default one
-		if (canvas == null) {
-			canvas = GMFGraphFactory.eINSTANCE.createCanvas();
-			canvas.setName("Default"); //$NON-NLS-1$
-		}
-
-		FigureGallery fGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		canvas = GMFGraphFactory.eINSTANCE.createCanvas();
+		canvas.setName("Default"); //$NON-NLS-1$
+		fGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		fGallery.setName("default"); //$NON-NLS-1$
 		canvas.getFigures().add(fGallery);
-		fGallery.getFigures().addAll(figures);
-		canvas.getNodes().addAll(nodes);
-		canvas.getCompartments().addAll(compartments);
-		canvas.getConnections().addAll(links);
-		canvas.getLabels().addAll(labels);
+		processDomainModel();
 	}
 
 	// canvas
 
 	protected void processCanvas(EModelElement element, String name, List<Parameter> params) {
-		assert canvas == null : "Only one canvas annotation could be present in domain model"; //$NON-NLS-1$
-		canvas = createCanvas(element, name, params);
-	}
-
-	protected Canvas createCanvas(EModelElement element, String name, List<Parameter> params) {
-		Canvas canvas = GMFGraphFactory.eINSTANCE.createCanvas();
 		canvas.setName(getName(element, name));
-		return canvas;
 	}
 
 	// node
 
 	protected void processNode(EModelElement element, String name, List<Parameter> params) {
 		Node node = createNode(element, name, params);
-		nodes.add(node);
+		canvas.getNodes().add(node);
 		Figure figure = createNodeFigure(node, element, params);
-		figures.add(figure);
+		fGallery.getFigures().add(figure);
 		node.setFigure(figure);
 		owners.put(element, node);
 	}
@@ -132,9 +99,9 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 
 	protected void processCompartment(EModelElement element, String name, List<Parameter> params) {
 		Compartment compartment = createCompartment(element, name, params);
-		compartments.add(compartment);
+		canvas.getCompartments().add(compartment);
 		Figure figure = createCompartmentFigure(compartment, element, params);
-		figures.add(figure);
+		fGallery.getFigures().add(figure);
 		compartment.setFigure(figure);
 	}
 
@@ -154,9 +121,9 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 
 	protected void processLink(EModelElement element, String name, List<Parameter> params) {
 		Connection connection = createLink(element, name, params);
-		links.add(connection);
+		canvas.getConnections().add(connection);
 		Figure figure = createLinkFigure(connection, element, params);
-		figures.add(figure);
+		fGallery.getFigures().add(figure);
 		connection.setFigure(figure);
 		owners.put(element, connection);
 	}
@@ -177,7 +144,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 
 	protected void processLabel(EModelElement element, String name, List<Parameter> params) {
 		DiagramLabel label = createLabel(element, name, params);
-		labels.add(label);
+		canvas.getLabels().add(label);
 		Figure figure = createLabelFigure(label, element, params);
 		// if label element is contained within element mapped to
 		// node or connection then label figure should be added to
@@ -186,7 +153,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		if (host != null) {
 			((Figure) host.getFigure()).getChildren().add(figure);
 		} else {
-			figures.add(figure);
+			fGallery.getFigures().add(figure);
 		}
 		label.setFigure(figure);
 	}
@@ -208,8 +175,8 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 	public Canvas getCanvasDef() {
 		if (canvas == null) {
 			createCanvas();
-			// TODO : validate
 			saveModel(canvas, "gmfgraph"); //$NON-NLS-1$
+			validate(canvas);
 		}
 		return canvas;
 	}

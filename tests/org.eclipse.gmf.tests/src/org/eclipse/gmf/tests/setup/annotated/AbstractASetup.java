@@ -17,7 +17,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -29,6 +32,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.Diagnostician;
 
 /**
  * @author dstadnik
@@ -53,6 +57,12 @@ public abstract class AbstractASetup {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void validate(EObject obj) {
+		Assert.assertNotNull(obj);
+		Diagnostic diag = Diagnostician.INSTANCE.validate(obj);
+		Assert.assertTrue(diag.toString(), diag.getSeverity() == Diagnostic.OK);
 	}
 
 	protected String getName(EModelElement element, String name) {

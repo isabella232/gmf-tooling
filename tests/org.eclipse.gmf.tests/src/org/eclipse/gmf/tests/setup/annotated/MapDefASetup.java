@@ -48,9 +48,9 @@ import org.eclipse.gmf.tooldef.ToolRegistry;
  */
 public class MapDefASetup extends AbstractASetup implements MapDefSource {
 
-	private EPackage ePackage;
+	protected EPackage ePackage;
 
-	private Mapping mapping;
+	protected Mapping mapping;
 
 	protected ToolRegistry registry;
 
@@ -277,8 +277,8 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	public Mapping getMapping() {
 		if (mapping == null) {
 			createMapping();
-			// TODO : validate
 			saveModel(mapping, "gmfmap"); //$NON-NLS-1$
+			validate(mapping);
 		}
 		return mapping;
 	}

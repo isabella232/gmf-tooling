@@ -79,8 +79,8 @@ public class ToolDefASetup extends AbstractASetup implements ToolDefSource {
 	public ToolRegistry getRegistry() {
 		if (registry == null) {
 			createToolRegistry();
-			// TODO : validate
 			saveModel(registry, "gmftool"); //$NON-NLS-1$
+			validate(registry);
 		}
 		return registry;
 	}
