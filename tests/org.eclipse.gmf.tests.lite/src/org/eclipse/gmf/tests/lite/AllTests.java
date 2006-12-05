@@ -31,11 +31,14 @@ import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class AllTests extends org.eclipse.gmf.tests.AllTests {
-	public static Test suite() {
+	public static Test suite() throws Exception {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side, lite mode");
+		RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initLite();
+
 		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
 		suite.addTestSuite(LiteViewCompilationTest.class);
 		suite.addTestSuite(RCPLiteCompilationTest.class);
