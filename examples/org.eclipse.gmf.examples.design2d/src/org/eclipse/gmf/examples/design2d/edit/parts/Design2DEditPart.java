@@ -11,11 +11,12 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.Design2DCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.Design2DItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.design2d.edit.policies.Design2DCanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.Design2DItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 
 /**
  * @generated
@@ -25,7 +26,7 @@ public class Design2DEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final String MODEL_ID = "Design2D"; //$NON-NLS-1$
+	public final static String MODEL_ID = "Design2D"; //$NON-NLS-1$
 
 	/**
 	 * @generated

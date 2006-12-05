@@ -15,13 +15,14 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -42,12 +43,12 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected DesignCreationWizardPage page;
+	protected DesignCreationWizardPage diagramModelFilePage;
 
 	/**
 	 * @generated
 	 */
-	protected URI diagramURI;
+	protected Resource diagram;
 
 	/**
 	 * @generated
@@ -71,8 +72,8 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public final URI getDiagramURI() {
-		return diagramURI;
+	public final Resource getDiagram() {
+		return diagram;
 	}
 
 	/**
@@ -92,11 +93,27 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		this.workbench = workbench;
+		this.selection = selection;
+		setWindowTitle("New Design2D Diagram");
+		setDefaultPageImageDescriptor(DesignDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewWizard.gif")); //$NON-NLS-1$
+		setNeedsProgressMonitor(true);
+	}
+
+	/**
+	 * @generated
+	 */
 	public void addPages() {
-		page = new DesignCreationWizardPage("CreationWizardPage", getSelection()); //$NON-NLS-1$
-		page.setTitle("Create Design2D Diagram");
-		page.setDescription("Create a new Design2D diagram.");
-		addPage(page);
+		diagramModelFilePage = new DesignCreationWizardPage("DiagramModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "design2d"; //$NON-NLS-1$
+			}
+		};
+		diagramModelFilePage.setTitle("Create Design2D Diagram");
+		diagramModelFilePage.setDescription("Select file that will contain diagram and domain models.");
+		addPage(diagramModelFilePage);
 	}
 
 	/**
@@ -106,8 +123,14 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramURI = DesignDiagramEditorUtil.createAndOpenDiagram(page.getContainerFullPath(), page.getFileName(), getWorkbench().getActiveWorkbenchWindow(), monitor,
-						isOpenNewlyCreatedDiagramEditor(), true);
+				diagram = DesignDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), monitor);
+				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
+					try {
+						DesignDiagramEditorUtil.openDiagram(diagram);
+					} catch (PartInitException e) {
+						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
+					}
+				}
 			}
 		};
 		try {
@@ -122,18 +145,6 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		return diagramURI != null;
+		return diagram != null;
 	}
-
-	/**
-	 * @generated
-	 */
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.workbench = workbench;
-		this.selection = selection;
-		setWindowTitle("New Design2D Diagram");
-		setDefaultPageImageDescriptor(DesignDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewWizard.gif")); //$NON-NLS-1$
-		setNeedsProgressMonitor(true);
-	}
-
 }

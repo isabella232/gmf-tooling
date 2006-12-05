@@ -17,7 +17,8 @@
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
-        xsi:type="gmfgen:NotationType"/>
+        xsi:type="gmfgen:NotationType"
+        displayName="Design2D"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -33,7 +34,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:NotationType"/>
+          xsi:type="gmfgen:NotationType"
+          displayName="Solid Rectangle"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
@@ -55,7 +57,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:NotationType"/>
+          xsi:type="gmfgen:NotationType"
+          displayName="Solid Ellipse"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
@@ -76,7 +79,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:NotationType"/>
+          xsi:type="gmfgen:NotationType"
+          displayName="Solid Rectangle"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
@@ -97,7 +101,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:NotationType"/>
+          xsi:type="gmfgen:NotationType"
+          displayName="Solid Ellipse"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
@@ -115,7 +120,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
-          xsi:type="gmfgen:NotationType"/>
+          xsi:type="gmfgen:NotationType"
+          displayName="Solid Line"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SolidLineFigure"

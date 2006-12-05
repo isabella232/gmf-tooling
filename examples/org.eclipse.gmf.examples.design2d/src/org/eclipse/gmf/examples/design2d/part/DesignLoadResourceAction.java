@@ -12,13 +12,13 @@
 package org.eclipse.gmf.examples.design2d.part;
 
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
-import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 /**
  * @generated

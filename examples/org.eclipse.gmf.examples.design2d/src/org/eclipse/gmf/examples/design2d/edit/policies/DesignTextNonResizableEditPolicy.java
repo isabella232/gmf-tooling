@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.design2d.edit.policies;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;

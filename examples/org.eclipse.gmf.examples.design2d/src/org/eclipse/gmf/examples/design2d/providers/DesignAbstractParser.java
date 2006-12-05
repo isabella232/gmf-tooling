@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -30,6 +29,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 
 /**
  * @generated
@@ -366,12 +366,21 @@ public abstract class DesignAbstractParser implements IParser {
 	 */
 	protected class InvalidValue {
 
+		/**
+		 * @generated
+		 */
 		private String description;
 
+		/**
+		 * @generated
+		 */
 		public InvalidValue(String description) {
 			this.description = description;
 		}
 
+		/**
+		 * @generated
+		 */
 		public String toString() {
 			return description;
 		}

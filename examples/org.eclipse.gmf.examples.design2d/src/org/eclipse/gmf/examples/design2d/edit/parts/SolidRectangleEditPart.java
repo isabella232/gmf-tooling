@@ -14,20 +14,28 @@ package org.eclipse.gmf.examples.design2d.edit.parts;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
+
 import org.eclipse.draw2d.geometry.Rectangle;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleCanonicalEditPolicy;
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleItemSemanticEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
+
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -170,17 +178,13 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 		 */
 		public SolidRectangleFigure() {
 
-			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
-
-			this.setLayoutManager(myGenLayoutManager);
-
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
+			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 		}
 
 		/**

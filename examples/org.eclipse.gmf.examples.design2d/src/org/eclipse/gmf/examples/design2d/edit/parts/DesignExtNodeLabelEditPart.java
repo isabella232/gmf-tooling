@@ -14,9 +14,14 @@ package org.eclipse.gmf.examples.design2d.edit.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Handle;
+import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableLabelEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.LabelLocator;
+import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -30,6 +35,26 @@ public class DesignExtNodeLabelEditPart extends LabelEditPart {
 	 */
 	public DesignExtNodeLabelEditPart(View view) {
 		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableLabelEditPolicy() {
+
+			protected void replaceHandleDragEditPartsTracker(Handle handle) {
+				if (handle instanceof AbstractHandle) {
+					((AbstractHandle) handle).setDragTracker(new DragEditPartsTrackerEx(getHost()) {
+
+						protected boolean isMove() {
+							return true;
+						}
+					});
+				}
+			}
+		});
 	}
 
 	/**

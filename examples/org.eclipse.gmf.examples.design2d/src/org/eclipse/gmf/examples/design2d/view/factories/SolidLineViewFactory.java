@@ -15,13 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
+
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
+
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
+
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 

@@ -11,20 +11,28 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
+
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidLineItemSemanticEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy;
+
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -89,8 +97,15 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public SolidLineFigure() {
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 
 		}
 
 	}
+
 }
