@@ -23,6 +23,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -70,19 +71,19 @@ public abstract class GeneratorBase implements Runnable {
 	private TextMerger myMerger;
 
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
-	
+
 	protected abstract void setupProgressMonitor();
 
-	public GeneratorBase(){
+	public GeneratorBase() {
 		myExceptions = new LinkedList<IStatus>();
 	}
-	
+
 	public void run(IProgressMonitor progress) throws InterruptedException {
 		setProgressMonitor(progress);
 		clearExceptionsList();
 		doRun();
 	}
-	
+
 	public void run() {
 		clearExceptionsList();
 		try {
@@ -91,7 +92,7 @@ public abstract class GeneratorBase implements Runnable {
 			myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, GeneratorBaseMessages.interrupted, ex);
 		}
 	}
-	
+
 	/**
 	 * Provides information about success/failures during {@link #run()}
 	 * @return state of the generator run, or CANCEL if generator was not yet run.
@@ -111,7 +112,7 @@ public abstract class GeneratorBase implements Runnable {
 	protected final void handleException(CoreException ex) {
 		handleException(ex.getStatus());
 	}
-	
+
 	protected final void handleException(IStatus status) {
 		myExceptions.add(status);
 	}
@@ -138,11 +139,11 @@ public abstract class GeneratorBase implements Runnable {
 	protected final IProject getDestProject() {
 		return myDestProject;
 	}
-	
+
 	protected final IProgressMonitor getProgress() {
 		return myProgress;
 	}
-	
+
 	/**
 	 * @param task optional string to be shown in the progress dialog
 	 * @param total estimation of number of activities to happen
@@ -155,7 +156,7 @@ public abstract class GeneratorBase implements Runnable {
 		}
 		myProgress.beginTask(task == null ? GeneratorBaseMessages.start : task, total);
 	}
-	
+
 	protected final IProgressMonitor getNextStepMonitor() throws InterruptedException {
 		if (myProgress.isCanceled()) {
 			throw new InterruptedException();
@@ -336,7 +337,7 @@ public abstract class GeneratorBase implements Runnable {
 		} catch (UnexpectedBehaviourException ex) {
 			handleUnexpected(ex);
 		} catch (CoreException ex) {
-			handleException(ex);		
+			handleException(ex);
 		} finally {
 			pm.done();
 		}
@@ -364,7 +365,7 @@ public abstract class GeneratorBase implements Runnable {
 		} finally {
 			pm.done();
 		}
-	}	
+	}
 
 	protected String mergeJavaCode(String oldContents, String generatedText, IProgressMonitor pm) throws JavaModelException {
 		pm.beginTask(GeneratorBaseMessages.merge, 1);
@@ -409,11 +410,11 @@ public abstract class GeneratorBase implements Runnable {
 		TextEdit edit = getCodeFormatter().format(CodeFormatter.K_COMPILATION_UNIT, doc.get(), 0, doc.get().length(), 0, null);
 
 		try {
-			// check if text formatted successfully 
-			if(edit != null) {
+			// check if text formatted successfully
+			if (edit != null) {
 				edit.apply(doc);
-				text = doc.get();				
-			}		
+				text = doc.get();
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -423,13 +424,27 @@ public abstract class GeneratorBase implements Runnable {
 	private void doRun() throws InterruptedException {
 		try {
 			setupProgressMonitor();
-			customRun();
-			myRunStatus = getExceptionsStatus();
-			// XXX consider catching CCE and provide "programming error" to help users with their templates
-		} catch (NullPointerException ex) {
-			myRunStatus = new Status(IStatus.ERROR, Activator.getID(), 0, NullPointerException.class.getName(), ex);
-		} catch (UnexpectedBehaviourException ex) {
-			myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, GeneratorBaseMessages.unexpected, ex);
+			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+				public void run(IProgressMonitor monitor) throws CoreException {
+					try {
+						customRun();
+						myRunStatus = getExceptionsStatus();
+						// XXX consider catching CCE and provide "programming error"
+						// to help users with their templates
+					} catch (NullPointerException ex) {
+						myRunStatus = new Status(IStatus.ERROR, Activator.getID(), 0, NullPointerException.class.getName(), ex);
+					} catch (UnexpectedBehaviourException ex) {
+						myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, GeneratorBaseMessages.unexpected, ex);
+					} catch (InterruptedException ex) {
+						myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, GeneratorBaseMessages.interrupted, ex); 
+					}
+				}
+			}, null);
+			if (myRunStatus.getSeverity() == IStatus.CANCEL && myRunStatus.getException() instanceof InterruptedException) {
+				throw (InterruptedException) myRunStatus.getException();
+			}
+		} catch (CoreException ex) {
+			myRunStatus = ex.getStatus();
 		} finally {
 			getProgress().done();
 			clearExceptionsList();
@@ -442,13 +457,13 @@ public abstract class GeneratorBase implements Runnable {
 		}
 		return myCodeFormatter;
 	}
-	
+
 	private final void clearExceptionsList(){
 		myExceptions.clear();
 	}
-	
-	private final IStatus getExceptionsStatus(){
-		if (myExceptions == null || myExceptions.isEmpty()){
+
+	private final IStatus getExceptionsStatus() {
+		if (myExceptions == null || myExceptions.isEmpty()) {
 			return Status.OK_STATUS;
 		} else {
 			IStatus[] s = myExceptions.toArray(new IStatus[myExceptions.size()]);
@@ -460,14 +475,14 @@ public abstract class GeneratorBase implements Runnable {
 		private final HashMap<EClass, Integer> myCounters = new HashMap<EClass, Integer>();
 		private final HashMap<EClass, Integer> myCache = new HashMap<EClass, Integer>();
 		private final Integer CACHE_MISS = new Integer(0);
-	
+
 		public Counter() {
 		}
-	
+
 		public void registerFactor(EClass eClass, int count) {
 			myCounters.put(eClass, count);
 		}
-	
+
 		public int getTotal(EObject from) {
 			int total = process(from);
 			for (Iterator it = from.eAllContents(); it.hasNext();) {
@@ -475,13 +490,13 @@ public abstract class GeneratorBase implements Runnable {
 			}
 			return total;
 		}
-	
+
 		@SuppressWarnings("unchecked")
 		protected int process(EObject next) {
 			final EClass nextKey = next.eClass();
 			Integer cachedValue = checkCached(nextKey);
 			if (cachedValue != null) {
-				return cachedValue; 
+				return cachedValue;
 			}
 			LinkedList<EClass> checkQueue = new LinkedList<EClass>();
 			checkQueue.add(nextKey);
@@ -499,11 +514,11 @@ public abstract class GeneratorBase implements Runnable {
 			cache(nextKey, CACHE_MISS);
 			return 0;
 		}
-	
+
 		private Integer checkCached(EClass nextKey) {
 			return myCache.get(nextKey);
 		}
-	
+
 		private void cache(EClass nextKey, Integer value) {
 			myCache.put(nextKey, value);
 		}
