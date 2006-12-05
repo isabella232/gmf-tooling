@@ -30,6 +30,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -175,7 +176,7 @@ public class RuntimeWorkspaceSetup {
 	}
 
 	private ClasspathEntry[] getClasspathEntries(String[] pluginIDs) {
-		ArrayList/*<ClasspathEntry>*/ entries = new ArrayList/*<ClasspathEntry>*/(pluginIDs.length); 
+		ArrayList<ClasspathEntry> entries = new ArrayList<ClasspathEntry>(pluginIDs.length); 
 		for (int i = 0; i < pluginIDs.length; i++) {
 			ClasspathEntry nextEntry = new ClasspathEntry(pluginIDs[i]);
 			if (nextEntry.isValid()) {
@@ -184,7 +185,7 @@ public class RuntimeWorkspaceSetup {
 				System.out.println("Bundle " + pluginIDs[i] + " is missing, skipped."); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
-		return (ClasspathEntry[]) entries.toArray(new ClasspathEntry[entries.size()]);
+		return entries.toArray(new ClasspathEntry[entries.size()]);
 	}
 
 	private IJavaProject asJavaProject(IProject p) {
@@ -209,7 +210,7 @@ public class RuntimeWorkspaceSetup {
 		}
 		final IJavaProject sosJavaPrj = asJavaProject(getSOSProject());
 		IClasspathEntry[] cpOrig = asJavaProject(diagramProj).getRawClasspath();
-		ArrayList rv = new ArrayList(10 + cpOrig.length + members.length);
+		ArrayList<IClasspathEntry> rv = new ArrayList<IClasspathEntry>(10 + cpOrig.length + members.length);
 		IClasspathContainer c = JavaCore.getClasspathContainer(new Path(PLUGIN_CONTAINER_ID), sosJavaPrj);
 		if (c != null) {
 			IClasspathEntry[] cpAdd = c.getClasspathEntries();
@@ -222,7 +223,7 @@ public class RuntimeWorkspaceSetup {
 			rv.add(JavaCore.newLibraryEntry(members[i].getFullPath(), null, null));
 		}
 
-		final Set uniqueClassPathEntries = new HashSet();
+		final Set<IPath> uniqueClassPathEntries = new HashSet<IPath>();
 		IClasspathEntry[] cpOrigResolved = asJavaProject(diagramProj).getResolvedClasspath(true);
 		for (int i = 0; i < cpOrigResolved.length; i++) {
 			uniqueClassPathEntries.add(cpOrigResolved[i].getPath());
@@ -237,16 +238,17 @@ public class RuntimeWorkspaceSetup {
 		}
 		rv.addAll(Arrays.asList(cpOrig));
 		
-		IClasspathEntry[] cpNew = (IClasspathEntry[]) rv.toArray(new IClasspathEntry[rv.size()]);
+		IClasspathEntry[] cpNew = rv.toArray(new IClasspathEntry[rv.size()]);
 		asJavaProject(diagramProj).setRawClasspath(cpNew, new NullProgressMonitor());
 	}
 
 	/**
 	 * at least
 	 */
+	@SuppressWarnings("unchecked")
 	public void ensureJava14() {
 		if (!JavaCore.VERSION_1_4.equals(JavaCore.getOption(JavaCore.COMPILER_SOURCE))) {
-			Hashtable options = JavaCore.getOptions();
+			Hashtable<String,String> options = JavaCore.getOptions();
 			options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_4);
 			options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_4);
 			options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_4);
