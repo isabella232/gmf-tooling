@@ -1,2 +1,4 @@
 # Debugging options for the org.eclipse.gmf.common plug-in
 
+# Log info about OrganizeImportsPostprocessor activities
+org.eclipse.gmf.common/debug/organizeImports=false

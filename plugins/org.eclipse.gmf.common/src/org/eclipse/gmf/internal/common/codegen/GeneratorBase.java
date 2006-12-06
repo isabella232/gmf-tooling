@@ -61,6 +61,7 @@ import org.eclipse.text.edits.TextEdit;
 public abstract class GeneratorBase implements Runnable {
 
 	private CodeFormatter myCodeFormatter;
+    private OrganizeImportsPostprocessor myImportsPostprocessor;
 	private IProgressMonitor myProgress = new NullProgressMonitor();
 
 	// myDestRoot.getJavaProject().getElementName() == myDestProject.getName()
@@ -69,6 +70,7 @@ public abstract class GeneratorBase implements Runnable {
 	private final List<IStatus> myExceptions;
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
 	private TextMerger myMerger;
+	private boolean isToRestoreExistingImports = true;
 
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
 
@@ -313,7 +315,7 @@ public abstract class GeneratorBase implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			setProgressTaskName(className);
-			pm.beginTask(null, 4);
+			pm.beginTask(null, 5);
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
@@ -326,7 +328,9 @@ public abstract class GeneratorBase implements Runnable {
 			}
 			genText = formatCode(genText);
 			if (!genText.equals(oldContents)) {
-				pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+				ICompilationUnit newCU = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+                getImportsPostrocessor().organizeImports(newCU, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+                newCU.save(new SubProgressMonitor(pm, 1), true);
 			} else {
 				pm.worked(1);
 			}
@@ -456,6 +460,13 @@ public abstract class GeneratorBase implements Runnable {
 			myCodeFormatter = ToolFactory.createCodeFormatter(null);
 		}
 		return myCodeFormatter;
+	}
+
+	private OrganizeImportsPostprocessor getImportsPostrocessor() {
+		if (myImportsPostprocessor == null) {
+			myImportsPostprocessor = new OrganizeImportsPostprocessor();
+		}
+		return myImportsPostprocessor;
 	}
 
 	private final void clearExceptionsList(){
