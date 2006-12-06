@@ -69,16 +69,29 @@ public class GenProjectBaseSetup {
 	}
 
 	public void generateAndCompile(DiaGenSource diaGenSource) throws Exception {
-		projectsToInit.clear(); // just in case
+		projectsToInit.clear();	//just in case
 		compileUtil = new CompileUtil();
 		final GenDiagram d = diaGenSource.getGenDiagram();
+		generateDiagramPrerequisites(d);
+		generateDiagramPlugin(d);
+		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
+			String pluginID = (String) it.next();
+			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
+			hookProjectBuild(p);
+		}
+		compileUtil = null;
+	}
+
+	protected void generateDiagramPrerequisites(GenDiagram d) throws Exception {
 		final GenModel domainGenModel = d.getEditorGen().getDomainGenModel();
 		if (domainGenModel != null) {
 			generateEMFCode(domainGenModel);
 			projectsToInit.add(domainGenModel.getModelPluginID());
 			projectsToInit.add(domainGenModel.getEditPluginID());
 		}
-		
+	}
+
+	protected void generateDiagramPlugin(GenDiagram d) throws Exception {
 		GeneratorBase generator = myGeneratorFactory.createGenerator(d);
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
@@ -86,13 +99,7 @@ public class GenProjectBaseSetup {
 		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
 
 		projectsToInit.add(gmfEditorId);
-		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
-			String pluginID = (String) it.next();
-			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
-			hookProjectBuild(p);
-		}
 		hookJDTStatus(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
-		compileUtil = null;
 	}
 
 	private void generateEMFCode(GenModel domainGenModel) {
