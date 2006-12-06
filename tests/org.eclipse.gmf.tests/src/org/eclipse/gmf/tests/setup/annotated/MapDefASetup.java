@@ -20,6 +20,7 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -30,8 +31,10 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.DesignLabelMapping;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -270,6 +273,82 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 			}
 		}
 		return null;
+	}
+
+	// design
+
+	/**
+	 * Removes all references to domain model.
+	 */
+	public void detachFromDomainModel() {
+		Mapping mapping = getMapping();
+		mapping.getDiagram().setDomainModel(null);
+		mapping.getDiagram().setDomainMetaElement(null);
+		for (TopNodeReference tref : (List<TopNodeReference>) mapping.getNodes()) {
+			tref.setContainmentFeature(null);
+			tref.setChildrenFeature(null);
+			detachNodeMapping(tref.getOwnedChild());
+		}
+		for (LinkMapping linkMapping : (List<LinkMapping>) mapping.getLinks()) {
+			linkMapping.setContainmentFeature(null);
+			linkMapping.setDomainMetaElement(null);
+			linkMapping.setLinkMetaFeature(null);
+			linkMapping.setSourceMetaFeature(null);
+			linkMapping.setDomainInitializer(null);
+			linkMapping.setDomainSpecialization(null);
+			linkMapping.setCreationConstraints(null);
+			detachLabelMappings(linkMapping);
+		}
+
+		// check that mapping model was detached from domain model
+		for (Iterator it = mapping.eAllContents(); it.hasNext();) {
+			Object next = it.next();
+			if (next instanceof EObject) {
+				EObject enext = (EObject) next;
+				for (EReference ref : (List<EReference>) enext.eClass().getEAllReferences()) {
+					Object value = enext.eGet(ref);
+					if (value == null) {
+						continue;
+					}
+					if (value instanceof List) {
+						for (Object nvalue : (List) value) {
+							checkNotDomainElement((EObject) nvalue);
+						}
+					} else {
+						checkNotDomainElement(((EObject) value));
+					}
+				}
+			}
+		}
+	}
+
+	protected void checkNotDomainElement(EObject obj) {
+		assert obj.eClass().getEPackage() != ePackage;
+	}
+
+	protected void detachNodeMapping(NodeMapping nodeMapping) {
+		nodeMapping.setDomainMetaElement(null);
+		nodeMapping.setDomainInitializer(null);
+		nodeMapping.setDomainSpecialization(null);
+		detachLabelMappings(nodeMapping);
+		for (ChildReference ref : (List<ChildReference>) nodeMapping.getChildren()) {
+			ref.setChildrenFeature(null);
+			ref.setContainmentFeature(null);
+			detachNodeMapping(ref.getOwnedChild());
+		}
+	}
+
+	protected void detachLabelMappings(MappingEntry entry) {
+		List list = entry.getLabelMappings();
+		for (int i = 0; i < list.size(); i++) {
+			LabelMapping labelMapping = (LabelMapping) list.get(i);
+			if (labelMapping instanceof FeatureLabelMapping) {
+				DesignLabelMapping newLebdelMapping = GMFMapFactory.eINSTANCE.createDesignLabelMapping();
+				newLebdelMapping.setDiagramLabel(labelMapping.getDiagramLabel());
+				newLebdelMapping.setReadOnly(labelMapping.isReadOnly());
+				list.set(i, newLebdelMapping);
+			}
+		}
 	}
 
 	// source
