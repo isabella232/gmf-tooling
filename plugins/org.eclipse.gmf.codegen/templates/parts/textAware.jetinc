@@ -146,7 +146,7 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected boolean isEditable() {
 <%if (!readOnly) {%>
-		return getEditText() != null;
+		return getParser() != null;
 <%} else {%>
 		return false;
 <%}%>

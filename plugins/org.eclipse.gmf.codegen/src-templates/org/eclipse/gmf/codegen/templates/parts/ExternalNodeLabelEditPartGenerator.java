@@ -73,7 +73,7 @@ public class ExternalNodeLabelEditPartGenerator
   protected final String TEXT_56 = ") {" + NL + "\t\t\t((";
   protected final String TEXT_57 = ") pdEditPolicy).refreshFeedback();" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getEditText() {" + NL + "\t\tif (getParser() == null) {" + NL + "\t\t\treturn \"\"; //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\treturn getParser().getEditString(new ";
   protected final String TEXT_58 = "(getParserElement())," + NL + "\t\t\tgetParserOptions().intValue());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {";
-  protected final String TEXT_59 = NL + "\t\treturn getEditText() != null;";
+  protected final String TEXT_59 = NL + "\t\treturn getParser() != null;";
   protected final String TEXT_60 = NL + "\t\treturn false;";
   protected final String TEXT_61 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_62 = " getEditTextValidator() {" + NL + "\t\treturn new ";
