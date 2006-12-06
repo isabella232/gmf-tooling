@@ -31,10 +31,12 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.ui.PlatformUI;
 
 public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 	public ExternalNodeLabelsTest(String name) {
 		super(name);
+		PlatformUI.getWorkbench().getEditorRegistry();
 	}
 
 	@Override
