@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+-->
+</head>
+<body>
+
+<h2>Annotated Models</h2>
+
+<p>This package contains classes that derive graphical definition, tooling definition
+and mapping GMF models from specially annotated domain (ecore) model. Using these
+model setup classes user may easily define data for GMF unit tests. Generator model
+could be obtained by transforming mapping model. Essentially this is a simple alternative
+to GMF definition models that is specially designed to provide unit tests data.
+
+<p>Code that infers other models from domain model searches for annotations with 'gmf'
+source and uses details entries of annotations to produce related model elements.
+Here is a list of annotation details entry names supported in domain model:
+<ul>
+	<li><b>canvas</b> - annotated EClass will be used as diagram canvas element</li>
+	<li><b>node</b> - node mapping with creation tool and diagram node with figure will be
+		created for the annotated EClass</li>
+	<li><b>compartment</b> - compartment mapping with diagram element is created;
+		value of details entry specifies compartment name; compartment
+		is defined within node mapping of the annotated EClass</li>
+	<li><b>in</b> - value of details entry specifies name of the compartment defined
+		in parent EClass</li>	
+	<li><b>link</b> - link mapping with creation tool and diagram connection with figure
+		will be created for the annotated EClass or EReference</li>
+	<li><b>containment</b> - name of the containment feature specified as EClass name
+		plus dot plus feature name such as 'Library.writers'</li>
+	<li><b>source</b> - name of the source feature for the link mapping</li>
+	<li><b>target</b> - name of the target feature for the link mapping</li>
+	<li><b>label</b> - label mapping will be defined for the annotated EAttribute</li>
+</ul>
+</body>
+</html>
+
