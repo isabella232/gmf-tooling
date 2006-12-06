@@ -6223,6 +6223,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEmfaticAnnotationMapAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints
 		createConstraintsAnnotations();
+		// http://www.eclipse.org/gmf/2006/deprecated
+		createDeprecatedAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints/meta
 		createMetaAnnotations();
 	}
@@ -6242,7 +6244,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																															
+		   });																																																																																																																																																																																																
 	}
 
 	/**
@@ -6265,7 +6267,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });															
+		   });																
 		addAnnotation
 		  (getGenCommonBase_VisualID(), 
 		   source, 
@@ -6465,13 +6467,29 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	}
 
 	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2006/deprecated</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDeprecatedAnnotations() {
+		String source = "http://www.eclipse.org/gmf/2006/deprecated";																			
+		addAnnotation
+		  ((EOperation)linkConstraintsEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
+		   });																																																																																																																																																																															
+	}
+
+	/**
 	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints/meta</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																							
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																								
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

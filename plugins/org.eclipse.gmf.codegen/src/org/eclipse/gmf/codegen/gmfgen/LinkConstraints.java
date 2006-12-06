@@ -26,6 +26,7 @@ public interface LinkConstraints extends EObject {
 	 * Indicates whether this diagram contains link creation constraints or not
 	 * <!-- end-model-doc -->
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='LinkCreationConstants should be generated if diagram has any links'"
 	 * @generated
 	 */
 	boolean hasLinkCreationConstraints();
