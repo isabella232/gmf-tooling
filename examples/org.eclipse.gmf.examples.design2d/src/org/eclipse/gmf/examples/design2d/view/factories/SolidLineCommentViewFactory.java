@@ -24,6 +24,8 @@ import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 
 import org.eclipse.gmf.runtime.notation.Location;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+
 /**
  * @generated
  */
@@ -46,6 +48,7 @@ public class SolidLineCommentViewFactory extends AbstractLabelViewFactory {
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		return styles;
 	}
 }

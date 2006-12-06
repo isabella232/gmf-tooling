@@ -145,6 +145,8 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:DesignLabelModelFacet"/>
       </labels>
     </links>
     <palette>

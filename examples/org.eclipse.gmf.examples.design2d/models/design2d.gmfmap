@@ -31,7 +31,8 @@
     </ownedChild>
   </nodes>
   <links>
-    <labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping">
       <diagramLabel
           href="design2d.gmfgraph#SolidLineComment"/>
     </labelMappings>

@@ -43,6 +43,7 @@ import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 import org.eclipse.gmf.examples.design2d.providers.DesignElementTypes;
 
+import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -318,7 +319,7 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
+			String parserHint = CommonParserHint.DESCRIPTION;
 			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
 
 				public Object getAdapter(Class adapter) {
