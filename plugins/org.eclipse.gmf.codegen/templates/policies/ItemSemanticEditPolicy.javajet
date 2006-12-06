@@ -244,6 +244,7 @@ public class <%=genDiagram.getBaseItemSemanticEditPolicyClassName()%> extends Se
 	protected static class <%=genDiagram.getLinkCreationConstraintsClassName()%> {
 <%final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
 boolean hasJavaConstraints = false;
+boolean hasOCLConstraints = false;
 if (expressionProviders != null) {%>
 
 		/**
@@ -260,13 +261,14 @@ if (expressionProviders != null) {%>
 		String __javaOperationContainer = javaExprContainer;
 		String __outEnvVarName = "env";
 		if (linkConstraints.getSourceEnd() != null) {
-			if (!hasJavaConstraints && expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenJavaExpressionProvider) {
+			if (expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenJavaExpressionProvider) {
 				hasJavaConstraints = true;
-			}
-			Map __exprEnvVariables = new java.util.HashMap();
-			GenClassifier __genExprContext = linkConstraints.getSourceEndContextClass();
-			ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
-			__exprEnvVariables.put(oppositeEndVarName, linkConstraints.getTargetEndContextClass());%>
+			} else if (expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenExpressionInterpreter) {
+				hasOCLConstraints = true;
+				Map __exprEnvVariables = new java.util.HashMap();
+				GenClassifier __genExprContext = linkConstraints.getSourceEndContextClass();
+				ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
+				__exprEnvVariables.put(oppositeEndVarName, linkConstraints.getTargetEndContextClass());%>
 		
 		/**
 		 * @generated 
@@ -279,15 +281,17 @@ if (expressionProviders != null) {%>
 		static {<%@ include file="../expressions/initEnv.jetinc"%>
 			<%=nextLink.getUniqueIdentifier()%>_SourceExpression = <%@ include file="../expressions/getExpression.jetinc"%>;
 		}
-<%		}
+<%			}
+		}
 		if (linkConstraints.getTargetEnd() != null) {
-			if (!hasJavaConstraints && expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenJavaExpressionProvider) {
+			if (expressionProviders.getProvider(linkConstraints.getTargetEnd()) instanceof GenJavaExpressionProvider) {
 				hasJavaConstraints = true;
-			}
-			Map __exprEnvVariables = new java.util.HashMap();
-			GenClassifier __genExprContext = linkConstraints.getTargetEndContextClass();
-			ValueExpression __genValueExpression = linkConstraints.getTargetEnd();			
-			__exprEnvVariables.put(oppositeEndVarName, linkConstraints.getSourceEndContextClass());%>
+			} else if (expressionProviders.getProvider(linkConstraints.getTargetEnd()) instanceof GenExpressionInterpreter) {
+				hasOCLConstraints = true;
+				Map __exprEnvVariables = new java.util.HashMap();
+				GenClassifier __genExprContext = linkConstraints.getTargetEndContextClass();
+				ValueExpression __genValueExpression = linkConstraints.getTargetEnd();			
+				__exprEnvVariables.put(oppositeEndVarName, linkConstraints.getSourceEndContextClass());%>
 		
 		/**
 		 * @generated 
@@ -300,7 +304,8 @@ if (expressionProviders != null) {%>
 		static {<%@ include file="../expressions/initEnv.jetinc"%>
 			<%=nextLink.getUniqueIdentifier()%>_TargetExpression = <%@ include file="../expressions/getExpression.jetinc"%>;
 		}
-<%		}
+<%			}
+		}
 	}
 }
 	
@@ -390,22 +395,38 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 	
 	if (expressionProviders != null && nextLink.getCreationConstraints() != null && nextLink.getCreationConstraints().isValid()) {
 		GenLinkConstraints constraints = nextLink.getCreationConstraints();
-		if (constraints.getSourceEnd() != null) {%>
+		if (constraints.getSourceEnd() != null) {
+			ValueExpression sourceExpression = constraints.getSourceEnd();
+			GenExpressionProviderBase expressionProvider = expressionProviders.getProvider(sourceExpression);
+			if (expressionProvider instanceof GenJavaExpressionProvider) {%>
+			if (!<%=javaExprContainer%>.<%=((GenJavaExpressionProvider) expressionProvider).getOperationName(sourceExpression)%>(source, target).booleanValue()) {
+				return false;
+			}
+<%			} else if (expressionProvider instanceof GenExpressionInterpreter) {%>
 			if (!evaluate(<%=nextLink.getUniqueIdentifier()%>_SourceExpression, source, target, false)) {
 				return false;
 			}
-<%		}
-		if (constraints.getTargetEnd() != null) {%>
+<%			}
+		}
+		if (constraints.getTargetEnd() != null) {
+			ValueExpression targetExpression = constraints.getTargetEnd();
+			GenExpressionProviderBase expressionProvider = expressionProviders.getProvider(targetExpression);
+			if (expressionProvider instanceof GenJavaExpressionProvider) {%>
+			if (!<%=javaExprContainer%>.<%=((GenJavaExpressionProvider) expressionProvider).getOperationName(targetExpression)%>(target, source).booleanValue()) {
+				return false;
+			}
+<%			} else if (expressionProvider instanceof GenExpressionInterpreter) {%>
 			if (!evaluate(<%=nextLink.getUniqueIdentifier()%>_TargetExpression, target, source, true)) {
 				return false;
 			}
-<%		}
+<%			}
+		}
 	}%>
 			return true;
 		}
 <%}
 	
-if (expressionProviders != null) {
+if (expressionProviders != null && hasOCLConstraints) {
 	String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());%>
 	
 		/**
