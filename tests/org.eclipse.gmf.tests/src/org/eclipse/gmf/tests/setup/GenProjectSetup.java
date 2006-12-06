@@ -63,15 +63,16 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		try {
 			if (myIsFullRuntimeRun) {
 				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
+			} else {
+				//Wait for org.eclipse.ui.editors extension point to update. Otherwise, AbstractDiagramEditorTest subclasses fail mysteriously.
+				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.ui");
 			}
 			myBundle = null;
 			super.generateAndCompile(diaGenSource);
 			myBundle.start();
 			registerExtensions(myBundle);
-			if (myIsFullRuntimeRun) {
-				// there should be hit, any .diagram plugin is supposed to include element types
-				monitorExtensionLoad(extensionChangeNotification, 60);
-			}
+			// there should be hit, any .diagram plugin is supposed to register extensions we monitor with the listener above.
+			monitorExtensionLoad(extensionChangeNotification, 60);
 			
 			disabledNoExprImplDebugOption();
 		} catch (BundleException ex) {
