@@ -240,7 +240,7 @@ public class RouteReliabilityEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

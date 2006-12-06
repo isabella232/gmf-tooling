@@ -240,7 +240,7 @@ public class RouteReliability2EditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

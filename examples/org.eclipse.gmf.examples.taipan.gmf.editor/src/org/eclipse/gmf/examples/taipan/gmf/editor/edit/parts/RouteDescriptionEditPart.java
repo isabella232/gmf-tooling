@@ -244,7 +244,7 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

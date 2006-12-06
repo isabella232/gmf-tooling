@@ -17,6 +17,10 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.TaiPanBaseEditHelper;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -42,6 +46,13 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
+
+import java.util.Collections;
+import java.util.Map;
+
+import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Ship;
 
 /**
  * @generated
@@ -232,6 +243,60 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @generated 
+	 */
+	protected static class LinkConstraints {
+
+		/**
+		 * @generated 
+		 */
+		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateShipDestination_4001(Ship source, Port target) {
+			if (source != null) {
+				if (source.getDestination() != null) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateRoute_4002(Aquatory container, Port source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		private static boolean evaluate(TaiPanAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			if (sourceEnd == null) {
+				return true;
+			}
+			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
+			try {
+				Object val = constraint.evaluate(sourceEnd, evalEnv);
+				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
+			} catch (Exception e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
+		}
 	}
 
 }

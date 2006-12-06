@@ -244,7 +244,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

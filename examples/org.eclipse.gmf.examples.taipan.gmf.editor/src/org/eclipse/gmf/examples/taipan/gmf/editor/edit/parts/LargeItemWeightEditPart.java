@@ -245,7 +245,7 @@ public class LargeItemWeightEditPart extends CompartmentEditPart implements ITex
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

@@ -249,7 +249,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

@@ -231,7 +231,7 @@ public class PortLocationEditPart extends TaiPanExtNodeLabelEditPart implements 
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**
