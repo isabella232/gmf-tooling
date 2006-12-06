@@ -53,12 +53,16 @@ public class CompilationTest extends TestCase {
 
 	// TODO EditPartViewer[Source|Setup]
 
-	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
+	protected MapDefASetup getLibraryMap() throws Exception {
 		URI selected = Plugin.createURI("/models/library/library.ecore"); //$NON-NLS-1$
 		DomainModelSource dmSource =  new DomainModelFileSetup().init(selected);
 		ToolDefSource tdmSource = new ToolDefASetup(dmSource.getModel());
 		DiaDefSource gdmSource = new GraphDefASetup(dmSource.getModel());
-		MapDefSource mmSource = new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
+		return new MapDefASetup(dmSource.getModel(), tdmSource.getRegistry(), gdmSource.getCanvasDef());
+	}
+
+	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
+		MapDefSource mmSource = getLibraryMap(); 
 		return new GenASetup(mmSource.getMapping(), rcp);
 	}
 
@@ -89,6 +93,14 @@ public class CompilationTest extends TestCase {
 	public void testCompileNONsynchronizedDiagram() throws Exception {
 		DiaGenSource gmfGenSource = getLibraryGen(false);
 		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
+		generateAndCompile(gmfGenSource);
+	}
+	
+	public void testCompilePureDesignDiagram() throws Exception {
+		MapDefASetup mmSource = getLibraryMap();
+		mmSource.detachFromDomainModel();
+		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), false);
+		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
 		generateAndCompile(gmfGenSource);
 	}
 
