@@ -36,6 +36,7 @@ import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
+import org.eclipse.gmf.tests.gen.OrganizeImportsPostprocessorTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
@@ -142,6 +143,8 @@ public class AllTests {
 		suite.addTest(AllValidateTests.suite());
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 
+        suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
+        
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
 			protected void performCleanup() throws Exception {

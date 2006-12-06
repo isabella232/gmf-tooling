@@ -57,7 +57,7 @@ public class DomainModelSetup implements DomainModelSource {
 	 */
 	public DomainModelSetup init() {
 		EPackage p = EcoreFactory.eINSTANCE.createEPackage();
-		p.setName("SampleModel");
+		p.setName("samplemodel");
 		p.setNsPrefix("gmftest");
 		Calendar c = Calendar.getInstance();
 		p.setNsURI("uri://eclipse/gmf/tests/sample/" + c.get(Calendar.HOUR_OF_DAY) + '/' + c.get(Calendar.MINUTE) + '/');
