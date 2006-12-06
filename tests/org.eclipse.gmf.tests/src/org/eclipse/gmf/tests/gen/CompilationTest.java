@@ -17,7 +17,6 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
@@ -34,7 +33,6 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.MultiPackageGenSetup;
 import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
-import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 import org.eclipse.gmf.tests.setup.annotated.GenASetup;
@@ -45,11 +43,15 @@ import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
 /**
  * TODO add compilation check for CustomFigure(FigureAccessor(no fqn), FigureAccessor(fqn));  
  */
-public class CompilationTest extends TestCase {
+public abstract class CompilationTest extends TestCase {
 	
 	public CompilationTest(String name) {
 		super(name);
 	}
+
+	protected abstract GeneratorConfiguration getGeneratorConfiguration();
+
+	protected abstract ViewmapProducer getViewmapProducer();
 
 	// TODO EditPartViewer[Source|Setup]
 
@@ -93,14 +95,6 @@ public class CompilationTest extends TestCase {
 	public void testCompileNONsynchronizedDiagram() throws Exception {
 		DiaGenSource gmfGenSource = getLibraryGen(false);
 		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
-		generateAndCompile(gmfGenSource);
-	}
-	
-	public void testCompilePureDesignDiagram() throws Exception {
-		MapDefASetup mmSource = getLibraryMap();
-		mmSource.detachFromDomainModel();
-		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), false);
-		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
 		generateAndCompile(gmfGenSource);
 	}
 
@@ -148,13 +142,5 @@ public class CompilationTest extends TestCase {
 
 	protected void generateAndCompile(DiaGenSource genSource) throws Exception {
 		new GenProjectBaseSetup(getGeneratorConfiguration()).generateAndCompile(genSource);
-	}
-
-	protected GeneratorConfiguration getGeneratorConfiguration() {
-		return new RuntimeBasedGeneratorConfiguration();
-	}
-
-	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer();
 	}
 }

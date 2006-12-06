@@ -25,7 +25,6 @@ import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
-import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
@@ -33,6 +32,7 @@ import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.HandcodedPaletteTest;
+import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
@@ -118,7 +118,7 @@ public class AllTests {
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
 		// fires new runtime workbench initialization
-		suite.addTestSuite(CompilationTest.class);
+		suite.addTestSuite(RuntimeCompilationTest.class);
 
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
 		suite.addTest(feed(CompartmentPropertiesTest.class, sessionSetup));
