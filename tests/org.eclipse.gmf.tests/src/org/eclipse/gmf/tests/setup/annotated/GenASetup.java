@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.setup.annotated;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -51,7 +52,10 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 	public GenDiagram getGenDiagram() {
 		if (gen == null) {
 			DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediatorImpl(), new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), rcp);
-			t.setEMFGenModel(Utils.createGenModel(mapping.getDiagram().getDomainModel()));
+			EPackage ePackage = mapping.getDiagram().getDomainModel();
+			if (ePackage != null) {
+				t.setEMFGenModel(Utils.createGenModel(ePackage));
+			}
 			t.transform(mapping);
 			gen = t.getResult();
 			saveModel(gen, "gmfgen"); //$NON-NLS-1$
