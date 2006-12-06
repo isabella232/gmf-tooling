@@ -94,7 +94,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   protected final String TEXT_75 = " eClass = getElementType().getEClass();" + NL + "\t\t\t";
   protected final String TEXT_76 = " eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
   protected final String TEXT_77 = NL + "\t}";
-  protected final String TEXT_78 = NL + NL + "}";
+  protected final String TEXT_78 = NL + "}";
   protected final String TEXT_79 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
@@ -225,8 +225,9 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     
-Collection childNodes = genCompartment.getChildNodes();
-GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaClass();
+if (genCompartment.getChildNodes().size() > 0 && genCompartment.getNode().getModelFacet() != null) {
+	Collection childNodes = genCompartment.getChildNodes();
+	GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaClass();
 
     stringBuffer.append(TEXT_8);
     stringBuffer.append(TEXT_9);
@@ -435,6 +436,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	}
 
     stringBuffer.append(TEXT_77);
+    }
     }
     stringBuffer.append(TEXT_78);
     importManager.emitSortedImports();

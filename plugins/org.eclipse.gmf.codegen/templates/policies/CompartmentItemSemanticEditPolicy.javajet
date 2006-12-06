@@ -16,11 +16,12 @@ GenDiagram genDiagram = genCompartment.getDiagram();
  */
 public class <%=genCompartment.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
 <%
-Collection childNodes = genCompartment.getChildNodes();
-GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaClass();
+if (genCompartment.getChildNodes().size() > 0 && genCompartment.getNode().getModelFacet() != null) {
+	Collection childNodes = genCompartment.getChildNodes();
+	GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaClass();
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>
-
+<%}%>
 }
 <%importManager.emitSortedImports();%>
