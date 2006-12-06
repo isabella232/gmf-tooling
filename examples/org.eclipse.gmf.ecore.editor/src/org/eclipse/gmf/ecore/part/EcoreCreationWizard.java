@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.part;
 
@@ -42,7 +43,12 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected EcoreCreationWizardPage page;
+	protected EcoreCreationWizardPage diagramModelFilePage;
+
+	/**
+	 * @generated
+	 */
+	protected EcoreCreationWizardPage domainModelFilePage;
 
 	/**
 	 * @generated
@@ -104,10 +110,25 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		page = new EcoreCreationWizardPage("CreationWizardPage", getSelection()); //$NON-NLS-1$
-		page.setTitle("Create Ecore Diagram");
-		page.setDescription("Create a new Ecore diagram.");
-		addPage(page);
+		diagramModelFilePage = new EcoreCreationWizardPage("DiagramModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "ecore_diagram"; //$NON-NLS-1$
+			}
+		};
+		diagramModelFilePage.setTitle("Create Ecore Diagram");
+		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
+		addPage(diagramModelFilePage);
+
+		domainModelFilePage = new EcoreCreationWizardPage("DomainModelFile", getSelection()) { //$NON-NLS-1$
+
+			protected String getExtension() {
+				return "ecore"; //$NON-NLS-1$
+			}
+		};
+		domainModelFilePage.setTitle("Create Ecore Diagram");
+		domainModelFilePage.setDescription("Select file that will contain domain model.");
+		addPage(domainModelFilePage);
 	}
 
 	/**
@@ -117,7 +138,7 @@ public class EcoreCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagram = EcoreDiagramEditorUtil.createDiagram(page.getDiagramURI(), page.getModelURI(), monitor);
+				diagram = EcoreDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						EcoreDiagramEditorUtil.openDiagram(diagram);

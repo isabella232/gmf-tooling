@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.part;
 
@@ -14,9 +15,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.eclipse.core.resources.ResourcesPlugin;
 
 /**
  * @generated
@@ -26,38 +27,24 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	private static final String DOMAIN_EXT = ".ecore"; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	private static final String DIAGRAM_EXT = ".ecore_diagram"; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public EcoreCreationWizardPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 	}
 
 	/**
+	 * Override to create files with this extension.
+	 * 
 	 * @generated
 	 */
-	public URI getDiagramURI() {
-		IPath path = getFilePath();
-		if (path.getFileExtension() == null) {
-			path = path.addFileExtension("ecore_diagram"); //$NON-NLS-1$
-		}
-		return URI.createPlatformResourceURI(path.toString());
+	protected String getExtension() {
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	public URI getModelURI() {
-		IPath path = getFilePath();
-		path = path.removeFileExtension().addFileExtension("ecore"); //$NON-NLS-1$
-		return URI.createPlatformResourceURI(path.toString());
+	public URI getURI() {
+		return URI.createPlatformResourceURI(getFilePath().toString());
 	}
 
 	/**
@@ -78,36 +65,30 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	protected String getDefaultFileName() {
-		return "default"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getFileName() {
-		String fileName = super.getFileName();
-		if (fileName != null && !fileName.endsWith(DIAGRAM_EXT)) {
-			fileName += DIAGRAM_EXT;
+	private String getUniqueFileName(IPath containerFullPath, String fileName) {
+		if (containerFullPath == null) {
+			containerFullPath = new Path(""); //$NON-NLS-1$
 		}
-		return fileName;
-	}
+		if (fileName == null || fileName.trim().length() == 0) {
+			fileName = "default"; //$NON-NLS-1$
+		}
+		IPath filePath = containerFullPath.append(fileName);
+		String extension = getExtension();
+		if (extension != null && !extension.equals(filePath.getFileExtension())) {
+			filePath = filePath.addFileExtension(extension);
+		}
 
-	/**
-	 * @generated
-	 */
-	private String getUniqueFileName(IPath containerPath, String fileName) {
-		String newFileName = fileName;
-		IPath diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-		IPath modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+		extension = filePath.getFileExtension();
+		fileName = filePath.removeFileExtension().lastSegment();
 		int i = 1;
-		while (exists(diagramFilePath) || exists(modelFilePath)) {
+		while (EcoreDiagramEditorUtil.exists(filePath)) {
 			i++;
-			newFileName = fileName + i;
-			diagramFilePath = containerPath.append(newFileName + DIAGRAM_EXT);
-			modelFilePath = containerPath.append(newFileName + DOMAIN_EXT);
+			filePath = containerFullPath.append(fileName + i);
+			if (extension != null) {
+				filePath = filePath.addFileExtension(extension);
+			}
 		}
-		return newFileName;
+		return filePath.lastSegment();
 	}
 
 	/**
@@ -115,13 +96,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		IPath path = getContainerFullPath();
-		if (path != null) {
-			String fileName = getUniqueFileName(path, getDefaultFileName());
-			setFileName(fileName);
-		} else {
-			setFileName(getDefaultFileName());
-		}
+		setFileName(getUniqueFileName(getContainerFullPath(), getFileName()));
 		setPageComplete(validatePage());
 	}
 
@@ -129,30 +104,14 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	 * @generated
 	 */
 	protected boolean validatePage() {
-		if (super.validatePage()) {
-			String fileName = getFileName();
-			if (fileName == null) {
-				return false;
-			}
-			fileName = fileName.substring(0, fileName.length() - DIAGRAM_EXT.length()) + DOMAIN_EXT;
-			IPath path = getContainerFullPath();
-			if (path == null) {
-				path = new Path(""); //$NON-NLS-1$
-			}
-			path = path.append(fileName);
-			if (exists(path)) {
-				setErrorMessage("Model file already exists: " + path.lastSegment());
-				return false;
-			}
-			return true;
+		if (!super.validatePage()) {
+			return false;
 		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static boolean exists(IPath path) {
-		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
+		String extension = getExtension();
+		if (extension != null && !extension.equals(getFilePath().getFileExtension())) {
+			setErrorMessage(NLS.bind("File name should have ''{0}'' extension.", extension));
+			return false;
+		}
+		return true;
 	}
 }

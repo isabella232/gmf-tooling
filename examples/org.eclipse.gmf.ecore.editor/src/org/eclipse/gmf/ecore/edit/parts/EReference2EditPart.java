@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
@@ -65,6 +66,12 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public SolidLineWSrcDiamond() {
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 
 			setSourceDecoration(createSourceDecoration());
 		}
@@ -72,19 +79,22 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.PolygonDecoration createSourceDecoration() {
+		private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {
 			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
-			// dispatchNext?
 			df.setFill(true);
+			df.setFillXOR(false);
+			df.setOutline(true);
+			df.setOutlineXOR(false);
+			df.setLineWidth(1);
+			df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
-			pl.addPoint(-1, 1);
-			pl.addPoint(0, 0);
-			pl.addPoint(-1, -1);
-			pl.addPoint(-2, 0);
-			pl.addPoint(-1, 1);
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
+			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(-1));
+			pl.addPoint(getMapMode().DPtoLP(-2), getMapMode().DPtoLP(0));
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			df.setTemplate(pl);
 			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-
 			return df;
 		}
 

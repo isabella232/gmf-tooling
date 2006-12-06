@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
@@ -44,6 +45,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
@@ -252,101 +255,108 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public static final LinkConstraints EReference_4002 = createEReference_4002();
-
-		/**
-		 * @generated 
-		 */
-		public static final LinkConstraints EReference_4003 = createEReference_4003();
-
-		/**
-		 * @generated 
-		 */
-		public static final LinkConstraints EClassESuperTypes_4004 = createEClassESuperTypes_4004();
-
-		/**
-		 * @generated 
-		 */
-		private static LinkConstraints createEReference_4002() {
-			EcoreAbstractExpression sourceExpression = null;
-			Map targetEnv = new HashMap(3);
-			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
-			EcoreAbstractExpression targetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClassifier(), targetEnv);
-			return new LinkConstraints(sourceExpression, targetExpression);
-		}
-
-		/**
-		 * @generated 
-		 */
-		private static LinkConstraints createEReference_4003() {
-			EcoreAbstractExpression sourceExpression = null;
-			Map targetEnv = new HashMap(3);
-			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
-			EcoreAbstractExpression targetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClassifier(), targetEnv);
-			return new LinkConstraints(sourceExpression, targetExpression);
-		}
-
-		/**
-		 * @generated 
-		 */
-		private static LinkConstraints createEClassESuperTypes_4004() {
-			EcoreAbstractExpression sourceExpression = null;
-			Map targetEnv = new HashMap(3);
-			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
-			EcoreAbstractExpression targetExpression = EcoreOCLFactory.getExpression(
-					"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClass(), targetEnv);
-			return new LinkConstraints(sourceExpression, targetExpression);
-		}
-
-		/**
-		 * @generated 
-		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
 		/**
 		 * @generated 
 		 */
-		private EcoreAbstractExpression srcEndInv;
+		private static EcoreAbstractExpression EReference_4002_TargetExpression;
 
 		/**
 		 * @generated 
 		 */
-		private EcoreAbstractExpression targetEndInv;
-
-		/**
-		 * @generated 
-		 */
-		public LinkConstraints(EcoreAbstractExpression sourceEnd, EcoreAbstractExpression targetEnd) {
-			this.srcEndInv = sourceEnd;
-			this.targetEndInv = targetEnd;
+		static {
+			Map env = new HashMap(3);
+			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			EReference_4002_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
+					EcorePackage.eINSTANCE.getEClassifier(), env);
 		}
 
 		/**
 		 * @generated 
 		 */
-		public boolean canCreateLink(CreateRelationshipRequest req, boolean isBackDirected) {
-			Object source = req.getSource();
-			Object target = req.getTarget();
+		private static EcoreAbstractExpression EReference_4003_TargetExpression;
 
-			EcoreAbstractExpression sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
-			EcoreAbstractExpression targetConstraint = null;
-			if (req.getTarget() != null) {
-				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
+		/**
+		 * @generated 
+		 */
+		static {
+			Map env = new HashMap(3);
+			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			EReference_4003_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
+					EcorePackage.eINSTANCE.getEClassifier(), env);
+		}
+
+		/**
+		 * @generated 
+		 */
+		private static EcoreAbstractExpression EClassESuperTypes_4004_TargetExpression;
+
+		/**
+		 * @generated 
+		 */
+		static {
+			Map env = new HashMap(3);
+			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			EClassESuperTypes_4004_TargetExpression = EcoreOCLFactory.getExpression(
+					"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", //$NON-NLS-1$
+					EcorePackage.eINSTANCE.getEClass(), env);
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateEAnnotationReferences_4001(EAnnotation source, EObject target) {
+			if (source != null) {
+				if (source.getReferences().contains(target)) {
+					return false;
+				}
 			}
-			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, false) : true;
-			if (isSourceAccepted && targetConstraint != null) {
-				return evaluate(targetConstraint, target, source, true);
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateEReference_4002(EClass source, EClassifier target) {
+			if (!evaluate(EReference_4002_TargetExpression, target, source, true)) {
+				return false;
 			}
-			return isSourceAccepted;
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateEReference_4003(EClass source, EClassifier target) {
+			if (!evaluate(EReference_4003_TargetExpression, target, source, true)) {
+				return false;
+			}
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateEClassESuperTypes_4004(EClass source, EClass target) {
+			if (source != null) {
+				if (source.getESuperTypes().contains(target)) {
+					return false;
+				}
+			}
+			if (!evaluate(EClassESuperTypes_4004_TargetExpression, target, source, true)) {
+				return false;
+			}
+			return true;
 		}
 
 		/**
 		 * @generated 
 		 */
 		private static boolean evaluate(EcoreAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			if (sourceEnd == null) {
+				return true;
+			}
 			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
 			try {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);
@@ -357,4 +367,5 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 		}
 	}
+
 }

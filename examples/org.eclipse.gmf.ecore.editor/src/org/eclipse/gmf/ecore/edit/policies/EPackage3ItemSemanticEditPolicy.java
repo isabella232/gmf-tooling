@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
@@ -64,11 +65,14 @@ public class EPackage3ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEAnnotation_References4001Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof EAnnotation)) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof EAnnotation || false == targetEObject instanceof EObject) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		EAnnotation element = (EAnnotation) req.getSource();
-		if (element.getReferences().contains(req.getTarget())) {
+		EAnnotation source = (EAnnotation) sourceEObject;
+		EObject target = (EObject) targetEObject;
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEAnnotationReferences_4001(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(req.getSource(), EcorePackage.eINSTANCE.getEAnnotation_References(), req.getTarget());

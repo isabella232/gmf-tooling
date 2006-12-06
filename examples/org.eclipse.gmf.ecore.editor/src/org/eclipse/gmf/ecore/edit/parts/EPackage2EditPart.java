@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
@@ -273,14 +274,23 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		 */
 		public NamedNodeRectangle() {
 
-			org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();
-			myGenLayoutManager.setStretchMinorAxis(true);
-			myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);
-			myGenLayoutManager.setSpacing(0);
-			myGenLayoutManager.setVertical(true);
+			org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();
+			layoutThis.setStretchMinorAxis(true);
+			layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER
 
-			this.setLayoutManager(myGenLayoutManager);
+			);
 
+			layoutThis.setSpacing(0);
+			layoutThis.setVertical(true);
+
+			this.setLayoutManager(layoutThis);
+
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
 			createContents();
 		}
 
@@ -288,13 +298,13 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
 
-			setFigureNamedNode_NameLabelFigure(fig_0);
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel namedNode_NameLabelFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			namedNode_NameLabelFigure0.setText("");
 
-			Object layData0 = null;
+			this.add(namedNode_NameLabelFigure0);
+			setFigureNamedNode_NameLabelFigure(namedNode_NameLabelFigure0);
 
-			this.add(fig_0, layData0);
 		}
 
 		/**

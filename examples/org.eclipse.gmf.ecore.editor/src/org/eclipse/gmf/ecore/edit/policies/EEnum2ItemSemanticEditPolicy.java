@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006 Borland Software Corp.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Borland Software Corporation - initial API and implementation
+ *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
@@ -19,14 +20,15 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gef.commands.UnexecutableCommand;
 
+import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
+
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
@@ -74,11 +76,14 @@ public class EEnum2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEAnnotation_References4001Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof EAnnotation)) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof EAnnotation || false == targetEObject instanceof EObject) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		EAnnotation element = (EAnnotation) req.getSource();
-		if (element.getReferences().contains(req.getTarget())) {
+		EAnnotation source = (EAnnotation) sourceEObject;
+		EObject target = (EObject) targetEObject;
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEAnnotationReferences_4001(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(req.getSource(), EcorePackage.eINSTANCE.getEAnnotation_References(), req.getTarget());
@@ -89,121 +94,41 @@ public class EEnum2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEReference4002Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof EClass)) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		final EClass element = (EClass) req.getSource();
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4002.canCreateLink(req, false)) {
+		EClass source = (EClass) sourceEObject;
+		EClassifier target = (EClassifier) targetEObject;
+
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4002(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new CreateIncomingEReference4002Command(req) {
-
-			protected EObject getElementToEdit() {
-				return element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateIncomingEReference4002Command extends CreateRelationshipCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateIncomingEReference4002Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return EcorePackage.eINSTANCE.getEClass();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(EObject element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject doDefaultElementCreation() {
-			EReference newElement = (EReference) super.doDefaultElementCreation();
-			if (newElement != null) {
-				newElement.setEType((EClassifier) getTarget());
-				EcoreElementTypes.Initializers.EReference_4002.init(newElement);
-			}
-			return newElement;
-		}
+		return getMSLWrapper(new EReferenceTypeLinkCreateCommand(req, source, target));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEReference4003Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof EClass)) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		final EClass element = (EClass) req.getSource();
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4003.canCreateLink(req, false)) {
+		EClass source = (EClass) sourceEObject;
+		EClassifier target = (EClassifier) targetEObject;
+
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4003(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new CreateIncomingEReference4003Command(req) {
-
-			protected EObject getElementToEdit() {
-				return element;
-			}
-		});
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateIncomingEReference4003Command extends CreateRelationshipCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateIncomingEReference4003Command(CreateRelationshipRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return EcorePackage.eINSTANCE.getEClass();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected void setElementToEdit(EObject element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject doDefaultElementCreation() {
-			EReference newElement = (EReference) super.doDefaultElementCreation();
-			if (newElement != null) {
-				newElement.setEType((EClassifier) getTarget());
-				EcoreElementTypes.Initializers.EReference_4003.init(newElement);
-			}
-			return newElement;
-		}
+		return getMSLWrapper(new EReference2TypeLinkCreateCommand(req, source, target));
 	}
 }
