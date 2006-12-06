@@ -73,9 +73,11 @@ public class GenProjectBaseSetup {
 		compileUtil = new CompileUtil();
 		final GenDiagram d = diaGenSource.getGenDiagram();
 		final GenModel domainGenModel = d.getEditorGen().getDomainGenModel();
-		generateEMFCode(domainGenModel);
-        projectsToInit.add(domainGenModel.getModelPluginID());
-        projectsToInit.add(domainGenModel.getEditPluginID());
+		if (domainGenModel != null) {
+			generateEMFCode(domainGenModel);
+			projectsToInit.add(domainGenModel.getModelPluginID());
+			projectsToInit.add(domainGenModel.getEditPluginID());
+		}
 		
 		GeneratorBase generator = myGeneratorFactory.createGenerator(d);
 		generator.run();
