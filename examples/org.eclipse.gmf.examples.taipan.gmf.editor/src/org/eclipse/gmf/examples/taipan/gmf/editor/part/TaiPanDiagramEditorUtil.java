@@ -14,6 +14,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -31,13 +33,26 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.gef.EditPart;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
+
+import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
+
+import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
@@ -154,5 +169,74 @@ public class TaiPanDiagramEditorUtil {
 	 */
 	private static EObject createInitialRoot(Aquatory model) {
 		return model;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static int findElementsInDiagram(IDiagramWorkbenchPart diagramPart, URI elementURI, List/*EditPart*/editPartCollector) {
+		final int originalNumOfEditParts = editPartCollector.size();
+		EObject element = null;
+		try {
+			element = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);
+		} catch (RuntimeException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Failed to get EObject by uri: " + elementURI, e); //$NON-NLS-1$
+			return 0;
+		}
+		if (element == null) {
+			return 0;
+		} else if (element instanceof View) {
+			EditPart editPart = (EditPart) diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);
+			if (editPart != null) {
+				editPartCollector.add(editPart);
+				return 1;
+			}
+		}
+
+		String elementID = EMFCoreUtil.getProxyID(element);
+		List associatedParts = diagramPart.getDiagramGraphicalViewer().findEditPartsForElement(elementID, IGraphicalEditPart.class);
+		// peform the possible hierarchy disjoint -> take the top-most parts
+		for (Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
+			EditPart nextPart = (EditPart) editPartIt.next();
+			EditPart parentPart = nextPart.getParent();
+			while (parentPart != null && !associatedParts.contains(parentPart)) {
+				parentPart = parentPart.getParent();
+			}
+			if (parentPart == null) {
+				editPartCollector.add(nextPart);
+			}
+		}
+
+		if (originalNumOfEditParts == editPartCollector.size()) {
+			if (!associatedParts.isEmpty()) {
+				editPartCollector.add(associatedParts.iterator().next());
+			} else {
+				element = element.eContainer();
+				if (element != null) {
+					return findElementsInDiagram(diagramPart, EcoreUtil.getURI(element), editPartCollector);
+				}
+			}
+		}
+		return editPartCollector.size() - originalNumOfEditParts;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static void selectElementsInDiagram(IDiagramWorkbenchPart diagramPart, List/*EditPart*/editParts) {
+		diagramPart.getDiagramGraphicalViewer().deselectAll();
+
+		EditPart firstPrimary = null;
+		for (Iterator it = editParts.iterator(); it.hasNext();) {
+			EditPart nextPart = (EditPart) it.next();
+			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
+			if (firstPrimary == null && nextPart instanceof IPrimaryEditPart) {
+				firstPrimary = nextPart;
+			}
+		}
+
+		if (!editParts.isEmpty()) {
+			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (EditPart) editParts.get(0));
+		}
 	}
 }

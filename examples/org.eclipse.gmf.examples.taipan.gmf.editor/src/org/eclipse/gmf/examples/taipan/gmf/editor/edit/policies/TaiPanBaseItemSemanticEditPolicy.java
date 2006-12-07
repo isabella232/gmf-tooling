@@ -280,23 +280,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
 			return true;
 		}
-
-		/**
-		 * @generated 
-		 */
-		private static boolean evaluate(TaiPanAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
-			if (sourceEnd == null) {
-				return true;
-			}
-			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
-			try {
-				Object val = constraint.evaluate(sourceEnd, evalEnv);
-				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
-			} catch (Exception e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
-				return false;
-			}
-		}
 	}
 
 }
