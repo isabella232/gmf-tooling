@@ -2,7 +2,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
-«IF null != copyrightText /*&& copyrightText.trim().length() > 0*/-»
+«IF copyrightText != null-»
 /*
  * «copyrightText.replaceAll("\n", "\n *")»
  */
