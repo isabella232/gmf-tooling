@@ -1,0 +1,22 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE visualIDConstant FOR gmfgen::GenCommonBase-»
+	/**
+	 * @generated
+	 */
+	public static final int VISUAL_ID = «visualID»;
+«ENDDEFINE»
+
+«DEFINE behaviour FOR gmfgen::GenCommonBase-»
+	«FOREACH behaviour AS e-»
+		«EXPAND behaviour FOR e-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE behaviour FOR gmfgen::Behaviour-»
+«ENDDEFINE»
+
+«DEFINE behaviour FOR gmfgen::CustomBehaviour-»
+	installEditPolicy("«key»", new «getEditPolicyQualifiedClassName()»()); //$NON-NLS-1$
+«ENDDEFINE»

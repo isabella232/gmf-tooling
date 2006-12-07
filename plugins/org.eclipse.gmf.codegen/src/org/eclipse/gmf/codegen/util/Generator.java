@@ -359,12 +359,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateExternalNodeLabelEditPart(GenExternalNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getExternalNodeLabelEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			label.getEditPartClassName(),
-			label
-		);
+		doGenerateJavaClass(myEmitters.getExternalNodeLabelEditPartEmitter(), label.getEditPartQualifiedClassName(), label);
 	}
 
 	private void generateChildLabelNodeEditPart(GenChildLabelNode genChildNode) throws UnexpectedBehaviourException, InterruptedException {

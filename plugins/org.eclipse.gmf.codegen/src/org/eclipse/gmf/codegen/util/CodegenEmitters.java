@@ -76,7 +76,6 @@ import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
@@ -197,7 +196,6 @@ public class CodegenEmitters {
 		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
 		put(tr, "/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
-		put(tr, "/parts/ExternalNodeLabelEditPart.javajet", ExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
@@ -350,7 +348,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ExternalNodeLabelEditPartGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::ExternalNodeLabelEditPart::ExternalNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildNodeEditPartEmitter() throws UnexpectedBehaviourException {
@@ -536,7 +534,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::editor::palette::PaletteFactory::Factory");
+		return new XpandTextEmitter(myResourceManager, "xpt::editor::palette::PaletteFactory::Factory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
