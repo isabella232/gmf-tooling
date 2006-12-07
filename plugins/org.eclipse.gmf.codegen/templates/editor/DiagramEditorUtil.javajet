@@ -114,14 +114,8 @@ public class <%=importManager.getCompilationUnitName()%> {
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
 				<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = createInitialModel();
-<%	if (standaloneDomainModel) {%>
-				modelResource.getContents().add(createInitialRoot(model));
-<%	} else {%>
-				diagramResource.getContents().add(model);
-<%
-	}
-}
-%>
+				attachModelToResource(model, <%if (standaloneDomainModel) {%>model<%} else {%>diagram<%}%>Resource);
+<%}%>
 				Diagram diagram = ViewService.createDiagram(
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
 				<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model, 
@@ -163,9 +157,8 @@ public class <%=importManager.getCompilationUnitName()%> {
 		return diagramResource;
 	}
 <%if (genDiagram.getDomainDiagramElement() != null) {
-final String diagramElementImportedName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
-final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenPackage();
-%>
+	final String diagramElementImportedName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
+	final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenPackage();%>
 	/**
 	 * Create a new instance of domain element associated with canvas.
 	 * <!-- begin-user-doc -->
@@ -175,35 +168,47 @@ final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenP
 	private static <%=diagramElementImportedName%> createInitialModel() {
 		return <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create<%=genDiagram.getDomainDiagramElement().getName()%>();
 	}
+	
+	/**
+	 * Store model element in the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static void attachModelToResource(<%=diagramElementImportedName%> model, Resource resource) {
+<%	boolean createDocRoot = standaloneDomainModel /*may need docRoot only if separate file for domain model*/ && domainGenPackage.hasDocumentRoot();
+	boolean generateCreateInitialRoot = genDiagram.getDomainDiagramElement().isExternalInterface() || createDocRoot;%>
+		resource.getContents().add(<%if (generateCreateInitialRoot) {%>createInitialRoot(<%}%>model<%if (generateCreateInitialRoot) {%>)<%}%>);
+	}
 
-<%if (standaloneDomainModel /*may need docRoot only if separate file for domain model*/) {%>
+<%	if (generateCreateInitialRoot) {%>
 	/**
 	 * @generated
 	 */
 	private static <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> createInitialRoot(<%=diagramElementImportedName%> model) {
-<%if (!domainGenPackage.hasDocumentRoot()) { %>
+<%		if (!createDocRoot) { %>
 		return <%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model;
-<%} else {
-// would be better to get GenClass for docRoot and directly use setter
-GenClass docRoot = domainGenPackage.getDocumentRoot();
-String featureAccessor = "null"; // Alternative is: genDiagram.getDomainDiagramElement().getInterfaceName(); although it's a hack. Seems better to fail right away
-for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); ) {
-	GenFeature genFeature = (GenFeature) it.next();
-	boolean unspecifiedUpperBound = ETypedElement.UNSPECIFIED_MULTIPLICITY == genFeature.getEcoreFeature().getUpperBound();
-	// Perhaps, makes sense to check instanceof EReference && isContainment
-	if (genFeature.isSet() && unspecifiedUpperBound && genDiagram.getDomainDiagramElement().equals(genFeature.getTypeGenClass())) {
-		featureAccessor = genFeature.getAccessorName();
-		break;
-	}
-} /*for*/
+<%		} else {
+			// would be better to get GenClass for docRoot and directly use setter
+			GenClass docRoot = domainGenPackage.getDocumentRoot();
+			String featureAccessor = "null"; // Alternative is: genDiagram.getDomainDiagramElement().getInterfaceName(); although it's a hack. Seems better to fail right away
+			for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); ) {
+				GenFeature genFeature = (GenFeature) it.next();
+				boolean unspecifiedUpperBound = ETypedElement.UNSPECIFIED_MULTIPLICITY == genFeature.getEcoreFeature().getUpperBound();
+				// Perhaps, makes sense to check instanceof EReference && isContainment
+				if (genFeature.isSet() && unspecifiedUpperBound && genDiagram.getDomainDiagramElement().equals(genFeature.getTypeGenClass())) {
+					featureAccessor = genFeature.getAccessorName();
+					break;
+				}
+			} /*for*/
 %>
 		<%=importManager.getImportedName(docRoot.getQualifiedInterfaceName())%> docRoot =
 				<%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create<%=docRoot.getName()%>();
 		docRoot.set<%=featureAccessor%>(model);
 		return docRoot;
-<%}%>
+<%		}%>
 	}
-<%} /*if standaloneDomainModel*/
+<%	} /*if generateCreateInitialRoot*/
 } /* domainDiagramElement != null */%>
 
 	/**
