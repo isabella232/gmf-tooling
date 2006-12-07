@@ -15,6 +15,7 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart")%> {
+	<%@ include file="DiagramEditPart_additions.jetinc" fail="silent"%>
 
 	/**
 	 * @generated
