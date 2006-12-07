@@ -1,0 +1,10 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE copyright FOR gmfgen::GenEditorGenerator-»
+«IF null != copyrightText /*&& copyrightText.trim().length() > 0*/-»
+/*
+ * «copyrightText.replaceAll("\n", "\n *")»
+ */
+«ENDIF-»
+«ENDDEFINE»

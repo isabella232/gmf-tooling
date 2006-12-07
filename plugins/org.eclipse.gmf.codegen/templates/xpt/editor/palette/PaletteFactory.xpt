@@ -4,7 +4,7 @@
 
 «DEFINE Factory FOR gmfgen::Palette»
 package «packageName»;
-«EXPAND copyright FOR diagram.editorGen»
+«EXPAND xpt::Common::copyright FOR diagram.editorGen»
 /**
  * @generated
  */
@@ -263,12 +263,4 @@ FIXME
 			return tool;
 		}
 	}
-«ENDDEFINE»
-
-«DEFINE copyright FOR gmfgen::GenEditorGenerator-»
-«IF null != copyrightText /*&& copyrightText.trim().length() > 0*/-»
-/*
- * «copyrightText.replaceAll("\n", "\n *")»
- */
-«ENDIF-»
 «ENDDEFINE»
