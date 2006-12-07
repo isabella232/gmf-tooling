@@ -273,7 +273,7 @@ public class EPackageNameEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

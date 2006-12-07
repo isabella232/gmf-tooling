@@ -272,7 +272,7 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

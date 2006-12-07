@@ -272,7 +272,7 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

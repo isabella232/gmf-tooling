@@ -273,7 +273,7 @@ public class EDataTypeNameEditPart extends CompartmentEditPart implements ITextA
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

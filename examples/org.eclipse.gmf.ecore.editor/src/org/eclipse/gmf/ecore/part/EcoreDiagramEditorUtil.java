@@ -130,7 +130,7 @@ public class EcoreDiagramEditorUtil {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				EPackage model = createInitialModel();
-				modelResource.getContents().add(createInitialRoot(model));
+				attachModelToResource(model, modelResource);
 				Diagram diagram = ViewService.createDiagram(model, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
@@ -170,10 +170,13 @@ public class EcoreDiagramEditorUtil {
 	}
 
 	/**
+	 * Store model element in the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static EObject createInitialRoot(EPackage model) {
-		return model;
+	private static void attachModelToResource(EPackage model, Resource resource) {
+		resource.getContents().add(model);
 	}
 
 	/**
@@ -202,7 +205,7 @@ public class EcoreDiagramEditorUtil {
 		List associatedParts = diagramPart.getDiagramGraphicalViewer().findEditPartsForElement(elementID, IGraphicalEditPart.class);
 		// peform the possible hierarchy disjoint -> take the top-most parts
 		for (Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
-			EditPart nextPart = (org.eclipse.gef.EditPart) editPartIt.next();
+			EditPart nextPart = (EditPart) editPartIt.next();
 			EditPart parentPart = nextPart.getParent();
 			while (parentPart != null && !associatedParts.contains(parentPart)) {
 				parentPart = parentPart.getParent();
@@ -232,7 +235,7 @@ public class EcoreDiagramEditorUtil {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
 
 		EditPart firstPrimary = null;
-		for (java.util.Iterator it = editParts.iterator(); it.hasNext();) {
+		for (Iterator it = editParts.iterator(); it.hasNext();) {
 			EditPart nextPart = (EditPart) it.next();
 			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
 			if (firstPrimary == null && nextPart instanceof IPrimaryEditPart) {

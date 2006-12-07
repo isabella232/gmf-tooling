@@ -272,7 +272,7 @@ public class EClass2EditPart extends CompartmentEditPart implements ITextAwareEd
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

@@ -264,7 +264,7 @@ public class EReferenceName2EditPart extends LabelEditPart implements ITextAware
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

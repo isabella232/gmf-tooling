@@ -272,7 +272,7 @@ public class EAttributeEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**

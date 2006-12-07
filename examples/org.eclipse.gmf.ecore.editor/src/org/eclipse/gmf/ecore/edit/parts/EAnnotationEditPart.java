@@ -272,7 +272,7 @@ public class EAnnotationEditPart extends CompartmentEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**
