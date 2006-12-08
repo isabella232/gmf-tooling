@@ -125,7 +125,7 @@ public class TaiPanDiagramEditorUtil {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Aquatory model = createInitialModel();
-				modelResource.getContents().add(createInitialRoot(model));
+				attachModelToResource(model, modelResource);
 				Diagram diagram = ViewService.createDiagram(model, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
@@ -165,10 +165,13 @@ public class TaiPanDiagramEditorUtil {
 	}
 
 	/**
+	 * Store model element in the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static EObject createInitialRoot(Aquatory model) {
-		return model;
+	private static void attachModelToResource(Aquatory model, Resource resource) {
+		resource.getContents().add(model);
 	}
 
 	/**
