@@ -77,7 +77,6 @@ import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
@@ -199,7 +198,6 @@ public class CodegenEmitters {
 		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
-		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
@@ -364,7 +362,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(LinkLabelEditPartGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::LinkLabelEditPart::LinkLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {

@@ -1,14 +1,15 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
-«DEFINE ExternalNodeLabelEditPart FOR gmfgen::GenExternalNodeLabel-»
+«DEFINE LinkLabelEditPart FOR gmfgen::GenLinkLabel-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
 /**
  * @generated
  */
-public class «editPartClassName» extends «getDiagram().getBaseExternalNodeLabelEditPartQualifiedClassName()»
+public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart
 	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
@@ -21,7 +22,7 @@ public class «editPartClassName» extends «getDiagram().getBaseExternalNodeLabelE
 	static {
 		registerSnapBackPosition(
 			«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«editPartClassName».VISUAL_ID),
-			new org.eclipse.draw2d.geometry.Point(0, 0));
+			new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap)», «labelOffsetY(viewmap)»));
 	}
 
 	/**
@@ -41,7 +42,14 @@ public class «editPartClassName» extends «getDiagram().getBaseExternalNodeLabelE
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 
-	«EXPAND xpt::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, node, getDiagram()) FOR this-»
+	/**
+	 * @generated
+	 */
+	public int getKeyPoint() {
+		return org.eclipse.draw2d.ConnectionLocator.«alignment»;
+	}
+
+	«EXPAND xpt::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram()) FOR this-»
 
 	/**
 	 * @generated

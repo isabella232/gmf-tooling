@@ -1,0 +1,20 @@
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean isFixedFont(gmfgen::Viewmap viewmap) :
+	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedFont)
+;
+
+gmfgen::LabelOffsetAttributes getLabelOffsetAttributes(gmfgen::Viewmap viewmap) :
+	null == viewmap ? null : ((gmfgen::LabelOffsetAttributes) viewmap.attributes.typeSelect(gmfgen::LabelOffsetAttributes).first())
+;
+
+Integer labelOffsetX(gmfgen::Viewmap viewmap) :
+	let a = getLabelOffsetAttributes(viewmap) :
+		(null == a ? 0 : a.x)
+;
+
+Integer labelOffsetY(gmfgen::Viewmap viewmap) :
+	let a = getLabelOffsetAttributes(viewmap) :
+		(null == a ? 0 : a.y)
+;

@@ -20,3 +20,87 @@
 «DEFINE behaviour FOR gmfgen::CustomBehaviour-»
 	installEditPolicy("«key»", new «getEditPolicyQualifiedClassName()»()); //$NON-NLS-1$
 «ENDDEFINE»
+
+«DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createFigure() {
+		// Parent should assign one using «IF setterName == null-»setLabel«ELSE-»«setterName»«ENDIF-»() method
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE labelFigure FOR gmfgen::Viewmap-»
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createFigure() {
+		org.eclipse.draw2d.IFigure label = createFigurePrim();
+		defaultText = getLabelTextHelper(label);
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createFigurePrim() {
+		«EXPAND labelFigurePrim FOR this-»
+«ENDDEFINE»
+
+«DEFINE labelFigurePrim FOR gmfgen::FigureViewmap-»
+«IF figureQualifiedClassName == null-»
+	return new org.eclipse.draw2d.Label();
+«ELSE-»
+	return new «figureQualifiedClassName»();
+«ENDIF-»
+	}
+«ENDDEFINE»
+
+«DEFINE labelFigurePrim FOR gmfgen::SnippetViewmap-»
+	return «body»;
+	}
+«ENDDEFINE»
+
+«DEFINE labelFigurePrim FOR gmfgen::InnerClassViewmap-»
+	return new «className»();
+	}
+
+	«classBody»
+«ENDDEFINE»
+
+«DEFINE labelFigurePrim FOR gmfgen::Viewmap-»
+	«ERROR "Unknown viewmap: " + this-»
+	}
+«ENDDEFINE»
+
+«DEFINE handleText FOR gmfgen::GenLabel-»
+	if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(feature)) {
+		Integer c = (Integer) event.getNewValue();
+		setFontColor(org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry.getInstance().getColor(c));
+	} else if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Underline().equals(feature)) {
+		refreshUnderline();
+	} else if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_StrikeThrough().equals(feature)) {
+		refreshStrikeThrough();
+	} else if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic().equals(feature)) {
+		refreshFont();
+	} else {
+		if (getParser() != null && getParser().isAffectingEvent(event, getParserOptions().intValue())) {
+			refreshLabel();
+		}
+		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
+			org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser modelParser =
+				(org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser();
+			if (modelParser.areSemanticElementsAffected(null, event)) {
+				removeSemanticListeners();
+				if (resolveSemanticElement() != null) {
+					addSemanticListeners();
+				}
+				refreshLabel();
+			}
+		}
+	}
+«ENDDEFINE»
