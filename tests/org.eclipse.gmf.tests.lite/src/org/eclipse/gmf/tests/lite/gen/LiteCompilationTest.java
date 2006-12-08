@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.tests.lite.gen;
 
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
@@ -30,24 +27,6 @@ import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 public class LiteCompilationTest extends CompilationTest {
 	public LiteCompilationTest(String name) {
 		super(name);
-	}
-
-	@Override
-	protected void setUp() throws Exception {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceDescription description = workspace.getDescription();
-		description.setAutoBuilding(false);
-		workspace.setDescription(description);
-		super.setUp();
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceDescription description = workspace.getDescription();
-		description.setAutoBuilding(true);
-		workspace.setDescription(description);
-		super.tearDown();
 	}
 
 	protected GeneratorConfiguration getGeneratorConfiguration() {
