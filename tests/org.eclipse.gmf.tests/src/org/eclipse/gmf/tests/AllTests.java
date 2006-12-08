@@ -19,6 +19,10 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
@@ -32,12 +36,12 @@ import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.HandcodedPaletteTest;
-import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
 import org.eclipse.gmf.tests.gen.OrganizeImportsPostprocessorTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
+import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
@@ -75,8 +79,8 @@ public class AllTests {
 	public static Test suite() throws Exception {
 		EMFTypePlugin.startDynamicAwareMode();
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
+		switchAutobuildOff();
 		//$JUnit-BEGIN$
-		
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
@@ -120,7 +124,7 @@ public class AllTests {
 		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(RuntimeCompilationTest.class);
-
+		
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
 		suite.addTest(feed(CompartmentPropertiesTest.class, sessionSetup));
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
@@ -200,4 +204,16 @@ public class AllTests {
 			fail(cause);
 		}
 	}
+	
+	protected static void switchAutobuildOff() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description = workspace.getDescription();
+		description.setAutoBuilding(false);
+		try {
+			workspace.setDescription(description);
+		} catch (CoreException e) {
+			Plugin.logError("Unable to switch off autobuild due to exception: " + e.getMessage());
+		}		
+	}
+
 }
