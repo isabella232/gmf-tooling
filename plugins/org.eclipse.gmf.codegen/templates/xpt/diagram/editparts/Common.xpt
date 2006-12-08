@@ -26,7 +26,7 @@
 	 * @generated
 	 */
 	protected org.eclipse.draw2d.IFigure createFigure() {
-		// Parent should assign one using «IF setterName == null-»setLabel«ELSE-»«setterName»«ENDIF-»() method
+		// Parent should assign one using «IF null == setterName»setLabel«ELSE»«setterName»«ENDIF»() method
 		return null;
 	}
 «ENDDEFINE»
@@ -71,6 +71,33 @@
 
 «DEFINE labelFigurePrim FOR gmfgen::Viewmap-»
 	«ERROR "Unknown viewmap: " + this-»
+	}
+«ENDDEFINE»
+
+«DEFINE notationalListeners FOR gmfgen::GenLabel-»
+	/**
+	 * @generated
+	 */
+	protected void addNotationalListeners() {
+		super.addNotationalListeners();
+		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeNotationalListeners() {
+		super.removeNotationalListeners();
+		removeListenerFilter("PrimaryView"); //$NON-NLS-1$
+	}
+«ENDDEFINE»
+
+«DEFINE handleBounds FOR gmfgen::GenLabel-»
+	if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature) ||
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
+		refreshBounds();
 	}
 «ENDDEFINE»
 

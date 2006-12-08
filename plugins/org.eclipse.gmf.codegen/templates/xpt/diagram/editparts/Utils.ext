@@ -1,0 +1,6 @@
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean isStoringChildPositions(gmfgen::GenNode node) :
+	 node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value
+;
