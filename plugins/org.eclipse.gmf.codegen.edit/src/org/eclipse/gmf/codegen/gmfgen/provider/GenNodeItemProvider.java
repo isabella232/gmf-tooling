@@ -63,6 +63,7 @@ public class GenNodeItemProvider
 
 			addCompartmentsPropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
+			addCreateCommandClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -108,6 +109,28 @@ public class GenNodeItemProvider
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_DiagramElementPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Create Command Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreateCommandClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_createCommandClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_createCommandClassName_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_CreateCommandClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
 				 null));
 	}
 
@@ -165,6 +188,7 @@ public class GenNodeItemProvider
 
 		switch (notification.getFeatureID(GenNode.class)) {
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
