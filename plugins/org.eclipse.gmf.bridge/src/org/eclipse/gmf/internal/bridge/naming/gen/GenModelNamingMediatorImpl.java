@@ -62,6 +62,8 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	private NamingStrategy myTypeLinkCreateCommand;
 
+	private NamingStrategy myNodeCreateCommand;
+
 	public GenModelNamingMediatorImpl() {
 		this(new IncrementalNamesDispenser());
 	}
@@ -76,6 +78,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		setEditHelper(createNamingStrategy(MetamodelType.EDIT_HELPER_SUFFIX));
 		setEditHelperAdvice(createNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX));
 		setTypeLinkCreateCommand(createNamingStrategy(TypeLinkModelFacet.CREATE_COMMAND_SUFFIX));
+		setNodeCreateCommand(createNamingStrategy(GenNode.CREATE_COMMAND_SUFFIX));
 	}
 
 	protected NamingStrategy createNamingStrategy(String suffixPart) {
@@ -133,6 +136,10 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	private void setNodeGraphicalPolicy(NamingStrategy nodeGraphicalPolicy) {
 		myNodeGraphicalPolicy = nodeGraphicalPolicy;
 	}
+	
+	private void setNodeCreateCommand(NamingStrategy nodeCreateCommand) {
+		myNodeCreateCommand = nodeCreateCommand;
+	}
 
 	private NamingStrategy getNodeGraphicalPolicy() {
 		return myNodeGraphicalPolicy;
@@ -162,6 +169,10 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		return myTypeLinkCreateCommand;
 	}
 	
+	public NamingStrategy getNodeCreateCommand() {
+		return myNodeCreateCommand;
+	}
+	
 	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
 		genDiagram.setNotationViewFactoryClassName(getViewFactory().get(cme));
 		myDispenser.add(genDiagram.getBaseExternalNodeLabelEditPartClassName());
@@ -180,6 +191,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));
 		genNode.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(nme));
 		genNode.setGraphicalNodeEditPolicyClassName(getNodeGraphicalPolicy().get(nme));
+		genNode.setCreateCommandClassName(getNodeCreateCommand().get(nme));
 		feedElementType(genNode, nme);
 	}
 
@@ -189,6 +201,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		childNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));
 		childNode.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(nme));
 		childNode.setGraphicalNodeEditPolicyClassName(getNodeGraphicalPolicy().get(nme));
+		childNode.setCreateCommandClassName(getNodeCreateCommand().get(nme));
 		feedElementType(childNode, nme);
 	}
 
