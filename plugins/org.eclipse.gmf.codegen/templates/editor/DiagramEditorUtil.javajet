@@ -213,56 +213,6 @@ public class <%=importManager.getCompilationUnitName()%> {
 
 	/**
 	 * @generated
-	 */
-	public static int findElementsInDiagram(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%> diagramPart, <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> elementURI, <%=importManager.getImportedName("java.util.List")%>/*EditPart*/ editPartCollector) {
-		final int originalNumOfEditParts = editPartCollector.size();
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = null;
-		try {
-			element = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);
-		} catch(RuntimeException e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Failed to get EObject by uri: " + elementURI, e); //$NON-NLS-1$
-			return 0;
-		}
-		if(element == null) {
-			return 0;
-		} else if(element instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> editPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);
-			if(editPart != null) {
-				editPartCollector.add(editPart);
-				return 1;
-			}
-		}
-		
-		String elementID = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil")%>.getProxyID(element);
-		<%=importManager.getImportedName("java.util.List")%> associatedParts = diagramPart.getDiagramGraphicalViewer()
-			.findEditPartsForElement(elementID, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>.class);
-		// peform the possible hierarchy disjoint -> take the top-most parts
-		for (<%=importManager.getImportedName("java.util.Iterator")%> editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> nextPart = (org.eclipse.gef.EditPart)editPartIt.next();
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> parentPart = nextPart.getParent();
-			while(parentPart != null && !associatedParts.contains(parentPart)) {
-				parentPart = parentPart.getParent();
-			}		
-			if(parentPart == null) {
-				editPartCollector.add(nextPart);
-			}
-		}
-		
-		if(originalNumOfEditParts == editPartCollector.size()) {
-			if(!associatedParts.isEmpty()) {
-				editPartCollector.add(associatedParts.iterator().next());
-			} else {
-				element = element.eContainer();
-				if(element != null) {
-					return findElementsInDiagram(diagramPart, <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(element), editPartCollector);
-				}
-			}
-		}
-		return editPartCollector.size() - originalNumOfEditParts;
-	}
-
-	/**
-	 * @generated
 	 */	
 	public static void selectElementsInDiagram(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%> diagramPart, <%=importManager.getImportedName("java.util.List")%>/*EditPart*/ editParts) {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
@@ -279,6 +229,144 @@ public class <%=importManager.getCompilationUnitName()%> {
 		if(!editParts.isEmpty()) {
 			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)editParts.get(0));
 		}
-	}	
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public static org.eclipse.gmf.runtime.notation.View findView(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, org.eclipse.emf.ecore.EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+		boolean hasStructuralURI = false;						
+		if(targetElement.eResource() instanceof org.eclipse.emf.ecore.xmi.XMLResource) {
+			hasStructuralURI = ((org.eclipse.emf.ecore.xmi.XMLResource)targetElement.eResource()).getID(targetElement) == null;
+		}
+		
+		org.eclipse.gmf.runtime.notation.View view = null;
+		if(hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (org.eclipse.gmf.runtime.notation.View)lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			org.eclipse.gef.EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
+			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = editPart.getModel() instanceof org.eclipse.gmf.runtime.notation.View ? (org.eclipse.gmf.runtime.notation.View) editPart.getModel() : null;
+		}
+	
+		return (view == null) ? diagramEditPart.getDiagramView() : view;
+	}
+		
+	/**
+	 * @generated
+	 */
+	private static int findElementsInDiagramByID(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramPart, org.eclipse.emf.ecore.EObject element, java.util.List editPartCollector) {
+		org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer viewer = (org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer) diagramPart.getViewer();
+		final int intialNumOfEditParts = editPartCollector.size();
+		
+		if (element instanceof org.eclipse.gmf.runtime.notation.View) { // support notation element lookup
+			org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) viewer.getEditPartRegistry().get(element);
+			if (editPart != null) {
+				editPartCollector.add(editPart);
+				return 1;
+			}
+		}
+
+		String elementID = org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getProxyID(element);
+		java.util.List associatedParts = viewer.findEditPartsForElement(elementID, org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+		// perform the possible hierarchy disjoint -> take the top-most parts only
+		for (java.util.Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
+			org.eclipse.gef.EditPart nextPart = (org.eclipse.gef.EditPart) editPartIt.next();
+			org.eclipse.gef.EditPart parentPart = nextPart.getParent();
+			while (parentPart != null && !associatedParts.contains(parentPart)) {
+				parentPart = parentPart.getParent();
+			}
+			if (parentPart == null) {
+				editPartCollector.add(nextPart);
+			}
+		}
+
+		if (intialNumOfEditParts == editPartCollector.size()) {
+			if (!associatedParts.isEmpty()) {
+				editPartCollector.add(associatedParts.iterator().next());
+			} else {
+				if (element.eContainer() != null) {
+					return findElementsInDiagramByID(diagramPart, element.eContainer(), editPartCollector);
+				}
+			}
+		}
+		return editPartCollector.size() - intialNumOfEditParts;
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public static class LazyElement2ViewMap {
+		/**
+		 * @generated
+		 */				
+		private java.util.Map element2ViewMap;
+		/**
+		 * @generated
+		 */				
+		private org.eclipse.gmf.runtime.notation.View scope;
+		/**
+		 * @generated
+		 */						
+		private java.util.Set elementSet;
+		/**
+		 * @generated
+		 */		
+		public final java.util.List editPartTmpHolder = new java.util.ArrayList();
+		/**
+		 * @generated
+		 */			
+		public LazyElement2ViewMap(org.eclipse.gmf.runtime.notation.View scope, java.util.Set elements) {
+			this.scope = scope;
+			this.elementSet = elements;
+		}
+
+		/**
+		 * @generated
+		 */				
+		public final java.util.Map getElement2ViewMap() {
+			if(element2ViewMap == null) {
+				element2ViewMap = new java.util.HashMap();
+				// map possible notation elements to itself as these can't be found by view.getElement()
+				for (java.util.Iterator it = elementSet.iterator(); it.hasNext();) {
+					org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) it.next();
+					if(element instanceof org.eclipse.gmf.runtime.notation.View) {
+						org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) element;
+						if(view.getDiagram() == scope.getDiagram()) {
+							element2ViewMap.put(element, element); // take only those that part of our diagram
+						}
+					}
+				}
+				
+				buildElement2ViewMap(scope, element2ViewMap, elementSet);					
+			}
+			return element2ViewMap;
+		}
+		/**
+		 * @generated
+		 */						
+		static java.util.Map buildElement2ViewMap(org.eclipse.gmf.runtime.notation.View parentView, java.util.Map element2ViewMap, java.util.Set elements) {
+			if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+
+			if(parentView.isSetElement() && !element2ViewMap.containsKey(parentView.getElement()) && elements.contains(parentView.getElement())) {
+				element2ViewMap.put(parentView.getElement(), parentView);
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			
+			for (java.util.Iterator it = parentView.getChildren().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}	
+			return element2ViewMap;
+		}
+	} //LazyElement2ViewMap	
 }
 <%importManager.emitSortedImports();%>

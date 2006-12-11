@@ -118,16 +118,31 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	 * @generated
 	 */	
 	static <%=importManager.getImportedName("java.util.List")%> calculateMetrics(IDiagramWorkbenchPart diagramPart) {
-		final Diagram diagram = diagramPart.getDiagram();
+		final org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart = diagramPart.getDiagramEditPart();
 		try {
 			return (<%=importManager.getImportedName("java.util.List")%>)diagramPart.getDiagramEditPart().getEditingDomain().runExclusive(				
 				new org.eclipse.emf.transaction.RunnableWithResult.Impl() {
 					public void run() {
+						Diagram diagram = diagramEditPart.getDiagramView();					
 						<%=importManager.getImportedName("java.util.List")%> metrics = 
 							calculateMetrics(diagram, new <%=importManager.getImportedName("java.util.ArrayList")%>(50));
 						if(diagram.getElement() != null) {						
 							calculateMetrics(diagram.getElement(), metrics);
 						}
+						// detach from EObject and bind to viewID
+						java.util.HashSet elements = new java.util.HashSet();
+						for (java.util.Iterator it = metrics.iterator(); it.hasNext();) {
+							ElementMetrics elementMetrics = (ElementMetrics) it.next();
+							elements.add(elementMetrics.target);
+						}
+						<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>.LazyElement2ViewMap element2ViewMap = new <%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>.LazyElement2ViewMap(diagram, elements);
+						for (java.util.Iterator it = metrics.iterator(); it.hasNext();) {
+							ElementMetrics elementMetrics = (ElementMetrics) it.next();
+							View targetView = <%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>.findView(diagramEditPart, elementMetrics.target, element2ViewMap);
+							elementMetrics.target = null; // detach EObject
+							elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
+						}
+						
 						setResult(metrics);
 					}
 				});
@@ -328,10 +343,16 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 					editorPart.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart")%>.class);
 				
 				ElementMetrics selection = (ElementMetrics)((<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>)event.getSelection()).getFirstElement();
-				<%=importManager.getImportedName("java.util.List")%> targetEditParts = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-				<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.findElementsInDiagram(diagramPart, selection.elementURI, targetEditParts);
-				<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.selectElementsInDiagram(diagramPart, targetEditParts);
-
+				String viewID = selection.diagramElementID;
+				if(viewID != null) {
+					View targetView = (View)diagramPart.getDiagram().eResource().getEObject(viewID);
+					if(targetView != null) {
+						org.eclipse.gef.EditPart targetEditPart = (org.eclipse.gef.EditPart)diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(targetView);
+						if(targetEditPart != null) {						
+							<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>.selectElementsInDiagram(diagramPart, Collections.singletonList(targetEditPart));
+						}
+					}
+				}
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
 				<%=pluginActivatorClass%>.getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
 			}
@@ -448,14 +469,18 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */
-		final <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> elementURI;		
+		String diagramElementID;
+		/**
+		 * @generated
+		 */
+		EObject target;
 		/**
 		 * @generated
 		 */
 		ElementMetrics(EObject target, Metric[] metrics) {
 			this.metrics = metrics;	
 			assert metrics.length > 0;
-			this.elementURI = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(target);	
+			this.target = target;
 			
 			EClass imageTarget = target.eClass();			
 			if (target instanceof View) {
