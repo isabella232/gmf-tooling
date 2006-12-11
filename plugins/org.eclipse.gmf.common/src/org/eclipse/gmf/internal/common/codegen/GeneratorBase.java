@@ -319,20 +319,29 @@ public abstract class GeneratorBase implements Runnable {
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			String oldContents = null;
 			if (cu.exists()) {
-				oldContents = cu.getSource();
+				final String oldContents = cu.getSource();
 				genText = mergeJavaCode(oldContents, genText, new SubProgressMonitor(pm, 1));
+				genText = formatCode(genText);
+				if (!genText.equals(oldContents)) { // compare text with fqns; works for jet templates
+					cu.getBuffer().setContents(genText);
+					getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+					String newContents = formatCode(cu.getSource());
+					if (!newContents.equals(oldContents)) { // compare text with organized imports; works for xpand templates
+						cu.getBuffer().setContents(newContents);
+						cu.save(new SubProgressMonitor(pm, 1), true);
+					} else {
+						pm.worked(1);
+					}
+				} else {
+					pm.worked(2);
+				}
 			} else {
-				pm.worked(1);
-			}
-			genText = formatCode(genText);
-			if (!genText.equals(oldContents)) {
-				ICompilationUnit newCU = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
-                getImportsPostrocessor().organizeImports(newCU, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
-                newCU.save(new SubProgressMonitor(pm, 1), true);
-			} else {
-				pm.worked(1);
+				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+				getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+				String newContents = formatCode(cu.getSource());
+				cu.getBuffer().setContents(newContents);
+				cu.save(new SubProgressMonitor(pm, 1), true);
 			}
 		} catch (NullPointerException ex) {
 			handleException(ex);
