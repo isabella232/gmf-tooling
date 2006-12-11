@@ -18,6 +18,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -352,7 +353,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	public String getCreateCommandClassNameGen() {
 		return createCommandClassName;
 	}
-	
+
 	public String getCreateCommandClassName() {
 		return GenCommonBaseImpl.getValidClassName(getCreateCommandClassNameGen(), this, CREATE_COMMAND_SUFFIX);
 	}
@@ -446,9 +447,14 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		return getModelFacet() != null && !getReorientedIncomingGenLinks().isEmpty();
 	}
 
-	public List<GenLink> getReorientedIncomingGenLinks() {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getReorientedIncomingGenLinks() {
 		if (getModelFacet() == null) {
-			return Collections.emptyList();
+			return new BasicEList();
 		}
 		// [artem] XXX not sure there might be two equal links in the genDiagram.links
 		// but 'set' was there in the original template. legacy is the only reason i kept it,
@@ -494,6 +500,6 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				reorientedLinks.add(genLink);
 			}
 		}
-		return new ArrayList<GenLink>(reorientedLinks);
+		return new BasicEList(reorientedLinks);
 	}
 } //GenNodeImpl

@@ -465,6 +465,7 @@
       </eAnnotations>
     </eOperations>
     <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getReorientedIncomingGenLinks" upperBound="-1" eType="#//GenLink"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//TypeModelFacet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"

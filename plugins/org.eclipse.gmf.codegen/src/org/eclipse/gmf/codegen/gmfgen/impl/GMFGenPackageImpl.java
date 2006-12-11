@@ -5709,6 +5709,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genNodeEClass, ecorePackage.getEString(), "getCreateCommandQualifiedClassName", 0, 1);
 
+		addEOperation(genNodeEClass, this.getGenLink(), "getReorientedIncomingGenLinks", 0, -1);
+
 		initEClass(genTopLevelNodeEClass, GenTopLevelNode.class, "GenTopLevelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenTopLevelNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_TopLevelNodes(), "diagram", null, 1, 1, GenTopLevelNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -296,6 +296,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getCreateCommandQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getReorientedIncomingGenLinks"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenTopLevelNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenTopLevelNode/diagram"/>

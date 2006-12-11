@@ -6,8 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import java.util.List;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 
@@ -73,6 +71,14 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	String getCreateCommandQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenLink"
+	 * @generated
+	 */
+	EList getReorientedIncomingGenLinks();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -153,7 +159,7 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	String getCreateCommandClassName();
-	
+
 	String CREATE_COMMAND_SUFFIX = "CreateCommand"; //$NON-NLS-1$
 
 	/**
@@ -193,5 +199,4 @@ public interface GenNode extends GenChildContainer {
 	void setModelFacet(TypeModelFacet value);
 
 	boolean needsGraphicalNodeEditPolicy();
-	List<GenLink> getReorientedIncomingGenLinks();
 } // GenNode
