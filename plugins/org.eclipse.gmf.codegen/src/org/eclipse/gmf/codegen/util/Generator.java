@@ -236,6 +236,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
 		generateViewFactory(node);
 		generateNodeItemSemanticEditPolicy(node);
+		generateNodeCreateCommand(node);
 		generateEditSupport(node);
 
 		generateNodeEditPart(node);
@@ -263,6 +264,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
 		generateViewFactory(child);
 		generateNodeItemSemanticEditPolicy(child);
+		generateNodeCreateCommand(child);
 		generateEditSupport(child);
 
 		generateChildNodeLabelEditPart(child);
@@ -472,6 +474,18 @@ public class Generator extends GeneratorBase implements Runnable {
 			genNode.getItemSemanticEditPolicyClassName(),
 			genNode
 		);
+	}
+	
+	private void generateNodeCreateCommand(GenNode genNode) throws InterruptedException, UnexpectedBehaviourException {
+		if (genNode.getModelFacet() == null) {
+			return;
+		}
+		internalGenerateJavaClass(
+				myEmitters.getNodeCreateCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				genNode.getCreateCommandClassName(),
+				genNode
+			);
 	}
 
 	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {

@@ -25,7 +25,6 @@ public class <%=genNode.getItemSemanticEditPolicyClassName()%> extends <%=import
 <%
 if (genNode.getChildNodes().size() > 0 && genNode.getModelFacet() != null) {
 	Collection childNodes = genNode.getChildNodes();
-	GenClass containerGenClass = genNode.getModelFacet().getMetaClass();
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>

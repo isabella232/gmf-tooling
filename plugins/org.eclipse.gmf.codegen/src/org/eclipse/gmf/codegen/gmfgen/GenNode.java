@@ -27,6 +27,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,6 +65,14 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	String getGraphicalNodeEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreateCommandQualifiedClassName();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -128,6 +137,34 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	void setGraphicalNodeEditPolicyClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Create Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #setCreateCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_CreateCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreateCommandClassName();
+	
+	String CREATE_COMMAND_SUFFIX = "CreateCommand"; //$NON-NLS-1$
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCreateCommandClassName <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 */
+	void setCreateCommandClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.

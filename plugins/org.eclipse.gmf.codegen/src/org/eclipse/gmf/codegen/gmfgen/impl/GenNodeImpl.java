@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,26 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	protected String graphicalNodeEditPolicyClassName = GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATE_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String createCommandClassName = CREATE_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -135,6 +156,15 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 */
 	public String getGraphicalNodeEditPolicyQualifiedClassName() {
 		return getDiagram().getEditPoliciesPackageName() + '.' + getGraphicalNodeEditPolicyClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getCreateCommandQualifiedClassName() {
+		return getDiagram().getEditCommandsPackageName() + '.' + getCreateCommandClassName();
 	}
 
 	/**
@@ -184,6 +214,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return getCompartments();
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return getGraphicalNodeEditPolicyClassName();
+			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
+				return getCreateCommandClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -209,6 +241,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -232,6 +267,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName(GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName(CREATE_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -251,6 +289,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
+			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
+				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -309,6 +349,31 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCreateCommandClassNameGen() {
+		return createCommandClassName;
+	}
+	
+	public String getCreateCommandClassName() {
+		return GenCommonBaseImpl.getValidClassName(getCreateCommandClassNameGen(), this, CREATE_COMMAND_SUFFIX);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreateCommandClassName(String newCreateCommandClassName) {
+		String oldCreateCommandClassName = createCommandClassName;
+		createCommandClassName = newCreateCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME, oldCreateCommandClassName, createCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TypeModelFacet getModelFacet() {
 		return modelFacet;
 	}
@@ -358,6 +423,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (graphicalNodeEditPolicyClassName: ");
 		result.append(graphicalNodeEditPolicyClassName);
+		result.append(", createCommandClassName: ");
+		result.append(createCommandClassName);
 		result.append(')');
 		return result.toString();
 	}

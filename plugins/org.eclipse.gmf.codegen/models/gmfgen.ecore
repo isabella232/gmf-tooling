@@ -464,6 +464,7 @@
         <details key="documentation" value="valid only when there are compartments"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//TypeModelFacet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
@@ -471,6 +472,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
         eType="#//GenCompartment" eOpposite="#//GenCompartment/node"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="graphicalNodeEditPolicyClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenTopLevelNode" eSuperTypes="#//GenNode">

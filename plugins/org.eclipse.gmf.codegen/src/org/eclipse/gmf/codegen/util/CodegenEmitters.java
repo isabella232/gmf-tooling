@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.templates.application.WorkbenchAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchWindowAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeLinkCommandGenerator;
+import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
@@ -203,6 +204,7 @@ public class CodegenEmitters {
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
+		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
 		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeLinkCommand.javajet", CreateTypeLinkCommandGenerator.class);
 		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
@@ -397,6 +399,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NodeItemSemanticEditPolicyGenerator.class);
+	}
+	
+	public TextEmitter getNodeCreateCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(CreateTypeNodeCommandGenerator.class);
 	}
 
 	public TextEmitter getLinkItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
