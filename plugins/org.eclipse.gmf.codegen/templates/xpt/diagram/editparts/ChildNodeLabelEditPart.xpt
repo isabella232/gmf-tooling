@@ -1,0 +1,67 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE ChildNodeLabelEditPart FOR gmfgen::GenChildLabelNode-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().editPartsPackageName»;
+
+/**
+ * @generated
+ */
+public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart
+	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
+
+	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
+
+	«EXPAND xpt::diagram::editparts::TextAware::fields FOR this-»
+
+	/**
+	 * @generated
+	 */
+	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
+		if (request instanceof org.eclipse.gef.requests.SelectionRequest &&
+				((org.eclipse.gef.requests.SelectionRequest) request).getLastButtonPressed() == 3) {
+			return null;
+		}
+		return new org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx(this);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
+			new «getItemSemanticEditPolicyQualifiedClassName()»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,
+			new «getDiagram().getTextNonResizableEditPolicyQualifiedClassName()»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy());
+		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
+		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+	}
+
+	«EXPAND xpt::diagram::editparts::TextAware::methods(false, labelReadOnly, labelElementIcon, viewmap, labelModelFacet, this, getDiagram()) FOR this-»
+
+	«EXPAND xpt::diagram::editparts::Common::notationalListeners FOR this-»
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
+		Object feature = event.getFeature();
+		«EXPAND xpt::diagram::editparts::Common::handleText FOR this-»
+		super.handleNotificationEvent(event);
+	}
+
+	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»
+}
+«ENDDEFINE»

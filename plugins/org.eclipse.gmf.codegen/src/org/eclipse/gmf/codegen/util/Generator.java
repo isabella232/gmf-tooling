@@ -265,7 +265,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateNodeItemSemanticEditPolicy(child);
 		generateEditSupport(child);
 
-		generateChildLabelNodeEditPart(child);
+		generateChildNodeLabelEditPart(child);
 	}
 
 	// commands
@@ -357,13 +357,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getExternalNodeLabelEditPartEmitter(), label.getEditPartQualifiedClassName(), label);
 	}
 
-	private void generateChildLabelNodeEditPart(GenChildLabelNode genChildNode) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getChildNodeEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			genChildNode.getEditPartClassName(),
-			genChildNode
-		);
+	private void generateChildNodeLabelEditPart(GenChildLabelNode node) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getChildNodeLabelEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
 	}
 	
 	private void generateCompartmentEditPart(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
