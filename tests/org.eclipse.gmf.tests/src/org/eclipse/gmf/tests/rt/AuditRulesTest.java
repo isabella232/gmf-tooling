@@ -21,10 +21,15 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
@@ -46,6 +51,7 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -178,7 +184,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			Set categories = descriptor.getCategories();
 			assertEquals("Single category expected", 1, categories.size()); //$NON-NLS-1$
 
-			assertEquals("Constraint category must be registered", //$NON-NLS-1$
+			assertEquals(".Constraint category must be registered", //$NON-NLS-1$
 					categories.iterator().next(), CategoryManager.getInstance().getCategory(getCategoryPath(audit.getContainer())));
 		}
 
@@ -191,10 +197,17 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			// runValidation method in the Validation provider
 			if(target instanceof View) {
 				validatedInstance[0] = target;
-			} else {
+			} else {				
+				Diagram diagram = NotationFactory.eINSTANCE.createDiagram();
 				View node = NotationFactory.eINSTANCE.createNode();
 				node.setElement(target);
 				validatedInstance[0] = node;
+				diagram.getTransientChildren().add(node);
+
+				ResourceSet rset = new ResourceSetImpl();
+				Resource r = rset.createResource(URI.createURI("xttp://myresource"));
+				r.getContents().add(diagram);
+				TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rset);
 			}
 			
 			final IModelConstraint[] constraintFound = new IModelConstraint[1];
@@ -222,9 +235,9 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			Method validationMethod = null;
 			try {
 				Class validationProviderClass = loadGeneratedClass(getGenModel().getGenDiagram().getValidationProviderQualifiedClassName() + "$ValidateAction"); //$NON-NLS-1$
-				validationMethod = validationProviderClass.getMethod("runValidation", new Class[] { View.class } ); //$NON-NLS-1$
+				validationMethod = validationProviderClass.getMethod("runNonUIValidation", new Class[] { View.class } ); //$NON-NLS-1$
 			} catch (Exception e) {
-				fail("Could not find runValidation operation in ValidationProvider"); //$NON-NLS-1$ 
+				fail(" Could not find runValidation operation in ValidationProvider"); //$NON-NLS-1$ 
 				e.printStackTrace();
 			}
 
