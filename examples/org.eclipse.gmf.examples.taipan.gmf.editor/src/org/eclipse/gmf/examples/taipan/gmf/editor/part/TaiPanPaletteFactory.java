@@ -41,8 +41,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createTaipan1Group() {
-		PaletteGroup paletteContainer = new PaletteGroup(TaiPanDiagramEditorPlugin
-				.getString("Taipan1Group.title")); //$NON-NLS-1$
+		PaletteGroup paletteContainer = new PaletteGroup(TaiPanDiagramEditorPlugin.getString("Taipan1Group.title")); //$NON-NLS-1$
 		paletteContainer.add(createPort1CreationTool());
 		paletteContainer.add(createShip2CreationTool());
 		paletteContainer.add(createSmallItems3CreationTool());
@@ -60,10 +59,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createPort1CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.Port_2001);
-		NodeToolEntry entry = new NodeToolEntry(
-				TaiPanDiagramEditorPlugin.getString("Port1CreationTool.title"), TaiPanDiagramEditorPlugin.getString("Port1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.Port_2001));
+		NodeToolEntry entry = new NodeToolEntry(TaiPanDiagramEditorPlugin.getString("Port1CreationTool.title"), TaiPanDiagramEditorPlugin.getString("Port1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -74,10 +71,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createShip2CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.Ship_2002);
-		NodeToolEntry entry = new NodeToolEntry(
-				TaiPanDiagramEditorPlugin.getString("Ship2CreationTool.title"), TaiPanDiagramEditorPlugin.getString("Ship2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.Ship_2002));
+		NodeToolEntry entry = new NodeToolEntry(TaiPanDiagramEditorPlugin.getString("Ship2CreationTool.title"), TaiPanDiagramEditorPlugin.getString("Ship2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_2002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -88,10 +83,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createSmallItems3CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.SmallItems_3001);
-		NodeToolEntry entry = new NodeToolEntry(
-				TaiPanDiagramEditorPlugin.getString("SmallItems3CreationTool.title"), TaiPanDiagramEditorPlugin.getString("SmallItems3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.SmallItems_3001));
+		NodeToolEntry entry = new NodeToolEntry(TaiPanDiagramEditorPlugin.getString("SmallItems3CreationTool.title"), TaiPanDiagramEditorPlugin.getString("SmallItems3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.SmallItems_3001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -102,10 +95,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createLargeItem4CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.LargeItem_3002);
-		NodeToolEntry entry = new NodeToolEntry(
-				TaiPanDiagramEditorPlugin.getString("LargeItem4CreationTool.title"), TaiPanDiagramEditorPlugin.getString("LargeItem4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.LargeItem_3002));
+		NodeToolEntry entry = new NodeToolEntry(TaiPanDiagramEditorPlugin.getString("LargeItem4CreationTool.title"), TaiPanDiagramEditorPlugin.getString("LargeItem4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.LargeItem_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -116,10 +107,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createEmptyBox5CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.EmptyBox_3003);
-		NodeToolEntry entry = new NodeToolEntry(
-				TaiPanDiagramEditorPlugin.getString("EmptyBox5CreationTool.title"), TaiPanDiagramEditorPlugin.getString("EmptyBox5CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.EmptyBox_3003));
+		NodeToolEntry entry = new NodeToolEntry(TaiPanDiagramEditorPlugin.getString("EmptyBox5CreationTool.title"), TaiPanDiagramEditorPlugin.getString("EmptyBox5CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EmptyBox_3003));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -130,10 +119,8 @@ public class TaiPanPaletteFactory {
 	private ToolEntry createReliableRoute6CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.Route_4002);
-		LinkToolEntry entry = new LinkToolEntry(
-				TaiPanDiagramEditorPlugin.getString("ReliableRoute6CreationTool.title"), TaiPanDiagramEditorPlugin.getString("ReliableRoute6CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.Route_4002));
+		LinkToolEntry entry = new LinkToolEntry(TaiPanDiagramEditorPlugin.getString("ReliableRoute6CreationTool.title"), TaiPanDiagramEditorPlugin.getString("ReliableRoute6CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_4002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -146,8 +133,7 @@ public class TaiPanPaletteFactory {
 		types.add(TaiPanElementTypes.Route_4003);
 		LinkToolEntry entry = new LinkToolEntry(
 				TaiPanDiagramEditorPlugin.getString("UnreliableRoute7CreationTool.title"), TaiPanDiagramEditorPlugin.getString("UnreliableRoute7CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(TaiPanElementTypes
-				.getImageDescriptor(TaiPanElementTypes.Route_4003));
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_4003));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

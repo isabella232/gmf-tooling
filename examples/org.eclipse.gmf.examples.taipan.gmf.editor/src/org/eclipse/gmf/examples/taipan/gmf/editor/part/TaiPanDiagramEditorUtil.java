@@ -251,8 +251,7 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement,
-			LazyElement2ViewMap lazyElement2ViewMap) {
+	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
 		boolean hasStructuralURI = false;
 		if (targetElement.eResource() instanceof XMLResource) {
 			hasStructuralURI = ((XMLResource) targetElement.eResource()).getID(targetElement) == null;
