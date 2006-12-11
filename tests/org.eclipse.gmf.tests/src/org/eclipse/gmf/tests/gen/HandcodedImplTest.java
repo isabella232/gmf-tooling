@@ -987,6 +987,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
+				checkClassName(state, "GenNode:CreateCommand", genNode.getCreateCommandClassName(), genNode.getCreateCommandQualifiedClassName());
+			}
+			if (nextEntity instanceof GenLink) {
+				GenLink genLink = (GenLink) nextEntity;
+				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+					TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+					checkClassName(state, "TypeLinkModelFacet:CreateCommand", modelFacet.getCreateCommandClassName(), modelFacet.getCreateCommandQualifiedClassName());
+				}
 			}
 			for (Iterator it = nextEntity.getBehaviour().iterator(); it.hasNext();) {
 				Behaviour nextB = (Behaviour) it.next();
@@ -1008,14 +1016,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		} else {
 			state.add("GenAuditRule:ContextSelector");
 		}
-		
-		GenLink genLink = getSetup().getGenModel().getLinkC();
-		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-			checkClassName(state, "TypeLinkModelFacet:CreateCommand", modelFacet.getCreateCommandClassName(), modelFacet.getCreateCommandQualifiedClassName());
-		} else {
-			state.add("TypeLinkModelFacet:CreateCommand");
-		}
 
 		// test model may not contain them
 		state.add("GenCommonBase:EditPart");
@@ -1023,6 +1023,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenCommonBase:NotationViewFactory");
 		state.add("GenContainer:CanonicalEditPolicy");
 		state.add("GenNode:GraphicalNodeEditPolicy");
+		state.add("GenNode:CreateCommand");
+		state.add("TypeLinkModelFacet:CreateCommand");
 		state.add("MetamodelType:EditHelper");
 		state.add("SpecializationType:EditHelperAdvice");
 		state.add("Behaviour:EditPolicy");
@@ -1034,7 +1036,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("FigureViewmap:Figure");
 		state.add("ExternalLabel:TextEditPart");
 		state.add("ExternalLabel:TextNotationViewFactory");
-
+		
 		// coverage check
 		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
 			Object next = classifiers.next();
@@ -1073,7 +1075,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add(id); // for coverage check
 	}
 
-	protected void checkPackageNamesCoverage(Set state, EClass eClass) {
+	protected void checkPackageNamesCoverage(Set<String> state, EClass eClass) {
 		final String PN = "PackageName";
 		for (Iterator attributes = eClass.getEAttributes().iterator(); attributes.hasNext();) {
 			EAttribute attribute = (EAttribute) attributes.next();
@@ -1087,7 +1089,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 	}
 
-	protected void checkClassNamesCoverage(Set state, EClass eClass) {
+	protected void checkClassNamesCoverage(Set<String> state, EClass eClass) {
 		final String CN = "ClassName";
 		final String QCN = "QualifiedClassName";
 		final String GET = "get";
