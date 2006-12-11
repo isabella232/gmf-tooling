@@ -3,8 +3,9 @@
 «EXTENSION xpt::editor::palette::Utils»
 
 «DEFINE Factory FOR gmfgen::Palette»
+«EXPAND xpt::Common::copyright FOR diagram.editorGen-»
 package «packageName»;
-«EXPAND xpt::Common::copyright FOR diagram.editorGen»
+
 /**
  * @generated
  */
