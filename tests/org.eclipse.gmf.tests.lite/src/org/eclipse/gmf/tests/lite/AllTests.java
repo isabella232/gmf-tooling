@@ -11,13 +11,10 @@
  */
 package org.eclipse.gmf.tests.lite;
 
-import java.util.HashMap;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
-import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramLinksTest;
@@ -40,9 +37,7 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		switchAutobuildOff();
 		RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initLite();
 
-		class MapParameter extends HashMap implements TestConfiguration {
-		}
-		suite.addTest(feed(LiteCompilationTestWithImportConflicts.class, new MapParameter()));
+		suite.addTestSuite(LiteCompilationTestWithImportConflicts.class);
 
 		final SessionSetup sessionSetup = LiteSessionSetup.getInstance();
 		final LinksSessionSetup sessionSetup2 = LiteLinksSessionSetup.getInstance();
