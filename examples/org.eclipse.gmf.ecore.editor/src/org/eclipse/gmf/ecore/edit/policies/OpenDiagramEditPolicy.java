@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -20,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 
 import org.eclipse.emf.transaction.util.TransactionUtil;
 
@@ -140,9 +143,9 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 			diagramFacet.eResource().getContents().add(d);
 			try {
 				for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
-					((org.eclipse.emf.ecore.resource.Resource) it.next()).save(java.util.Collections.EMPTY_MAP);
+					((Resource) it.next()).save(Collections.EMPTY_MAP);
 				}
-			} catch (java.io.IOException ex) {
+			} catch (IOException ex) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);
 			}
 			return d;

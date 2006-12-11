@@ -14,10 +14,12 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
 
 import org.eclipse.gmf.ecore.edit.policies.EAnnotationReferencesItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 /**
  * @generated
@@ -60,7 +62,7 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class DashedLineConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class DashedLineConnection extends PolylineConnectionEx {
 
 		/**
 		 * @generated
@@ -71,7 +73,7 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
+			this.setLineStyle(Graphics.LINE_DASH);
 
 		}
 

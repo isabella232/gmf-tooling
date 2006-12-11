@@ -34,6 +34,7 @@
         notationViewFactoryClassName="EAttributeViewFactory"
         canonicalEditPolicyClassName="EAttributeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EAttributeGraphicalNodeEditPolicy"
+        createCommandClassName="EAttributeCreateCommand"
         containers="//@diagram/@compartments.0"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -71,6 +72,7 @@
         notationViewFactoryClassName="EOperationViewFactory"
         canonicalEditPolicyClassName="EOperationCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EOperationGraphicalNodeEditPolicy"
+        createCommandClassName="EOperationCreateCommand"
         containers="//@diagram/@compartments.1"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -106,6 +108,7 @@
         notationViewFactoryClassName="EAnnotationViewFactory"
         canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy"
+        createCommandClassName="EAnnotationCreateCommand"
         containers="//@diagram/@compartments.2 //@diagram/@compartments.7 //@diagram/@compartments.9 //@diagram/@compartments.11"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -141,6 +144,7 @@
         notationViewFactoryClassName="EClass2ViewFactory"
         canonicalEditPolicyClassName="EClass2CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EClass2GraphicalNodeEditPolicy"
+        createCommandClassName="EClass2CreateCommand"
         containers="//@diagram/@compartments.3"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -177,6 +181,7 @@
         notationViewFactoryClassName="EPackage3ViewFactory"
         canonicalEditPolicyClassName="EPackage3CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EPackage2GraphicalNodeEditPolicy"
+        createCommandClassName="EPackage2CreateCommand"
         containers="//@diagram/@compartments.4"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -213,6 +218,7 @@
         notationViewFactoryClassName="EDataTypeViewFactory"
         canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy"
+        createCommandClassName="EDataTypeCreateCommand"
         containers="//@diagram/@compartments.5"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -250,6 +256,7 @@
         notationViewFactoryClassName="EEnumViewFactory"
         canonicalEditPolicyClassName="EEnumCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy"
+        createCommandClassName="EEnumCreateCommand"
         containers="//@diagram/@compartments.6"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -285,6 +292,7 @@
         notationViewFactoryClassName="EStringToStringMapEntryViewFactory"
         canonicalEditPolicyClassName="EStringToStringMapEntryCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EStringToStringMapEntryGraphicalNodeEditPolicy"
+        createCommandClassName="EStringToStringMapEntryCreateCommand"
         containers="//@diagram/@compartments.8"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -324,6 +332,7 @@
         notationViewFactoryClassName="EEnumLiteralViewFactory"
         canonicalEditPolicyClassName="EEnumLiteralCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EEnumLiteralGraphicalNodeEditPolicy"
+        createCommandClassName="EEnumLiteralCreateCommand"
         containers="//@diagram/@compartments.10"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -358,7 +367,8 @@
         notationViewFactoryClassName="EClassViewFactory"
         canonicalEditPolicyClassName="EClassCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0 //@diagram/@compartments.1 //@diagram/@compartments.2"
-        graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy"
+        createCommandClassName="EClassCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -406,7 +416,8 @@
         notationViewFactoryClassName="EPackage2ViewFactory"
         canonicalEditPolicyClassName="EPackage2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.3 //@diagram/@compartments.4 //@diagram/@compartments.5 //@diagram/@compartments.6 //@diagram/@compartments.7"
-        graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy"
+        createCommandClassName="EPackageCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -457,7 +468,8 @@
         notationViewFactoryClassName="EAnnotation2ViewFactory"
         canonicalEditPolicyClassName="EAnnotation2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.8"
-        graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy"
+        createCommandClassName="EAnnotation2CreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -506,7 +518,8 @@
         notationViewFactoryClassName="EDataType2ViewFactory"
         canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.9"
-        graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy"
+        createCommandClassName="EDataType2CreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -557,7 +570,8 @@
         notationViewFactoryClassName="EEnum2ViewFactory"
         canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.10 //@diagram/@compartments.11"
-        graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy"
+        createCommandClassName="EEnum2CreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType

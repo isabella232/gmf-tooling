@@ -14,10 +14,15 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolygonDecoration;
+import org.eclipse.draw2d.RotatableDecoration;
+import org.eclipse.draw2d.geometry.PointList;
 
 import org.eclipse.gmf.ecore.edit.policies.EClassESuperTypesItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 /**
  * @generated
@@ -60,7 +65,7 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class SolidLineWDstClosedArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class SolidLineWDstClosedArrow extends PolylineConnectionEx {
 
 		/**
 		 * @generated
@@ -71,7 +76,7 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -79,15 +84,15 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {
-			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
+		private RotatableDecoration createTargetDecoration() {
+			PolygonDecoration df = new PolygonDecoration();
 			df.setFill(true);
 			df.setFillXOR(false);
 			df.setOutline(true);
 			df.setOutlineXOR(false);
 			df.setLineWidth(1);
-			df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
-			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+			df.setLineStyle(Graphics.LINE_SOLID);
+			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 			pl.addPoint(getMapMode().DPtoLP(-2), getMapMode().DPtoLP(2));
 			pl.addPoint(getMapMode().DPtoLP(-2), getMapMode().DPtoLP(-2));

@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
@@ -54,7 +55,7 @@ public class EAnnotation2ViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart.VISUAL_ID);
+			semanticHint = EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

@@ -23,6 +23,6 @@ public class EcoreDiagramPreferenceInitializer extends DiagramPreferenceInitiali
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin.getInstance().getPreferenceStore();
+		return EcoreDiagramEditorPlugin.getInstance().getPreferenceStore();
 	}
 }

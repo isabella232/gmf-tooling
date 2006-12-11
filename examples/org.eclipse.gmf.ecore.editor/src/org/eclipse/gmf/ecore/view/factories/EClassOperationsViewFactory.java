@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
+import org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -52,7 +53,7 @@ public class EClassOperationsViewFactory extends ListCompartmentViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart.VISUAL_ID);
+			semanticHint = EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

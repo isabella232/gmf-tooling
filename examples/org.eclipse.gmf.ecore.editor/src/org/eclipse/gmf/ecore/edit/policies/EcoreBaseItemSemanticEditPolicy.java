@@ -267,7 +267,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
 			EReference_4002_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
 					EcorePackage.eINSTANCE.getEClassifier(), env);
 		}
@@ -282,7 +282,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
 			EReference_4003_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
 					EcorePackage.eINSTANCE.getEClassifier(), env);
 		}
@@ -297,7 +297,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
 			EClassESuperTypes_4004_TargetExpression = EcoreOCLFactory.getExpression(
 					"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", //$NON-NLS-1$
 					EcorePackage.eINSTANCE.getEClass(), env);

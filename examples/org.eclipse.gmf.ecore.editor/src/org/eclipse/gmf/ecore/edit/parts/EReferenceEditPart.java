@@ -14,10 +14,15 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.RotatableDecoration;
+import org.eclipse.draw2d.geometry.PointList;
 
 import org.eclipse.gmf.ecore.edit.policies.EReferenceItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 /**
  * @generated
@@ -60,7 +65,7 @@ public class EReferenceEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class SolidLineWDstArrow extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class SolidLineWDstArrow extends PolylineConnectionEx {
 
 		/**
 		 * @generated
@@ -71,7 +76,7 @@ public class EReferenceEditPart extends ConnectionNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -79,15 +84,15 @@ public class EReferenceEditPart extends ConnectionNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {
-			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
+		private RotatableDecoration createTargetDecoration() {
+			PolylineDecoration df = new PolylineDecoration();
 			df.setFill(true);
 			df.setFillXOR(false);
 			df.setOutline(true);
 			df.setOutlineXOR(false);
 			df.setLineWidth(1);
-			df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
-			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+			df.setLineStyle(Graphics.LINE_SOLID);
+			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(-1));

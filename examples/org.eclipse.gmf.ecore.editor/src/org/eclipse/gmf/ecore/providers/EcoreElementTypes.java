@@ -13,6 +13,7 @@ package org.eclipse.gmf.ecore.providers;
 
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
@@ -322,7 +323,7 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final IObjectInitializer EReference_4002 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
+		public static final IObjectInitializer EReference_4002 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
@@ -333,7 +334,7 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final IObjectInitializer EReference_4003 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
+		public static final IObjectInitializer EReference_4003 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
@@ -398,7 +399,7 @@ public class EcoreElementTypes {
 			 * @generated
 			 */
 			public void init(EObject instance) {
-				for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
+				for (Iterator it = featureInitializers.iterator(); it.hasNext();) {
 					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
 					try {
 						nextExpr.init(instance);
