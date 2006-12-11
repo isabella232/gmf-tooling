@@ -450,7 +450,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList getReorientedIncomingGenLinks() {
 		if (getModelFacet() == null) {
