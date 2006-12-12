@@ -66,6 +66,8 @@ public class ResizeConstraintsItemProvider
 
 			addResizeHandlesPropertyDescriptor(object);
 			addNonResizeHandlesPropertyDescriptor(object);
+			addResizeHandleNamesPropertyDescriptor(object);
+			addNonResizeHandleNamesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,6 +117,50 @@ public class ResizeConstraintsItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Resize Handle Names feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResizeHandleNamesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ResizeConstraints_resizeHandleNames_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_resizeHandleNames_feature", "_UI_ResizeConstraints_type"),
+				 GMFGenPackage.eINSTANCE.getResizeConstraints_ResizeHandleNames(),
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Non Resize Handle Names feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNonResizeHandleNamesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ResizeConstraints_nonResizeHandleNames_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_nonResizeHandleNames_feature", "_UI_ResizeConstraints_type"),
+				 GMFGenPackage.eINSTANCE.getResizeConstraints_NonResizeHandleNames(),
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns ResizeConstraints.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -148,6 +194,8 @@ public class ResizeConstraintsItemProvider
 		switch (notification.getFeatureID(ResizeConstraints.class)) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
+			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES:
+			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
