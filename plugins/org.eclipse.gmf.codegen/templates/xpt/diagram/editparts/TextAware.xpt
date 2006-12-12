@@ -227,7 +227,12 @@
 	 */
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser() {
 		if (parser == null) {
-			String parserHint = «EXPAND parserHint FOR modelFacet-»
+            String parserHint = 
+                «IF null == modelFacet-»
+                    ((org.eclipse.gmf.runtime.notation.View) getModel()).getType();
+                «ELSE-»
+                    «EXPAND parserHint FOR modelFacet-»
+                «ENDIF-»
 			org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter hintAdapter =
 				new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(getParserElement(), parserHint) {
 
