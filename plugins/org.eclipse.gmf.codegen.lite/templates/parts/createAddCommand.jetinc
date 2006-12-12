@@ -88,7 +88,7 @@ protected Command createAddCommand(final <%=importManager.getImportedName("org.e
 				String _exceedsUpperBound = "return " + importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand") + ".INSTANCE;";
 				GenClass _ownerGenClass = null;
 %>
-<%@ include file="featureMultiplicity.jetinc"%>
+<%@ include file="../common/featureMultiplicity.jetinc"%>
 					result.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
 						editingDomain,
 						<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), element));
@@ -100,7 +100,7 @@ protected Command createAddCommand(final <%=importManager.getImportedName("org.e
 				String _exceedsUpperBound = "return " + importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand") + ".INSTANCE;";
 				GenClass _ownerGenClass = null;
 %>
-<%@ include file="featureMultiplicity.jetinc"%>
+<%@ include file="../common/featureMultiplicity.jetinc"%>
 <%
 			}
 %>

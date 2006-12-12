@@ -59,14 +59,7 @@ for(Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
 <%
 if (primaryLabel != null) {
 %>
-		//This edit part understands the direct edit request and delegates it to the appropriate label, so no command is needed here.
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.DIRECT_EDIT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.DirectEditPolicy")%>() {
-			protected void showCurrentEditValue(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> request) {
-			}
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDirectEditCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> request) {
-				return null;
-			}
-		});
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.DIRECT_EDIT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.DelegatingDirectEditPolicy")%>());
 <%
 }
 %>

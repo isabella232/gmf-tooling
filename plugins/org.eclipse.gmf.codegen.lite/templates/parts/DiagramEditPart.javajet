@@ -159,7 +159,7 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command(getDiagram(), requestEx, (<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)));
+							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>(getDiagram(), requestEx, (<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)));
 							break;
 <%
 }
@@ -249,17 +249,6 @@ GenCommonBase genCommonBase = genDiagram;%>
 	protected List getModelChildren() {
 		return getDiagram().getVisibleChildren();
 	}
-
-<%
-for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
-	GenTopLevelNode next = (GenTopLevelNode)it.next();
-	boolean isStatic = true;
-	boolean isListLayout = false;
-%>
-<%@ include file="createNodeCommand.javajetinc"%>
-<%
-}
-%>
 
 <%@ include file="refresher.javajetinc"%>
 

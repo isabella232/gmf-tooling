@@ -64,7 +64,7 @@ protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>
 			String _exceedsUpperBound = "return false;";
 			GenClass _ownerGenClass = null;
 %>
-<%@ include file="featureMultiplicity.jetinc"%>
+<%@ include file="../common/featureMultiplicity.jetinc"%>
 <%
 		}
 		{
@@ -73,7 +73,7 @@ protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>
 			String _exceedsUpperBound = "return false;";
 			GenClass _ownerGenClass = null;
 %>
-<%@ include file="featureMultiplicity.jetinc"%>
+<%@ include file="../common/featureMultiplicity.jetinc"%>
 <%
 		}
 %>

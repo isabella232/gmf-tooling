@@ -33,6 +33,11 @@ import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
+import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkCompleteCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkStartCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.CreateNodeCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectLinkSourceCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectLinkTargetCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
@@ -108,6 +113,12 @@ public class CodegenEmitters {
 
 	private static StaticTemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
+		put(tr, "/commands/CreateNodeCommand.javajet", CreateNodeCommandGenerator.class);
+		put(tr, "/commands/CreateLinkStartCommand.javajet", CreateLinkStartCommandGenerator.class);
+		put(tr, "/commands/CreateLinkCompleteCommand.javajet", CreateLinkCompleteCommandGenerator.class);
+		put(tr, "/commands/ReconnectLinkSourceCommand.javajet", ReconnectLinkSourceCommandGenerator.class);
+		put(tr, "/commands/ReconnectLinkTargetCommand.javajet", ReconnectLinkTargetCommandGenerator.class);
+
 		put(tr, "/providers/CompartmentViewFactory.javajet", CompartmentViewFactoryGenerator.class);
 		put(tr, "/providers/DiagramViewFactory.javajet", DiagramViewFactoryGenerator.class);
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
@@ -146,6 +157,26 @@ public class CodegenEmitters {
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
 		return tr;
+	}
+
+	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(CreateNodeCommandGenerator.class);
+	}
+
+	public TextEmitter getCreateLinkStartCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(CreateLinkStartCommandGenerator.class);
+	}
+
+	public TextEmitter getCreateLinkCompleteCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(CreateLinkCompleteCommandGenerator.class);
+	}
+
+	public TextEmitter getReconnectLinkSourceCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ReconnectLinkSourceCommandGenerator.class);
+	}
+
+	public TextEmitter getReconnectLinkTargetCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ReconnectLinkTargetCommandGenerator.class);
 	}
 
 	public TextEmitter getCompartmentViewFactoryGenerator() throws UnexpectedBehaviourException {

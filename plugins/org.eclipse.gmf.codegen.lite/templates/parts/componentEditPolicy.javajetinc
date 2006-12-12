@@ -3,7 +3,7 @@
 				<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement());
 				<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 				cc.append(getDomainModelRemoveCommand(editingDomain));
-				cc.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(editingDomain, getDiagramNode()));
+				cc.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand")%>((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getDiagramNode().eContainer(), getDiagramNode()));
 				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, cc);
 			}
 

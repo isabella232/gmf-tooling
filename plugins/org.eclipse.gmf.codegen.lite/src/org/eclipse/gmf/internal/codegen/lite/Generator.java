@@ -15,7 +15,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -32,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
@@ -117,6 +120,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			}
 			generateBehaviors(next, openDiagramBehaviors);
+			generateCommands(next);
 		}
 		if (hasExternalLabels) {
 			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
@@ -131,6 +135,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 			internalGenerateJavaClass(myEmitters.getLinkViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			generateBehaviors(next, openDiagramBehaviors);
+			generateCommands(next);
 		}
 		for (Iterator it = myDiagram.getCompartments().iterator(); it.hasNext(); ) {
 			final GenCompartment next = (GenCompartment) it.next();
@@ -217,6 +222,56 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
+	}
+
+	private void generateCommands(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
+		String commandNameInfix = genNode.getDomainMetaClass().getName() + genNode.getVisualID();
+		internalGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), 
+				myDiagram.getEditCommandsPackageName(),
+				"Create" + commandNameInfix + "Command",
+				genNode
+			);
+	}
+
+	private void generateCommands(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
+		if (!genLink.isViewDirectionAlignedWithModel()) {
+			return;
+		}
+		String commandNameInfix;
+		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+			commandNameInfix = modelFacet.getMetaClass().getName();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
+			commandNameInfix = metaFeature.getFeatureAccessorName();
+		} else {
+			return;
+		}
+		commandNameInfix += genLink.getVisualID();
+		internalGenerateJavaClass(
+				myEmitters.getCreateLinkStartCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				"Create" + commandNameInfix + "StartCommand",
+				genLink
+			);
+		internalGenerateJavaClass(
+				myEmitters.getCreateLinkCompleteCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				"Create" + commandNameInfix + "Command",
+				genLink
+			);
+		internalGenerateJavaClass(
+				myEmitters.getReconnectLinkSourceCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				"Reconnect" + commandNameInfix + "SourceCommand",
+				genLink
+			);
+		internalGenerateJavaClass(
+				myEmitters.getReconnectLinkTargetCommandEmitter(),
+				myDiagram.getEditCommandsPackageName(),
+				"Reconnect" + commandNameInfix + "TargetCommand",
+				genLink
+			);
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {

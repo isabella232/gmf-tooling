@@ -102,7 +102,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
+							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
 								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
 							break;
 <%
@@ -264,17 +264,6 @@ boolean isListLayout = genCompartment.isListLayout();
 		getFigure().setVisible(isVisible);
 		getFigure().revalidate();
 	}
-
-<%
-for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
-	GenChildNode next = (GenChildNode)it.next();
-	boolean isStatic = false;
-	boolean isListLayout = genCompartment.isListLayout();
-%>
-<%@ include file="createNodeCommand.javajetinc"%>
-<%
-}
-%>
 }
 
 <%importManager.emitSortedImports();%>

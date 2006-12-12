@@ -6,27 +6,7 @@
 				<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramEdge().getDiagram().getElement());
 				<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 				cc.append(createDomainModelRemoveCommand(editingDomain));
-				cc.append(new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>() {
-					public boolean canExecute() {
-						return source != null && edgeToRemove != null;
-					}
-					public boolean canUndo() {
-						return source != null && edgeToRemove != null;
-					}
-					public void undo() {
-						source.getDiagram().insertEdge(edgeToRemove);
-						edgeToRemove.setSource(source);
-						edgeToRemove.setTarget(target);
-					}
-					public void redo() {
-						execute();
-					}
-					public void execute() {
-						source.getDiagram().removeEdge(edgeToRemove);
-						edgeToRemove.setSource(null);
-						edgeToRemove.setTarget(null);
-					}
-				});
+				cc.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.RemoveNotationalEdgeCommand")%>(source.getDiagram(), edgeToRemove));
 				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, cc);
 			}
 <%
