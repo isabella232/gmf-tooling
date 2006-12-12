@@ -64,6 +64,7 @@ public class GenNodeItemProvider
 			addCompartmentsPropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addCreateCommandClassNamePropertyDescriptor(object);
+			addReorientedIncomingLinksPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -130,6 +131,28 @@ public class GenNodeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Reoriented Incoming Links feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReorientedIncomingLinksPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_reorientedIncomingLinks_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_reorientedIncomingLinks_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_ReorientedIncomingLinks(),
+				 false,
+				 false,
+				 false,
+				 null,
 				 null,
 				 null));
 	}
