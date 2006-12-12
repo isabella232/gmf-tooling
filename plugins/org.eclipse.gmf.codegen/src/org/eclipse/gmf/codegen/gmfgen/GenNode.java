@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getReorientedIncomingLinks <em>Reoriented Incoming Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,14 +72,6 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	String getCreateCommandQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenLink"
-	 * @generated
-	 */
-	EList getReorientedIncomingGenLinks();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -173,6 +166,22 @@ public interface GenNode extends GenChildContainer {
 	void setCreateCommandClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenLink}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reoriented Incoming Links</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reoriented Incoming Links</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ReorientedIncomingLinks()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList getReorientedIncomingLinks();
+
+	/**
 	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -198,5 +207,4 @@ public interface GenNode extends GenChildContainer {
 	 */
 	void setModelFacet(TypeModelFacet value);
 
-	boolean needsGraphicalNodeEditPolicy();
 } // GenNode

@@ -47,6 +47,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getReorientedIncomingLinks <em>Reoriented Incoming Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -217,6 +218,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return getGraphicalNodeEditPolicyClassName();
 			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
 				return getCreateCommandClassName();
+			case GMFGenPackage.GEN_NODE__REORIENTED_INCOMING_LINKS:
+				return getReorientedIncomingLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -292,6 +295,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
 			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
 				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
+			case GMFGenPackage.GEN_NODE__REORIENTED_INCOMING_LINKS:
+				return !getReorientedIncomingLinks().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -441,20 +446,14 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		return CLASS_NAME_PREFIX;
 	}
 
-	public boolean needsGraphicalNodeEditPolicy() {
-		// XXX not good to collect all links just to answer this question.
-		// Investigate better way to find this out
-		return getModelFacet() != null && !getReorientedIncomingGenLinks().isEmpty();
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getReorientedIncomingGenLinks() {
+	public EList getReorientedIncomingLinks() {
 		if (getModelFacet() == null) {
-			return new BasicEList();
+			return new BasicEList.UnmodifiableEList(0, new Object[0]);
 		}
 		// [artem] XXX not sure there might be two equal links in the genDiagram.links
 		// but 'set' was there in the original template. legacy is the only reason i kept it,
@@ -500,6 +499,6 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				reorientedLinks.add(genLink);
 			}
 		}
-		return new BasicEList(reorientedLinks);
+		return new BasicEList.UnmodifiableEList(reorientedLinks.size(), reorientedLinks.toArray());
 	}
 } //GenNodeImpl

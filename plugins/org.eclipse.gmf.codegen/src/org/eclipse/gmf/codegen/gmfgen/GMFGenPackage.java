@@ -2562,13 +2562,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NODE__CREATE_COMMAND_CLASS_NAME = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE__REORIENTED_INCOMING_LINKS = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Gen Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
+	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTopLevelNodeImpl <em>Gen Top Level Node</em>}' class.
@@ -2723,6 +2732,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_TOP_LEVEL_NODE__CREATE_COMMAND_CLASS_NAME = GEN_NODE__CREATE_COMMAND_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOP_LEVEL_NODE__REORIENTED_INCOMING_LINKS = GEN_NODE__REORIENTED_INCOMING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -2895,6 +2913,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__CREATE_COMMAND_CLASS_NAME = GEN_NODE__CREATE_COMMAND_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__REORIENTED_INCOMING_LINKS = GEN_NODE__REORIENTED_INCOMING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -3076,6 +3103,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_SIDE_AFFIXED_NODE__CREATE_COMMAND_CLASS_NAME = GEN_CHILD_NODE__CREATE_COMMAND_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_SIDE_AFFIXED_NODE__REORIENTED_INCOMING_LINKS = GEN_CHILD_NODE__REORIENTED_INCOMING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -3266,6 +3302,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_LABEL_NODE__CREATE_COMMAND_CLASS_NAME = GEN_CHILD_NODE__CREATE_COMMAND_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Reoriented Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_LABEL_NODE__REORIENTED_INCOMING_LINKS = GEN_CHILD_NODE__REORIENTED_INCOMING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -9429,6 +9474,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNode_CreateCommandClassName();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getReorientedIncomingLinks <em>Reoriented Incoming Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Reoriented Incoming Links</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getReorientedIncomingLinks()
+	 * @see #getGenNode()
+	 * @generated
+	 */
+	EReference getGenNode_ReorientedIncomingLinks();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode <em>Gen Top Level Node</em>}'.

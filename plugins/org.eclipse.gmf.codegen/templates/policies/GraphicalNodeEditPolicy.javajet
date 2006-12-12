@@ -21,7 +21,7 @@ public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=impor
 	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCompleteCommand(
 			<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getElementType(request);
-<%	for (Iterator it = genNode.getReorientedIncomingGenLinks().iterator(); it.hasNext();) {
+<%	for (Iterator it = genNode.getReorientedIncomingLinks().iterator(); it.hasNext();) {
 		GenLink nextLink = (GenLink) it.next();%>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextLink.getUniqueIdentifier()%> == elementType) {
 <%		if (nextLink.isOutgoingCreationAllowed()) {%>

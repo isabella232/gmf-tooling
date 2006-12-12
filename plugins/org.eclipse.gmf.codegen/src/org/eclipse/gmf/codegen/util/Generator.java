@@ -245,7 +245,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (node.needsCanonicalEditPolicy()) {
 			generateChildContainerCanonicalEditPolicy(node);
 		}
-		if (node.needsGraphicalNodeEditPolicy()) {
+		if (node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty()) {
 			generateNodeGraphicalNodeEditPolicy(node);
 		}
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {

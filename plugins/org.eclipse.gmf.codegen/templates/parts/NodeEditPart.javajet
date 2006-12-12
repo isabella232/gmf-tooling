@@ -208,7 +208,7 @@ if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
 <%}%>		
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName())%>());
-<%if (genNode.needsGraphicalNodeEditPolicy()) {%>
+<%if (genNode.getModelFacet() != null && !genNode.getReorientedIncomingLinks().isEmpty()) {%>
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName())%>());
 <%}
 if (!genNode.getChildNodes().isEmpty()) {%>

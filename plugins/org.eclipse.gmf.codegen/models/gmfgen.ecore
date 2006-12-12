@@ -465,7 +465,6 @@
       </eAnnotations>
     </eOperations>
     <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getReorientedIncomingGenLinks" upperBound="-1" eType="#//GenLink"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//TypeModelFacet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
@@ -476,6 +475,9 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reorientedIncomingLinks"
+        upperBound="-1" eType="#//GenLink" changeable="false" volatile="true" transient="true"
+        derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenTopLevelNode" eSuperTypes="#//GenNode">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">

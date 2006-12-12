@@ -562,7 +562,7 @@ if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments
     stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_35);
-    if (genNode.needsGraphicalNodeEditPolicy()) {
+    if (genNode.getModelFacet() != null && !genNode.getReorientedIncomingLinks().isEmpty()) {
     stringBuffer.append(TEXT_36);
     stringBuffer.append(importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_37);

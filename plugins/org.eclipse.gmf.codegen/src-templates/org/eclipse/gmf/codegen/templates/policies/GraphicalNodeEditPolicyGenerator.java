@@ -84,7 +84,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
     stringBuffer.append(TEXT_10);
-    	for (Iterator it = genNode.getReorientedIncomingGenLinks().iterator(); it.hasNext();) {
+    	for (Iterator it = genNode.getReorientedIncomingLinks().iterator(); it.hasNext();) {
 		GenLink nextLink = (GenLink) it.next();
     stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
