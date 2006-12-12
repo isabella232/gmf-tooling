@@ -831,16 +831,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Bit-wise OR of any {@link org.eclipse.draw2d.PositionConstants#NORTH}, {@link org.eclipse.draw2d.PositionConstants#SOUTH}, {@link org.eclipse.draw2d.PositionConstants#EAST} or {@link org.eclipse.draw2d.PositionConstants#WEST}"/>
     </eAnnotations>
-    <eOperations name="getResizeHandleNames" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Convenient method to get {@link org.eclipse.draw2d.PositionConstants} names from resizeHandle attribute"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getNonResizeHandleNames" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Same as {@link #getResizeHandleNames()}, for nonResizeHandle attribute"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeHandles" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -851,6 +841,20 @@
         defaultValueLiteral="0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Directions mentioned with this attribute are explicitly denoted as non-resizable (i.e. with 'move' cursor). If you'd like to omit handle {@link org.eclipse.gef.editpolicies.ResizableEditPolicy#createSelectionHandles} completely, just don't list it here"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeHandleNames" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Convenient method to get {@link org.eclipse.draw2d.PositionConstants} names from resizeHandle attribute"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nonResizeHandleNames" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Same as {@link #getResizeHandleNames()}, for nonResizeHandle attribute"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

@@ -22,6 +22,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandles <em>Resize Handles</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandles <em>Non Resize Handles</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandleNames <em>Resize Handle Names</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandleNames <em>Non Resize Handle Names</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,23 +85,31 @@ public interface ResizeConstraints extends Attributes {
 	void setNonResizeHandles(int value);
 
 	/**
+	 * Returns the value of the '<em><b>Resize Handle Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Convenient method to get {@link org.eclipse.draw2d.PositionConstants} names from resizeHandle attribute
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
+	 * @return the value of the '<em>Resize Handle Names</em>' attribute list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getResizeConstraints_ResizeHandleNames()
+	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList getResizeHandleNames();
 
 	/**
+	 * Returns the value of the '<em><b>Non Resize Handle Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Same as {@link #getResizeHandleNames()}, for nonResizeHandle attribute
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
+	 * @return the value of the '<em>Non Resize Handle Names</em>' attribute list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getResizeConstraints_NonResizeHandleNames()
+	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList getNonResizeHandleNames();

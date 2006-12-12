@@ -408,8 +408,8 @@
     <genClasses ecoreClass="gmfgen.ecore#//ResizeConstraints">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/resizeHandles"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/nonResizeHandles"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ResizeConstraints/getResizeHandleNames"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ResizeConstraints/getNonResizeHandleNames"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/resizeHandleNames"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/nonResizeHandleNames"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DefaultSizeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/width"/>

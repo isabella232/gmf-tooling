@@ -3031,6 +3031,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getResizeConstraints_ResizeHandleNames() {
+		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getResizeConstraints_NonResizeHandleNames() {
+		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDefaultSizeAttributes() {
 		return defaultSizeAttributesEClass;
 	}
@@ -5054,6 +5072,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		resizeConstraintsEClass = createEClass(RESIZE_CONSTRAINTS);
 		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__RESIZE_HANDLES);
 		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES);
+		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES);
+		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES);
 
 		defaultSizeAttributesEClass = createEClass(DEFAULT_SIZE_ATTRIBUTES);
 		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__WIDTH);
@@ -5846,10 +5866,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(resizeConstraintsEClass, ResizeConstraints.class, "ResizeConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getResizeConstraints_ResizeHandles(), ecorePackage.getEInt(), "resizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResizeConstraints_NonResizeHandles(), ecorePackage.getEInt(), "nonResizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(resizeConstraintsEClass, ecorePackage.getEString(), "getResizeHandleNames", 0, -1);
-
-		addEOperation(resizeConstraintsEClass, ecorePackage.getEString(), "getNonResizeHandleNames", 0, -1);
+		initEAttribute(getResizeConstraints_ResizeHandleNames(), ecorePackage.getEString(), "resizeHandleNames", null, 0, -1, ResizeConstraints.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResizeConstraints_NonResizeHandleNames(), ecorePackage.getEString(), "nonResizeHandleNames", null, 0, -1, ResizeConstraints.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(defaultSizeAttributesEClass, DefaultSizeAttributes.class, "DefaultSizeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDefaultSizeAttributes_Width(), ecorePackage.getEInt(), "width", "40", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

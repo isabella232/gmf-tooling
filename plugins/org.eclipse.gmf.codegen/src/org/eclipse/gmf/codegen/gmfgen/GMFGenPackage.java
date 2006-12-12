@@ -4862,13 +4862,31 @@ public interface GMFGenPackage extends EPackage {
 	int RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES = ATTRIBUTES_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Resize Handle Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES = ATTRIBUTES_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Non Resize Handle Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES = ATTRIBUTES_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Resize Constraints</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESIZE_CONSTRAINTS_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+	int RESIZE_CONSTRAINTS_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DefaultSizeAttributesImpl <em>Default Size Attributes</em>}' class.
@@ -10286,6 +10304,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getResizeConstraints_NonResizeHandles();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandleNames <em>Resize Handle Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Resize Handle Names</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandleNames()
+	 * @see #getResizeConstraints()
+	 * @generated
+	 */
+	EAttribute getResizeConstraints_ResizeHandleNames();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandleNames <em>Non Resize Handle Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Non Resize Handle Names</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandleNames()
+	 * @see #getResizeConstraints()
+	 * @generated
+	 */
+	EAttribute getResizeConstraints_NonResizeHandleNames();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes <em>Default Size Attributes</em>}'.

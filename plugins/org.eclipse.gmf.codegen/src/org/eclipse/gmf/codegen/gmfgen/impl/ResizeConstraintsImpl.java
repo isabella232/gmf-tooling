@@ -29,6 +29,8 @@ import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl#getResizeHandles <em>Resize Handles</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl#getNonResizeHandles <em>Non Resize Handles</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl#getResizeHandleNames <em>Resize Handle Names</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl#getNonResizeHandleNames <em>Non Resize Handle Names</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,6 +185,10 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 				return new Integer(getResizeHandles());
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
 				return new Integer(getNonResizeHandles());
+			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES:
+				return getResizeHandleNames();
+			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES:
+				return getNonResizeHandleNames();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -232,6 +238,10 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 				return resizeHandles != RESIZE_HANDLES_EDEFAULT;
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
 				return nonResizeHandles != NON_RESIZE_HANDLES_EDEFAULT;
+			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES:
+				return !getResizeHandleNames().isEmpty();
+			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES:
+				return !getNonResizeHandleNames().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
