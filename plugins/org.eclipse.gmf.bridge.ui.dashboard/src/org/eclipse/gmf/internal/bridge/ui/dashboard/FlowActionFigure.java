@@ -13,11 +13,15 @@ package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.ToolbarLayout;
 
 /**
  * @author dstadnik
  */
 public class FlowActionFigure extends RectangleFigure implements ActionContainer {
+	public FlowActionFigure() {
+		setLayoutManager(new ToolbarLayout());
+	}
 
 	public void addAction(IFigure actionFigure) {
 		add(actionFigure);
