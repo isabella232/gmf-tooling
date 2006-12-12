@@ -21,6 +21,11 @@
 
    <extension point="org.eclipse.gmf.bridge.ui.dashboard.actions">
       <action
+         label="%dashboard.gengm"
+         class="org.eclipse.gmf.internal.codegen.lite.dashboard.GenerateLiteGMAction"
+         location="map_model-genmodel">
+      </action>
+      <action
          label="%dashboard.gende"
          class="org.eclipse.gmf.internal.codegen.lite.dashboard.GenerateLiteDEAction"
          location="genmodel">
