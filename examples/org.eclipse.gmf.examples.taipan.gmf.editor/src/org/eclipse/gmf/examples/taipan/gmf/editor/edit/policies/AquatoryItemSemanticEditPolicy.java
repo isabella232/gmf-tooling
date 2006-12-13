@@ -16,6 +16,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipCreateCommand;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
@@ -37,77 +40,15 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ports());
 			}
-			return getMSLWrapper(new CreatePort_2001Command(req));
+			return getMSLWrapper(new PortCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Ship_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
-			return getMSLWrapper(new CreateShip_2002Command(req));
+			return getMSLWrapper(new ShipCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreatePort_2001Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreatePort_2001Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getAquatory();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateShip_2002Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateShip_2002Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getAquatory();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
 	}
 
 	/**

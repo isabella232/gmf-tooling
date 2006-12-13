@@ -15,6 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EmptyBoxCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.LargeItemCreateCommand;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
@@ -33,77 +36,14 @@ public class ShipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSemantic
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new CreateLargeItem_3002Command(req));
+			return getMSLWrapper(new LargeItemCreateCommand(req));
 		}
 		if (TaiPanElementTypes.EmptyBox_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new CreateEmptyBox_3003Command(req));
+			return getMSLWrapper(new EmptyBoxCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateLargeItem_3002Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateLargeItem_3002Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getShip();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateEmptyBox_3003Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateEmptyBox_3003Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getShip();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
 }

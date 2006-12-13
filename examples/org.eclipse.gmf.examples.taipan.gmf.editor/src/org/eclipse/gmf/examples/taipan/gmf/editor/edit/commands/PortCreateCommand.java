@@ -9,34 +9,47 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
+package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.SmallItemsCreateCommand;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class ShipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class PortCreateCommand extends CreateElementCommand {
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
-			return getMSLWrapper(new SmallItemsCreateCommand(req));
-		}
-		return super.getCreateCommand(req);
+	public PortCreateCommand(CreateElementRequest req) {
+		super(req);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getEClassToEdit() {
+		return TaiPanPackage.eINSTANCE.getAquatory();
+	};
+
+	/**
+	 * @generated
+	 */
+	protected EObject getElementToEdit() {
+		EObject container = ((CreateElementRequest) getRequest()).getContainer();
+		if (container instanceof View) {
+			container = ((View) container).getElement();
+		}
+		return container;
+	}
+
 }
