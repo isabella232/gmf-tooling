@@ -34,7 +34,6 @@
         notationViewFactoryClassName="SmallItemsViewFactory"
         canonicalEditPolicyClassName="SmallItemsCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="SmallItemsGraphicalNodeEditPolicy"
-        createCommandClassName="SmallItemsCreateCommand"
         containers="//@diagram/@compartments.0">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -45,7 +44,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SmallItemsFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SmallItemsFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SmallItemsFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SmallItemsFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SmallItemsFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -74,7 +73,6 @@
         notationViewFactoryClassName="LargeItemViewFactory"
         canonicalEditPolicyClassName="LargeItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="LargeItemGraphicalNodeEditPolicy"
-        createCommandClassName="LargeItemCreateCommand"
         containers="//@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -85,7 +83,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="LargeItemFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LargeItemFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LargeItemFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layoutThis = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.setFill(true);&#xD;&#xA;this.setFillXOR(false);&#xD;&#xA;this.setOutline(true);&#xD;&#xA;this.setOutlineXOR(false);&#xD;&#xA;this.setLineWidth(1);&#xD;&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemArticleFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xD;&#xA;largeItemArticleFigure0.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#xD;&#xA;this.add(largeItemArticleFigure0);&#xD;&#xA;setFigureLargeItemArticleFigure(largeItemArticleFigure0);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemWeightFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xD;&#xA;largeItemWeightFigure0.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#xD;&#xA;this.add(largeItemWeightFigure0);&#xD;&#xA;setFigureLargeItemWeightFigure(largeItemWeightFigure0);&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemArticleFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {&#xD;&#xA;&#x9;&#x9;return fLargeItemArticleFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xD;&#xA;&#x9;&#x9;fLargeItemArticleFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemWeightFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {&#xD;&#xA;&#x9;&#x9;return fLargeItemWeightFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xD;&#xA;&#x9;&#x9;fLargeItemWeightFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemFigure() {&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layoutThis = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();&#xA;&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemArticleFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;largeItemArticleFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(largeItemArticleFigure0);&#xA;setFigureLargeItemArticleFigure(largeItemArticleFigure0);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemWeightFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;largeItemWeightFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(largeItemWeightFigure0);&#xA;setFigureLargeItemWeightFigure(largeItemWeightFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemArticleFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {&#xA;&#x9;&#x9;return fLargeItemArticleFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fLargeItemArticleFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemWeightFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {&#xA;&#x9;&#x9;return fLargeItemWeightFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fLargeItemWeightFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -140,7 +138,6 @@
         notationViewFactoryClassName="EmptyBoxViewFactory"
         canonicalEditPolicyClassName="EmptyBoxCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EmptyBoxGraphicalNodeEditPolicy"
-        createCommandClassName="EmptyBoxCreateCommand"
         containers="//@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -169,8 +166,7 @@
         itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
         notationViewFactoryClassName="PortViewFactory"
         canonicalEditPolicyClassName="PortCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
-        createCommandClassName="PortCreateCommand">
+        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -180,7 +176,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
           className="PortFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class PortFigure extends org.eclipse.draw2d.Layer {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public PortFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;this.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xD;&#xA;, getMapMode().DPtoLP(50)&#xD;&#xA;));&#xD;&#xA;this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xD;&#xA;, getMapMode().DPtoLP(50)&#xD;&#xA;));&#xD;&#xA;this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xD;&#xA;, getMapMode().DPtoLP(50)&#xD;&#xA;));&#xD;&#xA;this.setSize(getMapMode().DPtoLP(60)&#xD;&#xA;, getMapMode().DPtoLP(50)&#xD;&#xA;);&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.draw2d.RectangleFigure walls0 = new org.eclipse.draw2d.RectangleFigure();&#xD;&#xA;walls0.setFill(true);&#xD;&#xA;walls0.setFillXOR(false);&#xD;&#xA;walls0.setOutline(true);&#xD;&#xA;walls0.setOutlineXOR(false);&#xD;&#xA;walls0.setLineWidth(1);&#xD;&#xA;walls0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;walls0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);&#xD;&#xA;&#x9;walls0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);&#xD;&#xA;&#xD;&#xA;this.add(walls0, &#xD;&#xA;new org.eclipse.draw2d.geometry.Rectangle(getMapMode().DPtoLP(10)&#xD;&#xA;, getMapMode().DPtoLP(40)&#xD;&#xA;, getMapMode().DPtoLP(40)&#xD;&#xA;, getMapMode().DPtoLP(10)&#xD;&#xA;)&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.draw2d.Polygon mainRoof0 = new org.eclipse.draw2d.Polygon();&#xD;&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xD;&#xA;, getMapMode().DPtoLP(10)&#xD;&#xA;));&#xD;&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(60)&#xD;&#xA;, getMapMode().DPtoLP(40)&#xD;&#xA;));&#xD;&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0)&#xD;&#xA;, getMapMode().DPtoLP(40)&#xD;&#xA;));&#xD;&#xA;mainRoof0.setFill(true);&#xD;&#xA;mainRoof0.setFillXOR(false);&#xD;&#xA;mainRoof0.setOutline(true);&#xD;&#xA;mainRoof0.setOutlineXOR(false);&#xD;&#xA;mainRoof0.setLineWidth(1);&#xD;&#xA;mainRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;mainRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xD;&#xA;&#x9;mainRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xD;&#xA;&#xD;&#xA;this.add(mainRoof0);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.draw2d.Polygon topRoof0 = new org.eclipse.draw2d.Polygon();&#xD;&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xD;&#xA;, getMapMode().DPtoLP(0)&#xD;&#xA;));&#xD;&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(50)&#xD;&#xA;, getMapMode().DPtoLP(20)&#xD;&#xA;));&#xD;&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(10)&#xD;&#xA;, getMapMode().DPtoLP(20)&#xD;&#xA;));&#xD;&#xA;topRoof0.setFill(true);&#xD;&#xA;topRoof0.setFillXOR(false);&#xD;&#xA;topRoof0.setOutline(true);&#xD;&#xA;topRoof0.setOutlineXOR(false);&#xD;&#xA;topRoof0.setLineWidth(1);&#xD;&#xA;topRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;topRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xD;&#xA;&#x9;topRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xD;&#xA;&#xD;&#xA;this.add(topRoof0);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = true;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortFigure extends org.eclipse.draw2d.Layer {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortFigure() {&#xA;&#x9;&#x9;&#xA;this.setLayoutManager(new org.eclipse.draw2d.XYLayout());&#xA;&#x9;&#x9;&#xA;&#xA;this.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;));&#xA;this.setSize(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(50)&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure walls0 = new org.eclipse.draw2d.RectangleFigure();&#xA;walls0.setFill(true);&#xA;walls0.setFillXOR(false);&#xA;walls0.setOutline(true);&#xA;walls0.setOutlineXOR(false);&#xA;walls0.setLineWidth(1);&#xA;walls0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;walls0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);&#xA;&#x9;walls0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);&#xA;&#xA;this.add(walls0, &#xA;new org.eclipse.draw2d.geometry.Rectangle(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(40)&#xA;, getMapMode().DPtoLP(40)&#xA;, getMapMode().DPtoLP(10)&#xA;)&#xA;);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.Polygon mainRoof0 = new org.eclipse.draw2d.Polygon();&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(60)&#xA;, getMapMode().DPtoLP(40)&#xA;));&#xA;mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0)&#xA;, getMapMode().DPtoLP(40)&#xA;));&#xA;mainRoof0.setFill(true);&#xA;mainRoof0.setFillXOR(false);&#xA;mainRoof0.setOutline(true);&#xA;mainRoof0.setOutlineXOR(false);&#xA;mainRoof0.setLineWidth(1);&#xA;mainRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;mainRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#x9;mainRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#xA;this.add(mainRoof0);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.Polygon topRoof0 = new org.eclipse.draw2d.Polygon();&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30)&#xA;, getMapMode().DPtoLP(0)&#xA;));&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(50)&#xA;, getMapMode().DPtoLP(20)&#xA;));&#xA;topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(20)&#xA;));&#xA;topRoof0.setFill(true);&#xA;topRoof0.setFillXOR(false);&#xA;topRoof0.setOutline(true);&#xA;topRoof0.setOutlineXOR(false);&#xA;topRoof0.setLineWidth(1);&#xA;topRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;topRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#x9;topRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);&#xA;&#xA;this.add(topRoof0);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = true;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:ResizeConstraints"/>
         <attributes
@@ -209,7 +205,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="PortLocationFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class PortLocationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public PortLocationFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLocationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLocationFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
@@ -227,8 +223,7 @@
         notationViewFactoryClassName="ShipViewFactory"
         canonicalEditPolicyClassName="ShipCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0 //@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
-        createCommandClassName="ShipCreateCommand">
+        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -237,7 +232,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ShipFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xD;&#xA;this.setFillXOR(false);&#xD;&#xA;this.setOutline(true);&#xD;&#xA;this.setOutlineXOR(false);&#xD;&#xA;this.setLineWidth(1);&#xD;&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xD;&#xA;shipNameFigure0.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#xD;&#xA;this.add(shipNameFigure0);&#xD;&#xA;setFigureShipNameFigure(shipNameFigure0);&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fShipNameFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {&#xD;&#xA;&#x9;&#x9;return fShipNameFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xD;&#xA;&#x9;&#x9;fShipNameFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;shipNameFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(shipNameFigure0);&#xA;setFigureShipNameFigure(shipNameFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fShipNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {&#xA;&#x9;&#x9;return fShipNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fShipNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -277,11 +272,12 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Ship Destination"
           editHelperAdviceClassName="ShipDestinationEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipDestinationFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ShipDestinationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ShipDestinationFigure() {&#xD;&#xA;&#x9;&#x9;this.setFill(true);&#xD;&#xA;this.setFillXOR(false);&#xD;&#xA;this.setOutline(true);&#xD;&#xA;this.setOutlineXOR(false);&#xD;&#xA;this.setLineWidth(1);&#xD;&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xD;&#xA;df.setFill(true);&#xD;&#xA;df.setFillXOR(false);&#xD;&#xA;df.setOutline(true);&#xD;&#xA;df.setOutlineXOR(false);&#xD;&#xA;df.setLineWidth(1);&#xD;&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;df.setFill(true);&#xA;df.setFillXOR(false);&#xA;df.setOutline(true);&#xA;df.setOutlineXOR(false);&#xA;df.setLineWidth(1);&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -300,7 +296,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="ShipDestinationMarkerFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ShipDestinationMarkerFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ShipDestinationMarkerFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationMarkerFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationMarkerFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -320,17 +316,17 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Reliable Route"
           editHelperClassName="RouteEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ReliableRouteFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ReliableRouteFigure() {&#xD;&#xA;&#x9;&#x9;this.setFill(true);&#xD;&#xA;this.setFillXOR(false);&#xD;&#xA;this.setOutline(true);&#xD;&#xA;this.setOutlineXOR(false);&#xD;&#xA;this.setLineWidth(1);&#xD;&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="RouteTypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -364,7 +360,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="ReliableRouteDescriptionFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ReliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ReliableRouteDescriptionFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteDescriptionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -389,7 +385,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="ReliableRouteReliabilityFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ReliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ReliableRouteReliabilityFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteReliabilityFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
@@ -414,18 +410,18 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Unreliable Route"
           metamodelType="//@diagram/@links.1/@elementType"
           editHelperAdviceClassName="RouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="UnreliableRouteFigure"
-          classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public UnreliableRouteFigure() {&#xD;&#xA;&#x9;&#x9;this.setFill(true);&#xD;&#xA;this.setFillXOR(false);&#xD;&#xA;this.setOutline(true);&#xD;&#xA;this.setOutlineXOR(false);&#xD;&#xA;this.setLineWidth(1);&#xD;&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="Route2TypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -459,7 +455,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="UnreliableRouteDescriptionFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class UnreliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public UnreliableRouteDescriptionFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteDescriptionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -484,7 +480,7 @@
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
             className="UnreliableRouteReliabilityFigure"
-            classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class UnreliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public UnreliableRouteReliabilityFigure() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteReliabilityFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="60"/>
