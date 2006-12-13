@@ -325,7 +325,12 @@ public abstract class GeneratorBase implements Runnable {
 				genText = formatCode(genText);
 				if (!genText.equals(oldContents)) { // compare text with fqns; works for jet templates
 					cu.getBuffer().setContents(genText);
-					getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+					try {
+						getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+					} catch (CoreException e) {
+						cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
+						throw e;
+					}
 					String newContents = formatCode(cu.getSource());
 					if (!newContents.equals(oldContents)) { // compare text with organized imports; works for xpand templates
 						cu.getBuffer().setContents(newContents);
