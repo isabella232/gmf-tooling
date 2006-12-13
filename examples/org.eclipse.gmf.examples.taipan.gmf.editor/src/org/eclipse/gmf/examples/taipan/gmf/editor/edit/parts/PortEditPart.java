@@ -13,10 +13,18 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import java.util.Iterator;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FreeformLayout;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
+import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -71,9 +79,9 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PortItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -127,6 +135,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
+
 		return result;
 	}
 
@@ -135,9 +144,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPolicy getPrimaryDragEditPolicy() {
 		ResizableEditPolicy ep = (ResizableEditPolicy) super.getPrimaryDragEditPolicy();
-
 		ep.setResizeDirections(PositionConstants.NONE);
-
 		return ep;
 	}
 
@@ -267,18 +274,18 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class PortFigure extends org.eclipse.draw2d.Layer {
+	public class PortFigure extends Layer {
 
 		/**
 		 * @generated
 		 */
 		public PortFigure() {
 
-			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+			this.setLayoutManager(new XYLayout());
 
-			this.setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
 			createContents();
 		}
@@ -288,45 +295,45 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			org.eclipse.draw2d.RectangleFigure walls0 = new org.eclipse.draw2d.RectangleFigure();
+			RectangleFigure walls0 = new RectangleFigure();
 			walls0.setFill(true);
 			walls0.setFillXOR(false);
 			walls0.setOutline(true);
 			walls0.setOutlineXOR(false);
 			walls0.setLineWidth(1);
-			walls0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
-			walls0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
-			walls0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
+			walls0.setLineStyle(Graphics.LINE_SOLID);
+			walls0.setForegroundColor(ColorConstants.black);
+			walls0.setBackgroundColor(ColorConstants.darkGray);
 
-			this.add(walls0, new org.eclipse.draw2d.geometry.Rectangle(getMapMode().DPtoLP(10), getMapMode().DPtoLP(40), getMapMode().DPtoLP(40), getMapMode().DPtoLP(10)));
+			this.add(walls0, new Rectangle(getMapMode().DPtoLP(10), getMapMode().DPtoLP(40), getMapMode().DPtoLP(40), getMapMode().DPtoLP(10)));
 
-			org.eclipse.draw2d.Polygon mainRoof0 = new org.eclipse.draw2d.Polygon();
-			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(10)));
-			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(60), getMapMode().DPtoLP(40)));
-			mainRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0), getMapMode().DPtoLP(40)));
+			Polygon mainRoof0 = new Polygon();
+			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(10)));
+			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(60), getMapMode().DPtoLP(40)));
+			mainRoof0.addPoint(new Point(getMapMode().DPtoLP(0), getMapMode().DPtoLP(40)));
 			mainRoof0.setFill(true);
 			mainRoof0.setFillXOR(false);
 			mainRoof0.setOutline(true);
 			mainRoof0.setOutlineXOR(false);
 			mainRoof0.setLineWidth(1);
-			mainRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
-			mainRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			mainRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			mainRoof0.setLineStyle(Graphics.LINE_SOLID);
+			mainRoof0.setForegroundColor(ColorConstants.orange);
+			mainRoof0.setBackgroundColor(ColorConstants.orange);
 
 			this.add(mainRoof0);
 
-			org.eclipse.draw2d.Polygon topRoof0 = new org.eclipse.draw2d.Polygon();
-			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(0)));
-			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(50), getMapMode().DPtoLP(20)));
-			topRoof0.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(10), getMapMode().DPtoLP(20)));
+			Polygon topRoof0 = new Polygon();
+			topRoof0.addPoint(new Point(getMapMode().DPtoLP(30), getMapMode().DPtoLP(0)));
+			topRoof0.addPoint(new Point(getMapMode().DPtoLP(50), getMapMode().DPtoLP(20)));
+			topRoof0.addPoint(new Point(getMapMode().DPtoLP(10), getMapMode().DPtoLP(20)));
 			topRoof0.setFill(true);
 			topRoof0.setFillXOR(false);
 			topRoof0.setOutline(true);
 			topRoof0.setOutlineXOR(false);
 			topRoof0.setLineWidth(1);
-			topRoof0.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
-			topRoof0.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			topRoof0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			topRoof0.setLineStyle(Graphics.LINE_SOLID);
+			topRoof0.setForegroundColor(ColorConstants.orange);
+			topRoof0.setBackgroundColor(ColorConstants.orange);
 
 			this.add(topRoof0);
 

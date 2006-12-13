@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -25,6 +27,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -61,9 +64,9 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new LargeItemItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -109,30 +112,9 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemArticleEditPart) {
-			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
-			return true;
-		}
-		if (childEditPart instanceof LargeItemWeightEditPart) {
-			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean removeFixedChild(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+
 		return result;
 	}
 
@@ -208,14 +190,14 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class LargeItemFigure extends org.eclipse.draw2d.RectangleFigure {
+	public class LargeItemFigure extends RectangleFigure {
 
 		/**
 		 * @generated
 		 */
 		public LargeItemFigure() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layoutThis = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
+			ConstrainedToolbarLayout layoutThis = new ConstrainedToolbarLayout();
 
 			this.setLayoutManager(layoutThis);
 
@@ -224,7 +206,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 			createContents();
 		}
 
@@ -233,13 +215,13 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemArticleFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			WrapLabel largeItemArticleFigure0 = new WrapLabel();
 			largeItemArticleFigure0.setText("<...>");
 
 			this.add(largeItemArticleFigure0);
 			setFigureLargeItemArticleFigure(largeItemArticleFigure0);
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel largeItemWeightFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			WrapLabel largeItemWeightFigure0 = new WrapLabel();
 			largeItemWeightFigure0.setText("<...>");
 
 			this.add(largeItemWeightFigure0);
@@ -250,38 +232,38 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemArticleFigure;
+		private WrapLabel fLargeItemArticleFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {
+		public WrapLabel getFigureLargeItemArticleFigure() {
 			return fLargeItemArticleFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureLargeItemArticleFigure(WrapLabel fig) {
 			fLargeItemArticleFigure = fig;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemWeightFigure;
+		private WrapLabel fLargeItemWeightFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {
+		public WrapLabel getFigureLargeItemWeightFigure() {
 			return fLargeItemWeightFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureLargeItemWeightFigure(WrapLabel fig) {
 			fLargeItemWeightFigure = fig;
 		}
 
@@ -304,6 +286,29 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
+			return true;
+		}
+		if (childEditPart instanceof LargeItemArticleEditPart) {
+			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+
+		return false;
 	}
 
 }
