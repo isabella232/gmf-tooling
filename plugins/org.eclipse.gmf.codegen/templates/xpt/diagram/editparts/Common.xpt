@@ -21,6 +21,11 @@
 	installEditPolicy("«key»", new «getEditPolicyQualifiedClassName()»()); //$NON-NLS-1$
 «ENDDEFINE»
 
+«DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
+	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.OPEN_ROLE,
+		new «getEditPolicyQualifiedClassName()»());
+«ENDDEFINE»
+
 «DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»
 	/**
 	 * @generated
