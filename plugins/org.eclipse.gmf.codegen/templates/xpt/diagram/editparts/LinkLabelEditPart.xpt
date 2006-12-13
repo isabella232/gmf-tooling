@@ -22,7 +22,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	static {
 		registerSnapBackPosition(
 			«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«editPartClassName».VISUAL_ID),
-			new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap)», «labelOffsetY(viewmap)»));
+			new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap, 0)», «labelOffsetY(viewmap, 0)»));
 	}
 
 	/**
