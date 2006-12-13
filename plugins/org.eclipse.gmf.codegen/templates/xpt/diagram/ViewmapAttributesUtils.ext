@@ -5,6 +5,10 @@ Boolean isFixedFont(gmfgen::Viewmap viewmap) :
 	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedFont)
 ;
 
+gmfgen::ResizeConstraints getResizeConstraints(gmfgen::Viewmap viewmap) :
+	null == viewmap ? null : ((gmfgen::ResizeConstraints) viewmap.attributes.typeSelect(gmfgen::ResizeConstraints).first())
+;
+
 gmfgen::LabelOffsetAttributes getLabelOffsetAttributes(gmfgen::Viewmap viewmap) :
 	null == viewmap ? null : ((gmfgen::LabelOffsetAttributes) viewmap.attributes.typeSelect(gmfgen::LabelOffsetAttributes).first())
 ;
