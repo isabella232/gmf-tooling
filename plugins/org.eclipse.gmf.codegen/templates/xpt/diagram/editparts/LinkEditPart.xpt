@@ -1,0 +1,94 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+«EXTENSION xpt::diagram::editparts::Utils»
+
+«DEFINE LinkEditPart FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().editPartsPackageName»;
+
+/**
+ * @generated
+ */
+public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart {
+
+	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
+
+	/**
+	 * @generated
+	 */
+	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		«IF null == modelFacet-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy());
+		«ENDIF-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
+			new «getItemSemanticEditPolicyQualifiedClassName()»()
+		«IF null == modelFacet-»
+		{
+			protected org.eclipse.gef.commands.Command getSemanticCommand(
+					org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest editRequest) {
+				if (editRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest &&
+						getHost() instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart) {
+					return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(
+						new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editRequest.getEditingDomain(),
+						((org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart) getHost()).getPrimaryView()));
+				}
+				return super.getSemanticCommand(editRequest);
+			}
+
+			public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
+				if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {
+					return null;
+				}
+				return super.getCommand(request);
+			}
+		}
+		«ENDIF-»
+		);
+		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+	}
+
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.Connection createConnectionFigure() {
+		«EXPAND createLinkFigure(this) FOR viewmap»
+}
+«ENDDEFINE»
+
+«DEFINE createLinkFigure(gmfgen::GenLink link) FOR gmfgen::Viewmap»
+	«ERROR "Unknown viewmap: " + this-»
+«ENDDEFINE»
+
+«DEFINE createLinkFigure(gmfgen::GenLink link) FOR gmfgen::FigureViewmap»
+	«LET figureQualifiedClassName == null ? "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx" : figureQualifiedClassName AS fqn-»
+		return new «fqn»();
+	}
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE createLinkFigure(gmfgen::GenLink link) FOR gmfgen::SnippetViewmap»
+		return «body»;
+	}
+«ENDDEFINE»
+
+«DEFINE createLinkFigure(gmfgen::GenLink link) FOR gmfgen::InnerClassViewmap»
+		return new «className»();
+	}
+
+	«classBody»
+«ENDDEFINE»

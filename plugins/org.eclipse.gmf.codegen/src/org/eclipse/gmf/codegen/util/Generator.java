@@ -367,13 +367,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateLinkEditPart(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getLinkEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			genLink.getEditPartClassName(),
-			genLink
-		);
+	private void generateLinkEditPart(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getLinkEditPartEmitter(), link.getEditPartQualifiedClassName(), link);
 	}
 
 	private void generateLinkLabelEditPart(GenLinkLabel label) throws UnexpectedBehaviourException, InterruptedException {
