@@ -12,10 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipDestinationItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -41,7 +45,6 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipDestinationItemSemanticEditPolicy());
-
 	}
 
 	protected Connection createConnectionFigure() {
@@ -51,7 +54,7 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class ShipDestinationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class ShipDestinationFigure extends PolylineConnectionEx {
 
 		/**
 		 * @generated
@@ -62,7 +65,7 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -70,14 +73,14 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {
-			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
+		private RotatableDecoration createTargetDecoration() {
+			PolylineDecoration df = new PolylineDecoration();
 			df.setFill(true);
 			df.setFillXOR(false);
 			df.setOutline(true);
 			df.setOutlineXOR(false);
 			df.setLineWidth(1);
-			df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			df.setLineStyle(Graphics.LINE_SOLID);
 			return df;
 		}
 
