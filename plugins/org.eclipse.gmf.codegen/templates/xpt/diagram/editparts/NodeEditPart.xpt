@@ -1,0 +1,611 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+«EXTENSION xpt::diagram::editparts::Utils»
+
+«DEFINE NodeEditPart FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().editPartsPackageName»;
+
+/**
+ * @generated
+ */
+public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
+
+	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure contentPane;
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure primaryShape;
+
+	/**
+	 * @generated
+	 */
+	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		«IF hasChildren() || hasChildrenInListCompartments()-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
+				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()
+			«IF hasChildrenInListCompartments()-»
+			{
+
+			public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
+				if (understandsRequest(request)) {
+					if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+						org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter =
+							((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).
+								getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						org.eclipse.gmf.runtime.emf.type.core.IElementType type =
+							(org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(
+								org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+						«FOREACH compartments AS compartment-»
+							«IF listCompartmentHasChildren(compartment)-»
+								«FOREACH compartment.childNodes AS childNode-»
+						if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
+							org.eclipse.gef.EditPart compartmentEditPart =
+								getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
+									«compartment.getEditPartQualifiedClassName()».VISUAL_ID));
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+								«ENDFOREACH-»
+							«ENDIF-»
+						«ENDFOREACH-»
+					}
+					return super.getCommand(request);
+				}
+				return null;
+			}
+		}
+		«ENDIF-»
+		);
+		«ENDIF-»
+		super.createDefaultEditPolicies();
+		«EXPAND installPrimaryDragEditPolicy FOR this-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
+			new «getItemSemanticEditPolicyQualifiedClassName()»());
+		«IF needsGraphicalNodeEditPolicy()-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE,
+			new «getGraphicalNodeEditPolicyQualifiedClassName()»());
+		«ENDIF-»
+		«IF !childNodes.isEmpty()-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
+		«ENDIF-»
+		«IF needsCanonicalEditPolicy()-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE,
+			new «getCanonicalEditPolicyQualifiedClassName()»());
+		«ENDIF-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.gef.editpolicies.LayoutEditPolicy createLayoutEditPolicy() {
+		«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep =
+				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
+			«IF hasExternalLabels(this)-»
+
+			protected void decorateChild(org.eclipse.gef.EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+			«ENDIF-»
+
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
+				if (result == null) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
+				}
+				return result;
+			}
+		};
+			«IF hasExternalLabels(this)-»
+		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
+			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
+
+			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
+				return «editPartClassName».this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+			«ELSE-»
+		return lep;
+			«ENDIF-»
+		«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT.value == getLayoutType().value»
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep =
+				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
+			«IF hasExternalLabels(this)-»
+
+			protected void decorateChild(org.eclipse.gef.EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+			«ENDIF-»
+
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
+						return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
+					}
+				}
+				return super.createChildEditPolicy(child);
+			}
+		};
+			«IF hasExternalLabels(this)-»
+		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
+			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
+
+			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
+				return «editPartClassName».this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+			«ELSE-»
+		return lep;
+			«ENDIF-»
+		«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT.value == getLayoutType().value»
+		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep =
+				new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
+			«IF hasExternalLabels(this)-»
+
+			protected void decorateChild(org.eclipse.gef.EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+			«ENDIF-»
+
+			«IF getSideAffixedChildren(this).size() > 0-»
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+				}
+				return super.createChildEditPolicy(child);
+			}
+			«ENDIF-»
+
+			protected org.eclipse.gef.commands.Command createAddCommand(
+					org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
+				return null;
+			}
+
+			protected org.eclipse.gef.commands.Command createMoveChildCommand(
+					org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
+				return null;
+			}
+
+			protected org.eclipse.gef.commands.Command getCreateCommand(
+					org.eclipse.gef.requests.CreateRequest request) {
+				return null;
+			}
+		};
+			«IF hasExternalLabels(this)-»
+		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
+			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
+
+			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
+				return «editPartClassName».this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+			«ELSE-»
+		return lep;
+			«ENDIF-»
+		«ELSE-»
+		org.eclipse.gef.editpolicies.LayoutEditPolicy lep =
+				new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
+			«IF hasExternalLabels(this)-»
+
+			protected void decorateChild(org.eclipse.gef.EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+			«ENDIF-»
+
+			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				org.eclipse.gef.EditPolicy result =
+					child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
+				}
+				return result;
+			}
+
+			protected org.eclipse.gef.commands.Command getMoveChildrenCommand(
+					org.eclipse.gef.Request request) {
+				return null;
+			}
+
+			protected org.eclipse.gef.commands.Command getCreateCommand(
+					org.eclipse.gef.requests.CreateRequest request) {
+				return null;
+			}
+		};
+			«IF hasExternalLabels(this)-»
+		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
+			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
+
+			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
+				return «editPartClassName».this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+			«ELSE-»
+		return lep;
+			«ENDIF-»
+		«ENDIF-»
+	}
+
+	«EXPAND createNodeShape(this) FOR viewmap-»
+
+	«IF hasFixedChildren(this)-»
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
+		«FOREACH getInnerFixedLabels(this) AS label-»
+			«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+			((«label.getEditPartQualifiedClassName()») childEditPart).«getSetterName(childViewmap)»(
+				getPrimaryShape().«childViewmap.getterName»());
+			return true;
+		}
+			«ENDLET-»
+		«ENDFOREACH-»
+		«FOREACH getPinnedCompartments(this) AS compartment-»
+			«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
+		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.add(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			return true;
+		}	
+			«ENDLET-»
+		«ENDFOREACH-»
+		«FOREACH getSideAffixedChildren(this) AS child-»
+		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
+			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator =
+				new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(
+					getMainFigure(), org.eclipse.draw2d.PositionConstants.«child.preferredSideName»);
+			getBorderedFigure().getBorderItemContainer().add(
+				((«child.getEditPartQualifiedClassName()») childEditPart).getFigure(), locator);
+			return true;
+		}
+		«ENDFOREACH-»
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
+		«REM»ignore labels assuming that they never may be removed«ENDREM»
+		«FOREACH getPinnedCompartments(this) AS compartment-»
+			«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
+		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.remove(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			return true;
+		}	
+			«ENDLET-»
+		«ENDFOREACH-»
+		«FOREACH getSideAffixedChildren(this) AS child-»
+		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
+			getBorderedFigure().getBorderItemContainer().remove(
+				((«child.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			return true;
+		}
+		«ENDFOREACH-»
+		return false;
+	}
+	«ENDIF-»
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
+		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
+			new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(
+				getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»),
+				getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»));
+		«EXPAND setupNodePlate FOR this-»
+		return result;
+	}
+
+	«LET getResizeConstraints(viewmap) AS rc-»
+		«IF null != rc-»
+	/**
+	 * @generated
+	 */
+	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
+		org.eclipse.gef.editpolicies.ResizableEditPolicy ep =
+			(org.eclipse.gef.editpolicies.ResizableEditPolicy) super.getPrimaryDragEditPolicy();
+		ep.setResizeDirections(
+		«IF rc.resizeHandleNames.size() > 0-»
+			«FOREACH rc.resizeHandleNames AS name SEPARATOR ' | '-»
+			org.eclipse.draw2d.PositionConstants.«name»
+			«ENDFOREACH-»
+		«ELSE-»
+			org.eclipse.draw2d.PositionConstants.NONE
+		«ENDIF-»
+		);
+		return ep;
+	}
+		«ENDIF-»
+	«ENDLET-»
+
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF getSideAffixedChildren(this).size() > 0»Main«ELSE»Node«ENDIF»Figure() {
+		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
+		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
+		org.eclipse.draw2d.IFigure shape = createNodeShape();
+		figure.add(shape);
+		contentPane = setupContentPane(shape);
+		return figure;
+	}
+
+	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+		«IF getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
+		nodeShape.setLayoutManager(new org.eclipse.draw2d.FreeformLayout() {
+
+			public Object getConstraint(org.eclipse.draw2d.IFigure figure) {
+				Object result = constraints.get(figure);
+				if (result == null) {
+					result = new org.eclipse.draw2d.geometry.Rectangle(0, 0, -1, -1);
+				}
+				return result;
+			}
+		});
+		«ELSE-»
+			org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layout =
+				new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
+		«ENDIF-»
+		}
+		return nodeShape; // use nodeShape itself as contentPane
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.draw2d.IFigure getContentPane() {
+		if (contentPane != null) {
+			return contentPane;
+		}
+		return super.getContentPane();
+	}
+
+	«IF !labels.isEmpty()-»
+	/**
+	 * @generated
+	 */
+	public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
+		return getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
+			«((GenLabel) labels.toList().first()).getEditPartQualifiedClassName()».VISUAL_ID));
+	}
+	«ENDIF-»
+
+	«IF hasExternalLabels(this)-»
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(org.eclipse.gef.EditPart childEditPart) {
+		«FOREACH labels.typeSelect(gmfgen::GenExternalNodeLabel) AS label-»
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+			return true;
+		}
+		«ENDFOREACH-»
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure getExternalLabelsContainer() {
+		org.eclipse.gef.editparts.LayerManager root = (org.eclipse.gef.editparts.LayerManager) getRoot();
+		return root.getLayer(«getDiagram().getEditPartFactoryQualifiedClassName()».EXTERNAL_NODE_LABELS_LAYER);
+	}
+	«ENDIF-»
+
+	«IF hasFixedChildren(this) || hasExternalLabels(this)-»
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
+		«IF hasExternalLabels(this)-»
+		if (isExternalLabel(childEditPart)) {
+			org.eclipse.draw2d.IFigure labelFigure =
+				((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+			return;
+		} 
+		«ENDIF-»
+		«IF hasFixedChildren(this)-»
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		«ENDIF-»
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
+		«IF hasExternalLabels(this)-»
+		if (isExternalLabel(childEditPart)) {
+			org.eclipse.draw2d.IFigure labelFigure =
+				((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+			return;
+		} 
+		«ENDIF-»
+		«IF hasFixedChildren(this)-»
+		if (removeFixedChild(childEditPart)){
+			return;
+		}
+		«ENDIF-»
+		super.removeChildVisual(childEditPart);
+	}
+		«IF hasExternalLabels(this)-»
+
+	/**
+	 * @generated
+	 */
+	public void removeNotify() {
+		for (java.util.Iterator it = getChildren().iterator(); it.hasNext();) {
+			org.eclipse.gef.EditPart childEditPart = (org.eclipse.gef.EditPart) it.next();
+			if (isExternalLabel(childEditPart)) {
+				org.eclipse.draw2d.IFigure labelFigure =
+					((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
+	}
+		«ENDIF-»
+	«ENDIF-»
+
+	«EXPAND handleNotificationEvent FOR this-»
+}
+«ENDDEFINE»
+
+«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenNode»
+«ENDDEFINE»
+
+«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenChildSideAffixedNode»
+	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
+«ENDDEFINE»
+
+«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap»
+	«ERROR "Unknown viewmap: " + this-»
+«ENDDEFINE»
+
+«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::FigureViewmap»
+	«LET figureQualifiedClassName == null ? "org.eclipse.draw2d.RectangleFigure" : figureQualifiedClassName AS fqn-»
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createNodeShape() {
+		return primaryShape = new «fqn»()
+			«IF node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
+			{
+				protected boolean useLocalCoordinates() {
+					return true;
+				}
+			}
+			«ENDIF-»
+		;
+	}
+
+	/**
+	 * @generated
+	 */
+	public «fqn» getPrimaryShape() {
+		return («fqn») primaryShape;
+	}
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::SnippetViewmap»
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createNodeShape() {
+		return «body»;
+	}
+«ENDDEFINE»
+
+«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap»
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure createNodeShape() {
+		«className» figure = new «className»();
+		«IF node.childNodes.size() > 0 && node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
+ 		figure.setUseLocalCoordinates(true);
+		«ENDIF-»
+ 		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public «className» getPrimaryShape() {
+		return («className») primaryShape;
+	}
+
+	«classBody»
+«ENDDEFINE»
+
+«DEFINE setupNodePlate FOR gmfgen::GenNode»
+«ENDDEFINE»
+
+«DEFINE setupNodePlate FOR gmfgen::GenChildSideAffixedNode»
+	//FIXME: workaround for #154536
+	result.getBounds().setSize(result.getPreferredSize());
+«ENDDEFINE»
+
+«DEFINE handleNotificationEvent FOR gmfgen::GenNode»
+«ENDDEFINE»
+
+«DEFINE handleNotificationEvent FOR gmfgen::GenTopLevelNode»
+	«REM»This code is important for refreshing shortcut decoration
+	on adding corresponding annotation to the View instance.«ENDREM»
+	«IF getDiagram().generateShortcutIcon()-»
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
+		if (event.getNotifier() == getModel() &&
+				org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
+		}
+	}
+	«ENDIF-»
+«ENDDEFINE»
