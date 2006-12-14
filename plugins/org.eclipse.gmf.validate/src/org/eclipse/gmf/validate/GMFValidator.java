@@ -81,7 +81,7 @@ public class GMFValidator extends ValidatorChain {
 		return diagnostician.validate(eObject);
 	}
 		
-	private static class DelegateRegistry extends HashMap implements Registry {
+	private static class DelegateRegistry extends HashMap<EPackage, Object> implements Registry {
 		private ValidationOptions options;
 		private EValidator gmfValidator;
 		private EValidator noEcoreValidator;
@@ -128,7 +128,7 @@ public class GMFValidator extends ValidatorChain {
 		private EValidator createDelegator(Object key, EValidator delegate) {		
 			// extend custom validator retrieved from the registry only with GMF validators
 			EValidator delegatingValidator = new ValidatorChain(new EValidator[] { delegate, getNoEcoreValidator() });
-			put(key, delegatingValidator);
+			put((EPackage)key, delegatingValidator);
 			return delegatingValidator;
 		}
 
