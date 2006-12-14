@@ -5,7 +5,8 @@ Bundle-SymbolicName: org.eclipse.gmf.xpand;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime
 Export-Package: lpg.lpgjavaruntime;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen",
  org.eclipse.gmf.internal.xpand.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand",
