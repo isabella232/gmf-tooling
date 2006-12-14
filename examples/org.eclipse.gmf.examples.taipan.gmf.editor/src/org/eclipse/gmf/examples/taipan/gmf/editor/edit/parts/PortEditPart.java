@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import java.util.Iterator;
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.Graphics;
@@ -27,22 +25,20 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanExtNodeLabelHostLayoutEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
@@ -50,7 +46,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class PortEditPart extends ShapeNodeEditPart {
+public class PortEditPart extends AbstractBorderedShapeEditPart {
 
 	/**
 	 * @generated
@@ -90,14 +86,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
 
-			protected void decorateChild(EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-
 			protected EditPolicy createChildEditPolicy(EditPart child) {
+				if (child instanceof IBorderItemEditPart) {
+					return new BorderItemSelectionEditPolicy();
+				}
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new ResizableShapeEditPolicy();
@@ -105,14 +97,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 				return result;
 			}
 		};
-		TaiPanExtNodeLabelHostLayoutEditPolicy xlep = new TaiPanExtNodeLabelHostLayoutEditPolicy() {
-
-			protected boolean isExternalLabel(EditPart editPart) {
-				return PortEditPart.this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
+		return lep;
 	}
 
 	/**
@@ -156,7 +141,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected NodeFigure createNodeFigure() {
+	protected NodeFigure createMainFigure() {
 		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
@@ -202,62 +187,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean isExternalLabel(EditPart childEditPart) {
-		if (childEditPart instanceof PortLocationEditPart) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getExternalLabelsContainer() {
-		LayerManager root = (LayerManager) getRoot();
-		return root.getLayer(TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	public void removeNotify() {
-		for (Iterator it = getChildren().iterator(); it.hasNext();) {
-			EditPart childEditPart = (EditPart) it.next();
-			if (isExternalLabel(childEditPart)) {
-				IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-				getExternalLabelsContainer().remove(labelFigure);
-			}
-		}
-		super.removeNotify();
 	}
 
 	/**
@@ -358,6 +287,19 @@ public class PortEditPart extends ShapeNodeEditPart {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addBorderItem(IFigure borderItemContainer, IBorderItemEditPart borderItemEditPart) {
+		if (borderItemEditPart instanceof PortLocationEditPart) {
+			BorderItemLocator locator = new BorderItemLocator(getMainFigure(), PositionConstants.SOUTH);
+			locator.setBorderItemOffset(new Dimension(-20, -20));
+			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
+		} else {
+			super.addBorderItem(borderItemContainer, borderItemEditPart);
+		}
 	}
 
 }

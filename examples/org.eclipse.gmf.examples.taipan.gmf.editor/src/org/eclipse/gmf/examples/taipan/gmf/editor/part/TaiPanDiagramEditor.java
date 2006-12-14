@@ -11,6 +11,16 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import org.eclipse.draw2d.DelegatingLayout;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.LayeredPane;
+import org.eclipse.gef.LayerConstants;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -23,58 +33,33 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-
 import org.eclipse.emf.transaction.NotificationFilter;
-
-import org.eclipse.gef.EditPartViewer;
-
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
-import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
-
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.util.LocalSelectionTransfer;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
-
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
@@ -145,22 +130,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		});
 
 		return domain;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void configureGraphicalViewer() {
-		super.configureGraphicalViewer();
-		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();
-		LayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);
-		FreeformLayer extLabelsLayer = new FreeformLayer();
-		extLabelsLayer.setLayoutManager(new DelegatingLayout());
-		printableLayers.addLayerAfter(extLabelsLayer, TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);
-		LayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);
-		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
-		scaledFeedbackLayer.setEnabled(false);
-		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
 	}
 
 	/**

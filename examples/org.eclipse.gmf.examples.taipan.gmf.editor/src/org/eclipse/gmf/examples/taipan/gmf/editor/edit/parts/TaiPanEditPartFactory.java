@@ -35,11 +35,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels"; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;

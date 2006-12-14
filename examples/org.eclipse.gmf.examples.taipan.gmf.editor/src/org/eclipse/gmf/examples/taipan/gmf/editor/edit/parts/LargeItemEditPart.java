@@ -170,26 +170,6 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
 	public class LargeItemFigure extends RectangleFigure {
 
 		/**
@@ -292,12 +272,12 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemWeightEditPart) {
-			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
-			return true;
-		}
 		if (childEditPart instanceof LargeItemArticleEditPart) {
 			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
+			return true;
+		}
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
 			return true;
 		}
 		return false;
@@ -309,6 +289,26 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	protected boolean removeFixedChild(EditPart childEditPart) {
 
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
 	}
 
 }
