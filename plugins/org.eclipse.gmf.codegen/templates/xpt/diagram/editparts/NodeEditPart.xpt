@@ -98,17 +98,13 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep =
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
-			«IF hasExternalLabels(this)-»
-
-			protected void decorateChild(org.eclipse.gef.EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-			«ENDIF-»
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				«IF hasBorderItems(this)-»
+				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+				}
+				«ENDIF-»
 				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
@@ -116,33 +112,17 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				return result;
 			}
 		};
-			«IF hasExternalLabels(this)-»
-		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
-			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
-
-			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
-				return «editPartClassName».this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
-			«ELSE-»
 		return lep;
-			«ENDIF-»
 		«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT.value == getLayoutType().value»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep =
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
-			«IF hasExternalLabels(this)-»
-
-			protected void decorateChild(org.eclipse.gef.EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-			«ENDIF-»
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+				«IF hasBorderItems(this)-»
+				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+				}
+				«ENDIF-»
 				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
 						return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
@@ -151,33 +131,12 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				return super.createChildEditPolicy(child);
 			}
 		};
-			«IF hasExternalLabels(this)-»
-		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
-			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
-
-			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
-				return «editPartClassName».this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
-			«ELSE-»
 		return lep;
-			«ENDIF-»
 		«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT.value == getLayoutType().value»
 		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep =
 				new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
-			«IF hasExternalLabels(this)-»
 
-			protected void decorateChild(org.eclipse.gef.EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-			«ENDIF-»
-
-			«IF getSideAffixedChildren(this).size() > 0-»
+			«IF hasBorderItems(this)-»
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
@@ -201,35 +160,18 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				return null;
 			}
 		};
-			«IF hasExternalLabels(this)-»
-		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
-			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
-
-			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
-				return «editPartClassName».this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
-			«ELSE-»
 		return lep;
-			«ENDIF-»
 		«ELSE-»
 		org.eclipse.gef.editpolicies.LayoutEditPolicy lep =
 				new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
-			«IF hasExternalLabels(this)-»
-
-			protected void decorateChild(org.eclipse.gef.EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-			«ENDIF-»
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				org.eclipse.gef.EditPolicy result =
-					child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+				«IF hasBorderItems(this)-»
+				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
+					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
+				}
+				«ENDIF-»
+				org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
 				}
@@ -246,19 +188,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				return null;
 			}
 		};
-			«IF hasExternalLabels(this)-»
-		«getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()» xlep =
-			new «getDiagram().getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName()»() {
-
-			protected boolean isExternalLabel(org.eclipse.gef.EditPart editPart) {
-				return «editPartClassName».this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
-			«ELSE-»
 		return lep;
-			«ENDIF-»
 		«ENDIF-»
 	}
 
@@ -325,6 +255,48 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		«ENDFOREACH-»
 		return false;
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)){
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+	«ENDIF-»
+
+	«IF getExternalLabels(this).size() > 0-»
+	/**
+	 * @generated
+	 */
+	protected void addBorderItem(org.eclipse.draw2d.IFigure borderItemContainer,
+			org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart borderItemEditPart) {
+		if (
+			«FOREACH getExternalLabels(this) AS label SEPARATOR ' || '-»
+				borderItemEditPart instanceof «label.getEditPartQualifiedClassName()»
+			«ENDFOREACH-»
+				) {
+			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator =
+				new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(),
+					org.eclipse.draw2d.PositionConstants.SOUTH);
+			locator.setBorderItemOffset(new org.eclipse.draw2d.geometry.Dimension(-20, -20));
+			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
+		} else {
+			super.addBorderItem(borderItemContainer, borderItemEditPart);
+		}
+	}
 	«ENDIF-»
 
 	/**
@@ -369,7 +341,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 	 * 
 	 * @generated
 	 */
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF getSideAffixedChildren(this).size() > 0»Main«ELSE»Node«ENDIF»Figure() {
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems(this)»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
 		org.eclipse.draw2d.IFigure shape = createNodeShape();
@@ -425,87 +397,6 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		return getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
 			«((GenLabel) labels.toList().first()).getEditPartQualifiedClassName()».VISUAL_ID));
 	}
-	«ENDIF-»
-
-	«IF hasExternalLabels(this)-»
-	/**
-	 * @generated
-	 */
-	protected boolean isExternalLabel(org.eclipse.gef.EditPart childEditPart) {
-		«FOREACH labels.typeSelect(gmfgen::GenExternalNodeLabel) AS label-»
-		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-			return true;
-		}
-		«ENDFOREACH-»
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected org.eclipse.draw2d.IFigure getExternalLabelsContainer() {
-		org.eclipse.gef.editparts.LayerManager root = (org.eclipse.gef.editparts.LayerManager) getRoot();
-		return root.getLayer(«getDiagram().getEditPartFactoryQualifiedClassName()».EXTERNAL_NODE_LABELS_LAYER);
-	}
-	«ENDIF-»
-
-	«IF hasFixedChildren(this) || hasExternalLabels(this)-»
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
-		«IF hasExternalLabels(this)-»
-		if (isExternalLabel(childEditPart)) {
-			org.eclipse.draw2d.IFigure labelFigure =
-				((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-			return;
-		} 
-		«ENDIF-»
-		«IF hasFixedChildren(this)-»
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		«ENDIF-»
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
-		«IF hasExternalLabels(this)-»
-		if (isExternalLabel(childEditPart)) {
-			org.eclipse.draw2d.IFigure labelFigure =
-				((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-			return;
-		} 
-		«ENDIF-»
-		«IF hasFixedChildren(this)-»
-		if (removeFixedChild(childEditPart)){
-			return;
-		}
-		«ENDIF-»
-		super.removeChildVisual(childEditPart);
-	}
-		«IF hasExternalLabels(this)-»
-
-	/**
-	 * @generated
-	 */
-	public void removeNotify() {
-		for (java.util.Iterator it = getChildren().iterator(); it.hasNext();) {
-			org.eclipse.gef.EditPart childEditPart = (org.eclipse.gef.EditPart) it.next();
-			if (isExternalLabel(childEditPart)) {
-				org.eclipse.draw2d.IFigure labelFigure =
-					((org.eclipse.gef.GraphicalEditPart) childEditPart).getFigure();
-				getExternalLabelsContainer().remove(labelFigure);
-			}
-		}
-		super.removeNotify();
-	}
-		«ENDIF-»
 	«ENDIF-»
 
 	«EXPAND handleNotificationEvent FOR this-»

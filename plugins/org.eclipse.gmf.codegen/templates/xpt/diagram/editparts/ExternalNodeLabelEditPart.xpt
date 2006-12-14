@@ -8,8 +8,9 @@ package «getDiagram().editPartsPackageName»;
 /**
  * @generated
  */
-public class «editPartClassName» extends «getDiagram().getBaseExternalNodeLabelEditPartQualifiedClassName()»
-	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
+public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart
+	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart,
+		org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart {
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
@@ -39,6 +40,33 @@ public class «editPartClassName» extends «getDiagram().getBaseExternalNodeLabelE
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE,
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator getBorderItemLocator() {
+		org.eclipse.draw2d.IFigure parentFigure = getFigure().getParent();
+		if (parentFigure != null && parentFigure.getLayoutManager() != null) {
+			Object constraint = parentFigure.getLayoutManager().getConstraint(getFigure());
+			return (org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator) constraint;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void refreshBounds() {
+		int x = ((Integer) getStructuralFeatureValue(
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X())).intValue();
+		int y = ((Integer) getStructuralFeatureValue(
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y())).intValue();
+		int width = ((Integer) getStructuralFeatureValue(
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width())).intValue();
+		int height = ((Integer) getStructuralFeatureValue(
+			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
+		getBorderItemLocator().setConstraint(new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
 	}
 
 	«EXPAND xpt::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, node, getDiagram()) FOR this-»

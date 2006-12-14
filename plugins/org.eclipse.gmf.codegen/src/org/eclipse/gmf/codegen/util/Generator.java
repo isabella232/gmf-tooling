@@ -102,7 +102,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramItemSemanticEditPolicy();
 		generateTextSelectionEditPolicy();
 		generateTextNonResizableEditPolicy();
-		generateExternalNodeLabelHostLayoutEditPolicy();
 		for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
 			GenTopLevelNode node = (GenTopLevelNode) nodes.next();
 			generateNode(node);
@@ -141,7 +140,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditSupport(myDiagram);
 		generateViewFactory(myDiagram);
 		generateDiagramEditPart();
-		generateDiagramExternalNodeLabelEditPart();
 		generateEditPartFactory();
 		generateElementTypes();
 		generateViewProvider();
@@ -333,15 +331,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateDiagramExternalNodeLabelEditPart() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getDiagramExternalNodeLabelEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			myDiagram.getBaseExternalNodeLabelEditPartClassName(),
-			myDiagram
-		);
-	}
-
 	private void generateNodeEditPart(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getNodeEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
 	}
@@ -514,15 +503,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getTextNonResizableEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getTextNonResizableEditPolicyClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateExternalNodeLabelHostLayoutEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getExternalNodeLabelHostLayoutEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getExternalNodeLabelHostLayoutEditPolicyClassName(),
 			myDiagram
 		);
 	}

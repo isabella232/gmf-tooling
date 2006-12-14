@@ -78,13 +78,11 @@ import org.eclipse.gmf.codegen.templates.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.ExternalNodeLabelHostLayoutEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
@@ -195,7 +193,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
-		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
@@ -211,7 +208,6 @@ public class CodegenEmitters {
 		put(tr, "/commands/CreateTypeLinkCommand.javajet", CreateTypeLinkCommandGenerator.class);
 		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
 		put(tr, "/policies/TextNonResizableEditPolicy.javajet", TextNonResizableEditPolicyGenerator.class);
-		put(tr, "/policies/ExternalNodeLabelHostLayoutEditPolicy.javajet", ExternalNodeLabelHostLayoutEditPolicyGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
@@ -346,10 +342,6 @@ public class CodegenEmitters {
 		return retrieve(DiagramEditPartGenerator.class);
 	}
 
-	public TextEmitter getDiagramExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramExternalNodeLabelEditPartGenerator.class);
-	}
-
 	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
 		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::NodeEditPart::NodeEditPart"); //$NON-NLS-1$
 	}
@@ -434,10 +426,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(TextNonResizableEditPolicyGenerator.class);
-	}
-
-	public TextEmitter getExternalNodeLabelHostLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ExternalNodeLabelHostLayoutEditPolicyGenerator.class);
 	}
 
 	// providers
