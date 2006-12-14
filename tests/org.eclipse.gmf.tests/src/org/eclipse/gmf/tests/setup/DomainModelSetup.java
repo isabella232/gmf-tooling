@@ -16,6 +16,7 @@ import java.util.Calendar;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypedElement;
@@ -263,7 +264,7 @@ public class DomainModelSetup implements DomainModelSource {
 		return this;
 	}
 
-	private void confineInResource(Object p) {
+	private void confineInResource(EObject p) {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DomainModelSetup")).getContents().add(p);
 	}
 
