@@ -12,17 +12,21 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.application.ActionBarAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.ApplicationGenerator;
@@ -155,15 +159,17 @@ public class CodegenEmitters {
 				"org.eclipse.gmf.codegen" //$NON-NLS-1$
 		};
 		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
-		myTemplatePath = new String[] {
-				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? //$NON-NLS-1$
-						URI.createPlatformResourceURI(templateDirectory, true).toString() : templateDirectory,
-				baseURL.toString()
-		};
+		final URL dynamicURL = usePrecompiled ? null : getDynamicTemplatesURL(templateDirectory);
+		
+		myTemplatePath = new String[] { dynamicURL != null ? dynamicURL.toString() : null, baseURL.toString() };
 		// actually, that's new JETEmitterFactory with JETTemplateRegistry
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
-
-		myResourceManager = new BundleResourceManager(baseURL);
+		
+		if (dynamicURL == null) {
+			myResourceManager = new BundleResourceManager(baseURL);	
+		} else {
+			myResourceManager = new BundleResourceManager(dynamicURL, baseURL);
+		}
 	}
 
 	/**
@@ -295,6 +301,19 @@ public class CodegenEmitters {
 
 	private static Bundle getTemplatesBundle() {
 		return Platform.getBundle(TEMPLATES_PLUGIN_ID);
+	}
+	
+	private static URL getDynamicTemplatesURL(String templateDirectory) {
+		if (templateDirectory != null) {
+			URI templatesURI = templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true) : URI.createURI(templateDirectory); //$NON-NLS-1$
+			try {
+				return new URL(CommonPlugin.resolve(templatesURI).toString());
+			} catch (MalformedURLException e) {
+				String pluginID = "org.eclipse.gmf.codegen"; //$NON-NLS-1$
+				Platform.getLog(Platform.getBundle(pluginID)).log(new Status(IStatus.ERROR, pluginID, 0, "Incorrecct dynamic templates location", e)); //$NON-NLS-1$
+			}
+		}
+		return null;
 	}
 
 	public URL getJMergeControlFile() {
