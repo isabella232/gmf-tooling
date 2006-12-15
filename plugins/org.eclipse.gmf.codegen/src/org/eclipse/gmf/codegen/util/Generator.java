@@ -323,12 +323,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// parts
 
 	private void generateDiagramEditPart() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getDiagramEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			myDiagram.getEditPartClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getDiagramEditPartEmitter(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
 	}
 
 	private void generateNodeEditPart(GenNode node) throws UnexpectedBehaviourException, InterruptedException {

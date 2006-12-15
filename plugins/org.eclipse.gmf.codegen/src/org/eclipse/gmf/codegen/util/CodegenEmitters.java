@@ -77,7 +77,6 @@ import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerat
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
@@ -192,7 +191,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
-		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
@@ -339,7 +337,7 @@ public class CodegenEmitters {
 	// parts
 
 	public TextEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramEditPartGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::DiagramEditPart::DiagramEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {

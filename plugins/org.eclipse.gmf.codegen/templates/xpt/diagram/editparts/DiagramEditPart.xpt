@@ -1,0 +1,68 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::editparts::Utils»
+
+«DEFINE DiagramEditPart FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «getDiagram().editPartsPackageName»;
+
+/**
+ * @generated
+ */
+public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart {
+
+	/**
+	 * @generated
+	 */
+	public final static String MODEL_ID = "«editorGen.modelID»"; //$NON-NLS-1$
+
+	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
+
+	/**
+	 * @generated
+	 */
+	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
+			new «getItemSemanticEditPolicyQualifiedClassName()»());
+		«IF needsCanonicalEditPolicy()-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE,
+			new «getCanonicalEditPolicyQualifiedClassName()»());
+		«ENDIF-»
+		«IF generateCreateShortcutAction() && null == editorGen.application-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
+				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
+			public org.eclipse.gef.commands.Command getDropObjectsCommand(
+					org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
+				java.util.List viewDescriptors = new java.util.ArrayList();
+				for (java.util.Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
+					viewDescriptors.add(new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(
+						new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter((org.eclipse.emf.ecore.EObject) it.next()),
+							org.eclipse.gmf.runtime.notation.Node.class, null, getDiagramPreferencesHint()));
+				}
+				return createShortcutsCommand(dropRequest, viewDescriptors);
+			}
+
+			private org.eclipse.gef.commands.Command createShortcutsCommand(
+					org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest, java.util.List viewDescriptors) {
+				org.eclipse.gef.commands.Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
+				if (command != null) {
+					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(
+						new «getCreateShortcutDecorationsCommandQualifiedClassName()»(getEditingDomain(),
+							(org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
+				}
+				return null;
+			}
+		});
+		«ENDIF-»
+		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+	}
+}
+«ENDDEFINE»
