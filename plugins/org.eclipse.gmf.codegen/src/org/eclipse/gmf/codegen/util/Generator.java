@@ -342,13 +342,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getChildNodeLabelEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
 	}
 	
-	private void generateCompartmentEditPart(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getCompartmentEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			genCompartment.getEditPartClassName(),
-			genCompartment
-		);
+	private void generateCompartmentEditPart(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getCompartmentEditPartEmitter(), compartment.getEditPartQualifiedClassName(), compartment);
 	}
 
 	private void generateLinkEditPart(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
