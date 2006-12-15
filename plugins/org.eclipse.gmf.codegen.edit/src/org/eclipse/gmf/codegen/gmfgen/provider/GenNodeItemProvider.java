@@ -62,6 +62,7 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCompartmentsPropertyDescriptor(object);
+			addPrimaryDragEditPolicyQualifiedClassNamePropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addCreateCommandClassNamePropertyDescriptor(object);
 			addReorientedIncomingLinksPropertyDescriptor(object);
@@ -88,6 +89,28 @@ public class GenNodeItemProvider
 				 false,
 				 null,
 				 getString("_UI_DiagramContainmentPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Primary Drag Edit Policy Qualified Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPrimaryDragEditPolicyQualifiedClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_primaryDragEditPolicyQualifiedClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_primaryDragEditPolicyQualifiedClassName_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_PrimaryDragEditPolicyQualifiedClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
 				 null));
 	}
 
@@ -210,6 +233,7 @@ public class GenNodeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNode.class)) {
+			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
