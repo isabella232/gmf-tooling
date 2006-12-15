@@ -312,25 +312,29 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 	}
 
 	«LET getResizeConstraints(viewmap) AS rc-»
-		«IF null != rc-»
+	«IF null != primaryDragEditPolicyQualifiedClassName || null != rc-»
 	/**
 	 * @generated
 	 */
 	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
+		«IF null != primaryDragEditPolicyQualifiedClassName-»
+		return new «primaryDragEditPolicyQualifiedClassName»();
+		«ELSE-»
 		org.eclipse.gef.editpolicies.ResizableEditPolicy ep =
 			(org.eclipse.gef.editpolicies.ResizableEditPolicy) super.getPrimaryDragEditPolicy();
 		ep.setResizeDirections(
-		«IF rc.resizeHandleNames.size() > 0-»
-			«FOREACH rc.resizeHandleNames AS name SEPARATOR ' | '-»
+			«IF rc.resizeHandleNames.size() > 0-»
+				«FOREACH rc.resizeHandleNames AS name SEPARATOR ' | '-»
 			org.eclipse.draw2d.PositionConstants.«name»
-			«ENDFOREACH-»
-		«ELSE-»
+				«ENDFOREACH-»
+			«ELSE-»
 			org.eclipse.draw2d.PositionConstants.NONE
-		«ENDIF-»
+			«ENDIF-»
 		);
 		return ep;
-	}
 		«ENDIF-»
+	}
+	«ENDIF-»
 	«ENDLET-»
 
 	/**
