@@ -74,7 +74,6 @@ public class AquatoryEditPart extends DiagramEditPart {
 				for (Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
 					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) it.next()), Node.class, null, getDiagramPreferencesHint()));
 				}
-
 				return createShortcutsCommand(dropRequest, viewDescriptors);
 			}
 
@@ -86,6 +85,5 @@ public class AquatoryEditPart extends DiagramEditPart {
 				return null;
 			}
 		});
-
 	}
 }
