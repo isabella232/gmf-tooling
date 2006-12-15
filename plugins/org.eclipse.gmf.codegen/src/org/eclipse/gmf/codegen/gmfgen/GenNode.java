@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getPrimaryDragEditPolicyQualifiedClassName <em>Primary Drag Edit Policy Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getReorientedIncomingLinks <em>Reoriented Incoming Links</em>}</li>
@@ -108,6 +109,31 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	EList getCompartments();
+
+	/**
+	 * Returns the value of the '<em><b>Primary Drag Edit Policy Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Custom primary drag edit policy
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Primary Drag Edit Policy Qualified Class Name</em>' attribute.
+	 * @see #setPrimaryDragEditPolicyQualifiedClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_PrimaryDragEditPolicyQualifiedClassName()
+	 * @model
+	 * @generated
+	 */
+	String getPrimaryDragEditPolicyQualifiedClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getPrimaryDragEditPolicyQualifiedClassName <em>Primary Drag Edit Policy Qualified Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Primary Drag Edit Policy Qualified Class Name</em>' attribute.
+	 * @see #getPrimaryDragEditPolicyQualifiedClassName()
+	 * @generated
+	 */
+	void setPrimaryDragEditPolicyQualifiedClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.

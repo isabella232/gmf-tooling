@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getPrimaryDragEditPolicyQualifiedClassName <em>Primary Drag Edit Policy Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getReorientedIncomingLinks <em>Reoriented Incoming Links</em>}</li>
@@ -83,6 +84,26 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @ordered
 	 */
 	protected EList compartments = null;
+
+	/**
+	 * The default value of the '{@link #getPrimaryDragEditPolicyQualifiedClassName() <em>Primary Drag Edit Policy Qualified Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryDragEditPolicyQualifiedClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPrimaryDragEditPolicyQualifiedClassName() <em>Primary Drag Edit Policy Qualified Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryDragEditPolicyQualifiedClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String primaryDragEditPolicyQualifiedClassName = PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getGraphicalNodeEditPolicyClassName() <em>Graphical Node Edit Policy Class Name</em>}' attribute.
@@ -214,6 +235,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return getLabels();
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				return getCompartments();
+			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
+				return getPrimaryDragEditPolicyQualifiedClassName();
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return getGraphicalNodeEditPolicyClassName();
 			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
@@ -242,6 +265,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				getCompartments().clear();
 				getCompartments().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
+				setPrimaryDragEditPolicyQualifiedClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName((String)newValue);
 				return;
@@ -268,6 +294,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				getCompartments().clear();
 				return;
+			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
+				setPrimaryDragEditPolicyQualifiedClassName(PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName(GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
@@ -291,6 +320,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return labels != null && !labels.isEmpty();
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				return compartments != null && !compartments.isEmpty();
+			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
+				return PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME_EDEFAULT == null ? primaryDragEditPolicyQualifiedClassName != null : !PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME_EDEFAULT.equals(primaryDragEditPolicyQualifiedClassName);
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
 			case GMFGenPackage.GEN_NODE__CREATE_COMMAND_CLASS_NAME:
@@ -323,6 +354,27 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			compartments = new EObjectWithInverseResolvingEList(GenCompartment.class, this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__NODE);
 		}
 		return compartments;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getPrimaryDragEditPolicyQualifiedClassName() {
+		return primaryDragEditPolicyQualifiedClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPrimaryDragEditPolicyQualifiedClassName(String newPrimaryDragEditPolicyQualifiedClassName) {
+		String oldPrimaryDragEditPolicyQualifiedClassName = primaryDragEditPolicyQualifiedClassName;
+		primaryDragEditPolicyQualifiedClassName = newPrimaryDragEditPolicyQualifiedClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME, oldPrimaryDragEditPolicyQualifiedClassName, primaryDragEditPolicyQualifiedClassName));
 	}
 
 	/**
@@ -427,7 +479,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (graphicalNodeEditPolicyClassName: ");
+		result.append(" (primaryDragEditPolicyQualifiedClassName: ");
+		result.append(primaryDragEditPolicyQualifiedClassName);
+		result.append(", graphicalNodeEditPolicyClassName: ");
 		result.append(graphicalNodeEditPolicyClassName);
 		result.append(", createCommandClassName: ");
 		result.append(createCommandClassName);

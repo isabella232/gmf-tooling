@@ -87,7 +87,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTextSelectionEditPolicyClassName <em>Text Selection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTextNonResizableEditPolicyClassName <em>Text Non Resizable Edit Policy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getExternalNodeLabelHostLayoutEditPolicyClassName <em>External Node Label Host Layout Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
@@ -735,26 +734,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String textNonResizableEditPolicyClassName = TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getExternalNodeLabelHostLayoutEditPolicyClassName() <em>External Node Label Host Layout Edit Policy Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExternalNodeLabelHostLayoutEditPolicyClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getExternalNodeLabelHostLayoutEditPolicyClassName() <em>External Node Label Host Layout Edit Policy Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExternalNodeLabelHostLayoutEditPolicyClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String externalNodeLabelHostLayoutEditPolicyClassName = EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getCreationWizardClassName() <em>Creation Wizard Class Name</em>}' attribute.
@@ -2700,35 +2679,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getExternalNodeLabelHostLayoutEditPolicyClassNameGen() {
-		return externalNodeLabelHostLayoutEditPolicyClassName;
-	}
-
-	public String getExternalNodeLabelHostLayoutEditPolicyClassName() {
-		String value = getExternalNodeLabelHostLayoutEditPolicyClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "ExtNodeLabelHostLayoutEditPolicy"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExternalNodeLabelHostLayoutEditPolicyClassName(String newExternalNodeLabelHostLayoutEditPolicyClassName) {
-		String oldExternalNodeLabelHostLayoutEditPolicyClassName = externalNodeLabelHostLayoutEditPolicyClassName;
-		externalNodeLabelHostLayoutEditPolicyClassName = newExternalNodeLabelHostLayoutEditPolicyClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME, oldExternalNodeLabelHostLayoutEditPolicyClassName, externalNodeLabelHostLayoutEditPolicyClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getElementTypesClassNameGen() {
 		return elementTypesClassName;
 	}
@@ -3767,8 +3717,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getTextSelectionEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
 				return getTextNonResizableEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:
-				return getExternalNodeLabelHostLayoutEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				return getCreationWizardClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
@@ -3952,9 +3900,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
 				setTextNonResizableEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:
-				setExternalNodeLabelHostLayoutEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				setCreationWizardClassName((String)newValue);
@@ -4183,9 +4128,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
 				setTextNonResizableEditPolicyClassName(TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:
-				setExternalNodeLabelHostLayoutEditPolicyClassName(EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				setCreationWizardClassName(CREATION_WIZARD_CLASS_NAME_EDEFAULT);
 				return;
@@ -4379,8 +4321,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return TEXT_SELECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? textSelectionEditPolicyClassName != null : !TEXT_SELECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(textSelectionEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
 				return TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? textNonResizableEditPolicyClassName != null : !TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(textNonResizableEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:
-				return EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? externalNodeLabelHostLayoutEditPolicyClassName != null : !EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(externalNodeLabelHostLayoutEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				return CREATION_WIZARD_CLASS_NAME_EDEFAULT == null ? creationWizardClassName != null : !CREATION_WIZARD_CLASS_NAME_EDEFAULT.equals(creationWizardClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
@@ -4519,7 +4459,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -4631,7 +4570,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME;
-				case GMFGenPackage.EDIT_PART_CANDIES__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -4807,15 +4745,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getTextNonResizableEditPolicyQualifiedClassName() {
 		return getEditPoliciesPackageName() + '.' + getTextNonResizableEditPolicyClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName() {
-		return getEditPoliciesPackageName() + '.' + getExternalNodeLabelHostLayoutEditPolicyClassName();
 	}
 
 	/**
@@ -5049,8 +4978,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(textSelectionEditPolicyClassName);
 		result.append(", textNonResizableEditPolicyClassName: ");
 		result.append(textNonResizableEditPolicyClassName);
-		result.append(", externalNodeLabelHostLayoutEditPolicyClassName: ");
-		result.append(externalNodeLabelHostLayoutEditPolicyClassName);
 		result.append(", creationWizardClassName: ");
 		result.append(creationWizardClassName);
 		result.append(", creationWizardPageClassName: ");
