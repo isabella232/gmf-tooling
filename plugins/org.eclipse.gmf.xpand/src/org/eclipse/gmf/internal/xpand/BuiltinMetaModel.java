@@ -456,7 +456,7 @@ public class BuiltinMetaModel {
 		internalOperationsMap.put(ecorePkg.getEString(), Collections.unmodifiableList(stringOps));
 
 		final List<InternalOperation> booleanOps = new LinkedList<InternalOperation>();
-		booleanOps.add(new InternalOperation<Boolean>(opf.create("!", Boolean.class)) {
+		booleanOps.add(new InternalOperation<Boolean>(opf.create("!", boolean.class)) {
 			@Override
 			public Object evaluate(Boolean target, Object[] params) {
 				return Boolean.valueOf(!target.booleanValue());
