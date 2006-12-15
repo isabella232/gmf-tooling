@@ -355,12 +355,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartFactory() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getEditPartFactoryEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			myDiagram.getEditPartFactoryClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getEditPartFactoryEmitter(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 	}
 
 	// edit policies
