@@ -193,7 +193,7 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 		return domain;
 	}
 
-	protected final TransactionalEditingDomain getEditingDomain() {
+	public final TransactionalEditingDomain getEditingDomain() {
 		if (myDiagramDisplayer == null) {
 			return null;
 		}

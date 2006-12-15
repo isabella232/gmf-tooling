@@ -95,7 +95,7 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 		myDiagramDisplayer.save(monitor);
 	}
 
-	protected final TransactionalEditingDomain getEditingDomain() {
+	public final TransactionalEditingDomain getEditingDomain() {
 		return myDiagramDisplayer.getEditingDomain();
 	}
 
@@ -171,12 +171,12 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 			getCommandStack().removeCommandStackListener(commandStackListener);
 			myDiagramDisplayer.dispose();
 			myDiagramDisplayer = null;
-		}
-		ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
-		assert adapter != null;
-		adapter.release();
-		if (adapter.isReleased()) {
-			getEditingDomain().getResourceSet().eAdapters().remove(adapter);
+			ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
+			assert adapter != null;
+			adapter.release();
+			if (adapter.isReleased()) {
+				getEditingDomain().getResourceSet().eAdapters().remove(adapter);
+			}
 		}
 		super.dispose();
 	}
