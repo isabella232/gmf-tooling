@@ -856,7 +856,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
 		GenApplication application = genDiagram.getEditorGen().getApplication();
 		if (application != null) {
-			checkPackageName(state, "GenApplication:application", application.getApplicationPackageName());
+			checkPackageName(state, "GenApplication:application", application.getPackageName());
 		} else {
 			state.add("GenApplication:application");
 		}
@@ -925,7 +925,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
 		GenApplication application = genDiagram.getEditorGen().getApplication();
 		if (application != null) {
-			checkClassName(state, "GenApplication:Application", application.getApplicationClassName(), application.getApplicationQualifiedClassName());
+			checkClassName(state, "GenApplication:Application", application.getClassName(), application.getQualifiedClassName());
 			checkClassName(state, "GenApplication:WorkbenchAdvisor", application.getWorkbenchAdvisorClassName(), application.getWorkbenchAdvisorQualifiedClassName());
 			checkClassName(state, "GenApplication:WorkbenchWindowAdvisor", application.getWorkbenchWindowAdvisorClassName(), application.getWorkbenchWindowAdvisorQualifiedClassName());
 			checkClassName(state, "GenApplication:ActionBarAdvisor", application.getActionBarAdvisorClassName(), application.getActionBarAdvisorQualifiedClassName());
