@@ -8,5 +8,5 @@ plugin@org.eclipse.gmf.codegen.lite=v20061214-0000,:pserver:anonymous@dev.eclips
 plugin@org.eclipse.gmf.codegen.lite.ui=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui
 plugin@org.eclipse.gmf.graphdef.editor=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
 plugin@org.eclipse.gmf.bridge.trace=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace
-plugin@org.eclipse.gmf.runtime.lite=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
+plugin@org.eclipse.gmf.runtime.lite=v20061218-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite
 !*** ECore sample plugin is in the gmf-examples.map
