@@ -475,21 +475,11 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getTextSelectionEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getTextSelectionEditPolicyClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getTextSelectionEditPolicyEmitter(), myDiagram.getTextSelectionEditPolicyQualifiedClassName(), myDiagram);
 	}
 
 	private void generateTextNonResizableEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getTextNonResizableEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getTextNonResizableEditPolicyClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getTextNonResizableEditPolicyEmitter(), myDiagram.getTextNonResizableEditPolicyQualifiedClassName(), myDiagram);
 	}
 
 	// providers
