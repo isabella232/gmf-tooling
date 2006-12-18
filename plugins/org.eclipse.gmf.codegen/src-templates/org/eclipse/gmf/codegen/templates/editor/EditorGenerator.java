@@ -343,7 +343,7 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(TEXT_85);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getPackageName() + ".URIDiagramDocumentProvider"));
     stringBuffer.append(TEXT_87);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider"));
     stringBuffer.append(TEXT_88);
@@ -351,7 +351,7 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(TEXT_89);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getPackageName() + ".URIDiagramDocumentProvider"));
     stringBuffer.append(TEXT_91);
     }
 

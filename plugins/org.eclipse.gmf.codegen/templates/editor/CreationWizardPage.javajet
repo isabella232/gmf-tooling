@@ -24,7 +24,7 @@ public class <%=importManager.getCompilationUnitName()%> extends
 <%if (application == null) {%>
 <%=importManager.getImportedName("org.eclipse.ui.dialogs.WizardNewFileCreationPage")%>	
 <%} else {%>
-<%=importManager.getImportedName(application.getApplicationPackageName() + ".WizardNewFileCreationPage")%>	
+<%=importManager.getImportedName(application.getPackageName() + ".WizardNewFileCreationPage")%>	
 <%}%>
 	{
 

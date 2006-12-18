@@ -19,13 +19,14 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getTitle <em>Title</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName <em>Application Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationClassName <em>Application Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPackageName <em>Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchAdvisorClassName <em>Workbench Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchWindowAdvisorClassName <em>Workbench Window Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getActionBarAdvisorClassName <em>Action Bar Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId <em>Perspective Id</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#isSupportFiles <em>Support Files</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +60,9 @@ public interface GenApplication extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * RCP Application ID for plugin.xml
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>ID</em>' attribute.
 	 * @see #setID(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ID()
@@ -104,56 +108,56 @@ public interface GenApplication extends EObject {
 	void setTitle(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Application Package Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Application Package Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Package Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Application Package Name</em>' attribute.
-	 * @see #setApplicationPackageName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ApplicationPackageName()
+	 * @return the value of the '<em>Package Name</em>' attribute.
+	 * @see #setPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_PackageName()
 	 * @model
 	 * @generated
 	 */
-	String getApplicationPackageName();
+	String getPackageName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName <em>Application Package Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPackageName <em>Package Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Application Package Name</em>' attribute.
-	 * @see #getApplicationPackageName()
+	 * @param value the new value of the '<em>Package Name</em>' attribute.
+	 * @see #getPackageName()
 	 * @generated
 	 */
-	void setApplicationPackageName(String value);
+	void setPackageName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Application Class Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Application Class Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Class Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Application Class Name</em>' attribute.
-	 * @see #setApplicationClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ApplicationClassName()
+	 * @return the value of the '<em>Class Name</em>' attribute.
+	 * @see #setClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ClassName()
 	 * @model
 	 * @generated
 	 */
-	String getApplicationClassName();
+	String getClassName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationClassName <em>Application Class Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getClassName <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Application Class Name</em>' attribute.
-	 * @see #getApplicationClassName()
+	 * @param value the new value of the '<em>Class Name</em>' attribute.
+	 * @see #getClassName()
 	 * @generated
 	 */
-	void setApplicationClassName(String value);
+	void setClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Workbench Advisor Class Name</b></em>' attribute.
@@ -164,22 +168,11 @@ public interface GenApplication extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Workbench Advisor Class Name</em>' attribute.
-	 * @see #setWorkbenchAdvisorClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_WorkbenchAdvisorClassName()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getWorkbenchAdvisorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchAdvisorClassName <em>Workbench Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Workbench Advisor Class Name</em>' attribute.
-	 * @see #getWorkbenchAdvisorClassName()
-	 * @generated
-	 */
-	void setWorkbenchAdvisorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Workbench Window Advisor Class Name</b></em>' attribute.
@@ -190,22 +183,11 @@ public interface GenApplication extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Workbench Window Advisor Class Name</em>' attribute.
-	 * @see #setWorkbenchWindowAdvisorClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_WorkbenchWindowAdvisorClassName()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getWorkbenchWindowAdvisorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchWindowAdvisorClassName <em>Workbench Window Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Workbench Window Advisor Class Name</em>' attribute.
-	 * @see #getWorkbenchWindowAdvisorClassName()
-	 * @generated
-	 */
-	void setWorkbenchWindowAdvisorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Action Bar Advisor Class Name</b></em>' attribute.
@@ -216,22 +198,11 @@ public interface GenApplication extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Bar Advisor Class Name</em>' attribute.
-	 * @see #setActionBarAdvisorClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ActionBarAdvisorClassName()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getActionBarAdvisorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getActionBarAdvisorClassName <em>Action Bar Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action Bar Advisor Class Name</em>' attribute.
-	 * @see #getActionBarAdvisorClassName()
-	 * @generated
-	 */
-	void setActionBarAdvisorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Perspective Class Name</b></em>' attribute.
@@ -242,22 +213,11 @@ public interface GenApplication extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Perspective Class Name</em>' attribute.
-	 * @see #setPerspectiveClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_PerspectiveClassName()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getPerspectiveClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveClassName <em>Perspective Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Perspective Class Name</em>' attribute.
-	 * @see #getPerspectiveClassName()
-	 * @generated
-	 */
-	void setPerspectiveClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Perspective Id</b></em>' attribute.
@@ -286,12 +246,37 @@ public interface GenApplication extends EObject {
 	void setPerspectiveId(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Support Files</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Option to create/save/open diagrams in/from java files
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Support Files</em>' attribute.
+	 * @see #setSupportFiles(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_SupportFiles()
+	 * @model
+	 * @generated
+	 */
+	boolean isSupportFiles();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#isSupportFiles <em>Support Files</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Support Files</em>' attribute.
+	 * @see #isSupportFiles()
+	 * @generated
+	 */
+	void setSupportFiles(boolean value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
-	String getApplicationQualifiedClassName();
+	String getQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

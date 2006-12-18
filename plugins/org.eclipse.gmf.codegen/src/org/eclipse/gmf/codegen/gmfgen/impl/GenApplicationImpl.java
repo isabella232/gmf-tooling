@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -29,13 +30,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationPackageName <em>Application Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationClassName <em>Application Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPackageName <em>Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getWorkbenchAdvisorClassName <em>Workbench Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getWorkbenchWindowAdvisorClassName <em>Workbench Window Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getActionBarAdvisorClassName <em>Action Bar Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveId <em>Perspective Id</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#isSupportFiles <em>Support Files</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,44 +85,44 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	protected String title = TITLE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getApplicationPackageName() <em>Application Package Name</em>}' attribute.
+	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getApplicationPackageName()
+	 * @see #getPackageName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String APPLICATION_PACKAGE_NAME_EDEFAULT = null;
+	protected static final String PACKAGE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getApplicationPackageName() <em>Application Package Name</em>}' attribute.
+	 * The cached value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getApplicationPackageName()
+	 * @see #getPackageName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String applicationPackageName = APPLICATION_PACKAGE_NAME_EDEFAULT;
+	protected String packageName = PACKAGE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getApplicationClassName() <em>Application Class Name</em>}' attribute.
+	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getApplicationClassName()
+	 * @see #getClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String APPLICATION_CLASS_NAME_EDEFAULT = null;
+	protected static final String CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getApplicationClassName() <em>Application Class Name</em>}' attribute.
+	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getApplicationClassName()
+	 * @see #getClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String applicationClassName = APPLICATION_CLASS_NAME_EDEFAULT;
+	protected String className = CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getWorkbenchAdvisorClassName() <em>Workbench Advisor Class Name</em>}' attribute.
@@ -133,16 +135,6 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	protected static final String WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getWorkbenchAdvisorClassName() <em>Workbench Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWorkbenchAdvisorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String workbenchAdvisorClassName = WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getWorkbenchWindowAdvisorClassName() <em>Workbench Window Advisor Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -151,16 +143,6 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @ordered
 	 */
 	protected static final String WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getWorkbenchWindowAdvisorClassName() <em>Workbench Window Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWorkbenchWindowAdvisorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String workbenchWindowAdvisorClassName = WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getActionBarAdvisorClassName() <em>Action Bar Advisor Class Name</em>}' attribute.
@@ -173,16 +155,6 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	protected static final String ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getActionBarAdvisorClassName() <em>Action Bar Advisor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getActionBarAdvisorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String actionBarAdvisorClassName = ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getPerspectiveClassName() <em>Perspective Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -191,16 +163,6 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @ordered
 	 */
 	protected static final String PERSPECTIVE_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPerspectiveClassName() <em>Perspective Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPerspectiveClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String perspectiveClassName = PERSPECTIVE_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPerspectiveId() <em>Perspective Id</em>}' attribute.
@@ -221,6 +183,26 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @ordered
 	 */
 	protected String perspectiveId = PERSPECTIVE_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSupportFiles() <em>Support Files</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSupportFiles()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SUPPORT_FILES_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSupportFiles() <em>Support Files</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSupportFiles()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean supportFiles = SUPPORT_FILES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -313,12 +295,12 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getApplicationPackageNameGen() {
-		return applicationPackageName;
+	public String getPackageNameGen() {
+		return packageName;
 	}
 
-	public String getApplicationPackageName() {
-		String value = getApplicationPackageNameGen();
+	public String getPackageName() {
+		String value = getPackageNameGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getEditorGen().getPackageNamePrefix() + ".application"; //$NON-NLS-1$
 		}
@@ -330,11 +312,11 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setApplicationPackageName(String newApplicationPackageName) {
-		String oldApplicationPackageName = applicationPackageName;
-		applicationPackageName = newApplicationPackageName;
+	public void setPackageName(String newPackageName) {
+		String oldPackageName = packageName;
+		packageName = newPackageName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME, oldApplicationPackageName, applicationPackageName));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME, oldPackageName, packageName));
 	}
 
 	/**
@@ -342,12 +324,12 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getApplicationClassNameGen() {
-		return applicationClassName;
+	public String getClassNameGen() {
+		return className;
 	}
 
-	public String getApplicationClassName() {
-		String value = getApplicationClassNameGen();
+	public String getClassName() {
+		String value = getClassNameGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getDomainPackageCapName() + "Application"; //$NON-NLS-1$
 		}
@@ -359,127 +341,47 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setApplicationClassName(String newApplicationClassName) {
-		String oldApplicationClassName = applicationClassName;
-		applicationClassName = newApplicationClassName;
+	public void setClassName(String newClassName) {
+		String oldClassName = className;
+		className = newClassName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME, oldApplicationClassName, applicationClassName));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__CLASS_NAME, oldClassName, className));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public String getWorkbenchAdvisorClassNameGen() {
-		return workbenchAdvisorClassName;
-	}
-
 	public String getWorkbenchAdvisorClassName() {
-		String value = getWorkbenchAdvisorClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDomainPackageCapName() + "WorkbenchAdvisor"; //$NON-NLS-1$
-		}
-		return value;
+		return "DiagramEditorWorkbenchAdvisor";
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public void setWorkbenchAdvisorClassName(String newWorkbenchAdvisorClassName) {
-		String oldWorkbenchAdvisorClassName = workbenchAdvisorClassName;
-		workbenchAdvisorClassName = newWorkbenchAdvisorClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME, oldWorkbenchAdvisorClassName, workbenchAdvisorClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getWorkbenchWindowAdvisorClassNameGen() {
-		return workbenchWindowAdvisorClassName;
-	}
-
 	public String getWorkbenchWindowAdvisorClassName() {
-		String value = getWorkbenchWindowAdvisorClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDomainPackageCapName() + "WorkbenchWindowAdvisor"; //$NON-NLS-1$
-		}
-		return value;
+		return "DiagramEditorWorkbenchWindowAdvisor";
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public void setWorkbenchWindowAdvisorClassName(String newWorkbenchWindowAdvisorClassName) {
-		String oldWorkbenchWindowAdvisorClassName = workbenchWindowAdvisorClassName;
-		workbenchWindowAdvisorClassName = newWorkbenchWindowAdvisorClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME, oldWorkbenchWindowAdvisorClassName, workbenchWindowAdvisorClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getActionBarAdvisorClassNameGen() {
-		return actionBarAdvisorClassName;
-	}
-
 	public String getActionBarAdvisorClassName() {
-		String value = getActionBarAdvisorClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDomainPackageCapName() + "ActionBarAdvisor"; //$NON-NLS-1$
-		}
-		return value;
+		return "DiagramEditorActionBarAdvisor";
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public void setActionBarAdvisorClassName(String newActionBarAdvisorClassName) {
-		String oldActionBarAdvisorClassName = actionBarAdvisorClassName;
-		actionBarAdvisorClassName = newActionBarAdvisorClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME, oldActionBarAdvisorClassName, actionBarAdvisorClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPerspectiveClassNameGen() {
-		return perspectiveClassName;
-	}
-
 	public String getPerspectiveClassName() {
-		String value = getPerspectiveClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDomainPackageCapName() + "Perspective"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPerspectiveClassName(String newPerspectiveClassName) {
-		String oldPerspectiveClassName = perspectiveClassName;
-		perspectiveClassName = newPerspectiveClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME, oldPerspectiveClassName, perspectiveClassName));
+		return "DiagramEditorPerspective";
 	}
 
 	/**
@@ -511,8 +413,25 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID, oldPerspectiveId, perspectiveId));
 	}
 
-	protected String getQualifiedClassName(String className) {
-		return getApplicationPackageName() + '.' + className;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSupportFiles() {
+		return supportFiles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSupportFiles(boolean newSupportFiles) {
+		boolean oldSupportFiles = supportFiles;
+		supportFiles = newSupportFiles;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES, oldSupportFiles, supportFiles));
 	}
 
 	/**
@@ -520,8 +439,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getApplicationQualifiedClassName() {
-		return getQualifiedClassName(getApplicationClassName());
+	public String getQualifiedClassName() {
+		return getPackageName() + '.' + getClassName();
 	}
 
 	/**
@@ -530,7 +449,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getWorkbenchAdvisorQualifiedClassName() {
-		return getQualifiedClassName(getWorkbenchAdvisorClassName());
+		return getPackageName() + '.' + getWorkbenchAdvisorClassName();
 	}
 
 	/**
@@ -539,7 +458,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getWorkbenchWindowAdvisorQualifiedClassName() {
-		return getQualifiedClassName(getWorkbenchWindowAdvisorClassName());
+		return getPackageName() + '.' + getWorkbenchWindowAdvisorClassName();
 	}
 
 	/**
@@ -548,7 +467,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getActionBarAdvisorQualifiedClassName() {
-		return getQualifiedClassName(getActionBarAdvisorClassName());
+		return getPackageName() + '.' + getActionBarAdvisorClassName();
 	}
 
 	/**
@@ -557,7 +476,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getPerspectiveQualifiedClassName() {
-		return getQualifiedClassName(getPerspectiveClassName());
+		return getPackageName() + '.' + getPerspectiveClassName();
 	}
 
 	/**
@@ -614,10 +533,10 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return getID();
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				return getTitle();
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
-				return getApplicationPackageName();
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
-				return getApplicationClassName();
+			case GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME:
+				return getPackageName();
+			case GMFGenPackage.GEN_APPLICATION__CLASS_NAME:
+				return getClassName();
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
 				return getWorkbenchAdvisorClassName();
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
@@ -628,6 +547,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return getPerspectiveClassName();
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				return getPerspectiveId();
+			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
+				return isSupportFiles() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -645,26 +566,17 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				setTitle((String)newValue);
 				return;
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
-				setApplicationPackageName((String)newValue);
+			case GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME:
+				setPackageName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
-				setApplicationClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
-				setWorkbenchAdvisorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
-				setWorkbenchWindowAdvisorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
-				setActionBarAdvisorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
-				setPerspectiveClassName((String)newValue);
+			case GMFGenPackage.GEN_APPLICATION__CLASS_NAME:
+				setClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				setPerspectiveId((String)newValue);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
+				setSupportFiles(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -683,26 +595,17 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
-				setApplicationPackageName(APPLICATION_PACKAGE_NAME_EDEFAULT);
+			case GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME:
+				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
-				setApplicationClassName(APPLICATION_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
-				setWorkbenchAdvisorClassName(WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
-				setWorkbenchWindowAdvisorClassName(WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
-				setActionBarAdvisorClassName(ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
-				setPerspectiveClassName(PERSPECTIVE_CLASS_NAME_EDEFAULT);
+			case GMFGenPackage.GEN_APPLICATION__CLASS_NAME:
+				setClassName(CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				setPerspectiveId(PERSPECTIVE_ID_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
+				setSupportFiles(SUPPORT_FILES_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -721,20 +624,22 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
-				return APPLICATION_PACKAGE_NAME_EDEFAULT == null ? applicationPackageName != null : !APPLICATION_PACKAGE_NAME_EDEFAULT.equals(applicationPackageName);
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
-				return APPLICATION_CLASS_NAME_EDEFAULT == null ? applicationClassName != null : !APPLICATION_CLASS_NAME_EDEFAULT.equals(applicationClassName);
+			case GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME:
+				return PACKAGE_NAME_EDEFAULT == null ? packageName != null : !PACKAGE_NAME_EDEFAULT.equals(packageName);
+			case GMFGenPackage.GEN_APPLICATION__CLASS_NAME:
+				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
-				return WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT == null ? workbenchAdvisorClassName != null : !WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT.equals(workbenchAdvisorClassName);
+				return WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT == null ? getWorkbenchAdvisorClassName() != null : !WORKBENCH_ADVISOR_CLASS_NAME_EDEFAULT.equals(getWorkbenchAdvisorClassName());
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
-				return WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT == null ? workbenchWindowAdvisorClassName != null : !WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT.equals(workbenchWindowAdvisorClassName);
+				return WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT == null ? getWorkbenchWindowAdvisorClassName() != null : !WORKBENCH_WINDOW_ADVISOR_CLASS_NAME_EDEFAULT.equals(getWorkbenchWindowAdvisorClassName());
 			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
-				return ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT == null ? actionBarAdvisorClassName != null : !ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT.equals(actionBarAdvisorClassName);
+				return ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT == null ? getActionBarAdvisorClassName() != null : !ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT.equals(getActionBarAdvisorClassName());
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
-				return PERSPECTIVE_CLASS_NAME_EDEFAULT == null ? perspectiveClassName != null : !PERSPECTIVE_CLASS_NAME_EDEFAULT.equals(perspectiveClassName);
+				return PERSPECTIVE_CLASS_NAME_EDEFAULT == null ? getPerspectiveClassName() != null : !PERSPECTIVE_CLASS_NAME_EDEFAULT.equals(getPerspectiveClassName());
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				return PERSPECTIVE_ID_EDEFAULT == null ? perspectiveId != null : !PERSPECTIVE_ID_EDEFAULT.equals(perspectiveId);
+			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
+				return supportFiles != SUPPORT_FILES_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -752,20 +657,14 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		result.append(iD);
 		result.append(", title: ");
 		result.append(title);
-		result.append(", applicationPackageName: ");
-		result.append(applicationPackageName);
-		result.append(", applicationClassName: ");
-		result.append(applicationClassName);
-		result.append(", workbenchAdvisorClassName: ");
-		result.append(workbenchAdvisorClassName);
-		result.append(", workbenchWindowAdvisorClassName: ");
-		result.append(workbenchWindowAdvisorClassName);
-		result.append(", actionBarAdvisorClassName: ");
-		result.append(actionBarAdvisorClassName);
-		result.append(", perspectiveClassName: ");
-		result.append(perspectiveClassName);
+		result.append(", packageName: ");
+		result.append(packageName);
+		result.append(", className: ");
+		result.append(className);
 		result.append(", perspectiveId: ");
 		result.append(perspectiveId);
+		result.append(", supportFiles: ");
+		result.append(supportFiles);
 		result.append(')');
 		return result.toString();
 	}

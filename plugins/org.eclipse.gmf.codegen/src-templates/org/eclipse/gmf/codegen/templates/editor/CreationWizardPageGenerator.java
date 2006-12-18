@@ -64,7 +64,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_8);
     } else {
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName(application.getApplicationPackageName() + ".WizardNewFileCreationPage"));
+    stringBuffer.append(importManager.getImportedName(application.getPackageName() + ".WizardNewFileCreationPage"));
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);

@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE WorkbenchWindowAdvisor FOR gmfgen::GenApplication-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «packageName»;
+
+/**
+ * @generated
+ */
+public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.application.WorkbenchWindowAdvisor {
+
+	/**
+	 * @generated
+	 */
+	public «workbenchWindowAdvisorClassName»(org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
+		super(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.ui.application.ActionBarAdvisor createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer configurer) {
+		return new «getActionBarAdvisorQualifiedClassName()»(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void preWindowOpen() {
+		org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(1000, 700));
+		configurer.setShowCoolBar(false);
+		configurer.setTitle("«title»");
+	}
+}
+«ENDDEFINE»

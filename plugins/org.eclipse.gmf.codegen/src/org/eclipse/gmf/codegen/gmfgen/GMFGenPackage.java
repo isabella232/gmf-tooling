@@ -7684,22 +7684,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_APPLICATION__TITLE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Application Package Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__APPLICATION_PACKAGE_NAME = 3;
+	int GEN_APPLICATION__PACKAGE_NAME = 3;
 
 	/**
-	 * The feature id for the '<em><b>Application Class Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__APPLICATION_CLASS_NAME = 4;
+	int GEN_APPLICATION__CLASS_NAME = 4;
 
 	/**
 	 * The feature id for the '<em><b>Workbench Advisor Class Name</b></em>' attribute.
@@ -7747,13 +7747,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_APPLICATION__PERSPECTIVE_ID = 9;
 
 	/**
+	 * The feature id for the '<em><b>Support Files</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__SUPPORT_FILES = 10;
+
+	/**
 	 * The number of structural features of the '<em>Gen Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION_FEATURE_COUNT = 10;
+	int GEN_APPLICATION_FEATURE_COUNT = 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -12252,26 +12261,26 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenApplication_Title();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName <em>Application Package Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPackageName <em>Package Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Application Package Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName()
+	 * @return the meta object for the attribute '<em>Package Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getPackageName()
 	 * @see #getGenApplication()
 	 * @generated
 	 */
-	EAttribute getGenApplication_ApplicationPackageName();
+	EAttribute getGenApplication_PackageName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationClassName <em>Application Class Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getClassName <em>Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Application Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationClassName()
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getClassName()
 	 * @see #getGenApplication()
 	 * @generated
 	 */
-	EAttribute getGenApplication_ApplicationClassName();
+	EAttribute getGenApplication_ClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchAdvisorClassName <em>Workbench Advisor Class Name</em>}'.
@@ -12327,6 +12336,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenApplication_PerspectiveId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#isSupportFiles <em>Support Files</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Support Files</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#isSupportFiles()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EAttribute getGenApplication_SupportFiles();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

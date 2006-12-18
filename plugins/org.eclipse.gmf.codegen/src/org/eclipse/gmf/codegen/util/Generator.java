@@ -1004,8 +1004,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateApplication() throws UnexpectedBehaviourException, InterruptedException {
 		GenApplication application = myEditorGen.getApplication();
 		if (application != null) {
-			generateActionBarAdvisor(application);
 			generateApplication(application);
+			generateActionBarAdvisor(application);
 			generatePerspective(application);
 			generateWorkbenchAdvisor(application);
 			generateWorkbenchWindowAdvisor(application);
@@ -1015,55 +1015,30 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 	}
 
-	private void generateActionBarAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getActionBarAdvisorEmitter(),
-			application.getApplicationPackageName(),
-			application.getActionBarAdvisorClassName(),
-			application
-		);
+	private void generateApplication(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getApplicationEmitter(), application.getQualifiedClassName(), application);
 	}
 
-	private void generateApplication(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getApplicationEmitter(),
-			application.getApplicationPackageName(),
-			application.getApplicationClassName(),
-			application
-		);
+	private void generateActionBarAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getActionBarAdvisorEmitter(), application.getActionBarAdvisorQualifiedClassName(), application);
 	}
 
 	private void generatePerspective(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getPerspectiveEmitter(),
-			application.getApplicationPackageName(),
-			application.getPerspectiveClassName(),
-			application
-		);
+		doGenerateJavaClass(myEmitters.getPerspectiveEmitter(), application.getPerspectiveQualifiedClassName(), application);
 	}
 
 	private void generateWorkbenchAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getWorkbenchAdvisorEmitter(),
-			application.getApplicationPackageName(),
-			application.getWorkbenchAdvisorClassName(),
-			application
-		);
+		doGenerateJavaClass(myEmitters.getWorkbenchAdvisorEmitter(), application.getWorkbenchAdvisorQualifiedClassName(), application);
 	}
 
 	private void generateWorkbenchWindowAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getWorkbenchWindowAdvisorEmitter(),
-			application.getApplicationPackageName(),
-			application.getWorkbenchWindowAdvisorClassName(),
-			application
-		);
+		doGenerateJavaClass(myEmitters.getWorkbenchWindowAdvisorEmitter(), application.getWorkbenchWindowAdvisorQualifiedClassName(), application);
 	}
 
 	private void generateURIDiagramDocumentProvider(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getURIDiagramDocumentProviderEmitter(),
-			application.getApplicationPackageName(),
+			application.getPackageName(),
 			"URIDiagramDocumentProvider", //$NON-NLS-1$
 			application
 		);
@@ -1072,7 +1047,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateURIEditorInputProxy(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getURIEditorInputProxyEmitter(),
-			application.getApplicationPackageName(),
+			application.getPackageName(),
 			"URIEditorInputProxy", //$NON-NLS-1$
 			application
 		);
@@ -1081,7 +1056,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getWizardNewFileCreationPageEmitter(),
-			application.getApplicationPackageName(),
+			application.getPackageName(),
 			"WizardNewFileCreationPage", //$NON-NLS-1$
 			application
 		);

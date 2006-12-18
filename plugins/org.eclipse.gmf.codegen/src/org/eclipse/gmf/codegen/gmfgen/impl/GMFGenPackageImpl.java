@@ -4642,7 +4642,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_ApplicationPackageName() {
+	public EAttribute getGenApplication_PackageName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -4651,7 +4651,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_ApplicationClassName() {
+	public EAttribute getGenApplication_ClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -4698,6 +4698,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenApplication_PerspectiveId() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenApplication_SupportFiles() {
+		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -5306,13 +5315,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genApplicationEClass, GEN_APPLICATION__EDITOR_GEN);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__ID);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__TITLE);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__APPLICATION_PACKAGE_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__APPLICATION_CLASS_NAME);
+		createEAttribute(genApplicationEClass, GEN_APPLICATION__PACKAGE_NAME);
+		createEAttribute(genApplicationEClass, GEN_APPLICATION__CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_ID);
+		createEAttribute(genApplicationEClass, GEN_APPLICATION__SUPPORT_FILES);
 
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
@@ -6194,15 +6204,16 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenApplication_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Application(), "editorGen", null, 1, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ApplicationPackageName(), ecorePackage.getEString(), "applicationPackageName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ApplicationClassName(), ecorePackage.getEString(), "applicationClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_WorkbenchAdvisorClassName(), ecorePackage.getEString(), "workbenchAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_WorkbenchWindowAdvisorClassName(), ecorePackage.getEString(), "workbenchWindowAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ActionBarAdvisorClassName(), ecorePackage.getEString(), "actionBarAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_PerspectiveClassName(), ecorePackage.getEString(), "perspectiveClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_WorkbenchAdvisorClassName(), ecorePackage.getEString(), "workbenchAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_WorkbenchWindowAdvisorClassName(), ecorePackage.getEString(), "workbenchWindowAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_ActionBarAdvisorClassName(), ecorePackage.getEString(), "actionBarAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_PerspectiveClassName(), ecorePackage.getEString(), "perspectiveClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_PerspectiveId(), ecorePackage.getEString(), "perspectiveId", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_SupportFiles(), ecorePackage.getEBoolean(), "supportFiles", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getApplicationQualifiedClassName", 0, 1);
+		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
 
 		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getWorkbenchAdvisorQualifiedClassName", 0, 1);
 
@@ -6284,7 +6295,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																	
+		   });																																																																																																																																																																																																			
 	}
 
 	/**
@@ -6503,7 +6514,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });														
+		   });																
 	}
 
 	/**
@@ -6519,7 +6530,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																
+		   });																																																																																																																																																																																		
 	}
 
 	/**
@@ -6631,7 +6642,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });											
+		   });													
 	}
 
 } //GMFGenPackageImpl

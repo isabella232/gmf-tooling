@@ -1,0 +1,220 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE ActionBarAdvisor FOR gmfgen::GenApplication-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «packageName»;
+
+/**
+ * @generated
+ */
+public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.ActionBarAdvisor {
+
+	/**
+	 * @generated
+	 */
+	public «actionBarAdvisorClassName»(org.eclipse.ui.application.IActionBarConfigurer configurer) {
+		super(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void fillMenuBar(org.eclipse.jface.action.IMenuManager menuBar) {
+		org.eclipse.ui.IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
+		menuBar.add(createFileMenu(window));
+		menuBar.add(createEditMenu(window));
+		menuBar.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		menuBar.add(createWindowMenu(window));
+		menuBar.add(createHelpMenu(window));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.jface.action.IMenuManager createFileMenu(org.eclipse.ui.IWorkbenchWindow window) {
+		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
+			"&File", org.eclipse.ui.IWorkbenchActionConstants.M_FILE);
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.FILE_START));
+		org.eclipse.jface.action.IMenuManager newMenu = new org.eclipse.jface.action.MenuManager("&New", "new"); //$NON-NLS-2$
+		newMenu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		menu.add(newMenu);
+		menu.add(new org.eclipse.jface.action.Separator());
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		menu.add(new org.eclipse.jface.action.Separator());
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CLOSE.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CLOSE_ALL.create(window));
+		menu.add(new org.eclipse.jface.action.Separator());
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE_AS.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE_ALL.create(window));
+		menu.add(new org.eclipse.jface.action.Separator());
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.QUIT.create(window));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.FILE_END));
+		return menu;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.jface.action.IMenuManager createEditMenu(org.eclipse.ui.IWorkbenchWindow window) {
+		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
+			"&Edit", org.eclipse.ui.IWorkbenchActionConstants.M_EDIT);
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.EDIT_START));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.UNDO.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.REDO.create(window));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.UNDO_EXT));
+		menu.add(new org.eclipse.jface.action.Separator());
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CUT.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.COPY.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.PASTE.create(window));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.CUT_EXT));
+		menu.add(new org.eclipse.jface.action.Separator());
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.DELETE.create(window));
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SELECT_ALL.create(window));
+		menu.add(new org.eclipse.jface.action.Separator());
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.ADD_EXT));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.EDIT_END));
+		menu.add(new org.eclipse.jface.action.Separator(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		return menu;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.jface.action.IMenuManager createWindowMenu(org.eclipse.ui.IWorkbenchWindow window) {
+		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
+			"&Window", org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW);
+		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.OPEN_NEW_WINDOW.create(window));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		menu.add(org.eclipse.ui.actions.ContributionItemFactory.OPEN_WINDOWS.create(window));
+		return menu;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.jface.action.IMenuManager createHelpMenu(org.eclipse.ui.IWorkbenchWindow window) {
+		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
+			"&Help", org.eclipse.ui.IWorkbenchActionConstants.M_HELP);
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.HELP_START));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.HELP_END));
+		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+		return menu;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addToMenuAndRegister(org.eclipse.jface.action.IMenuManager menu, org.eclipse.jface.action.IAction action) {
+		menu.add(action);
+		register(action);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static boolean openEditor(org.eclipse.ui.IWorkbench workbench, org.eclipse.emf.common.util.URI fileURI) {
+		org.eclipse.ui.IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		org.eclipse.ui.IWorkbenchPage page = workbenchWindow.getActivePage();
+		org.eclipse.ui.IEditorDescriptor editorDescriptor =
+			workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
+		if (editorDescriptor == null) {
+			org.eclipse.jface.dialogs.MessageDialog.openError(workbenchWindow.getShell(), "Error",
+				org.eclipse.osgi.util.NLS.bind("There is no editor registered for the file ''{0}''", fileURI.toFileString()));
+			return false;
+		} else {
+			try {
+				page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(fileURI), editorDescriptor.getId());
+			} catch (org.eclipse.ui.PartInitException exception) {
+				org.eclipse.jface.dialogs.MessageDialog.openError(
+					workbenchWindow.getShell(), "Open Editor", exception.getMessage());
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class NewDiagramAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
+
+		/**
+		 * @generated
+		 */
+		public void run(org.eclipse.jface.action.IAction action) {
+			«editorGen.diagram.getCreationWizardQualifiedClassName()» wizard =
+				new «editorGen.diagram.getCreationWizardQualifiedClassName()»();
+			wizard.init(getWindow().getWorkbench(), org.eclipse.jface.viewers.StructuredSelection.EMPTY);
+			org.eclipse.jface.wizard.WizardDialog wizardDialog =
+				new org.eclipse.jface.wizard.WizardDialog(getWindow().getShell(), wizard);
+			wizardDialog.open();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class OpenURIAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
+
+		/**
+		 * @generated
+		 */
+		public void run(org.eclipse.jface.action.IAction action) {
+			org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog =
+				new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(getWindow().getShell());
+			if (org.eclipse.jface.dialogs.Dialog.OK == loadResourceDialog.open()) {
+				for (java.util.Iterator i = loadResourceDialog.getURIs().iterator(); i.hasNext();) {
+					openEditor(getWindow().getWorkbench(), (org.eclipse.emf.common.util.URI) i.next());
+				}
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class OpenAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
+
+		/**
+		 * @generated
+		 */
+		public void run(org.eclipse.jface.action.IAction action) {
+			org.eclipse.swt.widgets.FileDialog fileDialog =
+				new org.eclipse.swt.widgets.FileDialog(getWindow().getShell(), org.eclipse.swt.SWT.OPEN);
+			fileDialog.open();
+			if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
+				openEditor(getWindow().getWorkbench(), org.eclipse.emf.common.util.URI.createFileURI(
+					fileDialog.getFilterPath() + java.io.File.separator + fileDialog.getFileName()));
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class AboutAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
+
+		/**
+		 * @generated
+		 */
+		public void run(org.eclipse.jface.action.IAction action) {
+			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), "About",
+				"«editorGen.modelID» Diagram Editor");
+		}
+	}
+}
+«ENDDEFINE»

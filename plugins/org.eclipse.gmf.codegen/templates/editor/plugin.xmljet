@@ -391,7 +391,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    <extension id="<%=application.getID()%>" point="org.eclipse.core.runtime.applications">
       <?gmfgen generated="true"?>
       <application>
-         <run class="<%=application.getApplicationQualifiedClassName()%>"/>
+         <run class="<%=application.getQualifiedClassName()%>"/>
       </application>
    </extension>
 
@@ -412,7 +412,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
             id="<%=genPlugin.getID()%>.NewDiagramActionSet">
          <action
                label="%newDiagramActionLabel"
-               class="<%=editorGen.getApplication().getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
+               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
                menubarPath="file/new/additions"
                id="<%=genPlugin.getID()%>.NewDiagramAction">
          </action>
@@ -453,21 +453,21 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
             id="<%=genPlugin.getID()%>.ActionSet">
          <action
                label="%aboutActionLabel"
-               class="<%=editorGen.getApplication().getActionBarAdvisorQualifiedClassName()%>$AboutAction"
+               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$AboutAction"
                menubarPath="help/additions"
                id="<%=genPlugin.getID()%>.AboutAction">
          </action>
          <action
                label="%openURIActionLabel"
                definitionId="<%=genPlugin.getID()%>.OpenURICommand"
-               class="<%=editorGen.getApplication().getActionBarAdvisorQualifiedClassName()%>$OpenURIAction"
+               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$OpenURIAction"
                menubarPath="file/additions"
                id="<%=genPlugin.getID()%>.OpenURIAction">
          </action>
          <action
                label="%openActionLabel"
                definitionId="<%=genPlugin.getID()%>.OpenCommand"
-               class="<%=editorGen.getApplication().getActionBarAdvisorQualifiedClassName()%>$OpenAction"
+               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$OpenAction"
                menubarPath="file/additions"
                id="<%=genPlugin.getID()%>.OpenAction">
          </action>
