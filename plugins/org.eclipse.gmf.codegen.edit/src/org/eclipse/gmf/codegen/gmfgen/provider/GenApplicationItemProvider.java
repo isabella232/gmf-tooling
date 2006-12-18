@@ -67,13 +67,14 @@ public class GenApplicationItemProvider
 
 			addIDPropertyDescriptor(object);
 			addTitlePropertyDescriptor(object);
-			addApplicationPackageNamePropertyDescriptor(object);
-			addApplicationClassNamePropertyDescriptor(object);
+			addPackageNamePropertyDescriptor(object);
+			addClassNamePropertyDescriptor(object);
 			addWorkbenchAdvisorClassNamePropertyDescriptor(object);
 			addWorkbenchWindowAdvisorClassNamePropertyDescriptor(object);
 			addActionBarAdvisorClassNamePropertyDescriptor(object);
 			addPerspectiveClassNamePropertyDescriptor(object);
 			addPerspectiveIdPropertyDescriptor(object);
+			addSupportFilesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -123,19 +124,19 @@ public class GenApplicationItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Application Package Name feature.
+	 * This adds a property descriptor for the Package Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addApplicationPackageNamePropertyDescriptor(Object object) {
+	protected void addPackageNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenApplication_applicationPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_applicationPackageName_feature", "_UI_GenApplication_type"),
-				 GMFGenPackage.eINSTANCE.getGenApplication_ApplicationPackageName(),
+				 getString("_UI_GenApplication_packageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_packageName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_PackageName(),
 				 true,
 				 false,
 				 false,
@@ -145,19 +146,19 @@ public class GenApplicationItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Application Class Name feature.
+	 * This adds a property descriptor for the Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addApplicationClassNamePropertyDescriptor(Object object) {
+	protected void addClassNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenApplication_applicationClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_applicationClassName_feature", "_UI_GenApplication_type"),
-				 GMFGenPackage.eINSTANCE.getGenApplication_ApplicationClassName(),
+				 getString("_UI_GenApplication_className_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_className_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_ClassName(),
 				 true,
 				 false,
 				 false,
@@ -180,7 +181,7 @@ public class GenApplicationItemProvider
 				 getString("_UI_GenApplication_workbenchAdvisorClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_workbenchAdvisorClassName_feature", "_UI_GenApplication_type"),
 				 GMFGenPackage.eINSTANCE.getGenApplication_WorkbenchAdvisorClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -202,7 +203,7 @@ public class GenApplicationItemProvider
 				 getString("_UI_GenApplication_workbenchWindowAdvisorClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_workbenchWindowAdvisorClassName_feature", "_UI_GenApplication_type"),
 				 GMFGenPackage.eINSTANCE.getGenApplication_WorkbenchWindowAdvisorClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -224,7 +225,7 @@ public class GenApplicationItemProvider
 				 getString("_UI_GenApplication_actionBarAdvisorClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_actionBarAdvisorClassName_feature", "_UI_GenApplication_type"),
 				 GMFGenPackage.eINSTANCE.getGenApplication_ActionBarAdvisorClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -246,7 +247,7 @@ public class GenApplicationItemProvider
 				 getString("_UI_GenApplication_perspectiveClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_perspectiveClassName_feature", "_UI_GenApplication_type"),
 				 GMFGenPackage.eINSTANCE.getGenApplication_PerspectiveClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -272,6 +273,28 @@ public class GenApplicationItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Support Files feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSupportFilesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_supportFiles_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_supportFiles_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_SupportFiles(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -312,13 +335,14 @@ public class GenApplicationItemProvider
 		switch (notification.getFeatureID(GenApplication.class)) {
 			case GMFGenPackage.GEN_APPLICATION__ID:
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
-			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__PACKAGE_NAME:
+			case GMFGenPackage.GEN_APPLICATION__CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
+			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
