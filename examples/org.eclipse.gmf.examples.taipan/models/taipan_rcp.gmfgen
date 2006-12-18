@@ -34,6 +34,7 @@
         notationViewFactoryClassName="SmallItemsViewFactory"
         canonicalEditPolicyClassName="SmallItemsCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="SmallItemsGraphicalNodeEditPolicy"
+        createCommandClassName="SmallItemsCreateCommand"
         containers="//@diagram/@compartments.0">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -73,6 +74,7 @@
         notationViewFactoryClassName="LargeItemViewFactory"
         canonicalEditPolicyClassName="LargeItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="LargeItemGraphicalNodeEditPolicy"
+        createCommandClassName="LargeItemCreateCommand"
         containers="//@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -138,6 +140,7 @@
         notationViewFactoryClassName="EmptyBoxViewFactory"
         canonicalEditPolicyClassName="EmptyBoxCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EmptyBoxGraphicalNodeEditPolicy"
+        createCommandClassName="EmptyBoxCreateCommand"
         containers="//@diagram/@compartments.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -166,7 +169,8 @@
         itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy"
         notationViewFactoryClassName="PortViewFactory"
         canonicalEditPolicyClassName="PortCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy"
+        createCommandClassName="PortCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -223,7 +227,8 @@
         notationViewFactoryClassName="ShipViewFactory"
         canonicalEditPolicyClassName="ShipCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0 //@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy"
+        createCommandClassName="ShipCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -326,7 +331,8 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="RouteTypeLinkCreateCommand">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -421,7 +427,8 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="Route2TypeLinkCreateCommand">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
