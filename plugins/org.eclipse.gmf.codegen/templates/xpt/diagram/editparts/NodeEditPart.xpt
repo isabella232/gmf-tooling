@@ -22,7 +22,7 @@ package «getDiagram().editPartsPackageName»;
 /**
  * @generated
  */
-public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
+public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
@@ -112,7 +112,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems(this)-»
+				«IF hasBorderItems()-»
 				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 				}
@@ -130,7 +130,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems(this)-»
+				«IF hasBorderItems()-»
 				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 				}
@@ -148,7 +148,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep =
 				new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
 
-			«IF hasBorderItems(this)-»
+			«IF hasBorderItems()-»
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
@@ -178,7 +178,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 				new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«IF hasBorderItems(this)-»
+				«IF hasBorderItems()-»
 				if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 				}
@@ -206,12 +206,12 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 
 	«EXPAND createNodeShape(this) FOR viewmap-»
 
-	«IF hasFixedChildren(this)-»
+	«IF hasFixedChildren()-»
 	/**
 	 * @generated
 	 */
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
-		«FOREACH getInnerFixedLabels(this) AS label-»
+		«FOREACH getInnerFixedLabels() AS label-»
 			«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
 		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
 			((«label.getEditPartQualifiedClassName()») childEditPart).«getSetterName(childViewmap)»(
@@ -220,7 +220,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		}
 			«ENDLET-»
 		«ENDFOREACH-»
-		«FOREACH getPinnedCompartments(this) AS compartment-»
+		«FOREACH getPinnedCompartments() AS compartment-»
 			«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
 		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
@@ -230,7 +230,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		}	
 			«ENDLET-»
 		«ENDFOREACH-»
-		«FOREACH getSideAffixedChildren(this) AS child-»
+		«FOREACH getSideAffixedChildren() AS child-»
 		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
 			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator =
 				new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(
@@ -248,7 +248,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 	 */
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
 		«REM»ignore labels assuming that they never may be removed«ENDREM»
-		«FOREACH getPinnedCompartments(this) AS compartment-»
+		«FOREACH getPinnedCompartments() AS compartment-»
 			«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
 		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
@@ -258,7 +258,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 		}	
 			«ENDLET-»
 		«ENDFOREACH-»
-		«FOREACH getSideAffixedChildren(this) AS child-»
+		«FOREACH getSideAffixedChildren() AS child-»
 		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
 			getBorderedFigure().getBorderItemContainer().remove(
 				((«child.getEditPartQualifiedClassName()») childEditPart).getFigure());
@@ -289,14 +289,14 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 	}
 	«ENDIF-»
 
-	«IF getExternalLabels(this).size() > 0-»
+	«IF getExternalLabels().size() > 0-»
 	/**
 	 * @generated
 	 */
 	protected void addBorderItem(org.eclipse.draw2d.IFigure borderItemContainer,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart borderItemEditPart) {
 		if (
-			«FOREACH getExternalLabels(this) AS label SEPARATOR ' || '-»
+			«FOREACH getExternalLabels() AS label SEPARATOR ' || '-»
 				borderItemEditPart instanceof «label.getEditPartQualifiedClassName()»
 			«ENDFOREACH-»
 				) {
@@ -357,7 +357,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass(this)» {
 	 * 
 	 * @generated
 	 */
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems(this)»Main«ELSE»Node«ENDIF»Figure() {
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems()»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
 		org.eclipse.draw2d.IFigure shape = createNodeShape();
