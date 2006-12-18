@@ -210,7 +210,7 @@
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfExamplesFeatureId}" />
-			<property name="version" value="${emfUpdateVersion}" />
+			<property name="version" value="${emfExamplesUpdateVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" /> 
 		</ant>
 <!-- Alternative, download zip method...
