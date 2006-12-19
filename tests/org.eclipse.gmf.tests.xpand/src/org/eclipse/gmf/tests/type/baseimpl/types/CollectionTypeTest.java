@@ -12,6 +12,7 @@ package org.eclipse.gmf.tests.type.baseimpl.types;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -67,6 +68,20 @@ public class CollectionTypeTest extends TestCase {
         final Set result = (Set) ef.evaluate("{1,2,3}.without({2})");
         assertEquals(2, result.size());
         assertFalse(result.contains(2));
+    }
+
+    public final void testWithoutKeepsOrder() {
+        final Set result = (Set) ef.evaluate("{1,2,3}.without({2})");
+        assertEquals(2, result.size());// 1,3
+        Iterator it = result.iterator();
+        assertEquals(new Integer(1), it.next());
+        assertEquals(new Integer(3), it.next());
+
+        final Set result2 = (Set) ef.evaluate("{1,2,3,1}.without({2})");
+        assertEquals(2, result2.size());// 1,3
+        it = result2.iterator();
+        assertEquals(new Integer(1), it.next());
+        assertEquals(new Integer(3), it.next());
     }
 
     public final void testToSet() {
