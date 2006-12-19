@@ -72,6 +72,8 @@ public class <%=importManager.getCompilationUnitName()%> extends
 	}
 <%}%>
 
+	<%@ include file="CreationWizardPage_getUniqueFileName.jetinc" fail="alternative"%>
+	<%@ start%>
 	/**
 	 * @generated
 	 */
@@ -100,6 +102,7 @@ public class <%=importManager.getCompilationUnitName()%> extends
 		}
 		return filePath.lastSegment();
 	}
+	<%@ end%>	
 
 	/**
 	 * @generated
@@ -118,7 +121,7 @@ public class <%=importManager.getCompilationUnitName()%> extends
 			return false;
 		}
 		String extension = getExtension();
-		if (extension != null && !extension.equals(getFilePath().getFileExtension())) {
+		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
 			setErrorMessage(NLS.bind("File name should have ''{0}'' extension.", extension));
 			return false;
 		}
