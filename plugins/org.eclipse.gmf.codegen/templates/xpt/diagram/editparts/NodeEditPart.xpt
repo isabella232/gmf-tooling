@@ -287,6 +287,27 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		}
 		super.removeChildVisual(childEditPart);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.draw2d.IFigure getContentPaneFor(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart) {
+		«REM»it is unclear what we should return for labels here«ENDREM»
+		«FOREACH getPinnedCompartments() AS compartment-»
+			«LET (gmfgen::ParentAssignedViewmap) compartment.viewmap AS childViewmap-»
+		if (editPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			return getPrimaryShape().«childViewmap.getterName»();
+		}	
+			«ENDLET-»
+		«ENDFOREACH-»
+		«FOREACH getSideAffixedChildren() AS child-»
+		if (editPart instanceof «child.getEditPartQualifiedClassName()») {
+			return getBorderedFigure().getBorderItemContainer();
+		}
+		«ENDFOREACH-»
+		return super.getContentPaneFor(editPart);
+	}
+
 	«ENDIF-»
 
 	«IF getExternalLabels().size() > 0-»
@@ -332,18 +353,21 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		«IF null != primaryDragEditPolicyQualifiedClassName-»
 		return new «primaryDragEditPolicyQualifiedClassName»();
 		«ELSE-»
-		org.eclipse.gef.editpolicies.ResizableEditPolicy ep =
-			(org.eclipse.gef.editpolicies.ResizableEditPolicy) super.getPrimaryDragEditPolicy();
-		ep.setResizeDirections(
-			«IF rc.resizeHandleNames.size() > 0-»
-				«FOREACH rc.resizeHandleNames AS name SEPARATOR ' | '-»
-			org.eclipse.draw2d.PositionConstants.«name»
-				«ENDFOREACH-»
-			«ELSE-»
-			org.eclipse.draw2d.PositionConstants.NONE
-			«ENDIF-»
-		);
-		return ep;
+		org.eclipse.gef.EditPolicy result = super.getPrimaryDragEditPolicy();
+		if (result instanceof org.eclipse.gef.editpolicies.ResizableEditPolicy) {
+			org.eclipse.gef.editpolicies.ResizableEditPolicy ep =
+				(org.eclipse.gef.editpolicies.ResizableEditPolicy) result;
+			ep.setResizeDirections(
+				«IF rc.resizeHandleNames.size() > 0-»
+					«FOREACH rc.resizeHandleNames AS name SEPARATOR ' | '-»
+				org.eclipse.draw2d.PositionConstants.«name»
+					«ENDFOREACH-»
+				«ELSE-»
+				org.eclipse.draw2d.PositionConstants.NONE
+				«ENDIF-»
+			);
+		}
+		return result;
 		«ENDIF-»
 	}
 	«ENDIF-»
@@ -416,6 +440,8 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	«ENDIF-»
 
 	«EXPAND handleNotificationEvent FOR this-»
+	
+	«EXPAND innerClassDeclaration FOR viewmap-»
 }
 «ENDDEFINE»
 
@@ -483,8 +509,16 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	public «className» getPrimaryShape() {
 		return («className») primaryShape;
 	}
+«ENDDEFINE»
 
+«DEFINE innerClassDeclaration FOR gmfgen::Viewmap»
+«ENDDEFINE»
+
+«DEFINE innerClassDeclaration FOR gmfgen::InnerClassViewmap»
 	«classBody»
+«ENDDEFINE»
+
+«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap-»
 «ENDDEFINE»
 
 «DEFINE setupNodePlate FOR gmfgen::GenNode»
