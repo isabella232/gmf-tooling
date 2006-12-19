@@ -62,7 +62,7 @@ public class <%=genNavigator.getContentProviderClassName()%> implements <%=impor
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = resourceSet.getResource(fileURI, true);
 			
 			<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-<%Map createdDiagramGroups = new HashMap();
+<%Map createdDiagramGroups = new TreeMap();
 for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 	if (nextReference.getReferenceType() != GenNavigatorReferenceType.CHILDREN_LITERAL) {
@@ -134,7 +134,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
     private Object[] getViewChildren(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view, Object parentElement) {
 		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
 <%boolean generateGetForeignShortcuts = false;
-Map getter2ReferenceMap = new HashMap();
+Map getter2ReferenceMap = new TreeMap();
 for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
 	Collection childReferences = genNavigator.getChildReferencesFrom(nextCommonBase);
@@ -147,7 +147,7 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 		generateGetForeignShortcuts = true;%>
 			result.addAll(getForeignShortcuts((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) view, parentElement));
 <%	}
-	Map createdGroups = new HashMap();
+	Map createdGroups = new TreeMap();
 	for (Iterator it = childReferences.iterator(); it.hasNext();) {
 		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 		String parentVariable;

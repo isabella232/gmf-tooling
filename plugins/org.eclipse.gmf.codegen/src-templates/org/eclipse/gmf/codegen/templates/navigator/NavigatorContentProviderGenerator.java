@@ -270,7 +270,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_20);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_21);
-    Map createdDiagramGroups = new HashMap();
+    Map createdDiagramGroups = new TreeMap();
 for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 	if (nextReference.getReferenceType() != GenNavigatorReferenceType.CHILDREN_LITERAL) {
@@ -371,7 +371,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_57);
     boolean generateGetForeignShortcuts = false;
-Map getter2ReferenceMap = new HashMap();
+Map getter2ReferenceMap = new TreeMap();
 for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
 	Collection childReferences = genNavigator.getChildReferencesFrom(nextCommonBase);
@@ -391,7 +391,7 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_63);
     	}
-	Map createdGroups = new HashMap();
+	Map createdGroups = new TreeMap();
 	for (Iterator it = childReferences.iterator(); it.hasNext();) {
 		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 		String parentVariable;
