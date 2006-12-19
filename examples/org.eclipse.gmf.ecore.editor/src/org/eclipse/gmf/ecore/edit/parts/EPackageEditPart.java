@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corp.
+ *  Copyright (c) 2006 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,33 +11,24 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.ecore.edit.commands.EcoreCreateShortcutDecorationsCommand;
-
 import org.eclipse.gmf.ecore.edit.policies.EPackageCanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackageItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy;
-
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -75,7 +66,6 @@ public class EPackageEditPart extends DiagramEditPart {
 				for (Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
 					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) it.next()), Node.class, null, getDiagramPreferencesHint()));
 				}
-
 				return createShortcutsCommand(dropRequest, viewDescriptors);
 			}
 
@@ -87,6 +77,5 @@ public class EPackageEditPart extends DiagramEditPart {
 				return null;
 			}
 		});
-
 	}
 }

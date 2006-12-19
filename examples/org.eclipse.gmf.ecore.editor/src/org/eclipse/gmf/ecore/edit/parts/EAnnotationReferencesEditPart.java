@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corp.
+ *  Copyright (c) 2006 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,15 +11,13 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
-
 import org.eclipse.gmf.ecore.edit.policies.EAnnotationReferencesItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -44,7 +42,6 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EAnnotationReferencesItemSemanticEditPolicy());
-
 	}
 
 	/**
@@ -56,6 +53,7 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
+
 		return new DashedLineConnection();
 	}
 

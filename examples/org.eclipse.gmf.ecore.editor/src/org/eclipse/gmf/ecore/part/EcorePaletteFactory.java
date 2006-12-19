@@ -1,3 +1,14 @@
+/*
+ *  Copyright (c) 2006 Borland Software Corp.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.part;
 
 import java.util.ArrayList;
@@ -12,18 +23,6 @@ import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
-/*
- *  Copyright (c) 2006 Borland Software Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Alexander Shatalin (Borland) - initial API and implementation
- */
-
 /**
  * @generated
  */
@@ -36,20 +35,6 @@ public class EcorePaletteFactory {
 		paletteRoot.add(createNodes1Group());
 		paletteRoot.add(createChildNodes2Group());
 		paletteRoot.add(createLinks3Group());
-	}
-
-	/**
-	 * Creates "Child Nodes" palette tool group
-	 * @generated
-	 */
-	private PaletteContainer createChildNodes2Group() {
-		PaletteGroup paletteContainer = new PaletteGroup(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.title")); //$NON-NLS-1$
-		paletteContainer.setDescription(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.desc")); //$NON-NLS-1$
-		paletteContainer.add(createEAttribute1CreationTool());
-		paletteContainer.add(createEOperation2CreationTool());
-		paletteContainer.add(createAnnotationdetails3CreationTool());
-		paletteContainer.add(createEEnumLiteral4CreationTool());
-		return paletteContainer;
 	}
 
 	/**
@@ -82,52 +67,17 @@ public class EcorePaletteFactory {
 	}
 
 	/**
+	 * Creates "Child Nodes" palette tool group
 	 * @generated
 	 */
-	private ToolEntry createEAttribute1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EAttribute_3001);
-		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.title"), EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAttribute_3001));
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createEOperation2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EOperation_3002);
-		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.title"), EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EOperation_3002));
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createAnnotationdetails3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
-		NodeToolEntry entry = new NodeToolEntry(
-				EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.title"), EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_3008));
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createEEnumLiteral4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EEnumLiteral_3009);
-		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.title"), EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_3009));
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
+	private PaletteContainer createChildNodes2Group() {
+		PaletteGroup paletteContainer = new PaletteGroup(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(EcoreDiagramEditorPlugin.getString("ChildNodes2Group.desc")); //$NON-NLS-1$
+		paletteContainer.add(createEAttribute1CreationTool());
+		paletteContainer.add(createEOperation2CreationTool());
+		paletteContainer.add(createAnnotationdetails3CreationTool());
+		paletteContainer.add(createEEnumLiteral4CreationTool());
+		return paletteContainer;
 	}
 
 	/**
@@ -240,6 +190,55 @@ public class EcorePaletteFactory {
 		types.add(EcoreElementTypes.EEnum_2005);
 		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EEnum5CreationTool.title"), EcoreDiagramEditorPlugin.getString("EEnum5CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnum_3007));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createEAttribute1CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(EcoreElementTypes.EAttribute_3001);
+		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.title"), EcoreDiagramEditorPlugin.getString("EAttribute1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAttribute_3001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createEOperation2CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(EcoreElementTypes.EOperation_3002);
+		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.title"), EcoreDiagramEditorPlugin.getString("EOperation2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EOperation_3002));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createAnnotationdetails3CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
+		NodeToolEntry entry = new NodeToolEntry(
+				EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.title"), EcoreDiagramEditorPlugin.getString("Annotationdetails3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_3008));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createEEnumLiteral4CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(EcoreElementTypes.EEnumLiteral_3009);
+		NodeToolEntry entry = new NodeToolEntry(EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.title"), EcoreDiagramEditorPlugin.getString("EEnumLiteral4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_3009));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

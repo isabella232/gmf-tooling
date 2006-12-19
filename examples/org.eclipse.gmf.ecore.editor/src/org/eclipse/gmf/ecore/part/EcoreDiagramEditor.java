@@ -11,12 +11,7 @@
  */
 package org.eclipse.gmf.ecore.part;
 
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.ArrayList;
@@ -54,8 +49,6 @@ import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 
 import org.eclipse.gef.EditPartViewer;
-
-import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
 import org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem;
 
@@ -162,22 +155,6 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 		});
 
 		return domain;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void configureGraphicalViewer() {
-		super.configureGraphicalViewer();
-		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();
-		LayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);
-		FreeformLayer extLabelsLayer = new FreeformLayer();
-		extLabelsLayer.setLayoutManager(new DelegatingLayout());
-		printableLayers.addLayerAfter(extLabelsLayer, EcoreEditPartFactory.EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);
-		LayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);
-		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
-		scaledFeedbackLayer.setEnabled(false);
-		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
 	}
 
 	/**
