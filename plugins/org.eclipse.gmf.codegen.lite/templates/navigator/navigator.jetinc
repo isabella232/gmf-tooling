@@ -1,0 +1,107 @@
+   <extension point="org.eclipse.ui.navigator.viewer">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="<%=editorGen.getNavigator().getContentExtensionID()%>"/>
+<%
+if (editorGen.getEditor().isEclipseEditor()) {
+%>
+            <contentExtension pattern="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"/>
+<%
+}
+%>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="<%=editorGen.getNavigator().getActionProviderID()%>"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <?gmfgen generated="true"?>
+      <navigatorContent 
+            id="<%=editorGen.getNavigator().getContentExtensionID()%>" 
+            name="<%=editorGen.getNavigator().getContentExtensionName()%>" 
+            priority="<%=editorGen.getNavigator().getContentExtensionPriority()%>" 
+            contentProvider="<%=editorGen.getNavigator().getContentProviderQualifiedClassName()%>" 
+            labelProvider="<%=editorGen.getNavigator().getLabelProviderQualifiedClassName()%>"
+            icon="<%=editorGen.getEditor().getIconPathX()%>"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
+               </and>
+               <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet%>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
+<%}%>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet %>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
+<%}%>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="<%=editorGen.getNavigator().getSorterExtensionID()%>" 
+               class="<%=editorGen.getNavigator().getSorterQualifiedClassName()%>">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
+                  </and>
+                  <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <actionProvider
+            id="<%=editorGen.getNavigator().getActionProviderID()%>"
+            class="<%=editorGen.getNavigator().getActionProviderQualifiedClassName()%>">
+         <enablement>
+            <or>
+               <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+<%if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet %>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="<%=editorGen.getPlugin().getID()%>.isShortcut"/>
+           	   </adapt>
+<%}%>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+
+<%
+if (editorGen.getEditor().isEclipseEditor()) {
+%>
+   <extension point="org.eclipse.ui.navigator.linkHelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"
+            class="<%=editorGen.getNavigator().getLinkHelperQualifiedClassName()%>">
+         <editorInputEnablement>
+         	<or>
+	            <instanceof value="org.eclipse.ui.IFileEditorInput"/>
+	            <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+	            <instanceof value="org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput"/>
+	        </or>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+<%
+}
+%>

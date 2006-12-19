@@ -1,0 +1,21 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE AbstractNavigatorItem FOR gmfgen::GenNavigator-»
+«EXPAND xpt::Common::copyright FOR editorGen»
+package «packageName»;
+
+«EXPAND xpt::Common::generated FOR ""»
+public abstract class «abstractNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
+	«EXPAND xpt::Common::generated FOR ""»
+	private final Object myParent;
+	«EXPAND xpt::Common::generated FOR ""»
+	public «abstractNavigatorItemClassName»(Object parent) {
+		myParent = parent;
+	}
+	«EXPAND xpt::Common::generated FOR ""»
+	public Object getParent() {
+		return myParent;
+	}
+}
+«ENDDEFINE»

@@ -30,6 +30,8 @@ Bundle-Localization: plugin
 Export-Package: <%=genPlugin.getEditorGen().getEditor().getPackageName()%>
 Require-Bundle: org.eclipse.core.runtime,
  <%if (!genModel.isRichClientPlatform()) {%>org.eclipse.core.resources,
+<%if (genPlugin.getEditorGen().getNavigator() != null) {%>
+ org.eclipse.ui.navigator,<%}%>
  org.eclipse.ui.ide,<%}%>
  org.eclipse.jface,
  org.eclipse.ui.views,

@@ -82,8 +82,44 @@ public class PluginXML
   protected final String TEXT_64 = ".";
   protected final String TEXT_65 = "ID\">" + NL + "         </action>" + NL + "      </objectContribution>  ";
   protected final String TEXT_66 = NL + "   </extension>" + NL;
-  protected final String TEXT_67 = NL + "</plugin>";
-  protected final String TEXT_68 = NL;
+  protected final String TEXT_67 = NL;
+  protected final String TEXT_68 = "   <extension point=\"org.eclipse.ui.navigator.viewer\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <viewerContentBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <contentExtension pattern=\"";
+  protected final String TEXT_69 = "\"/>";
+  protected final String TEXT_70 = NL + "            <contentExtension pattern=\"";
+  protected final String TEXT_71 = "\"/>";
+  protected final String TEXT_72 = NL + "         </includes>" + NL + "      </viewerContentBinding>" + NL + "      <viewerActionBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <actionExtension pattern=\"";
+  protected final String TEXT_73 = "\"/>" + NL + "         </includes>" + NL + "      </viewerActionBinding>" + NL + "   </extension>" + NL + "   <extension point=\"org.eclipse.ui.navigator.navigatorContent\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <navigatorContent " + NL + "            id=\"";
+  protected final String TEXT_74 = "\" " + NL + "            name=\"";
+  protected final String TEXT_75 = "\" " + NL + "            priority=\"";
+  protected final String TEXT_76 = "\" " + NL + "            contentProvider=\"";
+  protected final String TEXT_77 = "\" " + NL + "            labelProvider=\"";
+  protected final String TEXT_78 = "\"" + NL + "            icon=\"";
+  protected final String TEXT_79 = "\"" + NL + "            activeByDefault=\"true\">" + NL + "         <triggerPoints>" + NL + "            <or>" + NL + "\t           <and>" + NL + "    \t          <instanceof value=\"org.eclipse.core.resources.IFile\"/>" + NL + "        \t      <test property=\"org.eclipse.core.resources.extension\" value=\"";
+  protected final String TEXT_80 = "\"/>" + NL + "               </and>" + NL + "               <instanceof value=\"";
+  protected final String TEXT_81 = "\"/>";
+  protected final String TEXT_82 = NL + "           \t   <adapt type=\"org.eclipse.gmf.runtime.notation.View\">" + NL + "           \t      <test property=\"";
+  protected final String TEXT_83 = ".isShortcut\"/>" + NL + "           \t   </adapt>";
+  protected final String TEXT_84 = NL + "            </or>" + NL + "         </triggerPoints>" + NL + "         <possibleChildren>" + NL + "            <or>" + NL + "         \t   <instanceof value=\"";
+  protected final String TEXT_85 = "\"/>";
+  protected final String TEXT_86 = NL + "           \t   <adapt type=\"org.eclipse.gmf.runtime.notation.View\">" + NL + "           \t      <test property=\"";
+  protected final String TEXT_87 = ".isShortcut\"/>" + NL + "           \t   </adapt>";
+  protected final String TEXT_88 = NL + "            </or>" + NL + "         </possibleChildren>" + NL + "         <commonSorter " + NL + "               id=\"";
+  protected final String TEXT_89 = "\" " + NL + "               class=\"";
+  protected final String TEXT_90 = "\">" + NL + "            <parentExpression>" + NL + "               <or>" + NL + "\t              <and>" + NL + "    \t             <instanceof value=\"org.eclipse.core.resources.IFile\"/>" + NL + "        \t         <test property=\"org.eclipse.core.resources.extension\" value=\"";
+  protected final String TEXT_91 = "\"/>" + NL + "                  </and>" + NL + "                  <instanceof value=\"";
+  protected final String TEXT_92 = "\"/>" + NL + "               </or>" + NL + "            </parentExpression>" + NL + "         </commonSorter>" + NL + "      </navigatorContent>" + NL + "      <actionProvider" + NL + "            id=\"";
+  protected final String TEXT_93 = "\"" + NL + "            class=\"";
+  protected final String TEXT_94 = "\">" + NL + "         <enablement>" + NL + "            <or>" + NL + "               <instanceof value=\"";
+  protected final String TEXT_95 = "\"/>";
+  protected final String TEXT_96 = NL + "           \t   <adapt type=\"org.eclipse.gmf.runtime.notation.View\">" + NL + "           \t      <test property=\"";
+  protected final String TEXT_97 = ".isShortcut\"/>" + NL + "           \t   </adapt>";
+  protected final String TEXT_98 = NL + "            </or>" + NL + "         </enablement>" + NL + "      </actionProvider>" + NL + "   </extension>" + NL;
+  protected final String TEXT_99 = NL + "   <extension point=\"org.eclipse.ui.navigator.linkHelper\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <linkHelper" + NL + "            id=\"";
+  protected final String TEXT_100 = "\"" + NL + "            class=\"";
+  protected final String TEXT_101 = "\">" + NL + "         <editorInputEnablement>" + NL + "         \t<or>" + NL + "\t            <instanceof value=\"org.eclipse.ui.IFileEditorInput\"/>" + NL + "\t            <instanceof value=\"org.eclipse.emf.common.ui.URIEditorInput\"/>" + NL + "\t            <instanceof value=\"org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput\"/>" + NL + "\t        </or>" + NL + "         </editorInputEnablement>" + NL + "         <selectionEnablement>" + NL + "            <instanceof value=\"";
+  protected final String TEXT_102 = "\"/>" + NL + "         </selectionEnablement>" + NL + "      </linkHelper>" + NL + "   </extension>";
+  protected final String TEXT_103 = NL + "</plugin>";
+  protected final String TEXT_104 = NL;
 
   public String generate(Object argument)
   {
@@ -256,8 +292,89 @@ if (isRichClientPlatform) {
     
 }
 
+    if (editorGen.getNavigator() != null && !isRichClientPlatform) {
     stringBuffer.append(TEXT_67);
     stringBuffer.append(TEXT_68);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionID());
+    stringBuffer.append(TEXT_69);
+    
+if (editorGen.getEditor().isEclipseEditor()) {
+
+    stringBuffer.append(TEXT_70);
+    stringBuffer.append(editorGen.getNavigator().getLinkHelperExtensionID());
+    stringBuffer.append(TEXT_71);
+    
+}
+
+    stringBuffer.append(TEXT_72);
+    stringBuffer.append(editorGen.getNavigator().getActionProviderID());
+    stringBuffer.append(TEXT_73);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionID());
+    stringBuffer.append(TEXT_74);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionName());
+    stringBuffer.append(TEXT_75);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionPriority());
+    stringBuffer.append(TEXT_76);
+    stringBuffer.append(editorGen.getNavigator().getContentProviderQualifiedClassName());
+    stringBuffer.append(TEXT_77);
+    stringBuffer.append(editorGen.getNavigator().getLabelProviderQualifiedClassName());
+    stringBuffer.append(TEXT_78);
+    stringBuffer.append(editorGen.getEditor().getIconPathX());
+    stringBuffer.append(TEXT_79);
+    stringBuffer.append(editorGen.getDiagramFileExtension());
+    stringBuffer.append(TEXT_80);
+    stringBuffer.append(editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName());
+    stringBuffer.append(TEXT_81);
+    if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet
+    stringBuffer.append(TEXT_82);
+    stringBuffer.append(editorGen.getPlugin().getID());
+    stringBuffer.append(TEXT_83);
+    }
+    stringBuffer.append(TEXT_84);
+    stringBuffer.append(editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName());
+    stringBuffer.append(TEXT_85);
+    if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet 
+    stringBuffer.append(TEXT_86);
+    stringBuffer.append(editorGen.getPlugin().getID());
+    stringBuffer.append(TEXT_87);
+    }
+    stringBuffer.append(TEXT_88);
+    stringBuffer.append(editorGen.getNavigator().getSorterExtensionID());
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(editorGen.getNavigator().getSorterQualifiedClassName());
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(editorGen.getDiagramFileExtension());
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName());
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(editorGen.getNavigator().getActionProviderID());
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append(editorGen.getNavigator().getActionProviderQualifiedClassName());
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName());
+    stringBuffer.append(TEXT_95);
+    if (false && genDiagram.generateShortcutIcon()) {	//XXX: no shortcuts yet 
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(editorGen.getPlugin().getID());
+    stringBuffer.append(TEXT_97);
+    }
+    stringBuffer.append(TEXT_98);
+    
+if (editorGen.getEditor().isEclipseEditor()) {
+
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(editorGen.getNavigator().getLinkHelperExtensionID());
+    stringBuffer.append(TEXT_100);
+    stringBuffer.append(editorGen.getNavigator().getLinkHelperQualifiedClassName());
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName());
+    stringBuffer.append(TEXT_102);
+    
+}
+
+    }
+    stringBuffer.append(TEXT_103);
+    stringBuffer.append(TEXT_104);
     return stringBuffer.toString();
   }
 }

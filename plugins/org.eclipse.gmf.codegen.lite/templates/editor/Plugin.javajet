@@ -123,6 +123,17 @@ for (int i = 0; i < genPackages.size(); i++) {
 	}
 
 	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getItemImage(Object item) {
+		IItemLabelProvider labelProvider = (IItemLabelProvider) adapterFactory.adapt(item, IItemLabelProvider.class);
+		if (labelProvider != null) {
+			return ExtendedImageRegistry.getInstance().getImage(labelProvider.getImage(item));
+		}
+		return null;
+	}
+
+	/**
 	 * Returns an image descriptor for the image file at the given
 	 * plug-in relative path.
 	 *

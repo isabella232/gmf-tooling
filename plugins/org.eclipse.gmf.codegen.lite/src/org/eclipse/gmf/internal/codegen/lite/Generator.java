@@ -13,6 +13,8 @@ package org.eclipse.gmf.internal.codegen.lite;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -31,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
@@ -70,6 +73,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		return myEmitters.createMergeService();
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		final String pluginID = myEditorGen.getPlugin().getID();
 		final Path examplaryLocation = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
@@ -104,8 +108,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateBehaviors(myDiagram, openDiagramBehaviors);
 
 		boolean hasExternalLabels = false;
-		for (Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
-			final GenNode next = (GenNode) it.next();
+		for (GenNode next : (List<? extends GenNode>) myDiagram.getAllNodes()) {
 			if (!(next instanceof GenChildLabelNode)) {
 				internalGenerateJavaClass(myEmitters.getNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
@@ -125,11 +128,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (hasExternalLabels) {
 			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
 		}
-		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
-			final GenLink next = (GenLink) it.next();
+		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
-			for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
-				final GenLinkLabel label = (GenLinkLabel) it2.next();
+			for (GenLinkLabel label : (List<? extends GenLinkLabel>) next.getLabels()) {
 				internalGenerateJavaClass(myEmitters.getLinkLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 			}
@@ -159,6 +160,17 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateDiagramIcon(myEditorGen.getEditor().getIconPathX());
 		}
 		generateWizardBanner();
+		if (!myEditorGen.getDomainGenModel().isRichClientPlatform() && myEditorGen.getNavigator() != null) {
+			generateNavigatorContentProvider();
+			generateNavigatorLabelProvider();
+			generateNavigatorLinkHelper();
+			generateNavigatorSorter();
+			generateNavigatorActionProvider();
+			generateAbstractNavigatorItem();
+			generateNavigatorGroup();
+			generateNavigatorItem();
+			generateNavigatorGroupIcons();
+		}
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -167,6 +179,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		return !p.isAbsolute() && !p.segment(0).equals(".."); //$NON-NLS-1$
 	}
 
+	@SuppressWarnings("unchecked")
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
 		internalGenerateJavaClass(
@@ -176,8 +189,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram
 		);
 
-		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
-			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+		for (GenExpressionProviderBase nextProvider : (List<? extends GenExpressionProviderBase>) providerContainer.getProviders()) {
 			if(nextProvider instanceof GenExpressionInterpreter) {
 				TextEmitter providerEmitter = null;
 				if(GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
@@ -272,6 +284,98 @@ public class Generator extends GeneratorBase implements Runnable {
 				"Reconnect" + commandNameInfix + "TargetCommand",
 				genLink
 			);
+	}
+
+	private void generateNavigatorContentProvider() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorContentProviderEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getContentProviderClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+
+	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorLabelProviderEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getLabelProviderClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorLinkHelper() throws InterruptedException, UnexpectedBehaviourException {
+		if (!myEditorGen.getEditor().isEclipseEditor()) {
+			return;
+		}
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorLinkHelperEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getLinkHelperClassName(), 
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorSorter() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorSorterEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getSorterClassName(), 
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorActionProvider() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorActionProviderEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getActionProviderClassName(), 
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateAbstractNavigatorItem() throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(
+				myEmitters.getAbstractNavigatorItemEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getAbstractNavigatorItemClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorGroup() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorGroupEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getNavigatorGroupClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorItem() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorItemEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getNavigatorItemClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {
+		Set<String> groupIcons = new HashSet<String>();
+		for (GenNavigatorChildReference nextReference : (List<? extends GenNavigatorChildReference>) myEditorGen.getNavigator().getChildReferences()) {
+			if (nextReference.getGroupIcon() != null && nextReference.getGroupIcon().length() > 0) {
+				groupIcons.add(nextReference.getGroupIcon());
+			}
+		}
+		for (String iconPath : groupIcons) {
+			generateGroupIcon(new Path(iconPath));
+		}
+	}
+	
+	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {

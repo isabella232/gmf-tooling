@@ -11,8 +11,15 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -20,6 +27,7 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
@@ -32,6 +40,14 @@ import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
+import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkCompleteCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkStartCommandGenerator;
@@ -56,6 +72,10 @@ import org.eclipse.gmf.codegen.templates.lite.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
+import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorContentProviderGenerator;
+import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
+import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.DiagramEditPartGenerator;
@@ -72,6 +92,9 @@ import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializer
 import org.eclipse.gmf.codegen.templates.lite.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.LinkViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.NodeViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.osgi.framework.Bundle;
 
 /**
@@ -81,6 +104,7 @@ import org.osgi.framework.Bundle;
  * @author artem
  */
 public class CodegenEmitters {
+	private static final String CODEGEN_PLUGIN_ID = "org.eclipse.gmf.codegen";	//$NON-NLS-1$
 
 	private final EmitterFactory myFactory;
 
@@ -88,14 +112,19 @@ public class CodegenEmitters {
 
 	private static StaticTemplateRegistry myRegistry;
 
+	private ResourceManager myResourceManager;
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
 		myRegistry = initRegistry();
 		String[] variables = new String[] { "org.eclipse.emf.codegen", "org.eclipse.emf.codegen.ecore", "org.eclipse.emf.common", "org.eclipse.emf.ecore", "org.eclipse.gmf.common",
 				"org.eclipse.gmf.codegen" };
+		URL liteTemplatesPath = getTemplatesBundle().getEntry("/templates/");
+		URL runtimeTemplatesPath = Platform.getBundle(CODEGEN_PLUGIN_ID).getEntry("/templates/");
 		myTemplatePath = new String[] {
-				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
-				getTemplatesBundle().getEntry("/templates/").toString() };
+				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true).toString() : templateDirectory,
+				liteTemplatesPath.toString(), runtimeTemplatesPath.toString() };
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), myRegistry, usePrecompiled, variables));
+
+		myResourceManager = new BundleResourceManager(liteTemplatesPath, runtimeTemplatesPath);
 	}
 
 	public TextMerger createMergeService() {
@@ -156,6 +185,15 @@ public class CodegenEmitters {
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
+
+		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
+		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
+		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
+		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
+		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
+		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
+		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
+
 		return tr;
 	}
 
@@ -326,7 +364,7 @@ public class CodegenEmitters {
 	/**
 	 * @see #retrieve(Class)
 	 */
-	private static void put(StaticTemplateRegistry tr, String path, Class precompiledTemplate) {
+	private static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
 		tr.put(precompiledTemplate, path, precompiledTemplate);
 	}
 
@@ -334,12 +372,16 @@ public class CodegenEmitters {
 	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl -
 	 * class object of precompiled template serves as a key
 	 */
-	private TextEmitter retrieve(Class key) throws UnexpectedBehaviourException {
+	private TextEmitter retrieve(Class<?> key) throws UnexpectedBehaviourException {
 		try {
 			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
+	}
+
+	private BinaryEmitter newGIFEmitter(String relativePath) throws UnexpectedBehaviourException {
+		return new GIFEmitter(checkTemplateLocation(relativePath));
 	}
 
 	private BinaryEmitter newGIFEmitterAdapter(String relativePath) throws UnexpectedBehaviourException {
@@ -372,5 +414,97 @@ public class CodegenEmitters {
 			throw new JETException("shortcut image template not found");
 		}
 		return new GIFEmitter(templateLocation);
+	}
+
+	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorContentProviderGenerator.class);
+	}
+
+	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorLabelProviderGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorLinkHelperEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorLinkHelperGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorSorterGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorActionProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorActionProviderGenerator.class);
+	}
+	
+	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::navigator::AbstractNavigatorItem::AbstractNavigatorItem");
+	}
+	
+	public TextEmitter getNavigatorGroupEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorGroupGenerator.class);
+	}
+
+	public TextEmitter getNavigatorItemEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorItemGenerator.class);
+	}
+
+	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitter("/navigator/navigatorGroup.gif"); //$NON-NLS-1$
+	}
+
+	private TextEmitter retrieveXpand(String templateFQN) {
+		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
+		if (result == null) {
+			result = new XpandTextEmitter(myResourceManager, templateFQN);
+			myCachedXpandEmitters.put(templateFQN, result);
+		}
+		return result;
+	}
+
+	private HashMap<String, TextEmitter> myCachedXpandEmitters = new HashMap<String, TextEmitter>();
+	/*
+	 * TODO: use same emitter as one in oeg.codegen? Or at least make them both subclasses of the same abstract superclass
+	 * (to have possibility to use independent ways to extract the target and the arguments from the passed arguments).
+	 */
+	private static class XpandTextEmitter implements TextEmitter {
+		private final ResourceManager myResourceManager;
+		private final String myTemplateFQN;
+
+		public XpandTextEmitter(ResourceManager manager, String templateFQN) {
+			myResourceManager = manager;
+			myTemplateFQN = templateFQN;
+		}
+
+		public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
+			StringBuilder result = new StringBuilder();
+			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
+			return result.toString();
+		}
+
+		protected Object extractTarget(Object[] arguments) {
+			assert arguments != null && arguments.length > 0;
+			return arguments[0];
+		}
+
+		protected Object[] extractArguments(Object[] arguments) {
+			assert arguments != null && arguments.length > 0;
+			ArrayList<Object> res = new ArrayList<Object>(arguments.length);
+			// strip first one off, assume it's target
+			for (int i = 1; i < arguments.length; i++) {
+				if (false == arguments[i] instanceof ImportAssistant) {
+					// strip assistant off
+					res.add(arguments[i]);
+				}
+			}
+			return res.toArray();
+		}
+
+		private XpandExecutionContext createContext(StringBuilder result) {
+			final BufferOutput output = new BufferOutput(result);
+			final List<Variable> globals = Collections.emptyList();
+			final XpandExecutionContext xpandContext = ContextFactory.createXpandContext(myResourceManager, output, globals);
+			((XpandExecutionContextImpl) xpandContext).setContextClassLoader(getClass().getClassLoader());
+			return xpandContext;
+		}
 	}
 }

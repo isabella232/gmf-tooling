@@ -34,7 +34,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	/**
 	 * @generated
 	 */
-	private static final String VIEW_PATTERN = "<%=viewPattern%>";
+	public static final String VIEW_PATTERN = "<%=viewPattern%>";
 
 	/**
 	 * @generated
@@ -49,7 +49,11 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		if (element == null) {
 			return defaultText;
 		}
-		return buildTextByPattern(element, VIEW_PATTERN);
+		String result = buildTextByPattern(element, VIEW_PATTERN);
+		if (result == null) {
+			return defaultText;
+		}
+		return result;
 	}
 
 	/**
@@ -60,13 +64,17 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		if (element == null) {
 			return defaultText;
 		}
-		return buildTextByPattern(element, EDIT_PATTERN);
+		String result = buildTextByPattern(element, EDIT_PATTERN);
+		if (result == null) {
+			return defaultText;
+		}
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected String buildTextByPattern(<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element, String pattern) {
+	public static String buildTextByPattern(<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element, String pattern) {
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
@@ -92,7 +100,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 } else {
 %>
 		//XXX: unexpected model facet.
-		return defaultText;
+		return null;
 <%
 }
 %>
