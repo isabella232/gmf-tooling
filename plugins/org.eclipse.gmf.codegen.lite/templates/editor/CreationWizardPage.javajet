@@ -416,7 +416,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 <%
 		} else {
 %>
-					modelResource.getContents().add(model);
+					modelResource.getContents().add(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
 <%
 		}
 %>
@@ -428,7 +428,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 <%
 	} else {
 %>
-					diagramResource.getContents().add(model);
+					diagramResource.getContents().add(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
 <%
 	}
 }

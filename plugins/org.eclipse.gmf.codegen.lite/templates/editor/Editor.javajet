@@ -491,7 +491,7 @@ if (!isEclipseEditor) {
 					diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
 					if (diagramRoot == null) {
 						diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
-						<%=resourceToUse%>.getContents().add(0, diagramRoot);
+						<%=resourceToUse%>.getContents().add(0, <%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>diagramRoot);
 						//We don't want this auxiliary creation to be undoable.
 						try {
 							<%=resourceToUse%>.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
