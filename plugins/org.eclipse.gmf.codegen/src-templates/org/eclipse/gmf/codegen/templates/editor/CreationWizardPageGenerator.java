@@ -25,8 +25,8 @@ public class CreationWizardPageGenerator
   protected final String TEXT_8 = "\t";
   protected final String TEXT_9 = NL;
   protected final String TEXT_10 = "\t";
-  protected final String TEXT_11 = NL + "\t{" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_12 = "(String pageName, IStructuredSelection selection) {" + NL + "\t\tsuper(pageName, selection);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Override to create files with this extension." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getExtension() {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic URI getURI() {";
+  protected final String TEXT_11 = NL + "\t{" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate final String fileExtension;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_12 = "(String pageName, IStructuredSelection selection, String fileExtension) {" + NL + "\t\tsuper(pageName, selection);" + NL + "\t\tthis.fileExtension = fileExtension;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Override to create files with this extension." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getExtension() {" + NL + "\t\treturn fileExtension;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic URI getURI() {";
   protected final String TEXT_13 = NL + "\t\treturn URI.createPlatformResourceURI(getFilePath().toString());";
   protected final String TEXT_14 = NL + "\t\treturn URI.createFileURI(getFilePath().toString());";
   protected final String TEXT_15 = NL + "\t}";

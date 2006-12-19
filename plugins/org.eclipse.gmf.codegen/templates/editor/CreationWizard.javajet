@@ -119,12 +119,7 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DiagramModelFile", getSelection()) { //$NON-NLS-1$
-
-			protected String getExtension() {
-				return "<%=genDiagram.getEditorGen().getDiagramFileExtension()%>"; //$NON-NLS-1$
-			}
-		};
+		diagramModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DiagramModelFile", getSelection(), "<%=genDiagram.getEditorGen().getDiagramFileExtension()%>"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
 <%if (standaloneDomainModel) {%>
 		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
@@ -134,12 +129,7 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 		addPage(diagramModelFilePage);
 <%if (standaloneDomainModel) {%>
 
-		domainModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DomainModelFile", getSelection()) { //$NON-NLS-1$
-
-			protected String getExtension() {
-				return "<%=genDiagram.getEditorGen().getDomainFileExtension()%>"; //$NON-NLS-1$
-			}
-		};
+		domainModelFilePage = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("DomainModelFile", getSelection(), "<%=genDiagram.getEditorGen().getDomainFileExtension()%>"); //$NON-NLS-1$ //$NON-NLS-2$
 		domainModelFilePage.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
 		domainModelFilePage.setDescription("Select file that will contain domain model.");
 		addPage(domainModelFilePage);

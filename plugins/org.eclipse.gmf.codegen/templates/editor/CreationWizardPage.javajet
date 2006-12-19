@@ -31,8 +31,14 @@ public class <%=importManager.getCompilationUnitName()%> extends
 	/**
 	 * @generated
 	 */
-	public <%=importManager.getCompilationUnitName()%>(String pageName, IStructuredSelection selection) {
+	private final String fileExtension;
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getCompilationUnitName()%>(String pageName, IStructuredSelection selection, String fileExtension) {
 		super(pageName, selection);
+		this.fileExtension = fileExtension;
 	}
 
 	/**
@@ -41,7 +47,7 @@ public class <%=importManager.getCompilationUnitName()%> extends
 	 * @generated
 	 */
 	protected String getExtension() {
-		return null;
+		return fileExtension;
 	}
 
 	/**
