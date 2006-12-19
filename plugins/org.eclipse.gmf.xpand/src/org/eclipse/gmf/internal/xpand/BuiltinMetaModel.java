@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -642,7 +643,7 @@ public class BuiltinMetaModel {
 		collectionOps.add(new InternalOperation<Collection>(opf.create("union", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
-				HashSet<Object> rv = new HashSet<Object>(target);
+				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
 				rv.addAll((Collection) params[0]);
 				return rv;
 			}
@@ -650,7 +651,7 @@ public class BuiltinMetaModel {
 		collectionOps.add(new InternalOperation<Collection>(opf.create("intersect", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
-				HashSet<Object> rv = new HashSet<Object>(target);
+				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
 				rv.retainAll((Collection) params[0]);
 				return rv;
 			}
@@ -658,7 +659,7 @@ public class BuiltinMetaModel {
 		collectionOps.add(new InternalOperation<Collection>(opf.create("without", CollectionTypesSupport.COLLECTION_OF_OBJECT, CollectionTypesSupport.COLLECTION_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
-				HashSet<Object> rv = new HashSet<Object>(target);
+				LinkedHashSet<Object> rv = new LinkedHashSet<Object>(target);
 				rv.removeAll((Collection) params[0]);
 				return rv;
 			}
