@@ -74,16 +74,19 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		//[155332]preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
+		preserveIfSet(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
 		
 		setMatcher(GMFGEN.getGenChildNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		//[155332]preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
-		
-		//for now nothing to reconcile here
-		//we need to match this only to dig into the attributes 
+		preserveIfSet(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
+		 
 		setMatcher(GMFGEN.getGenChildLabelNode(), getGenNodeMatcher());
+		preserveIfSet(GMFGEN.getGenChildLabelNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
+		
 		setMatcher(GMFGEN.getGenChildSideAffixedNode(), getGenNodeMatcher());
+		preserveIfSet(GMFGEN.getGenChildSideAffixedNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
 		
 		setMatcher(GMFGEN.getGenCompartment(), new ReflectiveMatcher(GMFGEN.getGenCompartment_Title()));
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
