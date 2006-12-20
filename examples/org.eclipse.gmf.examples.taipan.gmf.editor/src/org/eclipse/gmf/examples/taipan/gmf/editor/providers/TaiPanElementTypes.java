@@ -37,7 +37,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class TaiPanElementTypes {
+public class TaiPanElementTypes extends ElementInitializers {
 
 	/**
 	 * @generated
@@ -153,14 +153,23 @@ public class TaiPanElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
+
 			elements.put(Aquatory_1000, TaiPanPackage.eINSTANCE.getAquatory());
-			elements.put(SmallItems_3001, TaiPanPackage.eINSTANCE.getSmallItems());
-			elements.put(LargeItem_3002, TaiPanPackage.eINSTANCE.getLargeItem());
-			elements.put(EmptyBox_3003, TaiPanPackage.eINSTANCE.getEmptyBox());
+
 			elements.put(Port_2001, TaiPanPackage.eINSTANCE.getPort());
+
 			elements.put(Ship_2002, TaiPanPackage.eINSTANCE.getShip());
+
+			elements.put(SmallItems_3001, TaiPanPackage.eINSTANCE.getSmallItems());
+
+			elements.put(LargeItem_3002, TaiPanPackage.eINSTANCE.getLargeItem());
+
+			elements.put(EmptyBox_3003, TaiPanPackage.eINSTANCE.getEmptyBox());
+
 			elements.put(ShipDestination_4001, TaiPanPackage.eINSTANCE.getShip_Destination());
+
 			elements.put(Route_4002, TaiPanPackage.eINSTANCE.getRoute());
+
 			elements.put(Route_4003, TaiPanPackage.eINSTANCE.getRoute());
 		}
 		return (ENamedElement) elements.get(type);
@@ -230,158 +239,15 @@ public class TaiPanElementTypes {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
 			KNOWN_ELEMENT_TYPES.add(Aquatory_1000);
+			KNOWN_ELEMENT_TYPES.add(Port_2001);
+			KNOWN_ELEMENT_TYPES.add(Ship_2002);
 			KNOWN_ELEMENT_TYPES.add(SmallItems_3001);
 			KNOWN_ELEMENT_TYPES.add(LargeItem_3002);
 			KNOWN_ELEMENT_TYPES.add(EmptyBox_3003);
-			KNOWN_ELEMENT_TYPES.add(Port_2001);
-			KNOWN_ELEMENT_TYPES.add(Ship_2002);
 			KNOWN_ELEMENT_TYPES.add(ShipDestination_4001);
 			KNOWN_ELEMENT_TYPES.add(Route_4002);
 			KNOWN_ELEMENT_TYPES.add(Route_4003);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
-
-	/**
-	 * @generated
-	 */
-	public static class Initializers {
-
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer Route_4002 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
-						TaiPanPackage.eINSTANCE.getRoute())));
-			}
-		}; // Route_4002 ObjectInitializer		
-
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer Route_4003 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
-						TaiPanPackage.eINSTANCE.getRoute())));
-			}
-		}; // Route_4003 ObjectInitializer
-
-		/** 
-		 * @generated
-		 */
-		private Initializers() {
-		}
-
-		/** 
-		 * @generated
-		 */
-		public static interface IObjectInitializer {
-
-			/** 
-			 * @generated
-			 */
-			public void init(EObject instance);
-		}
-
-		/** 
-		 * @generated
-		 */
-		public static abstract class ObjectInitializer implements IObjectInitializer {
-
-			/** 
-			 * @generated
-			 */
-			final EClass element;
-
-			/** 
-			 * @generated
-			 */
-			private List featureInitializers = new ArrayList();
-
-			/** 
-			 * @generated
-			 */
-			ObjectInitializer(EClass element) {
-				this.element = element;
-				init();
-			}
-
-			/**
-			 * @generated
-			 */
-			protected abstract void init();
-
-			/** 
-			 * @generated
-			 */
-			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
-				featureInitializers.add(initializer);
-				return initializer;
-			}
-
-			/** 
-			 * @generated
-			 */
-			public void init(EObject instance) {
-				for (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
-					try {
-						nextExpr.init(instance);
-					} catch (RuntimeException e) {
-						TaiPanDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
-					}
-				}
-			}
-		} // end of ObjectInitializer
-
-		/** 
-		 * @generated
-		 */
-		interface IFeatureInitializer {
-
-			/**
-			 * @generated
-			 */
-			void init(EObject contextInstance);
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
-			final EStructuralFeature feature = initFeature;
-			final ObjectInitializer[] initializers = newObjectInitializers;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					for (int i = 0; i < initializers.length; i++) {
-						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
-						if (feature.isMany()) {
-							((Collection) contextInstance.eGet(feature)).add(newInstance);
-						} else {
-							contextInstance.eSet(feature, newInstance);
-						}
-						initializers[i].init(newInstance);
-					}
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, TaiPanAbstractExpression valueExpression) {
-			final EStructuralFeature feature = initFeature;
-			final TaiPanAbstractExpression expression = valueExpression;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					expression.assignTo(feature, contextInstance);
-				}
-			};
-		}
-	} // end of Initializers
 }
