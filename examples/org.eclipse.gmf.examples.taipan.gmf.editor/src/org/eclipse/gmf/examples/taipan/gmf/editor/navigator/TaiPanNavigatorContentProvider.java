@@ -138,11 +138,11 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			outgoinglinks.addChildren(getPort_2001ToRoute_4002OutTarget(view, outgoinglinks));
 			incominglinks.addChildren(getPort_2001ToRoute_4003InSource(view, incominglinks));
 			outgoinglinks.addChildren(getPort_2001ToRoute_4003OutTarget(view, outgoinglinks));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -178,11 +178,11 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			target.addChildren(getShipDestination_4001ToPort_2001OutTarget((Edge) view, target));
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
 			source.addChildren(getShipDestination_4001ToShip_2002InSource((Edge) view, source));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
 			if (!source.isEmpty()) {
 				result.add(source);
+			}
+			if (!target.isEmpty()) {
+				result.add(target);
 			}
 			return result.toArray();
 		}
@@ -192,11 +192,11 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			target.addChildren(getRoute_4002ToPort_2001OutTarget((Edge) view, target));
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
 			source.addChildren(getRoute_4002ToPort_2001InSource((Edge) view, source));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
 			if (!source.isEmpty()) {
 				result.add(source);
+			}
+			if (!target.isEmpty()) {
+				result.add(target);
 			}
 			return result.toArray();
 		}
@@ -206,11 +206,11 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			target.addChildren(getRoute_4003ToPort_2001OutTarget((Edge) view, target));
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
 			source.addChildren(getRoute_4003ToPort_2001InSource((Edge) view, source));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
 			if (!source.isEmpty()) {
 				result.add(source);
+			}
+			if (!target.isEmpty()) {
+				result.add(target);
 			}
 			return result.toArray();
 		}
