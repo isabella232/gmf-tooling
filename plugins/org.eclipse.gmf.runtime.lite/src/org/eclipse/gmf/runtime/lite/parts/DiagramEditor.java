@@ -169,14 +169,14 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 		if (myDiagramDisplayer != null) {
 			getCommandStack().removeCommandStackEventListener(mySaveListener);
 			getCommandStack().removeCommandStackListener(commandStackListener);
-			myDiagramDisplayer.dispose();
-			myDiagramDisplayer = null;
 			ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
 			assert adapter != null;
 			adapter.release();
 			if (adapter.isReleased()) {
 				getEditingDomain().getResourceSet().eAdapters().remove(adapter);
 			}
+			myDiagramDisplayer.dispose();
+			myDiagramDisplayer = null;
 		}
 		super.dispose();
 	}
