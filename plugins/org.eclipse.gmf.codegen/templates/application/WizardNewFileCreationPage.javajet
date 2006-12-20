@@ -56,6 +56,10 @@ public class WizardNewFileCreationPage extends WizardPage {
 	public WizardNewFileCreationPage(String name, IStructuredSelection currentSelection) {
 		super(name);
 		this.currentSelection = currentSelection;
+		String home = System.getProperty("user.home"); //$NON-NLS-1$
+		if (home != null) {
+			initialContainerFullPath = new Path(home);
+		}
 	}
 
 	/**
