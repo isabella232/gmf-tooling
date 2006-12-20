@@ -110,22 +110,12 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new TaiPanCreationWizardPage("DiagramModelFile", getSelection()) { //$NON-NLS-1$
-
-			protected String getExtension() {
-				return "taipan_diagram"; //$NON-NLS-1$
-			}
-		};
+		diagramModelFilePage = new TaiPanCreationWizardPage("DiagramModelFile", getSelection(), "taipan_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage.setTitle("Create TaiPan Diagram");
 		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection()) { //$NON-NLS-1$
-
-			protected String getExtension() {
-				return "taipan"; //$NON-NLS-1$
-			}
-		};
+		domainModelFilePage = new TaiPanCreationWizardPage("DomainModelFile", getSelection(), "taipan"); //$NON-NLS-1$ //$NON-NLS-2$
 		domainModelFilePage.setTitle("Create TaiPan Diagram");
 		domainModelFilePage.setDescription("Select file that will contain domain model.");
 		addPage(domainModelFilePage);
