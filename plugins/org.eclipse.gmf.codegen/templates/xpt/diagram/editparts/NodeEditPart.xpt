@@ -518,9 +518,6 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	«classBody»
 «ENDDEFINE»
 
-«DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap-»
-«ENDDEFINE»
-
 «DEFINE setupNodePlate FOR gmfgen::GenNode»
 «ENDDEFINE»
 
