@@ -1,0 +1,478 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+package org.eclipse.gmf.examples.taipan.presentation;
+
+import java.io.File;
+import java.util.Iterator;
+
+import org.eclipse.core.runtime.IPlatformRunnable;
+
+import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IFolderLayout;
+import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.ContributionItemFactory;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.edit.ui.action.LoadResourceAction;
+
+import org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorPlugin;
+
+/**
+ * Customized {@link WorkbenchAdvisor} for the RCP application.
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */
+public final class TaiPanEditorAdvisor extends WorkbenchAdvisor {
+
+	/**
+	 * This looks up a string in the plugin's plugin.properties file.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static String getString(String key) {
+		return TaiPanEditorPlugin.INSTANCE.getString(key);
+	}
+
+	/**
+	 * This looks up a string in plugin.properties, making a substitution.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static String getString(String key, Object s1) {
+		return org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorPlugin.INSTANCE.getString(key, new Object[] { s1 });
+	}
+
+	/**
+	 * RCP's application
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class Application implements IPlatformRunnable {
+
+		/**
+		 * @see org.eclipse.core.runtime.IPlatformRunnable#run(java.lang.Object)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public Object run(Object args) {
+			WorkbenchAdvisor workbenchAdvisor = new TaiPanEditorAdvisor();
+			Display display = PlatformUI.createDisplay();
+			try {
+				int returnCode = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
+				if (returnCode == PlatformUI.RETURN_RESTART) {
+					return IPlatformRunnable.EXIT_RESTART;
+				} else {
+					return IPlatformRunnable.EXIT_OK;
+				}
+			} finally {
+				display.dispose();
+			}
+		}
+	}
+
+	/**
+	 * RCP's perspective
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class Perspective implements IPerspectiveFactory {
+
+		/**
+		 * Perspective ID
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final String ID_PERSPECTIVE = "org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorPerspective"; //$NON-NLS-1$
+
+		/**
+		 * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public void createInitialLayout(IPageLayout layout) {
+			layout.setEditorAreaVisible(true);
+			layout.addPerspectiveShortcut(ID_PERSPECTIVE);
+
+			IFolderLayout right = layout.createFolder("right", IPageLayout.RIGHT, (float) 0.66, layout.getEditorArea()); //$NON-NLS-1$
+			right.addView(IPageLayout.ID_OUTLINE);
+
+			IFolderLayout bottonRight = layout.createFolder("bottonRight", IPageLayout.BOTTOM, (float) 0.60, "right"); //$NON-NLS-1$ //$NON-NLS-2$
+			bottonRight.addView(IPageLayout.ID_PROP_SHEET);
+		}
+	}
+
+	/**
+	 * RCP's window advisor
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class WindowAdvisor extends WorkbenchWindowAdvisor {
+
+		/**
+		 * @see WorkbenchWindowAdvisor#WorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchWindowConfigurer)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public WindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+			super(configurer);
+		}
+
+		/**
+		 * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowOpen()
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public void preWindowOpen() {
+			IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+			configurer.setInitialSize(new Point(600, 450));
+			configurer.setShowCoolBar(false);
+			configurer.setShowStatusLine(true);
+			configurer.setTitle(getString("_UI_Application_title")); //$NON-NLS-1$
+		}
+
+		/**
+		 * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+			return new WindowActionBarAdvisor(configurer);
+		}
+	}
+
+	/**
+	 * RCP's action bar advisor
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class WindowActionBarAdvisor extends ActionBarAdvisor {
+
+		/**
+		 * @see ActionBarAdvisor#ActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public WindowActionBarAdvisor(IActionBarConfigurer configurer) {
+			super(configurer);
+		}
+
+		/**
+		 * @see org.eclipse.ui.application.ActionBarAdvisor#fillMenuBar(org.eclipse.jface.action.IMenuManager)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected void fillMenuBar(IMenuManager menuBar) {
+			IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
+			menuBar.add(createFileMenu(window));
+			menuBar.add(createEditMenu(window));
+			menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			menuBar.add(createWindowMenu(window));
+			menuBar.add(createHelpMenu(window));
+		}
+
+		/**
+		 * Creates the 'File' menu.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected IMenuManager createFileMenu(IWorkbenchWindow window) {
+			IMenuManager menu = new MenuManager(getString("_UI_Menu_File_label"), //$NON-NLS-1$
+					IWorkbenchActionConstants.M_FILE);
+			menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));
+
+			IMenuManager newMenu = new MenuManager(getString("_UI_Menu_New_label"), "new"); //$NON-NLS-1$  //$NON-NLS-2$
+			newMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+
+			menu.add(newMenu);
+			menu.add(new Separator());
+			menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(new Separator());
+			addToMenuAndRegister(menu, ActionFactory.CLOSE.create(window));
+			addToMenuAndRegister(menu, ActionFactory.CLOSE_ALL.create(window));
+			menu.add(new Separator());
+			addToMenuAndRegister(menu, ActionFactory.SAVE.create(window));
+			addToMenuAndRegister(menu, ActionFactory.SAVE_AS.create(window));
+			addToMenuAndRegister(menu, ActionFactory.SAVE_ALL.create(window));
+			menu.add(new Separator());
+			addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
+			return menu;
+		}
+
+		/**
+		 * Creates the 'Edit' menu.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected IMenuManager createEditMenu(IWorkbenchWindow window) {
+			IMenuManager menu = new MenuManager(getString("_UI_Menu_Edit_label"), //$NON-NLS-1$
+					IWorkbenchActionConstants.M_EDIT);
+			menu.add(new GroupMarker(IWorkbenchActionConstants.EDIT_START));
+
+			addToMenuAndRegister(menu, ActionFactory.UNDO.create(window));
+			addToMenuAndRegister(menu, ActionFactory.REDO.create(window));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.UNDO_EXT));
+			menu.add(new Separator());
+
+			addToMenuAndRegister(menu, ActionFactory.CUT.create(window));
+			addToMenuAndRegister(menu, ActionFactory.COPY.create(window));
+			addToMenuAndRegister(menu, ActionFactory.PASTE.create(window));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.CUT_EXT));
+			menu.add(new Separator());
+
+			addToMenuAndRegister(menu, ActionFactory.DELETE.create(window));
+			addToMenuAndRegister(menu, ActionFactory.SELECT_ALL.create(window));
+			menu.add(new Separator());
+
+			menu.add(new GroupMarker(IWorkbenchActionConstants.ADD_EXT));
+
+			menu.add(new GroupMarker(IWorkbenchActionConstants.EDIT_END));
+			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			return menu;
+		}
+
+		/**
+		 * Creates the 'Window' menu.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected IMenuManager createWindowMenu(IWorkbenchWindow window) {
+			IMenuManager menu = new MenuManager(getString("_UI_Menu_Window_label"), //$NON-NLS-1$
+					IWorkbenchActionConstants.M_WINDOW);
+
+			addToMenuAndRegister(menu, ActionFactory.OPEN_NEW_WINDOW.create(window));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
+
+			return menu;
+		}
+
+		/**
+		 * Creates the 'Help' menu.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected IMenuManager createHelpMenu(IWorkbenchWindow window) {
+			IMenuManager menu = new MenuManager(getString("_UI_Menu_Help_label"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
+			// Welcome or intro page would go here
+			// Help contents would go here
+			// Tips and tricks page would go here
+			menu.add(new GroupMarker(IWorkbenchActionConstants.HELP_START));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.HELP_END));
+			menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			return menu;
+		}
+
+		/**
+		 * Adds the specified action to the given menu and also registers the action with the
+		 * action bar configurer, in order to activate its key binding.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		protected void addToMenuAndRegister(IMenuManager menuManager, IAction action) {
+			menuManager.add(action);
+			getActionBarConfigurer().registerGlobalAction(action);
+		}
+	}
+
+	/**
+	 * About action for the RCP application.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class AboutAction extends WorkbenchWindowActionDelegate {
+
+		/**
+		 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public void run(IAction action) {
+			MessageDialog.openInformation(getWindow().getShell(), getString("_UI_About_title"), //$NON-NLS-1$
+					getString("_UI_About_text")); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Open action for the objects from the TaiPan model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class OpenAction extends WorkbenchWindowActionDelegate {
+
+		/**
+		 * Opens the editors for the files selected using the file dialog.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public void run(IAction action) {
+			String filePath = openFilePathDialog(getWindow().getShell(), null, SWT.OPEN);
+			if (filePath != null) {
+				openEditor(getWindow().getWorkbench(), URI.createFileURI(filePath));
+			}
+		}
+	}
+
+	/**
+	 * Open URI action for the objects from the TaiPan model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static class OpenURIAction extends WorkbenchWindowActionDelegate {
+
+		/**
+		 * Opens the editors for the files selected using the LoadResourceDialog.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public void run(IAction action) {
+			LoadResourceAction.LoadResourceDialog loadResourceDialog = new LoadResourceAction.LoadResourceDialog(getWindow().getShell());
+			if (Dialog.OK == loadResourceDialog.open()) {
+				for (Iterator i = loadResourceDialog.getURIs().iterator(); i.hasNext();) {
+					openEditor(getWindow().getWorkbench(), (URI) i.next());
+				}
+			}
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static String openFilePathDialog(Shell shell, String fileExtensionFilter, int style) {
+		FileDialog fileDialog = new FileDialog(shell, style);
+		if (fileExtensionFilter == null) {
+			fileExtensionFilter = "*." + getString("_UI_TaiPanEditorFilenameExtension"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		fileDialog.setFilterExtensions(new String[] { fileExtensionFilter });
+
+		fileDialog.open();
+		if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
+			return fileDialog.getFilterPath() + File.separator + fileDialog.getFileName();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static boolean openEditor(IWorkbench workbench, URI fileURI) {
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		IWorkbenchPage page = workbenchWindow.getActivePage();
+
+		IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
+		if (editorDescriptor == null) {
+			MessageDialog.openError(workbenchWindow.getShell(), getString("_UI_Error_title"), //$NON-NLS-1$
+					getString("_WARN_No_Editor", fileURI.toFileString())); //$NON-NLS-1$
+			return false;
+		} else {
+			try {
+				page.openEditor(new URIEditorInput(fileURI), editorDescriptor.getId());
+			} catch (PartInitException exception) {
+				MessageDialog.openError(workbenchWindow.getShell(), getString("_UI_OpenEditorError_label"), //$NON-NLS-1$
+						exception.getMessage());
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#getInitialWindowPerspectiveId()
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getInitialWindowPerspectiveId() {
+		return Perspective.ID_PERSPECTIVE;
+	}
+
+	/**
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initialize(IWorkbenchConfigurer configurer) {
+		super.initialize(configurer);
+		configurer.setSaveAndRestore(true);
+	}
+
+	/**
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchConfigurer)
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+		return new WindowAdvisor(configurer);
+	}
+}

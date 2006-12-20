@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2006/12/20 02:26:18 dstadnik Exp $
+-->
+
+<plugin>
+
+  <extension
+    point="org.eclipse.core.runtime.applications"
+    id="TaiPanEditorAdvisorApplication">
+    <application>
+      <run
+        class="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisor$Application">
+      </run>
+    </application>
+  </extension>
+
+   <extension
+    point="org.eclipse.ui.perspectives">
+    <perspective
+      name="%_UI_Perspective_label"
+      class="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisor$Perspective"
+      id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorPerspective">
+    </perspective>
+  </extension>
+
+  <extension
+    point="org.eclipse.ui.commands">
+    <command
+      name="%_UI_Menu_OpenURI_label"
+      description="%_UI_Menu_OpenURI_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenURICommand" />  
+    <command
+      name="%_UI_Menu_Open_label"
+      description="%_UI_Menu_Open_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenCommand" />  
+  </extension>
+  
+  <extension
+    point="org.eclipse.ui.bindings">
+    <key
+      commandId="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenURICommand"
+      sequence="M1+U"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+    <key
+      commandId="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenCommand"
+      sequence="M1+O"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+  </extension>
+
+  <extension
+    point="org.eclipse.ui.actionSets">
+    <actionSet
+      label="%_UI_TaiPanEditorAdvisor_ActionSet_label"
+      visible="true"
+      id="TaiPanEditorAdvisorActionSet">
+      <action
+        label="%_UI_Menu_About_label"
+        class="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisor$AboutAction"
+        menubarPath="help/additions"
+        id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorAboutAction">
+      </action>
+      <action
+        label="%_UI_Menu_OpenURI_label"
+        definitionId="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenURICommand"
+        class="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisor$OpenURIAction"
+        menubarPath="file/additions"
+        id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenURIAction">
+      </action>
+      <action
+        label="%_UI_Menu_Open_label"
+        definitionId="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenCommand"
+        class="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisor$OpenAction"
+        menubarPath="file/additions"
+        id="org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorAdvisorOpenAction">
+      </action>
+    </actionSet>
+  </extension>
+   
+
+  <extension
+    point="org.eclipse.ui.actionSets">
+    <actionSet
+      label="%_UI_TaiPanModelWizard_ActionSet_label"
+      visible="true"
+      id="org.eclipse.gmf.examples.taipan.presentation.TaiPanActionBarContributorActionSet">
+      <action
+        label="%_UI_TaiPanModelWizard_label"
+        class="org.eclipse.gmf.examples.taipan.presentation.TaiPanActionBarContributor$NewAction"
+        menubarPath="file/new/additions"
+        id="org.eclipse.gmf.examples.taipan.presentation.TaiPanActionBarContributorNewAction">
+      </action>
+    </actionSet>
+  </extension>  
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.eclipse.gmf.examples.taipan.presentation.TaiPanEditorID"
+        name = "%_UI_TaiPanEditor_label"
+        icon = "icons/full/obj16/TaiPanModelFile.gif"
+        extensions = "taipan"
+        class = "org.eclipse.gmf.examples.taipan.presentation.TaiPanEditor" 
+        contributorClass="org.eclipse.gmf.examples.taipan.presentation.TaiPanActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>
