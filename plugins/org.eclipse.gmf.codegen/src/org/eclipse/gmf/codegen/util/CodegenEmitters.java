@@ -83,7 +83,7 @@ import org.eclipse.gmf.codegen.templates.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
@@ -199,13 +199,13 @@ public class CodegenEmitters {
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 		put(tr, "/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
-		put(tr, "/providers/ElementTypes.javajet", ElementTypesGenerator.class);
 		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
 		put(tr, "/providers/ParserProvider.javajet", ParserProviderGenerator.class);
+		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ValidationDecoratorProvider.javajet", ValidationDecoratorProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/ShortcutsDecoratorProvider.javajet", ShortcutsDecoratorProviderGenerator.class); //$NON-NLS-1$
@@ -433,9 +433,13 @@ public class CodegenEmitters {
 	public TextEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LabelTextViewFactoryGenerator.class);
 	}
-	
+
+	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ElementInitializersGenerator.class);
+	}
+
 	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ElementTypesGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::providers::ElementTypes::ElementTypes"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getViewProviderEmitter() throws UnexpectedBehaviourException {

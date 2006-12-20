@@ -141,6 +141,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateViewFactory(myDiagram);
 		generateDiagramEditPart();
 		generateEditPartFactory();
+		generateElementInitializers();
 		generateElementTypes();
 		generateViewProvider();
 		generateEditPartProvider();
@@ -511,13 +512,17 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateElementTypes() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
-			myEmitters.getElementTypesEmitter(),
+			myEmitters.getElementInitializersEmitter(),
 			myDiagram.getProvidersPackageName(),
-			myDiagram.getElementTypesClassName(),
+			"ElementInitializers",
 			myDiagram
 		);
+	}
+
+	private void generateElementTypes() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getElementTypesEmitter(), myDiagram.getElementTypesQualifiedClassName(), myDiagram);
 	}
 
 	private void generateViewProvider() throws UnexpectedBehaviourException, InterruptedException {
