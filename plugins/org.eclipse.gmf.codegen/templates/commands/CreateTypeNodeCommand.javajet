@@ -11,7 +11,8 @@ if (modelFacet == null) {
 	throw new IllegalArgumentException("TypeModelFacet required");
 }
 
-GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();%>
+/*GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();*/
+%>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
@@ -29,12 +30,15 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 			super(req);
 		}
 
+<%if (!modelFacet.isPhantomElement()) {
+	GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();%>
 		/**
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
 			return <%=importManager.getImportedName(containerGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containerGenClass.getClassifierAccessorName()%>();
 		};
+<%}%>
 
 		/**
 		 * @generated
@@ -48,6 +52,7 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		}
 
 <%if (!modelFacet.isPhantomElement()) {
+	GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();
 	boolean initChildMetafeature = !modelFacet.getChildMetaFeature().isDerived() && !modelFacet.getChildMetaFeature().equals(modelFacet.getContainmentMetaFeature());
 	if (modelFacet.getModelElementInitializer() != null || initChildMetafeature) { 
 		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
