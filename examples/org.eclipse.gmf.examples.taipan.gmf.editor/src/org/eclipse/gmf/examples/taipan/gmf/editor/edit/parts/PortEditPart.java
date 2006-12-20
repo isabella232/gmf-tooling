@@ -118,6 +118,19 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void addBorderItem(IFigure borderItemContainer, IBorderItemEditPart borderItemEditPart) {
+		if (borderItemEditPart instanceof PortLocationEditPart) {
+			BorderItemLocator locator = new BorderItemLocator(getMainFigure(), PositionConstants.SOUTH);
+			locator.setBorderItemOffset(new Dimension(-20, -20));
+			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
+		} else {
+			super.addBorderItem(borderItemContainer, borderItemEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
 
@@ -128,9 +141,12 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	public EditPolicy getPrimaryDragEditPolicy() {
-		ResizableEditPolicy ep = (ResizableEditPolicy) super.getPrimaryDragEditPolicy();
-		ep.setResizeDirections(PositionConstants.NONE);
-		return ep;
+		EditPolicy result = super.getPrimaryDragEditPolicy();
+		if (result instanceof ResizableEditPolicy) {
+			ResizableEditPolicy ep = (ResizableEditPolicy) result;
+			ep.setResizeDirections(PositionConstants.NONE);
+		}
+		return result;
 	}
 
 	/**
@@ -287,19 +303,6 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addBorderItem(IFigure borderItemContainer, IBorderItemEditPart borderItemEditPart) {
-		if (borderItemEditPart instanceof PortLocationEditPart) {
-			BorderItemLocator locator = new BorderItemLocator(getMainFigure(), PositionConstants.SOUTH);
-			locator.setBorderItemOffset(new Dimension(-20, -20));
-			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
-		} else {
-			super.addBorderItem(borderItemContainer, borderItemEditPart);
-		}
 	}
 
 }
