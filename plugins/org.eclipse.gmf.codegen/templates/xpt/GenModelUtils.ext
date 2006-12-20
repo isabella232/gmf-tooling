@@ -13,14 +13,71 @@
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
+//
+// GenPackageImpl#getQualifiedPackageInterfaceName()
+//
 String getQualifiedPackageInterfaceName(genmodel::GenPackage gp) :
-	JAVA org.eclipse.gmf.codegen.util.GenModelFacade.getQualifiedPackageInterfaceName(org.eclipse.emf.codegen.ecore.genmodel.GenPackage)
+	gp.genModel.suppressEMFMetaData ? getQualifiedPackageClassName(gp) : getQualifiedPackageName(gp, gp.metaDataPackageSuffix) + "." + getPackageInterfaceName(gp)
 ;
 
+//
+// GenClass#getClassifierAccessorName
+//
 String getClassifierAccessorName(genmodel::GenClass gc) :
-	JAVA org.eclipse.gmf.codegen.util.GenModelFacade.getClassifierAccessorName(org.eclipse.emf.codegen.ecore.genmodel.GenClass)
+	switch (gc.ecoreClass.name) {
+		case "Class" : "Class_"
+		case "Name" : "Name_"
+		default : gc.ecoreClass.name
+	}
 ;
 
+
+//
+// GenFeature#getFeatureAccessorName
+//
 String getFeatureAccessorName(genmodel::GenFeature gf) :
-	JAVA org.eclipse.gmf.codegen.util.GenModelFacade.getFeatureAccessorName(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+	gf.genClass.ecoreClass.name + "_" + gf.ecoreFeature.name.toFirstUpper()
+;
+
+// GenPackageImpl#getQualifiedPackageClassName()
+String getQualifiedPackageClassName(genmodel::GenPackage gp) :
+	getReflectionClassPackageName(gp) + "." + getPackageClassName(gp)
+;
+
+// GenPackageImpl#getReflectionClassPackageName()
+private String getReflectionClassPackageName(genmodel::GenPackage gp) :
+	getQualifiedPackageName(gp, gp.genModel.suppressInterfaces ? gp.metaDataPackageSuffix : gp.classPackageSuffix)
+;
+
+// GenPackageImpl#getPackageClassName()
+private string getPackageClassName(genmodel::GenPackage gp) :
+	!gp.genModel.suppressEMFMetaData && !gp.genModel.suppressInterfaces ? getPackageInterfaceName(gp) + "Impl" : getPackageInterfaceName(gp)
+;
+
+// GenPackageImpl#getPackageInterfaceName()
+private string getPackageInterfaceName(genmodel::GenPackage gp) :
+	gp.genModel.suppressEMFMetaData && !gp.genModel.suppressInterfaces ? getPrefixedName(gp, "PackageImpl") : getPrefixedName(gp, "Package")
+;
+
+// GenPackageImpl#getPrefixedName()
+private string getPrefixedName(genmodel::GenPackage gp, String name) :
+	null != gp.prefix ? gp.prefix + name : name
+;
+
+// GenPackageImpl#getQualifiedPackageName(String)
+private String getQualifiedPackageName(genmodel::GenPackage gp, String suffix) :
+	isBlank(suffix) ? getQualifiedPackageName(gp) : getQualifiedPackageName(gp) + "." + suffix
+;
+
+// GenPackageImpl#getQualifiedPackageName()
+private String getQualifiedPackageName(genmodel::GenPackage gp) :
+	isBlank(gp.basePackage) ? safeName(gp.ecorePackage.name) : gp.basePackage + "." + safeName(gp.ecorePackage.name)
+;
+
+private boolean isBlank(String s) :
+	null == s || s.length() == 0
+;
+
+private String safeName(String name) :
+JAVA org.eclipse.emf.codegen.util.CodeGenUtil.safeName(java.lang.String)
 ;

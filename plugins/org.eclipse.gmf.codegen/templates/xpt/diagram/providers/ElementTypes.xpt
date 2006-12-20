@@ -190,7 +190,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR genmodel::GenClass»
-	elements.put(«id», «getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»());
+	elements.put(«id», «getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName()»());
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR gmfgen::ModelFacet»
