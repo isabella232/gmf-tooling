@@ -20,6 +20,7 @@ import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -35,7 +36,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.actions.ContributionItemFactory;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
@@ -54,91 +54,145 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	/**
 	 * @generated
 	 */
-	protected void fillMenuBar(IMenuManager menuBar) {
-		IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
-		menuBar.add(createFileMenu(window));
-		menuBar.add(createEditMenu(window));
-		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		menuBar.add(createWindowMenu(window));
-		menuBar.add(createHelpMenu(window));
+	protected void makeActions(IWorkbenchWindow window) {
+
+		register(ActionFactory.CLOSE.create(window));
+
+		register(ActionFactory.CLOSE_ALL.create(window));
+
+		register(ActionFactory.SAVE.create(window));
+
+		register(ActionFactory.SAVE_AS.create(window));
+
+		register(ActionFactory.SAVE_ALL.create(window));
+
+		register(ActionFactory.QUIT.create(window));
+
+		register(ActionFactory.UNDO.create(window));
+
+		register(ActionFactory.REDO.create(window));
+
+		register(ActionFactory.CUT.create(window));
+
+		register(ActionFactory.COPY.create(window));
+
+		register(ActionFactory.PASTE.create(window));
+
+		register(ActionFactory.DELETE.create(window));
+
+		register(ActionFactory.SELECT_ALL.create(window));
+
+		register(ActionFactory.OPEN_NEW_WINDOW.create(window));
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IMenuManager createFileMenu(IWorkbenchWindow window) {
-		IMenuManager menu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
-		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));
-		IMenuManager newMenu = new MenuManager("&New", "new"); //$NON-NLS-2$
-		newMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(newMenu);
-		menu.add(new Separator());
+	protected void fillMenuBar(IMenuManager menu) {
+
+		{
+			IMenuManager menuX = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));
+
+			{
+				IMenuManager menuXX = new MenuManager("&New", "new");
+
+				menuXX.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+				menuX.add(menuXX);
+			}
+
+			menuX.add(new Separator());
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+
+			menuX.add(new Separator());
+
+			menuX.add(getAction(ActionFactory.CLOSE.getId()));
+
+			menuX.add(getAction(ActionFactory.CLOSE_ALL.getId()));
+
+			menuX.add(new Separator());
+
+			menuX.add(getAction(ActionFactory.SAVE.getId()));
+
+			menuX.add(getAction(ActionFactory.SAVE_AS.getId()));
+
+			menuX.add(getAction(ActionFactory.SAVE_ALL.getId()));
+
+			menuX.add(new Separator());
+
+			menuX.add(getAction(ActionFactory.QUIT.getId()));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
+			menu.add(menuX);
+		}
+
+		{
+			IMenuManager menuX = new MenuManager("&Edit", IWorkbenchActionConstants.M_EDIT);
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.EDIT_START));
+
+			menuX.add(getAction(ActionFactory.UNDO.getId()));
+
+			menuX.add(getAction(ActionFactory.REDO.getId()));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.UNDO_EXT));
+
+			menuX.add(new Separator());
+
+			menuX.add(getAction(ActionFactory.CUT.getId()));
+
+			menuX.add(getAction(ActionFactory.COPY.getId()));
+
+			menuX.add(getAction(ActionFactory.PASTE.getId()));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.CUT_EXT));
+
+			menuX.add(new Separator());
+
+			menuX.add(getAction(ActionFactory.DELETE.getId()));
+
+			menuX.add(getAction(ActionFactory.SELECT_ALL.getId()));
+
+			menuX.add(new Separator());
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.ADD_EXT));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.EDIT_END));
+
+			menuX.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(menuX);
+		}
+
 		menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.CLOSE.create(window));
-		addToMenuAndRegister(menu, ActionFactory.CLOSE_ALL.create(window));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.SAVE.create(window));
-		addToMenuAndRegister(menu, ActionFactory.SAVE_AS.create(window));
-		addToMenuAndRegister(menu, ActionFactory.SAVE_ALL.create(window));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
-		return menu;
+
+		{
+			IMenuManager menuX = new MenuManager("&Window", IWorkbenchActionConstants.M_WINDOW);
+
+			menuX.add(getAction(ActionFactory.OPEN_NEW_WINDOW.getId()));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(menuX);
+		}
+
+		{
+			IMenuManager menuX = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.HELP_START));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.HELP_END));
+
+			menuX.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(menuX);
+		}
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IMenuManager createEditMenu(IWorkbenchWindow window) {
-		IMenuManager menu = new MenuManager("&Edit", IWorkbenchActionConstants.M_EDIT);
-		menu.add(new GroupMarker(IWorkbenchActionConstants.EDIT_START));
-		addToMenuAndRegister(menu, ActionFactory.UNDO.create(window));
-		addToMenuAndRegister(menu, ActionFactory.REDO.create(window));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.UNDO_EXT));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.CUT.create(window));
-		addToMenuAndRegister(menu, ActionFactory.COPY.create(window));
-		addToMenuAndRegister(menu, ActionFactory.PASTE.create(window));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.CUT_EXT));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.DELETE.create(window));
-		addToMenuAndRegister(menu, ActionFactory.SELECT_ALL.create(window));
-		menu.add(new Separator());
-		menu.add(new GroupMarker(IWorkbenchActionConstants.ADD_EXT));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.EDIT_END));
-		menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-		return menu;
-	}
+	protected void fillCoolBar(ICoolBarManager toolBar) {
 
-	/**
-	 * @generated
-	 */
-	protected IMenuManager createWindowMenu(IWorkbenchWindow window) {
-		IMenuManager menu = new MenuManager("&Window", IWorkbenchActionConstants.M_WINDOW);
-		addToMenuAndRegister(menu, ActionFactory.OPEN_NEW_WINDOW.create(window));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
-		return menu;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IMenuManager createHelpMenu(IWorkbenchWindow window) {
-		IMenuManager menu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
-		menu.add(new GroupMarker(IWorkbenchActionConstants.HELP_START));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.HELP_END));
-		menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		return menu;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addToMenuAndRegister(IMenuManager menu, IAction action) {
-		menu.add(action);
-		register(action);
 	}
 
 	/**

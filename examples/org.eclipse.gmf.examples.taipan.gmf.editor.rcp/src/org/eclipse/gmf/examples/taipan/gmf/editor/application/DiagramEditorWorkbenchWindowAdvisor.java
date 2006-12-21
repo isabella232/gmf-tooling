@@ -42,7 +42,6 @@ public class DiagramEditorWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor 
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new Point(1000, 700));
-		configurer.setShowCoolBar(false);
 		configurer.setTitle("TaiPan Application");
 	}
 }
