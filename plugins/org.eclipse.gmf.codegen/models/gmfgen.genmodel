@@ -691,6 +691,27 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomTabFilter/className"/>
       <genOperations ecoreOperation="gmfgen.ecore#//CustomTabFilter/getQualifiedClassName"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenContributionItem"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenSharedContributionItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenSharedContributionItem/actualItem"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenGroupMarker">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenGroupMarker/groupName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenSeparator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenSeparator/groupName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenActionFactoryContributionItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenActionFactoryContributionItem/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenContributionManager">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenContributionManager/iD"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenContributionManager/items"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenMenuManager">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMenuManager/name"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenToolBarManager"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenApplication">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenApplication/editorGen"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/iD"/>
@@ -703,6 +724,9 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/perspectiveClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/perspectiveId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/supportFiles"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenApplication/sharedContributionItems"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenApplication/mainMenu"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenApplication/mainToolBar"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getWorkbenchAdvisorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getWorkbenchWindowAdvisorQualifiedClassName"/>

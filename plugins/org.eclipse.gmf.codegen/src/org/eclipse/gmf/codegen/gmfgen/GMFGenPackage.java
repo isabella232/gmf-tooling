@@ -7647,6 +7647,257 @@ public interface GMFGenPackage extends EPackage {
 	int CUSTOM_TAB_FILTER_FEATURE_COUNT = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionItemImpl <em>Gen Contribution Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenContributionItemImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContributionItem()
+	 * @generated
+	 */
+	int GEN_CONTRIBUTION_ITEM = 96;
+
+	/**
+	 * The number of structural features of the '<em>Gen Contribution Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_ITEM_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenSharedContributionItemImpl <em>Gen Shared Contribution Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenSharedContributionItemImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSharedContributionItem()
+	 * @generated
+	 */
+	int GEN_SHARED_CONTRIBUTION_ITEM = 97;
+
+	/**
+	 * The feature id for the '<em><b>Actual Item</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Shared Contribution Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SHARED_CONTRIBUTION_ITEM_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenGroupMarkerImpl <em>Gen Group Marker</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenGroupMarkerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenGroupMarker()
+	 * @generated
+	 */
+	int GEN_GROUP_MARKER = 98;
+
+	/**
+	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_GROUP_MARKER__GROUP_NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Group Marker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_GROUP_MARKER_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenSeparatorImpl <em>Gen Separator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenSeparatorImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeparator()
+	 * @generated
+	 */
+	int GEN_SEPARATOR = 99;
+
+	/**
+	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SEPARATOR__GROUP_NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Separator</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SEPARATOR_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenActionFactoryContributionItemImpl <em>Gen Action Factory Contribution Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenActionFactoryContributionItemImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenActionFactoryContributionItem()
+	 * @generated
+	 */
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 100;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__NAME = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Action Factory Contribution Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenContributionManagerImpl <em>Gen Contribution Manager</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenContributionManagerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContributionManager()
+	 * @generated
+	 */
+	int GEN_CONTRIBUTION_MANAGER = 101;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_MANAGER__ID = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_MANAGER__ITEMS = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Contribution Manager</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_MANAGER_FEATURE_COUNT = GEN_CONTRIBUTION_ITEM_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMenuManagerImpl <em>Gen Menu Manager</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenMenuManagerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMenuManager()
+	 * @generated
+	 */
+	int GEN_MENU_MANAGER = 102;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER__ID = GEN_CONTRIBUTION_MANAGER__ID;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER__ITEMS = GEN_CONTRIBUTION_MANAGER__ITEMS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER__NAME = GEN_CONTRIBUTION_MANAGER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Menu Manager</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER_FEATURE_COUNT = GEN_CONTRIBUTION_MANAGER_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenToolBarManagerImpl <em>Gen Tool Bar Manager</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenToolBarManagerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenToolBarManager()
+	 * @generated
+	 */
+	int GEN_TOOL_BAR_MANAGER = 103;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOOL_BAR_MANAGER__ID = GEN_CONTRIBUTION_MANAGER__ID;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOOL_BAR_MANAGER__ITEMS = GEN_CONTRIBUTION_MANAGER__ITEMS;
+
+	/**
+	 * The number of structural features of the '<em>Gen Tool Bar Manager</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOOL_BAR_MANAGER_FEATURE_COUNT = GEN_CONTRIBUTION_MANAGER_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl <em>Gen Application</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7654,7 +7905,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenApplication()
 	 * @generated
 	 */
-	int GEN_APPLICATION = 96;
+	int GEN_APPLICATION = 104;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -7756,13 +8007,40 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_APPLICATION__SUPPORT_FILES = 10;
 
 	/**
+	 * The feature id for the '<em><b>Shared Contribution Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Main Menu</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__MAIN_MENU = 12;
+
+	/**
+	 * The feature id for the '<em><b>Main Tool Bar</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__MAIN_TOOL_BAR = 13;
+
+	/**
 	 * The number of structural features of the '<em>Gen Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION_FEATURE_COUNT = 11;
+	int GEN_APPLICATION_FEATURE_COUNT = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -7772,7 +8050,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 97;
+	int PROVIDER_PRIORITY = 105;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -7782,7 +8060,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 98;
+	int LINK_LABEL_ALIGNMENT = 106;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -7792,7 +8070,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 99;
+	int VIEWMAP_LAYOUT_TYPE = 107;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -7802,7 +8080,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 100;
+	int STANDARD_ENTRY_KIND = 108;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -7812,7 +8090,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 101;
+	int GEN_SEVERITY = 109;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -7822,7 +8100,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 102;
+	int GEN_LANGUAGE = 110;
 
 
 	/**
@@ -7833,7 +8111,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 103;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 111;
 
 
 	/**
@@ -7844,7 +8122,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 104;
+	int GENERATED_TYPE = 112;
 
 
 	/**
@@ -12218,6 +12496,163 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getCustomTabFilter_ClassName();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem <em>Gen Contribution Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Contribution Item</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionItem
+	 * @generated
+	 */
+	EClass getGenContributionItem();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem <em>Gen Shared Contribution Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Shared Contribution Item</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem
+	 * @generated
+	 */
+	EClass getGenSharedContributionItem();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem#getActualItem <em>Actual Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual Item</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem#getActualItem()
+	 * @see #getGenSharedContributionItem()
+	 * @generated
+	 */
+	EReference getGenSharedContributionItem_ActualItem();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenGroupMarker <em>Gen Group Marker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Group Marker</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenGroupMarker
+	 * @generated
+	 */
+	EClass getGenGroupMarker();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenGroupMarker#getGroupName <em>Group Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Group Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenGroupMarker#getGroupName()
+	 * @see #getGenGroupMarker()
+	 * @generated
+	 */
+	EAttribute getGenGroupMarker_GroupName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenSeparator <em>Gen Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Separator</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenSeparator
+	 * @generated
+	 */
+	EClass getGenSeparator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenSeparator#getGroupName <em>Group Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Group Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenSeparator#getGroupName()
+	 * @see #getGenSeparator()
+	 * @generated
+	 */
+	EAttribute getGenSeparator_GroupName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem <em>Gen Action Factory Contribution Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Action Factory Contribution Item</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem
+	 * @generated
+	 */
+	EClass getGenActionFactoryContributionItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem#getName()
+	 * @see #getGenActionFactoryContributionItem()
+	 * @generated
+	 */
+	EAttribute getGenActionFactoryContributionItem_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager <em>Gen Contribution Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Contribution Manager</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionManager
+	 * @generated
+	 */
+	EClass getGenContributionManager();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getID <em>ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getID()
+	 * @see #getGenContributionManager()
+	 * @generated
+	 */
+	EAttribute getGenContributionManager_ID();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getItems <em>Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Items</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionManager#getItems()
+	 * @see #getGenContributionManager()
+	 * @generated
+	 */
+	EReference getGenContributionManager_Items();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenMenuManager <em>Gen Menu Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Menu Manager</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMenuManager
+	 * @generated
+	 */
+	EClass getGenMenuManager();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMenuManager#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMenuManager#getName()
+	 * @see #getGenMenuManager()
+	 * @generated
+	 */
+	EAttribute getGenMenuManager_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenToolBarManager <em>Gen Tool Bar Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Tool Bar Manager</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenToolBarManager
+	 * @generated
+	 */
+	EClass getGenToolBarManager();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication <em>Gen Application</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12347,6 +12782,39 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenApplication_SupportFiles();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getSharedContributionItems <em>Shared Contribution Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Shared Contribution Items</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getSharedContributionItems()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EReference getGenApplication_SharedContributionItems();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainMenu <em>Main Menu</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Main Menu</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainMenu()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EReference getGenApplication_MainMenu();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainToolBar <em>Main Tool Bar</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Main Tool Bar</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainToolBar()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EReference getGenApplication_MainToolBar();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

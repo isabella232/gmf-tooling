@@ -575,6 +575,60 @@ public interface GMFGenFactory extends EFactory {
 	CustomTabFilter createCustomTabFilter();
 
 	/**
+	 * Returns a new object of class '<em>Gen Shared Contribution Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Shared Contribution Item</em>'.
+	 * @generated
+	 */
+	GenSharedContributionItem createGenSharedContributionItem();
+
+	/**
+	 * Returns a new object of class '<em>Gen Group Marker</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Group Marker</em>'.
+	 * @generated
+	 */
+	GenGroupMarker createGenGroupMarker();
+
+	/**
+	 * Returns a new object of class '<em>Gen Separator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Separator</em>'.
+	 * @generated
+	 */
+	GenSeparator createGenSeparator();
+
+	/**
+	 * Returns a new object of class '<em>Gen Action Factory Contribution Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Action Factory Contribution Item</em>'.
+	 * @generated
+	 */
+	GenActionFactoryContributionItem createGenActionFactoryContributionItem();
+
+	/**
+	 * Returns a new object of class '<em>Gen Menu Manager</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Menu Manager</em>'.
+	 * @generated
+	 */
+	GenMenuManager createGenMenuManager();
+
+	/**
+	 * Returns a new object of class '<em>Gen Tool Bar Manager</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Tool Bar Manager</em>'.
+	 * @generated
+	 */
+	GenToolBarManager createGenToolBarManager();
+
+	/**
 	 * Returns a new object of class '<em>Gen Application</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

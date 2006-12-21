@@ -32,95 +32,31 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	/**
 	 * @generated
 	 */
-	protected void fillMenuBar(org.eclipse.jface.action.IMenuManager menuBar) {
-		org.eclipse.ui.IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
-		menuBar.add(createFileMenu(window));
-		menuBar.add(createEditMenu(window));
-		menuBar.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		menuBar.add(createWindowMenu(window));
-		menuBar.add(createHelpMenu(window));
+	private org.eclipse.ui.IWorkbenchWindow getWindow() {
+		return getActionBarConfigurer().getWindowConfigurer().getWindow();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected org.eclipse.jface.action.IMenuManager createFileMenu(org.eclipse.ui.IWorkbenchWindow window) {
-		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
-			"&File", org.eclipse.ui.IWorkbenchActionConstants.M_FILE);
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.FILE_START));
-		org.eclipse.jface.action.IMenuManager newMenu = new org.eclipse.jface.action.MenuManager("&New", "new"); //$NON-NLS-2$
-		newMenu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(newMenu);
-		menu.add(new org.eclipse.jface.action.Separator());
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(new org.eclipse.jface.action.Separator());
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CLOSE.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CLOSE_ALL.create(window));
-		menu.add(new org.eclipse.jface.action.Separator());
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE_AS.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SAVE_ALL.create(window));
-		menu.add(new org.eclipse.jface.action.Separator());
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.QUIT.create(window));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.FILE_END));
-		return menu;
+	protected void makeActions(org.eclipse.ui.IWorkbenchWindow window) {
+		«FOREACH sharedContributionItems AS item-»
+			«EXPAND makeAction("window") FOR item-»
+		«ENDFOREACH-»
 	}
 
 	/**
 	 * @generated
 	 */
-	protected org.eclipse.jface.action.IMenuManager createEditMenu(org.eclipse.ui.IWorkbenchWindow window) {
-		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
-			"&Edit", org.eclipse.ui.IWorkbenchActionConstants.M_EDIT);
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.EDIT_START));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.UNDO.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.REDO.create(window));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.UNDO_EXT));
-		menu.add(new org.eclipse.jface.action.Separator());
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.CUT.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.COPY.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.PASTE.create(window));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.CUT_EXT));
-		menu.add(new org.eclipse.jface.action.Separator());
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.DELETE.create(window));
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.SELECT_ALL.create(window));
-		menu.add(new org.eclipse.jface.action.Separator());
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.ADD_EXT));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.EDIT_END));
-		menu.add(new org.eclipse.jface.action.Separator(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		return menu;
+	protected void fillMenuBar(org.eclipse.jface.action.IMenuManager menu) {
+		«EXPAND fill("menu") FOR mainMenu-»
 	}
 
 	/**
 	 * @generated
 	 */
-	protected org.eclipse.jface.action.IMenuManager createWindowMenu(org.eclipse.ui.IWorkbenchWindow window) {
-		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
-			"&Window", org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW);
-		addToMenuAndRegister(menu, org.eclipse.ui.actions.ActionFactory.OPEN_NEW_WINDOW.create(window));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		menu.add(org.eclipse.ui.actions.ContributionItemFactory.OPEN_WINDOWS.create(window));
-		return menu;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected org.eclipse.jface.action.IMenuManager createHelpMenu(org.eclipse.ui.IWorkbenchWindow window) {
-		org.eclipse.jface.action.IMenuManager menu = new org.eclipse.jface.action.MenuManager(
-			"&Help", org.eclipse.ui.IWorkbenchActionConstants.M_HELP);
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.HELP_START));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.HELP_END));
-		menu.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
-		return menu;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addToMenuAndRegister(org.eclipse.jface.action.IMenuManager menu, org.eclipse.jface.action.IAction action) {
-		menu.add(action);
-		register(action);
+	protected void fillCoolBar(org.eclipse.jface.action.ICoolBarManager toolBar) {
+		«EXPAND fill("toolBar") FOR mainToolBar-»
 	}
 
 	/**
@@ -146,7 +82,74 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		}
 		return true;
 	}
+	
+	«EXPAND actions FOR this-»
+}
+«ENDDEFINE»
 
+«DEFINE makeAction(String windowVar) FOR gmfgen::GenContributionItem»
+	«ERROR "Can not make action for " + this»
+«ENDDEFINE»
+
+«DEFINE makeAction(String windowVar) FOR gmfgen::GenActionFactoryContributionItem»
+	register(org.eclipse.ui.actions.ActionFactory.«name».create(«windowVar»));
+«ENDDEFINE»
+
+«DEFINE fill(String managerVar) FOR gmfgen::GenContributionManager»
+	«FOREACH items AS item-»
+		«EXPAND contribute(managerVar) FOR item-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenContributionItem»
+	«ERROR "Can not contribute item: " + this»
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenGroupMarker»
+	«managerVar».add(new org.eclipse.jface.action.GroupMarker(«groupName»));
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenSeparator»
+	«managerVar».add(new org.eclipse.jface.action.Separator(«IF null != groupName»«groupName»«ENDIF»));
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenMenuManager»
+	«LET managerVar + "X" AS menuVar-»
+	{
+		org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(«name», «iD»);
+		«FOREACH items AS item-»
+			«EXPAND contribute(menuVar) FOR item-»
+		«ENDFOREACH-»
+		«managerVar».add(«menuVar»);
+	}
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenToolBarManager»
+	«LET managerVar + "X" AS toolBarVar-»
+	{
+		org.eclipse.jface.action.IToolBarManager «toolBarVar» = new  org.eclipse.jface.action.ToolBarManager();
+		«FOREACH items AS item-»
+			«EXPAND contribute(toolBarVar) FOR item-»
+		«ENDFOREACH-»
+		«managerVar».add(new org.eclipse.jface.action.ToolBarContributionItem(«toolBarVar»«IF null != iD», «iD»«ENDIF»));
+	}
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE contribute(String managerVar) FOR gmfgen::GenSharedContributionItem»
+	«EXPAND contributeShared(managerVar) FOR actualItem-»
+«ENDDEFINE»
+
+«DEFINE contributeShared(String managerVar) FOR gmfgen::GenContributionItem»
+	«ERROR "Can not contribute shared item: " + this»
+«ENDDEFINE»
+
+«DEFINE contributeShared(String managerVar) FOR gmfgen::GenActionFactoryContributionItem»
+	«managerVar».add(getAction(org.eclipse.ui.actions.ActionFactory.«name».getId()));
+«ENDDEFINE»
+
+«DEFINE actions FOR gmfgen::GenApplication»
 	/**
 	 * @generated
 	 */
@@ -216,5 +219,4 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 				"«editorGen.modelID» Diagram Editor");
 		}
 	}
-}
 «ENDDEFINE»

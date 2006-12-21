@@ -171,6 +171,12 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB: return createGenCustomPropertyTab();
 			case GMFGenPackage.TYPE_TAB_FILTER: return createTypeTabFilter();
 			case GMFGenPackage.CUSTOM_TAB_FILTER: return createCustomTabFilter();
+			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM: return createGenSharedContributionItem();
+			case GMFGenPackage.GEN_GROUP_MARKER: return createGenGroupMarker();
+			case GMFGenPackage.GEN_SEPARATOR: return createGenSeparator();
+			case GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM: return createGenActionFactoryContributionItem();
+			case GMFGenPackage.GEN_MENU_MANAGER: return createGenMenuManager();
+			case GMFGenPackage.GEN_TOOL_BAR_MANAGER: return createGenToolBarManager();
 			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -861,6 +867,66 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public CustomTabFilter createCustomTabFilter() {
 		CustomTabFilterImpl customTabFilter = new CustomTabFilterImpl();
 		return customTabFilter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenSharedContributionItem createGenSharedContributionItem() {
+		GenSharedContributionItemImpl genSharedContributionItem = new GenSharedContributionItemImpl();
+		return genSharedContributionItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenGroupMarker createGenGroupMarker() {
+		GenGroupMarkerImpl genGroupMarker = new GenGroupMarkerImpl();
+		return genGroupMarker;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenSeparator createGenSeparator() {
+		GenSeparatorImpl genSeparator = new GenSeparatorImpl();
+		return genSeparator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenActionFactoryContributionItem createGenActionFactoryContributionItem() {
+		GenActionFactoryContributionItemImpl genActionFactoryContributionItem = new GenActionFactoryContributionItemImpl();
+		return genActionFactoryContributionItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMenuManager createGenMenuManager() {
+		GenMenuManagerImpl genMenuManager = new GenMenuManagerImpl();
+		return genMenuManager;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenToolBarManager createGenToolBarManager() {
+		GenToolBarManagerImpl genToolBarManager = new GenToolBarManagerImpl();
+		return genToolBarManager;
 	}
 
 	/**

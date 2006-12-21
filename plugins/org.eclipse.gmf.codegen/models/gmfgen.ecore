@@ -1649,6 +1649,53 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Element of UI contribution"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenSharedContributionItem" eSuperTypes="#//GenContributionItem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Reference to the shared contribution item"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualItem" lowerBound="1"
+        eType="#//GenContributionItem">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)"/>
+        <details key="description" value="Actual contribution item can't be a reference"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenGroupMarker" eSuperTypes="#//GenContributionItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenSeparator" eSuperTypes="#//GenContributionItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenActionFactoryContributionItem" eSuperTypes="#//GenContributionItem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Action from org.eclipse.ui.actions.ActionFactory"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="ActionFactory field name such as 'ABOUT'"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionManager" abstract="true"
+      eSuperTypes="#//GenContributionItem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Group of UI contribution items"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
+        eType="#//GenContributionItem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenToolBarManager" eSuperTypes="#//GenContributionManager"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenApplication">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getWorkbenchAdvisorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1682,5 +1729,11 @@
         <details key="documentation" value="Option to create/save/open diagrams in/from java files"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sharedContributionItems"
+        upperBound="-1" eType="#//GenContributionItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mainMenu" eType="#//GenMenuManager"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mainToolBar" eType="#//GenToolBarManager"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -42,7 +42,6 @@ public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.applicatio
 	public void preWindowOpen() {
 		org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(1000, 700));
-		configurer.setShowCoolBar(false);
 		configurer.setTitle("«title»");
 	}
 }

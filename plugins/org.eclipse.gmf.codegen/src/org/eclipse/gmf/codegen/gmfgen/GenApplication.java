@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -27,6 +29,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId <em>Perspective Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#isSupportFiles <em>Support Files</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getSharedContributionItems <em>Shared Contribution Items</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainMenu <em>Main Menu</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainToolBar <em>Main Tool Bar</em>}</li>
  * </ul>
  * </p>
  *
@@ -269,6 +274,74 @@ public interface GenApplication extends EObject {
 	 * @generated
 	 */
 	void setSupportFiles(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Shared Contribution Items</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Shared Contribution Items</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shared Contribution Items</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_SharedContributionItems()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenContributionItem" containment="true"
+	 * @generated
+	 */
+	EList getSharedContributionItems();
+
+	/**
+	 * Returns the value of the '<em><b>Main Menu</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Main Menu</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Main Menu</em>' containment reference.
+	 * @see #setMainMenu(GenMenuManager)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_MainMenu()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenMenuManager getMainMenu();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainMenu <em>Main Menu</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Main Menu</em>' containment reference.
+	 * @see #getMainMenu()
+	 * @generated
+	 */
+	void setMainMenu(GenMenuManager value);
+
+	/**
+	 * Returns the value of the '<em><b>Main Tool Bar</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Main Tool Bar</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Main Tool Bar</em>' containment reference.
+	 * @see #setMainToolBar(GenToolBarManager)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_MainToolBar()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenToolBarManager getMainToolBar();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getMainToolBar <em>Main Tool Bar</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Main Tool Bar</em>' containment reference.
+	 * @see #getMainToolBar()
+	 * @generated
+	 */
+	void setMainToolBar(GenToolBarManager value);
 
 	/**
 	 * <!-- begin-user-doc -->

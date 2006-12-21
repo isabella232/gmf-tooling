@@ -6,9 +6,13 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -16,9 +20,16 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+
+import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
+import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +49,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveId <em>Perspective Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#isSupportFiles <em>Support Files</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getSharedContributionItems <em>Shared Contribution Items</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getMainMenu <em>Main Menu</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getMainToolBar <em>Main Tool Bar</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,6 +217,36 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @ordered
 	 */
 	protected boolean supportFiles = SUPPORT_FILES_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSharedContributionItems() <em>Shared Contribution Items</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSharedContributionItems()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList sharedContributionItems = null;
+
+	/**
+	 * The cached value of the '{@link #getMainMenu() <em>Main Menu</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMainMenu()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenMenuManager mainMenu = null;
+
+	/**
+	 * The cached value of the '{@link #getMainToolBar() <em>Main Tool Bar</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMainToolBar()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenToolBarManager mainToolBar = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -437,6 +481,104 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getSharedContributionItems() {
+		if (sharedContributionItems == null) {
+			sharedContributionItems = new EObjectContainmentEList(GenContributionItem.class, this, GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS);
+		}
+		return sharedContributionItems;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMenuManager getMainMenu() {
+		return mainMenu;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMainMenu(GenMenuManager newMainMenu, NotificationChain msgs) {
+		GenMenuManager oldMainMenu = mainMenu;
+		mainMenu = newMainMenu;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__MAIN_MENU, oldMainMenu, newMainMenu);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMainMenu(GenMenuManager newMainMenu) {
+		if (newMainMenu != mainMenu) {
+			NotificationChain msgs = null;
+			if (mainMenu != null)
+				msgs = ((InternalEObject)mainMenu).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_APPLICATION__MAIN_MENU, null, msgs);
+			if (newMainMenu != null)
+				msgs = ((InternalEObject)newMainMenu).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_APPLICATION__MAIN_MENU, null, msgs);
+			msgs = basicSetMainMenu(newMainMenu, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__MAIN_MENU, newMainMenu, newMainMenu));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenToolBarManager getMainToolBar() {
+		return mainToolBar;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMainToolBar(GenToolBarManager newMainToolBar, NotificationChain msgs) {
+		GenToolBarManager oldMainToolBar = mainToolBar;
+		mainToolBar = newMainToolBar;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR, oldMainToolBar, newMainToolBar);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMainToolBar(GenToolBarManager newMainToolBar) {
+		if (newMainToolBar != mainToolBar) {
+			NotificationChain msgs = null;
+			if (mainToolBar != null)
+				msgs = ((InternalEObject)mainToolBar).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR, null, msgs);
+			if (newMainToolBar != null)
+				msgs = ((InternalEObject)newMainToolBar).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR, null, msgs);
+			msgs = basicSetMainToolBar(newMainToolBar, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR, newMainToolBar, newMainToolBar));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
@@ -503,6 +645,12 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, msgs);
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+				return ((InternalEList)getSharedContributionItems()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+				return basicSetMainMenu(null, msgs);
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				return basicSetMainToolBar(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -549,6 +697,12 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return getPerspectiveId();
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				return isSupportFiles() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+				return getSharedContributionItems();
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+				return getMainMenu();
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				return getMainToolBar();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -578,6 +732,16 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				setSupportFiles(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+				getSharedContributionItems().clear();
+				getSharedContributionItems().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+				setMainMenu((GenMenuManager)newValue);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				setMainToolBar((GenToolBarManager)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -606,6 +770,15 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return;
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				setSupportFiles(SUPPORT_FILES_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+				getSharedContributionItems().clear();
+				return;
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+				setMainMenu((GenMenuManager)null);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				setMainToolBar((GenToolBarManager)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -640,6 +813,12 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return PERSPECTIVE_ID_EDEFAULT == null ? perspectiveId != null : !PERSPECTIVE_ID_EDEFAULT.equals(perspectiveId);
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				return supportFiles != SUPPORT_FILES_EDEFAULT;
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+				return sharedContributionItems != null && !sharedContributionItems.isEmpty();
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+				return mainMenu != null;
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				return mainToolBar != null;
 		}
 		return super.eIsSet(featureID);
 	}
