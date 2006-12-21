@@ -1,0 +1,6 @@
+          <propertyTab
+             <%if ("domain".equals(tab.getID())) /*just to make use of domain category ;)*/ {%>
+             category="domain"<%} else {%>
+             category="extra"<%}%>
+             id="property.tab.<%=tab.getID()%>"
+             label="%tab.<%=tab.getID()%>"/>

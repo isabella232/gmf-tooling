@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.codegen.util.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.codegen.util.* java.util.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
@@ -212,5 +212,8 @@ if (isRichClientPlatform) {
 %>
 <%if (editorGen.getNavigator() != null && !isRichClientPlatform) {%>
 <%@ include file="../navigator/navigator.jetinc"%>
+<%}%>
+<%if (editorGen.getPropertySheet() != null) {%>
+<%@ include file="../propsheet/sheet-extp.jetinc"%>
 <%}%>
 </plugin>

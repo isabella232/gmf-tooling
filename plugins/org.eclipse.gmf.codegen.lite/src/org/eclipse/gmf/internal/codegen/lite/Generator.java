@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
@@ -36,6 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -170,6 +172,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorGroup();
 			generateNavigatorItem();
 			generateNavigatorGroupIcons();
+		}
+		if (myEditorGen.getPropertySheet() != null) {
+			generatePropertySheetSections();
 		}
 	}
 
@@ -376,6 +381,23 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
 		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
+	}
+
+	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
+		if (myEditorGen.getPropertySheet().isNeedsCaption()) {
+			internalGenerateJavaClass(
+				myEmitters.getPropertySheetLabelProviderEmitter(), 
+				myEditorGen.getPropertySheet().getLabelProviderQualifiedClassName(), 
+				myEditorGen.getPropertySheet());
+		}
+		for (GenPropertyTab tab : (List<? extends GenPropertyTab>) myEditorGen.getPropertySheet().getTabs()) {
+			if (tab instanceof GenCustomPropertyTab) {
+				doGenerateJavaClass(
+					myEmitters.getPropertySectionEmitter(),
+					((GenCustomPropertyTab) tab).getQualifiedClassName(),
+					tab);
+			}
+		}
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {

@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.templates.lite.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
+import java.util.*;
 
 public class PluginPropertiesGenerator
 {
@@ -33,7 +34,12 @@ public class PluginPropertiesGenerator
   protected final String TEXT_16 = " Diagram &About..." + NL + "_UI_About_title = ";
   protected final String TEXT_17 = " Diagram Application" + NL + "_UI_About_text = ";
   protected final String TEXT_18 = " Diagram Application about box goes here.";
-  protected final String TEXT_19 = NL;
+  protected final String TEXT_19 = NL + "###" + NL + "# Property Sheet";
+  protected final String TEXT_20 = NL;
+  protected final String TEXT_21 = NL + "tab.";
+  protected final String TEXT_22 = "=";
+  protected final String TEXT_23 = NL + "###";
+  protected final String TEXT_24 = NL;
 
   public String generate(Object argument)
   {
@@ -86,7 +92,20 @@ final boolean isRichClientPlatform = genModel.isRichClientPlatform();
 	}
 }
 
+    if (genPlugin.getEditorGen().getPropertySheet() != null) {
+	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();
     stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_20);
+    for (Iterator it = propertySheet.getTabs().iterator(); it.hasNext(); ) {
+	final GenPropertyTab tab = (GenPropertyTab) it.next();
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(tab.getID());
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(tab.getLabel());
+    }
+    stringBuffer.append(TEXT_23);
+    }
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }

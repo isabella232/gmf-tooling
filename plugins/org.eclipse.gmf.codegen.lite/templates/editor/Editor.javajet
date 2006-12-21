@@ -273,6 +273,28 @@ if (isEclipseEditor) {
 	}
 
 <%
+if (genEditor.getEditorGen().getPropertySheet() != null) {
+%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySheetPage")%> getPropertySheetPage() {
+		if (myPropertySheetPage == null) {
+			myPropertySheetPage = new <%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage")%>(new <%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor")%>() {
+				public String getContributorId() {
+					return <%=genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()%>.ID;
+				}
+			});
+		}
+		return myPropertySheetPage;
+	}
+
+	/**
+	 * @generated
+	 */
+	private org.eclipse.ui.views.properties.IPropertySheetPage myPropertySheetPage;
+<%
+}
 if (isEclipseEditor) {
 %>
 	/**

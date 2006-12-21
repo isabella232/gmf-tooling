@@ -33,6 +33,9 @@ Require-Bundle: org.eclipse.core.runtime,
 <%if (genPlugin.getEditorGen().getNavigator() != null) {%>
  org.eclipse.ui.navigator,<%}%>
  org.eclipse.ui.ide,<%}%>
+<%if (genPlugin.getEditorGen().getPropertySheet() != null) {%>
+ org.eclipse.ui.views.properties.tabbed,
+<%}%>
  org.eclipse.jface,
  org.eclipse.ui.views,
  org.eclipse.ui.workbench,

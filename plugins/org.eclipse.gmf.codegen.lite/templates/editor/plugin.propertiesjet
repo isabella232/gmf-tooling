@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PluginPropertiesGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%
 GenPlugin genPlugin = (GenPlugin) argument;
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
@@ -39,3 +39,10 @@ _UI_About_text = <%=genModel.getModelName()%> Diagram Application about box goes
 	}
 }
 %>
+<%if (genPlugin.getEditorGen().getPropertySheet() != null) {
+	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();%>
+###
+# Property Sheet
+<%@include file="../propsheet/i18n.jetinc"%>
+###
+<%}%>

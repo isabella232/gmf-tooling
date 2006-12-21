@@ -1,0 +1,39 @@
+<%final GenPropertySheet propSheet = editorGen.getPropertySheet();
+final String contributorID = genPlugin.getID();%>
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <?gmfgen generated="true"?>
+      <propertyContributor contributorId="<%=contributorID%>"
+      <%if (propSheet.isNeedsCaption()) {%>
+            labelProvider="<%=propSheet.getLabelProviderQualifiedClassName()%>"
+<%}%>>
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="<%=contributorID%>">
+<%for (Iterator it = propSheet.getTabs().iterator(); it.hasNext(); ) {
+	final GenPropertyTab tab = (GenPropertyTab) it.next();
+	if (tab instanceof GenStandardPropertyTab) {%>
+<%@ include file="extp-tab-std.jetinc"%>
+<%} else if (tab instanceof GenCustomPropertyTab) {%>
+<%@ include file="extp-tab-custom.jetinc"%>
+<%}}%>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="<%=contributorID%>">
+<%for (Iterator it = propSheet.getTabs().iterator(); it.hasNext(); ) {
+	final GenPropertyTab tab = (GenPropertyTab) it.next();
+	if (tab instanceof GenStandardPropertyTab) {%>
+<%@ include file="extp-sect-std.jetinc"%>
+<%} else if (tab instanceof GenCustomPropertyTab) {%>
+<%@ include file="extp-sect-custom.jetinc"%>
+<%}}%>
+      </propertySections>
+   </extension>

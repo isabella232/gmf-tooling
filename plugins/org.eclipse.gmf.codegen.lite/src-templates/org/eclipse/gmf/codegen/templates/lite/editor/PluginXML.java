@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.templates.lite.editor;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.emf.codegen.util.*;
+import java.util.*;
 
 public class PluginXML
 {
@@ -118,8 +119,43 @@ public class PluginXML
   protected final String TEXT_100 = "\"" + NL + "            class=\"";
   protected final String TEXT_101 = "\">" + NL + "         <editorInputEnablement>" + NL + "         \t<or>" + NL + "\t            <instanceof value=\"org.eclipse.ui.IFileEditorInput\"/>" + NL + "\t            <instanceof value=\"org.eclipse.emf.common.ui.URIEditorInput\"/>" + NL + "\t            <instanceof value=\"org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput\"/>" + NL + "\t        </or>" + NL + "         </editorInputEnablement>" + NL + "         <selectionEnablement>" + NL + "            <instanceof value=\"";
   protected final String TEXT_102 = "\"/>" + NL + "         </selectionEnablement>" + NL + "      </linkHelper>" + NL + "   </extension>";
-  protected final String TEXT_103 = NL + "</plugin>";
-  protected final String TEXT_104 = NL;
+  protected final String TEXT_103 = NL;
+  protected final String TEXT_104 = NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyContributor\">" + NL + "      <?gmfgen generated=\"true\"?>" + NL + "      <propertyContributor contributorId=\"";
+  protected final String TEXT_105 = "\"";
+  protected final String TEXT_106 = NL + "            labelProvider=\"";
+  protected final String TEXT_107 = "\"";
+  protected final String TEXT_108 = ">" + NL + "         <propertyCategory category=\"domain\"/>" + NL + "         <propertyCategory category=\"visual\"/>" + NL + "         <propertyCategory category=\"extra\"/>" + NL + "      </propertyContributor>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertyTabs\">" + NL + "      <?gmfgen generated=\"true\"?>   " + NL + "      <propertyTabs contributorId=\"";
+  protected final String TEXT_109 = "\">";
+  protected final String TEXT_110 = NL;
+  protected final String TEXT_111 = "         <propertyTab" + NL + "             category=\"visual\"" + NL + "             id=\"property.tab.AppearancePropertySection\"" + NL + "             label=\"%tab.appearance\"/>";
+  protected final String TEXT_112 = "          <propertyTab" + NL + "             category=\"visual\"" + NL + "             id=\"property.tab.DiagramPropertySection\"" + NL + "             label=\"%tab.diagram\"/>";
+  protected final String TEXT_113 = "          <propertyTab" + NL + "             category=\"extra\"" + NL + "             id=\"property.tab.AdvancedPropertySection\"" + NL + "             label=\"%tab.advanced\"/>           ";
+  protected final String TEXT_114 = NL;
+  protected final String TEXT_115 = "          <propertyTab";
+  protected final String TEXT_116 = NL + "             category=\"domain\"";
+  protected final String TEXT_117 = NL + "             category=\"extra\"";
+  protected final String TEXT_118 = NL + "             id=\"property.tab.";
+  protected final String TEXT_119 = "\"" + NL + "             label=\"%tab.";
+  protected final String TEXT_120 = "\"/>";
+  protected final String TEXT_121 = NL + "      </propertyTabs>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.views.properties.tabbed.propertySections\">" + NL + "      <?gmfgen generated=\"true\"?>   " + NL + "      <propertySections contributorId=\"";
+  protected final String TEXT_122 = "\">";
+  protected final String TEXT_123 = NL;
+  protected final String TEXT_124 = NL + "          <propertySection id=\"property.section.AdvancedPropertySection\"" + NL + "             class=\"org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection\"" + NL + "             filter=\"org.eclipse.gmf.runtime.lite.properties.filters.EditPartPropertySectionFilter\"" + NL + "             tab=\"property.tab.AdvancedPropertySection\">" + NL + "          </propertySection>            ";
+  protected final String TEXT_125 = "         ";
+  protected final String TEXT_126 = NL;
+  protected final String TEXT_127 = "         <propertySection" + NL + "            id=\"property.section.";
+  protected final String TEXT_128 = "\" " + NL + "            tab=\"property.tab.";
+  protected final String TEXT_129 = "\"";
+  protected final String TEXT_130 = "filter=\"";
+  protected final String TEXT_131 = "\"";
+  protected final String TEXT_132 = NL + "            class=\"";
+  protected final String TEXT_133 = "\">";
+  protected final String TEXT_134 = NL + "            <input type=\"";
+  protected final String TEXT_135 = "\"/>";
+  protected final String TEXT_136 = NL + "         </propertySection>";
+  protected final String TEXT_137 = NL + "      </propertySections>" + NL + "   </extension>";
+  protected final String TEXT_138 = NL + "</plugin>";
+  protected final String TEXT_139 = NL;
 
   public String generate(Object argument)
   {
@@ -373,8 +409,88 @@ if (editorGen.getEditor().isEclipseEditor()) {
 }
 
     }
+    if (editorGen.getPropertySheet() != null) {
     stringBuffer.append(TEXT_103);
+    final GenPropertySheet propSheet = editorGen.getPropertySheet();
+final String contributorID = genPlugin.getID();
     stringBuffer.append(TEXT_104);
+    stringBuffer.append(contributorID);
+    stringBuffer.append(TEXT_105);
+    if (propSheet.isNeedsCaption()) {
+    stringBuffer.append(TEXT_106);
+    stringBuffer.append(propSheet.getLabelProviderQualifiedClassName());
+    stringBuffer.append(TEXT_107);
+    }
+    stringBuffer.append(TEXT_108);
+    stringBuffer.append(contributorID);
+    stringBuffer.append(TEXT_109);
+    for (Iterator it = propSheet.getTabs().iterator(); it.hasNext(); ) {
+	final GenPropertyTab tab = (GenPropertyTab) it.next();
+	if (tab instanceof GenStandardPropertyTab) {
+    stringBuffer.append(TEXT_110);
+    if ("appearance".equals(tab.getID())) {
+    stringBuffer.append(TEXT_111);
+    } else if ("diagram".equals(tab.getID())) {
+    stringBuffer.append(TEXT_112);
+    } else if ("advanced".equals(tab.getID())) {
+    stringBuffer.append(TEXT_113);
+    }
+    } else if (tab instanceof GenCustomPropertyTab) {
+    stringBuffer.append(TEXT_114);
+    stringBuffer.append(TEXT_115);
+    if ("domain".equals(tab.getID())) /*just to make use of domain category ;)*/ {
+    stringBuffer.append(TEXT_116);
+    } else {
+    stringBuffer.append(TEXT_117);
+    }
+    stringBuffer.append(TEXT_118);
+    stringBuffer.append(tab.getID());
+    stringBuffer.append(TEXT_119);
+    stringBuffer.append(tab.getID());
+    stringBuffer.append(TEXT_120);
+    }}
+    stringBuffer.append(TEXT_121);
+    stringBuffer.append(contributorID);
+    stringBuffer.append(TEXT_122);
+    for (Iterator it = propSheet.getTabs().iterator(); it.hasNext(); ) {
+	final GenPropertyTab tab = (GenPropertyTab) it.next();
+	if (tab instanceof GenStandardPropertyTab) {
+    stringBuffer.append(TEXT_123);
+    if ("advanced".equals(tab.getID())) {
+    stringBuffer.append(TEXT_124);
+    }
+    stringBuffer.append(TEXT_125);
+    } else if (tab instanceof GenCustomPropertyTab) {
+    stringBuffer.append(TEXT_126);
+    stringBuffer.append(TEXT_127);
+    stringBuffer.append(tab.getID());
+    stringBuffer.append(TEXT_128);
+    stringBuffer.append(tab.getID());
+    stringBuffer.append(TEXT_129);
+    if (((GenCustomPropertyTab) tab).getFilter() instanceof CustomTabFilter) {
+    stringBuffer.append(TEXT_130);
+    stringBuffer.append(((CustomTabFilter) ((GenCustomPropertyTab) tab).getFilter()).getQualifiedClassName());
+    stringBuffer.append(TEXT_131);
+    }
+    stringBuffer.append(TEXT_132);
+    stringBuffer.append(((GenCustomPropertyTab) tab).getQualifiedClassName());
+    stringBuffer.append(TEXT_133);
+    if (((GenCustomPropertyTab) tab).getFilter() instanceof TypeTabFilter) {
+    
+final TypeTabFilter typeTabFilter = (TypeTabFilter) ((GenCustomPropertyTab) tab).getFilter();
+for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) {
+	String ttfType = (String) ttfIt.next();
+    stringBuffer.append(TEXT_134);
+    stringBuffer.append(ttfType);
+    stringBuffer.append(TEXT_135);
+    }
+    }
+    stringBuffer.append(TEXT_136);
+    }}
+    stringBuffer.append(TEXT_137);
+    }
+    stringBuffer.append(TEXT_138);
+    stringBuffer.append(TEXT_139);
     return stringBuffer.toString();
   }
 }
