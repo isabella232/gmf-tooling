@@ -15,6 +15,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -26,6 +28,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 
@@ -300,6 +303,36 @@ public class GenApplicationItemProvider
 	}
 
 	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Collection getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenApplication_MainMenu());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenApplication_MainToolBar());
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
 	 * This returns GenApplication.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -345,6 +378,11 @@ public class GenApplicationItemProvider
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
+			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
+			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -358,6 +396,69 @@ public class GenApplicationItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenSharedContributionItem()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenGroupMarker()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenSeparator()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenMenuManager()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems(),
+				 GMFGenFactory.eINSTANCE.createGenToolBarManager()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_MainMenu(),
+				 GMFGenFactory.eINSTANCE.createGenMenuManager()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenApplication_MainToolBar(),
+				 GMFGenFactory.eINSTANCE.createGenToolBarManager()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GMFGenPackage.eINSTANCE.getGenApplication_SharedContributionItems() ||
+			childFeature == GMFGenPackage.eINSTANCE.getGenApplication_MainMenu() ||
+			childFeature == GMFGenPackage.eINSTANCE.getGenApplication_MainToolBar();
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
