@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +38,8 @@ import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
@@ -48,6 +51,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
@@ -60,11 +64,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
@@ -74,7 +80,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
@@ -270,7 +279,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		if (rcp) {
 			if (getGenEssence().getApplication() == null) {
-				getGenEssence().setApplication(GMFGenFactory.eINSTANCE.createGenApplication());
+				GenApplication app = GMFGenFactory.eINSTANCE.createGenApplication();
+				addContributions(app);
+				getGenEssence().setApplication(app);
 			}
 		}
 		
@@ -1066,5 +1077,111 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			newProvider = regexpProvider;
 		}
 		return newProvider;
+	}
+
+	private void addContributions(GenApplication application) {
+		GenMenuManager mainMenu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		mainMenu.getItems().add(createFileMenu(application.getSharedContributionItems()));
+		mainMenu.getItems().add(createEditMenu(application.getSharedContributionItems()));
+		mainMenu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		mainMenu.getItems().add(createWindowMenu(application.getSharedContributionItems()));
+		mainMenu.getItems().add(createHelpMenu(application.getSharedContributionItems()));
+		application.setMainMenu(mainMenu);
+
+		GenToolBarManager mainToolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
+		application.setMainToolBar(mainToolBar);
+	}
+
+	private GenGroupMarker createGroupMarker(String groupName) {
+		GenGroupMarker gm = GMFGenFactory.eINSTANCE.createGenGroupMarker();
+		gm.setGroupName(groupName);
+		return gm;
+	}
+
+	private GenSeparator createSeparator(String groupName) {
+		GenSeparator s = GMFGenFactory.eINSTANCE.createGenSeparator();
+		s.setGroupName(groupName);
+		return s;
+	}
+
+	private GenActionFactoryContributionItem createActionFactoryItem(String name) {
+		GenActionFactoryContributionItem item = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
+		item.setName(name);
+		return item;
+	}
+
+	private GenSharedContributionItem createSharedItem(List sharedItems, GenContributionItem actualItem) {
+		GenSharedContributionItem item = GMFGenFactory.eINSTANCE.createGenSharedContributionItem();
+		item.setActualItem(actualItem);
+		sharedItems.add(actualItem);
+		return item;
+	}
+
+	private GenMenuManager createFileMenu(List sharedItems) {
+		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_FILE"); //$NON-NLS-1$
+		menu.setName("\"&File\""); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.FILE_START")); //$NON-NLS-1$
+		GenMenuManager newMenu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		newMenu.setID("\"new\""); //$NON-NLS-1$
+		newMenu.setName("\"&New\""); //$NON-NLS-1$
+		newMenu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		menu.getItems().add(newMenu);
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("CLOSE"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("CLOSE_ALL"))); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("SAVE"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("SAVE_AS"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("SAVE_ALL"))); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("QUIT"))); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.FILE_END")); //$NON-NLS-1$
+		return menu;
+	}
+
+	private GenMenuManager createEditMenu(List sharedItems) {
+		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_EDIT"); //$NON-NLS-1$
+		menu.setName("\"&Edit\""); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.EDIT_START")); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("UNDO"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("REDO"))); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.UNDO_EXT")); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("CUT"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("COPY"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("PASTE"))); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.CUT_EXT")); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("DELETE"))); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("SELECT_ALL"))); //$NON-NLS-1$
+		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.ADD_EXT")); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.EDIT_END")); //$NON-NLS-1$
+		menu.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		return menu;
+	}
+
+	private GenMenuManager createWindowMenu(List sharedItems) {
+		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW"); //$NON-NLS-1$
+		menu.setName("\"&Window\""); //$NON-NLS-1$
+		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("OPEN_NEW_WINDOW"))); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		// TODO : menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
+		return menu;
+	}
+
+	private GenMenuManager createHelpMenu(List sharedItems) {
+		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_HELP"); //$NON-NLS-1$
+		menu.setName("\"&Help\""); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.HELP_START")); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.HELP_END")); //$NON-NLS-1$
+		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		return menu;
 	}
 }
