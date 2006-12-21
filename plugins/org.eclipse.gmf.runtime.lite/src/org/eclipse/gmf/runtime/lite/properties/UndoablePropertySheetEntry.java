@@ -11,10 +11,7 @@
  */
 package org.eclipse.gmf.runtime.lite.properties;
 
-import java.util.EventObject;
-
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.ForwardUndoCompoundCommand;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -23,48 +20,25 @@ import org.eclipse.ui.views.properties.PropertySheetEntry;
 /**
  * Copied from <code>org.eclipse.gef.ui.properties.UndoablePropertySheetEntry</code> to provide EMF compatibility.
  */
-public class UndoablePropertySheetEntry extends PropertySheetEntry {
-	private CommandStackListener commandStackListener;
-
-	private CommandStack stack;
-
-	private UndoablePropertySheetEntry() {
-	}
-
-	/**
-	 * Constructs the root entry using the given command stack.
-	 * @param stack the command stack
-	 */
-	public UndoablePropertySheetEntry(CommandStack stack) {
-		setCommandStack(stack);
+class UndoablePropertySheetEntry extends PropertySheetEntry {
+	UndoablePropertySheetEntry() {
 	}
 
 	protected PropertySheetEntry createChildEntry() {
 		return new UndoablePropertySheetEntry();
 	}
 
-	public void dispose() {
-		if (stack != null)
-			stack.removeCommandStackListener(commandStackListener);
-		super.dispose();
+	CommandStack getCommandStack() {
+		return getRoot().getCommandStack();
 	}
 
-	CommandStack getCommandStack() {
-		//only the root has, and is listening too, the command stack
-		if (getParent() != null) {
-			return ((UndoablePropertySheetEntry)getParent()).getCommandStack();
-		}
-		return stack;
+	RootUndoablePropertySheetEntry getRoot() {
+		return ((UndoablePropertySheetEntry)getParent()).getRoot();
 	}
 
 	public void resetPropertyValue() {
 		CompoundCommand cc = new CompoundCommand();
 		ResetValueCommand restoreCmd;
-
-		if (getParent() == null) {
-			// root does not have a default value
-			return;
-		}
 
 		//	Use our parent's values to reset our values.
 		boolean change = false;
@@ -86,22 +60,12 @@ public class UndoablePropertySheetEntry extends PropertySheetEntry {
 		}
 	}
 
-	void setCommandStack(CommandStack stack) {
-		this.stack = stack;
-		commandStackListener = new CommandStackListener() {
-			public void commandStackChanged(EventObject e) {
-				refreshFromRoot();
-			}
-		};
-		stack.addCommandStackListener(commandStackListener);
-	}
-
 	protected void valueChanged(PropertySheetEntry child) {
 		valueChanged((UndoablePropertySheetEntry)child,
 				new ForwardUndoCompoundCommand());
 	}
 
-	void valueChanged(UndoablePropertySheetEntry child, CompoundCommand command) {
+	private void valueChanged(UndoablePropertySheetEntry child, CompoundCommand command) {
 		CompoundCommand cc = new CompoundCommand();
 		command.add(cc);
 
@@ -115,11 +79,10 @@ public class UndoablePropertySheetEntry extends PropertySheetEntry {
 		}
 
 		// inform our parent
-		if (getParent() != null) {
-			((UndoablePropertySheetEntry)getParent()).valueChanged(this, command);
-		}else {
-			//I am the root entry
-			stack.execute(command);
-		}
+		informRoot(this, command);
+	}
+
+	protected void informRoot(UndoablePropertySheetEntry child, CompoundCommand command) {
+		((UndoablePropertySheetEntry)getParent()).valueChanged(this, command);
 	}
 }

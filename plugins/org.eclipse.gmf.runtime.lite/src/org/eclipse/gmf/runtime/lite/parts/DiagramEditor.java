@@ -170,8 +170,9 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 			getCommandStack().removeCommandStackEventListener(mySaveListener);
 			getCommandStack().removeCommandStackListener(commandStackListener);
 			ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
-			assert adapter != null;
-			adapter.release();
+			if (adapter != null) {
+				adapter.release();
+			}
 			if (adapter.isReleased()) {
 				getEditingDomain().getResourceSet().eAdapters().remove(adapter);
 			}
@@ -310,7 +311,9 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	protected TransactionalEditingDomain createEditingDomain() {
 		TransactionalEditingDomain editingDomain = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain();
 		editingDomain.getResourceSet().eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(editingDomain));
-		editingDomain.getResourceSet().eAdapters().add(new ForceTrackingModificationAdapter());
+		ForceTrackingModificationAdapter forceTrackingModificationAdapter = new ForceTrackingModificationAdapter();
+		editingDomain.getResourceSet().eAdapters().add(forceTrackingModificationAdapter);
+		forceTrackingModificationAdapter.acquire();
 		return editingDomain;
 	}
 

@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -47,7 +46,7 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.views.palette.PaletteViewerPage;
 import org.eclipse.gmf.internal.runtime.lite.Activator;
 import org.eclipse.gmf.runtime.lite.properties.PropertySourceProvider;
-import org.eclipse.gmf.runtime.lite.properties.UndoablePropertySheetEntry;
+import org.eclipse.gmf.runtime.lite.properties.RootUndoablePropertySheetEntry;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 
@@ -179,7 +178,7 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 	protected PropertySheetPage getPropertySheetPage() {
 		if (undoablePropertySheetPage == null) {
 			undoablePropertySheetPage = new PropertySheetPage();
-			UndoablePropertySheetEntry rootEntry = new UndoablePropertySheetEntry(getCommandStack());
+			RootUndoablePropertySheetEntry rootEntry = new RootUndoablePropertySheetEntry(getCommandStack(), undoablePropertySheetPage);
 			rootEntry.setPropertySourceProvider(new PropertySourceProvider(myDiagramManager.getDomainAdapterFactory()));
 			undoablePropertySheetPage.setRootEntry(rootEntry);
 		}
@@ -416,41 +415,5 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		} finally {
 			progressMonitor.done();
 		}
-	}
-
-	private static class CommandStackAdapterManager extends AdapterImpl {
-		@Override
-		public boolean isAdapterForType(Object type) {
-			return CommandStackAdapterManager.class.equals(type);
-		}
-
-		public CommandStack getCommandStack() {
-			if (myCommandStack == null) {
-				myCommandStack = new CommandStack();
-			}
-			return myCommandStack;
-		}
-
-		public void acquire() {
-			myRefCount++;
-		}
-
-		public void release() {
-			if (myRefCount == 0) {
-				throw new IllegalStateException();
-			}
-			myRefCount--;
-			if (myRefCount == 0) {
-				myCommandStack.dispose();
-				myCommandStack = null;
-			}
-		}
-
-		public boolean isReleased() {
-			return myRefCount == 0;
-		}
-
-		private CommandStack myCommandStack;
-		private int myRefCount;
 	}
 }
