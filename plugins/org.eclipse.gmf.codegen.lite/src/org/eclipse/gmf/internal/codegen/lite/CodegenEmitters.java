@@ -49,7 +49,6 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
-import org.eclipse.gmf.codegen.templates.editor.SheetLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkCompleteCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkStartCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateNodeCommandGenerator;
@@ -194,8 +193,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
 		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
-
-		put(tr, "/propsheet/SheetLabelProvider.javajet", SheetLabelProviderGenerator.class);
 
 		return tr;
 	}
@@ -456,7 +453,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(SheetLabelProviderGenerator.class);
+		return retrieveXpand("xpt::propsheet::SheetLabelProvider::SheetLabelProvider");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
