@@ -29,6 +29,7 @@ import org.eclipse.gmf.ecore.edit.policies.OpenDiagramEditPolicy;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
@@ -150,6 +151,53 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof EPackageNameEditPart) {
+			((EPackageNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
+	}
+
+	/**
+	 * @generated
+	 */
 	public class NamedNodeRectangle extends RectangleFigure {
 
 		/**
@@ -228,45 +276,6 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof EPackageNameEditPart) {
-			((EPackageNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean removeFixedChild(EditPart childEditPart) {
-
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
 	}
 
 	/**

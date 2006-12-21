@@ -27,8 +27,14 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public EcoreCreationWizardPage(String pageName, IStructuredSelection selection) {
+	private final String fileExtension;
+
+	/**
+	 * @generated
+	 */
+	public EcoreCreationWizardPage(String pageName, IStructuredSelection selection, String fileExtension) {
 		super(pageName, selection);
+		this.fileExtension = fileExtension;
 	}
 
 	/**
@@ -37,7 +43,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	 * @generated
 	 */
 	protected String getExtension() {
-		return null;
+		return fileExtension;
 	}
 
 	/**
@@ -108,7 +114,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 			return false;
 		}
 		String extension = getExtension();
-		if (extension != null && !extension.equals(getFilePath().getFileExtension())) {
+		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
 			setErrorMessage(NLS.bind("File name should have ''{0}'' extension.", extension));
 			return false;
 		}

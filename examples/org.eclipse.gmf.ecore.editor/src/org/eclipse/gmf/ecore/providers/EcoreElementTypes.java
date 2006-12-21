@@ -40,7 +40,7 @@ import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 /**
  * @generated
  */
-public class EcoreElementTypes {
+public class EcoreElementTypes extends ElementInitializers {
 
 	/**
 	 * @generated
@@ -156,24 +156,43 @@ public class EcoreElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
+
 			elements.put(EPackage_1000, EcorePackage.eINSTANCE.getEPackage());
-			elements.put(EAttribute_3001, EcorePackage.eINSTANCE.getEAttribute());
-			elements.put(EOperation_3002, EcorePackage.eINSTANCE.getEOperation());
-			elements.put(EAnnotation_3003, EcorePackage.eINSTANCE.getEAnnotation());
-			elements.put(EClass_3004, EcorePackage.eINSTANCE.getEClass());
-			elements.put(EPackage_3005, EcorePackage.eINSTANCE.getEPackage());
-			elements.put(EDataType_3006, EcorePackage.eINSTANCE.getEDataType());
-			elements.put(EEnum_3007, EcorePackage.eINSTANCE.getEEnum());
-			elements.put(EStringToStringMapEntry_3008, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
-			elements.put(EEnumLiteral_3009, EcorePackage.eINSTANCE.getEEnumLiteral());
+
 			elements.put(EClass_2001, EcorePackage.eINSTANCE.getEClass());
+
 			elements.put(EPackage_2002, EcorePackage.eINSTANCE.getEPackage());
+
 			elements.put(EAnnotation_2003, EcorePackage.eINSTANCE.getEAnnotation());
+
 			elements.put(EDataType_2004, EcorePackage.eINSTANCE.getEDataType());
+
 			elements.put(EEnum_2005, EcorePackage.eINSTANCE.getEEnum());
+
+			elements.put(EAttribute_3001, EcorePackage.eINSTANCE.getEAttribute());
+
+			elements.put(EOperation_3002, EcorePackage.eINSTANCE.getEOperation());
+
+			elements.put(EAnnotation_3003, EcorePackage.eINSTANCE.getEAnnotation());
+
+			elements.put(EClass_3004, EcorePackage.eINSTANCE.getEClass());
+
+			elements.put(EPackage_3005, EcorePackage.eINSTANCE.getEPackage());
+
+			elements.put(EDataType_3006, EcorePackage.eINSTANCE.getEDataType());
+
+			elements.put(EEnum_3007, EcorePackage.eINSTANCE.getEEnum());
+
+			elements.put(EStringToStringMapEntry_3008, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
+
+			elements.put(EEnumLiteral_3009, EcorePackage.eINSTANCE.getEEnumLiteral());
+
 			elements.put(EAnnotationReferences_4001, EcorePackage.eINSTANCE.getEAnnotation_References());
+
 			elements.put(EReference_4002, EcorePackage.eINSTANCE.getEReference());
+
 			elements.put(EReference_4003, EcorePackage.eINSTANCE.getEReference());
+
 			elements.put(EClassESuperTypes_4004, EcorePackage.eINSTANCE.getEClass_ESuperTypes());
 		}
 		return (ENamedElement) elements.get(type);
@@ -293,6 +312,11 @@ public class EcoreElementTypes {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
 			KNOWN_ELEMENT_TYPES.add(EPackage_1000);
+			KNOWN_ELEMENT_TYPES.add(EClass_2001);
+			KNOWN_ELEMENT_TYPES.add(EPackage_2002);
+			KNOWN_ELEMENT_TYPES.add(EAnnotation_2003);
+			KNOWN_ELEMENT_TYPES.add(EDataType_2004);
+			KNOWN_ELEMENT_TYPES.add(EEnum_2005);
 			KNOWN_ELEMENT_TYPES.add(EAttribute_3001);
 			KNOWN_ELEMENT_TYPES.add(EOperation_3002);
 			KNOWN_ELEMENT_TYPES.add(EAnnotation_3003);
@@ -302,11 +326,6 @@ public class EcoreElementTypes {
 			KNOWN_ELEMENT_TYPES.add(EEnum_3007);
 			KNOWN_ELEMENT_TYPES.add(EStringToStringMapEntry_3008);
 			KNOWN_ELEMENT_TYPES.add(EEnumLiteral_3009);
-			KNOWN_ELEMENT_TYPES.add(EClass_2001);
-			KNOWN_ELEMENT_TYPES.add(EPackage_2002);
-			KNOWN_ELEMENT_TYPES.add(EAnnotation_2003);
-			KNOWN_ELEMENT_TYPES.add(EDataType_2004);
-			KNOWN_ELEMENT_TYPES.add(EEnum_2005);
 			KNOWN_ELEMENT_TYPES.add(EAnnotationReferences_4001);
 			KNOWN_ELEMENT_TYPES.add(EReference_4002);
 			KNOWN_ELEMENT_TYPES.add(EReference_4003);
@@ -314,147 +333,4 @@ public class EcoreElementTypes {
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
-
-	/**
-	 * @generated
-	 */
-	public static class Initializers {
-
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer EReference_4002 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
-						EcorePackage.eINSTANCE.getEReference())));
-			}
-		}; // EReference_4002 ObjectInitializer		
-
-		/**
-		 * @generated
-		 */
-		public static final IObjectInitializer EReference_4003 = new ObjectInitializer(EcorePackage.eINSTANCE.getEReference()) {
-
-			protected void init() {
-				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
-						EcorePackage.eINSTANCE.getEReference())));
-			}
-		}; // EReference_4003 ObjectInitializer
-
-		/** 
-		 * @generated
-		 */
-		private Initializers() {
-		}
-
-		/** 
-		 * @generated
-		 */
-		public static interface IObjectInitializer {
-
-			/** 
-			 * @generated
-			 */
-			public void init(EObject instance);
-		}
-
-		/** 
-		 * @generated
-		 */
-		public static abstract class ObjectInitializer implements IObjectInitializer {
-
-			/** 
-			 * @generated
-			 */
-			final EClass element;
-
-			/** 
-			 * @generated
-			 */
-			private List featureInitializers = new ArrayList();
-
-			/** 
-			 * @generated
-			 */
-			ObjectInitializer(EClass element) {
-				this.element = element;
-				init();
-			}
-
-			/**
-			 * @generated
-			 */
-			protected abstract void init();
-
-			/** 
-			 * @generated
-			 */
-			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
-				featureInitializers.add(initializer);
-				return initializer;
-			}
-
-			/** 
-			 * @generated
-			 */
-			public void init(EObject instance) {
-				for (Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
-					try {
-						nextExpr.init(instance);
-					} catch (RuntimeException e) {
-						EcoreDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
-					}
-				}
-			}
-		} // end of ObjectInitializer
-
-		/** 
-		 * @generated
-		 */
-		interface IFeatureInitializer {
-
-			/**
-			 * @generated
-			 */
-			void init(EObject contextInstance);
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
-			final EStructuralFeature feature = initFeature;
-			final ObjectInitializer[] initializers = newObjectInitializers;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					for (int i = 0; i < initializers.length; i++) {
-						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
-						if (feature.isMany()) {
-							((Collection) contextInstance.eGet(feature)).add(newInstance);
-						} else {
-							contextInstance.eSet(feature, newInstance);
-						}
-						initializers[i].init(newInstance);
-					}
-				}
-			};
-		}
-
-		/**
-		 * @generated
-		 */
-		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, EcoreAbstractExpression valueExpression) {
-			final EStructuralFeature feature = initFeature;
-			final EcoreAbstractExpression expression = valueExpression;
-			return new IFeatureInitializer() {
-
-				public void init(EObject contextInstance) {
-					expression.assignTo(feature, contextInstance);
-				}
-			};
-		}
-	} // end of Initializers
 }
