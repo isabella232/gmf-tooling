@@ -441,21 +441,6 @@
       </perspective>
    </extension>
 
-   <extension point="org.eclipse.ui.actionSets">
-      <?gmfgen generated="true"?>
-      <actionSet
-            label="%newDiagramActionSetLabel"
-            visible="true"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramActionSet">
-         <action
-               label="%newDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
-               menubarPath="file/new/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
-         </action>
-      </actionSet>
-   </extension>
-
    <extension point="org.eclipse.ui.commands">
       <?gmfgen generated="true"?>
       <command
@@ -489,6 +474,12 @@
             visible="true"
             id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ActionSet">
          <action
+               label="%newDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
+         </action>
+         <action
                label="%aboutActionLabel"
                class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$AboutAction"
                menubarPath="help/additions"
@@ -510,5 +501,4 @@
          </action>
       </actionSet>
    </extension>
-  
 </plugin>

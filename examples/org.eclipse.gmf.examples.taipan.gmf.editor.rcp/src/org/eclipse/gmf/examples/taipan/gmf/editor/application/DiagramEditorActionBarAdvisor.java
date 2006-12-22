@@ -54,6 +54,13 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	/**
 	 * @generated
 	 */
+	private IWorkbenchWindow getWindow() {
+		return getActionBarConfigurer().getWindowConfigurer().getWindow();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void makeActions(IWorkbenchWindow window) {
 
 		register(ActionFactory.CLOSE.create(window));
