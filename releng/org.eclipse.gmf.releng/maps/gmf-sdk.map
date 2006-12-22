@@ -5,13 +5,13 @@ feature@org.eclipse.gmf.sdk=v20061117-0800,:pserver:anonymous@dev.eclipse.org:/c
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.sdk=v20061013-1330,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
-plugin@org.eclipse.gmf.common=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.common
-plugin@org.eclipse.gmf.bridge=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
+plugin@org.eclipse.gmf.common=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.common
+plugin@org.eclipse.gmf.bridge=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
 plugin@org.eclipse.gmf.bridge.ui=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui
-plugin@org.eclipse.gmf.bridge.ui.dashboard=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui.dashboard
-plugin@org.eclipse.gmf.codegen=v20061218-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
-plugin@org.eclipse.gmf.codegen.edit=v20061218-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
-plugin@org.eclipse.gmf.codegen.ui=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
+plugin@org.eclipse.gmf.bridge.ui.dashboard=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui.dashboard
+plugin@org.eclipse.gmf.codegen=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
+plugin@org.eclipse.gmf.codegen.edit=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
+plugin@org.eclipse.gmf.codegen.ui=v20061222-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
 plugin@org.eclipse.gmf.graphdef=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
 plugin@org.eclipse.gmf.graphdef.codegen=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
 plugin@org.eclipse.gmf.graphdef.codegen.ui=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen.ui
