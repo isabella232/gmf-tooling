@@ -17,8 +17,7 @@
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
-        xsi:type="gmfgen:NotationType"
-        displayName="Design2D"/>
+        xsi:type="gmfgen:NotationType"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -30,6 +29,7 @@
         canonicalEditPolicyClassName="SolidRectangle2CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidRectangle2GraphicalNodeEditPolicy"
+        createCommandClassName="SolidRectangle2CreateCommand"
         containers="//@diagram/@childNodes.0 //@diagram/@childNodes.1 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -53,6 +53,7 @@
         canonicalEditPolicyClassName="SolidEllipseCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
         graphicalNodeEditPolicyClassName="SolidEllipseGraphicalNodeEditPolicy"
+        createCommandClassName="SolidEllipseCreateCommand"
         containers="//@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@topLevelNodes.0 //@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -75,7 +76,8 @@
         notationViewFactoryClassName="SolidRectangleViewFactory"
         canonicalEditPolicyClassName="SolidRectangleCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
-        graphicalNodeEditPolicyClassName="SolidRectangleGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="SolidRectangleGraphicalNodeEditPolicy"
+        createCommandClassName="SolidRectangleCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -97,7 +99,8 @@
         notationViewFactoryClassName="SolidEllipse2ViewFactory"
         canonicalEditPolicyClassName="SolidEllipse2CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"
-        graphicalNodeEditPolicyClassName="SolidEllipse2GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="SolidEllipse2GraphicalNodeEditPolicy"
+        createCommandClassName="SolidEllipse2CreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
