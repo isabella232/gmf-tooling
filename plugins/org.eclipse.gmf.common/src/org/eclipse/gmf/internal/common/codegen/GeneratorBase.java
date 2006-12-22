@@ -329,7 +329,7 @@ public abstract class GeneratorBase implements Runnable {
 						getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
 					} catch (CoreException e) {
 						cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
-						handleException(e);
+						throw e;
 					}
 					String newContents = formatCode(cu.getSource());
 					if (!newContents.equals(oldContents)) { // compare text with organized imports; works for xpand templates
