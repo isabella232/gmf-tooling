@@ -53,6 +53,7 @@ public class GenerateGMAction implements DashboardAction {
 			op.setRCP(false);
 			op.setMapModelURI(mm);
 			op.setGenModelURI(gm);
+			op.setDomainGenModelURI(state.getDGM());
 			op.run();
 		} finally {
 			context.updateStatus();

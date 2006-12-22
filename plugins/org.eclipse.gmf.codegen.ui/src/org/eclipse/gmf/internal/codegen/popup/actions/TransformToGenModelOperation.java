@@ -40,6 +40,8 @@ import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.internal.bridge.genmodel.FileGenModelAccess;
+import org.eclipse.gmf.internal.bridge.genmodel.GenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
@@ -86,6 +88,8 @@ public class TransformToGenModelOperation {
 
 	private URI genModelURI;
 
+	private URI domainGenModelURI;
+
 	private Boolean useRuntimeFigures;
 
 	private Boolean useMapMode;
@@ -130,6 +134,14 @@ public class TransformToGenModelOperation {
 
 	public void setGenModelURI(URI uri) {
 		genModelURI = uri;
+	}
+
+	public URI getDomainGenModelURI() {
+		return domainGenModelURI;
+	}
+
+	public void setDomainGenModelURI(URI uri) {
+		domainGenModelURI = uri;
 	}
 
 	public Boolean getUseMapMode() {
@@ -193,19 +205,26 @@ public class TransformToGenModelOperation {
 			}
 		}
 
-		IFile mapFile = URIUtil.getFile(getMapModelURI());
-		if (mapFile == null) {
-			// TODO : GenModelDetector should work without file handle
-			return;
-		}
-		final GenModelDetector gmDetector = new GenModelDetector(mapFile);
-		final IStatus findStatus = gmDetector.find(getShell(), mapping);
-		if (findStatus.getSeverity() == IStatus.CANCEL) {
-			return;
-		}
 		GenModel domainGenModel = null;
-		if (findStatus.isOK()) {
-			domainGenModel = gmDetector.get(getResourceSet());
+		if (getDomainGenModelURI() != null) {
+			GenModelAccess gmAccess = new FileGenModelAccess(getDomainGenModelURI());
+			if (gmAccess.load(getResourceSet()).getSeverity() == IStatus.OK) {
+				domainGenModel = gmAccess.model();
+			}
+		} else {
+			IFile mapFile = URIUtil.getFile(getMapModelURI());
+			if (mapFile == null) {
+				// TODO : GenModelDetector should work without file handle
+				return;
+			}
+			final GenModelDetector gmDetector = new GenModelDetector(mapFile);
+			final IStatus findStatus = gmDetector.find(getShell(), mapping);
+			if (findStatus.getSeverity() == IStatus.CANCEL) {
+				return;
+			}
+			if (findStatus.isOK()) {
+				domainGenModel = gmDetector.get(getResourceSet());
+			}
 		}
 
 		if (domainGenModel != null) {
