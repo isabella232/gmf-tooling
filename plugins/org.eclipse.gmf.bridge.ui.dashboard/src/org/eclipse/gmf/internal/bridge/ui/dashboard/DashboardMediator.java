@@ -412,11 +412,11 @@ public class DashboardMediator implements DashboardFacade {
 		}
 
 		protected URI getURI() {
-			return state.getDM();
+			return state.getGM();
 		}
 
 		protected void setURI(URI uri) {
-			state.setDM(uri);
+			state.setGM(uri);
 		}
 
 		protected String getFileExtension() {
