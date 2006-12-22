@@ -26,6 +26,7 @@ import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 import org.eclipse.gmf.examples.design2d.providers.DesignElementTypes;
 
+import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
@@ -222,7 +223,7 @@ public class DesignNavigatorLabelProvider extends LabelProvider implements IComm
 
 			public Object getAdapter(Class adapter) {
 				if (String.class.equals(adapter)) {
-					return DesignVisualIDRegistry.getType(SolidLineCommentEditPart.VISUAL_ID);
+					return CommonParserHint.DESCRIPTION;
 				}
 				if (IElementType.class.equals(adapter)) {
 					return DesignElementTypes.Link_4001;

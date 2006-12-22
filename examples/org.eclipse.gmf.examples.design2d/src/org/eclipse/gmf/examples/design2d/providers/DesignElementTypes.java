@@ -29,7 +29,7 @@ import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 /**
  * @generated
  */
-public class DesignElementTypes {
+public class DesignElementTypes extends ElementInitializers {
 
 	/**
 	 * @generated
@@ -198,10 +198,10 @@ public class DesignElementTypes {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
 			KNOWN_ELEMENT_TYPES.add(Diagram_1000);
-			KNOWN_ELEMENT_TYPES.add(Node_3001);
-			KNOWN_ELEMENT_TYPES.add(Node_3002);
 			KNOWN_ELEMENT_TYPES.add(Node_2001);
 			KNOWN_ELEMENT_TYPES.add(Node_2002);
+			KNOWN_ELEMENT_TYPES.add(Node_3001);
+			KNOWN_ELEMENT_TYPES.add(Node_3002);
 			KNOWN_ELEMENT_TYPES.add(Link_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);

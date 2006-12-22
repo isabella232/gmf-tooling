@@ -132,11 +132,11 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 			incominglinks.addChildren(getNode_2001ToLink_4001InSource(view, incominglinks));
 			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
 			outgoinglinks.addChildren(getNode_2001ToLink_4001OutTarget(view, outgoinglinks));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -148,11 +148,11 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 			incominglinks.addChildren(getNode_2002ToLink_4001InSource(view, incominglinks));
 			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
 			outgoinglinks.addChildren(getNode_2002ToLink_4001OutTarget(view, outgoinglinks));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -164,11 +164,11 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 			incominglinks.addChildren(getNode_3001ToLink_4001InSource(view, incominglinks));
 			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
 			outgoinglinks.addChildren(getNode_3001ToLink_4001OutTarget(view, outgoinglinks));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -180,11 +180,11 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 			incominglinks.addChildren(getNode_3002ToLink_4001InSource(view, incominglinks));
 			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
 			outgoinglinks.addChildren(getNode_3002ToLink_4001OutTarget(view, outgoinglinks));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -211,11 +211,11 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 			source.addChildren(getLink_4001ToNode_2002InSource((Edge) view, source));
 			source.addChildren(getLink_4001ToNode_3001InSource((Edge) view, source));
 			source.addChildren(getLink_4001ToNode_3002InSource((Edge) view, source));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
 			if (!source.isEmpty()) {
 				result.add(source);
+			}
+			if (!target.isEmpty()) {
+				result.add(target);
 			}
 			return result.toArray();
 		}

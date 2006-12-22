@@ -105,12 +105,7 @@ public class DesignCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new DesignCreationWizardPage("DiagramModelFile", getSelection()) { //$NON-NLS-1$
-
-			protected String getExtension() {
-				return "design2d"; //$NON-NLS-1$
-			}
-		};
+		diagramModelFilePage = new DesignCreationWizardPage("DiagramModelFile", getSelection(), "design2d"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage.setTitle("Create Design2D Diagram");
 		diagramModelFilePage.setDescription("Select file that will contain diagram and domain models.");
 		addPage(diagramModelFilePage);

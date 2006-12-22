@@ -11,9 +11,12 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FreeformLayout;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.XYLayout;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -71,11 +74,11 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidEllipseItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidEllipseCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -116,6 +119,7 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+
 		return result;
 	}
 
@@ -171,20 +175,20 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {
+	public class SolidEllipseFigure extends Ellipse {
 
 		/**
 		 * @generated
 		 */
 		public SolidEllipseFigure() {
 
-			this.setLayoutManager(new org.eclipse.draw2d.XYLayout());
+			this.setLayoutManager(new XYLayout());
 			this.setFill(true);
 			this.setFillXOR(false);
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 		}
 
 		/**

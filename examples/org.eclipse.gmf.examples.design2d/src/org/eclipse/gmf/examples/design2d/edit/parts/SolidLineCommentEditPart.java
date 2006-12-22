@@ -132,7 +132,6 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-
 	}
 
 	/**
@@ -455,7 +454,8 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	protected void refreshFont() {
 		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			FontData fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL) | (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+			FontData fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? org.eclipse.swt.SWT.BOLD : org.eclipse.swt.SWT.NORMAL)
+					| (style.isItalic() ? org.eclipse.swt.SWT.ITALIC : org.eclipse.swt.SWT.NORMAL));
 			setFont(fontData);
 		}
 	}
@@ -565,5 +565,4 @@ public class SolidLineCommentEditPart extends LabelEditPart implements ITextAwar
 	protected IFigure createFigurePrim() {
 		return new WrapLabel();
 	}
-
 }

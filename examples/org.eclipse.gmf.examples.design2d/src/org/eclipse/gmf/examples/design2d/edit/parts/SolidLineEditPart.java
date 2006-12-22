@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.design2d.edit.parts;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
 
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -30,6 +31,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
@@ -73,7 +75,6 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 				return super.getCommand(request);
 			}
 		});
-
 	}
 
 	/**
@@ -85,13 +86,14 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
+
 		return new SolidLineFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class SolidLineFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class SolidLineFigure extends PolylineConnectionEx {
 
 		/**
 		 * @generated
@@ -102,7 +104,7 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_SOLID);
 
 		}
 
