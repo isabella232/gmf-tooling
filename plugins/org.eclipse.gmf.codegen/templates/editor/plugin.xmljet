@@ -404,21 +404,6 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
       </perspective>
    </extension>
 
-   <extension point="org.eclipse.ui.actionSets">
-      <?gmfgen generated="true"?>
-      <actionSet
-            label="%newDiagramActionSetLabel"
-            visible="true"
-            id="<%=genPlugin.getID()%>.NewDiagramActionSet">
-         <action
-               label="%newDiagramActionLabel"
-               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
-               menubarPath="file/new/additions"
-               id="<%=genPlugin.getID()%>.NewDiagramAction">
-         </action>
-      </actionSet>
-   </extension>  
-
    <extension point="org.eclipse.ui.commands">
       <?gmfgen generated="true"?>
       <command
@@ -451,6 +436,12 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
             label="%applicationActionSetLabel"
             visible="true"
             id="<%=genPlugin.getID()%>.ActionSet">
+         <action
+               label="%newDiagramActionLabel"
+               class="<%=application.getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="<%=genPlugin.getID()%>.NewDiagramAction">
+         </action>
          <action
                label="%aboutActionLabel"
                class="<%=application.getActionBarAdvisorQualifiedClassName()%>$AboutAction"

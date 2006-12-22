@@ -25,25 +25,24 @@ public class PluginPropertiesGenerator
   protected final String TEXT_8 = " diagram file";
   protected final String TEXT_9 = NL + "createShortcutActionLabel=Create Shortcut...";
   protected final String TEXT_10 = NL + "loadResourceActionLabel=Load Resource...";
-  protected final String TEXT_11 = NL + "newDiagramActionSetLabel=New ";
-  protected final String TEXT_12 = " Diagram" + NL + "newDiagramActionLabel=";
-  protected final String TEXT_13 = " Diagram" + NL + "applicationActionSetLabel=";
-  protected final String TEXT_14 = " Actions" + NL + "aboutActionLabel=";
-  protected final String TEXT_15 = " Diagram About..." + NL + "openURIActionLabel=Open URI..." + NL + "openURIActionDescription=Open file by URI" + NL + "openActionLabel=Open..." + NL + "openActionDescription=Open file";
-  protected final String TEXT_16 = NL + "navigatorContentName=*.";
-  protected final String TEXT_17 = " diagram contents";
-  protected final String TEXT_18 = NL + "###" + NL + "# Property Sheet";
-  protected final String TEXT_19 = NL;
-  protected final String TEXT_20 = NL + "tab.";
-  protected final String TEXT_21 = "=";
-  protected final String TEXT_22 = NL + "###";
-  protected final String TEXT_23 = NL + "###" + NL + "# Palette Factory";
+  protected final String TEXT_11 = NL + "applicationActionSetLabel=";
+  protected final String TEXT_12 = " Actions" + NL + "newDiagramActionLabel=";
+  protected final String TEXT_13 = " Diagram" + NL + "aboutActionLabel=";
+  protected final String TEXT_14 = " Diagram About..." + NL + "openURIActionLabel=Open URI..." + NL + "openURIActionDescription=Open file by URI" + NL + "openActionLabel=Open..." + NL + "openActionDescription=Open file";
+  protected final String TEXT_15 = NL + "navigatorContentName=*.";
+  protected final String TEXT_16 = " diagram contents";
+  protected final String TEXT_17 = NL + "###" + NL + "# Property Sheet";
+  protected final String TEXT_18 = NL;
+  protected final String TEXT_19 = NL + "tab.";
+  protected final String TEXT_20 = "=";
+  protected final String TEXT_21 = NL + "###";
+  protected final String TEXT_22 = NL + "###" + NL + "# Palette Factory";
+  protected final String TEXT_23 = NL;
   protected final String TEXT_24 = NL;
-  protected final String TEXT_25 = NL;
-  protected final String TEXT_26 = ".title=";
-  protected final String TEXT_27 = NL;
-  protected final String TEXT_28 = ".desc=";
-  protected final String TEXT_29 = NL + "###";
+  protected final String TEXT_25 = ".title=";
+  protected final String TEXT_26 = NL;
+  protected final String TEXT_27 = ".desc=";
+  protected final String TEXT_28 = NL + "###";
 
   public String generate(Object argument)
   {
@@ -80,46 +79,44 @@ if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genPlugin.getEditorGen().getModelID());
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(genPlugin.getEditorGen().getModelID());
-    stringBuffer.append(TEXT_15);
     }
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(genPlugin.getEditorGen().getDiagramFileExtension());
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_16);
     if (genPlugin.getEditorGen().getPropertySheet() != null) {
 	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();
+    stringBuffer.append(TEXT_17);
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(TEXT_19);
     for (Iterator it = propertySheet.getTabs().iterator(); it.hasNext(); ) {
 	final GenPropertyTab tab = (GenPropertyTab) it.next();
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_19);
     stringBuffer.append(tab.getID());
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_20);
     stringBuffer.append(tab.getLabel());
     }
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_21);
     }
     if (genDiagram.getPalette() != null) {
 	final Palette palette = genDiagram.getPalette();
+    stringBuffer.append(TEXT_22);
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(TEXT_24);
     for (Iterator it = palette.eAllContents(); it.hasNext();) {
 	Object next = it.next();
 	if (next instanceof EntryBase) {
 		EntryBase b = (EntryBase) next;
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_24);
     stringBuffer.append(b.getIntKey());
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_25);
     stringBuffer.append(b.getTitle());
     if (b.getDescription() != null) {
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_26);
     stringBuffer.append(b.getIntKey());
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_27);
     stringBuffer.append(b.getDescription());
     }
     	} /*EntryBase*/
     }
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_28);
     }
     return stringBuffer.toString();
   }
