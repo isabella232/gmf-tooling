@@ -23,6 +23,6 @@ public class DesignDiagramPreferenceInitializer extends DiagramPreferenceInitial
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getInstance().getPreferenceStore();
+		return DesignDiagramEditorPlugin.getInstance().getPreferenceStore();
 	}
 }

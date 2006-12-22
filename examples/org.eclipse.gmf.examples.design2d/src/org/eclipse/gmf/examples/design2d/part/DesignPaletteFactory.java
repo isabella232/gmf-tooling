@@ -1,5 +1,3 @@
-package org.eclipse.gmf.examples.design2d.part;
-
 /*
  *  Copyright (c) 2006 Borland Software Corporation
  * 
@@ -11,6 +9,19 @@ package org.eclipse.gmf.examples.design2d.part;
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
+package org.eclipse.gmf.examples.design2d.part;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.gef.Tool;
+import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gmf.examples.design2d.providers.DesignElementTypes;
+import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
+import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
 /**
  * @generated
@@ -20,7 +31,7 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	public void fillPalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
+	public void fillPalette(PaletteRoot paletteRoot) {
 		paletteRoot.add(createPrimaryShapes1Group());
 	}
 
@@ -28,9 +39,8 @@ public class DesignPaletteFactory {
 	 * Creates "Primary Shapes" palette tool group
 	 * @generated
 	 */
-	private org.eclipse.gef.palette.PaletteContainer createPrimaryShapes1Group() {
-		org.eclipse.gef.palette.PaletteDrawer paletteContainer = new org.eclipse.gef.palette.PaletteDrawer(org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin
-				.getString("PrimaryShapes1Group.title")); //$NON-NLS-1$
+	private PaletteContainer createPrimaryShapes1Group() {
+		PaletteDrawer paletteContainer = new PaletteDrawer(DesignDiagramEditorPlugin.getString("PrimaryShapes1Group.title")); //$NON-NLS-1$
 		paletteContainer.add(createSolidRectangle1CreationTool());
 		paletteContainer.add(createSolidEllipse2CreationTool());
 		paletteContainer.add(createSolidLine3CreationTool());
@@ -40,13 +50,13 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gef.palette.ToolEntry createSolidRectangle1CreationTool() {
-		java.util.List/*<IElementType>*/types = new java.util.ArrayList/*<IElementType>*/(2);
-		types.add(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_2001);
-		types.add(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_3001);
+	private ToolEntry createSolidRectangle1CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		types.add(DesignElementTypes.Node_2001);
+		types.add(DesignElementTypes.Node_3001);
 		NodeToolEntry entry = new NodeToolEntry(
-				org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.title"), org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.getImageDescriptor(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_2001));
+				DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -54,13 +64,12 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gef.palette.ToolEntry createSolidEllipse2CreationTool() {
-		java.util.List/*<IElementType>*/types = new java.util.ArrayList/*<IElementType>*/(2);
-		types.add(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_3002);
-		types.add(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_2002);
-		NodeToolEntry entry = new NodeToolEntry(
-				org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.title"), org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.getImageDescriptor(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Node_3002));
+	private ToolEntry createSolidEllipse2CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		types.add(DesignElementTypes.Node_3002);
+		types.add(DesignElementTypes.Node_2002);
+		NodeToolEntry entry = new NodeToolEntry(DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -68,12 +77,11 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.gef.palette.ToolEntry createSolidLine3CreationTool() {
-		java.util.List/*<IElementType>*/types = new java.util.ArrayList/*<IElementType>*/(1);
-		types.add(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Link_4001);
-		LinkToolEntry entry = new LinkToolEntry(
-				org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.title"), org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
-		entry.setSmallIcon(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.getImageDescriptor(org.eclipse.gmf.examples.design2d.providers.DesignElementTypes.Link_4001));
+	private ToolEntry createSolidLine3CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(DesignElementTypes.Link_4001);
+		LinkToolEntry entry = new LinkToolEntry(DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Link_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -81,17 +89,17 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private static class NodeToolEntry extends org.eclipse.gef.palette.ToolEntry {
+	private static class NodeToolEntry extends ToolEntry {
 
 		/**
 		 * @generated
 		 */
-		private final java.util.List elementTypes;
+		private final List elementTypes;
 
 		/**
 		 * @generated
 		 */
-		private NodeToolEntry(String title, String description, java.util.List elementTypes) {
+		private NodeToolEntry(String title, String description, List elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
@@ -99,8 +107,8 @@ public class DesignPaletteFactory {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool(elementTypes);
+		public Tool createTool() {
+			Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 			tool.setProperties(getToolProperties());
 			return tool;
 		}
@@ -109,17 +117,17 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private static class LinkToolEntry extends org.eclipse.gef.palette.ToolEntry {
+	private static class LinkToolEntry extends ToolEntry {
 
 		/**
 		 * @generated
 		 */
-		private final java.util.List relationshipTypes;
+		private final List relationshipTypes;
 
 		/**
 		 * @generated
 		 */
-		private LinkToolEntry(String title, String description, java.util.List relationshipTypes) {
+		private LinkToolEntry(String title, String description, List relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}
@@ -127,8 +135,8 @@ public class DesignPaletteFactory {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool(relationshipTypes);
+		public Tool createTool() {
+			Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
 			tool.setProperties(getToolProperties());
 			return tool;
 		}

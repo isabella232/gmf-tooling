@@ -23,7 +23,6 @@ import org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 
 import org.eclipse.gmf.runtime.notation.Location;
-
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 
 /**

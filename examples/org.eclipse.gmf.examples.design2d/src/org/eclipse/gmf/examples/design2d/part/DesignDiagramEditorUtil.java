@@ -25,7 +25,9 @@ import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
@@ -47,8 +49,6 @@ import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
@@ -64,10 +64,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-
-import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -155,55 +151,6 @@ public class DesignDiagramEditorUtil {
 		}
 		setCharset(diagramURI);
 		return diagramResource;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static int findElementsInDiagram(IDiagramWorkbenchPart diagramPart, URI elementURI, List/*EditPart*/editPartCollector) {
-		final int originalNumOfEditParts = editPartCollector.size();
-		EObject element = null;
-		try {
-			element = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);
-		} catch (RuntimeException e) {
-			DesignDiagramEditorPlugin.getInstance().logError("Failed to get EObject by uri: " + elementURI, e); //$NON-NLS-1$
-			return 0;
-		}
-		if (element == null) {
-			return 0;
-		} else if (element instanceof View) {
-			EditPart editPart = (EditPart) diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);
-			if (editPart != null) {
-				editPartCollector.add(editPart);
-				return 1;
-			}
-		}
-
-		String elementID = EMFCoreUtil.getProxyID(element);
-		List associatedParts = diagramPart.getDiagramGraphicalViewer().findEditPartsForElement(elementID, IGraphicalEditPart.class);
-		// peform the possible hierarchy disjoint -> take the top-most parts
-		for (Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
-			EditPart nextPart = (EditPart) editPartIt.next();
-			EditPart parentPart = nextPart.getParent();
-			while (parentPart != null && !associatedParts.contains(parentPart)) {
-				parentPart = parentPart.getParent();
-			}
-			if (parentPart == null) {
-				editPartCollector.add(nextPart);
-			}
-		}
-
-		if (originalNumOfEditParts == editPartCollector.size()) {
-			if (!associatedParts.isEmpty()) {
-				editPartCollector.add(associatedParts.iterator().next());
-			} else {
-				element = element.eContainer();
-				if (element != null) {
-					return findElementsInDiagram(diagramPart, EcoreUtil.getURI(element), editPartCollector);
-				}
-			}
-		}
-		return editPartCollector.size() - originalNumOfEditParts;
 	}
 
 	/**

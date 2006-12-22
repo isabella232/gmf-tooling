@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,28 +17,20 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.XYLayout;
-
 import org.eclipse.draw2d.geometry.Rectangle;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipse2CanonicalEditPolicy;
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipse2ItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**

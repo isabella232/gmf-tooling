@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
@@ -50,7 +51,7 @@ public class SolidEllipse2ViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = DesignVisualIDRegistry.getType(org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart.VISUAL_ID);
+			semanticHint = DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

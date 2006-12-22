@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;

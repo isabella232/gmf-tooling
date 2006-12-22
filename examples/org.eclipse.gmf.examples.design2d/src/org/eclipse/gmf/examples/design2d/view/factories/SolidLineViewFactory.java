@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
@@ -52,7 +53,7 @@ public class SolidLineViewFactory extends ConnectionViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = DesignVisualIDRegistry.getType(org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart.VISUAL_ID);
+			semanticHint = DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

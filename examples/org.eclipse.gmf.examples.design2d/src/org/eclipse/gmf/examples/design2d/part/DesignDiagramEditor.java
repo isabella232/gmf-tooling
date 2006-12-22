@@ -11,12 +11,7 @@
  */
 package org.eclipse.gmf.examples.design2d.part;
 
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.core.resources.IFile;
@@ -38,8 +33,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.NotificationFilter;
-
-import org.eclipse.gmf.examples.design2d.edit.parts.DesignEditPartFactory;
 
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 

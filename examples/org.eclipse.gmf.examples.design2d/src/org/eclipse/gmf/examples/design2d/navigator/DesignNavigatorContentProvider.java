@@ -262,35 +262,242 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getNode_2002ToLink_4001OutTarget(View view, Object parent) {
+	private Collection getDiagram_1000ToLink_4001Children(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_2002ToLink_4001OutTargetLeaf(view));
+		Collection connectedViews = getDiagramLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToLink_4001ChildrenLeaf(view));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private boolean isNode_2002ToLink_4001OutTargetLeaf(View view) {
-		return true;
+	private boolean isDiagram_1000ToLink_4001ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection getNode_3001ToLink_4001OutTarget(View view, Object parent) {
+	private Collection getDiagram_1000ToNode_2001Children(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3001ToLink_4001OutTargetLeaf(view));
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToNode_2001ChildrenLeaf(view));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private boolean isNode_3001ToLink_4001OutTargetLeaf(View view) {
+	private boolean isDiagram_1000ToNode_2001ChildrenLeaf(View view) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getDiagram_1000ToNode_2002Children(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToNode_2002ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isDiagram_1000ToNode_2002ChildrenLeaf(View view) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_2001InSource(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2001InSourceLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_2001InSourceLeaf(Edge edge) {
 		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_2001OutTarget(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2001OutTargetLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_2001OutTargetLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_2002InSource(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2002InSourceLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_2002InSourceLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_2002OutTarget(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2002OutTargetLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_2002OutTargetLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_3001InSource(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3001InSourceLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_3001InSourceLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_3001OutTarget(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3001OutTargetLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_3001OutTargetLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_3002InSource(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3002InSourceLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_3002InSourceLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getLink_4001ToNode_3002OutTarget(Edge edge, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3002OutTargetLeaf(edge));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isLink_4001ToNode_3002OutTargetLeaf(Edge edge) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_2001ToLink_4001InSource(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_2001ToLink_4001InSourceLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_2001ToLink_4001InSourceLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_2001ToLink_4001OutTarget(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_2001ToLink_4001OutTargetLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_2001ToLink_4001OutTargetLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_2001ToNode_3001Children(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_2001ToNode_3001ChildrenLeaf(view));
+		connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_2001ToNode_3001ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_2001ToNode_3001ChildrenLeaf(View view) {
+		return false;
 	}
 
 	/**
@@ -316,23 +523,6 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getLink_4001ToNode_3001InSource(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3001InSourceLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_3001InSourceLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
 	private Collection getNode_2002ToLink_4001InSource(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
@@ -350,160 +540,18 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getNode_3001ToLink_4001InSource(View view, Object parent) {
+	private Collection getNode_2002ToLink_4001OutTarget(View view, Object parent) {
 		Collection result = new ArrayList();
-		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3001ToLink_4001InSourceLeaf(view));
+		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_2002ToLink_4001OutTargetLeaf(view));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private boolean isNode_3001ToLink_4001InSourceLeaf(View view) {
+	private boolean isNode_2002ToLink_4001OutTargetLeaf(View view) {
 		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_3002ToLink_4001InSource(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3002ToLink_4001InSourceLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isNode_3002ToLink_4001InSourceLeaf(View view) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getLink_4001ToNode_2002InSource(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2002InSourceLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_2002InSourceLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_3001ToNode_3002Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3002ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isNode_3001ToNode_3002ChildrenLeaf(View view) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_3001ToNode_3001Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3001ChildrenLeaf(view));
-		connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3001ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isNode_3001ToNode_3001ChildrenLeaf(View view) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getLink_4001ToNode_2001InSource(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2001InSourceLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_2001InSourceLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getLink_4001ToNode_3001OutTarget(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3001OutTargetLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_3001OutTargetLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getDiagram_1000ToNode_2001Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToNode_2001ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isDiagram_1000ToNode_2001ChildrenLeaf(View view) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_3002ToNode_3002Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3002ToNode_3002ChildrenLeaf(view));
-		connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_3002ToNode_3002ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isNode_3002ToNode_3002ChildrenLeaf(View view) {
-		return false;
 	}
 
 	/**
@@ -523,23 +571,6 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	 * @generated
 	 */
 	private boolean isNode_2002ToNode_3001ChildrenLeaf(View view) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getDiagram_1000ToLink_4001Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getDiagramLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToLink_4001ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isDiagram_1000ToLink_4001ChildrenLeaf(View view) {
 		return false;
 	}
 
@@ -566,68 +597,88 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getLink_4001ToNode_2002OutTarget(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2002OutTargetLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_2002OutTargetLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getLink_4001ToNode_3002OutTarget(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3002OutTargetLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_3002OutTargetLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getLink_4001ToNode_3002InSource(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksSourceByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_3002InSourceLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_3002InSourceLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_2001ToLink_4001InSource(View view, Object parent) {
+	private Collection getNode_3001ToLink_4001InSource(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_2001ToLink_4001InSourceLeaf(view));
+		createNavigatorItems(connectedViews, parent, result, isNode_3001ToLink_4001InSourceLeaf(view));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private boolean isNode_2001ToLink_4001InSourceLeaf(View view) {
+	private boolean isNode_3001ToLink_4001InSourceLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_3001ToLink_4001OutTarget(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3001ToLink_4001OutTargetLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_3001ToLink_4001OutTargetLeaf(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_3001ToNode_3001Children(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3001ChildrenLeaf(view));
+		connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3001ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_3001ToNode_3001ChildrenLeaf(View view) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_3001ToNode_3002Children(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3001ToNode_3002ChildrenLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_3001ToNode_3002ChildrenLeaf(View view) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getNode_3002ToLink_4001InSource(View view, Object parent) {
+		Collection result = new ArrayList();
+		Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3002ToLink_4001InSourceLeaf(view));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isNode_3002ToLink_4001InSourceLeaf(View view) {
 		return true;
 	}
 
@@ -651,40 +702,6 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getLink_4001ToNode_2001OutTarget(Edge edge, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getLinksTargetByType(Collections.singleton(edge), DesignVisualIDRegistry.getType(SolidRectangleEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isLink_4001ToNode_2001OutTargetLeaf(edge));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isLink_4001ToNode_2001OutTargetLeaf(Edge edge) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getNode_2001ToLink_4001OutTarget(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidLineEditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_2001ToLink_4001OutTargetLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isNode_2001ToLink_4001OutTargetLeaf(View view) {
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
 	private Collection getNode_3002ToNode_3001Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
@@ -702,37 +719,20 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getNode_2001ToNode_3001Children(View view, Object parent) {
+	private Collection getNode_3002ToNode_3002Children(View view, Object parent) {
 		Collection result = new ArrayList();
 		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_2001ToNode_3001ChildrenLeaf(view));
+		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
+		createNavigatorItems(connectedViews, parent, result, isNode_3002ToNode_3002ChildrenLeaf(view));
 		connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipseEditPart.VISUAL_ID));
-		connectedViews = getChildrenByType(connectedViews, DesignVisualIDRegistry.getType(SolidRectangle2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isNode_2001ToNode_3001ChildrenLeaf(view));
+		createNavigatorItems(connectedViews, parent, result, isNode_3002ToNode_3002ChildrenLeaf(view));
 		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private boolean isNode_2001ToNode_3001ChildrenLeaf(View view) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Collection getDiagram_1000ToNode_2002Children(View view, Object parent) {
-		Collection result = new ArrayList();
-		Collection connectedViews = getChildrenByType(Collections.singleton(view), DesignVisualIDRegistry.getType(SolidEllipse2EditPart.VISUAL_ID));
-		createNavigatorItems(connectedViews, parent, result, isDiagram_1000ToNode_2002ChildrenLeaf(view));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isDiagram_1000ToNode_2002ChildrenLeaf(View view) {
+	private boolean isNode_3002ToNode_3002ChildrenLeaf(View view) {
 		return false;
 	}
 

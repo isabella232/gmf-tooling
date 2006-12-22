@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,16 +15,17 @@ import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 
 /**
  * @generated
@@ -157,22 +158,22 @@ public class DesignElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.Node_3001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.Node_3002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public static final IElementType Node_2001 = getElementType("org.eclipse.gmf.examples.design2d.Node_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
 	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.Node_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_3001 = getElementType("org.eclipse.gmf.examples.design2d.Node_3001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_3002 = getElementType("org.eclipse.gmf.examples.design2d.Node_3002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
