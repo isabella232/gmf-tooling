@@ -11,7 +11,7 @@
 	<property file="${buildRoot}/tests/finalPluginsVersions.properties"/>
 
 	<target name="cleanup.config">
-		<echo message="Cleaning up eclipse config"/>
+		<echo message="Cleaning up eclipse config..."/>
 		<delete includeemptydirs="true">
 			<fileset dir="${baseLocation}/configuration">
 				<include name="**/*"/>
