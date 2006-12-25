@@ -22,6 +22,12 @@ package «packageName»;
  */
 public class «className» implements org.eclipse.core.runtime.IPlatformRunnable {
 
+«EXPAND run-»
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE run FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -38,5 +44,7 @@ public class «className» implements org.eclipse.core.runtime.IPlatformRunnable {
 			display.dispose();
 		}
 	}
-}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenApplication-»
 «ENDDEFINE»

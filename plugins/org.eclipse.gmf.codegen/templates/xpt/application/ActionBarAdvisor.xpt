@@ -59,6 +59,15 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		«EXPAND fill("toolBar") FOR mainToolBar-»
 	}
 
+	«EXPAND openEditor FOR editorGen.editor-»
+
+	«EXPAND actions-»
+
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE openEditor FOR gmfgen::GenEditorView-»
 	/**
 	 * @generated
 	 */
@@ -82,9 +91,6 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		}
 		return true;
 	}
-	
-	«EXPAND actions FOR this-»
-}
 «ENDDEFINE»
 
 «DEFINE makeAction(String windowVar) FOR gmfgen::GenContributionItem»
@@ -150,6 +156,13 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE actions FOR gmfgen::GenApplication»
+«EXPAND NewDiagramAction-»
+«EXPAND OpenUriAction-»
+«EXPAND OpenAction-»
+«EXPAND AboutAction-»
+«ENDDEFINE»
+
+«DEFINE NewDiagramAction FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -168,6 +181,9 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		}
 	}
 
+«ENDDEFINE»
+
+«DEFINE OpenUriAction FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -187,6 +203,9 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		}
 	}
 
+«ENDDEFINE»
+
+«DEFINE OpenAction FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -205,7 +224,9 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 			}
 		}
 	}
+«ENDDEFINE»
 
+«DEFINE AboutAction FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -219,4 +240,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 				"«editorGen.modelID» Diagram Editor");
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenApplication-»
 «ENDDEFINE»

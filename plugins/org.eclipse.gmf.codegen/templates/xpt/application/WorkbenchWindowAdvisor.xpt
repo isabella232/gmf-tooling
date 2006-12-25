@@ -29,13 +29,24 @@ public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.applicatio
 		super(configurer);
 	}
 
+	«EXPAND createActionBarAdvisor-»
+
+	«EXPAND preWindowOpen-»
+
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE createActionBarAdvisor FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
 	public org.eclipse.ui.application.ActionBarAdvisor createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer configurer) {
 		return new «getActionBarAdvisorQualifiedClassName()»(configurer);
 	}
+«ENDDEFINE»
 
+«DEFINE preWindowOpen FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -44,5 +55,7 @@ public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.applicatio
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(1000, 700));
 		configurer.setTitle("«title»");
 	}
-}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenApplication-»
 «ENDDEFINE»

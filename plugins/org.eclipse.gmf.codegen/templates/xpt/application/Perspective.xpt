@@ -21,7 +21,10 @@ package «packageName»;
  * @generated
  */
 public class «perspectiveClassName» implements org.eclipse.ui.IPerspectiveFactory {
-
+	«EXPAND createInitialLayout-»
+	«EXPAND additions-»
+«ENDDEFINE»
+«DEFINE createInitialLayout FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -34,6 +37,13 @@ public class «perspectiveClassName» implements org.eclipse.ui.IPerspectiveFactor
 		org.eclipse.ui.IFolderLayout bottomRight = layout.createFolder(
 			"bottomRight", org.eclipse.ui.IPageLayout.BOTTOM, 0.6f, "right"); //$NON-NLS-1$ //$NON-NLS-2$
 		bottomRight.addView(org.eclipse.ui.IPageLayout.ID_PROP_SHEET);
+		«EXPAND layoutAdditions-»
 	}
 }
+«ENDDEFINE»
+
+«DEFINE layoutAdditions FOR gmfgen::GenApplication-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenApplication-»
 «ENDDEFINE»

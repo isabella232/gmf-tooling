@@ -21,19 +21,35 @@ package «packageName»;
  * @generated
  */
 public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.WorkbenchAdvisor {
+«EXPAND perspectiveId-»
 
+«EXPAND getInitialWindowPerspectiveId-»
+
+«EXPAND initialize-»
+
+«EXPAND createWorkbenchWindowAdvisor-»
+
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE perspectiveId FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
 	public static final String PERSPECTIVE_ID = "«perspectiveId»"; //$NON-NLS-1$
+«ENDDEFINE»
 
+«DEFINE getInitialWindowPerspectiveId FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
 	public String getInitialWindowPerspectiveId() {
 		return PERSPECTIVE_ID;
 	}
+«ENDDEFINE»
 
+«DEFINE initialize FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -41,7 +57,9 @@ public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.Work
 		super.initialize(configurer);
 		configurer.setSaveAndRestore(true);
 	}
+«ENDDEFINE»
 
+«DEFINE createWorkbenchWindowAdvisor FOR gmfgen::GenApplication-»
 	/**
 	 * @generated
 	 */
@@ -49,5 +67,7 @@ public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.Work
 			org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
 		return new «getWorkbenchWindowAdvisorQualifiedClassName()»(configurer);
 	}
-}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenApplication-»
 «ENDDEFINE»
