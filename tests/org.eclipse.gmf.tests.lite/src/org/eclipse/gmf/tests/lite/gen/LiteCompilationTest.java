@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.lite.gen;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
@@ -52,18 +51,18 @@ public class LiteCompilationTest extends CompilationTest {
 				genPlugin.setName(baseName + ".view");
 				genPlugin.setID(baseID + ".view");
 				super.generateDiagramPlugin(d);
-				//RCP editor
-				d.getEditorGen().getEditor().setEclipseEditor(true);
-				GenModel genModel = d.getDomainDiagramElement().getGenModel();
-				genModel.setRichClientPlatform(true);
-				genPlugin.setName(baseName + ".rcp");
-				genPlugin.setID(baseID + ".rcp");
-				super.generateDiagramPlugin(d);
-				//RCP view
-				d.getEditorGen().getEditor().setEclipseEditor(false);
-				genPlugin.setName(baseName + ".rcp.view");
-				genPlugin.setID(baseID + ".rcp.view");
-				super.generateDiagramPlugin(d);
+//				//RCP editor
+//				d.getEditorGen().getEditor().setEclipseEditor(true);
+//				GenModel genModel = d.getDomainDiagramElement().getGenModel();
+//				genModel.setRichClientPlatform(true);
+//				genPlugin.setName(baseName + ".rcp");
+//				genPlugin.setID(baseID + ".rcp");
+//				super.generateDiagramPlugin(d);
+//				//RCP view
+//				d.getEditorGen().getEditor().setEclipseEditor(false);
+//				genPlugin.setName(baseName + ".rcp.view");
+//				genPlugin.setID(baseID + ".rcp.view");
+//				super.generateDiagramPlugin(d);
 			}
 		}.generateAndCompile(genSource);
 	}
