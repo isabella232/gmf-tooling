@@ -4,7 +4,7 @@
 GenPlugin genPlugin = (GenPlugin) argument;
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
-final boolean isRichClientPlatform = genModel.isRichClientPlatform();
+final boolean isRichClientPlatform = genPlugin.getEditorGen().getApplication() != null;
 %>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>

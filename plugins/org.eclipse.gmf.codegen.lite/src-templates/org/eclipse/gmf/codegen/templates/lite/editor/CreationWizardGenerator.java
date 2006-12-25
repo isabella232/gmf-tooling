@@ -49,7 +49,7 @@ public class CreationWizardGenerator
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getApplication() != null;
 
 importManager.emitPackageStatement(stringBuffer);
 importManager.markImportLocation(stringBuffer);

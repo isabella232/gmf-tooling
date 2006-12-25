@@ -5,7 +5,8 @@ final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
 final GenModel genModel = editorGen.getDomainGenModel();
-final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+final GenApplication application = genDiagram.getEditorGen().getApplication();
+final boolean isRichClientPlatform = application != null;
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -57,11 +58,11 @@ if (isRichClientPlatform) {
 %>
   <extension
     point="org.eclipse.core.runtime.applications"
-    id="<%=genModel.getModelName()%>DiagramApplication">
+    id="<%=application.getID()%>">
     <?gmfgen generated="true"?>
     <application>
       <run
-        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Application">
+        class="<%=application.getQualifiedClassName()%>">
       </run>
     </application>
   </extension>
@@ -71,8 +72,8 @@ if (isRichClientPlatform) {
      <?gmfgen generated="true"?>
     <perspective
       name="%_UI_Perspective_label"
-      class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Perspective"
-      id="<%=genPlugin.getID()%>.Perspective">
+      class="<%=application.getPerspectiveQualifiedClassName()%>"
+      id="<%=application.getPerspectiveId()%>">
     </perspective>
   </extension>
 <%
@@ -85,23 +86,23 @@ if (isRichClientPlatform) {
       name="%_UI_Menu_OpenURI_label"
       description="%_UI_Menu_OpenURI_description"
       categoryId="org.eclipse.ui.category.file"
-      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand" />  
+      id="<%=genPlugin.getID()%>.OpenURICommand" />  
     <command
       name="%_UI_Menu_Open_label"
       description="%_UI_Menu_Open_description"
       categoryId="org.eclipse.ui.category.file"
-      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand" />  
+      id="<%=genPlugin.getID()%>.OpenCommand" />  
   </extension> 
 
   <extension
     point="org.eclipse.ui.bindings">
      <?gmfgen generated="true"?>
     <key
-      commandId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand"
+      commandId="<%=genPlugin.getID()%>.OpenURICommand"
       sequence="M1+U"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
     <key
-      commandId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand"
+      commandId="<%=genPlugin.getID()%>.OpenCommand"
       sequence="M1+O"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
   </extension>
@@ -111,38 +112,38 @@ if (isRichClientPlatform) {
     <actionSet
       label="%_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>_ActionSet_label"
       visible="true"
-      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>ActionSet">
+      id="<%=genPlugin.getID()%>.ActionSet">
 <%
 	if (shouldGenerateApplication) {
 %>
       <action
         label="%_UI_Menu_About_label"
-        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$AboutAction"
+        class="<%=application.getActionBarAdvisorQualifiedClassName()%>$AboutAction"
         menubarPath="help/additions"
-        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>AboutAction">
+        id="<%=genPlugin.getID()%>.AboutAction">
       </action>
 <%
 	}
 %>
       <action
         label="%_UI_Menu_OpenURI_label"
-        definitionId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand"
-        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$OpenURIAction"
+        definitionId="<%=genPlugin.getID()%>.OpenURICommand"
+        class="<%=application.getActionBarAdvisorQualifiedClassName()%>$OpenURIAction"
         menubarPath="file/additions"
-        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURIAction">
+        id="<%=genPlugin.getID()%>.OpenURIAction">
       </action>
       <action
         label="%_UI_Menu_Open_label"
-        definitionId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand"
-        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$OpenDiagramAction"
+        definitionId="<%=genPlugin.getID()%>.OpenCommand"
+        class="<%=application.getActionBarAdvisorQualifiedClassName()%>$OpenAction"
         menubarPath="file/additions"
-        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenDiagramAction">
+        id="<%=application.getActionBarAdvisorQualifiedClassName()%>OpenDiagramAction">
       </action>
       <action
         label="%_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewDiagramCommand"
-        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$NewDiagramAction"
+        class="<%=application.getActionBarAdvisorQualifiedClassName()%>$NewDiagramAction"
         menubarPath="file/new/additions"
-        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewAction">
+        id="<%=genPlugin.getID()%>.NewDiagramAction">
       </action>
       <action
         label="Initialize <%=editorGen.getDiagramFileExtension()%> diagram file"

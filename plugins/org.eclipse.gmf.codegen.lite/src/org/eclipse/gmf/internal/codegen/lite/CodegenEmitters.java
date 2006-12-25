@@ -460,6 +460,26 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::propsheet::PropertySection::PropertySection");
 	}
 
+	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::application::Application::Application"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::application::ActionBarAdvisor::ActionBarAdvisor"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::application::Perspective::Perspective"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::application::WorkbenchAdvisor::WorkbenchAdvisor"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
+	}
+
 	private TextEmitter retrieveXpand(String templateFQN) {
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {

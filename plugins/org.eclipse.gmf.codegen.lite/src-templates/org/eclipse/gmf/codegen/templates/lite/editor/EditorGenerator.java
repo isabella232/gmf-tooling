@@ -310,7 +310,7 @@ public class EditorGenerator
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getApplication() != null;
 final boolean isEclipseEditor = genEditor.isEclipseEditor();
 
 importManager.emitPackageStatement(stringBuffer);

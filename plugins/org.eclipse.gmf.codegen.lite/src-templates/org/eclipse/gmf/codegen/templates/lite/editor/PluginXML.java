@@ -34,30 +34,30 @@ public class PluginXML
   protected final String TEXT_15 = "\"" + NL + "            name=\"";
   protected final String TEXT_16 = " Diagram View\"/>" + NL + "   </extension>";
   protected final String TEXT_17 = NL + "  <extension" + NL + "    point=\"org.eclipse.core.runtime.applications\"" + NL + "    id=\"";
-  protected final String TEXT_18 = "DiagramApplication\">" + NL + "    <?gmfgen generated=\"true\"?>" + NL + "    <application>" + NL + "      <run" + NL + "        class=\"";
-  protected final String TEXT_19 = "$Application\">" + NL + "      </run>" + NL + "    </application>" + NL + "  </extension>" + NL + "" + NL + "   <extension" + NL + "    point=\"org.eclipse.ui.perspectives\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <perspective" + NL + "      name=\"%_UI_Perspective_label\"" + NL + "      class=\"";
-  protected final String TEXT_20 = "$Perspective\"" + NL + "      id=\"";
-  protected final String TEXT_21 = ".Perspective\">" + NL + "    </perspective>" + NL + "  </extension>";
+  protected final String TEXT_18 = "\">" + NL + "    <?gmfgen generated=\"true\"?>" + NL + "    <application>" + NL + "      <run" + NL + "        class=\"";
+  protected final String TEXT_19 = "\">" + NL + "      </run>" + NL + "    </application>" + NL + "  </extension>" + NL + "" + NL + "   <extension" + NL + "    point=\"org.eclipse.ui.perspectives\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <perspective" + NL + "      name=\"%_UI_Perspective_label\"" + NL + "      class=\"";
+  protected final String TEXT_20 = "\"" + NL + "      id=\"";
+  protected final String TEXT_21 = "\">" + NL + "    </perspective>" + NL + "  </extension>";
   protected final String TEXT_22 = NL + "  <extension" + NL + "    point=\"org.eclipse.ui.commands\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <command" + NL + "      name=\"%_UI_Menu_OpenURI_label\"" + NL + "      description=\"%_UI_Menu_OpenURI_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
-  protected final String TEXT_23 = "OpenURICommand\" />  " + NL + "    <command" + NL + "      name=\"%_UI_Menu_Open_label\"" + NL + "      description=\"%_UI_Menu_Open_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
-  protected final String TEXT_24 = "OpenCommand\" />  " + NL + "  </extension> " + NL + "" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.bindings\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <key" + NL + "      commandId=\"";
-  protected final String TEXT_25 = "OpenURICommand\"" + NL + "      sequence=\"M1+U\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "    <key" + NL + "      commandId=\"";
-  protected final String TEXT_26 = "OpenCommand\"" + NL + "      sequence=\"M1+O\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "  </extension>" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.actionSets\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <actionSet" + NL + "      label=\"%_UI_";
+  protected final String TEXT_23 = ".OpenURICommand\" />  " + NL + "    <command" + NL + "      name=\"%_UI_Menu_Open_label\"" + NL + "      description=\"%_UI_Menu_Open_description\"" + NL + "      categoryId=\"org.eclipse.ui.category.file\"" + NL + "      id=\"";
+  protected final String TEXT_24 = ".OpenCommand\" />  " + NL + "  </extension> " + NL + "" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.bindings\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <key" + NL + "      commandId=\"";
+  protected final String TEXT_25 = ".OpenURICommand\"" + NL + "      sequence=\"M1+U\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "    <key" + NL + "      commandId=\"";
+  protected final String TEXT_26 = ".OpenCommand\"" + NL + "      sequence=\"M1+O\"" + NL + "      schemeId=\"org.eclipse.ui.defaultAcceleratorConfiguration\" />" + NL + "  </extension>" + NL + "  <extension" + NL + "    point=\"org.eclipse.ui.actionSets\">" + NL + "     <?gmfgen generated=\"true\"?>" + NL + "    <actionSet" + NL + "      label=\"%_UI_";
   protected final String TEXT_27 = "_ActionSet_label\"" + NL + "      visible=\"true\"" + NL + "      id=\"";
-  protected final String TEXT_28 = "ActionSet\">";
+  protected final String TEXT_28 = ".ActionSet\">";
   protected final String TEXT_29 = NL + "      <action" + NL + "        label=\"%_UI_Menu_About_label\"" + NL + "        class=\"";
   protected final String TEXT_30 = "$AboutAction\"" + NL + "        menubarPath=\"help/additions\"" + NL + "        id=\"";
-  protected final String TEXT_31 = "AboutAction\">" + NL + "      </action>";
+  protected final String TEXT_31 = ".AboutAction\">" + NL + "      </action>";
   protected final String TEXT_32 = NL + "      <action" + NL + "        label=\"%_UI_Menu_OpenURI_label\"" + NL + "        definitionId=\"";
-  protected final String TEXT_33 = "OpenURICommand\"" + NL + "        class=\"";
+  protected final String TEXT_33 = ".OpenURICommand\"" + NL + "        class=\"";
   protected final String TEXT_34 = "$OpenURIAction\"" + NL + "        menubarPath=\"file/additions\"" + NL + "        id=\"";
-  protected final String TEXT_35 = "OpenURIAction\">" + NL + "      </action>" + NL + "      <action" + NL + "        label=\"%_UI_Menu_Open_label\"" + NL + "        definitionId=\"";
-  protected final String TEXT_36 = "OpenCommand\"" + NL + "        class=\"";
-  protected final String TEXT_37 = "$OpenDiagramAction\"" + NL + "        menubarPath=\"file/additions\"" + NL + "        id=\"";
+  protected final String TEXT_35 = ".OpenURIAction\">" + NL + "      </action>" + NL + "      <action" + NL + "        label=\"%_UI_Menu_Open_label\"" + NL + "        definitionId=\"";
+  protected final String TEXT_36 = ".OpenCommand\"" + NL + "        class=\"";
+  protected final String TEXT_37 = "$OpenAction\"" + NL + "        menubarPath=\"file/additions\"" + NL + "        id=\"";
   protected final String TEXT_38 = "OpenDiagramAction\">" + NL + "      </action>" + NL + "      <action" + NL + "        label=\"%_UI_";
   protected final String TEXT_39 = "NewDiagramCommand\"" + NL + "        class=\"";
   protected final String TEXT_40 = "$NewDiagramAction\"" + NL + "        menubarPath=\"file/new/additions\"" + NL + "        id=\"";
-  protected final String TEXT_41 = "NewAction\">" + NL + "      </action>" + NL + "      <action" + NL + "        label=\"Initialize ";
+  protected final String TEXT_41 = ".NewDiagramAction\">" + NL + "      </action>" + NL + "      <action" + NL + "        label=\"Initialize ";
   protected final String TEXT_42 = " diagram file\"" + NL + "        class=\"";
   protected final String TEXT_43 = "\"" + NL + "        menubarPath=\"file/additions\"" + NL + "        id=\"";
   protected final String TEXT_44 = "ID\">" + NL + "      </action>" + NL + "    </actionSet> " + NL + "  </extension>";
@@ -165,7 +165,8 @@ final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
 final GenModel genModel = editorGen.getDomainGenModel();
-final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+final GenApplication application = genDiagram.getEditorGen().getApplication();
+final boolean isRichClientPlatform = application != null;
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(editorGen.getDiagramFileExtension());
@@ -211,59 +212,59 @@ if (isRichClientPlatform) {
 	if (shouldGenerateApplication) {
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(application.getID());
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getQualifiedClassName());
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getPerspectiveQualifiedClassName());
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(genPlugin.getID());
+    stringBuffer.append(application.getPerspectiveId());
     stringBuffer.append(TEXT_21);
     
 	}
 
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_26);
     stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_28);
     
 	if (shouldGenerateApplication) {
 
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getActionBarAdvisorQualifiedClassName());
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_31);
     
 	}
 
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getActionBarAdvisorQualifiedClassName());
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getActionBarAdvisorQualifiedClassName());
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getActionBarAdvisorQualifiedClassName());
     stringBuffer.append(TEXT_38);
     stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(application.getActionBarAdvisorQualifiedClassName());
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilQualifiedClassName());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_41);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_42);

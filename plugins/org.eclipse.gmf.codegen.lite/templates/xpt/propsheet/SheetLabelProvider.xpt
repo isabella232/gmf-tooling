@@ -15,7 +15,7 @@ public class «labelProviderClassName» extends org.eclipse.jface.viewers.Decorati
 	«EXPAND xpt::Common::generated FOR ""-»
 	public String getText(Object element) {
 		Object selected = unwrap(element); 
-«IF null != editorGen.navigator && !editorGen.domainGenModel.richClientPlatform»
+«IF null != editorGen.navigator && null != editorGen.application»
 		if (selected instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
 			return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») selected).getGroupName();
 		}

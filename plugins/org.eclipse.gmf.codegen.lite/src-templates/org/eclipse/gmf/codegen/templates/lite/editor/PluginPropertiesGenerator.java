@@ -48,7 +48,7 @@ public class PluginPropertiesGenerator
 GenPlugin genPlugin = (GenPlugin) argument;
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
-final boolean isRichClientPlatform = genModel.isRichClientPlatform();
+final boolean isRichClientPlatform = genPlugin.getEditorGen().getApplication() != null;
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genPlugin.getName());

@@ -21,6 +21,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -176,6 +177,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myEditorGen.getPropertySheet() != null) {
 			generatePropertySheetSections();
 		}
+		generateApplication();
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -383,6 +385,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
 		if (myEditorGen.getPropertySheet().isNeedsCaption()) {
 			doGenerateJavaClass(
@@ -397,6 +400,17 @@ public class Generator extends GeneratorBase implements Runnable {
 					((GenCustomPropertyTab) tab).getQualifiedClassName(),
 					tab);
 			}
+		}
+	}
+
+	private void generateApplication() throws UnexpectedBehaviourException, InterruptedException {
+		GenApplication application = myEditorGen.getApplication();
+		if (application != null) {
+			doGenerateJavaClass(myEmitters.getApplicationEmitter(), application.getQualifiedClassName(), application);
+			doGenerateJavaClass(myEmitters.getActionBarAdvisorEmitter(), application.getActionBarAdvisorQualifiedClassName(), application);
+			doGenerateJavaClass(myEmitters.getPerspectiveEmitter(), application.getPerspectiveQualifiedClassName(), application);
+			doGenerateJavaClass(myEmitters.getWorkbenchAdvisorEmitter(), application.getWorkbenchAdvisorQualifiedClassName(), application);
+			doGenerateJavaClass(myEmitters.getWorkbenchWindowAdvisorEmitter(), application.getWorkbenchWindowAdvisorQualifiedClassName(), application);
 		}
 	}
 

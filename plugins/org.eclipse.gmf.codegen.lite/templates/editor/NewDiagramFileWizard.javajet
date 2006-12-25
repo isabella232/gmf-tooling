@@ -6,7 +6,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final GenModel genModel = editorGen.getDomainGenModel();
 final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
-final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getApplication() != null;
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%

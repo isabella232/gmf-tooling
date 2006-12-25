@@ -63,7 +63,7 @@ Iterator requiredBundleIterator = requiredPluginIDs.iterator();
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genPlugin.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_5);
-    if (!genModel.isRichClientPlatform()) {
+    if (genPlugin.getEditorGen().getApplication() == null) {
     stringBuffer.append(TEXT_6);
     if (genPlugin.getEditorGen().getNavigator() != null) {
     stringBuffer.append(TEXT_7);
