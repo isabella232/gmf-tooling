@@ -554,5 +554,43 @@
             <input type="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
+   </extension><extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            name="%preferences.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramGeneralPreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.general">
+      </page>
+      <page
+            name="%preferences.appearance"
+            category="org.eclipse.gmf.examples.taipan.gmf.editor.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramAppearancePreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.appearance">
+      </page>     
+      <page
+            name="%preferences.connections"
+            category="org.eclipse.gmf.examples.taipan.gmf.editor.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramConnectionsPreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.connections">
+      </page>    
+      <page
+            name="%preferences.printing"
+            category="org.eclipse.gmf.examples.taipan.gmf.editor.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPrintingPreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.printing">
+      </page>
+      <page
+            name="%preferences.rulersAndGrid"
+            category="org.eclipse.gmf.examples.taipan.gmf.editor.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramRulersAndGridPreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rulersAndGrid">
+      </page>
+      <page
+            name="%preferences.pathmaps"
+            category="org.eclipse.gmf.examples.taipan.gmf.editor.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.pathmaps">
+      </page>
    </extension>
+
 </plugin>
