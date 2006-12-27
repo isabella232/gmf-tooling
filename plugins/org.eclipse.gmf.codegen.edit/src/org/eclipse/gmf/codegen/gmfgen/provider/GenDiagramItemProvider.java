@@ -1576,6 +1576,7 @@ public class GenDiagramItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Links());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Preferences());
 		}
 		return childrenFeatures;
 	}
@@ -1697,6 +1698,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -1747,6 +1749,11 @@ public class GenDiagramItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Palette(),
 				 GMFGenFactory.eINSTANCE.createPalette()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_Preferences(),
+				 GMFGenFactory.eINSTANCE.createGenDiagramPreferences()));
 	}
 
 	/**
