@@ -853,6 +853,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:editPolicies", genDiagram.getEditPoliciesPackageName());
 		checkPackageName(state, "GenEditorView:packageName", genDiagram.getEditorGen().getEditor().getPackageName());
 		checkPackageName(state, "PackageNames:providers", genDiagram.getProvidersPackageName());
+		checkPackageName(state, "PackageNames:preferences", genDiagram.getPreferencesPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
 		GenApplication application = genDiagram.getEditorGen().getApplication();
 		if (application != null) {
