@@ -16,6 +16,45 @@ final GenApplication application = editorGen.getApplication();
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
    </extension>
 
+   <extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            name="%preferences.general"
+            class="<%=genDiagram.getPreferencesPackageName() + ".DiagramGeneralPreferencePage"%>"
+            id="<%=genPlugin.getID()%>.general">
+      </page>
+      <page
+            name="%preferences.appearance"
+            category="<%=genPlugin.getID()%>.general"
+            class="<%=genDiagram.getPreferencesPackageName() + ".DiagramAppearancePreferencePage"%>"
+            id="<%=genPlugin.getID()%>.appearance">
+      </page>     
+      <page
+            name="%preferences.connections"
+            category="<%=genPlugin.getID()%>.general"
+            class="<%=genDiagram.getPreferencesPackageName() + ".DiagramConnectionsPreferencePage"%>"
+            id="<%=genPlugin.getID()%>.connections">
+      </page>    
+      <page
+            name="%preferences.printing"
+            category="<%=genPlugin.getID()%>.general"
+            class="<%=genDiagram.getPreferencesPackageName() + ".DiagramPrintingPreferencePage"%>"
+            id="<%=genPlugin.getID()%>.printing">
+      </page>
+      <page
+            name="%preferences.rulersAndGrid"
+            category="<%=genPlugin.getID()%>.general"
+            class="<%=genDiagram.getPreferencesPackageName() + ".DiagramRulersAndGridPreferencePage"%>"
+            id="<%=genPlugin.getID()%>.rulersAndGrid">
+      </page>
+      <page
+            name="%preferences.pathmaps"
+            category="<%=genPlugin.getID()%>.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
+            id="<%=genPlugin.getID()%>.pathmaps">
+      </page>
+   </extension>
+
    <extension point="org.eclipse.team.core.fileTypes">
       <?gmfgen generated="true"?>
       <fileTypes

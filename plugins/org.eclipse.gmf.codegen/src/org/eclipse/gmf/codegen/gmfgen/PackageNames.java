@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditHelpersPackageName <em>Edit Helpers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getPreferencesPackageName <em>Preferences Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  * </ul>
@@ -133,6 +134,32 @@ public interface PackageNames extends EObject {
 	 * @generated
 	 */
 	void setEditPoliciesPackageName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Preferences Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preferences Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preferences Package Name</em>' attribute.
+	 * @see #setPreferencesPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPackageNames_PreferencesPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getPreferencesPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getPreferencesPackageName <em>Preferences Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Preferences Package Name</em>' attribute.
+	 * @see #getPreferencesPackageName()
+	 * @generated
+	 */
+	void setPreferencesPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Providers Package Name</b></em>' attribute.

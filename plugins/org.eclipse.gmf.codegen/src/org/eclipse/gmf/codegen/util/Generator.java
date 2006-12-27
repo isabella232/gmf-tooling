@@ -169,6 +169,13 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateExpressionProviders();
 		}
 
+		// preferences
+		generateAppearancePreferencePage();
+		generateConnectionsPreferencePage();
+		generateGeneralPreferencePage();
+		generatePrintingPreferencePage();
+		generateRulersAndGridPreferencePage();
+
 		// editor
 		generatePalette();
 		generateDiagramEditorUtil();
@@ -485,6 +492,28 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateTextNonResizableEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getTextNonResizableEditPolicyEmitter(), myDiagram.getTextNonResizableEditPolicyQualifiedClassName(), myDiagram);
+	}
+
+	// preferences
+
+	private void generateAppearancePreferencePage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramAppearancePreferencePage", myDiagram);
+	}
+
+	private void generateConnectionsPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getConnectionsPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramConnectionsPreferencePage", myDiagram);
+	}
+
+	private void generateGeneralPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getGeneralPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramGeneralPreferencePage", myDiagram);
+	}
+
+	private void generatePrintingPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getPrintingPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramPrintingPreferencePage", myDiagram);
+	}
+
+	private void generateRulersAndGridPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getRulersAndGridPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramRulersAndGridPreferencePage", myDiagram);
 	}
 
 	// providers

@@ -648,6 +648,28 @@ public class CodegenEmitters {
 		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
 	}
 
+	// preferences
+
+	public TextEmitter getAppearancePreferencePageEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::AppearancePreferencePage::AppearancePreferencePage"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getConnectionsPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::ConnectionsPreferencePage::ConnectionsPreferencePage"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getGeneralPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::GeneralPreferencePage::GeneralPreferencePage"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getPrintingPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::PrintingPreferencePage::PrintingPreferencePage"); //$NON-NLS-1$
+	}
+
+	public TextEmitter getRulersAndGridPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::RulersandGridPreferencePage::RulersAndGridPreferencePage"); //$NON-NLS-1$
+	}
+
 	// application
 
 	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {

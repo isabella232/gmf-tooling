@@ -278,6 +278,7 @@
       <genFeatures createChild="false" propertyCategory="Edit Helpers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editHelpersPackageName"/>
       <genFeatures createChild="false" propertyCategory="Edit Parts" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/preferencesPackageName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
       <genFeatures createChild="false" propertyCategory="View Factories" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
     </genClasses>

@@ -7,6 +7,13 @@ final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
 
+preferences.general=<%=genPlugin.getEditorGen().getModelID()%> Diagram
+preferences.appearance=Appearance
+preferences.connections=Connections
+preferences.printing=Printing
+preferences.rulersAndGrid=Rulers & Grid
+preferences.pathmaps=Path Maps
+
 editorName=<%=genPlugin.getEditorGen().getModelID()%> Diagram Editor
 newWizardName=<%=genPlugin.getEditorGen().getModelID()%> Diagram
 newWizardDesc=Creates <%=genPlugin.getEditorGen().getModelID()%> diagram.
