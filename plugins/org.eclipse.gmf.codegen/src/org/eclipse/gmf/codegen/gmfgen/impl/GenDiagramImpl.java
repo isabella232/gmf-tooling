@@ -3546,7 +3546,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public String getPreferenceInitializerQualifiedClassName() {
-		return getEditorPackageName() + '.' + getPreferenceInitializerClassName();
+		return getPreferencesPackageName() + '.' + getPreferenceInitializerClassName();
 	}
 
 	/**

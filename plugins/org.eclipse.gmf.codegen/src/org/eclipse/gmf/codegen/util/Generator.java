@@ -170,6 +170,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 
 		// preferences
+		generatePreferenceInitializer();
 		generateAppearancePreferencePage();
 		generateConnectionsPreferencePage();
 		generateGeneralPreferencePage();
@@ -196,7 +197,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		generateActionBarContributor();
 		generateMatchingStrategy();
-		generatePreferencesInitializer();
 		if (myEditorGen.getNavigator() != null) {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
@@ -495,6 +495,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	// preferences
+
+	private void generatePreferenceInitializer() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getPreferenceInitializerEmitter(), myDiagram.getPreferenceInitializerQualifiedClassName(), myDiagram);
+	}
 
 	private void generateAppearancePreferencePage() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramAppearancePreferencePage", myDiagram);
@@ -836,15 +840,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getMatchingStrategyClassName(),
 			myDiagram
-		);
-	}
-
-	private void generatePreferencesInitializer() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getPreferencesInitializerEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getPreferenceInitializerClassName(),
-			myEditorGen
 		);
 	}
 	

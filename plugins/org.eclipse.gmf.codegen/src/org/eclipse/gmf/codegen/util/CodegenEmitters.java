@@ -53,7 +53,6 @@ import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
-import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PropertySectionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.SheetLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
@@ -226,7 +225,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
-		put(tr, "/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
 		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
@@ -571,10 +569,6 @@ public class CodegenEmitters {
 	public TextEmitter getMatchingStrategyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MatchingStrategyGenerator.class);
 	}
-
-	public TextEmitter getPreferencesInitializerEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PreferencesInitializerGenerator.class);
-	}
 	
 	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorContentProviderGenerator.class);
@@ -649,6 +643,10 @@ public class CodegenEmitters {
 	}
 
 	// preferences
+
+	public TextEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
+		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::PreferenceInitializer::PreferenceInitializer"); //$NON-NLS-1$
+	}
 
 	public TextEmitter getAppearancePreferencePageEmitter() throws UnexpectedBehaviourException {
 		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::AppearancePreferencePage::AppearancePreferencePage"); //$NON-NLS-1$

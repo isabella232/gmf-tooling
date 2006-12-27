@@ -12,22 +12,21 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::ClassNames»
 
-«DEFINE AppearancePreferencePage FOR gmfgen::GenDiagram-»
+«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «preferencesPackageName»;
 
 /**
  * @generated
  */
-public class «appearancePreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.AppearancePreferencePage {
+public class «preferenceInitializerClassName» extends org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer {
 
 	/**
 	 * @generated
 	 */
-	public «appearancePreferencePageClassName(this)»() {
-		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+	protected org.eclipse.jface.preference.IPreferenceStore getPreferenceStore() {
+		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore();
 	}
 } 
 «ENDDEFINE»

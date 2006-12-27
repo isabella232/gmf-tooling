@@ -23,6 +23,9 @@ package «preferencesPackageName»;
  */
 public class «connectionsPreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.ConnectionsPreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public «connectionsPreferencePageClassName(this)»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}

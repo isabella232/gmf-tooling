@@ -23,6 +23,9 @@ package «preferencesPackageName»;
  */
 public class «printingPreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.PrintingPreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public «printingPreferencePageClassName(this)»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}

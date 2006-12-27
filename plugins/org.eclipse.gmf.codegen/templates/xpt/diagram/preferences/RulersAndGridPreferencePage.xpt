@@ -23,6 +23,9 @@ package «preferencesPackageName»;
  */
 public class «rulersAndGridPreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.RulerGridPreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public «rulersAndGridPreferencePageClassName(this)»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}

@@ -23,6 +23,9 @@ package «preferencesPackageName»;
  */
 public class «generalPreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramsPreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public «generalPreferencePageClassName(this)»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}
