@@ -19,6 +19,9 @@ import org.eclipse.gmf.runtime.diagram.ui.preferences.AppearancePreferencePage;
  */
 public class DiagramAppearancePreferencePage extends AppearancePreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public DiagramAppearancePreferencePage() {
 		setPreferenceStore(TaiPanDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}

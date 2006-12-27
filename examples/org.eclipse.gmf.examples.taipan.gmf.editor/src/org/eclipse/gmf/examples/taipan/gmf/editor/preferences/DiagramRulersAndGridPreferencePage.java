@@ -19,6 +19,9 @@ import org.eclipse.gmf.runtime.diagram.ui.preferences.RulerGridPreferencePage;
  */
 public class DiagramRulersAndGridPreferencePage extends RulerGridPreferencePage {
 
+	/**
+	 * @generated
+	 */
 	public DiagramRulersAndGridPreferencePage() {
 		setPreferenceStore(TaiPanDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
