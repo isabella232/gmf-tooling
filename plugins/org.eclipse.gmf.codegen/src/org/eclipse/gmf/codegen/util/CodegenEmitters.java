@@ -682,6 +682,14 @@ public class CodegenEmitters {
 		return retrieve(WizardNewFileCreationPageGenerator.class);
 	}
 
+    public TextEmitter getExternalizeEmitter() {
+        return new XpandTextEmitter(myResourceManager, "xpt::Externalizer::Access");
+    }
+
+    public TextEmitter getMessagesEmitter() {
+        return new XpandTextEmitter(myResourceManager, "xpt::Externalizer::Values");
+    }
+    
 	// util
 
 	private BinaryEmitter newGIFEmitter(String relativePath) throws UnexpectedBehaviourException {

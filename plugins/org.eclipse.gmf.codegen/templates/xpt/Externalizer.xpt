@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Anna Karjakina (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION xpt::ExternalizerUtils»
+
+«DEFINE Access FOR gmfgen::GenEditorGenerator»
+package «this.getAccessorQualifier()»;
+
+public class «this.getAccessorName()» extends org.eclipse.osgi.util.NLS {
+
+	static {
+		org.eclipse.osgi.util.NLS.initializeMessages("«this.getAccessorName().toLowerCase()»", «this.getAccessorName()».class); //$NON-NLS-1$
+	}
+
+	private «this.getAccessorName()»() {
+	}
+
+    //TODO: put accessor fields manually	
+}
+«ENDDEFINE»
+
+«DEFINE Values FOR gmfgen::GenEditorGenerator»
+# TODO: manually put keys and values
+«ENDDEFINE»
+
+«DEFINE accessorField(String key) FOR Object»
+    public static String «escapeIllegalKeySymbols(key)»;
+«ENDDEFINE»
+
+«DEFINE messageEntry(String key, String message) FOR Object»
+«escapeIllegalKeySymbols(key)»=«escapeIllegalMessageSymbols(message)»
+«ENDDEFINE»

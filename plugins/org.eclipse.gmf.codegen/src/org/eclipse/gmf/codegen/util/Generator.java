@@ -84,6 +84,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		final String pluginID = myEditorGen.getPlugin().getID();
 		initializeEditorProject(pluginID, guessProjectLocation(pluginID));
+        
+        // draft for messages
+        generateExternalizationSupport();
+        
 		// commands
 		generateReorientConnectionViewCommand();
 
@@ -1067,6 +1071,13 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
+    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
+        String packageName = myEditorGen.getEditor().getPackageName();
+        String messagesClassName = "Messages";
+        doGenerateJavaClass(myEmitters.getExternalizeEmitter(), packageName, messagesClassName, new Object[] { myEditorGen });
+        doGenerateFile(myEmitters.getMessagesEmitter(), new Path(messagesClassName.toLowerCase()+".properties"), new Object[] { myEditorGen });
+    }
+    
 	// util
 
 	/**
