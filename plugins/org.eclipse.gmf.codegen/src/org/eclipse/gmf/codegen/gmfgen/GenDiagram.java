@@ -29,6 +29,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSynchronized <em>Synchronized</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferences <em>Preferences</em>}</li>
  * </ul>
  * </p>
  *
@@ -209,6 +210,32 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	void setSynchronized(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Preferences</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preferences</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preferences</em>' containment reference.
+	 * @see #setPreferences(GenDiagramPreferences)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Preferences()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenDiagramPreferences getPreferences();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferences <em>Preferences</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Preferences</em>' containment reference.
+	 * @see #getPreferences()
+	 * @generated
+	 */
+	void setPreferences(GenDiagramPreferences value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -128,6 +129,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSynchronized <em>Synchronized</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferences <em>Preferences</em>}</li>
  * </ul>
  * </p>
  *
@@ -1456,6 +1458,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean synchronized_ = SYNCHRONIZED_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getPreferences() <em>Preferences</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenDiagramPreferences preferences = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1631,6 +1643,49 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		synchronized_ = newSynchronized;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED, oldSynchronized, synchronized_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDiagramPreferences getPreferences() {
+		return preferences;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPreferences(GenDiagramPreferences newPreferences, NotificationChain msgs) {
+		GenDiagramPreferences oldPreferences = preferences;
+		preferences = newPreferences;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PREFERENCES, oldPreferences, newPreferences);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPreferences(GenDiagramPreferences newPreferences) {
+		if (newPreferences != preferences) {
+			NotificationChain msgs = null;
+			if (preferences != null)
+				msgs = ((InternalEObject)preferences).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PREFERENCES, null, msgs);
+			if (newPreferences != null)
+				msgs = ((InternalEObject)newPreferences).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PREFERENCES, null, msgs);
+			msgs = basicSetPreferences(newPreferences, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PREFERENCES, newPreferences, newPreferences));
 	}
 
 	/**
@@ -3631,6 +3686,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return basicSetPalette(null, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
+				return basicSetPreferences(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -3800,6 +3857,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPalette();
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				return isSynchronized() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
+				return getPreferences();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -4027,6 +4086,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				setSynchronized(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
+				setPreferences((GenDiagramPreferences)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -4248,6 +4310,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				setSynchronized(SYNCHRONIZED_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
+				setPreferences((GenDiagramPreferences)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -4403,6 +4468,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return palette != null;
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				return synchronized_ != SYNCHRONIZED_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
+				return preferences != null;
 		}
 		return super.eIsSet(featureID);
 	}

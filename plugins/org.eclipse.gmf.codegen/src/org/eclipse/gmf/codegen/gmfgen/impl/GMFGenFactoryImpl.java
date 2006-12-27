@@ -111,6 +111,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR: return createGenEditorGenerator();
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_EDITOR_VIEW: return createGenEditorView();
+			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES: return createGenDiagramPreferences();
+			case GMFGenPackage.GEN_STANDARD_FONT: return createGenStandardFont();
+			case GMFGenPackage.GEN_CUSTOM_FONT: return createGenCustomFont();
+			case GMFGenPackage.GEN_RGB_COLOR: return createGenRGBColor();
+			case GMFGenPackage.GEN_CONSTANT_COLOR: return createGenConstantColor();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.CUSTOM_BEHAVIOUR: return createCustomBehaviour();
 			case GMFGenPackage.SHARED_BEHAVIOUR: return createSharedBehaviour();
@@ -190,6 +195,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.RULER_UNITS:
+				return createRulerUnitsFromString(eDataType, initialValue);
+			case GMFGenPackage.ROUTING:
+				return createRoutingFromString(eDataType, initialValue);
+			case GMFGenPackage.JFACE_FONT:
+				return createJFaceFontFromString(eDataType, initialValue);
+			case GMFGenPackage.FONT_STYLE:
+				return createFontStyleFromString(eDataType, initialValue);
+			case GMFGenPackage.DIAGRAM_COLORS:
+				return createDiagramColorsFromString(eDataType, initialValue);
 			case GMFGenPackage.PROVIDER_PRIORITY:
 				return createProviderPriorityFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
@@ -218,6 +233,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.RULER_UNITS:
+				return convertRulerUnitsToString(eDataType, instanceValue);
+			case GMFGenPackage.ROUTING:
+				return convertRoutingToString(eDataType, instanceValue);
+			case GMFGenPackage.JFACE_FONT:
+				return convertJFaceFontToString(eDataType, instanceValue);
+			case GMFGenPackage.FONT_STYLE:
+				return convertFontStyleToString(eDataType, instanceValue);
+			case GMFGenPackage.DIAGRAM_COLORS:
+				return convertDiagramColorsToString(eDataType, instanceValue);
 			case GMFGenPackage.PROVIDER_PRIORITY:
 				return convertProviderPriorityToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
@@ -267,6 +292,56 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenEditorView createGenEditorView() {
 		GenEditorViewImpl genEditorView = new GenEditorViewImpl();
 		return genEditorView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDiagramPreferences createGenDiagramPreferences() {
+		GenDiagramPreferencesImpl genDiagramPreferences = new GenDiagramPreferencesImpl();
+		return genDiagramPreferences;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenStandardFont createGenStandardFont() {
+		GenStandardFontImpl genStandardFont = new GenStandardFontImpl();
+		return genStandardFont;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCustomFont createGenCustomFont() {
+		GenCustomFontImpl genCustomFont = new GenCustomFontImpl();
+		return genCustomFont;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenRGBColor createGenRGBColor() {
+		GenRGBColorImpl genRGBColor = new GenRGBColorImpl();
+		return genRGBColor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenConstantColor createGenConstantColor() {
+		GenConstantColorImpl genConstantColor = new GenConstantColorImpl();
+		return genConstantColor;
 	}
 
 	/**
@@ -937,6 +1012,106 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenApplication createGenApplication() {
 		GenApplicationImpl genApplication = new GenApplicationImpl();
 		return genApplication;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RulerUnits createRulerUnitsFromString(EDataType eDataType, String initialValue) {
+		RulerUnits result = RulerUnits.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRulerUnitsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Routing createRoutingFromString(EDataType eDataType, String initialValue) {
+		Routing result = Routing.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRoutingToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JFaceFont createJFaceFontFromString(EDataType eDataType, String initialValue) {
+		JFaceFont result = JFaceFont.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJFaceFontToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FontStyle createFontStyleFromString(EDataType eDataType, String initialValue) {
+		FontStyle result = FontStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFontStyleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramColors createDiagramColorsFromString(EDataType eDataType, String initialValue) {
+		DiagramColors result = DiagramColors.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDiagramColorsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

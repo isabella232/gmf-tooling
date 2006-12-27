@@ -151,6 +151,27 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenEditorView(GenEditorView object) {
 				return createGenEditorViewAdapter();
 			}
+			public Object caseGenDiagramPreferences(GenDiagramPreferences object) {
+				return createGenDiagramPreferencesAdapter();
+			}
+			public Object caseGenFont(GenFont object) {
+				return createGenFontAdapter();
+			}
+			public Object caseGenStandardFont(GenStandardFont object) {
+				return createGenStandardFontAdapter();
+			}
+			public Object caseGenCustomFont(GenCustomFont object) {
+				return createGenCustomFontAdapter();
+			}
+			public Object caseGenColor(GenColor object) {
+				return createGenColorAdapter();
+			}
+			public Object caseGenRGBColor(GenRGBColor object) {
+				return createGenRGBColorAdapter();
+			}
+			public Object caseGenConstantColor(GenConstantColor object) {
+				return createGenConstantColorAdapter();
+			}
 			public Object caseBatchValidation(BatchValidation object) {
 				return createBatchValidationAdapter();
 			}
@@ -514,6 +535,104 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenEditorViewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences <em>Gen Diagram Preferences</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences
+	 * @generated
+	 */
+	public Adapter createGenDiagramPreferencesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenFont <em>Gen Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFont
+	 * @generated
+	 */
+	public Adapter createGenFontAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardFont <em>Gen Standard Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenStandardFont
+	 * @generated
+	 */
+	public Adapter createGenStandardFontAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomFont <em>Gen Custom Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomFont
+	 * @generated
+	 */
+	public Adapter createGenCustomFontAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenColor <em>Gen Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenColor
+	 * @generated
+	 */
+	public Adapter createGenColorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenRGBColor <em>Gen RGB Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenRGBColor
+	 * @generated
+	 */
+	public Adapter createGenRGBColorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenConstantColor <em>Gen Constant Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenConstantColor
+	 * @generated
+	 */
+	public Adapter createGenConstantColorAdapter() {
 		return null;
 	}
 

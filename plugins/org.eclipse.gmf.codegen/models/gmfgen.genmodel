@@ -10,6 +10,75 @@
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfgen.ecore#/">
+    <genEnums ecoreEnum="gmfgen.ecore#//RulerUnits">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Inches"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Centimeters"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Pixels"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//Routing">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Manual"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Rectilinear"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Tree"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//JFaceFont">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Default"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Text"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Banner"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Dialog"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Header"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//FontStyle">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//FontStyle/NORMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//FontStyle/BOLD"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//FontStyle/ITALIC"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//DiagramColors">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/buttonLightest"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/button"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/buttonDarker"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/buttonDarkest"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/listBackground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/listForeground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/menuBackground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/menuForeground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/menuBackgroundSelected"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/menuForegroundSelected"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleBackground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleGradient"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleForeground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleInactiveForeground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleInactiveBackground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/titleInactiveGradient"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/tooltipForeground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/tooltipBackground"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/white"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/lightGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/gray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/darkGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/black"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/red"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/orange"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/yellow"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/green"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/lightGreen"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/darkGreen"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/cyan"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/lightBlue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/blue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/darkBlue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramGreen"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramLightRed"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramRed"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramLightBlue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramBlue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramLightGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramDarkGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramLightYellow"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramDarkYellow"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramLightGoldYellow"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//DiagramColors/diagramBurgundyRed"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//ProviderPriority">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Lowest"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Low"/>
@@ -85,6 +154,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
       <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/synchronized"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/preferences"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
@@ -101,6 +171,45 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/eclipseEditor"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenDiagramPreferences">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/lineStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/defaultFont"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/fontColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/fillColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/lineColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/noteFillColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramPreferences/noteLineColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showConnectionHandles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showPopupBars"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/promptOnDelFromModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/promptOnDelFromDiagram"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/enableAnimatedLayout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/enableAnimatedZoom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/enableAntiAlias"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showGrid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/showRulers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/snapToGrid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/rulerUnits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/gridSpacing"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenFont"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenStandardFont">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenStandardFont/name"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenCustomFont">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomFont/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomFont/height"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomFont/style"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenColor"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenRGBColor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenRGBColor/red"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenRGBColor/green"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenRGBColor/blue"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenConstantColor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenConstantColor/name"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>

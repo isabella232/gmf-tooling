@@ -53,6 +53,51 @@ public interface GMFGenFactory extends EFactory {
 	GenEditorView createGenEditorView();
 
 	/**
+	 * Returns a new object of class '<em>Gen Diagram Preferences</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Diagram Preferences</em>'.
+	 * @generated
+	 */
+	GenDiagramPreferences createGenDiagramPreferences();
+
+	/**
+	 * Returns a new object of class '<em>Gen Standard Font</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Standard Font</em>'.
+	 * @generated
+	 */
+	GenStandardFont createGenStandardFont();
+
+	/**
+	 * Returns a new object of class '<em>Gen Custom Font</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Custom Font</em>'.
+	 * @generated
+	 */
+	GenCustomFont createGenCustomFont();
+
+	/**
+	 * Returns a new object of class '<em>Gen RGB Color</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen RGB Color</em>'.
+	 * @generated
+	 */
+	GenRGBColor createGenRGBColor();
+
+	/**
+	 * Returns a new object of class '<em>Gen Constant Color</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Constant Color</em>'.
+	 * @generated
+	 */
+	GenConstantColor createGenConstantColor();
+
+	/**
 	 * Returns a new object of class '<em>Gen Plugin</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

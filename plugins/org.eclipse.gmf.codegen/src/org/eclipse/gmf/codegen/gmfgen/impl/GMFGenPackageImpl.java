@@ -25,6 +25,7 @@ import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.DiagramColors;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
@@ -32,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
+import org.eclipse.gmf.codegen.gmfgen.FontStyle;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
@@ -44,15 +46,19 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
+import org.eclipse.gmf.codegen.gmfgen.GenColor;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstantColor;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomFont;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -65,6 +71,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenFont;
 import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
@@ -86,6 +93,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
+import org.eclipse.gmf.codegen.gmfgen.GenRGBColor;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleContainerBase;
@@ -93,11 +101,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardFont;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.JFaceFont;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
@@ -114,6 +124,8 @@ import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+import org.eclipse.gmf.codegen.gmfgen.Routing;
+import org.eclipse.gmf.codegen.gmfgen.RulerUnits;
 import org.eclipse.gmf.codegen.gmfgen.Separator;
 import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
@@ -162,6 +174,55 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genEditorViewEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genDiagramPreferencesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genFontEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genStandardFontEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCustomFontEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genColorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genRGBColorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genConstantColorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -882,6 +943,41 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum rulerUnitsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum routingEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum jFaceFontEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum fontStyleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum diagramColorsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum providerPriorityEEnum = null;
 
 	/**
@@ -1268,6 +1364,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenDiagram_Preferences() {
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenEditorView() {
 		return genEditorViewEClass;
 	}
@@ -1333,6 +1438,312 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenEditorView_EclipseEditor() {
 		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenDiagramPreferences() {
+		return genDiagramPreferencesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_LineStyle() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_DefaultFont() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_FontColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_FillColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_LineColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_NoteFillColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagramPreferences_NoteLineColor() {
+		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_ShowConnectionHandles() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_ShowPopupBars() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_PromptOnDelFromModel() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_PromptOnDelFromDiagram() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_EnableAnimatedLayout() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_EnableAnimatedZoom() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_EnableAntiAlias() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_ShowGrid() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_ShowRulers() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_SnapToGrid() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_RulerUnits() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagramPreferences_GridSpacing() {
+		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenFont() {
+		return genFontEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenStandardFont() {
+		return genStandardFontEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenStandardFont_Name() {
+		return (EAttribute)genStandardFontEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCustomFont() {
+		return genCustomFontEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomFont_Name() {
+		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomFont_Height() {
+		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomFont_Style() {
+		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenColor() {
+		return genColorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenRGBColor() {
+		return genRGBColorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenRGBColor_Red() {
+		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenRGBColor_Green() {
+		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenRGBColor_Blue() {
+		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenConstantColor() {
+		return genConstantColorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenConstantColor_Name() {
+		return (EAttribute)genConstantColorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4940,6 +5351,51 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getRulerUnits() {
+		return rulerUnitsEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getRouting() {
+		return routingEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getJFaceFont() {
+		return jFaceFontEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getFontStyle() {
+		return fontStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getDiagramColors() {
+		return diagramColorsEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -5064,6 +5520,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genDiagramEClass, GEN_DIAGRAM__COMPARTMENTS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__SYNCHRONIZED);
+		createEReference(genDiagramEClass, GEN_DIAGRAM__PREFERENCES);
 
 		genEditorViewEClass = createEClass(GEN_EDITOR_VIEW);
 		createEReference(genEditorViewEClass, GEN_EDITOR_VIEW__EDITOR_GEN);
@@ -5073,6 +5530,47 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ECLIPSE_EDITOR);
+
+		genDiagramPreferencesEClass = createEClass(GEN_DIAGRAM_PREFERENCES);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_STYLE);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__DEFAULT_FONT);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__FONT_COLOR);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__FILL_COLOR);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_COLOR);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__NOTE_FILL_COLOR);
+		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__NOTE_LINE_COLOR);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_CONNECTION_HANDLES);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_POPUP_BARS);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_MODEL);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_DIAGRAM);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_LAYOUT);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_ZOOM);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANTI_ALIAS);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_GRID);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_RULERS);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__RULER_UNITS);
+		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_SPACING);
+
+		genFontEClass = createEClass(GEN_FONT);
+
+		genStandardFontEClass = createEClass(GEN_STANDARD_FONT);
+		createEAttribute(genStandardFontEClass, GEN_STANDARD_FONT__NAME);
+
+		genCustomFontEClass = createEClass(GEN_CUSTOM_FONT);
+		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__NAME);
+		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__HEIGHT);
+		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__STYLE);
+
+		genColorEClass = createEClass(GEN_COLOR);
+
+		genRGBColorEClass = createEClass(GEN_RGB_COLOR);
+		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__RED);
+		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__GREEN);
+		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__BLUE);
+
+		genConstantColorEClass = createEClass(GEN_CONSTANT_COLOR);
+		createEAttribute(genConstantColorEClass, GEN_CONSTANT_COLOR__NAME);
 
 		batchValidationEClass = createEClass(BATCH_VALIDATION);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME);
@@ -5577,6 +6075,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genApplicationEClass, GEN_APPLICATION__MAIN_TOOL_BAR);
 
 		// Create enums
+		rulerUnitsEEnum = createEEnum(RULER_UNITS);
+		routingEEnum = createEEnum(ROUTING);
+		jFaceFontEEnum = createEEnum(JFACE_FONT);
+		fontStyleEEnum = createEEnum(FONT_STYLE);
+		diagramColorsEEnum = createEEnum(DIAGRAM_COLORS);
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
 		viewmapLayoutTypeEEnum = createEEnum(VIEWMAP_LAYOUT_TYPE);
@@ -5623,6 +6126,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
 		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
 		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
+		genStandardFontEClass.getESuperTypes().add(this.getGenFont());
+		genCustomFontEClass.getESuperTypes().add(this.getGenFont());
+		genRGBColorEClass.getESuperTypes().add(this.getGenColor());
+		genConstantColorEClass.getESuperTypes().add(this.getGenColor());
 		customBehaviourEClass.getESuperTypes().add(this.getBehaviour());
 		sharedBehaviourEClass.getESuperTypes().add(this.getBehaviour());
 		openDiagramBehaviourEClass.getESuperTypes().add(this.getBehaviour());
@@ -5732,6 +6239,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenDiagram_Compartments(), this.getGenCompartment(), this.getGenCompartment_Diagram(), "compartments", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_Synchronized(), ecorePackage.getEBoolean(), "synchronized", "true", 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_Preferences(), this.getGenDiagramPreferences(), null, "preferences", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1);
 
@@ -5755,6 +6263,47 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
 
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
+
+		initEClass(genDiagramPreferencesEClass, GenDiagramPreferences.class, "GenDiagramPreferences", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenDiagramPreferences_LineStyle(), this.getRouting(), "lineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_DefaultFont(), this.getGenFont(), null, "defaultFont", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_FontColor(), this.getGenColor(), null, "fontColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_FillColor(), this.getGenColor(), null, "fillColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_LineColor(), this.getGenColor(), null, "lineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_NoteFillColor(), this.getGenColor(), null, "noteFillColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramPreferences_NoteLineColor(), this.getGenColor(), null, "noteLineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_ShowConnectionHandles(), ecorePackage.getEBoolean(), "showConnectionHandles", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_ShowPopupBars(), ecorePackage.getEBoolean(), "showPopupBars", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_PromptOnDelFromModel(), ecorePackage.getEBoolean(), "promptOnDelFromModel", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_PromptOnDelFromDiagram(), ecorePackage.getEBoolean(), "promptOnDelFromDiagram", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_EnableAnimatedLayout(), ecorePackage.getEBoolean(), "enableAnimatedLayout", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_EnableAnimatedZoom(), ecorePackage.getEBoolean(), "enableAnimatedZoom", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_EnableAntiAlias(), ecorePackage.getEBoolean(), "enableAntiAlias", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_ShowGrid(), ecorePackage.getEBoolean(), "showGrid", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_ShowRulers(), ecorePackage.getEBoolean(), "showRulers", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_RulerUnits(), this.getRulerUnits(), "rulerUnits", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagramPreferences_GridSpacing(), ecorePackage.getEDouble(), "gridSpacing", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genFontEClass, GenFont.class, "GenFont", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(genStandardFontEClass, GenStandardFont.class, "GenStandardFont", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenStandardFont_Name(), this.getJFaceFont(), "name", null, 0, 1, GenStandardFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genCustomFontEClass, GenCustomFont.class, "GenCustomFont", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenCustomFont_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCustomFont_Height(), ecorePackage.getEInt(), "height", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCustomFont_Style(), this.getFontStyle(), "style", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genColorEClass, GenColor.class, "GenColor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(genRGBColorEClass, GenRGBColor.class, "GenRGBColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenRGBColor_Red(), ecorePackage.getEInt(), "red", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenRGBColor_Green(), ecorePackage.getEInt(), "green", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenRGBColor_Blue(), ecorePackage.getEInt(), "blue", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genConstantColorEClass, GenConstantColor.class, "GenConstantColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenConstantColor_Name(), this.getDiagramColors(), "name", null, 0, 1, GenConstantColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(batchValidationEClass, BatchValidation.class, "BatchValidation", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBatchValidation_ValidationProviderClassName(), ecorePackage.getEString(), "validationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6509,6 +7058,75 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getPerspectiveQualifiedClassName", 0, 1);
 
 		// Initialize enums and add enum literals
+		initEEnum(rulerUnitsEEnum, RulerUnits.class, "RulerUnits");
+		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.INCHES_LITERAL);
+		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.CENTIMETERS_LITERAL);
+		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.PIXELS_LITERAL);
+
+		initEEnum(routingEEnum, Routing.class, "Routing");
+		addEEnumLiteral(routingEEnum, Routing.MANUAL_LITERAL);
+		addEEnumLiteral(routingEEnum, Routing.RECTILINEAR_LITERAL);
+		addEEnumLiteral(routingEEnum, Routing.TREE_LITERAL);
+
+		initEEnum(jFaceFontEEnum, JFaceFont.class, "JFaceFont");
+		addEEnumLiteral(jFaceFontEEnum, JFaceFont.DEFAULT_LITERAL);
+		addEEnumLiteral(jFaceFontEEnum, JFaceFont.TEXT_LITERAL);
+		addEEnumLiteral(jFaceFontEEnum, JFaceFont.BANNER_LITERAL);
+		addEEnumLiteral(jFaceFontEEnum, JFaceFont.DIALOG_LITERAL);
+		addEEnumLiteral(jFaceFontEEnum, JFaceFont.HEADER_LITERAL);
+
+		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
+		addEEnumLiteral(fontStyleEEnum, FontStyle.NORMAL_LITERAL);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD_LITERAL);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC_LITERAL);
+
+		initEEnum(diagramColorsEEnum, DiagramColors.class, "DiagramColors");
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_LIGHTEST_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_DARKER_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_DARKEST_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIST_BACKGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIST_FOREGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_BACKGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_FOREGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_BACKGROUND_SELECTED_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_FOREGROUND_SELECTED_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_BACKGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_GRADIENT_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_FOREGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_FOREGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_BACKGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_GRADIENT_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TOOLTIP_FOREGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TOOLTIP_BACKGROUND_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.WHITE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BLACK_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.RED_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.ORANGE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.YELLOW_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.GREEN_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_GREEN_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_GREEN_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.CYAN_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_BLUE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BLUE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_BLUE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_GREEN_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_RED_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_RED_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_BLUE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_BLUE_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_DARK_GRAY_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_YELLOW_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_DARK_YELLOW_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_GOLD_YELLOW_LITERAL);
+		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_BURGUNDY_RED_LITERAL);
+
 		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");
 		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOWEST_LITERAL);
 		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOW_LITERAL);

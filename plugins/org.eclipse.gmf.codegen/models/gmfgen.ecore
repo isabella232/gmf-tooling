@@ -106,6 +106,8 @@
         containment="true" eOpposite="#//Palette/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="synchronized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferences" eType="#//GenDiagramPreferences"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenEditorView">
     <eOperations name="getActionBarContributorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -121,6 +123,129 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="eclipseEditor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagramPreferences">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" eType="#//Routing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultFont" eType="#//GenFont"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fontColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fillColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lineColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="noteFillColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="noteLineColor" eType="#//GenColor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showConnectionHandles"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showPopupBars" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="promptOnDelFromModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="promptOnDelFromDiagram"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableAnimatedLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableAnimatedZoom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableAntiAlias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showGrid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showRulers" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapToGrid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rulerUnits" eType="#//RulerUnits"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridSpacing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RulerUnits">
+    <eLiterals name="Inches"/>
+    <eLiterals name="Centimeters" value="1"/>
+    <eLiterals name="Pixels" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Routing">
+    <eLiterals name="Manual"/>
+    <eLiterals name="Rectilinear" value="1"/>
+    <eLiterals name="Tree" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenFont" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenStandardFont" eSuperTypes="#//GenFont">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="#//JFaceFont"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="JFaceFont">
+    <eLiterals name="Default"/>
+    <eLiterals name="Text" value="1"/>
+    <eLiterals name="Banner" value="2"/>
+    <eLiterals name="Dialog" value="3"/>
+    <eLiterals name="Header" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCustomFont" eSuperTypes="#//GenFont">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//FontStyle"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FontStyle">
+    <eLiterals name="NORMAL"/>
+    <eLiterals name="BOLD" value="1"/>
+    <eLiterals name="ITALIC" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenColor" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenRGBColor" eSuperTypes="#//GenColor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenConstantColor" eSuperTypes="#//GenColor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="#//DiagramColors"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DiagramColors">
+    <eLiterals name="buttonLightest"/>
+    <eLiterals name="button" value="1"/>
+    <eLiterals name="buttonDarker" value="2"/>
+    <eLiterals name="buttonDarkest" value="3"/>
+    <eLiterals name="listBackground" value="4"/>
+    <eLiterals name="listForeground" value="5"/>
+    <eLiterals name="menuBackground" value="6"/>
+    <eLiterals name="menuForeground" value="7"/>
+    <eLiterals name="menuBackgroundSelected" value="8"/>
+    <eLiterals name="menuForegroundSelected" value="9"/>
+    <eLiterals name="titleBackground" value="10"/>
+    <eLiterals name="titleGradient" value="11"/>
+    <eLiterals name="titleForeground" value="12"/>
+    <eLiterals name="titleInactiveForeground" value="13"/>
+    <eLiterals name="titleInactiveBackground" value="14"/>
+    <eLiterals name="titleInactiveGradient" value="15"/>
+    <eLiterals name="tooltipForeground" value="16"/>
+    <eLiterals name="tooltipBackground" value="17"/>
+    <eLiterals name="white" value="18"/>
+    <eLiterals name="lightGray" value="19"/>
+    <eLiterals name="gray" value="20"/>
+    <eLiterals name="darkGray" value="21"/>
+    <eLiterals name="black" value="22"/>
+    <eLiterals name="red" value="23"/>
+    <eLiterals name="orange" value="24"/>
+    <eLiterals name="yellow" value="25"/>
+    <eLiterals name="green" value="26"/>
+    <eLiterals name="lightGreen" value="27"/>
+    <eLiterals name="darkGreen" value="28"/>
+    <eLiterals name="cyan" value="29"/>
+    <eLiterals name="lightBlue" value="30"/>
+    <eLiterals name="blue" value="31"/>
+    <eLiterals name="darkBlue" value="32"/>
+    <eLiterals name="diagramGreen" value="33"/>
+    <eLiterals name="diagramLightRed" value="34"/>
+    <eLiterals name="diagramRed" value="35"/>
+    <eLiterals name="diagramLightBlue" value="36"/>
+    <eLiterals name="diagramBlue" value="37"/>
+    <eLiterals name="diagramLightGray" value="38"/>
+    <eLiterals name="diagramGray" value="39"/>
+    <eLiterals name="diagramDarkGray" value="40"/>
+    <eLiterals name="diagramLightYellow" value="41"/>
+    <eLiterals name="diagramDarkYellow" value="42"/>
+    <eLiterals name="diagramLightGoldYellow" value="43"/>
+    <eLiterals name="diagramBurgundyRed" value="44"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BatchValidation" interface="true">
     <eOperations name="getValidationProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
