@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,8 +9,9 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.gmf.editor.part;
+package org.eclipse.gmf.examples.taipan.gmf.editor.preferences;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -23,6 +24,6 @@ public class TaiPanDiagramPreferenceInitializer extends DiagramPreferenceInitial
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin.getInstance().getPreferenceStore();
+		return TaiPanDiagramEditorPlugin.getInstance().getPreferenceStore();
 	}
 }

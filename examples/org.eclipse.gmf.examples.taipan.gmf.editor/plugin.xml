@@ -19,7 +19,7 @@
 
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
-      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramPreferenceInitializer"/>
+      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.TaiPanDiagramPreferenceInitializer"/>
    </extension>
 
    <extension point="org.eclipse.team.core.fileTypes">
