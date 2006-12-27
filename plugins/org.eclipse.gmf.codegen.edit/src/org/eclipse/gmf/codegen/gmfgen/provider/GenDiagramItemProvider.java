@@ -66,6 +66,7 @@ public class GenDiagramItemProvider
 			addEditHelpersPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addEditPoliciesPackageNamePropertyDescriptor(object);
+			addPreferencesPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
 			addNotationViewFactoriesPackageNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
@@ -259,6 +260,28 @@ public class GenDiagramItemProvider
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_EditPoliciesPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Preferences Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPreferencesPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PackageNames_preferencesPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_preferencesPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_PreferencesPackageName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
 				 null));
 	}
 
@@ -1632,6 +1655,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
