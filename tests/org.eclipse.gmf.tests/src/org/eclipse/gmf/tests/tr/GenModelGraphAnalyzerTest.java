@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -46,8 +47,6 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 
 	private GenTopLevelNode myStartNode;
 
-	private GenModelGraphAnalyzer myAnalyser;
-
 	private GenNodeLabel myStartNodeLabel;
 
 	private GenCompartment myStartNodeCompartment;
@@ -60,12 +59,22 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 
 	private int myClassCounter;
 
+	private GenNavigator myNavigator;
+
+	private GenNavigatorChildReference myNavigatorChildReference;
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		initGenModel();
 		myClassCounter = 0;
 
 		myDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		GMFGenFactory.eINSTANCE.createGenEditorGenerator().setDiagram(myDiagram);
+		myNavigator = GMFGenFactory.eINSTANCE.createGenNavigator();
+		myDiagram.getEditorGen().setNavigator(myNavigator);
+		myNavigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
+		myNavigator.getChildReferences().add(myNavigatorChildReference);
+
 
 		myStartNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myStartNodeLabel = GMFGenFactory.eINSTANCE.createGenNodeLabel();
@@ -74,7 +83,6 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		myStartNode.getCompartments().add(myStartNodeCompartment);
 		initializeMF(myStartNode);
 		myDiagram.getTopLevelNodes().add(myStartNode);
-		myAnalyser = new GenModelGraphAnalyzer(myDiagram);
 	}
 
 	private void initGenModel() {
@@ -108,20 +116,19 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 	public void testEmptyPaths() {
 		GenChildNode notConnectedNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		myDiagram.getChildNodes().add(notConnectedNode);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(notConnectedNode);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(notConnectedNode);
 
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 	}
 
@@ -129,25 +136,24 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		GenChildNode directChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		myStartNode.getChildNodes().add(directChildNode);
 		myDiagram.getChildNodes().add(directChildNode);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
 
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(directChildNode);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(directChildNode);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, directChildNode });
 
-		navigatorChildReference.setChild(myStartNodeLabel);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setChild(myStartNodeLabel);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, myStartNodeLabel });
 
-		navigatorChildReference.setChild(myStartNodeCompartment);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setChild(myStartNodeCompartment);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, myStartNodeCompartment });
 
-		navigatorChildReference.setParent(myDiagram);
-		navigatorChildReference.setChild(myStartNode);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myDiagram);
+		myNavigatorChildReference.setChild(myStartNode);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myDiagram, myStartNode });
 		
 		GenLink link = GMFGenFactory.eINSTANCE.createGenLink();
@@ -155,41 +161,40 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		link.getLabels().add(linkLabel);
 		myDiagram.getLinks().add(link);
 		
-		navigatorChildReference.setChild(link);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setChild(link);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myDiagram, link });
 
-		navigatorChildReference.setParent(link);
-		navigatorChildReference.setChild(linkLabel);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link);
+		myNavigatorChildReference.setChild(linkLabel);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { link, linkLabel });
 	}
 
 	public void testDirectLinkPaths() {
 		GenNode node = createGenNode();
 		GenLink link = createGenLink(myStartNode, node);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(link);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(link);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, link });
 
-		navigatorChildReference.setParent(link);
-		navigatorChildReference.setChild(node);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link);
+		myNavigatorChildReference.setChild(node);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { link, node });
 
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-		navigatorChildReference.setParent(node);
-		navigatorChildReference.setChild(link);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+		myNavigatorChildReference.setParent(node);
+		myNavigatorChildReference.setChild(link);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { node, link });
 
-		navigatorChildReference.setParent(link);
-		navigatorChildReference.setChild(myStartNode);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link);
+		myNavigatorChildReference.setChild(myStartNode);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { link, myStartNode });
 	}
 
@@ -225,16 +230,15 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 	public void testIndirectChildPaths() {
 		GenNode indirectChildNode = createIndirectChildNode();
 		GenCompartment indirectChildNodeCompartment = createIndirectChildNodeCompartment(indirectChildNode);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
 
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(indirectChildNode);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(indirectChildNode);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, myStartNodeCompartment, indirectChildNode });
 
-		navigatorChildReference.setParent(indirectChildNode);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(indirectChildNode);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { indirectChildNode, indirectChildNodeCompartment, indirectChildNode });
 	}
 
@@ -242,48 +246,47 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		GenNode node1 = createGenNode();
 		GenLink link1 = createGenLink(myStartNode, node1);
 		GenLink link2 = createGenLink(node1, node1);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(node1);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(node1);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, link1, node1 });
 
-		navigatorChildReference.setParent(link1);
-		navigatorChildReference.setChild(link2);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link1);
+		myNavigatorChildReference.setChild(link2);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		navigatorChildReference.setParent(node1);
-		navigatorChildReference.setChild(node1);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(node1);
+		myNavigatorChildReference.setChild(node1);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { node1, link2, node1 });
 
-		navigatorChildReference.setParent(link2);
-		navigatorChildReference.setChild(link2);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link2);
+		myNavigatorChildReference.setChild(link2);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-		navigatorChildReference.setParent(node1);
-		navigatorChildReference.setChild(myStartNode);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+		myNavigatorChildReference.setParent(node1);
+		myNavigatorChildReference.setChild(myStartNode);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { node1, link1, myStartNode });
 
-		navigatorChildReference.setParent(link2);
-		navigatorChildReference.setChild(link1);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link2);
+		myNavigatorChildReference.setChild(link1);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		navigatorChildReference.setParent(node1);
-		navigatorChildReference.setChild(node1);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(node1);
+		myNavigatorChildReference.setChild(node1);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { node1, link2, node1 });
 
-		navigatorChildReference.setParent(link2);
-		navigatorChildReference.setChild(link2);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(link2);
+		myNavigatorChildReference.setChild(link2);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
 	}
@@ -309,12 +312,11 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		myDiagram.getChildNodes().add(doublePathChildNode);
 		myStartNodeCompartment.getChildNodes().add(doublePathChildNode);
 		indirectChildNodeCompartment.getChildNodes().add(doublePathChildNode);
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
 
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(doublePathChildNode);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(doublePathChildNode);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		GenCommonBase[] truePath1 = new GenCommonBase[] { myStartNode, myStartNodeCompartment, doublePathChildNode };
 		GenCommonBase[] truePath2 = new GenCommonBase[] { myStartNode, myStartNodeCompartment, indirectChildNode, indirectChildNodeCompartment, doublePathChildNode };
 		assertTwoPaths(paths, truePath1, truePath2);
@@ -328,20 +330,19 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		GenLink link1 = createGenLink(myStartNode, node2);
 		createGenLink(node2, node1);
 
-		GenNavigatorChildReference navigatorChildReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 
 		// Check only one path returned - paths through 2 links should be
 		// skipped
-		navigatorChildReference.setParent(myStartNode);
-		navigatorChildReference.setChild(node1);
-		List<List<GenCommonBase>> paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setParent(myStartNode);
+		myNavigatorChildReference.setChild(node1);
+		List<List<GenCommonBase>> paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { myStartNode, link1, node1 });
 
-		navigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-		navigatorChildReference.setParent(node1);
-		navigatorChildReference.setChild(myStartNode);
-		paths = myAnalyser.getConnectionPaths(navigatorChildReference);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+		myNavigatorChildReference.setParent(node1);
+		myNavigatorChildReference.setChild(myStartNode);
+		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertOnePath(paths, new GenCommonBase[] { node1, link1, myStartNode });
 	}
 
