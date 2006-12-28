@@ -101,7 +101,6 @@ public class GenDiagramItemProvider
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 			addNewDiagramFileWizardClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
-			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
 			addLoadResourceActionClassNamePropertyDescriptor(object);
@@ -282,28 +281,6 @@ public class GenDiagramItemProvider
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Preference Initializer Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPreferenceInitializerClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditorCandies_preferenceInitializerClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_preferenceInitializerClassName_feature", "_UI_EditorCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditorCandies_PreferenceInitializerClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1690,7 +1667,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
