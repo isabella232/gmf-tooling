@@ -1416,6 +1416,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenNavigatorPathItemProvider genNavigatorPathItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenNavigatorPathAdapter() {
+		if (genNavigatorPathItemProvider == null) {
+			genNavigatorPathItemProvider = new GenNavigatorPathItemProvider(this);
+		}
+
+		return genNavigatorPathItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenNavigatorPathSegmentItemProvider genNavigatorPathSegmentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenNavigatorPathSegmentAdapter() {
+		if (genNavigatorPathSegmentItemProvider == null) {
+			genNavigatorPathSegmentItemProvider = new GenNavigatorPathSegmentItemProvider(this);
+		}
+
+		return genNavigatorPathSegmentItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1882,6 +1926,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();
 		if (genNavigatorItemProvider != null) genNavigatorItemProvider.dispose();
 		if (genNavigatorChildReferenceItemProvider != null) genNavigatorChildReferenceItemProvider.dispose();
+		if (genNavigatorPathItemProvider != null) genNavigatorPathItemProvider.dispose();
+		if (genNavigatorPathSegmentItemProvider != null) genNavigatorPathSegmentItemProvider.dispose();
 		if (genPropertySheetItemProvider != null) genPropertySheetItemProvider.dispose();
 		if (genStandardPropertyTabItemProvider != null) genStandardPropertyTabItemProvider.dispose();
 		if (genCustomPropertyTabItemProvider != null) genCustomPropertyTabItemProvider.dispose();
