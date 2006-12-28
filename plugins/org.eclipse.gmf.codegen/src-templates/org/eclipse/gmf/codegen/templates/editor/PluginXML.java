@@ -351,7 +351,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     }
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genDiagram.getPreferenceInitializerQualifiedClassName());
+    stringBuffer.append(genDiagram.getPreferencesPackageName() + ".DiagramPreferenceInitializer");
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genDiagram.getPreferencesPackageName() + ".DiagramGeneralPreferencePage");
     stringBuffer.append(TEXT_8);

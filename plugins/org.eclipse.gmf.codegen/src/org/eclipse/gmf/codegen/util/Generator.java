@@ -497,7 +497,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// preferences
 
 	private void generatePreferenceInitializer() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getPreferenceInitializerEmitter(), myDiagram.getPreferenceInitializerQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getPreferenceInitializerEmitter(), myEmitters.getPreferenceInitializerName(myDiagram), myDiagram);
 	}
 
 	private void generateAppearancePreferencePage() throws UnexpectedBehaviourException, InterruptedException {

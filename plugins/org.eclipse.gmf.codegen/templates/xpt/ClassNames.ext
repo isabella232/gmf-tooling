@@ -49,6 +49,6 @@ String rulersAndGridPreferencePageClassName(gmfgen::GenDiagram diagram) :
 	"DiagramRulersAndGridPreferencePage"
 ;
 
-String rulersGridPreferencePageQualifiedClassName(gmfgen::GenDiagram diagram) :
+String rulersAndGridPreferencePageQualifiedClassName(gmfgen::GenDiagram diagram) :
 	diagram.preferencesPackageName + "." + rulersAndGridPreferencePageClassName(diagram)
 ;

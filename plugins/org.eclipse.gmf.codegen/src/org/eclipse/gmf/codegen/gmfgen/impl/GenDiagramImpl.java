@@ -98,7 +98,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
@@ -937,26 +936,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String matchingStrategyClassName = MATCHING_STRATEGY_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPreferenceInitializerClassName() <em>Preference Initializer Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferenceInitializerClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPreferenceInitializerClassName() <em>Preference Initializer Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPreferenceInitializerClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String preferenceInitializerClassName = PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getVisualIDRegistryClassName() <em>Visual ID Registry Class Name</em>}' attribute.
@@ -1867,35 +1846,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public GenDiagram getDiagram() {
 		return this;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPreferenceInitializerClassNameGen() {
-		return preferenceInitializerClassName;
-	}
-
-	public String getPreferenceInitializerClassName() {
-		String value = getPreferenceInitializerClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "DiagramPreferenceInitializer"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPreferenceInitializerClassName(String newPreferenceInitializerClassName) {
-		String oldPreferenceInitializerClassName = preferenceInitializerClassName;
-		preferenceInitializerClassName = newPreferenceInitializerClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME, oldPreferenceInitializerClassName, preferenceInitializerClassName));
 	}
 
 	/**
@@ -3545,15 +3495,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getPreferenceInitializerQualifiedClassName() {
-		return getPreferencesPackageName() + '.' + getPreferenceInitializerClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getVisualIDRegistryQualifiedClassName() {
 		return getEditorPackageName() + '.' + getVisualIDRegistryClassName();
 	}
@@ -3844,8 +3785,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getNewDiagramFileWizardClassName();
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return getMatchingStrategyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				return getPreferenceInitializerClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				return getVisualIDRegistryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
@@ -4041,9 +3980,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				setPreferenceInitializerClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				setVisualIDRegistryClassName((String)newValue);
@@ -4275,9 +4211,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName(MATCHING_STRATEGY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				setPreferenceInitializerClassName(PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				setVisualIDRegistryClassName(VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT);
 				return;
@@ -4464,8 +4397,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT == null ? newDiagramFileWizardClassName != null : !NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT.equals(newDiagramFileWizardClassName);
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return MATCHING_STRATEGY_CLASS_NAME_EDEFAULT == null ? matchingStrategyClassName != null : !MATCHING_STRATEGY_CLASS_NAME_EDEFAULT.equals(matchingStrategyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				return PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT == null ? preferenceInitializerClassName != null : !PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT.equals(preferenceInitializerClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				return VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT == null ? visualIDRegistryClassName != null : !VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT.equals(visualIDRegistryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
@@ -4601,7 +4532,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME;
@@ -4713,7 +4643,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME;
-				case GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME;
@@ -5127,8 +5056,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(newDiagramFileWizardClassName);
 		result.append(", matchingStrategyClassName: ");
 		result.append(matchingStrategyClassName);
-		result.append(", preferenceInitializerClassName: ");
-		result.append(preferenceInitializerClassName);
 		result.append(", visualIDRegistryClassName: ");
 		result.append(visualIDRegistryClassName);
 		result.append(", elementChooserClassName: ");

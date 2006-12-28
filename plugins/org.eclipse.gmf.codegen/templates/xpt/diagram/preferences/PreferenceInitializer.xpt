@@ -12,6 +12,13 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::ClassNames»
+
+«DEFINE className FOR gmfgen::GenDiagram»DiagramPreferenceInitializer«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»
+	«preferencesPackageName».«EXPAND className FOR this-»
+«ENDDEFINE»
 
 «DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -20,7 +27,19 @@ package «preferencesPackageName»;
 /**
  * @generated
  */
-public class «preferenceInitializerClassName» extends org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer {
+public class «EXPAND className FOR this» extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
+
+	/**
+	 * @generated
+	 */
+	public void initializeDefaultPreferences() {
+		org.eclipse.jface.preference.IPreferenceStore store = getPreferenceStore();
+		«generalPreferencePageQualifiedClassName(this)».initDefaults(store);
+		«appearancePreferencePageQualifiedClassName(this)».initDefaults(store);
+		«connectionsPreferencePageQualifiedClassName(this)».initDefaults(store);
+		«printingPreferencePageQualifiedClassName(this)».initDefaults(store);
+		«rulersAndGridPreferencePageQualifiedClassName(this)».initDefaults(store);
+	}
 
 	/**
 	 * @generated

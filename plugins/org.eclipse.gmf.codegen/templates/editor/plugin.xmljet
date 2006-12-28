@@ -13,7 +13,7 @@ final GenApplication application = editorGen.getApplication();
 
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
-      <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
+      <initializer class="<%=genDiagram.getPreferencesPackageName() + ".DiagramPreferenceInitializer"%>"/>
    </extension>
 
    <extension point="org.eclipse.ui.preferencePages">
