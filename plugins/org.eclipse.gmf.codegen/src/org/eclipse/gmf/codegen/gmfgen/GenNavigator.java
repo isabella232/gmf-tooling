@@ -453,6 +453,7 @@ public interface GenNavigator extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Child References</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator <em>Navigator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Child References</em>' containment reference list isn't clear,
@@ -461,7 +462,8 @@ public interface GenNavigator extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child References</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_ChildReferences()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference" containment="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference" opposite="navigator" containment="true"
 	 * @generated
 	 */
 	EList getChildReferences();
@@ -534,6 +536,7 @@ public interface GenNavigator extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='corresponding method should be implemented in .ext file'"
 	 * @generated
 	 */
 	EList getChildReferencesFrom(GenCommonBase parent);
@@ -542,6 +545,7 @@ public interface GenNavigator extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='corresponding method should be implemented in .ext file'"
 	 * @generated
 	 */
 	EList getChildReferencesTo(GenCommonBase child);

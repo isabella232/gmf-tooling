@@ -65,7 +65,6 @@ import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.AbstractNavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorContentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
@@ -228,7 +227,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
-		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
@@ -574,7 +572,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorContentProviderGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::navigator::NavigatorContentProvider::NavigatorContentProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {

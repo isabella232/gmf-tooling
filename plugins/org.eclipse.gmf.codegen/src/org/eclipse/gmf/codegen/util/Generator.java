@@ -37,6 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -198,7 +199,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		if (myEditorGen.getNavigator() != null) {
-			generateNavigatorContentProvider();
+			generateNavigatorContentProvider(myEditorGen.getNavigator());
 			generateNavigatorLabelProvider();
 			generateNavigatorLinkHelper();
 			generateNavigatorSorter();
@@ -843,13 +844,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 	
-	private void generateNavigatorContentProvider() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorContentProviderEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getContentProviderClassName(),
-				myEditorGen.getNavigator()
-			);
+	private void generateNavigatorContentProvider(GenNavigator navigator) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(myEmitters.getNavigatorContentProviderEmitter(), navigator.getContentProviderQualifiedClassName(), navigator);
 	}
 
 	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {

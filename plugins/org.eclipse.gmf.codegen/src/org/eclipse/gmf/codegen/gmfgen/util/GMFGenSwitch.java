@@ -851,6 +851,18 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_NAVIGATOR_PATH: {
+				GenNavigatorPath genNavigatorPath = (GenNavigatorPath)theEObject;
+				Object result = caseGenNavigatorPath(genNavigatorPath);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT: {
+				GenNavigatorPathSegment genNavigatorPathSegment = (GenNavigatorPathSegment)theEObject;
+				Object result = caseGenNavigatorPathSegment(genNavigatorPathSegment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_PROPERTY_SHEET: {
 				GenPropertySheet genPropertySheet = (GenPropertySheet)theEObject;
 				Object result = caseGenPropertySheet(genPropertySheet);
@@ -2356,6 +2368,36 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Path</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Path</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenNavigatorPath(GenNavigatorPath object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Path Segment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenNavigatorPathSegment(GenNavigatorPathSegment object) {
 		return null;
 	}
 

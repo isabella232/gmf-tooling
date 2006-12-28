@@ -1666,9 +1666,15 @@
     <eOperations name="getNavigatorGroupQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getChildReferencesFrom" upperBound="-1" eType="#//GenNavigatorChildReference">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="corresponding method should be implemented in .ext file"/>
+      </eAnnotations>
       <eParameters name="parent" eType="#//GenCommonBase"/>
     </eOperations>
     <eOperations name="getChildReferencesTo" upperBound="-1" eType="#//GenNavigatorChildReference">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="corresponding method should be implemented in .ext file"/>
+      </eAnnotations>
       <eParameters name="child" eType="#//GenCommonBase"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
@@ -1697,7 +1703,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childReferences" upperBound="-1"
-        eType="#//GenNavigatorChildReference" containment="true"/>
+        eType="#//GenNavigatorChildReference" containment="true" eOpposite="#//GenNavigatorChildReference/navigator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenNavigatorReferenceType">
     <eLiterals name="children"/>
@@ -1706,6 +1712,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorChildReference">
     <eOperations name="isInsideGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="findConnectionPaths" upperBound="-1" eType="#//GenNavigatorPath"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigator" eType="#//GenNavigator"
+        changeable="false" eOpposite="#//GenNavigator/childReferences"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="child" lowerBound="1" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceType" lowerBound="1"
@@ -1714,6 +1723,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideIfEmpty" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorPath">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segments" upperBound="-1"
+        eType="#//GenNavigatorPathSegment" containment="true" eOpposite="#//GenNavigatorPathSegment/path"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorPathSegment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="#//GenNavigatorPath"
+        changeable="false" eOpposite="#//GenNavigatorPath/segments"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" lowerBound="1" eType="#//GenCommonBase"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" lowerBound="1" eType="#//GenCommonBase"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPropertySheet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

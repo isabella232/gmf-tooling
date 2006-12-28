@@ -171,6 +171,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
 			case GMFGenPackage.GEN_NAVIGATOR: return createGenNavigator();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE: return createGenNavigatorChildReference();
+			case GMFGenPackage.GEN_NAVIGATOR_PATH: return createGenNavigatorPath();
+			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT: return createGenNavigatorPathSegment();
 			case GMFGenPackage.GEN_PROPERTY_SHEET: return createGenPropertySheet();
 			case GMFGenPackage.GEN_STANDARD_PROPERTY_TAB: return createGenStandardPropertyTab();
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB: return createGenCustomPropertyTab();
@@ -892,6 +894,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenNavigatorChildReference createGenNavigatorChildReference() {
 		GenNavigatorChildReferenceImpl genNavigatorChildReference = new GenNavigatorChildReferenceImpl();
 		return genNavigatorChildReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNavigatorPath createGenNavigatorPath() {
+		GenNavigatorPathImpl genNavigatorPath = new GenNavigatorPathImpl();
+		return genNavigatorPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNavigatorPathSegment createGenNavigatorPathSegment() {
+		GenNavigatorPathSegmentImpl genNavigatorPathSegment = new GenNavigatorPathSegmentImpl();
+		return genNavigatorPathSegment;
 	}
 
 	/**

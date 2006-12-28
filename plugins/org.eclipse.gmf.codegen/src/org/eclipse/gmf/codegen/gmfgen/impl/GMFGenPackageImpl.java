@@ -85,6 +85,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -825,6 +827,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genNavigatorChildReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genNavigatorPathEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genNavigatorPathSegmentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4829,7 +4845,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenNavigatorChildReference_Parent() {
+	public EReference getGenNavigatorChildReference_Navigator() {
 		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -4838,7 +4854,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenNavigatorChildReference_Child() {
+	public EReference getGenNavigatorChildReference_Parent() {
 		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -4847,8 +4863,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigatorChildReference_ReferenceType() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(2);
+	public EReference getGenNavigatorChildReference_Child() {
+		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4856,7 +4872,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigatorChildReference_GroupName() {
+	public EAttribute getGenNavigatorChildReference_ReferenceType() {
 		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -4865,7 +4881,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigatorChildReference_GroupIcon() {
+	public EAttribute getGenNavigatorChildReference_GroupName() {
 		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -4874,8 +4890,71 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigatorChildReference_HideIfEmpty() {
+	public EAttribute getGenNavigatorChildReference_GroupIcon() {
 		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenNavigatorChildReference_HideIfEmpty() {
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenNavigatorPath() {
+		return genNavigatorPathEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenNavigatorPath_Segments() {
+		return (EReference)genNavigatorPathEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenNavigatorPathSegment() {
+		return genNavigatorPathSegmentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenNavigatorPathSegment_Path() {
+		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenNavigatorPathSegment_From() {
+		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenNavigatorPathSegment_To() {
+		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5999,12 +6078,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genNavigatorEClass, GEN_NAVIGATOR__CHILD_REFERENCES);
 
 		genNavigatorChildReferenceEClass = createEClass(GEN_NAVIGATOR_CHILD_REFERENCE);
+		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
 		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__PARENT);
 		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__CHILD);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY);
+
+		genNavigatorPathEClass = createEClass(GEN_NAVIGATOR_PATH);
+		createEReference(genNavigatorPathEClass, GEN_NAVIGATOR_PATH__SEGMENTS);
+
+		genNavigatorPathSegmentEClass = createEClass(GEN_NAVIGATOR_PATH_SEGMENT);
+		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__PATH);
+		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__FROM);
+		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__TO);
 
 		genPropertySheetEClass = createEClass(GEN_PROPERTY_SHEET);
 		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__EDITOR_GEN);
@@ -6935,7 +7023,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigator_NavigatorGroupClassName(), ecorePackage.getEString(), "navigatorGroupClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_NavigatorItemClassName(), ecorePackage.getEString(), "navigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigator_ChildReferences(), this.getGenNavigatorChildReference(), null, "childReferences", null, 0, -1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNavigator_ChildReferences(), this.getGenNavigatorChildReference(), this.getGenNavigatorChildReference_Navigator(), "childReferences", null, 0, -1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getContentProviderQualifiedClassName", 0, 1);
 
@@ -6960,6 +7048,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEParameter(op, this.getGenCommonBase(), "child", 0, 1);
 
 		initEClass(genNavigatorChildReferenceEClass, GenNavigatorChildReference.class, "GenNavigatorChildReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenNavigatorChildReference_Navigator(), this.getGenNavigator(), this.getGenNavigator_ChildReferences(), "navigator", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNavigatorChildReference_Parent(), this.getGenCommonBase(), null, "parent", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNavigatorChildReference_Child(), this.getGenCommonBase(), null, "child", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_ReferenceType(), this.getGenNavigatorReferenceType(), "referenceType", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6968,6 +7057,16 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigatorChildReference_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNavigatorChildReferenceEClass, ecorePackage.getEBoolean(), "isInsideGroup", 0, 1);
+
+		addEOperation(genNavigatorChildReferenceEClass, this.getGenNavigatorPath(), "findConnectionPaths", 0, -1);
+
+		initEClass(genNavigatorPathEClass, GenNavigatorPath.class, "GenNavigatorPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenNavigatorPath_Segments(), this.getGenNavigatorPathSegment(), this.getGenNavigatorPathSegment_Path(), "segments", null, 0, -1, GenNavigatorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genNavigatorPathSegmentEClass, GenNavigatorPathSegment.class, "GenNavigatorPathSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenNavigatorPathSegment_Path(), this.getGenNavigatorPath(), this.getGenNavigatorPath_Segments(), "path", null, 0, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNavigatorPathSegment_From(), this.getGenCommonBase(), null, "from", null, 1, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNavigatorPathSegment_To(), this.getGenCommonBase(), null, "to", null, 1, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genPropertySheetEClass, GenPropertySheet.class, "GenPropertySheet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPropertySheet_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_PropertySheet(), "editorGen", null, 1, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7196,7 +7295,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																									
+		   });																																																																																																																																																																																																											
 	}
 
 	/**
@@ -7415,7 +7514,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });																		
+		   });																				
 		addAnnotation
 		  (getGenSharedContributionItem_ActualItem(), 
 		   source, 
@@ -7438,7 +7537,19 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																								
+		   });																																																																																																																																																																															
+		addAnnotation
+		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
+		   source, 
+		   new String[] {
+			 "documentation", "corresponding method should be implemented in .ext file"
+		   });		
+		addAnnotation
+		  ((EOperation)genNavigatorEClass.getEOperations().get(9), 
+		   source, 
+		   new String[] {
+			 "documentation", "corresponding method should be implemented in .ext file"
+		   });											
 	}
 
 	/**
@@ -7550,7 +7661,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																			
+		   });																					
 	}
 
 } //GMFGenPackageImpl

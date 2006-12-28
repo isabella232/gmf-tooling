@@ -430,6 +430,12 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
 				return createGenNavigatorChildReferenceAdapter();
 			}
+			public Object caseGenNavigatorPath(GenNavigatorPath object) {
+				return createGenNavigatorPathAdapter();
+			}
+			public Object caseGenNavigatorPathSegment(GenNavigatorPathSegment object) {
+				return createGenNavigatorPathSegmentAdapter();
+			}
 			public Object caseGenPropertySheet(GenPropertySheet object) {
 				return createGenPropertySheetAdapter();
 			}
@@ -1795,6 +1801,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenNavigatorChildReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath <em>Gen Navigator Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath
+	 * @generated
+	 */
+	public Adapter createGenNavigatorPathAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment <em>Gen Navigator Path Segment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment
+	 * @generated
+	 */
+	public Adapter createGenNavigatorPathSegmentAdapter() {
 		return null;
 	}
 

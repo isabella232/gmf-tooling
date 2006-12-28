@@ -6,7 +6,16 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList.UnmodifiableEList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -14,10 +23,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
+import org.eclipse.gmf.codegen.util.GenModelGraphAnalyzer;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getNavigator <em>Navigator</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getChild <em>Child</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getReferenceType <em>Reference Type</em>}</li>
@@ -154,6 +169,16 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNavigatorChildReference();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNavigator getNavigator() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR) return null;
+		return (GenNavigator)eContainer();
 	}
 
 	/**
@@ -342,10 +367,73 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList findConnectionPaths() {
+		Collection<GenNavigatorPath> result = new ArrayList<GenNavigatorPath>();
+		for (List<GenCommonBase> nextPath : GenModelGraphAnalyzer.getConnectionPaths(this)) {
+			GenNavigatorPath navigatorPath = GMFGenFactory.eINSTANCE.createGenNavigatorPath();
+			for (int i = 0; i < nextPath.size() - 1; ) {
+				GenNavigatorPathSegment nextSegment = GMFGenFactory.eINSTANCE.createGenNavigatorPathSegment();
+				nextSegment.setFrom(nextPath.get(i));
+				nextSegment.setTo(nextPath.get(++i));
+				navigatorPath.getSegments().add(nextSegment);
+			}
+			result.add(navigatorPath);
+		}
+		return new UnmodifiableEList(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GenNavigator.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				return getNavigator();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__PARENT:
 				if (resolve) return getParent();
 				return basicGetParent();
@@ -429,6 +517,8 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
+				return getNavigator() != null;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__PARENT:
 				return parent != null;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__CHILD:

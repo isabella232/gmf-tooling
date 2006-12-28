@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -843,7 +843,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 */
 	public EList getChildReferences() {
 		if (childReferences == null) {
-			childReferences = new EObjectContainmentEList(GenNavigatorChildReference.class, this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES);
+			childReferences = new EObjectContainmentWithInverseEList(GenNavigatorChildReference.class, this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
 		}
 		return childReferences;
 	}
@@ -963,6 +963,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
+			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
+				return ((InternalEList)getChildReferences()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

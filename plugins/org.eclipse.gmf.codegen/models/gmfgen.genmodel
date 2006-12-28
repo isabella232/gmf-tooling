@@ -759,6 +759,7 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNavigatorChildReference">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/navigator"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/parent"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/child"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/referenceType"/>
@@ -766,6 +767,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupIcon"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/hideIfEmpty"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigatorChildReference/isInsideGroup"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigatorChildReference/findConnectionPaths"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenNavigatorPath">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorPath/segments"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenNavigatorPathSegment">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorPathSegment/path"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorPathSegment/from"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorPathSegment/to"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPropertySheet">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/editorGen"/>

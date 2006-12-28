@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator <em>Navigator</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getChild <em>Child</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getReferenceType <em>Reference Type</em>}</li>
@@ -30,6 +33,23 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface GenNavigatorChildReference extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Navigator</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getChildReferences <em>Child References</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Navigator</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Navigator</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorChildReference_Navigator()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getChildReferences
+	 * @model opposite="childReferences" changeable="false"
+	 * @generated
+	 */
+	GenNavigator getNavigator();
+
 	/**
 	 * Returns the value of the '<em><b>Parent</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -197,5 +217,13 @@ public interface GenNavigatorChildReference extends EObject {
 	 * @generated
 	 */
 	boolean isInsideGroup();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath"
+	 * @generated
+	 */
+	EList findConnectionPaths();
 
 } // GenNavigatorChildReference

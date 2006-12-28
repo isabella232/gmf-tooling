@@ -7629,13 +7629,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR_CHILD_REFERENCE = 95;
 
 	/**
+	 * The feature id for the '<em><b>Navigator</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR = 0;
+
+	/**
 	 * The feature id for the '<em><b>Parent</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__PARENT = 0;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__PARENT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Child</b></em>' reference.
@@ -7644,7 +7653,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__CHILD = 1;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__CHILD = 2;
 
 	/**
 	 * The feature id for the '<em><b>Reference Type</b></em>' attribute.
@@ -7653,7 +7662,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE = 2;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
@@ -7662,7 +7671,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME = 3;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME = 4;
 
 	/**
 	 * The feature id for the '<em><b>Group Icon</b></em>' attribute.
@@ -7671,7 +7680,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON = 4;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON = 5;
 
 	/**
 	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
@@ -7680,7 +7689,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY = 5;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY = 6;
 
 	/**
 	 * The number of structural features of the '<em>Gen Navigator Child Reference</em>' class.
@@ -7689,7 +7698,81 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 6;
+	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 7;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorPathImpl <em>Gen Navigator Path</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorPathImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorPath()
+	 * @generated
+	 */
+	int GEN_NAVIGATOR_PATH = 96;
+
+	/**
+	 * The feature id for the '<em><b>Segments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH__SEGMENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Navigator Path</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorPathSegmentImpl <em>Gen Navigator Path Segment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorPathSegmentImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorPathSegment()
+	 * @generated
+	 */
+	int GEN_NAVIGATOR_PATH_SEGMENT = 97;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH_SEGMENT__PATH = 0;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH_SEGMENT__FROM = 1;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH_SEGMENT__TO = 2;
+
+	/**
+	 * The number of structural features of the '<em>Gen Navigator Path Segment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_PATH_SEGMENT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPropertySheetImpl <em>Gen Property Sheet</em>}' class.
@@ -7699,7 +7782,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertySheet()
 	 * @generated
 	 */
-	int GEN_PROPERTY_SHEET = 96;
+	int GEN_PROPERTY_SHEET = 98;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -7772,7 +7855,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertyTab()
 	 * @generated
 	 */
-	int GEN_PROPERTY_TAB = 97;
+	int GEN_PROPERTY_TAB = 99;
 
 	/**
 	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
@@ -7818,7 +7901,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenStandardPropertyTab()
 	 * @generated
 	 */
-	int GEN_STANDARD_PROPERTY_TAB = 98;
+	int GEN_STANDARD_PROPERTY_TAB = 100;
 
 	/**
 	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
@@ -7864,7 +7947,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenCustomPropertyTab()
 	 * @generated
 	 */
-	int GEN_CUSTOM_PROPERTY_TAB = 99;
+	int GEN_CUSTOM_PROPERTY_TAB = 101;
 
 	/**
 	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
@@ -7928,7 +8011,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertyTabFilter()
 	 * @generated
 	 */
-	int GEN_PROPERTY_TAB_FILTER = 100;
+	int GEN_PROPERTY_TAB_FILTER = 102;
 
 	/**
 	 * The feature id for the '<em><b>Tab</b></em>' container reference.
@@ -7956,7 +8039,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getTypeTabFilter()
 	 * @generated
 	 */
-	int TYPE_TAB_FILTER = 101;
+	int TYPE_TAB_FILTER = 103;
 
 	/**
 	 * The feature id for the '<em><b>Tab</b></em>' container reference.
@@ -8002,7 +8085,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCustomTabFilter()
 	 * @generated
 	 */
-	int CUSTOM_TAB_FILTER = 102;
+	int CUSTOM_TAB_FILTER = 104;
 
 	/**
 	 * The feature id for the '<em><b>Tab</b></em>' container reference.
@@ -8039,7 +8122,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContributionItem()
 	 * @generated
 	 */
-	int GEN_CONTRIBUTION_ITEM = 103;
+	int GEN_CONTRIBUTION_ITEM = 105;
 
 	/**
 	 * The number of structural features of the '<em>Gen Contribution Item</em>' class.
@@ -8058,7 +8141,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSharedContributionItem()
 	 * @generated
 	 */
-	int GEN_SHARED_CONTRIBUTION_ITEM = 104;
+	int GEN_SHARED_CONTRIBUTION_ITEM = 106;
 
 	/**
 	 * The feature id for the '<em><b>Actual Item</b></em>' reference.
@@ -8086,7 +8169,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenGroupMarker()
 	 * @generated
 	 */
-	int GEN_GROUP_MARKER = 105;
+	int GEN_GROUP_MARKER = 107;
 
 	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
@@ -8114,7 +8197,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeparator()
 	 * @generated
 	 */
-	int GEN_SEPARATOR = 106;
+	int GEN_SEPARATOR = 108;
 
 	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
@@ -8142,7 +8225,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenActionFactoryContributionItem()
 	 * @generated
 	 */
-	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 107;
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 109;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8170,7 +8253,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContributionManager()
 	 * @generated
 	 */
-	int GEN_CONTRIBUTION_MANAGER = 108;
+	int GEN_CONTRIBUTION_MANAGER = 110;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -8207,7 +8290,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMenuManager()
 	 * @generated
 	 */
-	int GEN_MENU_MANAGER = 109;
+	int GEN_MENU_MANAGER = 111;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -8253,7 +8336,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenToolBarManager()
 	 * @generated
 	 */
-	int GEN_TOOL_BAR_MANAGER = 110;
+	int GEN_TOOL_BAR_MANAGER = 112;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -8290,7 +8373,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenApplication()
 	 * @generated
 	 */
-	int GEN_APPLICATION = 111;
+	int GEN_APPLICATION = 113;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -8435,7 +8518,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRulerUnits()
 	 * @generated
 	 */
-	int RULER_UNITS = 112;
+	int RULER_UNITS = 114;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Routing <em>Routing</em>}' enum.
@@ -8445,7 +8528,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRouting()
 	 * @generated
 	 */
-	int ROUTING = 113;
+	int ROUTING = 115;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.JFaceFont <em>JFace Font</em>}' enum.
@@ -8455,7 +8538,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getJFaceFont()
 	 * @generated
 	 */
-	int JFACE_FONT = 114;
+	int JFACE_FONT = 116;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FontStyle <em>Font Style</em>}' enum.
@@ -8465,7 +8548,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 115;
+	int FONT_STYLE = 117;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.DiagramColors <em>Diagram Colors</em>}' enum.
@@ -8475,7 +8558,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDiagramColors()
 	 * @generated
 	 */
-	int DIAGRAM_COLORS = 116;
+	int DIAGRAM_COLORS = 118;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -8485,7 +8568,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 117;
+	int PROVIDER_PRIORITY = 119;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -8495,7 +8578,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 118;
+	int LINK_LABEL_ALIGNMENT = 120;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -8505,7 +8588,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 119;
+	int VIEWMAP_LAYOUT_TYPE = 121;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -8515,7 +8598,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 120;
+	int STANDARD_ENTRY_KIND = 122;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -8525,7 +8608,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 121;
+	int GEN_SEVERITY = 123;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -8535,7 +8618,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 122;
+	int GEN_LANGUAGE = 124;
 
 
 	/**
@@ -8546,7 +8629,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 123;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 125;
 
 
 	/**
@@ -8557,7 +8640,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 124;
+	int GENERATED_TYPE = 126;
 
 
 	/**
@@ -13008,6 +13091,17 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenNavigatorChildReference();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator <em>Navigator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Navigator</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getNavigator()
+	 * @see #getGenNavigatorChildReference()
+	 * @generated
+	 */
+	EReference getGenNavigatorChildReference_Navigator();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getParent <em>Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13072,6 +13166,70 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNavigatorChildReference_HideIfEmpty();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath <em>Gen Navigator Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Navigator Path</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath
+	 * @generated
+	 */
+	EClass getGenNavigatorPath();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath#getSegments <em>Segments</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Segments</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath#getSegments()
+	 * @see #getGenNavigatorPath()
+	 * @generated
+	 */
+	EReference getGenNavigatorPath_Segments();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment <em>Gen Navigator Path Segment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Navigator Path Segment</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment
+	 * @generated
+	 */
+	EClass getGenNavigatorPathSegment();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Path</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getPath()
+	 * @see #getGenNavigatorPathSegment()
+	 * @generated
+	 */
+	EReference getGenNavigatorPathSegment_Path();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>From</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getFrom()
+	 * @see #getGenNavigatorPathSegment()
+	 * @generated
+	 */
+	EReference getGenNavigatorPathSegment_From();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>To</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment#getTo()
+	 * @see #getGenNavigatorPathSegment()
+	 * @generated
+	 */
+	EReference getGenNavigatorPathSegment_To();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet <em>Gen Property Sheet</em>}'.

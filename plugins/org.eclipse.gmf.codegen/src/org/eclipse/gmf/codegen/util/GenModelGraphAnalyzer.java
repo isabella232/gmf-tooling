@@ -30,37 +30,37 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 public class GenModelGraphAnalyzer {
 
-	private GenDiagram myDiagram;
-
+	/**
+	 * @deprecated
+	 */
 	public GenModelGraphAnalyzer(GenDiagram diagram) {
-		myDiagram = diagram;
 	}
 
-	public List<List<GenCommonBase>> getConnectionPaths(GenNavigatorChildReference reference) {
+	public static List<List<GenCommonBase>> getConnectionPaths(GenNavigatorChildReference reference) {
 		assert reference.getParent() != null;
 		if (reference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
 			return getChildConnectionPaths(reference.getParent(), reference.getChild());
 		} else if (reference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
-			return getInSourceLinkConnectionPaths(reference.getParent(), reference.getChild());
+			return getInSourceLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
 		} else if (reference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
-			return getOutTargetLinkConnectionPaths(reference.getParent(), reference.getChild());
+			return getOutTargetLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
 		}
 		return Collections.emptyList();
 	}
 
-	private List<List<GenCommonBase>> getOutTargetLinkConnectionPaths(GenCommonBase source, GenCommonBase target) {
-		return new LinkedConnectionFinder(myDiagram, true).findConnectionPaths(source, target);
+	private static List<List<GenCommonBase>> getOutTargetLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenDiagram diagram) {
+		return new LinkedConnectionFinder(diagram, true).findConnectionPaths(source, target);
 	}
 
-	private List<List<GenCommonBase>> getInSourceLinkConnectionPaths(GenCommonBase source, GenCommonBase target) {
-		return new LinkedConnectionFinder(myDiagram, false).findConnectionPaths(source, target);
+	private static List<List<GenCommonBase>> getInSourceLinkConnectionPaths(GenCommonBase source, GenCommonBase target, GenDiagram diagram) {
+		return new LinkedConnectionFinder(diagram, false).findConnectionPaths(source, target);
 	}
 
-	private List<List<GenCommonBase>> getChildConnectionPaths(GenCommonBase source, GenCommonBase target) {
+	private static List<List<GenCommonBase>> getChildConnectionPaths(GenCommonBase source, GenCommonBase target) {
 		return new ChildConnectionFinder().findConnectionPaths(source, target);
 	}
 
-	private abstract class AbstractConnectionFinder {
+	private static abstract class AbstractConnectionFinder {
 
 		private Set<GenCommonBase> myVisiting;
 
@@ -130,7 +130,7 @@ public class GenModelGraphAnalyzer {
 
 	}
 
-	private class ChildConnectionFinder extends AbstractConnectionFinder {
+	private static class ChildConnectionFinder extends AbstractConnectionFinder {
 
 		protected Collection<GenCommonBase> getConnectedNodes(GenCommonBase source) {
 			Collection<GenCommonBase> children = new ArrayList<GenCommonBase>();
@@ -152,7 +152,7 @@ public class GenModelGraphAnalyzer {
 
 	}
 
-	private class LinkedConnectionFinder extends AbstractConnectionFinder {
+	private static class LinkedConnectionFinder extends AbstractConnectionFinder {
 
 		private GenDiagram myDiagram;
 
