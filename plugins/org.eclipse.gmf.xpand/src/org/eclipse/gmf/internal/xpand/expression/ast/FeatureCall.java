@@ -203,7 +203,7 @@ public class FeatureCall extends Expression {
         if (targetType != null) {
             EStructuralFeature p = BuiltinMetaModel.getAttribute(targetType, getName().getValue());
             if (p != null) {
-				return BuiltinMetaModel.getAttributeType(p);
+				return BuiltinMetaModel.getTypedElementType(p);
 			}
 
             if ((p == null) && BuiltinMetaModel.isParameterizedType(targetType)) {

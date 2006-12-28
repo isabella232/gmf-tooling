@@ -188,7 +188,7 @@ public class OperationCall extends FeatureCall {
         // operation
         EOperation op = BuiltinMetaModel.findOperation(targetType, getName().getValue(), paramTypes);
         if (op != null) {
-			return op.getEType() == null ? BuiltinMetaModel.VOID : op.getEType();
+			return op.getEType() == null ? BuiltinMetaModel.VOID : BuiltinMetaModel.getTypedElementType(op);
 		}
         // extension as members
         final int issueSize = issues.size();

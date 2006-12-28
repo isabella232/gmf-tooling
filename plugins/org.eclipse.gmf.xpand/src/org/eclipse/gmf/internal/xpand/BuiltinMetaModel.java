@@ -38,10 +38,12 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
+import org.eclipse.gmf.internal.xpand.model.XpandIterator;
 
 /**
  * XXX Guess, will need special support to recognize the fact
@@ -239,6 +241,9 @@ public class BuiltinMetaModel {
 		}
 		if (obj instanceof XpandDefinitionWrap) {
 			return DEFINITION_TYPE;
+		}
+		if (obj instanceof XpandIterator) {
+			return ITERATOR_TYPE;
 		}
 		return EcorePackage.eINSTANCE.getEJavaObject();
 	}
@@ -740,6 +745,15 @@ public class BuiltinMetaModel {
 			}
 		});
 		internalOperationsMap.put(DEFINITION_TYPE, Collections.unmodifiableList(definitionOps));
+		
+		final List<InternalOperation> iteratorOps = new LinkedList<InternalOperation>();
+		iteratorOps.add(new InternalOperation<XpandIterator>(opf.create("isFirstIteration", ecorePkg.getEBoolean())) {
+			@Override
+			public Object evaluate(XpandIterator target, Object[] params) {
+				return target.isFirstIteration();
+			}
+		});
+		internalOperationsMap.put(ITERATOR_TYPE, Collections.unmodifiableList(iteratorOps));
 	}
 
 	private static List<EOperation> findInternalOp(EClassifier targetType) {
@@ -767,7 +781,7 @@ public class BuiltinMetaModel {
 		return null;
 	}
 
-	public static EClassifier getAttributeType(EStructuralFeature p) {
+	public static EClassifier getTypedElementType(ETypedElement p) {
 		if (p.isMany()) {
 			return p.isUnique() ? getSetType(p.getEType()) : p.isOrdered() ? getListType(p.getEType()) : getCollectionType(p.getEType()); 
 		}
