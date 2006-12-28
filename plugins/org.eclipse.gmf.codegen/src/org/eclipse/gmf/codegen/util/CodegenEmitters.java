@@ -656,23 +656,43 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getAppearancePreferencePageEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::AppearancePreferencePage::AppearancePreferencePage"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::preferences::AppearancePreferencePage"); //$NON-NLS-1$
+	}
+
+	public String getAppearancePreferencePageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::AppearancePreferencePage", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getConnectionsPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::ConnectionsPreferencePage::ConnectionsPreferencePage"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::preferences::ConnectionsPreferencePage"); //$NON-NLS-1$
+	}
+
+	public String getConnectionsPreferencePageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::ConnectionsPreferencePage", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getGeneralPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::GeneralPreferencePage::GeneralPreferencePage"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::preferences::GeneralPreferencePage"); //$NON-NLS-1$
+	}
+
+	public String getGeneralPreferencePageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::GeneralPreferencePage", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPrintingPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::PrintingPreferencePage::PrintingPreferencePage"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::preferences::PrintingPreferencePage"); //$NON-NLS-1$
+	}
+
+	public String getPrintingPreferencePageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::PrintingPreferencePage", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getRulersAndGridPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::preferences::RulersandGridPreferencePage::RulersAndGridPreferencePage"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::diagram::preferences::RulersAndGridPreferencePage"); //$NON-NLS-1$
+	}
+
+	public String getRulersAndGridPreferencePageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::RulersAndGridPreferencePage", input); //$NON-NLS-1$
 	}
 
 	// application

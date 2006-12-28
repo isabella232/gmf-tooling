@@ -501,23 +501,23 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateAppearancePreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramAppearancePreferencePage", myDiagram);
+		doGenerateJavaClass(myEmitters.getAppearancePreferencePageEmitter(), myEmitters.getAppearancePreferencePageName(myDiagram), myDiagram);
 	}
 
 	private void generateConnectionsPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getConnectionsPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramConnectionsPreferencePage", myDiagram);
+		doGenerateJavaClass(myEmitters.getConnectionsPreferencePageEmitter(), myEmitters.getConnectionsPreferencePageName(myDiagram), myDiagram);
 	}
 
 	private void generateGeneralPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getGeneralPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramGeneralPreferencePage", myDiagram);
+		doGenerateJavaClass(myEmitters.getGeneralPreferencePageEmitter(), myEmitters.getGeneralPreferencePageName(myDiagram), myDiagram);
 	}
 
 	private void generatePrintingPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getPrintingPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramPrintingPreferencePage", myDiagram);
+		doGenerateJavaClass(myEmitters.getPrintingPreferencePageEmitter(), myEmitters.getPrintingPreferencePageName(myDiagram), myDiagram);
 	}
 
 	private void generateRulersAndGridPreferencePage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getRulersAndGridPreferencePageEmitter(), myDiagram.getPreferencesPackageName() + ".DiagramRulersAndGridPreferencePage", myDiagram);
+		doGenerateJavaClass(myEmitters.getRulersAndGridPreferencePageEmitter(), myEmitters.getRulersAndGridPreferencePageName(myDiagram), myDiagram);
 	}
 
 	// providers

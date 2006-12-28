@@ -12,12 +12,11 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::ClassNames»
 
 «DEFINE className FOR gmfgen::GenDiagram»DiagramPreferenceInitializer«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»
-	«preferencesPackageName».«EXPAND className FOR this-»
+	«preferencesPackageName».«EXPAND className-»
 «ENDDEFINE»
 
 «DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
@@ -27,18 +26,18 @@ package «preferencesPackageName»;
 /**
  * @generated
  */
-public class «EXPAND className FOR this» extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
+public class «EXPAND className» extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
 
 	/**
 	 * @generated
 	 */
 	public void initializeDefaultPreferences() {
 		org.eclipse.jface.preference.IPreferenceStore store = getPreferenceStore();
-		«generalPreferencePageQualifiedClassName(this)».initDefaults(store);
-		«appearancePreferencePageQualifiedClassName(this)».initDefaults(store);
-		«connectionsPreferencePageQualifiedClassName(this)».initDefaults(store);
-		«printingPreferencePageQualifiedClassName(this)».initDefaults(store);
-		«rulersAndGridPreferencePageQualifiedClassName(this)».initDefaults(store);
+		«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName».initDefaults(store);
+		«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName».initDefaults(store);
+		«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName».initDefaults(store);
+		«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName».initDefaults(store);
+		«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName».initDefaults(store);
 	}
 
 	/**

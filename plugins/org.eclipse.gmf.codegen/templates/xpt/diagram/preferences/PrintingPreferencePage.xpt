@@ -12,7 +12,12 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::ClassNames»
+
+«DEFINE className FOR gmfgen::GenDiagram»DiagramPrintingPreferencePage«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»
+	«preferencesPackageName».«EXPAND className-»
+«ENDDEFINE»
 
 «DEFINE PrintingPreferencePage FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -21,12 +26,12 @@ package «preferencesPackageName»;
 /**
  * @generated
  */
-public class «printingPreferencePageClassName(this)» extends org.eclipse.gmf.runtime.diagram.ui.preferences.PrintingPreferencePage {
+public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.preferences.PrintingPreferencePage {
 
 	/**
 	 * @generated
 	 */
-	public «printingPreferencePageClassName(this)»() {
+	public «EXPAND className»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}
 } 
