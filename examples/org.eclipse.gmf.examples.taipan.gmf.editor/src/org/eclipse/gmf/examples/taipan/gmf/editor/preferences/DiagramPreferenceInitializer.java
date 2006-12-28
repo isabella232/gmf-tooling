@@ -11,14 +11,26 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.preferences;
 
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @generated
  */
-public class TaiPanDiagramPreferenceInitializer extends DiagramPreferenceInitializer {
+public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer {
+
+	/**
+	 * @generated
+	 */
+	public void initializeDefaultPreferences() {
+		IPreferenceStore store = getPreferenceStore();
+		DiagramGeneralPreferencePage.initDefaults(store);
+		DiagramAppearancePreferencePage.initDefaults(store);
+		DiagramConnectionsPreferencePage.initDefaults(store);
+		DiagramPrintingPreferencePage.initDefaults(store);
+		DiagramRulersAndGridPreferencePage.initDefaults(store);
+	}
 
 	/**
 	 * @generated
