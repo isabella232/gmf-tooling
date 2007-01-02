@@ -589,6 +589,23 @@
             genLinks="//@diagram/@links.0"/>
       </groups>
     </palette>
+    <preferences>
+      <defaultFont
+          xsi:type="gmfgen:GenCustomFont"
+          name="monospaced"
+          height="12"/>
+      <fontColor
+          xsi:type="gmfgen:GenConstantColor"
+          name="black"/>
+      <fillColor
+          xsi:type="gmfgen:GenConstantColor"
+          name="white"/>
+      <lineColor
+          xsi:type="gmfgen:GenRGBColor"
+          red="64"
+          green="64"
+          blue="64"/>
+    </preferences>
   </diagram>
   <plugin
       iD="org.eclipse.gmf.examples.taipan.gmf.editor"
