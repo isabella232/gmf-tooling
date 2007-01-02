@@ -111,13 +111,6 @@ public class TaiPanTextSelectionEditPolicy extends SelectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected IFigure getFeedbackLayer() {
-		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Rectangle getFeedbackBounds() {
 		Rectangle bounds;
 		if (getHostFigure() instanceof Label) {
