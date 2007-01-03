@@ -589,7 +589,9 @@
             genLinks="//@diagram/@links.0"/>
       </groups>
     </palette>
-    <preferences>
+    <preferences
+        snapToGrid="false"
+        rulerUnits="PIXELS">
       <defaultFont
           xsi:type="gmfgen:GenCustomFont"
           name="monospaced"
