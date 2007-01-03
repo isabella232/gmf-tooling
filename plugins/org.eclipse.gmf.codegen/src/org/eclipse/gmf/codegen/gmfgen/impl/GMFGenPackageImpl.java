@@ -55,6 +55,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomFont;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
@@ -92,6 +93,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
@@ -104,6 +106,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardFont;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -135,6 +138,7 @@ import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
 import org.eclipse.gmf.codegen.gmfgen.StandardEntryKind;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
@@ -176,6 +180,27 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genEditorViewEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genPreferencePageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCustomPreferencePageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genStandardPreferencePageEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -959,6 +984,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum standardPreferencePagesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum rulerUnitsEEnum = null;
 
 	/**
@@ -1389,6 +1421,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenDiagram_PreferencePages() {
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenEditorView() {
 		return genEditorViewEClass;
 	}
@@ -1454,6 +1495,78 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenEditorView_EclipseEditor() {
 		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenPreferencePage() {
+		return genPreferencePageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPreferencePage_ID() {
+		return (EAttribute)genPreferencePageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPreferencePage_Name() {
+		return (EAttribute)genPreferencePageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPreferencePage_Children() {
+		return (EReference)genPreferencePageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCustomPreferencePage() {
+		return genCustomPreferencePageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomPreferencePage_QualifiedClassName() {
+		return (EAttribute)genCustomPreferencePageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenStandardPreferencePage() {
+		return genStandardPreferencePageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenStandardPreferencePage_Kind() {
+		return (EAttribute)genStandardPreferencePageEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5430,6 +5543,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getStandardPreferencePages() {
+		return standardPreferencePagesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getRulerUnits() {
 		return rulerUnitsEEnum;
 	}
@@ -5600,6 +5722,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__SYNCHRONIZED);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PREFERENCES);
+		createEReference(genDiagramEClass, GEN_DIAGRAM__PREFERENCE_PAGES);
 
 		genEditorViewEClass = createEClass(GEN_EDITOR_VIEW);
 		createEReference(genEditorViewEClass, GEN_EDITOR_VIEW__EDITOR_GEN);
@@ -5609,6 +5732,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ECLIPSE_EDITOR);
+
+		genPreferencePageEClass = createEClass(GEN_PREFERENCE_PAGE);
+		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__ID);
+		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__NAME);
+		createEReference(genPreferencePageEClass, GEN_PREFERENCE_PAGE__CHILDREN);
+
+		genCustomPreferencePageEClass = createEClass(GEN_CUSTOM_PREFERENCE_PAGE);
+		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME);
+
+		genStandardPreferencePageEClass = createEClass(GEN_STANDARD_PREFERENCE_PAGE);
+		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__KIND);
 
 		genDiagramPreferencesEClass = createEClass(GEN_DIAGRAM_PREFERENCES);
 		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_STYLE);
@@ -6163,6 +6297,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genApplicationEClass, GEN_APPLICATION__MAIN_TOOL_BAR);
 
 		// Create enums
+		standardPreferencePagesEEnum = createEEnum(STANDARD_PREFERENCE_PAGES);
 		rulerUnitsEEnum = createEEnum(RULER_UNITS);
 		routingEEnum = createEEnum(ROUTING);
 		jFaceFontEEnum = createEEnum(JFACE_FONT);
@@ -6214,6 +6349,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
 		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
 		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
+		genCustomPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
+		genStandardPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
 		genStandardFontEClass.getESuperTypes().add(this.getGenFont());
 		genCustomFontEClass.getESuperTypes().add(this.getGenFont());
 		genRGBColorEClass.getESuperTypes().add(this.getGenColor());
@@ -6328,6 +6465,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_Synchronized(), ecorePackage.getEBoolean(), "synchronized", "true", 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Preferences(), this.getGenDiagramPreferences(), null, "preferences", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_PreferencePages(), this.getGenPreferencePage(), null, "preferencePages", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1);
 
@@ -6351,6 +6489,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
 
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
+
+		initEClass(genPreferencePageEClass, GenPreferencePage.class, "GenPreferencePage", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenPreferencePage_ID(), ecorePackage.getEString(), "iD", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPreferencePage_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenPreferencePage_Children(), this.getGenPreferencePage(), null, "children", null, 0, -1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genStandardPreferencePageEClass, GenStandardPreferencePage.class, "GenStandardPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenStandardPreferencePage_Kind(), this.getStandardPreferencePages(), "kind", null, 1, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genDiagramPreferencesEClass, GenDiagramPreferences.class, "GenDiagramPreferences", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenDiagramPreferences_LineStyle(), this.getRouting(), "lineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7155,6 +7304,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getPerspectiveQualifiedClassName", 0, 1);
 
 		// Initialize enums and add enum literals
+		initEEnum(standardPreferencePagesEEnum, StandardPreferencePages.class, "StandardPreferencePages");
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.GENERAL_LITERAL);
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.APPEARANCE_LITERAL);
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.CONNECTIONS_LITERAL);
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.PRINTING_LITERAL);
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.RULERS_AND_GRID_LITERAL);
+		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.PATHMAPS_LITERAL);
+
 		initEEnum(rulerUnitsEEnum, RulerUnits.class, "RulerUnits");
 		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.INCHES_LITERAL);
 		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.CENTIMETERS_LITERAL);

@@ -111,6 +111,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR: return createGenEditorGenerator();
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_EDITOR_VIEW: return createGenEditorView();
+			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE: return createGenCustomPreferencePage();
+			case GMFGenPackage.GEN_STANDARD_PREFERENCE_PAGE: return createGenStandardPreferencePage();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES: return createGenDiagramPreferences();
 			case GMFGenPackage.GEN_STANDARD_FONT: return createGenStandardFont();
 			case GMFGenPackage.GEN_CUSTOM_FONT: return createGenCustomFont();
@@ -197,6 +199,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.STANDARD_PREFERENCE_PAGES:
+				return createStandardPreferencePagesFromString(eDataType, initialValue);
 			case GMFGenPackage.RULER_UNITS:
 				return createRulerUnitsFromString(eDataType, initialValue);
 			case GMFGenPackage.ROUTING:
@@ -235,6 +239,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.STANDARD_PREFERENCE_PAGES:
+				return convertStandardPreferencePagesToString(eDataType, instanceValue);
 			case GMFGenPackage.RULER_UNITS:
 				return convertRulerUnitsToString(eDataType, instanceValue);
 			case GMFGenPackage.ROUTING:
@@ -294,6 +300,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenEditorView createGenEditorView() {
 		GenEditorViewImpl genEditorView = new GenEditorViewImpl();
 		return genEditorView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCustomPreferencePage createGenCustomPreferencePage() {
+		GenCustomPreferencePageImpl genCustomPreferencePage = new GenCustomPreferencePageImpl();
+		return genCustomPreferencePage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenStandardPreferencePage createGenStandardPreferencePage() {
+		GenStandardPreferencePageImpl genStandardPreferencePage = new GenStandardPreferencePageImpl();
+		return genStandardPreferencePage;
 	}
 
 	/**
@@ -1034,6 +1060,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenApplication createGenApplication() {
 		GenApplicationImpl genApplication = new GenApplicationImpl();
 		return genApplication;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StandardPreferencePages createStandardPreferencePagesFromString(EDataType eDataType, String initialValue) {
+		StandardPreferencePages result = StandardPreferencePages.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStandardPreferencePagesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

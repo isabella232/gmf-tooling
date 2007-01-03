@@ -151,6 +151,15 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenEditorView(GenEditorView object) {
 				return createGenEditorViewAdapter();
 			}
+			public Object caseGenPreferencePage(GenPreferencePage object) {
+				return createGenPreferencePageAdapter();
+			}
+			public Object caseGenCustomPreferencePage(GenCustomPreferencePage object) {
+				return createGenCustomPreferencePageAdapter();
+			}
+			public Object caseGenStandardPreferencePage(GenStandardPreferencePage object) {
+				return createGenStandardPreferencePageAdapter();
+			}
 			public Object caseGenDiagramPreferences(GenDiagramPreferences object) {
 				return createGenDiagramPreferencesAdapter();
 			}
@@ -541,6 +550,48 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenEditorViewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage <em>Gen Preference Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage
+	 * @generated
+	 */
+	public Adapter createGenPreferencePageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage <em>Gen Custom Preference Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage
+	 * @generated
+	 */
+	public Adapter createGenCustomPreferencePageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage <em>Gen Standard Preference Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
+	 * @generated
+	 */
+	public Adapter createGenStandardPreferencePageAdapter() {
 		return null;
 	}
 

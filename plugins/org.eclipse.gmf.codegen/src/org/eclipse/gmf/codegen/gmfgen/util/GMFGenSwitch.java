@@ -189,6 +189,26 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_PREFERENCE_PAGE: {
+				GenPreferencePage genPreferencePage = (GenPreferencePage)theEObject;
+				Object result = caseGenPreferencePage(genPreferencePage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE: {
+				GenCustomPreferencePage genCustomPreferencePage = (GenCustomPreferencePage)theEObject;
+				Object result = caseGenCustomPreferencePage(genCustomPreferencePage);
+				if (result == null) result = caseGenPreferencePage(genCustomPreferencePage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_STANDARD_PREFERENCE_PAGE: {
+				GenStandardPreferencePage genStandardPreferencePage = (GenStandardPreferencePage)theEObject;
+				Object result = caseGenStandardPreferencePage(genStandardPreferencePage);
+				if (result == null) result = caseGenPreferencePage(genStandardPreferencePage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES: {
 				GenDiagramPreferences genDiagramPreferences = (GenDiagramPreferences)theEObject;
 				Object result = caseGenDiagramPreferences(genDiagramPreferences);
@@ -1018,6 +1038,51 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenEditorView(GenEditorView object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Preference Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Preference Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenPreferencePage(GenPreferencePage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Custom Preference Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Custom Preference Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenCustomPreferencePage(GenCustomPreferencePage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Standard Preference Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Standard Preference Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenStandardPreferencePage(GenStandardPreferencePage object) {
 		return null;
 	}
 

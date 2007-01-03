@@ -108,6 +108,8 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="preferences" eType="#//GenDiagramPreferences"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferencePages" upperBound="-1"
+        eType="#//GenPreferencePage" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenEditorView">
     <eOperations name="getActionBarContributorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -123,6 +125,27 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="eclipseEditor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenPreferencePage" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//GenPreferencePage" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCustomPreferencePage" eSuperTypes="#//GenPreferencePage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenStandardPreferencePage" eSuperTypes="#//GenPreferencePage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//StandardPreferencePages"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StandardPreferencePages">
+    <eLiterals name="General"/>
+    <eLiterals name="Appearance" value="1"/>
+    <eLiterals name="Connections" value="2"/>
+    <eLiterals name="Printing" value="3"/>
+    <eLiterals name="RulersAndGrid" value="4"/>
+    <eLiterals name="Pathmaps" value="5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagramPreferences">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" eType="#//Routing"/>

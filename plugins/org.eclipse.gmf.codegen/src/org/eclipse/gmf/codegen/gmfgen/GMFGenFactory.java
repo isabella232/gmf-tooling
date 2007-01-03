@@ -53,6 +53,24 @@ public interface GMFGenFactory extends EFactory {
 	GenEditorView createGenEditorView();
 
 	/**
+	 * Returns a new object of class '<em>Gen Custom Preference Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Custom Preference Page</em>'.
+	 * @generated
+	 */
+	GenCustomPreferencePage createGenCustomPreferencePage();
+
+	/**
+	 * Returns a new object of class '<em>Gen Standard Preference Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Standard Preference Page</em>'.
+	 * @generated
+	 */
+	GenStandardPreferencePage createGenStandardPreferencePage();
+
+	/**
 	 * Returns a new object of class '<em>Gen Diagram Preferences</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

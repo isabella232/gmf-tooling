@@ -10,6 +10,14 @@
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfgen.ecore#/">
+    <genEnums ecoreEnum="gmfgen.ecore#//StandardPreferencePages">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/General"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/Appearance"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/Connections"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/Printing"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/RulersAndGrid"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/Pathmaps"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//RulerUnits">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/INCHES"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/CENTIMETERS"/>
@@ -155,6 +163,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
       <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/synchronized"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/preferences"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/preferencePages"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
@@ -171,6 +180,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/eclipseEditor"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenPreferencePage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreferencePage/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreferencePage/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/children"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenCustomPreferencePage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/qualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenStandardPreferencePage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenStandardPreferencePage/kind"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagramPreferences">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagramPreferences/lineStyle"/>

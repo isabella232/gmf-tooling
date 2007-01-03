@@ -30,6 +30,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSynchronized <em>Synchronized</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferences <em>Preferences</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferencePages <em>Preference Pages</em>}</li>
  * </ul>
  * </p>
  *
@@ -236,6 +237,22 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	void setPreferences(GenDiagramPreferences value);
+
+	/**
+	 * Returns the value of the '<em><b>Preference Pages</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preference Pages</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preference Pages</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PreferencePages()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" containment="true"
+	 * @generated
+	 */
+	EList getPreferencePages();
 
 	/**
 	 * <!-- begin-user-doc -->
