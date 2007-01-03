@@ -1,0 +1,60 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE extensions FOR gmfgen::GenDiagram-»
+   <extension point="org.eclipse.core.runtime.preferences">
+      <?gmfgen generated="true"?>
+      <initializer class="«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassName»"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            name="%preferences.general"
+            class="«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName»"
+            id="«editorGen.plugin.iD».general">
+      </page>
+      <page
+            name="%preferences.appearance"
+            category="«editorGen.plugin.iD».general"
+            class="«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName»"
+            id="«editorGen.plugin.iD».appearance">
+      </page>     
+      <page
+            name="%preferences.connections"
+            category="«editorGen.plugin.iD».general"
+            class="«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName»"
+            id="«editorGen.plugin.iD».connections">
+      </page>    
+      <page
+            name="%preferences.printing"
+            category="«editorGen.plugin.iD».general"
+            class="«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName»"
+            id="«editorGen.plugin.iD».printing">
+      </page>
+      <page
+            name="%preferences.rulersAndGrid"
+            category="«editorGen.plugin.iD».general"
+            class="«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName»"
+            id="«editorGen.plugin.iD».rulersAndGrid">
+      </page>
+      <page
+            name="%preferences.pathmaps"
+            category="«editorGen.plugin.iD».general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
+            id="«editorGen.plugin.iD».pathmaps">
+      </page>
+   </extension>
+«ENDDEFINE»

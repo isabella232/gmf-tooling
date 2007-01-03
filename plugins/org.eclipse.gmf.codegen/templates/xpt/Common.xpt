@@ -20,3 +20,11 @@
  */
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE xcopyright FOR gmfgen::GenEditorGenerator-»
+«IF copyrightText != null-»
+<!--
+«copyrightText»
+-->
+«ENDIF-»
+«ENDDEFINE»
