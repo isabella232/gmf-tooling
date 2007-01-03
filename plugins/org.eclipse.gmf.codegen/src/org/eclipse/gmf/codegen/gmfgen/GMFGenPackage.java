@@ -1256,13 +1256,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_VIEW__ICON_PATH = 4;
 
 	/**
+	 * The feature id for the '<em><b>Icon Path X</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_VIEW__ICON_PATH_X = 5;
+
+	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_VIEW__ID = 5;
+	int GEN_EDITOR_VIEW__ID = 6;
 
 	/**
 	 * The feature id for the '<em><b>Eclipse Editor</b></em>' attribute.
@@ -1271,7 +1280,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_VIEW__ECLIPSE_EDITOR = 6;
+	int GEN_EDITOR_VIEW__ECLIPSE_EDITOR = 7;
 
 	/**
 	 * The number of structural features of the '<em>Gen Editor View</em>' class.
@@ -1280,7 +1289,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_VIEW_FEATURE_COUNT = 7;
+	int GEN_EDITOR_VIEW_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl <em>Gen Preference Page</em>}' class.
@@ -9210,6 +9219,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenEditorView_IconPath();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPathX <em>Icon Path X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon Path X</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPathX()
+	 * @see #getGenEditorView()
+	 * @generated
+	 */
+	EAttribute getGenEditorView_IconPathX();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getID <em>ID</em>}'.

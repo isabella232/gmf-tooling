@@ -29,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getIconPath <em>Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getIconPathX <em>Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#isEclipseEditor <em>Eclipse Editor</em>}</li>
  * </ul>
@@ -116,6 +117,16 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * @ordered
 	 */
 	protected String iconPath = ICON_PATH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIconPathX() <em>Icon Path X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconPathX()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ICON_PATH_X_EDEFAULT = null;
 
 	/**
 	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
@@ -450,6 +461,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return getClassName();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
 				return getIconPath();
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH_X:
+				return getIconPathX();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return getID();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
@@ -533,6 +546,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
 				return ICON_PATH_EDEFAULT == null ? iconPath != null : !ICON_PATH_EDEFAULT.equals(iconPath);
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH_X:
+				return ICON_PATH_X_EDEFAULT == null ? getIconPathX() != null : !ICON_PATH_X_EDEFAULT.equals(getIconPathX());
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:

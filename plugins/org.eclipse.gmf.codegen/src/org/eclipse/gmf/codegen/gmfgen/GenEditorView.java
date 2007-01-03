@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPath <em>Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPathX <em>Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#isEclipseEditor <em>Eclipse Editor</em>}</li>
  * </ul>
@@ -144,7 +145,6 @@ public interface GenEditorView extends EObject {
 
 	/**
 	 * Processes keywords that are part of iconPath, to avoid serializing processed values.
-	 * FIXME derived transient feature
 	 */
 	String getIconPathX();
 

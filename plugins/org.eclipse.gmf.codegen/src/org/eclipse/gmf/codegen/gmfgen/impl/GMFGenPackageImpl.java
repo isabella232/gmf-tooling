@@ -1484,7 +1484,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorView_ID() {
+	public EAttribute getGenEditorView_IconPathX() {
 		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1493,8 +1493,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorView_EclipseEditor() {
+	public EAttribute getGenEditorView_ID() {
 		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_EclipseEditor() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -5730,6 +5739,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ACTION_BAR_CONTRIBUTOR_CLASS_NAME);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CLASS_NAME);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH_X);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ECLIPSE_EDITOR);
 
@@ -6483,6 +6493,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorView_ActionBarContributorClassName(), ecorePackage.getEString(), "actionBarContributorClassName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_IconPath(), ecorePackage.getEString(), "iconPath", null, 1, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_IconPathX(), ecorePackage.getEString(), "iconPathX", null, 1, 1, GenEditorView.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_EclipseEditor(), ecorePackage.getEBoolean(), "eclipseEditor", "true", 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
