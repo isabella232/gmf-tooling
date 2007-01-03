@@ -22,4 +22,4 @@ plugin@org.eclipse.gmf.map.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsro
 plugin@org.eclipse.gmf.tooldef=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef
 plugin@org.eclipse.gmf.tooldef.edit=v20061214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
 plugin@org.eclipse.gmf.validate=v20061218-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.validate
-plugin@org.eclipse.gmf.xpand=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
+plugin@org.eclipse.gmf.xpand=v20070103-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
