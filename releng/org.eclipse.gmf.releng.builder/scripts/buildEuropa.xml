@@ -20,6 +20,7 @@
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="europa" />
 			<property name="wipe" value="true" />
+			<property name="cleanBase" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
