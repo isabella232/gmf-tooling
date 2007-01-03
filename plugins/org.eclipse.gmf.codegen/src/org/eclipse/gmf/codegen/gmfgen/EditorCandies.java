@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPathX <em>Creation Wizard Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>

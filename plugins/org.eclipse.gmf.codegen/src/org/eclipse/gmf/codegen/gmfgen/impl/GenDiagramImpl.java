@@ -94,6 +94,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardIconPathX <em>Creation Wizard Icon Path X</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
@@ -819,6 +820,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String creationWizardIconPath = CREATION_WIZARD_ICON_PATH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCreationWizardIconPathX() <em>Creation Wizard Icon Path X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationWizardIconPathX()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATION_WIZARD_ICON_PATH_X_EDEFAULT = null;
 
 	/**
 	 * The default value of the '{@link #getCreationWizardCategoryID() <em>Creation Wizard Category ID</em>}' attribute.
@@ -3800,6 +3811,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCreationWizardPageClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				return getCreationWizardIconPath();
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH_X:
+				return getCreationWizardIconPathX();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
 				return getCreationWizardCategoryID();
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
@@ -4421,6 +4434,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT == null ? creationWizardPageClassName != null : !CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT.equals(creationWizardPageClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				return CREATION_WIZARD_ICON_PATH_EDEFAULT == null ? creationWizardIconPath != null : !CREATION_WIZARD_ICON_PATH_EDEFAULT.equals(creationWizardIconPath);
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH_X:
+				return CREATION_WIZARD_ICON_PATH_X_EDEFAULT == null ? getCreationWizardIconPathX() != null : !CREATION_WIZARD_ICON_PATH_X_EDEFAULT.equals(getCreationWizardIconPathX());
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
 				return CREATION_WIZARD_CATEGORY_ID_EDEFAULT == null ? creationWizardCategoryID != null : !CREATION_WIZARD_CATEGORY_ID_EDEFAULT.equals(creationWizardCategoryID);
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
@@ -4564,6 +4579,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH;
+				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH_X: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH_X;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CATEGORY_ID;
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME;
@@ -4675,6 +4691,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH;
+				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH_X: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH_X;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CATEGORY_ID: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID;
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME;
