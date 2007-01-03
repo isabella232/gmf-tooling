@@ -140,6 +140,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCustomPreferencePageItemProvider genCustomPreferencePageItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenCustomPreferencePageAdapter() {
+		if (genCustomPreferencePageItemProvider == null) {
+			genCustomPreferencePageItemProvider = new GenCustomPreferencePageItemProvider(this);
+		}
+
+		return genCustomPreferencePageItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenStandardPreferencePageItemProvider genStandardPreferencePageItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenStandardPreferencePageAdapter() {
+		if (genStandardPreferencePageItemProvider == null) {
+			genStandardPreferencePageItemProvider = new GenStandardPreferencePageItemProvider(this);
+		}
+
+		return genStandardPreferencePageItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1866,6 +1910,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genEditorGeneratorItemProvider != null) genEditorGeneratorItemProvider.dispose();
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
 		if (genEditorViewItemProvider != null) genEditorViewItemProvider.dispose();
+		if (genCustomPreferencePageItemProvider != null) genCustomPreferencePageItemProvider.dispose();
+		if (genStandardPreferencePageItemProvider != null) genStandardPreferencePageItemProvider.dispose();
 		if (genDiagramPreferencesItemProvider != null) genDiagramPreferencesItemProvider.dispose();
 		if (genStandardFontItemProvider != null) genStandardFontItemProvider.dispose();
 		if (genCustomFontItemProvider != null) genCustomFontItemProvider.dispose();
