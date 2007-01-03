@@ -1,0 +1,68 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Decorator Service Example</title>
+</head>
+<body>
+
+<h2>Decorator Service Example</h2>
+
+<h3>Introduction</h3>
+<p>
+This guide describes the Decorator Service example in the SDK.<SPAN style="mso-spacerun:yes">  </SPAN>The Decorator Service provides an easy way to annotate a shape or connection with an image. This
+example demonstrates how to add an image decoration above a note depending on the text in the note.<BR>
+<BR></p>
+
+<h3>Description</h3>
+<P>This example plug-in is named <SPAN class="SpellE">org.eclipse.gmf.examples.runtime.diagram.decorator</SPAN>.
+	<SPAN style="mso-spacerun:yes"> </SPAN>The purpose of the plug-in is <SPAN
+	class="GramE">to install a decorator on a shape with description text (e.g. a note) which will    review the text on the shape and decorate the shape accordingly. More specifically, if the text begins with &quot;Passed&quot; a checkmark icon is shown above the shape, and if the text begins with &quot;Failed&quot; an error icon is shown above the shape.</SPAN><BR>
+<BR>
+<IMG border="0" src="decoratedNotes.gif" width="376" height="110">
+<BR>The '<SPAN class="SpellE">ReviewDecorator</SPAN>' listens to changes to the text on the shape and adds the appropriate decoration. The '<SPAN
+	class="SpellE">ReviewDecoratorProvider</SPAN>' installs the 'ReviewDecorator' on all the shapes that contain description text.<SPAN
+	style="mso-spacerun:yes">  </SPAN>To register this provider, an
+	extension for the <SPAN class="SpellE">org.eclipse.gmf.runtime.diagram.ui.decoratorProviders</SPAN>
+	extension point must be added to the <SPAN class="SpellE">plugin.xml</SPAN>
+	file.</P>
+<P class="MsoNormal"><SPAN class="GramE">i.e.</SPAN></P><DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt"><PRE
+	style="margin-left:0in;border:none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt"><SPAN
+	class="GramE"><SPAN style="color:navy">&lt;extension
+      id=&quot;org.eclipse.gmf.examples.runtime.diagram.decorator.provider.ReviewDecoratorProvider&quot;
+      name=&quot;%ext.reviewDecoratorProvider&quot;
+      point=&quot;org.eclipse.gmf.runtime.diagram.ui.decoratorProviders&quot;&gt;
+   &lt;decoratorProvider 
+     class=&quot;org.eclipse.gmf.examples.runtime.diagram.decorator.provider.ReviewDecoratorProvider&quot;&gt;
+      &lt;Priority name=&quot;Lowest&quot;/&gt;
+      &lt;object
+      	class=&quot;org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)&quot;
+      	id=&quot;NODE&quot;&gt;
+      &lt;/object&gt;
+      &lt;context     	
+        decoratorTargets=&quot;NODE&quot;&gt;
+      &lt;/context&gt;
+   &lt;/decoratorProvider&gt;
+&lt;/extension&gt;</SPAN></SPAN></PRE></DIV>
+<P class="MsoNormal"
+	style="line-height:normal;mso-pagination:widow-orphan;
+mso-layout-grid-align:none;text-autospace:none"><SPAN
+	style='font-size:10.0pt;
+font-family:"Courier New";color:black;background:white;mso-highlight:white'><SPAN
+	style="mso-spacerun:yes">   </SPAN></SPAN><BR>In the '<SPAN class="SpellE">ReviewDecoratorProvider</SPAN>' class, the provides() method checks to see if the decorator target is a node with description text. This check
+is necessary because we only want to install the ReviewDecorator on certain shapes. The createDecorators() method then installs the ReviewDecorator. Note: There only needs to be one decorator provider per plugin as  one provider can install many decorators.<BR>
+<BR>The <SPAN class="SpellE"><SPAN class="GramE">'ReviewDecorator' class adds and later removes a listener in the activate and deactivate methods that will listen to changes in the description text. The refresh() method adds the appropriate image as a decoration.</SPAN></SPAN><SPAN
+	class="GramE"></SPAN>
+</P>
+<H3>Usage</H3>
+<P>Refer to this example if you need to know how to add a decoration to a shape or connection on a diagram.</P>To see the ReviewDecorator in action, simply create a note on a GMF Logic Diagram and add the text &quot;Passed&quot; or &quot;Failed&quot;. The ReviewDecorator is installed as long as the
+<SPAN class="SpellE">org.eclipse.gmf.examples.runtime.diagram.decorator</SPAN>
+is in the target environment or workspace.<br/>
+<hr/>
+<P><a href="http://www.eclipse.org/legal/epl-v10.html">
+Copyright (c) 2007 IBM Corporation and others. All Rights Reserved.</a></P>
+</body>
+</html>
