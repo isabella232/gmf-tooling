@@ -38,6 +38,7 @@ public class «EXPAND className» extends org.eclipse.core.runtime.preferences.Abs
 		«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName».initDefaults(store);
 		«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName».initDefaults(store);
 		«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName».initDefaults(store);
+		«EXPAND initDefaults("store") FOR preferences-»
 	}
 
 	/**
@@ -47,4 +48,47 @@ public class «EXPAND className» extends org.eclipse.core.runtime.preferences.Abs
 		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore();
 	}
 } 
+«ENDDEFINE»
+
+«DEFINE initDefaults(String storeVar) FOR gmfgen::GenDiagramPreferences»
+	«EXPAND initDefaultFont(storeVar, "PREF_DEFAULT_FONT") FOR defaultFont-»
+	«EXPAND initDefaultColor(storeVar, "PREF_FONT_COLOR") FOR fontColor-»
+	«EXPAND initDefaultColor(storeVar, "PREF_FILL_COLOR") FOR fillColor-»
+	«EXPAND initDefaultColor(storeVar, "PREF_LINE_COLOR") FOR lineColor-»
+	«EXPAND initDefaultColor(storeVar, "PREF_NOTE_FILL_COLOR") FOR noteFillColor-»
+	«EXPAND initDefaultColor(storeVar, "PREF_NOTE_LINE_COLOR") FOR noteLineColor-»
+«ENDDEFINE»
+
+«DEFINE initDefaultColor(String storeVar, String prefName) FOR gmfgen::GenColor»
+	org.eclipse.jface.preference.PreferenceConverter.setDefault(
+		«storeVar», org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.«prefName», «EXPAND rgb»);
+«ENDDEFINE»
+
+«DEFINE initDefaultFont(String storeVar, String prefName) FOR gmfgen::GenFont»
+	org.eclipse.jface.preference.PreferenceConverter.setDefault(
+		«storeVar», org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.«prefName», «EXPAND fontData»);
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenColor»
+	«ERROR "Unknown colour: " + this»
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenConstantColor»
+	org.eclipse.gmf.runtime.diagram.ui.figures.DiagramColorConstants.«name».getRGB()
+«ENDDEFINE»
+
+«DEFINE rgb FOR gmfgen::GenRGBColor»
+	new org.eclipse.swt.graphics.RGB(«red», «green», «blue»)
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenFont»
+	«ERROR "Unknown font: " + this»
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenCustomFont»
+	new org.eclipse.swt.graphics.FontData("«name»", «height», org.eclipse.swt.SWT.«style»)
+«ENDDEFINE»
+
+«DEFINE fontData FOR gmfgen::GenStandardFont»
+	org.eclipse.jface.resource.JFaceResources.get«name»Font().getFontData()
 «ENDDEFINE»
