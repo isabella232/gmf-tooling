@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+	
+	<target name="init">		
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+	</target>
+	
+	<target name="checkArgs" unless="stable.target">
+		<echo message="tags.properties file is required." />
+		<fail/>
+	</target>
+	
+	<target name="main" depends="init,checkArgs">
+		<echo message="Building europa feature..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="europa" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="componentsTag" value="${stable.components}" />
+		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
+		<antcall target="publish" />
+		<!-- Removing auto-deployment of stable builds - better do deploy them manually
+		<ant antfile="deploy.xml" target="deploy.updates.europa" />		
+		-->
+	</target>
+
+	<target name="publish" depends="">
+		<property file="build.properties" />
+		<!-- Only update site is published -->
+		<copy todir="${buildRoot}/artifacts/updates/europa/${buildLabel}/features">
+			<fileset dir="${buildUpdateSitePath}/features" />
+		</copy>
+		<copy todir="${buildRoot}/artifacts/updates/europa/${buildLabel}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins" />
+		</copy>
+	</target>
+		
+</project>
