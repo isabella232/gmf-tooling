@@ -15,6 +15,7 @@
 	</target>
 	
 	<target name="main" depends="init,checkArgs">
+		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building europa feature..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="europa" />
