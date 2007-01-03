@@ -68,6 +68,8 @@ public class «EXPAND className» extends org.eclipse.core.runtime.preferences.Abs
 	«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_SHOW_GRID, org.eclipse.gef.rulers.RulerProvider.UNIT_«rulerUnits»);
 	«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_SNAP_TO_GRID, «snapToGrid»);
 	«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_GRID_SPACING, «gridSpacing»);
+	«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_MODEL, «promptOnDelFromModel»);
+	«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM, «promptOnDelFromDiagram»);
 «ENDDEFINE»
 
 «DEFINE initDefaultColor(String storeVar, String prefName) FOR gmfgen::GenColor»
