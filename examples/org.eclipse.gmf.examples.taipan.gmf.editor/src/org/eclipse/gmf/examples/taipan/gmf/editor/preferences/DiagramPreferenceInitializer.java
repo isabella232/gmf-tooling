@@ -12,9 +12,11 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.gef.rulers.RulerProvider;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.figures.DiagramColorConstants;
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+import org.eclipse.gmf.runtime.notation.Routing;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.FontData;
@@ -30,6 +32,22 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = getPreferenceStore();
 
+		DiagramGeneralPreferencePage.initDefaults(store);
+
+		DiagramAppearancePreferencePage.initDefaults(store);
+
+		DiagramConnectionsPreferencePage.initDefaults(store);
+
+		DiagramPrintingPreferencePage.initDefaults(store);
+
+		DiagramRulersAndGridPreferencePage.initDefaults(store);
+
+		store.setDefault(IPreferenceConstants.PREF_SHOW_CONNECTION_HANDLES, true);
+		store.setDefault(IPreferenceConstants.PREF_SHOW_POPUP_BARS, true);
+		store.setDefault(IPreferenceConstants.PREF_ENABLE_ANIMATED_LAYOUT, true);
+		store.setDefault(IPreferenceConstants.PREF_ENABLE_ANIMATED_ZOOM, true);
+		store.setDefault(IPreferenceConstants.PREF_ENABLE_ANTIALIAS, true);
+
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_DEFAULT_FONT, new FontData("monospaced", 12, org.eclipse.swt.SWT.NORMAL));
 
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_FONT_COLOR, DiagramColorConstants.black.getRGB());
@@ -37,14 +55,12 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_FILL_COLOR, DiagramColorConstants.white.getRGB());
 
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_LINE_COLOR, new org.eclipse.swt.graphics.RGB(64, 64, 64));
-
-		DiagramGeneralPreferencePage.initDefaults(store);
-
-		DiagramConnectionsPreferencePage.initDefaults(store);
-
-		DiagramPrintingPreferencePage.initDefaults(store);
-
-		DiagramRulersAndGridPreferencePage.initDefaults(store);
+		store.setDefault(IPreferenceConstants.PREF_LINE_STYLE, Routing.MANUAL);
+		store.setDefault(IPreferenceConstants.PREF_SHOW_RULERS, false);
+		store.setDefault(IPreferenceConstants.PREF_RULER_UNITS, false);
+		store.setDefault(IPreferenceConstants.PREF_SHOW_GRID, RulerProvider.UNIT_PIXELS);
+		store.setDefault(IPreferenceConstants.PREF_SNAP_TO_GRID, false);
+		store.setDefault(IPreferenceConstants.PREF_GRID_SPACING, 0.125);
 	}
 
 	/**
