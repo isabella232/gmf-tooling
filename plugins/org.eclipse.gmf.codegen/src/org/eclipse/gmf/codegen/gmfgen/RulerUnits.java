@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  */
 public final class RulerUnits extends AbstractEnumerator {
 	/**
-	 * The '<em><b>Inches</b></em>' literal value.
+	 * The '<em><b>INCHES</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Inches</b></em>' literal object isn't clear,
@@ -31,14 +31,14 @@ public final class RulerUnits extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INCHES_LITERAL
-	 * @model name="Inches"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int INCHES = 0;
 
 	/**
-	 * The '<em><b>Centimeters</b></em>' literal value.
+	 * The '<em><b>CENTIMETERS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Centimeters</b></em>' literal object isn't clear,
@@ -46,14 +46,14 @@ public final class RulerUnits extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #CENTIMETERS_LITERAL
-	 * @model name="Centimeters"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int CENTIMETERS = 1;
 
 	/**
-	 * The '<em><b>Pixels</b></em>' literal value.
+	 * The '<em><b>PIXELS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Pixels</b></em>' literal object isn't clear,
@@ -61,41 +61,41 @@ public final class RulerUnits extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PIXELS_LITERAL
-	 * @model name="Pixels"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int PIXELS = 2;
 
 	/**
-	 * The '<em><b>Inches</b></em>' literal object.
+	 * The '<em><b>INCHES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #INCHES
 	 * @generated
 	 * @ordered
 	 */
-	public static final RulerUnits INCHES_LITERAL = new RulerUnits(INCHES, "Inches", "Inches");
+	public static final RulerUnits INCHES_LITERAL = new RulerUnits(INCHES, "INCHES", "INCHES");
 
 	/**
-	 * The '<em><b>Centimeters</b></em>' literal object.
+	 * The '<em><b>CENTIMETERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #CENTIMETERS
 	 * @generated
 	 * @ordered
 	 */
-	public static final RulerUnits CENTIMETERS_LITERAL = new RulerUnits(CENTIMETERS, "Centimeters", "Centimeters");
+	public static final RulerUnits CENTIMETERS_LITERAL = new RulerUnits(CENTIMETERS, "CENTIMETERS", "CENTIMETERS");
 
 	/**
-	 * The '<em><b>Pixels</b></em>' literal object.
+	 * The '<em><b>PIXELS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PIXELS
 	 * @generated
 	 * @ordered
 	 */
-	public static final RulerUnits PIXELS_LITERAL = new RulerUnits(PIXELS, "Pixels", "Pixels");
+	public static final RulerUnits PIXELS_LITERAL = new RulerUnits(PIXELS, "PIXELS", "PIXELS");
 
 	/**
 	 * An array of all the '<em><b>Ruler Units</b></em>' enumerators.

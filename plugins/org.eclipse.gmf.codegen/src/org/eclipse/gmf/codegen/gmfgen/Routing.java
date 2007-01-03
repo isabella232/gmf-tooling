@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  */
 public final class Routing extends AbstractEnumerator {
 	/**
-	 * The '<em><b>Manual</b></em>' literal value.
+	 * The '<em><b>MANUAL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Manual</b></em>' literal object isn't clear,
@@ -31,14 +31,14 @@ public final class Routing extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MANUAL_LITERAL
-	 * @model name="Manual"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int MANUAL = 0;
 
 	/**
-	 * The '<em><b>Rectilinear</b></em>' literal value.
+	 * The '<em><b>RECTILINEAR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Rectilinear</b></em>' literal object isn't clear,
@@ -46,14 +46,14 @@ public final class Routing extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #RECTILINEAR_LITERAL
-	 * @model name="Rectilinear"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int RECTILINEAR = 1;
 
 	/**
-	 * The '<em><b>Tree</b></em>' literal value.
+	 * The '<em><b>TREE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Tree</b></em>' literal object isn't clear,
@@ -61,41 +61,41 @@ public final class Routing extends AbstractEnumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #TREE_LITERAL
-	 * @model name="Tree"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int TREE = 2;
 
 	/**
-	 * The '<em><b>Manual</b></em>' literal object.
+	 * The '<em><b>MANUAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #MANUAL
 	 * @generated
 	 * @ordered
 	 */
-	public static final Routing MANUAL_LITERAL = new Routing(MANUAL, "Manual", "Manual");
+	public static final Routing MANUAL_LITERAL = new Routing(MANUAL, "MANUAL", "MANUAL");
 
 	/**
-	 * The '<em><b>Rectilinear</b></em>' literal object.
+	 * The '<em><b>RECTILINEAR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #RECTILINEAR
 	 * @generated
 	 * @ordered
 	 */
-	public static final Routing RECTILINEAR_LITERAL = new Routing(RECTILINEAR, "Rectilinear", "Rectilinear");
+	public static final Routing RECTILINEAR_LITERAL = new Routing(RECTILINEAR, "RECTILINEAR", "RECTILINEAR");
 
 	/**
-	 * The '<em><b>Tree</b></em>' literal object.
+	 * The '<em><b>TREE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #TREE
 	 * @generated
 	 * @ordered
 	 */
-	public static final Routing TREE_LITERAL = new Routing(TREE, "Tree", "Tree");
+	public static final Routing TREE_LITERAL = new Routing(TREE, "TREE", "TREE");
 
 	/**
 	 * An array of all the '<em><b>Routing</b></em>' enumerators.

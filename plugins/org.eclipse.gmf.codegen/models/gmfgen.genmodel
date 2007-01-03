@@ -11,14 +11,14 @@
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfgen.ecore#/">
     <genEnums ecoreEnum="gmfgen.ecore#//RulerUnits">
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Inches"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Centimeters"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/Pixels"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/INCHES"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/CENTIMETERS"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//RulerUnits/PIXELS"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//Routing">
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Manual"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Rectilinear"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/Tree"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/MANUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/RECTILINEAR"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//Routing/TREE"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//JFaceFont">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//JFaceFont/Default"/>

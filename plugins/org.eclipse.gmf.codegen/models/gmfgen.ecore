@@ -161,14 +161,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridSpacing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RulerUnits">
-    <eLiterals name="Inches"/>
-    <eLiterals name="Centimeters" value="1"/>
-    <eLiterals name="Pixels" value="2"/>
+    <eLiterals name="INCHES"/>
+    <eLiterals name="CENTIMETERS" value="1"/>
+    <eLiterals name="PIXELS" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Routing">
-    <eLiterals name="Manual"/>
-    <eLiterals name="Rectilinear" value="1"/>
-    <eLiterals name="Tree" value="2"/>
+    <eLiterals name="MANUAL"/>
+    <eLiterals name="RECTILINEAR" value="1"/>
+    <eLiterals name="TREE" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenFont" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenStandardFont" eSuperTypes="#//GenFont">
