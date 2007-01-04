@@ -422,8 +422,12 @@ public class Generator extends GeneratorBase implements Runnable {
 	 * Passes initialized ImportManager as second template argument
 	 */
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
-		ImportAssistant importUtil = createImportAssistant(packageName, className);
-		doGenerateJavaClass(emitter, packageName, className, new Object[] { new Object[] {argument, importUtil } });
+		if (emitter instanceof IAutomaticImportManager) {
+			doGenerateJavaClass(emitter, packageName, className, new Object[] {argument});
+		} else {
+			ImportAssistant importUtil = createImportAssistant(packageName, className);
+			doGenerateJavaClass(emitter, packageName, className, new Object[] { new Object[] {argument, importUtil } });
+		}
 	}
 
 	protected void setupProgressMonitor() {

@@ -73,7 +73,6 @@ import org.eclipse.gmf.codegen.templates.lite.expressions.AbstractExpressionGene
 import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorContentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
@@ -186,7 +185,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
 
-		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
@@ -417,7 +415,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorContentProviderGenerator.class);
+		return retrieveXpand("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
@@ -494,7 +492,7 @@ public class CodegenEmitters {
 	 * TODO: use same emitter as one in oeg.codegen? Or at least make them both subclasses of the same abstract superclass
 	 * (to have possibility to use independent ways to extract the target and the arguments from the passed arguments).
 	 */
-	private static class XpandTextEmitter implements TextEmitter {
+	private static class XpandTextEmitter implements TextEmitter, IAutomaticImportManager {
 		private final ResourceManager myResourceManager;
 		private final String myTemplateFQN;
 
