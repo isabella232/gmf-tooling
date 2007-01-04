@@ -925,22 +925,6 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getChildReferencesFrom(GenCommonBase parent) {
-		Collection result = new ArrayList();
-		for (Iterator it = getChildReferences().iterator(); it.hasNext();) {
-			GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
-			if (parent == nextReference.getParent()) {
-				result.add(nextReference);
-			}
-		}
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public EList getChildReferencesTo(GenCommonBase child) {
 		Collection result = new ArrayList();
 		for (Iterator it = getChildReferences().iterator(); it.hasNext();) {

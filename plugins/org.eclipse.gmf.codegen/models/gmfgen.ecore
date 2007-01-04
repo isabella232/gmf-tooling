@@ -1694,12 +1694,6 @@
     <eOperations name="getAbstractNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNavigatorGroupQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getChildReferencesFrom" upperBound="-1" eType="#//GenNavigatorChildReference">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="corresponding method should be implemented in .ext file"/>
-      </eAnnotations>
-      <eParameters name="parent" eType="#//GenCommonBase"/>
-    </eOperations>
     <eOperations name="getChildReferencesTo" upperBound="-1" eType="#//GenNavigatorChildReference">
       <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
         <details key="documentation" value="corresponding method should be implemented in .ext file"/>

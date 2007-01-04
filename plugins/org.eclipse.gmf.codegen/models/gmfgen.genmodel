@@ -773,9 +773,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getAbstractNavigatorItemQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorGroupQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorItemQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getChildReferencesFrom">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenNavigator/getChildReferencesFrom/parent"/>
-      </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getChildReferencesTo">
         <genParameters ecoreParameter="gmfgen.ecore#//GenNavigator/getChildReferencesTo/child"/>
       </genOperations>

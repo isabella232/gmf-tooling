@@ -7212,9 +7212,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorItemQualifiedClassName", 0, 1);
 
-		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesFrom", 0, -1);
-		addEParameter(op, this.getGenCommonBase(), "parent", 0, 1);
-
 		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesTo", 0, -1);
 		addEParameter(op, this.getGenCommonBase(), "child", 0, 1);
 
@@ -7474,7 +7471,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																											
+		   });																																																																																																																																																																																																										
 	}
 
 	/**
@@ -7693,7 +7690,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });																				
+		   });																			
 		addAnnotation
 		  (getGenSharedContributionItem_ActualItem(), 
 		   source, 
@@ -7719,12 +7716,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   });																																																																																																																																																																															
 		addAnnotation
 		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
-		   source, 
-		   new String[] {
-			 "documentation", "corresponding method should be implemented in .ext file"
-		   });		
-		addAnnotation
-		  ((EOperation)genNavigatorEClass.getEOperations().get(9), 
 		   source, 
 		   new String[] {
 			 "documentation", "corresponding method should be implemented in .ext file"
@@ -7840,7 +7831,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																					
+		   });																				
 	}
 
 } //GMFGenPackageImpl
