@@ -18,7 +18,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
@@ -106,13 +105,6 @@ public class EcoreTextSelectionEditPolicy extends SelectionEditPolicy {
 				focusFeedbackFigure = null;
 			}
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getFeedbackLayer() {
-		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 	}
 
 	/**
