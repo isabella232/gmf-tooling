@@ -15,15 +15,25 @@
 
 «EXTENSION xpt::ExternalizerUtils»
 
-«DEFINE Access FOR gmfgen::GenEditorGenerator»
+«DEFINE Access FOR gmfgen::GenEditorGenerator-»
+	«EXPAND xpt::Common::copyright FOR this-»
 package «this.getAccessorQualifier()»;
 
+/**
+ * @generated
+ */
 public class «this.getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
+	/**
+	 * @generated
+	 */
 	static {
 		org.eclipse.osgi.util.NLS.initializeMessages("«this.getAccessorName().toLowerCase()»", «this.getAccessorName()».class); //$NON-NLS-1$
 	}
 
+	/**
+	 * @generated
+	 */
 	private «this.getAccessorName()»() {
 	}
 
