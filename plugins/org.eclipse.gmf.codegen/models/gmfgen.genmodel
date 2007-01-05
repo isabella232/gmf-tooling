@@ -492,6 +492,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//SpecializationType">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//SpecializationType/metamodelType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//SpecializationType/editHelperAdviceClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//SpecializationType/getMetamodelClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//SpecializationType/getEditHelperAdviceQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//NotationType"/>

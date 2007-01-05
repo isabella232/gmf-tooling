@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Specialization Type</b></em>'.
@@ -83,6 +85,14 @@ public interface SpecializationType extends ElementType {
 	 * @generated
 	 */
 	void setEditHelperAdviceClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	GenClass getMetamodelClass();
 
 	/**
 	 * <!-- begin-user-doc -->

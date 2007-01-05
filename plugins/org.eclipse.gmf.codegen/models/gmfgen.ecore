@@ -833,6 +833,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialization of metamodel type"/>
     </eAnnotations>
+    <eOperations name="getMetamodelClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eOperations name="getEditHelperAdviceQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metamodelType" eType="#//MetamodelType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHelperAdviceClassName"

@@ -6,11 +6,17 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 
@@ -138,6 +144,26 @@ public class SpecializationTypeImpl extends ElementTypeImpl implements Specializ
 		editHelperAdviceClassName = newEditHelperAdviceClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.SPECIALIZATION_TYPE__EDIT_HELPER_ADVICE_CLASS_NAME, oldEditHelperAdviceClassName, editHelperAdviceClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public GenClass getMetamodelClass() {
+		GenClass metaClass = null;
+		if (getMetamodelType() != null) {
+			metaClass = getMetamodelType().getMetaClass();
+		}
+		if (getDiagramElement() instanceof GenLink) {
+			LinkModelFacet modelFacet = ((GenLink) getDiagramElement()).getModelFacet();
+			if (modelFacet instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet) modelFacet).getMetaFeature();
+				metaClass = metaFeature.getGenClass();
+			}
+		}
+		return metaClass;
 	}
 
 	/**
