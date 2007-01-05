@@ -16,6 +16,53 @@
 «EXTENSION xpt::diagram::Utils»
 
 «DEFINE extensions FOR gmfgen::GenDiagram-»
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <?gmfgen generated="true"?>
+      <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
+         <Priority name="«notationViewProviderPriority»"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
+         <Priority name="«editPartProviderPriority»"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
+         <Priority name="«modelingAssistantProviderPriority»"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <?gmfgen generated="true"?>
+      <IconProvider class="«getIconProviderQualifiedClassName()»">
+         <Priority name="«iconProviderPriority»"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="«getParserProviderQualifiedClassName()»">
+         <Priority name="«parserProviderPriority»"/>
+      </ParserProvider>
+   </extension>
+   «IF generateShortcutIcon()-»
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
+         <Priority name="«shortcutsDecoratorProviderPriority»"/>
+      </decoratorProvider>
+   </extension>
+   «ENDIF-»
+
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
       <?gmfgen generated="true"?>
       «FOREACH getElements() AS e-»
