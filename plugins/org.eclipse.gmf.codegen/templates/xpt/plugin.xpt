@@ -12,6 +12,7 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::Utils»
 
 «DEFINE plugin FOR gmfgen::GenPlugin-»
 <?xml version="1.0" encoding="UTF-8"?>
@@ -36,8 +37,7 @@
    </extension>
 
    «EXPAND xpt::editor::extensions::extensions FOR editorGen-»
-   «EXPAND contextMenu-»
-   «EXPAND providers FOR editorGen.diagram-»
+   «EXPAND menu-»
    «EXPAND validation FOR editorGen.diagram-»
    «EXPAND metrics FOR editorGen.metrics-»
    «EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
@@ -48,7 +48,7 @@
 </plugin>
 «ENDDEFINE»
 
-«DEFINE contextMenu FOR gmfgen::GenPlugin»
+«DEFINE menu FOR gmfgen::GenPlugin»
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       «IF null == editorGen.application && editorGen.diagram.generateInitDiagramAction()-»
@@ -145,54 +145,103 @@
          </ViewId>
       </GlobalActionHandlerProvider>
    </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      «IF printingEnabled-»
+      <contributionItemProvider class="«editorGen.diagram.getContributionItemProviderQualifiedClassName()»">
+         <Priority name="Low">
+         </Priority>
+         <partContribution id="«editorGen.editor.iD»">
+            <partAction menubarPath="/file/print" id="printPreviewAction">
+            </partAction>
+         </partContribution>
+      </contributionItemProvider>
+      «ENDIF-»
+      <contributionItemProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
+            checkPluginLoaded="false">
+         <Priority name="Low"/>
+         «FOREACH getElements(editorGen.diagram) AS e-»
+            «EXPAND removeContributions FOR e-»
+            «EXPAND removeLabelContributions FOR e-»
+         «ENDFOREACH-»
+      </contributionItemProvider>
+   </extension>
 «ENDDEFINE»
 
-«DEFINE providers FOR gmfgen::GenDiagram»
-   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <?gmfgen generated="true"?>
-      <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
-         <Priority name="«notationViewProviderPriority»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
-      </viewProvider>
-   </extension>
+«DEFINE removeLabelContributions FOR gmfgen::GenCommonBase»
+«ENDDEFINE»
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
-      <?gmfgen generated="true"?>
-      <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
-         <Priority name="«editPartProviderPriority»"/>
-      </editpartProvider>
-   </extension>
+«DEFINE removeLabelContributions FOR gmfgen::GenNode»
+	«FOREACH labels AS label-»
+		«EXPAND removeContributions FOR label-»
+	«ENDFOREACH-»
+«ENDDEFINE»
 
-   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
-      <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
-         <Priority name="«modelingAssistantProviderPriority»"/>
-      </modelingAssistantProvider>
-   </extension>
+«DEFINE removeLabelContributions FOR gmfgen::GenLink»
+	«FOREACH labels AS label-»
+		«EXPAND removeContributions FOR label-»
+	«ENDFOREACH-»
+«ENDDEFINE»
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
-      <?gmfgen generated="true"?>
-      <IconProvider class="«getIconProviderQualifiedClassName()»">
-         <Priority name="«iconProviderPriority»"/>
-      </IconProvider>
-   </extension>
+«DEFINE removeContributions FOR gmfgen::GenCommonBase»
+«ENDDEFINE»
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
-      <?gmfgen generated="true"?>
-      <ParserProvider class="«getParserProviderQualifiedClassName()»">
-         <Priority name="«parserProviderPriority»"/>
-      </ParserProvider>
-   </extension>
-   «IF generateShortcutIcon()-»
+«DEFINE removeContributions FOR gmfgen::GenNode»
+	«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
+«ENDDEFINE»
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
-      <?gmfgen generated="true"?>
-      <decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
-         <Priority name="«shortcutsDecoratorProviderPriority»"/>
-      </decoratorProvider>
-   </extension>
+«DEFINE removeContributions FOR gmfgen::GenLink»
+	«EXPAND removeAllDeleteContribution(this) FOR modelFacet-»
+	«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE removeContributions FOR gmfgen::GenNodeLabel»
+	«EXPAND removeDeleteFromDiagramContribution(this) FOR node.modelFacet-»
+«ENDDEFINE»
+
+«DEFINE removeContributions FOR gmfgen::GenExternalNodeLabel-»
+	«EXPAND removeAllDeleteContributions-»
+«ENDDEFINE»
+
+«DEFINE removeContributions FOR gmfgen::GenLinkLabel-»
+	«EXPAND removeAllDeleteContributions-»
+«ENDDEFINE»
+
+«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
+«ENDDEFINE»
+
+«DEFINE removeAllDeleteContributions FOR gmfgen::GenCommonBase»
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="«getEditPartQualifiedClassName()»"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+«ENDDEFINE»
+
+«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
+«ENDDEFINE»
+
+«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLinkModelFacet»
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            «IF element.getDiagram().synchronized-»
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            «ENDIF-»
+         </popupContribution>
+«ENDDEFINE»
+
+«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
+«ENDDEFINE»
+
+«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::TypeModelFacet»
+   «IF !element.getDiagram().synchronized-»
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
    «ENDIF-»
 «ENDDEFINE»
 
