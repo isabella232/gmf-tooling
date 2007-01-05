@@ -38,8 +38,11 @@
    «EXPAND xpt::editor::extensions::extensions FOR editorGen-»
    «EXPAND contextMenu-»
    «EXPAND providers FOR editorGen.diagram-»
+   «EXPAND validation FOR editorGen.diagram-»
+   «EXPAND metrics FOR editorGen.metrics-»
    «EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
    «EXPAND xpt::diagram::properties::extensions::extensions FOR editorGen.propertySheet-»
+   «EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
    «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
    «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
 </plugin>
@@ -190,5 +193,70 @@
          <Priority name="«shortcutsDecoratorProviderPriority»"/>
       </decoratorProvider>
    </extension>
+   «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE metrics FOR gmfgen::GenMetricContainer»
+    «IF metrics.size() > 0-»
+	<extension id="MetricContributionItemProvider" name="Metrics"
+		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+		<?gmfgen generated="true"?>
+		<contributionItemProvider checkPluginLoaded="true" class="«editor.diagram.getMetricProviderQualifiedClassName()»">
+			<Priority name="«editor.diagram.metricProviderPriority»"/>		
+			<partContribution id="«editor.editor.iD»">
+				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
+			</partContribution>		
+		</contributionItemProvider>
+	</extension>
+
+	<extension point="org.eclipse.ui.views">
+	    <?gmfgen generated="true"?>
+   		<view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
+			id="«editor.diagram.getMetricViewID()»"
+			name="«editor.modelID» Diagram Metrics"/>
+	</extension>
+    «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE validation FOR gmfgen::GenDiagram»
+   «IF validationEnabled || (null != editorGen.audits && editorGen.audits.getAllAuditRules().size() > 0)-»
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
+         <MarkerType name="«editorGen.plugin.iD + "." + getValidationDiagnosticMarkerType()»"/>
+         <Priority name="«markerNavigationProviderPriority»"/>
+      </MarkerNavigationProvider>
+   </extension>
+   <extension id="«getValidationDiagnosticMarkerType()»" name="«editorGen.plugin.name» problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+   «IF validationEnabled-»
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      <contributionItemProvider checkPluginLoaded="true"
+         class="«getValidationProviderQualifiedClassName()»">
+         <Priority name="«validationProviderPriority»"/>
+         <partContribution id="«editorGen.editor.iD»">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+   «ENDIF-»
+   «IF validationDecorators-»
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="«getValidationDecoratorProviderQualifedClassName()»">
+         <Priority name="«validationDecoratorProviderPriority»"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+   «ENDIF-»
    «ENDIF-»
 «ENDDEFINE»

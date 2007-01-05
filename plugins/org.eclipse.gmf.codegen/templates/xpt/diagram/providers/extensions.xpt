@@ -1,0 +1,102 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::Utils»
+
+«DEFINE extensions FOR gmfgen::GenDiagram-»
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+      <?gmfgen generated="true"?>
+      «FOREACH getElements() AS e-»
+         «EXPAND elementTypeSafe FOR e.elementType-»
+      «ENDFOREACH-»
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="«editorGen.modelID»ClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="«editingDomainID»"/>
+         </enablement>
+      </clientContext> 
+      <binding context="«editorGen.modelID»ClientContext">
+         «FOREACH getElements() AS e-»
+         <elementType ref="«e.elementType.uniqueIdentifier»"/>
+         «ENDFOREACH-»
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+«ENDDEFINE»
+
+«DEFINE elementTypeSafe FOR gmfgen::ElementType»
+	«IF !definedExternally-»
+		«EXPAND elementType-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE elementType FOR gmfgen::ElementType»
+	«ERROR "Unknown element type: " + this»
+«ENDDEFINE»
+
+«DEFINE elementType FOR gmfgen::MetamodelType»
+      <metamodel nsURI="«getMetaClass().genPackage.ecorePackage.nsURI»">
+         <metamodelType
+               id="«uniqueIdentifier»"
+               «IF null != displayName-»
+               name="«displayName»"
+               «ENDIF-»
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="«getMetaClass().ecoreClass.name»"
+               edithelper="«getEditHelperQualifiedClassName()»">
+            <param name="semanticHint" value="«diagramElement.visualID»"/>
+         </metamodelType>
+      </metamodel>
+«ENDDEFINE»
+
+«DEFINE elementType FOR gmfgen::SpecializationType»
+   «IF null == getMetamodelClass()-»
+      «EXPAND specializationType("org.eclipse.gmf.runtime.emf.type.core.null")-»
+   «ELSE-»
+      <metamodel nsURI="«getMetamodelClass().genPackage.ecorePackage.nsURI»">
+         «EXPAND specializationType(metamodelType.uniqueIdentifier)-»
+      </metamodel>
+   «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE specializationType(String metamodelTypeId) FOR gmfgen::SpecializationType»
+         <specializationType
+               id="«uniqueIdentifier»"
+               «IF null != displayName-»
+               name="«displayName»"
+               «ENDIF-»
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="«getEditHelperAdviceQualifiedClassName()»">
+            <specializes id="«metamodelTypeId»"/>
+            <param name="semanticHint" value="«diagramElement.visualID»"/>
+         </specializationType>
+«ENDDEFINE»
+
+«DEFINE elementType FOR gmfgen::NotationType»
+      <specializationType
+            id="«uniqueIdentifier»"
+            «IF null != displayName-»
+            name="«displayName»"
+            «ENDIF-»
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="«diagramElement.visualID»"/>
+      </specializationType>
+«ENDDEFINE»
