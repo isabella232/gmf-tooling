@@ -14,9 +14,6 @@
 -->
 <plugin>
 
-<!-- gmf generator persistent region begin -->
-<!-- gmf generator persistent region end -->
-
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
       <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPreferenceInitializer"/>
