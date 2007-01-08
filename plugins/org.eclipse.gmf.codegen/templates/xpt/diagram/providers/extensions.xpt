@@ -115,15 +115,15 @@
 
 «DEFINE elementType FOR gmfgen::SpecializationType»
    «IF null == getMetamodelClass()-»
-      «EXPAND specializationType("org.eclipse.gmf.runtime.emf.type.core.null")-»
+      «EXPAND specializationType-»
    «ELSE-»
       <metamodel nsURI="«getMetamodelClass().genPackage.ecorePackage.nsURI»">
-         «EXPAND specializationType(metamodelType.uniqueIdentifier)-»
+         «EXPAND specializationType-»
       </metamodel>
    «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE specializationType(String metamodelTypeId) FOR gmfgen::SpecializationType»
+«DEFINE specializationType FOR gmfgen::SpecializationType»
          <specializationType
                id="«uniqueIdentifier»"
                «IF null != displayName-»
@@ -131,7 +131,7 @@
                «ENDIF-»
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="«getEditHelperAdviceQualifiedClassName()»">
-            <specializes id="«metamodelTypeId»"/>
+            <specializes id="«null == metamodelType ? "org.eclipse.gmf.runtime.emf.type.core.null" : metamodelType.uniqueIdentifier»"/>
             <param name="semanticHint" value="«diagramElement.visualID»"/>
          </specializationType>
 «ENDDEFINE»
