@@ -22,3 +22,7 @@ List[gmfgen::GenNode] getNodes(gmfgen::GenDiagram diagram) :
 List[gmfgen::GenCommonBase] getElements(gmfgen::GenDiagram diagram) :
 	{ diagram }.addAll(diagram.topLevelNodes).addAll(diagram.childNodes).addAll(diagram.links)
 ;
+
+String getConstraintProviders(Object plugin) :
+JAVA org.eclipse.gmf.codegen.util.Generator.getConstraintProviders(java.lang.Object)
+;

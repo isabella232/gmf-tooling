@@ -45,6 +45,7 @@
    «EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
    «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
    «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
+   «getConstraintProviders(editorGen.plugin)»
 </plugin>
 «ENDDEFINE»
 
@@ -193,7 +194,7 @@
 «ENDDEFINE»
 
 «DEFINE removeContributions FOR gmfgen::GenLink»
-	«EXPAND removeAllDeleteContribution(this) FOR modelFacet-»
+	«EXPAND removeAllDeleteContributions(this) FOR modelFacet-»
 	«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
 «ENDDEFINE»
 
@@ -207,9 +208,6 @@
 
 «DEFINE removeContributions FOR gmfgen::GenLinkLabel-»
 	«EXPAND removeAllDeleteContributions-»
-«ENDDEFINE»
-
-«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
 «ENDDEFINE»
 
 «DEFINE removeAllDeleteContributions FOR gmfgen::GenCommonBase»

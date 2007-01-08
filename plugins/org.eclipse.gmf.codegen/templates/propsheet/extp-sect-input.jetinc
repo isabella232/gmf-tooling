@@ -1,5 +1,0 @@
-<%
-final TypeTabFilter typeTabFilter = (TypeTabFilter) ((GenCustomPropertyTab) tab).getFilter();
-for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) {
-	String ttfType = (String) ttfIt.next();%>
-            <input type="<%=ttfType%>"/><%}%>

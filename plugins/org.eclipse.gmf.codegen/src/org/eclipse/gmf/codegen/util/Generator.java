@@ -11,11 +11,13 @@
  */
 package org.eclipse.gmf.codegen.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
@@ -41,12 +43,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
@@ -988,6 +992,12 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generatePluginXml() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), new Object[] { myDiagram.getEditorGen().getPlugin() }); //$NON-NLS-1$
+	}
+
+	public static String getConstraintProviders(Object plugin) throws UnexpectedBehaviourException, InvocationTargetException, InterruptedException {
+		GenEditorGenerator gen = ((GenPlugin) plugin).getEditorGen();
+		CodegenEmitters emitters = new CodegenEmitters(!gen.isDynamicTemplates(), gen.getTemplateDirectory());
+		return emitters.retrieve(PluginXML.class).generate(new NullProgressMonitor(), new Object[] { plugin });
 	}
 
 	private void generatePluginProperties() throws UnexpectedBehaviourException, InterruptedException {

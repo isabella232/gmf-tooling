@@ -262,7 +262,7 @@ public class CodegenEmitters {
 	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl - class object of
 	 * precompiled template serves as a key
 	 */
-	private TextEmitter retrieve(Class key) throws UnexpectedBehaviourException {
+	public TextEmitter retrieve(Class key) throws UnexpectedBehaviourException {
 		try {
 			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {
@@ -608,7 +608,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PluginXML.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::plugin::plugin"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
