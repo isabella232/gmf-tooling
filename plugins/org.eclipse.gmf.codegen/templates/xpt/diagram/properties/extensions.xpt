@@ -14,8 +14,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE extensions FOR gmfgen::GenPropertySheet-»
-<%final GenPropertySheet propSheet = editorGen.getPropertySheet();
-final String contributorID = genPlugin.getID();%>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
