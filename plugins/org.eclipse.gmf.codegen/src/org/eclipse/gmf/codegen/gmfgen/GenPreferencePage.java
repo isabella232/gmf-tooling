@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +85,7 @@ public interface GenPreferencePage extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent <em>Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Children</em>' containment reference list isn't clear,
@@ -92,9 +94,27 @@ public interface GenPreferencePage extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Children</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPreferencePage_Children()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" containment="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" opposite="parent" containment="true"
 	 * @generated
 	 */
 	EList getChildren();
+
+	/**
+	 * Returns the value of the '<em><b>Parent</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parent</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPreferencePage_Parent()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getChildren
+	 * @model opposite="children" changeable="false"
+	 * @generated
+	 */
+	GenPreferencePage getParent();
 
 } // GenPreferencePage

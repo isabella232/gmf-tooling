@@ -1547,6 +1547,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenPreferencePage_Parent() {
+		return (EReference)genPreferencePageEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenCustomPreferencePage() {
 		return genCustomPreferencePageEClass;
 	}
@@ -5756,6 +5765,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__ID);
 		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__NAME);
 		createEReference(genPreferencePageEClass, GEN_PREFERENCE_PAGE__CHILDREN);
+		createEReference(genPreferencePageEClass, GEN_PREFERENCE_PAGE__PARENT);
 
 		genCustomPreferencePageEClass = createEClass(GEN_CUSTOM_PREFERENCE_PAGE);
 		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME);
@@ -6514,7 +6524,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genPreferencePageEClass, GenPreferencePage.class, "GenPreferencePage", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenPreferencePage_ID(), ecorePackage.getEString(), "iD", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPreferencePage_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenPreferencePage_Children(), this.getGenPreferencePage(), null, "children", null, 0, -1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenPreferencePage_Children(), this.getGenPreferencePage(), this.getGenPreferencePage_Parent(), "children", null, 0, -1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenPreferencePage_Parent(), this.getGenPreferencePage(), this.getGenPreferencePage_Children(), "parent", null, 0, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

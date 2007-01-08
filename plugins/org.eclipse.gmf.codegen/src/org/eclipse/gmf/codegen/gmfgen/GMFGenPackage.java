@@ -1338,13 +1338,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PREFERENCE_PAGE__CHILDREN = 2;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PREFERENCE_PAGE__PARENT = 3;
+
+	/**
 	 * The number of structural features of the '<em>Gen Preference Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PREFERENCE_PAGE_FEATURE_COUNT = 3;
+	int GEN_PREFERENCE_PAGE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPreferencePageImpl <em>Gen Custom Preference Page</em>}' class.
@@ -1382,6 +1391,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CUSTOM_PREFERENCE_PAGE__CHILDREN = GEN_PREFERENCE_PAGE__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PREFERENCE_PAGE__PARENT = GEN_PREFERENCE_PAGE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -1437,6 +1455,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_STANDARD_PREFERENCE_PAGE__CHILDREN = GEN_PREFERENCE_PAGE__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PREFERENCE_PAGE__PARENT = GEN_PREFERENCE_PAGE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -9313,6 +9340,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenPreferencePage_Children();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent()
+	 * @see #getGenPreferencePage()
+	 * @generated
+	 */
+	EReference getGenPreferencePage_Parent();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage <em>Gen Custom Preference Page</em>}'.
