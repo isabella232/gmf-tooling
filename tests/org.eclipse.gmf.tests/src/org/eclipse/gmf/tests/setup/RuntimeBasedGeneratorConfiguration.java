@@ -196,7 +196,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			String identifier = genElement.getUniqueIdentifier();
 			try {
 				Object type = clazz.getField(identifier).get(null);
-				assert type != null : "Metatype field in the ElementTypes class should be initialized"; //$NON-NLS-1$
+				assert type != null : "Metatype field in the ElementTypes class should be initialized: " + identifier + " in " + getGenModel().getGenDiagram().getEditorGen().getPlugin().getID(); //$NON-NLS-1$ //$NON-NLS-2$
 				assert type instanceof IElementType : IElementType.class.getName() + ": metamodel type class required"; //$NON-NLS-1$ 
 				return (IElementType) type;
 			} catch (NoSuchFieldException e) {
