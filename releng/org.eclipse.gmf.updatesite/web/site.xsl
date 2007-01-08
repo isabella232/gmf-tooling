@@ -25,7 +25,7 @@
                 * URL:    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml</a></b> (Release builds)
                    (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/milestone/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/milestone/site.xml</a></b> (Milestone builds)
                    (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/interim/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/interim/site.xml</a></b> (Integration builds)
-                   (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/callisto/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/callisto/site.xml</a></b> (Callisto builds)
+                   (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/europa/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/europa/site.xml</a></b> (Europa builds)
 
 Batik is required for GMF and can be obtained via Update Manager here: <b><a href="http://download.eclipse.org/modeling/gmf/update-site/batik/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/batik/site.xml</a></b>
 		</p></pre>
