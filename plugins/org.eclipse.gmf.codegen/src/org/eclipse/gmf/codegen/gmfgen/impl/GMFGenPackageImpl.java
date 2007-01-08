@@ -6527,6 +6527,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenPreferencePage_Children(), this.getGenPreferencePage(), this.getGenPreferencePage_Parent(), "children", null, 0, -1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenPreferencePage_Parent(), this.getGenPreferencePage(), this.getGenPreferencePage_Children(), "parent", null, 0, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(genPreferencePageEClass, this.getGenDiagram(), "getDiagram", 0, 1);
+
 		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 
 /**
@@ -173,6 +174,21 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	public GenPreferencePage getParent() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT) return null;
 		return (GenPreferencePage)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public GenDiagram getDiagram() {
+		if (getParent() != null) {
+			return getParent().getDiagram();
+		}
+		if (eContainer() instanceof GenDiagram) {
+			return (GenDiagram) eContainer();
+		}
+		return null;
 	}
 
 	/**

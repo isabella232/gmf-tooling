@@ -117,4 +117,12 @@ public interface GenPreferencePage extends EObject {
 	 */
 	GenPreferencePage getParent();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	GenDiagram getDiagram();
+
 } // GenPreferencePage

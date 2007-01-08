@@ -187,6 +187,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreferencePage/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/parent"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getDiagram"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenCustomPreferencePage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPreferencePage/qualifiedClassName"/>
