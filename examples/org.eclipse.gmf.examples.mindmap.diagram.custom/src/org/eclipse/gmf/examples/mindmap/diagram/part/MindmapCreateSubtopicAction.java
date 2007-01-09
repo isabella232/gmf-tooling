@@ -51,7 +51,7 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 		CompoundCommand cc = new CompoundCommand("Create Subtopic and Link");
 
 		// Create the new topic for the other end.
-		CreateViewRequest topicRequest = CreateViewRequestFactory.getCreateShapeRequest(MindmapElementTypes.Topic_2001, selectedElement.getDiagramPreferencesHint());
+		CreateViewRequest topicRequest = CreateViewRequestFactory.getCreateShapeRequest(MindmapElementTypes.Topic_1001, selectedElement.getDiagramPreferencesHint());
 
 		Point p = selectedElement.getFigure().getBounds().getTopRight().getCopy();
 		selectedElement.getFigure().translateToAbsolute(p);
@@ -67,8 +67,8 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 		cc.add(createTopicCmd);
 
 		// create the subtopics link command
-		ICommand createSubTopicsCmd = new DeferredCreateConnectionViewAndElementCommand(new CreateConnectionViewAndElementRequest(MindmapElementTypes.TopicSubtopics_4001,
-				((IHintedType) MindmapElementTypes.TopicSubtopics_4001).getSemanticHint(), selectedElement.getDiagramPreferencesHint()), new EObjectAdapter((EObject) selectedElement.getModel()),
+		ICommand createSubTopicsCmd = new DeferredCreateConnectionViewAndElementCommand(new CreateConnectionViewAndElementRequest(MindmapElementTypes.TopicSubtopics_3001,
+				((IHintedType) MindmapElementTypes.TopicSubtopics_3001).getSemanticHint(), selectedElement.getDiagramPreferencesHint()), new EObjectAdapter((EObject) selectedElement.getModel()),
 				topicViewAdapter, selectedElement.getViewer());
 
 		cc.add(new ICommandProxy(createSubTopicsCmd));
