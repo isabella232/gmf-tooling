@@ -630,7 +630,7 @@
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
           iD="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-          name="Rulers &amp; Grid"
+          name="Rulers And Grid"
           kind="RulersAndGrid"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
