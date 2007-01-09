@@ -62,7 +62,6 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		if (Platform.getBundle("org.eclipse.gmf.codegen.lite") == null) {
 			op.setUseRuntimeFigures(true);
 			op.setUseMapMode(true);
-			op.setRCP(false);
 		}
 		op.run();
 	}
