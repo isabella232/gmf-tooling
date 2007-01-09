@@ -27,9 +27,9 @@ public class EvaluationException extends RuntimeException {
      */
     private static final long serialVersionUID = 3781834199930386623L;
 
-    private SyntaxElement element;
+    private final SyntaxElement element;
 
-    private String message;
+    private final String message;
 
     public EvaluationException(final String msg, final SyntaxElement element) {
         super(msg);
@@ -39,6 +39,7 @@ public class EvaluationException extends RuntimeException {
 
     public EvaluationException(final Throwable ex, final SyntaxElement element) {
         super(ex);
+        message = ex == null ? null : ex.getMessage();
         this.element = element;
     }
 
