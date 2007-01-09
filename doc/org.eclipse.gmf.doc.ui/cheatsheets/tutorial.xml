@@ -1,86 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cheatsheet title="GMF Tutorial">
-  <intro href="http://wiki.eclipse.org/index.php/GMF_Tutorial">
-    <description>This tutorial guides you through the definition, mapping, and generation of a graphical editor for mindmaps using GMF.<br/><br/>To start working on this cheatsheet, click the &quot;Click to Begin&quot; button below.<br/><br/>For each step, press the Help button (?) to access full instructions and viewlets for each step. These are links to the full GMF Tutorial online.</description>
-  </intro>
-  
-  <item href="http://wiki.eclipse.org/index.php/GMF_Tutorial#A_New_Project"
-        dialog="true"
-        title="Create a New Project" skip="true">
-  	<action pluginId="org.eclipse.gmf.doc.ui"
-			class="org.eclipse.gmf.internal.doc.ui.actions.OpenProjectWizardAction"
-			param1="org.eclipse.gmf.examples.mindmap"/>		
-     <description>First, we'll create a new project to hold our models.<br/><br/>The default name will be set and a new 'model' folder will be created for you, if you use the "Click to Perform" button below.</description>
-  </item>
-  
-  <item href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Domain_Model_Definition" skip="true"
-        title="The Domain Model">
-  	<description>At this point, you can either copy the provided mindmap.ecore model into the 'model' folder, or use the ECore editor to model it using the provided diagram (press help (?) icon above).<br/><br/>When you're done, create a new genmodel for mindmap.ecore and generate the model and edit code.
+   <intro>
+      <description>
+         This tutorial guides you through the definition, mapping, and generation of a graphical editor for mindmaps using GMF.<br/><br/>To start working on this cheatsheet, click the &quot;Click to Begin&quot; button below.<br/><br/>This cheatsheet is complemented by detailed steps in the online GMF Tutorial.
+      </description>
+   </intro>
+   <item title="Create a New Project" dialog="true" skip="true">
+      <description>
+         First, we&apos;ll create a new project to hold our models.<br/><br/>The default name will be set and a new &apos;model&apos; folder will be created for you, if you use the &quot;Click to Perform&quot; button below.
+      </description>
+      <action class="org.eclipse.gmf.internal.doc.ui.actions.OpenProjectWizardAction" pluginId="org.eclipse.gmf.doc.ui" confirm="false" param1="org.eclipse.gmf.examples.mindmap">
+      </action>
+   </item>
+   <item title="The Domain Model" dialog="false" skip="true">
+      <description>
+         At this point, you can either copy the provided mindmap.ecore or mindmap.xsd model into the &apos;model&apos; folder, or use the ECore diagram to model it from the diagram provided online.<br/><br/>Next, we'll create a new mindmap.genmodel and generate the model and edit code.
   		<br/><br/>The following steps are required:
-  		<br/><br/>1. Right-click the mindmap.ecore file and select <b>New... | Other... | Eclipse Modeling Framework | EMF Model</b> and use the defaults of the wizard to create a new mindmap.genmodel.
+  		<br/><br/>1. Right-click the mindmap model file and select <b>New... | Other... | Eclipse Modeling Framework | EMF Model</b> and use the defaults of the wizard to create a new mindmap.genmodel.
   		<br/><br/>2. Select the Mindmap package below the root of the genmodel and in the Properties view, change the <b>Base Package</b> property to <b>org.eclipse.gmf.examples</b>.
   		<br/><br/>3. Right-click on the root of the genmodel and select <b>Generate Model Code</b> followed by <b>Generate Edit Code</b>.
-  		<br/><br/><br/>Now, with our domain model ready, we can begin our graphical definition.  Press "Click to Complete" below.
-  	</description>
-  </item>
-    
-  <item
-		href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Graphical_Definition" 
-		dialog="true" skip="true"
-		title="Create a Graphical Definition">
-		<action
-			pluginId="org.eclipse.gmf.doc.ui"
-			class="org.eclipse.gmf.internal.doc.ui.actions.OpenGraphWizardAction"
-			param1="mindmap.gmfgraph"/>
-		<description>In a graphical definition, you will define figures, nodes, compartments, connections, etc.<br/><br/>Using the wizard, we can get started on our graphical definition by examining our domain model.  Use the "Click to Perform" button to get started.
+  		<br/><br/><br/>Now, with our domain model ready, we can begin our graphical definition.  Press &quot;Click to Complete&quot; below.
+      </description>
+   </item>
+   <item title="Create a Graphical Definition" dialog="true" skip="true">
+      <description>
+         In a graphical definition, you will define figures, nodes, compartments, connections, etc.<br/><br/>Using the wizard, we can get started on our graphical definition by examining our domain model. Use the &quot;Click to Perform&quot; button to get started.
 		<br/><br/>The following steps are required:
-  		<br/><br/>1. In the wizard, select the 'org.eclipse.gmf.examples.mindmap/model' as the parent folder for your mindmap.gmfgraph model.
-  		<br/><br/>2. The second page of the wizard has a <b>Browse</b> button that should easily find our mindmap.ecore model.
-  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, select 'Map' as our diagram element and uncheck all but the 'Topic' element as a node, its 'name' attribute as a label, and the 'subtopics' relationship as a link.
-		</description>
-	</item>
-  
-  <item href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Tooling_Definition"
-        dialog="true" skip="true"
-  		title="Create a Tooling Definition">
-  	<action
-		pluginId="org.eclipse.gmf.doc.ui"
-		class="org.eclipse.gmf.internal.doc.ui.actions.OpenToolWizardAction"
-		param1="mindmap.gmftool"/>
-  	<description>Our graphical definition for our editor will need tooling to be useful. We will again use a wizard to get started by examining the domain model once more.
+  		<br/><br/>1. In the wizard, select the &apos;org.eclipse.gmf.examples.mindmap/model&apos; as the parent folder for your mindmap.gmfgraph model.
+  		<br/><br/>2. The second page of the wizard has a <b>Browse</b> button that should easily find our mindmap.ecore model.  For Diagram Element, select the Map class.
+  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, uncheck all but the &apos;Topic&apos; element as a node, its &apos;name&apos; attribute as a label, and the &apos;subtopics&apos; relationship as a link.
+      </description>
+      <action class="org.eclipse.gmf.internal.doc.ui.actions.OpenGraphWizardAction" pluginId="org.eclipse.gmf.doc.ui" confirm="false" param1="mindmap.gmfgraph">
+      </action>
+   </item>
+   <item title="Create a Tooling Definition" dialog="true" skip="true">
+      <description>
+         Our graphical definition for our editor will need tooling to be useful. We will again use a wizard to get started by examining the domain model. Use the &quot;Click to Perform&quot; button to get started.
   		<br/><br/>The following steps are required:
-  		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmftool model.
-  		<br/><br/>2. And, on the second page we will locate our mindmap.ecore file as before.
-  		<br/><br/>3. On the last page, we will again select 'Map' for our diagram element and uncheck all but our 'Topic' element and the 'subtopics' relationship.
-  	</description>
-  </item>
-  
-  <item title="Create a Mapping Definition" dialog="true" skip="true"
-  		href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Mapping_Definition">
-  	<action
-		pluginId="org.eclipse.gmf.doc.ui"
-		class="org.eclipse.gmf.internal.doc.ui.actions.OpenMapWizardAction"
-		param1="org.eclipse.gmf.examples.mindmap/model"
-		param2="mindmap.gmfmap"
-		param3="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.ecore"
-		param4="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfgraph"
-		param5="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmftool"
-		/>
-     <description>Now it's time to map our graphical elements and their tools to our domain model.
+  		<br/><br/>1. Again, select the &apos;model&apos; folder to hold the mindmap.gmftool model.
+  		<br/><br/>2. On the second page we will locate our mindmap.ecore file as before, and select our Map class for the Diagram Element.
+  		<br/><br/>3. On the last page, uncheck all but our &apos;Topic&apos; element and the &apos;subtopics&apos; relationship.
+      </description>
+      <action class="org.eclipse.gmf.internal.doc.ui.actions.OpenToolWizardAction" pluginId="org.eclipse.gmf.doc.ui" confirm="false" param1="mindmap.gmftool">
+      </action>
+   </item>
+   <item title="Create a Mapping Definition" dialog="true" skip="true">
+      <description>
+         Now it&apos;s time to map our graphical elements and their tools to our domain model. Use the &quot;Click to Perform&quot; button to get started.
      	<br/><br/>The following steps are required:
-  		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmfmap model.
-  		<br/><br/>2. On the second page, each of our domain, graphical definition, and tooling definition files are preset, so we will just need to press <b>Load</b> for each and press <b>Next</b>.
-  		<br/><br/>3. Select <b>Map</b> for our 'Diagram Root Element'.
-  		<br/><br/>4. On the last page of the wizard, examine the mappings determined appropriate by the wizard. For now, remove all but 'Topic' in the Nodes list, and 'subtopics' in the Links list. Press <b>Finish</b> when you're done.
-  		<br/><br/>5. Just for fun, we'll manually set the Diagram Label property. Select the 'Node Mapping' below the only 'Top Node Reference' in the mapping model and select <b>TopicNameLabel</b> for 'Diagram Label' in the properties view.
-     </description>
-  </item>
-  
-  <item title="Code Generation" skip="true" href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Code_Generation">
-     <description>The last model you'll need will be transformed from the mapping model and contain those properties needed to generate the source code for your editor.<br/><br/>To produce the generator model, right-click on your mindmap.gmfmap file and select <b>Create generator model...</b>.<br/><br/>You may want to browse this model and examine its properties. There are many options to consider when generating code. When you're ready, right-click the mindmap.gmfgen file and select <b>Generate diagram code</b>.</description>
-  </item>
-  
-  <item title="Running the Diagram" href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Running_the_Diagram">
-     <description>You are ready to test the diagram. From the <b>Run | Run...</b> menu, create a new <b>Eclipse Application</b> runtime configuration and launch your diagram using the default settings.<br/><br/>You'll need to create a project and then a <b>New | Examples | Mindmap diagram</b>. Explore the functionality provided, including layout, alignment, selection, etc.</description> 
-  </item>
+  		<br/><br/>1. Again, select the &apos;model&apos; folder to hold the mindmap.gmfmap model.
+  		<br/><br/>2. On the second page, we find our mindmap.ecore model is already selected. Choose the Map class for the canvas and press <b>Next</b>.
+  		<br/><br/>3. On the third page, we find our mindmap.tool model is already loaded. Keep the defaults and press <b>Next</b>.
+  		<br/><br/>4. On the fourth page, we find our mindmap.gmfgraph model is already loaded. Keep the defaults and press <b>Next</b>.
+  		<br/><br/>5. On the last page of the wizard, examine the mappings determined by the wizard. For now, remove all but &apos;Topic&apos; in the Nodes list, and &apos;subtopics&apos; in the Links list. Press <b>Finish</b> when you&apos;re done.
+      </description>
+      <action class="org.eclipse.gmf.internal.doc.ui.actions.OpenMapWizardAction" pluginId="org.eclipse.gmf.doc.ui" confirm="false" param1="org.eclipse.gmf.examples.mindmap/model" param2="mindmap.gmfmap" param3="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.ecore" param4="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmfgraph" param5="platform:/resource/org.eclipse.gmf.examples.mindmap/model/mindmap.gmftool">
+      </action>
+   </item>
+   <item title="Create a Label Mapping" dialog="false" skip="true">
+      <description>
+         We&apos;ll manually create a label mapping for our Topic element using the following steps: 
+         <br/><br/>1.Right-click the &apos;Node Mapping&apos; below the only &apos;Top Node Reference&apos; in the mapping model and create a new <b>Feature Label Mapping</b>.
+         <br/><br/>2.In the properties view, select the <b>TopicName</b> diagram label.
+         <br/><br/>3.Select the <b>name</b> attribute for the <b>Features</b> property.
+      </description>
+   </item>
+   <item title="Code Generation" dialog="false" skip="true">
+      <description>
+         The last model you&apos;ll need will be transformed from the mapping model and contain those properties needed to generate the source code for your editor.<br/><br/>To produce the generator model, right-click on your mindmap.gmfmap file and select <b>Create generator model...</b>.<br/><br/>You may want to browse this model and examine its properties. There are many options to consider when generating code. When you&apos;re ready, right-click the mindmap.gmfgen file and select <b>Generate diagram code</b>.
+      </description>
+   </item>
+   <item title="Running the Diagram" dialog="false" skip="false">
+      <description>
+         You are ready to test the diagram. From the <b>Run | Run...</b> menu, create a new <b>Eclipse Application</b> runtime configuration and launch your diagram using the default settings.<br/><br/>You&apos;ll need to create a project and then a <b>New | Examples | Mindmap diagram</b>. Explore the functionality provided, including layout, alignment, selection, etc.
+      </description>
+   </item>
 </cheatsheet>
