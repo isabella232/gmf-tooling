@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MapItemProvider.java,v 1.2 2006/06/06 00:35:30 rgronback Exp $
+ * $Id: MapItemProvider.java,v 1.3 2007/01/09 17:21:18 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.provider;
 

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DocumentRootItemProvider.java,v 1.1 2006/06/06 00:35:30 rgronback Exp $
+ * $Id: DocumentRootItemProvider.java,v 1.2 2007/01/09 17:21:18 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.provider;
 
@@ -14,10 +14,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
-
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -80,7 +76,7 @@ public class DocumentRootItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MindmapPackage.Literals.DOCUMENT_ROOT__MIXED);
+			childrenFeatures.add(MindmapPackage.Literals.DOCUMENT_ROOT__MAP);
 		}
 		return childrenFeatures;
 	}
@@ -116,7 +112,7 @@ public class DocumentRootItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DocumentRoot.class)) {
-			case MindmapPackage.DOCUMENT_ROOT__MIXED:
+			case MindmapPackage.DOCUMENT_ROOT__MAP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -135,24 +131,8 @@ public class DocumentRootItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(MindmapPackage.Literals.DOCUMENT_ROOT__MIXED,
-				 FeatureMapUtil.createEntry
-					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__COMMENT,
-					 "")));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(MindmapPackage.Literals.DOCUMENT_ROOT__MIXED,
-				 FeatureMapUtil.createEntry
-					(XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__TEXT,
-					 "")));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(MindmapPackage.Literals.DOCUMENT_ROOT__MIXED,
-				 FeatureMapUtil.createEntry
-					(MindmapPackage.Literals.DOCUMENT_ROOT__MAP,
-					 MindmapFactory.eINSTANCE.createMap())));
+				(MindmapPackage.Literals.DOCUMENT_ROOT__MAP,
+				 MindmapFactory.eINSTANCE.createMap()));
 	}
 
 	/**
