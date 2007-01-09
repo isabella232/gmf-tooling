@@ -15,9 +15,7 @@
 
 «DEFINE className FOR gmfgen::GenDiagram»DiagramPreferenceInitializer«ENDDEFINE»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»
-	«preferencesPackageName».«EXPAND className-»
-«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
 
 «DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

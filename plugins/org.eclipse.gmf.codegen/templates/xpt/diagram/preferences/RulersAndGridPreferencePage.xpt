@@ -15,9 +15,7 @@
 
 «DEFINE className FOR gmfgen::GenDiagram»DiagramRulersAndGridPreferencePage«ENDDEFINE»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»
-	«preferencesPackageName».«EXPAND className-»
-«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
 
 «DEFINE RulersAndGridPreferencePage FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

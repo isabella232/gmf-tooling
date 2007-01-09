@@ -36,16 +36,16 @@
       </parser>
    </extension>
 
-   «EXPAND xpt::editor::extensions::extensions FOR editorGen-»
-   «EXPAND menu-»
-   «EXPAND validation FOR editorGen.diagram-»
-   «EXPAND metrics FOR editorGen.metrics-»
-   «EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
-   «EXPAND xpt::diagram::properties::extensions::extensions FOR editorGen.propertySheet-»
-   «EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
-   «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
-   «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
-   «getConstraintProviders(editorGen.plugin)»
+«EXPAND xpt::editor::extensions::extensions FOR editorGen-»
+«EXPAND menu-»
+«EXPAND validation FOR editorGen.diagram-»
+«EXPAND metrics FOR editorGen.metrics-»
+«EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
+«EXPAND xpt::diagram::properties::extensions::extensions FOR editorGen.propertySheet-»
+«EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
+«EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
+«EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
+«getConstraintProviders(editorGen.plugin)»
 </plugin>
 «ENDDEFINE»
 
