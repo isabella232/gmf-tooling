@@ -159,8 +159,4 @@ public interface EntryBase extends EObject {
 	 */
 	void setCreateMethodName(String value);
 
-	/**
-	 * @return i18n key base
-	 */
-	String getIntKey();
 } // EntryBase
