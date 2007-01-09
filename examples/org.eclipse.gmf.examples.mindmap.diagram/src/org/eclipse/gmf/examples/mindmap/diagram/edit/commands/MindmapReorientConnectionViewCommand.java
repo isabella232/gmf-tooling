@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.commands;
 
 import java.util.List;
@@ -13,8 +26,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class MindmapReorientConnectionViewCommand extends
-		AbstractTransactionalCommand {
+public class MindmapReorientConnectionViewCommand extends AbstractTransactionalCommand {
 
 	/**
 	 * @generated
@@ -24,8 +36,7 @@ public class MindmapReorientConnectionViewCommand extends
 	/**
 	 * @generated
 	 */
-	public MindmapReorientConnectionViewCommand(
-			TransactionalEditingDomain editingDomain, String label) {
+	public MindmapReorientConnectionViewCommand(TransactionalEditingDomain editingDomain, String label) {
 		super(editingDomain, label, null);
 	}
 
@@ -57,8 +68,7 @@ public class MindmapReorientConnectionViewCommand extends
 	/**
 	 * @generated
 	 */
-	protected CommandResult doExecuteWithResult(
-			IProgressMonitor progressMonitor, IAdaptable info) {
+	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
 		assert null != edgeAdaptor : "Null child in MindmapReorientConnectionViewCommand"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
 		assert null != edge : "Null edge in MindmapReorientConnectionViewCommand"; //$NON-NLS-1$

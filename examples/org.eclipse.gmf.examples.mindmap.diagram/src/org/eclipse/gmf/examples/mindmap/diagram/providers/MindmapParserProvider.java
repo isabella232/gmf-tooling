@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -25,8 +38,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 /**
  * @generated
  */
-public class MindmapParserProvider extends AbstractProvider implements
-		IParserProvider {
+public class MindmapParserProvider extends AbstractProvider implements IParserProvider {
 
 	/**
 	 * @generated
@@ -47,8 +59,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createThreadThreadSubject_4001Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getThread_Subject());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThread_Subject());
 		return parser;
 	}
 
@@ -71,8 +82,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createThreadItemThreadItem_2002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getThreadItem_Body());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThreadItem_Body());
 		return parser;
 	}
 
@@ -95,8 +105,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createTopicTopicName_4002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getTopic_Name());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getTopic_Name());
 		return parser;
 	}
 
@@ -122,8 +131,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 		List features = new ArrayList(2);
 		features.add(MindmapPackage.eINSTANCE.getResource_Name());
 		features.add(MindmapPackage.eINSTANCE.getResource_Email());
-		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(
-				features);
+		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(features);
 		parser.setViewPattern("{0} [{1}]");
 		parser.setEditPattern("{0} : {1}");
 		return parser;
@@ -148,8 +156,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_4004Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship_Label());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 
@@ -172,8 +179,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_4005Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship_Label());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 
@@ -196,8 +202,7 @@ public class MindmapParserProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_4006Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(
-				MindmapPackage.eINSTANCE.getRelationship_Label());
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship_Label());
 		return parser;
 	}
 

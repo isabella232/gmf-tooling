@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.text.MessageFormat;
@@ -107,35 +120,29 @@ public abstract class MindmapAbstractParser implements IParser {
 	 * @generated
 	 */
 	public String getPrintString(IAdaptable adapter, int flags) {
-		return getStringByPattern(adapter, flags, getViewPattern(),
-				getViewProcessor());
+		return getStringByPattern(adapter, flags, getViewPattern(), getViewProcessor());
 	}
 
 	/**
 	 * @generated
 	 */
 	public String getEditString(IAdaptable adapter, int flags) {
-		return getStringByPattern(adapter, flags, getEditPattern(),
-				getEditProcessor());
+		return getStringByPattern(adapter, flags, getEditPattern(), getEditProcessor());
 	}
 
 	/**
 	 * @generated
 	 */
-	protected abstract String getStringByPattern(IAdaptable adapter, int flags,
-			String pattern, MessageFormat processor);
+	protected abstract String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor);
 
 	/**
 	 * @generated
 	 */
-	public IParserEditStatus isValidEditString(IAdaptable element,
-			String editString) {
+	public IParserEditStatus isValidEditString(IAdaptable element, String editString) {
 		ParsePosition pos = new ParsePosition(0);
 		Object[] values = getEditProcessor().parse(editString, pos);
 		if (values == null) {
-			return new ParserEditStatus(MindmapDiagramEditorPlugin.ID,
-					IParserEditStatus.UNEDITABLE, "Invalid input at "
-							+ pos.getErrorIndex());
+			return new ParserEditStatus(MindmapDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, "Invalid input at " + pos.getErrorIndex());
 		}
 		return validateNewValues(values);
 	}
@@ -150,12 +157,9 @@ public abstract class MindmapAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public ICommand getParseCommand(IAdaptable adapter, String newString,
-			int flags) {
-		Object[] values = getEditProcessor().parse(newString,
-				new ParsePosition(0));
-		if (values == null
-				|| validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
+	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
+		Object[] values = getEditProcessor().parse(newString, new ParsePosition(0));
+		if (values == null || validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		return getParseCommand(adapter, values);
@@ -164,8 +168,7 @@ public abstract class MindmapAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	protected abstract ICommand getParseCommand(IAdaptable adapter,
-			Object[] values);
+	protected abstract ICommand getParseCommand(IAdaptable adapter, Object[] values);
 
 	/**
 	 * @generated
@@ -177,8 +180,7 @@ public abstract class MindmapAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	protected ICommand getModificationCommand(EObject element,
-			EStructuralFeature feature, Object value) {
+	protected ICommand getModificationCommand(EObject element, EStructuralFeature feature, Object value) {
 		value = getValidNewValue(feature, value);
 		if (value instanceof InvalidValue) {
 			return UnexecutableCommand.INSTANCE;
@@ -216,8 +218,7 @@ public abstract class MindmapAbstractParser implements IParser {
 				} else if (value instanceof String) {
 					value = Boolean.valueOf((String) value);
 				} else {
-					value = new InvalidValue(
-							"Value of type Boolean is expected");
+					value = new InvalidValue("Value of type Boolean is expected");
 				}
 			} else if (Character.TYPE.equals(iClass)) {
 				if (value instanceof Character) {
@@ -230,8 +231,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						value = new Character(s.charAt(0));
 					}
 				} else {
-					value = new InvalidValue(
-							"Value of type Character is expected");
+					value = new InvalidValue("Value of type Character is expected");
 				}
 			} else if (Byte.TYPE.equals(iClass)) {
 				if (value instanceof Byte) {
@@ -246,8 +246,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Byte.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Byte value");
+							value = new InvalidValue("String value does not convert to Byte value");
 						}
 					}
 				} else {
@@ -266,8 +265,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Short.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Short value");
+							value = new InvalidValue("String value does not convert to Short value");
 						}
 					}
 				} else {
@@ -286,13 +284,11 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Integer.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Integer value");
+							value = new InvalidValue("String value does not convert to Integer value");
 						}
 					}
 				} else {
-					value = new InvalidValue(
-							"Value of type Integer is expected");
+					value = new InvalidValue("Value of type Integer is expected");
 				}
 			} else if (Long.TYPE.equals(iClass)) {
 				if (value instanceof Long) {
@@ -307,8 +303,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Long.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Long value");
+							value = new InvalidValue("String value does not convert to Long value");
 						}
 					}
 				} else {
@@ -327,8 +322,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Float.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Float value");
+							value = new InvalidValue("String value does not convert to Float value");
 						}
 					}
 				} else {
@@ -347,8 +341,7 @@ public abstract class MindmapAbstractParser implements IParser {
 						try {
 							value = Double.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(
-									"String value does not convert to Double value");
+							value = new InvalidValue("String value does not convert to Double value");
 						}
 					}
 				} else {
@@ -356,8 +349,7 @@ public abstract class MindmapAbstractParser implements IParser {
 				}
 			} else if (type instanceof EEnum) {
 				if (value instanceof String) {
-					EEnumLiteral literal = ((EEnum) type)
-							.getEEnumLiteralByLiteral((String) value);
+					EEnumLiteral literal = ((EEnum) type).getEEnumLiteralByLiteral((String) value);
 					if (literal == null) {
 						value = new InvalidValue("Unknown literal: " + value);
 					} else {

@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import org.eclipse.gef.palette.PaletteRoot;
@@ -83,8 +96,7 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @generated
  */
-public class MindmapDiagramEditor extends DiagramDocumentEditor implements
-		IGotoMarker {
+public class MindmapDiagramEditor extends DiagramDocumentEditor implements IGotoMarker {
 
 	/**
 	 * @generated
@@ -111,13 +123,8 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 	protected TransactionalEditingDomain createEditingDomain() {
 		TransactionalEditingDomain domain = super.createEditingDomain();
 		domain.setID(getEditingDomainID());
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter
-				.createNotifierFilter(domain.getResourceSet()).and(
-						NotificationFilter
-								.createEventTypeFilter(Notification.ADD)).and(
-						NotificationFilter.createFeatureFilter(
-								ResourceSet.class,
-								ResourceSet.RESOURCE_SET__RESOURCES));
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(domain.getResourceSet()).and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(
+				NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
 		domain.getResourceSet().eAdapters().add(new Adapter() {
 
 			private Notifier myTarger;
@@ -215,9 +222,7 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 		Shell shell = getSite().getShell();
 		IEditorInput input = getEditorInput();
 		SaveAsDialog dialog = new SaveAsDialog(shell);
-		IFile original = input instanceof IFileEditorInput ? ((IFileEditorInput) input)
-				.getFile()
-				: null;
+		IFile original = input instanceof IFileEditorInput ? ((IFileEditorInput) input).getFile() : null;
 		if (original != null) {
 			dialog.setOriginalFile(original);
 		}
@@ -228,9 +233,7 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 			return;
 		}
 		if (provider.isDeleted(input) && original != null) {
-			String message = NLS.bind(
-					"The original file ''{0}'' has been deleted.", original
-							.getName());
+			String message = NLS.bind("The original file ''{0}'' has been deleted.", original.getName());
 			dialog.setErrorMessage(null);
 			dialog.setMessage(message, IMessageProvider.WARNING);
 		}
@@ -251,31 +254,23 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 		IFile file = workspaceRoot.getFile(filePath);
 		final IEditorInput newInput = new FileEditorInput(file);
 		// Check if the editor is already open
-		IEditorMatchingStrategy matchingStrategy = getEditorDescriptor()
-				.getEditorMatchingStrategy();
-		IEditorReference[] editorRefs = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage()
-				.getEditorReferences();
+		IEditorMatchingStrategy matchingStrategy = getEditorDescriptor().getEditorMatchingStrategy();
+		IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for (int i = 0; i < editorRefs.length; i++) {
 			if (matchingStrategy.matches(editorRefs[i], newInput)) {
-				MessageDialog
-						.openWarning(shell, "Problem During Save As...",
-								"Save could not be completed. Target file is already open in another editor.");
+				MessageDialog.openWarning(shell, "Problem During Save As...", "Save could not be completed. Target file is already open in another editor.");
 				return;
 			}
 		}
 		boolean success = false;
 		try {
 			provider.aboutToChange(newInput);
-			getDocumentProvider(newInput).saveDocument(progressMonitor,
-					newInput,
-					getDocumentProvider().getDocument(getEditorInput()), true);
+			getDocumentProvider(newInput).saveDocument(progressMonitor, newInput, getDocumentProvider().getDocument(getEditorInput()), true);
 			success = true;
 		} catch (CoreException x) {
 			IStatus status = x.getStatus();
 			if (status == null || status.getSeverity() != IStatus.CANCEL) {
-				ErrorDialog.openError(shell, "Save Problems",
-						"Could not save file.", x.getStatus());
+				ErrorDialog.openError(shell, "Save Problems", "Could not save file.", x.getStatus());
 			}
 		} finally {
 			provider.changed(newInput);
@@ -293,25 +288,20 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 	 */
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		getDiagramGraphicalViewer().addDropTargetListener(
-				new DropTargetListener(getDiagramGraphicalViewer(),
-						LocalSelectionTransfer.getTransfer()) {
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
 
-					protected Object getJavaObject(TransferData data) {
-						return LocalSelectionTransfer.getTransfer()
-								.nativeToJava(data);
-					}
+			protected Object getJavaObject(TransferData data) {
+				return LocalSelectionTransfer.getTransfer().nativeToJava(data);
+			}
 
-				});
-		getDiagramGraphicalViewer().addDropTargetListener(
-				new DropTargetListener(getDiagramGraphicalViewer(),
-						LocalTransfer.getInstance()) {
+		});
+		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalTransfer.getInstance()) {
 
-					protected Object getJavaObject(TransferData data) {
-						return LocalTransfer.getInstance().nativeToJava(data);
-					}
+			protected Object getJavaObject(TransferData data) {
+				return LocalTransfer.getInstance().nativeToJava(data);
+			}
 
-				});
+		});
 	}
 
 	/**
@@ -339,17 +329,13 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 				for (Iterator it = selection.iterator(); it.hasNext();) {
 					Object nextSelectedObject = it.next();
 					if (nextSelectedObject instanceof MindmapNavigatorItem) {
-						View view = ((MindmapNavigatorItem) nextSelectedObject)
-								.getView();
+						View view = ((MindmapNavigatorItem) nextSelectedObject).getView();
 						nextSelectedObject = view.getElement();
 					}
 					if (nextSelectedObject instanceof EObject) {
 						EObject modelElement = (EObject) nextSelectedObject;
-						Resource modelElementResource = modelElement
-								.eResource();
-						uris.add(modelElementResource.getURI().appendFragment(
-								modelElementResource
-										.getURIFragment(modelElement)));
+						Resource modelElementResource = modelElement.eResource();
+						uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));
 					}
 				}
 			}
@@ -357,8 +343,7 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 			List result = new ArrayList();
 			for (Iterator it = uris.iterator(); it.hasNext();) {
 				URI nextURI = (URI) it.next();
-				EObject modelObject = getEditingDomain().getResourceSet()
-						.getEObject(nextURI, true);
+				EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
 				result.add(modelObject);
 			}
 			return result;

@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.util.Collections;
@@ -68,8 +81,7 @@ public class MindmapElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	private EditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE
-			.createEditingDomain();
+	private EditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 
 	/**
 	 * @generated
@@ -103,8 +115,7 @@ public class MindmapElementChooserDialog extends Dialog {
 	 * @generated
 	 */
 	private void createModelBrowser(Composite composite) {
-		myTreeViewer = new TreeViewer(composite, SWT.SINGLE | SWT.H_SCROLL
-				| SWT.V_SCROLL | SWT.BORDER);
+		myTreeViewer = new TreeViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		GridData layoutData = new GridData(GridData.FILL_BOTH);
 		layoutData.heightHint = 300;
 		layoutData.widthHint = 300;
@@ -136,15 +147,13 @@ public class MindmapElementChooserDialog extends Dialog {
 	 */
 	public URI getSelectedModelElementURI() {
 		Resource resource = mySelectedModelElement.eResource();
-		return resource.getURI().appendFragment(
-				resource.getURIFragment(mySelectedModelElement));
+		return resource.getURI().appendFragment(resource.getURIFragment(mySelectedModelElement));
 	}
 
 	/**
 	 * @generated
 	 */
-	private class ModelElementsTreeContentProvider implements
-			ITreeContentProvider {
+	private class ModelElementsTreeContentProvider implements ITreeContentProvider {
 
 		/**
 		 * @generated
@@ -154,16 +163,13 @@ public class MindmapElementChooserDialog extends Dialog {
 		/**
 		 * @generated
 		 */
-		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(
-				MindmapDiagramEditorPlugin.getInstance()
-						.getItemProvidersAdapterFactory());
+		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated
 		 */
 		public Object[] getChildren(Object parentElement) {
-			Object[] result = myWorkbenchContentProvider
-					.getChildren(parentElement);
+			Object[] result = myWorkbenchContentProvider.getChildren(parentElement);
 			if (result != null && result.length > 0) {
 				return result;
 			}
@@ -172,16 +178,10 @@ public class MindmapElementChooserDialog extends Dialog {
 				IPath resourcePath = modelFile.getFullPath();
 				ResourceSet resourceSet = myEditingDomain.getResourceSet();
 				try {
-					Resource modelResource = resourceSet.getResource(URI
-							.createPlatformResourceURI(resourcePath.toString(),
-									true), true);
-					return myAdapterFctoryContentProvier
-							.getChildren(modelResource);
+					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString(), true), true);
+					return myAdapterFctoryContentProvier.getChildren(modelResource);
 				} catch (WrappedException e) {
-					MindmapDiagramEditorPlugin
-							.getInstance()
-							.logError(
-									"Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
 				}
 				return Collections.EMPTY_LIST.toArray();
 			}
@@ -198,11 +198,9 @@ public class MindmapElementChooserDialog extends Dialog {
 			}
 			if (element instanceof EObject) {
 				EObject eObject = (EObject) element;
-				if (eObject.eContainer() == null
-						&& eObject.eResource().getURI().isFile()) {
+				if (eObject.eContainer() == null && eObject.eResource().getURI().isFile()) {
 					String path = eObject.eResource().getURI().path();
-					return ResourcesPlugin.getWorkspace().getRoot()
-							.getFileForLocation(new Path(path));
+					return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(path));
 				}
 				return myAdapterFctoryContentProvier.getParent(eObject);
 			}
@@ -216,16 +214,14 @@ public class MindmapElementChooserDialog extends Dialog {
 			if (element instanceof IFile) {
 				return isValidModelFile((IFile) element);
 			}
-			return myWorkbenchContentProvider.hasChildren(element)
-					|| myAdapterFctoryContentProvier.hasChildren(element);
+			return myWorkbenchContentProvider.hasChildren(element) || myAdapterFctoryContentProvier.hasChildren(element);
 		}
 
 		/**
 		 * @generated
 		 */
 		public Object[] getElements(Object inputElement) {
-			Object[] elements = myWorkbenchContentProvider
-					.getElements(inputElement);
+			Object[] elements = myWorkbenchContentProvider.getElements(inputElement);
 			return elements;
 		}
 
@@ -242,8 +238,7 @@ public class MindmapElementChooserDialog extends Dialog {
 		 */
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			myWorkbenchContentProvider.inputChanged(viewer, oldInput, newInput);
-			myAdapterFctoryContentProvier.inputChanged(viewer, oldInput,
-					newInput);
+			myAdapterFctoryContentProvier.inputChanged(viewer, oldInput, newInput);
 		}
 
 	}
@@ -261,17 +256,14 @@ public class MindmapElementChooserDialog extends Dialog {
 		/**
 		 * @generated
 		 */
-		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(
-				MindmapDiagramEditorPlugin.getInstance()
-						.getItemProvidersAdapterFactory());
+		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(MindmapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated
 		 */
 		public Image getImage(Object element) {
 			Image result = myWorkbenchLabelProvider.getImage(element);
-			return result != null ? result : myAdapterFactoryLabelProvider
-					.getImage(element);
+			return result != null ? result : myAdapterFactoryLabelProvider.getImage(element);
 		}
 
 		/**
@@ -279,8 +271,7 @@ public class MindmapElementChooserDialog extends Dialog {
 		 */
 		public String getText(Object element) {
 			String result = myWorkbenchLabelProvider.getText(element);
-			return result != null && result.length() > 0 ? result
-					: myAdapterFactoryLabelProvider.getText(element);
+			return result != null && result.length() > 0 ? result : myAdapterFactoryLabelProvider.getText(element);
 		}
 
 		/**
@@ -303,9 +294,7 @@ public class MindmapElementChooserDialog extends Dialog {
 		 * @generated
 		 */
 		public boolean isLabelProperty(Object element, String property) {
-			return myWorkbenchLabelProvider.isLabelProperty(element, property)
-					|| myAdapterFactoryLabelProvider.isLabelProperty(element,
-							property);
+			return myWorkbenchLabelProvider.isLabelProperty(element, property) || myAdapterFactoryLabelProvider.isLabelProperty(element, property);
 		}
 
 		/**
@@ -326,8 +315,7 @@ public class MindmapElementChooserDialog extends Dialog {
 		/**
 		 * @generated
 		 */
-		public boolean select(Viewer viewer, Object parentElement,
-				Object element) {
+		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof IContainer) {
 				return true;
 			}
@@ -350,31 +338,19 @@ public class MindmapElementChooserDialog extends Dialog {
 		 */
 		public void selectionChanged(SelectionChangedEvent event) {
 			if (event.getSelection() instanceof IStructuredSelection) {
-				IStructuredSelection selection = (IStructuredSelection) event
-						.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				if (selection.size() == 1) {
 					Object selectedElement = selection.getFirstElement();
 					if (selectedElement instanceof IWrapperItemProvider) {
-						selectedElement = ((IWrapperItemProvider) selectedElement)
-								.getValue();
+						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
 					}
 					if (selectedElement instanceof FeatureMap.Entry) {
-						selectedElement = ((FeatureMap.Entry) selectedElement)
-								.getValue();
+						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
 					}
 					if (selectedElement instanceof EObject) {
 						mySelectedModelElement = (EObject) selectedElement;
-						setOkButtonEnabled(ViewService
-								.getInstance()
-								.provides(
-										Node.class,
-										new EObjectAdapter(
-												mySelectedModelElement),
-										myView,
-										null,
-										ViewUtil.APPEND,
-										true,
-										MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
+								MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 						return;
 					}
 				}

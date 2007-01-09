@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
 import org.eclipse.core.runtime.IAdapterFactory;
@@ -20,8 +33,7 @@ public class MindmapNavigatorItem extends MindmapAbstractNavigatorItem {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof MindmapNavigatorItem
-						&& (adapterType == View.class || adapterType == EObject.class)) {
+				if (adaptableObject instanceof MindmapNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
 					return ((MindmapNavigatorItem) adaptableObject).getView();
 				}
 				return null;
@@ -72,17 +84,14 @@ public class MindmapNavigatorItem extends MindmapAbstractNavigatorItem {
 	public boolean equals(Object obj) {
 		if (obj instanceof MindmapNavigatorItem) {
 			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((MindmapNavigatorItem) obj).getView()
-					.getElement();
+			EObject anotherEObject = ((MindmapNavigatorItem) obj).getView().getElement();
 			if (eObject == null) {
 				return anotherEObject == null;
 			} else if (anotherEObject == null) {
 				return false;
 			}
 			if (eObject.eResource() != null) {
-				return eObject.eResource().getURIFragment(eObject).equals(
-						anotherEObject.eResource().getURIFragment(
-								anotherEObject));
+				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
 			}
 		}
 		return super.equals(obj);

@@ -1,3 +1,16 @@
+/*
+ * 
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import java.util.ArrayList;
@@ -46,41 +59,25 @@ public class MapEditPart extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new MapItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new MapCanonicalEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
-				new DiagramDragDropEditPolicy() {
-					public Command getDropObjectsCommand(
-							DropObjectsRequest dropRequest) {
-						List viewDescriptors = new ArrayList();
-						for (Iterator it = dropRequest.getObjects().iterator(); it
-								.hasNext();) {
-							viewDescriptors
-									.add(new CreateViewRequest.ViewDescriptor(
-											new EObjectAdapter((EObject) it
-													.next()), Node.class, null,
-											getDiagramPreferencesHint()));
-						}
-						return createShortcutsCommand(dropRequest,
-								viewDescriptors);
-					}
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new MapItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new MapCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DiagramDragDropEditPolicy() {
 
-					private Command createShortcutsCommand(
-							DropObjectsRequest dropRequest, List viewDescriptors) {
-						Command command = createViewsAndArrangeCommand(
-								dropRequest, viewDescriptors);
-						if (command != null) {
-							return command
-									.chain(new ICommandProxy(
-											new MindmapCreateShortcutDecorationsCommand(
-													getEditingDomain(),
-													(View) getModel(),
-													viewDescriptors)));
-						}
-						return null;
-					}
-				});
+			public Command getDropObjectsCommand(DropObjectsRequest dropRequest) {
+				List viewDescriptors = new ArrayList();
+				for (Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
+					viewDescriptors.add(new CreateViewRequest.ViewDescriptor(new EObjectAdapter((EObject) it.next()), Node.class, null, getDiagramPreferencesHint()));
+				}
+				return createShortcutsCommand(dropRequest, viewDescriptors);
+			}
+
+			private Command createShortcutsCommand(DropObjectsRequest dropRequest, List viewDescriptors) {
+				Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
+				if (command != null) {
+					return command.chain(new ICommandProxy(new MindmapCreateShortcutDecorationsCommand(getEditingDomain(), (View) getModel(), viewDescriptors)));
+				}
+				return null;
+			}
+		});
 	}
 }

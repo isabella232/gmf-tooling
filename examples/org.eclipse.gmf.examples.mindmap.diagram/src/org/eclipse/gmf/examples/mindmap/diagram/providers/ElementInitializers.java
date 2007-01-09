@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.emf.ecore.EClass;
@@ -25,52 +38,43 @@ public class ElementInitializers {
 	 * @generated
 	 */
 	public static class Initializers {
+
 		/**
 		 * @generated
 		 */
-		public static final IObjectInitializer Relationship_3002 = new ObjectInitializer(
-				MindmapPackage.eINSTANCE.getRelationship()) {
+		public static final IObjectInitializer Relationship_3002 = new ObjectInitializer(MindmapPackage.eINSTANCE.getRelationship()) {
+
 			protected void init() {
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Type(), MindmapOCLFactory
-						.getExpression("RelationshipType::EXTENDS", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Label(), MindmapOCLFactory
-						.getExpression("\'extends\'", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Type(), MindmapOCLFactory.getExpression("RelationshipType::EXTENDS", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Label(), MindmapOCLFactory.getExpression("\'extends\'", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
 			}
 		}; // Relationship_3002 ObjectInitializer		
+
 		/**
 		 * @generated
 		 */
-		public static final IObjectInitializer Relationship_3003 = new ObjectInitializer(
-				MindmapPackage.eINSTANCE.getRelationship()) {
+		public static final IObjectInitializer Relationship_3003 = new ObjectInitializer(MindmapPackage.eINSTANCE.getRelationship()) {
+
 			protected void init() {
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Type(), MindmapOCLFactory
-						.getExpression("RelationshipType::INCLUDES", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Label(), MindmapOCLFactory
-						.getExpression("\'includes\'", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Type(), MindmapOCLFactory.getExpression("RelationshipType::INCLUDES", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Label(), MindmapOCLFactory.getExpression("\'includes\'", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
 			}
 		}; // Relationship_3003 ObjectInitializer		
+
 		/**
 		 * @generated
 		 */
-		public static final IObjectInitializer Relationship_3004 = new ObjectInitializer(
-				MindmapPackage.eINSTANCE.getRelationship()) {
+		public static final IObjectInitializer Relationship_3004 = new ObjectInitializer(MindmapPackage.eINSTANCE.getRelationship()) {
+
 			protected void init() {
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Type(), MindmapOCLFactory
-						.getExpression("RelationshipType::DEPENDENCY", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
-				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE
-						.getRelationship_Label(), MindmapOCLFactory
-						.getExpression("\'depends\'", //$NON-NLS-1$
-								MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Type(), MindmapOCLFactory.getExpression("RelationshipType::DEPENDENCY", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
+				add(createExpressionFeatureInitializer(MindmapPackage.eINSTANCE.getRelationship_Label(), MindmapOCLFactory.getExpression("\'depends\'", //$NON-NLS-1$
+						MindmapPackage.eINSTANCE.getRelationship())));
 			}
 		}; // Relationship_3004 ObjectInitializer
 
@@ -84,6 +88,7 @@ public class ElementInitializers {
 		 * @generated
 		 */
 		public static interface IObjectInitializer {
+
 			/** 
 			 * @generated
 			 */
@@ -93,12 +98,13 @@ public class ElementInitializers {
 		/** 
 		 * @generated
 		 */
-		public static abstract class ObjectInitializer implements
-				IObjectInitializer {
+		public static abstract class ObjectInitializer implements IObjectInitializer {
+
 			/** 
 			 * @generated
 			 */
 			final EClass element;
+
 			/** 
 			 * @generated
 			 */
@@ -120,8 +126,7 @@ public class ElementInitializers {
 			/** 
 			 * @generated
 			 */
-			protected final IFeatureInitializer add(
-					IFeatureInitializer initializer) {
+			protected final IFeatureInitializer add(IFeatureInitializer initializer) {
 				featureInitializers.add(initializer);
 				return initializer;
 			}
@@ -131,13 +136,11 @@ public class ElementInitializers {
 			 */
 			public void init(EObject instance) {
 				for (Iterator it = featureInitializers.iterator(); it.hasNext();) {
-					IFeatureInitializer nextExpr = (IFeatureInitializer) it
-							.next();
+					IFeatureInitializer nextExpr = (IFeatureInitializer) it.next();
 					try {
 						nextExpr.init(instance);
 					} catch (RuntimeException e) {
-						MindmapDiagramEditorPlugin.getInstance().logError(
-								"Feature initialization failed", e); //$NON-NLS-1$						
+						MindmapDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
 					}
 				}
 			}
@@ -147,6 +150,7 @@ public class ElementInitializers {
 		 * @generated
 		 */
 		interface IFeatureInitializer {
+
 			/**
 			 * @generated
 			 */
@@ -156,20 +160,16 @@ public class ElementInitializers {
 		/**
 		 * @generated
 		 */
-		static IFeatureInitializer createNewElementFeatureInitializer(
-				EStructuralFeature initFeature,
-				ObjectInitializer[] newObjectInitializers) {
+		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
 			final EStructuralFeature feature = initFeature;
 			final ObjectInitializer[] initializers = newObjectInitializers;
 			return new IFeatureInitializer() {
+
 				public void init(EObject contextInstance) {
 					for (int i = 0; i < initializers.length; i++) {
-						EObject newInstance = initializers[i].element
-								.getEPackage().getEFactoryInstance().create(
-										initializers[i].element);
+						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
 						if (feature.isMany()) {
-							((Collection) contextInstance.eGet(feature))
-									.add(newInstance);
+							((Collection) contextInstance.eGet(feature)).add(newInstance);
 						} else {
 							contextInstance.eSet(feature, newInstance);
 						}
@@ -182,12 +182,11 @@ public class ElementInitializers {
 		/**
 		 * @generated
 		 */
-		static IFeatureInitializer createExpressionFeatureInitializer(
-				EStructuralFeature initFeature,
-				MindmapAbstractExpression valueExpression) {
+		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, MindmapAbstractExpression valueExpression) {
 			final EStructuralFeature feature = initFeature;
 			final MindmapAbstractExpression expression = valueExpression;
 			return new IFeatureInitializer() {
+
 				public void init(EObject contextInstance) {
 					expression.assignTo(feature, contextInstance);
 				}

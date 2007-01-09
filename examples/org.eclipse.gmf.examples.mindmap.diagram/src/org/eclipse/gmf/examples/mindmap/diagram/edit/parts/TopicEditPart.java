@@ -1,3 +1,16 @@
+/*
+ * 
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.Graphics;
@@ -59,8 +72,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new TopicItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new TopicItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -71,8 +83,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child
-						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -110,8 +121,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof TopicNameEditPart) {
-			((TopicNameEditPart) childEditPart).setLabel(getPrimaryShape()
-					.getFigureTopicNameFigure());
+			((TopicNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureTopicNameFigure());
 			return true;
 		}
 		return false;
@@ -157,8 +167,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
-				.DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 
 		return result;
 	}
@@ -209,17 +218,14 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry
-				.getType(TopicNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void handleNotificationEvent(Notification event) {
-		if (event.getNotifier() == getModel()
-				&& EcorePackage.eINSTANCE.getEModelElement_EAnnotations()
-						.equals(event.getFeature())) {
+		if (event.getNotifier() == getModel() && EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);
@@ -230,12 +236,12 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public class RoundedTopicFigure extends RoundedRectangle {
+
 		/**
 		 * @generated
 		 */
 		public RoundedTopicFigure() {
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20),
-					getMapMode().DPtoLP(20)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
 			this.setFill(true);
 			this.setFillXOR(false);
 			this.setOutline(true);

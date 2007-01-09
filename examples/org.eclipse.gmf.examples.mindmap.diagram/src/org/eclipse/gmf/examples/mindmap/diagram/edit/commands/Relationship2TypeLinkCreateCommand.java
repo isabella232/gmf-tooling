@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.commands;
 
 import org.eclipse.emf.ecore.EClass;
@@ -17,8 +30,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class Relationship2TypeLinkCreateCommand extends
-		CreateRelationshipCommand {
+public class Relationship2TypeLinkCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -38,8 +50,7 @@ public class Relationship2TypeLinkCreateCommand extends
 	/**
 	 * @generated
 	 */
-	public Relationship2TypeLinkCreateCommand(CreateRelationshipRequest req,
-			Map container, Topic source, Topic target) {
+	public Relationship2TypeLinkCreateCommand(CreateRelationshipRequest req, Map container, Topic source, Topic target) {
 		super(req);
 		super.setElementToEdit(container);
 		myContainer = container;
@@ -86,8 +97,7 @@ public class Relationship2TypeLinkCreateCommand extends
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		Relationship newElement = (Relationship) super
-				.doDefaultElementCreation();
+		Relationship newElement = (Relationship) super.doDefaultElementCreation();
 		if (newElement != null) {
 			newElement.setTarget(myTarget);
 			newElement.setSource(mySource);

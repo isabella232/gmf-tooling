@@ -1,3 +1,16 @@
+/*
+ * 
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.Ellipse;
@@ -64,8 +77,7 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new ResourceItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ResourceItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -107,11 +119,9 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addBorderItem(IFigure borderItemContainer,
-			IBorderItemEditPart borderItemEditPart) {
+	protected void addBorderItem(IFigure borderItemContainer, IBorderItemEditPart borderItemEditPart) {
 		if (borderItemEditPart instanceof ResourceNameEmailEditPart) {
-			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
-					PositionConstants.SOUTH);
+			BorderItemLocator locator = new BorderItemLocator(getMainFigure(), PositionConstants.SOUTH);
 			locator.setBorderItemOffset(new Dimension(-20, -20));
 			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
 		} else {
@@ -123,8 +133,7 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
-				.DPtoLP(40), getMapMode().DPtoLP(60));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));
 
 		return result;
 	}
@@ -182,17 +191,14 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry
-				.getType(ResourceNameEmailEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(ResourceNameEmailEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void handleNotificationEvent(Notification event) {
-		if (event.getNotifier() == getModel()
-				&& EcorePackage.eINSTANCE.getEModelElement_EAnnotations()
-						.equals(event.getFeature())) {
+		if (event.getNotifier() == getModel() && EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);
@@ -203,6 +209,7 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	public class ResourceFigure extends RectangleFigure {
+
 		/**
 		 * @generated
 		 */
@@ -215,12 +222,9 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 			this.setOutlineXOR(false);
 			this.setLineWidth(0);
 			this.setLineStyle(Graphics.LINE_SOLID);
-			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
-			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(40),
-					getMapMode().DPtoLP(60)));
+			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
+			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
 			this.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));
 			createContents();
 		}
@@ -244,40 +248,23 @@ public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 			this.add(head0);
 
 			Polygon body0 = new Polygon();
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
-					.DPtoLP(19)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
-					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
-					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
-					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
-					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
-					.DPtoLP(36)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
-					.DPtoLP(48)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
-					.DPtoLP(53)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(20), getMapMode()
-					.DPtoLP(42)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
-					.DPtoLP(53)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
-					.DPtoLP(48)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
-					.DPtoLP(36)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
-					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
-					.DPtoLP(29)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
-					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
-					.DPtoLP(24)));
-			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
-					.DPtoLP(19)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode().DPtoLP(19)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode().DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode().DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode().DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode().DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode().DPtoLP(36)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode().DPtoLP(48)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode().DPtoLP(53)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(20), getMapMode().DPtoLP(42)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode().DPtoLP(53)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode().DPtoLP(48)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode().DPtoLP(36)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode().DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode().DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode().DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode().DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode().DPtoLP(19)));
 			body0.setFill(true);
 			body0.setFillXOR(false);
 			body0.setOutline(true);

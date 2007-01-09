@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.commands;
 
 import java.util.Collections;
@@ -27,8 +40,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class MindmapCreateShortcutDecorationsCommand extends
-		AbstractTransactionalCommand {
+public class MindmapCreateShortcutDecorationsCommand extends AbstractTransactionalCommand {
 
 	/**
 	 * @generated
@@ -38,9 +50,7 @@ public class MindmapCreateShortcutDecorationsCommand extends
 	/**
 	 * @generated
 	 */
-	public MindmapCreateShortcutDecorationsCommand(
-			TransactionalEditingDomain editingDomain, View parentView,
-			List viewDescriptors) {
+	public MindmapCreateShortcutDecorationsCommand(TransactionalEditingDomain editingDomain, View parentView, List viewDescriptors) {
 		super(editingDomain, "Create Shortcuts", getWorkspaceFiles(parentView)); //$NON-NLS-1$
 		myDescriptors = viewDescriptors;
 	}
@@ -48,29 +58,22 @@ public class MindmapCreateShortcutDecorationsCommand extends
 	/**
 	 * @generated
 	 */
-	public MindmapCreateShortcutDecorationsCommand(
-			TransactionalEditingDomain editingDomain, View parentView,
-			CreateViewRequest.ViewDescriptor viewDescriptor) {
-		this(editingDomain, parentView, Collections
-				.singletonList(viewDescriptor));
+	public MindmapCreateShortcutDecorationsCommand(TransactionalEditingDomain editingDomain, View parentView, CreateViewRequest.ViewDescriptor viewDescriptor) {
+		this(editingDomain, parentView, Collections.singletonList(viewDescriptor));
 	}
 
 	/**
 	 * @generated
 	 */
-	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
-			IAdaptable info) throws ExecutionException {
+	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		for (Iterator it = myDescriptors.iterator(); it.hasNext();) {
-			CreateViewRequest.ViewDescriptor nextDescriptor = (CreateViewRequest.ViewDescriptor) it
-					.next();
+			CreateViewRequest.ViewDescriptor nextDescriptor = (CreateViewRequest.ViewDescriptor) it.next();
 			View view = (View) nextDescriptor.getAdapter(View.class);
 			if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
 
-				EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE
-						.createEAnnotation();
+				EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-				shortcutAnnotation.getDetails().put(
-						"modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
+				shortcutAnnotation.getDetails().put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
 				view.getEAnnotations().add(shortcutAnnotation);
 			}
 		}

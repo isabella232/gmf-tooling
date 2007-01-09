@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
@@ -65,8 +78,7 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static boolean openDiagram(Resource diagram)
-			throws PartInitException {
+	public static boolean openDiagram(Resource diagram) throws PartInitException {
 		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
 	}
 
@@ -81,8 +93,7 @@ public class MindmapDiagramEditorUtil {
 		try {
 			file.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
 		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
 		}
 	}
 
@@ -91,10 +102,8 @@ public class MindmapDiagramEditorUtil {
 	 */
 	public static IFile getFile(URI uri) {
 		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
-			String path = uri.toString().substring(
-					"platform:/resource".length()); //$NON-NLS-1$
-			IResource workspaceResource = ResourcesPlugin.getWorkspace()
-					.getRoot().findMember(new Path(path));
+			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
+			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 			if (workspaceResource instanceof IFile) {
 				return (IFile) workspaceResource;
 			}
@@ -116,27 +125,18 @@ public class MindmapDiagramEditorUtil {
 	 * @generated
 	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final Resource createDiagram(URI diagramURI, URI modelURI,
-			IProgressMonitor progressMonitor) {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
-				.createEditingDomain();
+	public static final Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		progressMonitor.beginTask("Creating diagram and model files", 3);
-		final Resource diagramResource = editingDomain.getResourceSet()
-				.createResource(diagramURI);
-		final Resource modelResource = editingDomain.getResourceSet()
-				.createResource(modelURI);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
+		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
-				editingDomain,
-				"Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
-			protected CommandResult doExecuteWithResult(
-					IProgressMonitor monitor, IAdaptable info)
-					throws ExecutionException {
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
+
+			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Map model = createInitialModel();
 				attachModelToResource(model, modelResource);
-				Diagram diagram = ViewService.createDiagram(model,
-						MapEditPart.MODEL_ID,
-						MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(model, MapEditPart.MODEL_ID, MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);
@@ -149,18 +149,15 @@ public class MindmapDiagramEditorUtil {
 					diagramResource.save(options);
 				} catch (IOException e) {
 
-					MindmapDiagramEditorPlugin.getInstance().logError(
-							"Unable to store model and diagram resources", e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
 				}
 				return CommandResult.newOKCommandResult();
 			}
 		};
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command,
-					new SubProgressMonitor(progressMonitor, 1), null);
+			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Unable to create model and diagram", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 		setCharset(modelURI);
 		setCharset(diagramURI);
@@ -199,8 +196,7 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static void selectElementsInDiagram(
-			IDiagramWorkbenchPart diagramPart, List/*EditPart*/editParts) {
+	public static void selectElementsInDiagram(IDiagramWorkbenchPart diagramPart, List/*EditPart*/editParts) {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
 
 		EditPart firstPrimary = null;
@@ -213,35 +209,26 @@ public class MindmapDiagramEditorUtil {
 		}
 
 		if (!editParts.isEmpty()) {
-			diagramPart.getDiagramGraphicalViewer().reveal(
-					firstPrimary != null ? firstPrimary : (EditPart) editParts
-							.get(0));
+			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (EditPart) editParts.get(0));
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	public static View findView(DiagramEditPart diagramEditPart,
-			EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
 		boolean hasStructuralURI = false;
 		if (targetElement.eResource() instanceof XMLResource) {
-			hasStructuralURI = ((XMLResource) targetElement.eResource())
-					.getID(targetElement) == null;
+			hasStructuralURI = ((XMLResource) targetElement.eResource()).getID(targetElement) == null;
 		}
 
 		View view = null;
-		if (hasStructuralURI
-				&& !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
-			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(
-					targetElement);
-		} else if (findElementsInDiagramByID(diagramEditPart, targetElement,
-				lazyElement2ViewMap.editPartTmpHolder) > 0) {
-			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder
-					.get(0);
+		if (hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
 			lazyElement2ViewMap.editPartTmpHolder.clear();
-			view = editPart.getModel() instanceof View ? (View) editPart
-					.getModel() : null;
+			view = editPart.getModel() instanceof View ? (View) editPart.getModel() : null;
 		}
 
 		return (view == null) ? diagramEditPart.getDiagramView() : view;
@@ -250,15 +237,12 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static int findElementsInDiagramByID(DiagramEditPart diagramPart,
-			EObject element, List editPartCollector) {
-		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart
-				.getViewer();
+	private static int findElementsInDiagramByID(DiagramEditPart diagramPart, EObject element, List editPartCollector) {
+		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart.getViewer();
 		final int intialNumOfEditParts = editPartCollector.size();
 
 		if (element instanceof View) { // support notation element lookup
-			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(
-					element);
+			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(element);
 			if (editPart != null) {
 				editPartCollector.add(editPart);
 				return 1;
@@ -266,11 +250,9 @@ public class MindmapDiagramEditorUtil {
 		}
 
 		String elementID = EMFCoreUtil.getProxyID(element);
-		List associatedParts = viewer.findEditPartsForElement(elementID,
-				IGraphicalEditPart.class);
+		List associatedParts = viewer.findEditPartsForElement(elementID, IGraphicalEditPart.class);
 		// perform the possible hierarchy disjoint -> take the top-most parts only
-		for (Iterator editPartIt = associatedParts.iterator(); editPartIt
-				.hasNext();) {
+		for (Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
 			EditPart nextPart = (EditPart) editPartIt.next();
 			EditPart parentPart = nextPart.getParent();
 			while (parentPart != null && !associatedParts.contains(parentPart)) {
@@ -286,8 +268,7 @@ public class MindmapDiagramEditorUtil {
 				editPartCollector.add(associatedParts.iterator().next());
 			} else {
 				if (element.eContainer() != null) {
-					return findElementsInDiagramByID(diagramPart, element
-							.eContainer(), editPartCollector);
+					return findElementsInDiagramByID(diagramPart, element.eContainer(), editPartCollector);
 				}
 			}
 		}
@@ -298,18 +279,22 @@ public class MindmapDiagramEditorUtil {
 	 * @generated
 	 */
 	public static class LazyElement2ViewMap {
+
 		/**
 		 * @generated
 		 */
 		private java.util.Map element2ViewMap;
+
 		/**
 		 * @generated
 		 */
 		private View scope;
+
 		/**
 		 * @generated
 		 */
 		private Set elementSet;
+
 		/**
 		 * @generated
 		 */
@@ -348,37 +333,28 @@ public class MindmapDiagramEditorUtil {
 		/**
 		 * @generated
 		 */
-		static java.util.Map buildElement2ViewMap(View parentView,
-				java.util.Map element2ViewMap, Set elements) {
+		static java.util.Map buildElement2ViewMap(View parentView, java.util.Map element2ViewMap, Set elements) {
 			if (elements.size() == element2ViewMap.size())
 				return element2ViewMap;
 
-			if (parentView.isSetElement()
-					&& !element2ViewMap.containsKey(parentView.getElement())
-					&& elements.contains(parentView.getElement())) {
+			if (parentView.isSetElement() && !element2ViewMap.containsKey(parentView.getElement()) && elements.contains(parentView.getElement())) {
 				element2ViewMap.put(parentView.getElement(), parentView);
 				if (elements.size() == element2ViewMap.size())
 					return element2ViewMap;
 			}
 
-			for (Iterator it = parentView.getChildren().iterator(); it
-					.hasNext();) {
-				buildElement2ViewMap((View) it.next(), element2ViewMap,
-						elements);
+			for (Iterator it = parentView.getChildren().iterator(); it.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 				if (elements.size() == element2ViewMap.size())
 					return element2ViewMap;
 			}
-			for (Iterator it = parentView.getSourceEdges().iterator(); it
-					.hasNext();) {
-				buildElement2ViewMap((View) it.next(), element2ViewMap,
-						elements);
+			for (Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 				if (elements.size() == element2ViewMap.size())
 					return element2ViewMap;
 			}
-			for (Iterator it = parentView.getSourceEdges().iterator(); it
-					.hasNext();) {
-				buildElement2ViewMap((View) it.next(), element2ViewMap,
-						elements);
+			for (Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 				if (elements.size() == element2ViewMap.size())
 					return element2ViewMap;
 			}

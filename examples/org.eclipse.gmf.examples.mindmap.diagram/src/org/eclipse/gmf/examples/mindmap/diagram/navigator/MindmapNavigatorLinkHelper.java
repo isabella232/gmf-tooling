@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -37,8 +50,7 @@ public class MindmapNavigatorLinkHelper implements ILinkHelper {
 	/**
 	 * @generated
 	 */
-	public void activateEditor(IWorkbenchPage aPage,
-			IStructuredSelection aSelection) {
+	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
 		if (aSelection == null || aSelection.isEmpty()) {
 			return;
 		}
@@ -46,26 +58,22 @@ public class MindmapNavigatorLinkHelper implements ILinkHelper {
 			return;
 		}
 
-		MindmapAbstractNavigatorItem navigatorItem = (MindmapAbstractNavigatorItem) aSelection
-				.getFirstElement();
+		MindmapAbstractNavigatorItem navigatorItem = (MindmapAbstractNavigatorItem) aSelection.getFirstElement();
 		View navigatorView = null;
 		if (navigatorItem instanceof MindmapNavigatorItem) {
 			navigatorView = ((MindmapNavigatorItem) navigatorItem).getView();
 		} else if (navigatorItem instanceof MindmapNavigatorGroup) {
 			MindmapNavigatorGroup group = (MindmapNavigatorGroup) navigatorItem;
 			if (group.getParent() instanceof MindmapNavigatorItem) {
-				navigatorView = ((MindmapNavigatorItem) group.getParent())
-						.getView();
+				navigatorView = ((MindmapNavigatorItem) group.getParent()).getView();
 			} else if (group.getParent() instanceof IAdaptable) {
-				navigatorView = (View) ((IAdaptable) group.getParent())
-						.getAdapter(View.class);
+				navigatorView = (View) ((IAdaptable) group.getParent()).getAdapter(View.class);
 			}
 		}
 		if (navigatorView == null) {
 			return;
 		}
-		DiagramEditorInput editorInput = new DiagramEditorInput(navigatorView
-				.getDiagram());
+		DiagramEditorInput editorInput = new DiagramEditorInput(navigatorView.getDiagram());
 		IEditorPart editor = aPage.findEditor(editorInput);
 		if (editor == null) {
 			return;
@@ -75,17 +83,13 @@ public class MindmapNavigatorLinkHelper implements ILinkHelper {
 			DiagramEditor diagramEditor = (DiagramEditor) editor;
 			Resource diagramResource = diagramEditor.getDiagram().eResource();
 
-			EObject selectedView = diagramResource.getEObject(navigatorView
-					.eResource().getURIFragment(navigatorView));
+			EObject selectedView = diagramResource.getEObject(navigatorView.eResource().getURIFragment(navigatorView));
 			if (selectedView == null) {
 				return;
 			}
-			EditPart selectedEditPart = (EditPart) diagramEditor
-					.getDiagramGraphicalViewer().getEditPartRegistry().get(
-							selectedView);
+			EditPart selectedEditPart = (EditPart) diagramEditor.getDiagramGraphicalViewer().getEditPartRegistry().get(selectedView);
 			if (selectedEditPart != null) {
-				diagramEditor.getDiagramGraphicalViewer().select(
-						selectedEditPart);
+				diagramEditor.getDiagramGraphicalViewer().select(selectedEditPart);
 			}
 		}
 	}

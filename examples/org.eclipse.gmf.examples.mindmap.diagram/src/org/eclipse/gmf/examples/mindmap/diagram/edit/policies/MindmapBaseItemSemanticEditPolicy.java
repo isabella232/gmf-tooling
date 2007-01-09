@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -55,39 +68,29 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
 		Object editHelperContext = completedRequest.getEditHelperContext();
-		if (editHelperContext instanceof View
-				|| (editHelperContext instanceof IEditHelperContext && ((IEditHelperContext) editHelperContext)
-						.getEObject() instanceof View)) {
+		if (editHelperContext instanceof View || (editHelperContext instanceof IEditHelperContext && ((IEditHelperContext) editHelperContext).getEObject() instanceof View)) {
 			// no semantic commands are provided for pure design elements
 			return null;
 		}
 		if (editHelperContext == null) {
-			editHelperContext = ViewUtil
-					.resolveSemanticElement((View) getHost().getModel());
+			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
 		}
-		IElementType elementType = ElementTypeRegistry.getInstance()
-				.getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType(
-				"org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
 		Command epCommand = getSemanticCommandSwitch(completedRequest);
 		if (epCommand != null) {
-			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand)
-					.getICommand()
-					: new CommandProxy(epCommand);
-			completedRequest.setParameter(
-					MindmapBaseEditHelper.EDIT_POLICY_COMMAND, command);
+			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand).getICommand() : new CommandProxy(epCommand);
+			completedRequest.setParameter(MindmapBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
 		Command ehCommand = null;
 		if (elementType != null) {
 			ICommand command = elementType.getEditCommand(completedRequest);
 			if (command != null) {
 				if (!(command instanceof CompositeTransactionalCommand)) {
-					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
-							.getEditingDomain();
-					command = new CompositeTransactionalCommand(editingDomain,
-							null).compose(command);
+					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
 				}
 				ehCommand = new ICommandProxy(command);
 			}
@@ -98,13 +101,9 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
-				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
-						.getEditingDomain();
-				Command deleteViewCommand = new ICommandProxy(
-						new DeleteCommand(editingDomain, (View) getHost()
-								.getModel()));
-				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand
-						.chain(deleteViewCommand);
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
 			}
 			return ehCommand;
 		}
@@ -207,16 +206,14 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Command getReorientReferenceRelationshipCommand(
-			ReorientReferenceRelationshipRequest req) {
+	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		return UnexecutableCommand.INSTANCE;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getReorientRelationshipCommand(
-			ReorientRelationshipRequest req) {
+	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		return UnexecutableCommand.INSTANCE;
 	}
 
@@ -242,8 +239,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected EObject getRelationshipContainer(EObject element,
-			EClass containerClass, IElementType relationshipType) {
+	protected EObject getRelationshipContainer(EObject element, EClass containerClass, IElementType relationshipType) {
 		for (; element != null; element = element.eContainer()) {
 			if (containerClass.isSuperTypeOf(element.eClass())) {
 				return element;
@@ -273,23 +269,20 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		static {
 			Map env = new HashMap(3);
 			env.put("oppositeEnd", MindmapPackage.eINSTANCE.getTopic()); //$NON-NLS-1$
-			TopicSubtopics_3001_SourceExpression = MindmapOCLFactory
-					.getExpression("self <> oppositeEnd", //$NON-NLS-1$
-							MindmapPackage.eINSTANCE.getTopic(), env);
+			TopicSubtopics_3001_SourceExpression = MindmapOCLFactory.getExpression("self <> oppositeEnd", //$NON-NLS-1$
+					MindmapPackage.eINSTANCE.getTopic(), env);
 		}
 
 		/**
 		 * @generated 
 		 */
-		public static boolean canCreateTopicSubtopics_3001(Topic source,
-				Topic target) {
+		public static boolean canCreateTopicSubtopics_3001(Topic source, Topic target) {
 			if (source != null) {
 				if (source.getSubtopics().contains(target)) {
 					return false;
 				}
 			}
-			if (!evaluate(TopicSubtopics_3001_SourceExpression, source, target,
-					false)) {
+			if (!evaluate(TopicSubtopics_3001_SourceExpression, source, target, false)) {
 				return false;
 			}
 			return true;
@@ -298,47 +291,37 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public static boolean canCreateRelationship_3002(
-				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
-				Topic target) {
+		public static boolean canCreateRelationship_3002(org.eclipse.gmf.examples.mindmap.Map container, Topic source, Topic target) {
 			return true;
 		}
 
 		/**
 		 * @generated 
 		 */
-		public static boolean canCreateRelationship_3003(
-				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
-				Topic target) {
+		public static boolean canCreateRelationship_3003(org.eclipse.gmf.examples.mindmap.Map container, Topic source, Topic target) {
 			return true;
 		}
 
 		/**
 		 * @generated 
 		 */
-		public static boolean canCreateRelationship_3004(
-				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
-				Topic target) {
+		public static boolean canCreateRelationship_3004(org.eclipse.gmf.examples.mindmap.Map container, Topic source, Topic target) {
 			return true;
 		}
 
 		/**
 		 * @generated 
 		 */
-		private static boolean evaluate(MindmapAbstractExpression constraint,
-				Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+		private static boolean evaluate(MindmapAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 			if (sourceEnd == null) {
 				return true;
 			}
-			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR,
-					oppositeEnd);
+			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
 			try {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);
-				return (val instanceof Boolean) ? ((Boolean) val)
-						.booleanValue() : false;
+				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				MindmapDiagramEditorPlugin.getInstance().logError(
-						"Link constraint evaluation error", e); //$NON-NLS-1$
+				MindmapDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				return false;
 			}
 		}

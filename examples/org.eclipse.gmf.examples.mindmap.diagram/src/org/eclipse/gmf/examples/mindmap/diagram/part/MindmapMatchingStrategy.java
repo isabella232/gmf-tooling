@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import org.eclipse.emf.common.util.URI;
@@ -35,17 +48,13 @@ public class MindmapMatchingStrategy implements IEditorMatchingStrategy {
 			return true;
 		}
 
-		if (editorInput instanceof IFileEditorInput
-				&& input instanceof IFileEditorInput) {
-			return ((IFileEditorInput) editorInput).getFile().equals(
-					((IFileEditorInput) input).getFile());
+		if (editorInput instanceof IFileEditorInput && input instanceof IFileEditorInput) {
+			return ((IFileEditorInput) editorInput).getFile().equals(((IFileEditorInput) input).getFile());
 		}
 
 		IEditorPart editor = editorRef.getEditor(false);
-		if (input instanceof DiagramEditorInput
-				&& editor instanceof MindmapDiagramEditor) {
-			Diagram editorDiagram = ((MindmapDiagramEditor) editor)
-					.getDiagram();
+		if (input instanceof DiagramEditorInput && editor instanceof MindmapDiagramEditor) {
+			Diagram editorDiagram = ((MindmapDiagramEditor) editor).getDiagram();
 			Diagram otherDiagram = ((DiagramEditorInput) input).getDiagram();
 			return equals(editorDiagram, otherDiagram);
 		}
@@ -61,12 +70,9 @@ public class MindmapMatchingStrategy implements IEditorMatchingStrategy {
 		if (editorResource != null && otherResource != null) {
 			URI editorURI = editorResource.getURI();
 			URI otherURI = otherResource.getURI();
-			String editorURIFragment = editorResource
-					.getURIFragment(editorDiagram);
-			String otherURIFragment = otherResource
-					.getURIFragment(otherDiagram);
-			return editorURI.equals(otherURI)
-					&& editorURIFragment.equals(otherURIFragment);
+			String editorURIFragment = editorResource.getURIFragment(editorDiagram);
+			String otherURIFragment = otherResource.getURIFragment(otherDiagram);
+			return editorURI.equals(otherURI) && editorURIFragment.equals(otherURIFragment);
 		}
 		return false;
 	}

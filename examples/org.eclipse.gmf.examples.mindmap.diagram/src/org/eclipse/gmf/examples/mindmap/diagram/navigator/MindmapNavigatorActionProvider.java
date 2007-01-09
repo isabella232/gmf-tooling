@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -69,12 +82,10 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 		if (!myContribute) {
 			return;
 		}
-		IStructuredSelection selection = (IStructuredSelection) getContext()
-				.getSelection();
+		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 		myOpenDiagramAction.selectionChanged(selection);
 		if (myOpenDiagramAction.isEnabled()) {
-			actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN,
-					myOpenDiagramAction);
+			actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, myOpenDiagramAction);
 		}
 	}
 
@@ -115,16 +126,13 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 			if (selection.size() == 1) {
 				Object selectedElement = selection.getFirstElement();
 				if (selectedElement instanceof MindmapNavigatorItem) {
-					selectedElement = ((MindmapNavigatorItem) selectedElement)
-							.getView();
+					selectedElement = ((MindmapNavigatorItem) selectedElement).getView();
 				} else if (selectedElement instanceof IAdaptable) {
-					selectedElement = ((IAdaptable) selectedElement)
-							.getAdapter(View.class);
+					selectedElement = ((IAdaptable) selectedElement).getAdapter(View.class);
 				}
 				if (selectedElement instanceof Diagram) {
 					Diagram diagram = (Diagram) selectedElement;
-					if (MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
-							.getModelID(diagram))) {
+					if (MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(diagram))) {
 						myDiagram = diagram;
 					}
 				}
@@ -144,8 +152,7 @@ public class MindmapNavigatorActionProvider extends CommonActionProvider {
 			try {
 				page.openEditor(editorInput, MindmapDiagramEditor.ID);
 			} catch (PartInitException e) {
-				MindmapDiagramEditorPlugin.getInstance().logError(
-						"Exception while openning diagram", e);
+				MindmapDiagramEditorPlugin.getInstance().logError("Exception while openning diagram", e);
 			}
 		}
 

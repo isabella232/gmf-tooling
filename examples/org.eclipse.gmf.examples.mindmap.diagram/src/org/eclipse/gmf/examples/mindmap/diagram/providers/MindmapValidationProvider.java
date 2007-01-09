@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.lang.reflect.InvocationTargetException;
@@ -62,6 +75,7 @@ import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
  * @generated
  */
 public class MindmapValidationProvider extends AbstractContributionItemProvider {
+
 	/**
 	 * @generated
 	 */
@@ -77,8 +91,7 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	/**
 	 * @generated
 	 */
-	protected IAction createAction(String actionId,
-			IWorkbenchPartDescriptor partDescriptor) {
+	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
 		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
 			return new ValidateAction(partDescriptor);
 		}
@@ -89,10 +102,12 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	 * @generated
 	 */
 	public static class ValidateAction extends Action {
+
 		/**
 		 * @generated
 		 */
 		public static final String VALIDATE_ACTION_KEY = "validateAction"; //$NON-NLS-1$
+
 		/**
 		 * @generated
 		 */
@@ -111,23 +126,18 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		 * @generated
 		 */
 		public void run() {
-			IWorkbenchPart workbenchPart = workbenchPartDescriptor
-					.getPartPage().getActivePart();
+			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
 			if (workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart) workbenchPart;
 				try {
-					new WorkspaceModifyDelegatingOperation(
-							new IRunnableWithProgress() {
-								public void run(IProgressMonitor monitor)
-										throws InterruptedException,
-										InvocationTargetException {
-									runValidation(part.getDiagramEditPart(),
-											part.getDiagram());
-								}
-							}).run(new NullProgressMonitor());
+					new WorkspaceModifyDelegatingOperation(new IRunnableWithProgress() {
+
+						public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
+							runValidation(part.getDiagramEditPart(), part.getDiagram());
+						}
+					}).run(new NullProgressMonitor());
 				} catch (Exception e) {
-					MindmapDiagramEditorPlugin.getInstance().logError(
-							"Validation action failed", e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
 				}
 			}
 		}
@@ -138,19 +148,15 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		public static void runValidation(View view) {
 			try {
 				if (MindmapDiagramEditorUtil.openDiagram(view.eResource())) {
-					IEditorPart editorPart = PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow().getActivePage()
-							.getActiveEditor();
+					IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 					if (editorPart instanceof IDiagramWorkbenchPart) {
-						runValidation(((IDiagramWorkbenchPart) editorPart)
-								.getDiagramEditPart(), view);
+						runValidation(((IDiagramWorkbenchPart) editorPart).getDiagramEditPart(), view);
 					} else {
 						runNonUIValidation(view);
 					}
 				}
 			} catch (Exception e) {
-				MindmapDiagramEditorPlugin.getInstance().logError(
-						"Validation action failed", e); //$NON-NLS-1$
+				MindmapDiagramEditorPlugin.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
 			}
 		}
 
@@ -158,19 +164,18 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		 * @generated
 		 */
 		public static void runNonUIValidation(View view) {
-			DiagramEditPart diagramEditPart = OffscreenEditPartFactory
-					.getInstance().createDiagramEditPart(view.getDiagram());
+			DiagramEditPart diagramEditPart = OffscreenEditPartFactory.getInstance().createDiagramEditPart(view.getDiagram());
 			runValidation(diagramEditPart, view);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static void runValidation(DiagramEditPart diagramEditPart,
-				View view) {
+		public static void runValidation(DiagramEditPart diagramEditPart, View view) {
 			final View target = view;
 			final DiagramEditPart diagramPart = diagramEditPart;
 			Runnable task = new Runnable() {
+
 				public void run() {
 					try {
 						constraintsActive = true;
@@ -180,14 +185,12 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 					}
 				}
 			};
-			TransactionalEditingDomain txDomain = TransactionUtil
-					.getEditingDomain(target);
+			TransactionalEditingDomain txDomain = TransactionUtil.getEditingDomain(target);
 			if (txDomain != null) {
 				try {
 					txDomain.runExclusive(task);
 				} catch (Exception e) {
-					MindmapDiagramEditorPlugin.getInstance().logError(
-							"Validation action failed", e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
 				}
 			} else {
 				task.run();
@@ -200,6 +203,7 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		private static Diagnostic runEMFValidator(View target) {
 			if (target.isSetElement() && target.getElement() != null) {
 				return new Diagnostician() {
+
 					public String getObjectLabel(EObject eObject) {
 						return EMFCoreUtil.getQualifiedName(eObject, true);
 					}
@@ -211,30 +215,24 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		/**
 		 * @generated
 		 */
-		private static void validate(DiagramEditPart diagramEditPart,
-				View target) {
-			IFile diagramFile = (target.eResource() != null) ? WorkspaceSynchronizer
-					.getFile(target.eResource())
-					: null;
+		private static void validate(DiagramEditPart diagramEditPart, View target) {
+			IFile diagramFile = (target.eResource() != null) ? WorkspaceSynchronizer.getFile(target.eResource()) : null;
 			if (diagramFile != null) {
 				MindmapMarkerNavigationProvider.deleteMarkers(diagramFile);
 			}
 
 			Diagnostic diagnostic = runEMFValidator(target);
 			if (diagramFile != null) {
-				MindmapMarkerNavigationProvider.createMarkers(diagramFile,
-						diagnostic, diagramEditPart);
+				MindmapMarkerNavigationProvider.createMarkers(diagramFile, diagnostic, diagramEditPart);
 			}
 
-			IBatchValidator validator = (IBatchValidator) ModelValidationService
-					.getInstance().newValidator(EvaluationMode.BATCH);
+			IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 			validator.setIncludeLiveConstraints(true);
 			IStatus status = Status.OK_STATUS;
 			if (target.isSetElement() && target.getElement() != null) {
 				status = validator.validate(target.getElement());
 				if (diagramFile != null) {
-					MindmapMarkerNavigationProvider.createMarkers(diagramFile,
-							status, diagramEditPart);
+					MindmapMarkerNavigationProvider.createMarkers(diagramFile, status, diagramEditPart);
 				}
 			}
 
@@ -249,9 +247,7 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 			return false;
 		}
 		if (object instanceof View) {
-			return constraintsActive
-					&& MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
-							.getModelID((View) object));
+			return constraintsActive && MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID((View) object));
 		}
 		return true;
 	}
@@ -260,6 +256,7 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	 * @generated
 	 */
 	public static class DefaultCtx implements IClientSelector {
+
 		/**
 		 * @generated
 		 */

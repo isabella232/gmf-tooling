@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
@@ -72,8 +85,8 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @generated
  */
-public class MindmapDocumentProvider extends StorageDocumentProvider implements
-		IDiagramDocumentProvider {
+public class MindmapDocumentProvider extends StorageDocumentProvider implements IDiagramDocumentProvider {
+
 	/**
 	 * @generated
 	 */
@@ -96,13 +109,9 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element)
-			throws CoreException {
+	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInputProxy) {
-			throw new CoreException(new Status(IStatus.ERROR,
-					MindmapDiagramEditorPlugin.ID, 0,
-					"Incorrect element used: " + element
-							+ " instead of FileEditorInputProxy", null));
+			throw new CoreException(new Status(IStatus.ERROR, MindmapDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of FileEditorInputProxy", null));
 		}
 		FileEditorInputProxy editorInput = (FileEditorInputProxy) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
@@ -110,8 +119,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
-		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(
-				info);
+		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
 		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
 	}
@@ -121,8 +129,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	 */
 	private long computeModificationStamp(ResourceSetInfo info) {
 		int result = 0;
-		for (Iterator it = info.getResourceSet().getResources().iterator(); it
-				.hasNext();) {
+		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			IFile file = WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -146,14 +153,11 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected boolean setDocumentContent(IDocument document,
-			IEditorInput editorInput) throws CoreException {
-		if (editorInput instanceof FileEditorInputProxy
-				&& document instanceof IDiagramDocument) {
+	protected boolean setDocumentContent(IDocument document, IEditorInput editorInput) throws CoreException {
+		if (editorInput instanceof FileEditorInputProxy && document instanceof IDiagramDocument) {
 			FileEditorInputProxy editorInputProxy = (FileEditorInputProxy) editorInput;
 			IDiagramDocument diagramDocument = (IDiagramDocument) document;
-			diagramDocument.setEditingDomain(editorInputProxy
-					.getEditingDomain());
+			diagramDocument.setEditingDomain(editorInputProxy.getEditingDomain());
 		}
 		return super.setDocumentContent(document, editorInput);
 	}
@@ -161,21 +165,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void setDocumentContentFromStorage(IDocument document,
-			IStorage storage) throws CoreException {
+	protected void setDocumentContentFromStorage(IDocument document, IStorage storage) throws CoreException {
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
 		Diagram diagram = diagramDocument.getDiagram();
 
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		diagram = DiagramIOUtil.load(domain, storage, true,
-				getProgressMonitor());
-		if (myContentObjectURI != null
-				&& diagram != null
-				&& diagram.eResource() != null
-				&& !diagram.eResource().getURIFragment(diagram).equals(
-						myContentObjectURI)) {
-			EObject anotherContentObject = diagram.eResource().getEObject(
-					myContentObjectURI);
+		diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
+		if (myContentObjectURI != null && diagram != null && diagram.eResource() != null && !diagram.eResource().getURIFragment(diagram).equals(myContentObjectURI)) {
+			EObject anotherContentObject = diagram.eResource().getEObject(myContentObjectURI);
 			document.setContent(anotherContentObject);
 		} else {
 			document.setContent(diagram);
@@ -242,22 +239,18 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void doValidateState(Object element, Object computationContext)
-			throws CoreException {
+	protected void doValidateState(Object element, Object computationContext) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection files2Validate = new ArrayList();
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null && file.isReadOnly()) {
 					files2Validate.add(file);
 				}
 			}
-			ResourcesPlugin.getWorkspace().validateEdit(
-					(IFile[]) files2Validate.toArray(new IFile[files2Validate
-							.size()]), computationContext);
+			ResourcesPlugin.getWorkspace().validateEdit((IFile[]) files2Validate.toArray(new IFile[files2Validate.size()]), computationContext);
 		}
 
 		super.doValidateState(element, computationContext);
@@ -281,8 +274,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	protected void updateCache(IStorageEditorInput input) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(input);
 		if (info != null) {
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null && file.isReadOnly()) {
@@ -316,17 +308,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection rules = new ArrayList();
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null) {
-					rules.add(ResourcesPlugin.getWorkspace().getRuleFactory()
-							.modifyRule(file));
+					rules.add(ResourcesPlugin.getWorkspace().getRuleFactory().modifyRule(file));
 				}
 			}
-			return new MultiRule((ISchedulingRule[]) rules
-					.toArray(new ISchedulingRule[rules.size()]));
+			return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
 		}
 		return null;
 	}
@@ -338,16 +327,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection rules = new ArrayList();
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null) {
 					rules.add(computeSchedulingRule(file));
 				}
 			}
-			return new MultiRule((ISchedulingRule[]) rules
-					.toArray(new ISchedulingRule[rules.size()]));
+			return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
 		}
 		return null;
 	}
@@ -359,17 +346,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection rules = new ArrayList();
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null) {
-					rules.add(ResourcesPlugin.getWorkspace().getRuleFactory()
-							.refreshRule(file));
+					rules.add(ResourcesPlugin.getWorkspace().getRuleFactory().refreshRule(file));
 				}
 			}
-			return new MultiRule((ISchedulingRule[]) rules
-					.toArray(new ISchedulingRule[rules.size()]));
+			return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
 		}
 		return null;
 	}
@@ -381,17 +365,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection files = new ArrayList();
-			for (Iterator it = info.getResourceSet().getResources().iterator(); it
-					.hasNext();) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null) {
 					files.add(file);
 				}
 			}
-			return ResourcesPlugin.getWorkspace().getRuleFactory()
-					.validateEditRule(
-							(IFile[]) files.toArray(new IFile[files.size()]));
+			return ResourcesPlugin.getWorkspace().getRuleFactory().validateEditRule((IFile[]) files.toArray(new IFile[files.size()]));
 		}
 		return null;
 	}
@@ -401,8 +382,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	 */
 	private ISchedulingRule computeSchedulingRule(IResource toCreateOrModify) {
 		if (toCreateOrModify.exists())
-			return ResourcesPlugin.getWorkspace().getRuleFactory().modifyRule(
-					toCreateOrModify);
+			return ResourcesPlugin.getWorkspace().getRuleFactory().modifyRule(toCreateOrModify);
 
 		IResource parent = toCreateOrModify;
 		do {
@@ -416,19 +396,16 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 			parent = toCreateOrModify.getParent();
 		} while (parent != null && !parent.exists());
 
-		return ResourcesPlugin.getWorkspace().getRuleFactory().createRule(
-				toCreateOrModify);
+		return ResourcesPlugin.getWorkspace().getRuleFactory().createRule(toCreateOrModify);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void doSynchronize(Object element, IProgressMonitor monitor)
-			throws CoreException {
+	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null && element instanceof FileEditorInputProxy) {
-			handleResourcesChanged(info, info.getResourceSet().getResources(),
-					monitor);
+			handleResourcesChanged(info, info.getResourceSet().getResources(), monitor);
 			return;
 		}
 		super.doSynchronize(element, monitor);
@@ -438,8 +415,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	 * @generated
 	 */
 	protected void handleResourcesMoved(Map movedPathToResource) {
-		for (Iterator it = movedPathToResource.entrySet().iterator(); it
-				.hasNext();) {
+		for (Iterator it = movedPathToResource.entrySet().iterator(); it.hasNext();) {
 			Entry nextEntry = (Entry) it.next();
 			IPath newPath = (IPath) nextEntry.getKey();
 			Resource resource = (Resource) nextEntry.getValue();
@@ -460,8 +436,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void handleResourcesChanged(ResourceSetInfo info,
-			Collection changedResources, IProgressMonitor monitor) {
+	protected void handleResourcesChanged(ResourceSetInfo info, Collection changedResources, IProgressMonitor monitor) {
 		info.stopResourceListening();
 		for (Iterator it = changedResources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
@@ -470,8 +445,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 				try {
 					file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 				} catch (CoreException e) {
-					handleCoreException(e,
-							"FileDocumentProvider.handleElementContentChanged");
+					handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
 				}
 			}
 			nextResource.unload();
@@ -496,28 +470,20 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void doSaveDocument(IProgressMonitor monitor, Object element,
-			IDocument document, boolean overwrite) throws CoreException {
+	protected void doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR,
-						MindmapDiagramEditorPlugin.ID,
-						IResourceStatus.OUT_OF_SYNC_LOCAL,
-						"The file has been changed on the file system", null));
+				throw new CoreException(new Status(IStatus.ERROR, MindmapDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null));
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
 			try {
-				monitor.beginTask("Saving diagram editor", info
-						.getResourceSet().getResources().size());
-				for (Iterator it = info.getResourceSet().getResources()
-						.iterator(); it.hasNext();) {
+				monitor.beginTask("Saving diagram editor", info.getResourceSet().getResources().size());
+				for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName("Saving " + nextResource.getURI());
-					if (nextResource.isLoaded()
-							&& (!nextResource.isTrackingModification() || nextResource
-									.isModified())) {
+					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
 						nextResource.save(Collections.EMPTY_MAP);
 					}
 					monitor.worked(1);
@@ -525,10 +491,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 				monitor.done();
 			} catch (IOException e) {
 				fireElementStateChangeFailed(element);
-				throw new CoreException(new Status(IStatus.ERROR,
-						MindmapDiagramEditorPlugin.ID,
-						EditorStatusCodes.RESOURCE_FAILURE, e
-								.getLocalizedMessage(), null));
+				throw new CoreException(new Status(IStatus.ERROR, MindmapDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;
@@ -550,8 +513,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	protected void handleElementMoved(FileEditorInputProxy input, IPath path) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IFile newFile = workspace.getRoot().getFile(path);
-		fireElementMoved(input, newFile == null ? null : new FileEditorInput(
-				newFile));
+		fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
 	}
 
 	/**
@@ -564,11 +526,9 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput,
-			TransactionalEditingDomain domain) {
+	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
 		if (editorInput instanceof IFileEditorInput) {
-			return new FileEditorInputProxy((IFileEditorInput) editorInput,
-					domain);
+			return new FileEditorInputProxy((IFileEditorInput) editorInput, domain);
 		}
 		assert false;
 		return null;
@@ -618,8 +578,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		/**
 		 * @generated
 		 */
-		public ResourceSetInfo(IDiagramDocument document,
-				FileEditorInputProxy editorInput) {
+		public ResourceSetInfo(IDiagramDocument document, FileEditorInputProxy editorInput) {
 			super(document);
 			myResourceSet = document.getEditingDomain().getResourceSet();
 			myEditorInput = editorInput;
@@ -701,16 +660,14 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		 * @generated
 		 */
 		public final void stopResourceListening() {
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-					mySynchronizer);
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(mySynchronizer);
 		}
 
 		/**
 		 * @generated
 		 */
 		public final void startResourceListening() {
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(
-					mySynchronizer, IResourceChangeEvent.POST_CHANGE);
+			ResourcesPlugin.getWorkspace().addResourceChangeListener(mySynchronizer, IResourceChangeEvent.POST_CHANGE);
 		}
 
 	}
@@ -757,28 +714,22 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 						return;
 					}
 
-					Entry diagramEntry = getDiagramResourceEntry(deltaVisitor
-							.getMovedResourcesMap());
+					Entry diagramEntry = getDiagramResourceEntry(deltaVisitor.getMovedResourcesMap());
 					if (diagramEntry != null) {
-						deltaVisitor.getMovedResourcesMap().remove(
-								diagramEntry.getKey());
+						deltaVisitor.getMovedResourcesMap().remove(diagramEntry.getKey());
 						// Setting new editor input since diagram file was
 						// renamed Could be processed together with the rest of
 						// moved resources if FileEditorInputProxy will wupport
 						// IFileEditorInput substitution
-						handleElementMoved(myInfo.getEditorInput(),
-								(IPath) diagramEntry.getKey());
+						handleElementMoved(myInfo.getEditorInput(), (IPath) diagramEntry.getKey());
 					}
 					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
-						handleResourcesMoved(deltaVisitor
-								.getMovedResourcesMap());
+						handleResourcesMoved(deltaVisitor.getMovedResourcesMap());
 					}
-					if (deltaVisitor.getChangedResources().size() > 0
-							|| deltaVisitor.getMovedResourcesMap().size() > 0) {
+					if (deltaVisitor.getChangedResources().size() > 0 || deltaVisitor.getMovedResourcesMap().size() > 0) {
 						// reloading changed resources + changing URIs for moved
 						// resources
-						handleResourcesChanged(myInfo, deltaVisitor
-								.getChangedResources(), null);
+						handleResourcesChanged(myInfo, deltaVisitor.getChangedResources(), null);
 					}
 					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
 						// Marking whole ResourceSet as changed to preserve
@@ -794,13 +745,11 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		 * @generated
 		 */
 		private Entry getDiagramResourceEntry(Map movedResources) {
-			for (Iterator it = movedResources.entrySet().iterator(); it
-					.hasNext();) {
+			for (Iterator it = movedResources.entrySet().iterator(); it.hasNext();) {
 				Entry nextEntry = (Entry) it.next();
 				Resource nextResource = (Resource) nextEntry.getValue();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
-				if (file != null
-						&& file.equals(myInfo.getEditorInput().getFile())) {
+				if (file != null && file.equals(myInfo.getEditorInput().getFile())) {
 					return nextEntry;
 				}
 			}
@@ -832,13 +781,9 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 			 * @generated
 			 */
 			public boolean visit(IResourceDelta delta) {
-				if (delta.getFlags() != IResourceDelta.MARKERS
-						&& delta.getResource().getType() == IResource.FILE) {
+				if (delta.getFlags() != IResourceDelta.MARKERS && delta.getResource().getType() == IResource.FILE) {
 					if ((delta.getKind() & (IResourceDelta.CHANGED | IResourceDelta.REMOVED)) != 0) {
-						Resource resource = myInfo.getResourceSet()
-								.getResource(
-										URI.createURI(delta.getFullPath()
-												.toString()), false);
+						Resource resource = myInfo.getResourceSet().getResource(URI.createURI(delta.getFullPath().toString()), false);
 						if (resource != null && resource.isLoaded()) {
 							synchronized (myInfo) {
 								if (myInfo.fCanBeSaved) {
@@ -909,12 +854,8 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 		 */
 		public ResourceSetModificationListener(ResourceSetInfo info) {
 			myInfo = info;
-			myModifiedFilter = NotificationFilter.createEventTypeFilter(
-					Notification.SET).or(
-					NotificationFilter
-							.createEventTypeFilter(Notification.UNSET)).and(
-					NotificationFilter.createFeatureFilter(Resource.class,
-							Resource.RESOURCE__IS_MODIFIED));
+			myModifiedFilter = NotificationFilter.createEventTypeFilter(Notification.SET).or(NotificationFilter.createEventTypeFilter(Notification.UNSET)).and(
+					NotificationFilter.createFeatureFilter(Resource.class, Resource.RESOURCE__IS_MODIFIED));
 		}
 
 		/**
@@ -929,9 +870,7 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 					Resource resource = (Resource) notification.getNotifier();
 					if (resource.isLoaded()) {
 						boolean modified = false;
-						for (Iterator it = myInfo.getResourceSet()
-								.getResources().iterator(); it.hasNext()
-								&& !modified;) {
+						for (Iterator it = myInfo.getResourceSet().getResources().iterator(); it.hasNext() && !modified;) {
 							Resource nextResource = (Resource) it.next();
 							if (nextResource.isLoaded()) {
 								modified = nextResource.isModified();
@@ -948,11 +887,9 @@ public class MindmapDocumentProvider extends StorageDocumentProvider implements
 							}
 						}
 						if (dirtyStateChanged) {
-							fireElementDirtyStateChanged(myInfo
-									.getEditorInput(), modified);
+							fireElementDirtyStateChanged(myInfo.getEditorInput(), modified);
 							if (!modified) {
-								myInfo
-										.setModificationStamp(computeModificationStamp(myInfo));
+								myInfo.setModificationStamp(computeModificationStamp(myInfo));
 							}
 						}
 					}

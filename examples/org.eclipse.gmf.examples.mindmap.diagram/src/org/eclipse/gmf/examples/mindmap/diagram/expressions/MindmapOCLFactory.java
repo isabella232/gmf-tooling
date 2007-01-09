@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
 import java.lang.ref.WeakReference;
@@ -50,16 +63,14 @@ public class MindmapOCLFactory {
 	/**
 	 * @generated 
 	 */
-	public static MindmapAbstractExpression getExpression(String body,
-			EClassifier context, Map environment) {
+	public static MindmapAbstractExpression getExpression(String body, EClassifier context, Map environment) {
 		return new Expression(body, context, environment);
 	}
 
 	/**
 	 * @generated 
 	 */
-	public static MindmapAbstractExpression getExpression(String body,
-			EClassifier context) {
+	public static MindmapAbstractExpression getExpression(String body, EClassifier context) {
 		return getExpression(body, context, Collections.EMPTY_MAP);
 	}
 
@@ -67,6 +78,7 @@ public class MindmapOCLFactory {
 	 * @generated 
 	 */
 	private static class Expression extends MindmapAbstractExpression {
+
 		/**
 		 * @generated 
 		 */
@@ -88,14 +100,11 @@ public class MindmapOCLFactory {
 				oclQuery = (Query) this.queryRef.get();
 			}
 			if (oclQuery == null) {
-				IOCLHelper oclHelper = (environment().isEmpty()) ? HelperUtil
-						.createOCLHelper() : HelperUtil
-						.createOCLHelper(createCustomEnv(environment()));
+				IOCLHelper oclHelper = (environment().isEmpty()) ? HelperUtil.createOCLHelper() : HelperUtil.createOCLHelper(createCustomEnv(environment()));
 				oclHelper.setContext(context());
 				try {
 					OCLExpression oclExpression = oclHelper.createQuery(body());
-					oclQuery = QueryFactory.eINSTANCE
-							.createQuery(oclExpression);
+					oclQuery = QueryFactory.eINSTANCE.createQuery(oclExpression);
 					this.queryRef = new WeakReference(oclQuery);
 					setStatus(IStatus.OK, null, null);
 				} catch (OCLParsingException e) {
@@ -117,8 +126,7 @@ public class MindmapOCLFactory {
 			// init environment
 			for (Iterator it = env.entrySet().iterator(); it.hasNext();) {
 				Map.Entry nextEntry = (Map.Entry) it.next();
-				evalEnv.replace((String) nextEntry.getKey(), nextEntry
-						.getValue());
+				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
 			}
 
 			try {
@@ -138,8 +146,7 @@ public class MindmapOCLFactory {
 			if (targetType.getEType() instanceof EEnum) {
 				if (value instanceof EEnumLiteral) {
 					EEnumLiteral literal = (EEnumLiteral) value;
-					return (literal.getInstance() != null) ? literal
-							.getInstance() : literal;
+					return (literal.getInstance() != null) ? literal.getInstance() : literal;
 				}
 			}
 			return super.performCast(value, targetType);
@@ -156,19 +163,16 @@ public class MindmapOCLFactory {
 			final Object extentContext = context;
 
 			queryToInit.setExtentMap(Collections.EMPTY_MAP);
-			if (queryToInit.queryText() != null
-					&& queryToInit.queryText().indexOf("allInstances") >= 0) {
+			if (queryToInit.queryText() != null && queryToInit.queryText().indexOf("allInstances") >= 0) {
 				AbstractVisitor visitior = new AbstractVisitor() {
+
 					private boolean usesAllInstances = false;
 
 					public Object visitOperationCallExp(OperationCallExp oc) {
 						if (!usesAllInstances) {
-							usesAllInstances = PredefinedType.ALL_INSTANCES == oc
-									.getOperationCode();
+							usesAllInstances = PredefinedType.ALL_INSTANCES == oc.getOperationCode();
 							if (usesAllInstances) {
-								queryToInit
-										.setExtentMap(EcoreEnvironmentFactory.ECORE_INSTANCE
-												.createExtentMap(extentContext));
+								queryToInit.setExtentMap(EcoreEnvironmentFactory.ECORE_INSTANCE.createExtentMap(extentContext));
 							}
 						}
 						return super.visitOperationCallExp(oc);
@@ -184,14 +188,13 @@ public class MindmapOCLFactory {
 		private static EcoreEnvironmentFactory createCustomEnv(Map environment) {
 			final Map env = environment;
 			return new EcoreEnvironmentFactory() {
+
 				public Environment createClassifierContext(Object context) {
-					Environment ecoreEnv = super
-							.createClassifierContext(context);
+					Environment ecoreEnv = super.createClassifierContext(context);
 					for (Iterator it = env.keySet().iterator(); it.hasNext();) {
 						String varName = (String) it.next();
 						EClassifier varType = (EClassifier) env.get(varName);
-						ecoreEnv.addElement(varName,
-								createVar(varName, varType), false);
+						ecoreEnv.addElement(varName, createVar(varName, varType), false);
 					}
 					return ecoreEnv;
 				}

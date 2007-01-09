@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
@@ -17,8 +30,7 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 /**
  * @generated
  */
-public class TopicThreadCompartmentCanonicalEditPolicy extends
-		CanonicalEditPolicy {
+public class TopicThreadCompartmentCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -29,11 +41,9 @@ public class TopicThreadCompartmentCanonicalEditPolicy extends
 		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator values = ((Topic) modelObject).getComments().iterator(); values
-				.hasNext();) {
+		for (Iterator values = ((Topic) modelObject).getComments().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject,
-					nextValue);
+			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (ThreadEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
@@ -45,8 +55,7 @@ public class TopicThreadCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null
-				&& view.getElement().eIsProxy();
+		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
 	}
 
 	/**

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
+<!--
+ * Copyright (c) 2006, 2007 Borland Software Corporation *  * All rights reserved. This program and the accompanying materials * are made available under the terms of the Eclipse Public License v1.0 * which accompanies this distribution, and is available at * http://www.eclipse.org/legal/epl-v10.html * * Contributors: *    Richard Gronback (Borland) - initial API and implementation 
+-->
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -51,14 +54,14 @@
       <?gmfgen generated="true"?>
       <fileTypes
          type="text"
-         extension="mindmap_diagram">
+         extension="mmd">
       </fileTypes>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <?gmfgen generated="true"?>
       <parser
-         type="mindmap_diagram"
+         type="mmd"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
@@ -69,7 +72,7 @@
         id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"
         name="%editorName"
         icon="icons/obj16/MindmapDiagramFile.gif"
-        extensions="mindmap_diagram"
+        extensions="mmd"
         default="true"
         class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor"
         matchingStrategy="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapMatchingStrategy"
@@ -527,7 +530,7 @@
             <or>
 	           <and>
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="mindmap_diagram"/>
+        	      <test property="org.eclipse.core.resources.extension" value="mmd"/>
                </and>
                <instanceof value="org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapAbstractNavigatorItem"/>
            	   <adapt type="org.eclipse.gmf.runtime.notation.View">
@@ -550,7 +553,7 @@
                <or>
 	              <and>
     	             <instanceof value="org.eclipse.core.resources.IFile"/>
-        	         <test property="org.eclipse.core.resources.extension" value="mindmap_diagram"/>
+        	         <test property="org.eclipse.core.resources.extension" value="mmd"/>
                   </and>
                   <instanceof value="org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapAbstractNavigatorItem"/>
                </or>

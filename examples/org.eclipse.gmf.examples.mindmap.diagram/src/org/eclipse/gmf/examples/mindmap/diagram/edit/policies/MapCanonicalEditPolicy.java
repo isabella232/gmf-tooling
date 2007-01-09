@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import java.util.List;
@@ -69,20 +82,16 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator values = ((Map) modelObject).getRootTopics().iterator(); values
-				.hasNext();) {
+		for (Iterator values = ((Map) modelObject).getRootTopics().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject,
-					nextValue);
+			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (TopicEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
-		for (Iterator values = ((Map) modelObject).getResources().iterator(); values
-				.hasNext();) {
+		for (Iterator values = ((Map) modelObject).getResources().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject,
-					nextValue);
+			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (ResourceEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
@@ -94,8 +103,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null
-				&& view.getElement().eIsProxy();
+		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
 	}
 
 	/**
@@ -129,8 +137,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected boolean shouldIncludeConnection(Edge connector,
-			Collection children) {
+	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
 		return false;
 	}
 
@@ -146,8 +153,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (createdViews.size() > 1) {
 			// perform a layout of the container
-			DeferredLayoutCommand layoutCmd = new DeferredLayoutCommand(host()
-					.getEditingDomain(), createdViews, host());
+			DeferredLayoutCommand layoutCmd = new DeferredLayoutCommand(host().getEditingDomain(), createdViews, host());
 			executeCommand(new ICommandProxy(layoutCmd));
 		}
 
@@ -172,27 +178,16 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		try {
 			collectAllLinks(getDiagram());
 			Collection existingLinks = new LinkedList(getDiagram().getEdges());
-			for (Iterator diagramLinks = existingLinks.iterator(); diagramLinks
-					.hasNext();) {
+			for (Iterator diagramLinks = existingLinks.iterator(); diagramLinks.hasNext();) {
 				Edge nextDiagramLink = (Edge) diagramLinks.next();
 				EObject diagramLinkObject = nextDiagramLink.getElement();
-				EObject diagramLinkSrc = nextDiagramLink.getSource()
-						.getElement();
-				EObject diagramLinkDst = nextDiagramLink.getTarget()
-						.getElement();
-				int diagramLinkVisualID = MindmapVisualIDRegistry
-						.getVisualID(nextDiagramLink);
-				for (Iterator modelLinkDescriptors = myLinkDescriptors
-						.iterator(); modelLinkDescriptors.hasNext();) {
-					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors
-							.next();
-					if (diagramLinkObject == nextLinkDescriptor
-							.getLinkElement()
-							&& diagramLinkSrc == nextLinkDescriptor.getSource()
-							&& diagramLinkDst == nextLinkDescriptor
-									.getDestination()
-							&& diagramLinkVisualID == nextLinkDescriptor
-									.getVisualID()) {
+				EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
+				EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
+				int diagramLinkVisualID = MindmapVisualIDRegistry.getVisualID(nextDiagramLink);
+				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
+					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
+					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
+							&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 						diagramLinks.remove();
 						modelLinkDescriptors.remove();
 					}
@@ -223,8 +218,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		}
 		default: {
 		}
-			for (Iterator children = view.getChildren().iterator(); children
-					.hasNext();) {
+			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
 				View childView = (View) children.next();
 				collectAllLinks(childView);
 			}
@@ -239,23 +233,16 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			return Collections.EMPTY_LIST;
 		}
 		List adapters = new LinkedList();
-		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator
-				.hasNext();) {
-			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator
-					.next();
-			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor
-					.getSource());
-			EditPart targetEditPart = getEditPartFor(nextLinkDescriptor
-					.getDestination());
+		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
+			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
+			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
+			EditPart targetEditPart = getEditPartFor(nextLinkDescriptor.getDestination());
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
-			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(
-					nextLinkDescriptor.getSemanticAdapter(), null,
-					ViewUtil.APPEND, false, ((IGraphicalEditPart) getHost())
-							.getDiagramPreferencesHint());
-			CreateConnectionViewRequest ccr = new CreateConnectionViewRequest(
-					descriptor);
+			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), null, ViewUtil.APPEND,
+					false, ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint());
+			CreateConnectionViewRequest ccr = new CreateConnectionViewRequest(descriptor);
 			ccr.setType(RequestConstants.REQ_CONNECTION_START);
 			ccr.setSourceEditPart(sourceEditPart);
 			sourceEditPart.getCommand(ccr);
@@ -279,8 +266,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	private EditPart getEditPartFor(EObject modelElement) {
 		View view = (View) myEObject2ViewMap.get(modelElement);
 		if (view != null) {
-			return (EditPart) getHost().getViewer().getEditPartRegistry().get(
-					view);
+			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		}
 		return null;
 	}
@@ -297,38 +283,28 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks(EObject container,
-			EClass containerMetaclass) {
-		storeTypeModelFacetLinks_Relationship_3002(container,
-				containerMetaclass);
-		storeTypeModelFacetLinks_Relationship_3003(container,
-				containerMetaclass);
-		storeTypeModelFacetLinks_Relationship_3004(container,
-				containerMetaclass);
+	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+		storeTypeModelFacetLinks_Relationship_3002(container, containerMetaclass);
+		storeTypeModelFacetLinks_Relationship_3003(container, containerMetaclass);
+		storeTypeModelFacetLinks_Relationship_3004(container, containerMetaclass);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_3002(EObject container,
-			EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks_Relationship_3002(EObject container, EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Map) container).getRelations().iterator(); values
-					.hasNext();) {
+			for (Iterator values = ((Map) container).getRelations().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				int linkVID = MindmapVisualIDRegistry
-						.getLinkWithClassVisualID(nextValue);
+				int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 				if (RelationshipEditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((Relationship) nextValue)
-							.getTarget();
+					Object structuralFeatureResult = ((Relationship) nextValue).getTarget();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;
-						structuralFeatureResult = ((Relationship) nextValue)
-								.getSource();
+						structuralFeatureResult = ((Relationship) nextValue).getSource();
 						if (structuralFeatureResult instanceof EObject) {
 							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst,
-									nextValue, linkVID));
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
 				}
@@ -339,25 +315,19 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_3003(EObject container,
-			EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks_Relationship_3003(EObject container, EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Map) container).getRelations().iterator(); values
-					.hasNext();) {
+			for (Iterator values = ((Map) container).getRelations().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				int linkVID = MindmapVisualIDRegistry
-						.getLinkWithClassVisualID(nextValue);
+				int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 				if (Relationship2EditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((Relationship) nextValue)
-							.getTarget();
+					Object structuralFeatureResult = ((Relationship) nextValue).getTarget();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;
-						structuralFeatureResult = ((Relationship) nextValue)
-								.getSource();
+						structuralFeatureResult = ((Relationship) nextValue).getSource();
 						if (structuralFeatureResult instanceof EObject) {
 							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst,
-									nextValue, linkVID));
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
 				}
@@ -368,25 +338,19 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_3004(EObject container,
-			EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks_Relationship_3004(EObject container, EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Map) container).getRelations().iterator(); values
-					.hasNext();) {
+			for (Iterator values = ((Map) container).getRelations().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				int linkVID = MindmapVisualIDRegistry
-						.getLinkWithClassVisualID(nextValue);
+				int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 				if (Relationship3EditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((Relationship) nextValue)
-							.getTarget();
+					Object structuralFeatureResult = ((Relationship) nextValue).getTarget();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;
-						structuralFeatureResult = ((Relationship) nextValue)
-								.getSource();
+						structuralFeatureResult = ((Relationship) nextValue).getSource();
 						if (structuralFeatureResult instanceof EObject) {
 							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst,
-									nextValue, linkVID));
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
 				}
@@ -397,18 +361,12 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 *@generated
 	 */
-	private void storeFeatureModelFacetLinks(EObject container,
-			EClass containerMetaclass, Diagram diagram) {
+	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 
-		if (MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(
-				containerMetaclass)) {
-			for (Iterator destinations = ((Topic) container).getSubtopics()
-					.iterator(); destinations.hasNext();) {
+		if (MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(containerMetaclass)) {
+			for (Iterator destinations = ((Topic) container).getSubtopics().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container,
-						nextDestination,
-						MindmapElementTypes.TopicSubtopics_3001,
-						TopicSubtopicsEditPart.VISUAL_ID));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, MindmapElementTypes.TopicSubtopics_3001, TopicSubtopicsEditPart.VISUAL_ID));
 
 			}
 		}
@@ -455,8 +413,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected LinkDescriptor(EObject source, EObject destination,
-				EObject linkElement, int linkVID) {
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, int linkVID) {
 			this(source, destination, linkVID);
 			myLinkElement = linkElement;
 			mySemanticAdapter = new EObjectAdapter(linkElement);
@@ -465,12 +422,12 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected LinkDescriptor(EObject source, EObject destination,
-				IElementType elementType, int linkVID) {
+		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
 			this(source, destination, linkVID);
 			myLinkElement = null;
 			final IElementType elementTypeCopy = elementType;
 			mySemanticAdapter = new IAdaptable() {
+
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
 						return elementTypeCopy;

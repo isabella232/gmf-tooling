@@ -1,3 +1,16 @@
+/*
+ *
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.lang.reflect.InvocationTargetException;
@@ -80,8 +93,7 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public void setOpenNewlyCreatedDiagramEditor(
-			boolean openNewlyCreatedDiagramEditor) {
+	public void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {
 		this.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;
 	}
 
@@ -92,8 +104,7 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 		this.selection = selection;
 		setWindowTitle("New Mindmap Diagram");
-		setDefaultPageImageDescriptor(MindmapDiagramEditorPlugin
-				.getBundledImageDescriptor("icons/wizban/NewMindmapWizard.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(MindmapDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewMindmapWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 
@@ -101,18 +112,14 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new MindmapCreationWizardPage(
-				"DiagramModelFile", getSelection(), "mindmap_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
+		diagramModelFilePage = new MindmapCreationWizardPage("DiagramModelFile", getSelection(), "mmd"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage.setTitle("Create Mindmap Diagram");
-		diagramModelFilePage
-				.setDescription("Select file that will contain diagram model.");
+		diagramModelFilePage.setDescription("Select file that will contain diagram model.");
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new MindmapCreationWizardPage(
-				"DomainModelFile", getSelection(), "mindmap"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage = new MindmapCreationWizardPage("DomainModelFile", getSelection(), "mindmap"); //$NON-NLS-1$ //$NON-NLS-2$
 		domainModelFilePage.setTitle("Create Mindmap Diagram");
-		domainModelFilePage
-				.setDescription("Select file that will contain domain model.");
+		domainModelFilePage.setDescription("Select file that will contain domain model.");
 		addPage(domainModelFilePage);
 	}
 
@@ -122,18 +129,13 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
-			protected void execute(IProgressMonitor monitor)
-					throws CoreException, InterruptedException {
-				diagram = MindmapDiagramEditorUtil.createDiagram(
-						diagramModelFilePage.getURI(), domainModelFilePage
-								.getURI(), monitor);
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+				diagram = MindmapDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						MindmapDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(),
-								"Error opening diagram editor", null, e
-										.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), "Error opening diagram editor", null, e.getStatus());
 					}
 				}
 			}
@@ -144,12 +146,9 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(),
-						"Creation Problems", null, ((CoreException) e
-								.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
-				MindmapDiagramEditorPlugin.getInstance().logError(
-						"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
+				MindmapDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
 			return false;
 		}

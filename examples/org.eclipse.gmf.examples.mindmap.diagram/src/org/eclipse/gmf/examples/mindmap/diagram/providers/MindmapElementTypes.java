@@ -1,3 +1,16 @@
+/*
+ * 
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Richard Gronback (Borland) - initial API and implementation
+ 
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.HashSet;
@@ -58,18 +71,14 @@ public class MindmapElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	private static ImageDescriptor getProvidedImageDescriptor(
-			ENamedElement element) {
+	private static ImageDescriptor getProvidedImageDescriptor(ENamedElement element) {
 		if (element instanceof EStructuralFeature) {
 			element = ((EStructuralFeature) element).getEContainingClass();
 		}
 		if (element instanceof EClass) {
 			EClass eClass = (EClass) element;
 			if (!eClass.isAbstract()) {
-				return MindmapDiagramEditorPlugin.getInstance()
-						.getItemImageDescriptor(
-								eClass.getEPackage().getEFactoryInstance()
-										.create(eClass));
+				return MindmapDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
 			}
 		}
 		// TODO : support structural features
@@ -149,20 +158,15 @@ public class MindmapElementTypes extends ElementInitializers {
 
 			elements.put(Thread_2001, MindmapPackage.eINSTANCE.getThread());
 
-			elements.put(ThreadItem_2002, MindmapPackage.eINSTANCE
-					.getThreadItem());
+			elements.put(ThreadItem_2002, MindmapPackage.eINSTANCE.getThreadItem());
 
-			elements.put(TopicSubtopics_3001, MindmapPackage.eINSTANCE
-					.getTopic_Subtopics());
+			elements.put(TopicSubtopics_3001, MindmapPackage.eINSTANCE.getTopic_Subtopics());
 
-			elements.put(Relationship_3002, MindmapPackage.eINSTANCE
-					.getRelationship());
+			elements.put(Relationship_3002, MindmapPackage.eINSTANCE.getRelationship());
 
-			elements.put(Relationship_3003, MindmapPackage.eINSTANCE
-					.getRelationship());
+			elements.put(Relationship_3003, MindmapPackage.eINSTANCE.getRelationship());
 
-			elements.put(Relationship_3004, MindmapPackage.eINSTANCE
-					.getRelationship());
+			elements.put(Relationship_3004, MindmapPackage.eINSTANCE.getRelationship());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -171,34 +175,42 @@ public class MindmapElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Map_79 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_79"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Topic_1001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Resource_1002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Thread_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType ThreadItem_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType TopicSubtopics_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Relationship_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Relationship_3003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
