@@ -31,7 +31,6 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = getPreferenceStore();
-
 		DiagramPrintingPreferencePage.initDefaults(store);
 
 		store.setDefault(IPreferenceConstants.PREF_SHOW_CONNECTION_HANDLES, true);
