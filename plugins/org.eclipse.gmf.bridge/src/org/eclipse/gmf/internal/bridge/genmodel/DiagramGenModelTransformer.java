@@ -1089,7 +1089,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		general.getChildren().add(createStandardPreferencePage(diagram, "appearance", "Appearance", StandardPreferencePages.APPEARANCE_LITERAL));
 		general.getChildren().add(createStandardPreferencePage(diagram, "connections", "Connections", StandardPreferencePages.CONNECTIONS_LITERAL));
 		general.getChildren().add(createStandardPreferencePage(diagram, "printing", "Printing", StandardPreferencePages.PRINTING_LITERAL));
-		general.getChildren().add(createStandardPreferencePage(diagram, "rulersAndGrid", "Rulers & Grid", StandardPreferencePages.RULERS_AND_GRID_LITERAL));
+		general.getChildren().add(createStandardPreferencePage(diagram, "rulersAndGrid", "Rulers And Grid", StandardPreferencePages.RULERS_AND_GRID_LITERAL));
 		general.getChildren().add(createStandardPreferencePage(diagram, "pathmaps", "Pathmaps", StandardPreferencePages.PATHMAPS_LITERAL));
 	}
 
