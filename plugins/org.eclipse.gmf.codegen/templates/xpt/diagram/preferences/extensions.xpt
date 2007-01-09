@@ -21,40 +21,47 @@
 
    <extension point="org.eclipse.ui.preferencePages">
       <?gmfgen generated="true"?>
-      <page
-            name="%preferences.general"
-            class="«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName»"
-            id="«editorGen.plugin.iD».general">
-      </page>
-      <page
-            name="%preferences.appearance"
-            category="«editorGen.plugin.iD».general"
-            class="«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName»"
-            id="«editorGen.plugin.iD».appearance">
-      </page>     
-      <page
-            name="%preferences.connections"
-            category="«editorGen.plugin.iD».general"
-            class="«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName»"
-            id="«editorGen.plugin.iD».connections">
-      </page>    
-      <page
-            name="%preferences.printing"
-            category="«editorGen.plugin.iD».general"
-            class="«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName»"
-            id="«editorGen.plugin.iD».printing">
-      </page>
-      <page
-            name="%preferences.rulersAndGrid"
-            category="«editorGen.plugin.iD».general"
-            class="«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName»"
-            id="«editorGen.plugin.iD».rulersAndGrid">
-      </page>
-      <page
-            name="%preferences.pathmaps"
-            category="«editorGen.plugin.iD».general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
-            id="«editorGen.plugin.iD».pathmaps">
-      </page>
+«IF preferencePages.size() > 0-»
+«FOREACH preferencePages AS page-»
+«EXPAND preferencePage FOR page-»
+«ENDFOREACH-»
    </extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE preferencePage FOR gmfgen::GenPreferencePage-»
+      <page
+            id="«iD»"
+            name="«name»"
+«IF null != parent-»
+            category="«parent.iD»"
+«ENDIF-»
+            class="«EXPAND qualifiedClassName»">
+      </page>
+«FOREACH children AS page-»
+«EXPAND preferencePage FOR page-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenPreferencePage»
+«ERROR "Unknown preference page: " + this»
+«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenCustomPreferencePage»«qualifiedClassName»«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenStandardPreferencePage-»
+«IF gmfgen::StandardPreferencePages::General.value == kind.value-»
+«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName FOR getDiagram()-»
+«ELSEIF gmfgen::StandardPreferencePages::Appearance.value == kind.value-»
+«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR getDiagram()-»
+«ELSEIF gmfgen::StandardPreferencePages::Connections.value == kind.value-»
+«EXPAND xpt::diagram::preferences::ConnectionsPreferencePage::qualifiedClassName FOR getDiagram()-»
+«ELSEIF gmfgen::StandardPreferencePages::Printing.value == kind.value-»
+«EXPAND xpt::diagram::preferences::PrintingPreferencePage::qualifiedClassName FOR getDiagram()-»
+«ELSEIF gmfgen::StandardPreferencePages::RulersAndGrid.value == kind.value-»
+«EXPAND xpt::diagram::preferences::RulersAndGridPreferencePage::qualifiedClassName FOR getDiagram()-»
+«ELSEIF gmfgen::StandardPreferencePages::Pathmaps.value == kind.value-»
+org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage«ELSE-»
+«ERROR "Unknown preference page: " + this»
+«ENDIF-»
 «ENDDEFINE»
