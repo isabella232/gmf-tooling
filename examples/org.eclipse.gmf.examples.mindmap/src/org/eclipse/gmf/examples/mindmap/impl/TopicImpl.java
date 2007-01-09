@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: TopicImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: TopicImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -51,6 +51,13 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class TopicImpl extends EObjectImpl implements Topic {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached value of the '{@link #getComments() <em>Comments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DocumentRootImpl.java,v 1.2 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: DocumentRootImpl.java,v 1.3 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -44,6 +44,13 @@ import org.eclipse.gmf.examples.mindmap.MindmapPackage;
  * @generated
  */
 public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute list.
 	 * <!-- begin-user-doc -->

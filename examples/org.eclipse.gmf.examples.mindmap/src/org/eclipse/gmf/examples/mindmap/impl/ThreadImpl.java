@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: ThreadImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -43,6 +43,13 @@ import org.eclipse.gmf.examples.mindmap.ThreadItem;
  * @generated
  */
 public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.mindmap.Thread {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

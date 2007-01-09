@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: RelationshipImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -36,6 +36,13 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class RelationshipImpl extends EObjectImpl implements Relationship {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->

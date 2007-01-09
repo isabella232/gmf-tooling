@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapXMLProcessor.java,v 1.2 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: MindmapXMLProcessor.java,v 1.3 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -21,6 +21,14 @@ import org.eclipse.gmf.examples.mindmap.MindmapPackage;
  * @generated
  */
 public class MindmapXMLProcessor extends XMLProcessor {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
+
 	/**
 	 * Public constructor to instantiate the helper.
 	 * <!-- begin-user-doc -->

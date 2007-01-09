@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItemImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: ThreadItemImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -34,6 +34,13 @@ import org.eclipse.gmf.examples.mindmap.ThreadItem;
  * @generated
  */
 public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
 	 * <!-- begin-user-doc -->

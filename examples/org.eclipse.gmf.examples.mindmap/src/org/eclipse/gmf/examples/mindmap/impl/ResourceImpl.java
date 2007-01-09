@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ResourceImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: ResourceImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -43,6 +43,13 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class ResourceImpl extends EObjectImpl implements Resource {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached value of the '{@link #getComments() <em>Comments</em>}' reference list.
 	 * <!-- begin-user-doc -->

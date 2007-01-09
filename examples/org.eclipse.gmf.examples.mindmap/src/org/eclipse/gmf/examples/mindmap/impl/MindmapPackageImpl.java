@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapPackageImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: MindmapPackageImpl.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -35,6 +35,13 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class MindmapPackageImpl extends EPackageImpl implements MindmapPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

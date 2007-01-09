@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapResourceImpl.java,v 1.2 2007/01/09 17:20:49 rgronback Exp $
+ * $Id: MindmapResourceImpl.java,v 1.3 2007/01/09 19:02:32 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -18,6 +18,13 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @generated
  */
 public class MindmapResourceImpl extends XMLResourceImpl {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

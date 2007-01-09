@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipType.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: RelationshipType.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -22,6 +22,13 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @generated
  */
 public final class RelationshipType extends AbstractEnumerator {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The '<em><b>DEPENDENCY</b></em>' literal value.
 	 * <!-- begin-user-doc -->

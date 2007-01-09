@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Relationship.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
+ * $Id: Relationship.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -28,6 +28,13 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Relationship extends EObject {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = "";
+
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->

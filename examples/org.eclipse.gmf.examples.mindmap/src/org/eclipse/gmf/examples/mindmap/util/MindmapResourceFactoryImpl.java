@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapResourceFactoryImpl.java,v 1.2 2007/01/09 17:20:49 rgronback Exp $
+ * $Id: MindmapResourceFactoryImpl.java,v 1.3 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -22,6 +22,13 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
  * @generated
  */
 public class MindmapResourceFactoryImpl extends ResourceFactoryImpl {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * Creates an instance of the resource factory.
 	 * <!-- begin-user-doc -->

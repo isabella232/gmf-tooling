@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapSwitch.java,v 1.3 2007/01/09 17:20:49 rgronback Exp $
+ * $Id: MindmapSwitch.java,v 1.4 2007/01/09 19:02:33 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -33,6 +33,13 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * @generated
  */
 public class MindmapSwitch {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = "";
+
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
