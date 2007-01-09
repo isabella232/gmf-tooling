@@ -1,0 +1,85 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::Utils»
+
+«DEFINE properties FOR gmfgen::GenPlugin-»
+pluginName=«name»
+providerName=«provider»
+
+preferences.general=«editorGen.modelID» Diagram
+preferences.appearance=Appearance
+preferences.connections=Connections
+preferences.printing=Printing
+preferences.rulersAndGrid=Rulers & Grid
+preferences.pathmaps=Path Maps
+
+editorName=«editorGen.modelID» Diagram Editor
+newWizardName=«editorGen.modelID» Diagram
+newWizardDesc=Creates «editorGen.modelID» diagram.
+
+«IF editorGen.diagram.generateInitDiagramAction()-»
+initDiagramActionLabel=Initialize «editorGen.diagramFileExtension» diagram file
+«ENDIF-»
+«IF editorGen.diagram.generateCreateShortcutAction()-»
+createShortcutActionLabel=Create Shortcut...
+«ENDIF-»
+loadResourceActionLabel=Load Resource...
+
+«IF null != editorGen.application-»
+applicationActionSetLabel=<«editorGen.modelID» Actions
+newDiagramActionLabel=«editorGen.modelID» Diagram
+aboutActionLabel=«editorGen.modelID» Diagram About...
+openURIActionLabel=Open URI...
+openURIActionDescription=Open file by URI
+openActionLabel=Open...
+openActionDescription=Open file
+«ENDIF-»
+
+navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
+
+«IF null != editorGen.propertySheet-»
+«FOREACH editorGen.propertySheet.tabs AS tab-»
+tab.«tab.iD»=«tab.label»
+«ENDFOREACH-»
+«ENDIF-»
+
+«IF null != editorGen.diagram.palette-»
+«FOREACH editorGen.diagram.palette.groups AS group-»
+«EXPAND properties FOR group-»
+«ENDFOREACH-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE properties FOR gmfgen::ToolGroup-»
+«EXPAND paletteEntry-»
+«FOREACH entries AS entry-»
+«EXPAND properties FOR entry-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE properties FOR gmfgen::AbstractToolEntry-»
+«EXPAND paletteEntry-»
+«ENDDEFINE»
+
+«DEFINE properties FOR gmfgen::ToolGroupItem-»
+«ERROR "Unknown tool: " + this»
+«ENDDEFINE»
+
+«DEFINE paletteEntry FOR gmfgen::EntryBase-»
+«getIntKey()».title=«title»
+«IF null != description-»
+«getIntKey()».desc=«description»
+«ENDIF-»
+«ENDDEFINE»

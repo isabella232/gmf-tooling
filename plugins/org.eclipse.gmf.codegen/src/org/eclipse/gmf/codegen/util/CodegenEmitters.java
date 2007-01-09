@@ -52,7 +52,6 @@ import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
-import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PropertySectionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.SheetLabelProviderGenerator;
@@ -236,7 +235,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
-		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
@@ -612,9 +610,9 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PluginPropertiesGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::properties::properties"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
 		return retrieve(OptionsFileGenerator.class);
 	}
