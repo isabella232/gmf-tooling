@@ -14,7 +14,7 @@
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
-            href="mindmap.gmfgraph#TopicNameLabel"/>
+            href="mindmap.gmfgraph#TopicName"/>
         <features
             href="mindmap.ecore#//Topic/name"/>
       </labelMappings>
@@ -22,7 +22,7 @@
           xsi:type="gmftool:CreationTool"
           href="mindmap.gmftool#//@palette/@tools.0/@tools.0"/>
       <diagramNode
-          href="mindmap.gmfgraph#TopicNode"/>
+          href="mindmap.gmfgraph#Topic"/>
       <children
           compartment="//@nodes.0/@ownedChild/@compartments.0">
         <containmentFeature
@@ -33,7 +33,7 @@
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
-                href="mindmap.gmfgraph#StickyNoteNameLabel"/>
+                href="mindmap.gmfgraph#ThreadName"/>
             <features
                 href="mindmap.ecore#//Thread/subject"/>
           </labelMappings>
@@ -41,7 +41,7 @@
               xsi:type="gmftool:CreationTool"
               href="mindmap.gmftool#//@palette/@tools.0/@tools.1"/>
           <diagramNode
-              href="mindmap.gmfgraph#ThreadNode"/>
+              href="mindmap.gmfgraph#Thread"/>
           <children
               compartment="//@nodes.0/@ownedChild/@children.0/@ownedChild/@compartments.0">
             <containmentFeature
@@ -50,7 +50,8 @@
               <domainMetaElement
                   href="mindmap.ecore#//ThreadItem"/>
               <labelMappings
-                  xsi:type="gmfmap:FeatureLabelMapping">
+                  xsi:type="gmfmap:FeatureLabelMapping"
+                  editPattern="">
                 <diagramLabel
                     href="mindmap.gmfgraph#ThreadItemLabel"/>
                 <features
@@ -104,9 +105,9 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.1"/>
     <diagramLink
-        href="mindmap.gmfgraph#TopicSubtopicsLink"/>
+        href="mindmap.gmfgraph#TopicSubtopics"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="mindmap.ecore#//Topic/subtopics"/>
@@ -132,49 +133,6 @@
       <initializers
           xsi:type="gmfmap:FeatureValueSpec"
           body="'extends'">
-        <feature
-            xsi:type="ecore:EAttribute"
-            href="mindmap.ecore#//Relationship/label"/>
-      </initializers>
-    </domainInitializer>
-    <labelMappings
-        xsi:type="gmfmap:FeatureLabelMapping">
-      <diagramLabel
-          href="mindmap.gmfgraph#RelationshipLabel"/>
-      <features
-          href="mindmap.ecore#//Relationship/label"/>
-    </labelMappings>
-    <containmentFeature
-        href="mindmap.ecore#//Map/relations"/>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.2"/>
-    <diagramLink
-        href="mindmap.gmfgraph#RelationshipLink"/>
-    <sourceMetaFeature
-        xsi:type="ecore:EReference"
-        href="mindmap.ecore#//Relationship/source"/>
-    <linkMetaFeature
-        xsi:type="ecore:EReference"
-        href="mindmap.ecore#//Relationship/target"/>
-  </links>
-  <links>
-    <domainMetaElement
-        href="mindmap.ecore#//Relationship"/>
-    <domainSpecialization
-        body="self.type = RelationshipType::DEPENDENCY"/>
-    <domainInitializer
-        xsi:type="gmfmap:FeatureSeqInitializer">
-      <initializers
-          xsi:type="gmfmap:FeatureValueSpec"
-          body="RelationshipType::DEPENDENCY">
-        <feature
-            xsi:type="ecore:EAttribute"
-            href="mindmap.ecore#//Relationship/type"/>
-      </initializers>
-      <initializers
-          xsi:type="gmfmap:FeatureValueSpec"
-          body="'depends'">
         <feature
             xsi:type="ecore:EAttribute"
             href="mindmap.ecore#//Relationship/label"/>
@@ -234,7 +192,50 @@
         href="mindmap.ecore#//Map/relations"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.1"/>
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.2"/>
+    <diagramLink
+        href="mindmap.gmfgraph#RelationshipLink"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="mindmap.ecore#//Relationship/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="mindmap.ecore#//Relationship/target"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="mindmap.ecore#//Relationship"/>
+    <domainSpecialization
+        body="self.type = RelationshipType::DEPENDENCY"/>
+    <domainInitializer
+        xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
+          body="RelationshipType::DEPENDENCY">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="mindmap.ecore#//Relationship/type"/>
+      </initializers>
+      <initializers
+          xsi:type="gmfmap:FeatureValueSpec"
+          body="'depends'">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="mindmap.ecore#//Relationship/label"/>
+      </initializers>
+    </domainInitializer>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
+      <diagramLabel
+          href="mindmap.gmfgraph#RelationshipLabel"/>
+      <features
+          href="mindmap.ecore#//Relationship/label"/>
+    </labelMappings>
+    <containmentFeature
+        href="mindmap.ecore#//Map/relations"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.0"/>
     <diagramLink
         href="mindmap.gmfgraph#RelationshipLink"/>
     <sourceMetaFeature
@@ -256,10 +257,11 @@
   </diagram>
   <audits
       id="org.eclipse.gmf.examples.mindmap"
-      name="Mindmap Audits">
+      name="Mindmap Audits"
+      description="Mindmap Audits">
     <audits
         name="Cyclic relationship check"
-        description="This audit will detect situations where relationship links of the same type are forming cyclic relationships between two topics."
+        description="This audit will detect situations where relationship links of the same type form a cycle."
         id="cycle"
         message="A cycle was found in relationships between two Topic elements.">
       <rule
@@ -271,9 +273,9 @@
       </target>
     </audits>
     <audits
-        name="Topic name must exist"
-        description="This audits checks that all Topic elements have a name"
-        id="noname"
+        name="No Topic Name"
+        description="Detects Topics without a name set"
+        id="notopicname"
         message="All Topic elements should have a name set">
       <rule
           body="name.size() > 0"/>

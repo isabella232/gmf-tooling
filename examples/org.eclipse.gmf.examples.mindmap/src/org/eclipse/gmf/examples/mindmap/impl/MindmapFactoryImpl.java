@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapFactoryImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
+ * $Id: MindmapFactoryImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -237,7 +237,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * @generated
 	 */
 	public Priority createPriorityObjectFromString(EDataType eDataType, String initialValue) {
-		return (Priority)createPriorityFromString(MindmapPackage.Literals.PRIORITY, initialValue);
+		return createPriorityFromString(MindmapPackage.Literals.PRIORITY, initialValue);
 	}
 
 	/**
@@ -255,7 +255,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * @generated
 	 */
 	public RelationshipType createRelationshipTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return (RelationshipType)createRelationshipTypeFromString(MindmapPackage.Literals.RELATIONSHIP_TYPE, initialValue);
+		return createRelationshipTypeFromString(MindmapPackage.Literals.RELATIONSHIP_TYPE, initialValue);
 	}
 
 	/**

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItemImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
+ * $Id: ThreadItemImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -214,7 +214,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 				setBody((String)newValue);
 				return;
 			case MindmapPackage.THREAD_ITEM__ITEM_POST_DATE:
-				setItemPostDate((Object)newValue);
+				setItemPostDate(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

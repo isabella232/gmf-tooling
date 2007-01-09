@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapXMLProcessor.java,v 1.1 2006/06/06 00:30:51 rgronback Exp $
+ * $Id: MindmapXMLProcessor.java,v 1.2 2007/01/09 17:20:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 

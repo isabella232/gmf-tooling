@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: TopicImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
+ * $Id: TopicImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -555,7 +555,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 				setDuration(((Float)newValue).floatValue());
 				return;
 			case MindmapPackage.TOPIC__END_DATE:
-				setEndDate((Object)newValue);
+				setEndDate(newValue);
 				return;
 			case MindmapPackage.TOPIC__NAME:
 				setName((String)newValue);
@@ -571,7 +571,7 @@ public class TopicImpl extends EObjectImpl implements Topic {
 				getResources().addAll((Collection)newValue);
 				return;
 			case MindmapPackage.TOPIC__START_DATE:
-				setStartDate((Object)newValue);
+				setStartDate(newValue);
 				return;
 			case MindmapPackage.TOPIC__SUBTOPICS:
 				getSubtopics().clear();

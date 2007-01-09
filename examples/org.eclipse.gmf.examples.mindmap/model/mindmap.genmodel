@@ -6,7 +6,7 @@
   <foreignModel>mindmap.xsd</foreignModel>
   <genPackages prefix="Mindmap" basePackage="org.eclipse.gmf.examples" resource="XML"
       disposableProviderFactory="true" ecorePackage="mindmap.ecore#/">
-    <genEnums ecoreEnum="mindmap.ecore#//Priority">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mindmap.ecore#//Priority">
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/ZERO"/>
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/ONE"/>
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/TWO"/>
@@ -14,7 +14,7 @@
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/FOUR"/>
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/FIVE"/>
     </genEnums>
-    <genEnums ecoreEnum="mindmap.ecore#//RelationshipType">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mindmap.ecore#//RelationshipType">
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/DEPENDENCY"/>
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/INCLUDES"/>
       <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/EXTENDS"/>
@@ -22,10 +22,10 @@
     <genDataTypes ecoreDataType="mindmap.ecore#//PriorityObject"/>
     <genDataTypes ecoreDataType="mindmap.ecore#//RelationshipTypeObject"/>
     <genClasses ecoreClass="mindmap.ecore#//DocumentRoot">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute mindmap.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//DocumentRoot/mixed"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//DocumentRoot/xMLNSPrefixMap"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//DocumentRoot/xSISchemaLocation"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//DocumentRoot/map"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//DocumentRoot/map"/>
     </genClasses>
     <genClasses ecoreClass="mindmap.ecore#//Map">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Map/rootTopics"/>

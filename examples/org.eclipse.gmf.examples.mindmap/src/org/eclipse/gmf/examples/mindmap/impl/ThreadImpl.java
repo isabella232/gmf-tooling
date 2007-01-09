@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
+ * $Id: ThreadImpl.java,v 1.3 2007/01/09 17:20:50 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -300,7 +300,7 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 				setAuthor((Resource)newValue);
 				return;
 			case MindmapPackage.THREAD__POST_DATE:
-				setPostDate((Object)newValue);
+				setPostDate(newValue);
 				return;
 			case MindmapPackage.THREAD__SUBJECT:
 				setSubject((String)newValue);
