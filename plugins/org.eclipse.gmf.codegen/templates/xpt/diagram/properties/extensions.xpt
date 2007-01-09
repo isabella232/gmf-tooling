@@ -17,11 +17,7 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="«editorGen.plugin.iD»"
-      «IF needsCaption-»
-            labelProvider="«getLabelProviderQualifiedClassName()»"
-      «ENDIF-»
-      >
+      <propertyContributor contributorId="«editorGen.plugin.iD»"«IF needsCaption» labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -31,62 +27,62 @@
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <?gmfgen generated="true"?>   
       <propertyTabs contributorId="«editorGen.plugin.iD»">
-      «FOREACH tabs AS tab-»
-         «EXPAND tab FOR tab-»
-      «ENDFOREACH-»
+«FOREACH tabs AS tab-»
+«EXPAND tab FOR tab-»
+«ENDFOREACH-»
       </propertyTabs>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="«editorGen.plugin.iD»">
-      «FOREACH tabs AS tab-»
-         «EXPAND section FOR tab-»
-      «ENDFOREACH-»
+«FOREACH tabs AS tab-»
+«EXPAND section FOR tab-»
+«ENDFOREACH-»
       </propertySections>
    </extension>
 «ENDDEFINE»
 
-«DEFINE tab FOR gmfgen::GenPropertyTab»
-	«ERROR "Unknown property tab: " + this»
+«DEFINE tab FOR gmfgen::GenPropertyTab-»
+«ERROR "Unknown property tab: " + this»
 «ENDDEFINE»
 
-«DEFINE tab FOR gmfgen::GenStandardPropertyTab»
-	«IF iD == "appearance"-»
+«DEFINE tab FOR gmfgen::GenStandardPropertyTab-»
+«IF iD == "appearance"-»
          <propertyTab
              category="visual"
              id="property.tab.AppearancePropertySection"
              label="%tab.appearance"/>
-	«ELSEIF iD == "diagram"-»
+«ELSEIF iD == "diagram"-»
           <propertyTab
              category="visual"
              id="property.tab.DiagramPropertySection"
              label="%tab.diagram"/>
-	«ELSEIF iD == "advanced"-»
+«ELSEIF iD == "advanced"-»
           <propertyTab
              category="extra"
              id="property.tab.AdvancedPropertySection"
              label="%tab.advanced"/>           
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE tab FOR gmfgen::GenCustomPropertyTab»
+«DEFINE tab FOR gmfgen::GenCustomPropertyTab-»
           <propertyTab
-             «IF iD == "domain"-»
+«IF iD == "domain"-»
              category="domain"
-             «ELSE-»
+«ELSE-»
              category="extra"
-             «ENDIF-»
+«ENDIF-»
              id="property.tab.«iD»"
              label="%tab.«iD»"/>
 «ENDDEFINE»
 
-«DEFINE section FOR gmfgen::GenPropertyTab»
-	«ERROR "Unknown property tab: " + this»
+«DEFINE section FOR gmfgen::GenPropertyTab-»
+«ERROR "Unknown property tab: " + this»
 «ENDDEFINE»
 
-«DEFINE section FOR gmfgen::GenStandardPropertyTab»
-	«IF iD == "appearance"-»
+«DEFINE section FOR gmfgen::GenStandardPropertyTab-»
+«IF iD == "appearance"-»
          <propertySection id="property.section.ConnectorAppearancePropertySection" 
             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
@@ -102,41 +98,41 @@
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
             tab="property.tab.AppearancePropertySection">
          </propertySection>     
-	«ELSEIF iD == "diagram"-»
-          <propertySection id="property.section.RulerGridPropertySection" 
-             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
-             tab="property.tab.DiagramPropertySection">
-          </propertySection>     
-	«ELSEIF iD == "advanced"-»
-          <propertySection id="property.section.AdvancedPropertySection"
-             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection"
-             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.EditPartPropertySectionFilter"
-             tab="property.tab.AdvancedPropertySection">
-          </propertySection>            
-	«ENDIF-»
+«ELSEIF iD == "diagram"-»
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+«ELSEIF iD == "advanced"-»
+         <propertySection id="property.section.AdvancedPropertySection"
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection"
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.EditPartPropertySectionFilter"
+            tab="property.tab.AdvancedPropertySection">
+         </propertySection>            
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE section FOR gmfgen::GenCustomPropertyTab»
+«DEFINE section FOR gmfgen::GenCustomPropertyTab-»
          <propertySection
             id="property.section.«iD»" 
             tab="property.tab.«iD»"
-            «EXPAND filter FOR filter-»
+«EXPAND filter FOR filter-»
             class="«getQualifiedClassName()»">
-            «EXPAND input FOR filter-»
+«EXPAND input FOR filter-»
          </propertySection>
 «ENDDEFINE»
 
 «DEFINE filter FOR gmfgen::GenPropertyTabFilter»«ENDDEFINE»
 
-«DEFINE filter FOR gmfgen::CustomTabFilter»
+«DEFINE filter FOR gmfgen::CustomTabFilter-»
             filter="«getQualifiedClassName()»"
 «ENDDEFINE»
 
 «DEFINE input FOR gmfgen::GenPropertyTabFilter»«ENDDEFINE»
 
-«DEFINE input FOR gmfgen::TypeTabFilter»
-	«FOREACH getAllTypes() AS type-»
+«DEFINE input FOR gmfgen::TypeTabFilter-»
+«FOREACH getAllTypes() AS type-»
             <input type="«type»"/>
-	«ENDFOREACH-»
+«ENDFOREACH-»
 «ENDDEFINE»

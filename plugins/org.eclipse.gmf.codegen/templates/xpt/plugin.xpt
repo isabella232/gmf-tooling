@@ -49,10 +49,11 @@
 </plugin>
 «ENDDEFINE»
 
-«DEFINE menu FOR gmfgen::GenPlugin»
+«DEFINE menu FOR gmfgen::GenPlugin-»
+
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
-      «IF null == editorGen.application && editorGen.diagram.generateInitDiagramAction()-»
+«IF null == editorGen.application && editorGen.diagram.generateInitDiagramAction()-»
       <objectContribution
             id="«iD».ui.objectContribution.IFile1"
             nameFilter="*.«editorGen.domainFileExtension»"
@@ -65,8 +66,8 @@
                id="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»ID">
          </action>
       </objectContribution>
-      «ENDIF-»
-      «IF null == editorGen.application && editorGen.diagram.generateCreateShortcutAction()-»
+«ENDIF-»
+«IF null == editorGen.application && editorGen.diagram.generateCreateShortcutAction()-»
       <objectContribution
             adaptable="false"
             id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»1"
@@ -79,7 +80,7 @@
                menubarPath="additions">
          </action>
       </objectContribution>                      
-      «ENDIF-»
+«ENDIF-»
       <objectContribution
             adaptable="false"
             id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»2"
@@ -109,7 +110,7 @@
             </ElementType>
          </ViewId>
       </GlobalActionHandlerProvider>
-      «IF printingEnabled-»
+«IF printingEnabled-»
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="«editorGen.modelID»PresentationPrint">
@@ -120,8 +121,8 @@
             </ElementType>
          </ViewId>
       </GlobalActionHandlerProvider>
-      «ENDIF-»
-      «IF null == editorGen.application-»
+«ENDIF-»
+«IF null == editorGen.application-»
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="«editorGen.modelID»PresentationIDE">
@@ -132,7 +133,7 @@
             </ElementType>
          </ViewId>
       </GlobalActionHandlerProvider>
-      «ENDIF-»
+«ENDIF-»
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="«editorGen.modelID»Render">
@@ -149,7 +150,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
-      «IF printingEnabled-»
+«IF printingEnabled-»
       <contributionItemProvider class="«editorGen.diagram.getContributionItemProviderQualifiedClassName()»">
          <Priority name="Low">
          </Priority>
@@ -158,59 +159,57 @@
             </partAction>
          </partContribution>
       </contributionItemProvider>
-      «ENDIF-»
+«ENDIF-»
       <contributionItemProvider
             class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
             checkPluginLoaded="false">
          <Priority name="Low"/>
-         «FOREACH getElements(editorGen.diagram) AS e-»
-            «EXPAND removeContributions FOR e-»
-            «EXPAND removeLabelContributions FOR e-»
-         «ENDFOREACH-»
+«FOREACH getElements(editorGen.diagram) AS e-»
+«EXPAND removeContributions FOR e-»
+«EXPAND removeLabelContributions FOR e-»
+«ENDFOREACH-»
       </contributionItemProvider>
    </extension>
 «ENDDEFINE»
 
-«DEFINE removeLabelContributions FOR gmfgen::GenCommonBase»
+«DEFINE removeLabelContributions FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE removeLabelContributions FOR gmfgen::GenNode-»
+«FOREACH labels AS label-»
+«EXPAND removeContributions FOR label-»
+«ENDFOREACH-»
 «ENDDEFINE»
 
-«DEFINE removeLabelContributions FOR gmfgen::GenNode»
-	«FOREACH labels AS label-»
-		«EXPAND removeContributions FOR label-»
-	«ENDFOREACH-»
+«DEFINE removeLabelContributions FOR gmfgen::GenLink-»
+«FOREACH labels AS label-»
+«EXPAND removeContributions FOR label-»
+«ENDFOREACH-»
 «ENDDEFINE»
 
-«DEFINE removeLabelContributions FOR gmfgen::GenLink»
-	«FOREACH labels AS label-»
-		«EXPAND removeContributions FOR label-»
-	«ENDFOREACH-»
+«DEFINE removeContributions FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE removeContributions FOR gmfgen::GenNode-»
+«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE removeContributions FOR gmfgen::GenCommonBase»
+«DEFINE removeContributions FOR gmfgen::GenLink-»
+«EXPAND removeAllDeleteContributions(this) FOR modelFacet-»
+«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE removeContributions FOR gmfgen::GenNode»
-	«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenLink»
-	«EXPAND removeAllDeleteContributions(this) FOR modelFacet-»
-	«EXPAND removeDeleteFromDiagramContribution(this) FOR modelFacet-»
-«ENDDEFINE»
-
-«DEFINE removeContributions FOR gmfgen::GenNodeLabel»
-	«EXPAND removeDeleteFromDiagramContribution(this) FOR node.modelFacet-»
+«DEFINE removeContributions FOR gmfgen::GenNodeLabel-»
+«EXPAND removeDeleteFromDiagramContribution(this) FOR node.modelFacet-»
 «ENDDEFINE»
 
 «DEFINE removeContributions FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND removeAllDeleteContributions-»
+«EXPAND removeAllDeleteContributions-»
 «ENDDEFINE»
 
 «DEFINE removeContributions FOR gmfgen::GenLinkLabel-»
-	«EXPAND removeAllDeleteContributions-»
+«EXPAND removeAllDeleteContributions-»
 «ENDDEFINE»
 
-«DEFINE removeAllDeleteContributions FOR gmfgen::GenCommonBase»
+«DEFINE removeAllDeleteContributions FOR gmfgen::GenCommonBase-»
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="«getEditPartQualifiedClassName()»"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
@@ -218,33 +217,32 @@
          </popupContribution>
 «ENDDEFINE»
 
-«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
-«ENDDEFINE»
+«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»«ENDDEFINE»
 
-«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLinkModelFacet»
+«DEFINE removeAllDeleteContributions(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLinkModelFacet-»
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            «IF element.getDiagram().synchronized-»
+«IF element.getDiagram().synchronized-»
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            «ENDIF-»
+«ENDIF-»
          </popupContribution>
 «ENDDEFINE»
 
-«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»
-«ENDDEFINE»
+«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::ModelFacet»«ENDDEFINE»
 
-«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::TypeModelFacet»
-   «IF !element.getDiagram().synchronized-»
+«DEFINE removeDeleteFromDiagramContribution(gmfgen::GenCommonBase element) FOR gmfgen::TypeModelFacet-»
+«IF !element.getDiagram().synchronized-»
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="«element.getEditPartQualifiedClassName()»"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
-   «ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE metrics FOR gmfgen::GenMetricContainer»
-    «IF metrics.size() > 0-»
+«DEFINE metrics FOR gmfgen::GenMetricContainer-»
+«IF metrics.size() > 0-»
+
 	<extension id="MetricContributionItemProvider" name="Metrics"
 		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
 		<?gmfgen generated="true"?>
@@ -263,11 +261,12 @@
 			id="«editor.diagram.getMetricViewID()»"
 			name="«editor.modelID» Diagram Metrics"/>
 	</extension>
-    «ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE validation FOR gmfgen::GenDiagram»
-   «IF validationEnabled || (null != editorGen.audits && editorGen.audits.getAllAuditRules().size() > 0)-»
+«DEFINE validation FOR gmfgen::GenDiagram-»
+«IF validationEnabled || (null != editorGen.audits && editorGen.audits.getAllAuditRules().size() > 0)-»
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <?gmfgen generated="true"?>
       <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
@@ -275,13 +274,15 @@
          <Priority name="«markerNavigationProviderPriority»"/>
       </MarkerNavigationProvider>
    </extension>
+
    <extension id="«getValidationDiagnosticMarkerType()»" name="«editorGen.plugin.name» problems" point="org.eclipse.core.resources.markers">
       <?gmfgen generated="true"?>
       <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>
    </extension>   
-   «IF validationEnabled-»
+«IF validationEnabled-»
+
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
@@ -294,8 +295,9 @@
          </partContribution>
       </contributionItemProvider>
    </extension>
-   «ENDIF-»
-   «IF validationDecorators-»
+«ENDIF-»
+«IF validationDecorators-»
+
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       <?gmfgen generated="true"?>
       <decoratorProvider class="«getValidationDecoratorProviderQualifedClassName()»">
@@ -304,6 +306,6 @@
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
-   «ENDIF-»
-   «ENDIF-»
+«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»

@@ -14,6 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE extensions FOR gmfgen::GenDiagram-»
+
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
       <initializer class="«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassName»"/>
