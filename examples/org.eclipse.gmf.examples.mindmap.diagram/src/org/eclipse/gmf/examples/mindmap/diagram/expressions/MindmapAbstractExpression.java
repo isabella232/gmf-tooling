@@ -34,17 +34,18 @@ public abstract class MindmapAbstractExpression {
 							.getInstance().getBundle().getSymbolicName()
 							+ "/debug/disableNoExprImplExceptionLog"))
 			.booleanValue();
-
 	/**
 	 * @generated
 	 */
 	private String body;
-
 	/**
 	 * @generated
 	 */
 	private EClassifier context;
-
+	/**
+	 * @generated
+	 */
+	private Map env;
 	/**
 	 * @generated
 	 */
@@ -64,6 +65,7 @@ public abstract class MindmapAbstractExpression {
 			Map env) {
 		this.body = body;
 		this.context = context;
+		this.env = env;
 	}
 
 	/**
@@ -132,6 +134,13 @@ public abstract class MindmapAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Map environment() {
+		return env;
 	}
 
 	/**

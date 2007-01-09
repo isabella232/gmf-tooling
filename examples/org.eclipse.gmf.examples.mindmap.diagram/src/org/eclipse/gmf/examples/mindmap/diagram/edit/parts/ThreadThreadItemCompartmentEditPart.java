@@ -1,22 +1,16 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.IFigure;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadThreadItemCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadThreadItemCompartmentItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
-
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -27,7 +21,7 @@ public class ThreadThreadItemCompartmentEditPart extends
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 7002;
+	public static final int VISUAL_ID = 5002;
 
 	/**
 	 * @generated
@@ -73,7 +67,6 @@ public class ThreadThreadItemCompartmentEditPart extends
 				new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new ThreadThreadItemCompartmentCanonicalEditPolicy());
-
 	}
 
 	/**

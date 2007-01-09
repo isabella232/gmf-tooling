@@ -1,47 +1,61 @@
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
+
+import org.eclipse.gef.EditPart;
 
 import org.eclipse.gmf.examples.mindmap.DocumentRoot;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapFactory;
 
-import org.eclipse.ui.ide.IDE;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 
 /**
  * @generated
@@ -51,40 +65,39 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final URI createAndOpenDiagram(
-			MindmapDiagramFileCreator diagramFileCreator, IPath containerPath,
-			String fileName, InputStream initialContents, String kind,
-			IWorkbenchWindow window, IProgressMonitor progressMonitor,
-			boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = createNewDiagramFile(diagramFileCreator,
-				containerPath, fileName, initialContents, kind, window
-						.getShell(), progressMonitor);
-		if (diagramFile != null && openEditor) {
-			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
-		}
-		return URI.createPlatformResourceURI(diagramFile.getFullPath()
-				.toString());
+	public static boolean openDiagram(Resource diagram)
+			throws PartInitException {
+		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchWindow window,
-			IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {
-		IEditorPart editorPart = null;
+	private static void setCharset(URI uri) {
+		IFile file = getFile(uri);
+		if (file == null) {
+			return;
+		}
 		try {
-			IWorkbenchPage page = window.getActivePage();
-			if (page != null) {
-				editorPart = openDiagramEditor(page, file);
-				if (saveDiagram) {
-					editorPart.doSave(progressMonitor);
-				}
-			}
-			file.refreshLocal(IResource.DEPTH_ZERO, null);
-			return editorPart;
-		} catch (Exception e) {
+			file.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
+		} catch (CoreException e) {
 			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Error opening diagram", e);
+					"Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IFile getFile(URI uri) {
+		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
+			String path = uri.toString().substring(
+					"platform:/resource".length()); //$NON-NLS-1$
+			IResource workspaceResource = ResourcesPlugin.getWorkspace()
+					.getRoot().findMember(new Path(path));
+			if (workspaceResource instanceof IFile) {
+				return (IFile) workspaceResource;
+			}
 		}
 		return null;
 	}
@@ -92,9 +105,8 @@ public class MindmapDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final IEditorPart openDiagramEditor(IWorkbenchPage page,
-			IFile file) throws PartInitException {
-		return IDE.openEditor(page, file);
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
 	}
 
 	/**
@@ -102,51 +114,39 @@ public class MindmapDiagramEditorUtil {
 	 * This method should be called within a workspace modify operation since it creates resources.
 	 * </p>
 	 * @generated
-	 * @return the created file resource, or <code>null</code> if the file was not created
+	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final IFile createNewDiagramFile(
-			MindmapDiagramFileCreator diagramFileCreator,
-			IPath containerFullPath, String fileName,
-			InputStream initialContents, String kind, Shell shell,
+	public static final Resource createDiagram(URI diagramURI, URI modelURI,
 			IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
 				.createEditingDomain();
-		ResourceSet resourceSet = editingDomain.getResourceSet();
-		progressMonitor.beginTask("Creating diagram and model files", 3); //$NON-NLS-1$
-		final IFile diagramFile = diagramFileCreator.createNewFile(
-				containerFullPath, fileName, initialContents, shell);
-		final Resource diagramResource = resourceSet
-				.createResource(URI.createPlatformResourceURI(diagramFile
-						.getFullPath().toString()));
-		List affectedFiles = new ArrayList();
-		affectedFiles.add(diagramFile);
-		IPath modelFileRelativePath = diagramFile.getFullPath()
-				.removeFileExtension().addFileExtension("mindmap"); //$NON-NLS-1$
-		IFile modelFile = diagramFile.getParent().getFile(
-				new Path(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = resourceSet.createResource(URI
-				.createPlatformResourceURI(modelFile.getFullPath().toString()));
-		affectedFiles.add(modelFile);
-		final String kindParam = kind;
+		progressMonitor.beginTask("Creating diagram and model files", 3);
+		final Resource diagramResource = editingDomain.getResourceSet()
+				.createResource(diagramURI);
+		final Resource modelResource = editingDomain.getResourceSet()
+				.createResource(modelURI);
+		final String diagramName = diagramURI.lastSegment();
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
-				editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
+				editingDomain,
+				"Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
 			protected CommandResult doExecuteWithResult(
 					IProgressMonitor monitor, IAdaptable info)
 					throws ExecutionException {
 				Map model = createInitialModel();
-				modelResource.getContents().add(createInitialRoot(model));
-				Diagram diagram = ViewService.createDiagram(model, kindParam,
+				attachModelToResource(model, modelResource);
+				Diagram diagram = ViewService.createDiagram(model,
+						MapEditPart.MODEL_ID,
 						MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
-					diagram.setName(diagramFile.getName());
+					diagram.setName(diagramName);
 					diagram.setElement(model);
 				}
 				try {
 					java.util.Map options = new HashMap();
 					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 					modelResource.save(options);
-					diagramResource.save(Collections.EMPTY_MAP);
+					diagramResource.save(options);
 				} catch (IOException e) {
 
 					MindmapDiagramEditorPlugin.getInstance().logError(
@@ -155,7 +155,6 @@ public class MindmapDiagramEditorUtil {
 				return CommandResult.newOKCommandResult();
 			}
 		};
-
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command,
 					new SubProgressMonitor(progressMonitor, 1), null);
@@ -163,23 +162,9 @@ public class MindmapDiagramEditorUtil {
 			MindmapDiagramEditorPlugin.getInstance().logError(
 					"Unable to create model and diagram", e); //$NON-NLS-1$
 		}
-
-		try {
-			modelFile.setCharset(
-					"UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Unable to set charset for model file", e); //$NON-NLS-1$
-		}
-		try {
-			diagramFile.setCharset(
-					"UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
-		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError(
-					"Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
-
-		return diagramFile;
+		setCharset(modelURI);
+		setCharset(diagramURI);
+		return diagramResource;
 	}
 
 	/**
@@ -193,6 +178,16 @@ public class MindmapDiagramEditorUtil {
 	}
 
 	/**
+	 * Store model element in the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static void attachModelToResource(Map model, Resource resource) {
+		resource.getContents().add(createInitialRoot(model));
+	}
+
+	/**
 	 * @generated
 	 */
 	private static EObject createInitialRoot(Map model) {
@@ -200,4 +195,194 @@ public class MindmapDiagramEditorUtil {
 		docRoot.setMap(model);
 		return docRoot;
 	}
+
+	/**
+	 * @generated
+	 */
+	public static void selectElementsInDiagram(
+			IDiagramWorkbenchPart diagramPart, List/*EditPart*/editParts) {
+		diagramPart.getDiagramGraphicalViewer().deselectAll();
+
+		EditPart firstPrimary = null;
+		for (Iterator it = editParts.iterator(); it.hasNext();) {
+			EditPart nextPart = (EditPart) it.next();
+			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
+			if (firstPrimary == null && nextPart instanceof IPrimaryEditPart) {
+				firstPrimary = nextPart;
+			}
+		}
+
+		if (!editParts.isEmpty()) {
+			diagramPart.getDiagramGraphicalViewer().reveal(
+					firstPrimary != null ? firstPrimary : (EditPart) editParts
+							.get(0));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static View findView(DiagramEditPart diagramEditPart,
+			EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+		boolean hasStructuralURI = false;
+		if (targetElement.eResource() instanceof XMLResource) {
+			hasStructuralURI = ((XMLResource) targetElement.eResource())
+					.getID(targetElement) == null;
+		}
+
+		View view = null;
+		if (hasStructuralURI
+				&& !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (View) lazyElement2ViewMap.getElement2ViewMap().get(
+					targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement,
+				lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			EditPart editPart = (EditPart) lazyElement2ViewMap.editPartTmpHolder
+					.get(0);
+			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = editPart.getModel() instanceof View ? (View) editPart
+					.getModel() : null;
+		}
+
+		return (view == null) ? diagramEditPart.getDiagramView() : view;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static int findElementsInDiagramByID(DiagramEditPart diagramPart,
+			EObject element, List editPartCollector) {
+		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart
+				.getViewer();
+		final int intialNumOfEditParts = editPartCollector.size();
+
+		if (element instanceof View) { // support notation element lookup
+			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(
+					element);
+			if (editPart != null) {
+				editPartCollector.add(editPart);
+				return 1;
+			}
+		}
+
+		String elementID = EMFCoreUtil.getProxyID(element);
+		List associatedParts = viewer.findEditPartsForElement(elementID,
+				IGraphicalEditPart.class);
+		// perform the possible hierarchy disjoint -> take the top-most parts only
+		for (Iterator editPartIt = associatedParts.iterator(); editPartIt
+				.hasNext();) {
+			EditPart nextPart = (EditPart) editPartIt.next();
+			EditPart parentPart = nextPart.getParent();
+			while (parentPart != null && !associatedParts.contains(parentPart)) {
+				parentPart = parentPart.getParent();
+			}
+			if (parentPart == null) {
+				editPartCollector.add(nextPart);
+			}
+		}
+
+		if (intialNumOfEditParts == editPartCollector.size()) {
+			if (!associatedParts.isEmpty()) {
+				editPartCollector.add(associatedParts.iterator().next());
+			} else {
+				if (element.eContainer() != null) {
+					return findElementsInDiagramByID(diagramPart, element
+							.eContainer(), editPartCollector);
+				}
+			}
+		}
+		return editPartCollector.size() - intialNumOfEditParts;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class LazyElement2ViewMap {
+		/**
+		 * @generated
+		 */
+		private java.util.Map element2ViewMap;
+		/**
+		 * @generated
+		 */
+		private View scope;
+		/**
+		 * @generated
+		 */
+		private Set elementSet;
+		/**
+		 * @generated
+		 */
+		public final List editPartTmpHolder = new ArrayList();
+
+		/**
+		 * @generated
+		 */
+		public LazyElement2ViewMap(View scope, Set elements) {
+			this.scope = scope;
+			this.elementSet = elements;
+		}
+
+		/**
+		 * @generated
+		 */
+		public final java.util.Map getElement2ViewMap() {
+			if (element2ViewMap == null) {
+				element2ViewMap = new HashMap();
+				// map possible notation elements to itself as these can't be found by view.getElement()
+				for (Iterator it = elementSet.iterator(); it.hasNext();) {
+					EObject element = (EObject) it.next();
+					if (element instanceof View) {
+						View view = (View) element;
+						if (view.getDiagram() == scope.getDiagram()) {
+							element2ViewMap.put(element, element); // take only those that part of our diagram
+						}
+					}
+				}
+
+				buildElement2ViewMap(scope, element2ViewMap, elementSet);
+			}
+			return element2ViewMap;
+		}
+
+		/**
+		 * @generated
+		 */
+		static java.util.Map buildElement2ViewMap(View parentView,
+				java.util.Map element2ViewMap, Set elements) {
+			if (elements.size() == element2ViewMap.size())
+				return element2ViewMap;
+
+			if (parentView.isSetElement()
+					&& !element2ViewMap.containsKey(parentView.getElement())
+					&& elements.contains(parentView.getElement())) {
+				element2ViewMap.put(parentView.getElement(), parentView);
+				if (elements.size() == element2ViewMap.size())
+					return element2ViewMap;
+			}
+
+			for (Iterator it = parentView.getChildren().iterator(); it
+					.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap,
+						elements);
+				if (elements.size() == element2ViewMap.size())
+					return element2ViewMap;
+			}
+			for (Iterator it = parentView.getSourceEdges().iterator(); it
+					.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap,
+						elements);
+				if (elements.size() == element2ViewMap.size())
+					return element2ViewMap;
+			}
+			for (Iterator it = parentView.getSourceEdges().iterator(); it
+					.hasNext();) {
+				buildElement2ViewMap((View) it.next(), element2ViewMap,
+						elements);
+				if (elements.size() == element2ViewMap.size())
+					return element2ViewMap;
+			}
+			return element2ViewMap;
+		}
+	} //LazyElement2ViewMap	
 }

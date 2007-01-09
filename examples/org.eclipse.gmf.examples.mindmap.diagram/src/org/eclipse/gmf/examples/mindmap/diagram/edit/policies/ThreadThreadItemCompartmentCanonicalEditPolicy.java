@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.examples.mindmap.Thread;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -27,8 +28,8 @@ public class ThreadThreadItemCompartmentCanonicalEditPolicy extends
 		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator values = ((org.eclipse.gmf.examples.mindmap.Thread) modelObject)
-				.getItems().iterator(); values.hasNext();) {
+		for (Iterator values = ((Thread) modelObject).getItems().iterator(); values
+				.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = MindmapVisualIDRegistry.getNodeVisualID(viewObject,
 					nextValue);

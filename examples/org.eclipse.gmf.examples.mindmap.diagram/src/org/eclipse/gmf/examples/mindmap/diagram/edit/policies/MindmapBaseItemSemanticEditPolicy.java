@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+import org.eclipse.gmf.examples.mindmap.Topic;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.MindmapBaseEditHelper;
 
@@ -255,25 +256,6 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated 
 	 */
 	protected static class LinkConstraints {
-		/**
-		 * @generated 
-		 */
-		public static final LinkConstraints TopicSubtopics_4001 = createTopicSubtopics_4001();
-
-		/**
-		 * @generated 
-		 */
-		private static LinkConstraints createTopicSubtopics_4001() {
-			Map sourceEnv = new HashMap(3);
-			sourceEnv
-					.put(
-							"oppositeEnd", org.eclipse.gmf.examples.mindmap.MindmapPackage.eINSTANCE.getTopic()); //$NON-NLS-1$				
-			MindmapAbstractExpression sourceExpression = MindmapOCLFactory
-					.getExpression("self <> oppositeEnd", //$NON-NLS-1$
-							MindmapPackage.eINSTANCE.getTopic(), sourceEnv);
-			MindmapAbstractExpression targetExpression = null;
-			return new LinkConstraints(sourceExpression, targetExpression);
-		}
 
 		/**
 		 * @generated 
@@ -283,42 +265,61 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private MindmapAbstractExpression srcEndInv;
+		private static MindmapAbstractExpression TopicSubtopics_3001_SourceExpression;
 
 		/**
 		 * @generated 
 		 */
-		private MindmapAbstractExpression targetEndInv;
-
-		/**
-		 * @generated 
-		 */
-		public LinkConstraints(MindmapAbstractExpression sourceEnd,
-				MindmapAbstractExpression targetEnd) {
-			this.srcEndInv = sourceEnd;
-			this.targetEndInv = targetEnd;
+		static {
+			Map env = new HashMap(3);
+			env.put("oppositeEnd", MindmapPackage.eINSTANCE.getTopic()); //$NON-NLS-1$
+			TopicSubtopics_3001_SourceExpression = MindmapOCLFactory
+					.getExpression("self <> oppositeEnd", //$NON-NLS-1$
+							MindmapPackage.eINSTANCE.getTopic(), env);
 		}
 
 		/**
 		 * @generated 
 		 */
-		public boolean canCreateLink(CreateRelationshipRequest req,
-				boolean isBackDirected) {
-			Object source = req.getSource();
-			Object target = req.getTarget();
+		public static boolean canCreateTopicSubtopics_3001(Topic source,
+				Topic target) {
+			if (source != null) {
+				if (source.getSubtopics().contains(target)) {
+					return false;
+				}
+			}
+			if (!evaluate(TopicSubtopics_3001_SourceExpression, source, target,
+					false)) {
+				return false;
+			}
+			return true;
+		}
 
-			MindmapAbstractExpression sourceConstraint = isBackDirected ? targetEndInv
-					: srcEndInv;
-			MindmapAbstractExpression targetConstraint = null;
-			if (req.getTarget() != null) {
-				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
-			}
-			boolean isSourceAccepted = sourceConstraint != null ? evaluate(
-					sourceConstraint, source, target, false) : true;
-			if (isSourceAccepted && targetConstraint != null) {
-				return evaluate(targetConstraint, target, source, true);
-			}
-			return isSourceAccepted;
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateRelationship_3002(
+				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
+				Topic target) {
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateRelationship_3003(
+				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
+				Topic target) {
+			return true;
+		}
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateRelationship_3004(
+				org.eclipse.gmf.examples.mindmap.Map container, Topic source,
+				Topic target) {
+			return true;
 		}
 
 		/**
@@ -326,6 +327,9 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		private static boolean evaluate(MindmapAbstractExpression constraint,
 				Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			if (sourceEnd == null) {
+				return true;
+			}
 			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR,
 					oppositeEnd);
 			try {
@@ -339,4 +343,5 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 		}
 	}
+
 }

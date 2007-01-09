@@ -1,33 +1,30 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
-
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-
 import org.eclipse.gef.requests.CreateRequest;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicItemSemanticEditPolicy;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -37,7 +34,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 1001;
 
 	/**
 	 * @generated
@@ -61,10 +58,10 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new TopicItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -124,7 +121,36 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
+
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
 	}
 
 	/**
@@ -133,6 +159,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(40));
+
 		return result;
 	}
 
@@ -189,37 +216,33 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
+	protected void handleNotificationEvent(Notification event) {
+		if (event.getNotifier() == getModel()
+				&& EcorePackage.eINSTANCE.getEModelElement_EAnnotations()
+						.equals(event.getFeature())) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
 		}
-		super.addChildVisual(childEditPart, -1);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	public class RoundedTopicFigure extends org.eclipse.draw2d.RoundedRectangle {
-
+	public class RoundedTopicFigure extends RoundedRectangle {
 		/**
 		 * @generated
 		 */
 		public RoundedTopicFigure() {
-
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(20),
+					getMapMode().DPtoLP(20)));
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(Graphics.LINE_SOLID);
 			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE);
-			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
-					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
-
 			createContents();
 		}
 
@@ -227,32 +250,31 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
 
-			setFigureTopicNameFigure(fig_0);
+			WrapLabel topicNameFigure0 = new WrapLabel();
+			topicNameFigure0.setText("<...>");
 
-			Object layData0 = null;
+			this.add(topicNameFigure0);
+			setFigureTopicNameFigure(topicNameFigure0);
 
-			this.add(fig_0, layData0);
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fTopicNameFigure;
+		private WrapLabel fTopicNameFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureTopicNameFigure() {
+		public WrapLabel getFigureTopicNameFigure() {
 			return fTopicNameFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void setFigureTopicNameFigure(
-				org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureTopicNameFigure(WrapLabel fig) {
 			fTopicNameFigure = fig;
 		}
 
@@ -280,7 +302,6 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color ROUNDEDTOPICFIGURE_FORE = new org.eclipse.swt.graphics.Color(
-			null, 220, 220, 250);
+	static final Color ROUNDEDTOPICFIGURE_FORE = new Color(null, 220, 220, 250);
 
 }

@@ -1,17 +1,14 @@
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.jface.resource.ImageDescriptor;
-import java.util.ArrayList;
-
-import org.eclipse.gef.palette.PaletteDrawer;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
@@ -29,10 +26,14 @@ public class MindmapPaletteFactory {
 	}
 
 	/**
+	 * Creates "Nodes" palette tool group
 	 * @generated
 	 */
 	private PaletteContainer createNodes1Group() {
-		PaletteContainer paletteContainer = new PaletteDrawer("Nodes");
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				MindmapDiagramEditorPlugin.getString("Nodes1Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(MindmapDiagramEditorPlugin
+				.getString("Nodes1Group.desc")); //$NON-NLS-1$
 		paletteContainer.add(createTopic1CreationTool());
 		paletteContainer.add(createThread2CreationTool());
 		paletteContainer.add(createThreadItem3CreationTool());
@@ -41,14 +42,18 @@ public class MindmapPaletteFactory {
 	}
 
 	/**
+	 * Creates "Links" palette tool group
 	 * @generated
 	 */
 	private PaletteContainer createLinks2Group() {
-		PaletteContainer paletteContainer = new PaletteDrawer("Links");
-		paletteContainer.add(createSubtopic1CreationTool());
-		paletteContainer.add(createIncludes2CreationTool());
-		paletteContainer.add(createExtends3CreationTool());
-		paletteContainer.add(createDependency4CreationTool());
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				MindmapDiagramEditorPlugin.getString("Links2Group.title")); //$NON-NLS-1$
+		paletteContainer.setDescription(MindmapDiagramEditorPlugin
+				.getString("Links2Group.desc")); //$NON-NLS-1$
+		paletteContainer.add(createDependency1CreationTool());
+		paletteContainer.add(createSubtopic2CreationTool());
+		paletteContainer.add(createIncludes3CreationTool());
+		paletteContainer.add(createExtends4CreationTool());
 		return paletteContainer;
 	}
 
@@ -56,163 +61,120 @@ public class MindmapPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createTopic1CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Topic_2001);
-
-		largeImage = smallImage;
-
-		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Topic_2001);
-		ToolEntry result = new NodeToolEntry("Topic", "Create new Topic",
-				smallImage, largeImage, elementTypes);
-
-		return result;
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Topic_1001);
+		NodeToolEntry entry = new NodeToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Topic1CreationTool.title"), MindmapDiagramEditorPlugin.getString("Topic1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Topic_1001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
 	private ToolEntry createThread2CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Thread_3001);
-
-		largeImage = smallImage;
-
-		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Thread_3001);
-		ToolEntry result = new NodeToolEntry("Thread", "Create new Thread",
-				smallImage, largeImage, elementTypes);
-
-		return result;
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Thread_2001);
+		NodeToolEntry entry = new NodeToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Thread2CreationTool.title"), MindmapDiagramEditorPlugin.getString("Thread2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Thread_2001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
 	private ToolEntry createThreadItem3CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.ThreadItem_3002);
-
-		largeImage = smallImage;
-
-		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.ThreadItem_3002);
-		ToolEntry result = new NodeToolEntry("ThreadItem",
-				"Create new ThreadItem", smallImage, largeImage, elementTypes);
-
-		return result;
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.ThreadItem_2002);
+		NodeToolEntry entry = new NodeToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("ThreadItem3CreationTool.title"), MindmapDiagramEditorPlugin.getString("ThreadItem3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.ThreadItem_2002));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
 	private ToolEntry createResource4CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapDiagramEditorPlugin
-				.findImageDescriptor("/org.eclipse.gmf.examples.mindmap.edit/icons/full/obj16/Resource.gif");
-
-		largeImage = smallImage;
-
-		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Resource_2002);
-		ToolEntry result = new NodeToolEntry("Resource", "Create new Resource",
-				smallImage, largeImage, elementTypes);
-
-		return result;
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Resource_1002);
+		NodeToolEntry entry = new NodeToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Resource4CreationTool.title"), MindmapDiagramEditorPlugin.getString("Resource4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Resource_1002));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSubtopic1CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapDiagramEditorPlugin
-				.findImageDescriptor("/org.eclipse.gmf.examples.mindmap.edit/icons/full/obj16/Subtopic.gif");
-
-		largeImage = smallImage;
-
-		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.TopicSubtopics_4001);
-		ToolEntry result = new LinkToolEntry("Subtopic", "Create new Subtopic",
-				smallImage, largeImage, relationshipTypes);
-
-		return result;
+	private ToolEntry createDependency1CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Relationship_3004);
+		LinkToolEntry entry = new LinkToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Dependency1CreationTool.title"), MindmapDiagramEditorPlugin.getString("Dependency1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_3004));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createIncludes2CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_4004);
-
-		largeImage = smallImage;
-
-		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_4004);
-		ToolEntry result = new LinkToolEntry("Includes",
-				"Create new Includes Relationship", smallImage, largeImage,
-				relationshipTypes);
-
-		return result;
+	private ToolEntry createSubtopic2CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.TopicSubtopics_3001);
+		LinkToolEntry entry = new LinkToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Subtopic2CreationTool.title"), MindmapDiagramEditorPlugin.getString("Subtopic2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.TopicSubtopics_3001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createExtends3CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_4002);
-
-		largeImage = smallImage;
-
-		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_4002);
-		ToolEntry result = new LinkToolEntry("Extends",
-				"Create new Extends Relationship", smallImage, largeImage,
-				relationshipTypes);
-
-		return result;
+	private ToolEntry createIncludes3CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Relationship_3003);
+		LinkToolEntry entry = new LinkToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Includes3CreationTool.title"), MindmapDiagramEditorPlugin.getString("Includes3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_3003));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDependency4CreationTool() {
-		ImageDescriptor smallImage;
-		ImageDescriptor largeImage;
-
-		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_4003);
-
-		largeImage = smallImage;
-
-		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_4003);
-		ToolEntry result = new LinkToolEntry("Dependency",
-				"Create new Dependency Relationship", smallImage, largeImage,
-				relationshipTypes);
-
-		return result;
+	private ToolEntry createExtends4CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(MindmapElementTypes.Relationship_3002);
+		LinkToolEntry entry = new LinkToolEntry(
+				MindmapDiagramEditorPlugin
+						.getString("Extends4CreationTool.title"), MindmapDiagramEditorPlugin.getString("Extends4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		entry.setSmallIcon(MindmapElementTypes
+				.getImageDescriptor(MindmapElementTypes.Relationship_3002));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
 	}
 
 	/**
@@ -229,9 +191,8 @@ public class MindmapPaletteFactory {
 		 * @generated
 		 */
 		private NodeToolEntry(String title, String description,
-				ImageDescriptor smallIcon, ImageDescriptor largeIcon,
 				List elementTypes) {
-			super(title, description, smallIcon, largeIcon);
+			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
 
@@ -259,9 +220,8 @@ public class MindmapPaletteFactory {
 		 * @generated
 		 */
 		private LinkToolEntry(String title, String description,
-				ImageDescriptor smallIcon, ImageDescriptor largeIcon,
 				List relationshipTypes) {
-			super(title, description, smallIcon, largeIcon);
+			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}
 

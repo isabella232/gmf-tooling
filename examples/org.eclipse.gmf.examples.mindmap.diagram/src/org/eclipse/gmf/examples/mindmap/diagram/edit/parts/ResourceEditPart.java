@@ -1,46 +1,45 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import java.util.Iterator;
-
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FreeformLayout;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Polygon;
+import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
-
-import org.eclipse.gef.editparts.LayerManager;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapExtNodeLabelHostLayoutEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceItemSemanticEditPolicy;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
-
+import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
  */
-public class ResourceEditPart extends ShapeNodeEditPart {
+public class ResourceEditPart extends AbstractBorderedShapeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 1002;
 
 	/**
 	 * @generated
@@ -64,10 +63,10 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ResourceItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -76,14 +75,10 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
 
-			protected void decorateChild(EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
-
 			protected EditPolicy createChildEditPolicy(EditPart child) {
+				if (child instanceof IBorderItemEditPart) {
+					return new BorderItemSelectionEditPolicy();
+				}
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new ResizableShapeEditPolicy();
@@ -91,14 +86,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 				return result;
 			}
 		};
-		MindmapExtNodeLabelHostLayoutEditPolicy xlep = new MindmapExtNodeLabelHostLayoutEditPolicy() {
-
-			protected boolean isExternalLabel(EditPart editPart) {
-				return ResourceEditPart.this.isExternalLabel(editPart);
-			}
-		};
-		xlep.setRealLayoutEditPolicy(lep);
-		return xlep;
+		return lep;
 	}
 
 	/**
@@ -119,9 +107,25 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void addBorderItem(IFigure borderItemContainer,
+			IBorderItemEditPart borderItemEditPart) {
+		if (borderItemEditPart instanceof ResourceNameEmailEditPart) {
+			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
+					PositionConstants.SOUTH);
+			locator.setBorderItemOffset(new Dimension(-20, -20));
+			borderItemContainer.add(borderItemEditPart.getFigure(), locator);
+		} else {
+			super.addBorderItem(borderItemContainer, borderItemEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(60));
+
 		return result;
 	}
 
@@ -133,7 +137,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * 
 	 * @generated
 	 */
-	protected NodeFigure createNodeFigure() {
+	protected NodeFigure createMainFigure() {
 		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
@@ -185,86 +189,39 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected boolean isExternalLabel(EditPart childEditPart) {
-		if (childEditPart instanceof ResourceNameEmailEditPart) {
-			return true;
+	protected void handleNotificationEvent(Notification event) {
+		if (event.getNotifier() == getModel()
+				&& EcorePackage.eINSTANCE.getEModelElement_EAnnotations()
+						.equals(event.getFeature())) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
 		}
-		return false;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IFigure getExternalLabelsContainer() {
-		LayerManager root = (LayerManager) getRoot();
-		return root.getLayer(MindmapEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
-					.getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
-					.getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	public void removeNotify() {
-		for (Iterator it = getChildren().iterator(); it.hasNext();) {
-			EditPart childEditPart = (EditPart) it.next();
-			if (isExternalLabel(childEditPart)) {
-				IFigure labelFigure = ((GraphicalEditPart) childEditPart)
-						.getFigure();
-				getExternalLabelsContainer().remove(labelFigure);
-			}
-		}
-		super.removeNotify();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {
-
+	public class ResourceFigure extends RectangleFigure {
 		/**
 		 * @generated
 		 */
 		public ResourceFigure() {
 
-			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
-
-			this.setLayoutManager(myGenLayoutManager);
-
+			this.setLayoutManager(new XYLayout());
 			this.setFill(false);
+			this.setFillXOR(false);
 			this.setOutline(false);
+			this.setOutlineXOR(false);
 			this.setLineWidth(0);
-			this.setPreferredSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(
-					60));
+			this.setLineStyle(Graphics.LINE_SOLID);
+			this.setPreferredSize(new Dimension(getMapMode().DPtoLP(40),
+					getMapMode().DPtoLP(60)));
+			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(40),
+					getMapMode().DPtoLP(60)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(40),
+					getMapMode().DPtoLP(60)));
 			this.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));
-			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(
-					getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
-			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(
-					getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
 			createContents();
 		}
 
@@ -272,81 +229,66 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();
-			fig_0.setForegroundColor(HEAD_FORE);
-			fig_0.setBackgroundColor(HEAD_BACK);
-			fig_0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
-			setFigureHead(fig_0);
+			Ellipse head0 = new Ellipse();
+			head0.setFill(true);
+			head0.setFillXOR(false);
+			head0.setOutline(true);
+			head0.setOutlineXOR(false);
+			head0.setLineWidth(1);
+			head0.setLineStyle(Graphics.LINE_SOLID);
+			head0.setForegroundColor(HEAD_FORE);
+			head0.setBackgroundColor(HEAD_BACK);
+			head0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
-			Object layData0 = null;
+			this.add(head0);
 
-			this.add(fig_0, layData0);
-			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
-			fig_1.setFill(true);
-			fig_1.setForegroundColor(BODY_FORE);
-			fig_1.setBackgroundColor(BODY_BACK);
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 29));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 29));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 36));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 48));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 53));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(20, 42));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 53));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 48));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 36));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 29));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 29));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(1, 24));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 24));
-			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(17, 19));
+			Polygon body0 = new Polygon();
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+					.DPtoLP(19)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+					.DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+					.DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+					.DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+					.DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(23), getMapMode()
+					.DPtoLP(36)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+					.DPtoLP(48)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(39), getMapMode()
+					.DPtoLP(53)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(20), getMapMode()
+					.DPtoLP(42)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+					.DPtoLP(53)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+					.DPtoLP(48)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+					.DPtoLP(36)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+					.DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+					.DPtoLP(29)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(1), getMapMode()
+					.DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+					.DPtoLP(24)));
+			body0.addPoint(new Point(getMapMode().DPtoLP(17), getMapMode()
+					.DPtoLP(19)));
+			body0.setFill(true);
+			body0.setFillXOR(false);
+			body0.setOutline(true);
+			body0.setOutlineXOR(false);
+			body0.setLineWidth(1);
+			body0.setLineStyle(Graphics.LINE_SOLID);
+			body0.setForegroundColor(BODY_FORE);
+			body0.setBackgroundColor(BODY_BACK);
 
-			setFigureBody(fig_1);
+			this.add(body0);
 
-			Object layData1 = null;
-
-			this.add(fig_1, layData1);
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Ellipse fHead;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.Ellipse getFigureHead() {
-			return fHead;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureHead(org.eclipse.draw2d.Ellipse fig) {
-			fHead = fig;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Polygon fBody;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.Polygon getFigureBody() {
-			return fBody;
-		}
-
-		/**
-		 * @generated
-		 */
-		private void setFigureBody(org.eclipse.draw2d.Polygon fig) {
-			fBody = fig;
 		}
 
 		/**
@@ -373,25 +315,21 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color HEAD_FORE = new org.eclipse.swt.graphics.Color(
-			null, 220, 220, 250);
+	static final Color HEAD_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color BODY_BACK = new org.eclipse.swt.graphics.Color(
-			null, 230, 230, 255);
+	static final Color HEAD_BACK = new Color(null, 230, 230, 255);
 
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color BODY_FORE = new org.eclipse.swt.graphics.Color(
-			null, 220, 220, 250);
+	static final Color BODY_FORE = new Color(null, 220, 220, 250);
 
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color HEAD_BACK = new org.eclipse.swt.graphics.Color(
-			null, 230, 230, 255);
+	static final Color BODY_BACK = new Color(null, 230, 230, 255);
 
 }

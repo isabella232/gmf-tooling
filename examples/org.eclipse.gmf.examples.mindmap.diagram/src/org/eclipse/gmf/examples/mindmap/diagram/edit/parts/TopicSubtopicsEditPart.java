@@ -1,17 +1,11 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
-
-import org.eclipse.gef.EditPolicy;
-
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapReferenceConnectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicSubtopicsItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -21,7 +15,7 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -35,11 +29,8 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicy.CONNECTION_ROLE,
-				new MindmapReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new TopicSubtopicsItemSemanticEditPolicy());
-
 	}
 
 	/**
@@ -51,6 +42,7 @@ public class TopicSubtopicsEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
+
 		return new PolylineConnectionEx();
 	}
 

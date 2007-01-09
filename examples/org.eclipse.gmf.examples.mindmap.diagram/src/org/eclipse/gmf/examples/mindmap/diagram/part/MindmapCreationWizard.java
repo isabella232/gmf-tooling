@@ -4,15 +4,14 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -33,12 +32,17 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected MindmapCreationWizardPage page;
+	protected MindmapCreationWizardPage diagramModelFilePage;
 
 	/**
 	 * @generated
 	 */
-	protected URI diagramURI;
+	protected MindmapCreationWizardPage domainModelFilePage;
+
+	/**
+	 * @generated
+	 */
+	protected Resource diagram;
 
 	/**
 	 * @generated
@@ -62,8 +66,8 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public final URI getDiagramURI() {
-		return diagramURI;
+	public final Resource getDiagram() {
+		return diagram;
 	}
 
 	/**
@@ -97,11 +101,19 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		page = new MindmapCreationWizardPage(
-				"CreationWizardPage", getSelection()); //$NON-NLS-1$
-		page.setTitle("Create Mindmap Diagram");
-		page.setDescription("Create a new Mindmap diagram.");
-		addPage(page);
+		diagramModelFilePage = new MindmapCreationWizardPage(
+				"DiagramModelFile", getSelection(), "mindmap_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
+		diagramModelFilePage.setTitle("Create Mindmap Diagram");
+		diagramModelFilePage
+				.setDescription("Select file that will contain diagram model.");
+		addPage(diagramModelFilePage);
+
+		domainModelFilePage = new MindmapCreationWizardPage(
+				"DomainModelFile", getSelection(), "mindmap"); //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage.setTitle("Create Mindmap Diagram");
+		domainModelFilePage
+				.setDescription("Select file that will contain domain model.");
+		addPage(domainModelFilePage);
 	}
 
 	/**
@@ -112,12 +124,18 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 
 			protected void execute(IProgressMonitor monitor)
 					throws CoreException, InterruptedException {
-				diagramURI = MindmapDiagramEditorUtil.createAndOpenDiagram(page
-						.getDiagramFileCreator(), page.getContainerFullPath(),
-						page.getFileName(), page.getInitialContents(),
-						MapEditPart.MODEL_ID, getWorkbench()
-								.getActiveWorkbenchWindow(), monitor,
-						isOpenNewlyCreatedDiagramEditor(), true);
+				diagram = MindmapDiagramEditorUtil.createDiagram(
+						diagramModelFilePage.getURI(), domainModelFilePage
+								.getURI(), monitor);
+				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
+					try {
+						MindmapDiagramEditorUtil.openDiagram(diagram);
+					} catch (PartInitException e) {
+						ErrorDialog.openError(getContainer().getShell(),
+								"Error opening diagram editor", null, e
+										.getStatus());
+					}
+				}
 			}
 		};
 		try {
@@ -135,6 +153,6 @@ public class MindmapCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		return diagramURI != null;
+		return diagram != null;
 	}
 }

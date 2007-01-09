@@ -1,42 +1,32 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-
 import org.eclipse.gef.requests.CreateRequest;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemSemanticEditPolicy;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -46,7 +36,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -80,7 +70,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 										.getCreateElementRequestAdapter();
 								IElementType type = (IElementType) adapter
 										.getAdapter(IElementType.class);
-								if (type == MindmapElementTypes.ThreadItem_3002) {
+								if (type == MindmapElementTypes.ThreadItem_2002) {
 									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
 											.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
 									return compartmentEditPart == null ? null
@@ -94,10 +84,10 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 					}
 				});
 		super.createDefaultEditPolicies();
+
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ThreadItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-
 	}
 
 	/**
@@ -157,7 +147,36 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
+
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
 	}
 
 	/**
@@ -166,6 +185,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(40));
+
 		return result;
 	}
 
@@ -222,33 +242,17 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	public class StickyNoteFigure extends org.eclipse.draw2d.RectangleFigure {
-
+	public class StickyNoteFigure extends RectangleFigure {
 		/**
 		 * @generated
 		 */
 		public StickyNoteFigure() {
-
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(Graphics.LINE_SOLID);
 			this.setBackgroundColor(STICKYNOTEFIGURE_BACK);
 			createContents();
 		}
@@ -257,33 +261,31 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			fig_0.setText("<...>");
 
-			setFigureStickyNoteNameFigure(fig_0);
+			WrapLabel stickyNoteNameFigure0 = new WrapLabel();
+			stickyNoteNameFigure0.setText("<...>");
 
-			Object layData0 = null;
+			this.add(stickyNoteNameFigure0);
+			setFigureStickyNoteNameFigure(stickyNoteNameFigure0);
 
-			this.add(fig_0, layData0);
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fStickyNoteNameFigure;
+		private WrapLabel fStickyNoteNameFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureStickyNoteNameFigure() {
+		public WrapLabel getFigureStickyNoteNameFigure() {
 			return fStickyNoteNameFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void setFigureStickyNoteNameFigure(
-				org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureStickyNoteNameFigure(WrapLabel fig) {
 			fStickyNoteNameFigure = fig;
 		}
 
@@ -311,7 +313,6 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(
-			null, 250, 250, 190);
+	static final Color STICKYNOTEFIGURE_BACK = new Color(null, 250, 250, 190);
 
 }

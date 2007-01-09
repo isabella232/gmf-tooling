@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -37,7 +38,7 @@ public class ThreadItemViewFactory extends AbstractLabelViewFactory {
 			boolean persisted) {
 		if (semanticHint == null) {
 			semanticHint = MindmapVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart.VISUAL_ID);
+					.getType(ThreadItemEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint,

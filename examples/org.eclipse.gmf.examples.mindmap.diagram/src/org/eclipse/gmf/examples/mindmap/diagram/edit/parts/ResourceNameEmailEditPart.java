@@ -1,68 +1,48 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.transaction.RunnableWithResult;
-
 import org.eclipse.gef.AccessibleEditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.requests.DirectEditRequest;
-
 import org.eclipse.gef.tools.DirectEditManager;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
-
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
-
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-
 import org.eclipse.jface.viewers.ICellEditorValidator;
-
-import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.accessibility.AccessibleEvent;
-
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -70,13 +50,13 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
-		implements ITextAwareEditPart {
+public class ResourceNameEmailEditPart extends LabelEditPart implements
+		ITextAwareEditPart, IBorderItemEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5003;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated
@@ -120,7 +100,35 @@ public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
 				new LabelDirectEditPolicy());
+	}
 
+	/**
+	 * @generated
+	 */
+	public IBorderItemLocator getBorderItemLocator() {
+		IFigure parentFigure = getFigure().getParent();
+		if (parentFigure != null && parentFigure.getLayoutManager() != null) {
+			Object constraint = parentFigure.getLayoutManager().getConstraint(
+					getFigure());
+			return (IBorderItemLocator) constraint;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void refreshBounds() {
+		int x = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_X())).intValue();
+		int y = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_Y())).intValue();
+		int width = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getSize_Width())).intValue();
+		int height = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getSize_Height())).intValue();
+		getBorderItemLocator()
+				.setConstraint(new Rectangle(x, y, width, height));
 	}
 
 	/**
@@ -250,7 +258,7 @@ public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**
@@ -315,7 +323,7 @@ public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Resource_2002;
+						return MindmapElementTypes.Resource_1002;
 					}
 					return super.getAdapter(adapter);
 				}
@@ -461,8 +469,11 @@ public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
 			FontData fontData = new FontData(style.getFontName(), style
-					.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL)
-					| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+					.getFontHeight(),
+					(style.isBold() ? org.eclipse.swt.SWT.BOLD
+							: org.eclipse.swt.SWT.NORMAL)
+							| (style.isItalic() ? org.eclipse.swt.SWT.ITALIC
+									: org.eclipse.swt.SWT.NORMAL));
 			setFont(fontData);
 		}
 	}
@@ -584,5 +595,4 @@ public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 	protected IFigure createFigurePrim() {
 		return new WrapLabel();
 	}
-
 }

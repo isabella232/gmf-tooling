@@ -1,6 +1,6 @@
 package org.eclipse.gmf.examples.mindmap.diagram.navigator;
 
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.jface.viewers.ViewerSorter;
 
@@ -12,7 +12,12 @@ public class MindmapNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int GROUP_CATEGORY = 7003;
+	private static final int GROUP_CATEGORY = 5004;
+
+	/**
+	 * @generated
+	 */
+	private static final int SHORTCUTS_CATEGORY = 5002;
 
 	/**
 	 * @generated
@@ -20,9 +25,10 @@ public class MindmapNavigatorSorter extends ViewerSorter {
 	public int category(Object element) {
 		if (element instanceof MindmapNavigatorItem) {
 			MindmapNavigatorItem item = (MindmapNavigatorItem) element;
-			if (MapEditPart.MODEL_ID.equals(item.getModelID())) {
-				return item.getVisualID();
+			if (item.getView().getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				return SHORTCUTS_CATEGORY;
 			}
+			return MindmapVisualIDRegistry.getVisualID(item.getView());
 		}
 		return GROUP_CATEGORY;
 	}

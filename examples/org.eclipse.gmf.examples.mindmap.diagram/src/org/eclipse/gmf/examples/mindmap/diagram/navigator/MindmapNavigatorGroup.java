@@ -21,22 +21,15 @@ public class MindmapNavigatorGroup extends MindmapAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	private String myModelID;
-
-	/**
-	 * @generated
-	 */
 	private Collection myChildren = new LinkedList();
 
 	/**
 	 * @generated
 	 */
-	MindmapNavigatorGroup(String groupName, String icon, String modelID,
-			Object parent) {
+	MindmapNavigatorGroup(String groupName, String icon, Object parent) {
 		super(parent);
 		myGroupName = groupName;
 		myIcon = icon;
-		myModelID = modelID;
 	}
 
 	/**
@@ -79,13 +72,6 @@ public class MindmapNavigatorGroup extends MindmapAbstractNavigatorItem {
 	 */
 	public boolean isEmpty() {
 		return myChildren.size() == 0;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getModelID() {
-		return myModelID;
 	}
 
 	/**

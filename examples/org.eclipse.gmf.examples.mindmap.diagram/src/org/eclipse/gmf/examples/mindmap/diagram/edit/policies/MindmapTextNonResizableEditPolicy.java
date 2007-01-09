@@ -2,6 +2,7 @@ package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -10,7 +11,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
@@ -100,13 +100,6 @@ public class MindmapTextNonResizableEditPolicy extends NonResizableEditPolicyEx 
 				focusFeedbackFigure = null;
 			}
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getFeedbackLayer() {
-		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 	}
 
 	/**

@@ -139,7 +139,7 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 				String originalFileName = mySelectedModelFile
 						.getProjectRelativePath().removeFileExtension()
 						.lastSegment();
-				String fileExtension = ".mmd"; //$NON-NLS-1$
+				String fileExtension = ".mindmap_diagram"; //$NON-NLS-1$
 				String fileName = originalFileName + fileExtension;
 				for (int i = 1; parentContainer.getFile(new Path(fileName))
 						.exists(); i++) {
@@ -169,9 +169,9 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 		}
 
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet
-				.createResource(URI.createPlatformResourceURI(diagramFile
-						.getFullPath().toString()));
+		final Resource diagramResource = resourceSet.createResource(URI
+				.createPlatformResourceURI(
+						diagramFile.getFullPath().toString(), true));
 
 		List affectedFiles = new LinkedList();
 		affectedFiles.add(mySelectedModelFile);
@@ -200,8 +200,7 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 			OperationHistoryFactory.getOperationHistory().execute(command,
 					new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			MindmapDiagramEditorUtil.openDiagramEditor(myWorkbenchPage,
-					diagramFile);
+			MindmapDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			MindmapDiagramEditorPlugin.getInstance().logError(
 					"Unable to create model and diagram", e); //$NON-NLS-1$

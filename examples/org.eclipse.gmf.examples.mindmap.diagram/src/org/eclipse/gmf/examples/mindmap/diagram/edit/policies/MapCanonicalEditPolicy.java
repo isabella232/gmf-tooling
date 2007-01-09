@@ -299,18 +299,18 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	private void storeTypeModelFacetLinks(EObject container,
 			EClass containerMetaclass) {
-		storeTypeModelFacetLinks_Relationship_4002(container,
+		storeTypeModelFacetLinks_Relationship_3002(container,
 				containerMetaclass);
-		storeTypeModelFacetLinks_Relationship_4003(container,
+		storeTypeModelFacetLinks_Relationship_3003(container,
 				containerMetaclass);
-		storeTypeModelFacetLinks_Relationship_4004(container,
+		storeTypeModelFacetLinks_Relationship_3004(container,
 				containerMetaclass);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_4002(EObject container,
+	private void storeTypeModelFacetLinks_Relationship_3002(EObject container,
 			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
@@ -339,7 +339,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_4003(EObject container,
+	private void storeTypeModelFacetLinks_Relationship_3003(EObject container,
 			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
@@ -368,7 +368,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_Relationship_4004(EObject container,
+	private void storeTypeModelFacetLinks_Relationship_3004(EObject container,
 			EClass containerMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Map) container).getRelations().iterator(); values
@@ -407,7 +407,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				EObject nextDestination = (EObject) destinations.next();
 				myLinkDescriptors.add(new LinkDescriptor(container,
 						nextDestination,
-						MindmapElementTypes.TopicSubtopics_4001,
+						MindmapElementTypes.TopicSubtopics_3001,
 						TopicSubtopicsEditPart.VISUAL_ID));
 
 			}

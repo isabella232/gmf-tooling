@@ -10,6 +10,7 @@ import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Relationship;
 import org.eclipse.gmf.examples.mindmap.Resource;
+import org.eclipse.gmf.examples.mindmap.Thread;
 import org.eclipse.gmf.examples.mindmap.ThreadItem;
 import org.eclipse.gmf.examples.mindmap.Topic;
 
@@ -123,7 +124,7 @@ public class MindmapVisualIDRegistry {
 			EClass domainElementMetaclass) {
 		if (MindmapPackage.eINSTANCE.getMap().isSuperTypeOf(
 				domainElementMetaclass)
-				&& isDiagramMap_1000((Map) domainElement)) {
+				&& isDiagramMap_79((Map) domainElement)) {
 			return MapEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -172,13 +173,13 @@ public class MindmapVisualIDRegistry {
 			if (TopicThreadCompartmentEditPart.VISUAL_ID == nodeVisualID) {
 				return TopicThreadCompartmentEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedTopic_2001ChildNodeID(domainElement,
+			return getUnrecognizedTopic_1001ChildNodeID(domainElement,
 					semanticHint);
 		case ResourceEditPart.VISUAL_ID:
 			if (ResourceNameEmailEditPart.VISUAL_ID == nodeVisualID) {
 				return ResourceNameEmailEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedResource_2002ChildNodeID(domainElement,
+			return getUnrecognizedResource_1002ChildNodeID(domainElement,
 					semanticHint);
 		case ThreadEditPart.VISUAL_ID:
 			if (ThreadSubjectEditPart.VISUAL_ID == nodeVisualID) {
@@ -187,59 +188,58 @@ public class MindmapVisualIDRegistry {
 			if (ThreadThreadItemCompartmentEditPart.VISUAL_ID == nodeVisualID) {
 				return ThreadThreadItemCompartmentEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedThread_3001ChildNodeID(domainElement,
+			return getUnrecognizedThread_2001ChildNodeID(domainElement,
 					semanticHint);
 		case ThreadItemEditPart.VISUAL_ID:
-			return getUnrecognizedThreadItem_3002ChildNodeID(domainElement,
+			return getUnrecognizedThreadItem_2002ChildNodeID(domainElement,
 					semanticHint);
 		case TopicThreadCompartmentEditPart.VISUAL_ID:
 			if ((semanticHint == null || ThreadEditPart.VISUAL_ID == nodeVisualID)
 					&& MindmapPackage.eINSTANCE.getThread().isSuperTypeOf(
 							domainElementMetaclass)
-					&& (domainElement == null || isNodeThread_3001((org.eclipse.gmf.examples.mindmap.Thread) domainElement))) {
+					&& (domainElement == null || isNodeThread_2001((Thread) domainElement))) {
 				return ThreadEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedTopicThreadCompartment_7001ChildNodeID(
+			return getUnrecognizedTopicThreadCompartment_5001ChildNodeID(
 					domainElement, semanticHint);
 		case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
 			if ((semanticHint == null || ThreadItemEditPart.VISUAL_ID == nodeVisualID)
 					&& MindmapPackage.eINSTANCE.getThreadItem().isSuperTypeOf(
 							domainElementMetaclass)
-					&& (domainElement == null || isNodeThreadItem_3002((ThreadItem) domainElement))) {
+					&& (domainElement == null || isNodeThreadItem_2002((ThreadItem) domainElement))) {
 				return ThreadItemEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedThreadThreadItemCompartment_7002ChildNodeID(
+			return getUnrecognizedThreadThreadItemCompartment_5002ChildNodeID(
 					domainElement, semanticHint);
 		case MapEditPart.VISUAL_ID:
 			if ((semanticHint == null || TopicEditPart.VISUAL_ID == nodeVisualID)
 					&& MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(
 							domainElementMetaclass)
-					&& (domainElement == null || isNodeTopic_2001((Topic) domainElement))) {
+					&& (domainElement == null || isNodeTopic_1001((Topic) domainElement))) {
 				return TopicEditPart.VISUAL_ID;
 			}
 			if ((semanticHint == null || ResourceEditPart.VISUAL_ID == nodeVisualID)
 					&& MindmapPackage.eINSTANCE.getResource().isSuperTypeOf(
 							domainElementMetaclass)
-					&& (domainElement == null || isNodeResource_2002((Resource) domainElement))) {
+					&& (domainElement == null || isNodeResource_1002((Resource) domainElement))) {
 				return ResourceEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedMap_1000ChildNodeID(domainElement,
-					semanticHint);
+			return getUnrecognizedMap_79ChildNodeID(domainElement, semanticHint);
 		case RelationshipEditPart.VISUAL_ID:
 			if (RelationshipLabelEditPart.VISUAL_ID == nodeVisualID) {
 				return RelationshipLabelEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedRelationship_4002LinkLabelID(semanticHint);
+			return getUnrecognizedRelationship_3002LinkLabelID(semanticHint);
 		case Relationship2EditPart.VISUAL_ID:
 			if (RelationshipLabel2EditPart.VISUAL_ID == nodeVisualID) {
 				return RelationshipLabel2EditPart.VISUAL_ID;
 			}
-			return getUnrecognizedRelationship_4003LinkLabelID(semanticHint);
+			return getUnrecognizedRelationship_3003LinkLabelID(semanticHint);
 		case Relationship3EditPart.VISUAL_ID:
 			if (RelationshipLabel3EditPart.VISUAL_ID == nodeVisualID) {
 				return RelationshipLabel3EditPart.VISUAL_ID;
 			}
-			return getUnrecognizedRelationship_4004LinkLabelID(semanticHint);
+			return getUnrecognizedRelationship_3004LinkLabelID(semanticHint);
 		}
 		return -1;
 	}
@@ -262,15 +262,15 @@ public class MindmapVisualIDRegistry {
 			EClass domainElementMetaclass) {
 		if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
 				domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassRelationship_4002((Relationship) domainElement))) {
+				&& (domainElement == null || isLinkWithClassRelationship_3002((Relationship) domainElement))) {
 			return RelationshipEditPart.VISUAL_ID;
 		} else if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
 				domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassRelationship_4003((Relationship) domainElement))) {
+				&& (domainElement == null || isLinkWithClassRelationship_3003((Relationship) domainElement))) {
 			return Relationship2EditPart.VISUAL_ID;
 		} else if (MindmapPackage.eINSTANCE.getRelationship().isSuperTypeOf(
 				domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassRelationship_4004((Relationship) domainElement))) {
+				&& (domainElement == null || isLinkWithClassRelationship_3004((Relationship) domainElement))) {
 			return Relationship3EditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
@@ -283,7 +283,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isDiagramMap_1000(Map element) {
+	private static boolean isDiagramMap_79(Map element) {
 		return true;
 	}
 
@@ -303,7 +303,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isNodeTopic_2001(Topic element) {
+	private static boolean isNodeTopic_1001(Topic element) {
 		return true;
 	}
 
@@ -313,7 +313,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isNodeResource_2002(Resource element) {
+	private static boolean isNodeResource_1002(Resource element) {
 		return true;
 	}
 
@@ -323,8 +323,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isNodeThread_3001(
-			org.eclipse.gmf.examples.mindmap.Thread element) {
+	private static boolean isNodeThread_2001(Thread element) {
 		return true;
 	}
 
@@ -334,7 +333,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isNodeThreadItem_3002(ThreadItem element) {
+	private static boolean isNodeThreadItem_2002(ThreadItem element) {
 		return true;
 	}
 
@@ -344,7 +343,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedTopic_2001ChildNodeID(
+	private static int getUnrecognizedTopic_1001ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -355,7 +354,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedResource_2002ChildNodeID(
+	private static int getUnrecognizedResource_1002ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -366,7 +365,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedThread_3001ChildNodeID(
+	private static int getUnrecognizedThread_2001ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -377,7 +376,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedThreadItem_3002ChildNodeID(
+	private static int getUnrecognizedThreadItem_2002ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -388,7 +387,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedTopicThreadCompartment_7001ChildNodeID(
+	private static int getUnrecognizedTopicThreadCompartment_5001ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -399,7 +398,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedThreadThreadItemCompartment_7002ChildNodeID(
+	private static int getUnrecognizedThreadThreadItemCompartment_5002ChildNodeID(
 			EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -410,18 +409,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedMap_1000ChildNodeID(
-			EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedRelationship_4002LinkLabelID(
+	private static int getUnrecognizedMap_79ChildNodeID(EObject domainElement,
 			String semanticHint) {
 		return -1;
 	}
@@ -432,7 +420,7 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedRelationship_4003LinkLabelID(
+	private static int getUnrecognizedRelationship_3002LinkLabelID(
 			String semanticHint) {
 		return -1;
 	}
@@ -443,7 +431,18 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedRelationship_4004LinkLabelID(
+	private static int getUnrecognizedRelationship_3003LinkLabelID(
+			String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedRelationship_3004LinkLabelID(
 			String semanticHint) {
 		return -1;
 	}
@@ -464,8 +463,8 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isLinkWithClassRelationship_4002(Relationship element) {
-		return Relationship_4002.matches(element);
+	private static boolean isLinkWithClassRelationship_3002(Relationship element) {
+		return Relationship_3002.matches(element);
 	}
 
 	/**
@@ -474,8 +473,8 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isLinkWithClassRelationship_4003(Relationship element) {
-		return Relationship_4003.matches(element);
+	private static boolean isLinkWithClassRelationship_3003(Relationship element) {
+		return Relationship_3003.matches(element);
 	}
 
 	/**
@@ -484,14 +483,14 @@ public class MindmapVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isLinkWithClassRelationship_4004(Relationship element) {
-		return Relationship_4004.matches(element);
+	private static boolean isLinkWithClassRelationship_3004(Relationship element) {
+		return Relationship_3004.matches(element);
 	}
 
 	/**
 	 * @generated
 	 */
-	private static final Matcher Relationship_4002 = new Matcher(
+	private static final Matcher Relationship_3002 = new Matcher(
 			MindmapOCLFactory.getExpression(
 					"self.type = RelationshipType::EXTENDS", //$NON-NLS-1$
 					MindmapPackage.eINSTANCE.getRelationship()));
@@ -499,17 +498,17 @@ public class MindmapVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final Matcher Relationship_4003 = new Matcher(
+	private static final Matcher Relationship_3003 = new Matcher(
 			MindmapOCLFactory.getExpression(
-					"self.type = RelationshipType::DEPENDENCY", //$NON-NLS-1$
+					"self.type = RelationshipType::INCLUDES", //$NON-NLS-1$
 					MindmapPackage.eINSTANCE.getRelationship()));
 
 	/**
 	 * @generated
 	 */
-	private static final Matcher Relationship_4004 = new Matcher(
+	private static final Matcher Relationship_3004 = new Matcher(
 			MindmapOCLFactory.getExpression(
-					"self.type = RelationshipType::INCLUDES", //$NON-NLS-1$
+					"self.type = RelationshipType::DEPENDENCY", //$NON-NLS-1$
 					MindmapPackage.eINSTANCE.getRelationship()));
 
 	/**

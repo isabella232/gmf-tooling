@@ -1,12 +1,14 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
-
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.Relationship2ItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -16,7 +18,7 @@ public class Relationship2EditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4003;
+	public static final int VISUAL_ID = 3003;
 
 	/**
 	 * @generated
@@ -32,7 +34,6 @@ public class Relationship2EditPart extends ConnectionNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new Relationship2ItemSemanticEditPolicy());
-
 	}
 
 	/**
@@ -44,38 +45,40 @@ public class Relationship2EditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
+
 		return new DashedLineOpenArrow();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class DashedLineOpenArrow extends
-			org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class DashedLineOpenArrow extends PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
 		public DashedLineOpenArrow() {
+			this.setFill(true);
+			this.setFillXOR(false);
+			this.setOutline(true);
+			this.setOutlineXOR(false);
+			this.setLineWidth(1);
+			this.setLineStyle(Graphics.LINE_DASH);
 
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
 			setTargetDecoration(createTargetDecoration());
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {
-			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
-			// dispatchNext?
-
-			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
-			pl.addPoint(-1, 1);
-			pl.addPoint(0, 0);
-			pl.addPoint(-1, -1);
-			df.setTemplate(pl);
-			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-
+		private RotatableDecoration createTargetDecoration() {
+			PolylineDecoration df = new PolylineDecoration();
+			df.setFill(true);
+			df.setFillXOR(false);
+			df.setOutline(true);
+			df.setOutlineXOR(false);
+			df.setLineWidth(1);
+			df.setLineStyle(Graphics.LINE_SOLID);
 			return df;
 		}
 

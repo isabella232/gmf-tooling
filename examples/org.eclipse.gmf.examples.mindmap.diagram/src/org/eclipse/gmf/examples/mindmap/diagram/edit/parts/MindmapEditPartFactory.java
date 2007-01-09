@@ -1,20 +1,18 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.FigureUtilities;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.tools.CellEditorLocator;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated
@@ -24,48 +22,59 @@ public class MindmapEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels"; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			int viewVisualID = MindmapVisualIDRegistry.getVisualID(view);
-			switch (viewVisualID) {
-			case TopicEditPart.VISUAL_ID:
-				return new TopicEditPart(view);
-			case TopicNameEditPart.VISUAL_ID:
-				return new TopicNameEditPart(view);
-			case ResourceEditPart.VISUAL_ID:
-				return new ResourceEditPart(view);
-			case ResourceNameEmailEditPart.VISUAL_ID:
-				return new ResourceNameEmailEditPart(view);
-			case ThreadEditPart.VISUAL_ID:
-				return new ThreadEditPart(view);
-			case ThreadSubjectEditPart.VISUAL_ID:
-				return new ThreadSubjectEditPart(view);
-			case ThreadItemEditPart.VISUAL_ID:
-				return new ThreadItemEditPart(view);
-			case TopicThreadCompartmentEditPart.VISUAL_ID:
-				return new TopicThreadCompartmentEditPart(view);
-			case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
-				return new ThreadThreadItemCompartmentEditPart(view);
+			switch (MindmapVisualIDRegistry.getVisualID(view)) {
+
 			case MapEditPart.VISUAL_ID:
 				return new MapEditPart(view);
+
+			case TopicEditPart.VISUAL_ID:
+				return new TopicEditPart(view);
+
+			case TopicNameEditPart.VISUAL_ID:
+				return new TopicNameEditPart(view);
+
+			case ResourceEditPart.VISUAL_ID:
+				return new ResourceEditPart(view);
+
+			case ResourceNameEmailEditPart.VISUAL_ID:
+				return new ResourceNameEmailEditPart(view);
+
+			case ThreadEditPart.VISUAL_ID:
+				return new ThreadEditPart(view);
+
+			case ThreadSubjectEditPart.VISUAL_ID:
+				return new ThreadSubjectEditPart(view);
+
+			case ThreadItemEditPart.VISUAL_ID:
+				return new ThreadItemEditPart(view);
+
+			case TopicThreadCompartmentEditPart.VISUAL_ID:
+				return new TopicThreadCompartmentEditPart(view);
+
+			case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
+				return new ThreadThreadItemCompartmentEditPart(view);
+
 			case TopicSubtopicsEditPart.VISUAL_ID:
 				return new TopicSubtopicsEditPart(view);
+
 			case RelationshipEditPart.VISUAL_ID:
 				return new RelationshipEditPart(view);
+
 			case RelationshipLabelEditPart.VISUAL_ID:
 				return new RelationshipLabelEditPart(view);
+
 			case Relationship2EditPart.VISUAL_ID:
 				return new Relationship2EditPart(view);
+
 			case RelationshipLabel2EditPart.VISUAL_ID:
 				return new RelationshipLabel2EditPart(view);
+
 			case Relationship3EditPart.VISUAL_ID:
 				return new Relationship3EditPart(view);
+
 			case RelationshipLabel3EditPart.VISUAL_ID:
 				return new RelationshipLabel3EditPart(view);
 			}
@@ -89,8 +98,7 @@ public class MindmapEditPartFactory implements EditPartFactory {
 		if (source.getFigure() instanceof WrapLabel)
 			return new TextCellEditorLocator((WrapLabel) source.getFigure());
 		else {
-			IFigure figure = source.getFigure();
-			return new LabelCellEditorLocator((Label) figure);
+			return new LabelCellEditorLocator((Label) source.getFigure());
 		}
 	}
 
@@ -108,7 +116,6 @@ public class MindmapEditPartFactory implements EditPartFactory {
 		 * @generated
 		 */
 		public TextCellEditorLocator(WrapLabel wrapLabel) {
-			super();
 			this.wrapLabel = wrapLabel;
 		}
 
@@ -126,20 +133,20 @@ public class MindmapEditPartFactory implements EditPartFactory {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
 			getWrapLabel().translateToAbsolute(rect);
-
 			if (getWrapLabel().isTextWrapped()
-					&& getWrapLabel().getText().length() > 0)
+					&& getWrapLabel().getText().length() > 0) {
 				rect.setSize(new Dimension(text.computeSize(rect.width,
-						SWT.DEFAULT)));
-			else {
+						org.eclipse.swt.SWT.DEFAULT)));
+			} else {
 				int avr = FigureUtilities.getFontMetrics(text.getFont())
 						.getAverageCharWidth();
-				rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT,
-						SWT.DEFAULT)).expand(avr * 2, 0));
+				rect.setSize(new Dimension(text.computeSize(
+						org.eclipse.swt.SWT.DEFAULT,
+						org.eclipse.swt.SWT.DEFAULT)).expand(avr * 2, 0));
 			}
-
-			if (!rect.equals(new Rectangle(text.getBounds())))
+			if (!rect.equals(new Rectangle(text.getBounds()))) {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
+			}
 		}
 
 	}
@@ -175,14 +182,14 @@ public class MindmapEditPartFactory implements EditPartFactory {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getLabel().getTextBounds().getCopy();
 			getLabel().translateToAbsolute(rect);
-
 			int avr = FigureUtilities.getFontMetrics(text.getFont())
 					.getAverageCharWidth();
-			rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT,
-					SWT.DEFAULT)).expand(avr * 2, 0));
-
-			if (!rect.equals(new Rectangle(text.getBounds())))
+			rect.setSize(new Dimension(text.computeSize(
+					org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT))
+					.expand(avr * 2, 0));
+			if (!rect.equals(new Rectangle(text.getBounds()))) {
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);
+			}
 		}
 	}
 }

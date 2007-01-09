@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipLabelEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -44,7 +45,7 @@ public class RelationshipViewFactory extends ConnectionViewFactory {
 			boolean persisted) {
 		if (semanticHint == null) {
 			semanticHint = MindmapVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipEditPart.VISUAL_ID);
+					.getType(RelationshipEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint,

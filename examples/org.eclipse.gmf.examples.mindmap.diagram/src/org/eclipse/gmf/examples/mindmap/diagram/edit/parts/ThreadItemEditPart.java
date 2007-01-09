@@ -1,76 +1,51 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import java.util.Collections;
-import org.eclipse.gef.DragTracker;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.requests.SelectionRequest;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-
 import org.eclipse.draw2d.geometry.Point;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.transaction.RunnableWithResult;
-
 import org.eclipse.gef.AccessibleEditPart;
-
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.DirectEditRequest;
-
+import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.tools.DirectEditManager;
-
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextNonResizableEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemItemSemanticEditPolicy;
-
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
-
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
+import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
-
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-
 import org.eclipse.jface.viewers.ICellEditorValidator;
-
-import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.accessibility.AccessibleEvent;
-
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -84,7 +59,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3002;
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated
@@ -137,7 +112,6 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 				new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
 				new LabelDirectEditPolicy());
-
 	}
 
 	/**
@@ -221,7 +195,11 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject parserElement = getParserElement();
+		if (parserElement == null) {
+			return null;
+		}
+		return MindmapElementTypes.getImage(parserElement.eClass());
 	}
 
 	/**
@@ -267,7 +245,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getEditText() != null;
+		return getParser() != null;
 	}
 
 	/**
@@ -332,7 +310,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.ThreadItem_3002;
+						return MindmapElementTypes.ThreadItem_2002;
 					}
 					return super.getAdapter(adapter);
 				}
@@ -478,8 +456,11 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
 			FontData fontData = new FontData(style.getFontName(), style
-					.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL)
-					| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+					.getFontHeight(),
+					(style.isBold() ? org.eclipse.swt.SWT.BOLD
+							: org.eclipse.swt.SWT.NORMAL)
+							| (style.isItalic() ? org.eclipse.swt.SWT.ITALIC
+									: org.eclipse.swt.SWT.NORMAL));
 			setFont(fontData);
 		}
 	}
@@ -617,5 +598,4 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	protected IFigure createFigurePrim() {
 		return new WrapLabel();
 	}
-
 }

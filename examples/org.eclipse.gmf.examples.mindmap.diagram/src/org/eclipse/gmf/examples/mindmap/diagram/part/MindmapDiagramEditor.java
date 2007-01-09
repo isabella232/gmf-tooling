@@ -1,12 +1,14 @@
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
-import org.eclipse.gef.LayerConstants;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -18,23 +20,51 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactory;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+
+import org.eclipse.emf.common.util.URI;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
+
+import org.eclipse.emf.transaction.NotificationFilter;
+
+import org.eclipse.gef.EditPartViewer;
+
+import org.eclipse.gmf.examples.mindmap.diagram.navigator.MindmapNavigatorItem;
 
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import org.eclipse.jface.util.LocalSelectionTransfer;
+
+import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.jface.window.Window;
 
 import org.eclipse.osgi.util.NLS;
+
+import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.dnd.TransferData;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -81,30 +111,50 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 	protected TransactionalEditingDomain createEditingDomain() {
 		TransactionalEditingDomain domain = super.createEditingDomain();
 		domain.setID(getEditingDomainID());
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter
+				.createNotifierFilter(domain.getResourceSet()).and(
+						NotificationFilter
+								.createEventTypeFilter(Notification.ADD)).and(
+						NotificationFilter.createFeatureFilter(
+								ResourceSet.class,
+								ResourceSet.RESOURCE_SET__RESOURCES));
+		domain.getResourceSet().eAdapters().add(new Adapter() {
+
+			private Notifier myTarger;
+
+			public Notifier getTarget() {
+				return myTarger;
+			}
+
+			public boolean isAdapterForType(Object type) {
+				return false;
+			}
+
+			public void notifyChanged(Notification notification) {
+				if (diagramResourceModifiedFilter.matches(notification)) {
+					Object value = notification.getNewValue();
+					if (value instanceof Resource) {
+						((Resource) value).setTrackingModification(true);
+					}
+				}
+			}
+
+			public void setTarget(Notifier newTarget) {
+				myTarger = newTarget;
+			}
+
+		});
+
 		return domain;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void configureGraphicalViewer() {
-		super.configureGraphicalViewer();
-		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer()
-				.getRootEditPart();
-		LayeredPane printableLayers = (LayeredPane) root
-				.getLayer(LayerConstants.PRINTABLE_LAYERS);
-		FreeformLayer extLabelsLayer = new FreeformLayer();
-		extLabelsLayer.setLayoutManager(new DelegatingLayout());
-		printableLayers.addLayerAfter(extLabelsLayer,
-				MindmapEditPartFactory.EXTERNAL_NODE_LABELS_LAYER,
-				LayerConstants.PRIMARY_LAYER);
-		LayeredPane scalableLayers = (LayeredPane) root
-				.getLayer(LayerConstants.SCALABLE_LAYERS);
-		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
-		scaledFeedbackLayer.setEnabled(false);
-		scalableLayers.addLayerAfter(scaledFeedbackLayer,
-				LayerConstants.SCALED_FEEDBACK_LAYER,
-				DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
+		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
+		new MindmapPaletteFactory().fillPalette(root);
+		return root;
 	}
 
 	/**
@@ -237,4 +287,88 @@ public class MindmapDiagramEditor extends DiagramDocumentEditor implements
 			progressMonitor.setCanceled(!success);
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void initializeGraphicalViewer() {
+		super.initializeGraphicalViewer();
+		getDiagramGraphicalViewer().addDropTargetListener(
+				new DropTargetListener(getDiagramGraphicalViewer(),
+						LocalSelectionTransfer.getTransfer()) {
+
+					protected Object getJavaObject(TransferData data) {
+						return LocalSelectionTransfer.getTransfer()
+								.nativeToJava(data);
+					}
+
+				});
+		getDiagramGraphicalViewer().addDropTargetListener(
+				new DropTargetListener(getDiagramGraphicalViewer(),
+						LocalTransfer.getInstance()) {
+
+					protected Object getJavaObject(TransferData data) {
+						return LocalTransfer.getInstance().nativeToJava(data);
+					}
+
+				});
+	}
+
+	/**
+	 * @generated
+	 */
+	private abstract class DropTargetListener extends DiagramDropTargetListener {
+
+		/**
+		 * @generated
+		 */
+		public DropTargetListener(EditPartViewer viewer, Transfer xfer) {
+			super(viewer, xfer);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected List getObjectsBeingDropped() {
+			TransferData data = getCurrentEvent().currentDataType;
+			Collection uris = new HashSet();
+
+			Object transferedObject = getJavaObject(data);
+			if (transferedObject instanceof IStructuredSelection) {
+				IStructuredSelection selection = (IStructuredSelection) transferedObject;
+				for (Iterator it = selection.iterator(); it.hasNext();) {
+					Object nextSelectedObject = it.next();
+					if (nextSelectedObject instanceof MindmapNavigatorItem) {
+						View view = ((MindmapNavigatorItem) nextSelectedObject)
+								.getView();
+						nextSelectedObject = view.getElement();
+					}
+					if (nextSelectedObject instanceof EObject) {
+						EObject modelElement = (EObject) nextSelectedObject;
+						Resource modelElementResource = modelElement
+								.eResource();
+						uris.add(modelElementResource.getURI().appendFragment(
+								modelElementResource
+										.getURIFragment(modelElement)));
+					}
+				}
+			}
+
+			List result = new ArrayList();
+			for (Iterator it = uris.iterator(); it.hasNext();) {
+				URI nextURI = (URI) it.next();
+				EObject modelObject = getEditingDomain().getResourceSet()
+						.getEObject(nextURI, true);
+				result.add(modelObject);
+			}
+			return result;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected abstract Object getJavaObject(TransferData data);
+
+	}
+
 }

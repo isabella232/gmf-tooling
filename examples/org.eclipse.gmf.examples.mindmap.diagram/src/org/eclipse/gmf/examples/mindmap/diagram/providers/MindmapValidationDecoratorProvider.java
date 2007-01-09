@@ -69,13 +69,11 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 	 * @generated
 	 */
 	private static final String KEY = "validationStatus"; //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	private static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID
 			+ "." + "diagnostic"; //$NON-NLS-1$ //$NON-NLS-2$
-
 	/**
 	 * @generated
 	 */
@@ -330,12 +328,10 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 		 * @generated
 		 */
 		private HashMap mapOfIdsToDecorators = null;
-
 		/**
 		 * @generated
 		 */
 		private boolean isRegistered = false;
-
 		/**
 		 * @generated
 		 */
