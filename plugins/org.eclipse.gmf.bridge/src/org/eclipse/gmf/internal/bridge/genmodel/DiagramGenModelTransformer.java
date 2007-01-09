@@ -77,12 +77,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -94,6 +96,7 @@ import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
@@ -276,6 +279,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		myPropertySheetProcessor.initialize(createPropertySheet());
 		myPropertySheetProcessor.process(mapping);
+		addPreferencePages(getGenDiagram());
 		
 		if (rcp) {
 			if (getGenEssence().getApplication() == null) {
@@ -1077,6 +1081,24 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			newProvider = regexpProvider;
 		}
 		return newProvider;
+	}
+
+	private void addPreferencePages(GenDiagram diagram) {
+		GenPreferencePage general = createStandardPreferencePage(diagram, "general", diagram.getEditorGen().getModelID() + " Diagram", StandardPreferencePages.GENERAL_LITERAL);
+		diagram.getPreferencePages().add(general);
+		general.getChildren().add(createStandardPreferencePage(diagram, "appearance", "Appearance", StandardPreferencePages.APPEARANCE_LITERAL));
+		general.getChildren().add(createStandardPreferencePage(diagram, "connections", "Connections", StandardPreferencePages.CONNECTIONS_LITERAL));
+		general.getChildren().add(createStandardPreferencePage(diagram, "printing", "Printing", StandardPreferencePages.PRINTING_LITERAL));
+		general.getChildren().add(createStandardPreferencePage(diagram, "rulersAndGrid", "Rulers & Grid", StandardPreferencePages.RULERS_AND_GRID_LITERAL));
+		general.getChildren().add(createStandardPreferencePage(diagram, "pathmaps", "Pathmaps", StandardPreferencePages.PATHMAPS_LITERAL));
+	}
+
+	private GenPreferencePage createStandardPreferencePage(GenDiagram diagram, String id, String name, StandardPreferencePages kind) {
+		GenStandardPreferencePage page = GMFGenFactory.eINSTANCE.createGenStandardPreferencePage();
+		page.setID(diagram.getEditorGen().getPlugin().getID() + '.' + id);
+		page.setName(name);
+		page.setKind(kind);
+		return page;
 	}
 
 	private void addContributions(GenApplication application) {
