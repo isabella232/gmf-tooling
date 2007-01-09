@@ -608,6 +608,36 @@
           green="64"
           blue="64"/>
     </preferences>
+    <preferencePages
+        xsi:type="gmfgen:GenStandardPreferencePage"
+        iD="org.eclipse.gmf.examples.taipan.diagram.general"
+        name="TaiPan Diagram">
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.examples.taipan.diagram.appearance"
+          name="Appearance"
+          kind="Appearance"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.examples.taipan.diagram.connections"
+          name="Connections"
+          kind="Connections"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.examples.taipan.diagram.printing"
+          name="Printing"
+          kind="Printing"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
+          name="Rulers &amp; Grid"
+          kind="RulersAndGrid"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
+          name="Pathmaps"
+          kind="Pathmaps"/>
+    </preferencePages>
   </diagram>
   <plugin
       iD="org.eclipse.gmf.examples.taipan.gmf.editor"
