@@ -136,3 +136,11 @@
             <input type="«type»"/>
 «ENDFOREACH-»
 «ENDDEFINE»
+
+«DEFINE i18n FOR gmfgen::GenPropertySheet-»
+
+# Property Sheet
+«FOREACH tabs AS tab-»
+tab.«tab.iD»=«tab.label»
+«ENDFOREACH-»
+«ENDDEFINE»

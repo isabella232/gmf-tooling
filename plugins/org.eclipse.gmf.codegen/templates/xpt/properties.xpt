@@ -49,37 +49,6 @@ openActionDescription=Open file
 
 navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
 
-«IF null != editorGen.propertySheet-»
-«FOREACH editorGen.propertySheet.tabs AS tab-»
-tab.«tab.iD»=«tab.label»
-«ENDFOREACH-»
-«ENDIF-»
-
-«IF null != editorGen.diagram.palette-»
-«FOREACH editorGen.diagram.palette.groups AS group-»
-«EXPAND properties FOR group-»
-«ENDFOREACH-»
-«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE properties FOR gmfgen::ToolGroup-»
-«EXPAND paletteEntry-»
-«FOREACH entries AS entry-»
-«EXPAND properties FOR entry-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE properties FOR gmfgen::AbstractToolEntry-»
-«EXPAND paletteEntry-»
-«ENDDEFINE»
-
-«DEFINE properties FOR gmfgen::ToolGroupItem-»
-«ERROR "Unknown tool: " + this»
-«ENDDEFINE»
-
-«DEFINE paletteEntry FOR gmfgen::EntryBase-»
-«getIntKey()».title=«title»
-«IF null != description-»
-«getIntKey()».desc=«description»
-«ENDIF-»
+«EXPAND xpt::diagram::properties::extensions::i18n FOR editorGen.propertySheet-»
+«EXPAND xpt::editor::palette::PaletteFactory::i18n FOR editorGen.diagram.palette-»
 «ENDDEFINE»

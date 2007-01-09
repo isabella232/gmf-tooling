@@ -277,3 +277,33 @@ FIXME
 		}
 	}
 «ENDDEFINE»
+
+«DEFINE i18n FOR gmfgen::Palette-»
+
+# Palette
+«FOREACH groups AS group-»
+«EXPAND i18n_properties FOR group-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE i18n_properties FOR gmfgen::ToolGroup-»
+«EXPAND i18n_paletteEntry-»
+«FOREACH entries AS entry-»
+«EXPAND i18n_properties FOR entry-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE i18n_properties FOR gmfgen::AbstractToolEntry-»
+«EXPAND i18n_paletteEntry-»
+«ENDDEFINE»
+
+«DEFINE i18n_properties FOR gmfgen::ToolGroupItem-»
+«ERROR "Unknown tool: " + this»
+«ENDDEFINE»
+
+«DEFINE i18n_paletteEntry FOR gmfgen::EntryBase-»
+«getIntKey()».title=«title»
+«IF null != description-»
+«getIntKey()».desc=«description»
+«ENDIF-»
+«ENDDEFINE»
