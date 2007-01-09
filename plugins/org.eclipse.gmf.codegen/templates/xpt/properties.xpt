@@ -50,5 +50,4 @@ openActionDescription=Open file
 navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
 
 «EXPAND xpt::diagram::properties::extensions::i18n FOR editorGen.propertySheet-»
-«EXPAND xpt::editor::palette::PaletteFactory::i18n FOR editorGen.diagram.palette-»
 «ENDDEFINE»

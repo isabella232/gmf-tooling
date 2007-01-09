@@ -14,17 +14,21 @@ import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 String getAccessorQualifier(gmfgen::GenEditorGenerator generator) :
-generator.editor.packageName
+	getAccessorQualifier(generator.editor)
 ;
 
-String getAccessorName(gmfgen::GenEditorGenerator generator) :
-"Messages"
+String getAccessorQualifier(gmfgen::GenEditorView editor) :
+	editor.packageName
+;
+
+String getAccessorName() :
+	"Messages"
 ;
 
 String escapeIllegalKeySymbols(String key) :
-key.replaceAll("[ .=]", "_")
+	key.replaceAll("[ .=]", "_")
 ;
 
 String escapeIllegalMessageSymbols(String message) :
-message.replaceAll("!", "\\\\!")
+	message.replaceAll("!", "\\\\!")
 ;

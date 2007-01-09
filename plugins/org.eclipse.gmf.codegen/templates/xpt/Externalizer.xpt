@@ -14,28 +14,46 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «EXTENSION xpt::ExternalizerUtils»
+«EXTENSION xpt::editor::palette::Utils»
 
 «DEFINE Access FOR gmfgen::GenEditorGenerator-»
-	«EXPAND xpt::Common::copyright FOR this-»
-package «this.getAccessorQualifier()»;
+«EXPAND xpt::Common::copyright-»
+package «getAccessorQualifier()»;
 
 /**
  * @generated
  */
-public class «this.getAccessorName()» extends org.eclipse.osgi.util.NLS {
+public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
 	/**
 	 * @generated
 	 */
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("«this.getAccessorName().toLowerCase()»", «this.getAccessorName()».class); //$NON-NLS-1$
+		org.eclipse.osgi.util.NLS.initializeMessages("«getAccessorName().toLowerCase()»", «getAccessorName()».class); //$NON-NLS-1$
 	}
 
 	/**
 	 * @generated
 	 */
-	private «this.getAccessorName()»() {
+	private «getAccessorName()»() {
 	}
+
+«FOREACH this.diagram.palette.collectGroups() AS entry»
+	«IF null != entry.title»
+		«EXPAND accessorField(i18nTitle(entry))»
+	«ENDIF»
+	«IF null != entry.description»
+		«EXPAND accessorField(i18nDesc(entry))»
+	«ENDIF»
+«ENDFOREACH»
+«FOREACH this.diagram.palette.collectTools() AS entry»
+	«IF null != entry.title»
+		«EXPAND accessorField(i18nTitle(entry))»
+	«ENDIF»
+	«IF null != entry.description»
+		«EXPAND accessorField(i18nDesc(entry))»
+	«ENDIF»
+«ENDFOREACH»
 
     //TODO: put accessor fields manually	
 }
@@ -43,12 +61,38 @@ public class «this.getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
 # TODO: manually put keys and values
+
+«FOREACH this.diagram.palette.collectGroups() AS entry-»
+	«IF null != entry.title-»
+		«EXPAND messageEntry(i18nTitle(entry), entry.title)-»
+	«ENDIF-»
+	«IF null != entry.description-»
+		«EXPAND messageEntry(i18nDesc(entry), entry.description)-»
+	«ENDIF-»
+«ENDFOREACH-»
+«FOREACH this.diagram.palette.collectTools() AS entry-»
+	«IF null != entry.title-»
+		«EXPAND messageEntry(i18nTitle(entry), entry.title)-»
+	«ENDIF-»
+	«IF null != entry.description-»
+		«EXPAND messageEntry(i18nDesc(entry), entry.description)-»
+	«ENDIF-»
+«ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE accessorField(String key) FOR Object»
+	/**
+	 * @generated
+	 */
     public static String «escapeIllegalKeySymbols(key)»;
 «ENDDEFINE»
 
-«DEFINE messageEntry(String key, String message) FOR Object»
+«DEFINE messageEntry(String key, String message) FOR Object-»
 «escapeIllegalKeySymbols(key)»=«escapeIllegalMessageSymbols(message)»
 «ENDDEFINE»
+
+«DEFINE accessorQualifiedCall(String key) FOR gmfgen::GenEditorView-»
+«this.getAccessorQualifier()».«getAccessorName()».«escapeIllegalKeySymbols(key)»«ENDDEFINE»
+
+«DEFINE accessorSimpleCall(String key) FOR Object-»
+«getAccessorName()».«escapeIllegalKeySymbols(key)»«ENDDEFINE»

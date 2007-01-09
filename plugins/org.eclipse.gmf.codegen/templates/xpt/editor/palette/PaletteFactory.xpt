@@ -59,16 +59,16 @@ public class «factoryClassName» {
 
 «DEFINE newContainer(String varName) FOR gmfgen::ToolGroup-»
 «IF collapse && toolsOnly-»
-		org.eclipse.gef.palette.PaletteDrawer «varName» = new org.eclipse.gef.palette.PaletteDrawer(«EXPAND i18nTitle»); //$NON-NLS-1$
+		org.eclipse.gef.palette.PaletteDrawer «varName» = new org.eclipse.gef.palette.PaletteDrawer(«EXPAND i18nTitle»);
 «ELSEIF stack-»
-		org.eclipse.gef.palette.PaletteStack «varName» = new org.eclipse.gef.palette.PaletteStack(«EXPAND i18nTitle», null, null); //$NON-NLS-1$
+		org.eclipse.gef.palette.PaletteStack «varName» = new org.eclipse.gef.palette.PaletteStack(«EXPAND i18nTitle», null, null);
 «ELSE-»
-		org.eclipse.gef.palette.PaletteGroup «varName» = new org.eclipse.gef.palette.PaletteGroup(«EXPAND i18nTitle»); //$NON-NLS-1$
+		org.eclipse.gef.palette.PaletteGroup «varName» = new org.eclipse.gef.palette.PaletteGroup(«EXPAND i18nTitle»);
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE setDescription(String varName, gmfgen::ToolGroup gr) FOR String-»
-«varName».setDescription(«EXPAND i18nDesc FOR gr»); //$NON-NLS-1$
+«varName».setDescription(«EXPAND i18nDesc FOR gr»);
 «ENDDEFINE»
 
 «DEFINE addEntry(String varName) FOR gmfgen::ToolGroupItem»
@@ -110,14 +110,14 @@ public class «factoryClassName» {
 
 «DEFINE newEntry(String toolVarName) FOR gmfgen::ToolEntry-»
 «IF elements.isEmpty()-»
-org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.ToolEntry(«EXPAND i18nTitle», «EXPAND i18nDesc», null, null) {}; //$NON-NLS-1$ $NON-NLS-2$
+org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.ToolEntry(«EXPAND i18nTitle», «EXPAND i18nDesc», null, null) {};
 «ELSE-»
 «LET genNodes.isEmpty() ? "LinkToolEntry" : "NodeToolEntry" AS toolEntryClass-»
 java.util.List/*<IElementType>*/ types = new java.util.ArrayList/*<IElementType>*/(«elements.size()»);
 «FOREACH elements AS e-»
 types.add(«elementTypesClass()».«e.getUniqueIdentifier()»);
 «ENDFOREACH-»
-«toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND i18nTitle», «EXPAND i18nDesc», types); //$NON-NLS-1$ $NON-NLS-2$
+«toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND i18nTitle», «EXPAND i18nDesc», types);
 «ENDLET-»
 «ENDIF-»
 «ENDDEFINE»
@@ -179,16 +179,22 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolEntry-»
-«activatorFQN()».getString("«i18nKey()».title")«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitle()) FOR this.group.palette.diagram.editorGen.editor»«ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolGroup-»
-«activatorFQN()».getString("«i18nKey()».title")«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitle()) FOR this.palette.diagram.editorGen.editor»«ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolEntry-»
-«activatorFQN()».getString("«i18nKey()».desc")«ENDDEFINE»
+«IF null != description-»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDesc()) FOR this.group.palette.diagram.editorGen.editor-»
+«ELSE»null«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolGroup-»
-«activatorFQN()».getString("«i18nKey()».desc")«ENDDEFINE»
+«IF null != description-»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDesc()) FOR this.palette.diagram.editorGen.editor-»
+«ELSE»null«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE cleanStandardToolsHack FOR gmfgen::Palette»
 	/**
@@ -276,34 +282,4 @@ FIXME
 			return tool;
 		}
 	}
-«ENDDEFINE»
-
-«DEFINE i18n FOR gmfgen::Palette-»
-
-# Palette
-«FOREACH groups AS group-»
-«EXPAND i18n_properties FOR group-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE i18n_properties FOR gmfgen::ToolGroup-»
-«EXPAND i18n_paletteEntry-»
-«FOREACH entries AS entry-»
-«EXPAND i18n_properties FOR entry-»
-«ENDFOREACH-»
-«ENDDEFINE»
-
-«DEFINE i18n_properties FOR gmfgen::AbstractToolEntry-»
-«EXPAND i18n_paletteEntry-»
-«ENDDEFINE»
-
-«DEFINE i18n_properties FOR gmfgen::ToolGroupItem-»
-«ERROR "Unknown tool: " + this»
-«ENDDEFINE»
-
-«DEFINE i18n_paletteEntry FOR gmfgen::EntryBase-»
-«getIntKey()».title=«title»
-«IF null != description-»
-«getIntKey()».desc=«description»
-«ENDIF-»
 «ENDDEFINE»

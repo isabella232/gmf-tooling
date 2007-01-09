@@ -27,9 +27,17 @@ String activatorFQN(gmfgen::ToolGroup toolGroup) :
 	activatorFQN(toolGroup.palette)
 ;
 
-String i18nKey(gmfgen::EntryBase group) :
+private String i18nKey(gmfgen::EntryBase group) :
 	let rv = group.createMethodName :
 	rv.startsWith("get") ? rv.subString(3) : (rv.startsWith("create") ? rv.subString(6) : rv)
+;
+
+String i18nTitle(gmfgen::EntryBase group) :
+    i18nKey(group)+"_title"
+;
+
+String i18nDesc(gmfgen::EntryBase group) :
+    i18nKey(group)+"_desc"
 ;
 
 List[gmfgen::ToolGroup] collectGroups(gmfgen::Palette palette) :

@@ -12,7 +12,7 @@ public class BuildPropertiesGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "bin.includes = .,\\" + NL + "               META-INF/,\\" + NL + "               plugin.xml,\\" + NL + "               plugin.properties" + NL + "jars.compile.order = ." + NL + "source.. = src/" + NL + "output.. = bin/";
+  protected final String TEXT_1 = "bin.includes = .,\\" + NL + "               META-INF/,\\" + NL + "               plugin.xml,\\" + NL + "               plugin.properties,\\" + NL + "               messages.properties" + NL + "jars.compile.order = ." + NL + "source.. = src/" + NL + "output.. = bin/";
 
   public String generate(Object argument)
   {
