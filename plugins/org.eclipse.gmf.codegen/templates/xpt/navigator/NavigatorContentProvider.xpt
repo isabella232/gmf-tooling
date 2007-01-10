@@ -168,7 +168,7 @@ java.util.Collection result = new java.util.ArrayList();
 	«LET getChildReferencesFrom(this, null) AS references-»
 		«EXPAND initGroupVariables(this, references, 'file') FOREACH getGroupNames(references)-»
 		«FOREACH references AS ref-»
-			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType(editorGen.diagram) FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
+			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
 		«ENDFOREACH-»
 		«EXPAND addGroups(references) FOREACH getGroupNames(references)-»
 	«ENDLET-»
@@ -371,9 +371,9 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE getChildViewType(gmfgen::GenDiagram diagram) FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
+«DEFINE getChildViewType FOR gmfgen::GenDiagram»«getEditPartQualifiedClassName()».MODEL_ID«ENDDEFINE»
 
-«DEFINE getChildViewType(gmfgen::GenDiagram diagram) FOR gmfgen::GenCommonBase»«diagram.getVisualIDRegistryQualifiedClassName()».getType(«getEditPartQualifiedClassName()».VISUAL_ID)«ENDDEFINE»
+«DEFINE getChildViewType FOR gmfgen::GenCommonBase»«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«getEditPartQualifiedClassName()».VISUAL_ID)«ENDDEFINE»
 
 «DEFINE caseNavigatorNode(gmfgen::GenNavigator navigator) FOR gmfgen::GenCommonBase»
 case «getEditPartQualifiedClassName()».VISUAL_ID: {
@@ -387,7 +387,7 @@ case «getEditPartQualifiedClassName()».VISUAL_ID: {
 					«IF referencesIterator.isFirstIteration() && pathsIterator.isFirstIteration() && segmentsIterator.isFirstIteration()»java.util.Collection «ENDIF-»
 					connectedViews = «EXPAND childrenMethodName(reference.referenceType, segment) FOR segment.from-»
 					(«IF segmentsIterator.isFirstIteration()»java.util.Collections.singleton(view)«ELSE»connectedViews«ENDIF-»
-					, «navigator.editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getType(«segment.to.getEditPartQualifiedClassName()».VISUAL_ID));
+					, «EXPAND getChildViewType FOR segment.to»);
 				«ENDFOREACH-»
 				«EXPAND addNavigatorItemsPrefix FOR reference»connectedViews«EXPAND addNavigatorItemsSuffix('parentElement', reference.referenceType.value != gmfgen::GenNavigatorReferenceType::children.value) FOR reference-»
 			«ENDFOREACH-»
