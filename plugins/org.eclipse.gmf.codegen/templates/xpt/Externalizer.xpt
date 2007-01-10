@@ -14,7 +14,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «EXTENSION xpt::ExternalizerUtils»
-«EXTENSION xpt::editor::palette::Utils»
 
 «DEFINE Access FOR gmfgen::GenEditorGenerator-»
 «EXPAND xpt::Common::copyright-»
@@ -38,46 +37,14 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 	private «getAccessorName()»() {
 	}
 
-«FOREACH this.diagram.palette.collectGroups() AS entry»
-	«IF null != entry.title»
-		«EXPAND accessorField(i18nTitle(entry))»
-	«ENDIF»
-	«IF null != entry.description»
-		«EXPAND accessorField(i18nDesc(entry))»
-	«ENDIF»
-«ENDFOREACH»
-«FOREACH this.diagram.palette.collectTools() AS entry»
-	«IF null != entry.title»
-		«EXPAND accessorField(i18nTitle(entry))»
-	«ENDIF»
-	«IF null != entry.description»
-		«EXPAND accessorField(i18nDesc(entry))»
-	«ENDIF»
-«ENDFOREACH»
-
+	«EXPAND xpt::editor::palette::PaletteFactory::i18nStepOne FOR diagram.palette»
     //TODO: put accessor fields manually	
 }
 «ENDDEFINE»
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
 # TODO: manually put keys and values
-
-«FOREACH this.diagram.palette.collectGroups() AS entry-»
-	«IF null != entry.title-»
-		«EXPAND messageEntry(i18nTitle(entry), entry.title)-»
-	«ENDIF-»
-	«IF null != entry.description-»
-		«EXPAND messageEntry(i18nDesc(entry), entry.description)-»
-	«ENDIF-»
-«ENDFOREACH-»
-«FOREACH this.diagram.palette.collectTools() AS entry-»
-	«IF null != entry.title-»
-		«EXPAND messageEntry(i18nTitle(entry), entry.title)-»
-	«ENDIF-»
-	«IF null != entry.description-»
-		«EXPAND messageEntry(i18nDesc(entry), entry.description)-»
-	«ENDIF-»
-«ENDFOREACH-»
+«EXPAND xpt::editor::palette::PaletteFactory::i18nStepTwo FOR diagram.palette»
 «ENDDEFINE»
 
 «DEFINE accessorField(String key) FOR Object»

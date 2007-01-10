@@ -32,11 +32,11 @@ private String i18nKey(gmfgen::EntryBase group) :
 	rv.startsWith("get") ? rv.subString(3) : (rv.startsWith("create") ? rv.subString(6) : rv)
 ;
 
-String i18nTitle(gmfgen::EntryBase group) :
+String i18nTitleKey(gmfgen::EntryBase group) :
     i18nKey(group)+"_title"
 ;
 
-String i18nDesc(gmfgen::EntryBase group) :
+String i18nDescKey(gmfgen::EntryBase group) :
     i18nKey(group)+"_desc"
 ;
 

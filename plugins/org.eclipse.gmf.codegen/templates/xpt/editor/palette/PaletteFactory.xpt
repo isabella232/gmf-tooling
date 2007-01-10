@@ -179,21 +179,41 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolEntry-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitle()) FOR this.group.palette.diagram.editorGen.editor»«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitleKey()) FOR this.group.palette.diagram.editorGen.editor»«ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolGroup-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitle()) FOR this.palette.diagram.editorGen.editor»«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitleKey()) FOR this.palette.diagram.editorGen.editor»«ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolEntry-»
 «IF null != description-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDesc()) FOR this.group.palette.diagram.editorGen.editor-»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDescKey()) FOR this.group.palette.diagram.editorGen.editor-»
 «ELSE»null«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolGroup-»
 «IF null != description-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDesc()) FOR this.palette.diagram.editorGen.editor-»
+«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDescKey()) FOR this.palette.diagram.editorGen.editor-»
 «ELSE»null«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nStepOne FOR gmfgen::Palette»
+«EXPAND i18n_stepOne_do FOREACH collectGroups()»
+«EXPAND i18n_stepOne_do FOREACH collectTools()»
+«ENDDEFINE»
+
+«DEFINE i18nStepTwo FOR gmfgen::Palette»
+«EXPAND i18n_stepTwo_do FOREACH collectGroups()»
+«EXPAND i18n_stepTwo_do FOREACH collectTools()»
+«ENDDEFINE»
+
+«DEFINE i18n_stepOne_do FOR gmfgen::EntryBase»
+	«IF null != title»«EXPAND xpt::Externalizer::accessorField(i18nTitleKey())»«ENDIF»
+	«IF null != description»«EXPAND xpt::Externalizer::accessorField(i18nDescKey())»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE i18n_stepTwo_do FOR gmfgen::EntryBase»
+	«IF null != title»«EXPAND xpt::Externalizer::messageEntry(i18nTitleKey(), title)»«ENDIF»
+	«IF null != description»«EXPAND xpt::Externalizer::messageEntry(i18nDescKey(), description)»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE cleanStandardToolsHack FOR gmfgen::Palette»
