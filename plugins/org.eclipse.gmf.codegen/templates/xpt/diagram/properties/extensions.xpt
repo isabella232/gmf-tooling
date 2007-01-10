@@ -27,18 +27,14 @@
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <?gmfgen generated="true"?>   
       <propertyTabs contributorId="«editorGen.plugin.iD»">
-«FOREACH tabs AS tab-»
-«EXPAND tab FOR tab-»
-«ENDFOREACH-»
+«EXPAND tab FOREACH tabs-»
       </propertyTabs>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="«editorGen.plugin.iD»">
-«FOREACH tabs AS tab-»
-«EXPAND section FOR tab-»
-«ENDFOREACH-»
+«EXPAND section FOREACH tabs-»
       </propertySections>
    </extension>
 «ENDDEFINE»
