@@ -16,7 +16,7 @@
 
    <extension point="org.eclipse.core.runtime.preferences">
       <?gmfgen generated="true"?>
-      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramPreferenceInitializer"/>
+      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPreferenceInitializer"/>
    </extension>
 
    <extension point="org.eclipse.team.core.fileTypes">
@@ -37,16 +37,16 @@
 
    <extension point="org.eclipse.ui.editors">
       <?gmfgen generated="true"?>
-     <editor
-        id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
-        name="%editorName"
-        icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
-        extensions="taipan_diagram"
-        default="true"
-        class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
-        matchingStrategy="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanMatchingStrategy"
-        contributorClass="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramActionBarContributor">
-     </editor>
+      <editor
+         id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
+         name="%editorName"
+         icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
+         extensions="taipan_diagram"
+         default="true"
+         class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanMatchingStrategy"
+         contributorClass="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramActionBarContributor">
+      </editor>
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
@@ -74,8 +74,8 @@
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
-      </objectContribution>                      
-  </extension>
+      </objectContribution>           
+   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
@@ -84,41 +84,9 @@
             checkPluginLoaded="false">
          <Priority name="Low"/>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart"/>
@@ -131,10 +99,6 @@
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
@@ -143,10 +107,6 @@
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart"/>
@@ -237,7 +197,6 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
       <?gmfgen generated="true"?>
-
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Aquatory_1000"
@@ -248,40 +207,6 @@
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"
-               name="Small Items"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="SmallItems"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItemsEditHelper">
-            <param name="semanticHint" value="3001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LargeItem_3002"
-               name="Large Item"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="LargeItem"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItemEditHelper">
-            <param name="semanticHint" value="3002"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EmptyBox_3003"
-               name="Empty Box"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EmptyBox"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBoxEditHelper">
-            <param name="semanticHint" value="3003"/>
-         </metamodelType>
-      </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Port_2001"
@@ -292,7 +217,6 @@
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Ship_2002"
@@ -303,7 +227,36 @@
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
-
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"
+               name="Small Items"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SmallItems"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItemsEditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LargeItem_3002"
+               name="Large Item"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LargeItem"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItemEditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EmptyBox_3003"
+               name="Empty Box"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EmptyBox"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBoxEditHelper">
+            <param name="semanticHint" value="3003"/>
+         </metamodelType>
+      </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ShipDestination_4001"
@@ -314,7 +267,6 @@
             <param name="semanticHint" value="4001"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"
@@ -325,7 +277,6 @@
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"
@@ -349,11 +300,11 @@
       </clientContext> 
       <binding context="TaiPanClientContext">
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Aquatory_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Port_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Ship_2002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LargeItem_3002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EmptyBox_3003"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Port_2001"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Ship_2002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ShipDestination_4001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"/>
@@ -364,8 +315,7 @@
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <?gmfgen generated="true"?>
-      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp"
-            labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanSheetLabelProvider">
+      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp" labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -393,7 +343,6 @@
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp">
-
          <propertySection id="property.section.ConnectorAppearancePropertySection" 
             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
@@ -408,13 +357,12 @@
             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
             tab="property.tab.AppearancePropertySection">
-         </propertySection>              
-
-          <propertySection id="property.section.RulerGridPropertySection" 
-             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
-             tab="property.tab.DiagramPropertySection">
-          </propertySection>              
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
          <propertySection
             id="property.section.domain" 
             tab="property.tab.domain"
@@ -500,5 +448,43 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenAction">
          </action>
       </actionSet>
+   </extension><extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.general"
+            name="TaiPan Diagram"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.appearance"
+            name="Appearance"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.connections"
+            name="Connections"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.printing"
+            name="Printing"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
+            name="Rulers And Grid"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
+            name="Pathmaps"
+            category="org.eclipse.gmf.examples.taipan.diagram.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
+      </page>
    </extension>
+
 </plugin>

@@ -44,4 +44,5 @@ public class DiagramEditorWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor 
 		configurer.setInitialSize(new Point(1000, 700));
 		configurer.setTitle("TaiPan Application");
 	}
+
 }

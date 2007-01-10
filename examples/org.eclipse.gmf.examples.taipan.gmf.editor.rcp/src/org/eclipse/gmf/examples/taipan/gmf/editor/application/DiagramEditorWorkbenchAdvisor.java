@@ -47,4 +47,5 @@ public class DiagramEditorWorkbenchAdvisor extends WorkbenchAdvisor {
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
 		return new DiagramEditorWorkbenchWindowAdvisor(configurer);
 	}
+
 }
