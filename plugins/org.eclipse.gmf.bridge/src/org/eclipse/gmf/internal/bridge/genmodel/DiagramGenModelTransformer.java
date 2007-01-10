@@ -267,6 +267,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
+		getGenDiagram().setValidationProviderPriority(ProviderPriority.LOW_LITERAL); // otherwise it's not available
 		if (getGenDiagram().getDomainDiagramElement() != null) {
 			// since diagram is the first entity to process consider it defines metamodel type
 			getGenDiagram().setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
