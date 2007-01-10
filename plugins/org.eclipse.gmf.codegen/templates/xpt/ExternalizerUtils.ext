@@ -14,11 +14,7 @@ import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 String getAccessorQualifier(gmfgen::GenEditorGenerator generator) :
-	getAccessorQualifier(generator.editor)
-;
-
-String getAccessorQualifier(gmfgen::GenEditorView editor) :
-	editor.packageName
+	generator.editor.packageName
 ;
 
 String getAccessorName() :

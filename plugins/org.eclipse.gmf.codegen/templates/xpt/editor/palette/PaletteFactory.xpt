@@ -179,20 +179,20 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolEntry-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitleKey()) FOR this.group.palette.diagram.editorGen.editor»«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR group.palette.diagram.editorGen»«ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolGroup-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nTitleKey()) FOR this.palette.diagram.editorGen.editor»«ENDDEFINE»
+«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR palette.diagram.editorGen»«ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolEntry-»
 «IF null != description-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDescKey()) FOR this.group.palette.diagram.editorGen.editor-»
+«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR group.palette.diagram.editorGen-»
 «ELSE»null«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolGroup-»
 «IF null != description-»
-«EXPAND xpt::Externalizer::accessorQualifiedCall(i18nDescKey()) FOR this.palette.diagram.editorGen.editor-»
+«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR palette.diagram.editorGen-»
 «ELSE»null«ENDIF-»
 «ENDDEFINE»
 
@@ -211,7 +211,7 @@ FIXME
 «IF null != description»«EXPAND xpt::Externalizer::accessorField(i18nDescKey())»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE internal_i18n_values FOR gmfgen::EntryBase»
+«DEFINE internal_i18n_values FOR gmfgen::EntryBase-»
 «IF null != title»«EXPAND xpt::Externalizer::messageEntry(i18nTitleKey(), title)»«ENDIF-»
 «IF null != description»«EXPAND xpt::Externalizer::messageEntry(i18nDescKey(), description)»«ENDIF-»
 «ENDDEFINE»

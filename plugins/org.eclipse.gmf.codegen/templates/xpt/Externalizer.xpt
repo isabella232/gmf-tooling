@@ -58,8 +58,5 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «escapeIllegalKeySymbols(key)»=«escapeIllegalMessageSymbols(message)»
 «ENDDEFINE»
 
-«DEFINE accessorQualifiedCall(String key) FOR gmfgen::GenEditorView-»
-«this.getAccessorQualifier()».«getAccessorName()».«escapeIllegalKeySymbols(key)»«ENDDEFINE»
-
-«DEFINE accessorSimpleCall(String key) FOR Object-»
-«getAccessorName()».«escapeIllegalKeySymbols(key)»«ENDDEFINE»
+«DEFINE accessorCall(String key) FOR gmfgen::GenEditorGenerator-»
+«getAccessorQualifier()».«getAccessorName()».«escapeIllegalKeySymbols(key)»«ENDDEFINE»
