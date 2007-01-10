@@ -310,7 +310,8 @@ public class BuiltinMetaModel {
 			if (false == (targetType instanceof EClass)) {
 				return null;
 			} else {
-				allOp = ((EClass) targetType).getEAllOperations();
+				allOp = new LinkedList<EOperation>(((EClass) targetType).getEAllOperations());
+				allOp.addAll(findInternalOp(EcorePackage.eINSTANCE.getEJavaObject()));
 			}
 		}
 		return PolymorphicResolver.filterOperation(allOp, name, targetType, Arrays.asList(args));
