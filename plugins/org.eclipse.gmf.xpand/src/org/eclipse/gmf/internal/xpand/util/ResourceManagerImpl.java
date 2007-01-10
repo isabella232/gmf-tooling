@@ -50,7 +50,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			}
 			return loadXpandResource(r, fullyQualifiedName);
 		} catch (IOException ex) {
-			Activator.logError(ex);
+			// XXX come up with better handling - e.g. no need to notify if there's no aspects/ file
+			Activator.logWarn(ex.getMessage());
 		} catch (ParserException ex) {
 			handleParserException(fullyQualifiedName, ex);
 		} finally {
