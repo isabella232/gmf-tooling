@@ -179,21 +179,19 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolEntry-»
-«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR group.palette.diagram.editorGen»«ENDDEFINE»
+«IF title == null»null«ELSE»«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR group.palette.diagram.editorGen»«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE i18nTitle FOR gmfgen::ToolGroup-»
-«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR palette.diagram.editorGen»«ENDDEFINE»
+«IF title == null»null«ELSE»«EXPAND xpt::Externalizer::accessorCall(i18nTitleKey()) FOR palette.diagram.editorGen»«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolEntry-»
-«IF null != description-»
-«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR group.palette.diagram.editorGen-»
-«ELSE»null«ENDIF-»
+«IF null == description»null«ELSE»«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR group.palette.diagram.editorGen»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18nDesc FOR gmfgen::ToolGroup-»
-«IF null != description-»
-«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR palette.diagram.editorGen-»
-«ELSE»null«ENDIF-»
+«IF null == description»null«ELSE»«EXPAND xpt::Externalizer::accessorCall(i18nDescKey()) FOR palette.diagram.editorGen»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::Palette-»
