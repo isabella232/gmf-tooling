@@ -14,7 +14,6 @@
  */
 package org.eclipse.gmf.tests.type.baseimpl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,16 +30,8 @@ public class ObjectFeaturesTest extends TestCase {
 
     private ExpressionFacade ef;
 
-    private ArrayList<String> vals;
-
     @Override
     protected void setUp() throws Exception {
-        vals = new ArrayList<String>();
-        vals.add("1");
-        vals.add("2");
-        vals.add("3");
-        vals.add("4");
-        vals.add("5");
         ef = new ExpressionFacade(new ExecutionContextImpl(null));
     }
 
