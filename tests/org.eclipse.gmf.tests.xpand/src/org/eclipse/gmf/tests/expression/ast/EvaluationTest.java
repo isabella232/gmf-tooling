@@ -88,7 +88,22 @@ public class EvaluationTest extends AbstractExpressionTest {
 		ec = ec.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, aType.getInstance()));
 		final Object result = expr.evaluate(ec);
 		assertEquals(aType.getATypeTestFeatureValue(), result);
+	}
 
+	// next two tests are checking that != and == operations are available for EObjects
+
+	public final void testEqualsNull() {
+		final Expression expr = parse("this == null");
+		ec = ec.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, aType.getInstance()));
+		final Object result = expr.evaluate(ec);
+		assertEquals(Boolean.FALSE, result);
+	}
+
+	public final void testNotEqualsNull() {
+		final Expression expr = parse("this != null");
+		ec = ec.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, aType.getInstance()));
+		final Object result = expr.evaluate(ec);
+		assertEquals(Boolean.TRUE, result);
 	}
 
 	public final void testOperationCall1() {
