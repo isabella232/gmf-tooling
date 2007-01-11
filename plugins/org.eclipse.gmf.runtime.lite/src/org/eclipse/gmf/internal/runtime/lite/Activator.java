@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.runtime.lite;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -65,6 +66,11 @@ public class Activator extends AbstractUIPlugin {
 		logError(error, null);
 	}
 
+	@Override
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		PluginImages.initialize();
+		super.initializeImageRegistry(reg);
+	}
 	/**
 	 * @param throwable actual error or null could be passed
 	 */

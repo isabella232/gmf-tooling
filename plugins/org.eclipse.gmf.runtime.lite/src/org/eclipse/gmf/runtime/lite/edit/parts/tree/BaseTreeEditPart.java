@@ -133,6 +133,8 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 		registerRefresher(NotationPackage.eINSTANCE.getView_PersistedChildren(), childrenRefresher);
 		registerRefresher(NotationPackage.eINSTANCE.getView_TransientChildren(), childrenRefresher);
 		registerRefresher(NotationPackage.eINSTANCE.getView_Visible(), childrenRefresher);
+		registerRefresher(NotationPackage.eINSTANCE.getView_Styles(), childrenRefresher);
+		registerRefresher(NotationPackage.eINSTANCE.getDrawerStyle_Collapsed(), childrenRefresher);
 		//Source edges are shown as children
 		registerRefresher(NotationPackage.eINSTANCE.getView_SourceEdges(), childrenRefresher);
 	}
