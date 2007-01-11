@@ -266,21 +266,6 @@
 
 «DEFINE validation FOR gmfgen::GenDiagram-»
 «IF validationEnabled || (null != editorGen.audits && editorGen.audits.getAllAuditRules().size() > 0)-»
-
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
-      <?gmfgen generated="true"?>
-      <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
-         <MarkerType name="«editorGen.plugin.iD + "." + getValidationDiagnosticMarkerType()»"/>
-         <Priority name="«markerNavigationProviderPriority»"/>
-      </MarkerNavigationProvider>
-   </extension>
-
-   <extension id="«getValidationDiagnosticMarkerType()»" name="«editorGen.plugin.name» problems" point="org.eclipse.core.resources.markers">
-      <?gmfgen generated="true"?>
-      <super type="org.eclipse.core.resources.problemmarker"/>
-      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
-      <persistent value="true"/>
-   </extension>   
 «IF validationEnabled-»
 
    <extension id="ValidationContributionItemProvider" name="Validation"
@@ -296,6 +281,22 @@
       </contributionItemProvider>
    </extension>
 «ENDIF-»
+«IF null == editorGen.application-»
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
+         <MarkerType name="«editorGen.plugin.iD + "." + getValidationDiagnosticMarkerType()»"/>
+         <Priority name="«markerNavigationProviderPriority»"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="«getValidationDiagnosticMarkerType()»" name="«editorGen.plugin.name» problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
 «IF validationDecorators-»
 
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
@@ -306,6 +307,7 @@
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
+«ENDIF-»
 «ENDIF-»
 «ENDIF-»
 «ENDDEFINE»

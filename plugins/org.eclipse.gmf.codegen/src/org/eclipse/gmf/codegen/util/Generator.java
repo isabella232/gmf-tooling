@@ -160,17 +160,19 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateModelingAssistantProvider();
 		generateIconProvider();
 		generateParserProvider();
-		if(myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
+		if (myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
 			generateValidationProvider();
-			generateMarkerNavigationProvider();				
-			if(myDiagram.isValidationDecorators()) {
-				generateValidationDecoratorProvider();
+			if (myDiagram.getEditorGen().getApplication() == null) {
+				generateMarkerNavigationProvider();
+				if (myDiagram.isValidationDecorators()) {
+					generateValidationDecoratorProvider();
+				}
 			}
 		}
-		if(myDiagram.getEditorGen().getMetrics() != null) {
+		if (myDiagram.getEditorGen().getMetrics() != null) {
 			generateMetricProvider();
 		}
-		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
+		if (myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
 

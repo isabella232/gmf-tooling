@@ -6,6 +6,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 final String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 final GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
 final boolean hasNotationModelAudit = audits != null && audits.hasDiagramElementRule();
+final boolean rcp = genDiagram.getEditorGen().getApplication() != null;
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -24,18 +25,19 @@ for(java.util.Iterator it = innerClasses.iterator(); it.hasNext();) importManage
 
 importManager.markImportLocation(stringBuffer);
 
+if (!rcp) {
 importManager.addImport("org.eclipse.core.resources.IFile");
+importManager.addImport("org.eclipse.emf.workspace.util.WorkspaceSynchronizer");
+}
 importManager.addImport("org.eclipse.core.runtime.IStatus");
 importManager.addImport("org.eclipse.emf.common.util.Diagnostic");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.emf.ecore.util.Diagnostician");
 importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
 importManager.addImport("org.eclipse.emf.transaction.util.TransactionUtil");
-
 importManager.addImport("org.eclipse.emf.validation.model.EvaluationMode");
 importManager.addImport("org.eclipse.emf.validation.service.IBatchValidator");
 importManager.addImport("org.eclipse.emf.validation.service.ModelValidationService");
-importManager.addImport("org.eclipse.emf.workspace.util.WorkspaceSynchronizer");
 importManager.addImport("org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor");
 importManager.addImport("org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart");
@@ -104,19 +106,20 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 			if(workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart)workbenchPart;
 				try {
-					new <%=importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation")%>(
+					<%if (!rcp) {%>new <%=importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation")%>(<%}%>
 						new <%=importManager.getImportedName("org.eclipse.jface.operation.IRunnableWithProgress")%>() {
 							public void run(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor) throws InterruptedException, <%=importManager.getImportedName("java.lang.reflect.InvocationTargetException")%> {
 								runValidation(part.getDiagramEditPart(), part.getDiagram());
 							}
 						}
-					).run(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>());			
+					<%if (!rcp) {%>)<%}%>
+					.run(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>());			
 				} catch (Exception e) {
 					<%=pluginActivatorClass%>.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
 				}
 			}
 		}
-		
+
 		/** 
 		 * @generated
 		 */
@@ -189,36 +192,69 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		 * @generated
 		 */
 		private static void validate(DiagramEditPart diagramEditPart, View target) {
+<%if (!rcp) {%>
 			IFile diagramFile = (target.eResource() != null) ? WorkspaceSynchronizer.getFile(target.eResource()) : null;
-			if(diagramFile != null) {
+			if (diagramFile != null) {
 				<%=importManager.getImportedName(genDiagram.getMarkerNavigationProviderQualifiedClassName())%>.deleteMarkers(diagramFile);
 			}
-			
+<%}%>
 			Diagnostic diagnostic = runEMFValidator(target);
-			if(diagramFile != null) {
+<%if (rcp) {%>
+			if (diagnostic.getSeverity() != Diagnostic.OK) {
+				<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(
+					<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent().getActiveShell(), "Validation", "Validation failed.",
+					<%=importManager.getImportedName("org.eclipse.emf.common.util.BasicDiagnostic")%>.toIStatus(diagnostic));
+				return;
+			}
+<%} else {%>
+			if (diagramFile != null) {
 				<%=importManager.getImportedName(genDiagram.getMarkerNavigationProviderQualifiedClassName())%>.createMarkers(diagramFile, diagnostic, diagramEditPart);
-			}			
-			
+			}
+<%}%>
 			IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 			validator.setIncludeLiveConstraints(true);
-			IStatus status = <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
-			if(target.isSetElement() && target.getElement() != null) {
-				status = validator.validate(target.getElement());
-				if(diagramFile != null) {
+			if (target.isSetElement() && target.getElement() != null) {
+				IStatus status = validator.validate(target.getElement());
+<%if (rcp) {%>
+				if (status.getSeverity() != IStatus.OK) {
+					<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(
+						<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent().getActiveShell(), "Validation", "Validation failed.", status);
+					return;
+				}
+<%} else {%>
+				if (diagramFile != null) {
 					<%=importManager.getImportedName(genDiagram.getMarkerNavigationProviderQualifiedClassName())%>.createMarkers(diagramFile, status, diagramEditPart);
 				}				
+<%}%>
 			}
 
 <%if(hasNotationModelAudit) {%>
 			validator.setTraversalStrategy(getNotationTraversalStrategy(validator));
-			status = validator.validate(target);
-			if(diagramFile != null) {
+			IStatus status = validator.validate(target);
+<%if (rcp) {%>
+			if (status.getSeverity() != IStatus.OK) {
+				<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(
+					<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent().getActiveShell(), "Validation", "Validation failed.", status);
+				return;
+			}
+<%} else {%>
+			if (diagramFile != null) {
 				<%=importManager.getImportedName(genDiagram.getMarkerNavigationProviderQualifiedClassName())%>.createMarkers(diagramFile, status, diagramEditPart);
 			}
-<%} // end of diagram element validation %>
+<%}%>
+<%}%>
+<%if (rcp) {%>
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.MessageBox")%> mb =
+				new <%=importManager.getImportedName("org.eclipse.swt.widgets.MessageBox")%>(
+					<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent().getActiveShell(),
+					<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.OK);
+			mb.setText("Validation");
+			mb.setMessage("Model is valid.");
+			mb.open();
+<%}%>
 		}
 	}
-	
+
 	/**
 	* @generated
 	*/
