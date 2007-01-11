@@ -5,6 +5,39 @@
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
     modelID="TaiPan"
     copyrightText=" Copyright (c) 2006 Borland Software Corporation&#xA; &#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA; Contributors:&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
+  <audits
+      id="taipan"
+      name="TaiPan Audits"
+      description="All TaiPan audits">
+    <audits
+        name="Port Location"
+        description="Empty port location check"
+        id="port_location"
+        message="Port location should not be empty">
+      <rule
+          body="location.size() > 0"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="taipan.genmodel#//taipan/Port"/>
+      </target>
+    </audits>
+    <audits
+        name="Ship Name"
+        description="Empty ship name check"
+        id="ship_name"
+        message="Ship name should not be empty">
+      <rule
+          body="self.length() > 0"
+          language="java"/>
+      <target
+          xsi:type="gmfgen:GenDomainAttributeTarget"
+          nullAsError="true">
+        <attribute
+            href="taipan.genmodel#//taipan/Ship/name"/>
+      </target>
+    </audits>
+  </audits>
   <diagram
       visualID="1000"
       editPartClassName="AquatoryEditPart"
@@ -781,5 +814,7 @@
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
+    <providers
+        xsi:type="gmfgen:GenJavaExpressionProvider"/>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
