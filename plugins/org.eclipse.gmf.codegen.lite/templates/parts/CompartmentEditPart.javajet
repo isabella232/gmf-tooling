@@ -43,6 +43,10 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle")%> style = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle")%>) getDiagramNode().getStyle(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getDrawerStyle());
+		if (style != null && style.isCollapsed()) {
+			return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
+		}
 		return getDiagramNode().getChildren();
 	}
 
@@ -66,6 +70,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 				assert false;
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
+<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
 <%} else {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy")%>() {
 			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
@@ -77,6 +82,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
+<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
 <%}%>
 <%
 {
@@ -125,6 +131,24 @@ GenCommonBase genCommonBase = genCompartment;%>
 	}
 
 	/**
+	 * Returns the selection handles that should be contributed to the parent when it becomes selected.
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("java.util.List")%> createSelectionHandles() {
+<%
+if (!genCompartment.isCanCollapse()) {
+%>
+		return <%=importManager.getImportedName("java.util.Collections")%>.singletonList(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.handles.CompartmentNameHandle")%>(this, getTitleName()));
+<%
+} else {
+%>
+		return <%=importManager.getImportedName("java.util.Collections")%>.singletonList(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.handles.CompartmentCollapseHandle")%>(this, getTitleName()));
+<%
+}
+%>
+	}
+
+	/**
 	 * @generated
 	 */
 	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
@@ -136,16 +160,24 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 * @generated
 	 */
 	protected String getTitleName() {
+<%
+if (genCompartment.isNeedsTitle()) {
+%>
 		return "<%=genCompartment.getTitle()%>";
+<%
+} else {
+%>
+		return "";	//$NON-NLS-1$
+<%
+}
+%>
 	}
 
 	/**
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.LabeledContainer")%> result = new <%=importManager.getImportedName("org.eclipse.draw2d.LabeledContainer")%>();
-		result.setLabel(getTitleName());
-		result.setOpaque(false);
+		<%=importManager.getImportedName("org.eclipse.draw2d.Figure")%> result = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.figures.CompartmentFigure")%>();
 		result.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.StackLayout")%>());
 		<%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%> scrollPane = new <%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%>();
 		result.add(scrollPane);
@@ -190,14 +222,6 @@ if (!genCompartment.isListLayout()) {
 	 * @generated
 	 */
 	private IFigure contentPane;
-
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%> resolveSemanticElement() {
-		View view = getDiagramNode();
-		return (view.getElement() instanceof <%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) ? (<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) view.getElement() : null;
-	}
 
 	/**
 	 * @generated

@@ -309,6 +309,10 @@ if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
 if (!genNode.getChildNodes().isEmpty()) {
 %>
 				if (isDirectChild(child)) {
+					<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> result = child.getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
+					if (result != null) {
+						return result;
+					}
 					return super.createChildEditPolicy(child);
 				}
 <%
@@ -561,6 +565,7 @@ GenCommonBase genCommonBase = genNode;%>
 <%@ include file="customBehaviour.jetinc"%>
 <%@include file="openEditPolicy.jetinc"%>
 <%}%>
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
 <%
 if (!genNode.getChildNodes().isEmpty()) {
 %>
@@ -572,6 +577,72 @@ if (!genNode.getChildNodes().isEmpty()) {
 if (myHelper.containsLinks()) {
 %>
 		installLinkNotationModelRefresher();
+<%
+}
+%>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> getPrimaryDragEditPolicy() {
+<%
+if (genNode.getPrimaryDragEditPolicyQualifiedClassName() != null) {
+%>
+		return new <%=importManager.getImportedName(genNode.getPrimaryDragEditPolicyQualifiedClassName())%>();
+<%
+} else {
+	if (genNode.getCompartments().isEmpty()) {
+%>
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%> result = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>();
+<%
+	} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%> result = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>() {
+			protected <%=importManager.getImportedName("java.util.List")%> createSelectionHandles() {
+				<%=importManager.getImportedName("java.util.List")%> result = super.createSelectionHandles();
+				for(<%=importManager.getImportedName("java.util.Iterator")%> it = getChildren().iterator(); it.hasNext(); ) {
+					<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> next = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) it.next();
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) next.getModel();
+					switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextView)) {
+<%
+		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
+			GenCompartment next = (GenCompartment) compartments.next();
+%>
+					case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
+						result.addAll(((<%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>) next).createSelectionHandles());
+						break;
+<%
+		}
+%>
+					}
+				}
+				return result;
+			}
+		};
+<%
+	}
+	ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
+	if (rc != null) {
+		if (rc.getResizeHandles() == 0) {
+%>
+		result.setResizeDirections(<%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.NONE);
+<%
+		} else {
+%>
+		result.setResizeDirections(<%
+			for (Iterator it = rc.getResizeHandleNames().iterator(); it.hasNext(); ) {
+				String next = (String) it.next();
+%><%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%><%
+				if (it.hasNext()) {%> | <%
+				}
+			}
+		%>);
+<%
+		}
+	}
+%>
+		return result;
 <%
 }
 %>
@@ -1377,6 +1448,10 @@ if (myHelper.getPrimaryLabel() != null) {
 			<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 			for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle")%> style = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle")%>) next.getStyle(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getDrawerStyle());
+				if (style != null && style.isCollapsed()) {
+					continue;
+				}
 				switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(next)) {
 <%
 	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {

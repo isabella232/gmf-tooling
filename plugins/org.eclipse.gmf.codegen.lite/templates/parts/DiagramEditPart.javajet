@@ -188,6 +188,7 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 				assert false;
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
+<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
 		});
 <%{
 GenCommonBase genCommonBase = genDiagram;%>
