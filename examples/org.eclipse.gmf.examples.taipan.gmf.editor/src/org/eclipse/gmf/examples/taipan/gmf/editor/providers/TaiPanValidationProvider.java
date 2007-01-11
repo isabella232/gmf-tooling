@@ -13,15 +13,21 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import java.lang.reflect.InvocationTargetException;
 
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
+import org.eclipse.core.runtime.Status;
+
 import org.eclipse.emf.common.util.Diagnostic;
 
 import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.util.Diagnostician;
 
@@ -29,14 +35,22 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
 import org.eclipse.emf.transaction.util.TransactionUtil;
 
+import org.eclipse.emf.validation.AbstractModelConstraint;
+import org.eclipse.emf.validation.IValidationContext;
+
 import org.eclipse.emf.validation.model.EvaluationMode;
+
+import org.eclipse.emf.validation.model.IClientSelector;
 
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
@@ -245,4 +259,70 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 		return true;
 	}
 
+	/**
+	 * @generated
+	 */
+	public static class DefaultCtx implements IClientSelector {
+
+		/**
+		 * @generated
+		 */
+		public boolean selects(Object object) {
+			return isInDefaultEditorContext(object);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class Adapter2 extends AbstractModelConstraint {
+
+		/**
+		 * @generated
+		 */
+		private TaiPanAbstractExpression expression;
+
+		/**
+		 * @generated
+		 */
+		public Adapter2() {
+			expression = new TaiPanAbstractExpression(EcorePackage.eINSTANCE.getEString()) {
+
+				protected Object doEvaluate(Object context, Map env) {
+					String self = (String) context;
+					return JavaAudits.selflength0(self);
+				}
+			};
+		}
+
+		/**
+		 * @generated
+		 */
+		public IStatus validate(IValidationContext ctx) {
+			Object evalCtx = ctx.getTarget();
+			if (evalCtx instanceof EObject)
+				evalCtx = ((EObject) evalCtx).eGet(TaiPanPackage.eINSTANCE.getShip_Name());
+			if (evalCtx == null) {
+				return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+			}
+			Object result = expression.evaluate(evalCtx);
+			if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
+				return Status.OK_STATUS;
+			}
+			return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	static class JavaAudits {
+
+		/**
+		 * @generated NOT
+		 */
+		private static Boolean selflength0(String self) {
+			return Boolean.valueOf(self.length() > 0);
+		}
+	} //JavaAudits
 } //TaiPanValidationProvider
