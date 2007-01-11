@@ -40,9 +40,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	 * @generated
 	 */
 	protected void makeActions(org.eclipse.ui.IWorkbenchWindow window) {
-		«FOREACH sharedContributionItems AS item-»
-			«EXPAND makeAction("window") FOR item-»
-		«ENDFOREACH-»
+		«EXPAND makeAction("window") FOREACH sharedContributionItems-»
 	}
 
 	/**
@@ -102,9 +100,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE fill(String managerVar) FOR gmfgen::GenContributionManager»
-	«FOREACH items AS item-»
-		«EXPAND contribute(managerVar) FOR item-»
-	«ENDFOREACH-»
+	«EXPAND contribute(managerVar) FOREACH items-»
 «ENDDEFINE»
 
 «DEFINE contribute(String managerVar) FOR gmfgen::GenContributionItem»
@@ -123,9 +119,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	«LET managerVar + "X" AS menuVar-»
 	{
 		org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(«name», «iD»);
-		«FOREACH items AS item-»
-			«EXPAND contribute(menuVar) FOR item-»
-		«ENDFOREACH-»
+		«EXPAND contribute(menuVar) FOREACH items-»
 		«managerVar».add(«menuVar»);
 	}
 	«ENDLET-»
@@ -135,9 +129,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	«LET managerVar + "X" AS toolBarVar-»
 	{
 		org.eclipse.jface.action.IToolBarManager «toolBarVar» = new  org.eclipse.jface.action.ToolBarManager();
-		«FOREACH items AS item-»
-			«EXPAND contribute(toolBarVar) FOR item-»
-		«ENDFOREACH-»
+		«EXPAND contribute(toolBarVar) FOREACH items-»
 		«managerVar».add(new org.eclipse.jface.action.ToolBarContributionItem(«toolBarVar»«IF null != iD», «iD»«ENDIF»));
 	}
 	«ENDLET-»
