@@ -487,4 +487,18 @@
       </page>
    </extension>
 
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      <contributionItemProvider checkPluginLoaded="true"
+         class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
+         <Priority name="Low"/>
+         <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+
+
 </plugin>

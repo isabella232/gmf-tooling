@@ -31,6 +31,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.examples.taipan.edit;visibility:=reexport,
  org.eclipse.emf.query.ocl;visibility:=reexport,
  org.eclipse.emf.ocl;visibility:=reexport,
+ org.eclipse.emf.validation;visibility:=reexport,
  org.eclipse.gmf.runtime.draw2d.ui.render;visibility:=reexport,
  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
  org.eclipse.draw2d;visibility:=reexport
