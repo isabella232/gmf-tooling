@@ -12,7 +12,10 @@
       notationViewFactoryClassName="AquatoryViewFactory"
       canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
-      creationWizardIconPath="{reuseEMFIcon}">
+      creationWizardIconPath="{reuseEMFIcon}"
+      validationProviderPriority="Low"
+      validationEnabled="true"
+      validationDecorators="true">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
