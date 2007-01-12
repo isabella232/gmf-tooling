@@ -1112,6 +1112,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		application.setMainMenu(mainMenu);
 
 		GenToolBarManager mainToolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
+		mainToolBar.getItems().add(createGroupMarker("\"group.file\"")); //$NON-NLS-1$
+		mainToolBar.getItems().add(createFileToolBar(application.getSharedContributionItems()));
+		mainToolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		mainToolBar.getItems().add(createGroupMarker("\"group.nav\"")); //$NON-NLS-1$
+		mainToolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.GROUP_EDITOR")); //$NON-NLS-1$
+		mainToolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP")); //$NON-NLS-1$
+		mainToolBar.getItems().add(createHelpToolBar(application.getSharedContributionItems()));
 		application.setMainToolBar(mainToolBar);
 	}
 
@@ -1134,10 +1141,26 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private GenSharedContributionItem createSharedItem(List sharedItems, GenContributionItem actualItem) {
-		GenSharedContributionItem item = GMFGenFactory.eINSTANCE.createGenSharedContributionItem();
-		item.setActualItem(actualItem);
-		sharedItems.add(actualItem);
-		return item;
+		GenSharedContributionItem sitem = GMFGenFactory.eINSTANCE.createGenSharedContributionItem();
+		if (actualItem instanceof GenActionFactoryContributionItem) {
+			GenActionFactoryContributionItem afActualItem = (GenActionFactoryContributionItem) actualItem;
+			for (GenContributionItem item : (List<GenContributionItem>) sharedItems) {
+				if (item instanceof GenActionFactoryContributionItem) {
+					GenActionFactoryContributionItem afItem = (GenActionFactoryContributionItem) item;
+					if (afItem.getName().equals(afActualItem.getName())) {
+						// shared action factory item is already contributed
+						sitem.setActualItem(afItem);
+						actualItem = null;
+						break;
+					}
+				}
+			}
+		}
+		if (actualItem != null) {
+			sitem.setActualItem(actualItem);
+			sharedItems.add(actualItem);
+		}
+		return sitem;
 	}
 
 	private GenMenuManager createFileMenu(List sharedItems) {
@@ -1206,5 +1229,27 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.HELP_END")); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
 		return menu;
+	}
+
+	private GenToolBarManager createFileToolBar(List sharedItems) {
+		GenToolBarManager toolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
+		toolBar.setID("org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_FILE"); //$NON-NLS-1$
+		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.NEW_GROUP")); //$NON-NLS-1$
+		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.NEW_EXT")); //$NON-NLS-1$
+		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.SAVE_GROUP")); //$NON-NLS-1$
+		toolBar.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("SAVE"))); //$NON-NLS-1$
+		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.SAVE_EXT")); //$NON-NLS-1$
+		toolBar.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("PRINT"))); //$NON-NLS-1$
+		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.PRINT_EXT")); //$NON-NLS-1$
+		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
+		return toolBar;
+	}
+
+	private GenToolBarManager createHelpToolBar(List sharedItems) {
+		GenToolBarManager toolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
+		toolBar.setID("org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_HELP"); //$NON-NLS-1$
+		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP")); //$NON-NLS-1$
+		toolBar.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.GROUP_APP")); //$NON-NLS-1$
+		return toolBar;
 	}
 }
