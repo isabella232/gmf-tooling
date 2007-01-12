@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,20 +13,29 @@ package org.eclipse.gmf.tests.lite.gef;
 
 import java.util.Iterator;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.emf.workspace.EMFCommandOperation;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
@@ -94,6 +103,7 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		assertEquals("Unexpected position of external node label", nodeBottom.y + location.getY(), labelTop.y, tolerance.height);
 	}
 
+	@SuppressWarnings("unchecked")
 	private GenExternalNodeLabel getFirstExternalNodeLabel(GenNode genNode) {
 		for(Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
 			GenNodeLabel next = (GenNodeLabel) it.next();
@@ -109,5 +119,51 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		assertNotNull(zoomManager);
 		zoomManager.setZoom(4.0);
 		testExternalNodeLabelsPosition();
+	}
+
+	public void testCompartmentCollapsibility() throws Exception {
+		GenNode nodeB = getSetup().getGenModel().getNodeB();
+		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
+		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
+
+		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+
+		Node nodeBInstance = createNode(nodeB, getDiagram());
+		
+		Node nodeBCompartment = (Node) findChildView(nodeBInstance, genCompartment);
+		assertNotNull("Failed to find the compartment", nodeBCompartment);
+		DrawerStyle drawerStyle = (DrawerStyle) nodeBCompartment.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		assertNotNull("Drawer style not added automatically", drawerStyle);
+		assertFalse("Compartment should be expanded by default", drawerStyle.isCollapsed());
+
+		Node level1Child = createNode(childNode, nodeBCompartment);
+		assertNotNull("Child not created", level1Child);
+		assertTrue(nodeBCompartment.getChildren().contains(level1Child));
+
+		EditPart compartmentEP = findEditPart(nodeBCompartment);
+		assertNotNull("Edit part for compartment is missing", compartmentEP);
+		EditPart childEP = findEditPart(level1Child);
+		assertNotNull("Edit part for child is missing", childEP);
+		assertTrue("Edit part for child is inactive", childEP.isActive());
+		assertSame("Unexpected parent of the child edit part", compartmentEP, childEP.getParent());
+
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(drawerStyle);
+		org.eclipse.emf.common.command.Command command = SetCommand.create(domain, drawerStyle, NotationPackage.eINSTANCE.getDrawerStyle_Collapsed(), Boolean.TRUE);
+		assertTrue("Failed to obtain command to collapse the compartment", command != null && command.canExecute());
+		new EMFCommandOperation(domain, command).execute(new NullProgressMonitor(), null);
+		assertTrue("Compartment failed to collapse", drawerStyle.isCollapsed());
+		assertNotNull("Collapsing compartment should not have removed the view", level1Child.eResource());
+		assertFalse("Collapsing compartment should have removed the child edit part", childEP.isActive());
+		childEP = findEditPart(level1Child);
+		assertNull("Collapsing compartment should have made the child edit part go away", childEP);
+
+		command = SetCommand.create(domain, drawerStyle, NotationPackage.eINSTANCE.getDrawerStyle_Collapsed(), Boolean.FALSE);
+		assertTrue("Failed to obtain command to expand the compartment", command != null && command.canExecute());
+		new EMFCommandOperation(domain, command).execute(new NullProgressMonitor(), null);
+		assertFalse("Compartment failed to expand", drawerStyle.isCollapsed());
+		assertNotNull("Expanding compartment should not have done anything to the view", level1Child.eResource());
+		childEP = findEditPart(level1Child);
+		assertTrue("Expanding compartment should have made the child edit part to reappear", childEP.isActive());
 	}
 }
