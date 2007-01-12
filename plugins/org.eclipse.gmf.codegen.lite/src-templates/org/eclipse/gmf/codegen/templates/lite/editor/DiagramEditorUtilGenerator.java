@@ -142,7 +142,7 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_123 = ")";
   protected final String TEXT_124 = NL + "null";
   protected final String TEXT_125 = ", ";
-  protected final String TEXT_126 = ".INSTANCE);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;";
+  protected final String TEXT_126 = ".INSTANCE, false);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;";
   protected final String TEXT_127 = NL + "\t\t\tdefault:" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}";
   protected final String TEXT_128 = NL + "}";
   protected final String TEXT_129 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private void create";

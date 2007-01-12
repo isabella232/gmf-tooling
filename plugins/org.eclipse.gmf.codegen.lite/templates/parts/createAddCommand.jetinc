@@ -112,6 +112,7 @@ protected Command createAddCommand(final <%=importManager.getImportedName("org.e
 %>
 					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(editingDomain, childNode.eContainer(), childNode.eContainmentFeature(), childNode));
 					if (newVisualID == visualID) {
+						result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.ExpandDrawerCommand")%>(<%=_getViewCode%>));
 						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.AddCommand")%>.create(editingDomain, <%=_getViewCode%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_PersistedChildren(), childNode));
 						result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.SetBoundsCommand")%>(childNode, <%if (isListLayout) {%>null<%} else {%>(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>) constraint<%}%>));
 					} else {

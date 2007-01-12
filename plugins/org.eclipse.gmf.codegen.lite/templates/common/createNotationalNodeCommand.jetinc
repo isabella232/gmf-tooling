@@ -27,7 +27,7 @@ for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
 %>
 null<%
 	}
-%>, <%=importManager.getImportedName(nextNode.getNotationViewFactoryQualifiedClassName())%>.INSTANCE);
+%>, <%=importManager.getImportedName(nextNode.getNotationViewFactoryQualifiedClassName())%>.INSTANCE, false);
 				}
 				return null;
 <%
