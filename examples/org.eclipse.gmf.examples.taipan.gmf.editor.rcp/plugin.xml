@@ -500,5 +500,47 @@
       </contributionItemProvider>
    </extension>
 
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+	<?gmfgen generated="true"?>
+	<category
+		id="taipan"
+		mandatory="false"
+		name="TaiPan Audits">
+	<![CDATA[All TaiPan audits]]>
+	</category>		
+	<constraintProvider cache="true">
+		<package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
+		<constraints categories="taipan">		
+			<constraint id="port_location"
+				lang="OCL"
+				name="Port Location" mode="Batch"
+				severity="ERROR" statusCode="200">
+				<![CDATA[location.size() > 0]]>			
+	            <description><![CDATA[Empty port location check]]></description>
+	            <message><![CDATA[Port location should not be empty]]></message>
+				<target class="taipan.Port"/>
+			</constraint>
+			<constraint id="ship_name"
+				lang="Java" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$Adapter2"
+				name="Ship Name" mode="Batch"
+				severity="ERROR" statusCode="201">			
+	            <description><![CDATA[Empty ship name check]]></description>
+	            <message><![CDATA[Ship name should not be empty]]></message>
+				<target class="taipan.Ship"/>
+			</constraint>
+		</constraints>
+	</constraintProvider>
+   </extension>
+
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+	<?gmfgen generated="true"?>
+	<clientContext default="false" id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
+		<selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$DefaultCtx"/>
+	</clientContext>
+	<binding context="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">	
+		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.port_location"/>	
+		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
+	</binding>		
+   </extension>
 
 </plugin>
