@@ -18,12 +18,16 @@ import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -47,6 +51,16 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	/**
 	 * @generated
 	 */
+	private ActionFactory.IWorkbenchAction lockToolBarAction;
+
+	/**
+	 * @generated
+	 */
+	private ActionFactory.IWorkbenchAction toggleCoolbarAction;
+
+	/**
+	 * @generated
+	 */
 	public DiagramEditorActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
@@ -62,6 +76,10 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	 * @generated
 	 */
 	protected void makeActions(IWorkbenchWindow window) {
+		toggleCoolbarAction = ActionFactory.TOGGLE_COOLBAR.create(window);
+		register(toggleCoolbarAction);
+		lockToolBarAction = ActionFactory.LOCK_TOOL_BAR.create(window);
+		register(lockToolBarAction);
 
 		register(ActionFactory.CLOSE.create(window));
 
@@ -90,6 +108,8 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		register(ActionFactory.SELECT_ALL.create(window));
 
 		register(ActionFactory.OPEN_NEW_WINDOW.create(window));
+
+		register(ActionFactory.PRINT.create(window));
 	}
 
 	/**
@@ -199,7 +219,50 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	 * @generated
 	 */
 	protected void fillCoolBar(ICoolBarManager toolBar) {
+		IMenuManager popUpMenu = new MenuManager();
+		popUpMenu.add(new ActionContributionItem(lockToolBarAction));
+		popUpMenu.add(new ActionContributionItem(toggleCoolbarAction));
+		toolBar.setContextMenuManager(popUpMenu);
 
+		toolBar.add(new GroupMarker("group.file"));
+
+		{
+			IToolBarManager toolBarX = new ToolBarManager();
+
+			toolBarX.add(new Separator(IWorkbenchActionConstants.NEW_GROUP));
+
+			toolBarX.add(new GroupMarker(IWorkbenchActionConstants.NEW_EXT));
+
+			toolBarX.add(new GroupMarker(IWorkbenchActionConstants.SAVE_GROUP));
+
+			toolBarX.add(getAction(ActionFactory.SAVE.getId()));
+
+			toolBarX.add(new GroupMarker(IWorkbenchActionConstants.SAVE_EXT));
+
+			toolBarX.add(getAction(ActionFactory.PRINT.getId()));
+
+			toolBarX.add(new GroupMarker(IWorkbenchActionConstants.PRINT_EXT));
+
+			toolBarX.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			toolBar.add(new ToolBarContributionItem(toolBarX, IWorkbenchActionConstants.TOOLBAR_FILE));
+		}
+
+		toolBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+
+		toolBar.add(new GroupMarker("group.nav"));
+
+		toolBar.add(new GroupMarker(IWorkbenchActionConstants.GROUP_EDITOR));
+
+		toolBar.add(new GroupMarker(IWorkbenchActionConstants.GROUP_HELP));
+
+		{
+			IToolBarManager toolBarX = new ToolBarManager();
+
+			toolBarX.add(new Separator(IWorkbenchActionConstants.GROUP_HELP));
+
+			toolBarX.add(new GroupMarker(IWorkbenchActionConstants.GROUP_APP));
+			toolBar.add(new ToolBarContributionItem(toolBarX, IWorkbenchActionConstants.TOOLBAR_HELP));
+		}
 	}
 
 	/**
