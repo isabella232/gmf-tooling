@@ -25,6 +25,16 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	/**
 	 * @generated
 	 */
+	private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction lockToolBarAction;
+
+	/**
+	 * @generated
+	 */
+    private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction toggleCoolbarAction;
+
+	/**
+	 * @generated
+	 */
 	public «actionBarAdvisorClassName»(org.eclipse.ui.application.IActionBarConfigurer configurer) {
 		super(configurer);
 	}
@@ -40,6 +50,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	 * @generated
 	 */
 	protected void makeActions(org.eclipse.ui.IWorkbenchWindow window) {
+		toggleCoolbarAction = org.eclipse.ui.actions.ActionFactory.TOGGLE_COOLBAR.create(window);
+        register(toggleCoolbarAction);
+        lockToolBarAction = org.eclipse.ui.actions.ActionFactory.LOCK_TOOL_BAR.create(window);
+        register(lockToolBarAction);
 		«EXPAND makeAction("window") FOREACH sharedContributionItems-»
 	}
 
@@ -54,6 +68,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 	 * @generated
 	 */
 	protected void fillCoolBar(org.eclipse.jface.action.ICoolBarManager toolBar) {
+		org.eclipse.jface.action.IMenuManager popUpMenu = new org.eclipse.jface.action.MenuManager();
+		popUpMenu.add(new org.eclipse.jface.action.ActionContributionItem(lockToolBarAction));
+		popUpMenu.add(new org.eclipse.jface.action.ActionContributionItem(toggleCoolbarAction));
+		toolBar.setContextMenuManager(popUpMenu);
 		«EXPAND fill("toolBar") FOR mainToolBar-»
 	}
 
