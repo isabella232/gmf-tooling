@@ -42,7 +42,7 @@
     </tr>
     <tr>
       <td>EMF build @emfVersion@:</td>
-      <td>(<a href="@emfDownloadPage@">build page</a>, <a href="@emfUpdateSite@">update site</a>) (Note: EMF examples are a dependency for GMF examples)</td>
+      <td>(<a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a>, <a href="@emfUpdateSite@">update site</a>) (Note: EMF examples are a dependency for GMF examples)</td>
     </tr>
     <tr>
       <td>GEF Build @gefVersion@:</td>
@@ -50,19 +50,19 @@
     </tr>
     <tr>
       <td>EMF OCL build @emfOCLVersion@:</td>
-      <td>(<a href="@emfOCLDownloadPage@">build page</a>, <a href="@emfOCLUpdateSite@">update site</a>)</td>
+      <td>(<a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a>, <a href="@emfOCLUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
       <td>EMF Validation build @emfValidationVersion@:</td>
-      <td>(<a href="@emfValidationDownloadPage@">build page</a>, <a href="@emfValidationUpdateSite@">update site</a>)</td>
+      <td>(<a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a>, <a href="@emfValidationUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
       <td>EMF Query build @emfQueryVersion@:</td>
-      <td>(<a href="@emfQueryDownloadPage@">build page</a>, <a href="@emfQueryUpdateSite@">update site</a>)</td>
+      <td>(<a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a>, <a href="@emfQueryUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
       <td>EMF Transaction build @emfTransactionVersion@:</td>
-      <td>(<a href="@emfTransactionDownloadPage@">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a>)</td>
+      <td>(<a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a>)</td>
     </tr>    
   </tbody>
 </table>
