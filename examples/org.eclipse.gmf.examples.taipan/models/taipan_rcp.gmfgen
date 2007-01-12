@@ -723,6 +723,9 @@
     <sharedContributionItems
         xsi:type="gmfgen:GenActionFactoryContributionItem"
         name="OPEN_NEW_WINDOW"/>
+    <sharedContributionItems
+        xsi:type="gmfgen:GenActionFactoryContributionItem"
+        name="PRINT"/>
     <mainMenu>
       <items
           xsi:type="gmfgen:GenMenuManager"
@@ -851,7 +854,61 @@
             groupName="org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS"/>
       </items>
     </mainMenu>
-    <mainToolBar/>
+    <mainToolBar>
+      <items
+          xsi:type="gmfgen:GenGroupMarker"
+          groupName="&quot;group.file&quot;"/>
+      <items
+          xsi:type="gmfgen:GenToolBarManager"
+          iD="org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_FILE">
+        <items
+            xsi:type="gmfgen:GenSeparator"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.NEW_GROUP"/>
+        <items
+            xsi:type="gmfgen:GenGroupMarker"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.NEW_EXT"/>
+        <items
+            xsi:type="gmfgen:GenGroupMarker"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.SAVE_GROUP"/>
+        <items
+            xsi:type="gmfgen:GenSharedContributionItem"
+            actualItem="//@application/@sharedContributionItems.2"/>
+        <items
+            xsi:type="gmfgen:GenGroupMarker"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.SAVE_EXT"/>
+        <items
+            xsi:type="gmfgen:GenSharedContributionItem"
+            actualItem="//@application/@sharedContributionItems.14"/>
+        <items
+            xsi:type="gmfgen:GenGroupMarker"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.PRINT_EXT"/>
+        <items
+            xsi:type="gmfgen:GenSeparator"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS"/>
+      </items>
+      <items
+          xsi:type="gmfgen:GenGroupMarker"
+          groupName="org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS"/>
+      <items
+          xsi:type="gmfgen:GenGroupMarker"
+          groupName="&quot;group.nav&quot;"/>
+      <items
+          xsi:type="gmfgen:GenGroupMarker"
+          groupName="org.eclipse.ui.IWorkbenchActionConstants.GROUP_EDITOR"/>
+      <items
+          xsi:type="gmfgen:GenGroupMarker"
+          groupName="org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP"/>
+      <items
+          xsi:type="gmfgen:GenToolBarManager"
+          iD="org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_HELP">
+        <items
+            xsi:type="gmfgen:GenSeparator"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP"/>
+        <items
+            xsi:type="gmfgen:GenGroupMarker"
+            groupName="org.eclipse.ui.IWorkbenchActionConstants.GROUP_APP"/>
+      </items>
+    </mainToolBar>
   </application>
   <domainGenModel
       href="taipan_rcp.genmodel#/"/>
