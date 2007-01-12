@@ -31,6 +31,10 @@ public class CompartmentCollapseHandle extends CompartmentNameHandle {
 		super(owner, title);	//XXX: temporary
 		View ownerView = getOwnerView();
 		NotificationFilter filter = NotificationFilter.createNotifierFilter(ownerView).and(NotificationFilter.createFeatureFilter(NotationPackage.eINSTANCE.getView_Styles()));
+		NotificationFilter childrenFilter = NotificationFilter.createNotifierFilter(ownerView).and(
+			NotificationFilter.createFeatureFilter(NotationPackage.eINSTANCE.getView_PersistedChildren()).or(
+				NotificationFilter.createFeatureFilter(NotationPackage.eINSTANCE.getView_TransientChildren())));
+		filter = filter.or(childrenFilter);
 		DrawerStyle drawerStyle = (DrawerStyle) ownerView.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
 		if (drawerStyle != null) {
 			NotificationFilter styleFilter = NotificationFilter.createNotifierFilter(drawerStyle).and(NotificationFilter.createFeatureFilter(NotationPackage.eINSTANCE.getDrawerStyle_Collapsed()));
@@ -54,6 +58,9 @@ public class CompartmentCollapseHandle extends CompartmentNameHandle {
 	}
 
 	private Image getCollapseIcon() {
+		if (isEmptyContents()) {
+			return null;
+		}
 		if (isCollapsed()) {
 			return PluginImages.get(PluginImages.IMG_HANDLE_COLLAPSE);
 		} else {
@@ -90,9 +97,20 @@ public class CompartmentCollapseHandle extends CompartmentNameHandle {
 
 	@Override
 	public DragTracker getDragTracker() {
-		if (getOwnerView() != null) {
+		if (getOwnerView() != null && !isEmptyContents()) {
 			return new CompartmentCollapseTracker(getOwner());
 		}
 		return null;
+	}
+
+	/**
+	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=170341
+	 */
+	protected boolean isEmptyContents() {
+		if (isCollapsed()) {
+			return getOwnerView() == null || getOwnerView().getVisibleChildren().isEmpty();
+		} else {
+			return getOwner().getChildren().isEmpty();
+		}
 	}
 }
