@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -27,10 +29,18 @@ public interface LinkModelFacet extends ModelFacet {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @model kind="operation"
 	 * @generated
 	 */
-	EList getSourceTypes();
+	GenClass getSourceType();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	GenClass getTargetType();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -38,6 +48,14 @@ public interface LinkModelFacet extends ModelFacet {
 	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
 	 * @generated
 	 */
-	EList getTargetTypes();
+	EList getAssistantSourceTypes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @generated
+	 */
+	EList getAssistantTargetTypes();
 
 } // LinkModelFacet

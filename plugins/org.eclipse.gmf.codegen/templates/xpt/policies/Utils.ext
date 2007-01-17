@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+ 
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/emf/2002/GenModel";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Set[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenNode node) :
+	selectValidLinks(node.getDiagram().links).select(l | isSelf(l, node) || isOutgoing(l, node) || isIncoming(l, node))
+;
+
+private Set[gmfgen::GenLink] selectValidLinks(Set[gmfgen::GenLink] allLinks) :
+	allLinks.select(l | null != l.modelFacet)
+		.select(l | l.outgoingCreationAllowed || l.incomingCreationAllowed)
+;
+
+boolean createStartLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	createStartOutgoingLinkCommand(link, node) || createStartIncomingLinkCommand(link, node)
+;
+
+boolean createStartOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	isSelf(link, node) || (isOutgoing(link, node) && link.outgoingCreationAllowed)
+;
+
+boolean createStartIncomingLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	isIncoming(link, node) && link.incomingCreationAllowed
+;
+
+boolean createCompleteLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	createCompleteIncomingLinkCommand(link, node) || createCompleteOutgoingLinkCommand(link, node)
+;
+
+boolean createCompleteIncomingLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	isSelf(link, node) || (isIncoming(link, node) && link.outgoingCreationAllowed)
+;
+
+boolean createCompleteOutgoingLinkCommand(gmfgen::GenLink link, gmfgen::GenNode node) :
+	isOutgoing(link, node) && link.incomingCreationAllowed
+;
+
+boolean isSelf(gmfgen::GenLink link, gmfgen::GenNode node) :
+	canBeSource(link, node) && canBeTarget(link, node)
+;
+
+boolean isOutgoing(gmfgen::GenLink link, gmfgen::GenNode node) :
+	canBeSource(link, node) && !isSelf(link, node)
+;
+
+boolean isIncoming(gmfgen::GenLink link, gmfgen::GenNode node) :
+	canBeTarget(link, node) && !isSelf(link, node)
+;
+
+private boolean canBeSource(gmfgen::GenLink link, gmfgen::GenNode node) :
+	null != link.modelFacet.getSourceType() && link.modelFacet.getSourceType().ecoreClass.isSuperTypeOf(getMetaclass(node))
+;
+
+private boolean canBeTarget(gmfgen::GenLink link, gmfgen::GenNode node) :
+	null != link.modelFacet.getTargetType() && link.modelFacet.getTargetType().ecoreClass.isSuperTypeOf(getMetaclass(node))
+;
+
+private ecore::EClass getMetaclass(gmfgen::GenNode node) :
+	node.modelFacet.metaClass.ecoreClass
+;

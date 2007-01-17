@@ -463,8 +463,8 @@
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getSources"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getTargets"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantSources"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantTargets"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
@@ -500,8 +500,10 @@
     <genClasses ecoreClass="gmfgen.ecore#//NotationType"/>
     <genClasses ecoreClass="gmfgen.ecore#//ModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//LinkModelFacet">
-      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getSourceTypes"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getTargetTypes"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getSourceType"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getTargetType"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getAssistantSourceTypes"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getAssistantTargetTypes"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//TypeModelFacet">

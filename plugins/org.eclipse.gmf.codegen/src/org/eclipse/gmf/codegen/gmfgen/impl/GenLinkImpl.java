@@ -329,6 +329,30 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, newCreationConstraints, newCreationConstraints));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAssistantSources() {
+		if (getModelFacet() == null) {
+			return new BasicEList();
+		}
+		return getParticipants(getModelFacet().getAssistantSourceTypes());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAssistantTargets() {
+		if (getModelFacet() == null) {
+			return new BasicEList();
+		}
+		return getParticipants(getModelFacet().getAssistantTargetTypes());
+	}
+
 	protected EList getParticipants(EList participantTypes) {
 		BasicEList participants = new BasicEList();
 		for (Iterator nodes = getDiagram().getAllNodes().iterator(); nodes.hasNext();) {
@@ -341,30 +365,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			}
 		}
 		return participants;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList getSources() {
-		if (getModelFacet() == null) {
-			return new BasicEList();
-		}
-		return getParticipants(getModelFacet().getSourceTypes());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList getTargets() {
-		if (getModelFacet() == null) {
-			return new BasicEList();
-		}
-		return getParticipants(getModelFacet().getTargetTypes());
 	}
 
 	/**

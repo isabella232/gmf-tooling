@@ -709,12 +709,12 @@
       <details key="ocl" value="outgoingCreationAllowed or incomingCreationAllowed"/>
       <details key="description" value="Either outgoingCreationAllowed or incomingCreationAllowed property should be true"/>
     </eAnnotations>
-    <eOperations name="getSources" upperBound="-1" eType="#//GenCommonBase">
+    <eOperations name="getAssistantSources" upperBound="-1" eType="#//GenCommonBase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Returns link sources in this genmodel"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getTargets" upperBound="-1" eType="#//GenCommonBase">
+    <eOperations name="getAssistantTargets" upperBound="-1" eType="#//GenCommonBase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Returns link targets in this genmodel"/>
       </eAnnotations>
@@ -856,8 +856,10 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of links"/>
     </eAnnotations>
-    <eOperations name="getSourceTypes" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
-    <eOperations name="getTargetTypes" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eOperations name="getSourceType" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eOperations name="getTargetType" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eOperations name="getAssistantSourceTypes" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eOperations name="getAssistantTargetTypes" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LabelModelFacet" interface="true" eSuperTypes="#//ModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

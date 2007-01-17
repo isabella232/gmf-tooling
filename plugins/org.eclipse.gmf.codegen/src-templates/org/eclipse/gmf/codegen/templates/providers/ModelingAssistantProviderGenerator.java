@@ -141,7 +141,7 @@ Map outgoingLinks = new LinkedHashMap(); // source -> links going from the sourc
 Map incomingLinks = new LinkedHashMap(); // target -> links coming to the target
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-	for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
+	for (Iterator sources = genLink.getAssistantSources().iterator(); sources.hasNext(); ) {
 		GenCommonBase source = (GenCommonBase) sources.next();
 		Collection value = (Collection) outgoingLinks.get(source);
 		if (value == null) {
@@ -150,7 +150,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 		value.add(genLink);
 	}
-	for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+	for (Iterator targets = genLink.getAssistantTargets().iterator(); targets.hasNext(); ) {
 		GenCommonBase target = (GenCommonBase) targets.next();
 		Collection value = (Collection) incomingLinks.get(target);
 		if (value == null) {
@@ -224,7 +224,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     
 		for (Iterator links = ((Collection) outgoingLinks.get(source)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
-			for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+			for (Iterator targets = genLink.getAssistantTargets().iterator(); targets.hasNext(); ) {
 				GenCommonBase target = (GenCommonBase) targets.next();
 
     stringBuffer.append(TEXT_34);
@@ -256,7 +256,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     
 		for (Iterator links = ((Collection) incomingLinks.get(target)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
-			for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
+			for (Iterator sources = genLink.getAssistantSources().iterator(); sources.hasNext(); ) {
 				GenCommonBase source = (GenCommonBase) sources.next();
 
     stringBuffer.append(TEXT_43);
@@ -290,7 +290,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     
 		for (Iterator links = ((Collection) outgoingLinks.get(source)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
-			for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+			for (Iterator targets = genLink.getAssistantTargets().iterator(); targets.hasNext(); ) {
 				GenCommonBase target = (GenCommonBase) targets.next();
 
     stringBuffer.append(TEXT_53);

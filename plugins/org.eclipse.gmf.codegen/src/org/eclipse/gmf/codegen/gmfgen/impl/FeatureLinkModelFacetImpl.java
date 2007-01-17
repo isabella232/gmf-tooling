@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -106,10 +107,37 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getSourceTypes() {
-		EList sources = new BasicEList();
+	public GenClass getSourceType() {
 		if (getMetaFeature() != null) {
-			sources.add(getMetaFeature().getGenClass());
+			return getMetaFeature().getGenClass();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public GenClass getTargetType() {
+		if (getMetaFeature() != null) {
+			return getMetaFeature().getTypeGenClass();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAssistantSourceTypes() {
+		// TODO: Modify this method in accordance on implementing
+		// AssistantProvider.
+		EList sources = new BasicEList();
+		GenClass sourceType = getSourceType();
+		if (sourceType != null) {
+			sources.add(sourceType);
 		}
 		return sources;
 	}
@@ -119,10 +147,13 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getTargetTypes() {
+	public EList getAssistantTargetTypes() {
+		// TODO: Modify this method in accordance on implementing
+		// AssistantProvider.
 		EList targets = new BasicEList();
-		if (getMetaFeature() != null) {
-			targets.add(getMetaFeature().getTypeGenClass());
+		GenClass targetType = getTargetType();
+		if (targetType != null) {
+			targets.add(targetType);
 		}
 		return targets;
 	}

@@ -1,7 +1,0 @@
-<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> sourceEObject = <% if (reversedRequest) {%>req.getTarget()<%} else {%>req.getSource()<%}%>;
-<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> targetEObject = <% if (reversedRequest) {%>req.getSource()<%} else {%>req.getTarget()<%}%>;
-if (<%if (nullTargetAllowed && reversedRequest) {%>(sourceEObject != null && <%}%>false == sourceEObject instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%><%if (nullTargetAllowed && reversedRequest) {%>)<%}%> || <%if (nullTargetAllowed && !reversedRequest) {%>(targetEObject != null && <%}%>false == targetEObject instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%><%if (nullTargetAllowed && !reversedRequest) {%>)<%}%>) {
-	return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-}
-<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%> source = (<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) sourceEObject;
-<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%> target = (<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) targetEObject;

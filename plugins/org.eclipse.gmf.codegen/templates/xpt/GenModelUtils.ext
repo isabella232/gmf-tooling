@@ -21,6 +21,19 @@ String getQualifiedPackageInterfaceName(genmodel::GenPackage gp) :
 ;
 
 //
+// GenClass#getQualifiedInterfaceName
+//
+String getQualifiedInterfaceName(genmodel::GenClass gc) :
+	null != gc.ecoreClass.instanceClassName 
+		? gc.ecoreClass.instanceClassName
+		: (let gp = gc.genPackage
+			: (null != gp.basePackage && gp.basePackage.length() > 0 ? gp.basePackage + "." : "") 
+				+ safeName(gp.ecorePackage.name) 
+				+ (null != gp.interfacePackageSuffix && gp.interfacePackageSuffix.length() > 0 ? "." + gp.interfacePackageSuffix : "")
+				+ "." + gc.ecoreClass.name)
+;
+
+//
 // GenClass#getClassifierAccessorName
 //
 String getClassifierAccessorName(genmodel::GenClass gc) :

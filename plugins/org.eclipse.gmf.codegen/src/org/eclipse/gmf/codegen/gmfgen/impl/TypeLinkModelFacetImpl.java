@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEList;
@@ -206,12 +207,39 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getSourceTypes() {
+	public GenClass getSourceType() {
+		if (getSourceMetaFeature() != null) {
+			return getSourceMetaFeature().getTypeGenClass();
+		} else if (getContainmentMetaFeature() != null) {
+			return getContainmentMetaFeature().getGenClass();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public GenClass getTargetType() {
+		if (getTargetMetaFeature() != null) {
+			return getTargetMetaFeature().getTypeGenClass();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAssistantSourceTypes() {
+		// TODO: Modify this method in accordance on implementing
+		// AssistantProvider.
 		EList sources = new BasicEList();
-		if (getSourceMetaFeature() != null && getSourceMetaFeature().getTypeGenClass() != null) {
-			sources.add(getSourceMetaFeature().getTypeGenClass());
-		} else if (getContainmentMetaFeature() != null && getContainmentMetaFeature().getGenClass() != null) {
-			sources.add(getContainmentMetaFeature().getGenClass());
+		GenClass sourceType = getSourceType();
+		if (sourceType != null) {
+			sources.add(sourceType);
 		}
 		return sources;
 	}
@@ -221,12 +249,15 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getTargetTypes() {
-		EList sources = new BasicEList();
-		if (getTargetMetaFeature() != null && getTargetMetaFeature().getTypeGenClass() != null) {
-			sources.add(getTargetMetaFeature().getTypeGenClass());
+	public EList getAssistantTargetTypes() {
+		// TODO: Modify this method in accordance on implementing
+		// AssistantProvider.
+		EList targets = new BasicEList();
+		GenClass targetType = getTargetType();
+		if (targetType != null) {
+			targets.add(targetType);
 		}
-		return sources;
+		return targets;
 	}
 
 	/**

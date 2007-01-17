@@ -1,7 +1,0 @@
-<%if (modelFacet.getSourceMetaFeature() != null) {
-	String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());%>
-<%=containerClassName%> container = (<%=containerClassName%>) getRelationshipContainer(source, <%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
-if (container == null) {
-	return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-}
-<%}%>

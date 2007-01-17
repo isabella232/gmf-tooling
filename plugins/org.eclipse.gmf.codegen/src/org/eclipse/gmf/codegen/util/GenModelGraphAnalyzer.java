@@ -193,12 +193,9 @@ public class GenModelGraphAnalyzer {
 				if (nextLink.getModelFacet() == null) {
 					potentialLinks.add(nextLink);
 				} else {
-					Collection<GenClass> genClasses = myIsInLinkDirection ? nextLink.getModelFacet().getSourceTypes() : nextLink.getModelFacet().getTargetTypes();
-					for (GenClass nextGenClass : genClasses) {
-						if (nextGenClass.getEcoreClass().isSuperTypeOf(node.getDomainMetaClass().getEcoreClass())) {
-							potentialLinks.add(nextLink);
-							break;
-						}
+					GenClass genClass = myIsInLinkDirection ? nextLink.getModelFacet().getSourceType() : nextLink.getModelFacet().getTargetType();
+					if (genClass != null && genClass.getEcoreClass().isSuperTypeOf(node.getDomainMetaClass().getEcoreClass())) {
+						potentialLinks.add(nextLink);
 					}
 				}
 			}
@@ -211,14 +208,11 @@ public class GenModelGraphAnalyzer {
 			if (link.getModelFacet() == null) {
 				potentialNodes.addAll(myDiagram.getAllNodes());
 			} else {
-				Collection<GenClass> genClasses = myIsInLinkDirection ? link.getModelFacet().getTargetTypes() : link.getModelFacet().getSourceTypes();
-				for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genNodes.hasNext();) {
+				GenClass genClass = myIsInLinkDirection ? link.getModelFacet().getTargetType() : link.getModelFacet().getSourceType();
+				for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genClass != null && genNodes.hasNext();) {
 					GenNode nextNode = (GenNode) genNodes.next();
-					for (GenClass genClass : genClasses) {
-						if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
-							potentialNodes.add(nextNode);
-							break;
-						}
+					if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
+						potentialNodes.add(nextNode);
 					}
 				}
 			}

@@ -210,7 +210,7 @@ public interface GenLink extends GenCommonBase {
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
 	 * @generated
 	 */
-	EList getSources();
+	EList getAssistantSources();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,6 +221,6 @@ public interface GenLink extends GenCommonBase {
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
 	 * @generated
 	 */
-	EList getTargets();
+	EList getAssistantTargets();
 
 } // GenLink

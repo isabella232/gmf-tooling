@@ -6861,9 +6861,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenLink_ViewDirectionAlignedWithModel(), ecorePackage.getEBoolean(), "viewDirectionAlignedWithModel", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLink_CreationConstraints(), this.getGenLinkConstraints(), this.getGenLinkConstraints_Link(), "creationConstraints", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genLinkEClass, this.getGenCommonBase(), "getSources", 0, -1);
+		addEOperation(genLinkEClass, this.getGenCommonBase(), "getAssistantSources", 0, -1);
 
-		addEOperation(genLinkEClass, this.getGenCommonBase(), "getTargets", 0, -1);
+		addEOperation(genLinkEClass, this.getGenCommonBase(), "getAssistantTargets", 0, -1);
 
 		initEClass(genLabelEClass, GenLabel.class, "GenLabel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6908,9 +6908,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(linkModelFacetEClass, LinkModelFacet.class, "LinkModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getSourceTypes", 0, -1);
+		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getSourceType", 0, 1);
 
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getTargetTypes", 0, -1);
+		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getTargetType", 0, 1);
+
+		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getAssistantSourceTypes", 0, -1);
+
+		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getAssistantTargetTypes", 0, -1);
 
 		initEClass(labelModelFacetEClass, LabelModelFacet.class, "LabelModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
