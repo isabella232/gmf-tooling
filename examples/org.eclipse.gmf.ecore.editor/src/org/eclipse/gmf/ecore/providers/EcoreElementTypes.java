@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,29 +13,20 @@ package org.eclipse.gmf.ecore.providers;
 
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
-
-import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
-import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
-
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated
@@ -206,6 +197,31 @@ public class EcoreElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType EClass_2001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EPackage_2002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EAnnotation_2003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_2003"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EDataType_2004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2004"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EEnum_2005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2005"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType EAttribute_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_3001"); //$NON-NLS-1$
 
 	/**
@@ -247,31 +263,6 @@ public class EcoreElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType EEnumLiteral_3009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EClass_2001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EPackage_2002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EAnnotation_2003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_2003"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EDataType_2004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2004"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EEnum_2005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2005"); //$NON-NLS-1$
 
 	/**
 	 * @generated

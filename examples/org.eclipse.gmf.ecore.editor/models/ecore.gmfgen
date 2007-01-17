@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.ecore"
     modelID="Ecore"
-    copyrightText=" Copyright (c) 2006 Borland Software Corp.&#xD;&#xA;&#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;    Alexander Shatalin (Borland) - initial API and implementation">
+    copyrightText=" Copyright (c) 2006, 2007 Borland Software Corp.&#xD;&#xA;&#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;    Alexander Shatalin (Borland) - initial API and implementation">
   <diagram
       visualID="1000"
       editPartClassName="EPackageEditPart"
@@ -1078,7 +1078,7 @@
       iD="org.eclipse.gmf.ecore.editor"
       name="ECore Sample Diagram Plugin"
       provider="Eclipse.org"
-      version="1.0.100.qualifier"
+      version="2.0.0.qualifier"
       printingEnabled="true"/>
   <editor/>
   <navigator>
