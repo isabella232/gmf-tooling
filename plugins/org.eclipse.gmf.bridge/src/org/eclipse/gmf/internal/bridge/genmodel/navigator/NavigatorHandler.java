@@ -116,25 +116,23 @@ public class NavigatorHandler {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
 		}
-		return getAssignableGenNodes(link.getModelFacet().getTargetTypes());
+		return getAssignableGenNodes(link.getModelFacet().getTargetType());
 	}
 
 	private Collection<GenNode> getSourceGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
 		}
-		return getAssignableGenNodes(link.getModelFacet().getSourceTypes());
+		return getAssignableGenNodes(link.getModelFacet().getSourceType());
 	}
 
-	private Collection<GenNode> getAssignableGenNodes(Collection<GenClass> genClasses) {
+	private Collection<GenNode> getAssignableGenNodes(GenClass genClass) {
 		Collection<GenNode> result = new LinkedHashSet<GenNode>();
-		for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genNodes.hasNext();) {
+		for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genClass != null && genNodes.hasNext();) {
 			GenNode nextNode = (GenNode) genNodes.next();
-			for (GenClass genClass : genClasses) {
-				if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
-					result.add(nextNode);
-					break;
-				}
+			if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
+				result.add(nextNode);
+				break;
 			}
 		}
 		return result;
