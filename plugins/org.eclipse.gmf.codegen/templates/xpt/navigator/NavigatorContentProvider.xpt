@@ -221,8 +221,9 @@ private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Obj
 /**
  * @generated
  */
-private java.util.Collection getLinksSourceByType(java.util.Collection edges, String type) {
+private java.util.Collection getLinksSourceByType(java.util.Collection edges, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
  	for (java.util.Iterator it = edges.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
  		org.eclipse.gmf.runtime.notation.View nextEdgeSource = nextEdge.getSource();
@@ -236,8 +237,9 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, St
 /**
  * @generated
  */
- private java.util.Collection getLinksTargetByType(java.util.Collection edges, String type) {
+ private java.util.Collection getLinksTargetByType(java.util.Collection edges, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
  	for (java.util.Iterator it = edges.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
  		org.eclipse.gmf.runtime.notation.View nextEdgeTarget = nextEdge.getTarget();
@@ -251,8 +253,9 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, St
 /**
  * @generated
  */
- private java.util.Collection getOutgoingLinksByType(java.util.Collection nodes, String type) {
+ private java.util.Collection getOutgoingLinksByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
  	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
 		result.addAll(selectViewsByType(nextNode.getSourceEdges(), type));
@@ -263,8 +266,9 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, St
 /**
  * @generated
  */
-private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, String type) {
+private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
  	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
 		result.addAll(selectViewsByType(nextNode.getTargetEdges(), type));
@@ -275,8 +279,9 @@ private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, 
 /**
  * @generated
  */
-private java.util.Collection getChildrenByType(java.util.Collection nodes, String type) {
+private java.util.Collection getChildrenByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
 	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
 		result.addAll(selectViewsByType(nextNode.getChildren(), type));
@@ -287,8 +292,9 @@ private java.util.Collection getChildrenByType(java.util.Collection nodes, Strin
 /**
  * @generated
  */
-private java.util.Collection getDiagramLinksByType(java.util.Collection diagrams, String type) {
+private java.util.Collection getDiagramLinksByType(java.util.Collection diagrams, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getTypeByVID FOR editorGen.diagram-»
 	for (java.util.Iterator it = diagrams.iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Diagram nextDiagram = (org.eclipse.gmf.runtime.notation.Diagram) it.next();
 		result.addAll(selectViewsByType(nextDiagram.getEdges(), type));
@@ -329,6 +335,12 @@ private java.util.Collection createNavigatorItems(java.util.Collection views, Ob
 }
 «EXPAND getForeignShortcuts-»
 «ENDDEFINE»
+
+«DEFINE getTypeByVID FOR gmfgen::GenDiagram-»
+String type = «getVisualIDRegistryQualifiedClassName()».getType(visualID);
+«ENDDEFINE»
+
+«DEFINE getType(String varName) FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».getType(«varName»)«ENDDEFINE»
 
 «DEFINE getForeignShortcuts FOR gmfgen::GenNavigator-»
 	«IF editorGen.diagram.generateCreateShortcutAction() && getChildReferencesFrom(this, editorGen.diagram).size() > 0-»
@@ -387,7 +399,7 @@ case «getEditPartQualifiedClassName()».VISUAL_ID: {
 					«IF referencesIterator.isFirstIteration() && pathsIterator.isFirstIteration() && segmentsIterator.isFirstIteration()»java.util.Collection «ENDIF-»
 					connectedViews = «EXPAND childrenMethodName(reference.referenceType, segment) FOR segment.from-»
 					(«IF segmentsIterator.isFirstIteration()»java.util.Collections.singleton(view)«ELSE»connectedViews«ENDIF-»
-					, «EXPAND getChildViewType FOR segment.to»);
+					, «segment.to.getEditPartQualifiedClassName()».VISUAL_ID);
 				«ENDFOREACH-»
 				«EXPAND addNavigatorItemsPrefix FOR reference»connectedViews«EXPAND addNavigatorItemsSuffix('parentElement', reference.referenceType.value != gmfgen::GenNavigatorReferenceType::children.value) FOR reference-»
 			«ENDFOREACH-»
@@ -414,7 +426,7 @@ result.addAll(getForeignShortcuts((org.eclipse.gmf.runtime.notation.Diagram) vie
 	«IF referenceType.value == gmfgen::GenNavigatorReferenceType::out_taget.value-»
 		getOutgoingLinksByType«ELSEIF referenceType.value == gmfgen::GenNavigatorReferenceType::in_source.value-»
 		getIncomingLinksByType«ELSE-»
-		«IF {}.add(segment.from).typeSelect(gmfgen::GenDiagram).size() > 0 && {}.add(segment.to).typeSelect(gmfgen::GenLink).size() > 0-»
+		«IF {segment.from}.typeSelect(gmfgen::GenDiagram).size() > 0 && {segment.to}.typeSelect(gmfgen::GenLink).size() > 0-»
 			getDiagramLinksByType«ELSE-»
 			getChildrenByType«ENDIF-»
 	«ENDIF-»
