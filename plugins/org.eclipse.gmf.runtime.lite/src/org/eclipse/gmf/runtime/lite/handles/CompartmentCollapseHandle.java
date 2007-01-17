@@ -15,6 +15,7 @@ import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.ResourceSetListenerImpl;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.GraphicalEditPart;
@@ -26,6 +27,7 @@ import org.eclipse.swt.graphics.Image;
 
 public class CompartmentCollapseHandle extends CompartmentNameHandle {
 	private ResourceSetListener myResourceSetListener;
+	private TransactionalEditingDomain myDomain;
 
 	public CompartmentCollapseHandle(GraphicalEditPart owner, String title) {
 		super(owner, title);	//XXX: temporary
@@ -85,13 +87,18 @@ public class CompartmentCollapseHandle extends CompartmentNameHandle {
 	public void addNotify() {
 		super.addNotify();
 		View ownerView = getOwnerView();
-		TransactionUtil.getEditingDomain(ownerView).addResourceSetListener(myResourceSetListener);
+		myDomain = TransactionUtil.getEditingDomain(ownerView);
+		if (myDomain != null) {
+			myDomain.addResourceSetListener(myResourceSetListener);
+		}
 	}
 
 	@Override
 	public void removeNotify() {
-		View ownerView = getOwnerView();
-		TransactionUtil.getEditingDomain(ownerView).removeResourceSetListener(myResourceSetListener);
+		if (myDomain != null) {
+			myDomain.removeResourceSetListener(myResourceSetListener);
+			myDomain = null;
+		}
 		super.removeNotify();
 	}
 
