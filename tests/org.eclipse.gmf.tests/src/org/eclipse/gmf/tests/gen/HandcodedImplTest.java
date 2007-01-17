@@ -705,17 +705,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenClass genClass2 = GenModelFactory.eINSTANCE.createGenClass();
 		typeModelFacet.setMetaClass(genClass2);
 		
-		assertTrue(genLink.getSources().size() == 0);
-		assertTrue(genLink.getTargets().size() == 0);
+		assertTrue(genLink.getAssistantSources().size() == 0);
+		assertTrue(genLink.getAssistantTargets().size() == 0);
 		
 		genLink.setModelFacet(new CustomLinkModelFacet(new GenClass[] {genClass1, genClass2, GenModelFactory.eINSTANCE.createGenClass()}));
-		assertTrue(genLink.getSources().size() == 2);
-		assertTrue(genLink.getSources().contains(topLevelNode));
-		assertTrue(genLink.getSources().contains(childNode));
+		assertTrue(genLink.getAssistantSources().size() == 2);
+		assertTrue(genLink.getAssistantSources().contains(topLevelNode));
+		assertTrue(genLink.getAssistantSources().contains(childNode));
 
-		assertTrue(genLink.getTargets().size() == 2);
-		assertTrue(genLink.getTargets().contains(topLevelNode));
-		assertTrue(genLink.getTargets().contains(childNode));
+		assertTrue(genLink.getAssistantTargets().size() == 2);
+		assertTrue(genLink.getAssistantTargets().contains(topLevelNode));
+		assertTrue(genLink.getAssistantTargets().contains(childNode));
 	}
 	
 	public void testGenLabel_getMetaFeatures() {
@@ -769,7 +769,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertEquals(genClass, metamodelType.getMetaClass());
 	}
 	
-	public void testLinkModelFacet_getSourceTypes_getTargetTypes() {
+	public void testLinkModelFacet_getSourceType_getTargetType() {
 		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
 		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
@@ -777,7 +777,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		genModel.getGenPackages().add(genPackage);
 		
 		TypeLinkModelFacet typeLinkModelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
-		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 0);
+		assertTrue(typeLinkModelFacet.getSourceType() == null);
 		
 		GenClass genClass1 = GenModelFactory.eINSTANCE.createGenClass();
 		EClass eClass1 = EcoreFactory.eINSTANCE.createEClass();
@@ -786,8 +786,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenFeature genFeature1 = GenModelFactory.eINSTANCE.createGenFeature();
 		genClass1.getGenFeatures().add(genFeature1);
 		typeLinkModelFacet.setContainmentMetaFeature(genFeature1);
-		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 1);
-		assertEquals(genClass1, typeLinkModelFacet.getSourceTypes().get(0));
+		assertEquals(genClass1, typeLinkModelFacet.getSourceType());
 		
 		GenFeature genFeature2 = GenModelFactory.eINSTANCE.createGenFeature();
 		genClass1.getGenFeatures().add(genFeature2);
@@ -801,25 +800,21 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		eReference.setEType(eClass2);
 		genFeature2.setEcoreFeature(eReference);
 		typeLinkModelFacet.setSourceMetaFeature(genFeature2);
-		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 1);
-		assertEquals(genClass2, typeLinkModelFacet.getSourceTypes().get(0));
+		assertEquals(genClass2, typeLinkModelFacet.getSourceType());
 		
-		assertTrue(typeLinkModelFacet.getTargetTypes().size() == 0);
+		assertTrue(typeLinkModelFacet.getTargetType() == null);
 		
 		typeLinkModelFacet.setTargetMetaFeature(genFeature2);
-		assertTrue(typeLinkModelFacet.getTargetTypes().size() == 1);
-		assertEquals(genClass2, typeLinkModelFacet.getTargetTypes().get(0));
+		assertEquals(genClass2, typeLinkModelFacet.getTargetType());
 		
 		FeatureLinkModelFacet featureLinkModelFacet = GMFGenFactory.eINSTANCE.createFeatureLinkModelFacet();
-		assertTrue(featureLinkModelFacet.getSourceTypes().size() == 0);
-		assertTrue(featureLinkModelFacet.getTargetTypes().size() == 0);
+		assertTrue(featureLinkModelFacet.getSourceType() == null);
+		assertTrue(featureLinkModelFacet.getTargetType() == null);
 		
 		featureLinkModelFacet.setMetaFeature(genFeature2);
-		assertTrue(featureLinkModelFacet.getSourceTypes().size() == 1);
-		assertEquals(genClass1, featureLinkModelFacet.getSourceTypes().get(0));
+		assertEquals(genClass1, featureLinkModelFacet.getSourceType());
 		
-		assertTrue(featureLinkModelFacet.getTargetTypes().size() == 1);
-		assertEquals(genClass2, featureLinkModelFacet.getTargetTypes().get(0));
+		assertEquals(genClass2, featureLinkModelFacet.getTargetType());
 	}
 	
 	public void testTypeModelFacet_isPhantomElement() {
@@ -1162,11 +1157,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		protected CustomLinkModelFacet(GenClass[] types) {
 			myTypes = new UnmodifiableEList(types.length, types);
 		}
-		public EList getSourceTypes() {
+		public EList getAssistantSourceTypes() {
 			return myTypes;
 		}
-		public EList getTargetTypes() {
+		public EList getAssistantTargetTypes() {
 			return myTypes;
+		}
+		public GenClass getSourceType() {
+			return null;
+		}
+		public GenClass getTargetType() {
+			return null;
 		}
 		public TreeIterator eAllContents() {
 			return null;
