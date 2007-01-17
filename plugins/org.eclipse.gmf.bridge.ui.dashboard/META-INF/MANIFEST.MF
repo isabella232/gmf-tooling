@@ -6,17 +6,17 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Activator: org.eclipse.gmf.internal.bridge.ui.dashboard.Plugin
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.3.0,4.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.3.0,4.0.0)",
+ org.eclipse.ui;bundle-version="[3.3.0,4.0.0)",
  org.eclipse.draw2d;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.emf.ecore.editor;bundle-version="[2.2.0,3.0.0)",
- org.eclipse.emf.importer;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.emf.ecore.editor;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.emf.importer;bundle-version="[2.3.0,3.0.0)",
  org.eclipse.gmf.graphdef.edit;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.gmf.tooldef.edit;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.gmf.map.edit;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.gmf.codegen.edit;bundle-version="[2.0.0,3.0.0)",
- org.eclipse.gmf.bridge.ui;bundle-version="[1.0.0,2.0.0)"
+ org.eclipse.gmf.bridge.ui;bundle-version="[1.1.0,2.0.0)"
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.gmf.bridge.ui.dashboard
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
