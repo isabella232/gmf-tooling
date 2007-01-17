@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.gmf.internal.xpand.expression.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinitionWrap;
 import org.eclipse.gmf.internal.xpand.model.XpandIterator;
@@ -219,7 +220,8 @@ public class BuiltinMetaModel {
 				// FIXME respect all! elements in the collection, not only the first one
 				type = getType(((Collection) obj).iterator().next());
 			}
-			if (obj instanceof Set) {
+			// EObjectEList isUnique() == true.
+			if (obj instanceof Set || obj instanceof EObjectEList) {
 				return collectionTypes.getSetType(type);
 			}
 			if (obj instanceof List) {
