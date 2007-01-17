@@ -598,7 +598,8 @@
     </palette>
   </diagram>
   <plugin
-      provider="Eclipse.org"/>
+      provider="Eclipse.org"
+      version="2.0.0.qualifier"/>
   <editor/>
   <navigator>
     <childReferences
