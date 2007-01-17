@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: GMF Mapping Model
 Bundle-SymbolicName: org.eclipse.gmf.map; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.gmf.mappings,
  org.eclipse.gmf.mappings.impl,
@@ -10,7 +10,7 @@ Export-Package: org.eclipse.gmf.mappings,
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)";visibility:=reexport,
  org.eclipse.gmf.common;bundle-version="[1.0.0,2.0.0)",
- org.eclipse.gmf.graphdef;bundle-version="[1.0.0,2.0.0)";visibility:=reexport,
- org.eclipse.gmf.tooldef;bundle-version="[1.0.0,2.0.0)";visibility:=reexport,
+ org.eclipse.gmf.graphdef;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
+ org.eclipse.gmf.tooldef;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
  org.eclipse.gmf.validate;bundle-version="[1.0.0,2.0.0)"
 Eclipse-LazyStart: true
