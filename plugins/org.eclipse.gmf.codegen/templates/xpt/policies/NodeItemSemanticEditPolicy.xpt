@@ -76,7 +76,7 @@ protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWit
 	org.eclipse.emf.ecore.EObject eObject = getElementToDestroy();
 	boolean removeFromResource = eObject.eContainer() == null;
 	org.eclipse.gmf.runtime.common.core.command.CommandResult result = super.doExecuteWithResult(progressMonitor, info);
-	org.eclipse.emf.ecore.resource.Resourceresource = eObject.eResource();
+	org.eclipse.emf.ecore.resource.Resource resource = eObject.eResource();
 	if (removeFromResource && resource != null) {
 		resource.getContents().remove(eObject);
 	}
