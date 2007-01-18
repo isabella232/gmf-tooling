@@ -39,16 +39,16 @@
 
    <extension point="org.eclipse.ui.editors">
       <?gmfgen generated="true"?>
-     <editor
-        id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
-        name="%editorName"
-        icon="icons/full/obj16/EcoreModelFile.gif"
-        extensions="ecore_diagram"
-        default="true"
-        class="org.eclipse.gmf.ecore.part.EcoreDiagramEditor"
-        matchingStrategy="org.eclipse.gmf.ecore.part.EcoreMatchingStrategy"
-        contributorClass="org.eclipse.gmf.ecore.part.EcoreDiagramActionBarContributor">
-     </editor>
+      <editor
+         id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
+         name="%editorName"
+         icon="icons/full/obj16/EcoreModelFile.gif"
+         extensions="ecore_diagram"
+         default="true"
+         class="org.eclipse.gmf.ecore.part.EcoreDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.ecore.part.EcoreMatchingStrategy"
+         contributorClass="org.eclipse.gmf.ecore.part.EcoreDiagramActionBarContributor">
+      </editor>
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
@@ -76,7 +76,7 @@
                enablesFor="1"
                id="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileActionID">
          </action>
-      </objectContribution>  
+      </objectContribution>
       <objectContribution
             adaptable="false"
             id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart1"
@@ -100,8 +100,8 @@
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
-      </objectContribution>                      
-  </extension>
+      </objectContribution>           
+   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <?gmfgen generated="true"?>
@@ -118,98 +118,14 @@
             checkPluginLoaded="false">
          <Priority name="Low"/>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EOperationEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClass2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnumEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClassEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClassNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataTypeNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReference2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart"/>
@@ -322,7 +238,6 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
       <?gmfgen generated="true"?>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EPackage_1000"
@@ -333,106 +248,6 @@
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EAttribute_3001"
-               name="EAttribute"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EAttribute"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeEditHelper">
-            <param name="semanticHint" value="3001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EOperation_3002"
-               name="EOperation"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EOperation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationEditHelper">
-            <param name="semanticHint" value="3002"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"
-               name="EAnnotation"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EAnnotation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelper">
-            <param name="semanticHint" value="3003"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EClass_3004"
-               name="EClass"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
-            <param name="semanticHint" value="3004"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EPackage_3005"
-               name="EPackage"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage2EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
-            <param name="semanticHint" value="3005"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EDataType_3006"
-               name="EDataType"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EDataType"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelper">
-            <param name="semanticHint" value="3006"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EEnum_3007"
-               name="EEnum"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EEnum"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelper">
-            <param name="semanticHint" value="3007"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
-               name="EStringToStringMapEntry"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EStringToStringMapEntry"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryEditHelper">
-            <param name="semanticHint" value="3008"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"
-               name="EEnumLiteral"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EEnumLiteral"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralEditHelper">
-            <param name="semanticHint" value="3009"/>
-         </metamodelType>
-      </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EClass_2001"
@@ -443,7 +258,6 @@
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EPackage_2002"
@@ -454,7 +268,6 @@
             <param name="semanticHint" value="2002"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
@@ -465,7 +278,6 @@
             <param name="semanticHint" value="2003"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EDataType_2004"
@@ -476,7 +288,6 @@
             <param name="semanticHint" value="2004"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EEnum_2005"
@@ -487,7 +298,96 @@
             <param name="semanticHint" value="2005"/>
          </specializationType>
       </metamodel>
-
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EAttribute_3001"
+               name="EAttribute"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EAttribute"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeEditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EOperation_3002"
+               name="EOperation"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EOperation"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationEditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"
+               name="EAnnotation"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EAnnotation"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelper">
+            <param name="semanticHint" value="3003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EClass_3004"
+               name="EClass"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
+            <param name="semanticHint" value="3004"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EPackage_3005"
+               name="EPackage"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage2EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
+            <param name="semanticHint" value="3005"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EDataType_3006"
+               name="EDataType"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EDataType"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelper">
+            <param name="semanticHint" value="3006"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EEnum_3007"
+               name="EEnum"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EEnum"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelper">
+            <param name="semanticHint" value="3007"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
+               name="EStringToStringMapEntry"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EStringToStringMapEntry"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryEditHelper">
+            <param name="semanticHint" value="3008"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"
+               name="EEnumLiteral"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EEnumLiteral"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralEditHelper">
+            <param name="semanticHint" value="3009"/>
+         </metamodelType>
+      </metamodel>
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
@@ -498,7 +398,6 @@
             <param name="semanticHint" value="4001"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EReference_4002"
@@ -509,7 +408,6 @@
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EReference_4003"
@@ -520,7 +418,6 @@
             <param name="semanticHint" value="4003"/>
          </specializationType>
       </metamodel>
-
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
@@ -544,6 +441,11 @@
       </clientContext> 
       <binding context="EcoreClientContext">
          <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_2003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_2004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_2005"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EAttribute_3001"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EOperation_3002"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
@@ -553,11 +455,6 @@
          <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2001"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2002"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_2003"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_2004"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_2005"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EReference_4002"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EReference_4003"/>
@@ -720,43 +617,6 @@
             <input type="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
-   </extension><extension point="org.eclipse.ui.preferencePages">
-      <?gmfgen generated="true"?>
-      <page
-            name="%preferences.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage"
-            id="org.eclipse.gmf.ecore.editor.general">
-      </page>
-      <page
-            name="%preferences.appearance"
-            category="org.eclipse.gmf.ecore.editor.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage"
-            id="org.eclipse.gmf.ecore.editor.appearance">
-      </page>     
-      <page
-            name="%preferences.connections"
-            category="org.eclipse.gmf.ecore.editor.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage"
-            id="org.eclipse.gmf.ecore.editor.connections">
-      </page>    
-      <page
-            name="%preferences.printing"
-            category="org.eclipse.gmf.ecore.editor.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage"
-            id="org.eclipse.gmf.ecore.editor.printing">
-      </page>
-      <page
-            name="%preferences.rulersAndGrid"
-            category="org.eclipse.gmf.ecore.editor.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage"
-            id="org.eclipse.gmf.ecore.editor.rulersAndGrid">
-      </page>
-      <page
-            name="%preferences.pathmaps"
-            category="org.eclipse.gmf.ecore.editor.general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
-            id="org.eclipse.gmf.ecore.editor.pathmaps">
-      </page>
    </extension>
 
 </plugin>
