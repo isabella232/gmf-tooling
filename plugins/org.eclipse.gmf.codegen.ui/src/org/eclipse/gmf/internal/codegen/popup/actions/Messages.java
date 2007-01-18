@@ -34,8 +34,6 @@ public class Messages extends NLS {
 
 	public static String migration_problemsDetectedTitle;
 
-	public static String ValidationHelper_validationTaskLabel;
-
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

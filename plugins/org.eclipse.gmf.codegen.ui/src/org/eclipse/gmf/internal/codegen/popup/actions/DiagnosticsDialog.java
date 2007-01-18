@@ -25,8 +25,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.gmf.internal.bridge.transform.ValidationHelper;
+import org.eclipse.gmf.internal.bridge.transform.ValidationHelper.DiagnosticMarkerMap;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
-import org.eclipse.gmf.internal.codegen.popup.actions.ValidationHelper.DiagnosticMarkerMap;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IconAndMessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
@@ -700,7 +701,7 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
         			diagnostic == rootDiagnotic && !diagnostic.getChildren().isEmpty()) {
         		// the root is usually just a wrapper containing real diagnostics with markers 
         		// -> take the first one
-        		diagnostic = (Diagnostic)diagnostic.getChildren().get(0);
+        		diagnostic = diagnostic.getChildren().get(0);
         	}
         	marker = markerMap.getMap().get(diagnostic);        	
     	}    	
