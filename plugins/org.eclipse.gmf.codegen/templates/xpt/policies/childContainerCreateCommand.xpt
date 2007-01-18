@@ -13,7 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «EXTENSION xpt::GenModelUtils»
 
-«DEFINE childContainerCreateCommand FOR Set[gmfgen::GenNode]-»
+«DEFINE childContainerCreateCommand FOR List[gmfgen::GenNode]-»
 /**
  * @generated
  */

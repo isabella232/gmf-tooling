@@ -14,11 +14,11 @@ import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-Set[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenNode node) :
+List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenNode node) :
 	selectValidLinks(node.getDiagram().links).select(l | isSelf(l, node) || isOutgoing(l, node) || isIncoming(l, node))
 ;
 
-private Set[gmfgen::GenLink] selectValidLinks(Set[gmfgen::GenLink] allLinks) :
+private List[gmfgen::GenLink] selectValidLinks(List[gmfgen::GenLink] allLinks) :
 	allLinks.select(l | null != l.modelFacet)
 		.select(l | l.outgoingCreationAllowed || l.incomingCreationAllowed)
 ;
