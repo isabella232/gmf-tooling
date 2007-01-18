@@ -67,4 +67,25 @@
     </wizard>
   </extension>
 
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="gmf.codegen.ui.transformToGenModelFile"
+            nameFilter="*.gmfmap"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.bridge.transform.TransformToGenModelAction"
+               enablesFor="1"
+               id="gmf.bridge.ui.transformToGenModelFileActionExperimental"
+               label="%transform.action.experimental"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.gmf.internal.bridge.transform.TransformOptions"/>
+   </extension>
+
 </plugin>

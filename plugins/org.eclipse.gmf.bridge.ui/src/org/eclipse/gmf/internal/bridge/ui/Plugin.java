@@ -59,6 +59,26 @@ public class Plugin extends AbstractUIPlugin {
 		return myContainmentClosure;
 	}
 
+	public static IStatus createStatus(int statusCode, String message, Throwable ex) {
+		return new Status(statusCode, getPluginID(), 0, message, ex);
+	}
+
+	public static IStatus createError(String message, Throwable ex) {
+		return createStatus(IStatus.ERROR, message, ex);
+	}
+
+	public static IStatus createWarning(String message) {
+		return createStatus(IStatus.WARNING, message, null);
+	}
+
+	public static IStatus createInfo(String message) {
+		return createStatus(IStatus.INFO, message, null);
+	}
+
+	public static IStatus createCancel(String message) {
+		return createStatus(IStatus.CANCEL, message, null);
+	}
+
 	public static Plugin getDefault() {
 		return plugin;
 	}
@@ -103,7 +123,7 @@ public class Plugin extends AbstractUIPlugin {
 		if (ex instanceof CoreException) {
 			log((CoreException) ex);
 		} else {
-			log(new Status(IStatus.ERROR, getPluginID(), 0, ex.getMessage(), ex));
+			log(createError(ex.getMessage(), ex));
 		}
 	}
 
@@ -113,6 +133,10 @@ public class Plugin extends AbstractUIPlugin {
 
 	public static void log(IStatus s) {
 		getDefault().getLog().log(s);
+	}
+
+	public static boolean needsReconcile() {
+		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
 	}
 
 	/**
