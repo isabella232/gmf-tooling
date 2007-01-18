@@ -11,18 +11,29 @@
 package org.eclipse.gmf.tests.type.baseimpl.types;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.ExpressionFacade;
+import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.expression.ast.OperationCall;
+import org.eclipse.gmf.tests.expression.ast.ATypeModel;
 
 /**
  * XXX null.last(), null.first() and similar seem to work regardless of the fact there's no
@@ -31,6 +42,10 @@ import org.eclipse.gmf.internal.xpand.expression.ast.OperationCall;
  *
  */
 public class CollectionTypeTest extends TestCase {
+	
+	private final static String REFERECE_NAME = "refC";
+	
+	private final static String REFERECE_CONTAINER_NAME = "containerA";
 
     private ExpressionFacade ef;
 
@@ -146,5 +161,43 @@ public class CollectionTypeTest extends TestCase {
         assertEquals(null, ef.evaluate("null.withoutLast()"));
     }
     
+    public final void testSetType() {
+    	analyzeCollectionExpression(false, true, "Set");
+    }
+    
+    public final void testListType() {
+    	analyzeCollectionExpression(true, false, "List");
+    }
+    
+    public final void testOrderedSetType() {
+    	analyzeCollectionExpression(true, true, "List");
+    }
+    
+    private void analyzeCollectionExpression(boolean isOrdered, boolean isUnique, String requiredCollectionName) {
+    	EClass containerEClass = createCollectionReferenceMetainfo(isOrdered, isUnique);
+    	ExpressionFacade facade = new ExpressionFacade(new ExecutionContextImpl(null, null, Collections.singleton(new Variable(REFERECE_CONTAINER_NAME, containerEClass)), null));
+    	Set issues = new HashSet<AnalysationIssue>();
+    	String expression = REFERECE_CONTAINER_NAME + "." + REFERECE_NAME;
+    	EClassifier analyzationResut = facade.analyze(expression, issues);
+    	assertTrue(issues.size() == 0);
+    	assertTrue(analyzationResut instanceof EClass);
+    	EClass eClass = (EClass) analyzationResut;
+    	assertEquals(requiredCollectionName, eClass.eClass().getName());
+    }
+    
+    private EClass createCollectionReferenceMetainfo(boolean isOrdered, boolean isUnique) {
+    	ATypeModel typeModel = new ATypeModel();
+    	EClass aClass = typeModel.getMetaType();
+    	EClass cClass = typeModel.getMetaTypeC();
+    	
+    	EReference reference = EcoreFactory.eINSTANCE.createEReference();
+		reference.setName(REFERECE_NAME);
+    	reference.setEType(cClass);
+    	reference.setOrdered(isOrdered);
+    	reference.setUnique(isUnique);
+    	reference.setUpperBound(-1);
+    	aClass.getEStructuralFeatures().add(reference);
+    	return aClass;
+    }
 
 }
