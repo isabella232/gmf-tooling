@@ -39,7 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.internal.codegen.GMFGenConfig;
+import org.eclipse.gmf.internal.bridge.transform.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
