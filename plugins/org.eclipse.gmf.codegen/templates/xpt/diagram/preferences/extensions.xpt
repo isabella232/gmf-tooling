@@ -20,9 +20,9 @@
       <initializer class="«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassName»"/>
    </extension>
 
+«IF preferencePages.size() > 0-»
    <extension point="org.eclipse.ui.preferencePages">
       <?gmfgen generated="true"?>
-«IF preferencePages.size() > 0-»
 «FOREACH preferencePages AS page-»
 «EXPAND preferencePage FOR page-»
 «ENDFOREACH-»
