@@ -23,7 +23,7 @@ public class ParserUtil {
 
 	public static Object parseValue(EAttribute feature, Object value) throws IllegalArgumentException {
 		if (value == null) {
-			throw new IllegalArgumentException();
+			return null;
 		}
 		EDataType type = feature.getEAttributeType();
 		Class iClass = type.getInstanceClass();
