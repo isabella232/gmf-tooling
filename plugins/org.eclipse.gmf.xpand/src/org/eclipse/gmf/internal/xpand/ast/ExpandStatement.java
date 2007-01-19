@@ -89,7 +89,7 @@ public class ExpandStatement extends Statement {
             	// XXX [artem] though COLLECTION TYPE *is* ParameterizedType, perhaps
             	// reason to check for instanceof ParameterizedType here
             	// is to avoid cases when targetType is VOID
-            	//System.err.println("Just curious (is it ever == false): " + BuiltinMetaModel.isParameterizedType(targetType));
+            	assert BuiltinMetaModel.isParameterizedType(targetType) : "Just curious (is it ever == false): ";
                 if (BuiltinMetaModel.isParameterizedType(targetType)) {
                     targetType = BuiltinMetaModel.getInnerType(targetType);
                 } else {
