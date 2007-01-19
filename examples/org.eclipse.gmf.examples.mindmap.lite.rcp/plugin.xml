@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+  <extension point="org.eclipse.team.core.fileTypes">
+    <?gmfgen generated="true"?>
+      <fileTypes
+         type="text"
+         extension="mmd">
+      </fileTypes>
+  </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <?gmfgen generated="true"?>
+     <editor
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorID"
+        name="Mindmap Diagram Editor"
+        icon="icons/obj16/MindmapDiagramFile.gif"
+        extensions="mmd"
+        default="true"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditor"
+        contributorClass="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramActionBarContributor">
+     </editor>
+   </extension>
+  <extension
+    point="org.eclipse.core.runtime.applications"
+    id="MindmapApplication">
+    <?gmfgen generated="true"?>
+    <application>
+      <run
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.MindmapApplication">
+      </run>
+    </application>
+  </extension>
+
+   <extension
+    point="org.eclipse.ui.perspectives">
+     <?gmfgen generated="true"?>
+    <perspective
+      name="%_UI_Perspective_label"
+      class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorPerspective"
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.MindmapPerspective">
+    </perspective>
+  </extension>
+  <extension
+    point="org.eclipse.ui.commands">
+     <?gmfgen generated="true"?>
+    <command
+      name="%_UI_Menu_OpenURI_label"
+      description="%_UI_Menu_OpenURI_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand" />  
+    <command
+      name="%_UI_Menu_Open_label"
+      description="%_UI_Menu_Open_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand" />  
+  </extension> 
+
+  <extension
+    point="org.eclipse.ui.bindings">
+     <?gmfgen generated="true"?>
+    <key
+      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand"
+      sequence="M1+U"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+    <key
+      commandId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand"
+      sequence="M1+O"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+  </extension>
+  <extension
+    point="org.eclipse.ui.actionSets">
+     <?gmfgen generated="true"?>
+    <actionSet
+      label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorUtil_ActionSet_label"
+      visible="true"
+      id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.ActionSet">
+      <action
+        label="%_UI_Menu_About_label"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$AboutAction"
+        menubarPath="help/additions"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.AboutAction">
+      </action>
+      <action
+        label="%_UI_Menu_OpenURI_label"
+        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURICommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$OpenURIAction"
+        menubarPath="file/additions"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenURIAction">
+      </action>
+      <action
+        label="%_UI_Menu_Open_label"
+        definitionId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.OpenCommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$OpenAction"
+        menubarPath="file/additions"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisorOpenDiagramAction">
+      </action>
+      <action
+        label="%_UI_org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapDiagramEditorUtilNewDiagramCommand"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+        menubarPath="file/new/additions"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.NewDiagramAction">
+      </action>
+      <action
+        label="Initialize mmd diagram file"
+        class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapInitDiagramFileAction"
+        menubarPath="file/additions"
+        id="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.part.MindmapInitDiagramFileActionID">
+      </action>
+    </actionSet> 
+  </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <?gmfgen generated="true"?>
+      <propertyContributor contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram"
+            labelProvider="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.sheet.MindmapSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram">
+         
+         
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram.sheet.MindmapPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+</plugin>
