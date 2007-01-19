@@ -50,7 +50,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 			return defaultText;
 		}
 		String result = buildTextByPattern(element, VIEW_PATTERN);
-		if (result == null) {
+		if (result == null || result.length() == 0) {
 			return defaultText;
 		}
 		return result;
@@ -62,11 +62,11 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	protected String getLabelEditText() {
 		<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
 		if (element == null) {
-			return defaultText;
+			return "";	//$NON-NLS-1$
 		}
 		String result = buildTextByPattern(element, EDIT_PATTERN);
 		if (result == null) {
-			return defaultText;
+			return "";	//$NON-NLS-1$
 		}
 		return result;
 	}
@@ -90,6 +90,11 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		myFeatureGetAccessorHelper.appendFeatureValueGetter("element", next, underlyingMetaClass, false);
 		if (next.isPrimitiveType()) {
 %>)<%
+		} else {
+			if (String.class.equals(next.getEcoreFeature().getEType().getInstanceClass())) {
+%> == null ? "" : <%
+				myFeatureGetAccessorHelper.appendFeatureValueGetter("element", next, underlyingMetaClass, false);
+			}
 		}
 		if (it.hasNext()) {%>,<%}%>
 <%
