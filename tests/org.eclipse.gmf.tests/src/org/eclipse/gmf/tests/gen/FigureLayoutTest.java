@@ -70,7 +70,11 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		//generate code will be incompilable due to the absence of the TheBestLayoutManagerForever
 		FigureGeneratorUtil.generateAndParse(getSessionSetup().getParent9());
 	}
-	
+
+	public void testCustomLayoutData(){
+		doPerformTests(getSessionSetup().getFigureWithCustomLayoutData());
+	}
+
 	public void testStackLayout(){
 		doPerformTests(getSessionSetup().getGroup());
 	}

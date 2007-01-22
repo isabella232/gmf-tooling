@@ -23,12 +23,14 @@ import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
@@ -55,6 +57,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 	private Figure myParent7;
 	private Figure myParent8;
 	private Figure myParent9;
+	private Figure myFigureWithCustomLayoutData;
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getParent());
@@ -74,6 +77,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getGroup3());
 		gallery.getFigures().add(getGroup4());
 		gallery.getFigures().add(getGroup5());
+		gallery.getFigures().add(getFigureWithCustomLayoutData());
 	}
 	
 	public Figure getGroup5() {
@@ -188,6 +192,39 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 			myParent9.setLayout(layout);
 		}
 		return myParent9;
+	}
+
+	public Figure getFigureWithCustomLayoutData() {
+		if (myFigureWithCustomLayoutData == null) {
+			myFigureWithCustomLayoutData = GMFGraphFactory.eINSTANCE.createRectangle();
+			myFigureWithCustomLayoutData.setName("MyFigureWithCustomLayoutData");
+			Figure fig = GMFGraphFactory.eINSTANCE.createRectangle();
+			fig.setName("ActualDataOwner");
+
+			CustomLayoutData ld = GMFGraphFactory.eINSTANCE.createCustomLayoutData();
+			ld.setQualifiedClassName("org.eclipse.draw2d.geometry.Point");
+
+			CustomAttribute normalAttr = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			normalAttr.setDirectAccess(false);
+			normalAttr.setMultiStatementValue(false);
+			normalAttr.setName("location");
+			normalAttr.setValue("11,12");
+			
+			ld.getAttributes().add(normalAttr);
+
+			CustomAttribute directAttr = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			directAttr.setDirectAccess(true);
+			directAttr.setMultiStatementValue(false);
+			directAttr.setName("x");
+			directAttr.setValue("5");
+			
+			ld.getAttributes().add(directAttr);
+
+			myFigureWithCustomLayoutData.setLayout(GMFGraphFactory.eINSTANCE.createXYLayout());
+			fig.setLayoutData(ld);
+			myFigureWithCustomLayoutData.getChildren().add(fig);
+		}
+		return myFigureWithCustomLayoutData;
 	}
 
 	public Figure getParent8() {
