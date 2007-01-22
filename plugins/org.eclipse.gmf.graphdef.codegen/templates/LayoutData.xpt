@@ -27,9 +27,11 @@
 «ENDDEFINE»
 
 «DEFINE Init(EString parentFigureVariable, EString owningFigureVariable) FOR gmfgraph::CustomLayoutData»
-«qualifiedClassName» constraint«owningFigureVariable.toFirstUpper()» = new «qualifiedClassName»();
-«EXPAND attr::CustomClass::Init(owningFigureVariable)»
-«parentFigureVariable».add(«owningFigureVariable», constraint«owningFigureVariable.toFirstUpper()»));
+«LET "constraint" + owningFigureVariable.toFirstUpper() AS constraintVarName-»
+«qualifiedClassName» «constraintVarName» = new «qualifiedClassName»();
+«EXPAND attr::CustomClass::Init(constraintVarName)»
+«parentFigureVariable».add(«owningFigureVariable», «constraintVarName»);
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE Init(EString parentFigureVariable, EString owningFigureVariable) FOR gmfgraph::GridLayoutData»
