@@ -610,7 +610,7 @@
 			</constraint>
 		</constraints>
 	</constraintProvider>
-   </extension>
+</extension>
 
    <extension point="org.eclipse.emf.validation.constraintBindings">
 	<?gmfgen generated="true"?>
@@ -621,6 +621,6 @@
 		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.port_location"/>	
 		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
 	</binding>		
-   </extension>
+</extension>
 
 </plugin>

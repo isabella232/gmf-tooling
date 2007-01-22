@@ -154,15 +154,15 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
 			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup("links", "icons/linksNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipEditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			if (!links.isEmpty()) {
 				result.add(links);
@@ -174,15 +174,15 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
 			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
+			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(RouteEditPart.VISUAL_ID));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(Route2EditPart.VISUAL_ID));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -196,16 +196,16 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 		case ShipEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipSmallCargoEditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(SmallItemsEditPart.VISUAL_ID));
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), ShipSmallCargoEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, SmallItemsEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(LargeItemEditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(Collections.singleton(view), ShipLargeCargoEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, LargeItemEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews, TaiPanVisualIDRegistry.getType(EmptyBoxEditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(Collections.singleton(view), ShipLargeCargoEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, EmptyBoxEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipDestinationEditPart.VISUAL_ID));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
 				result.add(outgoinglinks);
@@ -217,9 +217,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(ShipEditPart.VISUAL_ID));
+			connectedViews = getLinksSourceByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -234,9 +234,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			connectedViews = getLinksSourceByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -251,9 +251,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), TaiPanVisualIDRegistry.getType(PortEditPart.VISUAL_ID));
+			connectedViews = getLinksSourceByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -270,8 +270,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getLinksSourceByType(Collection edges, String type) {
+	private Collection getLinksSourceByType(Collection edges, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeSource = nextEdge.getSource();
@@ -285,8 +286,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getLinksTargetByType(Collection edges, String type) {
+	private Collection getLinksTargetByType(Collection edges, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeTarget = nextEdge.getTarget();
@@ -300,8 +302,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getOutgoingLinksByType(Collection nodes, String type) {
+	private Collection getOutgoingLinksByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getSourceEdges(), type));
@@ -312,8 +315,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getIncomingLinksByType(Collection nodes, String type) {
+	private Collection getIncomingLinksByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getTargetEdges(), type));
@@ -324,8 +328,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getChildrenByType(Collection nodes, String type) {
+	private Collection getChildrenByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getChildren(), type));
@@ -336,8 +341,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
-	private Collection getDiagramLinksByType(Collection diagrams, String type) {
+	private Collection getDiagramLinksByType(Collection diagrams, int visualID) {
 		Collection result = new ArrayList();
+		String type = TaiPanVisualIDRegistry.getType(visualID);
 		for (Iterator it = diagrams.iterator(); it.hasNext();) {
 			Diagram nextDiagram = (Diagram) it.next();
 			result.addAll(selectViewsByType(nextDiagram.getEdges(), type));
