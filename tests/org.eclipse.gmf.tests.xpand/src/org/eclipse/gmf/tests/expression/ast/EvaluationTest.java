@@ -174,6 +174,17 @@ public class EvaluationTest extends AbstractExpressionTest {
 
 	}
 
+	public final void testNegation() {
+		Expression expr = parse("-1");
+		assertEquals(-1, expr.evaluate(ec));
+
+		expr = parse("-2.5");
+		assertEquals(-2.5, expr.evaluate(ec));
+
+		expr = parse("(0-2) == -2");
+		assertEquals(Boolean.TRUE, expr.evaluate(ec));
+	}
+
 	public final void testStringConcatenation1() {
 		final Expression expr = parse("\"test\" + 3 + 4");
 		assertEquals("test7", expr.evaluate(ec));
