@@ -315,9 +315,9 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 						if(Meta.CONTEXT.equals(metaValue)) {
 							String ctxExpression = (String)annotation.getDetails().get(Meta.OCL_KEY);
 							if(ctxExpression != null) {
-								data.context = createContextProvider(ctxExpression, metaClass, null);
-							}
-							checkAndReportProblems(data.context, annotation, diagnostics);
+								data.context = createContextProvider(ctxExpression, metaClass, context);
+								checkAndReportProblems(data.context, annotation, diagnostics);								
+							}							
 						}
 					}
 					

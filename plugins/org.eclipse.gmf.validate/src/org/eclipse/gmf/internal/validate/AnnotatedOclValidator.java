@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.gmf.internal.validate.expressions.ExpressionProviderRegistry;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
+import org.eclipse.gmf.validate.ValidationOptions;
 import org.eclipse.osgi.util.NLS;
 
 /**
@@ -133,7 +134,7 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 									getDescriptionDetail(annotation));																				
 							if(contextInstance != null) {
 								isValid &= handleConstraintDefition(constraint, contextInstance, diagnostics);								
-								isValid &= handleConstrainedElement(constraint, contextInstance, diagnostics);
+								isValid &= handleConstrainedElement(constraint, contextInstance, diagnostics, context);
 							} else {
 								isValid &= handleConstraintDefition(constraint, nextDetail, diagnostics);								
 							}
@@ -262,7 +263,7 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return true;			
 		}
 		
-		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, DiagnosticChain diagnostics) {
+		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, DiagnosticChain diagnostics, Map context) {
 			if(!constraint.isSatisfied(constrainedElement)) {
 				String message = null;
 				if(constraint.getDescription() == null) {
@@ -276,7 +277,15 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 				diagnostics.add(new BasicDiagnostic(constraint.getSeverity(), DIAGNOSTIC_SOURCE, 
 						StatusCodes.CONSTRAINT_VIOLATION, message, new Object[] { constrainedElement }));				
 				return false;
-			} 
+			} else {
+				ValidationOptions opts = getOptions(context);
+				if(opts.isReportSuccess()) {
+					diagnostics.add(new BasicDiagnostic(Diagnostic.OK, DIAGNOSTIC_SOURCE, StatusCodes.CONSTRAINT_SATISFIED,
+							MessageFormat.format(Messages.validation_ConstraintSatisfied, new Object[] { 
+								constraint.getBody(), LabelProvider.INSTANCE.getObjectLabel(constrainedElement) }), 
+								new Object[] { constrainedElement }));
+				}
+			}
 			
 			return true;
 		}

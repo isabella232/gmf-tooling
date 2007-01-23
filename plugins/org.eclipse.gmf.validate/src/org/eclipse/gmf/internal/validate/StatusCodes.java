@@ -46,11 +46,13 @@ public final class StatusCodes {
 	public static int INVALID_VALUESPEC_TYPE = 222;	
 	
 	public static int VALUESPEC_TYPE_NOT_AVAILABLE = 223;	
-
+	
 	/**
 	 * The diagnostic code for constraint violations.
 	 */
 	public static final int CONSTRAINT_VIOLATION = 225;
+	
+	public static final int CONSTRAINT_SATISFIED = 226;	
 		
 	public static final int UNEXPECTED_VALIDATION_ERROR = 300;
 

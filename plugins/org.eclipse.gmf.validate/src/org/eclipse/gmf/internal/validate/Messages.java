@@ -24,6 +24,7 @@ public final class Messages extends NLS {
 	public static String validation_EmptyExpressionBody;
 	public static String validation_ConstraintInInvalidContext;
 	public static String validation_ConstraintViolation;
+	public static String validation_ConstraintSatisfied;	
 	public static String def_InvalidContextDefinition;
 	public static String def_MissingBodyAnnotation;
 	public static String def_NoContextAvailable;

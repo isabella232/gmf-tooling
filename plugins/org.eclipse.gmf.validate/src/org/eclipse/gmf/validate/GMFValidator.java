@@ -26,6 +26,7 @@ import org.eclipse.gmf.internal.validate.ValidatorChain;
 
 /**
  * Validator of GMF constraint annotations. 
+ * See <A href="package-summary.html"</A> details.
  */
 public class GMFValidator extends ValidatorChain {
 	

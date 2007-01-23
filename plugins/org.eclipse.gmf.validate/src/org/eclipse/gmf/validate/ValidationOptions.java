@@ -20,7 +20,6 @@ public class ValidationOptions {
 	
 	public static ValidationOptions getDefault() {
 		ValidationOptions options = new ValidationOptions();
-		options.setReportSuccess(false);
 		options.setReportSuccess(false);		
 		return options;
 	}
