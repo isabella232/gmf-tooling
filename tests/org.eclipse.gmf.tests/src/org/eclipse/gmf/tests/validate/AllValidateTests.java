@@ -22,6 +22,8 @@ public class AllValidateTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(ConstraintSeverityTest.class);
 		suite.addTestSuite(OCLExpressionAdapterTest.class);		
+		suite.addTestSuite(ConstraintDefTest.class);		
+		suite.addTestSuite(ValueSpecDefTest.class);		
 		//$JUnit-END$
 		return suite;
 	}
