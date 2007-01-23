@@ -241,4 +241,37 @@
     <palette
         href="taipan.gmftool#//@palette"/>
   </diagram>
+  <audits
+      id="taipan"
+      name="TaiPan Audits"
+      description="All TaiPan audits">
+    <audits
+        name="Port Location"
+        description="Empty port location check"
+        id="port_location"
+        message="Port location should not be empty">
+      <rule
+          body="location.size() > 0"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="taipan.ecore#//Port"/>
+      </target>
+    </audits>
+    <audits
+        name="Ship Name"
+        description="Empty ship name check"
+        id="ship_name"
+        message="Ship name should not be empty">
+      <rule
+          body="self.length() > 0"
+          language="java"/>
+      <target
+          xsi:type="gmfmap:DomainAttributeTarget"
+          nullAsError="true">
+        <attribute
+            href="taipan.ecore#//Ship/name"/>
+      </target>
+    </audits>
+  </audits>
 </gmfmap:Mapping>
