@@ -531,7 +531,19 @@ public class BuiltinMetaModel {
 				}
 			}
 			
-		}; 
+		};
+		class InternalNegateOp extends InternalOperation<Number> {
+			InternalNegateOp(EOperation metaOp) {
+				super(metaOp);
+			}
+			@Override
+			public Object evaluate(Number target, Object[] params) {
+				if (target instanceof Double) {
+					return -target.doubleValue();
+				}
+				return -target.intValue();
+			}
+		}
 		//---------------------------------------------------------------------------------
 
 		final List<InternalOperation> intOps = new LinkedList<InternalOperation>();
@@ -543,6 +555,7 @@ public class BuiltinMetaModel {
 		intOps.add(new InternalMulOp(opf.create("*", int.class, double.class)));
 		intOps.add(new InternalDivOp(opf.create("/", int.class, int.class)));
 		intOps.add(new InternalDivOp(opf.create("/", int.class, double.class)));
+		intOps.add(new InternalNegateOp(opf.create("-", int.class)));
 //		intOps.add(new InternalOperation<Number>(opf.create("==", boolean.class, int.class)) {
 //			@Override
 //			public Object evaluate(Number target, Object[] params) {
@@ -600,6 +613,7 @@ public class BuiltinMetaModel {
 		doubleOps.add(new InternalMulOp(opf.create("*", double.class, int.class)));
 		doubleOps.add(new InternalDivOp(opf.create("/", double.class, double.class)));
 		doubleOps.add(new InternalDivOp(opf.create("/", double.class, int.class)));
+		doubleOps.add(new InternalNegateOp(opf.create("-", int.class)));
 		doubleOps.addAll(unmodifiableObjectOps);
 		internalOperationsMap.put(ecorePkg.getEDouble(), doubleOps);
 
