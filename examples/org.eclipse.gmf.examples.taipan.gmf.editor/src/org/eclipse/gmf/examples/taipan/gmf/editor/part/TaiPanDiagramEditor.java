@@ -39,6 +39,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.transaction.NotificationFilter;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -47,8 +49,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -168,6 +173,22 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 			setDocumentProvider(new TaiPanDocumentProvider(contentObjectURI));
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSetInput(IEditorInput input, boolean releaseEditorContents) throws CoreException {
+		contentObjectURI = null;
+		if (input instanceof IDiagramEditorInput) {
+			final Diagram diagram = ((IDiagramEditorInput) input).getDiagram();
+			final IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
+			FileEditorInput newInput = new FileEditorInput(diagramFile);
+			contentObjectURI = diagram.eResource().getURIFragment(diagram);
+			super.doSetInput(newInput, releaseEditorContents);
+		} else {
+			super.doSetInput(input, releaseEditorContents);
 		}
 	}
 
