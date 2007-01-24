@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.LargeItem;
@@ -92,6 +93,13 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	private EClass routeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass buildingEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -215,6 +223,15 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 */
 	public EAttribute getPort_Location() {
 		return (EAttribute) portEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPort_Buildings() {
+		return (EReference) portEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -366,6 +383,24 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBuilding() {
+		return buildingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBuilding_Address() {
+		return (EAttribute) buildingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TaiPanFactory getTaiPanFactory() {
 		return (TaiPanFactory) getEFactoryInstance();
 	}
@@ -397,6 +432,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__LOCATION);
+		createEReference(portEClass, PORT__BUILDINGS);
 
 		shipEClass = createEClass(SHIP);
 		createEAttribute(shipEClass, SHIP__NAME);
@@ -419,6 +455,9 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		createEReference(routeEClass, ROUTE__DESTINATION);
 		createEAttribute(routeEClass, ROUTE__DESCRIPTION);
 		createEAttribute(routeEClass, ROUTE__RELIABILITY);
+
+		buildingEClass = createEClass(BUILDING);
+		createEAttribute(buildingEClass, BUILDING__ADDRESS);
 	}
 
 	/**
@@ -462,6 +501,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getPort_Location(), ecorePackage.getEString(),
 				"location", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPort_Buildings(), this.getBuilding(), null,
+				"buildings", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(shipEClass, Ship.class, "Ship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getShip_Name(), ecorePackage.getEString(),
@@ -494,6 +535,10 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				"description", null, 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getRoute_Reliability(), ecorePackage.getEDouble(),
 				"reliability", "1", 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+
+		initEClass(buildingEClass, Building.class, "Building", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getBuilding_Address(), ecorePackage.getEString(),
+				"address", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Create resource
 		createResource(eNS_URI);

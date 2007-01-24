@@ -95,6 +95,15 @@ public interface TaiPanFactory extends EFactory {
 	Route createRoute();
 
 	/**
+	 * Returns a new object of class '<em>Building</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Building</em>'.
+	 * @generated
+	 */
+	Building createBuilding();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

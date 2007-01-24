@@ -226,6 +226,10 @@
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
+      <behaviour
+          xsi:type="gmfgen:OpenDiagramBehaviour"
+          diagramKind="Port"
+          editorID="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorID"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Port"/>

@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Port#getLocation <em>Location</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Port#getBuildings <em>Buildings</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,5 +59,21 @@ public interface Port extends EObject {
 	 * @generated
 	 */
 	void setLocation(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Buildings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Building}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Buildings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Buildings</em>' containment reference list.
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getPort_Buildings()
+	 * @model type="org.eclipse.gmf.examples.taipan.Building" containment="true"
+	 * @generated
+	 */
+	EList getBuildings();
 
 } // Port

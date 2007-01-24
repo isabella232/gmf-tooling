@@ -108,6 +108,10 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 			return createRouteAdapter();
 		}
 
+		public Object caseBuilding(Building object) {
+			return createBuildingAdapter();
+		}
+
 		public Object defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -234,6 +238,20 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRouteAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.Building <em>Building</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.taipan.Building
+	 * @generated
+	 */
+	public Adapter createBuildingAdapter() {
 		return null;
 	}
 

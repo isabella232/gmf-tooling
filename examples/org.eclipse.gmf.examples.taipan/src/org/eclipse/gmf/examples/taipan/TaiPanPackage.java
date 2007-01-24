@@ -131,13 +131,22 @@ public interface TaiPanPackage extends EPackage {
 	int PORT__LOCATION = 0;
 
 	/**
+	 * The feature id for the '<em><b>Buildings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__BUILDINGS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Port</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = 1;
+	int PORT_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.
@@ -371,6 +380,34 @@ public interface TaiPanPackage extends EPackage {
 	int ROUTE_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl <em>Building</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.impl.BuildingImpl
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getBuilding()
+	 * @generated
+	 */
+	int BUILDING = 8;
+
+	/**
+	 * The feature id for the '<em><b>Address</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILDING__ADDRESS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Building</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILDING_FEATURE_COUNT = 1;
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -433,6 +470,17 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPort_Location();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.examples.taipan.Port#getBuildings <em>Buildings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Buildings</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Port#getBuildings()
+	 * @see #getPort()
+	 * @generated
+	 */
+	EReference getPort_Buildings();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Ship <em>Ship</em>}'.
@@ -605,6 +653,27 @@ public interface TaiPanPackage extends EPackage {
 	EAttribute getRoute_Reliability();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Building <em>Building</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Building</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Building
+	 * @generated
+	 */
+	EClass getBuilding();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Building#getAddress <em>Address</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Address</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Building#getAddress()
+	 * @see #getBuilding()
+	 * @generated
+	 */
+	EAttribute getBuilding_Address();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -678,6 +747,14 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PORT__LOCATION = eINSTANCE.getPort_Location();
+
+		/**
+		 * The meta object literal for the '<em><b>Buildings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT__BUILDINGS = eINSTANCE.getPort_Buildings();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.
@@ -818,6 +895,24 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ROUTE__RELIABILITY = eINSTANCE.getRoute_Reliability();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl <em>Building</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.BuildingImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getBuilding()
+		 * @generated
+		 */
+		EClass BUILDING = eINSTANCE.getBuilding();
+
+		/**
+		 * The meta object literal for the '<em><b>Address</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUILDING__ADDRESS = eINSTANCE.getBuilding_Address();
 
 	}
 

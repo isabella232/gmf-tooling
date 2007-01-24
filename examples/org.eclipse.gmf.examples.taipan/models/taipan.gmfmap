@@ -18,6 +18,8 @@
         <features
             href="taipan.ecore#//Port/location"/>
       </labelMappings>
+      <relatedDiagrams
+          href="port.gmfmap#//@diagram"/>
       <tool
           xsi:type="gmftool:CreationTool"
           href="taipan.gmftool#//@palette/@tools.0/@tools.0"/>

@@ -78,6 +78,8 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 			return createEmptyBox();
 		case TaiPanPackage.ROUTE:
 			return createRoute();
+		case TaiPanPackage.BUILDING:
+			return createBuilding();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -151,6 +153,16 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	public Route createRoute() {
 		RouteImpl route = new RouteImpl();
 		return route;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Building createBuilding() {
+		BuildingImpl building = new BuildingImpl();
+		return building;
 	}
 
 	/**
