@@ -8344,13 +8344,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CONTRIBUTION_ITEM = 108;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_ITEM__OWNER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_ITEM__APPLICATION = 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Contribution Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CONTRIBUTION_ITEM_FEATURE_COUNT = 0;
+	int GEN_CONTRIBUTION_ITEM_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenSharedContributionItemImpl <em>Gen Shared Contribution Item</em>}' class.
@@ -8361,6 +8379,24 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_SHARED_CONTRIBUTION_ITEM = 109;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SHARED_CONTRIBUTION_ITEM__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SHARED_CONTRIBUTION_ITEM__APPLICATION = GEN_CONTRIBUTION_ITEM__APPLICATION;
 
 	/**
 	 * The feature id for the '<em><b>Actual Item</b></em>' reference.
@@ -8391,6 +8427,24 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_GROUP_MARKER = 110;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_GROUP_MARKER__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_GROUP_MARKER__APPLICATION = GEN_CONTRIBUTION_ITEM__APPLICATION;
+
+	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8417,6 +8471,24 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_SEPARATOR = 111;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SEPARATOR__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_SEPARATOR__APPLICATION = GEN_CONTRIBUTION_ITEM__APPLICATION;
 
 	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
@@ -8447,6 +8519,24 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM = 112;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__APPLICATION = GEN_CONTRIBUTION_ITEM__APPLICATION;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8473,6 +8563,24 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_CONTRIBUTION_MANAGER = 113;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_MANAGER__OWNER = GEN_CONTRIBUTION_ITEM__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTRIBUTION_MANAGER__APPLICATION = GEN_CONTRIBUTION_ITEM__APPLICATION;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -8510,6 +8618,24 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_MENU_MANAGER = 114;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER__OWNER = GEN_CONTRIBUTION_MANAGER__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MENU_MANAGER__APPLICATION = GEN_CONTRIBUTION_MANAGER__APPLICATION;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -8556,6 +8682,24 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_TOOL_BAR_MANAGER = 115;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOOL_BAR_MANAGER__OWNER = GEN_CONTRIBUTION_MANAGER__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Application</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOOL_BAR_MANAGER__APPLICATION = GEN_CONTRIBUTION_MANAGER__APPLICATION;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -13833,6 +13977,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGenContributionItem();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getOwner <em>Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Owner</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getOwner()
+	 * @see #getGenContributionItem()
+	 * @generated
+	 */
+	EReference getGenContributionItem_Owner();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getApplication <em>Application</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Application</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContributionItem#getApplication()
+	 * @see #getGenContributionItem()
+	 * @generated
+	 */
+	EReference getGenContributionItem_Application();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem <em>Gen Shared Contribution Item</em>}'.

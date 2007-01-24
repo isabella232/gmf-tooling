@@ -1825,6 +1825,10 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Element of UI contribution"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//GenContributionManager"
+        changeable="false" eOpposite="#//GenContributionManager/items"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
+        changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenSharedContributionItem" eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1862,7 +1866,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
-        eType="#//GenContributionItem" containment="true"/>
+        eType="#//GenContributionItem" containment="true" eOpposite="#//GenContributionItem/owner"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

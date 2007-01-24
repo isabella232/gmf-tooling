@@ -10,17 +10,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
@@ -116,9 +111,22 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 */
 	public EList getItems() {
 		if (items == null) {
-			items = new EObjectContainmentEList(GenContributionItem.class, this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS);
+			items = new EObjectContainmentWithInverseEList(GenContributionItem.class, this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER);
 		}
 		return items;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
+				return ((InternalEList)getItems()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

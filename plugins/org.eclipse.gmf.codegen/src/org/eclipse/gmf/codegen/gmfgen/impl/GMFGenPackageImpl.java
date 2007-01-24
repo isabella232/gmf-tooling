@@ -5309,6 +5309,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenContributionItem_Owner() {
+		return (EReference)genContributionItemEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenContributionItem_Application() {
+		return (EReference)genContributionItemEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenSharedContributionItem() {
 		return genSharedContributionItemEClass;
 	}
@@ -6288,6 +6306,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(customTabFilterEClass, CUSTOM_TAB_FILTER__CLASS_NAME);
 
 		genContributionItemEClass = createEClass(GEN_CONTRIBUTION_ITEM);
+		createEReference(genContributionItemEClass, GEN_CONTRIBUTION_ITEM__OWNER);
+		createEReference(genContributionItemEClass, GEN_CONTRIBUTION_ITEM__APPLICATION);
 
 		genSharedContributionItemEClass = createEClass(GEN_SHARED_CONTRIBUTION_ITEM);
 		createEReference(genSharedContributionItemEClass, GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM);
@@ -7293,6 +7313,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(customTabFilterEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
 
 		initEClass(genContributionItemEClass, GenContributionItem.class, "GenContributionItem", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenContributionItem_Owner(), this.getGenContributionManager(), this.getGenContributionManager_Items(), "owner", null, 0, 1, GenContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenContributionItem_Application(), this.getGenApplication(), null, "application", null, 0, 1, GenContributionItem.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(genSharedContributionItemEClass, GenSharedContributionItem.class, "GenSharedContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenSharedContributionItem_ActualItem(), this.getGenContributionItem(), null, "actualItem", null, 1, 1, GenSharedContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7308,7 +7330,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genContributionManagerEClass, GenContributionManager.class, "GenContributionManager", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenContributionManager_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenContributionManager_Items(), this.getGenContributionItem(), null, "items", null, 0, -1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenContributionManager_Items(), this.getGenContributionItem(), this.getGenContributionItem_Owner(), "items", null, 0, -1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genMenuManagerEClass, GenMenuManager.class, "GenMenuManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenMenuManager_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenMenuManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
