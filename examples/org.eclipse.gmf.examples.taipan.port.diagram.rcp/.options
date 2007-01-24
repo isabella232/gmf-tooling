@@ -1,0 +1,7 @@
+# Debugging options for the org.eclipse.gmf.examples.taipan.port.diagram.rcp plug-in
+
+# Turn on general debugging for the org.eclipse.gmf.examples.taipan.port.diagram.rcp plug-in
+org.eclipse.gmf.examples.taipan.port.diagram.rcp/debug=false
+
+# Turn on debugging of visualID processing
+org.eclipse.gmf.examples.taipan.port.diagram.rcp/debug/visualID=true
