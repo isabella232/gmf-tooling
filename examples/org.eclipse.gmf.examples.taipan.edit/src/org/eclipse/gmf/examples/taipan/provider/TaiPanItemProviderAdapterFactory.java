@@ -236,6 +236,28 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.Building} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BuildingItemProvider buildingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.Building}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createBuildingAdapter() {
+		if (buildingItemProvider == null) {
+			buildingItemProvider = new BuildingItemProvider(this);
+		}
+
+		return buildingItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -345,6 +367,8 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			emptyBoxItemProvider.dispose();
 		if (routeItemProvider != null)
 			routeItemProvider.dispose();
+		if (buildingItemProvider != null)
+			buildingItemProvider.dispose();
 	}
 
 }

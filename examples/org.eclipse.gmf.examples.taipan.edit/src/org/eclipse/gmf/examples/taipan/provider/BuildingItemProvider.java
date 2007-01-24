@@ -1,13 +1,8 @@
-/*
- * Copyright (c) 2005 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * <copyright>
+ * </copyright>
  *
- * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ * $Id$
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -29,17 +24,16 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.TaiPanFactory;
+import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.Port} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.Building} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PortItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class BuildingItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -47,7 +41,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortItemProvider(AdapterFactory adapterFactory) {
+	public BuildingItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,47 +55,31 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addLocationPropertyDescriptor(object);
+			addAddressPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Location feature.
+	 * This adds a property descriptor for the Address feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLocationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Port_location_feature"), //$NON-NLS-1$
-				getString("_UI_PropertyDescriptor_description", "_UI_Port_location_feature", "_UI_Port_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TaiPanPackage.Literals.PORT__LOCATION, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	protected void addAddressPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Building_address_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Building_address_feature", "_UI_Building_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.BUILDING__ADDRESS, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(TaiPanPackage.Literals.PORT__BUILDINGS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * This returns Port.gif.
+	 * This returns Building.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Port")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Building")); //$NON-NLS-1$
 	}
 
 	/**
@@ -111,9 +89,9 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((Port) object).getLocation();
-		return label == null || label.length() == 0 ? getString("_UI_Port_type") : //$NON-NLS-1$
-				getString("_UI_Port_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		String label = ((Building) object).getAddress();
+		return label == null || label.length() == 0 ? getString("_UI_Building_type") : //$NON-NLS-1$
+				getString("_UI_Building_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -126,12 +104,9 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Port.class)) {
-		case TaiPanPackage.PORT__LOCATION:
+		switch (notification.getFeatureID(Building.class)) {
+		case TaiPanPackage.BUILDING__ADDRESS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case TaiPanPackage.PORT__BUILDINGS:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -146,8 +121,6 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.PORT__BUILDINGS, TaiPanFactory.eINSTANCE.createBuilding()));
 	}
 
 	/**
