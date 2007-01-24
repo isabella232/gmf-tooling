@@ -32,19 +32,30 @@ public class HandcodedContributionItemTest extends TestCase {
 
 	public void testGetApplicationMethod() {
 		GenApplication app = GMFGenFactory.eINSTANCE.createGenApplication();
-		GenActionFactoryContributionItem item1 = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
+		final GenActionFactoryContributionItem item1 = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
 		item1.setName("aaa");
 		app.getSharedContributionItems().add(item1);
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
-		GenActionFactoryContributionItem item2 = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
-		item1.setName("bbb");
+		final GenActionFactoryContributionItem item2 = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
+		item2.setName("bbb");
 		menu.getItems().add(item2);
+		GenMenuManager subMenu = GMFGenFactory.eINSTANCE.createGenMenuManager();
+		final GenActionFactoryContributionItem item3 = GMFGenFactory.eINSTANCE.createGenActionFactoryContributionItem();
+		item3.setName("bbb");
+		subMenu.getItems().add(item3);
+		menu.getItems().add(subMenu);
+		
 		app.setMainMenu(menu);
+
 		assertEquals(app, menu.getApplication());
 		assertNull(menu.getOwner());
 		assertEquals(menu, item2.getOwner());
 		assertEquals(app, item2.getApplication());
 		assertEquals(app, item1.getApplication());
 		assertNull(item1.getOwner());
+		assertEquals(app, subMenu.getApplication());
+		assertEquals(app, item3.getApplication());
+		assertEquals(subMenu, item3.getOwner());
+		assertEquals(menu, subMenu.getOwner());
 	}
 }
