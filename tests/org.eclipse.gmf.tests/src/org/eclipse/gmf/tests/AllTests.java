@@ -32,6 +32,7 @@ import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
+import org.eclipse.gmf.tests.gen.HandcodedContributionItemTest;
 import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
@@ -99,6 +100,7 @@ public class AllTests {
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 		suite.addTestSuite(HandcodedGraphDefTest.class);
 		suite.addTestSuite(HandcodedPaletteTest.class);
+		suite.addTestSuite(HandcodedContributionItemTest.class);
 
 		suite.addTest(feed(GenModelTransformerSimpleTest.class, sessionSetup));
 		suite.addTest(feed(LabelMappingTransformTest.class, sessionSetup));
