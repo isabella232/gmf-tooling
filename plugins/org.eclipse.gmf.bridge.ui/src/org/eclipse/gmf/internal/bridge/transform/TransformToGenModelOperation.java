@@ -152,9 +152,6 @@ public class TransformToGenModelOperation {
 				return genModel;
 			}
 			throw new CoreException(detect);
-			
-		} catch (CoreException e) {
-			throw e;
 		} catch (Exception e) {
 			IStatus error = Plugin.createError(Messages.TransformToGenModelOperation_e_mapping_invalid, e);
 			throw new CoreException(error);
@@ -180,6 +177,15 @@ public class TransformToGenModelOperation {
 			}
 			subTask(monitor, 30, Messages.TransformToGenModelOperation_task_load, cancelMessage);
 			GenModel genModel = gmd.get(rs);
+			if (genModel == null) {
+				if (uri == null) {
+					this.myStaleGenmodelStatus = Status.CANCEL_STATUS;
+					this.myGenModel = null;
+					return null;
+				}
+				IStatus notFound = Plugin.createError(Messages.GenModelDetector_e_not_found, null);
+				throw new CoreException(notFound);
+			}
 			subTask(monitor, 40, Messages.TransformToGenModelOperation_task_validate, cancelMessage);
 			StaleGenModelDetector staleDetector = new StaleGenModelDetector(genModel);
 			IStatus stale = staleDetector.detect();

@@ -71,8 +71,9 @@ public class ModelConfigurationPage extends ModelSelectionPage {
 			if (target instanceof CoreException) {
 				CoreException ce = (CoreException) target;
 				setStatusMessage(ce.getStatus());
+			} else {
+				setStatusMessage(Plugin.createError(target.getMessage(), target));
 			}
-			setStatusMessage(Plugin.createError(target.getMessage(), target));
 		} catch (InterruptedException e) {
 			setStatusMessage(Status.CANCEL_STATUS);
 		}

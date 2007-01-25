@@ -14,8 +14,10 @@ package org.eclipse.gmf.internal.bridge.transform;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -23,6 +25,7 @@ import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
@@ -72,7 +75,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		genModelPage.setTitle(Messages.TransformToGenModelWizard_title_genmodel);
 		genModelPage.setDescription(Messages.TransformToGenModelWizard_descr_genmodel);
 		genModelPage.setPageComplete(false);
-		genModelPage.setModelRequired(true);
+		genModelPage.setModelRequired(false);
 		addPage(genModelPage);
 
 		transformOptionPage = new ViewmapProducerWizardPage(PAGE_ID_TRANSFORM);
@@ -81,6 +84,25 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		transformOptionPage.setPageComplete(false);
 		addPage(transformOptionPage);
 		
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#getNextPage(org.eclipse.jface.wizard.IWizardPage)
+	 */
+	@Override
+	public IWizardPage getNextPage(IWizardPage page) {
+		if (page == mapModelPage) {
+			try {
+				GenModel genmmodel = getTransformOperation().findGenmodel(resourceSet);
+				if (genmmodel == null) {
+					genModelPage.setPageComplete(true);
+					return transformOptionPage;
+				}
+			} catch (CoreException e) {
+				genModelPage.setStatusMessage(e.getStatus());
+			}
+		}
+		return super.getNextPage(page);
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {

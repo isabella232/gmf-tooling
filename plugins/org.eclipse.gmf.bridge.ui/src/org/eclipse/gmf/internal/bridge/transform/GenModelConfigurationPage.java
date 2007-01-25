@@ -120,10 +120,15 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	void findGenmodel() {
 		try {
 			GenModel genModel = getOperation().findGenmodel(getResourceSet());
-			Resource r = genModel.eResource();
-			URI genURI = r.getURI();
-			setURI(genURI);
-			updateURI();
+			if (genModel != null) {
+				Resource r = genModel.eResource();
+				URI genURI = r.getURI();
+				setURI(genURI);
+				updateURI();
+			} else {
+				setPageComplete(true);
+				updateControls();
+			}
 		} catch (CoreException e) {
 			setErrorMessage(e.getMessage());
 			updateControls();
@@ -137,6 +142,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	protected void resourceChanged() {
 		super.resourceChanged();
 		updateControls();
+		setPageComplete(getResource() != null);
 	}
 
 	private void updateControls() {
@@ -156,6 +162,9 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
 		GenModel genModel = getOperation().loadGenModel(getResourceSet(), getURI(), monitor);
+		if (genModel == null) {
+			return null;
+		}
 		return genModel.eResource();
 	}
 
