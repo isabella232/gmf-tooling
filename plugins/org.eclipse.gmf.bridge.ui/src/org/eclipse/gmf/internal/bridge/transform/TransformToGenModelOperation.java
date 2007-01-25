@@ -240,7 +240,11 @@ public class TransformToGenModelOperation {
 				return Status.CANCEL_STATUS;
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_validate);
-			return validate(genEditor, monitor);
+			IStatus validate = validate(genEditor, monitor);
+			if (IStatus.CANCEL != validate.getSeverity()) {
+				idDispenser.release();
+			}
+			return validate;
 			
 		} catch (Exception ex) {
 			return Plugin.createError(ex.getMessage(), ex);
