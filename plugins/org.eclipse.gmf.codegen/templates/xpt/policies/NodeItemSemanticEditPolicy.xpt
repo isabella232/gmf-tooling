@@ -27,10 +27,8 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 	
 		«EXPAND xpt::policies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 	«ENDIF-»
-	«IF !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty()-»
 	
-		«EXPAND getDestroyElementCommand-»
-	«ENDIF-»
+	«EXPAND getDestroyElementCommand-»
 	«IF null != modelFacet && !getAllPotentialLinks(this).isEmpty()-»
 		«EXPAND createLinks-»
 	«ENDIF-»
@@ -43,14 +41,19 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
  * @generated
  */
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-		return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) {
-	«EXPAND destroyShortcut-»
-	«IF null != modelFacet && modelFacet.isPhantomElement()-»
-	
-		«EXPAND destroyPhantomElement-»
-	«ENDIF-»
-	
-		});
+	«LET !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty() AS isTopLevel-»
+		«LET null != modelFacet && modelFacet.isPhantomElement() AS isPhantom-»
+	return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || isPhantom»{
+			«IF isTopLevel-»
+				«EXPAND destroyShortcut-»
+			«ENDIF-»
+			«IF isPhantom-»
+				«EXPAND destroyPhantomElement-»
+			«ENDIF-»
+			
+		}«ENDIF»);
+		«ENDLET»
+	«ENDLET-»
 	}
 «ENDDEFINE»
 
@@ -72,6 +75,7 @@ protected org.eclipse.emf.ecore.EObject getElementToDestroy() {
 
 «REM»Method in anonimous inner class - should not be prefixed with @generated javadoc«ENDREM»
 «DEFINE destroyPhantomElement FOR gmfgen::GenNode-»
+
 protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 	org.eclipse.emf.ecore.EObject eObject = getElementToDestroy();
 	boolean removeFromResource = eObject.eContainer() == null;
@@ -82,7 +86,6 @@ protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWit
 	}
 	return result;
 }
-			
 «ENDDEFINE»
 
 «REM»
