@@ -985,7 +985,12 @@ public class BuiltinMetaModel {
 			return c1.eClass().isSuperTypeOf(t.eClass()) && isAssignableFrom(getInnerType(c1), getInnerType(t));
 		}
 		// == c1.isSuperTypeOf(t);
-		return ((EClass) t).getEAllSuperTypes().contains(c1);
+		for (EClass superType : ((EClass) t).getEAllSuperTypes()) {
+			if (BuiltinMetaModel.primEquals(superType, c1)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static boolean primEquals(EClassifier c1, EClassifier obj) {
@@ -995,7 +1000,20 @@ public class BuiltinMetaModel {
 	    if (c1 == obj) {
 	        return true;
 	    }
-	    return c1.getName().equals(obj.getName());
+	    final boolean namesEqual = c1.getName().equals(obj.getName());
+	    if (!namesEqual) {
+	    	return false;
+	    }
+	    if (c1.getEPackage() == null) {
+	    	return obj.getEPackage() == null;
+	    }
+    	if (obj.getEPackage() == null) {
+    		return false;
+    	}
+    	if (c1.getEPackage().getNsURI() == null) {
+    		return obj.getEPackage().getNsURI() == null;
+    	}
+   		return c1.getEPackage().getNsURI().equals(obj.getEPackage().getNsURI());  
 	}
 
 	private static boolean isCompatibleDataTypes(EDataType dt1, EDataType dt2) {
