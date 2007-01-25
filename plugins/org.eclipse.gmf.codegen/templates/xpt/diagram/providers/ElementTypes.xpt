@@ -202,5 +202,5 @@ public class «elementTypesClassName» extends ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE bindUniqueIdentifierToNamedElement(String id) FOR gmfgen::FeatureLinkModelFacet»
-	elements.put(«id», «getQualifiedPackageInterfaceName(metaFeature.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(metaFeature)»());
+	elements.put(«id», «EXPAND xpt::Common::metaFeatureAccessor FOR metaFeature»);
 «ENDDEFINE»

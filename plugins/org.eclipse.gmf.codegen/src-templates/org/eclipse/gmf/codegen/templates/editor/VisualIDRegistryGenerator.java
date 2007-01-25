@@ -477,7 +477,6 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_84);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
-		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -487,7 +486,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_85);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_87);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_88);
@@ -500,7 +499,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_90);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_91);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_92);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_93);

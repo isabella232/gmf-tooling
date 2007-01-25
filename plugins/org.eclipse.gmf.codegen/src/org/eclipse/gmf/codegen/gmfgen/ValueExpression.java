@@ -110,6 +110,17 @@ public interface ValueExpression extends EObject {
 	 */
 	String getLangName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns valid String literal for the given <code>String</code> as it should appear in java source code.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getBodyString();
+
 	boolean isOCLExpression();
 		
 } // ValueExpression

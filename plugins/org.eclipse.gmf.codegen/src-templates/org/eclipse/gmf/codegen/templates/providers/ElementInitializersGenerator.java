@@ -229,7 +229,6 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_23);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
-		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -239,7 +238,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_24);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_26);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_27);
@@ -252,7 +251,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_29);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_31);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_32);
@@ -355,7 +354,7 @@ String __javaOperationContainer;
 			GenClassifier __genExprContext = __genValueExpression.getFeatureSeqInitializer().getElementClass();
 			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
 			if(!(provider instanceof GenJavaExpressionProvider)) continue;
-			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
+			String __genExprResultType = provider.getQualifiedTypeInstanceClassName(__genValueExpression.getFeature());
 
     stringBuffer.append(TEXT_66);
     

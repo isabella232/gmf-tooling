@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
+import org.eclipse.gmf.internal.common.codegen.Conversions;
 
 /**
  * <!-- begin-user-doc -->
@@ -157,6 +158,15 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	public String getLangName() {
 		GenLanguage langEnum = getLanguage();
 		return (langEnum != null) ? langEnum.getName() : ""; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getBodyString() {
+		return Conversions.toStringLiteral(getBody());
 	}
 
 	/**

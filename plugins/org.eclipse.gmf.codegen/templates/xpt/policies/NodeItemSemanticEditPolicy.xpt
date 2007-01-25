@@ -163,7 +163,7 @@ protected org.eclipse.gef.commands.Command «EXPAND completeLinkCommandCreatorNam
 «DEFINE linkCreateCommand FOR gmfgen::TypeLinkModelFacet-»
 «REM»create semantic command«ENDREM»«-»
 if (req.getContainmentFeature() == null) {
-	req.setContainmentFeature(«getQualifiedPackageInterfaceName(containmentMetaFeature.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(containmentMetaFeature)»());
+	req.setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR containmentMetaFeature»);
 }
 return getMSLWrapper(new «getCreateCommandQualifiedClassName()»(req, «EXPAND linkCreationParameters(false, true)»));
 «ENDDEFINE»
@@ -174,8 +174,9 @@ org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest setReq = new org.eclip
 return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(setReq));
 «ENDDEFINE»
 
-«REM»Should never be called!«ENDREM»
-«DEFINE linkCreateCommand FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+«DEFINE linkCreateCommand FOR gmfgen::LinkModelFacet-»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
 
 «DEFINE defineSourceTargetAndCheckConstraints(boolean reversedRequest, boolean isCompleteCommand) FOR gmfgen::GenLink-»
 	«EXPAND defineLinkSourceTarget(reversedRequest, isCompleteCommand)-»
@@ -192,8 +193,9 @@ return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.SetValue
 «DEFINE linkCreationSourceTargetParameters(boolean reversed, boolean isComplete) FOR gmfgen::LinkModelFacet-»
 «IF !reversed || isComplete»source«ELSE»null«ENDIF», «IF reversed || isComplete»target«ELSE»null«ENDIF»«ENDDEFINE»
 
-«REM»Should never be called!«ENDREM»
-«DEFINE linkCreationParameters(boolean reversed, boolean isComplete) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+«DEFINE linkCreationParameters(boolean reversed, boolean isComplete) FOR gmfgen::LinkModelFacet»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
 
 «DEFINE defineLinkSourceTarget(boolean reversedRequest, boolean isCompleteCommand) FOR gmfgen::GenLink-»
 	«LET !reversedRequest || isCompleteCommand AS checkSource-»
@@ -228,8 +230,9 @@ if (container == null) {
 
 «DEFINE definionContainer FOR gmfgen::FeatureLinkModelFacet»«ENDDEFINE»
 
-«REM»Should never be called!«ENDREM»
-«DEFINE definionContainer FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+«DEFINE definionContainer FOR gmfgen::LinkModelFacet-»
+	«EXPAND incorrectLinkModelFacet-»
+«ENDDEFINE»
 
 «DEFINE defineLinkContainer FOR gmfgen::GenLink-»
 «ENDDEFINE»
@@ -239,5 +242,9 @@ if (container == null) {
 
 «REM»Should be called only if createCompleteLinkCommand(this, node) == true«ENDREM»
 «DEFINE completeLinkCommandCreatorName(gmfgen::GenNode node) FOR gmfgen::GenLink»getCreateComplete«IF createCompleteIncomingLinkCommand(this, node)»Incoming«ELSEIF createCompleteOutgoingLinkCommand(this, node)»Outgoing«ENDIF»«getUniqueIdentifier()»Command«ENDDEFINE»
+
+«DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet-»
+	«ERROR "Unrecognized link model facet: " + this-»
+«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»

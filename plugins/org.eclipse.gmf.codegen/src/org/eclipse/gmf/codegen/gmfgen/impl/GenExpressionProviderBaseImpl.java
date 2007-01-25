@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.4 2006/06/06 16:22:23 radvorak Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.5 2007/01/25 16:57:54 ashatalin Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
 import org.eclipse.emf.common.notify.Notification;
@@ -100,14 +101,14 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
-	 */	
-	public String getQualifiedInstanceClassName(GenTypedElement genTypedElement) {	
+	 */
+	public String getQualifiedTypeInstanceClassName(GenTypedElement genTypedElement) {
 		if(genTypedElement.isPrimitiveType() && !genTypedElement.isListType()) {
 			return getQualifiedInstanceClassName(genTypedElement.getTypeGenClassifier());
 		}
 		String type = genTypedElement.getType();
 		return (type != null) ? type : "java.lang.Object"; //$NON-NLS-1$
-	}	
+	}
 	
 	/**
 	 * <!-- begin-user-doc -->

@@ -580,6 +580,7 @@
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/langName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ValueExpression/getBodyString"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenConstraint" labelFeature="#//gmfgen/ValueExpression/body"/>
     <genClasses ecoreClass="gmfgen.ecore#//Palette">
@@ -737,6 +738,12 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenExpressionProviderBase/container"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getLanguage"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedInstanceClassName/genClassifier"/>
+      </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedTypeInstanceClassName">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionProviderBase/getQualifiedTypeInstanceClassName/genTypedElement"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenJavaExpressionProvider">
       <genOperations ecoreOperation="gmfgen.ecore#//GenJavaExpressionProvider/getOperationName">

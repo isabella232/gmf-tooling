@@ -12,6 +12,9 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::Utils»
 
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
 «IF copyrightText != null-»
@@ -28,3 +31,15 @@
 -->
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE getFeatureValue(String containerVar, boolean typedContainer) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(genClass)-»
+((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
+	«ELSE-»
+«IF !typedContainer»((«getQualifiedInterfaceName(genClass)»)«ENDIF»«containerVar»«IF !typedContainer»)«ENDIF».«getGetAccessor()»()«-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE metaClassAccessor FOR genmodel::GenClass»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
+
+«DEFINE metaFeatureAccessor FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»

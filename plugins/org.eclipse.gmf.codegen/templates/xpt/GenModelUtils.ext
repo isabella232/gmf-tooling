@@ -57,6 +57,36 @@ String getQualifiedPackageClassName(genmodel::GenPackage gp) :
 	getReflectionClassPackageName(gp) + "." + getPackageClassName(gp)
 ;
 
+// GenFeature#getGetAccessor()
+String getGetAccessor(genmodel::GenFeature gf) :
+JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getGetAccessor(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+;
+
+// GenModel#findGenClassifier()
+genmodel::GenClassifier findGenClassifier(genmodel::GenModel genModel, ecore::EClassifier eClassifier) :
+JAVA org.eclipse.gmf.codegen.util.GenModelUtils.findGenClassifier(org.eclipse.emf.codegen.ecore.genmodel.GenModel, org.eclipse.emf.ecore.EClassifier)
+;
+
+// GenFeature#isListType()
+boolean isListType(genmodel::GenFeature feature) :
+	let eFeature = feature.ecoreFeature 
+		: eFeature.many 
+			|| isFeatureMapType(eFeature)
+			|| 0 - 2 == eFeature.upperBound
+;
+
+private boolean isFeatureMapType(ecore::EStructuralFeature feature) :
+	let type = feature.eType
+		: null != type && 
+			("org.eclipse.emf.ecore.util.FeatureMap.Entry" == type.instanceClassName 
+			|| "org.eclipse.emf.ecore.util.FeatureMap$Entry" == type.instanceClassName)
+;
+
+// GenClass#isExternalInterface()
+boolean isExternalInterface(genmodel::GenClass genClass) :
+	null != genClass.ecoreClass.instanceClassName
+;
+
 // GenPackageImpl#getReflectionClassPackageName()
 private String getReflectionClassPackageName(genmodel::GenPackage gp) :
 	getQualifiedPackageName(gp, gp.genModel.suppressInterfaces ? gp.metaDataPackageSuffix : gp.classPackageSuffix)

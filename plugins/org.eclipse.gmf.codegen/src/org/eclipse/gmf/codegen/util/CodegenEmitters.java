@@ -74,7 +74,6 @@ import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPol
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
@@ -181,7 +180,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
-		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/OpenDiagram.javajet", OpenDiagramPolicyGenerator.class);
 		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
@@ -352,7 +350,7 @@ public class CodegenEmitters {
 	// policies
 
 	public TextEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ItemSemanticEditPolicyGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::policies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {

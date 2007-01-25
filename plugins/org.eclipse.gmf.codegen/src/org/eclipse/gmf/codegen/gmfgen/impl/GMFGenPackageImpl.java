@@ -7017,6 +7017,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getValueExpression_Language(), this.getGenLanguage(), "language", "ocl", 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getValueExpression_LangName(), ecorePackage.getEString(), "langName", null, 0, 1, ValueExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
+		addEOperation(valueExpressionEClass, ecorePackage.getEString(), "getBodyString", 0, 1);
+
 		initEClass(genConstraintEClass, GenConstraint.class, "GenConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(paletteEClass, Palette.class, "Palette", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7200,6 +7202,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 
 		addEOperation(genExpressionProviderBaseEClass, this.getGenLanguage(), "getLanguage", 1, 1);
+
+		op = addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getQualifiedInstanceClassName", 0, 1);
+		addEParameter(op, theGenModelPackage.getGenClassifier(), "genClassifier", 0, 1);
+
+		op = addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getQualifiedTypeInstanceClassName", 0, 1);
+		addEParameter(op, theGenModelPackage.getGenTypedElement(), "genTypedElement", 0, 1);
 
 		initEClass(genJavaExpressionProviderEClass, GenJavaExpressionProvider.class, "GenJavaExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7512,7 +7520,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																										
+		   });																																																																																																																																																																																																											
 	}
 
 	/**
@@ -7647,7 +7655,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "metaFeature.ecoreFeature.unique",
 			 "description", "All references are unique in EMF due to the current code generation"
-		   });																																					
+		   });																																						
 		addAnnotation
 		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -7754,7 +7762,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																															
+		   });																																																																																																																																																																																
 		addAnnotation
 		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
 		   source, 
@@ -7783,7 +7791,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "def", "ValueSpec"
-		   });			
+		   });				
 		addAnnotation
 		  (getValueExpression_Body(), 
 		   source, 

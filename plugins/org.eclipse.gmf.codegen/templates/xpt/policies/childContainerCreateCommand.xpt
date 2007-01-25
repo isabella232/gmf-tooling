@@ -28,7 +28,7 @@ protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runt
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
 		«IF !modelFacet.isPhantomElement()-»
 	if (req.getContainmentFeature() == null) {
-		req.setContainmentFeature(«getQualifiedPackageInterfaceName(modelFacet.containmentMetaFeature.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(modelFacet.containmentMetaFeature)»());
+		req.setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR modelFacet.containmentMetaFeature»);
 	}
 		«ENDIF-»
 	return getMSLWrapper(new «getCreateCommandQualifiedClassName()»(req));

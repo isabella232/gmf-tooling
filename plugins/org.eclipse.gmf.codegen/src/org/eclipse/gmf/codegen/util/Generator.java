@@ -380,12 +380,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// edit policies
 
 	private void generateBaseItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getBaseItemSemanticEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getBaseItemSemanticEditPolicyClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getBaseItemSemanticEditPolicyEmitter(), myDiagram.getBaseItemSemanticEditPolicyQualifiedClassName(), myDiagram);
 	}
 
 	/**
