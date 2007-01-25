@@ -15,6 +15,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
@@ -27,8 +28,8 @@ import org.eclipse.ui.PlatformUI;
  */
 public class TransformToGenModelAction implements IObjectActionDelegate {
 
-	private static final int WIZARD_WIDTH = 500;
-	private static final int WIZARD_HEIGHT = 600;
+	private static final int WIZARD_WIDTH_INCH = 5;
+	private static final int WIZARD_HEIGHT_INCH = 6;
 
 	private IWorkbenchPart myPart;
 
@@ -49,7 +50,8 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		wiz.init(PlatformUI.getWorkbench(), sselection);
 		WizardDialog wd = new WizardDialog(getShell(), wiz);
 		wd.create();
-		wd.getShell().setSize(WIZARD_WIDTH, WIZARD_HEIGHT);
+		Point dpi = getShell().getDisplay().getDPI();
+		wd.getShell().setSize(dpi.x * WIZARD_WIDTH_INCH, dpi.y * WIZARD_HEIGHT_INCH);
 		wd.open();
 	}
 
