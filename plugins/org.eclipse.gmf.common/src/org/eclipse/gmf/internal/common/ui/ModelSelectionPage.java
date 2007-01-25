@@ -111,37 +111,23 @@ public class ModelSelectionPage extends WizardPage {
 			layout.numColumns = 4;
 			plate.setLayout(layout);
 
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			plate.setLayoutData(data);
+			plate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		}
 		Label label = new Label(plate, SWT.NONE);
 		label.setText(Messages.ModelSelectionPageModelURI);
-		{
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			label.setLayoutData(data);
-		}
+		label.setLayoutData(new GridData());
+
 		browseFsBtn = new Button(plate, SWT.PUSH);
 		browseFsBtn.setText(Messages.ModelSelectionPageBrowseFS);
-		{
-			GridData data = new GridData();
-			browseFsBtn.setLayoutData(data);
-		}
+		browseFsBtn.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
+
 		browseWsBtn = new Button(plate, SWT.PUSH);
 		browseWsBtn.setText(Messages.ModelSelectionPageBrowseWS);
-		{
-			GridData data = new GridData();
-			browseWsBtn.setLayoutData(data);
-		}
+		browseWsBtn.setLayoutData(new GridData());
+
 		findInWsBtn = new Button(plate, SWT.PUSH);
 		findInWsBtn.setText(Messages.ModelSelectionPageFindInWS);
-		{
-			GridData data = new GridData();
-			findInWsBtn.setLayoutData(data);
-		}
+		findInWsBtn.setLayoutData(new GridData());
 
 		// logic
 
