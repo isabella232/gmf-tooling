@@ -498,7 +498,7 @@ if (needsObjectInitializer) {
 			GenClassifier __genExprContext = __genValueExpression.getFeatureSeqInitializer().getElementClass();
 			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
 			if(!(provider instanceof GenJavaExpressionProvider)) continue;
-			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
+			String __genExprResultType = provider.getQualifiedTypeInstanceClassName(__genValueExpression.getFeature());
 
     stringBuffer.append(TEXT_78);
     
