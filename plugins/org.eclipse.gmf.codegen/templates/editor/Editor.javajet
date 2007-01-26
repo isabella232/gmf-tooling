@@ -260,6 +260,19 @@ if (!ifaces.isEmpty()) {
 	/**
 	 * @generated
 	 */
+	public void doSetInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input, boolean releaseEditorContents) throws <%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
+			final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) input).getDiagram();
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> newInput = new <%="org.eclipse.emf.common.ui.URIEditorInput"%>(diagram.eResource().getURI());
+			super.doSetInput(newInput, releaseEditorContents);
+		} else {
+			super.doSetInput(input, releaseEditorContents);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
 			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication().getPackageName() + ".URIDiagramDocumentProvider")%>());
