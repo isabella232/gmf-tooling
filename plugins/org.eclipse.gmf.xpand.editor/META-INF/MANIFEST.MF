@@ -19,3 +19,4 @@ Eclipse-LazyStart: true
 Export-Package: org.eclipse.gmf.internal.xpand.codeassist;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.codeassist;x-friends:="org.eclipse.gmf.tests.xpand"
 Bundle-Vendor: Eclipse.org
+Import-Package: lpg.lpgjavaruntime;version="1.0.0"
