@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.taipan.port.diagram.part;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -29,8 +30,10 @@ import org.eclipse.gmf.examples.taipan.port.diagram.application.URIDiagramDocume
 
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.ui.IEditorInput;
 
 /**
@@ -116,6 +119,19 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	 */
 	public String getContributorId() {
 		return TaiPanDiagramEditorPlugin.ID;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSetInput(IEditorInput input, boolean releaseEditorContents) throws CoreException {
+		if (input instanceof IDiagramEditorInput) {
+			final Diagram diagram = ((IDiagramEditorInput) input).getDiagram();
+			IEditorInput newInput = new URIEditorInput(diagram.eResource().getURI());
+			super.doSetInput(newInput, releaseEditorContents);
+		} else {
+			super.doSetInput(input, releaseEditorContents);
+		}
 	}
 
 	/**
