@@ -35,6 +35,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Port extends EObject {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Returns the value of the '<em><b>Location</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -74,6 +81,6 @@ public interface Port extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Building" containment="true"
 	 * @generated
 	 */
-	EList getBuildings();
+	EList<Building> getBuildings();
 
 } // Port

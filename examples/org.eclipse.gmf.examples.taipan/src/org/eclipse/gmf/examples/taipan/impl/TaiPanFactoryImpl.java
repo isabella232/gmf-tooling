@@ -30,18 +30,29 @@ import org.eclipse.gmf.examples.taipan.*;
 public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static TaiPanFactory init() {
-		try {
-			TaiPanFactory theTaiPanFactory = (TaiPanFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan"); //$NON-NLS-1$ 
-			if (theTaiPanFactory != null) {
+		try
+		{
+			TaiPanFactory theTaiPanFactory = (TaiPanFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan"); //$NON-NLS-1$ 
+			if (theTaiPanFactory != null)
+			{
 				return theTaiPanFactory;
 			}
-		} catch (Exception exception) {
+		}
+		catch (Exception exception)
+		{
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new TaiPanFactoryImpl();
@@ -62,26 +73,20 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID()) {
-		case TaiPanPackage.AQUATORY:
-			return createAquatory();
-		case TaiPanPackage.PORT:
-			return createPort();
-		case TaiPanPackage.SHIP:
-			return createShip();
-		case TaiPanPackage.LARGE_ITEM:
-			return createLargeItem();
-		case TaiPanPackage.SMALL_ITEMS:
-			return createSmallItems();
-		case TaiPanPackage.EMPTY_BOX:
-			return createEmptyBox();
-		case TaiPanPackage.ROUTE:
-			return createRoute();
-		case TaiPanPackage.BUILDING:
-			return createBuilding();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		switch (eClass.getClassifierID())
+		{
+			case TaiPanPackage.AQUATORY: return createAquatory();
+			case TaiPanPackage.PORT: return createPort();
+			case TaiPanPackage.SHIP: return createShip();
+			case TaiPanPackage.LARGE_ITEM: return createLargeItem();
+			case TaiPanPackage.SMALL_ITEMS: return createSmallItems();
+			case TaiPanPackage.EMPTY_BOX: return createEmptyBox();
+			case TaiPanPackage.ROUTE: return createRoute();
+			case TaiPanPackage.BUILDING: return createBuilding();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -171,7 +176,7 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * @generated
 	 */
 	public TaiPanPackage getTaiPanPackage() {
-		return (TaiPanPackage) getEPackage();
+		return (TaiPanPackage)getEPackage();
 	}
 
 	/**
@@ -180,6 +185,7 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static TaiPanPackage getPackage() {
 		return TaiPanPackage.eINSTANCE;
 	}

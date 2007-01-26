@@ -36,6 +36,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Aquatory extends EObject {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Returns the value of the '<em><b>Ports</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Port}.
 	 * <!-- begin-user-doc -->
@@ -49,7 +56,7 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Port" containment="true"
 	 * @generated
 	 */
-	EList getPorts();
+	EList<Port> getPorts();
 
 	/**
 	 * Returns the value of the '<em><b>Ships</b></em>' containment reference list.
@@ -65,7 +72,7 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Ship" containment="true"
 	 * @generated
 	 */
-	EList getShips();
+	EList<Ship> getShips();
 
 	/**
 	 * Returns the value of the '<em><b>Routes</b></em>' containment reference list.
@@ -81,6 +88,6 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Route" containment="true"
 	 * @generated
 	 */
-	EList getRoutes();
+	EList<Route> getRoutes();
 
 } // Aquatory

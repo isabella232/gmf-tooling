@@ -34,6 +34,13 @@ import org.eclipse.emf.ecore.EReference;
 public interface TaiPanPackage extends EPackage {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

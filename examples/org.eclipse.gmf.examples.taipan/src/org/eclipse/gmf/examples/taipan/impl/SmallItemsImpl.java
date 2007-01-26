@@ -31,6 +31,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class SmallItemsImpl extends ItemImpl implements SmallItems {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The default value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,6 +71,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaiPanPackage.Literals.SMALL_ITEMS;
 	}
@@ -94,10 +102,12 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			return new Integer(getQuantity());
+		switch (featureID)
+		{
+			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+				return new Integer(getQuantity());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,11 +117,13 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			setQuantity(((Integer) newValue).intValue());
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+				setQuantity(((Integer)newValue).intValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -121,11 +133,13 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			setQuantity(QUANTITY_EDEFAULT);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+				setQuantity(QUANTITY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -135,10 +149,12 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			return quantity != QUANTITY_EDEFAULT;
+		switch (featureID)
+		{
+			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+				return quantity != QUANTITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -148,9 +164,9 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (quantity: "); //$NON-NLS-1$

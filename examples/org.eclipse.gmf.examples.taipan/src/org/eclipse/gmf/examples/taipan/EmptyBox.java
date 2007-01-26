@@ -17,4 +17,11 @@ package org.eclipse.gmf.examples.taipan;
  * @generated
  */
 public interface EmptyBox extends Item {
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
 } // EmptyBox

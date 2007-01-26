@@ -50,6 +50,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class ShipImpl extends EObjectImpl implements Ship {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,7 +94,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList cargo = null;
+	protected EList<Item> cargo = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,6 +110,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaiPanPackage.Literals.SHIP;
 	}
@@ -134,10 +142,12 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @generated
 	 */
 	public Port getDestination() {
-		if (destination != null && destination.eIsProxy()) {
-			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (Port) eResolveProxy(oldDestination);
-			if (destination != oldDestination) {
+		if (destination != null && destination.eIsProxy())
+		{
+			InternalEObject oldDestination = (InternalEObject)destination;
+			destination = (Port)eResolveProxy(oldDestination);
+			if (destination != oldDestination)
+			{
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.SHIP__DESTINATION, oldDestination, destination));
 			}
@@ -171,9 +181,10 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCargo() {
-		if (cargo == null) {
-			cargo = new EObjectContainmentEList(Item.class, this, TaiPanPackage.SHIP__CARGO);
+	public EList<Item> getCargo() {
+		if (cargo == null)
+		{
+			cargo = new EObjectContainmentEList<Item>(Item.class, this, TaiPanPackage.SHIP__CARGO);
 		}
 		return cargo;
 	}
@@ -183,10 +194,12 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case TaiPanPackage.SHIP__CARGO:
-			return ((InternalEList) getCargo()).basicRemove(otherEnd, msgs);
+		switch (featureID)
+		{
+			case TaiPanPackage.SHIP__CARGO:
+				return ((InternalEList<?>)getCargo()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -196,16 +209,17 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case TaiPanPackage.SHIP__NAME:
-			return getName();
-		case TaiPanPackage.SHIP__DESTINATION:
-			if (resolve)
-				return getDestination();
-			return basicGetDestination();
-		case TaiPanPackage.SHIP__CARGO:
-			return getCargo();
+		switch (featureID)
+		{
+			case TaiPanPackage.SHIP__NAME:
+				return getName();
+			case TaiPanPackage.SHIP__DESTINATION:
+				if (resolve) return getDestination();
+				return basicGetDestination();
+			case TaiPanPackage.SHIP__CARGO:
+				return getCargo();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -215,18 +229,21 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case TaiPanPackage.SHIP__NAME:
-			setName((String) newValue);
-			return;
-		case TaiPanPackage.SHIP__DESTINATION:
-			setDestination((Port) newValue);
-			return;
-		case TaiPanPackage.SHIP__CARGO:
-			getCargo().clear();
-			getCargo().addAll((Collection) newValue);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.SHIP__NAME:
+				setName((String)newValue);
+				return;
+			case TaiPanPackage.SHIP__DESTINATION:
+				setDestination((Port)newValue);
+				return;
+			case TaiPanPackage.SHIP__CARGO:
+				getCargo().clear();
+				getCargo().addAll((Collection<? extends Item>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -236,17 +253,19 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.SHIP__NAME:
-			setName(NAME_EDEFAULT);
-			return;
-		case TaiPanPackage.SHIP__DESTINATION:
-			setDestination((Port) null);
-			return;
-		case TaiPanPackage.SHIP__CARGO:
-			getCargo().clear();
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.SHIP__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case TaiPanPackage.SHIP__DESTINATION:
+				setDestination((Port)null);
+				return;
+			case TaiPanPackage.SHIP__CARGO:
+				getCargo().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -256,14 +275,16 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.SHIP__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-		case TaiPanPackage.SHIP__DESTINATION:
-			return destination != null;
-		case TaiPanPackage.SHIP__CARGO:
-			return cargo != null && !cargo.isEmpty();
+		switch (featureID)
+		{
+			case TaiPanPackage.SHIP__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case TaiPanPackage.SHIP__DESTINATION:
+				return destination != null;
+			case TaiPanPackage.SHIP__CARGO:
+				return cargo != null && !cargo.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -273,9 +294,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: "); //$NON-NLS-1$

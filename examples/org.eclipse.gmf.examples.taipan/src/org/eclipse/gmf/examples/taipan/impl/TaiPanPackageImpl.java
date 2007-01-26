@@ -43,6 +43,13 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass aquatoryEClass = null;
 
 	/**
@@ -483,6 +490,10 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		setName(eNAME);
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
 
 		// Add supertypes to classes
 		largeItemEClass.getESuperTypes().add(this.getItem());

@@ -49,6 +49,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class AquatoryImpl extends EObjectImpl implements Aquatory {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,7 +63,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ports = null;
+	protected EList<Port> ports = null;
 
 	/**
 	 * The cached value of the '{@link #getShips() <em>Ships</em>}' containment reference list.
@@ -66,7 +73,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ships = null;
+	protected EList<Ship> ships = null;
 
 	/**
 	 * The cached value of the '{@link #getRoutes() <em>Routes</em>}' containment reference list.
@@ -76,7 +83,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList routes = null;
+	protected EList<Route> routes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,6 +99,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaiPanPackage.Literals.AQUATORY;
 	}
@@ -101,9 +109,10 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getPorts() {
-		if (ports == null) {
-			ports = new EObjectContainmentEList(Port.class, this, TaiPanPackage.AQUATORY__PORTS);
+	public EList<Port> getPorts() {
+		if (ports == null)
+		{
+			ports = new EObjectContainmentEList<Port>(Port.class, this, TaiPanPackage.AQUATORY__PORTS);
 		}
 		return ports;
 	}
@@ -113,9 +122,10 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getShips() {
-		if (ships == null) {
-			ships = new EObjectContainmentEList(Ship.class, this, TaiPanPackage.AQUATORY__SHIPS);
+	public EList<Ship> getShips() {
+		if (ships == null)
+		{
+			ships = new EObjectContainmentEList<Ship>(Ship.class, this, TaiPanPackage.AQUATORY__SHIPS);
 		}
 		return ships;
 	}
@@ -125,9 +135,10 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRoutes() {
-		if (routes == null) {
-			routes = new EObjectContainmentEList(Route.class, this, TaiPanPackage.AQUATORY__ROUTES);
+	public EList<Route> getRoutes() {
+		if (routes == null)
+		{
+			routes = new EObjectContainmentEList<Route>(Route.class, this, TaiPanPackage.AQUATORY__ROUTES);
 		}
 		return routes;
 	}
@@ -137,14 +148,16 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case TaiPanPackage.AQUATORY__PORTS:
-			return ((InternalEList) getPorts()).basicRemove(otherEnd, msgs);
-		case TaiPanPackage.AQUATORY__SHIPS:
-			return ((InternalEList) getShips()).basicRemove(otherEnd, msgs);
-		case TaiPanPackage.AQUATORY__ROUTES:
-			return ((InternalEList) getRoutes()).basicRemove(otherEnd, msgs);
+		switch (featureID)
+		{
+			case TaiPanPackage.AQUATORY__PORTS:
+				return ((InternalEList<?>)getPorts()).basicRemove(otherEnd, msgs);
+			case TaiPanPackage.AQUATORY__SHIPS:
+				return ((InternalEList<?>)getShips()).basicRemove(otherEnd, msgs);
+			case TaiPanPackage.AQUATORY__ROUTES:
+				return ((InternalEList<?>)getRoutes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -154,14 +167,16 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case TaiPanPackage.AQUATORY__PORTS:
-			return getPorts();
-		case TaiPanPackage.AQUATORY__SHIPS:
-			return getShips();
-		case TaiPanPackage.AQUATORY__ROUTES:
-			return getRoutes();
+		switch (featureID)
+		{
+			case TaiPanPackage.AQUATORY__PORTS:
+				return getPorts();
+			case TaiPanPackage.AQUATORY__SHIPS:
+				return getShips();
+			case TaiPanPackage.AQUATORY__ROUTES:
+				return getRoutes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,20 +186,23 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case TaiPanPackage.AQUATORY__PORTS:
-			getPorts().clear();
-			getPorts().addAll((Collection) newValue);
-			return;
-		case TaiPanPackage.AQUATORY__SHIPS:
-			getShips().clear();
-			getShips().addAll((Collection) newValue);
-			return;
-		case TaiPanPackage.AQUATORY__ROUTES:
-			getRoutes().clear();
-			getRoutes().addAll((Collection) newValue);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.AQUATORY__PORTS:
+				getPorts().clear();
+				getPorts().addAll((Collection<? extends Port>)newValue);
+				return;
+			case TaiPanPackage.AQUATORY__SHIPS:
+				getShips().clear();
+				getShips().addAll((Collection<? extends Ship>)newValue);
+				return;
+			case TaiPanPackage.AQUATORY__ROUTES:
+				getRoutes().clear();
+				getRoutes().addAll((Collection<? extends Route>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -194,17 +212,19 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.AQUATORY__PORTS:
-			getPorts().clear();
-			return;
-		case TaiPanPackage.AQUATORY__SHIPS:
-			getShips().clear();
-			return;
-		case TaiPanPackage.AQUATORY__ROUTES:
-			getRoutes().clear();
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.AQUATORY__PORTS:
+				getPorts().clear();
+				return;
+			case TaiPanPackage.AQUATORY__SHIPS:
+				getShips().clear();
+				return;
+			case TaiPanPackage.AQUATORY__ROUTES:
+				getRoutes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -214,14 +234,16 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.AQUATORY__PORTS:
-			return ports != null && !ports.isEmpty();
-		case TaiPanPackage.AQUATORY__SHIPS:
-			return ships != null && !ships.isEmpty();
-		case TaiPanPackage.AQUATORY__ROUTES:
-			return routes != null && !routes.isEmpty();
+		switch (featureID)
+		{
+			case TaiPanPackage.AQUATORY__PORTS:
+				return ports != null && !ports.isEmpty();
+			case TaiPanPackage.AQUATORY__SHIPS:
+				return ships != null && !ships.isEmpty();
+			case TaiPanPackage.AQUATORY__ROUTES:
+				return routes != null && !routes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

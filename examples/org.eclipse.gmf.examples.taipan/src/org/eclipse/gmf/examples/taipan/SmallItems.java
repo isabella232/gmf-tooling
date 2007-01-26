@@ -25,6 +25,13 @@ package org.eclipse.gmf.examples.taipan;
 public interface SmallItems extends Item {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Returns the value of the '<em><b>Quantity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>

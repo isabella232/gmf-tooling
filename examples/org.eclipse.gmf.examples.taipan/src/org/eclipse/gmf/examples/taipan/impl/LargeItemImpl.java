@@ -31,6 +31,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class LargeItemImpl extends ItemImpl implements LargeItem {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,6 +71,7 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaiPanPackage.Literals.LARGE_ITEM;
 	}
@@ -94,10 +102,12 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			return new Float(getWeight());
+		switch (featureID)
+		{
+			case TaiPanPackage.LARGE_ITEM__WEIGHT:
+				return new Float(getWeight());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,11 +117,13 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			setWeight(((Float) newValue).floatValue());
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.LARGE_ITEM__WEIGHT:
+				setWeight(((Float)newValue).floatValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -121,11 +133,13 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			setWeight(WEIGHT_EDEFAULT);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.LARGE_ITEM__WEIGHT:
+				setWeight(WEIGHT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -135,10 +149,12 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			return weight != WEIGHT_EDEFAULT;
+		switch (featureID)
+		{
+			case TaiPanPackage.LARGE_ITEM__WEIGHT:
+				return weight != WEIGHT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -148,9 +164,9 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (weight: "); //$NON-NLS-1$

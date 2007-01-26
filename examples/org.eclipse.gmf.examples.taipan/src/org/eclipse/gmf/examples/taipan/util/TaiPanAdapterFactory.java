@@ -31,6 +31,12 @@ import org.eclipse.gmf.examples.taipan.*;
 public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -45,7 +51,8 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public TaiPanAdapterFactory() {
-		if (modelPackage == null) {
+		if (modelPackage == null)
+		{
 			modelPackage = TaiPanPackage.eINSTANCE;
 		}
 	}
@@ -58,12 +65,15 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
-		if (object == modelPackage) {
+		if (object == modelPackage)
+		{
 			return true;
 		}
-		if (object instanceof EObject) {
-			return ((EObject) object).eClass().getEPackage() == modelPackage;
+		if (object instanceof EObject)
+		{
+			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
@@ -74,48 +84,59 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TaiPanSwitch modelSwitch = new TaiPanSwitch() {
-
-		public Object caseAquatory(Aquatory object) {
-			return createAquatoryAdapter();
-		}
-
-		public Object casePort(Port object) {
-			return createPortAdapter();
-		}
-
-		public Object caseShip(Ship object) {
-			return createShipAdapter();
-		}
-
-		public Object caseItem(Item object) {
-			return createItemAdapter();
-		}
-
-		public Object caseLargeItem(LargeItem object) {
-			return createLargeItemAdapter();
-		}
-
-		public Object caseSmallItems(SmallItems object) {
-			return createSmallItemsAdapter();
-		}
-
-		public Object caseEmptyBox(EmptyBox object) {
-			return createEmptyBoxAdapter();
-		}
-
-		public Object caseRoute(Route object) {
-			return createRouteAdapter();
-		}
-
-		public Object caseBuilding(Building object) {
-			return createBuildingAdapter();
-		}
-
-		public Object defaultCase(EObject object) {
-			return createEObjectAdapter();
-		}
-	};
+	protected TaiPanSwitch<Adapter> modelSwitch = new TaiPanSwitch<Adapter>()
+		{
+			@Override
+			public Adapter caseAquatory(Aquatory object)
+			{
+				return createAquatoryAdapter();
+			}
+			@Override
+			public Adapter casePort(Port object)
+			{
+				return createPortAdapter();
+			}
+			@Override
+			public Adapter caseShip(Ship object)
+			{
+				return createShipAdapter();
+			}
+			@Override
+			public Adapter caseItem(Item object)
+			{
+				return createItemAdapter();
+			}
+			@Override
+			public Adapter caseLargeItem(LargeItem object)
+			{
+				return createLargeItemAdapter();
+			}
+			@Override
+			public Adapter caseSmallItems(SmallItems object)
+			{
+				return createSmallItemsAdapter();
+			}
+			@Override
+			public Adapter caseEmptyBox(EmptyBox object)
+			{
+				return createEmptyBoxAdapter();
+			}
+			@Override
+			public Adapter caseRoute(Route object)
+			{
+				return createRouteAdapter();
+			}
+			@Override
+			public Adapter caseBuilding(Building object)
+			{
+				return createBuildingAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object)
+			{
+				return createEObjectAdapter();
+			}
+		};
 
 	/**
 	 * Creates an adapter for the <code>target</code>.
@@ -125,8 +146,9 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter) modelSwitch.doSwitch((EObject) target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 	/**

@@ -37,6 +37,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public abstract class ItemImpl extends EObjectImpl implements Item {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * The default value of the '{@link #getArticle() <em>Article</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -70,6 +77,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaiPanPackage.Literals.ITEM;
 	}
@@ -100,10 +108,12 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case TaiPanPackage.ITEM__ARTICLE:
-			return getArticle();
+		switch (featureID)
+		{
+			case TaiPanPackage.ITEM__ARTICLE:
+				return getArticle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -113,11 +123,13 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case TaiPanPackage.ITEM__ARTICLE:
-			setArticle((String) newValue);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.ITEM__ARTICLE:
+				setArticle((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -127,11 +139,13 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.ITEM__ARTICLE:
-			setArticle(ARTICLE_EDEFAULT);
-			return;
+		switch (featureID)
+		{
+			case TaiPanPackage.ITEM__ARTICLE:
+				setArticle(ARTICLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -141,10 +155,12 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case TaiPanPackage.ITEM__ARTICLE:
-			return ARTICLE_EDEFAULT == null ? article != null : !ARTICLE_EDEFAULT.equals(article);
+		switch (featureID)
+		{
+			case TaiPanPackage.ITEM__ARTICLE:
+				return ARTICLE_EDEFAULT == null ? article != null : !ARTICLE_EDEFAULT.equals(article);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -154,9 +170,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (article: "); //$NON-NLS-1$

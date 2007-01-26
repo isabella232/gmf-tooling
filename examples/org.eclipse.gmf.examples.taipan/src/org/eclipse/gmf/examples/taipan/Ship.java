@@ -36,6 +36,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Ship extends EObject {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -101,6 +108,6 @@ public interface Ship extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Item" containment="true"
 	 * @generated
 	 */
-	EList getCargo();
+	EList<Item> getCargo();
 
 } // Ship
