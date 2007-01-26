@@ -44,6 +44,13 @@ import org.eclipse.gmf.examples.taipan.util.TaiPanAdapterFactory;
 public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
