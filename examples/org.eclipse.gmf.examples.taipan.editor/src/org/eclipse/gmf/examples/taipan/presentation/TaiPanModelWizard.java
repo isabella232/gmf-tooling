@@ -98,6 +98,13 @@ import org.eclipse.ui.PartInitException;
 public class TaiPanModelWizard extends Wizard implements INewWizard {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * This caches an instance of the model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

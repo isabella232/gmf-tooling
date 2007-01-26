@@ -26,6 +26,13 @@ import org.eclipse.emf.common.util.ResourceLocator;
 public final class TaiPanEditorPlugin extends EMFPlugin {
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final String copyright = ""; //$NON-NLS-1$
+
+	/**
 	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
