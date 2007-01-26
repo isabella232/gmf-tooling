@@ -78,5 +78,12 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 		scaledFeedbackLayer.setEnabled(false);
 		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
 	}
+	
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint")%> getPreferencesHint() {<%/*XXX seems better we use preference store directly (in configureGraphicalViewer) instead all these indirect ids */%> 
+		return <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT;
+	}
 }
 <%importManager.emitSortedImports();%>
