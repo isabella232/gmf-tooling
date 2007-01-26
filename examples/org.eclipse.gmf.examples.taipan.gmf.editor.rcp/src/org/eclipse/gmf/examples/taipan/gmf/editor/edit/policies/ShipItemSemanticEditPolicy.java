@@ -46,6 +46,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			}
 
 		});
+
 	}
 
 	/**

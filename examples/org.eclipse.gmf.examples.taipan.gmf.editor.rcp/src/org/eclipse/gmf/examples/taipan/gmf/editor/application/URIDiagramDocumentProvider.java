@@ -191,7 +191,8 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 			if (!resource.isLoaded()) {
 				try {
 					Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
-					options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+					// @see 171060 
+					// options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 					resource.load(options);
 				} catch (IOException e) {
 					resource.unload();

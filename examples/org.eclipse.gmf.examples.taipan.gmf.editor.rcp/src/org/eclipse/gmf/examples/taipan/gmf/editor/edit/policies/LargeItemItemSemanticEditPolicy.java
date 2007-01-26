@@ -24,4 +24,12 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class LargeItemItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(DestroyElementRequest req) {
+		return getMSLWrapper(new DestroyElementCommand(req));
+
+	}
+
 }
