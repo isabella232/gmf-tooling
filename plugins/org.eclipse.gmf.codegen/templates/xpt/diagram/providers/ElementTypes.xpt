@@ -62,7 +62,14 @@ public class «elementTypesClassName» extends ElementInitializers {
 	 */
 	private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 		if (element instanceof org.eclipse.emf.ecore.EStructuralFeature) {
-			element = ((org.eclipse.emf.ecore.EStructuralFeature) element).getEContainingClass();
+			org.eclipse.emf.ecore.EStructuralFeature feature = ((org.eclipse.emf.ecore.EStructuralFeature) element);
+			org.eclipse.emf.ecore.EClass eContainingClass = feature.getEContainingClass();
+			org.eclipse.emf.ecore.EClassifier eType = feature.getEType();
+			if (eContainingClass != null && !eContainingClass.isAbstract()){
+				element = eContainingClass;
+			} else if (eType instanceof org.eclipse.emf.ecore.EClass && !((org.eclipse.emf.ecore.EClass)eType).isAbstract()){
+				element = eType;
+			}
 		}
 		if (element instanceof org.eclipse.emf.ecore.EClass) {
 			org.eclipse.emf.ecore.EClass eClass = (org.eclipse.emf.ecore.EClass) element;
