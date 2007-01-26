@@ -345,6 +345,7 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog"));
     stringBuffer.append(TEXT_83);
     } else { // genDiagram.getEditorGen().getApplication() != null 
+    /*XXX unconditionally adding doSetInput() which is needed only for opening this editor from another diagram, is a temp workaround, as long as we use IDiagramEditorInput in OpenEditPolicy*/
     stringBuffer.append(TEXT_84);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_85);

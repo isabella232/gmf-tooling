@@ -255,7 +255,7 @@ if (!ifaces.isEmpty()) {
 			progressMonitor.setCanceled(!success);
 		}
 	}
-<%} else { // genDiagram.getEditorGen().getApplication() != null %>
+<%} else { // genDiagram.getEditorGen().getApplication() != null %><%/*XXX unconditionally adding doSetInput() which is needed only for opening this editor from another diagram, is a temp workaround, as long as we use IDiagramEditorInput in OpenEditPolicy*/%>
 
 	/**
 	 * @generated
