@@ -182,55 +182,6 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static int findElementsInDiagram(IDiagramWorkbenchPart diagramPart, URI elementURI, List/*EditPart*/editPartCollector) {
-		final int originalNumOfEditParts = editPartCollector.size();
-		EObject element = null;
-		try {
-			element = diagramPart.getDiagram().eResource().getResourceSet().getEObject(elementURI, false);
-		} catch (RuntimeException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Failed to get EObject by uri: " + elementURI, e); //$NON-NLS-1$
-			return 0;
-		}
-		if (element == null) {
-			return 0;
-		} else if (element instanceof View) {
-			EditPart editPart = (EditPart) diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(element);
-			if (editPart != null) {
-				editPartCollector.add(editPart);
-				return 1;
-			}
-		}
-
-		String elementID = EMFCoreUtil.getProxyID(element);
-		List associatedParts = diagramPart.getDiagramGraphicalViewer().findEditPartsForElement(elementID, IGraphicalEditPart.class);
-		// peform the possible hierarchy disjoint -> take the top-most parts
-		for (Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
-			EditPart nextPart = (EditPart) editPartIt.next();
-			EditPart parentPart = nextPart.getParent();
-			while (parentPart != null && !associatedParts.contains(parentPart)) {
-				parentPart = parentPart.getParent();
-			}
-			if (parentPart == null) {
-				editPartCollector.add(nextPart);
-			}
-		}
-
-		if (originalNumOfEditParts == editPartCollector.size()) {
-			if (!associatedParts.isEmpty()) {
-				editPartCollector.add(associatedParts.iterator().next());
-			} else {
-				element = element.eContainer();
-				if (element != null) {
-					return findElementsInDiagram(diagramPart, EcoreUtil.getURI(element), editPartCollector);
-				}
-			}
-		}
-		return editPartCollector.size() - originalNumOfEditParts;
-	}
-
-	/**
-	 * @generated
-	 */
 	public static void selectElementsInDiagram(IDiagramWorkbenchPart diagramPart, List/*EditPart*/editParts) {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
 
