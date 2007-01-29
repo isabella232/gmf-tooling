@@ -86,6 +86,17 @@ public class Messages extends NLS {
 	public static String ViewmapProducerWizardPage_btn_runtime;
 
 	public static String ViewmapProducerWizardPage_i_not_recommended;
+	
+	//XXX: remove after fix of https://bugs.eclipse.org/bugs/show_bug.cgi?id=172000
+	public static String ResourceGroup_nameExists;
+	public static String ResourceGroup_folderEmpty;
+	public static String ResourceGroup_noProject;
+	public static String ResourceGroup_emptyName;
+	public static String ResourceGroup_invalidFilename;
+	public static String ResourceGroup_pathOccupied;
+	public static String WizardNewFileCreationPage_file;
+
+	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
