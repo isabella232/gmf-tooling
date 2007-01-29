@@ -43,10 +43,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-		«IF needsCanonicalEditPolicy()-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE,
-			new «getCanonicalEditPolicyQualifiedClassName()»());
-		«ENDIF-»
+		«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
 		«IF generateCreateShortcutAction() && null == editorGen.application-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {

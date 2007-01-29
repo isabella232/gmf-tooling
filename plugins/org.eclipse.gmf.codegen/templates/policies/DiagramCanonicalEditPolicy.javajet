@@ -2,6 +2,12 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
+/*
+	This template should be called only for non-design diagrams (domainDiagramElement != null) 
+	because *CanonicalEditPolicy responsible for dealing with semantic model 
+	elements and meaningless (should not be generated) for pure design diagrams.  
+*/
+
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
@@ -19,13 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy")%> {
 	
-<%
-GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-if (modelElementInterface != null) {
-	List genNodes = genDiagram.getTopLevelNodes();
-%>
+<%List genNodes = genDiagram.getTopLevelNodes();%>
 <%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
-<%}%>
 
 	/**
 	 * @generated
@@ -55,9 +56,7 @@ if (modelElementInterface != null) {
 		return false;
 	}
 
-<%if (modelElementInterface != null) {%>
 <%@ include file="../semanticSync.jetinc/refreshSemanticDiagram.jetinc"%>
-<%}%>
 
 }
 <%importManager.emitSortedImports();%>

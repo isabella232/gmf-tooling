@@ -594,7 +594,7 @@ Map genFeature2genNodeMap = new LinkedHashMap();
 for (int nodeIndex = 0; nodeIndex < genNodes.size(); nodeIndex++) {
 	GenNode nextNode = (GenNode) genNodes.get(nodeIndex);
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	if (typeModelFacet == null || typeModelFacet.isPhantomElement()) {
+	if (typeModelFacet.isPhantomElement()) {
 		// Skipping top-level phantoms
 		continue;
 	}

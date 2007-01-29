@@ -116,7 +116,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	public boolean needsCanonicalEditPolicy() {
 		// mirror logic previously on getSemanticChildrenList.jetinc - genNodes.size() > 0
 		// and refreshSemanticNode.jetinc - genClass2Phantom.size() > 0 && phantomLinks.size() > 0
-		if (getDiagram().isSynchronized()) {
+		if (!isSansDomain() && getDiagram().isSynchronized()) {
 			return !getChildNodes().isEmpty() || (getDiagram().getGenClass2PhantomMap().size() > 0 && getDiagram().getPhantomLinks().size() > 0);
 		} else {
 			return false;

@@ -154,3 +154,9 @@ removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles
 installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName()»());
 	«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE installCanonicalEditPolicy FOR gmfgen::GenContainerBase-»
+	«IF needsCanonicalEditPolicy()-»
+installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE, new «getCanonicalEditPolicyQualifiedClassName()»());
+	«ENDIF-»
+«ENDDEFINE»

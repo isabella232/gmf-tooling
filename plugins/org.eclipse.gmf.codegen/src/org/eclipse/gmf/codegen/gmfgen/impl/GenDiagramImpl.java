@@ -3487,7 +3487,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public boolean needsCanonicalEditPolicy() {
-		return isSynchronized();
+		return !isSansDomain() && isSynchronized();
 	}
 
 	/**

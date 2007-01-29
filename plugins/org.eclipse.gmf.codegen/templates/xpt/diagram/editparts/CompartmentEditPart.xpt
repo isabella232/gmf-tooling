@@ -82,11 +82,8 @@ public class «editPartClassName» extends
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
-			«IF needsCanonicalEditPolicy()-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE,
-			new «getCanonicalEditPolicyQualifiedClassName()»());
-			«ENDIF-»
 		«ENDIF-»
+		«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 
