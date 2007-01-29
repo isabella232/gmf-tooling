@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.Design2DCanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
@@ -44,6 +43,5 @@ public class Design2DEditPart extends DiagramEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		removeEditPolicy(EditPolicyRoles.SEMANTIC_ROLE);
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Design2DCanonicalEditPolicy());
 	}
 }
