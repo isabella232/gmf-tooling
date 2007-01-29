@@ -29,24 +29,19 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.NotificationFilter;
 
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-
-import org.eclipse.gmf.runtime.notation.Diagram;
 
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -158,32 +153,23 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
-	private String contentObjectURI;
+	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
+		if (input instanceof URIEditorInput) {
+			return new URIDiagramDocumentProvider();
+		}
+		return super.getDocumentProvider(input);
+	}
 
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new TaiPanDocumentProvider(contentObjectURI));
+			setDocumentProvider(new TaiPanDocumentProvider());
+		} else if (input instanceof URIEditorInput) {
+			setDocumentProvider(new URIDiagramDocumentProvider());
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public void doSetInput(IEditorInput input, boolean releaseEditorContents) throws CoreException {
-		contentObjectURI = null;
-		if (input instanceof IDiagramEditorInput) {
-			final Diagram diagram = ((IDiagramEditorInput) input).getDiagram();
-			final IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
-			FileEditorInput newInput = new FileEditorInput(diagramFile);
-			contentObjectURI = diagram.eResource().getURIFragment(diagram);
-			super.doSetInput(newInput, releaseEditorContents);
-		} else {
-			super.doSetInput(input, releaseEditorContents);
 		}
 	}
 
