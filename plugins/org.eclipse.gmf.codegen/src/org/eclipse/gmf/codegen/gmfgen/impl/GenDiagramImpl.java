@@ -5223,4 +5223,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		return phantomLinks;
 	}
+	
+	public boolean isSansDomain() {
+		return getDomainDiagramElement() == null;
+	}
 } //GenDiagramImpl

@@ -326,13 +326,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMMON_BASE__BEHAVIOUR = 7;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMMON_BASE__SANS_DOMAIN = 8;
+
+	/**
 	 * The number of structural features of the '<em>Gen Common Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMMON_BASE_FEATURE_COUNT = 8;
+	int GEN_COMMON_BASE_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase <em>Gen Container Base</em>}' class.
@@ -415,6 +424,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CONTAINER_BASE__BEHAVIOUR = GEN_COMMON_BASE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_BASE__SANS_DOMAIN = GEN_COMMON_BASE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -524,6 +542,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_DIAGRAM__BEHAVIOUR = GEN_CONTAINER_BASE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__SANS_DOMAIN = GEN_CONTAINER_BASE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -2968,6 +2995,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_CONTAINER__BEHAVIOUR = GEN_CONTAINER_BASE__BEHAVIOUR;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__SANS_DOMAIN = GEN_CONTAINER_BASE__SANS_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3074,6 +3110,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE__BEHAVIOUR = GEN_CHILD_CONTAINER__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE__SANS_DOMAIN = GEN_CHILD_CONTAINER__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -3255,6 +3300,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_TOP_LEVEL_NODE__BEHAVIOUR = GEN_NODE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOP_LEVEL_NODE__SANS_DOMAIN = GEN_NODE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -3445,6 +3499,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__BEHAVIOUR = GEN_NODE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__SANS_DOMAIN = GEN_NODE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -3644,6 +3707,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_SIDE_AFFIXED_NODE__BEHAVIOUR = GEN_CHILD_NODE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_SIDE_AFFIXED_NODE__SANS_DOMAIN = GEN_CHILD_NODE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -3852,6 +3924,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_LABEL_NODE__BEHAVIOUR = GEN_CHILD_NODE__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_LABEL_NODE__SANS_DOMAIN = GEN_CHILD_NODE__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
@@ -4070,6 +4151,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMPARTMENT__BEHAVIOUR = GEN_CHILD_CONTAINER__BEHAVIOUR;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__SANS_DOMAIN = GEN_CHILD_CONTAINER__SANS_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4251,6 +4341,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__BEHAVIOUR = GEN_COMMON_BASE__BEHAVIOUR;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__SANS_DOMAIN = GEN_COMMON_BASE__SANS_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4405,6 +4504,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LABEL__BEHAVIOUR = GEN_COMMON_BASE__BEHAVIOUR;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LABEL__SANS_DOMAIN = GEN_COMMON_BASE__SANS_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4521,6 +4629,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE_LABEL__BEHAVIOUR = GEN_LABEL__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE_LABEL__SANS_DOMAIN = GEN_LABEL__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
@@ -4650,6 +4767,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXTERNAL_NODE_LABEL__BEHAVIOUR = GEN_NODE_LABEL__BEHAVIOUR;
 
 	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EXTERNAL_NODE_LABEL__SANS_DOMAIN = GEN_NODE_LABEL__SANS_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4775,6 +4901,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_LINK_LABEL__BEHAVIOUR = GEN_LABEL__BEHAVIOUR;
+
+	/**
+	 * The feature id for the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_LABEL__SANS_DOMAIN = GEN_LABEL__SANS_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
@@ -10979,6 +11114,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenCommonBase_Behaviour();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#isSansDomain <em>Sans Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sans Domain</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommonBase#isSansDomain()
+	 * @see #getGenCommonBase()
+	 * @generated
+	 */
+	EAttribute getGenCommonBase_SansDomain();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Behaviour <em>Behaviour</em>}'.

@@ -37,9 +37,8 @@ public class DiagramItemSemanticEditPolicyGenerator {
   protected final String TEXT_18 = "());" + NL + "\t\t\t}";
   protected final String TEXT_19 = NL + "\t\t\treturn getMSLWrapper(new ";
   protected final String TEXT_20 = "(req));" + NL + "\t\t}";
-  protected final String TEXT_21 = NL + "\t\treturn super.getCreateCommand(req);" + NL + "\t}";
-  protected final String TEXT_22 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_23 = NL;
+  protected final String TEXT_21 = NL + "\t\treturn super.getCreateCommand(req);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_22 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -147,6 +146,12 @@ public class DiagramItemSemanticEditPolicyGenerator {
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
+/*
+	This template should be called only for non-design diagrams (domainDiagramElement != null) 
+	because *ItemSemanticEditPolicy responsible for dealing with semantic model 
+	elements and meaningless (should not be generated) for pure design diagrams.  
+*/
+
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
@@ -167,11 +172,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    
-Collection childNodes = genDiagram.getTopLevelNodes();
-GenClass containerGenClass = genDiagram.getDomainDiagramElement();
-if (containerGenClass != null) {
-
+    Collection childNodes = genDiagram.getTopLevelNodes();
     stringBuffer.append(TEXT_8);
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
@@ -202,10 +203,8 @@ if (containerGenClass != null) {
     stringBuffer.append(TEXT_20);
     }
     stringBuffer.append(TEXT_21);
-    }
-    stringBuffer.append(TEXT_22);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

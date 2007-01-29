@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getBehaviour <em>Behaviour</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#isSansDomain <em>Sans Domain</em>}</li>
  * </ul>
  * </p>
  *
@@ -248,6 +249,21 @@ public interface GenCommonBase extends EObject {
 	 * @generated
 	 */
 	EList getBehaviour();
+
+	/**
+	 * Returns the value of the '<em><b>Sans Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sans Domain</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sans Domain</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_SansDomain()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	boolean isSansDomain();
 
 	/**
 	 * Filter list of behavior to instances of particular kind. Note, behaviour returned is not 

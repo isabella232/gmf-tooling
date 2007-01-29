@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,6 +12,8 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -382,6 +384,18 @@ public class Generator extends GeneratorBase implements Runnable {
 	// edit policies
 
 	private void generateBaseItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
+		Collection<GenCommonBase> allSemanticElements = new ArrayList<GenCommonBase>(myDiagram.getAllContainers());
+		allSemanticElements.addAll(myDiagram.getLinks());
+		boolean isSansDomainModel = true;
+		for (Iterator<GenCommonBase> it = allSemanticElements.iterator(); it.hasNext() && isSansDomainModel;) {
+			GenCommonBase nextCommonBase = it.next();
+			if (!nextCommonBase.isSansDomain()) {
+				isSansDomainModel = false;
+			}
+		}
+		if (isSansDomainModel) {
+			return;
+		}
 		doGenerateJavaClass(myEmitters.getBaseItemSemanticEditPolicyEmitter(), myDiagram.getBaseItemSemanticEditPolicyQualifiedClassName(), myDiagram);
 	}
 
@@ -421,6 +435,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
+		if (myDiagram.isSansDomain()) {
+			return;
+		}
 		internalGenerateJavaClass(
 			myEmitters.getDiagramItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
@@ -430,6 +447,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
+		if (genCompartment.isSansDomain()) {
+			return;
+		}
 		internalGenerateJavaClass(
 			myEmitters.getCompartmentItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
@@ -448,6 +468,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
+		if (genNode.isSansDomain()) {
+			return;
+		}
 		doGenerateJavaClass(myEmitters.getNodeItemSemanticEditPolicyEmitter(), genNode.getItemSemanticEditPolicyQualifiedClassName(), genNode);
 	}
 	
@@ -464,6 +487,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
+		if (genLink.isSansDomain()) {
+			return;
+		}
 		internalGenerateJavaClass(
 			myEmitters.getLinkItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),

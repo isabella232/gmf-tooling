@@ -48,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getBehaviour <em>Behaviour</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#isSansDomain <em>Sans Domain</em>}</li>
  * </ul>
  * </p>
  *
@@ -173,6 +174,16 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected EList behaviour = null;
+
+	/**
+	 * The default value of the '{@link #isSansDomain() <em>Sans Domain</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSansDomain()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SANS_DOMAIN_EDEFAULT = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -424,6 +435,13 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		return behaviour;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public abstract boolean isSansDomain();
+
 	static boolean isEmpty(String s) {
 		return s == null || s.trim().length() == 0;
 	}
@@ -539,6 +557,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return getViewmap();
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				return getBehaviour();
+			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:
+				return isSansDomain() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -637,6 +657,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return viewmap != null;
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				return behaviour != null && !behaviour.isEmpty();
+			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:
+				return isSansDomain() != SANS_DOMAIN_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

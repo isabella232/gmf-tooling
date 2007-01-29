@@ -42,8 +42,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
-			new «getItemSemanticEditPolicyQualifiedClassName()»());
+		«EXPAND installSemanticEditPolicy-»
 		«IF needsCanonicalEditPolicy()-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE,
 			new «getCanonicalEditPolicyQualifiedClassName()»());
@@ -77,4 +76,10 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 }
+«ENDDEFINE»
+
+«DEFINE installSemanticEditPolicy FOR gmfgen::GenDiagram-»
+	«IF null != domainDiagramElement-»
+		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+	«ENDIF-»
 «ENDDEFINE»

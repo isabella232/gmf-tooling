@@ -566,4 +566,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		}
 		return CLASS_NAME_PREFIX;
 	}
+	
+	public boolean isSansDomain() {
+		return getModelFacet() == null;
+	}
 } //GenLinkImpl

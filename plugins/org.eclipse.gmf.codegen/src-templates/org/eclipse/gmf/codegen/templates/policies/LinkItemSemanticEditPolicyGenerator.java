@@ -46,6 +46,12 @@ public class LinkItemSemanticEditPolicyGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
+/*
+	This template should be called only for non-design links (genLink.getModelFacet() != null) 
+	because *ItemSemanticEditPolicy responsible for dealing with semantic model elements and 
+	meaningless (should not	be generated) for pure design links.
+*/
+
 final GenLink genLink = (GenLink) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genLink.getDiagram();

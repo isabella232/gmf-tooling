@@ -379,6 +379,7 @@
       <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/notationViewFactoryClassName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/viewmap"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/behaviour"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/sansDomain"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getNotationViewFactoryQualifiedClassName"/>

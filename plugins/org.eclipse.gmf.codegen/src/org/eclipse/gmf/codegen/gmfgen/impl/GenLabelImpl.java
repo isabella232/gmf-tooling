@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
@@ -321,5 +322,9 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 			sb.append(metaFeature.getCapName());
 		}
 		return getHostName() + (sb.length() > 0 ? sb.toString() : CLASS_NAME_PREFIX);
+	}
+	
+	public boolean isSansDomain() {
+		return getModelFacet() instanceof DesignLabelModelFacet;
 	}
 } //GenLabelImpl

@@ -2,6 +2,12 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
+/*
+	This template should be called only for non-design diagrams (domainDiagramElement != null) 
+	because *ItemSemanticEditPolicy responsible for dealing with semantic model 
+	elements and meaningless (should not be generated) for pure design diagrams.  
+*/
+
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
@@ -19,14 +25,9 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
  * @generated
  */
 public class <%=genDiagram.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
-<%
-Collection childNodes = genDiagram.getTopLevelNodes();
-GenClass containerGenClass = genDiagram.getDomainDiagramElement();
-if (containerGenClass != null) {
-%>
+<%Collection childNodes = genDiagram.getTopLevelNodes();%>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>
-<%}%>
 
 	/**
 	 * @generated

@@ -522,4 +522,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		// should be consistent with ClassNamingStrategy
 		return getNode().getClassNamePrefix() + (isEmpty(getTitle()) ? CLASS_NAME_PREFIX : getValidClassName(getTitle()));
 	}
+	
+	public boolean isSansDomain() {
+		return getNode().getModelFacet() == null;
+	}
 } //GenCompartmentImpl

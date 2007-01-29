@@ -147,6 +147,13 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
+/*
+	This template should be called only for compartments located in non-design nodes
+	(genCompartment.getNode().getModelFacet() != null) because *ItemSemanticEditPolicy 
+	responsible for dealing with semantic model elements and meaningless (should not 
+	be generated) for compartments located inside pure design nodes.
+*/
+
 final GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genCompartment.getDiagram();
@@ -169,7 +176,8 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     
-if (genCompartment.getChildNodes().size() > 0 && genCompartment.getNode().getModelFacet() != null) {
+// TODO: do not generate this edit policy for empty compartments.
+if (genCompartment.getChildNodes().size() > 0) {
 	Collection childNodes = genCompartment.getChildNodes();
 
     stringBuffer.append(TEXT_8);

@@ -10,6 +10,12 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
  
+«REM»
+	This template should be called only for non-design nodes (modelFacet != null) 
+	because *ItemSemanticEditPolicy responsible for dealing with semantic model 
+	elements and meaningless (should not be generated) for pure design nodes.   
+«ENDREM»
+ 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::policies::Utils»
@@ -23,13 +29,13 @@ package «getDiagram().editPoliciesPackageName»;
  * @generated
  */
 public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
-	«IF null != modelFacet && childNodes.size() > 0-»
+	«IF childNodes.size() > 0-»
 	
 		«EXPAND xpt::policies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 	«ENDIF-»
 	
 	«EXPAND getDestroyElementCommand-»
-	«IF null != modelFacet && !getAllPotentialLinks(this).isEmpty()-»
+	«IF !getAllPotentialLinks(this).isEmpty()-»
 		«EXPAND createLinks-»
 	«ENDIF-»
 	«EXPAND additions-»
@@ -63,17 +69,15 @@ for (java.util.Iterator it = allEdges.iterator(); it.hasNext();) {
 
 «DEFINE destroySemanticElement FOR gmfgen::GenNode-»
 	«LET !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty() AS isTopLevel-»
-		«LET null != modelFacet && modelFacet.isPhantomElement() AS isPhantom-»
-cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || isPhantom»{
-			«IF isTopLevel-»
-				«EXPAND destroyShortcut-»
-			«ENDIF-»
-			«IF isPhantom-»
-				«EXPAND destroyPhantomElement-»
-			«ENDIF-»
+cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || modelFacet.isPhantomElement()»{
+		«IF isTopLevel-»
+			«EXPAND destroyShortcut-»
+		«ENDIF-»
+		«IF modelFacet.isPhantomElement()-»
+			«EXPAND destroyPhantomElement-»
+		«ENDIF-»
 			
 }«ENDIF»));
-		«ENDLET-»
 	«ENDLET-»
 «ENDDEFINE»
 

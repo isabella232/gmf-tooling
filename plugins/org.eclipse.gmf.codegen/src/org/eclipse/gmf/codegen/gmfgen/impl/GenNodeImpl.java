@@ -6,12 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -554,5 +551,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			}
 		}
 		return new BasicEList.UnmodifiableEList(reorientedLinks.size(), reorientedLinks.toArray());
+	}
+	
+	public boolean isSansDomain() {
+		return getModelFacet() == null;
 	}
 } //GenNodeImpl

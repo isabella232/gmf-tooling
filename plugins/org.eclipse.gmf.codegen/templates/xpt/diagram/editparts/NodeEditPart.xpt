@@ -85,8 +85,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		«ENDIF-»
 		super.createDefaultEditPolicies();
 		«EXPAND installPrimaryDragEditPolicy FOR this-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
-			new «getItemSemanticEditPolicyQualifiedClassName()»());
+		«EXPAND installSemanticEditPolicy-»
 		«IF needsGraphicalNodeEditPolicy()-»
 		installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE,
 			new «getGraphicalNodeEditPolicyQualifiedClassName()»());
@@ -450,6 +449,12 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 
 «DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenChildSideAffixedNode»
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
+«ENDDEFINE»
+
+«DEFINE installSemanticEditPolicy FOR gmfgen::GenNode-»
+	«IF null != modelFacet-»
+		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap»

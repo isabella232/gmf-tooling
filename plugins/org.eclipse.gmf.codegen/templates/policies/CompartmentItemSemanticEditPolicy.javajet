@@ -2,6 +2,13 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
+/*
+	This template should be called only for compartments located in non-design nodes
+	(genCompartment.getNode().getModelFacet() != null) because *ItemSemanticEditPolicy 
+	responsible for dealing with semantic model elements and meaningless (should not 
+	be generated) for compartments located inside pure design nodes.
+*/
+
 final GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genCompartment.getDiagram();
@@ -16,7 +23,8 @@ GenDiagram genDiagram = genCompartment.getDiagram();
  */
 public class <%=genCompartment.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
 <%
-if (genCompartment.getChildNodes().size() > 0 && genCompartment.getNode().getModelFacet() != null) {
+// TODO: do not generate this edit policy for empty compartments.
+if (genCompartment.getChildNodes().size() > 0) {
 	Collection childNodes = genCompartment.getChildNodes();
 %>
 

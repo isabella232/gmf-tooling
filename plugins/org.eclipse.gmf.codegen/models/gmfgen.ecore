@@ -553,6 +553,8 @@
         eType="#//Viewmap" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" upperBound="-1"
         eType="#//Behaviour" containment="true" eOpposite="#//Behaviour/subject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sansDomain" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Behaviour" interface="true">
     <eOperations name="getEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -21,9 +21,7 @@
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::GenCommonBase-»
-	«FOREACH behaviour AS e-»
-		«EXPAND behaviour FOR e-»
-	«ENDFOREACH-»
+	«EXPAND behaviour FOREACH behaviour-»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::Behaviour-»
@@ -147,4 +145,8 @@
 			}
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE installSemanticEditPolicy FOR gmfgen::GenCommonBase-»
+installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName()»());
 «ENDDEFINE»
