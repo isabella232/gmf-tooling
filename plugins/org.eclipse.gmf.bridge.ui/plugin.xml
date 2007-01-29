@@ -77,8 +77,8 @@
          <action
                class="org.eclipse.gmf.internal.bridge.transform.TransformToGenModelAction"
                enablesFor="1"
-               id="gmf.bridge.ui.transformToGenModelFileActionExperimental"
-               label="%transform.action.experimental"
+               id="gmf.bridge.ui.transformToGenModelFileAction"
+               label="%transform.action"
                menubarPath="additions">
          </action>
       </objectContribution>
