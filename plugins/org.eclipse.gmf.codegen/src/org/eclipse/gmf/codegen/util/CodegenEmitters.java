@@ -29,8 +29,6 @@ import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.application.URIDiagramDocumentProviderGenerator;
-import org.eclipse.gmf.codegen.templates.application.URIEditorInputProxyGenerator;
 import org.eclipse.gmf.codegen.templates.application.WizardNewFileCreationPageGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeLinkCommandGenerator;
@@ -239,8 +237,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
-		put(tr, "/application/URIDiagramDocumentProvider.javajet", URIDiagramDocumentProviderGenerator.class); //$NON-NLS-1$
-		put(tr, "/application/URIEditorInputProxy.javajet", URIEditorInputProxyGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/WizardNewFileCreationPage.javajet", WizardNewFileCreationPageGenerator.class); //$NON-NLS-1$
 		return tr;
 	}
@@ -709,12 +705,20 @@ public class CodegenEmitters {
 		return new XpandTextEmitter(myResourceManager, "xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
 
+	public String getURIDiagramDocumentProviderName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::URIDiagramDocumentProvider", input); //$NON-NLS-1$
+	}
+
 	public TextEmitter getURIDiagramDocumentProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(URIDiagramDocumentProviderGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::editor::URIDiagramDocumentProvider::URIDiagramDocumentProvider"); //$NON-NLS-1$
+	}
+
+	public String getURIEditorInputProxyName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::URIEditorInputProxy", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getURIEditorInputProxyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(URIEditorInputProxyGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::editor::URIEditorInputProxy::URIEditorInputProxy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {

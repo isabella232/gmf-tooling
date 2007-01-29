@@ -1,0 +1,300 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE className FOR gmfgen::GenDiagram»URIDiagramDocumentProvider«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE URIDiagramDocumentProvider FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «packageName»;
+
+/**
+ * @generated
+ */
+public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider {
+
+	/**
+	 * @generated
+	 */
+	protected class URIElementInfo extends ElementInfo {
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener;
+
+		/**
+		 * @generated
+		 */
+		public URIElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener) {
+			super(document);
+			this.listener = listener;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = null;
+			org.eclipse.core.runtime.IStatus status = null;
+			try {
+				document = createDocument(element);
+			} catch (org.eclipse.core.runtime.CoreException x) {
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Error creating document from uri", x);
+				status = x.getStatus();
+				document = createEmptyDocument();
+			}
+			ElementInfo info = createNewElementInfo(document);
+			info.fStatus = status;
+			return info;
+		}
+		return super.createElementInfo(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public ElementInfo createNewElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
+		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener = new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener(this, (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument) document);
+		URIElementInfo info = new URIElementInfo(document, listener);
+		listener.startListening();
+		return info;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void disposeElementInfo(Object element, ElementInfo info) {
+		Object content = info.fDocument.getContent();
+		if (content instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+			((org.eclipse.gmf.runtime.notation.Diagram) content).eResource().unload();
+		}
+		((URIElementInfo) info).listener.stopListening();
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.ui.IEditorInput createInputWithEditingDomain(org.eclipse.ui.IEditorInput editorInput, org.eclipse.emf.transaction.TransactionalEditingDomain domain) {
+		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			return new URIEditorInputProxy((org.eclipse.emf.common.ui.URIEditorInput) editorInput, domain);
+		}
+		assert false;
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument getDiagramDocument(Object element) {
+		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument doc = getDocument(element);
+		if (doc instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
+			return (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) doc;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = createEmptyDocument();
+			if (setDocumentContent(document, (org.eclipse.ui.IEditorInput) element)) {
+				setupDocument(element, document);
+				return document;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Sets up the given document as it would be provided for the given element. The
+	 * content of the document is not changed. This default implementation is empty.
+	 * Subclasses may reimplement.
+	 *
+	 * @param element the blue-print element
+	 * @param document the document to set up
+	 * @generated
+	 */
+	protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
+		// for subclasses
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createEmptyDocument() {
+		return new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
+		if (editorInput instanceof «EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») {
+			«EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram» diagramElement = («EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») editorInput;
+			((org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document).setEditingDomain(diagramElement.getEditingDomain());
+		}
+		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			setDocumentContentFromStorage(document, ((org.eclipse.emf.common.ui.URIEditorInput) editorInput).getURI());
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentContentFromStorage(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.emf.common.util.URI uri) throws org.eclipse.core.runtime.CoreException {
+		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
+		org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+		org.eclipse.emf.ecore.resource.Resource resource = null;
+		try {
+			resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
+			if (resource == null) {
+				resource = domain.getResourceSet().createResource(uri.trimFragment());
+			}
+			if (!resource.isLoaded()) {
+				try {
+					java.util.Map options = new java.util.HashMap(org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory.getDefaultLoadOptions());
+					// @see 171060 
+					// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+					resource.load(options);
+				} catch (java.io.IOException e) {
+					resource.unload();
+					throw e;
+				}
+			}
+			if (resource == null) {
+				throw new RuntimeException("Unable to load diagram resource");
+			}
+			if (uri.fragment() != null) {
+				org.eclipse.emf.ecore.EObject rootElement = resource.getEObject(uri.fragment());
+				if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+					document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
+					return;
+				}
+			} else {
+				for (java.util.Iterator it = resource.getContents().iterator(); it.hasNext();) {
+					Object rootElement = it.next();
+					if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+						document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
+						return;
+					}
+				}
+			}
+			throw new RuntimeException("Diagram is not present in resource");
+		} catch (Exception e) {
+			org.eclipse.core.runtime.CoreException thrownExcp = null;
+			if (e instanceof org.eclipse.core.runtime.CoreException) {
+				thrownExcp = (org.eclipse.core.runtime.CoreException) e;
+			} else {
+				String msg = e.getLocalizedMessage();
+				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+			}
+			throw thrownExcp;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor, Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, boolean overwrite) throws org.eclipse.core.runtime.CoreException {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
+			org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+			java.util.List resources = domain.getResourceSet().getResources();
+			monitor.beginTask("Saving diagram", resources.size() + 1);
+			for (java.util.Iterator it = resources.iterator(); it.hasNext();) {
+				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+				monitor.setTaskName("Saving " + nextResource.getURI());
+				if (nextResource.isLoaded()) {
+					try {
+						java.util.Map options = new java.util.HashMap();
+						options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+						nextResource.save(options);
+					} catch (java.io.IOException e) {
+						«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to save resource: " + nextResource.getURI(), e);
+					}
+				}
+				monitor.worked(1);
+			}
+			monitor.done();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isDeleted(Object element) {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
+			return file != null && !file.exists();
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isReadOnly(Object element) {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
+			if (file != null && file.exists()) {
+				return !file.canWrite();
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isModifiable(Object element) {
+		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
+			if (file != null && file.exists()) {
+				return file.canWrite();
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static java.io.File getFile(org.eclipse.emf.common.ui.URIEditorInput input) {
+		org.eclipse.emf.common.util.URI uri = input.getURI().trimFragment();
+		if (uri != null && uri.isFile()) {
+			java.io.File file = new java.io.File(uri.toFileString());
+			if (!file.isDirectory()) {
+				return file;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected org.eclipse.jface.operation.IRunnableContext getOperationRunner(org.eclipse.core.runtime.IProgressMonitor monitor) {
+		return null;
+	}
+}
+«ENDDEFINE»

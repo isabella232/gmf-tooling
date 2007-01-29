@@ -127,46 +127,31 @@ if (!ifaces.isEmpty()) {
 		return super.getAdapter(type);
 	}
 <%}%>
-<%if (genDiagram.getEditorGen().getApplication() == null) {%>
 
 	/**
 	 * @generated
 	 */
-	private String contentObjectURI;
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider")%> getDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+			return new <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getPackageName() + ".URIDiagramDocumentProvider")%>();
+		}
+		return super.getDocumentProvider(input);
+	}
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
 
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>(contentObjectURI));
+			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+		} else if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getPackageName() + ".URIDiagramDocumentProvider")%>());
 		} else {
 			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
 		}
 	}
 
-<%for (Iterator it = genDiagram.getAllNodes().iterator(); it.hasNext();) {
-	GenCommonBase next = (GenCommonBase) it.next();
-	if (!next.getBehaviour(OpenDiagramBehaviour.class).isEmpty()) {%>
-	/**
-	 * @generated
-	 */
-	public void doSetInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input, boolean releaseEditorContents) throws <%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> {
-		contentObjectURI = null;
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
-			final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) input).getDiagram();
-			final <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile = <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagram.eResource());
-			<%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%> newInput = new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(diagramFile);
-			contentObjectURI = diagram.eResource().getURIFragment(diagram);
-			super.doSetInput(newInput, releaseEditorContents);
-		} else {
-			super.doSetInput(input, releaseEditorContents);
-		}
-	}
-<%
-	break; // suffice to find at least one element with opendiagram policy to know we should override doSetInput
-	}
-}%>
 	/**
 	 * @generated
 	 */
@@ -255,40 +240,17 @@ if (!ifaces.isEmpty()) {
 			progressMonitor.setCanceled(!success);
 		}
 	}
-<%} else { // genDiagram.getEditorGen().getApplication() != null %><%/*XXX unconditionally adding doSetInput() which is needed only for opening this editor from another diagram, is a temp workaround, as long as we use IDiagramEditorInput in OpenEditPolicy*/%>
-
-	/**
-	 * @generated
-	 */
-	public void doSetInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input, boolean releaseEditorContents) throws <%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> {
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
-			final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) input).getDiagram();
-			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> newInput = new <%="org.eclipse.emf.common.ui.URIEditorInput"%>(diagram.eResource().getURI());
-			super.doSetInput(newInput, releaseEditorContents);
-		} else {
-			super.doSetInput(input, releaseEditorContents);
-		}
-	}
+<%} else { // genDiagram.getEditorGen().getApplication() != null %>
 
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
-			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication().getPackageName() + ".URIDiagramDocumentProvider")%>());
+			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getPackageName() + ".URIDiagramDocumentProvider")%>());
 		} else {
 			super.setDocumentProvider(input);
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider")%> getDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
-			return new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication().getPackageName() + ".URIDiagramDocumentProvider")%>();
-		}
-		return super.getDocumentProvider(input);
 	}
 <%}
 

@@ -22,19 +22,22 @@ public class OpenDiagramPolicyGenerator
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getOpenCommand(Request request) {" + NL + "\t\tEditPart targetEditPart = getTargetEditPart(request);" + NL + "\t\tif (false == targetEditPart.getModel() instanceof View) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tEAnnotation ann = ((View) targetEditPart.getModel()).getEAnnotation(\"";
-  protected final String TEXT_8 = "\");" + NL + "\t\tif (ann == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn new ICommandProxy(new OpenDiagramCommand(ann));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class OpenDiagramCommand extends AbstractTransactionalCommand {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final EAnnotation diagramFacet;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tOpenDiagramCommand(EAnnotation annotation) {" + NL + "\t\t\t// editing domain is taken for original diagram, " + NL + "\t\t\t// if we open diagram from another file, we should use another editing domain" + NL + "\t\t\tsuper(TransactionUtil.getEditingDomain(annotation), \"Open diagram\", null);" + NL + "\t\t\tdiagramFacet = annotation;" + NL + "\t\t}" + NL + "" + NL + "\t\t// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\ttry {" + NL + "\t\t\t\tDiagram diagram = getDiagramToOpen();" + NL + "\t\t\t\tif (diagram == null) {" + NL + "\t\t\t\t\tdiagram = intializeNewDiagram();" + NL + "\t\t\t\t}" + NL + "\t\t\t\tfinal DiagramEditorInput editorInput = new DiagramEditorInput(diagram);" + NL + "\t\t\t\tIWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();" + NL + "\t\t\t\tpage.openEditor(editorInput, getEditorID());" + NL + "\t\t\t\treturn CommandResult.newOKCommandResult();" + NL + "\t\t\t} catch (Exception ex) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't open diagram\", ex);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected Diagram getDiagramToOpen() {" + NL + "\t\t\t// take first" + NL + "\t\t\tfor (Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {" + NL + "\t\t\t\tObject next = it.next();" + NL + "\t\t\t\tif (next instanceof Diagram) {" + NL + "\t\t\t\t\treturn (Diagram) next;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected Diagram intializeNewDiagram() throws ExecutionException {" + NL + "\t\t\tDiagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());" + NL + "\t\t\tif (d == null) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\");" + NL + "\t\t\t}" + NL + "\t\t\tdiagramFacet.getReferences().add(d);" + NL + "\t\t\tassert diagramFacet.eResource() != null;" + NL + "\t\t\tdiagramFacet.eResource().getContents().add(d);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tfor (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {" + NL + "\t\t\t\t\t((org.eclipse.emf.ecore.resource.Resource) it.next()).save(java.util.Collections.EMPTY_MAP);" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (java.io.IOException ex) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\", ex);" + NL + "\t\t\t}" + NL + "\t\t\treturn d;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected EObject getDiagramDomainElement() {" + NL + "\t\t\t// use same element as associated with EP" + NL + "\t\t\treturn ((View) diagramFacet.getEModelElement()).getElement();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected PreferencesHint getPreferencesHint() {" + NL + "\t\t\t// XXX prefhint from target diagram's editor?" + NL + "\t\t\treturn ";
-  protected final String TEXT_9 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getDiagramKind() {";
-  protected final String TEXT_10 = NL + "\t\t\treturn ";
-  protected final String TEXT_11 = ".MODEL_ID;";
-  protected final String TEXT_12 = NL + "\t\t\treturn \"";
-  protected final String TEXT_13 = "\";";
-  protected final String TEXT_14 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getEditorID() {";
-  protected final String TEXT_15 = NL + "\t\t\treturn ";
-  protected final String TEXT_16 = ".ID;";
-  protected final String TEXT_17 = NL + "\t\t\treturn \"";
-  protected final String TEXT_18 = "\";";
-  protected final String TEXT_19 = NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_20 = NL;
+  protected final String TEXT_8 = "\");" + NL + "\t\tif (ann == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn new ICommandProxy(new OpenDiagramCommand(ann));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class OpenDiagramCommand extends AbstractTransactionalCommand {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final EAnnotation diagramFacet;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tOpenDiagramCommand(EAnnotation annotation) {" + NL + "\t\t\t// editing domain is taken for original diagram, " + NL + "\t\t\t// if we open diagram from another file, we should use another editing domain" + NL + "\t\t\tsuper(TransactionUtil.getEditingDomain(annotation), \"Open diagram\", null);" + NL + "\t\t\tdiagramFacet = annotation;" + NL + "\t\t}" + NL + "" + NL + "\t\t// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\ttry {" + NL + "\t\t\t\tDiagram diagram = getDiagramToOpen();" + NL + "\t\t\t\tif (diagram == null) {" + NL + "\t\t\t\t\tdiagram = intializeNewDiagram();" + NL + "\t\t\t\t}" + NL + "\t\t\t\t";
+  protected final String TEXT_9 = " uri = diagram.eResource().getURI();" + NL + "\t\t\t\turi = uri.appendFragment(diagram.eResource().getURIFragment(diagram));" + NL + "\t\t\t\t";
+  protected final String TEXT_10 = " editorInput =" + NL + "\t\t\t\t\tnew ";
+  protected final String TEXT_11 = "(uri);" + NL + "\t\t\t\tIWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();" + NL + "\t\t\t\tpage.openEditor(editorInput, getEditorID());" + NL + "\t\t\t\treturn CommandResult.newOKCommandResult();" + NL + "\t\t\t} catch (Exception ex) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't open diagram\", ex);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected Diagram getDiagramToOpen() {" + NL + "\t\t\t// take first" + NL + "\t\t\tfor (Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {" + NL + "\t\t\t\tObject next = it.next();" + NL + "\t\t\t\tif (next instanceof Diagram) {" + NL + "\t\t\t\t\treturn (Diagram) next;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected Diagram intializeNewDiagram() throws ExecutionException {" + NL + "\t\t\tDiagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());" + NL + "\t\t\tif (d == null) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\");" + NL + "\t\t\t}" + NL + "\t\t\tdiagramFacet.getReferences().add(d);" + NL + "\t\t\tassert diagramFacet.eResource() != null;" + NL + "\t\t\tdiagramFacet.eResource().getContents().add(d);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tfor (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {" + NL + "\t\t\t\t\t((org.eclipse.emf.ecore.resource.Resource) it.next()).save(java.util.Collections.EMPTY_MAP);" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (java.io.IOException ex) {" + NL + "\t\t\t\tthrow new ExecutionException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\", ex);" + NL + "\t\t\t}" + NL + "\t\t\treturn d;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected EObject getDiagramDomainElement() {" + NL + "\t\t\t// use same element as associated with EP" + NL + "\t\t\treturn ((View) diagramFacet.getEModelElement()).getElement();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected PreferencesHint getPreferencesHint() {" + NL + "\t\t\t// XXX prefhint from target diagram's editor?" + NL + "\t\t\treturn ";
+  protected final String TEXT_12 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getDiagramKind() {";
+  protected final String TEXT_13 = NL + "\t\t\treturn ";
+  protected final String TEXT_14 = ".MODEL_ID;";
+  protected final String TEXT_15 = NL + "\t\t\treturn \"";
+  protected final String TEXT_16 = "\";";
+  protected final String TEXT_17 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getEditorID() {";
+  protected final String TEXT_18 = NL + "\t\t\treturn ";
+  protected final String TEXT_19 = ".ID;";
+  protected final String TEXT_20 = NL + "\t\t\treturn \"";
+  protected final String TEXT_21 = "\";";
+  protected final String TEXT_22 = NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_23 = NL;
 
   public String generate(Object argument)
   {
@@ -70,7 +73,6 @@ importManager.addImport("org.eclipse.gmf.runtime.common.core.command.CommandResu
 importManager.addImport("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput");
 importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
@@ -85,30 +87,36 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_7);
     stringBuffer.append(org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE);
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
     stringBuffer.append(TEXT_9);
-    if (behaviour.getDiagramKind() == null) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
     stringBuffer.append(TEXT_11);
-    } else {
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(behaviour.getDiagramKind());
+    if (behaviour.getDiagramKind() == null) {
     stringBuffer.append(TEXT_13);
-    }
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    if (behaviour.getEditorID() == null) { 
-    stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
-    stringBuffer.append(TEXT_16);
     } else {
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(behaviour.getEditorID());
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(behaviour.getDiagramKind());
+    stringBuffer.append(TEXT_16);
     }
+    stringBuffer.append(TEXT_17);
+    if (behaviour.getEditorID() == null) { 
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
     stringBuffer.append(TEXT_19);
-    importManager.emitSortedImports();
+    } else {
     stringBuffer.append(TEXT_20);
+    stringBuffer.append(behaviour.getEditorID());
+    stringBuffer.append(TEXT_21);
+    }
+    stringBuffer.append(TEXT_22);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_23);
     return stringBuffer.toString();
   }
 }

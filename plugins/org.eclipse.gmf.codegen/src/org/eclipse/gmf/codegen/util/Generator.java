@@ -191,6 +191,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCreationWizard();
 		generateCreationWizardPage();
 		generateEditor();
+		generateURIDiagramDocumentProvider();
+		generateURIEditorInputProxy();
 		generateLoadResourceAction();
 		if (myDiagram.getEditorGen().getApplication() == null) {
 			generateDocumentProvider();
@@ -1040,8 +1042,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			generatePerspective(application);
 			generateWorkbenchAdvisor(application);
 			generateWorkbenchWindowAdvisor(application);
-			generateURIDiagramDocumentProvider(application);
-			generateURIEditorInputProxy(application);
 			generateWizardNewFileCreationPage(application);
 		}
 	}
@@ -1066,22 +1066,12 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getWorkbenchWindowAdvisorEmitter(), application.getWorkbenchWindowAdvisorQualifiedClassName(), application);
 	}
 
-	private void generateURIDiagramDocumentProvider(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getURIDiagramDocumentProviderEmitter(),
-			application.getPackageName(),
-			"URIDiagramDocumentProvider", //$NON-NLS-1$
-			application
-		);
+	private void generateURIDiagramDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getURIDiagramDocumentProviderEmitter(), myEmitters.getURIDiagramDocumentProviderName(myDiagram), myDiagram.getEditorGen().getEditor());
 	}
 
-	private void generateURIEditorInputProxy(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getURIEditorInputProxyEmitter(),
-			application.getPackageName(),
-			"URIEditorInputProxy", //$NON-NLS-1$
-			application
-		);
+	private void generateURIEditorInputProxy() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getURIEditorInputProxyEmitter(), myEmitters.getURIEditorInputProxyName(myDiagram), myDiagram.getEditorGen().getEditor());
 	}
 
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {

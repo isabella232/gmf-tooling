@@ -23,7 +23,6 @@ importManager.addImport("org.eclipse.gmf.runtime.common.core.command.CommandResu
 importManager.addImport("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput");
 importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
@@ -82,7 +81,10 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				final DiagramEditorInput editorInput = new DiagramEditorInput(diagram);
+				<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> uri = diagram.eResource().getURI();
+				uri = uri.appendFragment(diagram.eResource().getURIFragment(diagram));
+				<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput =
+					new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(uri);
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.openEditor(editorInput, getEditorID());
 				return CommandResult.newOKCommandResult();
