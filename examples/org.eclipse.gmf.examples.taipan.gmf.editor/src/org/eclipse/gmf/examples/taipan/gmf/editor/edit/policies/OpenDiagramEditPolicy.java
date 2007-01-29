@@ -20,6 +20,8 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -52,6 +54,7 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCo
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
@@ -106,7 +109,9 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				final DiagramEditorInput editorInput = new DiagramEditorInput(diagram);
+				URI uri = diagram.eResource().getURI();
+				uri = uri.appendFragment(diagram.eResource().getURIFragment(diagram));
+				IEditorInput editorInput = new URIEditorInput(uri);
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.openEditor(editorInput, getEditorID());
 				return CommandResult.newOKCommandResult();

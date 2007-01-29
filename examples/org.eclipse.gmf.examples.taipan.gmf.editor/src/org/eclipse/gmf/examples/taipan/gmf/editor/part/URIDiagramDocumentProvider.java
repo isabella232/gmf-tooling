@@ -262,7 +262,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	public boolean isDeleted(Object element) {
 		if (element instanceof URIEditorInput) {
 			File file = getFile((URIEditorInput) element);
-			return file != null & !file.exists();
+			return file != null && !file.exists();
 		}
 		return false;
 	}
