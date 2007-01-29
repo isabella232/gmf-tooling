@@ -26,8 +26,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.NotificationFilter;
 
-import org.eclipse.gmf.examples.taipan.port.diagram.application.URIDiagramDocumentProvider;
-
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;

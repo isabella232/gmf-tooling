@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ *  Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.examples.taipan.port.diagram.application;
+package org.eclipse.gmf.examples.taipan.port.diagram.part;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.ui.URIEditorInput;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -37,7 +37,6 @@ import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramEditorPlugin;
 
 /**
  * @generated
@@ -66,7 +65,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws CoreException {
+	protected ElementInfo createElementInfo(Object element) throws CoreException, CoreException {
 		if (element instanceof URIEditorInput) {
 			IDocument document = null;
 			IStatus status = null;
@@ -130,7 +129,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected IDocument createDocument(Object element) throws CoreException {
+	protected IDocument createDocument(Object element) throws CoreException, CoreException {
 		if (element instanceof URIEditorInput) {
 			IDocument document = createEmptyDocument();
 			if (setDocumentContent(document, (IEditorInput) element)) {
@@ -165,8 +164,8 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * @generated
 	 */
 	protected boolean setDocumentContent(IDocument document, IEditorInput editorInput) throws CoreException {
-		if (editorInput instanceof URIEditorInputProxy) {
-			URIEditorInputProxy diagramElement = (URIEditorInputProxy) editorInput;
+		if (editorInput instanceof org.eclipse.gmf.examples.taipan.port.diagram.part.URIEditorInputProxy) {
+			org.eclipse.gmf.examples.taipan.port.diagram.part.URIEditorInputProxy diagramElement = (org.eclipse.gmf.examples.taipan.port.diagram.part.URIEditorInputProxy) editorInput;
 			((IDiagramDocument) document).setEditingDomain(diagramElement.getEditingDomain());
 		}
 		if (editorInput instanceof URIEditorInput) {
@@ -179,20 +178,20 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected void setDocumentContentFromStorage(IDocument document, URI uri) throws CoreException {
+	protected void setDocumentContentFromStorage(IDocument document, org.eclipse.emf.common.util.URI uri) throws CoreException {
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
 		Resource resource = null;
 		try {
-			resource = domain.getResourceSet().getResource(uri, false);
+			resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
 			if (resource == null) {
-				resource = domain.getResourceSet().createResource(uri);
+				resource = domain.getResourceSet().createResource(uri.trimFragment());
 			}
 			if (!resource.isLoaded()) {
 				try {
 					Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
 					// @see 171060 
-					// options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+					// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 					resource.load(options);
 				} catch (IOException e) {
 					resource.unload();
@@ -202,11 +201,19 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 			if (resource == null) {
 				throw new RuntimeException("Unable to load diagram resource");
 			}
-			for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
-				Object rootElement = it.next();
+			if (uri.fragment() != null) {
+				EObject rootElement = resource.getEObject(uri.fragment());
 				if (rootElement instanceof Diagram) {
 					document.setContent((Diagram) rootElement);
 					return;
+				}
+			} else {
+				for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
+					Object rootElement = it.next();
+					if (rootElement instanceof Diagram) {
+						document.setContent((Diagram) rootElement);
+						return;
+					}
 				}
 			}
 			throw new RuntimeException("Diagram is not present in resource");
@@ -290,7 +297,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * @generated
 	 */
 	public static File getFile(URIEditorInput input) {
-		URI uri = input.getURI();
+		org.eclipse.emf.common.util.URI uri = input.getURI().trimFragment();
 		if (uri != null && uri.isFile()) {
 			File file = new File(uri.toFileString());
 			if (!file.isDirectory()) {
