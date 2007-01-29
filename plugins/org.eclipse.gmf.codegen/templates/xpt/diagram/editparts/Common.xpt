@@ -148,5 +148,9 @@
 «ENDDEFINE»
 
 «DEFINE installSemanticEditPolicy FOR gmfgen::GenCommonBase-»
+	«IF sansDomain-»
+removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE);
+	«ELSE-»
 installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName()»());
+	«ENDIF-»
 «ENDDEFINE»

@@ -42,7 +42,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE,
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy());
 		«ENDIF-»
-		«EXPAND installSemanticEditPolicy-»
+		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 
@@ -80,10 +80,4 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	}
 
 	«classBody»
-«ENDDEFINE»
-
-«DEFINE installSemanticEditPolicy FOR gmfgen::GenLink-»
-	«IF null != modelFacet-»
-		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-	«ENDIF-»
 «ENDDEFINE»

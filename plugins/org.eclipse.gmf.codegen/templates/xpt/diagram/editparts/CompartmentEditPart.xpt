@@ -76,7 +76,7 @@ public class «editPartClassName» extends
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy());
 		«ENDIF-»
-		«EXPAND installSemanticEditPolicy-»
+		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
 		«IF childNodes.size() > 0-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
 			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
@@ -144,10 +144,4 @@ public class «editPartClassName» extends
 		«ENDIF-»
 	}
 }
-«ENDDEFINE»
-
-«DEFINE installSemanticEditPolicy FOR gmfgen::GenCompartment-»
-	«IF null != node.modelFacet-»
-		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-	«ENDIF-»
 «ENDDEFINE»
