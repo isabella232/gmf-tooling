@@ -122,19 +122,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	/**
 	 * @generated
 	 */
-	public void doSetInput(IEditorInput input, boolean releaseEditorContents) throws CoreException {
-		if (input instanceof IDiagramEditorInput) {
-			final Diagram diagram = ((IDiagramEditorInput) input).getDiagram();
-			IEditorInput newInput = new URIEditorInput(diagram.eResource().getURI());
-			super.doSetInput(newInput, releaseEditorContents);
-		} else {
-			super.doSetInput(input, releaseEditorContents);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof URIEditorInput) {
 			setDocumentProvider(new URIDiagramDocumentProvider());
