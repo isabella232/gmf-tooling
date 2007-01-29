@@ -132,9 +132,9 @@ public class DesignDocumentProvider extends StorageDocumentProvider implements I
 			IFile file = WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
 				if (file.getLocation() != null) {
-					result += file.getModificationStamp();
-				} else {
 					result += file.getLocation().toFile().lastModified();
+				} else {
+					result += file.getModificationStamp();
 				}
 			}
 		}

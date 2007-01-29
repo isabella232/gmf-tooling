@@ -40,7 +40,7 @@ public class DesignPaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createPrimaryShapes1Group() {
-		PaletteDrawer paletteContainer = new PaletteDrawer(DesignDiagramEditorPlugin.getString("PrimaryShapes1Group.title")); //$NON-NLS-1$
+		PaletteDrawer paletteContainer = new PaletteDrawer(Messages.PrimaryShapes1Group_title);
 		paletteContainer.add(createSolidRectangle1CreationTool());
 		paletteContainer.add(createSolidEllipse2CreationTool());
 		paletteContainer.add(createSolidLine3CreationTool());
@@ -54,8 +54,7 @@ public class DesignPaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
 		types.add(DesignElementTypes.Node_2001);
 		types.add(DesignElementTypes.Node_3001);
-		NodeToolEntry entry = new NodeToolEntry(
-				DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidRectangle1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		NodeToolEntry entry = new NodeToolEntry(Messages.SolidRectangle1CreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -68,7 +67,7 @@ public class DesignPaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
 		types.add(DesignElementTypes.Node_3002);
 		types.add(DesignElementTypes.Node_2002);
-		NodeToolEntry entry = new NodeToolEntry(DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidEllipse2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		NodeToolEntry entry = new NodeToolEntry(Messages.SolidEllipse2CreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -80,7 +79,7 @@ public class DesignPaletteFactory {
 	private ToolEntry createSolidLine3CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(DesignElementTypes.Link_4001);
-		LinkToolEntry entry = new LinkToolEntry(DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.title"), DesignDiagramEditorPlugin.getString("SolidLine3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+		LinkToolEntry entry = new LinkToolEntry(Messages.SolidLine3CreationTool_title, null, types);
 		entry.setSmallIcon(DesignElementTypes.getImageDescriptor(DesignElementTypes.Link_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;

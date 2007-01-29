@@ -40,12 +40,6 @@ public class SolidEllipse2ItemSemanticEditPolicy extends DesignBaseItemSemanticE
 			}
 
 		});
-	}
 
-	/**
-	 * @generated
-	 */
-	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		return super.getCreateRelationshipCommand(req);
 	}
 }

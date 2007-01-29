@@ -238,6 +238,13 @@ public class DesignBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated 
 	 */
 	protected static class LinkConstraints {
+
+		/**
+		 * @generated 
+		 */
+		public static boolean canCreateLink_4001() {
+			return true;
+		}
 	}
 
 }

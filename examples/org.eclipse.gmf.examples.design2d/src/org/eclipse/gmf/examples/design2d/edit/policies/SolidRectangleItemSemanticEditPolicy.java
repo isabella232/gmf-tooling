@@ -40,12 +40,6 @@ public class SolidRectangleItemSemanticEditPolicy extends DesignBaseItemSemantic
 			}
 
 		});
-	}
 
-	/**
-	 * @generated
-	 */
-	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		return super.getCreateRelationshipCommand(req);
 	}
 }

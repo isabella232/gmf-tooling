@@ -29,6 +29,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
@@ -152,14 +153,21 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
-	private String contentObjectURI;
+	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
+		if (input instanceof URIEditorInput) {
+			return new URIDiagramDocumentProvider();
+		}
+		return super.getDocumentProvider(input);
+	}
 
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new DesignDocumentProvider(contentObjectURI));
+			setDocumentProvider(new DesignDocumentProvider());
+		} else if (input instanceof URIEditorInput) {
+			setDocumentProvider(new URIDiagramDocumentProvider());
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
 		}
