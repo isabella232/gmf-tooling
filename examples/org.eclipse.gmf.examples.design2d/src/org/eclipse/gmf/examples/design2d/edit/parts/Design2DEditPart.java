@@ -43,6 +43,7 @@ public class Design2DEditPart extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		removeEditPolicy(EditPolicyRoles.SEMANTIC_ROLE);
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Design2DCanonicalEditPolicy());
 	}
 }
