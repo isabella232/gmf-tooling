@@ -41,9 +41,30 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
  * @generated
  */
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
+	org.eclipse.gef.commands.CompoundCommand cc = new org.eclipse.gef.commands.CompoundCommand();
+	«EXPAND destroyAllLinks-»
+	«EXPAND destroySemanticElement-»
+	return cc;
+}
+«ENDDEFINE»
+
+«DEFINE destroyAllLinks FOR gmfgen::GenNode-»
+java.util.Collection allEdges = new java.util.ArrayList();
+org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+allEdges.addAll(view.getSourceEdges());
+allEdges.addAll(view.getTargetEdges());
+for (java.util.Iterator it = allEdges.iterator(); it.hasNext();) {
+	org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
+	org.eclipse.gef.EditPart nextEditPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
+	org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper editCommandRequest = new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(((«getEditPartQualifiedClassName()») getHost()).getEditingDomain(), req.isConfirmationRequired()), java.util.Collections.EMPTY_MAP);
+	cc.add(nextEditPart.getCommand(editCommandRequest));
+}
+«ENDDEFINE»
+
+«DEFINE destroySemanticElement FOR gmfgen::GenNode-»
 	«LET !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty() AS isTopLevel-»
 		«LET null != modelFacet && modelFacet.isPhantomElement() AS isPhantom-»
-	return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || isPhantom»{
+cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || isPhantom»{
 			«IF isTopLevel-»
 				«EXPAND destroyShortcut-»
 			«ENDIF-»
@@ -51,10 +72,9 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 				«EXPAND destroyPhantomElement-»
 			«ENDIF-»
 			
-		}«ENDIF»);
-		«ENDLET»
+}«ENDIF»));
+		«ENDLET-»
 	«ENDLET-»
-	}
 «ENDDEFINE»
 
 «REM»Method in anonimous inner class - should not be prefixed with @generated javadoc«ENDREM»
