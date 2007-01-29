@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,33 +18,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
-
-import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
-
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.viewers.Viewer;
-
 import org.eclipse.ui.IMemento;
-
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonContentProvider;
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
 import org.eclipse.gmf.examples.design2d.edit.policies.Design2DCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.Design2DItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
@@ -44,7 +43,6 @@ public class Design2DEditPart extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Design2DItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Design2DCanonicalEditPolicy());
 	}
 }

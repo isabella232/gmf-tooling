@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,18 +14,9 @@ package org.eclipse.gmf.examples.design2d.edit.parts;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidLineItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -51,22 +42,6 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ViewComponentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidLineItemSemanticEditPolicy() {
-
-			protected Command getSemanticCommand(IEditCommandRequest editRequest) {
-				if (editRequest instanceof DestroyElementRequest && getHost() instanceof GraphicalEditPart) {
-					return new ICommandProxy(new DeleteCommand(editRequest.getEditingDomain(), ((GraphicalEditPart) getHost()).getPrimaryView()));
-				}
-				return super.getSemanticCommand(editRequest);
-			}
-
-			public Command getCommand(Request request) {
-				if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {
-					return null;
-				}
-				return super.getCommand(request);
-			}
-		});
 	}
 
 	/**
