@@ -63,7 +63,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.gmf.runtime.common.core.command.ExecutionException {
+		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			try {
 				org.eclipse.gmf.runtime.notation.Diagram diagram = getDiagramToOpen();
 				if (diagram == null) {
@@ -76,7 +76,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 				page.openEditor(editorInput, getEditorID());
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 			} catch (Exception ex) {
-				throw new org.eclipse.gmf.runtime.common.core.command.ExecutionException("Can't open diagram", ex);
+				throw new org.eclipse.core.commands.ExecutionException("Can't open diagram", ex);
 			}
 		}
 
