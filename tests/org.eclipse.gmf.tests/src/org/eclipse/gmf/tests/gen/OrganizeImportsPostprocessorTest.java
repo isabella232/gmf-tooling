@@ -41,9 +41,11 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.ThrowStatement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
@@ -55,7 +57,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
     public void testFullQualifiedFields() throws Exception {
         String className = "TestFullQualifiedFields";
         String[] fieldTypes = new String[] { List.class.getName(), RectangleFigure.class.getName(), getInnerClassAwareName(Map.Entry.class), Map.class.getName(), getInnerClassAwareName(Iterator.class)+"_eINSTANCE" };
-        String code = generateClassCode(className, null, null, null, fieldTypes, null, null, null);
+        String code = generateClassCode(className, null, null, null, fieldTypes, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -92,7 +94,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
     public void testFullQualifiedMethodParams() throws Exception {
         String className = "TestFullQualifiedMethodParams";
         String[] methodParams = new String[] { List.class.getName(), RectangleFigure.class.getName(), getInnerClassAwareName(Map.Entry.class), Map.class.getName() };
-        String code = generateClassCode(className, null, null, null, null, methodParams, null, null);
+        String code = generateClassCode(className, null, null, null, null, methodParams, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -128,10 +130,65 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         assertTrue("Failed to find references for "+methodsList.size()+" more types", methodsList.isEmpty());
     }
     
+    public void testFullQualifiedMethodExceptions() throws Exception {
+        String className = "TestFullQualifiedMethodExceptions";
+        String[] methodExceptions = new String[] { List.class.getName(), RectangleFigure.class.getName(), getInnerClassAwareName(Map.Entry.class), Map.class.getName(), "org.eclipse.core.commands.ExecutionException" };
+        String code = generateClassCode(className, null, null, null, null, null, null, null, methodExceptions);
+        ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
+        
+        OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
+        processor.organizeImports(icu, true, null);
+        icu.save(null, true);
+        
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
+        parser.setSource(icu);
+        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+        List imports = cu.imports();
+        
+        final List<String> exceptionsList = new ArrayList<String>();
+        
+        assertEquals("Failed to generate enough import statements", methodExceptions.length, imports.size());
+        exceptionsList.addAll(Arrays.asList(methodExceptions));
+        for (Iterator it=imports.iterator(); it.hasNext();) {
+            String nextImport = ((ImportDeclaration) it.next()).getName().getFullyQualifiedName();
+            assertTrue("Unexpected import found: "+nextImport, exceptionsList.remove(nextImport));
+        }
+        assertTrue("Failed to generate import for "+exceptionsList.size()+" more types", exceptionsList.isEmpty());
+
+        exceptionsList.clear();
+        exceptionsList.addAll(Arrays.asList(methodExceptions));
+        cu.accept(new ASTVisitor(){
+            public boolean visit(MethodDeclaration node) {
+                for (Iterator it = node.thrownExceptions().iterator(); it.hasNext();) {
+                    Name next = (Name) it.next();
+                    next.accept(new ExpectedSimpleNamesVisitor(exceptionsList));
+                }
+                return super.visit(node);
+            }
+        });
+        assertTrue("Failed to find references for "+exceptionsList.size()+" more types", exceptionsList.isEmpty());
+        
+        exceptionsList.clear();
+        exceptionsList.addAll(Arrays.asList(methodExceptions));
+        cu.accept(new ASTVisitor(){
+            public boolean visit(MethodDeclaration node) {
+                node.getBody().accept(new ASTVisitor() {
+                    public boolean visit(ThrowStatement node) {
+                        node.getExpression().accept(new ExpectedSimpleNamesVisitor(exceptionsList));
+                        return super.visit(node);
+                    }
+                });
+                return super.visit(node);
+            }
+        });
+        
+        assertTrue("Failed to find references for "+exceptionsList.size()+" more types", exceptionsList.isEmpty());
+    }
+    
     public void testFullQualifiedLocalVariables() throws Exception {
         String className = "TestFullQualifiedLocalVariables";
         String[] localVars = new String[] { List.class.getName(), RectangleFigure.class.getName(), getInnerClassAwareName(Map.Entry.class), Map.class.getName() };
-        String code = generateClassCode(className, null, null, null, null, null, null, localVars);
+        String code = generateClassCode(className, null, null, null, null, null, null, localVars, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -173,7 +230,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "TestFullQualifiedSupers";
         String superClass = RectangleFigure.class.getName();
         String[] superInterfaces = new String[] { Collection.class.getName(), Iterator.class.getName() };
-        String code = generateClassCode(className, null, superClass, superInterfaces, null, null, null, null);
+        String code = generateClassCode(className, null, superClass, superInterfaces, null, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -217,8 +274,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "FieldConflictWithDeclaredType";
         String[] fieldTypes = new String[] { Collection.class.getName() };
         StringBuffer code = new StringBuffer();
-        String mainClass = generateClassCode(className, null, null, null, fieldTypes, null, null, null);
-        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, null);
+        String mainClass = generateClassCode(className, null, null, null, fieldTypes, null, null, null, null);
+        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, null, null);
         code.append(mainClass).insert(mainClass.length()-1, innerClass);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
@@ -264,8 +321,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "ImportConflictWithDeclaredType";
         String[] importedTypes = new String[] { Collection.class.getName() };
         StringBuffer code = new StringBuffer();
-        String mainClass = generateClassCode(className, importedTypes, null, null, null, null, null, null);
-        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, null);
+        String mainClass = generateClassCode(className, importedTypes, null, null, null, null, null, null, null);
+        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, null, null);
         code.append(mainClass).insert(mainClass.length()-1, innerClass);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
@@ -297,8 +354,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "ImportConflictWithQualifiedTypeRef";
         String[] importedTypes = new String[] { Collection.class.getName() };
         StringBuffer code = new StringBuffer();
-        String mainClass = generateClassCode(className, importedTypes, null, null, null, null, null, null);
-        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, Collection.class.getName(), null, null, null, null, null);
+        String mainClass = generateClassCode(className, importedTypes, null, null, null, null, null, null, null);
+        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, Collection.class.getName(), null, null, null, null, null, null);
         code.append(mainClass).insert(mainClass.length()-1, innerClass);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
@@ -330,7 +387,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "ImportConflictWithSuperTypeRef";
         String[] importedTypes = new String[] { Collection.class.getName() };
         String conflicted = "my.own.Collection";
-        String code = generateClassCode(className, importedTypes, conflicted, null, null, null, null, null);
+        String code = generateClassCode(className, importedTypes, conflicted, null, null, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -361,8 +418,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "TestFullQualifiedLocalVariables";
         String[] localVars = new String[] { Collection.class.getName() };
         StringBuffer code = new StringBuffer();
-        String mainClass = generateClassCode(className, null, null, null, null, null, null, null);
-        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, localVars);
+        String mainClass = generateClassCode(className, null, null, null, null, null, null, null, null);
+        String innerClass = generateClassCode(Collection.class.getSimpleName(), null, null, null, null, null, null, localVars, null);
         code.append(mainClass).insert(mainClass.length()-1, innerClass);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
@@ -410,7 +467,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "NotSpoilingExistingImports";
         String[] existingImports = new String[] { ArrayList.class.getName(), Map.class.getName() };
         String[] fieldTypes = new String[] { List.class.getName(), RectangleFigure.class.getName(), getInnerClassAwareName(Map.Entry.class), Map.class.getName(), Map.class.getSimpleName(), ArrayList.class.getSimpleName() };
-        String code = generateClassCode(className, existingImports, null, null, fieldTypes, null, null, null);
+        String code = generateClassCode(className, existingImports, null, null, fieldTypes, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -479,7 +536,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
     public void testNotToRemoveEvenUnusedImports() throws Exception {
         String className = "TestNotToRemoveEvenUnusedImports";
         String[] existingImports = new String[] { ArrayList.class.getName() };
-        String code = generateClassCode(className, existingImports, null, null, null, null, null, null);
+        String code = generateClassCode(className, existingImports, null, null, null, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -499,7 +556,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String className = "TestNotToImportIfInOnDemandImports";
         String[] existingImports = new String[] { "java.util.*" };
         String[] fieldTypes = new String[] { ArrayList.class.getName() };
-        String code = generateClassCode(className, existingImports, null, null, fieldTypes, null, null, null);
+        String code = generateClassCode(className, existingImports, null, null, fieldTypes, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -554,7 +611,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         }
     }
     
-    private String generateClassCode(String className, String[] imports, String extendsType, String[] implementsTypes, String[] fieldTypes, String[] methodParameters, String[] methodReturns, String[] localVariables) {
+    private String generateClassCode(String className, String[] imports, String extendsType, String[] implementsTypes, String[] fieldTypes, String[] methodParameters, String[] methodReturns, String[] localVariables, String[] methodExceptions) {
         StringBuffer buf = new StringBuffer();
         if (imports != null && imports.length > 0) {
             for (int i=0; i<imports.length; i++) {
@@ -609,6 +666,31 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
             }
             buf.append("    }").append(nl);
         }
+        buf.append(nl);
+        if (methodExceptions != null && methodExceptions.length > 0) {
+            buf.append("    public Object methodWithExceptions").append("() throws ");
+            for (int i=0; i<methodExceptions.length; i++) {
+                buf.append(methodExceptions[i]);
+                if (i != methodExceptions.length - 1) {
+                    buf.append(", ");
+                }
+            }
+            buf.append(" {").append(nl);
+            buf.append("        return null;").append(nl);
+            buf.append("    }").append(nl);
+            buf.append(nl);
+        }
+        buf.append(nl);
+        if (methodExceptions != null && methodExceptions.length > 0) {
+            buf.append("    public Object methodWithRuntimeExceptions() ");
+            buf.append(" {").append(nl);
+            for (int i=0; i<methodExceptions.length; i++) {
+                buf.append("        throw new ").append(methodExceptions[i]).append("();").append(nl);
+            }
+            buf.append("        return null;").append(nl);
+            buf.append("    }").append(nl);
+            buf.append(nl);
+        }
         buf.append('}');
         return buf.toString();
     }
@@ -642,7 +724,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         
         String[] fieldTypes = new String[] { typeRefs[0].getName(), typeRefs[0].getSimpleName() };
         String[] existedImports = new String[] { fieldTypes[0] };
-        String code = generateClassCode(className, existedImports, null, null, fieldTypes, null, null, null);
+        String code = generateClassCode(className, existedImports, null, null, fieldTypes, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
@@ -741,17 +823,65 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
                 return super.visit(node);
             }
         });
-//        String icu = "class x { void z(Class cc) {z(java.lang.String.XXX, (java.util.List) v, org.eclipse.gmf.Util.doSomeUglyStuff());}}";
-//        ASTParser parser = ASTParser.newParser(AST.JLS3);
-//        parser.setSource(icu.toCharArray());
-//        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
-//        ArrayList<Name> a1 = new ArrayList<Name>();
-//        ArrayList<SimpleName> a2 = new ArrayList<SimpleName>();
-//        ArrayList<String> a3 = new ArrayList<String>();
-//        ImportReferencesCollector.collect(cu, a1, a2, a3);
-//        System.err.println(a1);
-//        System.err.println(a2);
-//        System.err.println(a3);
+    }
+    
+    public void _testQualifiedGenerics() throws Exception {
+        String testClassName = "QualifiedGenerics";
+        final List<String> collectionTypeNameRefs = new ArrayList<String>(Arrays.asList(new String[] {
+                "java.util.ArrayList",
+                "java.util.Collection"
+        }));
+        final List<String> genericTypeNameRefs = new ArrayList<String>(Arrays.asList(new String[] {
+                "javax.dummy.Castings",
+                "javax.dummy.Classes",
+                "javax.dummy.Constants",
+                "javax.dummy.Methods",
+        }));
+        
+        StringBuffer buf = new StringBuffer();
+        buf.append("public class ").append(testClassName).append(" {").append(nl);
+        buf.append(nl);
+        for (int i=0; i<genericTypeNameRefs.size(); i++) {
+            buf.append("    private static ").append(collectionTypeNameRefs.get(0)).append("<").append(genericTypeNameRefs.get(i)).append("> myField").append(i).append(";").append(nl);
+            buf.append("    private static ").append(collectionTypeNameRefs.get(1)).append(" < ").append(genericTypeNameRefs.get(i)).append(" > otherField").append(i).append(";").append(nl);
+        }
+        buf.append("    private static Map<Class1, Class2> unqualified;").append(nl);
+        buf.append(nl);
+        for (int i=0; i<genericTypeNameRefs.size(); i++) {
+            buf.append("    private static int method").append(i).append("(").append(collectionTypeNameRefs.get(1)).append("<? extends ").append(genericTypeNameRefs.get(0)).append("> values) {").append(nl);
+            buf.append("        return method(new ").append(collectionTypeNameRefs.get(0)).append("<").append(genericTypeNameRefs.get(i)).append(">());").append(nl);
+            buf.append("    }").append(nl);
+            buf.append(nl);
+            buf.append("    private static int method").append(i).append("(").append(collectionTypeNameRefs.get(1)).append(" < ? extends ").append(genericTypeNameRefs.get(0)).append(" > values ) {").append(nl);
+            buf.append("        return method( new  ").append(collectionTypeNameRefs.get(0)).append(" < ").append(genericTypeNameRefs.get(i)).append(" > () );").append(nl);
+            buf.append("    }").append(nl);
+            buf.append(nl);
+        }
+        buf.append("}").append(nl);
+
+        ICompilationUnit icu = JavaProjectHelper.createJavaFile(testClassName+".java", buf.toString());
+        new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+        icu.save(null, true);
+        
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
+        parser.setSource(icu);
+        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+        List imports = cu.imports();
+        
+        assertEquals("Failed to generate enough import statements: "+imports, genericTypeNameRefs.size()+collectionTypeNameRefs.size(), imports.size());
+        for (int i=0; i<imports.size(); i++) {
+            String nextImport = ((ImportDeclaration) imports.get(i)).getName().getFullyQualifiedName();
+            assertTrue("Unexpected import found", genericTypeNameRefs.contains(nextImport) || collectionTypeNameRefs.contains(nextImport));
+        }
+
+        final List<String> allReferencedTypes = new ArrayList<String>(genericTypeNameRefs.size()+collectionTypeNameRefs.size());
+        allReferencedTypes.addAll(genericTypeNameRefs);
+        allReferencedTypes.addAll(collectionTypeNameRefs);
+        cu.accept(new ExpectedSimpleNamesVisitor(allReferencedTypes) {
+            public boolean visit(ImportDeclaration node) {
+                return false;
+            }
+        });
     }
     
     public void testFullQualifiedArrays() throws Exception {
