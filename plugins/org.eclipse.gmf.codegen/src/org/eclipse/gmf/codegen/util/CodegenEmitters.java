@@ -73,7 +73,6 @@ import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGene
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
@@ -179,7 +178,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
-		put(tr, "/policies/OpenDiagram.javajet", OpenDiagramPolicyGenerator.class);
 		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
@@ -350,7 +348,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OpenDiagramPolicyGenerator.class);
+		return new XpandTextEmitter(myResourceManager, "xpt::policies::OpenDiagram::EditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -802,7 +800,10 @@ public class CodegenEmitters {
 
 		public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
 			StringBuilder result = new StringBuilder();
-			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
+			// JET gets single Object as an argument, and that's Object[] {diagram, importUtil} in our case.
+			// FIXME it's JETEmitterAdapter's role to wrap Object[] into single Object passed to emitter, not XpandEmitter's
+			Object[] actualArguments = arguments != null && arguments.length == 1 && arguments[0] instanceof Object[] ? (Object[]) arguments[0] : arguments;
+			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(actualArguments), extractArguments(actualArguments));
 			return result.toString();
 		}
 
