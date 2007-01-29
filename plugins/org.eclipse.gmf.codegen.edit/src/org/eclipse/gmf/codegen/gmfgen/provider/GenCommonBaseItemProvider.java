@@ -68,6 +68,7 @@ public class GenCommonBaseItemProvider
 			addEditPartClassNamePropertyDescriptor(object);
 			addItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addNotationViewFactoryClassNamePropertyDescriptor(object);
+			addSansDomainPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -183,6 +184,28 @@ public class GenCommonBaseItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Sans Domain feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSansDomainPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCommonBase_sansDomain_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_sansDomain_feature", "_UI_GenCommonBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenCommonBase_SansDomain(),
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -240,6 +263,7 @@ public class GenCommonBaseItemProvider
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
