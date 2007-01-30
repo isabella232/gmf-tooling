@@ -132,7 +132,6 @@ public class NavigatorHandler {
 			GenNode nextNode = (GenNode) genNodes.next();
 			if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
 				result.add(nextNode);
-				break;
 			}
 		}
 		return result;
