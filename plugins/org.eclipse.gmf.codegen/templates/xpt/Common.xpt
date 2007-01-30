@@ -39,7 +39,7 @@
 «DEFINE generatedClassComment(String comment) FOR Object-»
 /**
 «IF comment.length() > 0-»
- * «comment.replaceAll("\n", "\n *")»
+ * «comment.replaceAll("\n", "\n * ")»
 «ENDIF-»
  * @generated
  */«ENDDEFINE»
@@ -51,7 +51,7 @@
 «DEFINE generatedMemberComment(String comment) FOR Object-»
 /**
 «IF comment.length() > 0-»
- * «comment.replaceAll("\n", "\n *")»
+ * «comment.replaceAll("\n", "\n * ")»
 «ENDIF-»
  * @generated
  */«ENDDEFINE»
