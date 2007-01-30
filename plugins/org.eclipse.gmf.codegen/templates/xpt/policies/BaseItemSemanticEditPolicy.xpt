@@ -293,7 +293,7 @@ private static «container.editorGen.expressionProviders.getAbstractExpressionQua
 «EXPAND xpt::Common::generatedMemberComment»
 static {
 	«EXPAND xpt::expressions::getExpression::initOppositeEndEnv FOR oppositeEndContext-»
-	«varName» = «EXPAND xpt::expressions::getExpression::getExpressionWithEnv(constraint, context)»;
+	«varName» = «EXPAND xpt::expressions::getExpression::getExpressionWithEnv(constraint, context)»; //$NON-NLS-1$
 }
 «ENDDEFINE»
 
