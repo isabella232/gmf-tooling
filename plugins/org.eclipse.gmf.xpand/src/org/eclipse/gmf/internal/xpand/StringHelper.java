@@ -30,6 +30,7 @@ public class StringHelper {
         result = result.replace("\r", "\\r");
         result = result.replace("\n", "\\n");
         result = result.replace("\"", "\\\"");
+        result = result.replace("\'", "\\\'");
         return result;
     }
 
@@ -74,6 +75,8 @@ public class StringHelper {
                 return '\t';
             case '"':
                 return '"';
+            case '\'':
+                return '\'';
         }
         throw new IllegalArgumentException ("unsupported string format: '\\" + escapedChar + "' is not supported.");
     }
