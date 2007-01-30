@@ -258,6 +258,9 @@ public interface GenCommonBase extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates this element has no associated domain model. IOW, pure design element.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Sans Domain</em>' attribute.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_SansDomain()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"

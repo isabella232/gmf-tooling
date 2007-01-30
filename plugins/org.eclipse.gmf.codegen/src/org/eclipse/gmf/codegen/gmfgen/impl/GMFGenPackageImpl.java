@@ -7531,7 +7531,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																											
+		   });																																																																																																																																																																																																												
 	}
 
 	/**
@@ -7561,7 +7561,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "visualID >= 0",
 			 "description", "Visual ID must be a non-negative integer"
-		   });						
+		   });							
 		addAnnotation
 		  (genNodeEClass, 
 		   source, 
@@ -7773,7 +7773,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																
+		   });																																																																																																																																																																																	
 		addAnnotation
 		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
 		   source, 
@@ -7789,7 +7789,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																									
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																										
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
