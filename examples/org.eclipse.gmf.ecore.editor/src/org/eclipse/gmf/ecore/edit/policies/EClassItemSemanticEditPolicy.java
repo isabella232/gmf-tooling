@@ -11,21 +11,31 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
+import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -37,7 +47,19 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req) {
+		CompoundCommand cc = new CompoundCommand();
+		Collection allEdges = new ArrayList();
+		View view = (View) getHost().getModel();
+		allEdges.addAll(view.getSourceEdges());
+		allEdges.addAll(view.getTargetEdges());
+		for (Iterator it = allEdges.iterator(); it.hasNext();) {
+			Edge nextEdge = (Edge) it.next();
+			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
+			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((EClassEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
+					Collections.EMPTY_MAP);
+			cc.add(nextEditPart.getCommand(editCommandRequest));
+		}
+		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
@@ -48,7 +70,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				return super.getElementToDestroy();
 			}
 
-		});
+		}));
+		return cc;
 	}
 
 	/**

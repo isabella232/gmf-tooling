@@ -617,6 +617,44 @@
             <input type="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
+   </extension><extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.emf.ecore.diagram.general"
+            name="Ecore Diagram"
+            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.appearance"
+            name="Appearance"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.connections"
+            name="Connections"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.printing"
+            name="Printing"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            name="Rulers And Grid"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.pathmaps"
+            name="Pathmaps"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
+      </page>
    </extension>
+
 
 </plugin>

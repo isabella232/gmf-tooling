@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,11 +11,22 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
+import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
+import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -41,20 +52,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-
-import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
-
-import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
-import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
-
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated
@@ -248,63 +245,60 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	protected static class LinkConstraints {
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static EcoreAbstractExpression EReference_4002_TargetExpression;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
-			EReference_4002_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClassifier(), env);
+			env.put(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
+			EReference_4002_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", EcorePackage.eINSTANCE.getEClassifier(), env); //$NON-NLS-1$
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static EcoreAbstractExpression EReference_4003_TargetExpression;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
-			EReference_4003_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClassifier(), env);
+			env.put(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
+			EReference_4003_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", EcorePackage.eINSTANCE.getEClassifier(), env); //$NON-NLS-1$
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static EcoreAbstractExpression EClassESuperTypes_4004_TargetExpression;
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		static {
 			Map env = new HashMap(3);
-			env.put("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			env.put(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
 			EClassESuperTypes_4004_TargetExpression = EcoreOCLFactory.getExpression(
-					"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", //$NON-NLS-1$
-					EcorePackage.eINSTANCE.getEClass(), env);
+					"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", EcorePackage.eINSTANCE.getEClass(), env); //$NON-NLS-1$
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateEAnnotationReferences_4001(EAnnotation source, EObject target) {
 			if (source != null) {
@@ -316,7 +310,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateEReference_4002(EClass source, EClassifier target) {
 			if (!evaluate(EReference_4002_TargetExpression, target, source, true)) {
@@ -326,7 +320,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateEReference_4003(EClass source, EClassifier target) {
 			if (!evaluate(EReference_4003_TargetExpression, target, source, true)) {
@@ -336,7 +330,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateEClassESuperTypes_4004(EClass source, EClass target) {
 			if (source != null) {
@@ -351,7 +345,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static boolean evaluate(EcoreAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 			if (sourceEnd == null) {
@@ -366,6 +360,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				return false;
 			}
 		}
+
 	}
 
 }

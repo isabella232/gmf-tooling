@@ -13,7 +13,8 @@
       canonicalEditPolicyClassName="EPackageCanonicalEditPolicy"
       iconProviderPriority="Low"
       creationWizardIconPath="icons/full/obj16/EcoreModelFile.gif"
-      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
+      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
+      validationProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -1073,6 +1074,36 @@
             genLinks="//@diagram/@links.3"/>
       </groups>
     </palette>
+    <preferencePages
+        xsi:type="gmfgen:GenStandardPreferencePage"
+        iD="org.eclipse.emf.ecore.diagram.general"
+        name="Ecore Diagram">
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.emf.ecore.diagram.appearance"
+          name="Appearance"
+          kind="Appearance"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.emf.ecore.diagram.connections"
+          name="Connections"
+          kind="Connections"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.emf.ecore.diagram.printing"
+          name="Printing"
+          kind="Printing"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.emf.ecore.diagram.rulersAndGrid"
+          name="Rulers And Grid"
+          kind="RulersAndGrid"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.emf.ecore.diagram.pathmaps"
+          name="Pathmaps"
+          kind="Pathmaps"/>
+    </preferencePages>
   </diagram>
   <plugin
       iD="org.eclipse.gmf.ecore.editor"
