@@ -18,9 +18,7 @@
 	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICommonContentProvider {
 
 	«EXPAND attributes-»
@@ -40,53 +38,39 @@ public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICom
 «ENDDEFINE»
 
 «DEFINE attributes FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private static final Object[] EMPTY_ARRAY = new Object[0];
 «ENDDEFINE»
 
 «DEFINE iContentProvider FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
    public void dispose() {
    }
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
    public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
    }
 «ENDDEFINE»
 
 «DEFINE iStructuredContentProvider FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public Object[] getElements(Object inputElement) {
 	return getChildren(inputElement);
 }
 «ENDDEFINE»
 
 «DEFINE iMementoAware FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public void restoreState(org.eclipse.ui.IMemento aMemento) {
 }
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public void saveState(org.eclipse.ui.IMemento aMemento) {
 }
 «ENDDEFINE»
 
 «DEFINE iCommonContentProvider FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public void init(org.eclipse.ui.navigator.ICommonContentExtensionSite aConfig) {
 }
 «ENDDEFINE»
@@ -100,9 +84,7 @@ public void init(org.eclipse.ui.navigator.ICommonContentExtensionSite aConfig) {
 «ENDDEFINE»
 
 «DEFINE getChildren FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public Object[] getChildren(Object parentElement) {
 	if (parentElement instanceof org.eclipse.core.resources.IFile) {
 	«EXPAND getFileChildren-»
@@ -128,9 +110,7 @@ public Object[] getChildren(Object parentElement) {
 «ENDDEFINE»
 
 «DEFINE getParent FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public Object getParent(Object element) {
 	if (element instanceof «getAbstractNavigatorItemQualifiedClassName()») {
     	«getAbstractNavigatorItemQualifiedClassName()» abstractNavigatorItem = («getAbstractNavigatorItemQualifiedClassName()») element;
@@ -141,9 +121,7 @@ public Object getParent(Object element) {
 «ENDDEFINE»
 
 «DEFINE hasChildren FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public boolean hasChildren(Object element) {
 	return element instanceof org.eclipse.core.resources.IFile || getChildren(element).length > 0;
 }
@@ -206,9 +184,7 @@ return EMPTY_ARRAY;
 «ENDDEFINE»
 
 «DEFINE getViewChildren FOR gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Object parentElement) {
    	switch («editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
 	«EXPAND caseNavigatorNode(this) FOREACH getNavigatorNodes(this)-»
@@ -218,9 +194,7 @@ private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Obj
 «ENDDEFINE»
 
 «DEFINE utilityMethods FOR  gmfgen::GenNavigator-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection getLinksSourceByType(java.util.Collection edges, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -234,9 +208,7 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, in
  	return result;
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
  private java.util.Collection getLinksTargetByType(java.util.Collection edges, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -250,9 +222,7 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, in
  	return result;
 }
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
  private java.util.Collection getOutgoingLinksByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -263,9 +233,7 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, in
  	return result;
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -276,9 +244,7 @@ private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, 
  	return result;
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection getChildrenByType(java.util.Collection nodes, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -289,9 +255,7 @@ private java.util.Collection getChildrenByType(java.util.Collection nodes, int v
 	return result;
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection getDiagramLinksByType(java.util.Collection diagrams, int visualID) {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND getTypeByVID FOR editorGen.diagram-»
@@ -302,9 +266,7 @@ private java.util.Collection getDiagramLinksByType(java.util.Collection diagrams
 	return result;
 }
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection selectViewsByType(java.util.Collection views, String type) {
 	java.util.Collection result = new java.util.ArrayList();
 	for (java.util.Iterator it = views.iterator(); it.hasNext();) {
@@ -316,16 +278,12 @@ private java.util.Collection selectViewsByType(java.util.Collection views, Strin
 	return result;
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private boolean isOwnView(org.eclipse.gmf.runtime.notation.View view) {
 	return «editorGen.diagram.getEditPartQualifiedClassName()».MODEL_ID.equals(«editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getModelID(view));
 }
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection createNavigatorItems(java.util.Collection views, Object parent, boolean isLeafs) {
 	java.util.Collection result = new java.util.ArrayList();
 	for (java.util.Iterator it = views.iterator(); it.hasNext();) {
@@ -345,9 +303,7 @@ String type = «getVisualIDRegistryQualifiedClassName()».getType(visualID);
 «DEFINE getForeignShortcuts FOR gmfgen::GenNavigator-»
 	«IF editorGen.diagram.generateCreateShortcutAction() && getChildReferencesFrom(this, editorGen.diagram).size() > 0-»
 	
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
 	java.util.Collection result = new java.util.ArrayList();
 	for (java.util.Iterator it = diagram.getChildren().iterator(); it.hasNext();) {

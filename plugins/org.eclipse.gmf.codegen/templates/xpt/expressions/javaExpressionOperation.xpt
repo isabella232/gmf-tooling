@@ -15,9 +15,7 @@
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE javaExpressionOperation(gmfgen::ValueExpression valueExpr, genmodel::GenClass context, genmodel::GenClass oppositeEndContext) FOR gmfgen::GenJavaExpressionProvider-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private static «EXPAND javaExpressionReturnTypeFQName(this) FOR valueExpr» «getOperationName(valueExpr)»(«getQualifiedInstanceClassName(context)» self«IF oppositeEndContext != null», «getQualifiedInstanceClassName(oppositeEndContext)» oppositeEnd«ENDIF») {
 	// TODO: implement this method
 	// Ensure that you remove @generated or mark it @generated NOT

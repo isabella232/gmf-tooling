@@ -17,14 +17,10 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFactory {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
 		if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
@@ -50,17 +46,13 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 		return createUnrecognizedEditPart(context, model);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	 private org.eclipse.gef.EditPart createUnrecognizedEditPart(org.eclipse.gef.EditPart context, Object model) {
 	 	// Handle creation of unrecognized child node EditParts here
 	 	return null;
 	 }
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.gef.tools.CellEditorLocator getTextCellEditorLocator(
 			org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart source) {
         if (source.getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel)
@@ -70,33 +62,23 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
         }
     }
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	static private class TextCellEditorLocator implements org.eclipse.gef.tools.CellEditorLocator {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel wrapLabel;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public TextCellEditorLocator(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel wrapLabel) {
 			this.wrapLabel = wrapLabel;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void relocate(org.eclipse.jface.viewers.CellEditor celleditor) {
 			org.eclipse.swt.widgets.Text text = (org.eclipse.swt.widgets.Text) celleditor.getControl();
 			org.eclipse.draw2d.geometry.Rectangle rect = getWrapLabel().getTextBounds().getCopy();
@@ -116,33 +98,23 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	private static class LabelCellEditorLocator implements org.eclipse.gef.tools.CellEditorLocator {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private org.eclipse.draw2d.Label label;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public LabelCellEditorLocator(org.eclipse.draw2d.Label label) {
 			this.label = label;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.draw2d.Label getLabel() {
 			return label;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void relocate(org.eclipse.jface.viewers.CellEditor celleditor) {
 			org.eclipse.swt.widgets.Text text = (org.eclipse.swt.widgets.Text) celleditor.getControl();
 			org.eclipse.draw2d.geometry.Rectangle rect = getLabel().getTextBounds().getCopy();

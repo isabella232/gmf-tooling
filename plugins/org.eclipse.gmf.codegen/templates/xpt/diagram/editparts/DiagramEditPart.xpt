@@ -18,28 +18,20 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public final static String MODEL_ID = "«editorGen.modelID»"; //$NON-NLS-1$
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»

@@ -14,9 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE visualIDConstant FOR gmfgen::GenCommonBase-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static final int VISUAL_ID = «visualID»;
 «ENDDEFINE»
 
@@ -37,9 +35,7 @@
 «ENDDEFINE»
 
 «DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createFigure() {
 		// Parent should assign one using «IF null == setterName»setLabel«ELSE»«setterName»«ENDIF»() method
 		return null;
@@ -47,18 +43,14 @@
 «ENDDEFINE»
 
 «DEFINE labelFigure FOR gmfgen::Viewmap-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createFigure() {
 		org.eclipse.draw2d.IFigure label = createFigurePrim();
 		defaultText = getLabelTextHelper(label);
 		return label;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createFigurePrim() {
 		«EXPAND labelFigurePrim FOR this-»
 «ENDDEFINE»
@@ -90,17 +82,13 @@
 «ENDDEFINE»
 
 «DEFINE notationalListeners FOR gmfgen::GenCommonBase-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addNotationalListeners() {
 		super.addNotationalListeners();
 		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeNotationalListeners() {
 		super.removeNotationalListeners();
 		removeListenerFilter("PrimaryView"); //$NON-NLS-1$

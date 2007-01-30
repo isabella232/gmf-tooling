@@ -17,9 +17,7 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart
 	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
 
@@ -27,16 +25,12 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 
 	«EXPAND xpt::diagram::editparts::TextAware::fields FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
 		if (request instanceof org.eclipse.gef.requests.SelectionRequest &&
 				((org.eclipse.gef.requests.SelectionRequest) request).getLastButtonPressed() == 3) {
@@ -45,9 +39,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 		return new org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx(this);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE,
@@ -65,9 +57,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 
 	«EXPAND xpt::diagram::editparts::Common::notationalListeners FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
 		Object feature = event.getFeature();
 		«EXPAND xpt::diagram::editparts::Common::handleText FOR this-»

@@ -19,21 +19,15 @@
 «EXPAND xpt::Common::copyright-»
 package «getAccessorQualifier()»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	static {
 		org.eclipse.osgi.util.NLS.initializeMessages("«getAccessorName().toLowerCase()»", «getAccessorName()».class); //$NON-NLS-1$
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private «getAccessorName()»() {
 	}
 
@@ -48,9 +42,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «ENDDEFINE»
 
 «DEFINE accessorField(String key) FOR Object»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
     public static String «escapeIllegalKeySymbols(key)»;
 «ENDDEFINE»
 

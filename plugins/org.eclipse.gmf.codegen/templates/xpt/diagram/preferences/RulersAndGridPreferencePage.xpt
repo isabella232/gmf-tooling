@@ -21,14 +21,10 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «preferencesPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.preferences.RulerGridPreferencePage {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»() {
 		setPreferenceStore(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
 	}

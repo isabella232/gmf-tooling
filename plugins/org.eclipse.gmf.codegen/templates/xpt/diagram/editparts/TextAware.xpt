@@ -15,32 +15,22 @@
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gef.tools.DirectEditManager manager;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private java.util.List parserElements;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultText;
 «ENDDEFINE»
 
 «DEFINE methods(Boolean needsRefreshBounds, Boolean readOnly, Boolean useElementIcon, gmfgen::Viewmap viewmap,
 		gmfgen::LabelModelFacet modelFacet, gmfgen::GenCommonBase host, gmfgen::GenDiagram diagram) FOR gmfgen::GenCommonBase-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected String getLabelTextHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).getText();
@@ -49,9 +39,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLabelTextHelper(org.eclipse.draw2d.IFigure figure, String text) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).setText(text);
@@ -60,9 +48,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.swt.graphics.Image getLabelIconHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).getIcon();
@@ -71,9 +57,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLabelIconHelper(org.eclipse.draw2d.IFigure figure, org.eclipse.swt.graphics.Image icon) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel) figure).setIcon(icon);
@@ -82,9 +66,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void
 			«EXPAND labelSetterName FOR viewmap-»
 			(
@@ -97,31 +79,23 @@
 		refreshVisuals();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected java.util.List getModelChildren() {
 		return java.util.Collections.EMPTY_LIST;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject getParserElement() {
 		org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 		return element != null ? element : (org.eclipse.gmf.runtime.notation.View) getModel();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.swt.graphics.Image getLabelIcon() {
 		«IF useElementIcon-»
 		org.eclipse.emf.ecore.EObject parserElement = getParserElement();
@@ -134,9 +108,7 @@
 		«ENDIF-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected String getLabelText() {
 		String text = null;
 		if (getParser() != null) {
@@ -150,9 +122,7 @@
 		return text;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void setLabelText(String text) {
 		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
@@ -161,9 +131,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditText() {
 		if (getParser() == null) {
 			return ""; //$NON-NLS-1$
@@ -173,9 +141,7 @@
 			getParserOptions().intValue());
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean isEditable() {
 		«IF readOnly-»
 		return false;
@@ -184,9 +150,7 @@
 		«ENDIF-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.jface.viewers.ICellEditorValidator getEditTextValidator() {
 		return new org.eclipse.jface.viewers.ICellEditorValidator() {
 
@@ -217,9 +181,7 @@
 		};
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor() {
 		if (getParser() == null) {
 			return null;
@@ -227,16 +189,12 @@
 		return getParser().getCompletionProcessor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()));
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions getParserOptions() {
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser() {
 		if (parser == null) {
             String parserHint = 
@@ -260,9 +218,7 @@
 		return parser;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.tools.DirectEditManager getManager() {
 		if (manager == null) {
 			setManager(new org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager(this,
@@ -272,32 +228,24 @@
 		return manager;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setManager(org.eclipse.gef.tools.DirectEditManager manager) {
 		this.manager = manager;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEdit() {
 		getManager().show();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEdit(org.eclipse.draw2d.geometry.Point eventLocation) {
 		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
 			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
@@ -306,9 +254,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEditRequest(org.eclipse.gef.Request request) {
 		final org.eclipse.gef.Request theRequest = request;
 		try {
@@ -333,9 +279,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		refreshLabel();
@@ -348,9 +292,7 @@
 		«ENDIF-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshLabel() {
 		setLabelTextHelper(getFigure(), getLabelText());
 		setLabelIconHelper(getFigure(), getLabelIcon());
@@ -360,9 +302,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshUnderline() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -372,9 +312,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshStrikeThrough() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -384,9 +322,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshFont() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -400,16 +336,12 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setFontColor(org.eclipse.swt.graphics.Color color) {
 		getFigure().setForegroundColor(color);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addSemanticListeners() {
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
@@ -422,9 +354,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
 		if (parserElements != null) {
 			for (int i = 0; i < parserElements.size(); i++) {
@@ -435,9 +365,7 @@
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.AccessibleEditPart getAccessibleEditPart() {
 		if (accessibleEP == null) {
 			accessibleEP = new AccessibleGraphicalEditPart() {
@@ -450,9 +378,7 @@
 		return accessibleEP;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	 private org.eclipse.gmf.runtime.notation.View getFontStyleOwnerView() {
 		«IF isFixedFont(viewmap)-»
 		return (org.eclipse.gmf.runtime.notation.View) getModel();

@@ -18,14 +18,10 @@
 «EXPAND xpt::Common::copyright FOR diagram.editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «factoryClassName» {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void fillPalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
 «IF definesStandardTools()-»
 		cleanStandardTools(paletteRoot);
@@ -45,10 +41,7 @@ public class «factoryClassName» {
 «ENDDEFINE»
 
 «DEFINE createGroup FOR gmfgen::ToolGroup-»
-	/**
-     * Creates "«title»" palette tool group
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Creates \"" + title + "\" palette tool group")»
 	private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 		«EXPAND newContainer("paletteContainer")-»
 		«EXPAND setDescription("paletteContainer", this) FOR description-»
@@ -91,9 +84,7 @@ public class «factoryClassName» {
 «ENDDEFINE»
 
 «DEFINE createEntry FOR gmfgen::AbstractToolEntry-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gef.palette.ToolEntry «createMethodName»() {
 		«EXPAND newEntry("entry")-»
 		«EXPAND setSmallImage("entry")-»
@@ -215,10 +206,7 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE cleanStandardToolsHack FOR gmfgen::Palette»
-	/**
-	 * Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159289
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159289")»
 	private void cleanStandardTools(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
 		for (java.util.Iterator it = paletteRoot.getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gef.palette.PaletteEntry entry = (org.eclipse.gef.palette.PaletteEntry) it.next();
@@ -243,27 +231,19 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE nodeToolEntry FOR Object»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	private static class NodeToolEntry extends org.eclipse.gef.palette.ToolEntry {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private final java.util.List elementTypes;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private NodeToolEntry(String title, String description, java.util.List elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gef.Tool createTool() {
 			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool(elementTypes);
 			tool.setProperties(getToolProperties());
@@ -273,27 +253,19 @@ FIXME
 «ENDDEFINE»
 
 «DEFINE linkToolEntry FOR Object»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	private static class LinkToolEntry extends org.eclipse.gef.palette.ToolEntry {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private final java.util.List relationshipTypes;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private LinkToolEntry(String title, String description, java.util.List relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gef.Tool createTool() {
 			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool(relationshipTypes);
 			tool.setProperties(getToolProperties());

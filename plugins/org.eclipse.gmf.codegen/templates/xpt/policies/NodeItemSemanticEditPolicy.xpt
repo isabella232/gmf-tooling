@@ -25,9 +25,7 @@
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPoliciesPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
 	«IF childNodes.size() > 0-»
 	
@@ -43,9 +41,7 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «ENDDEFINE»
 
 «DEFINE getDestroyElementCommand FOR gmfgen::GenNode-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	org.eclipse.gef.commands.CompoundCommand cc = new org.eclipse.gef.commands.CompoundCommand();
 	«EXPAND destroyAllLinks-»
@@ -133,9 +129,7 @@ protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWit
 «ENDDEFINE»
 
 «DEFINE getCreateRelationshipCommand FOR gmfgen::GenNode-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«EXPAND callLinkCommands(this) FOREACH getAllPotentialLinks(this)-»
 	return super.getCreateRelationshipCommand(req);
@@ -166,9 +160,7 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 «ENDDEFINE»
 
 «DEFINE createStartLinkCommand(gmfgen::GenNode node) FOR gmfgen::GenLink-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(node) FOR this»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«EXPAND defineSourceTargetAndCheckConstraints(createStartIncomingLinkCommand(this, node), false)-»
 «REM»create always executable command«ENDREM»«-»
@@ -178,9 +170,7 @@ protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(n
 «ENDDEFINE»
 
 «DEFINE createCompleteLinkCommand(gmfgen::GenNode node) FOR gmfgen::GenLink-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND completeLinkCommandCreatorName(node) FOR this»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«EXPAND defineSourceTargetAndCheckConstraints(createCompleteOutgoingLinkCommand(this, node), true)-»
 	«EXPAND linkCreateCommand FOR modelFacet-»

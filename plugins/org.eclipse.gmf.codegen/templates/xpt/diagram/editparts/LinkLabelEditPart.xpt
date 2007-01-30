@@ -18,9 +18,7 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart
 	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
 
@@ -28,25 +26,19 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 
 	«EXPAND xpt::diagram::editparts::TextAware::fields FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	static {
 		registerSnapBackPosition(
 			«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«editPartClassName».VISUAL_ID),
 			new org.eclipse.draw2d.geometry.Point(«labelOffsetX(viewmap, 0)», «labelOffsetY(viewmap, 0)»));
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE,
@@ -54,18 +46,14 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public int getKeyPoint() {
 		return org.eclipse.draw2d.ConnectionLocator.«alignment»;
 	}
 
 	«EXPAND xpt::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram()) FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
 		Object feature = event.getFeature();
 		«EXPAND xpt::diagram::editparts::Common::handleText FOR this-»

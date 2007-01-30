@@ -18,9 +18,7 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends 
 «IF listLayout-»
 	org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart
@@ -31,34 +29,26 @@ public class «editPartClassName» extends
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
 	«IF listLayout-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean hasModelChildrenChanged(org.eclipse.emf.common.notify.Notification evt) {
 		return false;
 	}
 	«ENDIF-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getCompartmentName() {
 		return "«title»";
 	}
 
 	«IF !needsTitle-»
 	«REM»By default titles are shown even if there are no TitleStyle, we need to switch it off«ENDREM»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.draw2d.IFigure createFigure() {
 		org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure result =
 			(org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure) super.createFigure();
@@ -67,9 +57,7 @@ public class «editPartClassName» extends
 	}
 	«ENDIF-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		«IF canCollapse-»
@@ -88,17 +76,13 @@ public class «editPartClassName» extends
 	}
 
 	«IF isStoringChildPositions(node)-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		refreshBounds();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
 		super.handleNotificationEvent(notification);
 		Object feature = notification.getFeature();
@@ -110,9 +94,7 @@ public class «editPartClassName» extends
 		} 
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshBounds() {
 		int x = ((Integer) getStructuralFeatureValue(
 			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X())).intValue();
@@ -127,9 +109,7 @@ public class «editPartClassName» extends
 	}
 	«ENDIF-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setRatio(Double ratio) {
 		«IF gmfgen::ViewmapLayoutType::UNKNOWN.value == node.getLayoutType().value-»
 		if (getFigure().getParent().getLayoutManager() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout) {

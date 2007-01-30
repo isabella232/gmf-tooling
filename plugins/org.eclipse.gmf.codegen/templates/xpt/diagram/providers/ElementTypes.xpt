@@ -20,29 +20,19 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «providersPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «elementTypesClassName» extends ElementInitializers {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private «elementTypesClassName»() {}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static java.util.Map elements;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static org.eclipse.jface.resource.ImageRegistry imageRegistry;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
 		if (imageRegistry == null) {
 			imageRegistry = new org.eclipse.jface.resource.ImageRegistry();
@@ -50,16 +40,12 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return imageRegistry;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static String getImageRegistryKey(org.eclipse.emf.ecore.ENamedElement element) {
 		return element.getName();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 		if (element instanceof org.eclipse.emf.ecore.EStructuralFeature) {
 			org.eclipse.emf.ecore.EStructuralFeature feature = ((org.eclipse.emf.ecore.EStructuralFeature) element);
@@ -82,9 +68,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 		String key = getImageRegistryKey(element);
 		org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
@@ -98,9 +82,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return imageDescriptor;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENamedElement element) {
 		String key = getImageRegistryKey(element);
 		org.eclipse.swt.graphics.Image image = getImageRegistry().get(key);
@@ -115,9 +97,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return image;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.core.runtime.IAdaptable hint) {
 		org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
 		if (element == null) {
@@ -126,9 +106,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return getImageDescriptor(element);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.swt.graphics.Image getImage(org.eclipse.core.runtime.IAdaptable hint) {
 		org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
 		if (element == null) {
@@ -137,11 +115,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 		return getImage(element);
 	}
 
-	/**
-	 * Returns 'type' of the ecore object associated with the hint.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Returns \'type\' of the ecore object associated with the hint.\n")»
 	public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.runtime.IAdaptable hint) {
 		Object type = hint.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 		if (elements == null) {
@@ -159,29 +133,21 @@ public class «elementTypesClassName» extends ElementInitializers {
 
 	«FOREACH getElements() AS e-»
 		«IF null != elementType-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static final org.eclipse.gmf.runtime.emf.type.core.IElementType «e.getUniqueIdentifier()» =
 			getElementType("«e.elementType.uniqueIdentifier»"); //$NON-NLS-1$
 		«ENDIF-»
 	«ENDFOREACH-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(String id) {
 		return org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getType(id);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static java.util.Set KNOWN_ELEMENT_TYPES;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static boolean isKnownElementType(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new java.util.HashSet();

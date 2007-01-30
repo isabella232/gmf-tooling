@@ -17,17 +17,13 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «perspectiveClassName» implements org.eclipse.ui.IPerspectiveFactory {
 	«EXPAND createInitialLayout-»
 	«EXPAND additions-»
 «ENDDEFINE»
 «DEFINE createInitialLayout FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void createInitialLayout(org.eclipse.ui.IPageLayout layout) {
 		layout.setEditorAreaVisible(true);
 		layout.addPerspectiveShortcut(«getWorkbenchAdvisorQualifiedClassName()».PERSPECTIVE_ID);

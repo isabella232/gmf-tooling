@@ -33,12 +33,26 @@
 «ENDDEFINE»
 
 «DEFINE generatedClassComment FOR Object-»
+	«EXPAND generatedClassComment("")-»
+«ENDDEFINE»
+ 
+«DEFINE generatedClassComment(String comment) FOR Object-»
 /**
+«IF comment.length() > 0-»
+ * «comment.replaceAll("\n", "\n *")»
+«ENDIF-»
  * @generated
  */«ENDDEFINE»
 
 «DEFINE generatedMemberComment FOR Object-»
+	«EXPAND generatedMemberComment("")-»
+«ENDDEFINE»
+ 
+«DEFINE generatedMemberComment(String comment) FOR Object-»
 /**
+«IF comment.length() > 0-»
+ * «comment.replaceAll("\n", "\n *")»
+«ENDIF-»
  * @generated
  */«ENDDEFINE»
 

@@ -21,40 +21,28 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.emf.common.ui.URIEditorInput implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.MEditingDomainElement {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private final org.eclipse.emf.common.ui.URIEditorInput delegate;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private final org.eclipse.emf.transaction.TransactionalEditingDomain domain;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public URIEditorInputProxy(org.eclipse.emf.common.ui.URIEditorInput delegate, org.eclipse.emf.transaction.TransactionalEditingDomain domain) {
 		super(delegate.getURI());
 		this.delegate = delegate;
 		this.domain = domain;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
 		return domain;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean equals(Object obj) {
 		if (obj instanceof «EXPAND className FOR editorGen.diagram») {
 			«EXPAND className FOR editorGen.diagram» another = («EXPAND className FOR editorGen.diagram») obj;
@@ -63,16 +51,12 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.emf.co
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean eq(Object obj1, Object obj2) {
 		return obj1 == null ? obj2 == null : obj1.equals(obj2);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public int hashCode() {
 		return org.eclipse.gmf.runtime.common.core.util.HashUtil.hash(org.eclipse.gmf.runtime.common.core.util.HashUtil.hash(delegate), domain);
 	}

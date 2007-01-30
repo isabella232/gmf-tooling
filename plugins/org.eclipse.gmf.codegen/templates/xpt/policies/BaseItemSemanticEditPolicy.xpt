@@ -20,9 +20,7 @@
 	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «getDiagram().editPoliciesPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
 	«EXPAND semanticPart-»
@@ -68,9 +66,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 «ENDDEFINE»
 
 «DEFINE getSemanticCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
 	Object editHelperContext = completedRequest.getEditHelperContext();
@@ -119,9 +115,7 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 «ENDDEFINE»
 
 «DEFINE getSemanticCommandSwitch FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest req) {
 	if (req instanceof org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) {
 		return getCreateRelationshipCommand((org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) req);
@@ -151,131 +145,103 @@ protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.
 «ENDDEFINE»
 
 «DEFINE getConfigureCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getConfigureCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getCreateRelationshipCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getCreateCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getSetCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getSetCommand(org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getEditContextCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getEditContextCommand(org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getDestroyElementCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getDestroyReferenceCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getDuplicateCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDuplicateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getMoveCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getMoveCommand(org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest req) {
 	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getReorientReferenceRelationshipCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
 «ENDDEFINE»
 
 «DEFINE getReorientRelationshipCommand FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
 «ENDDEFINE»
 
 «DEFINE getMSLWrapper FOR gmfgen::GenDiagram-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.commands.Command getMSLWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(cmd);
 	}
 «ENDDEFINE»
 
 «DEFINE getSemanticElement FOR gmfgen::GenDiagram-»
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject getSemanticElement() {
 	return org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
 }
 «ENDDEFINE»
 
 «DEFINE getRelationshipContainer FOR gmfgen::GenDiagram-»
-/**
- * Finds container element for the new relationship of the specified type.
- * Default implementation goes up by containment hierarchy starting from
- * the specified element and returns the first element that is instance of
- * the specified container class.
- * 
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment(
+	"Finds container element for the new relationship of the specified type.\n" +
+	"Default implementation goes up by containment hierarchy starting from\n" +
+	"the specified element and returns the first element that is instance of\n" +
+	"the specified container class.\n"
+)»
 protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass containerClass, org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 	for (; element != null; element = element.eContainer()) {
 		if (containerClass.isSuperTypeOf(element.eClass())) {
@@ -287,14 +253,10 @@ protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf
 «ENDDEFINE»
 
 «DEFINE linkConstraints FOR gmfgen::GenDiagram-»
-/**
- * @generated 
- */
+«EXPAND xpt::Common::generatedClassComment»
 protected static class «getLinkCreationConstraintsClassName()» {
 	«IF null != editorGen.expressionProviders-»
-	/**
-	 * @generated 
-	 */	
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 		«EXPAND defineConstraintExpressions FOREACH getValidLinkConstraints(this)-»
 	«ENDIF-»
@@ -325,14 +287,10 @@ protected static class «getLinkCreationConstraintsClassName()» {
 «ENDDEFINE»
 
 «DEFINE defineOCLConstraint(String varName, gmfgen::GenConstraint constraint, genmodel::GenClass context, genmodel::GenClass oppositeEndContext) FOR gmfgen::GenExpressionInterpreter-»
-/**
- * @generated 
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private static «container.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «varName»;
 
-/**
- * @generated 
- */
+«EXPAND xpt::Common::generatedMemberComment»
 static {
 	«EXPAND xpt::expressions::getExpression::initOppositeEndEnv FOR oppositeEndContext-»
 	«varName» = «EXPAND xpt::expressions::getExpression::getExpressionWithEnv(constraint, context)»;
@@ -347,9 +305,7 @@ static {
 
 «DEFINE canCreate FOR gmfgen::GenLink»
 
-/**
- * @generated 
- */
+«EXPAND xpt::Common::generatedMemberComment»
 public static boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
 	«EXPAND checkEMFConstraints FOR modelFacet-»
 	«IF creationConstraints != null && creationConstraints.isValid()-»
@@ -433,9 +389,7 @@ if (!JavaConstraints.«getOperationName(checkSource ? constraints.sourceEnd : con
 
 «DEFINE evaluateOCL FOR gmfgen::GenExpressionProviderContainer-»
 
-/**
- * @generated 
- */
+«EXPAND xpt::Common::generatedMemberComment»
 private static boolean evaluate(«getAbstractExpressionQualifiedClassName()» constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 	if (sourceEnd == null) {
 		return true;
@@ -453,9 +407,7 @@ private static boolean evaluate(«getAbstractExpressionQualifiedClassName()» cons
 
 «DEFINE JavaConstraints FOR gmfgen::GenDiagram-»
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 private static class JavaConstraints {
 	«EXPAND javaExpressionOperations FOREACH getValidLinkConstraints()-»
 }

@@ -17,9 +17,7 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «className» implements org.eclipse.core.runtime.IPlatformRunnable {
 
 «EXPAND run-»
@@ -28,9 +26,7 @@ public class «className» implements org.eclipse.core.runtime.IPlatformRunnable {
 «ENDDEFINE»
 
 «DEFINE run FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public Object run(Object args) throws Exception {
 		org.eclipse.swt.widgets.Display display = org.eclipse.ui.PlatformUI.createDisplay();
 		try {

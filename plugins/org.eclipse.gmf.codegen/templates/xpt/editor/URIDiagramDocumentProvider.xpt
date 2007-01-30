@@ -21,33 +21,23 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	protected class URIElementInfo extends ElementInfo {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public URIElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener) {
 			super(document);
 			this.listener = listener;
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = null;
@@ -66,9 +56,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return super.createElementInfo(element);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public ElementInfo createNewElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
 		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener = new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener(this, (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument) document);
 		URIElementInfo info = new URIElementInfo(document, listener);
@@ -76,9 +64,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return info;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void disposeElementInfo(Object element, ElementInfo info) {
 		Object content = info.fDocument.getContent();
 		if (content instanceof org.eclipse.gmf.runtime.notation.Diagram) {
@@ -87,9 +73,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		((URIElementInfo) info).listener.stopListening();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.ui.IEditorInput createInputWithEditingDomain(org.eclipse.ui.IEditorInput editorInput, org.eclipse.emf.transaction.TransactionalEditingDomain domain) {
 		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			return new URIEditorInputProxy((org.eclipse.emf.common.ui.URIEditorInput) editorInput, domain);
@@ -98,9 +82,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument getDiagramDocument(Object element) {
 		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument doc = getDocument(element);
 		if (doc instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
@@ -109,9 +91,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = createEmptyDocument();
@@ -123,29 +103,24 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return null;
 	}
 
-	/**
-	 * Sets up the given document as it would be provided for the given element. The
-	 * content of the document is not changed. This default implementation is empty.
-	 * Subclasses may reimplement.
-	 *
-	 * @param element the blue-print element
-	 * @param document the document to set up
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment(
+		"Sets up the given document as it would be provided for the given element. The\n" +
+		"content of the document is not changed. This default implementation is empty.\n" +
+		"Subclasses may reimplement.\n" +
+		"\n" +
+		"@param element the blue-print element\n" +
+		"@param document the document to set up"
+	)»
 	protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
 		// for subclasses
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createEmptyDocument() {
 		return new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
 		if (editorInput instanceof «EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») {
 			«EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram» diagramElement = («EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») editorInput;
@@ -158,9 +133,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setDocumentContentFromStorage(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.emf.common.util.URI uri) throws org.eclipse.core.runtime.CoreException {
 		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
 		org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
@@ -212,9 +185,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor, Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, boolean overwrite) throws org.eclipse.core.runtime.CoreException {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
@@ -239,9 +210,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		}
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean isDeleted(Object element) {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
@@ -250,9 +219,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean isReadOnly(Object element) {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
@@ -263,9 +230,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean isModifiable(Object element) {
 		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			java.io.File file = getFile((org.eclipse.emf.common.ui.URIEditorInput) element);
@@ -276,9 +241,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return true;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static java.io.File getFile(org.eclipse.emf.common.ui.URIEditorInput input) {
 		org.eclipse.emf.common.util.URI uri = input.getURI().trimFragment();
 		if (uri != null && uri.isFile()) {
@@ -290,9 +253,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.jface.operation.IRunnableContext getOperationRunner(org.eclipse.core.runtime.IProgressMonitor monitor) {
 		return null;
 	}

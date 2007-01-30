@@ -18,9 +18,7 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart
 	implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart {
 
@@ -28,16 +26,12 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 
 	«EXPAND xpt::diagram::editparts::TextAware::fields FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE,
@@ -67,9 +61,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	«EXPAND xpt::diagram::editparts::Common::notationalListeners FOR this-»
 
 	«IF isStoringChildPositions(node)-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void refreshBounds() {
 		int width = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width())).intValue();
 		int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
@@ -81,9 +73,7 @@ public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.edit
 	}
 	«ENDIF-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
 		Object feature = event.getFeature();
 		«IF isStoringChildPositions(node)-»

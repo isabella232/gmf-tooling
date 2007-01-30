@@ -17,38 +17,26 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.ActionBarAdvisor {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction lockToolBarAction;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
     private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction toggleCoolbarAction;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «actionBarAdvisorClassName»(org.eclipse.ui.application.IActionBarConfigurer configurer) {
 		super(configurer);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.ui.IWorkbenchWindow getWindow() {
 		return getActionBarConfigurer().getWindowConfigurer().getWindow();
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void makeActions(org.eclipse.ui.IWorkbenchWindow window) {
 		toggleCoolbarAction = org.eclipse.ui.actions.ActionFactory.TOGGLE_COOLBAR.create(window);
         register(toggleCoolbarAction);
@@ -57,16 +45,12 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		«EXPAND makeAction("window") FOREACH sharedContributionItems-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void fillMenuBar(org.eclipse.jface.action.IMenuManager menu) {
 		«EXPAND fill("menu") FOR mainMenu-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void fillCoolBar(org.eclipse.jface.action.ICoolBarManager toolBar) {
 		org.eclipse.jface.action.IMenuManager popUpMenu = new org.eclipse.jface.action.MenuManager();
 		popUpMenu.add(new org.eclipse.jface.action.ActionContributionItem(lockToolBarAction));
@@ -84,9 +68,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE openEditor FOR gmfgen::GenEditorView-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean openEditor(org.eclipse.ui.IWorkbench workbench, org.eclipse.emf.common.util.URI fileURI) {
 		org.eclipse.ui.IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		org.eclipse.ui.IWorkbenchPage page = workbenchWindow.getActivePage();
@@ -173,14 +155,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE NewDiagramAction FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	public static class NewDiagramAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void run(org.eclipse.jface.action.IAction action) {
 			«editorGen.diagram.getCreationWizardQualifiedClassName()» wizard =
 				new «editorGen.diagram.getCreationWizardQualifiedClassName()»();
@@ -194,14 +172,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE OpenUriAction FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	public static class OpenURIAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void run(org.eclipse.jface.action.IAction action) {
 			org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog =
 				new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(getWindow().getShell());
@@ -216,14 +190,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE OpenAction FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	public static class OpenAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void run(org.eclipse.jface.action.IAction action) {
 			org.eclipse.swt.widgets.FileDialog fileDialog =
 				new org.eclipse.swt.widgets.FileDialog(getWindow().getShell(), org.eclipse.swt.SWT.OPEN);
@@ -237,14 +207,10 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «ENDDEFINE»
 
 «DEFINE AboutAction FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment»
 	public static class AboutAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public void run(org.eclipse.jface.action.IAction action) {
 			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), "About",
 				"«editorGen.modelID» Diagram Editor");

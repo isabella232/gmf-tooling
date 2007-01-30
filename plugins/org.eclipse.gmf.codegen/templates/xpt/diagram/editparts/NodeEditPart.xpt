@@ -19,33 +19,23 @@
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
 package «getDiagram().editPartsPackageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure contentPane;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure primaryShape;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void createDefaultEditPolicies() {
 		«IF hasChildren() || hasChildrenInListCompartments()-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
@@ -99,9 +89,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.editpolicies.LayoutEditPolicy createLayoutEditPolicy() {
 		«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep =
@@ -203,9 +191,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	«EXPAND createNodeShape(this) FOR viewmap-»
 
 	«IF hasFixedChildren()-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
 		«FOREACH getInnerFixedLabels() AS label-»
 			«LET (gmfgen::ParentAssignedViewmap) label.viewmap AS childViewmap-»
@@ -239,9 +225,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
 		«REM»ignore labels assuming that they never may be removed«ENDREM»
 		«FOREACH getPinnedCompartments() AS compartment-»
@@ -264,9 +248,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		return false;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
 		if (addFixedChild(childEditPart)) {
 			return;
@@ -274,9 +256,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		super.addChildVisual(childEditPart, -1);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
 		if (removeFixedChild(childEditPart)){
 			return;
@@ -284,9 +264,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		super.removeChildVisual(childEditPart);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure getContentPaneFor(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart) {
 		«REM»it is unclear what we should return for labels here«ENDREM»
 		«FOREACH getPinnedCompartments() AS compartment-»
@@ -307,9 +285,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	«ENDIF-»
 
 	«IF getExternalLabels().size() > 0-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addBorderItem(org.eclipse.draw2d.IFigure borderItemContainer,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart borderItemEditPart) {
 		if (
@@ -328,9 +304,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	}
 	«ENDIF-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
 		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
 			new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(
@@ -342,9 +316,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 
 	«LET getResizeConstraints(viewmap) AS rc-»
 	«IF null != primaryDragEditPolicyQualifiedClassName || null != rc-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
 		«IF null != primaryDragEditPolicyQualifiedClassName-»
 		return new «primaryDragEditPolicyQualifiedClassName»();
@@ -369,14 +341,12 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	«ENDIF-»
 	«ENDLET-»
 
-	/**
-	 * Creates figure for this edit part.
-	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment(
+		"Creates figure for this edit part.\n" +
+		"\n" +
+		"Body of this method does not depend on settings in generation model\n" +
+		"so you may safely remove <i>generated</i> tag and modify it.\n"
+	)»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems()»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
@@ -386,12 +356,11 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		return figure;
 	}
 
-	/**
-	 * Default implementation treats passed figure as content pane.
-	 * Respects layout one may have set for generated figure.
-	 * @param nodeShape instance of generated figure class
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment(
+		"Default implementation treats passed figure as content pane.\n" +
+		"Respects layout one may have set for generated figure.\n" +
+		"@param nodeShape instance of generated figure class"
+	)»
 	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
 		«IF getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
@@ -415,9 +384,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		return nodeShape; // use nodeShape itself as contentPane
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.draw2d.IFigure getContentPane() {
 		if (contentPane != null) {
 			return contentPane;
@@ -426,9 +393,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	}
 
 	«IF !labels.isEmpty()-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(
 			«((GenLabel) labels.toList().first()).getEditPartQualifiedClassName()».VISUAL_ID));
@@ -454,9 +419,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::FigureViewmap»
 	«LET figureQualifiedClassName == null ? "org.eclipse.draw2d.RectangleFigure" : figureQualifiedClassName AS fqn-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
 		return primaryShape = new «fqn»()
 			«IF node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
@@ -469,9 +432,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 		;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «fqn» getPrimaryShape() {
 		return («fqn») primaryShape;
 	}
@@ -479,18 +440,14 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 «ENDDEFINE»
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::SnippetViewmap»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
 		return «body»;
 	}
 «ENDDEFINE»
 
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::InnerClassViewmap»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
 		«className» figure = new «className»();
 		«IF node.childNodes.size() > 0 && node.getLayoutType().value == gmfgen::ViewmapLayoutType::XY_LAYOUT.value-»
@@ -499,9 +456,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
  		return primaryShape = figure;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «className» getPrimaryShape() {
 		return («className») primaryShape;
 	}
@@ -530,9 +485,7 @@ public class «editPartClassName» extends «nodeEditPartSuperClass()» {
 	on adding corresponding annotation to the View instance.«ENDREM»
 	«IF getDiagram().generateShortcutIcon()-»
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
 		if (event.getNotifier() == getModel() &&
 				org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {

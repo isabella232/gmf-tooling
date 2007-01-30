@@ -17,14 +17,10 @@
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
-/**
- * @generated
- */
+«EXPAND xpt::Common::generatedClassComment»
 public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.application.WorkbenchWindowAdvisor {
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «workbenchWindowAdvisorClassName»(org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
 		super(configurer);
 	}
@@ -38,18 +34,14 @@ public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.applicatio
 «ENDDEFINE»
 
 «DEFINE createActionBarAdvisor FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.ui.application.ActionBarAdvisor createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer configurer) {
 		return new «getActionBarAdvisorQualifiedClassName()»(configurer);
 	}
 «ENDDEFINE»
 
 «DEFINE preWindowOpen FOR gmfgen::GenApplication-»
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void preWindowOpen() {
 		org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(1000, 700));
