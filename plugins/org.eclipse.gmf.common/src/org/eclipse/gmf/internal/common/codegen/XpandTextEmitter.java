@@ -43,10 +43,7 @@ public class XpandTextEmitter implements TextEmitter {
 
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
 		StringBuilder result = new StringBuilder();
-		// JET gets single Object as an argument, and that's Object[] {diagram, importUtil} in our case.
-		// FIXME it's JETEmitterAdapter's role to wrap Object[] into single Object passed to emitter, not XpandEmitter's
-		Object[] actualArguments = arguments != null && arguments.length == 1 && arguments[0] instanceof Object[] ? (Object[]) arguments[0] : arguments;
-		new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(actualArguments), extractArguments(actualArguments));
+		new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
 		return result.toString();
 	}
 

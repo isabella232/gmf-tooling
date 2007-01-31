@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,9 +32,20 @@ public class JETEmitterAdapter implements TextEmitter {
 			if (monitor != null && monitor.isCanceled()) {
 				throw new InterruptedException();
 			}
-			return myEmitter.generate(monitor, params);
+			return myEmitter.generate(monitor, adaptArgumentsForSkeleton(params));
 		} catch (JETException ex) {
 			throw new InvocationTargetException(ex);
 		}
+	}
+
+	/**
+	 * JET's generate() method usually takes single argument as input, unless overriden in skeleton 
+	 */
+	protected Object[] adaptArgumentsForSkeleton(Object[] params) {
+		if (params == null || params.length <= 1) {
+			return params;
+		}
+		// more than one argument, hence need to wrap into single object
+		return new Object[] { params };
 	}
 }
