@@ -17,11 +17,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
@@ -41,10 +41,17 @@ public class XpandTextEmitter implements TextEmitter {
 		myContext = context;
 	}
 
-	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
-		StringBuilder result = new StringBuilder();
-		new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
-		return result.toString();
+	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException {
+		if (monitor != null && monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+		try {
+			StringBuilder result = new StringBuilder();
+			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
+			return result.toString();
+		} catch (EvaluationException ex) {
+			throw new InvocationTargetException(ex);
+		}
 	}
 
 	protected Object extractTarget(Object[] arguments) {
