@@ -88,6 +88,9 @@ public class XpandExecutionContextImpl extends ExecutionContextImpl implements X
 		}
         final XpandExecutionContext ctx = (XpandExecutionContext) cloneWithResource(tpl);
         XpandDefinition def = findDefinition(tpl.getDefinitions(), name, target, paramTypes, ctx);
+        if (def == null) {
+        	return null;
+        }
         for (int x = registeredAdvices.size() - 1; x >= 0; x--) {
             final XpandAdvice adv = registeredAdvices.get(x);
             if (adv.matches(def, this)) {
