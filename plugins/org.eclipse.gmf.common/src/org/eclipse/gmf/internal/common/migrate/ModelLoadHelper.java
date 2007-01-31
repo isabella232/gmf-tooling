@@ -51,7 +51,7 @@ public class ModelLoadHelper {
 		Resource resource =  getLoadedResource();
 		assert resource != null;
 		if(!resource.getContents().isEmpty()) {
-			return (EObject)resource.getContents().get(0);
+			return resource.getContents().get(0);
 		}
 		return null;
 	}
