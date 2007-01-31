@@ -14,11 +14,7 @@ package org.eclipse.gmf.codegen.util;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
@@ -93,7 +89,6 @@ import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
@@ -107,14 +102,9 @@ import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
-import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.common.codegen.XpandTextEmitter;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.osgi.framework.Bundle;
 
 /**
@@ -306,49 +296,49 @@ public class CodegenEmitters {
 	// parts
 
 	public TextEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::DiagramEditPart::DiagramEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::DiagramEditPart::DiagramEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::NodeEditPart::NodeEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::NodeEditPart::NodeEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::NodeLabelEditPart::NodeLabelEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::NodeLabelEditPart::NodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::ExternalNodeLabelEditPart::ExternalNodeLabelEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::ExternalNodeLabelEditPart::ExternalNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::ChildNodeLabelEditPart::ChildNodeLabelEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::ChildNodeLabelEditPart::ChildNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::CompartmentEditPart::CompartmentEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::CompartmentEditPart::CompartmentEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::LinkEditPart::LinkEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::LinkEditPart::LinkEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::LinkLabelEditPart::LinkLabelEditPart"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::LinkLabelEditPart::LinkLabelEditPart"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editparts::EditPartFactory::EditPartFactory"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editparts::EditPartFactory::EditPartFactory"); //$NON-NLS-1$
 	}
 
 	// policies
 
 	public TextEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::policies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::policies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::policies::OpenDiagram::EditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::policies::OpenDiagram::EditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -372,7 +362,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::policies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::policies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNodeCreateCommandEmitter() throws UnexpectedBehaviourException {
@@ -388,11 +378,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
 	}
 
 	// providers
@@ -426,7 +416,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::diagram::providers::ElementTypes::ElementTypes"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::providers::ElementTypes::ElementTypes"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getViewProviderEmitter() throws UnexpectedBehaviourException {
@@ -508,7 +498,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::editor::palette::PaletteFactory::Factory"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::editor::palette::PaletteFactory::Factory"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
@@ -560,7 +550,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::navigator::NavigatorContentProvider::NavigatorContentProvider"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
@@ -596,11 +586,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::plugin::plugin"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::plugin::plugin"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::properties::properties"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::properties::properties"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
@@ -684,23 +674,23 @@ public class CodegenEmitters {
 	// application
 
 	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::application::Application::Application"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::application::Application::Application"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::application::ActionBarAdvisor::ActionBarAdvisor"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::application::ActionBarAdvisor::ActionBarAdvisor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::application::Perspective::Perspective"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::application::Perspective::Perspective"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::application::WorkbenchAdvisor::WorkbenchAdvisor"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::application::WorkbenchAdvisor::WorkbenchAdvisor"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
 
 	public String getURIDiagramDocumentProviderName(Object... input) throws UnexpectedBehaviourException {
@@ -708,7 +698,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getURIDiagramDocumentProviderEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::editor::URIDiagramDocumentProvider::URIDiagramDocumentProvider"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::editor::URIDiagramDocumentProvider::URIDiagramDocumentProvider"); //$NON-NLS-1$
 	}
 
 	public String getURIEditorInputProxyName(Object... input) throws UnexpectedBehaviourException {
@@ -716,7 +706,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getURIEditorInputProxyEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "xpt::editor::URIEditorInputProxy::URIEditorInputProxy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::editor::URIEditorInputProxy::URIEditorInputProxy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
@@ -724,11 +714,11 @@ public class CodegenEmitters {
 	}
 
     public TextEmitter getExternalizeEmitter() {
-        return new XpandTextEmitter(myResourceManager, "xpt::Externalizer::Access");
+        return newXpandEmitter("xpt::Externalizer::Access");
     }
 
     public TextEmitter getMessagesEmitter() {
-        return new XpandTextEmitter(myResourceManager, "xpt::Externalizer::Values");
+        return newXpandEmitter("xpt::Externalizer::Values");
     }
     
 	// util
@@ -740,7 +730,7 @@ public class CodegenEmitters {
 	private TextEmitter getPrimaryEmitter(String templateName) throws UnexpectedBehaviourException {
 		String[] parts = templateName.split(PATH_SEPARATOR);
 		String definition = templateName + PATH_SEPARATOR + parts[parts.length-1];
-		return new XpandTextEmitter(myResourceManager, definition);
+		return newXpandEmitter(definition);
 	}
 
     /**
@@ -749,8 +739,9 @@ public class CodegenEmitters {
      */
 	private TextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
 		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$
-		return new XpandTextEmitter(myResourceManager, definition);
+		return newXpandEmitter(definition);
 	}
+
 
 	/**
 	 * Returns text generated by emitter.
@@ -789,48 +780,7 @@ public class CodegenEmitters {
 		return templateLocation;
 	}
 
-	private static class XpandTextEmitter implements TextEmitter {
-		private final ResourceManager myResourceManager;
-		private final String myTemplateFQN;
-
-		public XpandTextEmitter(ResourceManager manager, String templateFQN) {
-			myResourceManager = manager;
-			myTemplateFQN = templateFQN;
-		}
-
-		public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
-			StringBuilder result = new StringBuilder();
-			// JET gets single Object as an argument, and that's Object[] {diagram, importUtil} in our case.
-			// FIXME it's JETEmitterAdapter's role to wrap Object[] into single Object passed to emitter, not XpandEmitter's
-			Object[] actualArguments = arguments != null && arguments.length == 1 && arguments[0] instanceof Object[] ? (Object[]) arguments[0] : arguments;
-			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(actualArguments), extractArguments(actualArguments));
-			return result.toString();
-		}
-
-		protected Object extractTarget(Object[] arguments) {
-			assert arguments != null && arguments.length > 0;
-			return arguments[0];
-		}
-
-		protected Object[] extractArguments(Object[] arguments) {
-			assert arguments != null && arguments.length > 0;
-			ArrayList<Object> res = new ArrayList<Object>(arguments.length);
-			// strip first one off, assume it's target
-			for (int i = 1; i < arguments.length; i++) {
-				if (false == arguments[i] instanceof ImportAssistant) {
-					// strip assistant off
-					res.add(arguments[i]);
-				}
-			}
-			return res.toArray();
-		}
-
-		private XpandExecutionContext createContext(StringBuilder result) {
-			final BufferOutput output = new BufferOutput(result);
-			final List<Variable> globals = Collections.emptyList();
-			final XpandExecutionContext xpandContext = ContextFactory.createXpandContext(myResourceManager, output, globals);
-			((XpandExecutionContextImpl) xpandContext).setContextClassLoader(getClass().getClassLoader());
-			return xpandContext;
-		}
+	private TextEmitter newXpandEmitter(String definition) {
+		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader());
 	}
 }
