@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006,2007 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,11 +25,17 @@ import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 public class ContextFactory {
 
 	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager) {
-		return new XpandExecutionContextImpl(resourceManager, null, null);
+		return createXpandContext(resourceManager, null, null, null);
 	}
 
 	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars) {
-		return new XpandExecutionContextImpl(resourceManager, output, null, globalVars);
+		return createXpandContext(resourceManager, output, globalVars, null);
+	}
+
+	public static XpandExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoader context) {
+		final XpandExecutionContextImpl execCtx = new XpandExecutionContextImpl(resourceManager, output, null, globalVars);
+		execCtx.setContextClassLoader(context);
+		return execCtx;
 	}
 
 	public static ExecutionContext createXtendContext(ResourceManager resourceManager) {
