@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,14 +11,9 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
@@ -26,29 +21,6 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
-import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
-import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
-import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
-import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
-import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
-import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
-import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
-import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
-import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
-import org.eclipse.gmf.internal.common.codegen.TextEmitter;
-import org.eclipse.gmf.internal.common.codegen.TextMerger;
-import org.eclipse.gmf.internal.xpand.BufferOutput;
-import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
-
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkCompleteCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkStartCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateNodeCommandGenerator;
@@ -94,6 +66,22 @@ import org.eclipse.gmf.codegen.templates.lite.providers.NodeViewFactoryGenerator
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
+import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
+import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
+import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
+import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
+import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
+import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.gmf.internal.common.codegen.XpandTextEmitter;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
 import org.osgi.framework.Bundle;
 
 /**
@@ -481,56 +469,11 @@ public class CodegenEmitters {
 	private TextEmitter retrieveXpand(String templateFQN) {
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {
-			result = new XpandTextEmitter(myResourceManager, templateFQN);
+			result = new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
 			myCachedXpandEmitters.put(templateFQN, result);
 		}
 		return result;
 	}
 
 	private HashMap<String, TextEmitter> myCachedXpandEmitters = new HashMap<String, TextEmitter>();
-	/*
-	 * TODO: use same emitter as one in oeg.codegen? Or at least make them both subclasses of the same abstract superclass
-	 * (to have possibility to use independent ways to extract the target and the arguments from the passed arguments).
-	 */
-	private static class XpandTextEmitter implements TextEmitter, IAutomaticImportManager {
-		private final ResourceManager myResourceManager;
-		private final String myTemplateFQN;
-
-		public XpandTextEmitter(ResourceManager manager, String templateFQN) {
-			myResourceManager = manager;
-			myTemplateFQN = templateFQN;
-		}
-
-		public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
-			StringBuilder result = new StringBuilder();
-			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
-			return result.toString();
-		}
-
-		protected Object extractTarget(Object[] arguments) {
-			assert arguments != null && arguments.length > 0;
-			return arguments[0];
-		}
-
-		protected Object[] extractArguments(Object[] arguments) {
-			assert arguments != null && arguments.length > 0;
-			ArrayList<Object> res = new ArrayList<Object>(arguments.length);
-			// strip first one off, assume it's target
-			for (int i = 1; i < arguments.length; i++) {
-				if (false == arguments[i] instanceof ImportAssistant) {
-					// strip assistant off
-					res.add(arguments[i]);
-				}
-			}
-			return res.toArray();
-		}
-
-		private XpandExecutionContext createContext(StringBuilder result) {
-			final BufferOutput output = new BufferOutput(result);
-			final List<Variable> globals = Collections.emptyList();
-			final XpandExecutionContext xpandContext = ContextFactory.createXpandContext(myResourceManager, output, globals);
-			((XpandExecutionContextImpl) xpandContext).setContextClassLoader(getClass().getClassLoader());
-			return xpandContext;
-		}
-	}
 }
