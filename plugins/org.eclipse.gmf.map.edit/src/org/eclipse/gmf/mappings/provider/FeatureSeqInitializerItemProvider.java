@@ -14,6 +14,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -90,7 +91,7 @@ public class FeatureSeqInitializerItemProvider
 				 null) {
 				protected Collection getComboBoxObjects(Object object) {
 					if(object instanceof FeatureSeqInitializer) {
-						return FilterUtil.filterByFeatureSeqInitializer(super.getComboBoxObjects(object), (FeatureSeqInitializer)object);
+						return FilterUtil.filterByFeatureSeqInitializer((Collection<EClass>)super.getComboBoxObjects(object), (FeatureSeqInitializer)object);
 					}
 				
 					return super.getComboBoxObjects(object);

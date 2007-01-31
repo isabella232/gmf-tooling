@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -88,7 +89,7 @@ public class FeatureValueSpecItemProvider
 					protected Collection getComboBoxObjects(Object object) {
 						if(object instanceof FeatureInitializer) {
 							return FilterUtil.filterByFeatureInitializer(
-									super.getComboBoxObjects(object), (FeatureInitializer)object);
+									(Collection<EStructuralFeature>)super.getComboBoxObjects(object), (FeatureInitializer)object);
 						}
 					
 						return super.getComboBoxObjects(object);

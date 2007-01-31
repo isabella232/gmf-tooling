@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecItemProvider.java,v 1.2 2006/10/17 10:29:44 radvorak Exp $
+ * $Id: ReferenceNewElementSpecItemProvider.java,v 1.3 2007/01/31 15:04:24 mfeldman Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -90,7 +91,7 @@ public class ReferenceNewElementSpecItemProvider
 					protected Collection getComboBoxObjects(Object object) {
 						if(object instanceof FeatureInitializer) {
 							return FilterUtil.filterByFeatureInitializer(
-									super.getComboBoxObjects(object), (FeatureInitializer)object);
+									(Collection<EStructuralFeature>)super.getComboBoxObjects(object), (FeatureInitializer)object);
 						}
 					
 						return super.getComboBoxObjects(object);
