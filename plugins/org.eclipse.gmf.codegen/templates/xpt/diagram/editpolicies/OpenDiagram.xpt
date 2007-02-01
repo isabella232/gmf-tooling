@@ -11,7 +11,7 @@
  */
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 
-«DEFINE EditPolicy FOR OpenDiagramBehaviour»
+«DEFINE OpenDiagram FOR gmfgen::OpenDiagramBehaviour»
 «EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-»
 package «subject.getDiagram().editPoliciesPackageName»;
 

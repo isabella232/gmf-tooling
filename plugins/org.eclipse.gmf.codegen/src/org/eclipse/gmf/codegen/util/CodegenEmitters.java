@@ -338,7 +338,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::policies::OpenDiagram::EditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editpolicies::OpenDiagram::OpenDiagram"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {

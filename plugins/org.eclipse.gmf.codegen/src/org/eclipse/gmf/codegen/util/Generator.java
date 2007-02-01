@@ -409,11 +409,10 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateOpenDiagramEditPolicy(behaviour);
 			}
 		}
-
 	}
 
 	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
+		doGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
 	}
 
 	private void generateDiagramCanonicalEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
