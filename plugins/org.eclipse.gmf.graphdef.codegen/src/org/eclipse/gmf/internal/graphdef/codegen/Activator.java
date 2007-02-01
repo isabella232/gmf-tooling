@@ -1,20 +1,24 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.model.Output;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
@@ -30,7 +34,7 @@ public class Activator extends Plugin {
 		super.stop(context);
 	}
 
-	public static XpandFacade createTemplateEngine(MapModeCodeGenStrategy strategy, Output output, Collection<Variable> globals) {
+	public static ResourceManager createResourceEngine(MapModeCodeGenStrategy strategy) {
 		try {
 			URL baseURL = instance.getBundle().getEntry("/templates/");
 			ArrayList<URL> urls = new ArrayList<URL>(3);
@@ -38,10 +42,7 @@ public class Activator extends Plugin {
 				urls.add(new URL(baseURL, strategy.getToken() + '/'));
 			}
 			urls.add(baseURL);
-			ResourceManager resourceManager = new BundleResourceManager(urls.toArray(new URL[urls.size()]));
-			final XpandExecutionContext xpandContext = ContextFactory.createXpandContext(resourceManager, output, globals);
-			((XpandExecutionContextImpl) xpandContext).setContextClassLoader(instance.getClass().getClassLoader());
-			return new XpandFacade(xpandContext);
+			return new BundleResourceManager(urls.toArray(new URL[urls.size()]));
 		} catch (MalformedURLException ex) {
 			throw new Error();
 		}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,8 +24,10 @@ import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.graphdef.codegen.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 public class FigureGenerator implements TextEmitter {
 	private final XpandFacade xpandFacade;
@@ -75,7 +77,9 @@ public class FigureGenerator implements TextEmitter {
 		slots.put("additionalMethods", additionalMethods);
 		slots.put("staticFields", additionalFields);
 		BufferOutput bufferOutput = new BufferOutput(result, slots);
-		xpandFacade = Activator.createTemplateEngine(mapModeStrategy, bufferOutput, globals);
+
+		ResourceManager resourceManager = Activator.createResourceEngine(mapModeStrategy);
+		xpandFacade = new XpandFacade(ContextFactory.createXpandContext(resourceManager, bufferOutput, globals, getClass().getClassLoader()));
 	}
 
 	public String go(Figure figure, ImportAssistant importAssistant) {
