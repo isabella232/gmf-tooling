@@ -417,6 +417,17 @@
       <features
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     </labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
+        viewPattern="{0}..{1,choice,-1#*|-1&lt;{1}}"
+        editPattern="{0}..{1}">
+      <diagramLabel
+          href="ecore.gmfgraph#MultiplicityLabel"/>
+      <features
+          href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/lowerBound"/>
+      <features
+          href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/upperBound"/>
+    </labelMappings>
     <containmentFeature
         href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eStructuralFeatures"/>
     <tool
@@ -453,6 +464,17 @@
           href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#LabelWOIcon"/>
       <features
           href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+    </labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
+        viewPattern="{0}..{1,choice,-1#*|-1&lt;{1}}"
+        editPattern="{0}..{1}">
+      <diagramLabel
+          href="ecore.gmfgraph#MultiplicityLabel"/>
+      <features
+          href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/lowerBound"/>
+      <features
+          href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/upperBound"/>
     </labelMappings>
     <containmentFeature
         href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eStructuralFeatures"/>

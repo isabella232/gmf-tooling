@@ -36,6 +36,8 @@ import org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
@@ -400,6 +402,34 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
+	private IParser eReferenceEReferenceLowerBoundUpperBound_6003Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEReferenceEReferenceLowerBoundUpperBound_6003Parser() {
+		if (eReferenceEReferenceLowerBoundUpperBound_6003Parser == null) {
+			eReferenceEReferenceLowerBoundUpperBound_6003Parser = createEReferenceEReferenceLowerBoundUpperBound_6003Parser();
+		}
+		return eReferenceEReferenceLowerBoundUpperBound_6003Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEReferenceEReferenceLowerBoundUpperBound_6003Parser() {
+		List features = new ArrayList(2);
+		features.add(EcorePackage.eINSTANCE.getETypedElement_LowerBound());
+		features.add(EcorePackage.eINSTANCE.getETypedElement_UpperBound());
+		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(features);
+		parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}");
+		parser.setEditPattern("{0}..{1}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	private IParser eReferenceEReferenceName_6002Parser;
 
 	/**
@@ -417,6 +447,34 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEReferenceEReferenceName_6002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser eReferenceEReferenceLowerBoundUpperBound_6004Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEReferenceEReferenceLowerBoundUpperBound_6004Parser() {
+		if (eReferenceEReferenceLowerBoundUpperBound_6004Parser == null) {
+			eReferenceEReferenceLowerBoundUpperBound_6004Parser = createEReferenceEReferenceLowerBoundUpperBound_6004Parser();
+		}
+		return eReferenceEReferenceLowerBoundUpperBound_6004Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEReferenceEReferenceLowerBoundUpperBound_6004Parser() {
+		List features = new ArrayList(2);
+		features.add(EcorePackage.eINSTANCE.getETypedElement_LowerBound());
+		features.add(EcorePackage.eINSTANCE.getETypedElement_UpperBound());
+		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(features);
+		parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}");
+		parser.setEditPattern("{0}..{1}");
 		return parser;
 	}
 
@@ -455,8 +513,12 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getEEnumEEnumName_5005Parser();
 		case EReferenceNameEditPart.VISUAL_ID:
 			return getEReferenceEReferenceName_6001Parser();
+		case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
+			return getEReferenceEReferenceLowerBoundUpperBound_6003Parser();
 		case EReferenceName2EditPart.VISUAL_ID:
 			return getEReferenceEReferenceName_6002Parser();
+		case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
+			return getEReferenceEReferenceLowerBoundUpperBound_6004Parser();
 		}
 		return null;
 	}

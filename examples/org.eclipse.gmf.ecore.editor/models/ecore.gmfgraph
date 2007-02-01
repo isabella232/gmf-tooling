@@ -9,6 +9,10 @@
         xsi:type="gmfgraph:Rectangle"
         referencingElements="attributes operations"
         name="RectangleFigure"/>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="MultiplicityLabel"
+        name="LabelFigure"/>
   </figures>
   <compartments
       name="attributes"
@@ -48,4 +52,11 @@
   <compartments
       name="enumAnnotations"
       collapsible="true"/>
+  <labels
+      name="MultiplicityLabel"
+      figure="LabelFigure"
+      elementIcon="false">
+    <facets
+        xsi:type="gmfgraph:AlignmentFacet"/>
+  </labels>
 </gmfgraph:Canvas>

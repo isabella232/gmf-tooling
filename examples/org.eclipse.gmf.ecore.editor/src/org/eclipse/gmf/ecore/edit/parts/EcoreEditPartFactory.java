@@ -143,11 +143,17 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case EReferenceNameEditPart.VISUAL_ID:
 				return new EReferenceNameEditPart(view);
 
+			case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
+				return new EReferenceLowerBoundUpperBoundEditPart(view);
+
 			case EReference2EditPart.VISUAL_ID:
 				return new EReference2EditPart(view);
 
 			case EReferenceName2EditPart.VISUAL_ID:
 				return new EReferenceName2EditPart(view);
+
+			case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
+				return new EReferenceLowerBoundUpperBound2EditPart(view);
 
 			case EClassESuperTypesEditPart.VISUAL_ID:
 				return new EClassESuperTypesEditPart(view);

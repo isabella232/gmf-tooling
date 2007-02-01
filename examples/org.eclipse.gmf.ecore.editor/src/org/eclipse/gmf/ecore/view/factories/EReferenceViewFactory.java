@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -64,6 +65,7 @@ public class EReferenceViewFactory extends ConnectionViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
 }

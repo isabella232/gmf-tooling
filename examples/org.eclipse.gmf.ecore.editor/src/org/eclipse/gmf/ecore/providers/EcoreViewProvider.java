@@ -50,6 +50,8 @@ import org.eclipse.gmf.ecore.edit.parts.EPackagePackageAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
@@ -90,6 +92,8 @@ import org.eclipse.gmf.ecore.view.factories.EPackagePackageAnnotationsViewFactor
 import org.eclipse.gmf.ecore.view.factories.EPackagePackagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackageViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EReferenceLowerBoundUpperBound2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EReferenceLowerBoundUpperBoundViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceName2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceNameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceViewFactory;
@@ -190,8 +194,12 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EEnumEnumAnnotationsViewFactory.class;
 		case EReferenceNameEditPart.VISUAL_ID:
 			return EReferenceNameViewFactory.class;
+		case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
+			return EReferenceLowerBoundUpperBoundViewFactory.class;
 		case EReferenceName2EditPart.VISUAL_ID:
 			return EReferenceName2ViewFactory.class;
+		case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
+			return EReferenceLowerBoundUpperBound2ViewFactory.class;
 		}
 		return null;
 	}

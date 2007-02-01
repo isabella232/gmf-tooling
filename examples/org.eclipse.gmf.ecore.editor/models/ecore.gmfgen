@@ -699,6 +699,33 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
+      <labels
+          visualID="6003"
+          editPartClassName="EReferenceLowerBoundUpperBoundEditPart"
+          itemSemanticEditPolicyClassName="EReferenceLowerBoundUpperBoundItemSemanticEditPolicy"
+          notationViewFactoryClassName="EReferenceLowerBoundUpperBoundViewFactory"
+          alignment="SOURCE">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+          <attributes
+              xsi:type="gmfgen:LabelOffsetAttributes"
+              y="60"/>
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewPattern="{0}..{1,choice,-1#*|-1&lt;{1}}"
+            editPattern="{0}..{1}">
+          <metaFeatures
+              href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/lowerBound"/>
+          <metaFeatures
+              href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/upperBound"/>
+        </modelFacet>
+      </labels>
       <creationConstraints>
         <targetEnd
             body="self.oclIsKindOf(ecore::EClass)"/>
@@ -767,6 +794,33 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
+      <labels
+          visualID="6004"
+          editPartClassName="EReferenceLowerBoundUpperBound2EditPart"
+          itemSemanticEditPolicyClassName="EReferenceLowerBoundUpperBound2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="EReferenceLowerBoundUpperBound2ViewFactory"
+          alignment="SOURCE">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
+          <attributes
+              xsi:type="gmfgen:LabelOffsetAttributes"
+              y="60"/>
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            viewPattern="{0}..{1,choice,-1#*|-1&lt;{1}}"
+            editPattern="{0}..{1}">
+          <metaFeatures
+              href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/lowerBound"/>
+          <metaFeatures
+              href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/upperBound"/>
+        </modelFacet>
+      </labels>
       <creationConstraints>
         <targetEnd
             body="self.oclIsKindOf(ecore::EClass)"/>
@@ -815,6 +869,7 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </compartments>
     <compartments
@@ -833,6 +888,7 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </compartments>
     <compartments

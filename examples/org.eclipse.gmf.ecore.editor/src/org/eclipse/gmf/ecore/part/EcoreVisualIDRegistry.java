@@ -60,6 +60,8 @@ import org.eclipse.gmf.ecore.edit.parts.EPackagePackageAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
@@ -363,10 +365,16 @@ public class EcoreVisualIDRegistry {
 			if (EReferenceNameEditPart.VISUAL_ID == nodeVisualID) {
 				return EReferenceNameEditPart.VISUAL_ID;
 			}
+			if (EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID == nodeVisualID) {
+				return EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID;
+			}
 			return getUnrecognizedEReference_4002LinkLabelID(semanticHint);
 		case EReference2EditPart.VISUAL_ID:
 			if (EReferenceName2EditPart.VISUAL_ID == nodeVisualID) {
 				return EReferenceName2EditPart.VISUAL_ID;
+			}
+			if (EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID == nodeVisualID) {
+				return EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedEReference_4003LinkLabelID(semanticHint);
 		}

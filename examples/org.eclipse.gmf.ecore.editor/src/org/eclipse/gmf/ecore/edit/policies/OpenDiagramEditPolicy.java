@@ -118,7 +118,8 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected Diagram intializeNewDiagram() throws ExecutionException, ExecutionException, ExecutionException {
+		protected Diagram intializeNewDiagram() throws ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException,
+				ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException {
 			Diagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
 			if (d == null) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
