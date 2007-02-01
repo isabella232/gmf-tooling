@@ -96,8 +96,6 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 			diagramFacet = annotation;
 		}
 
-		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
-
 		/**
 		 * @generated
 		 */
@@ -107,7 +105,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				URI uri = diagram.eResource().getURI();
+				org.eclipse.emf.common.util.URI uri = diagram.eResource().getURI();
 				uri = uri.appendFragment(diagram.eResource().getURIFragment(diagram));
 				IEditorInput editorInput = new URIEditorInput(uri);
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -135,7 +133,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected Diagram intializeNewDiagram() throws ExecutionException {
+		protected Diagram intializeNewDiagram() throws ExecutionException, ExecutionException {
 			Diagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
 			if (d == null) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
