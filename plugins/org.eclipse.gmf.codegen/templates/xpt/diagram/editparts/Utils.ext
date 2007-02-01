@@ -54,18 +54,6 @@ Boolean hasBorderItems(gmfgen::GenNode node) :
 	getSideAffixedChildren(node).size() > 0 || getExternalLabels(node).size() > 0
 ;
 
-String nodeEditPartSuperClass(gmfgen::GenNode node) :
-	 hasBorderItems(node) ?
-		"org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart" :
-		"org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart"
-;
-
-String nodeEditPartSuperClass(gmfgen::GenChildSideAffixedNode node) :
-	 hasBorderItems(node) ?
-		"org.eclipse.gmf.runtime.diagram.ui.editparts.BorderedBorderItemEditPart" :
-		"org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderItemEditPart"
-;
-
 Boolean needsGraphicalNodeEditPolicy(gmfgen::GenNode node) :
 	null != node.modelFacet && node.reorientedIncomingLinks.size() > 0
 ;
