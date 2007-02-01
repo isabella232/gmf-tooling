@@ -219,7 +219,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * @param param TODO
 	 * @throws InterruptedException
 	 */
-	protected final void doGenerateFile(TextEmitter emitter, IPath filePath, Object[] param) throws InterruptedException {
+	protected final void doGenerateFile(TextEmitter emitter, IPath filePath, Object... param) throws InterruptedException {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
