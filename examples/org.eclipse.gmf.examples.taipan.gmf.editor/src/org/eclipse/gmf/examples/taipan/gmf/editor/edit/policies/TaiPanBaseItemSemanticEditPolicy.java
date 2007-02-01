@@ -256,7 +256,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateShipDestination_4001(Ship source, Port target) {
 			if (source != null) {
@@ -268,14 +268,14 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateRoute_4002(Aquatory container, Port source, Port target) {
 			return true;
 		}
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
 			return true;
