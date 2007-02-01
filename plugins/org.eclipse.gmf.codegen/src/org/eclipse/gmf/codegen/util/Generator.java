@@ -412,7 +412,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
+		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
 	}
 
 	private void generateDiagramCanonicalEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
@@ -1122,7 +1122,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	 */
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
 		ImportUtil importUtil = new ImportUtil(packageName, className);
-		doGenerateJavaClass(emitter, packageName, className, new Object[] {new Object[] {argument, importUtil}});
+		doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedName, Object argument) throws InterruptedException {
