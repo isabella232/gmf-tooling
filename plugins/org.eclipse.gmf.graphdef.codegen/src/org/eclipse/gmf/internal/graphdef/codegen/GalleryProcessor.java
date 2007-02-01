@@ -55,7 +55,7 @@ public class GalleryProcessor extends Processor {
 	}
 
 	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
-		HashSet rv = new HashSet();
+		HashSet<String> rv = new HashSet<String>();
 		for (int i = 0; i < myInput.length; i++) {
 			if (myInput[i].getImplementationBundle() != null && myInput[i].getImplementationBundle().trim().length() > 0) {
 				rv.add(myInput[i].getImplementationBundle());
@@ -63,6 +63,6 @@ public class GalleryProcessor extends Processor {
 			String[] additional = fqnSwitch.getDependencies(myInput[i]);
 			rv.addAll(Arrays.asList(additional));
 		}
-		return (String[]) rv.toArray(new String[rv.size()]);
+		return rv.toArray(new String[rv.size()]);
 	}
 }

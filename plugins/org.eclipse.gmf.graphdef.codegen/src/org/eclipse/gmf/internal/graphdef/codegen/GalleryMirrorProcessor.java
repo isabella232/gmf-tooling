@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -69,12 +69,12 @@ public class GalleryMirrorProcessor extends GalleryProcessor {
 	}
 
 	public interface GenerationInfo {
-		public Enumeration/*<Figure>*/ getProcessedFigures();
+		public Enumeration<Figure> getProcessedFigures();
 		public String getGeneratedClassFQN(Figure figure);
 	}
 
 	private static class GenerationInfoImpl implements GenerationInfo {
-		private final Map myFigure2FQN = new IdentityHashMap();
+		private final Map<Figure, String> myFigure2FQN = new IdentityHashMap<Figure, String>();
 		
 		public GenerationInfoImpl(){
 		}
@@ -84,10 +84,10 @@ public class GalleryMirrorProcessor extends GalleryProcessor {
 		}
 		
 		public String getGeneratedClassFQN(Figure figure) {
-			return (String)myFigure2FQN.get(figure);
+			return myFigure2FQN.get(figure);
 		}
 		
-		public Enumeration getProcessedFigures() {
+		public Enumeration<Figure> getProcessedFigures() {
 			return Collections.enumeration(myFigure2FQN.keySet());
 		}	
 	}
