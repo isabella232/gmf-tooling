@@ -18,7 +18,7 @@
  
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::policies::Utils»
+«EXTENSION xpt::diagram::editpolicies::Utils»
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE NodeItemSemanticEditPolicy FOR gmfgen::GenNode-»
@@ -29,7 +29,7 @@ package «getDiagram().editPoliciesPackageName»;
 public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
 	«IF childNodes.size() > 0-»
 	
-		«EXPAND xpt::policies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
+		«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 	«ENDIF-»
 	
 	«EXPAND getDestroyElementCommand-»

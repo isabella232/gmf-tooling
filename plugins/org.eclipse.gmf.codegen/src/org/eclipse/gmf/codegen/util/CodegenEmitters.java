@@ -334,7 +334,7 @@ public class CodegenEmitters {
 	// policies
 
 	public TextEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::policies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -362,9 +362,9 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::policies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getNodeCreateCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreateTypeNodeCommandGenerator.class);
 	}

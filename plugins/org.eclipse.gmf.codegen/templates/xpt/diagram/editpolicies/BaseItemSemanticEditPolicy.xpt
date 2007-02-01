@@ -13,7 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«EXTENSION xpt::policies::Utils»
+«EXTENSION xpt::diagram::editpolicies::Utils»
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE BaseItemSemanticEditPolicy FOR gmfgen::GenDiagram-»
