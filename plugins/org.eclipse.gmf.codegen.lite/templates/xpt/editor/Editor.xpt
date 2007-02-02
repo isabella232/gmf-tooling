@@ -542,7 +542,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDIF-»
 					diagramRoot = («editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()») findInResource(«resourceToUse», «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()».class);
 					if (diagramRoot == null) {
-						diagramRoot = «editorGen.diagram.domainDiagramElement.genPackage.getQualifiedFactoryInterfaceName()».eINSTANCE.create«editorGen.diagram.domainDiagramElement.getClassifierAccessorName()»();
+						diagramRoot = «EXPAND xpt::Common::newInstance FOR editorGen.diagram.domainDiagramElement»;
 						«resourceToUse».getContents().add(0, «unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
 						//We don't want this auxiliary creation to be undoable.
 						try {
