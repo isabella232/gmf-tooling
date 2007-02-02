@@ -306,4 +306,63 @@
     <palette
         href="library_constrained.gmftool#//@palette"/>
   </diagram>
+  <audits
+      id="lib"
+      name="Lib Audits"
+      description="Lib audits">
+    <audits
+        name="author_book_not_empty"
+        description="Rule1"
+        id="rule1"
+        severity="WARNING"
+        message="Author should have written something, lest he is not an author">
+      <rule
+          body="books->notEmpty() or brochures->notEmpty()"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="library.ecore#//Writer"/>
+      </target>
+    </audits>
+    <audits
+        description="Rule2"
+        id="rule2"
+        message="">
+      <rule
+          body="self &lt; 100"/>
+      <target
+          xsi:type="gmfmap:AuditedMetricTarget"
+          metric="//@metrics/@metrics.1"/>
+    </audits>
+  </audits>
+  <metrics>
+    <metrics
+        name="TotalPages"
+        description="Total pages"
+        key="totalPages"
+        lowLimit="1.0"
+        highLimit="1000.0">
+      <rule
+          body="books.pages->sum()"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="library.ecore#//Writer"/>
+      </target>
+    </metrics>
+    <metrics
+        name="TotalBrochurePages"
+        description="Total brochure pages"
+        key="totalBrochurePages"
+        lowLimit="1.0"
+        highLimit="100.0">
+      <rule
+          body="brochures.pages->sum()"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="library.ecore#//Writer"/>
+      </target>
+    </metrics>
+  </metrics>
 </gmfmap:Mapping>

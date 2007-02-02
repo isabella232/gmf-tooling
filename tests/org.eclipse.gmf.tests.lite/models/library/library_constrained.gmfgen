@@ -3,13 +3,76 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0">
+  <audits
+      id="lib"
+      name="Lib Audits"
+      description="Lib audits">
+    <audits
+        name="author_book_not_empty"
+        description="Rule1"
+        id="rule1"
+        message="Author should have written something, lest he is not an author"
+        severity="WARNING">
+      <rule
+          body="books->notEmpty() or brochures->notEmpty()"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="library.genmodel#//library/Writer"/>
+      </target>
+    </audits>
+    <audits
+        description="Rule2"
+        id="rule2"
+        message="">
+      <rule
+          body="self &lt; 100"/>
+      <target
+          xsi:type="gmfgen:GenAuditedMetricTarget"
+          metric="//@metrics/@metrics.1">
+        <metricValueContext
+            href="../../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDoubleObject"/>
+      </target>
+    </audits>
+  </audits>
+  <metrics>
+    <metrics
+        name="TotalPages"
+        description="Total pages"
+        key="totalPages"
+        lowLimit="1.0"
+        highLimit="1000.0">
+      <rule
+          body="books.pages->sum()"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="library.genmodel#//library/Writer"/>
+      </target>
+    </metrics>
+    <metrics
+        name="TotalBrochurePages"
+        description="Total brochure pages"
+        key="totalBrochurePages"
+        lowLimit="1.0"
+        highLimit="100.0">
+      <rule
+          body="brochures.pages->sum()"/>
+      <target
+          xsi:type="gmfgen:GenDomainElementTarget">
+        <element
+            href="library.genmodel#//library/Writer"/>
+      </target>
+    </metrics>
+  </metrics>
   <diagram
       visualID="1000"
       editPartClassName="LibraryEditPart"
       itemSemanticEditPolicyClassName="LibraryItemSemanticEditPolicy"
       notationViewFactoryClassName="LibraryViewFactory"
       canonicalEditPolicyClassName="LibraryCanonicalEditPolicy"
-      iconProviderPriority="Low">
+      iconProviderPriority="Low"
+      validationProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -28,6 +91,7 @@
         notationViewFactoryClassName="BookViewFactory"
         canonicalEditPolicyClassName="BookCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="BookGraphicalNodeEditPolicy"
+        createCommandClassName="BookCreateCommand"
         containers="//@diagram/@compartments.0"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -64,6 +128,7 @@
         notationViewFactoryClassName="ReviewViewFactory"
         canonicalEditPolicyClassName="ReviewCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ReviewGraphicalNodeEditPolicy"
+        createCommandClassName="ReviewCreateCommand"
         containers="//@diagram/@compartments.1"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -98,6 +163,7 @@
         notationViewFactoryClassName="ChapterViewFactory"
         canonicalEditPolicyClassName="ChapterCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ChapterGraphicalNodeEditPolicy"
+        createCommandClassName="ChapterCreateCommand"
         containers="//@diagram/@topLevelNodes.1"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -134,6 +200,7 @@
         notationViewFactoryClassName="Review2ViewFactory"
         canonicalEditPolicyClassName="Review2CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="Review2GraphicalNodeEditPolicy"
+        createCommandClassName="Review2CreateCommand"
         containers="//@diagram/@compartments.2"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -169,6 +236,7 @@
         notationViewFactoryClassName="Chapter2ViewFactory"
         canonicalEditPolicyClassName="Chapter2CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="Chapter2GraphicalNodeEditPolicy"
+        createCommandClassName="Chapter2CreateCommand"
         containers="//@diagram/@topLevelNodes.2"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -205,7 +273,8 @@
         notationViewFactoryClassName="WriterViewFactory"
         canonicalEditPolicyClassName="WriterCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
-        graphicalNodeEditPolicyClassName="WriterGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="WriterGraphicalNodeEditPolicy"
+        createCommandClassName="WriterCreateCommand">
       <diagramRunTimeClass
           href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -253,7 +322,8 @@
         canonicalEditPolicyClassName="Book2CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.2"
         compartments="//@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="Book2GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="Book2GraphicalNodeEditPolicy"
+        createCommandClassName="Book2CreateCommand">
       <diagramRunTimeClass
           href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -334,7 +404,8 @@
         canonicalEditPolicyClassName="Book3CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.4"
         compartments="//@diagram/@compartments.2"
-        graphicalNodeEditPolicyClassName="Book3GraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="Book3GraphicalNodeEditPolicy"
+        createCommandClassName="Book3CreateCommand">
       <diagramRunTimeClass
           href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -423,7 +494,8 @@
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="OpinionTypeLinkCreateCommand">
         <metaClass
             href="library.genmodel#//library/Opinion"/>
         <containmentMetaFeature
@@ -501,7 +573,8 @@
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="Opinion2TypeLinkCreateCommand">
         <metaClass
             href="library.genmodel#//library/Opinion"/>
         <containmentMetaFeature
@@ -668,6 +741,36 @@
             genLinks="//@diagram/@links.1"/>
       </groups>
     </palette>
+    <preferencePages
+        xsi:type="gmfgen:GenStandardPreferencePage"
+        iD="library_constrained.diagram.general"
+        name="Library Diagram">
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="library_constrained.diagram.appearance"
+          name="Appearance"
+          kind="Appearance"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="library_constrained.diagram.connections"
+          name="Connections"
+          kind="Connections"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="library_constrained.diagram.printing"
+          name="Printing"
+          kind="Printing"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="library_constrained.diagram.rulersAndGrid"
+          name="Rulers And Grid"
+          kind="RulersAndGrid"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="library_constrained.diagram.pathmaps"
+          name="Pathmaps"
+          kind="Pathmaps"/>
+    </preferencePages>
   </diagram>
   <plugin/>
   <editor/>
@@ -883,7 +986,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd">
+        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@audits.0/@rule //@audits/@audits.1/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
