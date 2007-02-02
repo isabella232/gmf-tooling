@@ -477,17 +477,11 @@ public class CodegenEmitters {
 	private TextEmitter retrieveXpand(String templateFQN) {
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {
-			result = new AutomaticImportManagerXpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
+			result = new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
 			myCachedXpandEmitters.put(templateFQN, result);
 		}
 		return result;
 	}
 
 	private HashMap<String, TextEmitter> myCachedXpandEmitters = new HashMap<String, TextEmitter>();
-
-	private static class AutomaticImportManagerXpandTextEmitter extends XpandTextEmitter implements IAutomaticImportManager {
-		public AutomaticImportManagerXpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context) {
-			super(manager, templateFQN, context);
-		}
-	}
 }

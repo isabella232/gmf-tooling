@@ -459,12 +459,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	 * Passes initialized ImportManager as second template argument
 	 */
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
-		if (emitter instanceof IAutomaticImportManager) {
-			doGenerateJavaClass(emitter, packageName, className, argument);
-		} else {
-			ImportAssistant importUtil = createImportAssistant(packageName, className);
-			doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
-		}
+		ImportAssistant importUtil = createImportAssistant(packageName, className);
+		doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
 	}
 
 	public static String getConstraintProviders(Object plugin) throws UnexpectedBehaviourException, InvocationTargetException, InterruptedException {
