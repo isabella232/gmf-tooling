@@ -17,9 +17,9 @@
 «ENDAROUND»
 
 «AROUND AboutAction FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generated FOR "About action for the RCP application."-»
+	«EXPAND xpt::Common::generatedMemberComment("About action for the RCP application.")»
 	public static class AboutAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
-		«EXPAND xpt::Common::generated FOR "@see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)"-»
+		«EXPAND xpt::Common::generatedMemberComment("@see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)")»
 		public void run(org.eclipse.jface.action.IAction action) {
 			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), getString("_UI_About_title"),	//$NON-NLS-1$
 			getString("_UI_About_text"));	//$NON-NLS-1$
@@ -28,12 +28,9 @@
 «ENDAROUND»
 
 «AROUND OpenAction FOR gmfgen::GenApplication-»
-	/**
-	 * Open action for the «editorGen.domainGenModel.modelName» diagram.
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedClassComment("Open action for the " + editorGen.domainGenModel.modelName + " diagram.")»
 	public static class OpenAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
-		«EXPAND xpt::Common::generated FOR "Opens the editors for the files selected using the file dialog."-»
+		«EXPAND xpt::Common::generatedMemberComment("Opens the editors for the files selected using the file dialog.")»
 		public void run(org.eclipse.jface.action.IAction action) {
 			String filePath = «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openFilePathDialog(getWindow().getShell(), "*.«editorGen.diagramFileExtension»", org.eclipse.swt.SWT.OPEN);	//$NON-NLS-1$
 			if (filePath != null) {
@@ -48,12 +45,9 @@
 «ENDAROUND»
 
 «AROUND OpenUriAction FOR gmfgen::GenApplication-»
-	/**
-	 * Open URI action for the «editorGen.domainGenModel.modelName» diagram.
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Open URI action for the " + editorGen.domainGenModel.modelName + " diagram.")»
 	public static class OpenURIAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
-		«EXPAND xpt::Common::generated FOR "Opens the editors for the files selected using the LoadResourceDialog."-»
+		«EXPAND xpt::Common::generatedMemberComment("Opens the editors for the files selected using the LoadResourceDialog.")»
 		public void run(org.eclipse.jface.action.IAction action) {
 			org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(getWindow().getShell());
 			if (org.eclipse.jface.dialogs.Dialog.OK == loadResourceDialog.open()) {
@@ -70,7 +64,7 @@
 «ENDAROUND»
 
 «AROUND additions FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generated FOR "Looks up a string in the plugin.properties file for the plugin."-»
+	«EXPAND xpt::Common::generatedMemberComment("Looks up a string in the plugin.properties file for the plugin.")»
 	private static String getString(String key) {
 		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundleString(key);
 	}

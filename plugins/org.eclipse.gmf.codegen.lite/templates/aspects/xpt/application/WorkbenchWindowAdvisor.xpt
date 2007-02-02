@@ -14,7 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «AROUND preWindowOpen FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void preWindowOpen() {
 		org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(600, 450));

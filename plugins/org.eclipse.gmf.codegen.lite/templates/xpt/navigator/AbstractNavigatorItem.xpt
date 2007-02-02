@@ -5,10 +5,10 @@
 «EXPAND xpt::Common::copyright FOR editorGen»
 package «packageName»;
 
-«EXPAND xpt::Common::generated FOR ""-»
+«EXPAND xpt::Common::generatedClassComment»
 public abstract class «abstractNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
 «IF null != editorGen.propertySheet»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	static {
 		final Class[] supportedTypes = new Class[] { org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class };
 		final org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor propertySheetPageContributor = new org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor() {
@@ -29,13 +29,13 @@ public abstract class «abstractNavigatorItemClassName» extends org.eclipse.core.
 		}, «abstractNavigatorItemClassName».class);
 	}
 «ENDIF»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	private final Object myParent;
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «abstractNavigatorItemClassName»(Object parent) {
 		myParent = parent;
 	}
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public Object getParent() {
 		return myParent;
 	}

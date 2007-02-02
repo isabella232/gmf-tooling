@@ -11,11 +11,13 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -38,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -109,6 +112,16 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
 		HashSet<OpenDiagramBehaviour> openDiagramBehaviors = new HashSet<OpenDiagramBehaviour>();
 		generateBehaviors(myDiagram, openDiagramBehaviors);
+		if (myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
+			generateValidationProvider();
+			if (myDiagram.getEditorGen().getApplication() == null) {
+				//Strictly non-RCP stuff
+				generateMarkerNavigationProvider();
+			}
+		}
+		if (myDiagram.getEditorGen().getMetrics() != null) {
+			generateMetricProvider();
+		}
 
 		boolean hasExternalLabels = false;
 		for (GenNode next : (List<? extends GenNode>) myDiagram.getAllNodes()) {
@@ -238,6 +251,30 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 	}
+
+	private void generateValidationProvider() throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getValidationProviderGenerator(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getValidationProviderClassName(),
+			myDiagram);
+	}
+
+	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getMarkerNavigationProviderEmitter(), 
+			myDiagram.getProvidersPackageName(), 
+			myDiagram.getMarkerNavigationProviderClassName(), 
+			myDiagram);
+	}
+
+	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getMetricProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getMetricProviderClassName(),
+			myDiagram);
+	}	
 
 	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
@@ -428,6 +465,12 @@ public class Generator extends GeneratorBase implements Runnable {
 			ImportAssistant importUtil = createImportAssistant(packageName, className);
 			doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
 		}
+	}
+
+	public static String getConstraintProviders(Object plugin) throws UnexpectedBehaviourException, InvocationTargetException, InterruptedException {
+		GenEditorGenerator gen = ((GenPlugin) plugin).getEditorGen();
+		org.eclipse.gmf.codegen.util.CodegenEmitters emitters = new org.eclipse.gmf.codegen.util.CodegenEmitters(!gen.isDynamicTemplates(), gen.getTemplateDirectory());
+		return emitters.retrieve(org.eclipse.gmf.codegen.templates.editor.PluginXML.class).generate(new NullProgressMonitor(), new Object[] { plugin });
 	}
 
 	protected void setupProgressMonitor() {

@@ -31,15 +31,11 @@ import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.DiagramEditorUtilGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.OpenDiagramFileInViewGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.PluginGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.PluginPropertiesGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.lite.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGenerator;
@@ -62,7 +58,9 @@ import org.eclipse.gmf.codegen.templates.lite.providers.DiagramViewFactoryGenera
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.LinkViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.NodeViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
@@ -140,6 +138,8 @@ public class CodegenEmitters {
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 		put(tr, "/providers/LinkViewFactory.javajet", LinkViewFactoryGenerator.class);
 		put(tr, "/providers/NodeViewFactory.javajet", NodeViewFactoryGenerator.class);
+		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
+		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
@@ -153,21 +153,17 @@ public class CodegenEmitters {
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
 		put(tr, "/editor/OpenDiagramInViewAction.javajet", OpenDiagramFileInViewGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
 		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
 		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
 		put(tr, "/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
-		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		// put(tr, "/editor/ModelCreationFactory.javajet", ModelCreationFactoryGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
-		put(tr, "/editor/plugin.xmljet", PluginXML.class);
-		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
@@ -223,6 +219,14 @@ public class CodegenEmitters {
 		return retrieve(NodeViewFactoryGenerator.class);
 	}
 
+	public TextEmitter getValidationProviderGenerator() throws UnexpectedBehaviourException {
+		return retrieve(ValidationProviderGenerator.class);
+	}
+
+	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(MetricProviderGenerator.class);
+	}	
+	
 	public TextEmitter getDomainElementInitializerGenerator() throws UnexpectedBehaviourException {
 		return retrieve(DomainElementInitializerGenerator.class);
 	}
@@ -264,7 +268,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginGenerator() throws UnexpectedBehaviourException {
-		return retrieve(PluginGenerator.class);
+		return retrieveXpand("xpt::editor::Plugin::Plugin");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getActionBarContributorGenerator() throws UnexpectedBehaviourException {
@@ -276,7 +280,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getEditorGenerator() throws UnexpectedBehaviourException {
-		return retrieve(EditorGenerator.class);
+		return retrieveXpand("xpt::editor::Editor::Editor");
 	}
 
 	public TextEmitter getCreationWizardGenerator() throws UnexpectedBehaviourException {
@@ -308,7 +312,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginXML() throws UnexpectedBehaviourException {
-		return retrieve(PluginXML.class);
+		return retrieveXpand("xpt::plugin::plugin");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getInitDiagramFileActionGenerator() throws UnexpectedBehaviourException {
@@ -320,7 +324,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPluginPropertiesGenerator() throws UnexpectedBehaviourException {
-		return retrieve(PluginPropertiesGenerator.class);
+		return retrieveXpand("xpt::properties::properties");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
@@ -466,14 +470,24 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::providers::MarkerNavigationProvider::MarkerNavigationProvider");	//$NON-NLS-1$
+	}
+
 	private TextEmitter retrieveXpand(String templateFQN) {
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {
-			result = new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
+			result = new AutomaticImportManagerXpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
 			myCachedXpandEmitters.put(templateFQN, result);
 		}
 		return result;
 	}
 
 	private HashMap<String, TextEmitter> myCachedXpandEmitters = new HashMap<String, TextEmitter>();
+
+	private static class AutomaticImportManagerXpandTextEmitter extends XpandTextEmitter implements IAutomaticImportManager {
+		public AutomaticImportManagerXpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context) {
+			super(manager, templateFQN, context);
+		}
+	}
 }

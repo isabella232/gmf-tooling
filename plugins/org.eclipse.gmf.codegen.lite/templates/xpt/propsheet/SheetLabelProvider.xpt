@@ -5,14 +5,14 @@
 «EXPAND xpt::Common::copyright FOR editorGen»
 package «packageName»;
 
-«EXPAND xpt::Common::generated FOR ""-»
+«EXPAND xpt::Common::generatedClassComment»
 public class «labelProviderClassName» extends org.eclipse.jface.viewers.DecoratingLabelProvider {
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public «labelProviderClassName»() {
 		super(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()), null);
 	}
 
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getText(Object element) {
 		Object selected = unwrap(element); 
 «IF null != editorGen.navigator && null != editorGen.application»
@@ -23,7 +23,7 @@ public class «labelProviderClassName» extends org.eclipse.jface.viewers.Decorati
 		return super.getText(selected);
 	}
 
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.swt.graphics.Image getImage(Object element) {
 		return super.getImage(unwrap(element));
 	}
@@ -35,7 +35,7 @@ public class «labelProviderClassName» extends org.eclipse.jface.viewers.Decorati
 «ENDDEFINE»
 
 «DEFINE unwrap FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	private Object unwrap(Object element) {
 		if (element instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			return unwrap(((org.eclipse.jface.viewers.IStructuredSelection) element).getFirstElement());
@@ -54,14 +54,14 @@ public class «labelProviderClassName» extends org.eclipse.jface.viewers.Decorati
 «ENDDEFINE»
 
 «DEFINE unwrapView FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	private Object unwrapView(org.eclipse.gmf.runtime.notation.View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
 «ENDDEFINE»
 
 «DEFINE unwrapEditPart FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	private Object unwrapEditPart(org.eclipse.gef.EditPart p) {
 		if (p.getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
 			return unwrapView((org.eclipse.gmf.runtime.notation.View) p.getModel());

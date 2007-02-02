@@ -5,9 +5,9 @@
 «EXPAND xpt::Common::copyright FOR sheet.editorGen»
 package «sheet.packageName»;
 
-«EXPAND xpt::Common::generated FOR ""-»
+«EXPAND xpt::Common::generatedClassComment»
 public class «className» extends org.eclipse.gmf.runtime.lite.properties.AdvancedPropertySection {
-	«EXPAND xpt::Common::generated FOR "Modify/unwrap selection."»
+	«EXPAND xpt::Common::generatedMemberComment("Modify/unwrap selection.")»
 	protected Object transformSelection(Object selected) {
 		if (selected instanceof org.eclipse.gef.EditPart) {
 			Object model = ((org.eclipse.gef.EditPart) selected).getModel();
@@ -24,7 +24,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.properties.Advance
 		}
 		return selected;
 	}
-	«EXPAND xpt::Common::generated FOR ""-»
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.common.notify.AdapterFactory getItemProvidersAdapterFactory() {
 		return «sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory();
 	}

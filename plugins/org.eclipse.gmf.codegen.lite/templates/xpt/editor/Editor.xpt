@@ -1,0 +1,763 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::providers::ValidationUtils»
+
+«DEFINE Editor FOR gmfgen::GenEditorView-»
+«IF eclipseEditor-»
+«EXPAND EditorPart-»
+«ELSE-»
+«EXPAND ViewPart-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE EditorPart FOR gmfgen::GenEditorView-»
+package «packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramEditor «IF editorGen.diagram.validationNeeded() && null == editorGen.application» implements org.eclipse.ui.ide.IGotoMarker«ENDIF» {
+«EXPAND partId-»
+«IF null == editorGen.application-»
+«EXPAND ResourceTracker-»
+«EXPAND getFileFromInput-»
+«ENDIF»
+«EXPAND diagramAttributes-»
+«EXPAND domainAdapterFactory-»
+«EXPAND validationDecorationProvider-»
+«EXPAND createActions-»
+«EXPAND disposeEditor-»
+«EXPAND save-»
+«EXPAND configurePalette-»
+«EXPAND propertySheetSupport FOR editorGen.propertySheet-»
+«EXPAND initEditor-»
+«EXPAND getURIFromInput-»
+«EXPAND loadDiagramFile-»
+«EXPAND initializeGraphicalViewer-»
+«EXPAND configureGraphicalViewer-»
+«EXPAND flyoutPalette-»
+«IF editorGen.diagram.validationNeeded() && null == editorGen.application-»
+«EXPAND gotoMarker-»
+«ENDIF-»
+«EXPAND ContextMenuProvider-»
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE ViewPart FOR gmfgen::GenEditorView-»
+package «packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewPart {
+«EXPAND partId-»
+«EXPAND viewActionBarContributor-»
+«EXPAND diagramAttributes-»
+«EXPAND domainAdapterFactory-»
+«EXPAND validationDecorationProvider-»
+«EXPAND createActions-»
+«EXPAND disposeView-»
+«EXPAND configurePalette-»
+«EXPAND propertySheetSupport FOR editorGen.propertySheet-»
+«EXPAND initView-»
+«EXPAND loadDiagramFile-»
+«EXPAND initializeGraphicalViewer-»
+«EXPAND configureGraphicalViewer-»
+«EXPAND flyoutPalette-»
+«EXPAND ContextMenuProvider-»
+«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE viewActionBarContributor FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «getActionBarContributorQualifiedClassName()» myActionBarContributor;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void updateActionBars() {
+		if (myActionBarContributor != null) {
+			myActionBarContributor.updateGlobalActions(this);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE partId FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String ID = "«iD»"; //$NON-NLS-1$
+«ENDDEFINE»
+
+«DEFINE ResourceTracker FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedClassComment("This class listens to changes to the file system in the workspace, and\n" + 
+	  "makes the following changes: \n" + 
+	  "<ul><li>If an open, saved file gets deleted, the editor is closed.</li>\n" + 
+	  "<li>If an open file gets renamed or moved, the editor\'s\n" + 
+	  "input is changed accordingly.</li></ul>")»
+	private class ResourceTracker implements org.eclipse.core.resources.IResourceChangeListener {
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void resourceChanged(org.eclipse.core.resources.IResourceChangeEvent event) {
+			org.eclipse.core.resources.IResourceDelta delta = event.getDelta();
+			if (delta != null) {
+				org.eclipse.core.resources.IFile file = getFileFromInput(getEditorInput());
+				if (file != null) {
+					org.eclipse.core.resources.IResourceDelta fileDelta = delta.findMember(file.getFullPath());
+					if (fileDelta != null) {
+						processFileDelta(fileDelta);
+					}
+				}
+			}
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private void processFileDelta(org.eclipse.core.resources.IResourceDelta delta) {
+			assert (delta != null && delta.getResource().equals(getFileFromInput(getEditorInput())));
+			if (delta.getKind() == org.eclipse.core.resources.IResourceDelta.REMOVED) {
+				if ((org.eclipse.core.resources.IResourceDelta.MOVED_TO & delta.getFlags()) == 0) {
+					//TODO: make sure unsaved deleted file is handled correctly
+					if (!isDirty()) {
+						closeEditor();
+					}
+				} else {
+					// else if it was moved or renamed
+					final org.eclipse.core.resources.IFile newFile = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().getFile(delta.getMovedToPath());
+					final org.eclipse.ui.IEditorInput newEditorInput;
+					if (getEditorInput() instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+						org.eclipse.emf.common.util.URI newFileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newFile.getFullPath().toString(), true);
+						org.eclipse.emf.common.util.URI oldFileURI = ((org.eclipse.emf.common.ui.URIEditorInput) getEditorInput()).getURI();
+						if (oldFileURI.fragment() != null) {
+							newFileURI = newFileURI.appendFragment(oldFileURI.fragment());
+						}
+						newEditorInput = new org.eclipse.emf.common.ui.URIEditorInput(newFileURI);
+					} else {
+						newEditorInput = new org.eclipse.ui.part.FileEditorInput(newFile);
+					}
+					org.eclipse.swt.widgets.Display display = getSite().getShell().getDisplay();
+					display.asyncExec(new Runnable() {
+						public void run() {
+							setInput(newEditorInput);
+						}
+					});
+				}
+			}
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private ResourceTracker resourceTracker;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private ResourceTracker getResourceTracker() {
+		if (resourceTracker == null) {
+			resourceTracker = new ResourceTracker();
+		}
+		return resourceTracker;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	void closeEditor() {
+		getSite().getShell().getDisplay().syncExec(new Runnable() {
+			public void run() {
+				getSite().getPage().closeEditor(«className».this, false);
+			}
+		});
+	}
+«ENDDEFINE»
+
+«DEFINE hookResourceTracker FOR gmfgen::GenEditorView-»
+«IF null == editorGen.application-»
+		org.eclipse.core.resources.IFile newResource = getFileFromInput(getEditorInput());
+		if (newResource != null) {
+			newResource.getWorkspace().addResourceChangeListener(getResourceTracker());
+		}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE unhookResourceTracker FOR gmfgen::GenEditorView-»
+«IF null == editorGen.application-»
+		org.eclipse.core.resources.IFile oldResource = getFileFromInput(getEditorInput());
+		if (oldResource != null) {
+			oldResource.getWorkspace().removeResourceChangeListener(getResourceTracker());
+		}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE domainAdapterFactory FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.emf.edit.provider.ComposedAdapterFactory domainAdapterFactory;
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.emf.common.notify.AdapterFactory getDomainAdapterFactory() {
+		if (domainAdapterFactory == null) {
+			java.util.List factories = new java.util.ArrayList();
+			factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
+«FOREACH editorGen.getAllDomainGenPackages(true) AS genPackage-»
+			factories.add(new «((GenPackage) genPackage).getQualifiedItemProviderAdapterFactoryClassName()»());
+«ENDFOREACH-»
+			factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
+			factories.add(new org.eclipse.gmf.runtime.notation.provider.NotationItemProviderAdapterFactory());
+			domainAdapterFactory = new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
+		}
+		return domainAdapterFactory;
+	}
+
+«ENDDEFINE»
+
+«DEFINE diagramAttributes FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()» diagramRoot;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.notation.Diagram diagram;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()» getDiagramRoot() {
+		return diagramRoot;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.notation.Diagram getDiagram() {
+		return diagram;
+	}
+«ENDDEFINE»
+
+«DEFINE validationDecorationProvider FOR gmfgen::GenEditorView-»
+«IF editorGen.diagram.validationNeeded() && editorGen.diagram.validationDecorators-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.lite.validation.ValidationDecorationProvider validationDecorationProvider;
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.lite.validation.ValidationDecorationProvider createValidationDecorationProvider() {
+		return new org.eclipse.gmf.runtime.lite.validation.ValidationDecorationProvider() {
+			protected org.eclipse.gef.GraphicalViewer getGraphicalViewer() {
+				return «className».this.getGraphicalViewer();
+			}
+			protected org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
+				return getEditingDomain().getResourceSet();
+			}
+		};
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE hookValidation FOR gmfgen::GenEditorView-»
+«IF editorGen.diagram.validationNeeded() && editorGen.diagram.validationDecorators-»
+		if (validationDecorationProvider == null) {
+			validationDecorationProvider = createValidationDecorationProvider();
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getValidationStateManager().addValidationStateListener(validationDecorationProvider);
+		}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE unhookValidation FOR gmfgen::GenEditorView-»
+«IF editorGen.diagram.validationNeeded() && editorGen.diagram.validationDecorators-»
+		if (validationDecorationProvider != null) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getValidationStateManager().removeValidationStateListener(validationDecorationProvider);
+			validationDecorationProvider.dispose();
+			validationDecorationProvider = null;
+		}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE createActions FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void createActions() {
+«EXPAND stackActions-»
+«EXPAND editPartActions-»
+«EXPAND editorActions-»
+«EXPAND zoomActions-»
+«EXPAND hookKeyHandler-»
+
+«IF editorGen.diagram.validationNeeded()-»
+«EXPAND validateActions-»
+«ENDIF-»
+
+«EXPAND metricsActions FOR editorGen.metrics-»
+«EXPAND moreActions-»
+	}
+«ENDDEFINE»
+
+«DEFINE stackActions FOR gmfgen::GenEditorView-»
+		addStackAction(new org.eclipse.gef.ui.actions.UndoAction(this));
+		addStackAction(new org.eclipse.gef.ui.actions.RedoAction(this));
+«ENDDEFINE»
+
+«DEFINE editPartActions FOR gmfgen::GenEditorView-»
+		addEditPartAction(new org.eclipse.gef.ui.actions.DeleteAction((org.eclipse.ui.IWorkbenchPart) this));
+		addEditPartAction(new org.eclipse.gef.ui.actions.DirectEditAction((org.eclipse.ui.IWorkbenchPart) this));
+«EXPAND alignActions-»
+«ENDDEFINE»
+
+«DEFINE alignActions FOR gmfgen::GenEditorView-»
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.LEFT));
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.RIGHT));
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.TOP));
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.BOTTOM));
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.CENTER));
+		addEditPartAction(new org.eclipse.gef.ui.actions.AlignmentAction((org.eclipse.ui.IWorkbenchPart) this, org.eclipse.draw2d.PositionConstants.MIDDLE));
+«ENDDEFINE»
+
+«DEFINE editorActions FOR gmfgen::GenEditorView-»
+«IF eclipseEditor-»
+		addEditorAction(new org.eclipse.gef.ui.actions.SaveAction(this));
+«ENDIF-»
+		addEditorAction(new org.eclipse.gef.ui.actions.PrintAction(this));
+		addEditorAction(new org.eclipse.gmf.runtime.lite.ui.actions.LayoutDiagramAction(this));
+«ENDDEFINE»
+
+«DEFINE zoomActions FOR gmfgen::GenEditorView-»
+		org.eclipse.jface.action.IAction zoomIn = new org.eclipse.gef.ui.actions.ZoomInAction(getZoomManager());
+		org.eclipse.jface.action.IAction zoomOut = new org.eclipse.gef.ui.actions.ZoomOutAction(getZoomManager());
+		addAction(zoomIn);
+		addAction(zoomOut);
+		getSite().getKeyBindingService().registerAction(zoomIn);
+		getSite().getKeyBindingService().registerAction(zoomOut);
+«ENDDEFINE»
+
+«DEFINE hookKeyHandler FOR gmfgen::GenEditorView-»
+		org.eclipse.gef.KeyHandler keyHandler = getGraphicalViewer().getKeyHandler();
+		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed(org.eclipse.swt.SWT.DEL, 127, 0), getActionRegistry().getAction(org.eclipse.ui.actions.ActionFactory.DELETE.getId()));
+		keyHandler.put(org.eclipse.gef.KeyStroke.getPressed(org.eclipse.swt.SWT.F2, 0), getActionRegistry().getAction(org.eclipse.gef.ui.actions.GEFActionConstants.DIRECT_EDIT));
+«ENDDEFINE»
+
+«DEFINE validateActions FOR gmfgen::GenEditorView-»
+		addAction(new «editorGen.diagram.getValidationProviderQualifiedClassName()».ValidateAction(this));
+«ENDDEFINE»
+
+«DEFINE metricsActions FOR gmfgen::GenMetricContainer-»
+		addAction(new «editor.diagram.getMetricProviderQualifiedClassName()».MetricsAction(this));
+«ENDDEFINE»
+
+«DEFINE moreActions FOR gmfgen::GenEditorView-»
+«ENDDEFINE»
+
+«DEFINE disposeEditor FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void dispose() {
+«EXPAND unhookResourceTracker-»
+«EXPAND unhookValidation-»
+		// important: always call super implementation of dispose
+		super.dispose();
+	}
+«ENDDEFINE»
+
+«DEFINE disposeView FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void dispose() {
+		myActionBarContributor.dispose();
+		myActionBarContributor = null;
+«EXPAND unhookValidation-»
+		// important: always call super implementation of dispose
+		super.dispose();
+	}
+«ENDDEFINE»
+
+«DEFINE save FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void doSave(org.eclipse.core.runtime.IProgressMonitor monitor) {
+		try {
+			save(monitor);
+			getCommandStack().markSaveLocation();
+		} catch (org.eclipse.core.runtime.CoreException e) {
+			org.eclipse.jface.dialogs.ErrorDialog.openError(getSite().getShell(), "Error During Save", "The current «editorGen.domainGenModel.modelName» model could not be saved.", e.getStatus());
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE configurePalette FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void configurePalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
+«IF null != editorGen.diagram.palette-»
+		new «editorGen.diagram.palette.getFactoryQualifiedClassName()»(getDomainAdapterFactory()).contributeToPalette(paletteRoot);
+«ENDIF-»
+	}
+«ENDDEFINE»
+
+«DEFINE propertySheetSupport FOR gmfgen::GenPropertySheet-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.ui.views.properties.IPropertySheetPage getPropertySheetPage() {
+		if (myPropertySheetPage == null) {
+			myPropertySheetPage = new org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage(new org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor() {
+				public String getContributorId() {
+					return «editorGen.plugin.getActivatorQualifiedClassName()».ID;
+				}
+			});
+		}
+		return myPropertySheetPage;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.ui.views.properties.IPropertySheetPage myPropertySheetPage;
+«ENDDEFINE»
+
+«DEFINE initEditor FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void init(org.eclipse.ui.IEditorSite site, org.eclipse.ui.IEditorInput input) throws org.eclipse.ui.PartInitException {
+		org.eclipse.emf.common.util.URI file = getURIFromInput(input);
+		if (file == null) {
+			throw new org.eclipse.ui.PartInitException("The specified input is not valid.");
+		}
+		super.init(site, input);
+		// validate
+		if (getDiagramRoot() == null) {
+			throw new org.eclipse.ui.PartInitException("The specified input is not valid.");
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setInput(org.eclipse.ui.IEditorInput input) {
+«EXPAND unhookValidation-»
+«EXPAND unhookResourceTracker-»
+		org.eclipse.emf.common.util.URI file = getURIFromInput(input);
+		load(file);
+		setPartName(file.lastSegment());
+		super.setInput(input);
+«EXPAND hookResourceTracker-»
+«EXPAND hookValidation-»
+	}
+«ENDDEFINE»
+
+«DEFINE getFileFromInput FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.core.resources.IFile getFileFromInput(org.eclipse.ui.IEditorInput input) {
+		if (input instanceof org.eclipse.ui.IFileEditorInput) {
+			return ((org.eclipse.ui.IFileEditorInput) input).getFile();
+		}
+		org.eclipse.emf.common.util.URI uri = getURIFromInput(input);
+		if (uri != null) {
+			if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { //$NON-NLS-1$
+				if ("resource".equals(uri.segment(0))) { //$NON-NLS-1$
+					org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1);
+					return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+				}
+			}
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE getURIFromInput FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.emf.common.util.URI getURIFromInput(org.eclipse.ui.IEditorInput input) {
+		if (input == null) {
+			return null;
+		}
+«IF null == editorGen.application-»
+		if (input instanceof org.eclipse.ui.IFileEditorInput) {
+			return org.eclipse.emf.common.util.URI.createPlatformResourceURI(((org.eclipse.ui.IFileEditorInput)input).getFile().getFullPath().toString(), true);
+		}
+«ENDIF-»
+		if (input instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+			return ((org.eclipse.emf.common.ui.URIEditorInput) input).getURI();
+		}
+		if (input instanceof org.eclipse.ui.IPathEditorInput) {
+			return org.eclipse.emf.common.util.URI.createFileURI(((org.eclipse.ui.IPathEditorInput)input).getPath().toOSString());
+		}
+		org.eclipse.emf.common.util.URI uri = (org.eclipse.emf.common.util.URI) input.getAdapter(org.eclipse.emf.common.util.URI.class);
+		if (uri != null) {
+			return uri;
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE initView FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
+		super.createPartControl(parent);
+		org.eclipse.ui.IActionBars bars = getViewSite().getActionBars();
+		myActionBarContributor = new «getActionBarContributorQualifiedClassName()»();
+		myActionBarContributor.init(bars, getSite().getPage());
+		bars.updateActionBars();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setInput(org.eclipse.emf.common.util.URI diagramURI) throws org.eclipse.core.runtime.CoreException {
+«EXPAND unhookValidation-»
+		load(diagramURI);
+		if (diagram == null || diagramRoot == null) {
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR,
+				«editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Failed to load diagram", null));
+		}
+«EXPAND hookValidation-»
+	}
+«ENDDEFINE»
+
+«DEFINE loadDiagramFile FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void load(org.eclipse.emf.common.util.URI diagramFile) {
+		diagramRoot = null;
+		diagram = null;
+		if (diagramFile == null) {
+			return;
+		}
+		final org.eclipse.emf.common.util.URI diagramFileURI = diagramFile;
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = getEditingDomain();
+		final org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
+		final org.eclipse.emf.ecore.resource.Resource diagramResource = resourceSet.getResource(diagramFile.trimFragment(), true);
+		if (diagramResource == null) {
+			return;
+		}
+		org.eclipse.emf.workspace.AbstractEMFOperation operation = new org.eclipse.emf.workspace.AbstractEMFOperation(editingDomain, "Load diagram", null) {
+			protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+				if (diagramFileURI.fragment() != null) {
+					org.eclipse.emf.ecore.EObject possibleDiagram = diagramResource.getEObject(diagramFileURI.fragment());
+					if (possibleDiagram instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+						diagram = (org.eclipse.gmf.runtime.notation.Diagram) possibleDiagram;
+					} else {
+						return org.eclipse.core.runtime.Status.CANCEL_STATUS;
+					}
+				} else {
+					diagram = (org.eclipse.gmf.runtime.notation.Diagram) findInResource(diagramResource, org.eclipse.gmf.runtime.notation.Diagram.class);
+					if (diagram == null) {
+						diagram = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDiagram();
+						diagramResource.getContents().add(0, diagram);
+						//Auxiliary creation should not be undoable.
+						try {
+							diagramResource.save(java.util.Collections.EMPTY_MAP);
+						} catch (java.io.IOException e) {
+							diagram = null;
+							diagramRoot = null;
+							return org.eclipse.core.runtime.Status.CANCEL_STATUS;
+						}
+					}
+				}
+				diagramRoot = («editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()») diagram.getElement();
+				if (diagramRoot == null) {
+«LET editorGen.sameFileForDiagramAndModel ? "diagramResource" : "modelResource" AS resourceToUse-»
+«IF !editorGen.sameFileForDiagramAndModel-»
+					org.eclipse.emf.common.util.URI modelFile = «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».getModelFileURI(diagramFileURI);
+					org.eclipse.emf.ecore.resource.Resource modelResource = resourceSet.getResource(modelFile, true);
+					if (modelResource == null) {
+						diagram = null;
+						return org.eclipse.core.runtime.Status.CANCEL_STATUS;
+					}
+«ENDIF-»
+					diagramRoot = («editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()») findInResource(«resourceToUse», «editorGen.diagram.domainDiagramElement.getQualifiedInterfaceName()».class);
+					if (diagramRoot == null) {
+						diagramRoot = «editorGen.diagram.domainDiagramElement.genPackage.getQualifiedFactoryInterfaceName()».eINSTANCE.create«editorGen.diagram.domainDiagramElement.getClassifierAccessorName()»();
+						«resourceToUse».getContents().add(0, «unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
+						//We don't want this auxiliary creation to be undoable.
+						try {
+							«resourceToUse».save(java.util.Collections.EMPTY_MAP);
+						} catch (java.io.IOException e) {
+							diagram = null;
+							diagramRoot = null;
+							return org.eclipse.core.runtime.Status.CANCEL_STATUS;
+						}
+					}
+					if (!diagramRoot.equals(diagram.getElement())) {
+						diagram.setElement(«unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
+					}
+				}
+				if (!diagram.eIsSet(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Type())) {
+					«editorGen.diagram.getNotationViewFactoryQualifiedClassName()».INSTANCE.decorateView(diagram);
+«IF eclipseEditor-»
+					doSave(new org.eclipse.core.runtime.NullProgressMonitor());
+«ELSE-»
+						try {
+							diagramResource.save(java.util.Collections.EMPTY_MAP);
+						} catch (java.io.IOException e) {
+							diagram = null;
+							diagramRoot = null;
+							return org.eclipse.core.runtime.Status.CANCEL_STATUS;
+						}
+«ENDIF-»
+				}
+				return org.eclipse.core.runtime.Status.OK_STATUS;
+			}
+		};
+		try {
+			operation.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			diagram = null;
+			diagramRoot = null;
+		}
+	}
+«ENDLET-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private Object findInResource(org.eclipse.emf.ecore.resource.Resource resource, Class expectedClass) {
+		for(java.util.Iterator it = resource.getContents().iterator(); it.hasNext(); ) {
+			Object next = it.next();
+			if (expectedClass.isInstance(next)) {
+				return next;
+			}
+		}
+		return null;
+	}
+
+«ENDDEFINE»
+
+«DEFINE initializeGraphicalViewer FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void initializeGraphicalViewer() {
+		// initialize the viewer with input
+		org.eclipse.gef.editparts.ScalableFreeformRootEditPart root = new org.eclipse.gef.editparts.ScalableFreeformRootEditPart();
+		getGraphicalViewer().setRootEditPart(root);
+		getGraphicalViewer().setEditPartFactory(new «editorGen.diagram.getEditPartFactoryQualifiedClassName()»());
+
+«EXPAND addLayers-»
+		getGraphicalViewer().setContents(getDiagram());
+	}
+«ENDDEFINE»
+
+«DEFINE addLayers FOR gmfgen::GenEditorView-»
+		org.eclipse.draw2d.LayeredPane printableLayers = (org.eclipse.draw2d.LayeredPane) root.getLayer(org.eclipse.gef.LayerConstants.PRINTABLE_LAYERS);
+		org.eclipse.draw2d.FreeformLayer extLabelsLayer = new org.eclipse.draw2d.FreeformLayer();
+		extLabelsLayer.setLayoutManager(new org.eclipse.draw2d.DelegatingLayout());
+		printableLayers.addLayerAfter(extLabelsLayer, «editorGen.diagram.getEditPartFactoryQualifiedClassName()».EXTERNAL_NODE_LABELS_LAYER, org.eclipse.gef.LayerConstants.PRIMARY_LAYER);
+«ENDDEFINE»
+
+«DEFINE configureGraphicalViewer FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+		org.eclipse.gef.GraphicalViewer viewer = getGraphicalViewer();
+		// configure the context menu
+		org.eclipse.gef.ContextMenuProvider provider = new «className»ContextMenuProvider(viewer);
+		viewer.setContextMenu(provider);
+		getSite().registerContextMenu(«editorGen.plugin.getActivatorQualifiedClassName()».ID + ".editor.contextmenu", provider, getSite().getSelectionProvider()); //$NON-NLS-1$
+
+		org.eclipse.gef.KeyHandler keyHandler = new org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler(viewer);
+		viewer.setKeyHandler(keyHandler);
+
+		viewer.setProperty(org.eclipse.gef.MouseWheelHandler.KeyGenerator.getKey(org.eclipse.swt.SWT.CTRL), org.eclipse.gef.MouseWheelZoomHandler.SINGLETON);
+	}
+«ENDDEFINE»
+
+«DEFINE flyoutPalette FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean isFlyoutPalette() {
+«LET editorGen.diagram.palette AS palette-»
+		return «palette != null && palette.flyout»;
+«ENDLET-»
+	}
+«ENDDEFINE»
+
+«DEFINE gotoMarker FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void gotoMarker(org.eclipse.core.resources.IMarker marker) {
+		try {
+			if (marker.isSubtypeOf(org.eclipse.emf.ecore.EValidator.MARKER)) {
+				String uriAttribute = marker.getAttribute(org.eclipse.emf.ecore.EValidator.URI_ATTRIBUTE, null);
+				if (uriAttribute != null) {
+					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriAttribute);
+					org.eclipse.emf.ecore.EObject eObject = getEditingDomain().getResourceSet().getEObject(uri, true);
+					if (eObject != null) {
+						org.eclipse.gef.EditPart markerEditPart = (org.eclipse.gef.EditPart) getGraphicalViewer().getEditPartRegistry().get(eObject);
+						if (markerEditPart != null) {
+							getGraphicalViewer().select(markerEditPart);
+						}
+					}
+				}
+			}
+		} catch (org.eclipse.core.runtime.CoreException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Failed to navigate to marker", e);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE ContextMenuProvider FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedClassComment»
+	private class «className»ContextMenuProvider extends org.eclipse.gef.ContextMenuProvider {
+		«EXPAND xpt::Common::generatedMemberComment»
+		public «className»ContextMenuProvider(org.eclipse.gef.EditPartViewer viewer) {
+			super(viewer);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+	    public void buildContextMenu(org.eclipse.jface.action.IMenuManager menuManager) {
+	        org.eclipse.gef.ui.actions.GEFActionConstants.addStandardActionGroups(menuManager);
+«EXPAND provideStackActions-»
+«EXPAND provideEditPartActions-»
+«EXPAND provideEditorActions-»
+«IF editorGen.diagram.validationNeeded()-»
+«EXPAND provideValidateActions-»
+«ENDIF-»
+
+«EXPAND provideMetricsActions FOR editorGen.metrics-»
+
+«EXPAND provideMoreActions-»
+	    }
+
+«EXPAND appendAlignmentSubmenu-»
+«EXPAND appendActionToMenu-»
+«ENDDEFINE»
+
+«DEFINE appendAlignmentSubmenu FOR gmfgen::GenEditorView-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		private void appendAlignmentSubmenu(org.eclipse.jface.action.IMenuManager menuManager) {
+			// Alignment Actions
+			org.eclipse.jface.action.MenuManager submenu = new org.eclipse.jface.action.MenuManager("Align");
+			submenu.add(new org.eclipse.jface.action.Separator(org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS));
+	
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_LEFT, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_CENTER, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_RIGHT, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_TOP, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_MIDDLE, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, org.eclipse.gef.ui.actions.GEFActionConstants.ALIGN_BOTTOM, org.eclipse.gef.ui.actions.GEFActionConstants.MB_ADDITIONS);
+	
+			if (!submenu.isEmpty()) {
+				menuManager.appendToGroup(org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST, submenu);
+			}
+		}
+
+«ENDDEFINE»
+
+«DEFINE appendActionToMenu FOR gmfgen::GenEditorView-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		private void appendActionToMenu(org.eclipse.jface.action.IMenuManager menu, String actionId, String menuGroup) {
+			org.eclipse.jface.action.IAction action = getActionRegistry().getAction(actionId);
+			if (action != null && action.isEnabled()) {
+				menu.appendToGroup(menuGroup, action);
+			}
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE provideStackActions FOR gmfgen::GenEditorView-»
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.UNDO.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_UNDO);
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.REDO.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_UNDO);
+«ENDDEFINE»
+
+«DEFINE provideEditPartActions FOR gmfgen::GenEditorView-»
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.COPY.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.PASTE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.DELETE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, org.eclipse.gef.ui.actions.GEFActionConstants.DIRECT_EDIT, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_EDIT);
+«EXPAND provideAlignmentActions-»
+«ENDDEFINE»
+
+«DEFINE provideAlignmentActions FOR gmfgen::GenEditorView-»
+			appendAlignmentSubmenu(menuManager);
+«ENDDEFINE»
+
+«DEFINE provideEditorActions FOR gmfgen::GenEditorView-»
+«IF eclipseEditor-»
+			appendActionToMenu(menuManager, org.eclipse.ui.actions.ActionFactory.SAVE.getId(), org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_SAVE);
+«ENDIF-»
+			appendActionToMenu(menuManager, org.eclipse.gmf.runtime.lite.ui.actions.ActionIds.LAYOUT_ALL_ACTION, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+«ENDDEFINE»
+
+«DEFINE provideValidateActions FOR gmfgen::GenEditorView-»
+			appendActionToMenu(menuManager, «editorGen.diagram.getValidationProviderQualifiedClassName()».ValidateAction.VALIDATE_ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+«ENDDEFINE»
+
+«DEFINE provideMetricsActions FOR gmfgen::GenMetricContainer-»
+			appendActionToMenu(menuManager, «editor.diagram.getMetricProviderQualifiedClassName()».MetricsAction.ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+«ENDDEFINE»
+
+«DEFINE provideMoreActions FOR gmfgen::GenEditorView-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenEditorView-»
+«ENDDEFINE»

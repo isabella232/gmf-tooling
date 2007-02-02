@@ -16,11 +16,16 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
+public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genLink;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> myDecorationManager;
 
 	/**
 	 * @generated
@@ -35,6 +40,13 @@ GenCommonBase genCommonBase = genLink;%>
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> getDiagramEdge() {
 		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> getDecorationManager() {
+		return myDecorationManager;
 	}
 
 <%@ include file="registerModel.jetinc"%>
@@ -269,6 +281,22 @@ if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 	}
 
 	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> result = primCreateFigure();
+		myDecorationManager = createDecorationManager(result);
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> createDecorationManager(<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> connection) {
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.ConnectionDecorationManager")%>(connection);
+	}
+
+	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -276,7 +304,7 @@ if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 	 * 
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {<%
+	private <%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> primCreateFigure() {<%
 Viewmap viewmap = genLink.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	String figureQualifiedClassName = null;

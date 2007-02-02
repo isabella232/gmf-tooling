@@ -183,7 +183,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>
@@ -198,6 +198,11 @@ GenCommonBase genCommonBase = genNode;%>
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> primaryShape;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> myDecorationManager;
 
 <%
 	if (myHelper.hasBothChildrenAndCompartments()) {
@@ -668,10 +673,25 @@ if (genNode.getPrimaryDragEditPolicyQualifiedClassName() != null) {
 
 		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> decorationShape = createDecorationPane();
 		if (decorationShape != null) {
+			myDecorationManager = createDecorationManager(decorationShape);
 			invisibleRectangle.add(decorationShape);
 		}
 
 		return invisibleRectangle;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> createDecorationManager(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> decorationShape) {
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.PaneDecorationManager")%>(decorationShape);
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecorationManager")%> getDecorationManager() {
+		return myDecorationManager;
 	}
 
 <%
@@ -733,18 +753,7 @@ if (viewmap instanceof FigureViewmap) {
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createDecorationPane() {
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel();
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		
-		<%=importManager.getImportedName("org.eclipse.draw2d.Figure")%> decorationPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
-		decorationPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.BorderLayout")%>());
-
-		<%=importManager.getImportedName("org.eclipse.draw2d.ImageFigure")%> imageFigure = new <%=importManager.getImportedName("org.eclipse.draw2d.ImageFigure")%>(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"), <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.EAST);
-		decorationPane.add(imageFigure, <%=importManager.getImportedName("org.eclipse.draw2d.BorderLayout")%>.BOTTOM);
- 		return decorationPane;
+		return new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
 	}
 
 	/**

@@ -1,7 +1,0 @@
-<%if ("advanced".equals(tab.getID())) {%>
-          <propertySection id="property.section.AdvancedPropertySection"
-             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection"
-             filter="org.eclipse.gmf.runtime.lite.properties.filters.EditPartPropertySectionFilter"
-             tab="property.tab.AdvancedPropertySection">
-          </propertySection>            
-<%}%>         

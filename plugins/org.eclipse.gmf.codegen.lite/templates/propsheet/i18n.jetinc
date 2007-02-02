@@ -1,4 +1,0 @@
-<%for (Iterator it = propertySheet.getTabs().iterator(); it.hasNext(); ) {
-	final GenPropertyTab tab = (GenPropertyTab) it.next();%>
-tab.<%=tab.getID()%>=<%=tab.getLabel()%>
-<%}%>

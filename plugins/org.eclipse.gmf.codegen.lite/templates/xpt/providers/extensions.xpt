@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::providers::ValidationUtils»
+
+«DEFINE extensions FOR gmfgen::GenEditorGenerator-»
+«EXPAND markers-»
+«EXPAND metrics FOR metrics-»
+«ENDDEFINE»
+
+«DEFINE i18n FOR gmfgen::GenEditorGenerator-»
+«EXPAND markersi18n-»
+«EXPAND metricsi18n FOR metrics-»
+«ENDDEFINE»
+
+«DEFINE markers FOR gmfgen::GenEditorGenerator-»
+«IF null == application && diagram.validationNeeded()-»
+   <extension
+         id="diagnostic"
+         name="%_UI_Diagnostic_marker"
+         point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super
+            type="org.eclipse.emf.validation.problem">
+      </super>
+      <persistent
+            value="false">
+      </persistent>
+      <attribute
+            name="message"/>
+      <attribute
+            name="location"/>
+      <attribute
+            name="severity"/>
+   </extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE metrics FOR gmfgen::GenMetricContainer-»
+«IF metrics.size() > 0-»
+	<extension point="org.eclipse.ui.views">
+	    <?gmfgen generated="true"?>
+   		<view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
+			id="«editor.diagram.getMetricViewID()»"
+			name="%UI_Metrics_View_name"/>
+	</extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE markersi18n FOR gmfgen::GenEditorGenerator-»
+«IF null == application && diagram.validationNeeded()-»
+_UI_Diagnostic_marker=«modelID» Diagnostics Markers
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE metricsi18n FOR gmfgen::GenMetricContainer-»
+«IF metrics.size() > 0-»
+UI_Metrics_View_name=«editor.modelID» Diagram Metrics
+«ENDIF-»
+«ENDDEFINE»
