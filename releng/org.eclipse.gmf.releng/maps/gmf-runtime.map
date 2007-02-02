@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) runtime map *****************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf=v20061027-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
+feature@org.eclipse.gmf=v20070202-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=v20060713-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
