@@ -65,8 +65,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws CoreException, CoreException, CoreException, CoreException, CoreException, CoreException, CoreException, CoreException,
-			CoreException, CoreException, CoreException, CoreException, CoreException {
+	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (element instanceof URIEditorInput) {
 			IDocument document = null;
 			IStatus status = null;
@@ -130,8 +129,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected IDocument createDocument(Object element) throws CoreException, CoreException, CoreException, CoreException, CoreException, CoreException, CoreException, CoreException, CoreException,
-			CoreException, CoreException, CoreException, CoreException {
+	protected IDocument createDocument(Object element) throws CoreException {
 		if (element instanceof URIEditorInput) {
 			IDocument document = createEmptyDocument();
 			if (setDocumentContent(document, (IEditorInput) element)) {

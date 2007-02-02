@@ -81,6 +81,8 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 			diagramFacet = annotation;
 		}
 
+		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
+
 		/**
 		 * @generated
 		 */
@@ -118,8 +120,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected Diagram intializeNewDiagram() throws ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException,
-				ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException, ExecutionException {
+		protected Diagram intializeNewDiagram() throws ExecutionException {
 			Diagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
 			if (d == null) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
