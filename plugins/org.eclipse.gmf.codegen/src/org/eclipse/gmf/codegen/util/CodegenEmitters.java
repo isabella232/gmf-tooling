@@ -710,11 +710,11 @@ public class CodegenEmitters {
 	}
 
     public TextEmitter getExternalizeEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Access");
+        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
     }
 
     public TextEmitter getMessagesEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Values");
+        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
     }
     
 	// util
