@@ -20,6 +20,7 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-LazyStart: true
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.gmf.runtime.lite.commands,
+ org.eclipse.gmf.runtime.lite.edit.parts.decorations,
  org.eclipse.gmf.runtime.lite.edit.parts.tree,
  org.eclipse.gmf.runtime.lite.edit.parts.update,
  org.eclipse.gmf.runtime.lite.edit.parts.update.canonical,
@@ -30,5 +31,6 @@ Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.properties,
  org.eclipse.gmf.runtime.lite.requests,
  org.eclipse.gmf.runtime.lite.services,
- org.eclipse.gmf.runtime.lite.ui.actions
+ org.eclipse.gmf.runtime.lite.ui.actions,
+ org.eclipse.gmf.runtime.lite.validation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
