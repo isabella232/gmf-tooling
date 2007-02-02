@@ -17,14 +17,12 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 // GenPackageImpl#getQualifiedPackageInterfaceName()
 //
 String getQualifiedPackageInterfaceName(genmodel::GenPackage gp) :
-	gp.genModel.suppressEMFMetaData ? getQualifiedPackageClassName(gp) : getQualifiedPackageName(gp, gp.metaDataPackageSuffix) + "." + getPackageInterfaceName(gp)
+	gp.genModel.suppressEMFMetaData ? getQualifiedPackageClassName(gp) : getReflectionPackageName(gp) + "." + getPackageInterfaceName(gp)
 ;
 
-//
 // GenPackageImpl#getQualifiedFactoryInterfaceName()
-//
 String getQualifiedFactoryInterfaceName(genmodel::GenPackage gp) :
-	getQualifiedPackageName(gp, gp.metaDataPackageSuffix) + "." + getFactoryInterfaceName(gp)
+	getReflectionPackageName(gp) + "." + getPrefixedName(gp, "Factory")
 ;
 
 //
@@ -86,9 +84,14 @@ String getQualifiedClassifierAccessor(genmodel::GenClass gc) :
 	getQualifiedPackageInterfaceName(gc.genPackage) + ".eINSTANCE.get" + getClassifierAccessorName(gc)
 ;
 
-// GenPackageImpl#getQualifiedPackageClassName()
-String getQualifiedPackageClassName(genmodel::GenPackage gp) :
-	getReflectionClassPackageName(gp) + "." + getPackageClassName(gp)
+// GenFeatureImpl#getAccessorName
+String getAccessorName(genmodel::GenFeature gf) :
+	isMapEntryFeature(gf) ? "Typed" + gf.ecoreFeature.name.toFirstUpper() : gf.ecoreFeature.name.toFirstUpper()
+;
+
+// GenPackage#getDocumentRoot
+genmodel::GenClass getDocumentRoot(genmodel::GenPackage gp) :
+JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getDocumentRoot(org.eclipse.emf.codegen.ecore.genmodel.GenPackage)
 ;
 
 // GenFeature#getGetAccessor()
@@ -103,22 +106,17 @@ JAVA org.eclipse.gmf.codegen.util.GenModelUtils.findGenClassifier(org.eclipse.em
 
 // GenFeature#isListType()
 boolean isListType(genmodel::GenFeature feature) :
-	let eFeature = feature.ecoreFeature 
-		: eFeature.many 
-			|| isFeatureMapType(eFeature)
-			|| 0 - 2 == eFeature.upperBound
-;
-
-private boolean isFeatureMapType(ecore::EStructuralFeature feature) :
-	let type = feature.eType
-		: null != type && 
-			("org.eclipse.emf.ecore.util.FeatureMap.Entry" == type.instanceClassName 
-			|| "org.eclipse.emf.ecore.util.FeatureMap$Entry" == type.instanceClassName)
+JAVA org.eclipse.gmf.codegen.util.GenModelUtils.isListType(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
 // GenClass#isExternalInterface()
 boolean isExternalInterface(genmodel::GenClass genClass) :
 	null != genClass.ecoreClass.instanceClassName
+;
+
+// GenPackage#getFactoryInstanceName
+String getFactoryInstanceName(genmodel::GenPackage gp) :
+	gp.genModel.suppressEMFMetaData ? "INSTANCE" : "eINSTANCE"
 ;
 
 /*
@@ -151,6 +149,29 @@ private boolean needsCast(genmodel::GenClass source, genmodel::GenClass target) 
 			source == null || target.isExternalInterface() || source.isExternalInterface() || target.ecoreClass.isSuperTypeOf(source.ecoreClass))
 ;
 
+// GenFeatureImpl#isMapEntryFeature
+private boolean isMapEntryFeature(genmodel::GenFeature gf) :
+	gf.genClass.isMapEntry() && ("key" == gf.ecoreFeature.name || "value" == gf.ecoreFeature.name)
+;
+
+// GenClassImpl#isMapEntry
+private boolean isMapEntry(genmodel::GenClass gc) :
+	("java.util.Map.Entry" == gc.ecoreClass.name || "java.util.Map$Entry" == gc.ecoreClass.name) 
+		&& gc.ecoreClass.getEStructuralFeature("key") != null
+		&& gc.ecoreClass.getEStructuralFeature("value") != null
+;
+
+// GenPackageImpl#getReflectionPackageName()
+private String getReflectionPackageName(genmodel::GenPackage gp) :
+	getQualifiedPackageName(gp, gp.metaDataPackageSuffix)
+;
+
+// GenPackageImpl#getQualifiedPackageClassName()
+private String getQualifiedPackageClassName(genmodel::GenPackage gp) :
+	getReflectionClassPackageName(gp) + "." + getPackageClassName(gp)
+;
+
+
 // GenPackageImpl#getReflectionClassPackageName()
 private String getReflectionClassPackageName(genmodel::GenPackage gp) :
 	getQualifiedPackageName(gp, gp.genModel.suppressInterfaces ? gp.metaDataPackageSuffix : gp.classPackageSuffix)
@@ -164,11 +185,6 @@ private string getPackageClassName(genmodel::GenPackage gp) :
 // GenPackageImpl#getPackageInterfaceName()
 private string getPackageInterfaceName(genmodel::GenPackage gp) :
 	gp.genModel.suppressEMFMetaData && !gp.genModel.suppressInterfaces ? getPrefixedName(gp, "PackageImpl") : getPrefixedName(gp, "Package")
-;
-
-// GenPackageImpl#getFactoryInterfaceName()
-private string getFactoryInterfaceName(genmodel::GenPackage gp) :
-	getPrefixedName(gp, "Factory")
 ;
 
 // GenPackageImpl#getPrefixedName()

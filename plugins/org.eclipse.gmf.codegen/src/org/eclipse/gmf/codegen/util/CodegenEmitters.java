@@ -35,7 +35,6 @@ import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
@@ -195,7 +194,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
-		put(tr, "/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
@@ -500,7 +498,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramEditorUtilGenerator.class);
+		return newXpandEmitter("xpt::editor::DiagramEditorUtil::DiagramEditorUtil"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getVisualIDRegistryEmitter() throws UnexpectedBehaviourException {

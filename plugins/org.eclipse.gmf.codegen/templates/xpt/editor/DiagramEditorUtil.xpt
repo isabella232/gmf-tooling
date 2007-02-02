@@ -1,0 +1,332 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::editor::GenDiagram»
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE DiagramEditorUtil FOR gmfgen::GenDiagram-»
+package «editorGen.editor.packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «diagramEditorUtilClassName» {
+«EXPAND openDiagramMethod»
+
+«IF editorGen.application == null»
+	«EXPAND setCharsetMethod»
+	«EXPAND getFileMethod»
+«ENDIF»
+
+«EXPAND existsMethod»
+
+«EXPAND createDiagramMethod»
+«IF domainDiagramElement != null»
+	«EXPAND createInitialModelMethod»
+	«EXPAND attachModelMethod»
+	«IF hasDocumentRoot()»«EXPAND createDocumentRootMethod»«ENDIF»
+«ENDIF»
+
+«EXPAND selectElementsMethod»
+«EXPAND findElementsMethod»
+«EXPAND findViewMethod»
+
+«EXPAND additions»
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE openDiagramMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean openDiagram(org.eclipse.emf.ecore.resource.Resource diagram) throws org.eclipse.ui.PartInitException {
+«IF editorGen.application == null-»
+		return org.eclipse.emf.edit.ui.util.EditUIUtil.openEditor((org.eclipse.emf.ecore.EObject) diagram.getContents().get(0));
+«ELSE-»
+		org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(diagram.getURI()), «editorGen.editor.getQualifiedClassName()».ID);
+		return true;
+«ENDIF-»
+	}
+«ENDDEFINE»
+
+// XXX private visibility?
+«DEFINE setCharsetMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
+		org.eclipse.core.resources.IFile file = getFile(uri);
+		if (file == null) {
+			return;
+		}
+		try {
+			file.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); //$NON-NLS-1$
+		} catch (org.eclipse.core.runtime.CoreException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
+		}
+	}
+«ENDDEFINE»
+
+// XXX private visibility? seems only setCharset is using this method
+«DEFINE getFileMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.common.util.URI uri) {
+		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
+			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
+			org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
+			if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
+				return (org.eclipse.core.resources.IFile) workspaceResource;
+			}
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+// XXX Who's using this one?
+«DEFINE existsMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean exists(org.eclipse.core.runtime.IPath path) {
+		«IF editorGen.application == null»return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().exists(path);«ELSE»return path.toFile().exists();«ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE createDiagramMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment(editorGen.application == null ? "This method should be called within a workspace modify operation since it creates resources." : "")»
+	public static org.eclipse.emf.ecore.resource.Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI,«IF standaloneDomainModel()» org.eclipse.emf.common.util.URI modelURI,«ENDIF» org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		progressMonitor.beginTask("Creating diagram and model files", 3);
+		final org.eclipse.emf.ecore.resource.Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
+«IF standaloneDomainModel()-»
+		final org.eclipse.emf.ecore.resource.Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
+«ENDIF-»
+		final String diagramName = diagramURI.lastSegment();
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, "Creating diagram and model", java.util.Collections.EMPTY_LIST) { //$NON-NLS-1$
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+«IF domainDiagramElement != null-»
+				«domainDiagramElement.getQualifiedInterfaceName()» model = createInitialModel();
+				attachModelToResource(model, «IF standaloneDomainModel()»model«ELSE»diagram«ENDIF»Resource);
+«ENDIF»
+				org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
+«IF domainDiagramElement != null-»
+				«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model, 
+«ENDIF-»
+					«getEditPartQualifiedClassName()».MODEL_ID,	«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+				if (diagram != null) {
+					diagramResource.getContents().add(diagram);
+					diagram.setName(diagramName);
+«IF domainDiagramElement != null-»
+					diagram.setElement(«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model);
+«ENDIF-»
+				}
+				
+				try {
+					java.util.Map options = new java.util.HashMap();
+					options.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+					«IF standaloneDomainModel()»modelResource.save(options);«ENDIF»
+					diagramResource.save(options);
+				} catch (java.io.IOException e) {
+					«/* TODO CommandResult.newErrorCommandResult(e) would be better? Or even throw ExecutionEx?*/»
+					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+				}
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+			}
+		};
+		try {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.SubProgressMonitor(progressMonitor, 1), null);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+		}
+«IF editorGen.application == null-»
+		«IF standaloneDomainModel()»setCharset(modelURI);«ENDIF»
+		setCharset(diagramURI);
+«ENDIF-»
+		return diagramResource;
+	}
+«ENDDEFINE»
+
+«DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment("Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
+	private static «domainDiagramElement.getQualifiedInterfaceName()» createInitialModel() {
+		return «EXPAND newInstance FOR domainDiagramElement»;
+	}
+«ENDDEFINE»
+
+«DEFINE attachModelMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment("Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
+	private static void attachModelToResource(«domainDiagramElement.getQualifiedInterfaceName()» model, org.eclipse.emf.ecore.resource.Resource resource) {
+		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»model«ENDIF»);
+	}
+«ENDDEFINE»
+
+// invoke only when there's DocumentRoot in the domain model
+«DEFINE createDocumentRootMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static «getDocumentRoot().getQualifiedInterfaceName()» createDocumentRoot(«domainDiagramElement.getQualifiedInterfaceName()» model) {
+		«EXPAND newInstance("docRoot") FOR getDocumentRoot()»
+«LET getDocumentRootSetFeature() AS f»«IF f == null-»
+		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
+		docRoot.set«f.getAccessorName()»(model);«ENDIF»
+«ENDLET-»
+		return docRoot;
+	}
+«ENDDEFINE»
+
+«DEFINE selectElementsMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static void selectElementsInDiagram(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart, java.util.List/*EditPart*/ editParts) {
+		diagramPart.getDiagramGraphicalViewer().deselectAll();
+
+		org.eclipse.gef.EditPart firstPrimary = null;
+		for (java.util.Iterator it = editParts.iterator(); it.hasNext();) {
+			org.eclipse.gef.EditPart nextPart = (org.eclipse.gef.EditPart) it.next();
+			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
+			if(firstPrimary == null && nextPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart) {
+				firstPrimary = nextPart;
+			}
+		}
+
+		if(!editParts.isEmpty()) {
+			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (org.eclipse.gef.EditPart)editParts.get(0));
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE findElementsMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static int findElementsInDiagramByID(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramPart, org.eclipse.emf.ecore.EObject element, java.util.List editPartCollector) {
+		org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer viewer = (org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer) diagramPart.getViewer();
+		final int intialNumOfEditParts = editPartCollector.size();
+		
+		if (element instanceof org.eclipse.gmf.runtime.notation.View) { // support notation element lookup
+			org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) viewer.getEditPartRegistry().get(element);
+			if (editPart != null) {
+				editPartCollector.add(editPart);
+				return 1;
+			}
+		}
+
+		String elementID = org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getProxyID(element);
+		java.util.List associatedParts = viewer.findEditPartsForElement(elementID, org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+		// perform the possible hierarchy disjoint -> take the top-most parts only
+		for (java.util.Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
+			org.eclipse.gef.EditPart nextPart = (org.eclipse.gef.EditPart) editPartIt.next();
+			org.eclipse.gef.EditPart parentPart = nextPart.getParent();
+			while (parentPart != null && !associatedParts.contains(parentPart)) {
+				parentPart = parentPart.getParent();
+			}
+			if (parentPart == null) {
+				editPartCollector.add(nextPart);
+			}
+		}
+
+		if (intialNumOfEditParts == editPartCollector.size()) {
+			if (!associatedParts.isEmpty()) {
+				editPartCollector.add(associatedParts.iterator().next());
+			} else {
+				if (element.eContainer() != null) {
+					return findElementsInDiagramByID(diagramPart, element.eContainer(), editPartCollector);
+				}
+			}
+		}
+		return editPartCollector.size() - intialNumOfEditParts;
+	}
+«ENDDEFINE»
+
+«DEFINE findViewMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static org.eclipse.gmf.runtime.notation.View findView(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, org.eclipse.emf.ecore.EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+		boolean hasStructuralURI = false;						
+		if(targetElement.eResource() instanceof org.eclipse.emf.ecore.xmi.XMLResource) {
+			hasStructuralURI = ((org.eclipse.emf.ecore.xmi.XMLResource)targetElement.eResource()).getID(targetElement) == null;
+		}
+		
+		org.eclipse.gmf.runtime.notation.View view = null;
+		if(hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+			view = (org.eclipse.gmf.runtime.notation.View)lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
+			org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
+			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = editPart.getModel() instanceof org.eclipse.gmf.runtime.notation.View ? (org.eclipse.gmf.runtime.notation.View) editPart.getModel() : null;
+		}
+	
+		return (view == null) ? diagramEditPart.getDiagramView() : view;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static class LazyElement2ViewMap {
+		«EXPAND xpt::Common::generatedMemberComment»
+		private java.util.Map element2ViewMap;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.gmf.runtime.notation.View scope;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private java.util.Set elementSet;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public final java.util.List editPartTmpHolder = new java.util.ArrayList();
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public LazyElement2ViewMap(org.eclipse.gmf.runtime.notation.View scope, java.util.Set elements) {
+			this.scope = scope;
+			this.elementSet = elements;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public final java.util.Map getElement2ViewMap() {
+			if(element2ViewMap == null) {
+				element2ViewMap = new java.util.HashMap();
+				// map possible notation elements to itself as these can't be found by view.getElement()
+				for (java.util.Iterator it = elementSet.iterator(); it.hasNext();) {
+					org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) it.next();
+					if(element instanceof org.eclipse.gmf.runtime.notation.View) {
+						org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) element;
+						if(view.getDiagram() == scope.getDiagram()) {
+							element2ViewMap.put(element, element); // take only those that part of our diagram
+						}
+					}
+				}
+				
+				buildElement2ViewMap(scope, element2ViewMap, elementSet);					
+			}
+			return element2ViewMap;
+		}
+		«EXPAND xpt::Common::generatedMemberComment»
+		static java.util.Map buildElement2ViewMap(org.eclipse.gmf.runtime.notation.View parentView, java.util.Map element2ViewMap, java.util.Set elements) {
+			if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+
+			if(parentView.isSetElement() && !element2ViewMap.containsKey(parentView.getElement()) && elements.contains(parentView.getElement())) {
+				element2ViewMap.put(parentView.getElement(), parentView);
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			
+			for (java.util.Iterator it = parentView.getChildren().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}
+			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
+				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
+				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			}	
+			return element2ViewMap;
+		}
+	} //LazyElement2ViewMap	
+«ENDDEFINE»
+
+«DEFINE newInstance FOR genmodel::GenClass-»
+«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDDEFINE»
+
+«DEFINE newInstance(String varName) FOR genmodel::GenClass-»
+«getQualifiedInterfaceName()» «varName» = «EXPAND newInstance»;«ENDDEFINE»

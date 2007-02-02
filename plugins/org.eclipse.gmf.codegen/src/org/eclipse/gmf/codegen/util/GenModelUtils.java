@@ -11,9 +11,11 @@
  */
 package org.eclipse.gmf.codegen.util;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClassifier;
 
 public class GenModelUtils {
@@ -26,4 +28,14 @@ public class GenModelUtils {
 		return genModel.findGenClassifier(eClassifier);
 	}
 
+	public static GenClass getDocumentRoot(GenPackage genPackage) {
+		return genPackage.hasDocumentRoot() ? genPackage.getDocumentRoot() : null;
+	}
+
+	public static boolean isListType(GenFeature genFeature) {
+		// can't implement in .ext because 
+		// XMLTypePackage.eNS_URI.equals(getExtendedMetaData().getNamespace((EStructuralFeature)eTypedElement));
+		// part of the check seems to be essential
+		return genFeature.isListType();
+	}
 }
