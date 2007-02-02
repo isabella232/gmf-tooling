@@ -474,6 +474,14 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::providers::MarkerNavigationProvider::MarkerNavigationProvider");	//$NON-NLS-1$
 	}
 
+    public TextEmitter getExternalizeEmitter() {
+        return retrieveXpand("xpt::Externalizer::Access"); //$NON-NLS-1$
+    }
+
+    public TextEmitter getMessagesEmitter() {
+        return retrieveXpand("xpt::Externalizer::Values"); //$NON-NLS-1$
+    }
+
 	private TextEmitter retrieveXpand(String templateFQN) {
 		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
 		if (result == null) {

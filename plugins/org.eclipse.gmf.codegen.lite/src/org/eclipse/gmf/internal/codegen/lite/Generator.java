@@ -191,6 +191,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generatePropertySheetSections();
 		}
 		generateApplication();
+		generateExternalizationSupport();
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -450,6 +451,13 @@ public class Generator extends GeneratorBase implements Runnable {
 			doGenerateJavaClass(myEmitters.getWorkbenchWindowAdvisorEmitter(), application.getWorkbenchWindowAdvisorQualifiedClassName(), application);
 		}
 	}
+
+    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
+        String packageName = myEditorGen.getEditor().getPackageName();
+        String messagesClassName = "Messages";
+        doGenerateJavaClass(myEmitters.getExternalizeEmitter(), packageName, messagesClassName, new Object[] { myEditorGen });
+        doGenerateFile(myEmitters.getMessagesEmitter(), new Path(messagesClassName.toLowerCase()+".properties"), new Object[] { myEditorGen });
+    }
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {
 		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), argument);

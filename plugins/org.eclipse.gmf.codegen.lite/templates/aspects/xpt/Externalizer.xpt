@@ -1,0 +1,13 @@
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+
+«AROUND Fields FOR GenEditorGenerator»
+	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
+    «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
+    «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
+«ENDAROUND»
+
+«AROUND Values FOR GenEditorGenerator»
+«EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
+«EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
+«EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
+«ENDAROUND»
