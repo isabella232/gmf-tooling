@@ -110,7 +110,7 @@ public «documentProviderClassName»(String rootObjectURI) {
 	«EXPAND xpt::Common::generatedMemberComment»
 protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
 	if (false == element instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy) {
-		throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null));
+		throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null)); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy editorInput = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy) element;
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) createDocument(editorInput);
@@ -473,7 +473,7 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		if (!overwrite && !info.isSynchronized()) {
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null));
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null)); //$NON-NLS-1$
 		}
 		info.stopResourceListening();
 		fireElementStateChanging(element);

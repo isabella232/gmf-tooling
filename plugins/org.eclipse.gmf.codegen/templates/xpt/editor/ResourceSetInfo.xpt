@@ -12,6 +12,7 @@
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 
+«REM»Inner class of DocumentProvider«ENDREM»
 «DEFINE ResourceSetInfo FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedClassComment»	
 protected class ResourceSetInfo extends StorageInfo {
