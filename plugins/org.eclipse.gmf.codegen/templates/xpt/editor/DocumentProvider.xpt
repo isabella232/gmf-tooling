@@ -477,20 +477,9 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		}
 		info.stopResourceListening();
 		fireElementStateChanging(element);
+		java.util.List resources = info.getResourceSet().getResources();
 		try {
-			monitor.beginTask("Saving diagram editor", info.getResourceSet().getResources().size());
-			for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
-				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-				monitor.setTaskName("Saving " + nextResource.getURI());
-				if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
-					nextResource.save(java.util.Collections.EMPTY_MAP);
-				}
-				monitor.worked(1);
-			}
-			monitor.done();
-		} catch (java.io.IOException e) {
-			fireElementStateChangeFailed(element);
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
+			«EXPAND saveResourcesCollection-»
 		} catch (RuntimeException x) {
 			fireElementStateChangeFailed(element);
 			throw x;
@@ -505,6 +494,26 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 	}
 	super.doSaveDocument(monitor, element, document, overwrite);
 }
+«ENDDEFINE»
+
+«DEFINE saveResourcesCollection FOR gmfgen::GenDiagram-»
+monitor.beginTask("Saving diagram", resources.size() + 1);
+java.util.Map options = new java.util.HashMap();
+options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+for (java.util.Iterator it = resources.iterator(); it.hasNext();) {
+	org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+	monitor.setTaskName("Saving " + nextResource.getURI());
+	if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+		try {
+			nextResource.save(options);
+		} catch (java.io.IOException e) {
+			fireElementStateChangeFailed(element);
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
+		}
+	}
+	monitor.worked(1);
+}
+monitor.done();
 «ENDDEFINE»
 
 «DEFINE handleElementMoved FOR gmfgen::GenDiagram-»

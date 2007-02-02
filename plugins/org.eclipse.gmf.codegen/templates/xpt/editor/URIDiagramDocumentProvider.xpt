@@ -82,14 +82,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument getDiagramDocument(Object element) {
-		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument doc = getDocument(element);
-		if (doc instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
-			return (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) doc;
-		}
-		return null;
-	}
+	«EXPAND xpt::editor::DocumentProvider::getDiagramDocument FOR editorGen.diagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
@@ -115,10 +108,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		// for subclasses
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createEmptyDocument() {
-		return new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument();
-	}
+	«EXPAND xpt::editor::DocumentProvider::createEmptyDocument FOR editorGen.diagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
@@ -191,22 +181,7 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
 			org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
 			java.util.List resources = domain.getResourceSet().getResources();
-			monitor.beginTask("Saving diagram", resources.size() + 1);
-			for (java.util.Iterator it = resources.iterator(); it.hasNext();) {
-				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-				monitor.setTaskName("Saving " + nextResource.getURI());
-				if (nextResource.isLoaded()) {
-					try {
-						java.util.Map options = new java.util.HashMap();
-						options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-						nextResource.save(options);
-					} catch (java.io.IOException e) {
-						«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to save resource: " + nextResource.getURI(), e);
-					}
-				}
-				monitor.worked(1);
-			}
-			monitor.done();
+			«EXPAND xpt::editor::DocumentProvider::saveResourcesCollection FOR editorGen.diagram-»
 		}
 	}
 
