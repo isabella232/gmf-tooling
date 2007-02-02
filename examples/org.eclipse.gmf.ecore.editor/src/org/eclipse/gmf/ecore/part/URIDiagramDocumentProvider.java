@@ -33,6 +33,7 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModif
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
@@ -238,16 +239,17 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 			TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
 			List resources = domain.getResourceSet().getResources();
 			monitor.beginTask("Saving diagram", resources.size() + 1);
+			Map options = new HashMap();
+			options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 			for (Iterator it = resources.iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				monitor.setTaskName("Saving " + nextResource.getURI());
-				if (nextResource.isLoaded()) {
+				if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
 					try {
-						Map options = new HashMap();
-						options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 						nextResource.save(options);
 					} catch (IOException e) {
-						EcoreDiagramEditorPlugin.getInstance().logError("Unable to save resource: " + nextResource.getURI(), e);
+						fireElementStateChangeFailed(element);
+						throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
 					}
 				}
 				monitor.worked(1);

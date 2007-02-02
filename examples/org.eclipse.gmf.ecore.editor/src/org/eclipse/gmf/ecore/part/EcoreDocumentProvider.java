@@ -14,9 +14,9 @@ package org.eclipse.gmf.ecore.part;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -86,7 +87,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws CoreException { 
+	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInputProxy) {
 			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
 					"Incorrect element used: " + element + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null)); //$NON-NLS-1$ //$NON-NLS-2$
@@ -456,20 +457,25 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
+			List resources = info.getResourceSet().getResources();
 			try {
-				monitor.beginTask("Saving diagram editor", info.getResourceSet().getResources().size());
-				for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+				monitor.beginTask("Saving diagram", resources.size() + 1);
+				Map options = new HashMap();
+				options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName("Saving " + nextResource.getURI());
 					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
-						nextResource.save(Collections.EMPTY_MAP);
+						try {
+							nextResource.save(options);
+						} catch (IOException e) {
+							fireElementStateChangeFailed(element);
+							throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
+						}
 					}
 					monitor.worked(1);
 				}
 				monitor.done();
-			} catch (IOException e) {
-				fireElementStateChangeFailed(element);
-				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
 			} catch (RuntimeException x) {
 				fireElementStateChangeFailed(element);
 				throw x;
