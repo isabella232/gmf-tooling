@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,15 +12,12 @@
 package org.eclipse.gmf.ecore.part;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -32,52 +29,34 @@ import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.ecore.util.EContentAdapter;
-
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDocumentProvider;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
-
 import org.eclipse.swt.widgets.Display;
-
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IStorageEditorInput;
-
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
@@ -109,7 +88,8 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 */
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInputProxy) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of FileEditorInputProxy", null));
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element
+					+ " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null));
 		}
 		FileEditorInputProxy editorInput = (FileEditorInputProxy) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
@@ -414,10 +394,10 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 */
 	protected void handleResourcesMoved(Map movedPathToResource) {
 		for (Iterator it = movedPathToResource.entrySet().iterator(); it.hasNext();) {
-			Entry nextEntry = (Entry) it.next();
+			Map.Entry nextEntry = (Map.Entry) it.next();
 			IPath newPath = (IPath) nextEntry.getKey();
 			Resource resource = (Resource) nextEntry.getValue();
-			resource.setURI(URI.createURI(newPath.toString()));
+			resource.setURI(org.eclipse.emf.common.util.URI.createURI(newPath.toString()));
 		}
 	}
 
@@ -712,13 +692,13 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 						return;
 					}
 
-					Entry diagramEntry = getDiagramResourceEntry(deltaVisitor.getMovedResourcesMap());
+					Map.Entry diagramEntry = getDiagramResourceEntry(deltaVisitor.getMovedResourcesMap());
 					if (diagramEntry != null) {
 						deltaVisitor.getMovedResourcesMap().remove(diagramEntry.getKey());
 						// Setting new editor input since diagram file was
 						// renamed Could be processed together with the rest of
-						// moved resources if FileEditorInputProxy will wupport
-						// IFileEditorInput substitution
+						// moved resources if org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy will wupport
+						// org.eclipse.ui.IFileEditorInput substitution
 						handleElementMoved(myInfo.getEditorInput(), (IPath) diagramEntry.getKey());
 					}
 					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
@@ -730,7 +710,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 						handleResourcesChanged(myInfo, deltaVisitor.getChangedResources(), null);
 					}
 					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
-						// Marking whole ResourceSet as changed to preserve
+						// Marking whole org.eclipse.emf.ecore.resource.ResourceSet as changed to preserve
 						// changes in resource URIs made by
 						// handleResourcesMoved() call
 						markWholeResourceSetAsDirty(myInfo.getResourceSet());
@@ -742,9 +722,9 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		private Entry getDiagramResourceEntry(Map movedResources) {
+		private Map.Entry getDiagramResourceEntry(Map movedResources) {
 			for (Iterator it = movedResources.entrySet().iterator(); it.hasNext();) {
-				Entry nextEntry = (Entry) it.next();
+				Map.Entry nextEntry = (Map.Entry) it.next();
 				Resource nextResource = (Resource) nextEntry.getValue();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null && file.equals(myInfo.getEditorInput().getFile())) {
@@ -781,7 +761,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			public boolean visit(IResourceDelta delta) {
 				if (delta.getFlags() != IResourceDelta.MARKERS && delta.getResource().getType() == IResource.FILE) {
 					if ((delta.getKind() & (IResourceDelta.CHANGED | IResourceDelta.REMOVED)) != 0) {
-						Resource resource = myInfo.getResourceSet().getResource(URI.createURI(delta.getFullPath().toString()), false);
+						Resource resource = myInfo.getResourceSet().getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
 						if (resource != null && resource.isLoaded()) {
 							synchronized (myInfo) {
 								if (myInfo.fCanBeSaved) {
@@ -828,6 +808,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			public Map getMovedResourcesMap() {
 				return myMovedResources;
 			}
+
 		}
 
 	}
@@ -891,10 +872,10 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 							}
 						}
 					}
-
 				}
 			}
 		}
+
 	}
 
 }
