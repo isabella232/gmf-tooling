@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gmf.tests"
       label="%featureName"
-      version="1.0.2.qualifier"
+      version="1.0.3.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.example.com/description">
@@ -69,7 +69,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.emf.type.ui"/>
       <import plugin="org.eclipse.gmf.runtime.emf.ui"/>
       <import plugin="org.eclipse.gmf.runtime.gef.ui"/>
-      <import feature="org.eclipse.gmf.sdk" version="1.0.2"/>
+      <import feature="org.eclipse.gmf.sdk" version="1.0.3"/>
    </requires>
 
    <plugin
