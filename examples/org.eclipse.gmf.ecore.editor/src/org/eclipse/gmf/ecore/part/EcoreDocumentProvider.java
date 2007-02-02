@@ -86,10 +86,10 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws CoreException {
+	protected ElementInfo createElementInfo(Object element) throws CoreException { 
 		if (false == element instanceof FileEditorInputProxy) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element
-					+ " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null));
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		FileEditorInputProxy editorInput = (FileEditorInputProxy) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
@@ -452,7 +452,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null));
+				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null)); //$NON-NLS-1$
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
