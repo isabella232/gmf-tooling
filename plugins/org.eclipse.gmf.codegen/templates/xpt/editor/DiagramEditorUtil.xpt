@@ -155,7 +155,7 @@ public class «diagramEditorUtilClassName» {
 «DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
 	private static «domainDiagramElement.getQualifiedInterfaceName()» createInitialModel() {
-		return «EXPAND newInstance FOR domainDiagramElement»;
+		return «EXPAND xpt::Common::newInstance FOR domainDiagramElement»;
 	}
 «ENDDEFINE»
 
@@ -170,7 +170,7 @@ public class «diagramEditorUtilClassName» {
 «DEFINE createDocumentRootMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static «getDocumentRoot().getQualifiedInterfaceName()» createDocumentRoot(«domainDiagramElement.getQualifiedInterfaceName()» model) {
-		«EXPAND newInstance("docRoot") FOR getDocumentRoot()»
+		«EXPAND xpt::Common::newInstance("docRoot") FOR getDocumentRoot()»
 «LET getDocumentRootSetFeature() AS f»«IF f == null-»
 		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
 		docRoot.set«f.getAccessorName()»(model);«ENDIF»
@@ -324,9 +324,3 @@ public class «diagramEditorUtilClassName» {
 		}
 	} //LazyElement2ViewMap	
 «ENDDEFINE»
-
-«DEFINE newInstance FOR genmodel::GenClass-»
-«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDDEFINE»
-
-«DEFINE newInstance(String varName) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName()» «varName» = «EXPAND newInstance»;«ENDDEFINE»
