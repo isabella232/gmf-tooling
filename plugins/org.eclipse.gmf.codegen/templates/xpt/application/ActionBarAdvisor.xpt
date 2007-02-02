@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::application::i18n»
+
 «DEFINE ActionBarAdvisor FOR gmfgen::GenApplication-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
@@ -75,15 +77,20 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 		org.eclipse.ui.IEditorDescriptor editorDescriptor =
 			workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
 		if (editorDescriptor == null) {
-			org.eclipse.jface.dialogs.MessageDialog.openError(workbenchWindow.getShell(), "Error",
-				org.eclipse.osgi.util.NLS.bind("There is no editor registered for the file ''{0}''", fileURI.toFileString()));
+			org.eclipse.jface.dialogs.MessageDialog.openError(workbenchWindow.getShell(), 
+                «EXPAND xpt::Externalizer::accessorCall(editorGen.application.i18nKeyForDefaultFileEditorErrorDialog().titleKey()) FOR editorGen»,
+				org.eclipse.osgi.util.NLS.bind(
+				    «EXPAND xpt::Externalizer::accessorCall(editorGen.application.i18nKeyForDefaultFileEditorErrorDialog().messageKey()) FOR editorGen», 
+				    fileURI.toFileString()));
 			return false;
 		} else {
 			try {
 				page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(fileURI), editorDescriptor.getId());
 			} catch (org.eclipse.ui.PartInitException exception) {
 				org.eclipse.jface.dialogs.MessageDialog.openError(
-					workbenchWindow.getShell(), "Open Editor", exception.getMessage());
+					workbenchWindow.getShell(), 
+					«EXPAND xpt::Externalizer::accessorCall(editorGen.application.i18nKeyForDefaultEditorOpenErrorDialog().titleKey()) FOR editorGen»,
+					exception.getMessage());
 				return false;
 			}
 		}
@@ -118,7 +125,8 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 «DEFINE contribute(String managerVar) FOR gmfgen::GenMenuManager»
 	«LET managerVar + "X" AS menuVar-»
 	{
-		org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(«name», «iD»);
+		org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(
+		«IF null != name»«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMenu()) FOR this.application.editorGen»«ELSE»null«ENDIF»«IF null != iD», «iD»«ENDIF»);
 		«EXPAND contribute(menuVar) FOREACH items-»
 		«managerVar».add(«menuVar»);
 	}
@@ -212,11 +220,47 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void run(org.eclipse.jface.action.IAction action) {
-			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), "About",
-				"«editorGen.modelID» Diagram Editor");
+			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), 
+                «EXPAND xpt::Externalizer::accessorCall(i18nKeyForAboutDialog().titleKey()) FOR editorGen»,
+                «EXPAND xpt::Externalizer::accessorCall(i18nKeyForAboutDialog().messageKey()) FOR editorGen»
+				);
 		}
 	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenApplication-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenApplication-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForDefaultFileEditorErrorDialog().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForDefaultFileEditorErrorDialog().messageKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForDefaultEditorOpenErrorDialog().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForAboutDialog().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForAboutDialog().messageKey())-»
+«IF null != mainMenu-»
+«EXPAND internal_i18nAccessors FOR mainMenu-»
+«EXPAND internal_i18nAccessors FOREACH mainMenu.items.collectGenMenuManagers()-»
+«ENDIF»
+«EXPAND internal_i18nAccessors FOREACH sharedContributionItems.collectGenMenuManagers()-»
+«ENDDEFINE»
+
+«DEFINE internal_i18nAccessors FOR gmfgen::GenMenuManager-»
+«IF null != name»«EXPAND xpt::Externalizer::accessorField(i18nKeyForMenu())»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenApplication-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDefaultFileEditorErrorDialog().titleKey(), "Error")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDefaultFileEditorErrorDialog().messageKey(), "There is no editor registered for the file \"{0}\"")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDefaultEditorOpenErrorDialog().titleKey(), "Open Editor")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAboutDialog().titleKey(), "About")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAboutDialog().messageKey(), editorGen.modelID+" Diagram Editor")-»
+«IF null != mainMenu-»
+«EXPAND internal_i18nValues FOR mainMenu-»
+«EXPAND internal_i18nValues FOREACH mainMenu.items.collectGenMenuManagers()-»
+«ENDIF»
+«EXPAND internal_i18nValues FOREACH sharedContributionItems.collectGenMenuManagers()-»
+«ENDDEFINE»
+
+«DEFINE internal_i18nValues FOR gmfgen::GenMenuManager-»
+«IF null != name»«EXPAND xpt::Externalizer::messageEntry(i18nKeyForMenu(), name)»«ENDIF-»
 «ENDDEFINE»

@@ -22,7 +22,7 @@ String getAccessorName() :
 ;
 
 String escapeIllegalKeySymbols(String key) :
-	key.replaceAll("[ .=]", "_")
+	key.replaceAll("[=&\"]", "").replaceAll("[ .]", "_")
 ;
 
 String escapeIllegalMessageSymbols(String message) :

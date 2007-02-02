@@ -42,3 +42,7 @@ List[gmfgen::GenNavigatorChildReference] getChildReferencesFrom(gmfgen::GenNavig
 String asValidJavaIdentifier(String identifier) :
 JAVA org.eclipse.emf.codegen.util.CodeGenUtil.validJavaIdentifier(java.lang.String)
 ;
+
+String i18nKeyForGroup(String groupName, gmfgen::GenCommonBase contextElement) :
+"NavigatorGroupName."+ (null != contextElement ? contextElement.getUniqueIdentifier() : "File") + "." + asValidJavaIdentifier(groupName)
+;

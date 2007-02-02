@@ -144,7 +144,7 @@ org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.create
 org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
 java.util.Collection result = new java.util.ArrayList();
 	«LET getChildReferencesFrom(this, null) AS references-»
-		«EXPAND initGroupVariables(this, references, 'file') FOREACH getGroupNames(references)-»
+		«EXPAND initGroupVariables(this, references, 'file', null) FOREACH getGroupNames(references)-»
 		«FOREACH references AS ref-»
 			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
 		«ENDFOREACH-»
@@ -319,8 +319,10 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 
 «DEFINE createEditingDomain FOR gmfgen::GenNavigator»(org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
 
-«DEFINE initGroupVariables(gmfgen::GenNavigator navigator, List[gmfgen::GenNavigatorChildReference] references, String parentVarName) FOR String-»
-	«navigator.getNavigatorGroupQualifiedClassName()» «asValidJavaIdentifier(this)» = new «navigator.getNavigatorGroupQualifiedClassName()»("«this»", "«getNavigatorReference(this, references).groupIcon»", «parentVarName»);
+«DEFINE initGroupVariables(gmfgen::GenNavigator navigator, List[gmfgen::GenNavigatorChildReference] references, String parentVarName, gmfgen::GenCommonBase contextElement) FOR String-»
+	«navigator.getNavigatorGroupQualifiedClassName()» «asValidJavaIdentifier(this)» = new «navigator.getNavigatorGroupQualifiedClassName()»(
+	«EXPAND xpt::Externalizer::accessorCall(i18nKeyForGroup(this, contextElement)) FOR navigator.editorGen»,
+	"«getNavigatorReference(this, references).groupIcon»", «parentVarName»); //$NON-NLS-1$
 «ENDDEFINE»
 
 «DEFINE addNavigatorItemsPrefix FOR gmfgen::GenNavigatorChildReference»«IF isInsideGroup()»«asValidJavaIdentifier(groupName)».addChildren(«ELSE»result.addAll(«ENDIF»createNavigatorItems(«ENDDEFINE»
@@ -348,7 +350,7 @@ case «getEditPartQualifiedClassName()».VISUAL_ID: {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND addForeignShortcuts FOR this-»
 	«LET getChildReferencesFrom(navigator, this) AS references-»
-		«EXPAND initGroupVariables(navigator, references, 'parentElement') FOREACH getGroupNames(references)-»
+		«EXPAND initGroupVariables(navigator, references, 'parentElement', this) FOREACH getGroupNames(references)-»
 		«FOREACH references AS reference ITERATOR referencesIterator-»
 			«FOREACH reference.findConnectionPaths() AS path ITERATOR pathsIterator-»
 				«FOREACH path.segments AS segment ITERATOR segmentsIterator-»
@@ -389,4 +391,34 @@ result.addAll(getForeignShortcuts((org.eclipse.gmf.runtime.notation.Diagram) vie
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNavigator-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenNavigator-»
+	«LET getChildReferencesFrom(this, null) AS references-»
+        «EXPAND internal_i18nAccessors(null) FOREACH getGroupNames(references)-»
+	«ENDLET-»
+	«FOREACH getNavigatorNodes(this) AS contextElement-»
+        «LET getChildReferencesFrom(this, contextElement) AS references-»
+            «EXPAND internal_i18nAccessors(contextElement) FOREACH getGroupNames(references)-»
+        «ENDLET-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE internal_i18nAccessors(gmfgen::GenCommonBase contextElement) FOR String-»
+«IF null != this»«EXPAND xpt::Externalizer::accessorField(i18nKeyForGroup(contextElement))»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenNavigator-»
+«LET getChildReferencesFrom(this, null) AS references-»
+«EXPAND internal_i18nValues(null) FOREACH getGroupNames(references)-»
+«ENDLET-»
+«FOREACH getNavigatorNodes(this) AS contextElement-»
+«LET getChildReferencesFrom(this, contextElement) AS references-»
+«EXPAND internal_i18nValues(contextElement) FOREACH getGroupNames(references)-»
+«ENDLET-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE internal_i18nValues(gmfgen::GenCommonBase contextElement) FOR String-»
+«IF null != this»«EXPAND xpt::Externalizer::messageEntry(i18nKeyForGroup(contextElement), this)»«ENDIF-»
 «ENDDEFINE»

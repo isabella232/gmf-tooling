@@ -104,7 +104,7 @@
          <metamodelType
                id="«uniqueIdentifier»"
 «IF null != displayName-»
-               name="«displayName»"
+               name="%metatype.name.«diagramElement.getUniqueIdentifier()»"
 «ENDIF-»
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="«getMetaClass().ecoreClass.name»"
@@ -128,7 +128,7 @@
          <specializationType
                id="«uniqueIdentifier»"
 «IF null != displayName-»
-               name="«displayName»"
+               name="%metatype.name.«diagramElement.getUniqueIdentifier()»"
 «ENDIF-»
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="«getEditHelperAdviceQualifiedClassName()»">
@@ -141,10 +141,20 @@
       <specializationType
             id="«uniqueIdentifier»"
 «IF null != displayName-»
-            name="«displayName»"
+            name="%metatype.name.«diagramElement.getUniqueIdentifier()»"
 «ENDIF-»
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="«diagramElement.visualID»"/>
       </specializationType>
+«ENDDEFINE»
+
+«DEFINE i18n FOR gmfgen::GenDiagram-»
+
+# Providers
+«EXPAND internal_i18n FOREACH getElements().elementType»
+«ENDDEFINE»
+
+«DEFINE internal_i18n FOR gmfgen::ElementType-»
+«IF null != displayName && !definedExternally»metatype.name.«diagramElement.getUniqueIdentifier()»=«displayName»«ENDIF»
 «ENDDEFINE»

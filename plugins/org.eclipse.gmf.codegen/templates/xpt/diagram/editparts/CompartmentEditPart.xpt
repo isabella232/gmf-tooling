@@ -43,7 +43,7 @@ public class «editPartClassName» extends
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getCompartmentName() {
-		return "«title»";
+		return «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCompartmentTitle()) FOR getDiagram().editorGen»;
 	}
 
 	«IF !needsTitle-»
@@ -121,4 +121,20 @@ public class «editPartClassName» extends
 		«ENDIF-»
 	}
 }
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«EXPAND internal_i18nAccessors FOREACH compartments»
+«ENDDEFINE»
+
+«DEFINE internal_i18nAccessors FOR gmfgen::GenCompartment-»
+«IF null != title»«EXPAND xpt::Externalizer::accessorField(i18nKeyForCompartmentTitle())»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND internal_i18nValues FOREACH compartments»
+«ENDDEFINE»
+
+«DEFINE internal_i18nValues FOR gmfgen::GenCompartment-»
+«IF null != title»«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCompartmentTitle(), title)»«ENDIF-»
 «ENDDEFINE»

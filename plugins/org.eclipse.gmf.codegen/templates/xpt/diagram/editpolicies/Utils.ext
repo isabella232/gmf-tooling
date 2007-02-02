@@ -104,3 +104,11 @@ private boolean canBeTarget(gmfgen::GenLink link, gmfgen::GenNode node) :
 private ecore::EClass getMetaclass(gmfgen::GenNode node) :
 	node.modelFacet.metaClass.ecoreClass
 ;
+
+String i18nKeyForLinkConstraintErrorLog() :
+"EvaluateOCLLinkConstraintError"
+;
+
+String i18nKeyForOpenCommandName() :
+"CommandName.OpenDiagram"
+;

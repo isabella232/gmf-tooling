@@ -31,14 +31,26 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 	private «getAccessorName()»() {
 	}
 
-	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette»
+	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-»
+	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
+    «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
+    «EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nAccessors FOR diagram-»
+    «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::i18nAccessors FOR diagram-»
+    «EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nAccessors FOR diagram-»
+    «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
     //TODO: put accessor fields manually	
 }
 «ENDDEFINE»
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
 # TODO: manually put keys and values
-«EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette»
+«EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-»
+«EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
+«EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
+«EXPAND xpt::diagram::editparts::CompartmentEditPart::i18nValues FOR diagram-»
+«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::i18nValues FOR diagram-»
+«EXPAND xpt::diagram::editpolicies::OpenDiagram::i18nValues FOR diagram-»
+«EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
 «ENDDEFINE»
 
 «DEFINE accessorField(String key) FOR Object»

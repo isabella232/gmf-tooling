@@ -13,6 +13,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::application::i18n»
+
 «DEFINE WorkbenchWindowAdvisor FOR gmfgen::GenApplication-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
@@ -45,9 +47,17 @@ public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.applicatio
 	public void preWindowOpen() {
 		org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(1000, 700));
-		configurer.setTitle("«title»");
+		configurer.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForWindowTitle()) FOR editorGen»);
 	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenApplication-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenApplication-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForWindowTitle())-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenApplication-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForWindowTitle(), title)-»
 «ENDDEFINE»

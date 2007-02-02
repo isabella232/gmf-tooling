@@ -399,7 +399,7 @@ private static boolean evaluate(«getAbstractExpressionQualifiedClassName()» cons
 		Object val = constraint.evaluate(sourceEnd, evalEnv);
 		return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 	} catch(Exception e) {	
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForLinkConstraintErrorLog()) FOR editorGen», e);
 		return false;
 	}
 }
@@ -449,3 +449,15 @@ private static class JavaConstraints {
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«IF null != editorGen.expressionProviders && hasOCLConstraints()-»
+    «EXPAND xpt::Externalizer::accessorField(i18nKeyForLinkConstraintErrorLog())-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«IF null != editorGen.expressionProviders && hasOCLConstraints()-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForLinkConstraintErrorLog(), "Link constraint evaluation error")-»
+«ENDIF-»
+«ENDDEFINE»

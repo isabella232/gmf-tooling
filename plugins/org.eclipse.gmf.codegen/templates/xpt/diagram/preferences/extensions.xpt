@@ -33,7 +33,7 @@
 «DEFINE preferencePage FOR gmfgen::GenPreferencePage-»
       <page
             id="«iD»"
-            name="«name»"
+            name="%preference.page.title.«iD»"
 «IF null != parent-»
             category="«parent.iD»"
 «ENDIF-»
@@ -65,4 +65,15 @@
 org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage«ELSE-»
 «ERROR "Unknown preference page: " + this»
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18n FOR gmfgen::GenDiagram-»
+
+# Preferences
+«EXPAND internal_i18n FOREACH preferencePages»
+«ENDDEFINE»
+
+«DEFINE internal_i18n FOR gmfgen::GenPreferencePage-»
+preference.page.title.«iD»=«name»
+«EXPAND internal_i18n FOREACH children-»
 «ENDDEFINE»

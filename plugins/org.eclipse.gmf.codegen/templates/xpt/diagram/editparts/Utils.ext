@@ -61,3 +61,7 @@ Boolean needsGraphicalNodeEditPolicy(gmfgen::GenNode node) :
 String getSetterName(gmfgen::ParentAssignedViewmap viewmap) :
 	viewmap.setterName == null ? "setLabel" : viewmap.setterName
 ;
+
+String i18nKeyForCompartmentTitle(gmfgen::GenCompartment compartment) :
+    compartment.editPartClassName+".title"
+;
