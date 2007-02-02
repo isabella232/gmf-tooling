@@ -21,6 +21,26 @@ String getQualifiedPackageInterfaceName(genmodel::GenPackage gp) :
 ;
 
 //
+// GenPackageImpl#getQualifiedFactoryInterfaceName()
+//
+String getQualifiedFactoryInterfaceName(genmodel::GenPackage gp) :
+	getQualifiedPackageName(gp, gp.metaDataPackageSuffix) + "." + getFactoryInterfaceName(gp)
+;
+
+//
+// GenPackageImpl#getQualifiedItemProviderAdapterFactoryClassName()
+//
+String getQualifiedItemProviderAdapterFactoryClassName(genmodel::GenPackage gp) :
+	getQualifiedPackageName(gp, gp.providerPackageSuffix) + "." + getItemProviderAdapterFactoryClassName(gp)
+;
+
+//
+// GenPackageImpl#getItemProviderAdapterFactoryClassName()
+//
+String getItemProviderAdapterFactoryClassName(genmodel::GenPackage gp) :
+	getPrefixedName(gp, "ItemProviderAdapterFactory")
+;
+//
 // GenClass#getQualifiedInterfaceName
 //
 String getQualifiedInterfaceName(genmodel::GenClass gc) :
@@ -50,6 +70,20 @@ String getClassifierAccessorName(genmodel::GenClass gc) :
 //
 String getFeatureAccessorName(genmodel::GenFeature gf) :
 	gf.genClass.ecoreClass.name + "_" + gf.ecoreFeature.name.toFirstUpper()
+;
+
+//
+// GenFeature#getQualifiedFeatureAccessorName
+//
+String getQualifiedFeatureAccessorName(genmodel::GenFeature gf) :
+	getQualifiedPackageInterfaceName(gf.genClass.genPackage) + ".eINSTANCE.get" + getFeatureAccessorName(gf)
+;
+
+//
+// GenClassifier#getQualifiedClassifierAccessor
+//
+String getQualifiedClassifierAccessor(genmodel::GenClass gc) :
+	getQualifiedPackageInterfaceName(gc.genPackage) + ".eINSTANCE.get" + getClassifierAccessorName(gc)
 ;
 
 // GenPackageImpl#getQualifiedPackageClassName()
@@ -87,6 +121,36 @@ boolean isExternalInterface(genmodel::GenClass genClass) :
 	null != genClass.ecoreClass.instanceClassName
 ;
 
+/*
+Casts the argument (which is assumed to be of the given source class) to the given target class. 
+A null value may be used for both source and target class to specify the EObject class.
+If the cast is required, it will be parenthesized as a whole, producing, e.g., ((EObject) o). 
+If the parentheses are not required, use unparenthesizedCast() extension.
+*/
+String parenthesizedCast(String what, genmodel::GenClass source, genmodel::GenClass target) :
+	needsCast(source, target) ? "(" + unparenthesizedCast(what, source, target) + ")" : what
+;
+
+/*
+Casts the argument (which is assumed to be of the given source class) to the given target class. 
+A null value may be used for both source and target class to specify the EObject class.
+If the cast is required, it will NOT be parenthesized as a whole, producing, e.g., (EObject) o. 
+If the parentheses are required, use parenthesizedCast() extension.
+*/
+String unparenthesizedCast(String what, genmodel::GenClass source, genmodel::GenClass target) :
+	needsCast(source, target) ? 
+		(target == null ? "(org.eclipse.emf.ecore.EObject)" + what : "(" + target.getQualifiedInterfaceName() + ")" + what)
+		: what
+;
+
+//See cast()
+private boolean needsCast(genmodel::GenClass source, genmodel::GenClass target) :
+	source == target ? true :
+		(target == null ? 
+			(source != null && source.isExternalInterface()) : 
+			source == null || target.isExternalInterface() || source.isExternalInterface() || target.ecoreClass.isSuperTypeOf(source.ecoreClass))
+;
+
 // GenPackageImpl#getReflectionClassPackageName()
 private String getReflectionClassPackageName(genmodel::GenPackage gp) :
 	getQualifiedPackageName(gp, gp.genModel.suppressInterfaces ? gp.metaDataPackageSuffix : gp.classPackageSuffix)
@@ -100,6 +164,11 @@ private string getPackageClassName(genmodel::GenPackage gp) :
 // GenPackageImpl#getPackageInterfaceName()
 private string getPackageInterfaceName(genmodel::GenPackage gp) :
 	gp.genModel.suppressEMFMetaData && !gp.genModel.suppressInterfaces ? getPrefixedName(gp, "PackageImpl") : getPrefixedName(gp, "Package")
+;
+
+// GenPackageImpl#getFactoryInterfaceName()
+private string getFactoryInterfaceName(genmodel::GenPackage gp) :
+	getPrefixedName(gp, "Factory")
 ;
 
 // GenPackageImpl#getPrefixedName()

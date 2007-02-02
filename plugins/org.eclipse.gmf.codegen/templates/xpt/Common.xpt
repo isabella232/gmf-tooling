@@ -56,16 +56,6 @@
  * @generated
  */«ENDDEFINE»
 
-«REM»FIXME remove when no longer used«ENDREM»
-«DEFINE generated FOR ecore::EString»
-/**
-«IF length() > 0-»
- * «replaceAll("\n", "\n *")»
-«ENDIF-»
- * @generated
- */
-«ENDDEFINE»
-
 «DEFINE getFeatureValue(String containerVar, boolean typedContainer) FOR genmodel::GenFeature-»
 	«IF isExternalInterface(genClass)-»
 ((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
