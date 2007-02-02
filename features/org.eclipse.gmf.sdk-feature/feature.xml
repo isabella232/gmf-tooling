@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gmf.sdk"
       label="%featureName"
-      version="1.0.2.qualifier"
+      version="1.0.3.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -60,7 +60,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.gmf.runtime.notation"/>
-      <import feature="org.eclipse.gef" version="3.2.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.gef" version="3.2.2" match="greaterOrEqual"/>
       <import feature="org.eclipse.emf" version="2.2.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.jdt" version="3.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.codegen"/>
