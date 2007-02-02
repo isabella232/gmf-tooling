@@ -840,12 +840,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getDocumentProviderEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getDocumentProviderClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getDocumentProviderEmitter(), myDiagram.getDocumentProviderQualifiedClassName(), myDiagram);
 	}
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {

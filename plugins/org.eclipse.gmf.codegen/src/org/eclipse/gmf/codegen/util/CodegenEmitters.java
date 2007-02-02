@@ -36,7 +36,6 @@ import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
-import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
@@ -205,7 +204,6 @@ public class CodegenEmitters {
 		put(tr, "/commands/CreateShortcutDecorationsCommand.javajet", CreateShortcutDecorationsCommand.class);
 		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
-		put(tr, "/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
@@ -538,7 +536,7 @@ public class CodegenEmitters {
 	}
 	
 	public TextEmitter getDocumentProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DocumentProviderGenerator.class);
+		return newXpandEmitter("xpt::editor::DocumentProvider::DocumentProvider"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {

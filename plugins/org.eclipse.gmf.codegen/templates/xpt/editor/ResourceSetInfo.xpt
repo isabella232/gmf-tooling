@@ -1,0 +1,164 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+
+«DEFINE ResourceSetInfo FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»	
+protected class ResourceSetInfo extends StorageInfo {
+
+	«EXPAND attributes-»
+	
+	«EXPAND constructor-»
+
+	«EXPAND getModificationStamp-»
+
+	«EXPAND setModificationStamp-»
+
+	«EXPAND getSynchronizer-»
+
+	«EXPAND getResourceSet-»
+
+	«EXPAND getEditorInput-»
+
+	«EXPAND dispose-»
+
+	«EXPAND isSynchronized-»
+
+	«EXPAND setFullySynchronized-»
+
+	«EXPAND setUnSynchronized-»
+
+	«EXPAND setSynchronized-»
+
+	«EXPAND stopResourceListening-»
+
+	«EXPAND startResourceListening-»
+
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE attributes FOR gmfgen::GenDiagram-»
+		«EXPAND xpt::Common::generatedMemberComment»
+	 	private long myModificationStamp = org.eclipse.core.resources.IResource.NULL_STAMP;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private ResourceSetSynchronizer mySynchronizer;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.emf.ecore.resource.ResourceSet myResourceSet;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private java.util.Collection myUnSynchronizedResources = new java.util.ArrayList();
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy myEditorInput;
+«ENDDEFINE»
+
+«DEFINE constructor FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public ResourceSetInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy editorInput) {
+	super(document);
+	myResourceSet = document.getEditingDomain().getResourceSet();
+	myEditorInput = editorInput;
+	mySynchronizer = new ResourceSetSynchronizer(this);
+	startResourceListening();
+}
+«ENDDEFINE»
+
+«DEFINE getModificationStamp FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public long getModificationStamp() {
+	return myModificationStamp;
+}
+«ENDDEFINE»
+
+«DEFINE setModificationStamp FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void setModificationStamp(long modificationStamp) {
+	myModificationStamp = modificationStamp;
+}
+«ENDDEFINE»
+
+«DEFINE getSynchronizer FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public ResourceSetSynchronizer getSynchronizer() {
+	return mySynchronizer;
+}
+«ENDDEFINE»
+
+«DEFINE getResourceSet FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
+	return myResourceSet;
+}
+«ENDDEFINE»
+
+«DEFINE getEditorInput FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy getEditorInput() {
+	return myEditorInput;
+}
+«ENDDEFINE»
+
+«DEFINE dispose FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void dispose() {
+	stopResourceListening();
+}
+«ENDDEFINE»
+
+«DEFINE isSynchronized FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public boolean isSynchronized() {
+	return myUnSynchronizedResources.size() == 0;
+}
+«ENDDEFINE»
+
+«DEFINE setFullySynchronized FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void setSynchronized() {
+	myUnSynchronizedResources.clear();
+}
+«ENDDEFINE»
+
+«DEFINE setUnSynchronized FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void setUnSynchronized(org.eclipse.emf.ecore.resource.Resource resource) {
+	myUnSynchronizedResources.add(resource);
+}
+«ENDDEFINE»
+
+«DEFINE setSynchronized FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void setSynchronized(org.eclipse.emf.ecore.resource.Resource resource) {
+	myUnSynchronizedResources.remove(resource);
+}
+«ENDDEFINE»
+
+«DEFINE stopResourceListening FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public final void stopResourceListening() {
+	org.eclipse.core.resources.ResourcesPlugin.getWorkspace().removeResourceChangeListener(mySynchronizer);
+}
+«ENDDEFINE»
+
+«DEFINE startResourceListening FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public final void startResourceListening() {
+	org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(mySynchronizer, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»
+«ENDDEFINE»
