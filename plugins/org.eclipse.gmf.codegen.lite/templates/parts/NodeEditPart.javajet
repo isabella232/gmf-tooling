@@ -674,7 +674,7 @@ if (genNode.getPrimaryDragEditPolicyQualifiedClassName() != null) {
 		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> decorationShape = createDecorationPane();
 		if (decorationShape != null) {
 			myDecorationManager = createDecorationManager(decorationShape);
-			invisibleRectangle.add(decorationShape);
+			invisibleRectangle.add(decorationShape, 0);
 		}
 
 		return invisibleRectangle;
