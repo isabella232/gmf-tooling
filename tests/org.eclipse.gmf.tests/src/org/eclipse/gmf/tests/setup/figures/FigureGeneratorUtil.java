@@ -108,6 +108,9 @@ public class FigureGeneratorUtil {
 	
 	public static Bundle installPlugin(String pluginId) throws CoreException, Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
+		if (RuntimeWorkspaceSetup.INSTANCE == null) {
+			RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
+		}
 		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
 		IStatus compileStatus = new CompileUtil().build(project);
 		Assert.assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
