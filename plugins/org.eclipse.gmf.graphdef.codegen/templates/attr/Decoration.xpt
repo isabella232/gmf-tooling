@@ -16,12 +16,14 @@
 
 «DEFINE polylineAttrs(String figureVarName) FOR gmfgraph::PolylineDecoration-»
 «EXPAND attr::Shape::shapeAttrs(figureVarName)-»
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «EXPAND templatePoints(figureVarName)-»
 «EXPAND scale(figureVarName)-»
 «ENDDEFINE»
 
 «DEFINE polylineAttrs(String figureVarName) FOR gmfgraph::PolygonDecoration-»
 «EXPAND attr::Shape::shapeAttrs(figureVarName)-»
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «EXPAND templatePoints(figureVarName)-»
 «EXPAND scale(figureVarName)-»
 «ENDDEFINE»
