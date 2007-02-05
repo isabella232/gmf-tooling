@@ -13,6 +13,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE Class FOR gmfgen::GenCustomPropertyTab»
+	«EXPAND xpt::Common::copyright FOR sheet.editorGen-»
 package «sheet.packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»

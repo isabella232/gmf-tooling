@@ -13,6 +13,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE Class FOR gmfgen::GenPropertySheet»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»

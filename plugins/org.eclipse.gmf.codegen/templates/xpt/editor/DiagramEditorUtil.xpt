@@ -16,6 +16,7 @@
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE DiagramEditorUtil FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
 package «editorGen.editor.packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
