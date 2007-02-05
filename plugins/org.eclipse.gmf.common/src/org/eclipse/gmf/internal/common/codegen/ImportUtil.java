@@ -70,6 +70,7 @@ public class ImportUtil implements ImportAssistant {
 		return myUnitName;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void markImportLocation(StringBuffer stringBuffer, GenPackage genPackage) {
 		markImportLocation(stringBuffer);
 		myImportManager.addJavaLangImports(genPackage.getJavaLangConflicts());
