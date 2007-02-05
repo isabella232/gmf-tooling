@@ -25,8 +25,6 @@ protected class ResourceSetInfo extends StorageInfo {
 
 	«EXPAND setModificationStamp-»
 
-	«EXPAND getSynchronizer-»
-
 	«EXPAND getResourceSet-»
 
 	«EXPAND getEditorInput-»
@@ -44,6 +42,8 @@ protected class ResourceSetInfo extends StorageInfo {
 	«EXPAND stopResourceListening-»
 
 	«EXPAND startResourceListening-»
+	
+	«EXPAND SynchronizerDelegate-»
 
 	«EXPAND additions-»
 }
@@ -54,10 +54,10 @@ protected class ResourceSetInfo extends StorageInfo {
 	 	private long myModificationStamp = org.eclipse.core.resources.IResource.NULL_STAMP;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private ResourceSetSynchronizer mySynchronizer;
+		private org.eclipse.emf.workspace.util.WorkspaceSynchronizer mySynchronizer;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.emf.ecore.resource.ResourceSet myResourceSet;
+		private org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument myDocument;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private java.util.Collection myUnSynchronizedResources = new java.util.ArrayList();
@@ -70,9 +70,8 @@ protected class ResourceSetInfo extends StorageInfo {
 	«EXPAND xpt::Common::generatedMemberComment»
 public ResourceSetInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy editorInput) {
 	super(document);
-	myResourceSet = document.getEditingDomain().getResourceSet();
+	myDocument = document;
 	myEditorInput = editorInput;
-	mySynchronizer = new ResourceSetSynchronizer(this);
 	startResourceListening();
 }
 «ENDDEFINE»
@@ -91,17 +90,10 @@ public void setModificationStamp(long modificationStamp) {
 }
 «ENDDEFINE»
 
-«DEFINE getSynchronizer FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public ResourceSetSynchronizer getSynchronizer() {
-	return mySynchronizer;
-}
-«ENDDEFINE»
-
 «DEFINE getResourceSet FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
-	return myResourceSet;
+	return myDocument.getEditingDomain().getResourceSet();
 }
 «ENDDEFINE»
 
@@ -150,15 +142,83 @@ public void setSynchronized(org.eclipse.emf.ecore.resource.Resource resource) {
 «DEFINE stopResourceListening FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public final void stopResourceListening() {
-	org.eclipse.core.resources.ResourcesPlugin.getWorkspace().removeResourceChangeListener(mySynchronizer);
+	mySynchronizer.dispose();
+	mySynchronizer = null;
 }
 «ENDDEFINE»
 
 «DEFINE startResourceListening FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public final void startResourceListening() {
-	org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(mySynchronizer, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
+	mySynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
 }
+«ENDDEFINE»
+
+«DEFINE SynchronizerDelegate FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»	
+private class SynchronizerDelegate implements org.eclipse.emf.workspace.util.WorkspaceSynchronizer.Delegate {
+
+	«EXPAND disposeSD-»
+
+	«EXPAND handleResourceChangedSD-»
+
+	«EXPAND handleResourceDeletedSD-»
+
+	«EXPAND handleResourceMovedSD-»
+	
+	«EXPAND additionsSD-»
+}
+«ENDDEFINE»
+
+
+«DEFINE disposeSD FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void dispose() {
+}
+«ENDDEFINE»	
+
+«DEFINE handleResourceChangedSD FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public boolean handleResourceChanged(final org.eclipse.emf.ecore.resource.Resource resource) {
+	org.eclipse.swt.widgets.Display.getDefault().asyncExec(new java.lang.Runnable() {
+		public void run() {
+			handleElementChanged(ResourceSetInfo.this, resource, null);
+		}
+	});
+	return true;
+}
+«ENDDEFINE»
+
+«DEFINE handleResourceDeletedSD FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public boolean handleResourceDeleted(org.eclipse.emf.ecore.resource.Resource resource) {
+	org.eclipse.swt.widgets.Display.getDefault().asyncExec(new java.lang.Runnable() {
+		public void run() {
+			handleElementDeleted(ResourceSetInfo.this.getEditorInput());
+		}
+	});
+	return true;
+}
+«ENDDEFINE»
+
+«DEFINE handleResourceMovedSD FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public boolean handleResourceMoved(org.eclipse.emf.ecore.resource.Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+	org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(resource);
+	if (file != null && file.equals(ResourceSetInfo.this.getEditorInput().getFile())) {
+		org.eclipse.swt.widgets.Display.getDefault().asyncExec(new java.lang.Runnable() {
+			public void run() {
+				handleElementMoved(ResourceSetInfo.this.getEditorInput(), new org.eclipse.core.runtime.Path(org.eclipse.emf.common.util.URI.decode(newURI.path())).removeFirstSegments(1));
+			}
+		});
+	} else {
+		handleResourceDeleted(resource);
+	}
+	return true;
+}
+«ENDDEFINE»
+
+«DEFINE additionsSD FOR gmfgen::GenDiagram-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»

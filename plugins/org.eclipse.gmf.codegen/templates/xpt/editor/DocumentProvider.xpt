@@ -63,13 +63,11 @@ public class «documentProviderClassName» extends org.eclipse.gmf.runtime.diagram
 	
 	«EXPAND doSynchronize-»
 	
-	«EXPAND handleResourcesMoved-»
-	
 	«EXPAND markWholeResourceSetAsDirty-»
 	
-	«EXPAND handleResourcesChanged-»
-	
 	«EXPAND doSaveDocument-»
+	
+	«EXPAND handleElementChanged-»
 
 	«EXPAND handleElementMoved-»
 
@@ -80,8 +78,6 @@ public class «documentProviderClassName» extends org.eclipse.gmf.runtime.diagram
 	«EXPAND getDiagramDocument-»
 	
 	«EXPAND xpt::editor::ResourceSetInfo::ResourceSetInfo-»
-	
-	«EXPAND xpt::editor::ResourceSetSynchronizer::ResourceSetSynchronizer-»
 	
 	«EXPAND xpt::editor::ResourceSetModificationListener::ResourceSetModificationListener-»
 
@@ -404,22 +400,13 @@ private org.eclipse.core.runtime.jobs.ISchedulingRule computeSchedulingRule(org.
 protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null && element instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy) {
-		handleResourcesChanged(info, info.getResourceSet().getResources(), monitor);
+		for (java.util.Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+			handleElementChanged(info, nextResource, monitor);	
+		}
 		return;
 	}
 	super.doSynchronize(element, monitor);
-}
-«ENDDEFINE»
-
-«DEFINE handleResourcesMoved FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-protected void handleResourcesMoved(java.util.Map movedPathToResource) {
-	for (java.util.Iterator it = movedPathToResource.entrySet().iterator(); it.hasNext();) {
-		java.util.Map.Entry nextEntry = (java.util.Map.Entry) it.next();
-		org.eclipse.core.runtime.IPath newPath = (org.eclipse.core.runtime.IPath) nextEntry.getKey();
-		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) nextEntry.getValue();
-		resource.setURI(org.eclipse.emf.common.util.URI.createURI(newPath.toString()));
-	}
 }
 «ENDDEFINE»
 
@@ -433,23 +420,18 @@ protected void markWholeResourceSetAsDirty(org.eclipse.emf.ecore.resource.Resour
 }
 «ENDDEFINE»
 
-«DEFINE handleResourcesChanged FOR gmfgen::GenDiagram-»
+«DEFINE handleElementChanged FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected void handleResourcesChanged(ResourceSetInfo info, java.util.Collection changedResources, org.eclipse.core.runtime.IProgressMonitor monitor) {
-	info.stopResourceListening();
-	for (java.util.Iterator it = changedResources.iterator(); it.hasNext();) {
-		org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-		org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
-		if (file != null) {
-			try {
-				file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
-			} catch (org.eclipse.core.runtime.CoreException e) {
-				handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
-			}
+protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.resource.Resource changedResource, org.eclipse.core.runtime.IProgressMonitor monitor) {
+	org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(changedResource);
+	if (file != null) {
+		try {
+			file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
+		} catch (org.eclipse.core.runtime.CoreException e) {
+			handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
 		}
-		nextResource.unload();
 	}
-	info.startResourceListening();
+	changedResource.unload();
 
 	fireElementContentAboutToBeReplaced(info.getEditorInput());
 	removeUnchangedElementListeners(info.getEditorInput(), info);
