@@ -45,8 +45,6 @@ import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
-import org.eclipse.gmf.codegen.templates.editor.PropertySectionGenerator;
-import org.eclipse.gmf.codegen.templates.editor.SheetLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
@@ -216,8 +214,6 @@ public class CodegenEmitters {
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
-		put(tr, "/propsheet/PropertySection.javajet", PropertySectionGenerator.class);
-		put(tr, "/propsheet/SheetLabelProvider.javajet", SheetLabelProviderGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
@@ -432,11 +428,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(SheetLabelProviderGenerator.class);
+		return newXpandEmitter("xpt::propsheet::LabelProvider::Class"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PropertySectionGenerator.class);
+		return newXpandEmitter("xpt::propsheet::PropertySection::Class"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
