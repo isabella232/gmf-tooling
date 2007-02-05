@@ -27,6 +27,7 @@ import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
 import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -356,7 +357,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				Object val = constraint.evaluate(sourceEnd, evalEnv);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				EcoreDiagramEditorPlugin.getInstance().logError(Messages.EvaluateOCLLinkConstraintError, e);
 				return false;
 			}
 		}

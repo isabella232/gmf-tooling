@@ -21,10 +21,6 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.IWorkspace;
@@ -33,6 +29,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
@@ -384,22 +381,13 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null && element instanceof FileEditorInputProxy) {
-			handleResourcesChanged(info, info.getResourceSet().getResources(), monitor);
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+				Resource nextResource = (Resource) it.next();
+				handleElementChanged(info, nextResource, monitor);
+			}
 			return;
 		}
 		super.doSynchronize(element, monitor);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleResourcesMoved(Map movedPathToResource) {
-		for (Iterator it = movedPathToResource.entrySet().iterator(); it.hasNext();) {
-			Map.Entry nextEntry = (Map.Entry) it.next();
-			IPath newPath = (IPath) nextEntry.getKey();
-			Resource resource = (Resource) nextEntry.getValue();
-			resource.setURI(org.eclipse.emf.common.util.URI.createURI(newPath.toString()));
-		}
 	}
 
 	/**
@@ -410,40 +398,6 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			Resource nextResource = (Resource) it.next();
 			nextResource.setModified(true);
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleResourcesChanged(ResourceSetInfo info, Collection changedResources, IProgressMonitor monitor) {
-		info.stopResourceListening();
-		for (Iterator it = changedResources.iterator(); it.hasNext();) {
-			Resource nextResource = (Resource) it.next();
-			IFile file = WorkspaceSynchronizer.getFile(nextResource);
-			if (file != null) {
-				try {
-					file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-				} catch (CoreException e) {
-					handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
-				}
-			}
-			nextResource.unload();
-		}
-		info.startResourceListening();
-
-		fireElementContentAboutToBeReplaced(info.getEditorInput());
-		removeUnchangedElementListeners(info.getEditorInput(), info);
-		info.fStatus = null;
-		try {
-			setDocumentContent(info.fDocument, info.getEditorInput());
-		} catch (CoreException e) {
-			info.fStatus = e.getStatus();
-		}
-		if (!info.fCanBeSaved) {
-			info.setModificationStamp(computeModificationStamp(info));
-		}
-		addUnchangedElementListeners(info.getEditorInput(), info);
-		fireElementContentReplaced(info.getEditorInput());
 	}
 
 	/**
@@ -489,6 +443,35 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			}
 		}
 		super.doSaveDocument(monitor, element, document, overwrite);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void handleElementChanged(ResourceSetInfo info, Resource changedResource, IProgressMonitor monitor) {
+		IFile file = WorkspaceSynchronizer.getFile(changedResource);
+		if (file != null) {
+			try {
+				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			} catch (CoreException e) {
+				handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
+			}
+		}
+		changedResource.unload();
+
+		fireElementContentAboutToBeReplaced(info.getEditorInput());
+		removeUnchangedElementListeners(info.getEditorInput(), info);
+		info.fStatus = null;
+		try {
+			setDocumentContent(info.fDocument, info.getEditorInput());
+		} catch (CoreException e) {
+			info.fStatus = e.getStatus();
+		}
+		if (!info.fCanBeSaved) {
+			info.setModificationStamp(computeModificationStamp(info));
+		}
+		addUnchangedElementListeners(info.getEditorInput(), info);
+		fireElementContentReplaced(info.getEditorInput());
 	}
 
 	/**
@@ -542,12 +525,12 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		private ResourceSetSynchronizer mySynchronizer;
+		private WorkspaceSynchronizer mySynchronizer;
 
 		/**
 		 * @generated
 		 */
-		private ResourceSet myResourceSet;
+		private IDiagramDocument myDocument;
 
 		/**
 		 * @generated
@@ -564,9 +547,8 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		 */
 		public ResourceSetInfo(IDiagramDocument document, FileEditorInputProxy editorInput) {
 			super(document);
-			myResourceSet = document.getEditingDomain().getResourceSet();
+			myDocument = document;
 			myEditorInput = editorInput;
-			mySynchronizer = new ResourceSetSynchronizer(this);
 			startResourceListening();
 		}
 
@@ -587,15 +569,8 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		public ResourceSetSynchronizer getSynchronizer() {
-			return mySynchronizer;
-		}
-
-		/**
-		 * @generated
-		 */
 		public ResourceSet getResourceSet() {
-			return myResourceSet;
+			return myDocument.getEditingDomain().getResourceSet();
 		}
 
 		/**
@@ -644,175 +619,70 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		 * @generated
 		 */
 		public final void stopResourceListening() {
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(mySynchronizer);
+			mySynchronizer.dispose();
+			mySynchronizer = null;
 		}
 
 		/**
 		 * @generated
 		 */
 		public final void startResourceListening() {
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(mySynchronizer, IResourceChangeEvent.POST_CHANGE);
-		}
-
-	}
-
-	/**
-	 * @generated
-	 */
-	protected class ResourceSetSynchronizer implements IResourceChangeListener {
-
-		/**
-		 * @generated
-		 */
-		private ResourceSetInfo myInfo;
-
-		/**
-		 * @generated
-		 */
-		protected ResourceSetSynchronizer(ResourceSetInfo info) {
-			myInfo = info;
+			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
 		}
 
 		/**
 		 * @generated
 		 */
-		public void resourceChanged(IResourceChangeEvent event) {
-			final ResourceDeltaVisitor deltaVisitor = new ResourceDeltaVisitor();
-			try {
-				event.getDelta().accept(deltaVisitor);
-			} catch (CoreException e) {
-				handleCoreException(e, "FileDocumentProvider.resourceChanged");
-			}
-			synchronized (myInfo) {
-				if (!myInfo.isSynchronized()) {
-					return;
-				}
+		private class SynchronizerDelegate implements WorkspaceSynchronizer.Delegate {
+
+			/**
+			 * @generated
+			 */
+			public void dispose() {
 			}
 
-			Display.getDefault().asyncExec(new Runnable() {
-
-				public void run() {
-					if (deltaVisitor.getDeletedResources().size() > 0) {
-						// Just closing editor
-						handleElementDeleted(myInfo.getEditorInput());
-						return;
-					}
-
-					Map.Entry diagramEntry = getDiagramResourceEntry(deltaVisitor.getMovedResourcesMap());
-					if (diagramEntry != null) {
-						deltaVisitor.getMovedResourcesMap().remove(diagramEntry.getKey());
-						// Setting new editor input since diagram file was
-						// renamed Could be processed together with the rest of
-						// moved resources if org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy will wupport
-						// org.eclipse.ui.IFileEditorInput substitution
-						handleElementMoved(myInfo.getEditorInput(), (IPath) diagramEntry.getKey());
-					}
-					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
-						handleResourcesMoved(deltaVisitor.getMovedResourcesMap());
-					}
-					if (deltaVisitor.getChangedResources().size() > 0 || deltaVisitor.getMovedResourcesMap().size() > 0) {
-						// reloading changed resources + changing URIs for moved
-						// resources
-						handleResourcesChanged(myInfo, deltaVisitor.getChangedResources(), null);
-					}
-					if (deltaVisitor.getMovedResourcesMap().size() > 0) {
-						// Marking whole org.eclipse.emf.ecore.resource.ResourceSet as changed to preserve
-						// changes in resource URIs made by
-						// handleResourcesMoved() call
-						markWholeResourceSetAsDirty(myInfo.getResourceSet());
-					}
-				}
-			});
-		}
-
-		/**
-		 * @generated
-		 */
-		private Map.Entry getDiagramResourceEntry(Map movedResources) {
-			for (Iterator it = movedResources.entrySet().iterator(); it.hasNext();) {
-				Map.Entry nextEntry = (Map.Entry) it.next();
-				Resource nextResource = (Resource) nextEntry.getValue();
-				IFile file = WorkspaceSynchronizer.getFile(nextResource);
-				if (file != null && file.equals(myInfo.getEditorInput().getFile())) {
-					return nextEntry;
-				}
-			}
-			return null;
-		}
-
-		/**
-		 * @generated
-		 */
-		private class ResourceDeltaVisitor implements IResourceDeltaVisitor {
-
 			/**
 			 * @generated
 			 */
-			private Collection myChangedResources = new ArrayList();
+			public boolean handleResourceChanged(final Resource resource) {
+				Display.getDefault().asyncExec(new Runnable() {
 
-			/**
-			 * @generated
-			 */
-			private Map myMovedResources = new HashMap();
-
-			/**
-			 * @generated
-			 */
-			private Collection myDeletedResources = new ArrayList();
-
-			/**
-			 * Can be called from any thread
-			 * @generated
-			 */
-			public boolean visit(IResourceDelta delta) {
-				if (delta.getFlags() != IResourceDelta.MARKERS && delta.getResource().getType() == IResource.FILE) {
-					if ((delta.getKind() & (IResourceDelta.CHANGED | IResourceDelta.REMOVED)) != 0) {
-						Resource resource = myInfo.getResourceSet().getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
-						if (resource != null && resource.isLoaded()) {
-							synchronized (myInfo) {
-								if (myInfo.fCanBeSaved) {
-									myInfo.setUnSynchronized(resource);
-									return false;
-								}
-							}
-							if ((delta.getKind() & IResourceDelta.REMOVED) != 0) {
-								// element could be either moved/deleted or
-								// changed.
-								if ((IResourceDelta.MOVED_TO & delta.getFlags()) != 0) {
-									IPath destination = delta.getMovedToPath();
-									myMovedResources.put(destination, resource);
-								} else {
-									myDeletedResources.add(resource);
-								}
-							} else {
-								myChangedResources.add(resource);
-							}
-						}
+					public void run() {
+						handleElementChanged(ResourceSetInfo.this, resource, null);
 					}
-				}
-
+				});
 				return true;
 			}
 
 			/**
 			 * @generated
 			 */
-			public Collection getChangedResources() {
-				return myChangedResources;
+			public boolean handleResourceDeleted(Resource resource) {
+				Display.getDefault().asyncExec(new Runnable() {
+
+					public void run() {
+						handleElementDeleted(ResourceSetInfo.this.getEditorInput());
+					}
+				});
+				return true;
 			}
 
 			/**
 			 * @generated
 			 */
-			public Collection getDeletedResources() {
-				return myDeletedResources;
-			}
+			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+				IFile file = WorkspaceSynchronizer.getFile(resource);
+				if (file != null && file.equals(ResourceSetInfo.this.getEditorInput().getFile())) {
+					Display.getDefault().asyncExec(new Runnable() {
 
-			/**
-			 * @generated
-			 */
-			public Map getMovedResourcesMap() {
-				return myMovedResources;
+						public void run() {
+							handleElementMoved(ResourceSetInfo.this.getEditorInput(), new Path(org.eclipse.emf.common.util.URI.decode(newURI.path())).removeFirstSegments(1));
+						}
+					});
+				} else {
+					handleResourceDeleted(resource);
+				}
+				return true;
 			}
 
 		}

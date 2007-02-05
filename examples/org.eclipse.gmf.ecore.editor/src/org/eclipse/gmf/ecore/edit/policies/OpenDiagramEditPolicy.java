@@ -29,6 +29,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditor;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -77,7 +78,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		OpenDiagramCommand(EAnnotation annotation) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
-			super(TransactionUtil.getEditingDomain(annotation), "Open diagram", null);
+			super(TransactionUtil.getEditingDomain(annotation), Messages.CommandName_OpenDiagram, null);
 			diagramFacet = annotation;
 		}
 

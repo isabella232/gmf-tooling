@@ -189,5 +189,205 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	public static String Generalization4CreationTool_desc;
 
+	/**
+	 * @generated
+	 */
+	public static String EClassAttributesEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EClassOperationsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EClassClassAnnotationsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EPackageClassesEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EPackagePackagesEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EPackageDataTypesEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EPackageEnumsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EPackagePackageAnnotationsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EAnnotationDetailsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EDataTypeDataTypeAnnotationsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EEnumLiteralsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EEnumEnumAnnotationsEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EvaluateOCLLinkConstraintError;
+
+	/**
+	 * @generated
+	 */
+	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EPackage_1000_links;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClass_2001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClass_2001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EPackage_2002_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotation_2003_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotation_2003_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EDataType_2004_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EEnum_2005_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAttribute_3001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EOperation_3002_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotation_3003_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotation_3003_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClass_3004_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClass_3004_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EPackage_3005_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EDataType_3006_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EEnum_3007_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EEnumLiteral_3009_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotationReferences_4001_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EAnnotationReferences_4001_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EReference_4002_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EReference_4002_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EReference_4003_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EReference_4003_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClassESuperTypes_4004_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EClassESuperTypes_4004_source;
+
 	//TODO: put accessor fields manually	
 }

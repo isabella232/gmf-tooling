@@ -251,7 +251,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EPackage_1000"
-               name="Undefined"
+               name="%metatype.name.EPackage_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EPackage"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageEditHelper">
@@ -261,7 +261,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EClass_2001"
-               name="EClass"
+               name="%metatype.name.EClass_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EClass"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelper">
@@ -271,7 +271,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EPackage_2002"
-               name="EPackage"
+               name="%metatype.name.EPackage_2002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackageEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
@@ -281,7 +281,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
-               name="EAnnotation"
+               name="%metatype.name.EAnnotation_2003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
@@ -291,7 +291,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EDataType_2004"
-               name="EDataType"
+               name="%metatype.name.EDataType_2004"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EDataType_3006"/>
@@ -301,7 +301,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EEnum_2005"
-               name="EEnum"
+               name="%metatype.name.EEnum_2005"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
@@ -311,7 +311,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EAttribute_3001"
-               name="EAttribute"
+               name="%metatype.name.EAttribute_3001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAttribute"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeEditHelper">
@@ -321,7 +321,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EOperation_3002"
-               name="EOperation"
+               name="%metatype.name.EOperation_3002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EOperation"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationEditHelper">
@@ -331,7 +331,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"
-               name="EAnnotation"
+               name="%metatype.name.EAnnotation_3003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAnnotation"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelper">
@@ -341,7 +341,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClass_3004"
-               name="EClass"
+               name="%metatype.name.EClass_3004"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
@@ -351,7 +351,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EPackage_3005"
-               name="EPackage"
+               name="%metatype.name.EPackage_3005"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage2EditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
@@ -361,7 +361,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EDataType_3006"
-               name="EDataType"
+               name="%metatype.name.EDataType_3006"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EDataType"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelper">
@@ -371,7 +371,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EEnum_3007"
-               name="EEnum"
+               name="%metatype.name.EEnum_3007"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnum"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelper">
@@ -381,7 +381,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
-               name="EStringToStringMapEntry"
+               name="%metatype.name.EStringToStringMapEntry_3008"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EStringToStringMapEntry"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryEditHelper">
@@ -391,7 +391,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"
-               name="EEnumLiteral"
+               name="%metatype.name.EEnumLiteral_3009"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnumLiteral"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralEditHelper">
@@ -401,7 +401,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
-               name="Undefined"
+               name="%metatype.name.EAnnotationReferences_4001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferencesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -411,7 +411,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EReference_4002"
-               name="EReference"
+               name="%metatype.name.EReference_4002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EReference"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelper">
@@ -421,7 +421,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EReference_4003"
-               name="EReference"
+               name="%metatype.name.EReference_4003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EReference_4002"/>
@@ -431,7 +431,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
-               name="Undefined"
+               name="%metatype.name.EClassESuperTypes_4004"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -631,36 +631,36 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.emf.ecore.diagram.general"
-            name="Ecore Diagram"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.appearance"
-            name="Appearance"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.appearance"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.connections"
-            name="Connections"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.connections"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.printing"
-            name="Printing"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.printing"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            name="Rulers And Grid"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.rulersAndGrid"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.emf.ecore.diagram.pathmaps"
-            name="Pathmaps"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.pathmaps"
             category="org.eclipse.emf.ecore.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>

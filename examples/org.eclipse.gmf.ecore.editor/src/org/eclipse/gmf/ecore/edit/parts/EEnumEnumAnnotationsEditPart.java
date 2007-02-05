@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnumEnumAnnotationsCanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnumEnumAnnotationsItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -52,7 +53,7 @@ public class EEnumEnumAnnotationsEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "enumAnnotations";
+		return Messages.EEnumEnumAnnotationsEditPart_title;
 	}
 
 	/**

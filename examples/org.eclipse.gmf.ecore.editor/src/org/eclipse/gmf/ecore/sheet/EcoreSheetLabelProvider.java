@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,19 +11,15 @@
  */
 package org.eclipse.gmf.ecore.sheet;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-
-import org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup;
-
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-
-import org.eclipse.jface.viewers.DecoratingLabelProvider;
 
 /**
  * @generated
@@ -90,4 +86,5 @@ public class EcoreSheetLabelProvider extends DecoratingLabelProvider {
 	private Object unwrapView(View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
+
 }

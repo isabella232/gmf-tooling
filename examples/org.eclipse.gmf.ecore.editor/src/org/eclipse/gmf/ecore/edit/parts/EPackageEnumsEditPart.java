@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackageEnumsCanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackageEnumsItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -52,7 +53,7 @@ public class EPackageEnumsEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "enums";
+		return Messages.EPackageEnumsEditPart_title;
 	}
 
 	/**
