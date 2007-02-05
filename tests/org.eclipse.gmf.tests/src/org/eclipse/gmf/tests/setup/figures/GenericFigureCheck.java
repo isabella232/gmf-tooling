@@ -20,6 +20,7 @@ import java.util.List;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.draw2d.geometry.Transform;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
@@ -40,7 +41,9 @@ import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.Polyline;
+import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
@@ -138,6 +141,7 @@ public class GenericFigureCheck extends FigureCheck {
 	}
 
 	protected void checkPolylinePoints(Figure gmfFigure, IFigure d2dFigure) {
+
 		if (gmfFigure instanceof ScalablePolygon){
 			checkScalablePolygon((ScalablePolygon) gmfFigure, d2dFigure);
 			//ad hoc code is generated, not related to d2d.Polyline 
@@ -151,12 +155,18 @@ public class GenericFigureCheck extends FigureCheck {
 
 			PointList d2dPoints = d2dPolyline.getPoints();
 			List gmfPoints = gmfPolyline.getTemplate();
+			final Transform transform = new Transform();
+
+			if (gmfFigure instanceof PolylineDecoration || gmfFigure instanceof PolygonDecoration) {
+				// XXX as long as Decoration.xpt has scale factor hardcoded, use it here
+				transform.setScale(7, 3);
+			}
 
 			assertEquals(gmfPoints.size(), d2dPoints.size());
 			for (int i = 0; i < d2dPoints.size(); i++) {
 				Point ePoint = (Point) gmfPoints.get(i);
 				org.eclipse.draw2d.geometry.Point d2dPoint = d2dPoints.getPoint(i);
-				checkPoint(ePoint, d2dPoint);
+				checkPoint(transform, ePoint, d2dPoint);
 			}
 		}
 	}
@@ -165,6 +175,10 @@ public class GenericFigureCheck extends FigureCheck {
 		//hard to write checks -- we do not even know the class of d2d figure
 		//all we may check is that it can be compiled and instantiated
 		assertNotNull(figure);
+	}
+
+	private void checkPoint(Transform tr, Point ePoint, org.eclipse.draw2d.geometry.Point d2dPoint) {
+		assertEquals(tr.getTransformed(new org.eclipse.draw2d.geometry.Point(ePoint.getX(), ePoint.getY())), d2dPoint);
 	}
 
 	protected final void checkPoint(Point ePoint, org.eclipse.draw2d.geometry.Point d2dPoint) {

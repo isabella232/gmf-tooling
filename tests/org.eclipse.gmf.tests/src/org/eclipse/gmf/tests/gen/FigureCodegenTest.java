@@ -48,9 +48,13 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 	
 	public void testGenPolylineConnection() {
-		performTests(getSessionSetup().getEcoreContainmentRef(), new FigureCheck() {
+		final org.eclipse.gmf.gmfgraph.PolylineConnection f = getSessionSetup().getEcoreContainmentRef();
+		performTests(f, new GenericFigureCheck(null/*fake arg*/) {
 			protected void checkFigure(IFigure figure) {
 				assertTrue(figure instanceof PolylineConnectionEx);
+				assertTrue(figure.getChildren().get(0) instanceof PolygonDecoration);
+				// bug #172864
+				checkFigure(f.getSourceDecoration(), (PolygonDecoration) figure.getChildren().get(0));
 			}
 		});
 	}
