@@ -10,13 +10,17 @@ package org.eclipse.gmf.internal.xpand.build;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.LinkedList;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.gmf.internal.xpand.Activator;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
@@ -94,6 +98,31 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 			wrap.initCause(ex);
 			throw wrap;
 		}
+	}
+
+	protected ResourceManager[] getDependenies() {
+		LinkedList<ResourceManager> rv = new LinkedList<ResourceManager>();
+		try {
+			IProject[] referencedProjects = contextProject.getReferencedProjects();
+				for (IProject next : referencedProjects) {
+					if (!next.isAccessible() || !hasXpandBuilder(next)) {
+						continue;
+					}
+					rv.add(Activator.getResourceManager(next));
+				}
+		} catch (CoreException e) {
+			//ignore
+		}
+		return rv.toArray(new ResourceManager[rv.size()]);
+	}
+
+	private static boolean hasXpandBuilder(IProject p) throws CoreException {
+		for (ICommand c : p.getDescription().getBuildSpec()) {
+			if (OawBuilder.getBUILDER_ID().equals(c.getBuilderName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private String toFullyQualifiedName(IFile file) {

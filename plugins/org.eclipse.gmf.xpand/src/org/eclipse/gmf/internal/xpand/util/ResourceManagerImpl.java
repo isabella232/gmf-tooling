@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.xpand.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 
@@ -23,10 +24,10 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		Reader r = null;
 		try {
 			r = resolve(fullyQualifiedName, XtendResource.FILE_EXTENSION);
-			if (r == null) {
-				return null;
-			}
+			assert r != null;
 			return loadXtendResource(r, fullyQualifiedName);
+		} catch (FileNotFoundException ex) {
+			return delegateLoadXtendResource(fullyQualifiedName);
 		} catch (IOException ex) {
 			Activator.logError(ex);
 		} catch (ParserException ex) {
@@ -45,12 +46,12 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		Reader r = null;
 		try {
 			r = resolve(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
-			if (r == null) {
-				return null;
-			}
+			assert r != null; // exception should be thrown to indicate issues with resolve
 			return loadXpandResource(r, fullyQualifiedName);
+		} catch (FileNotFoundException ex) {
+			return delegateLoadXpandResource(fullyQualifiedName);
 		} catch (IOException ex) {
-			// XXX come up with better handling - e.g. no need to notify if there's no aspects/ file
+			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
 		} catch (ParserException ex) {
 			handleParserException(fullyQualifiedName, ex);
@@ -64,11 +65,43 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		return null;
 	}
 
+	protected XtendResource delegateLoadXtendResource(String fullyQualifiedName) {
+		for (ResourceManager next : getDependenies()) {
+			XtendResource r = next.loadXtendResource(fullyQualifiedName);
+			if (r != null) {
+				return r;
+			}
+		}
+		return null;
+	}
+
+	protected XpandResource delegateLoadXpandResource(String fullyQualifiedName) {
+		for (ResourceManager next : getDependenies()) {
+			XpandResource r = next.loadXpandResource(fullyQualifiedName);
+			if (r != null) {
+				return r;
+			}
+		}
+		return null;
+	}
+
 	protected void handleParserException(String name, ParserException ex) {
 		Activator.logWarn(name + ":" + ex.getClass().getName());
 	}
 
+	/**
+	 * @return never return <code>null</code>, throw exception instead
+	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
+	 */
 	protected abstract Reader resolve(String fullyQualifiedName, String extension) throws IOException;
+
+	/**
+	 * Override if your implementation supports dependenices
+	 * @return never null
+	 */
+	protected ResourceManager[] getDependenies() {
+		return new ResourceManager[0];
+	}
 
 	protected XtendResource loadXtendResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
 		return new XtendResourceParser().parse(reader, fullyQualifiedName);
@@ -77,5 +110,4 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected XpandResource loadXpandResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
 		return new XpandResourceParser().parse(reader, fullyQualifiedName);
 	}
-
 }
