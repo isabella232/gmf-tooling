@@ -323,6 +323,10 @@ public class CodegenEmitters {
 		return retrieve(NewDiagramFileWizardGenerator.class);
 	}
 
+	public TextEmitter getLoadResourceActionGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::editor::LoadResourceAction::LoadResourceAction");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getPluginPropertiesGenerator() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::properties::properties");	//$NON-NLS-1$
 	}

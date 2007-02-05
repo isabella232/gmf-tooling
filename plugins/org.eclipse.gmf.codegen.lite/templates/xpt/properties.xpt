@@ -34,6 +34,7 @@ _UI_Menu_InitDiagramFile_label=Initialize «editorGen.diagramFileExtension» diagr
 _UI_Menu_OpenDiagramView_label=Open diagram in «editorGen.modelID» Diagram View
 «ENDIF-»
 «ENDIF-»
+loadResourceActionLabel=Load Resource...
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenPlugin-»

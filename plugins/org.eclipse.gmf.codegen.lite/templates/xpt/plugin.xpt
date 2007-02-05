@@ -43,9 +43,9 @@
 «ENDDEFINE»
 
 «DEFINE menu FOR gmfgen::GenPlugin-»
-«IF null == editorGen.application-»
    <extension point="org.eclipse.ui.popupMenus">
      <?gmfgen generated="true"?>
+«IF null == editorGen.application-»
       <objectContribution
             id="«iD».ui.objectContribution.IFile1"
             nameFilter="*.«editorGen.domainFileExtension»"
@@ -74,8 +74,20 @@
          </action>
       </objectContribution>
 	«ENDIF-»
-   </extension>
 «ENDIF-»
+      <objectContribution
+            adaptable="false"
+            id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»2"
+            objectClass="«editorGen.diagram.getEditPartQualifiedClassName()»">
+         <action
+               class="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»"
+               enablesFor="1"
+               id="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»ID"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>  
+   </extension>
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenPlugin-»
