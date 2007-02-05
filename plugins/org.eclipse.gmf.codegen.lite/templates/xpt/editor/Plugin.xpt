@@ -17,6 +17,7 @@
 «EXTENSION xpt::providers::ValidationUtils»
 
 «DEFINE Plugin FOR gmfgen::GenPlugin-»
+«EXPAND xpt::Common::copyright FOR editorGen»
 package «editorGen.editor.packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
@@ -186,11 +187,11 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 	}
 	
 	«EXPAND xpt::Common::generatedMemberComment("Respects images residing in any plug-in. If path is relative,\n" + 
-	  "then this bundle is looked up for the image, otherwise, for absolute \n" + 
-	  "path, first segment is taken as id of plug-in with image\n" + 
+	 "then this bundle is looked up for the image, otherwise, for absolute \n" + 
+	 "path, first segment is taken as id of plug-in with image\n" + 
 	 "\n" + 
-	  "@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images\n" + 
-	  "@return the image descriptor")»
+	 "@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images\n" + 
+	 "@return the image descriptor")»
 	public static org.eclipse.jface.resource.ImageDescriptor findImageDescriptor(String path) {
 		final org.eclipse.core.runtime.IPath p = new org.eclipse.core.runtime.Path(path);
 		if (p.isAbsolute() && p.segmentCount() > 1) {

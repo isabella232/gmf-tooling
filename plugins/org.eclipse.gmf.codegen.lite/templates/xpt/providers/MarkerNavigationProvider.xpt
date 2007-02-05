@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «DEFINE MarkerNavigationProvider FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen»
 package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»

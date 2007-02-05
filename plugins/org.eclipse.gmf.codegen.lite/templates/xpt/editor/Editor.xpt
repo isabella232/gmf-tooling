@@ -25,6 +25,7 @@
 «ENDDEFINE»
 
 «DEFINE EditorPart FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::copyright FOR editorGen»
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
@@ -57,6 +58,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramEdito
 «ENDDEFINE»
 
 «DEFINE ViewPart FOR gmfgen::GenEditorView-»
+«EXPAND xpt::Common::copyright FOR editorGen»
 package «packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
