@@ -37,21 +37,4 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>templates/xpt/GenModelUtils.ext</name>
-			<type>1</type>
-			<location>GMF_DEV_ROOT/org.eclipse.gmf.codegen/templates/xpt/GenModelUtils.ext</location>
-		</link>
-		<link>
-			<name>templates/xpt/Common.xpt</name>
-			<type>1</type>
-			<location>GMF_DEV_ROOT/org.eclipse.gmf.codegen/templates/xpt/Common.xpt</location>
-		</link>
-		<link>
-			<name>templates/xpt/Utils.ext</name>
-			<type>1</type>
-			<location>GMF_DEV_ROOT/org.eclipse.gmf.codegen/templates/xpt/Utils.ext</location>
-		</link>
-	</linkedResources>
 </projectDescription>
