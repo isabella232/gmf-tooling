@@ -14,17 +14,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
-import org.eclipse.gmf.internal.xpand.parser.XpandParser;
-import org.eclipse.gmf.internal.xpand.xtend.parser.XtendLexer;
-import org.eclipse.gmf.internal.xpand.xtend.parser.XtendParser;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
+import org.eclipse.gmf.internal.xpand.parser.XpandParser;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.gmf.internal.xpand.xtend.parser.XtendLexer;
+import org.eclipse.gmf.internal.xpand.xtend.parser.XtendParser;
 
 /**
  * @author artem
@@ -116,17 +115,5 @@ public class TestsResourceManager implements ResourceManager {
 			res.write(bb, 0, read);
 		}
 		return res.toCharArray();
-	}
-
-	public void forget(IFile resource) {
-		throw new UnsupportedOperationException();
-	}
-
-	public XpandResource loadXpandResource(IFile file) {
-		throw new UnsupportedOperationException();
-	}
-
-	public XtendResource loadXtendResource(IFile file) {
-		throw new UnsupportedOperationException();
 	}
 }
