@@ -45,6 +45,7 @@ import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
+import org.eclipse.gmf.internal.util.GMFGenConfig;
 import org.eclipse.gmf.mappings.Mapping;
 
 
