@@ -273,8 +273,8 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		GraphicalViewer viewer = new ScrollingGraphicalViewer();
 		viewer.createControl(parent);
 		setGraphicalViewer(viewer);
-		myDiagramManager.configureGraphicalViewer();
 		hookGraphicalViewer();
+		myDiagramManager.configureGraphicalViewer();
 		initializeGraphicalViewer();
 	}
 
