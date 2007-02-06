@@ -315,31 +315,27 @@ public abstract class GeneratorBase implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			setProgressTaskName(className);
-			pm.beginTask(null, 5);
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
+			pm.beginTask(null, 6);
+			String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
 			if (cu.exists()) {
 				final String oldContents = cu.getSource();
-				genText = mergeJavaCode(oldContents, genText, new SubProgressMonitor(pm, 1));
+				cu.getBuffer().setContents(genText);
+				try {
+					getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+				} catch (CoreException e) {
+					cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
+					throw e;
+				}
+				genText = mergeJavaCode(oldContents, cu.getSource(), new SubProgressMonitor(pm, 1));
 				genText = formatCode(genText);
-				if (!genText.equals(oldContents)) { // compare text with fqns; works for jet templates
+				if (!genText.equals(oldContents)) {
 					cu.getBuffer().setContents(genText);
-					try {
-						getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
-					} catch (CoreException e) {
-						cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
-						throw e;
-					}
-					String newContents = formatCode(cu.getSource());
-					if (!newContents.equals(oldContents)) { // compare text with organized imports; works for xpand templates
-						cu.getBuffer().setContents(newContents);
-						cu.save(new SubProgressMonitor(pm, 1), true);
-					} else {
-						pm.worked(1);
-					}
+					cu.save(new SubProgressMonitor(pm, 1), true);
 				} else {
-					pm.worked(2);
+					cu.getBuffer().close(); // discard changes
+					pm.worked(1);
 				}
 			} else {
 				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
