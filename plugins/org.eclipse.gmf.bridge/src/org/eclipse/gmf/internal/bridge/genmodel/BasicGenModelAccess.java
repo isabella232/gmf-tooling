@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,11 +12,11 @@
 package org.eclipse.gmf.internal.bridge.genmodel;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
@@ -113,9 +113,11 @@ public class BasicGenModelAccess implements GenModelAccess {
 
 	public IStatus load(ResourceSet rs) {
 		assert !locations.isEmpty(); // XXX if isEmpty() initDefault?
-		for (Iterator/* <URI> */it = locations.iterator(); it.hasNext();) {
+
+		List<IStatus> exceptions = new LinkedList<IStatus>();
+		final String id = "org.eclipse.gmf.bridge"; //$NON-NLS-1$
+		for (URI uri : locations) {
 			try {
-				URI uri = (URI) it.next();
 				Resource r = rs.getResource(uri, false);
 				needUnload = r == null || !r.isLoaded();
 				r = rs.getResource(uri, true);
@@ -124,12 +126,15 @@ public class BasicGenModelAccess implements GenModelAccess {
 					return Status.OK_STATUS;
 				}
 			} catch (WrappedException ex) {
-				// FIXME collect into status
-				System.err.println(ex.getMessage());
+				exceptions.add(new Status(IStatus.ERROR, id, ex.getMessage(), ex.getCause()));
 			}
 		}
 		needUnload = false;
-		return Status.CANCEL_STATUS; // FIXME
+		if (exceptions.isEmpty()) {
+			return Status.CANCEL_STATUS;
+		}
+		IStatus[] sa = exceptions.toArray(new IStatus[exceptions.size()]);
+		return new MultiStatus(id, 0, sa, "Problems while loading GenModel", null); //$NON-NLS-1$
 	}
 
 	/**
