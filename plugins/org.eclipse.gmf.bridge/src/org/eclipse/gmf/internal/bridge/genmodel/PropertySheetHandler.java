@@ -53,6 +53,7 @@ public class PropertySheetHandler {
 		addTab(t1);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void addCustomTabs(CanvasMapping canvas) {
 		if (!hasDomainModel(canvas)) {
 			return;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,7 +53,7 @@ public class DummyGenModel {
 		final String pluginID = getPluginID();
 		genModel.setModelName(getModelName());
 		genModel.setModelPluginID(pluginID);
-		genModel.setModelDirectory("/" + pluginID + "/src/");
+		genModel.setModelDirectory("/" + pluginID + "/src/"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		// need different prefix to avoid name collisions with code generated
 		// for domain model
@@ -86,18 +86,19 @@ public class DummyGenModel {
 
 	private String getPluginID() {
 		if (myPluginID == null) {
-			return "org.sample." + getModelName().toLowerCase();
+			return "org.sample." + getModelName().toLowerCase(); //$NON-NLS-1$
 		}
 		return myPluginID;
 	}
 
 	private String asValidPackageName(String pluginID) {
 		String rv = pluginID.toLowerCase();
-		if (JavaConventions.validatePackageName(rv).getSeverity() != IStatus.ERROR) {
+		final String complianceLevel = "1.3"; //$NON-NLS-1$
+		if (JavaConventions.validatePackageName(rv, complianceLevel, complianceLevel).getSeverity() != IStatus.ERROR) {
 			return rv;
 		}
 		StringBuilder sb = new StringBuilder(rv.length());
-		StringTokenizer st = new StringTokenizer(rv, ".");
+		StringTokenizer st = new StringTokenizer(rv, "."); //$NON-NLS-1$
 		while (st.hasMoreTokens()) {
 			if (appendOnlyJavaChars(sb, st.nextToken())) {
 				sb.append('.');
@@ -110,7 +111,7 @@ public class DummyGenModel {
 		if (!Character.isJavaIdentifierStart(sb.charAt(0))) {
 			sb.insert(0, 'a');
 		}
-		assert JavaConventions.validatePackageName(sb.toString()).isOK();
+		assert JavaConventions.validatePackageName(sb.toString(), complianceLevel, complianceLevel).isOK();
 		return sb.toString();
 	}
 

@@ -60,7 +60,7 @@ public class BasicGenModelAccess implements GenModelAccess {
 	 * @return uri registered in ecore's extpoint, if any
 	 */
 	protected final URI fromExtpoint(String nsURI) {
-		return (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(nsURI);
+		return EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(nsURI);
 	}
 
 	protected final URI constructDefaultFromModel() {

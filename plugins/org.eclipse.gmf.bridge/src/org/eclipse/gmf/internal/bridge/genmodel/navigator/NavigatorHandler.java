@@ -112,6 +112,7 @@ public class NavigatorHandler {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<GenNode> getTargetGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
@@ -119,6 +120,7 @@ public class NavigatorHandler {
 		return getAssignableGenNodes(link.getModelFacet().getTargetType());
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<GenNode> getSourceGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
@@ -141,6 +143,7 @@ public class NavigatorHandler {
 		createChildReference(childNode, parent, GenNavigatorReferenceType.CHILDREN_LITERAL);
 	}
 
+	@SuppressWarnings("unchecked")
 	private GenNavigatorChildReference createChildReference(GenCommonBase child, GenCommonBase parent, GenNavigatorReferenceType referenceType) {
 		GenNavigatorChildReference childReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
 		if (parent != null) {
