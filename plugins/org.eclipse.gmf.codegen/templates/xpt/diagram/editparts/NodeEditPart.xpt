@@ -161,15 +161,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 	}
 	«ENDIF-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
-		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
-			new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(
-				getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»),
-				getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»));
-		«EXPAND setupNodePlate FOR this-»
-		return result;
-	}
+«EXPAND createNodePlateMethod-»
 
 	«LET getResizeConstraints(viewmap) AS rc-»
 	«IF null != primaryDragEditPolicyQualifiedClassName || null != rc-»
@@ -275,7 +267,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
 
-«DEFINE editPoliciesMethodBody FOR gmfgen::GenNode»
+«DEFINE editPoliciesMethodBody FOR gmfgen::GenNode-»
 		«EXPAND installCreationRolePolicy»
 		super.createDefaultEditPolicies();
 		«EXPAND installPrimaryDragEditPolicy-»
@@ -334,7 +326,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
 «ENDDEFINE»
 
-«DEFINE createLayoutEditPolicyMethodBody FOR gmfgen::GenNode»
+«DEFINE createLayoutEditPolicyMethodBody FOR gmfgen::GenNode-»
 		«IF gmfgen::ViewmapLayoutType::XY_LAYOUT.value == getLayoutType().value-»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep =
 				new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
@@ -432,6 +424,18 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 		«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE createNodePlateMethod FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
+		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
+			new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(
+				getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»),
+				getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»));
+		«EXPAND setupNodePlate-»
+		return result;
+	}
+«ENDDEFINE»
+
 «DEFINE createNodeShape(gmfgen::GenNode node) FOR gmfgen::Viewmap»
 	«ERROR "Unknown viewmap: " + this-»
 «ENDDEFINE»
@@ -488,8 +492,7 @@ public class «editPartClassName» extends «EXPAND extendsList» {
 	«classBody»
 «ENDDEFINE»
 
-«DEFINE setupNodePlate FOR gmfgen::GenNode»
-«ENDDEFINE»
+«DEFINE setupNodePlate FOR gmfgen::GenNode»«ENDDEFINE»
 
 «DEFINE setupNodePlate FOR gmfgen::GenChildSideAffixedNode»
 	//FIXME: workaround for #154536
