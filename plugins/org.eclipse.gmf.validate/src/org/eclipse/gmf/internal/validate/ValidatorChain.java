@@ -55,10 +55,7 @@ public class ValidatorChain implements EValidator {
 		this.options = options;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EValidator#validate(org.eclipse.emf.ecore.EClass, org.eclipse.emf.ecore.EObject, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 */
-	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if(options != null && context != null) {
 			AbstractValidator.setOptions(options, context);
 		}
@@ -75,10 +72,7 @@ public class ValidatorChain implements EValidator {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EValidator#validate(org.eclipse.emf.ecore.EDataType, java.lang.Object, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 */
-	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if(options != null && context != null) {
 			AbstractValidator.setOptions(options, context);
 		}
@@ -98,7 +92,7 @@ public class ValidatorChain implements EValidator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.ecore.EValidator#validate(org.eclipse.emf.ecore.EObject, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
 	 */
-	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if(options != null && context != null) {
 			AbstractValidator.setOptions(options, context);
 		}

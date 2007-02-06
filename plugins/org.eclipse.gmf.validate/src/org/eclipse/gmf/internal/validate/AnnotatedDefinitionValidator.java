@@ -270,7 +270,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			for (Iterator it = metaClass.getEAnnotations().iterator(); it.hasNext();) {
 				EAnnotation nextAnnotation = (EAnnotation) it.next();
 				if(Annotations.CONSTRAINTS_META_URI.equals(nextAnnotation.getSource())) {
-					String val = (String)nextAnnotation.getDetails().get(Meta.DEF_KEY);
+					String val = nextAnnotation.getDetails().get(Meta.DEF_KEY);
 					if(val != null && (val.equals(Meta.VALUESPEC) || 
 							val.equals(Meta.CONSTRAINT))) {
 						data = new DefData();
@@ -296,7 +296,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 					if(!Annotations.CONSTRAINTS_META_URI.equals(annotation.getSource())) {
 						continue;
 					}
-					String metaValue = (String)annotation.getDetails().get(Meta.DEF_KEY);				
+					String metaValue = annotation.getDetails().get(Meta.DEF_KEY);				
 					if(data.body == null) {				
 						if(Meta.BODY.equals(metaValue)) {						
 							data.body = new DefUtils.FeatureValProvider(nextAttr);
@@ -313,7 +313,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 					
 					if(data.context == null) {
 						if(Meta.CONTEXT.equals(metaValue)) {
-							String ctxExpression = (String)annotation.getDetails().get(Meta.OCL_KEY);
+							String ctxExpression = annotation.getDetails().get(Meta.OCL_KEY);
 							if(ctxExpression != null) {
 								data.context = createContextProvider(ctxExpression, metaClass, context);
 								checkAndReportProblems(data.context, annotation, diagnostics);								
@@ -323,7 +323,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 					
 					if(data.type == null) {
 						if(Meta.TYPE.equals(metaValue)) {
-							String typeExpr = (String)annotation.getDetails().get(Meta.OCL_KEY);  						
+							String typeExpr = annotation.getDetails().get(Meta.OCL_KEY);  						
 							if(typeExpr != null) {
 								data.type = new ExpresssionTypeProvider(getExpression(Meta.OCL_KEY, typeExpr, metaClass, context));					
 							} else {
@@ -386,7 +386,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		EAnnotation typeAnnotation = annotations.isEmpty() ? null : (EAnnotation)annotations.get(0);		
 		
 		if(typeAnnotation != null && Meta.TYPE.equals(typeAnnotation.getDetails().get(Meta.DEF_KEY))) {
-			String typeExprBody = (String)typeAnnotation.getDetails().get(Meta.OCL_KEY);
+			String typeExprBody = typeAnnotation.getDetails().get(Meta.OCL_KEY);
 			if(typeExprBody != null) {
 				IModelExpression typeExpr = getExpression(Meta.OCL_KEY, typeExprBody, resolutionContext, validationContext);					
 				boolean usesTypeName = typeExpr.getStatus().isOK() && String.class.equals(typeExpr.getResultType().getInstanceClass());
@@ -483,7 +483,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 				// TODO - report missing var type status
 			}
 			
-			String name = (String)nextVarAnnotation.getDetails().get(Annotations.Meta.NAME);
+			String name = nextVarAnnotation.getDetails().get(Annotations.Meta.NAME);
 			if(name == null) {
 				//TODO - report missing var name status
 				continue;

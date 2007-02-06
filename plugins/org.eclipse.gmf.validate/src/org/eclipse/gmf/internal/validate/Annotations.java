@@ -71,6 +71,7 @@ public final class Annotations {
 		public static final String LANG = "lang"; //$NON-NLS-1$	
 		public static final String CONTEXT = "context"; //$NON-NLS-1$	
 		public static final String REF = "ref"; //$NON-NLS-1$		
+		@SuppressWarnings("hiding")
 		public static final String OCL_KEY = "ocl"; //$NON-NLS-1$			
 		public static final String VARIABLE = "variable"; //$NON-NLS-1$
 		public static final String NAME = "name"; //$NON-NLS-1$
