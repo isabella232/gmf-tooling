@@ -19,13 +19,7 @@
 package «getDiagram().editPartsPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» extends 
-«IF listLayout-»
-	org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart
-«ELSE-»
-	org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart
-«ENDIF-»
- {
+public class «editPartClassName» extends «EXPAND extendsList» {
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 
@@ -46,34 +40,9 @@ public class «editPartClassName» extends
 		return «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCompartmentTitle()) FOR getDiagram().editorGen»;
 	}
 
-	«IF !needsTitle-»
-	«REM»By default titles are shown even if there are no TitleStyle, we need to switch it off«ENDREM»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.draw2d.IFigure createFigure() {
-		org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure result =
-			(org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure) super.createFigure();
-		result.setTitleVisibility(false);
-		return result;
-	}
-	«ENDIF-»
+«EXPAND createFigureMethod-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
-		«IF canCollapse-»
-		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,
-			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy());
-		«ENDIF-»
-		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-		«IF childNodes.size() > 0-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
-			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
-			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
-		«ENDIF-»
-		«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
-		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
-	}
+«EXPAND editPoliciesMethod-»
 
 	«IF isStoringChildPositions(node)-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -120,8 +89,53 @@ public class «editPartClassName» extends
 		// super.setRatio(ratio); 
 		«ENDIF-»
 	}
+«EXPAND additions»
 }
 «ENDDEFINE»
+
+«DEFINE extendsList FOR gmfgen::GenCompartment-»
+«IF listLayout»org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE createFigureMethod FOR gmfgen::GenCompartment-»
+«IF !needsTitle-»
+	«REM»By default titles are shown even if there are no TitleStyle, we need to switch it off«ENDREM»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.draw2d.IFigure createFigure() {
+		org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure result =
+			(org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure) super.createFigure();
+		result.setTitleVisibility(false);
+		return result;
+	}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE editPoliciesMethod FOR gmfgen::GenCompartment-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void createDefaultEditPolicies() {
+		«EXPAND editPoliciesMethodBody-»
+	}
+«ENDDEFINE»
+
+«DEFINE editPoliciesMethodBody FOR gmfgen::GenCompartment-»
+		super.createDefaultEditPolicies();
+		«IF canCollapse-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy());
+		«ENDIF-»
+		«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+		«IF childNodes.size() > 0-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE,
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
+		«ENDIF-»
+		«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
+		«EXPAND xpt::diagram::editparts::Common::behaviour FOR this-»
+«ENDDEFINE»
+
+
+«DEFINE additions FOR gmfgen::GenCompartment»«ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
 «EXPAND internal_i18nAccessors FOREACH compartments»
