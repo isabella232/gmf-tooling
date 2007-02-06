@@ -59,7 +59,12 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		newFileCreationPage = new GMFGenNewFileCreationPage(PAGE_ID_GMFGEN, mySelection);
 		newFileCreationPage.setTitle(Messages.TransformToGenModelWizard_title_gmfgen);
 		newFileCreationPage.setDescription(Messages.TransformToGenModelWizard_descr_gmfgen);
-		newFileCreationPage.setFileName(WizardUtil.getDefaultFileName(mySelection, defaultName, GMFGenNewFileCreationPage.EXT_GMFGEN));
+		IFile file = WizardUtil.findExistingFile(mySelection, GMFGenNewFileCreationPage.EXT_GMFGEN);
+		if (file != null) {
+			newFileCreationPage.setFileName(file.getName());
+		} else {
+			newFileCreationPage.setFileName(WizardUtil.getDefaultFileName(mySelection, defaultName, GMFGenNewFileCreationPage.EXT_GMFGEN));
+		}
 		addPage(newFileCreationPage);
 		
 		resourceSet = new ResourceSetImpl();

@@ -44,6 +44,7 @@ public class GMFGenNewFileCreationPage extends WizardNewFileCreationPage {
 	public void createControl(Composite parent) {
 		resourceGroupEmulator = new ResourceGroupEmulator();
 		super.createControl(parent);
+		validateFileExists();
 	}
 
 	protected boolean validatePage() {
@@ -57,16 +58,20 @@ public class GMFGenNewFileCreationPage extends WizardNewFileCreationPage {
 				return false;
 			}
 			else {
-		        IPath resourcePath = getContainerFullPath().append(
-		        		getFileName());
-		        if (isFileExists(resourcePath)) {
-					setMessage(Messages.ResourceGroup_nameExists, IMessageProvider.WARNING);
-				}
+		        validateFileExists();
 				return true;
 			}
 		}
 		else {
 			return false;
+		}
+	}
+
+	private void validateFileExists() {
+		IPath resourcePath = getContainerFullPath().append(
+				getFileName());
+		if (isFileExists(resourcePath)) {
+			setMessage(Messages.ResourceGroup_nameExists, IMessageProvider.WARNING);
 		}
 	}
 

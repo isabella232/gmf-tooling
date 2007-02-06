@@ -25,32 +25,39 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
 	public static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
 	
+	private static String[] PROP_NAMES = new String[] {
+		PREF_GENERATE_RCP, 
+		PREF_USE_MAP_MODE, 
+		PREF_USE_RUNTIME_FIGURES 
+		};
+	
 	private Preferences myPreferences;
 	
 	public TransformOptions() {
-		myPreferences = new Preferences();
 		reset();
 	}
-	
+
 	private Preferences getPreferences() {
+		if (myPreferences == null) {
+			myPreferences = new Preferences();
+		}
 		return myPreferences;
 	}
 	
 	public void reset() {
 		Preferences pluginPrefs = Plugin.getDefault().getPluginPreferences();
-		copyPreferences(pluginPrefs, myPreferences);
+		copyPreferences(pluginPrefs, getPreferences());
 	}
 	
 	public void flush() {
 		Preferences pluginPrefs = Plugin.getDefault().getPluginPreferences();
-		copyPreferences(myPreferences, pluginPrefs);
+		copyPreferences(getPreferences(), pluginPrefs);
 		Plugin.getDefault().savePluginPreferences();
 	}
 	
 	private void copyPreferences(Preferences source, Preferences target) {
-		String[] propNames = source.propertyNames();
-		for (int i = 0; i < propNames.length; i++) {
-			String name = propNames[i];
+		for (int i = 0; i < PROP_NAMES.length; i++) {
+			String name = PROP_NAMES[i];
 			String value = source.getString(name);
 			target.setValue(name, value);
 		}
