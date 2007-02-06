@@ -171,10 +171,10 @@ public class Generator extends GeneratorBase implements Runnable {
 				}
 			}
 		}
-		if (myDiagram.getEditorGen().getMetrics() != null) {
+		if (myEditorGen.getMetrics() != null) {
 			generateMetricProvider();
 		}
-		if (myDiagram.getEditorGen().getExpressionProviders() != null) {
+		if (myEditorGen.getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
 
@@ -1134,16 +1134,21 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	protected void setupProgressMonitor() {
 		Counter c = new Counter();
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNode(), 8);
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 4);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNode(), 7);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 5);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLink(), 6);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLinkLabel(), 2);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 40);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenEditorGenerator(), 2); // i18n=2
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenPlugin(), 6);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigator(), 3);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigatorChildReference(), 1);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCustomPropertyTab(), 1);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getBehaviour(), 1);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenMetricContainer(), 1);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer(), 1);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getPalette(), 1);
 		setupProgressMonitor(null, c.getTotal(myEditorGen));
 	}
 }
