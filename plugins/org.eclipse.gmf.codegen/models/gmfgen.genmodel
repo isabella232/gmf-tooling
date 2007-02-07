@@ -684,9 +684,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/useInLiveMode"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/container"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/requiresConstraintAdapter"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorLocalClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getConstraintAdapterQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenRuleTarget">
       <genOperations ecoreOperation="gmfgen.ecore#//GenRuleTarget/getContext"/>
@@ -722,6 +724,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditable">
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getClientContextID"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getTargetClass"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getTargetClassModelQualifiedName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMeasurable"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenExpressionProviderContainer">

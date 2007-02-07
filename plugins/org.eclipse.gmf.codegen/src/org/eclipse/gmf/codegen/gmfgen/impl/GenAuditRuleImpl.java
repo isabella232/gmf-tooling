@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#isUseInLiveMode <em>Use In Live Mode</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getContainer <em>Container</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#isRequiresConstraintAdapter <em>Requires Constraint Adapter</em>}</li>
  * </ul>
  * </p>
  *
@@ -140,6 +141,16 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @ordered
 	 */
 	protected boolean useInLiveMode = USE_IN_LIVE_MODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isRequiresConstraintAdapter() <em>Requires Constraint Adapter</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRequiresConstraintAdapter()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REQUIRES_CONSTRAINT_ADAPTER_EDEFAULT = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -464,7 +475,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */	
-	public boolean requiresConstraintAdapter() {
+	public boolean isRequiresConstraintAdapter() {
 		if(getRule() != null) {
 			if(!getRule().isOCLExpression() || getTarget() instanceof GenDomainAttributeTarget) {
 				return true;
@@ -541,6 +552,8 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 				return isUseInLiveMode() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_AUDIT_RULE__CONTAINER:
 				return getContainer();
+			case GMFGenPackage.GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER:
+				return isRequiresConstraintAdapter() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -630,6 +643,8 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 				return useInLiveMode != USE_IN_LIVE_MODE_EDEFAULT;
 			case GMFGenPackage.GEN_AUDIT_RULE__CONTAINER:
 				return getContainer() != null;
+			case GMFGenPackage.GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER:
+				return isRequiresConstraintAdapter() != REQUIRES_CONSTRAINT_ADAPTER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

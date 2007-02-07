@@ -1456,6 +1456,7 @@
     <eOperations name="getContextSelectorClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getContextSelectorQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getContextSelectorLocalClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getConstraintAdapterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique identifier of this audit rule"/>
@@ -1504,6 +1505,9 @@
         <details key="documentation" value="The containing audit container of this audit rule"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiresConstraintAdapter"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenSeverity">
     <eLiterals name="INFO"/>
@@ -1650,6 +1654,11 @@
     <eOperations name="getTargetClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the validation target class in terms of EMFT validation framework."/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getTargetClassModelQualifiedName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Consists of ecore meta-model only package names and target class simple name"/>
       </eAnnotations>
     </eOperations>
   </eClassifiers>

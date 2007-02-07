@@ -44,7 +44,6 @@ import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
-import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
@@ -210,7 +209,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
 		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
-		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);

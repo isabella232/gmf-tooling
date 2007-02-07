@@ -7256,13 +7256,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Requires Constraint Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER = GEN_RULE_BASE_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Gen Audit Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 7;
+	int GEN_AUDIT_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleTarget <em>Gen Rule Target</em>}' class.
@@ -13137,6 +13146,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenAuditRule_Container();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isRequiresConstraintAdapter <em>Requires Constraint Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Requires Constraint Adapter</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isRequiresConstraintAdapter()
+	 * @see #getGenAuditRule()
+	 * @generated
+	 */
+	EAttribute getGenAuditRule_RequiresConstraintAdapter();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleTarget <em>Gen Rule Target</em>}'.

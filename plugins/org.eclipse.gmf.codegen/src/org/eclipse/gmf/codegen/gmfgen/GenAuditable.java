@@ -46,6 +46,15 @@ public interface GenAuditable extends GenRuleTarget {
 	 */
 	GenClass getTargetClass();
 
-	String getTargetClassModelQualifiedName(); // Consists of ecore meta-model only package names and target class simple name 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Consists of ecore meta-model only package names and target class simple name
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getTargetClassModelQualifiedName();
 
 } // GenAuditable

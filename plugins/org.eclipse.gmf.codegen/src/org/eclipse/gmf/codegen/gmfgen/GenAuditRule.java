@@ -27,6 +27,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isUseInLiveMode <em>Use In Live Mode</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer <em>Container</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isRequiresConstraintAdapter <em>Requires Constraint Adapter</em>}</li>
  * </ul>
  * </p>
  *
@@ -240,6 +241,21 @@ public interface GenAuditRule extends GenRuleBase {
 	void setContainer(GenAuditContainer value);
 
 	/**
+	 * Returns the value of the '<em><b>Requires Constraint Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Requires Constraint Adapter</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Requires Constraint Adapter</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_RequiresConstraintAdapter()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	boolean isRequiresConstraintAdapter();
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" required="true"
@@ -263,9 +279,15 @@ public interface GenAuditRule extends GenRuleBase {
 	 */
 	String getContextSelectorLocalClassName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getConstraintAdapterQualifiedClassName();
+
 	String getConstraintAdapterLocalClassName();
 	String getConstraintAdapterClassName();
-	String getConstraintAdapterQualifiedClassName();	
-	boolean requiresConstraintAdapter();	
 	
 } // GenAuditRule

@@ -380,7 +380,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 	 * @generated NOT
 	 */	
 	public List getAllContextSelectorsLocalClassNames() {
-		HashSet classNames = new HashSet();
+		HashSet<String> classNames = new HashSet<String>();
 		EList allRules = getAllAuditRules();
 		for (Iterator it = allRules.iterator(); it.hasNext();) {
 			String nextClassName = ((GenAuditRule) it.next()).getContextSelectorLocalClassName();
@@ -388,7 +388,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 				classNames.add(nextClassName);
 			}			
 		}
-		return new ArrayList(classNames);
+		return new ArrayList<String>(classNames);
 	}
 	
 	/**
@@ -397,18 +397,18 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 	 * @generated NOT
 	 */
 	public List getAllRequiredConstraintAdaptersLocalClassNames() {
-		HashSet classNames = new HashSet();
+		HashSet<String> classNames = new HashSet<String>();
 		EList allRules = getAllAuditRules();
 		for (Iterator it = allRules.iterator(); it.hasNext();) {
 			GenAuditRule nextAudit = (GenAuditRule) it.next();
-			if(nextAudit.requiresConstraintAdapter()) {
+			if(nextAudit.isRequiresConstraintAdapter()) {
 				String nextClassName = nextAudit.getConstraintAdapterLocalClassName();
 				if(nextClassName != null) {
 					classNames.add(nextClassName);
 				}
 			}
 		}
-		return new ArrayList(classNames);
+		return new ArrayList<String>(classNames);
 	}
 	
 	/**
@@ -417,7 +417,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 	 * @generated NOT
 	 */	
 	public List getAllJavaLangAudits() {
-		List audits = new ArrayList();
+		List<GenAuditRule> audits = new ArrayList<GenAuditRule>();
 		if(getEditor() == null || getEditor().getExpressionProviders() == null) {
 			return audits;
 		}

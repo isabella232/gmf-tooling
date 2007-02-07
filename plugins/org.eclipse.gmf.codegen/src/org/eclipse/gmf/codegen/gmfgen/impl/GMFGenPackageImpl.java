@@ -4490,6 +4490,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenAuditRule_RequiresConstraintAdapter() {
+		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenRuleTarget() {
 		return genRuleTargetEClass;
 	}
@@ -6198,6 +6207,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__SEVERITY);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__USE_IN_LIVE_MODE);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__CONTAINER);
+		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER);
 
 		genRuleTargetEClass = createEClass(GEN_RULE_TARGET);
 
@@ -7148,12 +7158,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenAuditRule_Severity(), this.getGenSeverity(), "severity", "ERROR", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Container(), this.getGenAuditContainer(), this.getGenAuditContainer_Audits(), "container", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenAuditRule_RequiresConstraintAdapter(), ecorePackage.getEBoolean(), "requiresConstraintAdapter", null, 0, 1, GenAuditRule.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorClassName", 1, 1);
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorQualifiedClassName", 1, 1);
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorLocalClassName", 1, 1);
+
+		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterQualifiedClassName", 0, 1);
 
 		initEClass(genRuleTargetEClass, GenRuleTarget.class, "GenRuleTarget", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7192,6 +7205,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getClientContextID", 1, 1);
 
 		addEOperation(genAuditableEClass, theGenModelPackage.getGenClass(), "getTargetClass", 0, 1);
+
+		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getTargetClassModelQualifiedName", 0, 1);
 
 		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7531,7 +7546,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																												
+		   });																																																																																																																																																																																																													
 	}
 
 	/**
@@ -7750,7 +7765,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });																			
+		   });																				
 		addAnnotation
 		  (getGenSharedContributionItem_ActualItem(), 
 		   source, 
@@ -7773,7 +7788,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																																	
+		   });																																																																																																																																																																																		
 		addAnnotation
 		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
 		   source, 
@@ -7891,7 +7906,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																				
+		   });																					
 	}
 
 } //GMFGenPackageImpl

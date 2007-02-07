@@ -45,7 +45,7 @@
 «EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
 «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
 «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
-«getConstraintProviders(editorGen.plugin)»
+«EXPAND constraintProviders FOR editorGen-»
 </plugin>
 «ENDDEFINE»
 
@@ -308,6 +308,68 @@
       </decoratorProvider>
    </extension>
 «ENDIF-»
+«ENDIF-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE generatedTag FOR Object»<?gmfgen generated="true"?>«ENDDEFINE»
+
+«DEFINE _pathMap FOR gmfgen::GenAuditContainer»«FOREACH getPath() AS p SEPARATOR "/" »«escapeXML(idMap(p))»«ENDFOREACH»«ENDDEFINE»
+
+«DEFINE constraintProviders FOR gmfgen::GenEditorGenerator-»
+«IF hasAudits()-»
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+      «EXPAND generatedTag»
+      «FOREACH audits.getAllAuditContainers() AS c-»
+      <category id="«EXPAND _pathMap FOR c»" mandatory="false" name="«IF c.name != null»«escapeXML(c.name)»«ELSE»«EXPAND _pathMap FOR c»«ENDIF»">
+         <![CDATA[«c.description != null ? c.description : ""»]]>
+      </category>
+      «ENDFOREACH»
+      <constraintProvider cache="true">
+«FOREACH audits.getAllTargetedModelPackages() AS p-»
+         <package namespaceUri="«p.ecorePackage.nsURI»"/>
+«ENDFOREACH-»
+«FOREACH audits.getAllAuditContainers() AS c-»
+         <constraints categories="«EXPAND _pathMap FOR c»">
+         «FOREACH c.audits.select(a | a.target != null && a.target.getTargetClass() != null) AS audit-»
+         <constraint id="«escapeXML(audit.id)»"
+            «IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
+            name="«escapeXML(audit.name != null ? audit.name : audit.id)»"
+            mode="«IF audit.useInLiveMode»Live«ELSE»Batch«ENDIF»"
+            severity="«audit.severity.name»" statusCode="200">
+            «IF !audit.requiresConstraintAdapter»<![CDATA[«audit.rule != null ? audit.rule.body : ""»]]>«ENDIF»
+            <description><![CDATA[«audit.description != null ? audit.description : ""»]]></description>
+            <message><![CDATA[«IF audit.message != null»«audit.message»«ELSE»«audit.name != null ? audit.name : audit.id» audit violated«ENDIF»]]></message>
+            <target class="«audit.target.getTargetClassModelQualifiedName()»"/>
+         </constraint>
+         «ENDFOREACH-»
+         </constraints>
+«ENDFOREACH-»
+      </constraintProvider>
+   </extension>
+
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      «EXPAND generatedTag»
+      «LET getAllRulesWithTargetAndContextID(audits) AS rules-»
+      «FOREACH rules.collect(r | r.target.getClientContextID()).toSet() AS ctxId-»
+      <clientContext default="false" id="«plugin.iD».«ctxId»">
+         <selector class="«rules.select(r | r.target.getClientContextID() == ctxId).getContextSelectorQualifiedClassName().first()»"/>
+      </clientContext>
+      <binding context="«plugin.iD».«ctxId»">
+         «FOREACH rules.select(r | r.target.getClientContextID() == ctxId) AS rule-»
+         <constraint ref="«plugin.iD».«escapeXML(rule.id)»"/>
+         «ENDFOREACH-»
+      </binding>
+      «ENDFOREACH-»
+      «ENDLET-»
+   </extension>
+«IF diagram.liveValidationUIFeedback»
+   <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      «EXPAND generatedTag»
+      «FOREACH getAllRulesWithTargetAndContextID(audits).collect(r | r.target.getClientContextID()).toSet() AS ctxId»
+      <clientContext id="«plugin.iD».«ctxId»"/>
+      «ENDFOREACH-»
+   </extension>
 «ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
