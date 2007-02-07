@@ -22,11 +22,17 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener;
@@ -109,11 +115,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * @generated
 	 */
 	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-		if (editorInput instanceof URIEditorInput) {
-			return new URIEditorInputProxy((URIEditorInput) editorInput, domain);
-		}
-		assert false;
-		return null;
+		return editorInput;
 	}
 
 	/**
@@ -158,17 +160,50 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * @generated
 	 */
 	protected IDocument createEmptyDocument() {
-		return new DiagramDocument();
+		DiagramDocument document = new DiagramDocument();
+		document.setEditingDomain(createEditingDomain());
+		return document;
+	}
+
+	private TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+		editingDomain.setID("org.eclipse.gmf.ecore.editor.EditingDomain"); //$NON-NLS-1$
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
+				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
+		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
+
+			private Notifier myTarger;
+
+			public Notifier getTarget() {
+				return myTarger;
+			}
+
+			public boolean isAdapterForType(Object type) {
+				return false;
+			}
+
+			public void notifyChanged(Notification notification) {
+				if (diagramResourceModifiedFilter.matches(notification)) {
+					Object value = notification.getNewValue();
+					if (value instanceof Resource) {
+						((Resource) value).setTrackingModification(true);
+					}
+				}
+			}
+
+			public void setTarget(Notifier newTarget) {
+				myTarger = newTarget;
+			}
+
+		});
+
+		return editingDomain;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean setDocumentContent(IDocument document, IEditorInput editorInput) throws CoreException {
-		if (editorInput instanceof org.eclipse.gmf.ecore.part.URIEditorInputProxy) {
-			org.eclipse.gmf.ecore.part.URIEditorInputProxy diagramElement = (org.eclipse.gmf.ecore.part.URIEditorInputProxy) editorInput;
-			((IDiagramDocument) document).setEditingDomain(diagramElement.getEditingDomain());
-		}
 		if (editorInput instanceof URIEditorInput) {
 			setDocumentContentFromStorage(document, ((URIEditorInput) editorInput).getURI());
 			return true;

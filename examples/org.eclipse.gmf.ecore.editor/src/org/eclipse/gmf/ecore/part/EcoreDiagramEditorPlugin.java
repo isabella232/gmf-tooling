@@ -61,6 +61,11 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private EcoreDocumentProvider myDocumentProvider;
+
+	/**
+	 * @generated
+	 */
 	public EcoreDiagramEditorPlugin() {
 	}
 
@@ -180,6 +185,16 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EcoreDocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new EcoreDocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**

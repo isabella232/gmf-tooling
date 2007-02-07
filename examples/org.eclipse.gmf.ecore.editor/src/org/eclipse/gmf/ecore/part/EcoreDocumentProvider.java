@@ -33,8 +33,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -42,11 +43,11 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
@@ -65,31 +66,11 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	private final String myContentObjectURI;
-
-	/**
-	 * @generated
-	 */
-	public EcoreDocumentProvider() {
-		this(null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public EcoreDocumentProvider(String rootObjectURI) {
-		myContentObjectURI = rootObjectURI;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
-		if (false == element instanceof FileEditorInputProxy) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
-					"Incorrect element used: " + element + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		if (false == element instanceof FileEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		FileEditorInputProxy editorInput = (FileEditorInputProxy) element;
+		FileEditorInput editorInput = (FileEditorInput) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
 
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
@@ -123,19 +104,44 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 * @generated
 	 */
 	protected IDocument createEmptyDocument() {
-		return new DiagramDocument();
+		DiagramDocument document = new DiagramDocument();
+		document.setEditingDomain(createEditingDomain());
+		return document;
 	}
 
-	/**
-	 * @generated
-	 */
-	protected boolean setDocumentContent(IDocument document, IEditorInput editorInput) throws CoreException {
-		if (editorInput instanceof FileEditorInputProxy && document instanceof IDiagramDocument) {
-			FileEditorInputProxy editorInputProxy = (FileEditorInputProxy) editorInput;
-			IDiagramDocument diagramDocument = (IDiagramDocument) document;
-			diagramDocument.setEditingDomain(editorInputProxy.getEditingDomain());
-		}
-		return super.setDocumentContent(document, editorInput);
+	private TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+		editingDomain.setID("org.eclipse.gmf.ecore.editor.EditingDomain"); //$NON-NLS-1$
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
+				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
+		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
+
+			private Notifier myTarger;
+
+			public Notifier getTarget() {
+				return myTarger;
+			}
+
+			public boolean isAdapterForType(Object type) {
+				return false;
+			}
+
+			public void notifyChanged(Notification notification) {
+				if (diagramResourceModifiedFilter.matches(notification)) {
+					Object value = notification.getNewValue();
+					if (value instanceof Resource) {
+						((Resource) value).setTrackingModification(true);
+					}
+				}
+			}
+
+			public void setTarget(Notifier newTarget) {
+				myTarger = newTarget;
+			}
+
+		});
+
+		return editingDomain;
 	}
 
 	/**
@@ -143,16 +149,20 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 */
 	protected void setDocumentContentFromStorage(IDocument document, IStorage storage) throws CoreException {
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
-		Diagram diagram = diagramDocument.getDiagram();
+		//	org.eclipse.gmf.runtime.notation.Diagram diagram = diagramDocument.getDiagram();
+
+		//	org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+		//	diagram = org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
+		//	if (myContentObjectURI != null && diagram != null && diagram.eResource() != null && !diagram.eResource().getURIFragment(diagram).equals(myContentObjectURI)) {
+		//		org.eclipse.emf.ecore.EObject anotherContentObject = diagram.eResource().getEObject(myContentObjectURI);
+		//		document.setContent(anotherContentObject);
+		//	} else {
+		//		document.setContent(diagram);
+		//	}
 
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-		if (myContentObjectURI != null && diagram != null && diagram.eResource() != null && !diagram.eResource().getURIFragment(diagram).equals(myContentObjectURI)) {
-			EObject anotherContentObject = diagram.eResource().getEObject(myContentObjectURI);
-			document.setContent(anotherContentObject);
-		} else {
-			document.setContent(diagram);
-		}
+		Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
+		document.setContent(diagram);
 	}
 
 	/**
@@ -170,11 +180,9 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 * @generated
 	 */
 	public long getSynchronizationStamp(Object element) {
-		if (element instanceof FileEditorInputProxy) {
-			ResourceSetInfo info = getResourceSetInfo(element);
-			if (info != null) {
-				return info.getModificationStamp();
-			}
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			return info.getModificationStamp();
 		}
 		return super.getSynchronizationStamp(element);
 	}
@@ -237,7 +245,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 */
 	public boolean isModifiable(Object element) {
 		if (!isStateValidated(element)) {
-			if (element instanceof FileEditorInputProxy) {
+			if (element instanceof FileEditorInput) {
 				return true;
 			}
 		}
@@ -380,7 +388,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 */
 	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null && element instanceof FileEditorInputProxy) {
+		if (info != null && element instanceof FileEditorInput) {
 			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				handleElementChanged(info, nextResource, monitor);
@@ -477,7 +485,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(FileEditorInputProxy input, IPath path) {
+	protected void handleElementMoved(FileEditorInput input, IPath path) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IFile newFile = workspace.getRoot().getFile(path);
 		fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
@@ -486,7 +494,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected void handleElementDeleted(FileEditorInputProxy input) {
+	protected void handleElementDeleted(FileEditorInput input) {
 		fireElementDeleted(input);
 	}
 
@@ -494,11 +502,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	 * @generated
 	 */
 	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-		if (editorInput instanceof IFileEditorInput) {
-			return new FileEditorInputProxy((IFileEditorInput) editorInput, domain);
-		}
-		assert false;
-		return null;
+		return editorInput;
 	}
 
 	/**
@@ -540,12 +544,12 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		private FileEditorInputProxy myEditorInput;
+		private FileEditorInput myEditorInput;
 
 		/**
 		 * @generated
 		 */
-		public ResourceSetInfo(IDiagramDocument document, FileEditorInputProxy editorInput) {
+		public ResourceSetInfo(IDiagramDocument document, FileEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
@@ -576,7 +580,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		public FileEditorInputProxy getEditorInput() {
+		public FileEditorInput getEditorInput() {
 			return myEditorInput;
 		}
 
@@ -585,6 +589,10 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		 */
 		public void dispose() {
 			stopResourceListening();
+			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
+				Resource resource = (Resource) it.next();
+				resource.unload();
+			}
 		}
 
 		/**
