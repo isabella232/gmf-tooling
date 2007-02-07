@@ -16,7 +16,3 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 String validJavaIdentifier(String s) :
 JAVA org.eclipse.emf.codegen.util.CodeGenUtil.validJavaIdentifier(java.lang.String)
 ;
-
-String getConstraintProviders(Object o) :
-JAVA org.eclipse.gmf.internal.codegen.lite.Generator.getConstraintProviders(java.lang.Object)
-;

@@ -11,13 +11,11 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -40,7 +38,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -470,12 +467,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
 		ImportAssistant importUtil = createImportAssistant(packageName, className);
 		doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
-	}
-
-	public static String getConstraintProviders(Object plugin) throws UnexpectedBehaviourException, InvocationTargetException, InterruptedException {
-		GenEditorGenerator gen = ((GenPlugin) plugin).getEditorGen();
-		org.eclipse.gmf.codegen.util.CodegenEmitters emitters = new org.eclipse.gmf.codegen.util.CodegenEmitters(!gen.isDynamicTemplates(), gen.getTemplateDirectory());
-		return emitters.retrieve(org.eclipse.gmf.codegen.templates.editor.PluginXML.class).generate(new NullProgressMonitor(), new Object[] { plugin });
 	}
 
 	protected void setupProgressMonitor() {
