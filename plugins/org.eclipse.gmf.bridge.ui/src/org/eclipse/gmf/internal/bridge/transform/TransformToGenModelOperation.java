@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.bridge.transform;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -51,39 +53,32 @@ import org.eclipse.gmf.mappings.Mapping;
 
 public class TransformToGenModelOperation {
 	
-	private URI myMapModelURI;
 	private URI myGMFGenModelURI;
 	private TransformOptions myOptions;
 	private Mapping myMapping;
 	private GenModelDetector myGMDetector;
 	private GenModel myGenModel;
 	
-	private IStatus myLoadMapmodelStatus;
-	private IStatus myStaleGenmodelStatus;
+	private IStatus myLoadMapmodelStatus = Status.CANCEL_STATUS;
+	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
 	
-	public TransformToGenModelOperation(URI mapURI) {
-		assert mapURI != null;
-		this.myMapModelURI = mapURI;
+	public TransformToGenModelOperation() {
 		this.myOptions = new TransformOptions();
 	}
-	
+
 	public TransformOptions getOptions() {
 		return myOptions;
-	}
-	
-	public URI getMapURI() {
-		return this.myMapModelURI;
 	}
 	
 	public URI getGenURI() {
 		return this.myGMFGenModelURI;
 	}
 
-	void setGenURI(URI gmfGen) {
+	public void setGenURI(URI gmfGen) {
 		this.myGMFGenModelURI = gmfGen;
 	}
 
-	private GenModel getGenModel() {
+	public GenModel getGenModel() {
 		return this.myGenModel;
 	}
 
@@ -91,60 +86,78 @@ public class TransformToGenModelOperation {
 		return this.myMapping;
 	}
 	
-	private void setMapping(Mapping m) {
+	private void setMapping(Mapping m, IStatus loadStatus) {
 		this.myMapping = m;
-		myGMDetector = null;
+		this.myLoadMapmodelStatus = loadStatus;
+		myGMDetector = (m != null) ? new GenModelDetector(m) : null;
 		myGenModel = null;
 	}
 	
-	GenModelDetector getGenModelDetector() {
-		if (myGMDetector == null) {
-			myGMDetector = new GenModelDetector(getMapping());
-		}
+	public GenModelDetector getGenModelDetector() {
 		return myGMDetector;
 	}
 	
-	IStatus getLoadMappingStatus() {
+	public IStatus getLoadMappingStatus() {
 		return this.myLoadMapmodelStatus;
 	}
 	
-	IStatus getStaleGenmodelStatus() {
+	public IStatus getStaleGenmodelStatus() {
 		return this.myStaleGenmodelStatus;
 	}
 
-	Mapping loadMappingModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
+	public Mapping loadMappingModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
+		Mapping content = null;
+		IStatus status = Status.CANCEL_STATUS;
 		IProgressMonitor monitor = null;
 		try {
+			checkResourceSet(rs);
+			if (uri == null) {
+				throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_map_uri);
+			}
 			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
 			String cancelMessage = Messages.TransformToGenModelOperation_e_map_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
 			ModelLoadHelper loadHelper = new ModelLoadHelper(rs, uri);
-			IStatus loadStatus = loadHelper.getStatus();
-			if (!loadStatus.isOK()) {
-				throw new CoreException(loadStatus);
+			status = loadHelper.getStatus();
+			if (!status.isOK()) {
+				throw new CoreException(status);
 			}
 			subTask(monitor, 20, Messages.TransformToGenModelOperation_task_validate, cancelMessage);
-			final Mapping content = (Mapping) loadHelper.getContentsRoot();
+			EObject root = loadHelper.getContentsRoot();
+			if (!(root instanceof Mapping)) {
+				String msg = MessageFormat.format(Messages.TransformToGenModelOperation_e_wrong_root_element, root.getClass().getName());
+				status = Plugin.createError(msg, null);
+				throw new CoreException(status);
+			}
+			content = (Mapping) loadHelper.getContentsRoot();
 			Diagnostic mapIsValid = ValidationHelper.validate(content, true, monitor);
 			monitor.worked(60);
-			IStatus mapStatus = getFirst(mapIsValid);
-			if (Diagnostic.CANCEL == mapStatus.getSeverity()) {
+			status = getFirst(mapIsValid);
+			if (Diagnostic.CANCEL == status.getSeverity()) {
 				throw new CoreException(Plugin.createCancel(cancelMessage));
-			} else if(Diagnostic.ERROR == mapStatus.getSeverity()) {
-				throw new CoreException(mapStatus);
+			} else if(Diagnostic.ERROR == status.getSeverity()) {
+				throw new CoreException(status);
 			} else {
-				setMapping(content);
-				this.myLoadMapmodelStatus = mapStatus;
 				return content;
 			}
+		} catch (CoreException e) {
+			throw e;
+		} catch (Exception e) {
+			IStatus error = Plugin.createError(Messages.TransformToGenModelOperation_e_load_mapping_model, e);
+			throw new CoreException(error);
 		} finally {
-			monitor.done();
+			setMapping(content, status);
+			if (monitor != null) {
+				monitor.done();
+			}
 		}
 	}
 	
-	GenModel findGenmodel(ResourceSet rs) throws CoreException {
+	public GenModel findGenmodel(ResourceSet rs) throws CoreException {
 		try {
+			checkResourceSet(rs);
+			checkMapping();
 			GenModelDetector gmd = getGenModelDetector();
 			IStatus detect = gmd.detect();
 			if (detect.isOK()) {
@@ -159,9 +172,11 @@ public class TransformToGenModelOperation {
 		}
 	}
 
-	GenModel loadGenModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
+	public GenModel loadGenModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
 		IProgressMonitor monitor = null;
 		try {
+			checkResourceSet(rs);
+			checkMapping();
 			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
 			String cancelMessage = Messages.TransformToGenModelOperation_e_genmodel_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
@@ -206,9 +221,14 @@ public class TransformToGenModelOperation {
 		}
 	}
 	
-	IStatus executeTransformation(ResourceSet rs, IProgressMonitor pm) {
+	public IStatus executeTransformation(ResourceSet rs, IProgressMonitor pm) {
 		IProgressMonitor monitor = null;
 		try {
+			checkResourceSet(rs);
+			if (getGenURI() == null) {
+				throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_gmfgen_uri);
+			}
+			checkMapping();
 			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			if (monitor.isCanceled()) {
@@ -256,12 +276,16 @@ public class TransformToGenModelOperation {
 		}
 	}
 
-	public void reset(URI uri) {
-		assert uri != null;
-		myMapModelURI = uri;
-		setMapping(null);
-		myLoadMapmodelStatus = null;
-		myStaleGenmodelStatus = null;
+	private void checkResourceSet(ResourceSet rs) {
+		if (rs == null) {
+			throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_resource_set);
+		}
+	}
+
+	private void checkMapping() {
+		if (getMapping() == null) {
+			throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_mapping);
+		}
 	}
 	
 	private IStatus getFirst(Diagnostic d) {

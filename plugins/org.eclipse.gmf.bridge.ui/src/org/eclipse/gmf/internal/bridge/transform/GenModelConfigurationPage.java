@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.importer.ui.EMFModelWizard;
 import org.eclipse.emf.importer.ui.GenModelReloadActionDelegate;
-import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -172,11 +171,10 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		try {
 			TransformToGenModelOperation to = getOperation();
 			GenModelDetector gmd = to.getGenModelDetector();
-			URI mapURI = to.getMapURI();
-			IFile mapFile = URIUtil.getFile(mapURI);
+			TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
+			IFile mapFile = wizard.getMapFile();
 			String pluginID = mapFile.getProject().getName();
-			IFile genmodel = gmd.createDefault(pluginID, mapFile);
-			URI genURI = URI.createPlatformResourceURI(genmodel.getFullPath().toString(), true);
+			URI genURI = gmd.createDefault(pluginID, mapFile);
 			setURI(genURI);
 			updateURI();
 		} catch (CoreException e) {
@@ -185,8 +183,8 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	}
 	
 	private void launchWizard() {
-		URI mapURI = getOperation().getMapURI();
-		IFile mapFile = URIUtil.getFile(mapURI);
+		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
+		IFile mapFile = wizard.getMapFile();
 		IFile genmodel = createWithWizard(getShell(), mapFile);
 		if (genmodel != null) {
 			setURI(URI.createPlatformResourceURI(genmodel.getFullPath().toString(), true));

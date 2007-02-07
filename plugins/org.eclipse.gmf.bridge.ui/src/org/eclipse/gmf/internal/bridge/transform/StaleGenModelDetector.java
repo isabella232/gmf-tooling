@@ -36,7 +36,9 @@ public class StaleGenModelDetector {
 	private final GenModel myGenModel;
 
 	public StaleGenModelDetector(GenModel genModel) {
-		assert genModel != null;
+		if (genModel == null) {
+			throw new IllegalArgumentException("Could not detect with null GenModel");
+		}
 		myGenModel = genModel;
 	}
 

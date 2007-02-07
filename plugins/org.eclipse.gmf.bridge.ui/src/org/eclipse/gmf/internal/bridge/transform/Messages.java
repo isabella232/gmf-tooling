@@ -37,9 +37,21 @@ public class Messages extends NLS {
 
 	public static String TransformToGenModelOperation_e_genmodel_load_cancelled;
 
+	public static String TransformToGenModelOperation_e_load_mapping_model;
+
 	public static String TransformToGenModelOperation_e_map_load_cancelled;
 
 	public static String TransformToGenModelOperation_e_mapping_invalid;
+
+	public static String TransformToGenModelOperation_e_null_gmfgen_uri;
+
+	public static String TransformToGenModelOperation_e_null_map_uri;
+
+	public static String TransformToGenModelOperation_e_null_mapping;
+
+	public static String TransformToGenModelOperation_e_null_resource_set;
+
+	public static String TransformToGenModelOperation_e_wrong_root_element;
 
 	public static String TransformToGenModelOperation_task_detect;
 

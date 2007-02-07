@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
+import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -114,13 +115,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		this.mySelection = selection;
 		setWindowTitle(Messages.TransformToGenModelWizard_title_wizard);
 		setNeedsProgressMonitor(true);
-		IFile mapFile = (IFile) selection.getFirstElement();
-		URI mapURI = URI.createPlatformResourceURI(mapFile.getFullPath().toString(), true);
-		initOperation(mapURI);
-	}
-	
-	void initOperation(URI mapURI) {
-		myOperation = new TransformToGenModelOperation(mapURI);
+		myOperation = new TransformToGenModelOperation();
 	}
 	
 	@Override
@@ -180,6 +175,14 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		return newFileCreationPage.getModelFile();
 	}
 	
+	IFile getMapFile() {
+		URI mapURI = mapModelPage.getURI();
+		if (mapURI != null) {
+			return URIUtil.getFile(mapURI);
+		}
+		return (IFile) mySelection.getFirstElement();
+	}
+
 	private void setErrorMessage(String message) {
 		WizardDialog wd = (WizardDialog) getContainer();
 		WizardPage wp = (WizardPage) wd.getCurrentPage();

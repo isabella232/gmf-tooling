@@ -45,7 +45,6 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
 		TransformToGenModelOperation o = getOperation();
-		o.reset(getURI());
 		Mapping mapping = o.loadMappingModel(getResourceSet(), getURI(), monitor);
 		return mapping.eResource();
 	}

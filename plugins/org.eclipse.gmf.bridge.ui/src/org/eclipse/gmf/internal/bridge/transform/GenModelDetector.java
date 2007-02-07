@@ -50,7 +50,9 @@ public class GenModelDetector {
 	private Collection<EPackage> myPackages;
 
 	public GenModelDetector(Mapping mapping) {
-		assert mapping != null;
+		if (mapping == null) {
+			throw new IllegalArgumentException("Could not detect with null Mapping");
+		}
 		myMapping = mapping;
 	}
 	
@@ -70,13 +72,17 @@ public class GenModelDetector {
 	}
 
 	public IStatus advise(URI genModelURI) {
-		assert genModelURI != null;
+		if (genModelURI == null) {
+			throw new IllegalArgumentException("Null GenModel URI");
+		}
 		GenModelAccess gma = new FileGenModelAccess(genModelURI);
 		return apply(gma);
 	}
 
 	public IStatus advise(IFile workspaceFile) {
-		assert workspaceFile != null;
+		if (workspaceFile == null) {
+			throw new IllegalArgumentException("Null GenModel file");
+		}
 		GenModelAccess gma = new FileGenModelAccess(workspaceFile);
 		return apply(gma);
 	}
@@ -120,17 +126,17 @@ public class GenModelDetector {
 		return myPackages != null && myPackages.size() == 1;
 	}
 	
-	public IFile createDefault(String pluginID, IFile patternResource) throws CoreException {
+	public URI createDefault(String pluginID, IFile patternResource) throws CoreException {
 		DummyGenModel gma = new DummyGenModel(getPrimaryPackage(), null);
 		gma.setPluginID(pluginID);
 		GenModel model = gma.create();
 		IPath path = patternResource.getFullPath().removeFileExtension().addFileExtension("genmodel"); //$NON-NLS-1$
-		Resource res = new ResourceSetImpl().createResource(URI.createPlatformResourceURI(path.toString(), true));
+		URI uri = URI.createPlatformResourceURI(path.toString(), true);
+		Resource res = new ResourceSetImpl().createResource(uri);
 		res.getContents().add(model);
 		try {
 			res.save(null);
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-			return file;
+			return uri;
 		} catch (IOException ex) {
 			IStatus error = Plugin.createError(Messages.GenModelDetector_e_save, ex);
 			throw new CoreException(error);
@@ -148,8 +154,4 @@ public class GenModelDetector {
 		return myGMAccess.model();
 	}
 	
-	public boolean checkState() {
-		return myGMAccess != null;
-	}
-
 }
