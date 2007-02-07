@@ -21,7 +21,7 @@
 <plugin>
 
    <extension point="org.eclipse.team.core.fileTypes">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <fileTypes
          type="text"
          extension="«editorGen.diagramFileExtension»">
@@ -29,7 +29,7 @@
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <parser
          type="«editorGen.diagramFileExtension»"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
@@ -45,14 +45,15 @@
 «EXPAND xpt::diagram::providers::extensions::extensions FOR editorGen.diagram-»
 «EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
 «EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
-«EXPAND constraintProviders FOR editorGen-»
+«EXPAND xpt::ConstraintProviders::extensions FOR editorGen-»
+«EXPAND additions-»
 </plugin>
 «ENDDEFINE»
 
 «DEFINE menu FOR gmfgen::GenPlugin-»
 
    <extension point="org.eclipse.ui.popupMenus">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
 «IF null == editorGen.application && editorGen.diagram.generateInitDiagramAction()-»
       <objectContribution
             id="«iD».ui.objectContribution.IFile1"
@@ -96,7 +97,7 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="«editorGen.modelID»Presentation">
@@ -149,7 +150,7 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
 «IF printingEnabled-»
       <contributionItemProvider class="«editorGen.diagram.getContributionItemProviderQualifiedClassName()»">
          <Priority name="Low">
@@ -245,7 +246,7 @@
 
 	<extension id="MetricContributionItemProvider" name="Metrics"
 		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-		<?gmfgen generated="true"?>
+        «EXPAND xpt::Common::xmlGeneratedTag»
 		<contributionItemProvider checkPluginLoaded="true" class="«editor.diagram.getMetricProviderQualifiedClassName()»">
 			<Priority name="«editor.diagram.metricProviderPriority»"/>		
 			<partContribution id="«editor.editor.iD»">
@@ -255,12 +256,12 @@
 		</contributionItemProvider>
 	</extension>
 
-	<extension point="org.eclipse.ui.views">
-	    <?gmfgen generated="true"?>
-   		<view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
+   <extension point="org.eclipse.ui.views">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+   	  <view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
 			id="«editor.diagram.getMetricViewID()»"
 			name="«editor.modelID» Diagram Metrics"/>
-	</extension>
+   </extension>
 «ENDIF-»
 «ENDDEFINE»
 
@@ -270,7 +271,7 @@
 
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <contributionItemProvider checkPluginLoaded="true"
          class="«getValidationProviderQualifiedClassName()»">
          <Priority name="«validationProviderPriority»"/>
@@ -284,7 +285,7 @@
 «IF null == editorGen.application-»
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <MarkerNavigationProvider class="«getMarkerNavigationProviderQualifiedClassName()»">
          <MarkerType name="«editorGen.plugin.iD + "." + getValidationDiagnosticMarkerType()»"/>
          <Priority name="«markerNavigationProviderPriority»"/>
@@ -292,7 +293,7 @@
    </extension>
 
    <extension id="«getValidationDiagnosticMarkerType()»" name="«editorGen.plugin.name» problems" point="org.eclipse.core.resources.markers">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>
@@ -300,7 +301,7 @@
 «IF validationDecorators-»
 
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <decoratorProvider class="«getValidationDecoratorProviderQualifedClassName()»">
          <Priority name="«validationDecoratorProviderPriority»"/>
          <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
@@ -312,64 +313,4 @@
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE generatedTag FOR Object»<?gmfgen generated="true"?>«ENDDEFINE»
-
-«DEFINE _pathMap FOR gmfgen::GenAuditContainer»«FOREACH getPath() AS p SEPARATOR "/" »«escapeXML(idMap(p))»«ENDFOREACH»«ENDDEFINE»
-
-«DEFINE constraintProviders FOR gmfgen::GenEditorGenerator-»
-«IF hasAudits()-»
-   <extension point="org.eclipse.emf.validation.constraintProviders">
-      «EXPAND generatedTag»
-      «FOREACH audits.getAllAuditContainers() AS c-»
-      <category id="«EXPAND _pathMap FOR c»" mandatory="false" name="«IF c.name != null»«escapeXML(c.name)»«ELSE»«EXPAND _pathMap FOR c»«ENDIF»">
-         <![CDATA[«c.description != null ? c.description : ""»]]>
-      </category>
-      «ENDFOREACH»
-      <constraintProvider cache="true">
-«FOREACH audits.getAllTargetedModelPackages() AS p-»
-         <package namespaceUri="«p.ecorePackage.nsURI»"/>
-«ENDFOREACH-»
-«FOREACH audits.getAllAuditContainers() AS c-»
-         <constraints categories="«EXPAND _pathMap FOR c»">
-         «FOREACH c.audits.select(a | a.target != null && a.target.getTargetClass() != null) AS audit-»
-         <constraint id="«escapeXML(audit.id)»"
-            «IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
-            name="«escapeXML(audit.name != null ? audit.name : audit.id)»"
-            mode="«IF audit.useInLiveMode»Live«ELSE»Batch«ENDIF»"
-            severity="«audit.severity.name»" statusCode="200">
-            «IF !audit.requiresConstraintAdapter»<![CDATA[«audit.rule != null ? audit.rule.body : ""»]]>«ENDIF»
-            <description><![CDATA[«audit.description != null ? audit.description : ""»]]></description>
-            <message><![CDATA[«IF audit.message != null»«audit.message»«ELSE»«audit.name != null ? audit.name : audit.id» audit violated«ENDIF»]]></message>
-            <target class="«audit.target.getTargetClassModelQualifiedName()»"/>
-         </constraint>
-         «ENDFOREACH-»
-         </constraints>
-«ENDFOREACH-»
-      </constraintProvider>
-   </extension>
-
-   <extension point="org.eclipse.emf.validation.constraintBindings">
-      «EXPAND generatedTag»
-      «LET getAllRulesWithTargetAndContextID(audits) AS rules-»
-      «FOREACH rules.collect(r | r.target.getClientContextID()).toSet() AS ctxId-»
-      <clientContext default="false" id="«plugin.iD».«ctxId»">
-         <selector class="«rules.select(r | r.target.getClientContextID() == ctxId).getContextSelectorQualifiedClassName().first()»"/>
-      </clientContext>
-      <binding context="«plugin.iD».«ctxId»">
-         «FOREACH rules.select(r | r.target.getClientContextID() == ctxId) AS rule-»
-         <constraint ref="«plugin.iD».«escapeXML(rule.id)»"/>
-         «ENDFOREACH-»
-      </binding>
-      «ENDFOREACH-»
-      «ENDLET-»
-   </extension>
-«IF diagram.liveValidationUIFeedback»
-   <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
-      «EXPAND generatedTag»
-      «FOREACH getAllRulesWithTargetAndContextID(audits).collect(r | r.target.getClientContextID()).toSet() AS ctxId»
-      <clientContext id="«plugin.iD».«ctxId»"/>
-      «ENDFOREACH-»
-   </extension>
-«ENDIF-»
-«ENDIF-»
-«ENDDEFINE»
+«DEFINE additions FOR gmfgen::GenPlugin»«ENDDEFINE»

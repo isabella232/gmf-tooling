@@ -56,6 +56,8 @@
  * @generated
  */«ENDDEFINE»
 
+«DEFINE xmlGeneratedTag FOR Object»<?gmfgen generated="true"?>«ENDDEFINE»
+
 «DEFINE getFeatureValue(String containerVar, boolean typedContainer) FOR genmodel::GenFeature-»
 	«IF isExternalInterface(genClass)-»
 ((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
