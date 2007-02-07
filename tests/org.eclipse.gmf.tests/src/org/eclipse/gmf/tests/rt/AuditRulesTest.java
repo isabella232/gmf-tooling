@@ -254,7 +254,9 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		}
 
 		void assertAuditContainer(AuditContainer auditContainer) {
-			org.eclipse.emf.validation.model.Category category = org.eclipse.emf.validation.model.CategoryManager.getInstance().getCategory(getCategoryPath(auditContainer));
+			final String categoryPath = getCategoryPath(auditContainer);
+			assertNotNull("Category should be registered", CategoryManager.getInstance().findCategory(categoryPath));
+			org.eclipse.emf.validation.model.Category category = org.eclipse.emf.validation.model.CategoryManager.getInstance().getCategory(categoryPath);
 			assertEquals("Category id must match", //$NON-NLS-1$ 
 					auditContainer.getId(), category.getId());
 			assertEquals("Category name must match", //$NON-NLS-1$
@@ -272,13 +274,13 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		}
 
 		String getCategoryPath(AuditContainer container) {
-			List pathElements = new ArrayList();
+			List<AuditContainer> pathElements = new ArrayList<AuditContainer>();
 			for (AuditContainer current = container; current != null; current = current.getParentContainer()) {
 				pathElements.add(0, current);
 			}
 			StringBuffer buf = new StringBuffer();
 			for (int i = 0; i < pathElements.size(); i++) {
-				AuditContainer nextContainer = (AuditContainer) pathElements.get(i);
+				AuditContainer nextContainer = pathElements.get(i);
 				if (i > 0) {
 					buf.append('/');
 				}

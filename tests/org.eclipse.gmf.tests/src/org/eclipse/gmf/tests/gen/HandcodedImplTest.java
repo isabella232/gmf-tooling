@@ -1009,6 +1009,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			}
 		} else {
 			state.add("GenAuditRule:ContextSelector");
+			state.add("GenAuditRule:ConstraintAdapter");
 		}
 
 		// test model may not contain them
