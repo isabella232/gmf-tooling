@@ -43,6 +43,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.common.Activator;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IImportDeclaration;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -315,14 +316,16 @@ public abstract class GeneratorBase implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			setProgressTaskName(className);
-			pm.beginTask(null, 6);
+			pm.beginTask(null, 7);
 			String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
 			if (cu.exists()) {
 				final String oldContents = cu.getSource();
+				IImportDeclaration[] declaredImports = cu.getImports();
 				cu.getBuffer().setContents(genText);
 				try {
+					copyImports(cu, declaredImports, new SubProgressMonitor(pm, 1));
 					getImportsPostrocessor().organizeImports(cu, new SubProgressMonitor(pm, 1));
 				} catch (CoreException e) {
 					cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
@@ -342,7 +345,7 @@ public abstract class GeneratorBase implements Runnable {
 				getImportsPostrocessor().organizeImports(cu, new SubProgressMonitor(pm, 1));
 				String newContents = formatCode(cu.getSource());
 				cu.getBuffer().setContents(newContents);
-				cu.save(new SubProgressMonitor(pm, 1), true);
+				cu.save(new SubProgressMonitor(pm, 2), true);
 			}
 		} catch (NullPointerException ex) {
 			handleException(ex);
@@ -355,6 +358,29 @@ public abstract class GeneratorBase implements Runnable {
 		} finally {
 			pm.done();
 		}
+	}
+
+	/*
+	 * Since we do organizeImports prior to merge, we must ensure
+	 * imports added manually are known to OrganizeImportsProcessor
+	 */
+	private static void copyImports(ICompilationUnit cu, IImportDeclaration[] importsToCopy, IProgressMonitor progress) throws JavaModelException {
+		if (importsToCopy == null || importsToCopy.length == 0) {
+			return;
+		}
+		progress.beginTask(null, importsToCopy.length + 1);
+		final String[] imports = new String[importsToCopy.length];
+		final int[] flags = new int[imports.length];
+		for (int i = 0; i < importsToCopy.length; i++) {
+			imports[i] = importsToCopy[i].getElementName();
+			flags[i] = importsToCopy[i].getFlags();
+		}
+		// ensure resource is in sync with buffer (otherwize NPE from CreateElementInCUOperation) 
+		cu.save(new SubProgressMonitor(progress, 1), true);
+		for (int i = 0; i < imports.length; i++) {
+			cu.createImport(imports[i], null, flags[i], new SubProgressMonitor(progress, 1));
+		}
+		progress.done();
 	}
 
 	protected final void doGenerateBinaryFile(BinaryEmitter emitter, Path outputPath, Object[] params) throws InterruptedException, UnexpectedBehaviourException {
