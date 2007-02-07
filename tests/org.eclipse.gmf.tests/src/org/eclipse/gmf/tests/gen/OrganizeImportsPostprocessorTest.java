@@ -60,8 +60,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         String code = generateClassCode(className, null, null, null, fieldTypes, null, null, null, null);
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
-        OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor(true);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -98,7 +98,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -137,7 +137,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -192,7 +192,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -234,7 +234,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -280,7 +280,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -327,7 +327,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -360,7 +360,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -391,7 +391,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -424,7 +424,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code.toString());
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -471,7 +471,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -540,7 +540,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -560,7 +560,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -706,7 +706,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile("FailOnWrongSyntaxInCode.java", buf.toString());
         
         try {
-            new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+            new OrganizeImportsPostprocessor().organizeImports(icu, null);
             fail("Failed to produce CoreException with code, containing syntax errors");
         } catch (CoreException e) {
             assertTrue(true);
@@ -728,7 +728,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
         
         OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
-        processor.organizeImports(icu, true, null);
+        processor.organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -798,7 +798,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         buf.append("}").append(nl);
 
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(testClassName+".java", buf.toString());
-        new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+        new OrganizeImportsPostprocessor().organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -860,7 +860,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         buf.append("}").append(nl);
 
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(testClassName+".java", buf.toString());
-        new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+        new OrganizeImportsPostprocessor().organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -924,7 +924,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         buf.append("}").append(nl);
 
         ICompilationUnit icu = JavaProjectHelper.createJavaFile(testClassName+".java", buf.toString());
-        new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+        new OrganizeImportsPostprocessor().organizeImports(icu, null);
         icu.save(null, true);
         
         ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -991,7 +991,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         buf.append("}").append(nl);
 
         ICompilationUnit icu = JavaProjectHelper.createJavaFile("SomeRealPieceOfCode.java", buf.toString());
-        new OrganizeImportsPostprocessor().organizeImports(icu, true, null);
+        new OrganizeImportsPostprocessor().organizeImports(icu, null);
         icu.save(null, true);
         
         buf = new StringBuffer();
