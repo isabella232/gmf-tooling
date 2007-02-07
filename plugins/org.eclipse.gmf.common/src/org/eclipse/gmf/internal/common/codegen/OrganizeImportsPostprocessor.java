@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -46,6 +46,19 @@ import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.text.edits.TextEdit;
 
 public class OrganizeImportsPostprocessor {
+	private final boolean myRestoreExistingImports;
+
+	public OrganizeImportsPostprocessor() {
+		this(true);
+	}
+
+	/**
+	 * @param restoreExistingImports
+	 *        specifies if the existing imports should be kept or removed, see {@link ImportRewrite#create(CompilationUnit, boolean)} for details.
+	 */
+	public OrganizeImportsPostprocessor(boolean restoreExistingImports) {
+		myRestoreExistingImports = restoreExistingImports;
+	}
 
 	/**
 	 * Organizes qualified names in document.
@@ -65,8 +78,6 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @param icu
 	 *            the compilation unit containing <b>valid</b> code
-	 * @param restoreExistingImports
-	 *            specifies if the existing imports should be kept or removed.
 	 * @param monitor
 	 *            the progress monitor used to report progress and request
 	 *            cancelation, or <code>null</code> if none
@@ -76,14 +87,14 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @see ImportRewrite
 	 */
-	public void organizeImports(ICompilationUnit icu, boolean restoreExistingImports, IProgressMonitor progress) throws CoreException {
+	public void organizeImports(ICompilationUnit icu, IProgressMonitor progress) throws CoreException {
 		IDocument document = new Document(icu.getBuffer().getContents());
 
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setSource(icu);
 		CompilationUnit cu = (CompilationUnit) parser.createAST(progress);
 
-		TextEdit importsEdit = organizeImports(cu, restoreExistingImports, progress);
+		TextEdit importsEdit = organizeImports(cu, progress);
 
 		try {
 			importsEdit.apply(document);
@@ -108,8 +119,6 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @param astRoot
 	 *            the parsed traversable ast tree, should contain no errors
-	 * @param restoreExistingImports
-	 *            specifies if the existing imports should be kept or removed.
 	 * @param monitor
 	 *            the progress monitor used to report progress and request
 	 *            cancelation, or <code>null</code> if none
@@ -122,7 +131,7 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @see ImportRewrite
 	 */
-	public TextEdit organizeImports(CompilationUnit astRoot, boolean restoreExistingImports, IProgressMonitor progress) throws CoreException {
+	public TextEdit organizeImports(CompilationUnit astRoot, IProgressMonitor progress) throws CoreException {
 		MultiTextEdit result = new MultiTextEdit();
 
 		Set<String> oldSingleImports = new HashSet<String>();
@@ -142,7 +151,7 @@ public class OrganizeImportsPostprocessor {
 
 		PackageReferencesCollector.collect(astRoot, qualifiedTypeReferences, simpleTypeReferences, importsAdded);
 
-		ImportRewrite importRewrite = createImportRewrite(astRoot, restoreExistingImports);
+		ImportRewrite importRewrite = createImportRewrite(astRoot);
 		ImportRewrite.ImportRewriteContext context = new ReferencedTypesAwareImportRewriteContext(simpleTypeReferences, importRewrite);
 
 		Iterator<Name> refIterator = qualifiedTypeReferences.iterator();
@@ -245,15 +254,13 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @param astRoot
 	 *            the AST root to create the rewriter on
-	 * @param restoreExistingImports
-	 *            specifies if the existing imports should be kept or removed.
 	 * @return the new rewriter configured with the settings as specified in the
 	 *         JDT UI preferences.
 	 * 
 	 * @see ImportRewrite#create(CompilationUnit, boolean)
 	 */
-	public ImportRewrite createImportRewrite(CompilationUnit astRoot, boolean restoreExistingImports) {
-		return configureImportRewrite(ImportRewrite.create(astRoot, restoreExistingImports));
+	public ImportRewrite createImportRewrite(CompilationUnit astRoot) {
+		return configureImportRewrite(ImportRewrite.create(astRoot, myRestoreExistingImports));
 	}
 
 	private static ImportRewrite configureImportRewrite(ImportRewrite rewrite) {

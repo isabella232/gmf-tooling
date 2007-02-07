@@ -323,7 +323,7 @@ public abstract class GeneratorBase implements Runnable {
 				final String oldContents = cu.getSource();
 				cu.getBuffer().setContents(genText);
 				try {
-					getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+					getImportsPostrocessor().organizeImports(cu, new SubProgressMonitor(pm, 1));
 				} catch (CoreException e) {
 					cu.save(new SubProgressMonitor(pm, 1), true); // save to investigate contents
 					throw e;
@@ -339,7 +339,7 @@ public abstract class GeneratorBase implements Runnable {
 				}
 			} else {
 				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
-				getImportsPostrocessor().organizeImports(cu, isToRestoreExistingImports, new SubProgressMonitor(pm, 1));
+				getImportsPostrocessor().organizeImports(cu, new SubProgressMonitor(pm, 1));
 				String newContents = formatCode(cu.getSource());
 				cu.getBuffer().setContents(newContents);
 				cu.save(new SubProgressMonitor(pm, 1), true);
@@ -474,7 +474,7 @@ public abstract class GeneratorBase implements Runnable {
 
 	private OrganizeImportsPostprocessor getImportsPostrocessor() {
 		if (myImportsPostprocessor == null) {
-			myImportsPostprocessor = new OrganizeImportsPostprocessor();
+			myImportsPostprocessor = new OrganizeImportsPostprocessor(isToRestoreExistingImports);
 		}
 		return myImportsPostprocessor;
 	}
