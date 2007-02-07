@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -146,6 +147,7 @@ public class RuntimeWorkspaceSetup {
 	// TODO Refactor to clear away similar code (CodeCompilationTest, RuntimeWorkspaceSetup, GenProjectSetup)
 	private void init(String... pluginsToImport) throws Exception {
 		ensureJava14();
+		turnWorkspaceHistoryOff();
 		if (isDevLaunchMode) {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(pluginsToImport);
@@ -255,7 +257,7 @@ public class RuntimeWorkspaceSetup {
 	}
 
 	/**
-	 * at least
+	 * at least 1.4
 	 */
 	@SuppressWarnings("unchecked")
 	private void ensureJava14() {
@@ -267,7 +269,19 @@ public class RuntimeWorkspaceSetup {
 			JavaCore.setOptions(options);
 		}
 	}
-	
+
+	/**
+	 * No need to track history for workspace resources
+	 */
+	private void turnWorkspaceHistoryOff() throws CoreException {
+		IWorkspaceDescription wd = ResourcesPlugin.getWorkspace().getDescription();
+		wd.setFileStateLongevity(0);
+		wd.setMaxFileStates(0);
+		wd.setMaxFileStateSize(0);
+		wd.setSnapshotInterval(60*60*1000);
+		ResourcesPlugin.getWorkspace().setDescription(wd);
+	}
+
 	private class ClasspathEntry {
 		
 		private String myPluginID;
