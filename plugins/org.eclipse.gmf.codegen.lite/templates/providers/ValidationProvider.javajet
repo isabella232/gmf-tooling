@@ -467,7 +467,7 @@ final java.util.Map __exprEnvVariables = java.util.Collections.EMPTY_MAP;
 final String __outEnvVarName = ""; // no env to setup //$NON-NLS-1$ 
 for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 	GenAuditRule nextAudit = (GenAuditRule)it.next();
-	if(nextAudit.requiresConstraintAdapter() && nextAudit.getRule() != null && nextAudit.getTarget() != null && nextAudit.getTarget().getContext() != null) {
+	if(nextAudit.isRequiresConstraintAdapter() && nextAudit.getRule() != null && nextAudit.getTarget() != null && nextAudit.getTarget().getContext() != null) {
 		GenClassifier __genExprContext = nextAudit.getTarget().getContext();		 
 		ValueExpression __genValueExpression = nextAudit.getRule();
 		String importedExpressionBase = (expressionProviders != null) ? importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()) : "null"; //$NON-NLS-1$
