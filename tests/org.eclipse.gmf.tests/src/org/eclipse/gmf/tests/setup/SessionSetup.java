@@ -24,6 +24,7 @@ public class SessionSetup implements TestConfiguration {
 	private GenProjectSetup myProject;
 	private MapDefSource myMapModel;
 	private DiaDefSource myGraphDefModel;
+	private ToolDefSource myToolDefModel;
 	private int myUses;
 	protected static boolean factoryClosed = false;
 	private GeneratorConfiguration myGeneratorConfiguration;
@@ -103,7 +104,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected MapDefSource createMapModel() {
-		return new MapSetup().init(getGraphDefModel(), getDomainModel(), new ToolDefSetup());
+		return new MapSetup().init(getGraphDefModel(), getDomainModel(), getToolDefModel());
 	}
 
 	public DiaDefSource getGraphDefModel() {
@@ -115,6 +116,17 @@ public class SessionSetup implements TestConfiguration {
 
 	protected DiaDefSource createGraphDefModel() {
 		return new DiaDefSetup().init();
+	}
+
+	public ToolDefSource getToolDefModel() {
+		if (myToolDefModel == null) {
+			myToolDefModel = createToolDefModel();
+		}
+		return myToolDefModel;
+	}
+
+	protected ToolDefSource createToolDefModel() {
+		return new ToolDefSetup();
 	}
 
 	public void cleanup() throws Exception {

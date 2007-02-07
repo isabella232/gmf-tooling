@@ -72,6 +72,7 @@ import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.PluginXMLTextMergerTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
+import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 import org.eclipse.gmf.tests.validate.AllValidateTests;
 
@@ -103,6 +104,7 @@ public class AllTests {
 		suite.addTestSuite(HandcodedContributionItemTest.class);
 
 		suite.addTest(feed(GenModelTransformerSimpleTest.class, sessionSetup));
+		suite.addTest(feed(TransformToGenModelOperationTest.class, sessionSetup));
 		suite.addTest(feed(LabelMappingTransformTest.class, sessionSetup));
 		suite.addTest(feed(PaletteTransformationTest.class, sessionSetup));
 		suite.addTestSuite(HistoryTest.class);
