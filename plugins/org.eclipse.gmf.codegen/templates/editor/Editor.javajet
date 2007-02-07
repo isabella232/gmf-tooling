@@ -45,52 +45,6 @@ if (!ifaces.isEmpty()) {
 		super(<%=genDiagram.getPalette() != null && genDiagram.getPalette().isFlyout()%>);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected String getEditingDomainID() {
-		return "<%=genDiagram.getEditingDomainID()%>"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @generated
-	 */
-	protected TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain domain = super.createEditingDomain();
-		domain.setID(getEditingDomainID());
-<%String notificationGilterFQName = importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter");%>
-		final <%=notificationGilterFQName%> diagramResourceModifiedFilter = <%=notificationGilterFQName%>.createNotifierFilter(domain.getResourceSet()).and(<%=notificationGilterFQName%>.createEventTypeFilter(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%>.ADD)).and(<%=notificationGilterFQName%>.createFeatureFilter(<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%>.class, <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%>.RESOURCE_SET__RESOURCES));
-		domain.getResourceSet().eAdapters().add(new <%=importManager.getImportedName("org.eclipse.emf.common.notify.Adapter")%>() {
-
-			private <%=importManager.getImportedName("org.eclipse.emf.common.notify.Notifier")%> myTarger;
-
-			public <%=importManager.getImportedName("org.eclipse.emf.common.notify.Notifier")%> getTarget() {
-				return myTarger;
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return false;
-			}
-
-			public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
-				if (diagramResourceModifiedFilter.matches(notification)) {
-					Object value = notification.getNewValue();
-					if (value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) {
-						((<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) value).setTrackingModification(true);
-					}
-				}
-			}
-
-			public void setTarget(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notifier")%> newTarget) {
-				myTarger = newTarget;
-			}
-			
-		});
-
-
-		return domain;
-	}
-
 <%if (genDiagram.getPalette() != null) {%>
 	/**
 	 * @generated
@@ -137,6 +91,17 @@ if (!ifaces.isEmpty()) {
 		}
 		return super.getDocumentProvider(input);
 	}
+	
+	/**
+	 * @generated
+	 */
+    public <%=importManager.getImportedName("TransactionalEditingDomain")%> getEditingDomain() {
+    	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = getEditorInput() != null ? getDocumentProvider().getDocument(getEditorInput()) : null;
+    	if (document instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
+    		return ((org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document).getEditingDomain();
+    	}
+        return super.getEditingDomain();
+    }
 <%if (genDiagram.getEditorGen().getApplication() == null) {%>
 
 	/**
@@ -144,7 +109,7 @@ if (!ifaces.isEmpty()) {
 	 */
 	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+			setDocumentProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getDocumentProvider());
 		} else if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
 			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getPackageName() + ".URIDiagramDocumentProvider")%>());
 		} else {

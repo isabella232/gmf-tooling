@@ -63,12 +63,12 @@ protected class ResourceSetInfo extends StorageInfo {
 		private java.util.Collection myUnSynchronizedResources = new java.util.ArrayList();
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy myEditorInput;
+		private org.eclipse.ui.part.FileEditorInput myEditorInput;
 «ENDDEFINE»
 
 «DEFINE constructor FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public ResourceSetInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy editorInput) {
+public ResourceSetInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document, org.eclipse.ui.part.FileEditorInput editorInput) {
 	super(document);
 	myDocument = document;
 	myEditorInput = editorInput;
@@ -99,7 +99,7 @@ public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
 
 «DEFINE getEditorInput FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy getEditorInput() {
+public org.eclipse.ui.part.FileEditorInput getEditorInput() {
 	return myEditorInput;
 }
 «ENDDEFINE»
@@ -108,6 +108,10 @@ public org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEdit
 	«EXPAND xpt::Common::generatedMemberComment»
 public void dispose() {
 	stopResourceListening();
+	for (java.util.Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
+		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+		resource.unload();
+	}
 }
 «ENDDEFINE»
 

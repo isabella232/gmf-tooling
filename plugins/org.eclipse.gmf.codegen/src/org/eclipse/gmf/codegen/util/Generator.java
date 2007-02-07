@@ -190,7 +190,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCreationWizardPage();
 		generateEditor();
 		generateURIDiagramDocumentProvider();
-		generateURIEditorInputProxy();
 		generateLoadResourceAction();
 		if (myDiagram.getEditorGen().getApplication() == null) {
 			generateDocumentProvider();
@@ -1078,10 +1077,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateURIDiagramDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getURIDiagramDocumentProviderEmitter(), myEmitters.getURIDiagramDocumentProviderName(myDiagram), myDiagram.getEditorGen().getEditor());
-	}
-
-	private void generateURIEditorInputProxy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getURIEditorInputProxyEmitter(), myEmitters.getURIEditorInputProxyName(myDiagram), myDiagram.getEditorGen().getEditor());
 	}
 
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {

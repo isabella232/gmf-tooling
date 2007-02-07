@@ -691,14 +691,6 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::editor::URIDiagramDocumentProvider::URIDiagramDocumentProvider"); //$NON-NLS-1$
 	}
 
-	public String getURIEditorInputProxyName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::URIEditorInputProxy", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getURIEditorInputProxyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::editor::URIEditorInputProxy::URIEditorInputProxy"); //$NON-NLS-1$
-	}
-
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
 		return retrieve(WizardNewFileCreationPageGenerator.class);
 	}

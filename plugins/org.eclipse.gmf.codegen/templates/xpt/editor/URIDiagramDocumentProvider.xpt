@@ -72,15 +72,8 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		}
 		((URIElementInfo) info).listener.stopListening();
 	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public org.eclipse.ui.IEditorInput createInputWithEditingDomain(org.eclipse.ui.IEditorInput editorInput, org.eclipse.emf.transaction.TransactionalEditingDomain domain) {
-		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
-			return new URIEditorInputProxy((org.eclipse.emf.common.ui.URIEditorInput) editorInput, domain);
-		}
-		assert false;
-		return null;
-	}
+	
+	«EXPAND xpt::editor::DocumentProvider::createInputWithEditingDomain FOR editorGen.diagram-»
 
 	«EXPAND xpt::editor::DocumentProvider::getDiagramDocument FOR editorGen.diagram-»
 
@@ -109,13 +102,11 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 	}
 
 	«EXPAND xpt::editor::DocumentProvider::createEmptyDocument FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::createEditingDomain FOR editorGen.diagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
-		if (editorInput instanceof «EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») {
-			«EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram» diagramElement = («EXPAND xpt::editor::URIEditorInputProxy::qualifiedClassName FOR editorGen.diagram») editorInput;
-			((org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document).setEditingDomain(diagramElement.getEditingDomain());
-		}
 		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 			setDocumentContentFromStorage(document, ((org.eclipse.emf.common.ui.URIEditorInput) editorInput).getURI());
 			return true;

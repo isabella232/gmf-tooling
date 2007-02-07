@@ -54,7 +54,14 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private ComposedAdapterFactory adapterFactory;
+	private ComposedAdapterFactory adapterFactory;	
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(genDiagram.getDocumentProviderQualifiedClassName())%> myDocumentProvider;
+<%}%>
 
 	/**
 	 * @generated
@@ -188,6 +195,18 @@ for (int i = 0; i < genPackages.size(); i++) {
 		}
 		return image;
 	}
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
+	
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName(genDiagram.getDocumentProviderQualifiedClassName())%> getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new <%=importManager.getImportedName(genDiagram.getDocumentProviderQualifiedClassName())%>();
+		}
+		return myDocumentProvider;
+	}
+<%}%>
 	
 	/**
 	 * @generated
