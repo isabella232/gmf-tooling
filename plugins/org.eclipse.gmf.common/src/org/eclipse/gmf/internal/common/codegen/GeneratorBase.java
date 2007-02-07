@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -70,7 +70,7 @@ public abstract class GeneratorBase implements Runnable {
 	private final List<IStatus> myExceptions;
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
 	private TextMerger myMerger;
-	private boolean isToRestoreExistingImports = true;
+	private final boolean isToRestoreExistingImports = true;
 
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
 
