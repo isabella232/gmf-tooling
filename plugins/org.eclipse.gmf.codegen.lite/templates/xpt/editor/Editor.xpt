@@ -334,7 +334,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDDEFINE»
 
 «DEFINE metricsActions FOR gmfgen::GenMetricContainer-»
-		addAction(new «editor.diagram.getMetricProviderQualifiedClassName()».MetricsAction(this));
+		addAction(new «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction(this));
 «ENDDEFINE»
 
 «DEFINE moreActions FOR gmfgen::GenEditorView-»
@@ -755,7 +755,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDDEFINE»
 
 «DEFINE provideMetricsActions FOR gmfgen::GenMetricContainer-»
-			appendActionToMenu(menuManager, «editor.diagram.getMetricProviderQualifiedClassName()».MetricsAction.ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
+			appendActionToMenu(menuManager, «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction.ACTION_KEY, org.eclipse.gef.ui.actions.GEFActionConstants.GROUP_REST);
 «ENDDEFINE»
 
 «DEFINE provideMoreActions FOR gmfgen::GenEditorView-»

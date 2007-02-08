@@ -51,8 +51,8 @@
 «IF metrics.size() > 0-»
 	<extension point="org.eclipse.ui.views">
 	    <?gmfgen generated="true"?>
-   		<view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
-			id="«editor.diagram.getMetricViewID()»"
+   		<view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"
+			id="«editorGen.diagram.getMetricViewID()»"
 			name="%UI_Metrics_View_name"/>
 	</extension>
 «ENDIF-»
@@ -66,6 +66,6 @@ _UI_Diagnostic_marker=«modelID» Diagnostics Markers
 
 «DEFINE metricsi18n FOR gmfgen::GenMetricContainer-»
 «IF metrics.size() > 0-»
-UI_Metrics_View_name=«editor.modelID» Diagram Metrics
+UI_Metrics_View_name=«editorGen.modelID» Diagram Metrics
 «ENDIF-»
 «ENDDEFINE»
