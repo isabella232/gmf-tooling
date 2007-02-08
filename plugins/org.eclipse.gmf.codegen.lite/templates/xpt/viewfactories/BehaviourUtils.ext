@@ -14,5 +14,5 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 
 List[gmfgen::OpenDiagramBehaviour] openDiagramBehaviours(gmfgen::GenCommonBase e) :
-	e.behaviour.typeSelect(gmfgen::OpenDiagramBehaviour)
+	e.behaviour.typeSelect(gmfgen::OpenDiagramBehaviour).addAll(e.behaviour.typeSelect(gmfgen::SharedBehaviour).delegate.typeSelect(gmfgen::OpenDiagramBehaviour))
 ;
