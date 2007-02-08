@@ -50,6 +50,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
@@ -94,6 +95,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	
 	private GenDiagram myGenModel;
 
+	private final String javaLevel = "1.4";
+
 	public HandcodedImplTest(String name) {
 		super(name);
 	}
@@ -102,6 +105,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		super.setUp();
 		// FIXME need complex genmodel with a lot of nodes and links to make tests effective 
 		myGenModel = getSetup().getGenModel().getGenDiagram();
+		// additional elements to check (XXX perhaps, move to SessionSetup.mapping?
+		if (myGenModel.getEditorGen().getAudits() == null) {
+			GenAuditRoot root;
+			myGenModel.getEditorGen().setAudits(root = GMFGenFactory.eINSTANCE.createGenAuditRoot());
+			GenAuditContainer cat;
+			root.getCategories().add(cat = GMFGenFactory.eINSTANCE.createGenAuditContainer());
+			GenAuditRule rule;
+			root.getRules().add(rule = GMFGenFactory.eINSTANCE.createGenAuditRule());
+			rule.setCategory(cat);
+			rule.setTarget(GMFGenFactory.eINSTANCE.createGenDomainElementTarget());
+		}
 	}
 
 	public void testUniqueIdentifier_IsUnique() {
@@ -996,20 +1010,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				checkClassName(state, "Behaviour:EditPolicy", epClassName, nextB.getEditPolicyQualifiedClassName());
 			}
 		}
-		GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
-		if (audits != null && !audits.getAllAuditRules().isEmpty()) {
-			Set<String> checkedContexts = new HashSet<String>();
-			for (Iterator it = audits.getAllAuditRules().iterator(); it.hasNext();) {
-				GenAuditRule nextAudit = (GenAuditRule) it.next();
-				if (!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
-					checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
-					checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());
-				}
-				checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());
+		GenAuditRoot audits = genDiagram.getEditorGen().getAudits();
+		assertTrue("Need AuditRoot instance with rules to check handcoded methods", audits != null && audits.getRules().size() > 0);
+		Set<String> checkedContexts = new HashSet<String>();
+		for (Iterator it = audits.getRules().iterator(); it.hasNext();) {
+			GenAuditRule nextAudit = (GenAuditRule) it.next();
+			if (!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
+				checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
+				checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());
+				checkClassName(state, "GenAuditRule:ContextSelectorLocal", nextAudit.getContextSelectorLocalClassName(), nextAudit.getContextSelectorClassName());
 			}
-		} else {
-			state.add("GenAuditRule:ContextSelector");
-			state.add("GenAuditRule:ConstraintAdapter");
+			checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());
 		}
 
 		// test model may not contain them
@@ -1054,18 +1065,18 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 
 	protected void checkPackageName(Set<String> state, String id, String packageName) {
-		IStatus s = JavaConventions.validatePackageName(packageName);
+		IStatus s = JavaConventions.validatePackageName(packageName, javaLevel, javaLevel);
 		assertTrue(id + " package name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
 		state.add(packageName); // for unique package name check
 		state.add(id); // for coverage check
 	}
 
 	protected void checkClassName(Set<String> state, String id, String simpleClassName, String qualifiedClassName) {
-		IStatus s = JavaConventions.validateJavaTypeName(simpleClassName);
+		IStatus s = JavaConventions.validateJavaTypeName(simpleClassName, javaLevel, javaLevel);
 		assertTrue(id + " simple class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
-		s = JavaConventions.validateJavaTypeName(qualifiedClassName);
+		s = JavaConventions.validateJavaTypeName(qualifiedClassName, javaLevel, javaLevel);
 		assertTrue(id + " qualified class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
-		assertTrue(id + " simple class name does not match the qualified one : '" + simpleClassName + "', '" + qualifiedClassName + "'", qualifiedClassName.endsWith('.' + simpleClassName));
+		assertTrue(id + " simple class name does not match the qualified one : '" + simpleClassName + "', '" + qualifiedClassName + "'", qualifiedClassName.endsWith('.' + simpleClassName) || qualifiedClassName.endsWith('$' + simpleClassName));
 		assertFalse(qualifiedClassName + " is not unique", state.contains(qualifiedClassName));
 		state.add(qualifiedClassName); // for unique class name check
 		state.add(id); // for coverage check

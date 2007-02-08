@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -275,18 +276,26 @@ public class DiaGenSetup implements DiaGenSource {
 		return myLinkD;
 	}
 
-	private GenAuditContainer createAudits() {
+	@SuppressWarnings("unchecked")
+	private GenAuditRoot createAudits() {
 		GenClass classA = getNodeA().getDomainMetaClass();
 		assert getLinkC().getModelFacet() instanceof TypeLinkModelFacet : "Expecting link with class"; //$NON-NLS-1$
 		GenClass classC = ((TypeLinkModelFacet)getLinkC().getModelFacet()).getMetaClass();
-		GenAuditContainer root = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+		GenAuditRoot root = GMFGenFactory.eINSTANCE.createGenAuditRoot();
+		GenAuditContainer topCat = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+		root.getCategories().add(topCat);
+		topCat.getPath().add(topCat);
 		// create set of allways satisfied constraints
-		root.getAudits().add(createAudit("constraint.id1", "true", classA, GenSeverity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
-		root.getAudits().add(createAudit("constraint.id2", "10 > 0", classC, GenSeverity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
-		
+		topCat.getAudits().add(createAudit("constraint.id1", "true", classA, GenSeverity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		topCat.getAudits().add(createAudit("constraint.id2", "10 > 0", classC, GenSeverity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
+		root.getRules().addAll(topCat.getAudits());
+
 		GenAuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
-		root.getChildContainers().add(subCat);
+		root.getCategories().add(subCat);
+		subCat.getPath().add(topCat);
+		subCat.getPath().add(subCat);
 		subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", classA, GenSeverity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		root.getRules().addAll(subCat.getAudits());
 		
 		return root;
 	}

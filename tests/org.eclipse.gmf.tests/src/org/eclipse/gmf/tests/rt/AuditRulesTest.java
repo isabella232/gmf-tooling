@@ -20,7 +20,6 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -74,7 +73,7 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
 public class AuditRulesTest extends RuntimeDiagramTestBase {
 	private AuditContainer audits;
 	private AuditAssert auditAssert;
-	private EList targetedPackages;
+	private List<GenPackage> targetedPackages;
 
 	public AuditRulesTest(String name) {
 		super(name);
@@ -89,7 +88,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		assertNotNull("Requires mapping with audit rules", audits); //$NON-NLS-1$
 		final GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
 		
-		this.targetedPackages = genDiagram.getEditorGen().getAudits().getAllTargetedModelPackages();
+		this.targetedPackages = genDiagram.getEditorGen().getAudits().getTargetedModelPackages();
 		auditAssert = new AuditAssert(genDiagram.getEditorGen().getPlugin().getID());
 	}
 
@@ -293,8 +292,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 	EClass findCanonicalEClass(EClass eClass) {
 		String nsURI = eClass.getEPackage().getNsURI();
 		GenPackage genPackage = null;
-		for (Iterator it = targetedPackages.iterator(); it.hasNext();) {
-			GenPackage nextPackage = (GenPackage) it.next();
+		for (GenPackage nextPackage : targetedPackages) {
 			if(nsURI.equals(nextPackage.getNSURI())) {
 				genPackage = nextPackage;
 				break;

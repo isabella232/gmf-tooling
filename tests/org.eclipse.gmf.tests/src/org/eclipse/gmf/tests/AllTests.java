@@ -62,6 +62,7 @@ import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
 import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
 import org.eclipse.gmf.tests.setup.figures.ShapePropertiesSetup;
+import org.eclipse.gmf.tests.tr.AuditRootTest;
 import org.eclipse.gmf.tests.tr.EcoreGenModelMatcherTest;
 import org.eclipse.gmf.tests.tr.GenModelGraphAnalyzerTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
@@ -107,6 +108,7 @@ public class AllTests {
 		suite.addTest(feed(TransformToGenModelOperationTest.class, sessionSetup));
 		suite.addTest(feed(LabelMappingTransformTest.class, sessionSetup));
 		suite.addTest(feed(PaletteTransformationTest.class, sessionSetup));
+		suite.addTestSuite(AuditRootTest.class);
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(XmlTextMergerTest.class);
 		suite.addTestSuite(TestDefaultMergeService.class);
