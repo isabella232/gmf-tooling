@@ -14,5 +14,5 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 
 boolean validationNeeded(gmfgen::GenDiagram diagram) :
-	diagram.validationEnabled || (diagram.editorGen.audits != null && diagram.editorGen.audits.getAllAuditRules().size() > 0)
+	diagram.validationEnabled || (diagram.editorGen.audits != null && diagram.editorGen.audits.rules.size() > 0)
 ;
