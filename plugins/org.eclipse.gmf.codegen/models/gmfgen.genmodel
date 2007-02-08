@@ -655,9 +655,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getConstraintsInstanceFieldName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/isValid"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenRuleContainerBase">
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenRuleContainerBase/editor"/>
-    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditRoot">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRoot/editorGen"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRoot/categories"/>
@@ -707,6 +704,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNotationElementTarget/element"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMetricContainer">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricContainer/editorGen"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricContainer/metrics"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMetricRule">

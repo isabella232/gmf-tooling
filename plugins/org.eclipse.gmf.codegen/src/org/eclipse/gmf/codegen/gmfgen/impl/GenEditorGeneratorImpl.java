@@ -418,9 +418,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		if (newMetrics != metrics) {
 			NotificationChain msgs = null;
 			if (metrics != null)
-				msgs = ((InternalEObject)metrics).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, null, msgs);
+				msgs = ((InternalEObject)metrics).eInverseRemove(this, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, GenMetricContainer.class, msgs);
 			if (newMetrics != null)
-				msgs = ((InternalEObject)newMetrics).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, null, msgs);
+				msgs = ((InternalEObject)newMetrics).eInverseAdd(this, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, GenMetricContainer.class, msgs);
 			msgs = basicSetMetrics(newMetrics, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -1040,6 +1040,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (audits != null)
 					msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, null, msgs);
 				return basicSetAudits((GenAuditRoot)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				if (metrics != null)
+					msgs = ((InternalEObject)metrics).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, null, msgs);
+				return basicSetMetrics((GenMetricContainer)otherEnd, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				if (diagram != null)
 					msgs = ((InternalEObject)diagram).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM, null, msgs);

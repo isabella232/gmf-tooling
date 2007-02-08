@@ -16,140 +16,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
-import org.eclipse.gmf.codegen.gmfgen.Attributes;
-import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
-import org.eclipse.gmf.codegen.gmfgen.Behaviour;
-import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
-import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
-import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.DiagramColors;
-import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
-import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
-import org.eclipse.gmf.codegen.gmfgen.ElementType;
-import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
-import org.eclipse.gmf.codegen.gmfgen.FontStyle;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenApplication;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
-import org.eclipse.gmf.codegen.gmfgen.GenColor;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenConstantColor;
-import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
-import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomFont;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
-import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenFont;
-import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
-import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
-import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
-import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
-import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
-import org.eclipse.gmf.codegen.gmfgen.GenRGBColor;
-import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
-import org.eclipse.gmf.codegen.gmfgen.GenRuleContainerBase;
-import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
-import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
-import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
-import org.eclipse.gmf.codegen.gmfgen.GenStandardFont;
-import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
-import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
-import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
-import org.eclipse.gmf.codegen.gmfgen.JFaceFont;
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
-import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.NotationType;
-import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.PackageNames;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
-import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
-import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
-import org.eclipse.gmf.codegen.gmfgen.Routing;
-import org.eclipse.gmf.codegen.gmfgen.RulerUnits;
-import org.eclipse.gmf.codegen.gmfgen.Separator;
-import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
-import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
-import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.StandardEntry;
-import org.eclipse.gmf.codegen.gmfgen.StandardEntryKind;
-import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
-import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
-import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
-import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
-import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.gmfgen.util.GMFGenMigration;
 import org.eclipse.gmf.internal.common.migrate.MigrationConfig;
 import org.eclipse.gmf.validate.GMFValidator;
@@ -713,13 +580,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genLinkConstraintsEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass genRuleContainerBaseEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4318,24 +4178,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getGenRuleContainerBase() {
-		return genRuleContainerBaseEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGenRuleContainerBase_Editor() {
-		return (EReference)genRuleContainerBaseEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getGenAuditRoot() {
 		return genAuditRootEClass;
 	}
@@ -4660,8 +4502,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenMetricContainer_Metrics() {
+	public EReference getGenMetricContainer_EditorGen() {
 		return (EReference)genMetricContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenMetricContainer_Metrics() {
+		return (EReference)genMetricContainerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6246,9 +6097,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__SOURCE_END);
 		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__TARGET_END);
 
-		genRuleContainerBaseEClass = createEClass(GEN_RULE_CONTAINER_BASE);
-		createEReference(genRuleContainerBaseEClass, GEN_RULE_CONTAINER_BASE__EDITOR);
-
 		genAuditRootEClass = createEClass(GEN_AUDIT_ROOT);
 		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__EDITOR_GEN);
 		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__CATEGORIES);
@@ -6294,6 +6142,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genNotationElementTargetEClass, GEN_NOTATION_ELEMENT_TARGET__ELEMENT);
 
 		genMetricContainerEClass = createEClass(GEN_METRIC_CONTAINER);
+		createEReference(genMetricContainerEClass, GEN_METRIC_CONTAINER__EDITOR_GEN);
 		createEReference(genMetricContainerEClass, GEN_METRIC_CONTAINER__METRICS);
 
 		genMetricRuleEClass = createEClass(GEN_METRIC_RULE);
@@ -6550,7 +6399,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDomainAttributeTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genNotationElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genNotationElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
-		genMetricContainerEClass.getESuperTypes().add(this.getGenRuleContainerBase());
 		genMetricRuleEClass.getESuperTypes().add(this.getGenRuleBase());
 		genAuditedMetricTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genAuditableEClass.getESuperTypes().add(this.getGenRuleTarget());
@@ -6572,7 +6420,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenEditorGenerator_Audits(), this.getGenAuditRoot(), this.getGenAuditRoot_EditorGen(), "audits", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Metrics(), this.getGenMetricContainer(), null, "metrics", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_Metrics(), this.getGenMetricContainer(), this.getGenMetricContainer_EditorGen(), "metrics", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Diagram(), this.getGenDiagram(), this.getGenDiagram_EditorGen(), "diagram", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7191,9 +7039,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genLinkConstraintsEClass, ecorePackage.getEBoolean(), "isValid", 0, 1);
 
-		initEClass(genRuleContainerBaseEClass, GenRuleContainerBase.class, "GenRuleContainerBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenRuleContainerBase_Editor(), this.getGenEditorGenerator(), null, "editor", null, 1, 1, GenRuleContainerBase.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
 		initEClass(genAuditRootEClass, GenAuditRoot.class, "GenAuditRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenAuditRoot_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Audits(), "editorGen", null, 1, 1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRoot_Categories(), this.getGenAuditContainer(), this.getGenAuditContainer_Root(), "categories", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7247,6 +7092,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenNotationElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenNotationElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genMetricContainerEClass, GenMetricContainer.class, "GenMetricContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenMetricContainer_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Metrics(), "editorGen", null, 1, 1, GenMetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenMetricContainer_Metrics(), this.getGenMetricRule(), this.getGenMetricRule_Container(), "metrics", null, 1, -1, GenMetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genMetricRuleEClass, GenMetricRule.class, "GenMetricRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7607,7 +7453,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																						
+		   });																																																																																																																																																																																																				
 	}
 
 	/**
@@ -7784,7 +7630,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()",
 			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
-		   });																									
+		   });																							
 		addAnnotation
 		  (getGenAuditRule_Id(), 
 		   source, 
@@ -7849,7 +7695,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });																																																																																																																																																																											
+		   });																																																																																																																																																																									
 		addAnnotation
 		  ((EOperation)genNavigatorEClass.getEOperations().get(8), 
 		   source, 
@@ -7946,7 +7792,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "def", "variable",
 			 "name", "oppositeEnd",
 			 "type.ocl", "getSourceEndContextClass().ecoreClass"
-		   });																
+		   });														
 		addAnnotation
 		  (getGenAuditRule_Rule(), 
 		   source, 

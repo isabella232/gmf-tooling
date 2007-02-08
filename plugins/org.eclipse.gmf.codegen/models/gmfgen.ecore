@@ -21,7 +21,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditRoot"
         containment="true" eOpposite="#//GenAuditRoot/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//GenMetricContainer"
-        containment="true"/>
+        containment="true" eOpposite="#//GenMetricContainer/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" containment="true" eOpposite="#//GenDiagram/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="plugin" lowerBound="1"
@@ -1362,18 +1362,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenRuleContainerBase" abstract="true">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Base container for rules like audit, metrics..."/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editor" lowerBound="1"
-        eType="#//GenEditorGenerator" changeable="false" volatile="true" transient="true"
-        derived="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The editor generator containing this rule container"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenAuditRoot">
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
         eType="#//GenEditorGenerator" changeable="false" eOpposite="#//GenEditorGenerator/audits"/>
@@ -1559,7 +1547,9 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenMetricContainer" eSuperTypes="#//GenRuleContainerBase">
+  <eClassifiers xsi:type="ecore:EClass" name="GenMetricContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
+        eType="#//GenEditorGenerator" changeable="false" eOpposite="#//GenEditorGenerator/metrics"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" lowerBound="1"
         upperBound="-1" eType="#//GenMetricRule" containment="true" eOpposite="#//GenMetricRule/container"/>
   </eClassifiers>

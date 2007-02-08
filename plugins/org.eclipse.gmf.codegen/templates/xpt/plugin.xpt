@@ -248,9 +248,9 @@
 	<extension id="MetricContributionItemProvider" name="Metrics"
 		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
         «EXPAND xpt::Common::xmlGeneratedTag»
-		<contributionItemProvider checkPluginLoaded="true" class="«editor.diagram.getMetricProviderQualifiedClassName()»">
-			<Priority name="«editor.diagram.metricProviderPriority»"/>		
-			<partContribution id="«editor.editor.iD»">
+		<contributionItemProvider checkPluginLoaded="true" class="«editorGen.diagram.getMetricProviderQualifiedClassName()»">
+			<Priority name="«editorGen.diagram.metricProviderPriority»"/>		
+			<partContribution id="«editorGen.editor.iD»">
 				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
 				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
 			</partContribution>		
@@ -259,9 +259,9 @@
 
    <extension point="org.eclipse.ui.views">
       «EXPAND xpt::Common::xmlGeneratedTag»
-   	  <view class="«editor.diagram.getMetricProviderQualifiedClassName()»$ResultView"
-			id="«editor.diagram.getMetricViewID()»"
-			name="«editor.modelID» Diagram Metrics"/>
+   	  <view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"
+			id="«editorGen.diagram.getMetricViewID()»"
+			name="«editorGen.modelID» Diagram Metrics"/>
    </extension>
 «ENDIF-»
 «ENDDEFINE»

@@ -15,9 +15,12 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 
@@ -28,13 +31,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricContainerImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricContainerImpl#getMetrics <em>Metrics</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements GenMetricContainer {
+public class GenMetricContainerImpl extends EObjectImpl implements GenMetricContainer {
 	/**
 	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -61,6 +65,16 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenMetricContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenEditorGenerator getEditorGen() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN) return null;
+		return (GenEditorGenerator)eContainer();
 	}
 
 	/**
@@ -99,6 +113,10 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return ((InternalEList)getMetrics()).basicAdd(otherEnd, msgs);
 		}
@@ -112,6 +130,8 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return ((InternalEList)getMetrics()).basicRemove(otherEnd, msgs);
 		}
@@ -123,8 +143,23 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, GenEditorGenerator.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
+				return getEditorGen();
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return getMetrics();
 		}
@@ -167,6 +202,8 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
+				return getEditorGen() != null;
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				return metrics != null && !metrics.isEmpty();
 		}

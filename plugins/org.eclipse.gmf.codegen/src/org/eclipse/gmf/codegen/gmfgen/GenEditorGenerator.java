@@ -71,6 +71,7 @@ public interface GenEditorGenerator extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Metrics</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricContainer#getEditorGen <em>Editor Gen</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Metrics</em>' containment reference isn't clear,
@@ -80,7 +81,8 @@ public interface GenEditorGenerator extends EObject {
 	 * @return the value of the '<em>Metrics</em>' containment reference.
 	 * @see #setMetrics(GenMetricContainer)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Metrics()
-	 * @model containment="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricContainer#getEditorGen
+	 * @model opposite="editorGen" containment="true"
 	 * @generated
 	 */
 	GenMetricContainer getMetrics();
