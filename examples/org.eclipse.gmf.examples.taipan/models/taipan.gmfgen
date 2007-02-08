@@ -5,15 +5,19 @@
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
     modelID="TaiPan"
     copyrightText=" Copyright (c) 2006, 2007 Borland Software Corporation&#xD;&#xA; &#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA; &#xD;&#xA; Contributors:&#xD;&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
-  <audits
+  <audits>
+    <categories
       id="taipan"
       name="TaiPan Audits"
-      description="All TaiPan audits">
-    <audits
+        description="All TaiPan audits"
+        path="//@audits/@categories.0"
+        audits="//@audits/@rules.1 //@audits/@rules.0"/>
+    <rules
         name="Port Location"
         description="Empty port location check"
         id="port_location"
-        message="Port location should not be empty">
+        message="Port location should not be empty"
+        category="//@audits/@categories.0">
       <rule
           body="location.size() > 0"/>
       <target
@@ -21,12 +25,13 @@
         <element
             href="taipan.genmodel#//taipan/Port"/>
       </target>
-    </audits>
-    <audits
+    </rules>
+    <rules
         name="Ship Name"
         description="Empty ship name check"
         id="ship_name"
-        message="Ship name should not be empty">
+        message="Ship name should not be empty"
+        category="//@audits/@categories.0">
       <rule
           body="self.length() > 0"
           language="java"/>
@@ -36,7 +41,7 @@
         <attribute
             href="taipan.genmodel#//taipan/Ship/name"/>
       </target>
-    </audits>
+    </rules>
   </audits>
   <diagram
       visualID="1000"
@@ -815,12 +820,12 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@audits/@audits.0/@rule">
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@audits/@rules.0/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider"
-        expressions="//@audits/@audits.1/@rule"/>
+        expressions="//@audits/@rules.1/@rule"/>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
