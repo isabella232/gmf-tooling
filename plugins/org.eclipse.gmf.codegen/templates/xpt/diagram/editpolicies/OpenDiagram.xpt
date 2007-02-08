@@ -104,7 +104,10 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			diagramFacet.eResource().getContents().add(d);
 			try {
 				for (java.util.Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
-					((org.eclipse.emf.ecore.resource.Resource) it.next()).save(java.util.Collections.EMPTY_MAP);
+					org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+						nextResource.save(java.util.Collections.EMPTY_MAP);
+					}
 				}
 			} catch (java.io.IOException ex) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);

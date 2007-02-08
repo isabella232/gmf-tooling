@@ -66,12 +66,15 @@ public void notifyChanged(org.eclipse.emf.common.notify.Notification notificatio
 						myInfo.fCanBeSaved = modified;
 						dirtyStateChanged = true;
 					}
+	«IF null == editorGen.application-»
 					if (!resource.isModified()) {
 						myInfo.setSynchronized(resource);
 					}
+	«ENDIF-»
 				}
 				if (dirtyStateChanged) {
 					fireElementDirtyStateChanged(myInfo.getEditorInput(), modified);
+	
 					if (!modified) {
 						myInfo.setModificationStamp(computeModificationStamp(myInfo));
 					}

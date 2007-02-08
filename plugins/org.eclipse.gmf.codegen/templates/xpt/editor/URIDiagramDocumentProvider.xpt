@@ -24,157 +24,27 @@ package «packageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider {
 
-	«EXPAND xpt::Common::generatedClassComment»
-	protected class URIElementInfo extends ElementInfo {
+	«EXPAND createElementInfo FOR editorGen.diagram-»
 
-		«EXPAND xpt::Common::generatedMemberComment»
-		public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public URIElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener) {
-			super(document);
-			this.listener = listener;
-		}
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
-		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
-			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = null;
-			org.eclipse.core.runtime.IStatus status = null;
-			try {
-				document = createDocument(element);
-			} catch (org.eclipse.core.runtime.CoreException x) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Error creating document from uri", x);
-				status = x.getStatus();
-				document = createEmptyDocument();
-			}
-			ElementInfo info = createNewElementInfo(document);
-			info.fStatus = status;
-			return info;
-		}
-		return super.createElementInfo(element);
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public ElementInfo createNewElementInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
-		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener listener = new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener(this, (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument) document);
-		URIElementInfo info = new URIElementInfo(document, listener);
-		listener.startListening();
-		return info;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void disposeElementInfo(Object element, ElementInfo info) {
-		Object content = info.fDocument.getContent();
-		if (content instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-			((org.eclipse.gmf.runtime.notation.Diagram) content).eResource().unload();
-		}
-		((URIElementInfo) info).listener.stopListening();
-	}
+	«EXPAND xpt::editor::DocumentProvider::disposeElementInfo FOR editorGen.diagram-»
 	
 	«EXPAND xpt::editor::DocumentProvider::createInputWithEditingDomain FOR editorGen.diagram-»
 
 	«EXPAND xpt::editor::DocumentProvider::getDiagramDocument FOR editorGen.diagram-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
-		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
-			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = createEmptyDocument();
-			if (setDocumentContent(document, (org.eclipse.ui.IEditorInput) element)) {
-				setupDocument(element, document);
-				return document;
-			}
-		}
-		return null;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment(
-		"Sets up the given document as it would be provided for the given element. The\n" +
-		"content of the document is not changed. This default implementation is empty.\n" +
-		"Subclasses may reimplement.\n" +
-		"\n" +
-		"@param element the blue-print element\n" +
-		"@param document the document to set up"
-	)»
-	protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
-		// for subclasses
-	}
+	
+	«EXPAND createDocument FOR editorGen.diagram-»
+	
+	«EXPAND setDocumentContent FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::setupDocument FOR editorGen.diagram-»
 
 	«EXPAND xpt::editor::DocumentProvider::createEmptyDocument FOR editorGen.diagram-»
 	
 	«EXPAND xpt::editor::DocumentProvider::createEditingDomain FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::getResourceSetInfo FOR editorGen.diagram-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected boolean setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
-		if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput) {
-			setDocumentContentFromStorage(document, ((org.eclipse.emf.common.ui.URIEditorInput) editorInput).getURI());
-			return true;
-		}
-		return false;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void setDocumentContentFromStorage(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.emf.common.util.URI uri) throws org.eclipse.core.runtime.CoreException {
-		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
-		org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		org.eclipse.emf.ecore.resource.Resource resource = null;
-		try {
-			resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
-			if (resource == null) {
-				resource = domain.getResourceSet().createResource(uri.trimFragment());
-			}
-			if (!resource.isLoaded()) {
-				try {
-					java.util.Map options = new java.util.HashMap(org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory.getDefaultLoadOptions());
-					// @see 171060 
-					// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-					resource.load(options);
-				} catch (java.io.IOException e) {
-					resource.unload();
-					throw e;
-				}
-			}
-			if (resource == null) {
-				throw new RuntimeException("Unable to load diagram resource");
-			}
-			if (uri.fragment() != null) {
-				org.eclipse.emf.ecore.EObject rootElement = resource.getEObject(uri.fragment());
-				if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-					document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
-					return;
-				}
-			} else {
-				for (java.util.Iterator it = resource.getContents().iterator(); it.hasNext();) {
-					Object rootElement = it.next();
-					if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-						document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
-						return;
-					}
-				}
-			}
-			throw new RuntimeException("Diagram is not present in resource");
-		} catch (Exception e) {
-			org.eclipse.core.runtime.CoreException thrownExcp = null;
-			if (e instanceof org.eclipse.core.runtime.CoreException) {
-				thrownExcp = (org.eclipse.core.runtime.CoreException) e;
-			} else {
-				String msg = e.getLocalizedMessage();
-				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
-			}
-			throw thrownExcp;
-		}
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor, Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, boolean overwrite) throws org.eclipse.core.runtime.CoreException {
-		if (element instanceof org.eclipse.emf.common.ui.URIEditorInput) {
-			org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
-			org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-			java.util.List resources = domain.getResourceSet().getResources();
-			«EXPAND xpt::editor::DocumentProvider::saveResourcesCollection FOR editorGen.diagram-»
-		}
-	}
+	«EXPAND xpt::editor::DocumentProvider::doSaveDocument FOR editorGen.diagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean isDeleted(Object element) {
@@ -207,21 +77,138 @@ public class «EXPAND className FOR editorGen.diagram» extends org.eclipse.gmf.ru
 		return true;
 	}
 
+	«EXPAND getFileFromURIEditorInput FOR editorGen.diagram-»
+	
+	«EXPAND getFileFromURI FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::getOperationRunner FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::computeModificationStamp FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::handleElementChanged FOR editorGen.diagram-»
+
+	«EXPAND handleElementMoved FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::DocumentProvider::isSynchronized FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::ResourceSetInfo::ResourceSetInfo FOR editorGen.diagram-»
+	
+	«EXPAND xpt::editor::ResourceSetModificationListener::ResourceSetModificationListener FOR editorGen.diagram-»
+	
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE createElementInfo FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static java.io.File getFile(org.eclipse.emf.common.ui.URIEditorInput input) {
-		org.eclipse.emf.common.util.URI uri = input.getURI().trimFragment();
-		if (uri != null && uri.isFile()) {
-			java.io.File file = new java.io.File(uri.toFileString());
-			if (!file.isDirectory()) {
-				return file;
+protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
+	«EXPAND checkEditorInputInstance-»
+	«EXPAND xpt::editor::DocumentProvider::createElementInfoBody-»
+}
+«ENDDEFINE»
+
+«DEFINE checkEditorInputInstance FOR gmfgen::GenDiagram-»
+if (false == element instanceof «EXPAND editorInputClassFQName») {
+	throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+}
+«ENDDEFINE»
+
+«DEFINE editorInputClassFQName FOR gmfgen::GenDiagram»org.eclipse.emf.common.ui.URIEditorInput«ENDDEFINE»
+
+«DEFINE createDocument FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
+	«EXPAND checkEditorInputInstance-»
+	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = createEmptyDocument();
+	setDocumentContent(document, («EXPAND editorInputClassFQName») element);
+	setupDocument(element, document);
+	return document;
+}
+«ENDDEFINE»
+
+«DEFINE setDocumentContent FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput element) throws org.eclipse.core.runtime.CoreException {
+	«EXPAND checkEditorInputInstance-»
+	org.eclipse.emf.common.util.URI uri = ((«EXPAND editorInputClassFQName») element).getURI();
+	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
+	org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+	org.eclipse.emf.ecore.resource.Resource resource = null;
+	try {
+		resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
+		if (resource == null) {
+			resource = domain.getResourceSet().createResource(uri.trimFragment());
+		}
+		if (!resource.isLoaded()) {
+			try {
+				java.util.Map options = new java.util.HashMap(org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory.getDefaultLoadOptions());
+				// @see 171060 
+				// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+				resource.load(options);
+			} catch (java.io.IOException e) {
+				resource.unload();
+				throw e;
 			}
 		}
-		return null;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.jface.operation.IRunnableContext getOperationRunner(org.eclipse.core.runtime.IProgressMonitor monitor) {
-		return null;
+		if (resource == null) {
+			throw new RuntimeException("Unable to load diagram resource");
+		}
+		if (uri.fragment() != null) {
+			org.eclipse.emf.ecore.EObject rootElement = resource.getEObject(uri.fragment());
+			if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+				document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
+				return;
+			}
+		} else {
+			for (java.util.Iterator it = resource.getContents().iterator(); it.hasNext();) {
+				Object rootElement = it.next();
+				if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
+					document.setContent((org.eclipse.gmf.runtime.notation.Diagram) rootElement);
+					return;
+				}
+			}
+		}
+		throw new RuntimeException("Diagram is not present in resource");
+	} catch (Exception e) {
+		org.eclipse.core.runtime.CoreException thrownExcp = null;
+		if (e instanceof org.eclipse.core.runtime.CoreException) {
+			thrownExcp = (org.eclipse.core.runtime.CoreException) e;
+		} else {
+			String msg = e.getLocalizedMessage();
+			thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+		}
+		throw thrownExcp;
 	}
 }
+«ENDDEFINE»
+
+«DEFINE handleElementMoved FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected void handleElementMoved(org.eclipse.ui.IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+	// TODO: append suffix to the URI! (use diagram as a parameter)
+	fireElementMoved(input, new org.eclipse.emf.common.ui.URIEditorInput(uri));
+}
+«ENDDEFINE»
+
+«DEFINE getFileFromURIEditorInput FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static java.io.File getFile(org.eclipse.emf.common.ui.URIEditorInput input) {
+	return getFile(input.getURI().trimFragment());
+}
+«ENDDEFINE»
+
+«DEFINE getFileFromURI FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static java.io.File getFile(org.eclipse.emf.common.util.URI resourceUri) {
+	if (resourceUri != null && resourceUri.isFile()) {
+		java.io.File file = new java.io.File(resourceUri.toFileString());
+		if (!file.isDirectory()) {
+			return file;
+		}
+	}
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenEditorView-»
 «ENDDEFINE»
