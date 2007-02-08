@@ -4,15 +4,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.examples.mindmap.lite.rcp.diagram"
     diagramFileExtension="mmd">
-  <audits
+  <audits>
+    <categories
       id="org.eclipse.gmf.examples.mindmap"
       name="Mindmap Audits"
-      description="Mindmap Audits">
-    <audits
+        description="Mindmap Audits"
+        path="//@audits/@categories.0"
+        audits="//@audits/@rules.0 //@audits/@rules.1"/>
+    <rules
         name="Cyclic relationship check"
         description="This audit will detect situations where relationship links of the same type form a cycle."
         id="cycle"
-        message="A cycle was found in relationships between two Topic elements.">
+        message="A cycle was found in relationships between two Topic elements."
+        category="//@audits/@categories.0">
       <rule
           body="self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target &lt;> r1.source)"/>
       <target
@@ -20,12 +24,13 @@
         <element
             href="mindmap.genmodel#//mindmap/Map"/>
       </target>
-    </audits>
-    <audits
+    </rules>
+    <rules
         name="No Topic Name"
         description="Detects Topics without a name set"
         id="notopicname"
-        message="All Topic elements should have a name set">
+        message="All Topic elements should have a name set"
+        category="//@audits/@categories.0">
       <rule
           body="name.size() > 0"/>
       <target
@@ -33,7 +38,7 @@
         <element
             href="mindmap.genmodel#//mindmap/Topic"/>
       </target>
-    </audits>
+    </rules>
   </audits>
   <diagram
       visualID="1000"
@@ -866,7 +871,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementSelector //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@audits.0/@rule //@audits/@audits.1/@rule">
+        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementSelector //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@rules.0/@rule //@audits/@rules.1/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
