@@ -129,12 +129,12 @@ public class Generator extends GeneratorBase implements Runnable {
 					final GenNodeLabel label = (GenNodeLabel) it2.next();
 					hasExternalLabels |= label instanceof GenExternalNodeLabel;
 					internalGenerateJavaClass(myEmitters.getNodeLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
-					internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
+					internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 				}
-				internalGenerateJavaClass(myEmitters.getNodeViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
+				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			} else {
 				internalGenerateJavaClass(myEmitters.getChildNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
-				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
+				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			}
 			generateBehaviors(next, openDiagramBehaviors);
 			generateCommands(next);
@@ -146,18 +146,18 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 			for (GenLinkLabel label : (List<? extends GenLinkLabel>) next.getLabels()) {
 				internalGenerateJavaClass(myEmitters.getLinkLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
-				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
+				internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 			}
-			internalGenerateJavaClass(myEmitters.getLinkViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
+			internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			generateBehaviors(next, openDiagramBehaviors);
 			generateCommands(next);
 		}
 		for (Iterator it = myDiagram.getCompartments().iterator(); it.hasNext(); ) {
 			final GenCompartment next = (GenCompartment) it.next();
 			internalGenerateJavaClass(myEmitters.getCompartmentEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
-			internalGenerateJavaClass(myEmitters.getCompartmentViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
+			internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 		}
-		internalGenerateJavaClass(myEmitters.getDiagramViewFactoryGenerator(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
+		internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myDiagram.getNotationViewFactoriesPackageName(), "DomainElementInitializer",myDiagram); // XXX: allow customization!
 		internalGenerateJavaClass(myEmitters.getVisualIDRegistryGenerator(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {

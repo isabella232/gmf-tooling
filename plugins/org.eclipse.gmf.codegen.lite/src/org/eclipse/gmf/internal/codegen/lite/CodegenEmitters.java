@@ -53,13 +53,8 @@ import org.eclipse.gmf.codegen.templates.lite.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.CompartmentViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.DiagramViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.LabelViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.LinkViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.NodeViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
@@ -133,11 +128,6 @@ public class CodegenEmitters {
 		put(tr, "/commands/ReconnectLinkSourceCommand.javajet", ReconnectLinkSourceCommandGenerator.class);
 		put(tr, "/commands/ReconnectLinkTargetCommand.javajet", ReconnectLinkTargetCommandGenerator.class);
 
-		put(tr, "/providers/CompartmentViewFactory.javajet", CompartmentViewFactoryGenerator.class);
-		put(tr, "/providers/DiagramViewFactory.javajet", DiagramViewFactoryGenerator.class);
-		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
-		put(tr, "/providers/LinkViewFactory.javajet", LinkViewFactoryGenerator.class);
-		put(tr, "/providers/NodeViewFactory.javajet", NodeViewFactoryGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
@@ -199,24 +189,8 @@ public class CodegenEmitters {
 		return retrieve(ReconnectLinkTargetCommandGenerator.class);
 	}
 
-	public TextEmitter getCompartmentViewFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CompartmentViewFactoryGenerator.class);
-	}
-
-	public TextEmitter getDiagramViewFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(DiagramViewFactoryGenerator.class);
-	}
-
-	public TextEmitter getLabelViewFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(LabelViewFactoryGenerator.class);
-	}
-
-	public TextEmitter getLinkViewFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(LinkViewFactoryGenerator.class);
-	}
-
-	public TextEmitter getNodeViewFactoryGenerator() throws UnexpectedBehaviourException {
-		return retrieve(NodeViewFactoryGenerator.class);
+	public TextEmitter getViewFactoryGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::viewfactories::ViewFactory::ViewFactory");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getValidationProviderGenerator() throws UnexpectedBehaviourException {

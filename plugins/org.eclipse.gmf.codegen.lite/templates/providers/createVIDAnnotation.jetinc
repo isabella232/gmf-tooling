@@ -1,1 +1,0 @@
-view.setType(<%=importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genElement.getEditPartQualifiedClassName())%>.VISUAL_ID));
