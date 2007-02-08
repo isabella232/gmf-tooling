@@ -310,27 +310,27 @@ if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
 }
 %>
 			protected <%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+				<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> result = child.getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
+				if (result != null) {
+					return result;
+				}
 <%
-if (!genNode.getChildNodes().isEmpty()) {
+if (myHelper.hasExternalLabels()) {
 %>
-				if (isDirectChild(child)) {
-					<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> result = child.getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
-					if (result != null) {
-						return result;
-					}
-					return super.createChildEditPolicy(child);
+				if (isExternalLabel(child)) {
+					return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>() {
+						public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getTargetEditPart(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+							if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_SELECTION.equals(request.getType())) {
+								return <%=genNode.getEditPartClassName()%>.this;
+							}
+							return super.getTargetEditPart(request);
+						}
+					};
 				}
 <%
 }
 %>
-				return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>() {
-					public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getTargetEditPart(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
-						if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_SELECTION.equals(request.getType())) {
-							return <%=genNode.getEditPartClassName()%>.this;
-						}
-						return super.getTargetEditPart(request);
-					}
-				};
+				return super.createChildEditPolicy(child);
 			}
 		});
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy")%>() {

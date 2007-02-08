@@ -332,16 +332,16 @@ public class NodeEditPartGenerator
   protected final String TEXT_311 = ".INSTANCE;" + NL + "\t\t\t}";
   protected final String TEXT_312 = NL + "\t\t\tprotected ";
   protected final String TEXT_313 = " createChildEditPolicy(";
-  protected final String TEXT_314 = " child) {";
-  protected final String TEXT_315 = NL + "\t\t\t\tif (isDirectChild(child)) {" + NL + "\t\t\t\t\t";
-  protected final String TEXT_316 = " result = child.getEditPolicy(";
-  protected final String TEXT_317 = ".PRIMARY_DRAG_ROLE);" + NL + "\t\t\t\t\tif (result != null) {" + NL + "\t\t\t\t\t\treturn result;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn super.createChildEditPolicy(child);" + NL + "\t\t\t\t}";
-  protected final String TEXT_318 = NL + "\t\t\t\treturn new ";
-  protected final String TEXT_319 = "() {" + NL + "\t\t\t\t\tpublic ";
-  protected final String TEXT_320 = " getTargetEditPart(";
-  protected final String TEXT_321 = " request) {" + NL + "\t\t\t\t\t\tif (";
-  protected final String TEXT_322 = ".REQ_SELECTION.equals(request.getType())) {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_323 = ".this;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getTargetEditPart(request);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tinstallEditPolicy(";
+  protected final String TEXT_314 = " child) {" + NL + "\t\t\t\t";
+  protected final String TEXT_315 = " result = child.getEditPolicy(";
+  protected final String TEXT_316 = ".PRIMARY_DRAG_ROLE);" + NL + "\t\t\t\tif (result != null) {" + NL + "\t\t\t\t\treturn result;" + NL + "\t\t\t\t}";
+  protected final String TEXT_317 = NL + "\t\t\t\tif (isExternalLabel(child)) {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_318 = "() {" + NL + "\t\t\t\t\t\tpublic ";
+  protected final String TEXT_319 = " getTargetEditPart(";
+  protected final String TEXT_320 = " request) {" + NL + "\t\t\t\t\t\t\tif (";
+  protected final String TEXT_321 = ".REQ_SELECTION.equals(request.getType())) {" + NL + "\t\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_322 = ".this;" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn super.getTargetEditPart(request);" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t};" + NL + "\t\t\t\t}";
+  protected final String TEXT_323 = NL + "\t\t\t\treturn super.createChildEditPolicy(child);" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tinstallEditPolicy(";
   protected final String TEXT_324 = ".GRAPHICAL_NODE_ROLE, new ";
   protected final String TEXT_325 = "() {" + NL + "\t\t\tprotected ";
   protected final String TEXT_326 = " getReconnectTargetCommand(";
@@ -2264,27 +2264,27 @@ if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
     stringBuffer.append(TEXT_313);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_314);
-    
-if (!genNode.getChildNodes().isEmpty()) {
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_315);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_316);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
+    
+if (myHelper.hasExternalLabels()) {
+
     stringBuffer.append(TEXT_317);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy"));
+    stringBuffer.append(TEXT_318);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_319);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
+    stringBuffer.append(TEXT_320);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
+    stringBuffer.append(TEXT_321);
+    stringBuffer.append(genNode.getEditPartClassName());
+    stringBuffer.append(TEXT_322);
     
 }
 
-    stringBuffer.append(TEXT_318);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy"));
-    stringBuffer.append(TEXT_319);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_320);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
-    stringBuffer.append(TEXT_321);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
-    stringBuffer.append(TEXT_322);
-    stringBuffer.append(genNode.getEditPartClassName());
     stringBuffer.append(TEXT_323);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_324);
