@@ -157,8 +157,21 @@ public class ValidationProviderGenerator
 final GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
-final GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
-final boolean hasNotationModelAudit = audits != null && audits.hasDiagramElementRule();
+final GenAuditRoot audits = genDiagram.getEditorGen().getAudits();
+final boolean hasNotationModelAudit;
+{
+ boolean hasDiagramElementRule = false;
+ if (audits != null) {
+  for (java.util.Iterator it = audits.getRules().iterator(); it.hasNext();) {
+   GenAuditRule r = (GenAuditRule) it.next();
+   if (r.getTarget() instanceof GenDiagramElementTarget || r.getTarget() instanceof GenNotationElementTarget) {
+    hasDiagramElementRule = true;
+    break;
+   }
+  }
+ }
+ hasNotationModelAudit = audits != null && hasDiagramElementRule;
+}
 final boolean rcp = genDiagram.getEditorGen().getApplication() != null;
 
     stringBuffer.append(TEXT_1);
@@ -173,12 +186,27 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
     
-final java.util.List innerClasses = new java.util.ArrayList();
+final java.util.HashSet<String> innerClasses = new java.util.HashSet<String>();
 final String __javaOperationContainer = "JavaAudits";
 if(audits != null) {
 	innerClasses.add(__javaOperationContainer);
-	innerClasses.addAll(audits.getAllRequiredConstraintAdaptersLocalClassNames());
-	innerClasses.addAll(audits.getAllContextSelectorsLocalClassNames());
+	//innerClasses.addAll(audits.getAllRequiredConstraintAdaptersLocalClassNames());
+	for (java.util.Iterator it = audits.getRules().iterator(); it.hasNext();) {
+		GenAuditRule nextAudit = (GenAuditRule) it.next();
+		if (nextAudit.isRequiresConstraintAdapter()) {
+			String nextClassName = nextAudit.getConstraintAdapterLocalClassName();
+			if (nextClassName != null) {
+				innerClasses.add(nextClassName);
+			}
+		}
+	}
+	//innerClasses.addAll(audits.getAllContextSelectorsLocalClassNames());
+	for (java.util.Iterator it = audits.getRules().iterator(); it.hasNext();) {
+		String nextClassName = ((GenAuditRule) it.next()).getContextSelectorLocalClassName();
+		if(nextClassName != null) {
+			innerClasses.add(nextClassName);
+		}			
+	}	
 }
 innerClasses.add("CtxSwitchStrategy");
 innerClasses.add("ValidateAction");
@@ -305,13 +333,17 @@ importManager.addImport("org.eclipse.ui.PlatformUI");
     stringBuffer.append(TEXT_49);
     
 boolean usesNotationContextSwitch = false;
-java.util.Map ctx2Rules = (audits != null) ? audits.getAllRulesToTargetContextMap() : new java.util.HashMap();
-java.util.List allAudits = (audits != null) ? audits.getAllAuditRules() : java.util.Collections.EMPTY_LIST;
-java.util.Map view2SelectorMap = new java.util.IdentityHashMap();
+java.util.List allAudits = (audits != null) ? audits.getRules() : java.util.Collections.EMPTY_LIST;
+// mere pairs
+java.util.HashMap<String, GenAuditRule> contextId2Audit = new java.util.HashMap<String, GenAuditRule>();
+java.util.Map<GenCommonBase, String> view2SelectorMap = new java.util.IdentityHashMap<GenCommonBase, String>();
 for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 	GenAuditRule audit = (GenAuditRule)it.next();
 	String contextID = (audit.getTarget() != null) ? audit.getTarget().getClientContextID() : null;
-	if(contextID == null || null == ctx2Rules.remove(contextID)) continue;
+	if(contextID == null || contextId2Audit.containsKey(contextID)) continue;
+	contextId2Audit.put(contextID, audit);
+}
+for (GenAuditRule audit : contextId2Audit.values()) {
 	String selectorClassName = audit.getContextSelectorLocalClassName();
 
     stringBuffer.append(TEXT_50);
@@ -536,15 +568,24 @@ String __javaOperationContainer;
 	}
 } /*end of Adapters iteration*/
 
-final java.util.List javaExpressions = (audits != null) ? audits.getAllJavaLangAudits() : java.util.Collections.EMPTY_LIST;
+final java.util.List<GenAuditRule> javaExpressions = new java.util.ArrayList<GenAuditRule>();
+if (audits != null && audits.getEditorGen().getExpressionProviders() != null) {
+  GenExpressionProviderContainer exprProviders = audits.getEditorGen().getExpressionProviders();
+  for (java.util.Iterator it = audits.getRules().iterator(); it.hasNext();) {
+    GenAuditRule nextAudit = (GenAuditRule) it.next();
+    if(nextAudit.getRule() != null && exprProviders.getProvider(nextAudit.getRule()) instanceof GenJavaExpressionProvider) {
+      javaExpressions.add(nextAudit);
+    }
+  }
+}
+
 if(!javaExpressions.isEmpty()) {
 
     stringBuffer.append(TEXT_118);
     stringBuffer.append(__javaOperationContainer);
     stringBuffer.append(TEXT_119);
     
-	for (java.util.Iterator it = javaExpressions.iterator(); it.hasNext();) {
-		GenAuditRule nextJavaRule = (GenAuditRule) it.next();
+	for (GenAuditRule nextJavaRule : javaExpressions) {
 		GenClassifier __genExprContext = nextJavaRule.getTarget().getContext();		
 		ValueExpression __genValueExpression = nextJavaRule.getRule();
 		String __genExprResultType = "java.lang.Boolean"; //$NON-NLS-1$

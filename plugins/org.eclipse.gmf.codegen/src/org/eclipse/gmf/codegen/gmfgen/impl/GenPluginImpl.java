@@ -373,7 +373,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * @generated NOT
 	 */
 	public EList getRequiredPluginIDs() {
-		Collection requiredPlugins = new LinkedHashSet();
+		Collection<String> requiredPlugins = new LinkedHashSet<String>();
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
@@ -397,8 +397,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		return getEditorGen().getEditor().getPackageName() + '.' + getActivatorClassName();
 	}
 
-	private Set getExpressionsRequiredPluginIDs() {
-		Set requiredIDs = new HashSet();
+	private Set<String> getExpressionsRequiredPluginIDs() {
+		Set<String> requiredIDs = new HashSet<String>();
 		if(getEditorGen().getExpressionProviders() != null) {
 			for (Iterator it = getEditorGen().getExpressionProviders().getProviders().iterator(); it.hasNext();) {
 				GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
@@ -411,46 +411,48 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	/**
 	 * @generated NOT
 	 */
-	private Collection getViewmapRequiredPluginIDs() {
-		Collection result = null;
+	private Collection<String> getViewmapRequiredPluginIDs() {
+		Collection<String> result = null;
 		for (TreeIterator contents = EcoreUtil.getAllContents(getDiagram().getAllNodes()); contents.hasNext();){
 			EObject next = (EObject) contents.next();
 			if (next instanceof Viewmap && next.eIsSet(GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs())){
 				if (result == null){
-					result = new HashSet();
+					result = new HashSet<String>();
 				}
 				result.addAll(((Viewmap)next).getRequiredPluginIDs());
 				contents.prune();
 			}
 		}
-		return result == null ? Collections.EMPTY_LIST : result;
+		if (result == null) {
+			return Collections.emptyList();
+		}
+		return result;
 	}
 	
-	private Set getValidationRequiredPluginIDs() {
+	private Set<String> getValidationRequiredPluginIDs() {
 		if(getDiagram().isValidationEnabled() || getEditorGen().hasAudits()) {
-			HashSet pluginIDs = new HashSet();			
+			HashSet<String> pluginIDs = new HashSet<String>();			
 			pluginIDs.add("org.eclipse.emf.validation"); //$NON-NLS-1$
 			
 			if(getEditorGen().getAudits() != null) {
-				collectGenPackagesRequiredPluginIDs(getEditorGen().getAudits().getAllTargetedModelPackages(), pluginIDs);
+				collectGenPackagesRequiredPluginIDs(getEditorGen().getAudits().getTargetedModelPackages(), pluginIDs);
 			}			
 			return pluginIDs;
 		}
-		return Collections.EMPTY_SET;
+		return Collections.emptySet();
 	}
 	
-	private Set getMetricsRequiredPluginIDs() {
+	private Set<String> getMetricsRequiredPluginIDs() {
 		if(getEditorGen().getMetrics() != null) {
-			HashSet pluginIDs = new HashSet();
+			HashSet<String> pluginIDs = new HashSet<String>();
 			collectGenPackagesRequiredPluginIDs(getEditorGen().getMetrics().getAllTargetedModelPackages(), pluginIDs);
 			return pluginIDs;
 		}
-		return Collections.EMPTY_SET;
+		return Collections.emptySet();
 	}	
 	
-	private void collectGenPackagesRequiredPluginIDs(Collection/*GenPackage*/ genPackages, Set/*String*/ pluginIDs) {
-		for (Iterator it = genPackages.iterator(); it.hasNext();) {
-			GenPackage nextPackage = (GenPackage) it.next();
+	private void collectGenPackagesRequiredPluginIDs(Collection<GenPackage> genPackages, Set<String> pluginIDs) {
+		for (GenPackage nextPackage : genPackages) {
 			pluginIDs.add(nextPackage.getGenModel().getModelPluginID());
 		}
 	}	

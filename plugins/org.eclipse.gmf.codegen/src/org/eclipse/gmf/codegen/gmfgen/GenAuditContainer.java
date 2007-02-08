@@ -6,10 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,18 +16,18 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Container for audit rules representing a hierarchical organization of audits in the constraint category hierarchy of emft.validation framework
+ * Represents constraint category of emft.validation framework
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getRoot <em>Root</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getParentContainer <em>Parent Container</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getPath <em>Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getAudits <em>Audits</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getChildContainers <em>Child Containers</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,45 +35,23 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface GenAuditContainer extends GenRuleContainerBase {
+public interface GenAuditContainer extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Audits</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer <em>Container</em>}'.
+	 * Returns the value of the '<em><b>Root</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getCategories <em>Categories</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Audits</em>' container reference list isn't clear,
+	 * If the meaning of the '<em>Root</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The audit rules organized in this container
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Audits</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Audits()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="container" containment="true"
+	 * @return the value of the '<em>Root</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Root()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getCategories
+	 * @model opposite="categories" required="true" changeable="false"
 	 * @generated
 	 */
-	EList getAudits();
-
-	/**
-	 * Returns the value of the '<em><b>Child Containers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getParentContainer <em>Parent Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Child Containers</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Child Containers</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_ChildContainers()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getParentContainer
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" opposite="parentContainer" containment="true"
-	 * @generated
-	 */
-	EList getChildContainers();
+	GenAuditRoot getRoot();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
@@ -160,100 +137,36 @@ public interface GenAuditContainer extends GenRuleContainerBase {
 	void setDescription(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Parent Container</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getChildContainers <em>Child Containers</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parent Container</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent Container</em>' container reference.
-	 * @see #setParentContainer(GenAuditContainer)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_ParentContainer()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getChildContainers
-	 * @model opposite="childContainers"
-	 * @generated
-	 */
-	GenAuditContainer getParentContainer();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getParentContainer <em>Parent Container</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parent Container</em>' container reference.
-	 * @see #getParentContainer()
-	 * @generated
-	 */
-	void setParentContainer(GenAuditContainer value);
-
-	/**
+	 * Returns the value of the '<em><b>Path</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Gets all audit rules from this audit container hierarchy recursively
+	 * Hierarchical path of this audit container as ordered list of containers beginning with the root and ended with this container
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule"
-	 * @generated
-	 */
-	EList getAllAuditRules();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets all audit containers from this audit container hierarchy recursively
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer"
-	 * @generated
-	 */
-	EList getAllAuditContainers();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets hierarchical path of this audit container as ordered list of containers beginning with the root and ended with this container
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" required="true"
+	 * @return the value of the '<em>Path</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Path()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" required="true"
 	 * @generated
 	 */
 	EList getPath();
 
 	/**
+	 * Returns the value of the '<em><b>Audits</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Audits</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Maps all rules in the container hierarchy to client context IDs of their target contexts. key: (context ID of rule target) value: (EList<GenAuditRule>)
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
+	 * @return the value of the '<em>Audits</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditContainer_Audits()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getCategory
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="category"
 	 * @generated
 	 */
-	Map getAllRulesToTargetContextMap();
+	EList getAudits();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets all model packages to which rules in this container hierarchy are targeted. Checks rules recursively.
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenPackage"
-	 * @generated
-	 */
-	EList getAllTargetedModelPackages();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Indicates whether this container hierarchy contains at least 1 rule targeted on notation elements. Checks recursively.
-	 * <!-- end-model-doc -->
-	 * @model
-	 * @generated
-	 */
-	boolean hasDiagramElementRule();
-
-	List/*String*/ getAllContextSelectorsLocalClassNames();
-	List/*String*/ getAllRequiredConstraintAdaptersLocalClassNames();
-	List/*GenAuditRule*/ getAllJavaLangAudits();
 } // GenAuditContainer

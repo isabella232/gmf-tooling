@@ -23,21 +23,3 @@ List[gmfgen::GenNode] getNodes(gmfgen::GenDiagram diagram) :
 List[gmfgen::GenCommonBase] getElements(gmfgen::GenDiagram diagram) :
 	{ diagram }.addAll(diagram.topLevelNodes).addAll(diagram.childNodes).addAll(diagram.links)
 ;
-
-// FIXME remove java-only GenEditorGenerator#hasAudits or declare it in metamodel
-boolean hasAudits(gmfgen::GenEditorGenerator editorGen) :
-	editorGen.audits != null && !editorGen.audits.getAllAuditRules().isEmpty()
-;
-
-// Partial copy of GenAuditContainerImpl#getAllRulesToTargetContextMap
-cached List[gmfgen::GenAuditRule] getAllRulesWithTargetAndContextID(gmfgen::GenAuditContainer auditContainer) :
-	auditContainer.getAllAuditRules().select(r | r.target != null && r.target.getClientContextID() != null)
-;
-
-cached String idMap(gmfgen::GenAuditContainer c) :
-	c.id // original javajet expected null as possible value, though gmfgen.ecore says id feature is mandatory
-;
-
-String escapeXML(String s) :
-JAVA org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(java.lang.String)
-;

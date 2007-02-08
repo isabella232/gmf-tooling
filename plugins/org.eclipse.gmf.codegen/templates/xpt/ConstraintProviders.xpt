@@ -11,24 +11,58 @@
  */
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«EXTENSION xpt::diagram::Utils»
+«EXTENSION xpt::GenAuditRoot»
 
 «DEFINE extensions FOR gmfgen::GenEditorGenerator-»
-«IF hasAudits()-»
+«IF hasAudits()»«EXPAND extensions FOR audits»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE extensions FOR gmfgen::GenAuditRoot-»
    <extension point="org.eclipse.emf.validation.constraintProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
-      «FOREACH audits.getAllAuditContainers() AS c-»
-      <category id="«EXPAND _pathMap FOR c»" mandatory="false" name="«IF c.name != null»«escapeXML(c.name)»«ELSE»«EXPAND _pathMap FOR c»«ENDIF»">
-         <![CDATA[«c.description != null ? c.description : ""»]]>
-      </category>
-      «ENDFOREACH»
+      «EXPAND declareCategory FOREACH categories-»
       <constraintProvider cache="true">
-«FOREACH audits.getAllTargetedModelPackages() AS p-»
+«FOREACH getAllTargetedModelPackages() AS p-»
          <package namespaceUri="«p.ecorePackage.nsURI»"/>
 «ENDFOREACH-»
-«FOREACH audits.getAllAuditContainers() AS c-»
-         <constraints categories="«EXPAND _pathMap FOR c»">
-         «FOREACH c.audits.select(a | a.target != null && a.target.getTargetClass() != null) AS audit-»
+      «EXPAND defineCategory FOREACH categories-»
+      </constraintProvider>
+   </extension>
+
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      «LET getAllRulesWithTargetAndContextID() AS rules-»
+      «FOREACH rules.collect(r | r.target.getClientContextID()).toSet() AS ctxId-»
+      <clientContext default="false" id="«editorGen.plugin.iD».«ctxId»">
+         <selector class="«rules.select(r | r.target.getClientContextID() == ctxId).getContextSelectorQualifiedClassName().first()»"/>
+      </clientContext>
+      <binding context="«editorGen.plugin.iD».«ctxId»">
+         «FOREACH rules.select(r | r.target.getClientContextID() == ctxId) AS rule-»
+         <constraint ref="«editorGen.plugin.iD».«escapeXML(rule.id)»"/>
+         «ENDFOREACH-»
+      </binding>
+      «ENDFOREACH-»
+      «ENDLET-»
+   </extension>
+«IF editorGen.diagram.liveValidationUIFeedback»
+   <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      «FOREACH getAllRulesWithTargetAndContextID().collect(r | r.target.getClientContextID()).toSet() AS ctxId»
+      <clientContext id="«editorGen.plugin.iD».«ctxId»"/>
+      «ENDFOREACH-»
+   </extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE declareCategory FOR gmfgen::GenAuditContainer-»
+      <category id="«EXPAND _pathMap»" mandatory="false" name="«IF name != null»«escapeXML(name)»«ELSE»«EXPAND _pathMap»«ENDIF»">
+         <![CDATA[«description != null ? description : ""»]]>
+      </category>
+«ENDDEFINE»
+
+«DEFINE defineCategory FOR gmfgen::GenAuditContainer-»
+         <constraints categories="«EXPAND _pathMap»">
+         «FOREACH audits.select(a | a.target != null && a.target.getTargetClass() != null) AS audit-»
          <constraint id="«escapeXML(audit.id)»"
             «IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
             name="«escapeXML(audit.name != null ? audit.name : audit.id)»"
@@ -41,34 +75,6 @@
          </constraint>
          «ENDFOREACH-»
          </constraints>
-«ENDFOREACH-»
-      </constraintProvider>
-   </extension>
-
-   <extension point="org.eclipse.emf.validation.constraintBindings">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      «LET getAllRulesWithTargetAndContextID(audits) AS rules-»
-      «FOREACH rules.collect(r | r.target.getClientContextID()).toSet() AS ctxId-»
-      <clientContext default="false" id="«plugin.iD».«ctxId»">
-         <selector class="«rules.select(r | r.target.getClientContextID() == ctxId).getContextSelectorQualifiedClassName().first()»"/>
-      </clientContext>
-      <binding context="«plugin.iD».«ctxId»">
-         «FOREACH rules.select(r | r.target.getClientContextID() == ctxId) AS rule-»
-         <constraint ref="«plugin.iD».«escapeXML(rule.id)»"/>
-         «ENDFOREACH-»
-      </binding>
-      «ENDFOREACH-»
-      «ENDLET-»
-   </extension>
-«IF diagram.liveValidationUIFeedback»
-   <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      «FOREACH getAllRulesWithTargetAndContextID(audits).collect(r | r.target.getClientContextID()).toSet() AS ctxId»
-      <clientContext id="«plugin.iD».«ctxId»"/>
-      «ENDFOREACH-»
-   </extension>
-«ENDIF-»
-«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE _pathMap FOR gmfgen::GenAuditContainer»«FOREACH getPath() AS p SEPARATOR "/" »«escapeXML(idMap(p))»«ENDFOREACH»«ENDDEFINE»
+«DEFINE _pathMap FOR gmfgen::GenAuditContainer»«FOREACH path AS p SEPARATOR "/" »«escapeXML(p.id)»«ENDFOREACH»«ENDDEFINE»

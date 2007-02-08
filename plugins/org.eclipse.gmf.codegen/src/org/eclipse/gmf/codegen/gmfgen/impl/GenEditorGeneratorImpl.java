@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -21,7 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
@@ -71,7 +72,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenAuditContainer audits = null;
+	protected GenAuditRoot audits = null;
 
 	/**
 	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
@@ -346,7 +347,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenAuditContainer getAudits() {
+	public GenAuditRoot getAudits() {
 		return audits;
 	}
 
@@ -355,8 +356,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetAudits(GenAuditContainer newAudits, NotificationChain msgs) {
-		GenAuditContainer oldAudits = audits;
+	public NotificationChain basicSetAudits(GenAuditRoot newAudits, NotificationChain msgs) {
+		GenAuditRoot oldAudits = audits;
 		audits = newAudits;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, oldAudits, newAudits);
@@ -370,13 +371,13 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAudits(GenAuditContainer newAudits) {
+	public void setAudits(GenAuditRoot newAudits) {
 		if (newAudits != audits) {
 			NotificationChain msgs = null;
 			if (audits != null)
-				msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, null, msgs);
+				msgs = ((InternalEObject)audits).eInverseRemove(this, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, GenAuditRoot.class, msgs);
 			if (newAudits != null)
-				msgs = ((InternalEObject)newAudits).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, null, msgs);
+				msgs = ((InternalEObject)newAudits).eInverseAdd(this, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, GenAuditRoot.class, msgs);
 			msgs = basicSetAudits(newAudits, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -996,7 +997,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated NOT
 	 */
 	public EList getAllDomainGenPackages(boolean withUsed) {
-		EList result = new BasicEList();
+		List<GenPackage> result = new ArrayList<GenPackage>();
 		GenModel genModel = getDomainGenModel();
 		if (genModel != null) {
 			List genPackages = genModel.getAllGenPackagesWithClassifiers();
@@ -1025,7 +1026,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated NOT
 	 */	
 	public boolean hasAudits() {
-		return getAudits() != null && !getAudits().getAllAuditRules().isEmpty();
+		return getAudits() != null && !getAudits().getRules().isEmpty();
 	}
 
 	/**
@@ -1035,6 +1036,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
+				if (audits != null)
+					msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, null, msgs);
+				return basicSetAudits((GenAuditRoot)otherEnd, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				if (diagram != null)
 					msgs = ((InternalEObject)diagram).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM, null, msgs);
@@ -1152,7 +1157,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
-				setAudits((GenAuditContainer)newValue);
+				setAudits((GenAuditRoot)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
 				setMetrics((GenMetricContainer)newValue);
@@ -1217,7 +1222,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
-				setAudits((GenAuditContainer)null);
+				setAudits((GenAuditRoot)null);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
 				setMetrics((GenMetricContainer)null);

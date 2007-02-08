@@ -382,6 +382,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenRuleContainerBase(GenRuleContainerBase object) {
 				return createGenRuleContainerBaseAdapter();
 			}
+			public Object caseGenAuditRoot(GenAuditRoot object) {
+				return createGenAuditRootAdapter();
+			}
 			public Object caseGenAuditContainer(GenAuditContainer object) {
 				return createGenAuditContainerAdapter();
 			}
@@ -1600,6 +1603,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenRuleContainerBaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot <em>Gen Audit Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot
+	 * @generated
+	 */
+	public Adapter createGenAuditRootAdapter() {
 		return null;
 	}
 

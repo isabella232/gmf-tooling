@@ -159,6 +159,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC: return createGenFeatureValueSpec();
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC: return createGenReferenceNewElementSpec();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS: return createGenLinkConstraints();
+			case GMFGenPackage.GEN_AUDIT_ROOT: return createGenAuditRoot();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER: return createGenAuditContainer();
 			case GMFGenPackage.GEN_AUDIT_RULE: return createGenAuditRule();
 			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: return createGenDomainElementTarget();
@@ -780,6 +781,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLinkConstraints createGenLinkConstraints() {
 		GenLinkConstraintsImpl genLinkConstraints = new GenLinkConstraintsImpl();
 		return genLinkConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenAuditRoot createGenAuditRoot() {
+		GenAuditRootImpl genAuditRoot = new GenAuditRootImpl();
+		return genAuditRoot;
 	}
 
 	/**

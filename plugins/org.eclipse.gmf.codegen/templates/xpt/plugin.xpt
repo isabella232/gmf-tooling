@@ -13,6 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::diagram::Utils»
+«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE plugin FOR gmfgen::GenPlugin-»
 <?xml version="1.0" encoding="UTF-8"?>
@@ -266,7 +267,7 @@
 «ENDDEFINE»
 
 «DEFINE validation FOR gmfgen::GenDiagram-»
-«IF validationEnabled || (null != editorGen.audits && editorGen.audits.getAllAuditRules().size() > 0)-»
+«IF validationEnabled || editorGen.hasAudits()-»
 «IF validationEnabled-»
 
    <extension id="ValidationContributionItemProvider" name="Validation"

@@ -47,15 +47,17 @@ import org.eclipse.emf.ecore.EObject;
 public interface GenEditorGenerator extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getEditorGen <em>Editor Gen</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Audits</em>' containment reference.
-	 * @see #setAudits(GenAuditContainer)
+	 * @see #setAudits(GenAuditRoot)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Audits()
-	 * @model containment="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getEditorGen
+	 * @model opposite="editorGen" containment="true"
 	 * @generated
 	 */
-	GenAuditContainer getAudits();
+	GenAuditRoot getAudits();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getAudits <em>Audits</em>}' containment reference.
@@ -65,7 +67,7 @@ public interface GenEditorGenerator extends EObject {
 	 * @see #getAudits()
 	 * @generated
 	 */
-	void setAudits(GenAuditContainer value);
+	void setAudits(GenAuditRoot value);
 
 	/**
 	 * Returns the value of the '<em><b>Metrics</b></em>' containment reference.

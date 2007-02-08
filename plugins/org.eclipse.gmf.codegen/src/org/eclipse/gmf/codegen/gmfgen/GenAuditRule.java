@@ -20,14 +20,16 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContextSelectorLocalClassName <em>Context Selector Local Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getMessage <em>Message</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isUseInLiveMode <em>Use In Live Mode</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer <em>Container</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isRequiresConstraintAdapter <em>Requires Constraint Adapter</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,6 +38,23 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @generated
  */
 public interface GenAuditRule extends GenRuleBase {
+	/**
+	 * Returns the value of the '<em><b>Root</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getRules <em>Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Root</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Root</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Root()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRoot#getRules
+	 * @model opposite="rules" required="true" changeable="false"
+	 * @generated
+	 */
+	GenAuditRoot getRoot();
+
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -51,7 +70,7 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @see #setId(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Id()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)' description='Audit rule with the same ID already exists'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not id.oclIsUndefined() implies root.rules->one(i | i.id = self.id)' description='Audit rule with the same ID already exists'"
 	 * @generated
 	 */
 	String getId();
@@ -210,37 +229,6 @@ public interface GenAuditRule extends GenRuleBase {
 	void setUseInLiveMode(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Container</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getAudits <em>Audits</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Container</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The containing audit container of this audit rule
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Container</em>' container reference.
-	 * @see #setContainer(GenAuditContainer)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Container()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getAudits
-	 * @model opposite="audits" required="true"
-	 * @generated
-	 */
-	GenAuditContainer getContainer();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer <em>Container</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Container</em>' container reference.
-	 * @see #getContainer()
-	 * @generated
-	 */
-	void setContainer(GenAuditContainer value);
-
-	/**
 	 * Returns the value of the '<em><b>Requires Constraint Adapter</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -254,6 +242,34 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @generated
 	 */
 	boolean isRequiresConstraintAdapter();
+
+	/**
+	 * Returns the value of the '<em><b>Category</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getAudits <em>Audits</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Category</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Category</em>' reference.
+	 * @see #setCategory(GenAuditContainer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Category()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getAudits
+	 * @model opposite="audits" required="true"
+	 * @generated
+	 */
+	GenAuditContainer getCategory();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getCategory <em>Category</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Category</em>' reference.
+	 * @see #getCategory()
+	 * @generated
+	 */
+	void setCategory(GenAuditContainer value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -272,12 +288,26 @@ public interface GenAuditRule extends GenRuleBase {
 	String getContextSelectorQualifiedClassName();
 
 	/**
+	 * Returns the value of the '<em><b>Context Selector Local Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
+	 * @return the value of the '<em>Context Selector Local Class Name</em>' attribute.
+	 * @see #setContextSelectorLocalClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_ContextSelectorLocalClassName()
+	 * @model
 	 * @generated
 	 */
 	String getContextSelectorLocalClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContextSelectorLocalClassName <em>Context Selector Local Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context Selector Local Class Name</em>' attribute.
+	 * @see #getContextSelectorLocalClassName()
+	 * @generated
+	 */
+	void setContextSelectorLocalClassName(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

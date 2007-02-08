@@ -467,6 +467,15 @@ public interface GMFGenFactory extends EFactory {
 	GenLinkConstraints createGenLinkConstraints();
 
 	/**
+	 * Returns a new object of class '<em>Gen Audit Root</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Audit Root</em>'.
+	 * @generated
+	 */
+	GenAuditRoot createGenAuditRoot();
+
+	/**
 	 * Returns a new object of class '<em>Gen Audit Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
