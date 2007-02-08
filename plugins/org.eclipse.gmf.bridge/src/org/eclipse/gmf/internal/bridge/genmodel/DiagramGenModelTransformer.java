@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
@@ -321,7 +323,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	
 	protected void process(AuditContainer audits) {
 		if(audits != null) {
-			getGenEssence().setAudits(createGenAuditContainer(audits));	
+			getGenEssence().setAudits(createGenAuditRoot(audits));	
 		}
 	}	
 	
@@ -892,19 +894,36 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return modelElementSelector;
 	}
 	
-	private GenAuditContainer createGenAuditContainer(AuditContainer ac) {
-		GenAuditContainer gac = GMFGenFactory.eINSTANCE.createGenAuditContainer();
-		gac.setId(ac.getId());
-		gac.setName(ac.getName());
-		gac.setDescription(ac.getDescription());
-		for(Iterator it = ac.getChildContainers().iterator(); it.hasNext();) {
-			AuditContainer nextChild = (AuditContainer) it.next();
-			gac.getChildContainers().add(createGenAuditContainer(nextChild));
-		}
-		for (Iterator it = ac.getAudits().iterator(); it.hasNext();) {
-			gac.getAudits().add(createGenAudit((AuditRule) it.next()));
-		}
-		return gac;
+	private GenAuditRoot createGenAuditRoot(AuditContainer ac) {
+		GenAuditRoot root = GMFGenFactory.eINSTANCE.createGenAuditRoot();
+		LinkedList<AuditContainer> containers = new LinkedList<AuditContainer>();
+		containers.add(ac);
+		// parent container to it's path
+		final HashMap<AuditContainer, LinkedList<GenAuditContainer>> pathMap = new HashMap<AuditContainer, LinkedList<GenAuditContainer>>();
+		do {
+			AuditContainer nextChild = containers.removeFirst();
+			GenAuditContainer gac = GMFGenFactory.eINSTANCE.createGenAuditContainer();
+			gac.setId(nextChild.getId());
+			gac.setName(nextChild.getName());
+			gac.setDescription(nextChild.getDescription());
+			// FIXME setPath
+			if (pathMap.containsKey(nextChild.getParentContainer())) {
+				gac.getPath().addAll(pathMap.get(nextChild.getParentContainer()));
+			}
+			gac.getPath().add(gac);
+			// collect next level
+			if (nextChild.getChildContainers().size() > 0) {
+				containers.addAll(nextChild.getChildContainers());
+				pathMap.put(nextChild, new LinkedList<GenAuditContainer>(gac.getPath()));
+			}
+			root.getCategories().add(gac);
+			for (Iterator it = nextChild.getAudits().iterator(); it.hasNext();) {
+				final GenAuditRule auditRule = createGenAudit((AuditRule) it.next());
+				auditRule.setCategory(gac);
+				root.getRules().add(auditRule);
+			}
+		} while (!containers.isEmpty());
+		return root;
 	}
 	
 	private GenAuditRule createGenAudit(AuditRule audit) {
