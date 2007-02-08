@@ -386,7 +386,7 @@ public class GenEditorGeneratorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Audits(),
-				 GMFGenFactory.eINSTANCE.createGenAuditContainer()));
+				 GMFGenFactory.eINSTANCE.createGenAuditRoot()));
 
 		newChildDescriptors.add
 			(createChildParameter

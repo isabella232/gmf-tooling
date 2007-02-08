@@ -1152,6 +1152,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenAuditRootItemProvider genAuditRootItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRoot}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenAuditRootAdapter() {
+		if (genAuditRootItemProvider == null) {
+			genAuditRootItemProvider = new GenAuditRootItemProvider(this);
+		}
+
+		return genAuditRootItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1958,6 +1980,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();
 		if (genReferenceNewElementSpecItemProvider != null) genReferenceNewElementSpecItemProvider.dispose();
 		if (genLinkConstraintsItemProvider != null) genLinkConstraintsItemProvider.dispose();
+		if (genAuditRootItemProvider != null) genAuditRootItemProvider.dispose();
 		if (genAuditContainerItemProvider != null) genAuditContainerItemProvider.dispose();
 		if (genAuditRuleItemProvider != null) genAuditRuleItemProvider.dispose();
 		if (genDomainElementTargetItemProvider != null) genDomainElementTargetItemProvider.dispose();

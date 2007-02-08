@@ -24,6 +24,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -39,7 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenAuditContainerItemProvider
-	extends GenRuleContainerBaseItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -69,6 +70,8 @@ public class GenAuditContainerItemProvider
 			addIdPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
+			addPathPropertyDescriptor(object);
+			addAuditsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -140,32 +143,47 @@ public class GenAuditContainerItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Path feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditContainer_Audits());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditContainer_ChildContainers());
-		}
-		return childrenFeatures;
+	protected void addPathPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditContainer_path_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_path_feature", "_UI_GenAuditContainer_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Path(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
+	 * This adds a property descriptor for the Audits feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	protected void addAuditsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditContainer_audits_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_audits_feature", "_UI_GenAuditContainer_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Audits(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -207,10 +225,6 @@ public class GenAuditContainerItemProvider
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
-			case GMFGenPackage.GEN_AUDIT_CONTAINER__CHILD_CONTAINERS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -224,16 +238,6 @@ public class GenAuditContainerItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditContainer_Audits(),
-				 GMFGenFactory.eINSTANCE.createGenAuditRule()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditContainer_ChildContainers(),
-				 GMFGenFactory.eINSTANCE.createGenAuditContainer()));
 	}
 
 	/**
