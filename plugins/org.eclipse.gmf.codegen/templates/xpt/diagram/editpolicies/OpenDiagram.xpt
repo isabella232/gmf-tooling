@@ -103,15 +103,33 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
 			try {
+			«IF null == subject.getDiagram().editorGen.application-»
+				new org.eclipse.ui.actions.WorkspaceModifyOperation() {
+					protected void execute(org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException, java.lang.reflect.InvocationTargetException, InterruptedException {
+						try {
+			«ENDIF-»
 				for (java.util.Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 					org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
 						nextResource.save(java.util.Collections.EMPTY_MAP);
 					}
 				}
+			«IF null == subject.getDiagram().editorGen.application-»
+						} catch (java.io.IOException ex) {
+							throw new java.lang.reflect.InvocationTargetException(ex, "Save operation failed");
+						}		
+					}
+				}.run(null);
+			} catch (java.lang.reflect.InvocationTargetException e) {
+				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", e);
+			} catch (InterruptedException e) {
+				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", e);
+			}
+			«ELSE-»
 			} catch (java.io.IOException ex) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);
 			}
+			«ENDIF-»
 			return d;
 		}
 
