@@ -3,16 +3,20 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0">
-  <audits
-      id="lib"
-      name="Lib Audits"
-      description="Lib audits">
-    <audits
+  <audits>
+    <categories
+        id="lib"
+        name="Lib Audits"
+        description="Lib audits"
+        path="//@audits/@categories.0"
+        audits="//@audits/@rules.1 //@audits/@rules.0"/>
+    <rules
         name="author_book_not_empty"
         description="Rule1"
         id="rule1"
         message="Author should have written something, lest he is not an author"
-        severity="WARNING">
+        severity="WARNING"
+        category="//@audits/@categories.0">
       <rule
           body="books->notEmpty() or brochures->notEmpty()"/>
       <target
@@ -20,11 +24,12 @@
         <element
             href="library.genmodel#//library/Writer"/>
       </target>
-    </audits>
-    <audits
+    </rules>
+    <rules
         description="Rule2"
         id="rule2"
-        message="">
+        message=""
+        category="//@audits/@categories.0">
       <rule
           body="self &lt; 100"/>
       <target
@@ -33,7 +38,7 @@
         <metricValueContext
             href="../../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDoubleObject"/>
       </target>
-    </audits>
+    </rules>
   </audits>
   <metrics>
     <metrics
@@ -986,7 +991,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@audits.0/@rule //@audits/@audits.1/@rule">
+        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@rules.0/@rule //@audits/@rules.1/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
