@@ -533,6 +533,77 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         assertTrue("Failed to find references for "+allImports.size()+" more types", allImports.isEmpty());
     }
     
+    public void testNotSpoilingCustomImports() throws Exception {
+        String className = "NotSpoilingCustomImports";
+        final String conflict = "my.namespace."+ArrayList.class.getSimpleName();
+        String[] customImports = new String[] { ArrayList.class.getName() };
+        String[] fieldTypes = new String[] { Map.class.getName(), ArrayList.class.getName(), ArrayList.class.getSimpleName(), conflict };
+        String code = generateClassCode(className, null, null, null, fieldTypes, null, null, null, null);
+        ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", code);
+        
+        OrganizeImportsPostprocessor processor = new OrganizeImportsPostprocessor();
+        processor.organizeImports(icu, customImports, null);
+        icu.save(null, true);
+        
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
+        parser.setSource(icu);
+        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+        List imports = cu.imports();
+        
+        final List<String> hadImportsList = new ArrayList<String>(Arrays.asList(customImports));
+        final List<String> uniqueImports = new ArrayList<String>(hadImportsList);
+        for (int i=0; i<fieldTypes.length; i++) {
+            if (!conflict.equals(fieldTypes[i]) && !uniqueImports.contains(fieldTypes[i]) && fieldTypes[i].indexOf('.') != -1) {
+                uniqueImports.add(fieldTypes[i]);
+            }
+        }
+        
+        final List<String> allImports = new ArrayList<String>();
+        allImports.addAll(uniqueImports);
+        assertEquals("Failed to generate enough import statements", allImports.size(), imports.size());
+        for (Iterator it=imports.iterator(); it.hasNext();) {
+            String nextImport = ((ImportDeclaration) it.next()).getName().getFullyQualifiedName();
+            assertTrue("Unexpected import found: "+nextImport, allImports.remove(nextImport));
+        }
+        assertTrue("Failed to generate import for "+allImports.size()+" more types", allImports.isEmpty());
+        
+        allImports.clear();
+        allImports.addAll(uniqueImports);
+        cu.accept(new ASTVisitor(){
+            public boolean visit(FieldDeclaration node) {
+                node.getType().accept(new ASTVisitor(){
+                    public boolean visit(QualifiedName node) {
+                        assertEquals("Unexpected fully qualified field found: "+node.getFullyQualifiedName(), conflict, node.getFullyQualifiedName());
+                        return false;
+                    }
+
+                    public boolean visit(SimpleName node) {
+                        String name = "."+node.getFullyQualifiedName();
+                        boolean found = false;
+                        for (Iterator<String> it=uniqueImports.iterator(); it.hasNext();) {
+                            String nextFullTypeName = it.next();
+                            if (nextFullTypeName.endsWith(name)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        assertTrue("Unexpected simple type found "+name, found);
+                        for (Iterator<String> it=allImports.iterator(); it.hasNext();) {
+                            String nextFullTypeName = it.next();
+                            if (nextFullTypeName.endsWith(name)) {
+                                it.remove();
+                                break;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                return super.visit(node);
+            }
+        });
+        assertTrue("Failed to find references for "+allImports.size()+" more types", allImports.isEmpty());
+    }
+    
     public void testNotToRemoveEvenUnusedImports() throws Exception {
         String className = "TestNotToRemoveEvenUnusedImports";
         String[] existingImports = new String[] { ArrayList.class.getName() };
