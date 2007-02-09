@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -40,7 +43,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
 
 /**
  * @generated
@@ -231,6 +233,25 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected static class LinkConstraints {
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateDiagramElementFigure_4001(DiagramElement source, FigureHandle target) {
+			if (source != null) {
+				if (source.getFigure() != null) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 	}
 
 }

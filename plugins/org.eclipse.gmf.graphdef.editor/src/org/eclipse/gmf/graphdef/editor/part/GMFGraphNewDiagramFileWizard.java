@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,10 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.ecore.util.FeatureMap;
+
+import org.eclipse.emf.edit.provider.IWrapperItemProvider;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -76,8 +80,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
-import org.eclipse.ui.ide.IDE;
 
 /**
  * @generated
@@ -169,7 +171,7 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 		}
 
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 
 		List affectedFiles = new LinkedList();
 		affectedFiles.add(mySelectedModelFile);
@@ -191,7 +193,7 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			IDE.openEditor(myWorkbenchPage, diagramFile);
+			GMFGraphDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
@@ -263,8 +265,17 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 			myDiagramRoot = null;
 			if (event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
-					myDiagramRoot = (EObject) selection.getFirstElement();
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof IWrapperItemProvider) {
+						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
+					}
+					if (selectedElement instanceof FeatureMap.Entry) {
+						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
+					}
+					if (selectedElement instanceof EObject) {
+						myDiagramRoot = (EObject) selectedElement;
+					}
 				}
 			}
 			setPageComplete(validatePage());

@@ -1,0 +1,118 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Anna Karjakina (Borland) - initial API and implementation
+ */
+ 
+import "http://www.eclipse.org/gmf/2005/GraphicalDefinition";
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+import "http://www.eclipse.org/emf/2002/GenModel";
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+extension xpt::GenModelUtils;
+
+cached List[genmodel::GenFeature] getAllGenFeatures(genmodel::GenClass genClass) :
+getAllBaseGenClasses(genClass).genFeatures.union(genClass.genFeatures)
+;
+
+cached List[genmodel::GenClass] getAllBaseGenClasses(genmodel::GenClass genClass) :
+genClass.ecoreClass.eAllSuperTypes.findGenClassifier(genClass.genPackage.genModel)
+;
+
+private genmodel::GenClass findGenClassifier(ecore::EClass eClass, genmodel::GenModel genModel) :
+findGenClassifier(genModel, eClass)
+;
+
+cached genmodel::GenClassifier getTypeGenClassifier(genmodel::GenFeature genFeature) :
+null != genFeature.ecoreFeature.eType ? findGenClassifier(genFeature.genClass.genPackage.genModel, genFeature.ecoreFeature.eType) : null
+;
+
+cached genmodel::GenClass metaclass(gmfgen::GenNode genNode) :
+genNode.getDomainMetaClass()
+;
+
+cached boolean skip(genmodel::GenFeature genFeature) :
+skip(getTypeGenClassifier(genFeature), getName(genFeature))
+;
+
+private String getName(genmodel::GenFeature genFeature) :
+genFeature.ecoreFeature.name
+;
+
+private boolean skip(genmodel::GenClassifier type, String genFeatureName) :
+!genFeatureName.matches("layoutData|layout|template")
+;
+
+private boolean skip(genmodel::GenDataType type, String genFeatureName) :
+genFeatureName.matches("name")
+;
+
+cached boolean generateSyncronizationCode(genmodel::GenClass metaclass) :
+metaclass.ecoreClass.eAllSuperTypes.contains(metaclass.ecoreClass.ePackage.getEClassifier("FigureMarker"))
+;
+
+boolean isInnerClassViewmap(gmfgen::Viewmap viewmap) :
+false
+;
+
+boolean isInnerClassViewmap(gmfgen::InnerClassViewmap viewmap) :
+true
+;
+
+cached String getProcessChangesCall(genmodel::GenFeature genFeature, String modelElementVariable) :
+setValue(genFeature, transform(genFeature, getValue(genFeature, modelElementVariable)))
+;
+
+private String getValue(genmodel::GenFeature genFeature, String modelElementVariable) :
+isCornerWidthOrHeight(genFeature) ? 
+DPtoLPcall(modelElementVariable+".getCornerWidth()")+", "+DPtoLPcall(modelElementVariable+".getCornerHeight()") :
+modelElementVariable+"."+getGetAccessor(genFeature)+"()"
+;
+
+private String DPtoLPcall(String variable) :
+"getMapMode().DPtoLP("+variable+")"
+;
+
+private String transform(genmodel::GenFeature genFeature, String getValueString) :
+switch (getName(genFeature)) {
+case "cornerWidth": "new org.eclipse.draw2d.geometry.Dimension("+getValueString+")"
+case "cornerHeight": "new org.eclipse.draw2d.geometry.Dimension("+getValueString+")"
+case "lineKind": "getLineStyle("+getValueString+")"
+case "template": "getPointList("+getValueString+")"
+default : getValueString
+}
+;
+
+private boolean isCornerWidthOrHeight(genmodel::GenFeature genFeature) :
+getName(genFeature).matches("cornerWidth|cornerHeight")
+;
+
+private String getAccessorCall(genmodel::GenFeature genFeature) :
+switch (getAccessorName(genFeature)) {
+case "XorFill": "myFigure.setFillXOR"
+case "XorOutline": "myFigure.setOutlineXOR"
+case "LineKind": "myFigure.setLineStyle"
+case "CornerWidth": "myFigure.setCornerDimensions"
+case "CornerHeight": "myFigure.setCornerDimensions"
+case "Template": "myFigure.setPoints"
+default : getTypedAccessorCall(genFeature, getTypeGenClassifier(genFeature))
+}
+;
+
+private String getTypedAccessorCall(genmodel::GenFeature genFeature, genmodel::GenDataType type) :
+"myFigure.set"+getAccessorName(genFeature)
+;
+
+private String getTypedAccessorCall(genmodel::GenFeature genFeature, genmodel::GenClassifier type) :
+getName(genFeature)+"Changed"
+;
+
+private String setValue(genmodel::GenFeature genFeature, String transformedValueString) :
+getAccessorCall(genFeature)+"("+transformedValueString+")"
+;

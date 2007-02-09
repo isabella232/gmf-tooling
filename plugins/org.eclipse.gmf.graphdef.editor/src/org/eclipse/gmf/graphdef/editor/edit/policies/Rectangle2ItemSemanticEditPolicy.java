@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,27 +10,34 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.graphdef.editor.edit.commands.EllipseCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.PolylineCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.Rectangle2CreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangleCreateCommand;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
+import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.gef.commands.UnexecutableCommand;
-
-import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
-import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
-
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -45,25 +52,25 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			}
-			return getMSLWrapper(new CreateRectangle_3002Command(req));
+			return getMSLWrapper(new Rectangle2CreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Ellipse_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			}
-			return getMSLWrapper(new CreateEllipse_3003Command(req));
+			return getMSLWrapper(new EllipseCreateCommand(req));
 		}
 		if (GMFGraphElementTypes.RoundedRectangle_3004 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			}
-			return getMSLWrapper(new CreateRoundedRectangle_3004Command(req));
+			return getMSLWrapper(new RoundedRectangleCreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Polyline_3005 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			}
-			return getMSLWrapper(new CreatePolyline_3005Command(req));
+			return getMSLWrapper(new PolylineCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -71,143 +78,21 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 	/**
 	 * @generated
 	 */
-	private static class CreateRectangle_3002Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateRectangle_3002Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return GMFGraphPackage.eINSTANCE.getRectangle();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateEllipse_3003Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateEllipse_3003Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return GMFGraphPackage.eINSTANCE.getRectangle();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateRoundedRectangle_3004Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateRoundedRectangle_3004Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return GMFGraphPackage.eINSTANCE.getRectangle();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreatePolyline_3005Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreatePolyline_3005Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return GMFGraphPackage.eINSTANCE.getRectangle();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		});
+		CompoundCommand cc = new CompoundCommand();
+		Collection allEdges = new ArrayList();
+		View view = (View) getHost().getModel();
+		allEdges.addAll(view.getSourceEdges());
+		allEdges.addAll(view.getTargetEdges());
+		for (Iterator it = allEdges.iterator(); it.hasNext();) {
+			Edge nextEdge = (Edge) it.next();
+			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
+			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((Rectangle2EditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
+					Collections.EMPTY_MAP);
+			cc.add(nextEditPart.getCommand(editCommandRequest));
+		}
+		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		return cc;
 	}
 
 	/**
@@ -215,7 +100,7 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (GMFGraphElementTypes.DiagramElementFigure_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingDiagramElement_Figure4001Command(req);
+			return req.getTarget() == null ? null : getCreateCompleteIncomingDiagramElementFigure_4001Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -223,15 +108,19 @@ public class Rectangle2ItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingDiagramElement_Figure4001Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof DiagramElement)) {
+	protected Command getCreateCompleteIncomingDiagramElementFigure_4001Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof DiagramElement || false == targetEObject instanceof FigureHandle) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		DiagramElement element = (DiagramElement) req.getSource();
-		if (element.getFigure() != null) {
+		DiagramElement source = (DiagramElement) sourceEObject;
+		FigureHandle target = (FigureHandle) targetEObject;
+		if (!GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canCreateDiagramElementFigure_4001(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		SetRequest setReq = new SetRequest(req.getSource(), GMFGraphPackage.eINSTANCE.getDiagramElement_Figure(), req.getTarget());
+		SetRequest setReq = new SetRequest(sourceEObject, GMFGraphPackage.eINSTANCE.getDiagramElement_Figure(), target);
 		return getMSLWrapper(new SetValueCommand(setReq));
 	}
+
 }

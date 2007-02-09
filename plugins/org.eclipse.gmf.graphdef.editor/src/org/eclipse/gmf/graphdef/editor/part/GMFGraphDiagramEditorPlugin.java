@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -55,6 +56,11 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	private ComposedAdapterFactory adapterFactory;
+
+	/**
+	 * @generated
+	 */
+	private GMFGraphDocumentProvider myDocumentProvider;
 
 	/**
 	 * @generated
@@ -156,6 +162,14 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
+	 * Returns string from plug-in's resource bundle
+	 * @generated
+	 */
+	public static String getString(String key) {
+		return Platform.getResourceString(getInstance().getBundle(), "%" + key); //$NON-NLS-1$
+	}
+
+	/**
 	 * Returns an image for the image file at the given plug-in relative path.
 	 * Client do not need to dispose this image. Images will be disposed automatically.
 	 *
@@ -170,6 +184,16 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public GMFGraphDocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new GMFGraphDocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**
@@ -203,7 +227,7 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && message != null) {
+		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(new Status(IStatus.INFO, GMFGraphDiagramEditorPlugin.ID, IStatus.OK, message, throwable));
@@ -224,5 +248,4 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 			throwable.printStackTrace();
 		}
 	}
-
 }

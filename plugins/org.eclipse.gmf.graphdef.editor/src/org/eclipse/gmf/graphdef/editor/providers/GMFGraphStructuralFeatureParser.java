@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ public class GMFGraphStructuralFeatureParser extends GMFGraphAbstractParser {
 	/**
 	 * @generated
 	 */
-	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}"); //$NON-NLS-1$
+	public static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -68,9 +68,24 @@ public class GMFGraphStructuralFeatureParser extends GMFGraphAbstractParser {
 	/**
 	 * @generated
 	 */
+	protected EObject getDomainElement(EObject element) {
+		return element;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		Object value = element.eGet(feature);
+		element = getDomainElement(element);
+		return getStringByPattern(element, feature, processor);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getStringByPattern(EObject element, EStructuralFeature feature, MessageFormat processor) {
+		Object value = element == null ? null : element.eGet(feature);
 		value = getValidValue(feature, value);
 		return processor.format(new Object[] { value }, new StringBuffer(), new FieldPosition(0)).toString();
 	}
@@ -95,6 +110,7 @@ public class GMFGraphStructuralFeatureParser extends GMFGraphAbstractParser {
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
+		element = getDomainElement(element);
 		if (element == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -112,10 +128,15 @@ public class GMFGraphStructuralFeatureParser extends GMFGraphAbstractParser {
 	 */
 	public boolean isAffectingEvent(Object event, int flags) {
 		if (event instanceof Notification) {
-			if (feature == ((Notification) event).getFeature()) {
-				return true;
-			}
+			return isAffectingFeature(((Notification) event).getFeature());
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isAffectingFeature(Object eventFeature) {
+		return feature == eventFeature;
 	}
 }

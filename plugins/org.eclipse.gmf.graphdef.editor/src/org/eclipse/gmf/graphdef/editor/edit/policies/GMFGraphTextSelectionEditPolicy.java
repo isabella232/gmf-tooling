@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
@@ -105,13 +104,6 @@ public class GMFGraphTextSelectionEditPolicy extends SelectionEditPolicy {
 				focusFeedbackFigure = null;
 			}
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getFeedbackLayer() {
-		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 	}
 
 	/**

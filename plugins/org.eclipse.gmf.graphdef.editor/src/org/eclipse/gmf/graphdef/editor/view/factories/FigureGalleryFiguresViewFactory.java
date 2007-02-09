@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
@@ -52,7 +53,7 @@ public class FigureGalleryFiguresViewFactory extends ListCompartmentViewFactory 
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = GMFGraphVisualIDRegistry.getType(org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart.VISUAL_ID);
+			semanticHint = GMFGraphVisualIDRegistry.getType(FigureGalleryFiguresEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

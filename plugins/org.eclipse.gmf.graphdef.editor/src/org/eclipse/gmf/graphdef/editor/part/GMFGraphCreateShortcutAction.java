@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,20 +14,18 @@ import org.eclipse.core.commands.ExecutionException;
 
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 
-import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcoreFactory;
+
+import org.eclipse.gmf.graphdef.editor.edit.commands.GMFGraphCreateShortcutDecorationsCommand;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
 
 import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
 
@@ -96,21 +94,8 @@ public class GMFGraphCreateShortcutAction implements IObjectActionDelegate {
 		}
 		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null,
 				GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		CreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {
-
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				CommandResult result = super.doExecuteWithResult(monitor, info);
-				View view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);
-				if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-					EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
-					shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-					shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$
-					view.getEAnnotations().add(shortcutAnnotation);
-				}
-				return result;
-			}
-
-		};
+		ICommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view);
+		command = command.compose(new GMFGraphCreateShortcutDecorationsCommand(mySelectedElement.getEditingDomain(), view, viewDescriptor));
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {

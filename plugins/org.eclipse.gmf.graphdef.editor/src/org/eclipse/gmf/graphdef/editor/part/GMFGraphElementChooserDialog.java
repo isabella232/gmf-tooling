@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,8 +48,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.emf.ecore.util.FeatureMap;
+
+import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+
+import org.eclipse.ui.model.WorkbenchContentProvider;
 
 /**
  * @generated
@@ -171,7 +175,7 @@ public class GMFGraphElementChooserDialog extends Dialog {
 				IPath resourcePath = modelFile.getFullPath();
 				ResourceSet resourceSet = myEditingDomain.getResourceSet();
 				try {
-					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString()), true);
+					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString(), true), true);
 					return myAdapterFctoryContentProvier.getChildren(modelResource);
 				} catch (WrappedException e) {
 					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
@@ -241,8 +245,14 @@ public class GMFGraphElementChooserDialog extends Dialog {
 	 */
 	private class ModelElementsTreeLabelProvider implements ILabelProvider {
 
+		/**
+		 * @generated
+		 */
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
 
+		/**
+		 * @generated
+		 */
 		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
@@ -326,11 +336,20 @@ public class GMFGraphElementChooserDialog extends Dialog {
 		public void selectionChanged(SelectionChangedEvent event) {
 			if (event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
-					mySelectedModelElement = (EObject) selection.getFirstElement();
-					setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
-							GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-					return;
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof IWrapperItemProvider) {
+						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
+					}
+					if (selectedElement instanceof FeatureMap.Entry) {
+						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
+					}
+					if (selectedElement instanceof EObject) {
+						mySelectedModelElement = (EObject) selectedElement;
+						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
+								GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+						return;
+					}
 				}
 			}
 			mySelectedModelElement = null;

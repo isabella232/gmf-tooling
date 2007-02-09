@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -91,7 +91,7 @@ public class GMFGraphInitDiagramFileAction implements IObjectActionDelegate {
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		EObject diagramRoot = null;
 		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString(), true), true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$

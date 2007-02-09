@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,23 +14,24 @@ import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 
 /**
  * @generated
  */
-public class GMFGraphElementTypes {
+public class GMFGraphElementTypes extends ElementInitializers {
 
 	/**
 	 * @generated
@@ -70,7 +71,14 @@ public class GMFGraphElementTypes {
 	 */
 	private static ImageDescriptor getProvidedImageDescriptor(ENamedElement element) {
 		if (element instanceof EStructuralFeature) {
-			element = ((EStructuralFeature) element).getEContainingClass();
+			EStructuralFeature feature = ((EStructuralFeature) element);
+			EClass eContainingClass = feature.getEContainingClass();
+			EClassifier eType = feature.getEType();
+			if (eContainingClass != null && !eContainingClass.isAbstract()) {
+				element = eContainingClass;
+			} else if (eType instanceof EClass && !((EClass) eType).isAbstract()) {
+				element = eType;
+			}
 		}
 		if (element instanceof EClass) {
 			EClass eClass = (EClass) element;
@@ -146,19 +154,33 @@ public class GMFGraphElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
+
 			elements.put(Canvas_1000, GMFGraphPackage.eINSTANCE.getCanvas());
-			elements.put(Rectangle_3001, GMFGraphPackage.eINSTANCE.getRectangle());
-			elements.put(Rectangle_3002, GMFGraphPackage.eINSTANCE.getRectangle());
-			elements.put(Ellipse_3003, GMFGraphPackage.eINSTANCE.getEllipse());
-			elements.put(RoundedRectangle_3004, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
-			elements.put(Polyline_3005, GMFGraphPackage.eINSTANCE.getPolyline());
-			elements.put(Ellipse_3006, GMFGraphPackage.eINSTANCE.getEllipse());
-			elements.put(RoundedRectangle_3007, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
-			elements.put(Polyline_3008, GMFGraphPackage.eINSTANCE.getPolyline());
+
 			elements.put(Compartment_2001, GMFGraphPackage.eINSTANCE.getCompartment());
+
 			elements.put(Node_2002, GMFGraphPackage.eINSTANCE.getNode());
+
 			elements.put(Connection_2003, GMFGraphPackage.eINSTANCE.getConnection());
+
 			elements.put(FigureGallery_2004, GMFGraphPackage.eINSTANCE.getFigureGallery());
+
+			elements.put(Rectangle_3001, GMFGraphPackage.eINSTANCE.getRectangle());
+
+			elements.put(Rectangle_3002, GMFGraphPackage.eINSTANCE.getRectangle());
+
+			elements.put(Ellipse_3003, GMFGraphPackage.eINSTANCE.getEllipse());
+
+			elements.put(RoundedRectangle_3004, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
+
+			elements.put(Polyline_3005, GMFGraphPackage.eINSTANCE.getPolyline());
+
+			elements.put(Ellipse_3006, GMFGraphPackage.eINSTANCE.getEllipse());
+
+			elements.put(RoundedRectangle_3007, GMFGraphPackage.eINSTANCE.getRoundedRectangle());
+
+			elements.put(Polyline_3008, GMFGraphPackage.eINSTANCE.getPolyline());
+
 			elements.put(DiagramElementFigure_4001, GMFGraphPackage.eINSTANCE.getDiagramElement_Figure());
 		}
 		return (ENamedElement) elements.get(type);
@@ -168,6 +190,26 @@ public class GMFGraphElementTypes {
 	 * @generated
 	 */
 	public static final IElementType Canvas_1000 = getElementType("org.eclipse.gmf.graphdef.editor.Canvas_1000"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Compartment_2001 = getElementType("org.eclipse.gmf.graphdef.editor.Compartment_2001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.graphdef.editor.Node_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Connection_2003 = getElementType("org.eclipse.gmf.graphdef.editor.Connection_2003"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType FigureGallery_2004 = getElementType("org.eclipse.gmf.graphdef.editor.FigureGallery_2004"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -212,26 +254,6 @@ public class GMFGraphElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Compartment_2001 = getElementType("org.eclipse.gmf.graphdef.editor.Compartment_2001"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.graphdef.editor.Node_2002"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Connection_2003 = getElementType("org.eclipse.gmf.graphdef.editor.Connection_2003"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType FigureGallery_2004 = getElementType("org.eclipse.gmf.graphdef.editor.FigureGallery_2004"); //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
 	public static final IElementType DiagramElementFigure_4001 = getElementType("org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4001"); //$NON-NLS-1$
 
 	/**
@@ -253,6 +275,10 @@ public class GMFGraphElementTypes {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
 			KNOWN_ELEMENT_TYPES.add(Canvas_1000);
+			KNOWN_ELEMENT_TYPES.add(Compartment_2001);
+			KNOWN_ELEMENT_TYPES.add(Node_2002);
+			KNOWN_ELEMENT_TYPES.add(Connection_2003);
+			KNOWN_ELEMENT_TYPES.add(FigureGallery_2004);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3001);
 			KNOWN_ELEMENT_TYPES.add(Rectangle_3002);
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3003);
@@ -261,10 +287,6 @@ public class GMFGraphElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Ellipse_3006);
 			KNOWN_ELEMENT_TYPES.add(RoundedRectangle_3007);
 			KNOWN_ELEMENT_TYPES.add(Polyline_3008);
-			KNOWN_ELEMENT_TYPES.add(Compartment_2001);
-			KNOWN_ELEMENT_TYPES.add(Node_2002);
-			KNOWN_ELEMENT_TYPES.add(Connection_2003);
-			KNOWN_ELEMENT_TYPES.add(FigureGallery_2004);
 			KNOWN_ELEMENT_TYPES.add(DiagramElementFigure_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);

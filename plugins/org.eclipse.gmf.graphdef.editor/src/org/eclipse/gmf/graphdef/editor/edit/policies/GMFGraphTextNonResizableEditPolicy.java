@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -20,7 +21,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
@@ -110,13 +110,6 @@ public class GMFGraphTextNonResizableEditPolicy extends NonResizableEditPolicyEx
 				focusFeedbackFigure = null;
 			}
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getFeedbackLayer() {
-		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 	}
 
 	/**

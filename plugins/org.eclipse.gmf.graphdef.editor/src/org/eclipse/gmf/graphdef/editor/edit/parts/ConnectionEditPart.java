@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,34 +11,26 @@
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-
 import org.eclipse.gef.requests.CreateRequest;
-
-import org.eclipse.gmf.graphdef.editor.edit.policies.ConnectionCanonicalEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.ConnectionGraphicalNodeEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.ConnectionItemSemanticEditPolicy;
-
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -72,10 +64,9 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
+
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ConnectionItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ConnectionCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -83,6 +74,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
+
 		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
@@ -102,6 +94,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 			}
 		};
 		return lep;
+
 	}
 
 	/**
@@ -134,14 +127,44 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
+
 		return false;
 	}
 
 	/**
 	 * @generated
 	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+
+		return super.getContentPaneFor(editPart);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		return result;
 	}
 
 	/**
@@ -196,27 +219,18 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
+	protected void handleNotificationEvent(Notification event) {
+		if (event.getNotifier() == getModel() && EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
+			handleMajorSemanticChange();
+		} else {
+			super.handleNotificationEvent(event);
 		}
-		super.addChildVisual(childEditPart, -1);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
-	 * @generated
-	 */
-	public class DiagramElementFigure extends org.eclipse.draw2d.RectangleFigure {
+	public class DiagramElementFigure extends RectangleFigure {
 
 		/**
 		 * @generated
@@ -230,7 +244,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			WrapLabel fig_0 = new WrapLabel();
 
 			setFigureDiagramElementFigure_NameLabel(fig_0);
 
@@ -242,19 +256,19 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fDiagramElementFigure_NameLabel;
+		private WrapLabel fDiagramElementFigure_NameLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureDiagramElementFigure_NameLabel() {
+		public WrapLabel getFigureDiagramElementFigure_NameLabel() {
 			return fDiagramElementFigure_NameLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		private void setFigureDiagramElementFigure_NameLabel(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureDiagramElementFigure_NameLabel(WrapLabel fig) {
 			fDiagramElementFigure_NameLabel = fig;
 		}
 

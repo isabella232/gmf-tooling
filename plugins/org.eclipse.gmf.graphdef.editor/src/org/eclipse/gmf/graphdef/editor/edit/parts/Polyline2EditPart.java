@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,31 +13,19 @@ package org.eclipse.gmf.graphdef.editor.edit.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.StackLayout;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-
 import org.eclipse.gef.requests.CreateRequest;
-
-import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline2CanonicalEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline2ItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -71,10 +59,9 @@ public class Polyline2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
+
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Polyline2ItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new Polyline2GraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Polyline2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -101,6 +88,7 @@ public class Polyline2EditPart extends ShapeNodeEditPart {
 			}
 		};
 		return lep;
+
 	}
 
 	/**
@@ -121,7 +109,8 @@ public class Polyline2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+		return result;
 	}
 
 	/**

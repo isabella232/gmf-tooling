@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,19 +10,15 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gmf.graphdef.editor.edit.policies.CompartmentVisualFacetsItemSemanticEditPolicy;
-
+import org.eclipse.gmf.graphdef.editor.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -52,7 +48,7 @@ public class CompartmentVisualFacetsEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "VisualFacets";
+		return Messages.CompartmentVisualFacetsEditPart_title;
 	}
 
 	/**
@@ -72,4 +68,5 @@ public class CompartmentVisualFacetsEditPart extends ListCompartmentEditPart {
 			super.setRatio(ratio);
 		}
 	}
+
 }

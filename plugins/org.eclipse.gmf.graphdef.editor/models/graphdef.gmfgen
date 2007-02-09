@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.graphdef.editor"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.graphdef.editor"
     modelID="GMFGraph"
     dynamicTemplates="true"
     templateDirectory="/org.eclipse.gmf.graphdef.editor/templates/"
@@ -12,8 +12,9 @@
       editPartClassName="CanvasEditPart"
       itemSemanticEditPolicyClassName="CanvasItemSemanticEditPolicy"
       notationViewFactoryClassName="CanvasViewFactory"
-      iconProviderPriority="Low"
       canonicalEditPolicyClassName="CanvasCanonicalEditPolicy"
+      iconProviderPriority="Low"
+      validationProviderPriority="Low"
       creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -32,9 +33,10 @@
         editPartClassName="RectangleEditPart"
         itemSemanticEditPolicyClassName="RectangleItemSemanticEditPolicy"
         notationViewFactoryClassName="RectangleViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="RectangleCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="RectangleGraphicalNodeEditPolicy"
+        createCommandClassName="RectangleCreateCommand"
         containers="//@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -67,9 +69,10 @@
         editPartClassName="Rectangle2EditPart"
         itemSemanticEditPolicyClassName="Rectangle2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Rectangle2ViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="Rectangle2CanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="Rectangle2GraphicalNodeEditPolicy"
+        createCommandClassName="Rectangle2CreateCommand"
         containers="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -103,9 +106,10 @@
         editPartClassName="EllipseEditPart"
         itemSemanticEditPolicyClassName="EllipseItemSemanticEditPolicy"
         notationViewFactoryClassName="EllipseViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="EllipseCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="EllipseGraphicalNodeEditPolicy"
+        createCommandClassName="EllipseCreateCommand"
         containers="//@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -138,9 +142,10 @@
         editPartClassName="RoundedRectangleEditPart"
         itemSemanticEditPolicyClassName="RoundedRectangleItemSemanticEditPolicy"
         notationViewFactoryClassName="RoundedRectangleViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="RoundedRectangleCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="RoundedRectangleGraphicalNodeEditPolicy"
+        createCommandClassName="RoundedRectangleCreateCommand"
         containers="//@diagram/@childNodes.3 //@diagram/@childNodes.2 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -175,6 +180,7 @@
         notationViewFactoryClassName="PolylineViewFactory"
         canonicalEditPolicyClassName="PolylineCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="PolylineGraphicalNodeEditPolicy"
+        createCommandClassName="PolylineCreateCommand"
         containers="//@diagram/@childNodes.3 //@diagram/@childNodes.2 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -205,9 +211,10 @@
         editPartClassName="Ellipse2EditPart"
         itemSemanticEditPolicyClassName="Ellipse2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Ellipse2ViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="Ellipse2CanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="Ellipse2GraphicalNodeEditPolicy"
+        createCommandClassName="Ellipse2CreateCommand"
         containers="//@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -241,9 +248,10 @@
         editPartClassName="RoundedRectangle2EditPart"
         itemSemanticEditPolicyClassName="RoundedRectangle2ItemSemanticEditPolicy"
         notationViewFactoryClassName="RoundedRectangle2ViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         canonicalEditPolicyClassName="RoundedRectangle2CanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4"
         graphicalNodeEditPolicyClassName="RoundedRectangle2GraphicalNodeEditPolicy"
+        createCommandClassName="RoundedRectangle2CreateCommand"
         containers="//@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -279,6 +287,7 @@
         notationViewFactoryClassName="Polyline2ViewFactory"
         canonicalEditPolicyClassName="Polyline2CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="Polyline2GraphicalNodeEditPolicy"
+        createCommandClassName="Polyline2CreateCommand"
         containers="//@diagram/@compartments.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -312,7 +321,8 @@
         notationViewFactoryClassName="CompartmentViewFactory"
         canonicalEditPolicyClassName="CompartmentCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
-        graphicalNodeEditPolicyClassName="CompartmentGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="CompartmentGraphicalNodeEditPolicy"
+        createCommandClassName="CompartmentCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -347,7 +357,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
         </modelFacet>
       </labels>
@@ -359,7 +369,8 @@
         notationViewFactoryClassName="NodeViewFactory"
         canonicalEditPolicyClassName="NodeCanonicalEditPolicy"
         compartments="//@diagram/@compartments.1"
-        graphicalNodeEditPolicyClassName="NodeGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="NodeGraphicalNodeEditPolicy"
+        createCommandClassName="NodeCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -394,7 +405,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
         </modelFacet>
       </labels>
@@ -406,7 +417,8 @@
         notationViewFactoryClassName="ConnectionViewFactory"
         canonicalEditPolicyClassName="ConnectionCanonicalEditPolicy"
         compartments="//@diagram/@compartments.2"
-        graphicalNodeEditPolicyClassName="ConnectionGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="ConnectionGraphicalNodeEditPolicy"
+        createCommandClassName="ConnectionCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -441,7 +453,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
         </modelFacet>
       </labels>
@@ -453,7 +465,8 @@
         notationViewFactoryClassName="FigureGalleryViewFactory"
         canonicalEditPolicyClassName="FigureGalleryCanonicalEditPolicy"
         compartments="//@diagram/@compartments.3"
-        graphicalNodeEditPolicyClassName="FigureGalleryGraphicalNodeEditPolicy">
+        graphicalNodeEditPolicyClassName="FigureGalleryGraphicalNodeEditPolicy"
+        createCommandClassName="FigureGalleryCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -488,7 +501,7 @@
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
-          <metaFeature
+          <metaFeatures
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
         </modelFacet>
       </labels>
@@ -572,8 +585,8 @@
         editPartClassName="FigureGalleryFiguresEditPart"
         itemSemanticEditPolicyClassName="FigureGalleryFiguresItemSemanticEditPolicy"
         notationViewFactoryClassName="FigureGalleryFiguresViewFactory"
-        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6 //@diagram/@childNodes.7"
         canonicalEditPolicyClassName="FigureGalleryFiguresCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6 //@diagram/@childNodes.7"
         title="Figures"
         node="//@diagram/@topLevelNodes.3"
         listLayout="false">
@@ -647,11 +660,298 @@
             genNodes="//@diagram/@childNodes.4 //@diagram/@childNodes.7"/>
       </groups>
     </palette>
+    <preferencePages
+        xsi:type="gmfgen:GenStandardPreferencePage"
+        iD="org.eclipse.gmf.graphdef.diagram.general"
+        name="GMFGraph Diagram">
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.graphdef.diagram.appearance"
+          name="Appearance"
+          kind="Appearance"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.graphdef.diagram.connections"
+          name="Connections"
+          kind="Connections"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.graphdef.diagram.printing"
+          name="Printing"
+          kind="Printing"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.graphdef.diagram.rulersAndGrid"
+          name="Rulers And Grid"
+          kind="RulersAndGrid"/>
+      <children
+          xsi:type="gmfgen:GenStandardPreferencePage"
+          iD="org.eclipse.gmf.graphdef.diagram.pathmaps"
+          name="Pathmaps"
+          kind="Pathmaps"/>
+    </preferencePages>
   </diagram>
   <plugin
       iD="org.eclipse.gmf.graphdef.editor"
       name="gmfgraph Plugin"/>
   <editor/>
+  <navigator>
+    <childReferences
+        child="//@diagram"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.0"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.1"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.2"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.2"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.3"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.3"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.3"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.3"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@childNodes.2"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.2"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.3"
+        child="//@diagram/@childNodes.0"/>
+    <childReferences
+        parent="//@diagram/@childNodes.5"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.5"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.5"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.5"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.3"
+        child="//@diagram/@childNodes.5"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@childNodes.1"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@childNodes.2"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@childNodes.3"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@childNodes.4"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.3"
+        child="//@diagram/@childNodes.6"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.3"
+        child="//@diagram/@childNodes.7"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.3"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.0"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.0"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.1"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.2"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.2"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.3"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.3"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.4"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.4"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.5"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.5"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.6"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.7"
+        referenceType="out_taget"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.7"
+        child="//@diagram/@links.0"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@topLevelNodes.2"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.2"
+        child="//@diagram/@links.0"
+        referenceType="out_taget"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+  </navigator>
+  <propertySheet>
+    <tabs
+        xsi:type="gmfgen:GenStandardPropertyTab"
+        iD="appearance"/>
+    <tabs
+        xsi:type="gmfgen:GenStandardPropertyTab"
+        iD="diagram"
+        label="Rulers &amp; Grid"/>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="domain"
+        label="Core">
+      <filter
+          xsi:type="gmfgen:TypeTabFilter">
+        <types>org.eclipse.gmf.runtime.notation.View</types>
+        <types>org.eclipse.gef.EditPart</types>
+        <generatedTypes>abstractNavigatorItem</generatedTypes>
+      </filter>
+    </tabs>
+  </propertySheet>
   <domainGenModel
       href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#/"/>
 </gmfgen:GenEditorGenerator>

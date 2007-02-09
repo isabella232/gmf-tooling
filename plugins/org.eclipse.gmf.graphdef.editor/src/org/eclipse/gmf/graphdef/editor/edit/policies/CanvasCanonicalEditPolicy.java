@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation and others.
+ * Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,8 @@ import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
-import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
@@ -160,8 +161,20 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected void refreshSemantic() {
-		super.refreshSemantic();
-		refreshConnections();
+		List createdViews = new LinkedList();
+		createdViews.addAll(refreshSemanticChildren());
+		List createdConnectionViews = new LinkedList();
+		createdConnectionViews.addAll(refreshSemanticConnections());
+		createdConnectionViews.addAll(refreshConnections());
+
+		if (createdViews.size() > 1) {
+			// perform a layout of the container
+			DeferredLayoutCommand layoutCmd = new DeferredLayoutCommand(host().getEditingDomain(), createdViews, host());
+			executeCommand(new ICommandProxy(layoutCmd));
+		}
+
+		createdViews.addAll(createdConnectionViews);
+		makeViewsImmutable(createdViews);
 	}
 
 	/**
@@ -177,7 +190,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void refreshConnections() {
+	private Collection refreshConnections() {
 		try {
 			collectAllLinks(getDiagram());
 			Collection existingLinks = new LinkedList(getDiagram().getEdges());
@@ -197,7 +210,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 			deleteViews(existingLinks.iterator());
-			createConnections(myLinkDescriptors);
+			return createConnections(myLinkDescriptors);
 		} finally {
 			myLinkDescriptors.clear();
 			myEObject2ViewMap.clear();
@@ -239,10 +252,11 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void createConnections(Collection linkDescriptors) {
+	private Collection createConnections(Collection linkDescriptors) {
 		if (linkDescriptors.isEmpty()) {
-			return;
+			return Collections.EMPTY_LIST;
 		}
+		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
 			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
 			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
@@ -262,9 +276,12 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			if (cmd != null && cmd.canExecute()) {
 				executeCommand(cmd);
 				IAdaptable viewAdapter = (IAdaptable) ccr.getNewObject();
-				SetViewMutabilityCommand.makeImmutable(viewAdapter).execute();
+				if (viewAdapter != null) {
+					adapters.add(viewAdapter);
+				}
 			}
 		}
+		return adapters;
 	}
 
 	/**
