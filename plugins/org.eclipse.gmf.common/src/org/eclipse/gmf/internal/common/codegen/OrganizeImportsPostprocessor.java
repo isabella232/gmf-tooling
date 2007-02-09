@@ -78,6 +78,8 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @param icu
 	 *            the compilation unit containing <b>valid</b> code
+	 * @param declaredImportsAsStrings 
+     *            imports added in previous file revision (default is null)
 	 * @param monitor
 	 *            the progress monitor used to report progress and request
 	 *            cancelation, or <code>null</code> if none
@@ -87,14 +89,18 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @see ImportRewrite
 	 */
-	public void organizeImports(ICompilationUnit icu, IProgressMonitor progress) throws CoreException {
+    public void organizeImports(ICompilationUnit icu, IProgressMonitor progress) throws CoreException {
+        organizeImports(icu, null, progress);
+    }
+    
+	public void organizeImports(ICompilationUnit icu, String[] declaredImportsAsStrings, IProgressMonitor progress) throws CoreException {
 		IDocument document = new Document(icu.getBuffer().getContents());
 
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setSource(icu);
 		CompilationUnit cu = (CompilationUnit) parser.createAST(progress);
 
-		TextEdit importsEdit = organizeImports(cu, progress);
+		TextEdit importsEdit = organizeImports(cu, declaredImportsAsStrings, progress);
 
 		try {
 			importsEdit.apply(document);
@@ -119,6 +125,8 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @param astRoot
 	 *            the parsed traversable ast tree, should contain no errors
+     * @param declaredImports 
+     *            imports added in previous file revision (default is null)
 	 * @param monitor
 	 *            the progress monitor used to report progress and request
 	 *            cancelation, or <code>null</code> if none
@@ -131,15 +139,20 @@ public class OrganizeImportsPostprocessor {
 	 * 
 	 * @see ImportRewrite
 	 */
-	public TextEdit organizeImports(CompilationUnit astRoot, IProgressMonitor progress) throws CoreException {
+    public TextEdit organizeImports(CompilationUnit astRoot, IProgressMonitor progress) throws CoreException {
+        return organizeImports(astRoot, null, progress);
+    }
+    
+	public TextEdit organizeImports(CompilationUnit astRoot, String[] declaredImports, IProgressMonitor progress) throws CoreException {
 		MultiTextEdit result = new MultiTextEdit();
 
 		Set<String> oldSingleImports = new HashSet<String>();
 		Set<String> oldDemandImports = new HashSet<String>();
 
-		if (isDebug()) {
-			collectExistingImports(astRoot, oldSingleImports, oldDemandImports);
-		}
+        String[] customImports = substract(declaredImports, astRoot.imports());
+        if (isDebug()) {
+            collectExistingImports(astRoot, oldSingleImports, oldDemandImports, customImports);
+        }
 
 		if (!checkForNoSyntaxErrors(astRoot)) {
 			throw new CoreException(new Status(IStatus.ERROR, Activator.getID(), 0, "Imports are unable to be organized due to syntax errors in the compilation unit", null));
@@ -151,7 +164,8 @@ public class OrganizeImportsPostprocessor {
 
 		PackageReferencesCollector.collect(astRoot, qualifiedTypeReferences, simpleTypeReferences, importsAdded);
 
-		ImportRewrite importRewrite = createImportRewrite(astRoot);
+        ImportRewrite importRewrite = createImportRewrite(astRoot);
+        copyImports(importRewrite, customImports);
 		ImportRewrite.ImportRewriteContext context = new ReferencedTypesAwareImportRewriteContext(simpleTypeReferences, importRewrite);
 
 		Iterator<Name> refIterator = qualifiedTypeReferences.iterator();
@@ -191,6 +205,31 @@ public class OrganizeImportsPostprocessor {
 		return result;
 	}
 
+    /*
+     * Since we do organizeImports prior to merge, we must ensure
+     * imports added manually are known to OrganizeImportsProcessor
+     */
+    private static void copyImports(ImportRewrite importRewrite, String[] importsToCopy) {
+        if (importsToCopy == null || importsToCopy.length == 0) {
+            return;
+        }
+        for (int i = 0; i < importsToCopy.length; i++) {
+            importRewrite.addImport(importsToCopy[i]);
+        }
+    }
+    
+    private String[] substract(String[] declaredImports, List list) {
+        if (declaredImports == null || declaredImports.length == 0) {
+            return declaredImports;
+        }
+        List<String> result = new ArrayList<String>(Arrays.asList(declaredImports));
+        for (int i=0; i<list.size(); i++) {
+            ImportDeclaration next = (ImportDeclaration) list.get(i);
+            result.remove(next.getName().getFullyQualifiedName());
+        }
+        return result.toArray(new String[result.size()]);
+    }
+
 	private boolean addImport(String typeName, String fullName, ImportRewrite importRewrite, ImportRewrite.ImportRewriteContext context, Collection<String> importsAdded) {
 		boolean resultIsOk = importRewrite.addImport(fullName, context).equals(typeName);
 		if (resultIsOk && !importsAdded.contains(fullName)) {
@@ -199,8 +238,18 @@ public class OrganizeImportsPostprocessor {
 		return resultIsOk;
 	}
 
-	private void collectExistingImports(CompilationUnit astRoot, Set<String> oldSingleImports, Set<String> oldDemandImports) {
-		List imports = astRoot.imports();
+    private void collectExistingImports(CompilationUnit astRoot, Set<String> oldSingleImports, Set<String> oldDemandImports, String[] declaredImports) {
+        if (declaredImports != null && declaredImports.length > 0) {
+            for (int i=0; i<declaredImports.length; i++) {
+                String curr = declaredImports[i];
+                if (curr.endsWith("*")) {
+                    oldDemandImports.add(curr);
+                } else {
+                    oldSingleImports.add(curr);
+                }
+            }
+        }
+        final List imports = astRoot.imports();
 		for (int i = 0; i < imports.size(); i++) {
 			ImportDeclaration curr = (ImportDeclaration) imports.get(i);
 			String id = curr.getName().getFullyQualifiedName();
