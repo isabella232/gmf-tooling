@@ -5,7 +5,7 @@ feature@org.eclipse.gmf=v20070202-1200,:pserver:anonymous@dev.eclipse.org:/cvsro
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=v20060713-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
-plugin@org.eclipse.gmf.runtime.common.core=v20060209-1900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core
+plugin@org.eclipse.gmf.runtime.common.core=v20070119-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core
 plugin@org.eclipse.gmf.runtime.common.ui=v20061020-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui
 plugin@org.eclipse.gmf.runtime.common.ui.action=v20060810-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action
 plugin@org.eclipse.gmf.runtime.common.ui.action.ide=v20060925-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action.ide
@@ -35,7 +35,7 @@ plugin@org.eclipse.gmf.runtime.draw2d.ui=v20070202-0200,:pserver:anonymous@dev.e
 plugin@org.eclipse.gmf.runtime.draw2d.ui.render=v20061218-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render
 plugin@org.eclipse.gmf.runtime.draw2d.ui.render.awt=v20070105-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render.awt
 plugin@org.eclipse.gmf.runtime.gef.ui=v20060919-0800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef.ui
-plugin@org.eclipse.gmf.runtime.emf.commands.core=v20060209-1900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.commands.core
+plugin@org.eclipse.gmf.runtime.emf.commands.core=v20061020-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.commands.core
 plugin@org.eclipse.gmf.runtime.emf.core=v20070105-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core
 plugin@org.eclipse.gmf.runtime.emf.ui=v20060925-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui
 plugin@org.eclipse.gmf.runtime.emf.ui.properties=v20061012-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.properties
