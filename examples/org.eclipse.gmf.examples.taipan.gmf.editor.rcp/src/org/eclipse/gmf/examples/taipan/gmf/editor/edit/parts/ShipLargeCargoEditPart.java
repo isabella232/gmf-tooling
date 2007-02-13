@@ -14,6 +14,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -43,7 +44,7 @@ public class ShipLargeCargoEditPart extends ShapeCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "LargeCargo";
+		return Messages.ShipLargeCargoEditPart_title;
 	}
 
 	/**

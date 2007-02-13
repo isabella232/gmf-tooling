@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.application;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -42,7 +43,7 @@ public class DiagramEditorWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor 
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new Point(1000, 700));
-		configurer.setTitle("TaiPan Application");
+		configurer.setTitle(Messages.DiagramEditorWorkbenchWindowAdvisor_Title);
 	}
 
 }

@@ -200,7 +200,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Aquatory_1000"
-               name="Aquatory"
+               name="%metatype.name.Aquatory_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Aquatory"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.AquatoryEditHelper">
@@ -210,7 +210,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Port_2001"
-               name="Port"
+               name="%metatype.name.Port_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Port"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortEditHelper">
@@ -220,7 +220,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Ship_2002"
-               name="Ship"
+               name="%metatype.name.Ship_2002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ship"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipEditHelper">
@@ -230,7 +230,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"
-               name="Small Items"
+               name="%metatype.name.SmallItems_3001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SmallItems"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItemsEditHelper">
@@ -240,7 +240,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LargeItem_3002"
-               name="Large Item"
+               name="%metatype.name.LargeItem_3002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="LargeItem"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItemEditHelper">
@@ -250,7 +250,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EmptyBox_3003"
-               name="Empty Box"
+               name="%metatype.name.EmptyBox_3003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EmptyBox"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBoxEditHelper">
@@ -260,7 +260,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ShipDestination_4001"
-               name="Ship Destination"
+               name="%metatype.name.ShipDestination_4001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestinationEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -270,7 +270,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"
-               name="Reliable Route"
+               name="%metatype.name.Route_4002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelper">
@@ -280,7 +280,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"
-               name="Unreliable Route"
+               name="%metatype.name.Route_4003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"/>
@@ -384,7 +384,7 @@
       <?gmfgen generated="true"?>
       <perspective
             id="org.eclipse.gmf.examples.taipan.gmf.editor.TaiPanPerspective"
-            name="TaiPan Perspective"
+            name="%perspectiveName"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorPerspective">
       </perspective>
    </extension>
@@ -452,36 +452,36 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.general"
-            name="TaiPan Diagram"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.appearance"
-            name="Appearance"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.appearance"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.connections"
-            name="Connections"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.connections"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.printing"
-            name="Printing"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.printing"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-            name="Rulers And Grid"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
-            name="Pathmaps"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
@@ -501,46 +501,47 @@
    </extension>
 
    <extension point="org.eclipse.emf.validation.constraintProviders">
-	<?gmfgen generated="true"?>
-	<category
-		id="taipan"
-		mandatory="false"
-		name="TaiPan Audits">
-	<![CDATA[All TaiPan audits]]>
-	</category>		
-	<constraintProvider cache="true">
-		<package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
-		<constraints categories="taipan">		
-			<constraint id="port_location"
-				lang="OCL"
-				name="Port Location" mode="Batch"
-				severity="ERROR" statusCode="200">
-				<![CDATA[location.size() > 0]]>			
-	            <description><![CDATA[Empty port location check]]></description>
-	            <message><![CDATA[Port location should not be empty]]></message>
-				<target class="taipan.Port"/>
-			</constraint>
-			<constraint id="ship_name"
-				lang="Java" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$Adapter2"
-				name="Ship Name" mode="Batch"
-				severity="ERROR" statusCode="201">			
-	            <description><![CDATA[Empty ship name check]]></description>
-	            <message><![CDATA[Ship name should not be empty]]></message>
-				<target class="taipan.Ship"/>
-			</constraint>
-		</constraints>
-	</constraintProvider>
-</extension>
+      <?gmfgen generated="true"?>
+            <category id="taipan" mandatory="false" name="TaiPan Audits">
+         <![CDATA[All TaiPan audits]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
+         <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
+               <constraints categories="taipan">
+                  <constraint id="port_location"
+            lang="OCL"
+            name="Port Location"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[location.size() > 0]]>
+            <description><![CDATA[Empty port location check]]></description>
+            <message><![CDATA[Port location should not be empty]]></message>
+            <target class="taipan.Port"/>
+         </constraint>
+                  <constraint id="ship_name"
+            lang="Java" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$Adapter2"
+            name="Ship Name"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[Empty ship name check]]></description>
+            <message><![CDATA[Ship name should not be empty]]></message>
+            <target class="taipan.Ship"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
 
    <extension point="org.eclipse.emf.validation.constraintBindings">
-	<?gmfgen generated="true"?>
-	<clientContext default="false" id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
-		<selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$DefaultCtx"/>
-	</clientContext>
-	<binding context="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">	
-		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.port_location"/>	
-		<constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
-	</binding>		
-</extension>
+      <?gmfgen generated="true"?>
+                  <clientContext default="false" id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
+         <selector class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
+                  <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.port_location"/>
+                  <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
+               </binding>
+               </extension>
 
 </plugin>

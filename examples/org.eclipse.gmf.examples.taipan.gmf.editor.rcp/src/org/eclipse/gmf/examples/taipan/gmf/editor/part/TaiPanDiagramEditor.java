@@ -43,6 +43,8 @@ import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
@@ -67,51 +69,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	 */
 	public TaiPanDiagramEditor() {
 		super(true);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected String getEditingDomainID() {
-		return "org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EditingDomain"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	protected TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain domain = super.createEditingDomain();
-		domain.setID(getEditingDomainID());
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(domain.getResourceSet()).and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(
-				NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
-		domain.getResourceSet().eAdapters().add(new Adapter() {
-
-			private Notifier myTarger;
-
-			public Notifier getTarget() {
-				return myTarger;
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return false;
-			}
-
-			public void notifyChanged(Notification notification) {
-				if (diagramResourceModifiedFilter.matches(notification)) {
-					Object value = notification.getNewValue();
-					if (value instanceof Resource) {
-						((Resource) value).setTrackingModification(true);
-					}
-				}
-			}
-
-			public void setTarget(Notifier newTarget) {
-				myTarger = newTarget;
-			}
-
-		});
-
-		return domain;
 	}
 
 	/**
@@ -156,6 +113,17 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 			return new URIDiagramDocumentProvider();
 		}
 		return super.getDocumentProvider(input);
+	}
+
+	/**
+	 * @generated
+	 */
+	public TransactionalEditingDomain getEditingDomain() {
+		IDocument document = getEditorInput() != null ? getDocumentProvider().getDocument(getEditorInput()) : null;
+		if (document instanceof IDiagramDocument) {
+			return ((IDiagramDocument) document).getEditingDomain();
+		}
+		return super.getEditingDomain();
 	}
 
 	/**

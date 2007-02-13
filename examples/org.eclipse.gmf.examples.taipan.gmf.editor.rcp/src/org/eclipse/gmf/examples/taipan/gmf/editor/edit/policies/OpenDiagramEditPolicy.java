@@ -33,6 +33,7 @@ import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -92,7 +93,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		OpenDiagramCommand(EAnnotation annotation) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
-			super(TransactionUtil.getEditingDomain(annotation), "Open diagram", null);
+			super(TransactionUtil.getEditingDomain(annotation), Messages.CommandName_OpenDiagram, null);
 			diagramFacet = annotation;
 		}
 
@@ -143,7 +144,10 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 			diagramFacet.eResource().getContents().add(d);
 			try {
 				for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
-					((Resource) it.next()).save(Collections.EMPTY_MAP);
+					Resource nextResource = (Resource) it.next();
+					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+						nextResource.save(Collections.EMPTY_MAP);
+					}
 				}
 			} catch (IOException ex) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);
