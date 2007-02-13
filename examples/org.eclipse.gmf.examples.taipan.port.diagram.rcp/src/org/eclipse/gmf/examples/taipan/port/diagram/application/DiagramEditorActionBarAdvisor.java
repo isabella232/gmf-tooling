@@ -17,6 +17,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.Messages;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizard;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
@@ -118,12 +119,12 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	protected void fillMenuBar(IMenuManager menu) {
 
 		{
-			IMenuManager menuX = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+			IMenuManager menuX = new MenuManager(Messages.ApplicationMenuName_File, IWorkbenchActionConstants.M_FILE);
 
 			menuX.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));
 
 			{
-				IMenuManager menuXX = new MenuManager("&New", "new");
+				IMenuManager menuXX = new MenuManager(Messages.ApplicationMenuName_New, "new");
 
 				menuXX.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 				menuX.add(menuXX);
@@ -156,7 +157,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		}
 
 		{
-			IMenuManager menuX = new MenuManager("&Edit", IWorkbenchActionConstants.M_EDIT);
+			IMenuManager menuX = new MenuManager(Messages.ApplicationMenuName_Edit, IWorkbenchActionConstants.M_EDIT);
 
 			menuX.add(new GroupMarker(IWorkbenchActionConstants.EDIT_START));
 
@@ -195,7 +196,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		menu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 
 		{
-			IMenuManager menuX = new MenuManager("&Window", IWorkbenchActionConstants.M_WINDOW);
+			IMenuManager menuX = new MenuManager(Messages.ApplicationMenuName_Window, IWorkbenchActionConstants.M_WINDOW);
 
 			menuX.add(getAction(ActionFactory.OPEN_NEW_WINDOW.getId()));
 
@@ -204,7 +205,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		}
 
 		{
-			IMenuManager menuX = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
+			IMenuManager menuX = new MenuManager(Messages.ApplicationMenuName_Help, IWorkbenchActionConstants.M_HELP);
 
 			menuX.add(new GroupMarker(IWorkbenchActionConstants.HELP_START));
 
@@ -273,13 +274,14 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
 		if (editorDescriptor == null) {
-			MessageDialog.openError(workbenchWindow.getShell(), "Error", org.eclipse.osgi.util.NLS.bind("There is no editor registered for the file ''{0}''", fileURI.toFileString()));
+			MessageDialog.openError(workbenchWindow.getShell(), Messages.DiagramEditorActionBarAdvisor_DefaultFileEditorTitle, org.eclipse.osgi.util.NLS.bind(
+					Messages.DiagramEditorActionBarAdvisor_DefaultFileEditorMessage, fileURI.toFileString()));
 			return false;
 		} else {
 			try {
 				page.openEditor(new URIEditorInput(fileURI), editorDescriptor.getId());
 			} catch (PartInitException exception) {
-				MessageDialog.openError(workbenchWindow.getShell(), "Open Editor", exception.getMessage());
+				MessageDialog.openError(workbenchWindow.getShell(), Messages.DiagramEditorActionBarAdvisor_DefaultEditorOpenErrorTitle, exception.getMessage());
 				return false;
 			}
 		}
@@ -346,7 +348,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		 * @generated
 		 */
 		public void run(IAction action) {
-			MessageDialog.openInformation(getWindow().getShell(), "About", "Port Diagram Editor");
+			MessageDialog.openInformation(getWindow().getShell(), Messages.DiagramEditorActionBarAdvisor_AboutDialogTitle, Messages.DiagramEditorActionBarAdvisor_AboutDialogMessage);
 		}
 	}
 

@@ -123,36 +123,36 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.general"
-            name="TaiPan Diagram"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.appearance"
-            name="Appearance"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.appearance"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.connections"
-            name="Connections"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.connections"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.printing"
-            name="Printing"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.printing"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
-            name="Rulers And Grid"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.rulersAndGrid"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.examples.taipan.port.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.examples.taipan.diagram.pathmaps"
-            name="Pathmaps"
+            name="%preference.page.title.org.eclipse.gmf.examples.taipan.diagram.pathmaps"
             category="org.eclipse.gmf.examples.taipan.diagram.general"
             class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
       </page>
@@ -261,7 +261,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.Port_1000"
-               name="Undefined"
+               name="%metatype.name.Port_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Port"
                edithelper="org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.PortEditHelper">
@@ -271,7 +271,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.Building_2001"
-               name="Building"
+               name="%metatype.name.Building_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Building"
                edithelper="org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.BuildingEditHelper">
@@ -307,7 +307,7 @@
       <?gmfgen generated="true"?>
       <perspective
             id="org.eclipse.gmf.examples.taipan.port.diagram.PortPerspective"
-            name="Port Perspective"
+            name="%perspectiveName"
             class="org.eclipse.gmf.examples.taipan.port.diagram.application.DiagramEditorPerspective">
       </perspective>
    </extension>

@@ -44,5 +44,65 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	public static String Building1CreationTool_desc;
 
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorActionBarAdvisor_DefaultFileEditorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorActionBarAdvisor_DefaultFileEditorMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorActionBarAdvisor_DefaultEditorOpenErrorTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorActionBarAdvisor_AboutDialogTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorActionBarAdvisor_AboutDialogMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String ApplicationMenuName_File;
+
+	/**
+	 * @generated
+	 */
+	public static String ApplicationMenuName_Edit;
+
+	/**
+	 * @generated
+	 */
+	public static String ApplicationMenuName_Window;
+
+	/**
+	 * @generated
+	 */
+	public static String ApplicationMenuName_Help;
+
+	/**
+	 * @generated
+	 */
+	public static String ApplicationMenuName_New;
+
+	/**
+	 * @generated
+	 */
+	public static String DiagramEditorWorkbenchWindowAdvisor_Title;
+
+	/**
+	 * @generated
+	 */
+	public static String CommandName_OpenDiagram;
+
 	//TODO: put accessor fields manually	
 }

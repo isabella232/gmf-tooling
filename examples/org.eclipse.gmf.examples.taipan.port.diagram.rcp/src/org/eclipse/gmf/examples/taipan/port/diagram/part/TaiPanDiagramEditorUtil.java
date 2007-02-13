@@ -86,9 +86,8 @@ public class TaiPanDiagramEditorUtil {
 
 	/**
 	 * @generated
-	 * @return the created resource, or <code>null</code> if the resource was not created
 	 */
-	public static final Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
+	public static Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI, org.eclipse.emf.common.util.URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		progressMonitor.beginTask("Creating diagram and model files", 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
@@ -99,12 +98,14 @@ public class TaiPanDiagramEditorUtil {
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Port model = createInitialModel();
 				attachModelToResource(model, modelResource);
+
 				Diagram diagram = ViewService.createDiagram(model, PortEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);
 					diagram.setElement(model);
 				}
+
 				try {
 					Map options = new HashMap();
 					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
