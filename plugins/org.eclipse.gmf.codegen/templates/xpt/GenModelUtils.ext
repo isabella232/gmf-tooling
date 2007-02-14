@@ -104,6 +104,17 @@ genmodel::GenClassifier findGenClassifier(genmodel::GenModel genModel, ecore::EC
 JAVA org.eclipse.gmf.codegen.util.GenModelUtils.findGenClassifier(org.eclipse.emf.codegen.ecore.genmodel.GenModel, org.eclipse.emf.ecore.EClassifier)
 ;
 
+//GenFeature#getReverse
+genmodel::GenFeature getReverse(genmodel::GenFeature feature) :
+	let eReverseFeature = ((ecore::EReference) feature.ecoreFeature).eOpposite :
+		eReverseFeature != null ? 
+			(let genClass = (genmodel::GenClass) findGenClassifier(feature.genClass.genPackage.genModel, eReverseFeature.eContainingClass) :
+				genClass != null ? 
+					genClass.genFeatures.select(e|e.ecoreFeature == eReverseFeature).first()
+					: null)
+			: null
+;
+
 // GenFeature#isListType()
 boolean isListType(genmodel::GenFeature feature) :
 JAVA org.eclipse.gmf.codegen.util.GenModelUtils.isListType(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
@@ -143,10 +154,10 @@ String unparenthesizedCast(String what, genmodel::GenClass source, genmodel::Gen
 
 //See cast()
 private boolean needsCast(genmodel::GenClass source, genmodel::GenClass target) :
-	source == target ? true :
+	source == target ? false :
 		(target == null ? 
 			(source != null && source.isExternalInterface()) : 
-			source == null || target.isExternalInterface() || source.isExternalInterface() || target.ecoreClass.isSuperTypeOf(source.ecoreClass))
+			source == null || target.isExternalInterface() || source.isExternalInterface() || !target.ecoreClass.isSuperTypeOf(source.ecoreClass))
 ;
 
 // GenFeatureImpl#isMapEntryFeature
@@ -155,7 +166,7 @@ private boolean isMapEntryFeature(genmodel::GenFeature gf) :
 ;
 
 // GenClassImpl#isMapEntry
-private boolean isMapEntry(genmodel::GenClass gc) :
+boolean isMapEntry(genmodel::GenClass gc) :
 	("java.util.Map.Entry" == gc.ecoreClass.name || "java.util.Map$Entry" == gc.ecoreClass.name) 
 		&& gc.ecoreClass.getEStructuralFeature("key") != null
 		&& gc.ecoreClass.getEStructuralFeature("value") != null

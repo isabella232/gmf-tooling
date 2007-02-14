@@ -71,8 +71,18 @@
 «DEFINE metaFeatureAccessor FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»
 
 // SomeFactory.eINSTANCE.createBlaBla();
+//NB: for map entries, the resulting type is EObject, not the qualified interface name. If cast is needed, use (un)parenthesizedCast() extension.
+//see GenClassImpl#hasFactoryInterfaceCreateMethod() for details why map entries should be treated differently
 «DEFINE newInstance FOR genmodel::GenClass-»
-«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDDEFINE»
+«IF isMapEntry()-»
+«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create(«EXPAND metaClassAccessor»)«ELSE-»
+«genPackage.getQualifiedFactoryInterfaceName()».«genPackage.getFactoryInstanceName()».create«ecoreClass.name»()«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE newInstance(String varName) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName()» «varName» = «EXPAND newInstance»;«ENDDEFINE»
+«getQualifiedInterfaceName()» «varName» = «IF isMapEntry()»(«getQualifiedInterfaceName()») «ENDIF»«EXPAND newInstance»;
+«ENDDEFINE»
+
+«DEFINE newInstanceAsEObject(String varName) FOR genmodel::GenClass-»
+org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«EXPAND newInstance»;
+«ENDDEFINE»
