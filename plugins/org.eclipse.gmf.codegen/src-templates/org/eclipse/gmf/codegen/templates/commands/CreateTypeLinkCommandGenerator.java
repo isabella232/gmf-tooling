@@ -55,7 +55,7 @@ public class CreateTypeLinkCommandGenerator {
   protected final String TEXT_37 = "myTarget;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_38 = " getEClassToEdit() {" + NL + "\t\treturn ";
   protected final String TEXT_39 = ".eINSTANCE.get";
-  protected final String TEXT_40 = "();" + NL + "\t};" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setElementToEdit(";
+  protected final String TEXT_40 = "();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setElementToEdit(";
   protected final String TEXT_41 = " element) {" + NL + "\t\tthrow new UnsupportedOperationException();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_42 = " doDefaultElementCreation() {" + NL + "\t\t";
   protected final String TEXT_43 = " newElement = (";

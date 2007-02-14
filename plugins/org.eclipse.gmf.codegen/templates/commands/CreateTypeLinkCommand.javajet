@@ -92,7 +92,7 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
 		return <%=importManager.getImportedName(containerClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containerClass.getClassifierAccessorName()%>();
-	};
+	}
 
 	/**
 	 * @generated

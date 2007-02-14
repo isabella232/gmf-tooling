@@ -28,7 +28,7 @@ public class CreateTypeNodeCommandGenerator {
   protected final String TEXT_10 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_11 = " getEClassToEdit() {" + NL + "\t\t\treturn ";
   protected final String TEXT_12 = ".eINSTANCE.get";
-  protected final String TEXT_13 = "();" + NL + "\t\t};";
+  protected final String TEXT_13 = "();" + NL + "\t\t}";
   protected final String TEXT_14 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_15 = " getElementToEdit() {" + NL + "\t\t\t";
   protected final String TEXT_16 = " container = ((";
