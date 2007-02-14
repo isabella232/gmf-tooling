@@ -21,11 +21,6 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkCompleteCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.CreateLinkStartCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.CreateNodeCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectLinkSourceCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectLinkTargetCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
@@ -122,11 +117,6 @@ public class CodegenEmitters {
 
 	private static StaticTemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
-		put(tr, "/commands/CreateNodeCommand.javajet", CreateNodeCommandGenerator.class);
-		put(tr, "/commands/CreateLinkStartCommand.javajet", CreateLinkStartCommandGenerator.class);
-		put(tr, "/commands/CreateLinkCompleteCommand.javajet", CreateLinkCompleteCommandGenerator.class);
-		put(tr, "/commands/ReconnectLinkSourceCommand.javajet", ReconnectLinkSourceCommandGenerator.class);
-		put(tr, "/commands/ReconnectLinkTargetCommand.javajet", ReconnectLinkTargetCommandGenerator.class);
 
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
@@ -170,23 +160,23 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateNodeCommandGenerator.class);
+		return retrieveXpand("xpt::commands::CreateNodeCommand::CreateNodeCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getCreateLinkStartCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateLinkStartCommandGenerator.class);
+		return retrieveXpand("xpt::commands::CreateLinkStartCommand::CreateLinkStartCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getCreateLinkCompleteCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateLinkCompleteCommandGenerator.class);
+		return retrieveXpand("xpt::commands::CreateLinkCompleteCommand::CreateLinkCompleteCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getReconnectLinkSourceCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ReconnectLinkSourceCommandGenerator.class);
+		return retrieveXpand("xpt::commands::ReconnectLinkSourceCommand::ReconnectLinkSourceCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getReconnectLinkTargetCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ReconnectLinkTargetCommandGenerator.class);
+		return retrieveXpand("xpt::commands::ReconnectLinkTargetCommand::ReconnectLinkTargetCommand");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getViewFactoryGenerator() throws UnexpectedBehaviourException {

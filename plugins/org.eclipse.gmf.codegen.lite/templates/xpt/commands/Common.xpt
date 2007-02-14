@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::Utils»
+
+/*
+ * A slightly more sophisticated version of xpt::Common::getFeatureValue().
+ * @param containerName the name of the container
+ * @param feature the feature whose value is in interest
+ * @param containerMetaClass the <code>GenClass</code> of the container, or <code>null</code>, if the container is declared as an <code>org.eclipse.emf.ecore.EObject</code>.
+ * @param needsCastToResultType whether the cast to the result type is required (this parameter is only used if the <code>org.eclipse.emf.ecore.EClass</code> this feature belongs to is an external interface). 
+ */
+«DEFINE getFeatureValue(String containerVar, genmodel::GenClass container, boolean needsCastToResultType) FOR genmodel::GenFeature-»
+«IF isExternalInterface(genClass)-»
+«IF needsCastToResultType»((«getFeatureTargetType()») «ENDIF»«containerVar.parenthesizedCast(container, null)».eGet(«EXPAND xpt::Common::metaFeatureAccessor»)«IF needsCastToResultType»)«ENDIF-»
+«ELSE-»
+«containerVar.parenthesizedCast(container, genClass)».«getGetAccessor()»()«-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getRelationshipContainer FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE getRelationshipContainer FOR gmfgen::TypeLinkModelFacet-»
+		«EXPAND xpt::Common::generatedMemberComment("Finds container element for the relationship of the specified type.\n" + 
+		  "Default implementation goes up by containment hierarchy starting from\n" + 
+		  "the specified element and returns the first element that is instance of\n" + 
+		  "the specified container class.")»
+		protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass containerClass) {
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
+			}
+			return null;
+		}
+«ENDDEFINE»
+
+«DEFINE featureMultiplicityComparator(String ownerVar, genmodel::GenClass ownerClass) FOR genmodel::GenFeature-»
+«IF ecoreFeature.upperBound == 1»«EXPAND getFeatureValue(ownerVar, ownerClass, false)» != null«ELSE-»
+«LET getQualifiedFeatureAccessorName() + "().getUpperBound()" AS featureUpperBound-»
+«featureUpperBound» > 1 && «EXPAND getFeatureValue(ownerVar, ownerClass, true)».size() >= «featureUpperBound-»
+«ENDLET-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkLinkConstraints(String sourceVar, String targetVar) FOR gmfgen::GenLinkConstraints-»
+	if(!«EXPAND DomainElementInitializerQualifiedClassName FOR link».«link.diagram.getLinkCreationConstraintsClassName()».«getConstraintsInstanceFieldName()».canCreateLink(«sourceVar», «targetVar», false)) {
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE plugFeatureCommand(String domainVar, String containerVar, String elementVar) FOR genmodel::GenFeature-»
+«IF ecoreFeature.many»org.eclipse.emf.edit.command.AddCommand«ELSE»org.eclipse.emf.edit.command.SetCommand«ENDIF».create(«domainVar», «containerVar», «EXPAND xpt::Common::metaFeatureAccessor», «elementVar»)«-»
+«ENDDEFINE»
+
+«DEFINE unplugFeatureCommand(String domainVar, String containerVar, String elementVar) FOR genmodel::GenFeature-»
+«IF ecoreFeature.many-»
+org.eclipse.emf.edit.command.RemoveCommand.create(«domainVar», «containerVar», «EXPAND xpt::Common::metaFeatureAccessor», «elementVar»)«-»
+«ELSE-»
+org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXPAND xpt::Common::metaFeatureAccessor», org.eclipse.emf.edit.command.SetCommand.UNSET_VALUE)«-»
+«ENDIF-»
+«ENDDEFINE»
+
+/*
+ * TODO: replace with xpt::commands::DomainElementInitializer::qualifiedClassName.
+ */
+«DEFINE DomainElementInitializerQualifiedClassName FOR gmfgen::GenCommonBase-»
+«getDiagram().notationViewFactoriesPackageName».«EXPAND DomainElementInitializerClassName-»
+«ENDDEFINE»
+
+/*
+ * TODO: replace with xpt::commands::DomainElementInitializer::className.
+ */
+«DEFINE DomainElementInitializerClassName FOR gmfgen::GenCommonBase»DomainElementInitializer«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR gmfgen::GenNode-»
+«EXPAND commandNameInfix FOR modelFacet.metaClass»«visualID-»
+«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR gmfgen::GenLink-»
+«EXPAND commandNameInfix FOR modelFacet»«visualID-»
+«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR gmfgen::TypeLinkModelFacet»«EXPAND commandNameInfix FOR metaClass»«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR genmodel::GenClass»«ecoreClass.name»«ENDDEFINE»
+
+«DEFINE commandNameInfix FOR gmfgen::FeatureLinkModelFacet»«metaFeature.getFeatureAccessorName()»«ENDDEFINE»

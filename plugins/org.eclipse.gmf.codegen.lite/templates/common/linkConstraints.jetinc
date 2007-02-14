@@ -1,9 +1,0 @@
-<%
-			if (linkConstraints != null) {
-%>
-			if(!<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(<%=_source%>, <%=_target%>, false)) {
-				return false;
-			}
-<%
-			}
-%>
