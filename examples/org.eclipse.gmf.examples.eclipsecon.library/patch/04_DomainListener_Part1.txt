@@ -1,0 +1,40 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java,v
+retrieving revision 1.1
+diff -u -r1.1 AuthorNameEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 17:56:30 -0000
+@@ -537,6 +549,9 @@
+ 	 */
+ 	protected void addNotationalListeners() {
+ 		super.addNotationalListeners();
++		Diagram diagram = getDiagramView();
++		if (diagram != null)
++			addListenerFilter("DiagramStyle", this, diagram); //$NON-NLS-1$
+ 		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
+ 	}
+ 
+@@ -545,6 +560,7 @@
+ 	 */
+ 	protected void removeNotationalListeners() {
+ 		super.removeNotationalListeners();
++		removeListenerFilter("DiagramStyle"); //$NON-NLS-1$
+ 		removeListenerFilter("PrimaryView"); //$NON-NLS-1$
+ 	}
+ 
+@@ -553,7 +569,11 @@
+ 	 */
+ 	protected void handleNotificationEvent(Notification event) {
+ 		Object feature = event.getFeature();
+-		if (NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(feature)) {
++		if (org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT
++				.equals(feature)) {
++			refreshLabel();
++		} else if (NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(
++				feature)) {
+ 			Integer c = (Integer) event.getNewValue();
+ 			setFontColor(DiagramColorRegistry.getInstance().getColor(c));
+ 		} else if (NotationPackage.eINSTANCE.getFontStyle_Underline().equals(
