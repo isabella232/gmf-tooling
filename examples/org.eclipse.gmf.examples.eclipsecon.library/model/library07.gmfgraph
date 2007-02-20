@@ -67,9 +67,7 @@
       figure="EmployeeShelvesFigure"/>
   <compartments
       name="BooksCompartment"
-      figure="BooksCompartmentFigure"
-      collapsible="true"
-      needsTitle="true"/>
+      figure="BooksCompartmentFigure"/>
   <labels
       name="AuthorName"
       figure="AuthorNameFigure"/>
