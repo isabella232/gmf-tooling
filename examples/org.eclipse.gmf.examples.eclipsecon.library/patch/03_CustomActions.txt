@@ -86,7 +86,7 @@ diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/L
 +public class LibraryAuthorStyleAction
 +    extends BooleanPropertyAction {
 +    
-+    public static String  AUTHIR_STYLE_ACTION = "AUTHOR_STYLE_ID"; //$NON-NLS-1$
++    public static String  AUTHOR_STYLE_ACTION = "AUTHOR_STYLE_ID"; //$NON-NLS-1$
 +
 +    /**
 +     * @param workbenchPage
@@ -97,7 +97,7 @@ diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/L
 +        super(workbenchPage,
 +              PackageUtil.getID(NotationPackage.eINSTANCE.getAuthorStyle_ShowAuthorBooksCount()),
 +              "Toggle Author's Book count"); //$NON-NLS-1$
-+        setId(AUTHIR_STYLE_ACTION);
++        setId(AUTHOR_STYLE_ACTION);
 +        setText("Toggle Author's Book count"); //$NON-NLS-1$
 +        setToolTipText(" Toogles the show Author's book count ON/OFF"); //$NON-NLS-1$
 +    }
@@ -154,7 +154,7 @@ diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/
 +
 +    protected IAction createAction(String actionId,
 +        IWorkbenchPartDescriptor partDescriptor) {
-+        if (actionId.equals(LibraryAuthorStyleAction.AUTHIR_STYLE_ACTION))
++        if (actionId.equals(LibraryAuthorStyleAction.AUTHOR_STYLE_ACTION))
 +            return new LibraryAuthorStyleAction(partDescriptor.getPartPage());
 +        return null;
 +    }
