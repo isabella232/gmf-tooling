@@ -1,3 +1,4 @@
 Since 07_Memory_SemanticListCompartment.txt contains a patch for 
 ShelfBooksCompartmentEditPart which was already patched in a previous step,
-You need to replace with HEAD before applying 07_Memory_SemanticListCompartment.txt 
+You need to replace ShelfBooksCompartmentEditPart with version from HEAD 
+before applying 07_Memory_SemanticListCompartment.txt 

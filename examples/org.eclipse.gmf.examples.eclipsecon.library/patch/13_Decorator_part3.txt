@@ -1,0 +1,159 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram.custom
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,150 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.decoration;
++
++import java.util.Collection;
++import java.util.Iterator;
++import java.util.List;
++
++import org.eclipse.emf.common.notify.Notification;
++import org.eclipse.emf.ecore.EStructuralFeature.Setting;
++import org.eclipse.emf.transaction.TransactionalEditingDomain;
++import org.eclipse.emf.transaction.util.TransactionUtil;
++import org.eclipse.gef.EditPart;
++import org.eclipse.gmf.examples.eclipsecon.library.Employee;
++import org.eclipse.gmf.examples.eclipsecon.library.Library;
++import org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage;
++import org.eclipse.gmf.examples.eclipsecon.library.Shelf;
++import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
++import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
++import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
++import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeEditPart;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
++import org.eclipse.gmf.runtime.draw2d.ui.figures.HashedCircle;
++import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil;
++import org.eclipse.gmf.runtime.emf.core.util.CrossReferenceAdapter;
++import org.eclipse.gmf.runtime.notation.View;
++
++
++public class BadShelfDecorator
++    extends AbstractDecorator implements NotificationListener {
++    
++    public BadShelfDecorator(IDecoratorTarget decoratorTarget) {
++        super(decoratorTarget);
++    }
++
++    public void activate() {
++        refresh();
++        addListeners();
++    }
++    
++    public void deactivate() {
++    	removeListeners();
++    	super.deactivate();
++    }
++    
++    public void refresh() {
++        removeDecoration();
++        EditPart editPart  = (EditPart)getDecoratorTarget().getAdapter(EditPart.class);
++        View view = (View) getDecoratorTarget().getAdapter(View.class);
++        Shelf shelf = (Shelf)view.getElement();
++        int count = getEmployeeCount(shelf);
++        if (count>1){
++            int radius = MapModeUtil.getMapMode(((GraphicalEditPart)editPart).getFigure()).DPtoLP(8);
++            HashedCircle circle = new HashedCircle(HashedCircle.HashType.X,radius);
++            circle.setFill(false);
++            setDecoration(getDecoratorTarget().addShapeDecoration(circle,
++                    IDecoratorTarget.Direction.NORTH_EAST, MapModeUtil.getMapMode(((ShapeEditPart)editPart).getFigure()).DPtoLP(-4),
++                    false));
++        }
++    }
++    
++    private int getEmployeeCount(Shelf shelf) {
++        int count = 0 ;
++        if (shelf==null || shelf.eResource()==null)
++            return count;
++        CrossReferenceAdapter crossReferenceAdapter = getCrossReferenceAdapter(shelf);
++        Collection referencers = crossReferenceAdapter
++        .getNonNavigableInverseReferences(shelf);
++        if (!referencers.isEmpty()) {
++            for (Iterator iterator = referencers.iterator(); iterator.hasNext();) {
++                Setting setting = (Setting) iterator.next();
++                if (setting.getEStructuralFeature() == LibraryPackage.Literals.EMPLOYEE__SHELVES){
++                    count++;
++                
++                }
++            }
++        }
++        return count; 
++    }
++    
++    private CrossReferenceAdapter getCrossReferenceAdapter(Shelf shelf) {
++        CrossReferenceAdapter crossReferenceAdapter = CrossReferenceAdapter
++                    .getExistingCrossReferenceAdapter(shelf);
++        if (crossReferenceAdapter == null) {
++            TransactionalEditingDomain domain = TransactionUtil
++                        .getEditingDomain(shelf);
++
++               if (domain != null) {
++                    crossReferenceAdapter = CrossReferenceAdapter
++                            .getCrossReferenceAdapter(domain.getResourceSet());
++                }
++        }
++        return crossReferenceAdapter;
++    }
++
++    
++    public void notifyChanged(Notification notification) {
++        GraphicalEditPart editPart = (GraphicalEditPart)getDecoratorTarget().getAdapter(GraphicalEditPart.class);
++        if (!editPart.isActive())
++            return;
++        Object feature = notification.getFeature();
++        if (LibraryPackage.Literals.EMPLOYEE__SHELVES.equals(feature)){
++            refresh();
++        }else if (LibraryPackage.Literals.LIBRARY__EMPLOYEES.equals(feature)){
++            removeListeners();
++            addListeners();
++        }        
++    }
++    
++    private void addListeners() {
++        GraphicalEditPart editPart = (GraphicalEditPart)getDecoratorTarget().getAdapter(GraphicalEditPart.class);
++        if (editPart!=null){
++            Shelf shelf = (Shelf)editPart.resolveSemanticElement();
++            if (shelf == null || shelf.eIsProxy()) {
++                return;
++            }
++            TransactionalEditingDomain theEditingDomain = editPart.getEditingDomain();
++            if (theEditingDomain != null) {
++                DiagramEventBroker diagramEventBroker = DiagramEventBroker.getInstance(theEditingDomain);
++                Library library = (Library)shelf.eContainer();
++                List employees = library.getEmployees();
++                for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
++                    Employee employee = (Employee) iterator.next();
++                    diagramEventBroker.addNotificationListener(employee,this);
++                }
++            }                
++        }
++    }
++        
++    private void removeListeners() {
++        GraphicalEditPart editPart = (org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart)getDecoratorTarget().getAdapter(GraphicalEditPart.class);
++        if (editPart!=null){
++            Shelf shelf = (Shelf)editPart.resolveSemanticElement();
++            if (shelf == null || shelf.eIsProxy()) {
++                return;
++            }
++            TransactionalEditingDomain theEditingDomain = editPart.getEditingDomain();
++            if (theEditingDomain != null) {
++                DiagramEventBroker diagramEventBroker = DiagramEventBroker.getInstance(theEditingDomain);
++                Library library = (Library)shelf.eContainer();
++                List employees = library.getEmployees();
++                for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
++                    Employee employee = (Employee) iterator.next();
++                    diagramEventBroker.addNotificationListener(employee,this);
++                }
++            }                
++        }
++    }
++    
++    
++}

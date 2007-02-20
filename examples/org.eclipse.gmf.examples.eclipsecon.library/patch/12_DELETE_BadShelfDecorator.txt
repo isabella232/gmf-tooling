@@ -1,0 +1,3 @@
+Since 08_Decorator_part3.txt contains a patch for 
+BadShelfDecorator which was already created in a previous step,
+You need to delete BadShelfDecorator before applying 08_Decorator_part3.txt. 

@@ -1,0 +1,171 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram.custom
+Index: plugin.xml
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram.custom/plugin.xml,v
+retrieving revision 1.1
+diff -u -r1.1 plugin.xml
+--- plugin.xml	16 Feb 2007 23:08:27 -0000	1.1
++++ plugin.xml	17 Feb 2007 00:03:10 -0000
+@@ -21,4 +21,13 @@
+          </popupContribution>
+       </contributionItemProvider>
+    </extension>
++   <extension
++         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
++      <decoratorProvider
++            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider.BadShelfDecoratorProvider">
++         <Priority
++               name="Medium">
++         </Priority>
++      </decoratorProvider>
++   </extension>
+ </plugin>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/decoration/BadShelfDecorator.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,84 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.decoration;
++
++import java.util.Collection;
++import java.util.Iterator;
++
++import org.eclipse.emf.ecore.EStructuralFeature.Setting;
++import org.eclipse.emf.transaction.TransactionalEditingDomain;
++import org.eclipse.emf.transaction.util.TransactionUtil;
++import org.eclipse.gef.EditPart;
++import org.eclipse.gef.GraphicalEditPart;
++import org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage;
++import org.eclipse.gmf.examples.eclipsecon.library.Shelf;
++import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeEditPart;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
++import org.eclipse.gmf.runtime.draw2d.ui.figures.HashedCircle;
++import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil;
++import org.eclipse.gmf.runtime.emf.core.util.CrossReferenceAdapter;
++import org.eclipse.gmf.runtime.notation.View;
++
++
++public class BadShelfDecorator
++    extends AbstractDecorator {
++    
++    public BadShelfDecorator(IDecoratorTarget decoratorTarget) {
++        super(decoratorTarget);
++    }
++
++    public void activate() {
++        refresh();        
++    }
++    
++    public void refresh() {
++        removeDecoration();
++        EditPart editPart  = (EditPart)getDecoratorTarget().getAdapter(EditPart.class);
++        View view = (View) getDecoratorTarget().getAdapter(View.class);
++        Shelf shelf = (Shelf)view.getElement();
++        int count = getEmployeeCount(shelf);
++        if (count>1){
++            int radius = MapModeUtil.getMapMode(((GraphicalEditPart)editPart).getFigure()).DPtoLP(8);
++            HashedCircle circle = new HashedCircle(HashedCircle.HashType.X,radius);
++            circle.setFill(false);
++            setDecoration(getDecoratorTarget().addShapeDecoration(circle,
++                    IDecoratorTarget.Direction.NORTH_EAST, MapModeUtil.getMapMode(((ShapeEditPart)editPart).getFigure()).DPtoLP(-4),
++                    false));
++        }
++    }
++    
++    private int getEmployeeCount(Shelf shelf) {
++        int count = 0 ;
++        CrossReferenceAdapter crossReferenceAdapter = getCrossReferenceAdapter(shelf);
++        Collection referencers = crossReferenceAdapter
++        .getNonNavigableInverseReferences(shelf);
++        if (!referencers.isEmpty()) {
++            for (Iterator iterator = referencers.iterator(); iterator.hasNext();) {
++                Setting setting = (Setting) iterator.next();
++                if (setting.getEStructuralFeature() == LibraryPackage.Literals.EMPLOYEE__SHELVES){
++                    count++;
++                
++                }
++            }
++        }
++        return count; 
++    }
++    
++    private CrossReferenceAdapter getCrossReferenceAdapter(Shelf shelf) {
++        CrossReferenceAdapter crossReferenceAdapter = CrossReferenceAdapter
++                    .getExistingCrossReferenceAdapter(shelf);
++        if (crossReferenceAdapter == null) {
++            TransactionalEditingDomain domain = TransactionUtil
++                        .getEditingDomain(shelf);
++
++               if (domain != null) {
++                    crossReferenceAdapter = CrossReferenceAdapter
++                            .getCrossReferenceAdapter(domain.getResourceSet());
++                }
++        }
++        return crossReferenceAdapter;
++    }
++
++
++
++
++}
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/BadShelfDecoratorProvider.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/BadShelfDecoratorProvider.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/BadShelfDecoratorProvider.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/BadShelfDecoratorProvider.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,50 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider;
++
++import org.eclipse.gef.EditPart;
++import org.eclipse.gmf.examples.eclipsecon.library.Shelf;
++import org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.decoration.BadShelfDecorator;
++import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
++import org.eclipse.gmf.runtime.common.core.service.IOperation;
++import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
++import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
++import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
++
++
++public class BadShelfDecoratorProvider
++    extends AbstractProvider
++    implements IDecoratorProvider {
++
++    public void createDecorators(IDecoratorTarget decoratorTarget) {
++        EditPart ep = (EditPart)decoratorTarget.getAdapter(EditPart.class);
++        if (ep != null && ep instanceof IPrimaryEditPart) {
++            GraphicalEditPart gEP = (GraphicalEditPart)ep;
++            if (gEP.hasNotationView()){
++                decoratorTarget.installDecorator("BAD_SHELF_DECORATOR",
++                    new BadShelfDecorator(decoratorTarget));
++            }
++        }
++    }
++
++
++
++    public boolean provides(IOperation operation) {
++        if (!(operation instanceof CreateDecoratorsOperation)) {
++            return false;
++        }
++
++        IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation)
++            .getDecoratorTarget();
++        
++        EditPart ep = (EditPart)decoratorTarget.getAdapter(EditPart.class);
++        if (ep instanceof GraphicalEditPart && ep instanceof IPrimaryEditPart){
++            GraphicalEditPart gEP = (GraphicalEditPart)ep;
++        if (gEP.hasNotationView()){ 
++                return (gEP.resolveSemanticElement() instanceof Shelf);
++            }
++        }
++        return false;
++    }
++
++}

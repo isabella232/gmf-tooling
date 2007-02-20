@@ -1,0 +1,71 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram.custom
+Index: plugin.xml
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram.custom/plugin.xml,v
+retrieving revision 1.2
+diff -u -r1.2 plugin.xml
+--- plugin.xml	17 Feb 2007 00:03:32 -0000	1.2
++++ plugin.xml	17 Feb 2007 00:31:59 -0000
+@@ -30,4 +30,13 @@
+          </Priority>
+       </decoratorProvider>
+    </extension>
++   <extension
++         point="org.eclipse.gmf.runtime.diagram.ui.layoutProviders">
++      <layoutProvider
++            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider.LibraryLayoutProvider">
++         <Priority
++               name="Medium">
++         </Priority>
++      </layoutProvider>
++   </extension>
+ </plugin>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/LibraryLayoutProvider.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/LibraryLayoutProvider.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/LibraryLayoutProvider.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/LibraryLayoutProvider.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,41 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider;
++
++import java.util.Iterator;
++
++import org.eclipse.core.runtime.IAdaptable;
++import org.eclipse.gmf.runtime.common.core.service.IOperation;
++import org.eclipse.gmf.runtime.diagram.ui.providers.internal.RadialProvider;
++import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNode;
++import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeOperation;
++import org.eclipse.gmf.runtime.diagram.ui.services.layout.LayoutType;
++import org.eclipse.gmf.runtime.notation.Diagram;
++import org.eclipse.gmf.runtime.notation.View;
++
++
++public class LibraryLayoutProvider
++    extends RadialProvider {
++    
++    public boolean provides(IOperation operation) {
++        if (operation instanceof ILayoutNodeOperation) {
++            Iterator nodes = ((ILayoutNodeOperation) operation)
++                .getLayoutNodes().iterator();
++            if (nodes.hasNext()) {
++                View node = ((ILayoutNode) nodes.next()).getNode();
++                Diagram container = node.getDiagram();
++                // enabled only on the Library Diagram
++                if (container == null
++                    || !(container.getType().equals("Library07"))) 
++            return false;
++                    }
++             } else {
++                   return false;
++            }
++            IAdaptable layoutHint = ((ILayoutNodeOperation) operation)
++                   .getLayoutHint();
++            String layoutType = (String) layoutHint.getAdapter(String.class);
++         return LayoutType.DEFAULT.equals(layoutType);
++        }
++    
++
++
++}

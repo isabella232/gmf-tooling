@@ -1,3 +1,4 @@
 Since 06_Listening_to_domain_Part2.txt contains a patch for 
 AuthorNameEditPart which was already patched in a previous step,
-You need to replace with HEAD before applying 06_Listening_to_domain_Part2.txt 
+You need to replace AuthorNameEditPart with version from HEAD 
+before applying 06_Listening_to_domain_Part2.txt 
