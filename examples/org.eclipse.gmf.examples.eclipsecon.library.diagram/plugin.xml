@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            name="%preferences.general"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramGeneralPreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.general">
+      </page>
+      <page
+            name="%preferences.appearance"
+            category="org.eclipse.gmf.examples.eclipsecon.library.diagram.general"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramAppearancePreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.appearance">
+      </page>     
+      <page
+            name="%preferences.connections"
+            category="org.eclipse.gmf.examples.eclipsecon.library.diagram.general"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramConnectionsPreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.connections">
+      </page>    
+      <page
+            name="%preferences.printing"
+            category="org.eclipse.gmf.examples.eclipsecon.library.diagram.general"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramPrintingPreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.printing">
+      </page>
+      <page
+            name="%preferences.rulersAndGrid"
+            category="org.eclipse.gmf.examples.eclipsecon.library.diagram.general"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.preferences.DiagramRulersAndGridPreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.rulersAndGrid">
+      </page>
+      <page
+            name="%preferences.pathmaps"
+            category="org.eclipse.gmf.examples.eclipsecon.library.diagram.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.pathmaps">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.team.core.fileTypes">
+      <?gmfgen generated="true"?>
+      <fileTypes
+         type="text"
+         extension="library_diagram">
+      </fileTypes>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <?gmfgen generated="true"?>
+      <parser
+         type="library_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <?gmfgen generated="true"?>
+     <editor
+        id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramEditorID"
+        name="%editorName"
+        icon="icons/obj16/LibraryDiagramFile.gif"
+        extensions="library_diagram"
+        default="true"
+        class="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramEditor"
+        matchingStrategy="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07MatchingStrategy"
+        contributorClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramActionBarContributor">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/LibraryDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07CreationWizard"
+  	     id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07CreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.ui.objectContribution.IFile1"
+            nameFilter="*.library"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07InitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07InitDiagramFileActionID">
+         </action>
+      </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.ui.objectContribution.LibraryEditPart2"
+            objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.LibraryEditPart">
+         <action
+               class="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07LoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07LoadResourceActionID"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+  </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      <contributionItemProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
+            checkPluginLoaded="false">
+         <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.BookEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.AuthorEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.AuthorNameEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.ShelfEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.ShelfNameEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.EmployeeEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.EmployeeNameEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.EmployeeShelvesEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="Library07Presentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="Library07PresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="Library07Render">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07DiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <?gmfgen generated="true"?>
+      <viewProvider class="org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07ViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Library07"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07EditPartProvider">
+         <Priority name="Lowest"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07ModelingAssistantProvider">
+         <Priority name="Lowest"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <?gmfgen generated="true"?>
+      <IconProvider class="org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07IconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07ParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+      <?gmfgen generated="true"?>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <metamodelType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.Library_79"
+               name="Undefined"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Library"
+               edithelper="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.LibraryEditHelper">
+            <param name="semanticHint" value="79"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <metamodelType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.Book_2001"
+               name="Book"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Book"
+               edithelper="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.BookEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <metamodelType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.Author_1001"
+               name="Author"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Author"
+               edithelper="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.AuthorEditHelper">
+            <param name="semanticHint" value="1001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <metamodelType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.Shelf_1002"
+               name="Shelf"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Shelf"
+               edithelper="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.ShelfEditHelper">
+            <param name="semanticHint" value="1002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <metamodelType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.Employee_1003"
+               name="Employee"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Employee"
+               edithelper="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.EmployeeEditHelper">
+            <param name="semanticHint" value="1003"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http:///org/eclipse/gmf/examples/library.ecore">
+         <specializationType
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.EmployeeShelves_3001"
+               name="Undefined"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.helpers.EmployeeShelvesEditHelperAdvice">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="3001"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="Library07ClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="org.eclipse.gmf.examples.eclipsecon.library.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="Library07ClientContext">
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.Library_79"/>
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.Book_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.Author_1001"/>
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.Shelf_1002"/>
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.Employee_1003"/>
+         <elementType ref="org.eclipse.gmf.examples.eclipsecon.library.diagram.EmployeeShelves_3001"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.navigator.viewer">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.gmf.examples.eclipsecon.library.diagram.resourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <?gmfgen generated="true"?>
+      <navigatorContent 
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07NavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07NavigatorLabelProvider"
+            icon="icons/obj16/LibraryDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="library_diagram"/>
+               </and>
+               <instanceof value="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigatorSorter" 
+               class="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07NavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="library_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigatorActionProvider"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07NavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+   <extension point="org.eclipse.ui.navigator.linkHelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigatorLinkHelper"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07NavigatorLinkHelper">
+         <editorInputEnablement>
+            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <?gmfgen generated="true"?>
+      <propertyContributor contributorId="org.eclipse.gmf.examples.eclipsecon.library.diagram"
+            labelProvider="org.eclipse.gmf.examples.eclipsecon.library.diagram.sheet.Library07SheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.examples.eclipsecon.library.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.examples.eclipsecon.library.diagram">
+
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>              
+
+          <propertySection id="property.section.RulerGridPropertySection" 
+             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+             tab="property.tab.DiagramPropertySection">
+          </propertySection>              
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.sheet.Library07PropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.examples.eclipsecon.library.diagram.navigator.Library07AbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+</plugin>
