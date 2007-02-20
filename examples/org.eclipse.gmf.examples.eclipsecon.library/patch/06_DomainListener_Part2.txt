@@ -6,12 +6,67 @@ RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.
 retrieving revision 1.1
 diff -u -r1.1 AuthorNameEditPart.java
 --- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
-+++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 17:56:30 -0000
-@@ -539,5 +539,5 @@
-		super.addNotationalListeners();
-		Diagram diagram = getDiagramView();
-		if (diagram != null)
--		addListenerFilter("DiagramStyle", this, diagram); //$NON-NLS-1$
-+           addListenerFilter("DiagramStyle", this, diagram, org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT); //$NON-NLS-1$
-		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
-	}
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 19:25:50 -0000
+@@ -19,8 +19,10 @@
+ import org.eclipse.gef.handles.NonResizableHandleKit;
+ import org.eclipse.gef.requests.DirectEditRequest;
+ import org.eclipse.gef.tools.DirectEditManager;
++import org.eclipse.gmf.examples.eclipsecon.library.Author;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.Library07TextSelectionEditPolicy;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07ElementTypes;
++import org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
+@@ -38,6 +40,7 @@
+ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+ import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
+ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
++import org.eclipse.gmf.runtime.notation.Diagram;
+ import org.eclipse.gmf.runtime.notation.FontStyle;
+ import org.eclipse.gmf.runtime.notation.NotationPackage;
+ import org.eclipse.gmf.runtime.notation.View;
+@@ -210,6 +213,12 @@
+ 			text = getParser().getPrintString(
+ 					new EObjectAdapter(getParserElement()),
+ 					getParserOptions().intValue());
++					Diagram diagram = getDiagramView();
++					AuthorStyle style = (AuthorStyle)diagram.getStyle(org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE);
++					if (style !=null && style.isShowAuthorBooksCount()) {
++						text += " { " + ((Author)resolveSemanticElement()).getBooks().size() + " } "; 
++					}
++		
+ 		}
+ 		if (text == null || text.length() == 0) {
+ 			text = defaultText;
+@@ -528,6 +537,9 @@
+ 	 */
+ 	protected void addNotationalListeners() {
+ 		super.addNotationalListeners();
++		Diagram diagram = getDiagramView();
++		if (diagram != null)
++			addListenerFilter("DiagramStyle", this, diagram, org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT); //$NON-NLS-1$
+ 		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
+ 	}
+ 
+@@ -536,6 +548,7 @@
+ 	 */
+ 	protected void removeNotationalListeners() {
+ 		super.removeNotationalListeners();
++		removeListenerFilter("DiagramStyle"); //$NON-NLS-1$
+ 		removeListenerFilter("PrimaryView"); //$NON-NLS-1$
+ 	}
+ 
+@@ -544,7 +557,11 @@
+ 	 */
+ 	protected void handleNotificationEvent(Notification event) {
+ 		Object feature = event.getFeature();
+-		if (NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(feature)) {
++		if (org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT
++				.equals(feature)) {
++			refreshLabel();
++		} else if (NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(
++				feature)) {
+ 			Integer c = (Integer) event.getNewValue();
+ 			setFontColor(DiagramColorRegistry.getInstance().getColor(c));
+ 		} else if (NotationPackage.eINSTANCE.getFontStyle_Underline().equals(
