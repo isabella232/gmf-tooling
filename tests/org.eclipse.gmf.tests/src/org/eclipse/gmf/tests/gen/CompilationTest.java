@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 
 import junit.framework.TestCase;
 
@@ -39,6 +41,7 @@ import org.eclipse.gmf.tests.setup.annotated.GenASetup;
 import org.eclipse.gmf.tests.setup.annotated.GraphDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * TODO add compilation check for CustomFigure(FigureAccessor(no fqn), FigureAccessor(fqn));  
@@ -72,6 +75,34 @@ public abstract class CompilationTest extends TestCase {
 		DiaGenSource gmfGenSource = getLibraryGen(false);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
 		generateAndCompile(gmfGenSource);
+	}
+
+	// avoid requests like #174171
+	public void testCompileWithStrictOptions() throws Exception {
+		final HashMap<String, String> options = new HashMap<String,String>();
+		options.put(JavaCore.COMPILER_PB_EMPTY_STATEMENT, JavaCore.ERROR);
+		//
+		switchJavaOptions(options);
+		try {
+			testCompileDistinctModelAndDiagramFiles(); // run any test
+		} finally {
+			switchJavaOptions(options);
+		}
+	}
+
+	/**
+	 * Installs java compiler options specified in the map, the map gets updated with
+	 * old values.
+	 */
+	@SuppressWarnings("unchecked")
+	private void switchJavaOptions(HashMap<String, String> options) {
+		Hashtable<Object, Object> settings = JavaCore.getOptions();
+		for (String key : options.keySet()) {
+			String originalValue = (String) settings.get(key);
+			settings.put(key, options.get(key)); // install new
+			options.put(key, originalValue); // keep old
+		}
+		JavaCore.setOptions(settings);
 	}
 
 	public void testCompileSingleDiagramFile() throws Exception {
