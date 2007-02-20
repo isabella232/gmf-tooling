@@ -1,0 +1,17 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java,v
+retrieving revision 1.1
+diff -u -r1.1 AuthorNameEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 17:56:30 -0000
+@@ -539,5 +539,5 @@
+		super.addNotationalListeners();
+		Diagram diagram = getDiagramView();
+		if (diagram != null)
+-		addListenerFilter("DiagramStyle", this, diagram); //$NON-NLS-1$
++           addListenerFilter("DiagramStyle", this, diagram, org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT); //$NON-NLS-1$
+		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
+	}
