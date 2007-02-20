@@ -1,0 +1,161 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram
+Index: META-INF/MANIFEST.MF
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/META-INF/MANIFEST.MF,v
+retrieving revision 1.1
+diff -u -r1.1 MANIFEST.MF
+--- META-INF/MANIFEST.MF	20 Feb 2007 01:26:48 -0000	1.1
++++ META-INF/MANIFEST.MF	20 Feb 2007 16:30:20 -0000
+@@ -23,11 +23,12 @@
+  org.eclipse.gmf.runtime.emf.core,
+  org.eclipse.gmf.runtime.emf.commands.core,
+  org.eclipse.gmf.runtime.emf.ui.properties,
+- org.eclipse.gmf.runtime.diagram.ui,
+- org.eclipse.gmf.runtime.diagram.ui.properties,
+- org.eclipse.gmf.runtime.diagram.ui.providers,
+- org.eclipse.gmf.runtime.diagram.ui.providers.ide,
+- org.eclipse.gmf.runtime.diagram.ui.render,
+- org.eclipse.gmf.runtime.diagram.ui.resources.editor,
+- org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
+- org.eclipse.gmf.runtime.notation.providers,
++ org.eclipse.gmf.runtime.diagram.ui;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.properties;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.providers;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.providers.ide;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.render;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.resources.editor;visibility:=reexport,
++ org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide;visibility:=reexport,
++ org.eclipse.gmf.runtime.notation.providers;visibility:=reexport,
+  org.eclipse.gmf.examples.eclipsecon.library;visibility:=reexport,
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram.custom
+Index: META-INF/MANIFEST.MF
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram.custom/META-INF/MANIFEST.MF,v
+retrieving revision 1.1
+diff -u -r1.1 MANIFEST.MF
+--- META-INF/MANIFEST.MF	16 Feb 2007 22:24:51 -0000	1.1
++++ META-INF/MANIFEST.MF	16 Feb 2007 23:07:28 -0000
+@@ -1,7 +1,16 @@
+ Manifest-Version: 1.0
+ Bundle-ManifestVersion: 2
+ Bundle-Name: %pluginName
+-Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.library.diagram.custom
++Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.library.diagram.custom;singleton:=true
+ Bundle-Version: 1.0.0
+ Bundle-Vendor: %providerName
+ Bundle-Localization: plugin
++Require-Bundle: org.eclipse.ui,
++ org.eclipse.core.runtime,
++ org.eclipse.gmf.examples.eclipsecon.library.diagram,
++ org.eclipse.gmf.runtime.diagram.ui.actions,
++ org.eclipse.gmf.runtime.common.ui,
++ org.eclipse.gmf.runtime.emf.core,
++ org.eclipse.gmf.examples.eclipsecon.library.notation,
++ org.eclipse.gmf.runtime.diagram.ui.providers
++Eclipse-LazyStart: true
+Index: build.properties
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram.custom/build.properties,v
+retrieving revision 1.1
+diff -u -r1.1 build.properties
+--- build.properties	16 Feb 2007 22:24:51 -0000	1.1
++++ build.properties	16 Feb 2007 23:07:28 -0000
+@@ -1,4 +1,5 @@
+ source.. = src/
+ output.. = bin/
+ bin.includes = META-INF/,\
+-               .
++               .,\
++               plugin.xml
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/LibraryAuthorStyleAction.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/LibraryAuthorStyleAction.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/LibraryAuthorStyleAction.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/LibraryAuthorStyleAction.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,28 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.actions;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage;
++import org.eclipse.gmf.runtime.diagram.ui.actions.BooleanPropertyAction;
++import org.eclipse.gmf.runtime.emf.core.util.PackageUtil;
++import org.eclipse.ui.IWorkbenchPage;
++
++
++public class LibraryAuthorStyleAction
++    extends BooleanPropertyAction {
++    
++    public static String  AUTHIR_STYLE_ACTION = "AUTHOR_STYLE_ID"; //$NON-NLS-1$
++
++    /**
++     * @param workbenchPage
++     * @param propertyId
++     * @param propertyName
++     */
++    public LibraryAuthorStyleAction(IWorkbenchPage workbenchPage) {
++        super(workbenchPage,
++              PackageUtil.getID(NotationPackage.eINSTANCE.getAuthorStyle_ShowAuthorBooksCount()),
++              "Toggle Author's Book count"); //$NON-NLS-1$
++        setId(AUTHIR_STYLE_ACTION);
++        setText("Toggle Author's Book count"); //$NON-NLS-1$
++        setToolTipText(" Toogles the show Author's book count ON/OFF"); //$NON-NLS-1$
++    }
++
++}
+Index: plugin.xml
+===================================================================
+RCS file: plugin.xml
+diff -N plugin.xml
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ plugin.xml	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?eclipse version="3.2"?>
++<plugin>
++   <extension
++         point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
++      <contributionItemProvider
++            checkPluginLoaded="false"
++            class="org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider.AuthorStyleContributionItemProvider">
++         <Priority
++               name="Lowest">
++         </Priority>
++         <popupContribution
++               class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
++            <popupStructuredContributionCriteria
++                  objectClass="org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.LibraryEditPart">
++            </popupStructuredContributionCriteria>
++            <popupAction
++                  id="AUTHOR_STYLE_ID"
++                  path="/additionsGroup">
++            </popupAction>
++         </popupContribution>
++      </contributionItemProvider>
++   </extension>
++</plugin>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/AuthorStyleContributionItemProvider.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/AuthorStyleContributionItemProvider.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/AuthorStyleContributionItemProvider.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/provider/AuthorStyleContributionItemProvider.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,18 @@
++package org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.provider;
++
++import org.eclipse.gmf.examples.eclipsecon.library.diagram.custom.actions.LibraryAuthorStyleAction;
++import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
++import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
++import org.eclipse.jface.action.IAction;
++
++
++public class AuthorStyleContributionItemProvider
++    extends AbstractContributionItemProvider {
++
++    protected IAction createAction(String actionId,
++        IWorkbenchPartDescriptor partDescriptor) {
++        if (actionId.equals(LibraryAuthorStyleAction.AUTHIR_STYLE_ACTION))
++            return new LibraryAuthorStyleAction(partDescriptor.getPartPage());
++        return null;
++    }
++}
