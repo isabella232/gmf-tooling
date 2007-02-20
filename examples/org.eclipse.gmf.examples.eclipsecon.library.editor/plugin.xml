@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2007/02/20 20:01:08 ahunter Exp $
+-->
+
+<plugin>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "org.eclipse.gmf.examples.eclipsecon.library.presentation.LibraryModelWizardID"
+      name = "%_UI_LibraryModelWizard_label"
+      class = "org.eclipse.gmf.examples.eclipsecon.library.presentation.LibraryModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/LibraryModelFile.gif">
+      <description>%_UI_LibraryModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.eclipse.gmf.examples.eclipsecon.library.presentation.LibraryEditorID"
+        name = "%_UI_LibraryEditor_label"
+        icon = "icons/full/obj16/LibraryModelFile.gif"
+        extensions = "library"
+        class = "org.eclipse.gmf.examples.eclipsecon.library.presentation.LibraryEditor" 
+        contributorClass="org.eclipse.gmf.examples.eclipsecon.library.presentation.LibraryActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>
