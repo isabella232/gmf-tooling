@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,6 +16,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 import org.eclipse.gmf.tests.setup.annotated.GenASetup;
 import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 
@@ -26,6 +27,13 @@ public class RuntimeCompilationTest extends CompilationTest {
 
 	public RuntimeCompilationTest(String name) {
 		super(name);
+	}
+	@Override
+	protected void setUp() throws Exception {
+		if (RuntimeWorkspaceSetup.INSTANCE == null) {
+			RuntimeWorkspaceSetup.INSTANCE = new RuntimeWorkspaceSetup().initFull();
+		}
+		super.setUp();
 	}
 
 	/**
