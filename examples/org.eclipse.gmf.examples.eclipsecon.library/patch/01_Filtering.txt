@@ -1,0 +1,38 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java,v
+retrieving revision 1.1
+diff -u -r1.1 ShelfBooksCompartmentEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	20 Feb 2007 01:48:14 -0000
+@@ -1,7 +1,11 @@
+ package org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts;
+ 
++import java.util.Iterator;
++import java.util.List;
++
+ import org.eclipse.draw2d.IFigure;
+ import org.eclipse.emf.common.notify.Notification;
++import org.eclipse.gmf.examples.eclipsecon.library.Book;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.ShelfBooksCompartmentCanonicalEditPolicy;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.ShelfBooksCompartmentItemSemanticEditPolicy;
+ import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
+@@ -76,4 +80,16 @@
+ 			super.setRatio(ratio);
+ 		}
+ 	}
++    
++    protected List getModelChildren() {
++        List views = super.getModelChildren();
++        Iterator iterator = views.iterator();
++        while (iterator.hasNext()) {
++           Book book = (Book)((View)iterator.next()).getElement();
++           if (book.getTitle()!= null && book.getTitle().contains("COBOL")) {
++                iterator.remove();
++           }
++        }
++        return views;
++     }
+ }
