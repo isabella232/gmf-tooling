@@ -99,7 +99,7 @@ diff -N src/org/eclipse/gmf/examples/eclipsecon/library/diagram/custom/actions/L
 +              "Toggle Author's Book count"); //$NON-NLS-1$
 +        setId(AUTHOR_STYLE_ACTION);
 +        setText("Toggle Author's Book count"); //$NON-NLS-1$
-+        setToolTipText(" Toogles the show Author's book count ON/OFF"); //$NON-NLS-1$
++        setToolTipText(" Toggles the show Author's book count ON/OFF"); //$NON-NLS-1$
 +    }
 +
 +}
