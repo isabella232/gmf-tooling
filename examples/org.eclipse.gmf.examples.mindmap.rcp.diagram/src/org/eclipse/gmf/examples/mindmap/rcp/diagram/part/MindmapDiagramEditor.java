@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.NotificationFilter;
 
-import org.eclipse.gmf.examples.mindmap.rcp.diagram.application.URIDiagramDocumentProvider;
-
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
