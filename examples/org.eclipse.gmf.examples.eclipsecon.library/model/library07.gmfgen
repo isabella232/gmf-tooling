@@ -4,13 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0">
   <diagram
-      visualID="1000"
+      visualID="79"
       editPartClassName="LibraryEditPart"
       itemSemanticEditPolicyClassName="LibraryItemSemanticEditPolicy"
       notationViewFactoryClassName="LibraryViewFactory"
       canonicalEditPolicyClassName="LibraryCanonicalEditPolicy"
-      iconProviderPriority="Low"
-      validationProviderPriority="Low">
+      iconProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -23,7 +22,7 @@
         href="library07.genmodel#//library/Library"/>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3001"
+        visualID="2001"
         editPartClassName="BookEditPart"
         itemSemanticEditPolicyClassName="BookItemSemanticEditPolicy"
         notationViewFactoryClassName="BookViewFactory"
@@ -59,7 +58,7 @@
       </labelModelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001"
+        visualID="1001"
         editPartClassName="AuthorEditPart"
         itemSemanticEditPolicyClassName="AuthorItemSemanticEditPolicy"
         notationViewFactoryClassName="AuthorViewFactory"
@@ -87,7 +86,7 @@
             href="library07.genmodel#//library/Library/authors"/>
       </modelFacet>
       <labels
-          visualID="5001"
+          visualID="4001"
           editPartClassName="AuthorNameEditPart"
           itemSemanticEditPolicyClassName="AuthorNameItemSemanticEditPolicy"
           notationViewFactoryClassName="AuthorNameViewFactory"
@@ -106,7 +105,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="2002"
+        visualID="1002"
         editPartClassName="ShelfEditPart"
         itemSemanticEditPolicyClassName="ShelfItemSemanticEditPolicy"
         notationViewFactoryClassName="ShelfViewFactory"
@@ -135,7 +134,7 @@
             href="library07.genmodel#//library/Library/shelves"/>
       </modelFacet>
       <labels
-          visualID="5002"
+          visualID="4002"
           editPartClassName="ShelfNameEditPart"
           itemSemanticEditPolicyClassName="ShelfNameItemSemanticEditPolicy"
           notationViewFactoryClassName="ShelfNameViewFactory"
@@ -154,7 +153,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="2003"
+        visualID="1003"
         editPartClassName="EmployeeEditPart"
         itemSemanticEditPolicyClassName="EmployeeItemSemanticEditPolicy"
         notationViewFactoryClassName="EmployeeViewFactory"
@@ -182,7 +181,7 @@
             href="library07.genmodel#//library/Library/employees"/>
       </modelFacet>
       <labels
-          visualID="5003"
+          visualID="4003"
           editPartClassName="EmployeeNameEditPart"
           itemSemanticEditPolicyClassName="EmployeeNameItemSemanticEditPolicy"
           notationViewFactoryClassName="EmployeeNameViewFactory"
@@ -202,7 +201,7 @@
       </labels>
     </topLevelNodes>
     <links
-        visualID="4001"
+        visualID="3001"
         editPartClassName="EmployeeShelvesEditPart"
         itemSemanticEditPolicyClassName="EmployeeShelvesItemSemanticEditPolicy"
         notationViewFactoryClassName="EmployeeShelvesViewFactory">
@@ -225,7 +224,7 @@
       </modelFacet>
     </links>
     <compartments
-        visualID="7001"
+        visualID="5001"
         editPartClassName="ShelfBooksCompartmentEditPart"
         itemSemanticEditPolicyClassName="ShelfBooksCompartmentItemSemanticEditPolicy"
         notationViewFactoryClassName="ShelfBooksCompartmentViewFactory"
@@ -274,36 +273,6 @@
             genNodes="//@diagram/@topLevelNodes.1"/>
       </groups>
     </palette>
-    <preferencePages
-        xsi:type="gmfgen:GenStandardPreferencePage"
-        iD="org.eclipse.gmf.examples.library.diagram.general"
-        name="Library07 Diagram">
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.examples.library.diagram.appearance"
-          name="Appearance"
-          kind="Appearance"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.examples.library.diagram.connections"
-          name="Connections"
-          kind="Connections"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.examples.library.diagram.printing"
-          name="Printing"
-          kind="Printing"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.examples.library.diagram.rulersAndGrid"
-          name="Rulers And Grid"
-          kind="RulersAndGrid"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.examples.library.diagram.pathmaps"
-          name="Pathmaps"
-          kind="Pathmaps"/>
-    </preferencePages>
   </diagram>
   <plugin/>
   <editor/>
