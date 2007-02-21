@@ -21,9 +21,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -44,14 +42,16 @@ import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDocumentProvider;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
@@ -61,7 +61,7 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @generated
  */
-public class EcoreDocumentProvider extends StorageDocumentProvider implements IDiagramDocumentProvider {
+public class EcoreDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
 
 	/**
 	 * @generated
@@ -70,7 +70,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		if (false == element instanceof FileEditorInput) {
 			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		FileEditorInput editorInput = (FileEditorInput) element;
+		IEditorInput editorInput = (IEditorInput) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
 
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
@@ -79,6 +79,32 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
 		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IDocument createDocument(Object element) throws CoreException {
+		if (false == element instanceof FileEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		IDocument document = createEmptyDocument();
+		setDocumentContent(document, (FileEditorInput) element);
+		setupDocument(element, document);
+		return document;
+	}
+
+	/**
+	 * Sets up the given document as it would be provided for the given element. The
+	 * content of the document is not changed. This default implementation is empty.
+	 * Subclasses may reimplement.
+	 * 
+	 * @param element the blue-print element
+	 * @param document the document to set up
+	 * @generated
+	 */
+	protected void setupDocument(Object element, IDocument document) {
+		// for subclasses
 	}
 
 	/**
@@ -109,6 +135,9 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		return document;
 	}
 
+	/**
+	 * @generated
+	 */
 	private TransactionalEditingDomain createEditingDomain() {
 		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
 		editingDomain.setID("org.eclipse.gmf.ecore.editor.EditingDomain"); //$NON-NLS-1$
@@ -147,7 +176,11 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected void setDocumentContentFromStorage(IDocument document, IStorage storage) throws CoreException {
+	protected void setDocumentContent(IDocument document, IEditorInput element) throws CoreException {
+		if (false == element instanceof FileEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		IStorage storage = ((FileEditorInput) element).getStorage();
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
 		//	org.eclipse.gmf.runtime.notation.Diagram diagram = diagramDocument.getDiagram();
 
@@ -243,11 +276,40 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
+	public boolean isReadOnly(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
+				try {
+					updateCache((IStorageEditorInput) element);
+				} catch (CoreException ex) {
+					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+				}
+			}
+			return info.isReadOnly();
+		}
+		return super.isReadOnly(element);
+	}
+
+	/**
+	 * @generated
+	 */
 	public boolean isModifiable(Object element) {
 		if (!isStateValidated(element)) {
 			if (element instanceof FileEditorInput) {
 				return true;
 			}
+		}
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
+				try {
+					updateCache((IStorageEditorInput) element);
+				} catch (CoreException ex) {
+					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+				}
+			}
+			return info.isModifiable();
 		}
 		return super.isModifiable(element);
 	}
@@ -262,16 +324,26 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null && file.isReadOnly()) {
-					info.fIsReadOnly = true;
-					info.fIsModifiable = false;
+					info.setReadOnly(true);
+					info.setModifiable(false);
 					return;
 				}
 			}
-			info.fIsReadOnly = false;
-			info.fIsModifiable = true;
+			info.setReadOnly(false);
+			info.setModifiable(true);
 			return;
 		}
-		super.updateCache(input);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doUpdateStateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			info.setUpdateCache(true);
+		}
+		super.doUpdateStateCache(element);
 	}
 
 	/**
@@ -415,7 +487,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null)); //$NON-NLS-1$
+				throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, IStatus.OK, "The file has been changed on the file system", null)); //$NON-NLS-1$
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
@@ -444,13 +516,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			} finally {
 				info.startResourceListening();
 			}
-
-			if (info != null) {
-				info.setModificationStamp(computeModificationStamp(info));
-				info.setSynchronized();
-			}
 		}
-		super.doSaveDocument(monitor, element, document, overwrite);
 	}
 
 	/**
@@ -461,8 +527,8 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		if (file != null) {
 			try {
 				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			} catch (CoreException e) {
-				handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
+			} catch (CoreException ex) {
+				EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.FileDocumentProvider_handleElementContentChanged, ex);
 			}
 		}
 		changedResource.unload();
@@ -485,17 +551,9 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(FileEditorInput input, IPath path) {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IFile newFile = workspace.getRoot().getFile(path);
+	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+		IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
 		fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleElementDeleted(FileEditorInput input) {
-		fireElementDeleted(input);
 	}
 
 	/**
@@ -519,7 +577,14 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 	/**
 	 * @generated
 	 */
-	protected class ResourceSetInfo extends StorageInfo {
+	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected class ResourceSetInfo extends ElementInfo {
 
 		/**
 		 * @generated
@@ -534,22 +599,37 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		private IDiagramDocument myDocument;
-
-		/**
-		 * @generated
-		 */
 		private Collection myUnSynchronizedResources = new ArrayList();
 
 		/**
 		 * @generated
 		 */
-		private FileEditorInput myEditorInput;
+		private IDiagramDocument myDocument;
 
 		/**
 		 * @generated
 		 */
-		public ResourceSetInfo(IDiagramDocument document, FileEditorInput editorInput) {
+		private IEditorInput myEditorInput;
+
+		/**
+		 * @generated
+		 */
+		private boolean myUpdateCache = true;
+
+		/**
+		 * @generated
+		 */
+		private boolean myModifiable = false;
+
+		/**
+		 * @generated
+		 */
+		private boolean myReadOnly = true;
+
+		/**
+		 * @generated
+		 */
+		public ResourceSetInfo(IDiagramDocument document, IEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
@@ -580,7 +660,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		/**
 		 * @generated
 		 */
-		public FileEditorInput getEditorInput() {
+		public IEditorInput getEditorInput() {
 			return myEditorInput;
 		}
 
@@ -600,13 +680,6 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 		 */
 		public boolean isSynchronized() {
 			return myUnSynchronizedResources.size() == 0;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setSynchronized() {
-			myUnSynchronizedResources.clear();
 		}
 
 		/**
@@ -638,6 +711,30 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
 		}
 
+		public boolean isUpdateCache() {
+			return myUpdateCache;
+		}
+
+		public void setUpdateCache(boolean update) {
+			myUpdateCache = update;
+		}
+
+		public boolean isModifiable() {
+			return myModifiable;
+		}
+
+		public void setModifiable(boolean modifiable) {
+			myModifiable = modifiable;
+		}
+
+		public boolean isReadOnly() {
+			return myReadOnly;
+		}
+
+		public void setReadOnly(boolean readOnly) {
+			myReadOnly = readOnly;
+		}
+
 		/**
 		 * @generated
 		 */
@@ -653,6 +750,12 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			 * @generated
 			 */
 			public boolean handleResourceChanged(final Resource resource) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
 				Display.getDefault().asyncExec(new Runnable() {
 
 					public void run() {
@@ -666,10 +769,16 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			 * @generated
 			 */
 			public boolean handleResourceDeleted(Resource resource) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
 				Display.getDefault().asyncExec(new Runnable() {
 
 					public void run() {
-						handleElementDeleted(ResourceSetInfo.this.getEditorInput());
+						fireElementDeleted(ResourceSetInfo.this.getEditorInput());
 					}
 				});
 				return true;
@@ -679,12 +788,17 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 			 * @generated
 			 */
 			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
-				IFile file = WorkspaceSynchronizer.getFile(resource);
-				if (file != null && file.equals(ResourceSetInfo.this.getEditorInput().getFile())) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
+				if (myDocument.getDiagram().eResource() == resource) {
 					Display.getDefault().asyncExec(new Runnable() {
 
 						public void run() {
-							handleElementMoved(ResourceSetInfo.this.getEditorInput(), new Path(org.eclipse.emf.common.util.URI.decode(newURI.path())).removeFirstSegments(1));
+							handleElementMoved(ResourceSetInfo.this.getEditorInput(), newURI);
 						}
 					});
 				} else {
@@ -751,6 +865,7 @@ public class EcoreDocumentProvider extends StorageDocumentProvider implements ID
 						}
 						if (dirtyStateChanged) {
 							fireElementDirtyStateChanged(myInfo.getEditorInput(), modified);
+
 							if (!modified) {
 								myInfo.setModificationStamp(computeModificationStamp(myInfo));
 							}
