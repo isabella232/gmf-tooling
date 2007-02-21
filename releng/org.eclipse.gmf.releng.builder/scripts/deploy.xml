@@ -151,7 +151,7 @@
 		<property name="excludes" value=""/>
 		<property name="includes" value=""/>
         <echo message="Building site.xml"/>                                                                             
-        <java jar="../../org.eclipse.releng.basebuilder/startup.jar" fork="true" failonerror="false">                   
+        <java jar="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar" fork="true" failonerror="false">                   
             <arg value="-consolelog"/>                                                                                  
             <arg value="-application"/>                                                                                 
             <arg value="org.eclipse.gmf.releng.updateSiteBuilder"/>                                                     
@@ -166,7 +166,7 @@
         	   <arg value="-include"/>
         	   <arg value="${includes}"/>       	
         </java>
-	     <java jar="${buildRoot}/eclipse/startup.jar" fork="true" failonerror="true">
+	     <java jar="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar" fork="true" failonerror="true">
 	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
 	         <arg line="-digestBuilder
 	         	  -digestOutputDir=${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel} -siteXML=${siteXml}"/>
