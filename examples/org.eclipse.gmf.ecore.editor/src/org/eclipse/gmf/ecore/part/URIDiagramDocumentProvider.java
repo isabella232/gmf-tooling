@@ -78,35 +78,6 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected void disposeElementInfo(Object element, ElementInfo info) {
-		if (info instanceof ResourceSetInfo) {
-			ResourceSetInfo resourceSetInfo = (ResourceSetInfo) info;
-			resourceSetInfo.dispose();
-		}
-		super.disposeElementInfo(element, info);
-	}
-
-	/**
-	 * @generated
-	 */
-	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-		return editorInput;
-	}
-
-	/**
-	 * @generated
-	 */
-	public IDiagramDocument getDiagramDocument(Object element) {
-		IDocument doc = getDocument(element);
-		if (doc instanceof IDiagramDocument) {
-			return (IDiagramDocument) doc;
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IDocument createDocument(Object element) throws CoreException {
 		if (false == element instanceof URIEditorInput) {
 			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
@@ -115,6 +86,85 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 		setDocumentContent(document, (URIEditorInput) element);
 		setupDocument(element, document);
 		return document;
+	}
+
+	/**
+	 * Sets up the given document as it would be provided for the given element. The
+	 * content of the document is not changed. This default implementation is empty.
+	 * Subclasses may reimplement.
+	 * 
+	 * @param element the blue-print element
+	 * @param document the document to set up
+	 * @generated
+	 */
+	protected void setupDocument(Object element, IDocument document) {
+		// for subclasses
+	}
+
+	/**
+	 * @generated
+	 */
+	private long computeModificationStamp(ResourceSetInfo info) {
+		int result = 0;
+		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource nextResource = (Resource) it.next();
+			IFile file = WorkspaceSynchronizer.getFile(nextResource);
+			if (file != null) {
+				if (file.getLocation() != null) {
+					result += file.getLocation().toFile().lastModified();
+				} else {
+					result += file.getModificationStamp();
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IDocument createEmptyDocument() {
+		DiagramDocument document = new DiagramDocument();
+		document.setEditingDomain(createEditingDomain());
+		return document;
+	}
+
+	/**
+	 * @generated
+	 */
+	private TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+		editingDomain.setID("org.eclipse.gmf.ecore.editor.EditingDomain"); //$NON-NLS-1$
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
+				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
+		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
+
+			private Notifier myTarger;
+
+			public Notifier getTarget() {
+				return myTarger;
+			}
+
+			public boolean isAdapterForType(Object type) {
+				return false;
+			}
+
+			public void notifyChanged(Notification notification) {
+				if (diagramResourceModifiedFilter.matches(notification)) {
+					Object value = notification.getNewValue();
+					if (value instanceof Resource) {
+						((Resource) value).setTrackingModification(true);
+					}
+				}
+			}
+
+			public void setTarget(Notifier newTarget) {
+				myTarger = newTarget;
+			}
+
+		});
+
+		return editingDomain;
 	}
 
 	/**
@@ -176,63 +226,25 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	}
 
 	/**
-	 * Sets up the given document as it would be provided for the given element. The
-	 * content of the document is not changed. This default implementation is empty.
-	 * Subclasses may reimplement.
-	 * 
-	 * @param element the blue-print element
-	 * @param document the document to set up
 	 * @generated
 	 */
-	protected void setupDocument(Object element, IDocument document) {
-		// for subclasses
+	public long getModificationStamp(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			return computeModificationStamp(info);
+		}
+		return super.getModificationStamp(element);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IDocument createEmptyDocument() {
-		DiagramDocument document = new DiagramDocument();
-		document.setEditingDomain(createEditingDomain());
-		return document;
-	}
-
-	/**
-	 * @generated
-	 */
-	private TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
-		editingDomain.setID("org.eclipse.gmf.ecore.editor.EditingDomain"); //$NON-NLS-1$
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
-				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
-		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
-
-			private Notifier myTarger;
-
-			public Notifier getTarget() {
-				return myTarger;
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return false;
-			}
-
-			public void notifyChanged(Notification notification) {
-				if (diagramResourceModifiedFilter.matches(notification)) {
-					Object value = notification.getNewValue();
-					if (value instanceof Resource) {
-						((Resource) value).setTrackingModification(true);
-					}
-				}
-			}
-
-			public void setTarget(Notifier newTarget) {
-				myTarger = newTarget;
-			}
-
-		});
-
-		return editingDomain;
+	public boolean isDeleted(Object element) {
+		if (element instanceof URIEditorInput) {
+			File file = getFile((URIEditorInput) element);
+			return file != null && !file.exists();
+		}
+		return false;
 	}
 
 	/**
@@ -240,6 +252,69 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 */
 	public ResourceSetInfo getResourceSetInfo(Object editorInput) {
 		return (ResourceSetInfo) super.getElementInfo(editorInput);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void disposeElementInfo(Object element, ElementInfo info) {
+		if (info instanceof ResourceSetInfo) {
+			ResourceSetInfo resourceSetInfo = (ResourceSetInfo) info;
+			resourceSetInfo.dispose();
+		}
+		super.disposeElementInfo(element, info);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isReadOnly(Object element) {
+		if (element instanceof URIEditorInput) {
+			File file = getFile((URIEditorInput) element);
+			if (file != null && file.exists()) {
+				return !file.canWrite();
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isModifiable(Object element) {
+		if (element instanceof URIEditorInput) {
+			File file = getFile((URIEditorInput) element);
+			if (file != null && file.exists()) {
+				return file.canWrite();
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isSynchronized(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			return info.isSynchronized();
+		}
+		return super.isSynchronized(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+				Resource nextResource = (Resource) it.next();
+				handleElementChanged(info, nextResource, monitor);
+			}
+			return;
+		}
+		super.doSynchronize(element, monitor);
 	}
 
 	/**
@@ -284,89 +359,6 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	public boolean isDeleted(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			return file != null && !file.exists();
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public boolean isReadOnly(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			if (file != null && file.exists()) {
-				return !file.canWrite();
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public boolean isModifiable(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			if (file != null && file.exists()) {
-				return file.canWrite();
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static File getFile(URIEditorInput input) {
-		return getFile(input.getURI().trimFragment());
-	}
-
-	/**
-	 * @generated
-	 */
-	public static File getFile(org.eclipse.emf.common.util.URI resourceUri) {
-		if (resourceUri != null && resourceUri.isFile()) {
-			File file = new File(resourceUri.toFileString());
-			if (!file.isDirectory()) {
-				return file;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private long computeModificationStamp(ResourceSetInfo info) {
-		int result = 0;
-		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
-			Resource nextResource = (Resource) it.next();
-			IFile file = WorkspaceSynchronizer.getFile(nextResource);
-			if (file != null) {
-				if (file.getLocation() != null) {
-					result += file.getLocation().toFile().lastModified();
-				} else {
-					result += file.getModificationStamp();
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void handleElementChanged(ResourceSetInfo info, Resource changedResource, IProgressMonitor monitor) {
 		IFile file = WorkspaceSynchronizer.getFile(changedResource);
 		if (file != null) {
@@ -404,12 +396,46 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	public boolean isSynchronized(Object element) {
-		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null) {
-			return info.isSynchronized();
+	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
+		return editorInput;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IDiagramDocument getDiagramDocument(Object element) {
+		IDocument doc = getDocument(element);
+		if (doc instanceof IDiagramDocument) {
+			return (IDiagramDocument) doc;
 		}
-		return super.isSynchronized(element);
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static File getFile(URIEditorInput input) {
+		return getFile(input.getURI().trimFragment());
+	}
+
+	/**
+	 * @generated
+	 */
+	public static File getFile(org.eclipse.emf.common.util.URI resourceUri) {
+		if (resourceUri != null && resourceUri.isFile()) {
+			File file = new File(resourceUri.toFileString());
+			if (!file.isDirectory()) {
+				return file;
+			}
+		}
+		return null;
 	}
 
 	/**

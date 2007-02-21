@@ -212,17 +212,6 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	/**
 	 * @generated
 	 */
-	public long getSynchronizationStamp(Object element) {
-		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null) {
-			return info.getModificationStamp();
-		}
-		return super.getSynchronizationStamp(element);
-	}
-
-	/**
-	 * @generated
-	 */
 	public boolean isDeleted(Object element) {
 		if (element instanceof IFileEditorInput) {
 			IFileEditorInput input = (IFileEditorInput) element;
@@ -460,7 +449,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 */
 	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null && element instanceof FileEditorInput) {
+		if (info != null) {
 			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				handleElementChanged(info, nextResource, monitor);
@@ -468,16 +457,6 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 			return;
 		}
 		super.doSynchronize(element, monitor);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void markWholeResourceSetAsDirty(ResourceSet resourceSet) {
-		for (Iterator it = resourceSet.getResources().iterator(); it.hasNext();) {
-			Resource nextResource = (Resource) it.next();
-			nextResource.setModified(true);
-		}
 	}
 
 	/**
