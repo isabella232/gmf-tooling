@@ -13,7 +13,7 @@
 	
 	<target name="mirror" if="usingMirror">
 		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -31,7 +31,7 @@
 	
 	<target name="mirror2" if="mirror">
 		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -49,7 +49,7 @@
 		
 	<target name="install" if="usingMirror">
 		<echo message="Installing ${featureId} ${version} locally from ${localUpdateSite}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -65,7 +65,7 @@
 	
 	<target name="installRemote" unless="usingMirror">
 		<echo message="Installing ${featureId} ${version} remotely from ${updateSite}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -82,7 +82,7 @@
 	<target name="uninstall" if="usingMirror">
 		<!-- First, must disable the feature -->
 		<echo message="Disabling ${featureId} ${version}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -94,7 +94,7 @@
 		</java>
 		<!-- Now, uninstall -->
 		<echo message="Uninstalling ${featureId} ${version}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
