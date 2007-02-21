@@ -5,7 +5,7 @@
 		<mkdir dir="${packtmp}" />	
 		<move file="${buildDirectory}/${buildLabel}/${archiveName}" tofile="${packtmp}/${archiveName}"/>
 		
-	     <java jar="${buildRoot}/eclipse/startup.jar"
+	     <java jar="${buildRoot}/eclipse/plugins/${equinoxLauncherJar}"
 	           fork="true"
         	   jvm="${java15-home}/bin/java"
 	           failonerror="true"
