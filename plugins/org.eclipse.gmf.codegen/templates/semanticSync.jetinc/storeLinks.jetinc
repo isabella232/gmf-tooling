@@ -61,11 +61,11 @@ private void storeTypeModelFacetLinks_<%=typeLinkModelFacet.getMetaClass().getIn
 <% 		}%>				
 				if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
-					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, <%=genDiagram.getElementTypesQualifiedClassName()%>.<%=nextLink.getUniqueIdentifier()%>, linkVID));
 				}
 <% } else { // sourceMetaFeature == null %>
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
-				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, <%=genDiagram.getElementTypesQualifiedClassName()%>.<%=nextLink.getUniqueIdentifier()%>, linkVID));
 <% }%>
 			}
 		}

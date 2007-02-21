@@ -33,10 +33,18 @@ private class LinkDescriptor {
 	/**
    	 * @generated
      */
-	protected LinkDescriptor(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> destination, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> linkElement, int linkVID) {
+	protected LinkDescriptor(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> destination, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> linkElement, <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType, int linkVID) {
 		this(source, destination, linkVID);
 		myLinkElement = linkElement;
-		mySemanticAdapter = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(linkElement);
+		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementTypeCopy = elementType;
+		mySemanticAdapter = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(linkElement) {
+			public Object getAdapter(Class adapter) {
+				if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
+					return elementTypeCopy;
+				}
+				return super.getAdapter(adapter);
+			}
+		};
 	}
 
 	/**
