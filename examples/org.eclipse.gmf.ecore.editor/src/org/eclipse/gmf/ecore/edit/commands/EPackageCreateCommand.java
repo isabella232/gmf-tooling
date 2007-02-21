@@ -38,7 +38,7 @@ public class EPackageCreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEPackage();
-	};
+	}
 
 	/**
 	 * @generated

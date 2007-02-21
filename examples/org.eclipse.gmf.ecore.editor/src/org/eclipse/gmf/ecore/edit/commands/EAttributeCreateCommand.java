@@ -38,7 +38,7 @@ public class EAttributeCreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEClass();
-	};
+	}
 
 	/**
 	 * @generated

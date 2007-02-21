@@ -38,7 +38,7 @@ public class EDataType2CreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEPackage();
-	};
+	}
 
 	/**
 	 * @generated

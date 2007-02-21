@@ -38,7 +38,7 @@ public class EEnumLiteralCreateCommand extends CreateElementCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEEnum();
-	};
+	}
 
 	/**
 	 * @generated

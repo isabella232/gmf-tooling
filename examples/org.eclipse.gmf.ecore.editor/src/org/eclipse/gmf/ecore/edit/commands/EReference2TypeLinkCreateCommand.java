@@ -67,7 +67,7 @@ public class EReference2TypeLinkCreateCommand extends CreateRelationshipCommand 
 	 */
 	protected EClass getEClassToEdit() {
 		return EcorePackage.eINSTANCE.getEClass();
-	};
+	}
 
 	/**
 	 * @generated
