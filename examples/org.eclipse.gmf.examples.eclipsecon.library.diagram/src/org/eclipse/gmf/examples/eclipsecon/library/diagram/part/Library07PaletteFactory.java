@@ -30,7 +30,7 @@ public class Library07PaletteFactory {
 	 */
 	private PaletteContainer createLibrary1Group() {
 		PaletteGroup paletteContainer = new PaletteGroup(
-				Library07DiagramEditorPlugin.getString("Library1Group.title")); //$NON-NLS-1$
+				Messages.Library1Group_title);
 		paletteContainer.add(createAuthor1CreationTool());
 		paletteContainer.add(createBook2CreationTool());
 		paletteContainer.add(createEmployee3CreationTool());
@@ -46,8 +46,8 @@ public class Library07PaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(Library07ElementTypes.Author_1001);
 		NodeToolEntry entry = new NodeToolEntry(
-				Library07DiagramEditorPlugin
-						.getString("Author1CreationTool.title"), Library07DiagramEditorPlugin.getString("Author1CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+				Messages.Author1CreationTool_title,
+				Messages.Author1CreationTool_desc, types);
 		entry.setSmallIcon(Library07ElementTypes
 				.getImageDescriptor(Library07ElementTypes.Author_1001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -61,8 +61,8 @@ public class Library07PaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(Library07ElementTypes.Book_2001);
 		NodeToolEntry entry = new NodeToolEntry(
-				Library07DiagramEditorPlugin
-						.getString("Book2CreationTool.title"), Library07DiagramEditorPlugin.getString("Book2CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+				Messages.Book2CreationTool_title,
+				Messages.Book2CreationTool_desc, types);
 		entry.setSmallIcon(Library07ElementTypes
 				.getImageDescriptor(Library07ElementTypes.Book_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -76,8 +76,8 @@ public class Library07PaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(Library07ElementTypes.Employee_1003);
 		NodeToolEntry entry = new NodeToolEntry(
-				Library07DiagramEditorPlugin
-						.getString("Employee3CreationTool.title"), Library07DiagramEditorPlugin.getString("Employee3CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+				Messages.Employee3CreationTool_title,
+				Messages.Employee3CreationTool_desc, types);
 		entry.setSmallIcon(Library07ElementTypes
 				.getImageDescriptor(Library07ElementTypes.Employee_1003));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -91,8 +91,8 @@ public class Library07PaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(Library07ElementTypes.EmployeeShelves_3001);
 		LinkToolEntry entry = new LinkToolEntry(
-				Library07DiagramEditorPlugin
-						.getString("EmployeeShelves4CreationTool.title"), Library07DiagramEditorPlugin.getString("EmployeeShelves4CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+				Messages.EmployeeShelves4CreationTool_title,
+				Messages.EmployeeShelves4CreationTool_desc, types);
 		entry
 				.setSmallIcon(Library07ElementTypes
 						.getImageDescriptor(Library07ElementTypes.EmployeeShelves_3001));
@@ -107,8 +107,8 @@ public class Library07PaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(Library07ElementTypes.Shelf_1002);
 		NodeToolEntry entry = new NodeToolEntry(
-				Library07DiagramEditorPlugin
-						.getString("Shelf5CreationTool.title"), Library07DiagramEditorPlugin.getString("Shelf5CreationTool.desc"), types); //$NON-NLS-1$ $NON-NLS-2$
+				Messages.Shelf5CreationTool_title,
+				Messages.Shelf5CreationTool_desc, types);
 		entry.setSmallIcon(Library07ElementTypes
 				.getImageDescriptor(Library07ElementTypes.Shelf_1002));
 		entry.setLargeIcon(entry.getSmallIcon());

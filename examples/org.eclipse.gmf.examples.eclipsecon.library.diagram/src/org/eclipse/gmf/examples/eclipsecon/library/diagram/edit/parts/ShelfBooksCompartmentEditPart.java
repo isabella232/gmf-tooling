@@ -4,6 +4,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.ShelfBooksCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.ShelfBooksCompartmentItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Messages;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -40,7 +41,7 @@ public class ShelfBooksCompartmentEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "BooksCompartment";
+		return Messages.ShelfBooksCompartmentEditPart_title;
 	}
 
 	/**

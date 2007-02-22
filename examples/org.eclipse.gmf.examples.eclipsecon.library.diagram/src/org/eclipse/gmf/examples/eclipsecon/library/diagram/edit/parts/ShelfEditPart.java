@@ -60,7 +60,6 @@ public class ShelfEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
 				new CreationEditPolicy() {
-
 					public Command getCommand(Request request) {
 						if (understandsRequest(request)) {
 							if (request instanceof CreateViewAndElementRequest) {
@@ -82,8 +81,8 @@ public class ShelfEditPart extends ShapeNodeEditPart {
 						return null;
 					}
 				});
-		super.createDefaultEditPolicies();
 
+		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ShelfItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -184,7 +183,6 @@ public class ShelfEditPart extends ShapeNodeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(40));
-
 		return result;
 	}
 
@@ -242,6 +240,7 @@ public class ShelfEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public class ShelfFigure extends RectangleFigure {
+
 		/**
 		 * @generated
 		 */

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage;
@@ -61,7 +62,15 @@ public class Library07ElementTypes extends ElementInitializers {
 	private static ImageDescriptor getProvidedImageDescriptor(
 			ENamedElement element) {
 		if (element instanceof EStructuralFeature) {
-			element = ((EStructuralFeature) element).getEContainingClass();
+			EStructuralFeature feature = ((EStructuralFeature) element);
+			EClass eContainingClass = feature.getEContainingClass();
+			EClassifier eType = feature.getEType();
+			if (eContainingClass != null && !eContainingClass.isAbstract()) {
+				element = eContainingClass;
+			} else if (eType instanceof EClass
+					&& !((EClass) eType).isAbstract()) {
+				element = eType;
+			}
 		}
 		if (element instanceof EClass) {
 			EClass eClass = (EClass) element;
@@ -161,22 +170,27 @@ public class Library07ElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Library_79 = getElementType("org.eclipse.gmf.examples.eclipsecon.library.diagram.Library_79"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Author_1001 = getElementType("org.eclipse.gmf.examples.eclipsecon.library.diagram.Author_1001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Shelf_1002 = getElementType("org.eclipse.gmf.examples.eclipsecon.library.diagram.Shelf_1002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Employee_1003 = getElementType("org.eclipse.gmf.examples.eclipsecon.library.diagram.Employee_1003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Book_2001 = getElementType("org.eclipse.gmf.examples.eclipsecon.library.diagram.Book_2001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */

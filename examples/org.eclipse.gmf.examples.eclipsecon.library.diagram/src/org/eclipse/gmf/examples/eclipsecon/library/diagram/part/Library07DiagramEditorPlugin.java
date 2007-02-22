@@ -51,6 +51,11 @@ public class Library07DiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private Library07DocumentProvider myDocumentProvider;
+
+	/**
+	 * @generated
+	 */
 	public Library07DiagramEditorPlugin() {
 	}
 
@@ -174,6 +179,16 @@ public class Library07DiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Library07DocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new Library07DocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**

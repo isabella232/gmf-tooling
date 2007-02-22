@@ -18,6 +18,7 @@ import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.LibraryEdi
 import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.ShelfBooksCompartmentEditPart;
 import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts.ShelfEditPart;
 import org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Library07VisualIDRegistry;
+import org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Messages;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -128,24 +129,22 @@ public class Library07NavigatorContentProvider implements
 		case LibraryEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			Library07NavigatorGroup links = new Library07NavigatorGroup(
-					"links", "icons/linksNavigatorGroup.gif", parentElement);
+					Messages.NavigatorGroupName_Library_79_links,
+					"icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections
-					.singleton(view), Library07VisualIDRegistry
-					.getType(AuthorEditPart.VISUAL_ID));
+					.singleton(view), AuthorEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			connectedViews = getChildrenByType(Collections.singleton(view),
-					Library07VisualIDRegistry.getType(ShelfEditPart.VISUAL_ID));
+					ShelfEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			connectedViews = getChildrenByType(Collections.singleton(view),
-					Library07VisualIDRegistry
-							.getType(EmployeeEditPart.VISUAL_ID));
+					EmployeeEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view),
-					Library07VisualIDRegistry
-							.getType(EmployeeShelvesEditPart.VISUAL_ID));
+					EmployeeShelvesEditPart.VISUAL_ID);
 			links
 					.addChildren(createNavigatorItems(connectedViews, links,
 							false));
@@ -158,18 +157,17 @@ public class Library07NavigatorContentProvider implements
 		case ShelfEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			Library07NavigatorGroup incominglinks = new Library07NavigatorGroup(
-					"incoming links", "icons/incomingLinksNavigatorGroup.gif",
-					parentElement);
+					Messages.NavigatorGroupName_Shelf_1002_incominglinks,
+					"icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections
-					.singleton(view), Library07VisualIDRegistry
-					.getType(ShelfBooksCompartmentEditPart.VISUAL_ID));
+					.singleton(view), ShelfBooksCompartmentEditPart.VISUAL_ID);
 			connectedViews = getChildrenByType(connectedViews,
-					Library07VisualIDRegistry.getType(BookEditPart.VISUAL_ID));
+					BookEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			connectedViews = getIncomingLinksByType(
-					Collections.singleton(view), Library07VisualIDRegistry
-							.getType(EmployeeShelvesEditPart.VISUAL_ID));
+					Collections.singleton(view),
+					EmployeeShelvesEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews,
 					incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -181,11 +179,10 @@ public class Library07NavigatorContentProvider implements
 		case EmployeeEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			Library07NavigatorGroup outgoinglinks = new Library07NavigatorGroup(
-					"outgoing links", "icons/outgoingLinksNavigatorGroup.gif",
-					parentElement);
+					Messages.NavigatorGroupName_Employee_1003_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getOutgoingLinksByType(Collections
-					.singleton(view), Library07VisualIDRegistry
-					.getType(EmployeeShelvesEditPart.VISUAL_ID));
+					.singleton(view), EmployeeShelvesEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
 					outgoinglinks, true));
 			if (!outgoinglinks.isEmpty()) {
@@ -197,19 +194,17 @@ public class Library07NavigatorContentProvider implements
 		case EmployeeShelvesEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			Library07NavigatorGroup target = new Library07NavigatorGroup(
-					"target", "icons/linkTargetNavigatorGroup.gif",
-					parentElement);
+					Messages.NavigatorGroupName_EmployeeShelves_3001_target,
+					"icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Library07NavigatorGroup source = new Library07NavigatorGroup(
-					"source", "icons/linkSourceNavigatorGroup.gif",
-					parentElement);
+					Messages.NavigatorGroupName_EmployeeShelves_3001_source,
+					"icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections
-					.singleton(view), Library07VisualIDRegistry
-					.getType(ShelfEditPart.VISUAL_ID));
+					.singleton(view), ShelfEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target,
 					true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view),
-					Library07VisualIDRegistry
-							.getType(EmployeeEditPart.VISUAL_ID));
+					EmployeeEditPart.VISUAL_ID);
 			source.addChildren(createNavigatorItems(connectedViews, source,
 					true));
 			if (!target.isEmpty()) {
@@ -227,8 +222,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getLinksSourceByType(Collection edges, String type) {
+	private Collection getLinksSourceByType(Collection edges, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeSource = nextEdge.getSource();
@@ -243,8 +239,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getLinksTargetByType(Collection edges, String type) {
+	private Collection getLinksTargetByType(Collection edges, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = edges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			View nextEdgeTarget = nextEdge.getTarget();
@@ -259,8 +256,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getOutgoingLinksByType(Collection nodes, String type) {
+	private Collection getOutgoingLinksByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getSourceEdges(), type));
@@ -271,8 +269,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getIncomingLinksByType(Collection nodes, String type) {
+	private Collection getIncomingLinksByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getTargetEdges(), type));
@@ -283,8 +282,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getChildrenByType(Collection nodes, String type) {
+	private Collection getChildrenByType(Collection nodes, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = nodes.iterator(); it.hasNext();) {
 			View nextNode = (View) it.next();
 			result.addAll(selectViewsByType(nextNode.getChildren(), type));
@@ -295,8 +295,9 @@ public class Library07NavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection getDiagramLinksByType(Collection diagrams, String type) {
+	private Collection getDiagramLinksByType(Collection diagrams, int visualID) {
 		Collection result = new ArrayList();
+		String type = Library07VisualIDRegistry.getType(visualID);
 		for (Iterator it = diagrams.iterator(); it.hasNext();) {
 			Diagram nextDiagram = (Diagram) it.next();
 			result.addAll(selectViewsByType(nextDiagram.getEdges(), type));

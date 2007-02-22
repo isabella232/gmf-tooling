@@ -603,6 +603,7 @@ public class BookEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	public class BookTitleFigure extends WrapLabel {
+
 		/**
 		 * @generated
 		 */

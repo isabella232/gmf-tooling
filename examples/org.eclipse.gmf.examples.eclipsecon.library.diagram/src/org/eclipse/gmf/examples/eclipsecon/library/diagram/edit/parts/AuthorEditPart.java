@@ -53,8 +53,8 @@ public class AuthorEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
 
+		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new AuthorItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
@@ -155,7 +155,6 @@ public class AuthorEditPart extends ShapeNodeEditPart {
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode()
 				.DPtoLP(40), getMapMode().DPtoLP(40));
-
 		return result;
 	}
 
@@ -213,6 +212,7 @@ public class AuthorEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public class AuthorFigure extends RectangleFigure {
+
 		/**
 		 * @generated
 		 */
