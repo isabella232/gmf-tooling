@@ -33,59 +33,66 @@ http://www.eclipse.org/legal/epl-v10.html
          name="GMF Runtime"/>
 
    <requires>
-      <import feature="org.eclipse.gef" version="3.2.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.emf" version="2.2.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.jdt" version="3.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.common.ui" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.ide" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.forms" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jface.text" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jface" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.xpand" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.codegen" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.codegen.ecore" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="compatible"/>
       <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.core" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jface.text" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gef" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.common" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.validate" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.codegen" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit.ui" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.ide" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.codegen.ecore.ui" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.bridge" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.codegen.edit" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.graphdef.codegen.ui" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.graphdef" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.tooldef" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.map" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.graphdef.edit" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.tooldef.edit" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.edit" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.runtime.notation" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.graphdef.codegen" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.draw2d" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.ui" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.common" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.map.edit" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.editor" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.importer" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.codegen.ui" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.bridge.ui" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.pde.ui" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jface" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.pde.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.common" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.validate" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.edit" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.edit.ui" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge.ui.dashboard" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen.edit" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.graphdef.codegen.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.importer" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge.ui" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.graphdef" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.tooldef" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.map" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.graphdef.edit" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.tooldef.edit" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.edit" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.notation" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.graphdef.codegen" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.common" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.map.edit" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.editor" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.ui.cheatsheets" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.validation"/>
-      <import plugin="org.eclipse.emf.query.ocl"/>
+      <import plugin="org.eclipse.gmf.bridge.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.validation" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.query.ocl" version="1.0.1" match="compatible"/>
+      <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.ui.views"/>
-      <import plugin="org.eclipse.ui.workbench"/>
-      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.gef"/>
       <import plugin="org.eclipse.gmf.runtime.emf.core"/>
       <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
       <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
@@ -94,6 +101,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
       <import plugin="org.eclipse.emf.ocl"/>
       <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.filebuffers"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
