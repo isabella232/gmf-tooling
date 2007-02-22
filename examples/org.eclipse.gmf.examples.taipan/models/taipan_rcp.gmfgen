@@ -7,8 +7,8 @@
     copyrightText=" Copyright (c) 2006 Borland Software Corporation&#xA; &#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA; Contributors:&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
   <audits>
     <categories
-      id="taipan"
-      name="TaiPan Audits"
+        id="taipan"
+        name="TaiPan Audits"
         description="All TaiPan audits"
         path="//@audits/@categories.0"
         audits="//@audits/@rules.0 //@audits/@rules.1"/>
@@ -739,14 +739,14 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_FILE"
-          name="&quot;&amp;File&quot;">
+          name="&amp;File">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.FILE_START"/>
         <items
             xsi:type="gmfgen:GenMenuManager"
             iD="&quot;new&quot;"
-            name="&quot;&amp;New&quot;">
+            name="&amp;New">
           <items
               xsi:type="gmfgen:GenGroupMarker"
               groupName="org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS"/>
@@ -787,7 +787,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_EDIT"
-          name="&quot;&amp;Edit&quot;">
+          name="&amp;Edit">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.EDIT_START"/>
@@ -840,7 +840,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW"
-          name="&quot;&amp;Window&quot;">
+          name="&amp;Window">
         <items
             xsi:type="gmfgen:GenSharedContributionItem"
             actualItem="//@application/@sharedContributionItems.13"/>
@@ -851,7 +851,7 @@
       <items
           xsi:type="gmfgen:GenMenuManager"
           iD="org.eclipse.ui.IWorkbenchActionConstants.M_HELP"
-          name="&quot;&amp;Help&quot;">
+          name="&amp;Help">
         <items
             xsi:type="gmfgen:GenGroupMarker"
             groupName="org.eclipse.ui.IWorkbenchActionConstants.HELP_START"/>
@@ -924,11 +924,12 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0">
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@audits/@rules.0/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>
     <providers
-        xsi:type="gmfgen:GenJavaExpressionProvider"/>
+        xsi:type="gmfgen:GenJavaExpressionProvider"
+        expressions="//@audits/@rules.1/@rule"/>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
