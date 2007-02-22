@@ -108,7 +108,6 @@
 	<!-- @param updateSiteName -->
 	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
 		<echo message="Updating update site ${updateSiteName} ..."/>
-		<mkdir dir="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/" />
 	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
 	  		localTodir="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/"/>
 	  	<antcall target= "build.site.manifesto">
