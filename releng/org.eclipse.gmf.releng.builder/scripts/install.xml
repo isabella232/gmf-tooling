@@ -147,11 +147,18 @@
 			
 	<!-- TODO: do check installed for EMFT components as well. -->
 	<target name="installEMFT" unless="emftExists" depends="checkEMFTInstalled">
+		<!--
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfOCLUpdateSite}" />
 		</ant>
+		-->
+		<!-- Temporary switch to zips for OCL -->
+		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
+		<antcall target="getEMFOCL"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
+		
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
@@ -182,10 +189,8 @@
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
+
 <!-- Alternative, download zip method...
-		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
-		<antcall target="getEMFOCL"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
 		
 		<available file="${baseLocationRoot}/${emfQueryZipName}" property="emfQueryZipExists" />
 		<antcall target="getEMFQuery"/>
