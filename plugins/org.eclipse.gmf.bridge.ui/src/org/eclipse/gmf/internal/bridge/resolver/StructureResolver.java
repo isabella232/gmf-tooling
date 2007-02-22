@@ -147,7 +147,7 @@ public class StructureResolver {
 			EObject element = it.next();
 			if (element instanceof EReference) {
 				EReference ref = (EReference) element;
-				if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(type) && ref.getEContainingClass() != type) {
+				if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(type)) {
 					refs.add(ref);
 				}
 			}
