@@ -153,12 +153,6 @@
 			<property name="version" value="${emfOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfOCLUpdateSite}" />
 		</ant>
-		-->
-		<!-- Temporary switch to zips for OCL -->
-		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
-		<antcall target="getEMFOCL"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
-		
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
@@ -189,8 +183,12 @@
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
-
-<!-- Alternative, download zip method...
+-->
+		<!-- Temporary switch to zips for OCL -->
+		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
+		<antcall target="getEMFOCL"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
+		
 		
 		<available file="${baseLocationRoot}/${emfQueryZipName}" property="emfQueryZipExists" />
 		<antcall target="getEMFQuery"/>
@@ -203,7 +201,6 @@
 		<available file="${baseLocationRoot}/${emfTransactionZipName}" property="emfTransactionZipExists" />
 		<antcall target="getEMFTransaction"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfTransactionZipName}" />
--->
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
