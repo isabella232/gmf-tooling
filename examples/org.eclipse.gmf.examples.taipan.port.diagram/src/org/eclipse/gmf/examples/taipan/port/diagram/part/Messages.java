@@ -44,5 +44,10 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	public static String Building1CreationTool_desc;
 
+	/**
+	 * @generated
+	 */
+	public static String CommandName_OpenDiagram;
+
 	//TODO: put accessor fields manually	
 }
