@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Author.java,v 1.1 2007/02/20 01:36:47 ahunter Exp $
+ * $Id: Author.java,v 1.2 2007/02/22 21:48:18 ahunter Exp $
  */
 package org.eclipse.gmf.examples.eclipsecon.library;
 
@@ -29,47 +29,47 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Author extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage#getAuthor_Name()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see #setName(String)
+     * @see org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage#getAuthor_Name()
+     * @model
+     * @generated
+     */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.eclipsecon.library.Author#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipse.gmf.examples.eclipsecon.library.Author#getName <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Name</em>' attribute.
+     * @see #getName()
+     * @generated
+     */
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Books</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.examples.eclipsecon.library.Book}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.examples.eclipsecon.library.Book#getAuthor <em>Author</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Books</b></em>' reference list.
+     * The list contents are of type {@link org.eclipse.gmf.examples.eclipsecon.library.Book}.
+     * It is bidirectional and its opposite is '{@link org.eclipse.gmf.examples.eclipsecon.library.Book#getAuthor <em>Author</em>}'.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Books</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Books</em>' reference list.
-	 * @see org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage#getAuthor_Books()
-	 * @see org.eclipse.gmf.examples.eclipsecon.library.Book#getAuthor
-	 * @model type="org.eclipse.gmf.examples.eclipsecon.library.Book" opposite="author"
-	 * @generated
-	 */
+     * @return the value of the '<em>Books</em>' reference list.
+     * @see org.eclipse.gmf.examples.eclipsecon.library.LibraryPackage#getAuthor_Books()
+     * @see org.eclipse.gmf.examples.eclipsecon.library.Book#getAuthor
+     * @model type="org.eclipse.gmf.examples.eclipsecon.library.Book" opposite="author"
+     * @generated
+     */
 	EList getBooks();
 
 } // Author
