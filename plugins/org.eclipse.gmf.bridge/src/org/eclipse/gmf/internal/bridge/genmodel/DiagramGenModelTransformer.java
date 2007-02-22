@@ -1185,11 +1185,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenMenuManager createFileMenu(List sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_FILE"); //$NON-NLS-1$
-		menu.setName("\"&File\""); //$NON-NLS-1$
+		menu.setName("&File"); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.FILE_START")); //$NON-NLS-1$
 		GenMenuManager newMenu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		newMenu.setID("\"new\""); //$NON-NLS-1$
-		newMenu.setName("\"&New\""); //$NON-NLS-1$
+		newMenu.setName("&New"); //$NON-NLS-1$
 		newMenu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
 		menu.getItems().add(newMenu);
 		menu.getItems().add(GMFGenFactory.eINSTANCE.createGenSeparator());
@@ -1210,7 +1210,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenMenuManager createEditMenu(List sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_EDIT"); //$NON-NLS-1$
-		menu.setName("\"&Edit\""); //$NON-NLS-1$
+		menu.setName("&Edit"); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.EDIT_START")); //$NON-NLS-1$
 		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("UNDO"))); //$NON-NLS-1$
 		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("REDO"))); //$NON-NLS-1$
@@ -1233,7 +1233,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenMenuManager createWindowMenu(List sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW"); //$NON-NLS-1$
-		menu.setName("\"&Window\""); //$NON-NLS-1$
+		menu.setName("&Window"); //$NON-NLS-1$
 		menu.getItems().add(createSharedItem(sharedItems, createActionFactoryItem("OPEN_NEW_WINDOW"))); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
 		// TODO : menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
@@ -1243,7 +1243,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenMenuManager createHelpMenu(List sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_HELP"); //$NON-NLS-1$
-		menu.setName("\"&Help\""); //$NON-NLS-1$
+		menu.setName("&Help"); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.HELP_START")); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.HELP_END")); //$NON-NLS-1$
 		menu.getItems().add(createGroupMarker("org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS")); //$NON-NLS-1$
