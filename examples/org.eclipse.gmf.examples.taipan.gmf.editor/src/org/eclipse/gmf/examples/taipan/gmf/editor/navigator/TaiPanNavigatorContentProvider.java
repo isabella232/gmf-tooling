@@ -35,6 +35,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -153,7 +154,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 		case AquatoryEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
-			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup("links", "icons/linksNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Aquatory_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);
@@ -172,8 +173,8 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 
 		case PortEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
-			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Port_2001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Port_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
@@ -195,7 +196,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 
 		case ShipEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Ship_2002_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), ShipSmallCargoEditPart.VISUAL_ID);
 			connectedViews = getChildrenByType(connectedViews, SmallItemsEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
@@ -215,8 +216,8 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 
 		case ShipDestinationEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
-			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_ShipDestination_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_ShipDestination_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);
@@ -232,8 +233,8 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 
 		case RouteEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
-			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
@@ -249,8 +250,8 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 
 		case Route2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
-			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4003_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
