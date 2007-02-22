@@ -687,10 +687,6 @@ public class CodegenEmitters {
 		return getQualifiedClassName("xpt::editor::URIDiagramDocumentProvider", input); //$NON-NLS-1$
 	}
 
-	public TextEmitter getURIDiagramDocumentProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::editor::URIDiagramDocumentProvider::URIDiagramDocumentProvider"); //$NON-NLS-1$
-	}
-
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
 		return retrieve(WizardNewFileCreationPageGenerator.class);
 	}

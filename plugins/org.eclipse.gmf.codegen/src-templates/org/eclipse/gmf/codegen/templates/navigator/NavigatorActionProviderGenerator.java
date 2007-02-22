@@ -46,14 +46,23 @@ public class NavigatorActionProviderGenerator
   protected final String TEXT_29 = " diagram = (";
   protected final String TEXT_30 = ") selectedElement;" + NL + "\t\t\t\t\tif (";
   protected final String TEXT_31 = ".MODEL_ID.equals(";
-  protected final String TEXT_32 = ".getModelID(diagram))) {" + NL + "\t\t\t\t\t\tmyDiagram = diagram;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tsetEnabled(myDiagram != null);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void run() {" + NL + "\t\t\tif (myDiagram == null) {" + NL + "\t\t\t\treturn;" + NL + "\t\t\t}" + NL + "\t\t\t";
-  protected final String TEXT_33 = " editorInput = new ";
-  protected final String TEXT_34 = "(myDiagram);" + NL + "\t\t\t";
-  protected final String TEXT_35 = " page = myViewerSite.getPage();" + NL + "\t\t \ttry {" + NL + "\t\t\t\tpage.openEditor(editorInput, ";
-  protected final String TEXT_36 = ".ID);" + NL + "\t\t\t} catch (";
-  protected final String TEXT_37 = " e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_38 = ".getInstance().logError(\"Exception while openning diagram\", e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_39 = NL;
+  protected final String TEXT_32 = ".getModelID(diagram))) {" + NL + "\t\t\t\t\t\tmyDiagram = diagram;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tsetEnabled(myDiagram != null);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void run() {" + NL + "\t\t\tif (myDiagram == null || myDiagram.eResource() == null) {" + NL + "\t\t\t\treturn;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\t";
+  protected final String TEXT_33 = " editorInput = getEditorInput();" + NL + "\t\t\t";
+  protected final String TEXT_34 = " page = myViewerSite.getPage();" + NL + "\t\t \ttry {" + NL + "\t\t\t\tpage.openEditor(editorInput, ";
+  protected final String TEXT_35 = ".ID);" + NL + "\t\t\t} catch (";
+  protected final String TEXT_36 = " e) {" + NL + "\t\t\t\t";
+  protected final String TEXT_37 = ".getInstance().logError(\"Exception while openning diagram\", e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
+  protected final String TEXT_38 = " getEditorInput() {" + NL + "\t\t\t";
+  protected final String TEXT_39 = " diagramResource = myDiagram.eResource();";
+  protected final String TEXT_40 = NL + "\t\t\tfor (";
+  protected final String TEXT_41 = " it = diagramResource.getContents().iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
+  protected final String TEXT_42 = " nextEObject = (";
+  protected final String TEXT_43 = ") it.next();" + NL + "\t\t\t\tif (nextEObject == myDiagram) {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_44 = "(";
+  protected final String TEXT_45 = ".getFile(diagramResource));" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (nextEObject instanceof Diagram) {" + NL + "\t\t\t\t\tbreak;" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
+  protected final String TEXT_46 = NL + "\t\t\treturn new ";
+  protected final String TEXT_47 = "(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_48 = NL;
 
   public String generate(Object argument)
   {
@@ -144,20 +153,38 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_31);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput"));
-    stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IWorkbenchPage"));
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName()));
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_35);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_36);
     stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_38);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
     stringBuffer.append(TEXT_39);
+    if (genDiagram.getEditorGen().getApplication() == null) {
+    stringBuffer.append(TEXT_40);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_41);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_42);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_43);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.part.FileEditorInput"));
+    stringBuffer.append(TEXT_44);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer"));
+    stringBuffer.append(TEXT_45);
+    }
+    stringBuffer.append(TEXT_46);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
+    stringBuffer.append(TEXT_47);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_48);
     return stringBuffer.toString();
   }
 }

@@ -129,16 +129,36 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 		 * @generated
 		 */
 		public void run() {
-			if (myDiagram == null) {
+			if (myDiagram == null || myDiagram.eResource() == null) {
 				return;
 			}
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%>(myDiagram);
+			
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput = getEditorInput();
 			<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = myViewerSite.getPage();
 		 	try {
 				page.openEditor(editorInput, <%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
 				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exception while openning diagram", e);
 			}
+		}
+		
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> getEditorInput() {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = myDiagram.eResource();
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
+			for (<%=importManager.getImportedName("java.util.Iterator")%> it = diagramResource.getContents().iterator(); it.hasNext();) {
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextEObject = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
+				if (nextEObject == myDiagram) {
+					return new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagramResource));
+				}
+				if (nextEObject instanceof Diagram) {
+					break;
+				}
+			}
+<%}%>
+			return new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(diagramResource.getURI().appendFragment(diagramResource.getURIFragment(myDiagram)));
 		}
 		
 	}

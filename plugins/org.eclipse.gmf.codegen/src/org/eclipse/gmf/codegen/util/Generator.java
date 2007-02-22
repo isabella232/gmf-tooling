@@ -189,10 +189,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCreationWizard();
 		generateCreationWizardPage();
 		generateEditor();
-		generateURIDiagramDocumentProvider();
+		generateDocumentProvider();
 		generateLoadResourceAction();
 		if (myDiagram.getEditorGen().getApplication() == null) {
-			generateDocumentProvider();
 			generateCreateShortcutAction();
 			generateCreateShortcutDecorationCommand();
 			generateElementChooser();
@@ -1073,10 +1072,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateWorkbenchWindowAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getWorkbenchWindowAdvisorEmitter(), application.getWorkbenchWindowAdvisorQualifiedClassName(), application);
-	}
-
-	private void generateURIDiagramDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getURIDiagramDocumentProviderEmitter(), myEmitters.getURIDiagramDocumentProviderName(myDiagram), myDiagram.getEditorGen().getEditor());
 	}
 
 	private void generateWizardNewFileCreationPage(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
