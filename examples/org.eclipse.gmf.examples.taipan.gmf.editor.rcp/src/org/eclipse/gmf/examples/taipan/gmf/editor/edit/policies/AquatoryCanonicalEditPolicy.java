@@ -303,7 +303,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 						structuralFeatureResult = ((Route) nextValue).getSource();
 						if (structuralFeatureResult instanceof EObject) {
 							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.Route_4002, linkVID));
 						}
 					}
 				}
@@ -326,7 +326,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 						structuralFeatureResult = ((Route) nextValue).getSource();
 						if (structuralFeatureResult instanceof EObject) {
 							EObject src = (EObject) structuralFeatureResult;
-							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.Route_4003, linkVID));
 						}
 					}
 				}
@@ -387,10 +387,19 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, int linkVID) {
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
 			this(source, destination, linkVID);
 			myLinkElement = linkElement;
-			mySemanticAdapter = new EObjectAdapter(linkElement);
+			final IElementType elementTypeCopy = elementType;
+			mySemanticAdapter = new EObjectAdapter(linkElement) {
+
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return super.getAdapter(adapter);
+				}
+			};
 		}
 
 		/**
