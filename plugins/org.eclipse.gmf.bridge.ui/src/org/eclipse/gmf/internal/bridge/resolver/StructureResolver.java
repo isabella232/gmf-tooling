@@ -111,9 +111,8 @@ public class StructureResolver {
 
 	protected EAttribute[] getLabels(EClass type) {
 		List<EAttribute> attrs = new ArrayList<EAttribute>();
-		for (Iterator it = type.getEAllAttributes().iterator(); it.hasNext();) {
-			EAttribute attr = (EAttribute) it.next();
-			attrs.add(attr);
+		for (Iterator<EAttribute> it = type.getEAllAttributes().iterator(); it.hasNext();) {
+			attrs.add(it.next());
 		}
 		return attrs.toArray(new EAttribute[attrs.size()]);
 	}
@@ -125,8 +124,8 @@ public class StructureResolver {
 	 */
 	protected EReference[] getEAllPotentialRefs(EClass type, boolean forLink) {
 		List<EReference> refs = new ArrayList<EReference>();
-		for (Iterator it = type.getEAllReferences().iterator(); it.hasNext();) {
-			EReference ref = (EReference) it.next();
+		for (Iterator<EReference> it = type.getEAllReferences().iterator(); it.hasNext();) {
+			EReference ref = it.next();
 			EClass refType = ref.getEReferenceType();
 			if (forLink && (refType.isSuperTypeOf(type) || ref.isMany())) {
 				continue;
@@ -144,8 +143,8 @@ public class StructureResolver {
 	 */
 	protected EReference[] getContainments(EClass type, EPackage scope) {
 		List<EReference> refs = new ArrayList<EReference>();
-		for (Iterator it = scope.eAllContents(); it.hasNext();) {
-			EObject element = (EObject) it.next();
+		for (Iterator<EObject> it = scope.eAllContents(); it.hasNext();) {
+			EObject element = it.next();
 			if (element instanceof EReference) {
 				EReference ref = (EReference) element;
 				if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(type) && ref.getEContainingClass() != type) {

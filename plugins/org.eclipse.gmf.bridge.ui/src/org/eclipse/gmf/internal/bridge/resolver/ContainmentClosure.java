@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -58,21 +59,21 @@ public class ContainmentClosure {
 		Set<EClass> roots = new HashSet<EClass>(); // types that should be investigated
 		roots.add(type);
 		while (!roots.isEmpty()) {
-			Set localRoots = roots;
+			Set<EClass> localRoots = roots;
 			roots = new HashSet<EClass>();
-			for (Iterator it = localRoots.iterator(); it.hasNext();) {
-				EClass root = (EClass) it.next();
-				for (Iterator it1 = root.getEAllContainments().iterator(); it1.hasNext();) {
-					EClass refType = ((EReference) it1.next()).getEReferenceType();
+			for (Iterator<EClass> it = localRoots.iterator(); it.hasNext();) {
+				EClass root = it.next();
+				for (Iterator<EReference> it1 = root.getEAllContainments().iterator(); it1.hasNext();) {
+					EClass refType = it1.next().getEReferenceType();
 					if (closure.contains(refType)) {
 						continue; // do not traverse loops
 					}
 					closure.add(refType);
 					roots.add(refType);
-					Collection subtypes = getSubtypes(refType, scope);
+					Collection<EClass> subtypes = getSubtypes(refType, scope);
 					if (subtypes != null) {
-						for (Iterator it2 = subtypes.iterator(); it2.hasNext();) {
-							EClass subtype = (EClass) it2.next();
+						for (Iterator<EClass> it2 = subtypes.iterator(); it2.hasNext();) {
+							EClass subtype = it2.next();
 							if (closure.contains(subtype)) {
 								continue; // do not traverse loops
 							}
@@ -88,8 +89,8 @@ public class ContainmentClosure {
 
 	private static Collection<EClass> getSubtypes(EClass type, EPackage scope) {
 		Collection<EClass> subtypes = null;
-		for (Iterator it = scope.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = scope.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof EClass) {
 				EClass nextType = (EClass) next;
 				if (type != nextType && type.isSuperTypeOf(nextType)) {

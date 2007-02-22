@@ -38,8 +38,8 @@ public class Vocabulary {
 
 	public boolean containsWords(String s) {
 		s = s.toLowerCase();
-		for (Iterator it = words.iterator(); it.hasNext();) {
-			String word = (String) it.next();
+		for (Iterator<String> it = words.iterator(); it.hasNext();) {
+			String word = it.next();
 			if (s.indexOf(word) >= 0) {
 				return true;
 			}
