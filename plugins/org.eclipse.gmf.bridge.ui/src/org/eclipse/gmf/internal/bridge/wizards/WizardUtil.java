@@ -93,6 +93,10 @@ public class WizardUtil {
 		return getCapped(type.getName()) + getCapped(feature.getName());
 	}
 
+	public static String getCapName(EStructuralFeature feature, EClass containingClass) {
+		return getCapped(containingClass.getName()) + getCapped(feature.getName());
+	}
+
 	@SuppressWarnings("unchecked")
 	public static void saveModel(IWizardContainer container, final Resource resource) throws Exception {
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {

@@ -143,12 +143,14 @@ public class GraphDefBuilder {
 			} else if (item.getDomainRef() instanceof EReference) {
 				EReference ref = (EReference) item.getDomainRef();
 				if (item.getResolution() == Resolution.LINK) {
-					newParent = createLink(ref);
+					EClass containingClass = (EClass) item.getParent().getDomainRef();
+					newParent = createLink(ref, containingClass);
 				}
 			} else if (item.getDomainRef() instanceof EAttribute) {
 				EAttribute attr = (EAttribute) item.getDomainRef();
 				if (item.getResolution() == Resolution.LABEL) {
-					newParent = createLabel(attr, parent);
+					EClass containingClass = (EClass) item.getParent().getDomainRef();
+					newParent = createLabel(attr, containingClass, parent);
 				}
 			}
 		}
@@ -184,8 +186,8 @@ public class GraphDefBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Connection createLink(EReference ref) {
-		String baseName = WizardUtil.getCapName(ref);
+	protected Connection createLink(EReference ref, EClass containingClass) {
+		String baseName = WizardUtil.getCapName(ref, containingClass);
 		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 		DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
@@ -201,11 +203,11 @@ public class GraphDefBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected DiagramLabel createLabel(EAttribute attr, DiagramElement parent) {
+	protected DiagramLabel createLabel(EAttribute attr, EClass containingClass, DiagramElement parent) {
 		if (parent == null) {
 			return null; // makes no sense to define label without parent
 		}
-		String baseName = WizardUtil.getCapName(attr);
+		String baseName = WizardUtil.getCapName(attr, containingClass);
 		Label figure = gmfGraphFactory.createLabel();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 		figure.setText(Messages.GraphDefBuilder5);
