@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -34,6 +33,8 @@ import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -50,12 +51,11 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
+import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
@@ -67,8 +67,9 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 * @generated
 	 */
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
-		if (false == element instanceof FileEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		IEditorInput editorInput = (IEditorInput) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
@@ -85,11 +86,12 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 * @generated
 	 */
 	protected IDocument createDocument(Object element) throws CoreException {
-		if (false == element instanceof FileEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		IDocument document = createEmptyDocument();
-		setDocumentContent(document, (FileEditorInput) element);
+		setDocumentContent(document, (IEditorInput) element);
 		setupDocument(element, document);
 		return document;
 	}
@@ -177,25 +179,64 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 * @generated
 	 */
 	protected void setDocumentContent(IDocument document, IEditorInput element) throws CoreException {
-		if (false == element instanceof FileEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		IStorage storage = ((FileEditorInput) element).getStorage();
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
-		//	org.eclipse.gmf.runtime.notation.Diagram diagram = diagramDocument.getDiagram();
-
-		//	org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		//	diagram = org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-		//	if (myContentObjectURI != null && diagram != null && diagram.eResource() != null && !diagram.eResource().getURIFragment(diagram).equals(myContentObjectURI)) {
-		//		org.eclipse.emf.ecore.EObject anotherContentObject = diagram.eResource().getEObject(myContentObjectURI);
-		//		document.setContent(anotherContentObject);
-		//	} else {
-		//		document.setContent(diagram);
-		//	}
-
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-		document.setContent(diagram);
+		if (element instanceof FileEditorInput) {
+			IStorage storage = ((FileEditorInput) element).getStorage();
+			Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
+			document.setContent(diagram);
+		} else if (element instanceof URIEditorInput) {
+			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			Resource resource = null;
+			try {
+				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
+				if (resource == null) {
+					resource = domain.getResourceSet().createResource(uri.trimFragment());
+				}
+				if (!resource.isLoaded()) {
+					try {
+						Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
+						// @see 171060 
+						// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+						resource.load(options);
+					} catch (IOException e) {
+						resource.unload();
+						throw e;
+					}
+				}
+				if (resource == null) {
+					throw new RuntimeException("Unable to load diagram resource");
+				}
+				if (uri.fragment() != null) {
+					EObject rootElement = resource.getEObject(uri.fragment());
+					if (rootElement instanceof Diagram) {
+						document.setContent((Diagram) rootElement);
+						return;
+					}
+				} else {
+					for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
+						Object rootElement = it.next();
+						if (rootElement instanceof Diagram) {
+							document.setContent((Diagram) rootElement);
+							return;
+						}
+					}
+				}
+				throw new RuntimeException("Diagram is not present in resource");
+			} catch (Exception e) {
+				CoreException thrownExcp = null;
+				if (e instanceof CoreException) {
+					thrownExcp = (CoreException) e;
+				} else {
+					String msg = e.getLocalizedMessage();
+					thrownExcp = new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+				}
+				throw thrownExcp;
+			}
+		} else {
+			throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 	}
 
 	/**
@@ -213,13 +254,13 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 * @generated
 	 */
 	public boolean isDeleted(Object element) {
-		if (element instanceof IFileEditorInput) {
-			IFileEditorInput input = (IFileEditorInput) element;
-			IPath path = input.getFile().getLocation();
-			if (path == null) {
-				return true;
+		IDiagramDocument document = getDiagramDocument(element);
+		if (document != null) {
+			Resource diagramResource = document.getDiagram().eResource();
+			if (diagramResource != null) {
+				IFile file = WorkspaceSynchronizer.getFile(diagramResource);
+				return file == null || file.getLocation() == null || !file.getLocation().toFile().exists();
 			}
-			return !path.toFile().exists();
 		}
 		return super.isDeleted(element);
 	}
@@ -270,7 +311,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		if (info != null) {
 			if (info.isUpdateCache()) {
 				try {
-					updateCache((IStorageEditorInput) element);
+					updateCache(element);
 				} catch (CoreException ex) {
 					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
 				}
@@ -285,7 +326,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 */
 	public boolean isModifiable(Object element) {
 		if (!isStateValidated(element)) {
-			if (element instanceof FileEditorInput) {
+			if (element instanceof FileEditorInput || element instanceof URIEditorInput) {
 				return true;
 			}
 		}
@@ -293,7 +334,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		if (info != null) {
 			if (info.isUpdateCache()) {
 				try {
-					updateCache((IStorageEditorInput) element);
+					updateCache(element);
 				} catch (CoreException ex) {
 					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
 				}
@@ -306,8 +347,8 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	/**
 	 * @generated
 	 */
-	protected void updateCache(IStorageEditorInput input) throws CoreException {
-		ResourceSetInfo info = getResourceSetInfo(input);
+	protected void updateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
@@ -531,8 +572,13 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 	 * @generated
 	 */
 	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
-		IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
-		fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
+		if (input instanceof FileEditorInput) {
+			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
+			fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
+			return;
+		}
+		// TODO: append suffix to the URI! (use diagram as a parameter)
+		fireElementMoved(input, new URIEditorInput(uri));
 	}
 
 	/**

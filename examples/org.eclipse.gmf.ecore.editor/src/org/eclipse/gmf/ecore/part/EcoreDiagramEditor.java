@@ -132,8 +132,8 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 	 * @generated
 	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
-		if (input instanceof URIEditorInput) {
-			return new URIDiagramDocumentProvider();
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
+			return EcoreDiagramEditorPlugin.getInstance().getDocumentProvider();
 		}
 		return super.getDocumentProvider(input);
 	}
@@ -153,10 +153,8 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof IFileEditorInput) {
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
 			setDocumentProvider(EcoreDiagramEditorPlugin.getInstance().getDocumentProvider());
-		} else if (input instanceof URIEditorInput) {
-			setDocumentProvider(new URIDiagramDocumentProvider());
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
 		}
