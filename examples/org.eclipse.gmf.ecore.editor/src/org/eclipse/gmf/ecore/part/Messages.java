@@ -32,6 +32,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
+	public static String DocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_handleElementContentChanged;
+
+	/**
+	 * @generated
+	 */
 	public static String Nodes1Group_title;
 
 	/**

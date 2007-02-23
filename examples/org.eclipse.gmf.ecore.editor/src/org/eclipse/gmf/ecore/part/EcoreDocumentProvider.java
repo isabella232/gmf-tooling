@@ -48,7 +48,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocum
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
@@ -313,7 +312,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+					EcoreDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
 				}
 			}
 			return info.isReadOnly();
@@ -336,7 +335,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+					EcoreDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
 				}
 			}
 			return info.isModifiable();
@@ -548,7 +547,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 			try {
 				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (CoreException ex) {
-				EcoreDiagramEditorPlugin.getInstance().logError(EditorMessages.FileDocumentProvider_handleElementContentChanged, ex);
+				EcoreDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_handleElementContentChanged, ex);
 			}
 		}
 		changedResource.unload();
