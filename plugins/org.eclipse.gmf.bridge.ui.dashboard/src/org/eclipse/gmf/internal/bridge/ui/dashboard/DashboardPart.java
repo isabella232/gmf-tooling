@@ -11,14 +11,15 @@
  */
 package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.jface.action.Action;
@@ -35,6 +36,8 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 
 /**
  * @author dstadnik
@@ -44,6 +47,8 @@ public class DashboardPart extends ViewPart {
 	private static final String ACTIVE_PROJECT_KEY = "activeProject"; //$NON-NLS-1$
 
 	private static final String SYNC_SELECTION_KEY = "syncSelection"; //$NON-NLS-1$
+
+	private static final String PREF_KEY = "gmf_dashboard"; //$NON-NLS-1$
 
 	private FigureCanvas canvas;
 
@@ -56,18 +61,13 @@ public class DashboardPart extends ViewPart {
 	 */
 	private IProject activeProject;
 
-	private Map<IProject, DashboardState> states;
-
 	private String dashboardInitialProjectName;
 
 	private boolean syncSelection = true;
 
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
-		if (memento == null) {
-			states = new HashMap<IProject, DashboardState>();
-		} else {
-			states = DashboardPersistence.read(memento);
+		if (memento != null) {
 			dashboardInitialProjectName = memento.getString(ACTIVE_PROJECT_KEY);
 			String syncSelectionValue = memento.getString(SYNC_SELECTION_KEY);
 			if (syncSelectionValue != null) {
@@ -112,7 +112,7 @@ public class DashboardPart extends ViewPart {
 		if (mediator.getProject() == null && dashboardInitialProjectName != null) {
 			IProject dashboardProject = ResourcesPlugin.getWorkspace().getRoot().getProject(dashboardInitialProjectName);
 			if (dashboardProject.exists()) {
-				mediator.setProjectAndState(dashboardProject, states.get(dashboardProject));
+				updateDashboardProject(dashboardProject);
 			}
 		}
 		Plugin.getDefault().getDashboardActionRegistry().registerMediator(mediator);
@@ -121,13 +121,11 @@ public class DashboardPart extends ViewPart {
 	public void saveState(IMemento memento) {
 		super.saveState(memento);
 		if (mediator != null && mediator.getProject() != null) {
-			states.put(mediator.getProject(), mediator.getState());
 			memento.putString(ACTIVE_PROJECT_KEY, mediator.getProject().getName());
 			if (!syncSelection) {
 				memento.putString(SYNC_SELECTION_KEY, String.valueOf(syncSelection));
 			}
 		}
-		DashboardPersistence.write(memento, states);
 	}
 
 	public void dispose() {
@@ -185,9 +183,36 @@ public class DashboardPart extends ViewPart {
 	}
 
 	protected void updateDashboardProject(IProject project) {
-		if (mediator.getProject() != null) {
-			states.put(mediator.getProject(), mediator.getState());
+		mediator.setProjectAndState(project, new DashboardState(getPreferences(project)));
+	}
+
+	private Preferences getPreferences(IProject project) {
+		Preferences node = getExistingPreferences(project);
+		if (node != null) {
+			return node;
 		}
-		mediator.setProjectAndState(project, states.get(project));
+		return new ProjectScope(project).getNode(Plugin.getPluginID()).node(PREF_KEY);
+	}
+
+	private Preferences getExistingPreferences(IProject project) {
+		Preferences node = Platform.getPreferencesService().getRootNode().node(ProjectScope.SCOPE);
+		try {
+			if (!node.nodeExists(project.getName())) {
+				return null;
+			}
+			node = node.node(project.getName());
+			if (!node.nodeExists(Plugin.getPluginID())) {
+				return null;
+			}
+			node = node.node(Plugin.getPluginID());
+			if (!node.nodeExists(PREF_KEY)) {
+				return null;
+			}
+			return node.node(PREF_KEY);
+		} catch (BackingStoreException e) {
+			IStatus status = Plugin.createError("Unable to read state", e);
+			Plugin.getDefault().getLog().log(status);
+		}
+		return null;
 	}
 }

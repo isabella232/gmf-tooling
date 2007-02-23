@@ -12,8 +12,11 @@
 package org.eclipse.gmf.bridge.ui.dashboard;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.ui.IMemento;
+import org.eclipse.gmf.internal.bridge.ui.dashboard.Plugin;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 
 /**
  * EXPERIMENTAL
@@ -46,13 +49,19 @@ public final class DashboardState {
 
 	private URI gm;
 
+	private Preferences prefs;
+
 	public DashboardState() {
 	}
 
-	public DashboardState(IMemento memento) {
-		if (memento != null) {
-			read(memento);
-		}
+	public DashboardState(Preferences prefs) {
+		this.prefs = prefs;
+		dm = read(DM_KEY);
+		dgm = read(DGM_KEY);
+		gdm = read(GDM_KEY);
+		tdm = read(TDM_KEY);
+		mm = read(MM_KEY);
+		gm = read(GM_KEY);
 	}
 
 	public URI getDM() {
@@ -81,50 +90,62 @@ public final class DashboardState {
 
 	public void setDM(URI uri) {
 		dm = uri;
+		write(DM_KEY, dm);
 	}
 
 	public void setDGM(URI uri) {
 		dgm = uri;
+		write(DGM_KEY, dgm);
 	}
 
 	public void setGDM(URI uri) {
 		gdm = uri;
+		write(GDM_KEY, gdm);
 	}
 
 	public void setTDM(URI uri) {
 		tdm = uri;
+		write(TDM_KEY, tdm);
 	}
 
 	public void setMM(URI uri) {
 		mm = uri;
+		write(MM_KEY, mm);
 	}
 
 	public void setGM(URI uri) {
 		gm = uri;
+		write(GM_KEY, gm);
 	}
 
 	public void setDM(IFile file) {
 		dm = getURI(file);
+		write(DM_KEY, dm);
 	}
 
 	public void setDGM(IFile file) {
 		dgm = getURI(file);
+		write(DGM_KEY, dgm);
 	}
 
 	public void setGDM(IFile file) {
 		gdm = getURI(file);
+		write(GDM_KEY, gdm);
 	}
 
 	public void setTDM(IFile file) {
 		tdm = getURI(file);
+		write(TDM_KEY, tdm);
 	}
 
 	public void setMM(IFile file) {
 		mm = getURI(file);
+		write(MM_KEY, mm);
 	}
 
 	public void setGM(IFile file) {
 		gm = getURI(file);
+		write(GM_KEY, gm);
 	}
 
 	private static URI getURI(IFile file) {
@@ -161,41 +182,34 @@ public final class DashboardState {
 		return count;
 	}
 
-	private void read(IMemento memento) {
-		dm = read(memento, DM_KEY);
-		dgm = read(memento, DGM_KEY);
-		gdm = read(memento, GDM_KEY);
-		tdm = read(memento, TDM_KEY);
-		mm = read(memento, MM_KEY);
-		gm = read(memento, GM_KEY);
-	}
-
-	private static URI read(IMemento memento, String key) {
-		String s = memento.getString(key);
+	private URI read(String key) {
+		if (prefs == null) {
+			return null;
+		}
+		String s = prefs.get(key, null);
 		if (s == null) {
 			return null;
 		}
 		try {
 			return URI.createURI(s);
 		} catch (IllegalArgumentException e) {
+			IStatus status = Plugin.createError("Invalid URI", e);
+			Plugin.getDefault().getLog().log(status);
 		}
 		return null;
 	}
 
-	public void write(IMemento memento) {
-		write(memento, DM_KEY, dm);
-		write(memento, DGM_KEY, dgm);
-		write(memento, GDM_KEY, gdm);
-		write(memento, TDM_KEY, tdm);
-		write(memento, MM_KEY, mm);
-		write(memento, GM_KEY, gm);
-	}
-
-	private static void write(IMemento memento, String key, URI uri) {
+	private void write(String key, URI uri) {
 		String s = null;
 		if (uri != null) {
 			s = uri.toString();
 		}
-		memento.putString(key, s);
+		prefs.put(key, s);
+		try {
+			prefs.flush();
+		} catch (BackingStoreException e) {
+			IStatus status = Plugin.createError("Unable to update state", e);
+			Plugin.getDefault().getLog().log(status);
+		}
 	}
 }
