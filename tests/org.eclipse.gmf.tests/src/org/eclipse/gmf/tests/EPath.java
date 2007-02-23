@@ -54,7 +54,7 @@ public class EPath {
 					Object nextEntry = ((Map.Entry)it.next()).getValue();
 					if (nextEntry instanceof EPackage) {
 						EPackage ePackage = (EPackage) nextEntry;
-						if(elementName.equals(ePackage.getName())) {
+						if(ePackage.getESuperPackage() == null && elementName.equals(ePackage.getName())) {
 							return ePackage;
 						}
 					}
