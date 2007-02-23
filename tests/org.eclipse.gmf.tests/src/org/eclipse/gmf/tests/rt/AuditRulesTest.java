@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.rt;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.model.IConstraintStatus;
@@ -206,7 +208,16 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 				ResourceSet rset = new ResourceSetImpl();
 				Resource r = rset.createResource(URI.createURI("xttp://myresource"));
 				r.getContents().add(diagram);
-				TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rset);
+				TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rset);
+				((AdapterFactoryEditingDomain) domain).setResourceToReadOnlyMap(new HashMap<Resource, Boolean>() {
+					@Override
+					public Boolean get(Object key) {
+						if (key instanceof Resource && "xttp".equals(((Resource) key).getURI().scheme())) {
+							return Boolean.FALSE;
+						}
+						return super.get(key);
+					}
+				});
 			}
 			
 			final IModelConstraint[] constraintFound = new IModelConstraint[1];

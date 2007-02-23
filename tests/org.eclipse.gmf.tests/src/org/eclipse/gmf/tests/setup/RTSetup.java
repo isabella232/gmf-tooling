@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.setup;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -189,6 +191,15 @@ public class RTSetup implements RTSource {
 	private void saveDiagramFile(String editingDomainId){
         TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();
         ted.setID(editingDomainId);
+        ((AdapterFactoryEditingDomain) ted).setResourceToReadOnlyMap(new HashMap<Resource, Boolean>() {
+        	@Override
+        	public Boolean get(Object key) {
+        		if (key instanceof Resource && "uri".equals(((Resource) key).getURI().scheme())) {
+        			return Boolean.FALSE;
+        		}
+        		return super.get(key);
+        	}
+        });
 		ResourceSet rs = ted.getResourceSet();
 		URI uri = URI.createURI("uri://fake/z"); //$NON-NLS-1$
 		Resource r = rs.getResource(uri, false);

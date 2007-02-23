@@ -29,7 +29,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
@@ -361,6 +363,8 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 	private Diagram reloadInSeparateResoruceSet(Diagram diagram) {
 		TransactionalEditingDomain editingDoman = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		editingDoman.setID(getSetup().getGenModel().getGenDiagram().getEditingDomainID());
+		AdapterFactoryEditingDomain oldEditingDomain = (AdapterFactoryEditingDomain) TransactionUtil.getEditingDomain(diagram);
+		((AdapterFactoryEditingDomain) editingDoman).setResourceToReadOnlyMap(oldEditingDomain.getResourceToReadOnlyMap());
 		ResourceSet resourceSet = editingDoman.getResourceSet();
 		Resource newDiagramResource = resourceSet.getResource(diagram.eResource().getURI(), true);
 		EObject newDiagram = newDiagramResource.getEObject(diagram.eResource().getURIFragment(diagram));
