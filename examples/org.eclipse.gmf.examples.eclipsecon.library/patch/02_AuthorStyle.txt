@@ -1,0 +1,1262 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.gmf.examples.eclipsecon.library.notation
+Index: META-INF/MANIFEST.MF
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.notation/META-INF/MANIFEST.MF,v
+retrieving revision 1.1
+diff -u -r1.1 MANIFEST.MF
+--- META-INF/MANIFEST.MF	20 Feb 2007 02:04:09 -0000	1.1
++++ META-INF/MANIFEST.MF	20 Feb 2007 14:29:23 -0000
+@@ -1,7 +1,13 @@
+ Manifest-Version: 1.0
+ Bundle-ManifestVersion: 2
+ Bundle-Name: %pluginName
+-Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.library.notation
++Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.library.notation; singleton:=true
+ Bundle-Version: 1.0.0
+ Bundle-Vendor: %providerName
+ Bundle-Localization: plugin
++Export-Package: org.eclipse.gmf.examples.eclipsecon.library.notation,
++ org.eclipse.gmf.examples.eclipsecon.library.notation.impl,
++ org.eclipse.gmf.examples.eclipsecon.library.notation.util
++Require-Bundle: org.eclipse.core.runtime,
++ org.eclipse.emf.ecore;visibility:=reexport,
++ org.eclipse.gmf.runtime.notation;visibility:=reexport
+Index: plugin.properties
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.notation/plugin.properties,v
+retrieving revision 1.1
+diff -u -r1.1 plugin.properties
+--- plugin.properties	20 Feb 2007 02:04:09 -0000	1.1
++++ plugin.properties	20 Feb 2007 14:29:23 -0000
+@@ -1,2 +1,19 @@
+-pluginName=EclipseCon 2007 Library Example
+-providerName=IBM Rational Software
+\ No newline at end of file
++# <copyright>
++# </copyright>
++#
++# $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++
++# ====================================================================
++# To code developer:
++#   Do NOT change the properties between this line and the
++#   "%%% END OF TRANSLATED PROPERTIES %%%" line.
++#   Make a new property name, append to the end of the file and change
++#   the code to use the new property.
++# ====================================================================
++
++# ====================================================================
++# %%% END OF TRANSLATED PROPERTIES %%%
++# ====================================================================
++
++pluginName = LibraryNotation Model
++providerName = www.example.org
+Index: build.properties
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.notation/build.properties,v
+retrieving revision 1.1
+diff -u -r1.1 build.properties
+--- build.properties	20 Feb 2007 02:04:09 -0000	1.1
++++ build.properties	20 Feb 2007 14:29:23 -0000
+@@ -1,5 +1,13 @@
+-source.. = src/
+-output.. = bin/
+-bin.includes = META-INF/,\
+-               .,\
++# <copyright>
++# </copyright>
++#
++# $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++
++bin.includes = .,\
++               model/,\
++               META-INF/,\
++               plugin.xml,\
+                plugin.properties
++jars.compile.order = .
++source.. = src/
++output.. = bin/
+\ No newline at end of file
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/AuthorStyleImpl.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/AuthorStyleImpl.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/AuthorStyleImpl.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/AuthorStyleImpl.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,161 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation.impl;
++
++import org.eclipse.emf.common.notify.Notification;
++
++import org.eclipse.emf.ecore.EClass;
++
++import org.eclipse.emf.ecore.impl.ENotificationImpl;
++import org.eclipse.emf.ecore.impl.EObjectImpl;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle;
++import org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage;
++
++/**
++ * <!-- begin-user-doc -->
++ * An implementation of the model object '<em><b>Author Style</b></em>'.
++ * <!-- end-user-doc -->
++ * <p>
++ * The following features are implemented:
++ * <ul>
++ *   <li>{@link org.eclipse.gmf.examples.eclipsecon.library.notation.impl.AuthorStyleImpl#isShowAuthorBooksCount <em>Show Author Books Count</em>}</li>
++ * </ul>
++ * </p>
++ *
++ * @generated
++ */
++public class AuthorStyleImpl extends EObjectImpl implements AuthorStyle {
++	/**
++	 * The default value of the '{@link #isShowAuthorBooksCount() <em>Show Author Books Count</em>}' attribute.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @see #isShowAuthorBooksCount()
++	 * @generated
++	 * @ordered
++	 */
++	protected static final boolean SHOW_AUTHOR_BOOKS_COUNT_EDEFAULT = false;
++
++	/**
++	 * The cached value of the '{@link #isShowAuthorBooksCount() <em>Show Author Books Count</em>}' attribute.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @see #isShowAuthorBooksCount()
++	 * @generated
++	 * @ordered
++	 */
++	protected boolean showAuthorBooksCount = SHOW_AUTHOR_BOOKS_COUNT_EDEFAULT;
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	protected AuthorStyleImpl() {
++		super();
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	protected EClass eStaticClass() {
++		return NotationPackage.Literals.AUTHOR_STYLE;
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public boolean isShowAuthorBooksCount() {
++		return showAuthorBooksCount;
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public void setShowAuthorBooksCount(boolean newShowAuthorBooksCount) {
++		boolean oldShowAuthorBooksCount = showAuthorBooksCount;
++		showAuthorBooksCount = newShowAuthorBooksCount;
++		if (eNotificationRequired())
++			eNotify(new ENotificationImpl(this, Notification.SET, NotationPackage.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT, oldShowAuthorBooksCount, showAuthorBooksCount));
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public Object eGet(int featureID, boolean resolve, boolean coreType) {
++		switch (featureID) {
++			case NotationPackage.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT:
++				return isShowAuthorBooksCount() ? Boolean.TRUE : Boolean.FALSE;
++		}
++		return super.eGet(featureID, resolve, coreType);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public void eSet(int featureID, Object newValue) {
++		switch (featureID) {
++			case NotationPackage.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT:
++				setShowAuthorBooksCount(((Boolean)newValue).booleanValue());
++				return;
++		}
++		super.eSet(featureID, newValue);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public void eUnset(int featureID) {
++		switch (featureID) {
++			case NotationPackage.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT:
++				setShowAuthorBooksCount(SHOW_AUTHOR_BOOKS_COUNT_EDEFAULT);
++				return;
++		}
++		super.eUnset(featureID);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public boolean eIsSet(int featureID) {
++		switch (featureID) {
++			case NotationPackage.AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT:
++				return showAuthorBooksCount != SHOW_AUTHOR_BOOKS_COUNT_EDEFAULT;
++		}
++		return super.eIsSet(featureID);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public String toString() {
++		if (eIsProxy()) return super.toString();
++
++		StringBuffer result = new StringBuffer(super.toString());
++		result.append(" (showAuthorBooksCount: ");
++		result.append(showAuthorBooksCount);
++		result.append(')');
++		return result.toString();
++	}
++
++} //AuthorStyleImpl
+Index: model/notation.ecore
+===================================================================
+RCS file: model/notation.ecore
+diff -N model/notation.ecore
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ model/notation.ecore	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ecore:EPackage xmi:version="2.0"
++    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="notation"
++    nsURI="http:///org/eclipse/gmf/examples/eclipsecon/library/notation.ecore" nsPrefix="org.eclipse.gmf.examples.eclipsecon.library.notation">
++  <eClassifiers xsi:type="ecore:EClass" name="AuthorStyle" eSuperTypes="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Style">
++    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showAuthorBooksCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
++  </eClassifiers>
++</ecore:EPackage>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationSwitch.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationSwitch.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationSwitch.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationSwitch.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,148 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation.util;
++
++import java.util.List;
++
++import org.eclipse.emf.ecore.EClass;
++import org.eclipse.emf.ecore.EObject;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.*;
++
++import org.eclipse.gmf.runtime.notation.Style;
++
++/**
++ * <!-- begin-user-doc -->
++ * The <b>Switch</b> for the model's inheritance hierarchy.
++ * It supports the call {@link #doSwitch(EObject) doSwitch(object)}
++ * to invoke the <code>caseXXX</code> method for each class of the model,
++ * starting with the actual class of the object
++ * and proceeding up the inheritance hierarchy
++ * until a non-null result is returned,
++ * which is the result of the switch.
++ * <!-- end-user-doc -->
++ * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage
++ * @generated
++ */
++public class NotationSwitch {
++	/**
++	 * The cached model package
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	protected static NotationPackage modelPackage;
++
++	/**
++	 * Creates an instance of the switch.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public NotationSwitch() {
++		if (modelPackage == null) {
++			modelPackage = NotationPackage.eINSTANCE;
++		}
++	}
++
++	/**
++	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the first non-null result returned by a <code>caseXXX</code> call.
++	 * @generated
++	 */
++	public Object doSwitch(EObject theEObject) {
++		return doSwitch(theEObject.eClass(), theEObject);
++	}
++
++	/**
++	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the first non-null result returned by a <code>caseXXX</code> call.
++	 * @generated
++	 */
++	protected Object doSwitch(EClass theEClass, EObject theEObject) {
++		if (theEClass.eContainer() == modelPackage) {
++			return doSwitch(theEClass.getClassifierID(), theEObject);
++		}
++		else {
++			List eSuperTypes = theEClass.getESuperTypes();
++			return
++				eSuperTypes.isEmpty() ?
++					defaultCase(theEObject) :
++					doSwitch((EClass)eSuperTypes.get(0), theEObject);
++		}
++	}
++
++	/**
++	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the first non-null result returned by a <code>caseXXX</code> call.
++	 * @generated
++	 */
++	protected Object doSwitch(int classifierID, EObject theEObject) {
++		switch (classifierID) {
++			case NotationPackage.AUTHOR_STYLE: {
++				AuthorStyle authorStyle = (AuthorStyle)theEObject;
++				Object result = caseAuthorStyle(authorStyle);
++				if (result == null) result = caseStyle(authorStyle);
++				if (result == null) result = defaultCase(theEObject);
++				return result;
++			}
++			default: return defaultCase(theEObject);
++		}
++	}
++
++	/**
++	 * Returns the result of interpretting the object as an instance of '<em>Author Style</em>'.
++	 * <!-- begin-user-doc -->
++	 * This implementation returns null;
++	 * returning a non-null result will terminate the switch.
++	 * <!-- end-user-doc -->
++	 * @param object the target of the switch.
++	 * @return the result of interpretting the object as an instance of '<em>Author Style</em>'.
++	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
++	 * @generated
++	 */
++	public Object caseAuthorStyle(AuthorStyle object) {
++		return null;
++	}
++
++	/**
++	 * Returns the result of interpretting the object as an instance of '<em>Style</em>'.
++	 * <!-- begin-user-doc -->
++	 * This implementation returns null;
++	 * returning a non-null result will terminate the switch.
++	 * <!-- end-user-doc -->
++	 * @param object the target of the switch.
++	 * @return the result of interpretting the object as an instance of '<em>Style</em>'.
++	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
++	 * @generated
++	 */
++	public Object caseStyle(Style object) {
++		return null;
++	}
++
++	/**
++	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
++	 * <!-- begin-user-doc -->
++	 * This implementation returns null;
++	 * returning a non-null result will terminate the switch, but this is the last case anyway.
++	 * <!-- end-user-doc -->
++	 * @param object the target of the switch.
++	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
++	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
++	 * @generated
++	 */
++	public Object defaultCase(EObject object) {
++		return null;
++	}
++
++} //NotationSwitch
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationFactoryImpl.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationFactoryImpl.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationFactoryImpl.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationFactoryImpl.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,97 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation.impl;
++
++import org.eclipse.emf.ecore.EClass;
++import org.eclipse.emf.ecore.EObject;
++import org.eclipse.emf.ecore.EPackage;
++
++import org.eclipse.emf.ecore.impl.EFactoryImpl;
++
++import org.eclipse.emf.ecore.plugin.EcorePlugin;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.*;
++
++/**
++ * <!-- begin-user-doc -->
++ * An implementation of the model <b>Factory</b>.
++ * <!-- end-user-doc -->
++ * @generated
++ */
++public class NotationFactoryImpl extends EFactoryImpl implements NotationFactory {
++	/**
++	 * Creates the default factory implementation.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public static NotationFactory init() {
++		try {
++			NotationFactory theNotationFactory = (NotationFactory)EPackage.Registry.INSTANCE.getEFactory("http:///org/eclipse/gmf/examples/eclipsecon/library/notation.ecore"); 
++			if (theNotationFactory != null) {
++				return theNotationFactory;
++			}
++		}
++		catch (Exception exception) {
++			EcorePlugin.INSTANCE.log(exception);
++		}
++		return new NotationFactoryImpl();
++	}
++
++	/**
++	 * Creates an instance of the factory.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public NotationFactoryImpl() {
++		super();
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public EObject create(EClass eClass) {
++		switch (eClass.getClassifierID()) {
++			case NotationPackage.AUTHOR_STYLE: return createAuthorStyle();
++			default:
++				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
++		}
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public AuthorStyle createAuthorStyle() {
++		AuthorStyleImpl authorStyle = new AuthorStyleImpl();
++		return authorStyle;
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public NotationPackage getNotationPackage() {
++		return (NotationPackage)getEPackage();
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @deprecated
++	 * @generated
++	 */
++	public static NotationPackage getPackage() {
++		return NotationPackage.eINSTANCE;
++	}
++
++} //NotationFactoryImpl
+Index: model/libraryNotation.genmodel
+===================================================================
+RCS file: model/libraryNotation.genmodel
+diff -N model/libraryNotation.genmodel
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ model/libraryNotation.genmodel	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<genmodel:GenModel xmi:version="2.0"
++    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
++    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.examples.eclipsecon.library.notation/src"
++    modelPluginID="org.eclipse.gmf.examples.eclipsecon.library.notation" modelName="LibraryNotation"
++    importerID="org.eclipse.emf.importer.java" usedGenPackages="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
++  <foreignModel>@model</foreignModel>
++  <genPackages prefix="Notation" basePackage="org.eclipse.gmf.examples.eclipsecon.library"
++      disposableProviderFactory="true" ecorePackage="notation.ecore#/">
++    <genClasses ecoreClass="notation.ecore#//AuthorStyle">
++      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute notation.ecore#//AuthorStyle/showAuthorBooksCount"/>
++    </genClasses>
++  </genPackages>
++</genmodel:GenModel>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationAdapterFactory.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationAdapterFactory.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationAdapterFactory.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/util/NotationAdapterFactory.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,139 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation.util;
++
++import org.eclipse.emf.common.notify.Adapter;
++import org.eclipse.emf.common.notify.Notifier;
++
++import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
++
++import org.eclipse.emf.ecore.EObject;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.*;
++
++import org.eclipse.gmf.runtime.notation.Style;
++
++/**
++ * <!-- begin-user-doc -->
++ * The <b>Adapter Factory</b> for the model.
++ * It provides an adapter <code>createXXX</code> method for each class of the model.
++ * <!-- end-user-doc -->
++ * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage
++ * @generated
++ */
++public class NotationAdapterFactory extends AdapterFactoryImpl {
++	/**
++	 * The cached model package.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	protected static NotationPackage modelPackage;
++
++	/**
++	 * Creates an instance of the adapter factory.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public NotationAdapterFactory() {
++		if (modelPackage == null) {
++			modelPackage = NotationPackage.eINSTANCE;
++		}
++	}
++
++	/**
++	 * Returns whether this factory is applicable for the type of the object.
++	 * <!-- begin-user-doc -->
++	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
++	 * <!-- end-user-doc -->
++	 * @return whether this factory is applicable for the type of the object.
++	 * @generated
++	 */
++	public boolean isFactoryForType(Object object) {
++		if (object == modelPackage) {
++			return true;
++		}
++		if (object instanceof EObject) {
++			return ((EObject)object).eClass().getEPackage() == modelPackage;
++		}
++		return false;
++	}
++
++	/**
++	 * The switch the delegates to the <code>createXXX</code> methods.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	protected NotationSwitch modelSwitch =
++		new NotationSwitch() {
++			public Object caseAuthorStyle(AuthorStyle object) {
++				return createAuthorStyleAdapter();
++			}
++			public Object caseStyle(Style object) {
++				return createStyleAdapter();
++			}
++			public Object defaultCase(EObject object) {
++				return createEObjectAdapter();
++			}
++		};
++
++	/**
++	 * Creates an adapter for the <code>target</code>.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @param target the object to adapt.
++	 * @return the adapter for the <code>target</code>.
++	 * @generated
++	 */
++	public Adapter createAdapter(Notifier target) {
++		return (Adapter)modelSwitch.doSwitch((EObject)target);
++	}
++
++
++	/**
++	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle <em>Author Style</em>}'.
++	 * <!-- begin-user-doc -->
++	 * This default implementation returns null so that we can easily ignore cases;
++	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
++	 * <!-- end-user-doc -->
++	 * @return the new adapter.
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle
++	 * @generated
++	 */
++	public Adapter createAuthorStyleAdapter() {
++		return null;
++	}
++
++	/**
++	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.runtime.notation.Style <em>Style</em>}'.
++	 * <!-- begin-user-doc -->
++	 * This default implementation returns null so that we can easily ignore cases;
++	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
++	 * <!-- end-user-doc -->
++	 * @return the new adapter.
++	 * @see org.eclipse.gmf.runtime.notation.Style
++	 * @generated
++	 */
++	public Adapter createStyleAdapter() {
++		return null;
++	}
++
++	/**
++	 * Creates a new adapter for the default case.
++	 * <!-- begin-user-doc -->
++	 * This default implementation returns null.
++	 * <!-- end-user-doc -->
++	 * @return the new adapter.
++	 * @generated
++	 */
++	public Adapter createEObjectAdapter() {
++		return null;
++	}
++
++} //NotationAdapterFactory
+Index: plugin.xml
+===================================================================
+RCS file: plugin.xml
+diff -N plugin.xml
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ plugin.xml	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?eclipse version="3.0"?>
++
++<!--
++ <copyright>
++ </copyright>
++
++ $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++-->
++
++<plugin>
++
++  <extension point="org.eclipse.emf.ecore.generated_package">
++    <package 
++       uri = "http:///org/eclipse/gmf/examples/library/notation.ecore" 
++       class = "org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage"
++       genModel = "model/libraryNotation.genmodel" /> 
++  </extension>
++
++</plugin>
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationPackageImpl.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationPackageImpl.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationPackageImpl.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/impl/NotationPackageImpl.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,193 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation.impl;
++
++import org.eclipse.emf.ecore.EAttribute;
++import org.eclipse.emf.ecore.EClass;
++import org.eclipse.emf.ecore.EPackage;
++import org.eclipse.emf.ecore.EcorePackage;
++
++import org.eclipse.emf.ecore.impl.EPackageImpl;
++
++import org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle;
++import org.eclipse.gmf.examples.eclipsecon.library.notation.NotationFactory;
++import org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage;
++
++/**
++ * <!-- begin-user-doc -->
++ * An implementation of the model <b>Package</b>.
++ * <!-- end-user-doc -->
++ * @generated
++ */
++public class NotationPackageImpl extends EPackageImpl implements NotationPackage {
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	private EClass authorStyleEClass = null;
++
++	/**
++	 * Creates an instance of the model <b>Package</b>, registered with
++	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
++	 * package URI value.
++	 * <p>Note: the correct way to create the package is via the static
++	 * factory method {@link #init init()}, which also performs
++	 * initialization of the package, or returns the registered package,
++	 * if one already exists.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @see org.eclipse.emf.ecore.EPackage.Registry
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage#eNS_URI
++	 * @see #init()
++	 * @generated
++	 */
++	private NotationPackageImpl() {
++		super(eNS_URI, NotationFactory.eINSTANCE);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	private static boolean isInited = false;
++
++	/**
++	 * Creates, registers, and initializes the <b>Package</b> for this
++	 * model, and for any others upon which it depends.  Simple
++	 * dependencies are satisfied by calling this method on all
++	 * dependent packages before doing anything else.  This method drives
++	 * initialization for interdependent packages directly, in parallel
++	 * with this package, itself.
++	 * <p>Of this package and its interdependencies, all packages which
++	 * have not yet been registered by their URI values are first created
++	 * and registered.  The packages are then initialized in two steps:
++	 * meta-model objects for all of the packages are created before any
++	 * are initialized, since one package's meta-model objects may refer to
++	 * those of another.
++	 * <p>Invocation of this method will not affect any packages that have
++	 * already been initialized.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @see #eNS_URI
++	 * @see #createPackageContents()
++	 * @see #initializePackageContents()
++	 * @generated
++	 */
++	public static NotationPackage init() {
++		if (isInited) return (NotationPackage)EPackage.Registry.INSTANCE.getEPackage(NotationPackage.eNS_URI);
++
++		// Obtain or create and register package
++		NotationPackageImpl theNotationPackage = (NotationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof NotationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new NotationPackageImpl());
++
++		isInited = true;
++
++		// Initialize simple dependencies
++		org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.eClass();
++		EcorePackage.eINSTANCE.eClass();
++
++		// Create package meta-data objects
++		theNotationPackage.createPackageContents();
++
++		// Initialize created meta-data
++		theNotationPackage.initializePackageContents();
++
++		// Mark meta-data to indicate it can't be changed
++		theNotationPackage.freeze();
++
++		return theNotationPackage;
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public EClass getAuthorStyle() {
++		return authorStyleEClass;
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public EAttribute getAuthorStyle_ShowAuthorBooksCount() {
++		return (EAttribute)authorStyleEClass.getEStructuralFeatures().get(0);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public NotationFactory getNotationFactory() {
++		return (NotationFactory)getEFactoryInstance();
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	private boolean isCreated = false;
++
++	/**
++	 * Creates the meta-model objects for the package.  This method is
++	 * guarded to have no affect on any invocation but its first.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public void createPackageContents() {
++		if (isCreated) return;
++		isCreated = true;
++
++		// Create classes and their features
++		authorStyleEClass = createEClass(AUTHOR_STYLE);
++		createEAttribute(authorStyleEClass, AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT);
++	}
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	private boolean isInitialized = false;
++
++	/**
++	 * Complete the initialization of the package and its meta-model.  This
++	 * method is guarded to have no affect on any invocation but its first.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	public void initializePackageContents() {
++		if (isInitialized) return;
++		isInitialized = true;
++
++		// Initialize package
++		setName(eNAME);
++		setNsPrefix(eNS_PREFIX);
++		setNsURI(eNS_URI);
++
++		// Obtain other dependent packages
++		org.eclipse.gmf.runtime.notation.NotationPackage theNotationPackage_1 = (org.eclipse.gmf.runtime.notation.NotationPackage)EPackage.Registry.INSTANCE.getEPackage(org.eclipse.gmf.runtime.notation.NotationPackage.eNS_URI);
++
++		// Add supertypes to classes
++		authorStyleEClass.getESuperTypes().add(theNotationPackage_1.getStyle());
++
++		// Initialize classes and features; add operations and parameters
++		initEClass(authorStyleEClass, AuthorStyle.class, "AuthorStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
++		initEAttribute(getAuthorStyle_ShowAuthorBooksCount(), ecorePackage.getEBoolean(), "showAuthorBooksCount", null, 0, 1, AuthorStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
++
++		// Create resource
++		createResource(eNS_URI);
++	}
++
++} //NotationPackageImpl
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationPackage.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationPackage.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationPackage.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationPackage.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,153 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation;
++
++import org.eclipse.emf.ecore.EAttribute;
++import org.eclipse.emf.ecore.EClass;
++import org.eclipse.emf.ecore.EPackage;
++
++/**
++ * <!-- begin-user-doc -->
++ * The <b>Package</b> for the model.
++ * It contains accessors for the meta objects to represent
++ * <ul>
++ *   <li>each class,</li>
++ *   <li>each feature of each class,</li>
++ *   <li>each enum,</li>
++ *   <li>and each data type</li>
++ * </ul>
++ * <!-- end-user-doc -->
++ * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationFactory
++ * @model kind="package"
++ * @generated
++ */
++public interface NotationPackage extends EPackage {
++	/**
++	 * The package name.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	String eNAME = "notation";
++
++	/**
++	 * The package namespace URI.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	String eNS_URI = "http:///org/eclipse/gmf/examples/eclipsecon/library/notation.ecore";
++
++	/**
++	 * The package namespace name.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	String eNS_PREFIX = "org.eclipse.gmf.examples.eclipsecon.library.notation";
++
++	/**
++	 * The singleton instance of the package.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	NotationPackage eINSTANCE = org.eclipse.gmf.examples.eclipsecon.library.notation.impl.NotationPackageImpl.init();
++
++	/**
++	 * The meta object id for the '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.impl.AuthorStyleImpl <em>Author Style</em>}' class.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.impl.AuthorStyleImpl
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.impl.NotationPackageImpl#getAuthorStyle()
++	 * @generated
++	 */
++	int AUTHOR_STYLE = 0;
++
++	/**
++	 * The feature id for the '<em><b>Show Author Books Count</b></em>' attribute.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 * @ordered
++	 */
++	int AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT = org.eclipse.gmf.runtime.notation.NotationPackage.STYLE_FEATURE_COUNT + 0;
++
++	/**
++	 * The number of structural features of the '<em>Author Style</em>' class.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 * @ordered
++	 */
++	int AUTHOR_STYLE_FEATURE_COUNT = org.eclipse.gmf.runtime.notation.NotationPackage.STYLE_FEATURE_COUNT + 1;
++
++
++	/**
++	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle <em>Author Style</em>}'.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the meta object for class '<em>Author Style</em>'.
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle
++	 * @generated
++	 */
++	EClass getAuthorStyle();
++
++	/**
++	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle#isShowAuthorBooksCount <em>Show Author Books Count</em>}'.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the meta object for the attribute '<em>Show Author Books Count</em>'.
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle#isShowAuthorBooksCount()
++	 * @see #getAuthorStyle()
++	 * @generated
++	 */
++	EAttribute getAuthorStyle_ShowAuthorBooksCount();
++
++	/**
++	 * Returns the factory that creates the instances of the model.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the factory that creates the instances of the model.
++	 * @generated
++	 */
++	NotationFactory getNotationFactory();
++
++	/**
++	 * <!-- begin-user-doc -->
++	 * Defines literals for the meta objects that represent
++	 * <ul>
++	 *   <li>each class,</li>
++	 *   <li>each feature of each class,</li>
++	 *   <li>each enum,</li>
++	 *   <li>and each data type</li>
++	 * </ul>
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	interface Literals {
++		/**
++		 * The meta object literal for the '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.impl.AuthorStyleImpl <em>Author Style</em>}' class.
++		 * <!-- begin-user-doc -->
++		 * <!-- end-user-doc -->
++		 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.impl.AuthorStyleImpl
++		 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.impl.NotationPackageImpl#getAuthorStyle()
++		 * @generated
++		 */
++		EClass AUTHOR_STYLE = eINSTANCE.getAuthorStyle();
++
++		/**
++		 * The meta object literal for the '<em><b>Show Author Books Count</b></em>' attribute feature.
++		 * <!-- begin-user-doc -->
++		 * <!-- end-user-doc -->
++		 * @generated
++		 */
++		EAttribute AUTHOR_STYLE__SHOW_AUTHOR_BOOKS_COUNT = eINSTANCE.getAuthorStyle_ShowAuthorBooksCount();
++
++	}
++
++} //NotationPackage
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/AuthorStyle.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/AuthorStyle.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/AuthorStyle.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/AuthorStyle.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,54 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation;
++
++import org.eclipse.gmf.runtime.notation.Style;
++
++/**
++ * <!-- begin-user-doc -->
++ * A representation of the model object '<em><b>Author Style</b></em>'.
++ * <!-- end-user-doc -->
++ *
++ * <p>
++ * The following features are supported:
++ * <ul>
++ *   <li>{@link org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle#isShowAuthorBooksCount <em>Show Author Books Count</em>}</li>
++ * </ul>
++ * </p>
++ *
++ * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage#getAuthorStyle()
++ * @model
++ * @generated
++ */
++public interface AuthorStyle extends Style {
++	/**
++	 * Returns the value of the '<em><b>Show Author Books Count</b></em>' attribute.
++	 * <!-- begin-user-doc -->
++	 * <p>
++	 * If the meaning of the '<em>Show Author Books Count</em>' attribute isn't clear,
++	 * there really should be more of a description here...
++	 * </p>
++	 * <!-- end-user-doc -->
++	 * @return the value of the '<em>Show Author Books Count</em>' attribute.
++	 * @see #setShowAuthorBooksCount(boolean)
++	 * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage#getAuthorStyle_ShowAuthorBooksCount()
++	 * @model
++	 * @generated
++	 */
++	boolean isShowAuthorBooksCount();
++
++	/**
++	 * Sets the value of the '{@link org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle#isShowAuthorBooksCount <em>Show Author Books Count</em>}' attribute.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @param value the new value of the '<em>Show Author Books Count</em>' attribute.
++	 * @see #isShowAuthorBooksCount()
++	 * @generated
++	 */
++	void setShowAuthorBooksCount(boolean value);
++
++} // AuthorStyle
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationFactory.java
+===================================================================
+RCS file: src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationFactory.java
+diff -N src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationFactory.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/eclipse/gmf/examples/eclipsecon/library/notation/NotationFactory.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,46 @@
++/**
++ * <copyright>
++ * </copyright>
++ *
++ * $Id: 02_AuthorStyle.txt,v 1.1 2007/02/23 16:40:47 ahunter Exp $
++ */
++package org.eclipse.gmf.examples.eclipsecon.library.notation;
++
++import org.eclipse.emf.ecore.EFactory;
++
++/**
++ * <!-- begin-user-doc -->
++ * The <b>Factory</b> for the model.
++ * It provides a create method for each non-abstract class of the model.
++ * <!-- end-user-doc -->
++ * @see org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage
++ * @generated
++ */
++public interface NotationFactory extends EFactory {
++	/**
++	 * The singleton instance of the factory.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @generated
++	 */
++	NotationFactory eINSTANCE = org.eclipse.gmf.examples.eclipsecon.library.notation.impl.NotationFactoryImpl.init();
++
++	/**
++	 * Returns a new object of class '<em>Author Style</em>'.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return a new object of class '<em>Author Style</em>'.
++	 * @generated
++	 */
++	AuthorStyle createAuthorStyle();
++
++	/**
++	 * Returns the package supported by this factory.
++	 * <!-- begin-user-doc -->
++	 * <!-- end-user-doc -->
++	 * @return the package supported by this factory.
++	 * @generated
++	 */
++	NotationPackage getNotationPackage();
++
++} //NotationFactory
+
+#P org.eclipse.gmf.examples.eclipsecon.library.diagram
+Index: META-INF/MANIFEST.MF
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/META-INF/MANIFEST.MF,v
+retrieving revision 1.1
+diff -u -r1.1 MANIFEST.MF
+--- META-INF/MANIFEST.MF	20 Feb 2007 01:26:48 -0000	1.1
++++ META-INF/MANIFEST.MF	20 Feb 2007 14:28:08 -0000
+@@ -34,5 +34,6 @@
+  org.eclipse.gmf.examples.eclipsecon.library;visibility:=reexport,
+  org.eclipse.gmf.examples.eclipsecon.library.edit;visibility:=reexport,
+  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
+- org.eclipse.draw2d;visibility:=reexport
++ org.eclipse.draw2d;visibility:=reexport,
++ org.eclipse.gmf.examples.eclipsecon.library.notation
+ Eclipse-LazyStart: true
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/view/factories/LibraryViewFactory.java
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/view/factories/LibraryViewFactory.java,v
+retrieving revision 1.1
+diff -u -r1.1 LibraryViewFactory.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/view/factories/LibraryViewFactory.java	20 Feb 2007 01:26:48 -0000	1.1
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/view/factories/LibraryViewFactory.java	20 Feb 2007 14:28:08 -0000
+@@ -24,6 +24,7 @@
+ 		styles.add(NotationFactory.eINSTANCE.createPageStyle());
+ 		styles.add(NotationFactory.eINSTANCE.createGuideStyle());
+ 		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
++		styles.add(org.eclipse.gmf.examples.eclipsecon.library.notation.NotationFactory.eINSTANCE.createAuthorStyle());
+ 		return styles;
+ 	}
+ 
+Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java
+===================================================================
+RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java,v
+retrieving revision 1.1
+diff -u -r1.1 AuthorNameEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/AuthorNameEditPart.java	20 Feb 2007 14:28:08 -0000
+@@ -19,8 +19,10 @@
+ import org.eclipse.gef.handles.NonResizableHandleKit;
+ import org.eclipse.gef.requests.DirectEditRequest;
+ import org.eclipse.gef.tools.DirectEditManager;
++import org.eclipse.gmf.examples.eclipsecon.library.Author;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.Library07TextSelectionEditPolicy;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.providers.Library07ElementTypes;
++import org.eclipse.gmf.examples.eclipsecon.library.notation.AuthorStyle;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
+ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
+@@ -38,6 +40,7 @@
+ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+ import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
+ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
++import org.eclipse.gmf.runtime.notation.Diagram;
+ import org.eclipse.gmf.runtime.notation.FontStyle;
+ import org.eclipse.gmf.runtime.notation.NotationPackage;
+ import org.eclipse.gmf.runtime.notation.View;
+@@ -210,6 +213,12 @@
+ 			text = getParser().getPrintString(
+ 					new EObjectAdapter(getParserElement()),
+ 					getParserOptions().intValue());
++					Diagram diagram = getDiagramView();
++					AuthorStyle style = (AuthorStyle)diagram.getStyle(org.eclipse.gmf.examples.eclipsecon.library.notation.NotationPackage.Literals.AUTHOR_STYLE);
++					if (style !=null && style.isShowAuthorBooksCount()) {
++						text += " { " + ((Author)resolveSemanticElement()).getBooks().size() + " } "; 
++					}
++		
+ 		}
+ 		if (text == null || text.length() == 0) {
+ 			text = defaultText;
