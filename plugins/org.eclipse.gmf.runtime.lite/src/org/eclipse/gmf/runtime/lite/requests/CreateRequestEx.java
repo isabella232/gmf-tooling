@@ -18,12 +18,18 @@ import org.eclipse.gef.requests.CreateRequest;
  */
 public class CreateRequestEx extends CreateRequest {
 	private final int[] visualIds;
+	private final String modelID;
 
 	/**
 	 * Creates a new request to create an object of the given object types.
 	 */
 	public CreateRequestEx(int[] visualIds) {
+		this(null, visualIds);
+	}
+
+	public CreateRequestEx(String modelID, int[] visualIds) {
 		this.visualIds = visualIds;
+		this.modelID = modelID;
 	}
 
 	/**
@@ -35,5 +41,9 @@ public class CreateRequestEx extends CreateRequest {
 
 	public void setCreatedObject(Object createdObject) {
 		((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
+	}
+
+	public String getModelID() {
+		return modelID;
 	}
 }

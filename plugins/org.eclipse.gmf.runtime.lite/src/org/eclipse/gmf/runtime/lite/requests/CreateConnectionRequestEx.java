@@ -19,12 +19,18 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
  */
 public class CreateConnectionRequestEx extends CreateConnectionRequest {
 	private final int[] visualIds;
+	private final String modelID;
 
 	/**
 	 * Creates a new request to create a connection of the given object types.
 	 */
 	public CreateConnectionRequestEx(int[] visualIds) {
+		this(null, visualIds);
+	}
+
+	public CreateConnectionRequestEx(String modelID, int[] visualIds) {
 		this.visualIds = visualIds;
+		this.modelID = modelID;
 	}
 
 	/**
@@ -36,5 +42,9 @@ public class CreateConnectionRequestEx extends CreateConnectionRequest {
 
 	public void setCreatedObject(Object createdObject) {
 		((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
+	}
+
+	public String getModelID() {
+		return modelID;
 	}
 }
