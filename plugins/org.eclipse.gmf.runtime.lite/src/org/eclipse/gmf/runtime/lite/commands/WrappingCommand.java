@@ -82,4 +82,10 @@ public class WrappingCommand extends Command {
 			Activator.getDefault().logError("exception occurred while redoing operation", e);
 		}
 	}
+
+	@Override
+	public void dispose() {
+		operation.dispose();
+		super.dispose();
+	}
 }
