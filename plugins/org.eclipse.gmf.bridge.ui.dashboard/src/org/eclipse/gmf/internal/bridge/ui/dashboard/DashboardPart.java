@@ -153,7 +153,7 @@ public class DashboardPart extends ViewPart {
 			return;
 		}
 		IProject newActiveProject = null;
-		for (Iterator it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
+		for (Iterator<?> it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
 			Object element = it.next();
 			IProject project = null;
 			if (element instanceof IResource) {

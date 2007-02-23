@@ -209,7 +209,7 @@ public class DashboardMediator implements DashboardFacade {
 
 		public void run() {
 			IFile file = getURI() == null ? null : URIUtil.getFile(getURI());
-			file = FileSelector.selectFile(shell, getFigure().getDescription(), project, file, getFileExtension());
+			file = FileSelector.selectFile(shell, getFigure().getDescription(), null, file, getFileExtension());
 			if (file == null) {
 				return;
 			}
