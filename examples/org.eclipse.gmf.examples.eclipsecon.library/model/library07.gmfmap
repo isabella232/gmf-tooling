@@ -50,12 +50,9 @@
         <ownedChild>
           <domainMetaElement
               href="library07.ecore#//Book"/>
-          <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping">
+          <labelMappings>
             <diagramLabel
                 href="library07.gmfgraph#BookTitle"/>
-            <features
-                href="library07.ecore#//Book/title"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
