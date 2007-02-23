@@ -12,8 +12,11 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import junit.framework.Assert;
 
@@ -25,7 +28,10 @@ import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.ecore.plugin.RegistryReader.PluginClassDescriptor;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.osgi.service.debug.DebugOptions;
@@ -40,6 +46,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class GenProjectSetup extends GenProjectBaseSetup {
 
+	private ArrayList<Bundle> myAllInstalledBundes = new ArrayList<Bundle>();
 	private Bundle myBundle;
 	private final boolean myIsFullRuntimeRun;
 
@@ -71,6 +78,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			super.generateAndCompile(diaGenSource);
 			myBundle.start();
 			registerExtensions(myBundle);
+			registerEMFEditExtensions();
 			// there should be hit, any .diagram plugin is supposed to register extensions we monitor with the listener above.
 			monitorExtensionLoad(extensionChangeNotification, 60);
 			
@@ -80,9 +88,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		} catch (Exception ex) {
 			Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 		} finally {
-			if (myIsFullRuntimeRun) {
-				RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
-			}
+			RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
 		}
 		return this;
 	}
@@ -105,6 +111,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		try {
 			String url = p.getLocation().toFile().toURL().toExternalForm();
 			myBundle = Plugin.getBundleContext().installBundle(url);
+			myAllInstalledBundes.add(myBundle);
 		} catch (MalformedURLException ex) {
 			Assert.fail(ex.getMessage());
 		}
@@ -126,6 +133,48 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private void registerEMFEditExtensions() {
+		for(Bundle next : myAllInstalledBundes) {
+			IConfigurationElement[] configElements = getConfigurationElements(next.getSymbolicName(), "org.eclipse.emf.edit.itemProviderAdapterFactories");
+			for(int i = 0; i < configElements.length; i++) {
+				IConfigurationElement element = configElements[i];
+				if (element.getName().equals("factory")) {
+					String packageURI = element.getAttribute("uri");
+					String className = element.getAttribute("class");
+					String supportedTypes = element.getAttribute("supportedTypes");
+					if (packageURI == null) {
+						continue;
+					}
+					else if (className == null) {
+						continue;
+					}
+					else if (supportedTypes == null) {
+						continue;
+					}
+					class PluginAdapterFactoryDescriptor extends PluginClassDescriptor implements ComposedAdapterFactory.Descriptor {
+						public PluginAdapterFactoryDescriptor(IConfigurationElement element, String attributeName) {
+							super(element, attributeName);
+						}
+
+						public AdapterFactory createAdapterFactory() {
+							return (AdapterFactory)createInstance();
+						}
+					}
+
+					for (StringTokenizer stringTokenizer = new StringTokenizer(supportedTypes); stringTokenizer.hasMoreTokens(); ) {
+						String supportedType = stringTokenizer.nextToken();
+						List key = new ArrayList();
+						key.add(packageURI);
+						key.add(supportedType);
+						((ComposedAdapterFactory.Descriptor.Registry.Impl) ComposedAdapterFactory.Descriptor.Registry.INSTANCE).put(key, new PluginAdapterFactoryDescriptor(element, "class"));
+					}
+
+				}
+			}
+		}
+	}
+
 	private IConfigurationElement[] getConfigurationElements(String bundlID, String extensionPointID) {
 		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionPointID);
 		Collection<IConfigurationElement> ownConfigs = new LinkedList<IConfigurationElement>();
@@ -143,8 +192,9 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
-		// TODO: uninstall not only myBundle, but all the bundles installed in hookProjectBuild() method
-		myBundle.uninstall();
+		for (Bundle next : myAllInstalledBundes) {
+			next.uninstall();
+		}
 	}
 	
 	private void disabledNoExprImplDebugOption() {
