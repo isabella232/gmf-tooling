@@ -138,6 +138,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 			generateBehaviors(next, openDiagramBehaviors);
 			generateCommands(next);
+			generateComponentEditPolicy(next);
 		}
 		if (hasExternalLabels) {
 			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
@@ -151,6 +152,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			generateBehaviors(next, openDiagramBehaviors);
 			generateCommands(next);
+			generateComponentEditPolicy(next);
 		}
 		for (Iterator it = myDiagram.getCompartments().iterator(); it.hasNext(); ) {
 			final GenCompartment next = (GenCompartment) it.next();
@@ -327,6 +329,16 @@ public class Generator extends GeneratorBase implements Runnable {
 				"Reconnect" + commandNameInfix + "TargetCommand",
 				genLink
 			);
+	}
+
+	private void generateComponentEditPolicy(GenCommonBase genElement) throws InterruptedException, UnexpectedBehaviourException {
+		//Actually, next is expected to be either GenLink or GenNode
+		String editPolicyClassName = genElement.getEditPartClassName();
+		if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
+			editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
+		}
+		editPolicyClassName += "ComponentEditPolicy";
+		internalGenerateJavaClass(myEmitters.getComponentEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, genElement);
 	}
 
 	private void generateNavigatorContentProvider() throws InterruptedException, UnexpectedBehaviourException {

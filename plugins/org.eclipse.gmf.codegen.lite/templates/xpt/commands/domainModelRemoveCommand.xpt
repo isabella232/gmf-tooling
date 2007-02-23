@@ -30,34 +30,28 @@ return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
 «ENDDEFINE»
 
 «DEFINE domainModelRemoveCommand(String domainVar, String edgeVar) FOR gmfgen::TypeLinkModelFacet-»
+«EXPAND deleteCommand(domainVar, edgeVar)-»
+«ENDDEFINE»
+
+«DEFINE domainModelRemoveCommand(String domainVar, String nodeVar) FOR gmfgen::TypeModelFacet-»
+«EXPAND deleteCommand(domainVar, nodeVar)-»
+«ENDDEFINE»
+
+«DEFINE deleteCommand(String domainVar, String elementVar) FOR gmfgen::TypeModelFacet-»
 «IF containmentMetaFeature == null-»
 return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
 «ELSE-»
-«LET childMetaFeature != null && childMetaFeature != containmentMetaFeature && !childMetaFeature.ecoreFeature.derived AS removeChild-»
-«LET sourceMetaFeature != null && !sourceMetaFeature.ecoreFeature.derived && ecore::EReference.isSuperTypeOf(sourceMetaFeature.ecoreFeature.eClass()) 
-	&& ((ecore::EReference) sourceMetaFeature.ecoreFeature).eOpposite !=containmentMetaFeature.ecoreFeature && 
-		(removeChild implies ((ecore::EReference) sourceMetaFeature.ecoreFeature).eOpposite != childMetaFeature.ecoreFeature) AS removeSource-»
-«LET targetMetaFeature != null && !targetMetaFeature.ecoreFeature.derived && ecore::EReference.isSuperTypeOf(targetMetaFeature.ecoreFeature.eClass()) 
-	&& ((ecore::EReference) targetMetaFeature.ecoreFeature).eOpposite !=containmentMetaFeature.ecoreFeature && 
-		(removeChild implies ((ecore::EReference) targetMetaFeature.ecoreFeature).eOpposite != childMetaFeature.ecoreFeature) AS removeTarget-»
-org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();
-result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getElement().eContainer()", edgeVar + ".getElement()") FOR containmentMetaFeature»);
-	«IF removeChild-»
-result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getElement().eContainer()", edgeVar + ".getElement()") FOR childMetaFeature»);
-	«ENDIF-»
-	«IF removeSource-»
-result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getElement()", edgeVar + ".getSource().getElement()") FOR sourceMetaFeature»);
-	«ENDIF-»
-	«IF removeTarget-»
-result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getElement()", edgeVar + ".getTarget().getElement()") FOR targetMetaFeature»);
-	«ENDIF-»
-return result;
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
+return org.eclipse.gmf.runtime.lite.commands.DestroyElementCommand.create(«domainVar», «elementVar».getElement());
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE domainModelRemoveCommand(String domainVar, String edgeVar) FOR gmfgen::FeatureLinkModelFacet-»
 return «EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + ".getSource().getElement()", edgeVar + ".getTarget().getElement()") FOR metaFeature»;
+«ENDDEFINE»
+
+«DEFINE domainModelRemoveCommand(String nodeVar) FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.emf.common.command.Command createDomainModelRemoveCommand(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
+	«EXPAND domainModelRemoveCommand("editingDomain", nodeVar) FOR modelFacet-»
+}
 «ENDDEFINE»

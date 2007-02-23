@@ -1,7 +1,7 @@
 <%
 if (!childNodes.isEmpty()) {
 %>
-protected Command createAddCommand(final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, final Object constraint) {
+protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createAddCommand(final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, final Object constraint) {
 	if (child.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) {
 		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> childNode = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) child.getModel();
 		final <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(childNode.getDiagram().getElement());

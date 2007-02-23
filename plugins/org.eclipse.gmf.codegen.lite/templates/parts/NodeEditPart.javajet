@@ -257,6 +257,9 @@ if (palette != null && !genNode.getChildNodes().isEmpty()) {
 				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();
+					if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(requestEx.getModelID())) {
+						return null;
+					}
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for(int i = 0; i < visualIds.length; i++) {
 						int nextVisualId = visualIds[i];
@@ -290,7 +293,7 @@ if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
 				}
 <%@include file="changeConstraintCommand.jetinc"%>
 			}
-			protected Command createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
 				assert false;
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
@@ -456,6 +459,9 @@ if (!myHelper.hasOutgoingLinks()) {
 <%if (palette != null && myHelper.hasOutgoingLinks()) {%>
 				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) request;
+					if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(requestEx.getModelID())) {
+						return null;
+					}
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for (int i = 0; i < visualIds.length; i++) {
@@ -512,6 +518,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				}
 				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) request;
+					if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(requestEx.getModelID())) {
+						return null;
+					}
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for (int i = 0; i < visualIds.length; i++) {

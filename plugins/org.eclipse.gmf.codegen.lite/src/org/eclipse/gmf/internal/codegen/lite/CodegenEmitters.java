@@ -183,6 +183,10 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::viewfactories::ViewFactory::ViewFactory");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getComponentEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::diagram::policies::ComponentEditPolicy::ComponentEditPolicy");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getValidationProviderGenerator() throws UnexpectedBehaviourException {
 		return retrieve(ValidationProviderGenerator.class);
 	}

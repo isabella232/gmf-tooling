@@ -1,77 +1,13 @@
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ComponentEditPolicy")%>() {
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createDeleteCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.GroupRequest")%> deleteRequest) {
-				<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement());
-				<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-				cc.append(getDomainModelRemoveCommand(editingDomain));
-				cc.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand")%>((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getDiagramNode().eContainer(), getDiagramNode()));
-				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, cc);
-			}
-
-			private org.eclipse.emf.common.command.Command getDomainModelRemoveCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain) {
 <%
 {
-TypeModelFacet facet = genNode.getModelFacet();
-GenFeature childFeature = facet.getChildMetaFeature();
-GenFeature containmentFeature = facet.getContainmentMetaFeature();
-if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
-%>
-				<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-<%
-	if (containmentFeature.getEcoreFeature().isMany()) {
-%>
-				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
-					getDiagramNode().getElement()));
-<%
-	} else {
-%>
-				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
-					<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
-<%
+	/*See xpt::diagram::policies::ClassNames.ext#getComponentEditPolicyClassName(GenCommonBase)*/
+	String editPolicyClassName = genElement.getEditPartClassName();
+	if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
+		editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
 	}
+	editPolicyClassName += "ComponentEditPolicy";
 %>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName(genDiagram.getEditPoliciesPackageName() + "." + editPolicyClassName)%>());
 <%
-	if (childFeature.getEcoreFeature().isMany()) {
-%>
-				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
-					getDiagramNode().getElement()));
-<%
-	} else {
-%>
-				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
-					<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
-<%
-	}
-%>
-				return result;
-<%
-} else {
-	if (containmentFeature.getEcoreFeature().isMany()) {
-%>
-				return <%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
-					getDiagramNode().getElement());
-<%
-	} else {
-%>
-				return <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
-					editingDomain, 
-					getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
-					<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE);
-<%
-	}
 }
-%>
-			}
-		});
-<%
-}	/*restrict local vars used in component edit policy*/
 %>

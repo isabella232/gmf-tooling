@@ -122,18 +122,20 @@ public class PaletteFactoryGenerator
   protected final String TEXT_103 = "(";
   protected final String TEXT_104 = ".class), smallIcon, largeIcon);" + NL + "\t\t\tmyVisualIDs = visualIDs;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool result = new CreationTool() {" + NL + "\t\t\t\tprotected Request createTargetRequest() {" + NL + "\t\t\t\t\t";
   protected final String TEXT_105 = " request = new ";
-  protected final String TEXT_106 = "(myVisualIDs);" + NL + "\t\t\t\t\trequest.setFactory(getFactory());" + NL + "\t\t\t\t\treturn request;" + NL + "\t\t\t\t}" + NL + "\t\t\t\tprotected void performCreation(int button) {" + NL + "\t\t\t\t\tsuper.performCreation(button);" + NL + "\t\t\t\t\tfinal ";
-  protected final String TEXT_107 = " createdEditPart = (";
-  protected final String TEXT_108 = ")getCurrentViewer().getEditPartRegistry().get(getCreateRequest().getNewObject());" + NL + "\t\t\t\t\tif (createdEditPart != null) {" + NL + "\t\t\t\t\t\tgetCurrentViewer().getControl().getDisplay().asyncExec(new Runnable() {" + NL + "\t\t\t\t\t\t\tpublic void run() {" + NL + "\t\t\t\t\t\t\t\tif (createdEditPart.isActive()) {" + NL + "\t\t\t\t\t\t\t\t\tcreatedEditPart.performRequest(new ";
-  protected final String TEXT_109 = "(";
-  protected final String TEXT_110 = ".REQ_DIRECT_EDIT));" + NL + "\t\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t});" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\tresult.setProperties(getToolProperties());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_111 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class LinkToolEntry extends ConnectionCreationToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final int[] myVisualIDs;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, int[] visualIDs) {" + NL + "\t\t\tsuper(title, description, new ";
-  protected final String TEXT_112 = "(";
-  protected final String TEXT_113 = ".class), smallIcon, largeIcon);" + NL + "\t\t\tmyVisualIDs = visualIDs;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool result = new ConnectionCreationTool() {" + NL + "\t\t\t\t{" + NL + "\t\t\t\t\tsetUnloadWhenFinished(true);" + NL + "\t\t\t\t}" + NL + "\t\t\t\tprotected Request createTargetRequest() {" + NL + "\t\t\t\t\t";
-  protected final String TEXT_114 = " request = new ";
-  protected final String TEXT_115 = "(myVisualIDs);" + NL + "\t\t\t\t\trequest.setFactory(getFactory());" + NL + "\t\t\t\t\treturn request;" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\tresult.setProperties(getToolProperties());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_116 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ImageDescriptor getImageDescriptor(Object o) {" + NL + "\t\tIItemLabelProvider labelProvider = (IItemLabelProvider) domainAdapterFactory.adapt(o, IItemLabelProvider.class);" + NL + "\t\tif (labelProvider != null) {" + NL + "\t\t\treturn ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(o));" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_117 = NL;
+  protected final String TEXT_106 = "(";
+  protected final String TEXT_107 = ".MODEL_ID, myVisualIDs);" + NL + "\t\t\t\t\trequest.setFactory(getFactory());" + NL + "\t\t\t\t\treturn request;" + NL + "\t\t\t\t}" + NL + "\t\t\t\tprotected void performCreation(int button) {" + NL + "\t\t\t\t\tsuper.performCreation(button);" + NL + "\t\t\t\t\tfinal ";
+  protected final String TEXT_108 = " createdEditPart = (";
+  protected final String TEXT_109 = ")getCurrentViewer().getEditPartRegistry().get(getCreateRequest().getNewObject());" + NL + "\t\t\t\t\tif (createdEditPart != null) {" + NL + "\t\t\t\t\t\tgetCurrentViewer().getControl().getDisplay().asyncExec(new Runnable() {" + NL + "\t\t\t\t\t\t\tpublic void run() {" + NL + "\t\t\t\t\t\t\t\tif (createdEditPart.isActive()) {" + NL + "\t\t\t\t\t\t\t\t\tcreatedEditPart.performRequest(new ";
+  protected final String TEXT_110 = "(";
+  protected final String TEXT_111 = ".REQ_DIRECT_EDIT));" + NL + "\t\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t});" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\tresult.setProperties(getToolProperties());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_112 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class LinkToolEntry extends ConnectionCreationToolEntry {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate final int[] myVisualIDs;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, int[] visualIDs) {" + NL + "\t\t\tsuper(title, description, new ";
+  protected final String TEXT_113 = "(";
+  protected final String TEXT_114 = ".class), smallIcon, largeIcon);" + NL + "\t\t\tmyVisualIDs = visualIDs;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Tool createTool() {" + NL + "\t\t\tTool result = new ConnectionCreationTool() {" + NL + "\t\t\t\t{" + NL + "\t\t\t\t\tsetUnloadWhenFinished(true);" + NL + "\t\t\t\t}" + NL + "\t\t\t\tprotected Request createTargetRequest() {" + NL + "\t\t\t\t\t";
+  protected final String TEXT_115 = " request = new ";
+  protected final String TEXT_116 = "(";
+  protected final String TEXT_117 = ".MODEL_ID, myVisualIDs);" + NL + "\t\t\t\t\trequest.setFactory(getFactory());" + NL + "\t\t\t\t\treturn request;" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\tresult.setProperties(getToolProperties());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_118 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ImageDescriptor getImageDescriptor(Object o) {" + NL + "\t\tIItemLabelProvider labelProvider = (IItemLabelProvider) domainAdapterFactory.adapt(o, IItemLabelProvider.class);" + NL + "\t\tif (labelProvider != null) {" + NL + "\t\t\treturn ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(o));" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_119 = NL;
 
   public String generate(Object argument)
   {
@@ -504,33 +506,37 @@ if (hasNodeEntries) {
     stringBuffer.append(TEXT_105);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx"));
     stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_107);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
     stringBuffer.append(TEXT_110);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
+    stringBuffer.append(TEXT_111);
     
 }	/*if (hasNodeEntries)*/
 if (hasLinkEntries) {
 
-    stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory"));
     stringBuffer.append(TEXT_112);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory"));
     stringBuffer.append(TEXT_113);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_114);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx"));
     stringBuffer.append(TEXT_115);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx"));
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_117);
     
 }	/*if (hasLinkEntries)*/
 
-    stringBuffer.append(TEXT_116);
+    stringBuffer.append(TEXT_118);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_117);
+    stringBuffer.append(TEXT_119);
     return stringBuffer.toString();
   }
 }

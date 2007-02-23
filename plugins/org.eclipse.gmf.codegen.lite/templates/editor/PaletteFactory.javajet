@@ -276,7 +276,7 @@ if (hasNodeEntries) {
 		public Tool createTool() {
 			Tool result = new CreationTool() {
 				protected Request createTargetRequest() {
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>(myVisualIDs);
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>(<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, myVisualIDs);
 					request.setFactory(getFactory());
 					return request;
 				}
@@ -330,7 +330,7 @@ if (hasLinkEntries) {
 					setUnloadWhenFinished(true);
 				}
 				protected Request createTargetRequest() {
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>(myVisualIDs);
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>(<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, myVisualIDs);
 					request.setFactory(getFactory());
 					return request;
 				}

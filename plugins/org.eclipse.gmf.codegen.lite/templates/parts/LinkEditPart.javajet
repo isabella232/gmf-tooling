@@ -2,6 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.* java.util.*"%>
 <%
 GenLink genLink = (GenLink) ((Object[]) argument)[0];
+final GenCommonBase genElement = genLink;
 GenDiagram genDiagram = genLink.getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("TreeEditPartAdapter");
@@ -65,7 +66,7 @@ for(Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
 	 * @generated
 	 */
 	protected void createEditPolicies() {
-<%@ include file="linkComponentEditPolicy.javajetinc"%>
+<%@ include file="componentEditPolicy.javajetinc"%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy")%>());
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_BENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.BendpointEditPolicy")%>());
 <%
@@ -348,7 +349,7 @@ if (genLink.getViewmap() instanceof InnerClassViewmap) {
 		 * @generated
 		 */
 		protected void createEditPolicies() {
-<%@ include file="linkComponentEditPolicy.javajetinc"%>
+<%@ include file="componentEditPolicy.javajetinc"%>
 <%
 if (primaryLabel != null && genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		String editPatternCode = importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName()) + ".EDIT_PATTERN";
