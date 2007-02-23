@@ -185,36 +185,42 @@ public final void startResourceListening() {
 «ENDDEFINE»
 
 «DEFINE isUpdateCache FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public boolean isUpdateCache() {
 	return myUpdateCache;
 }
 «ENDDEFINE»
 
 «DEFINE setUpdateCache FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public void setUpdateCache(boolean update) {
 	myUpdateCache = update;
 }
 «ENDDEFINE»
 	
 «DEFINE isModifiable FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public boolean isModifiable() {
 	return myModifiable;
 }
 «ENDDEFINE»
 
 «DEFINE setModifiable FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public void setModifiable(boolean modifiable) {
 	myModifiable = modifiable;
 }
 «ENDDEFINE»
 	
 «DEFINE isReadOnly FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public boolean isReadOnly() {
 	return myReadOnly;
 }
 «ENDDEFINE»
 
 «DEFINE setReadOnly FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
 public void setReadOnly(boolean readOnly) {
 	myReadOnly = readOnly;
 }
