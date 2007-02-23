@@ -736,26 +736,44 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isUpdateCache() {
 			return myUpdateCache;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setUpdateCache(boolean update) {
 			myUpdateCache = update;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isModifiable() {
 			return myModifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setModifiable(boolean modifiable) {
 			myModifiable = modifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isReadOnly() {
 			return myReadOnly;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setReadOnly(boolean readOnly) {
 			myReadOnly = readOnly;
 		}
