@@ -11,6 +11,7 @@
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«EXTENSION xpt::editor::Utils»
 
 «DEFINE DocumentProvider FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -386,7 +387,7 @@ if (info.isUpdateCache()) {
 	try {
 		updateCache(element);
 	} catch (org.eclipse.core.runtime.CoreException ex) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable, ex);
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nDocumentProviderKey("isModifiable")) FOR editorGen», ex);
 	}
 }
 «ENDDEFINE»
@@ -561,7 +562,7 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 		try {
 			file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
 		} catch (org.eclipse.core.runtime.CoreException ex) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.FileDocumentProvider_handleElementContentChanged, ex);
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nDocumentProviderKey("handleElementContentChanged")) FOR editorGen», ex);
 		}
 	}
 	«ENDIF-»
@@ -674,6 +675,16 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 	}
 	return null;
 }
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Externalizer::accessorField(i18nDocumentProviderKey("isModifiable"))-»
+	«EXPAND xpt::Externalizer::accessorField(i18nDocumentProviderKey("handleElementContentChanged"))-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nDocumentProviderKey("isModifiable"), i18nDocumentProviderKey("isModifiable"))-»
+«EXPAND xpt::Externalizer::messageEntry(i18nDocumentProviderKey("handleElementContentChanged"), i18nDocumentProviderKey("handleElementContentChanged"))-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»

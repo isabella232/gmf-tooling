@@ -110,9 +110,10 @@ if (!ifaces.isEmpty()) {
 		if (<%if (genDiagram.getEditorGen().getApplication() == null) {%>input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%> || <%}%>input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
 			setDocumentProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getDocumentProvider());
 		} else {
-			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
+			super.setDocumentProvider(input);
 		}
 	}
+	
 <%if (genDiagram.getEditorGen().getApplication() == null) {%>
 
 	/**
@@ -254,7 +255,7 @@ if (genDiagram.generateCreateShortcutAction()) {%>
 					Object nextSelectedObject = it.next();
 <%
 /*
- * TODO: movel NavigatorItem to some public place and remove 
+ * TODO: move NavigatorItem to some place available in runtime and remove 
  * "genEditor.getEditorGen().getNavigator() != null" test
  */
 	if (genEditor.getEditorGen().getNavigator() != null) {%>
