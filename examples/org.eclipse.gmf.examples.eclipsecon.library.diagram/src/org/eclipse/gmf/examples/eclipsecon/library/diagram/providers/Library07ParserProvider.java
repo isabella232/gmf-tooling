@@ -25,6 +25,30 @@ public class Library07ParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private IParser bookBook_2001Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getBookBook_2001Parser() {
+		if (bookBook_2001Parser == null) {
+			bookBook_2001Parser = createBookBook_2001Parser();
+		}
+		return bookBook_2001Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createBookBook_2001Parser() {
+		Library07StructuralFeatureParser parser = new Library07StructuralFeatureParser(
+				LibraryPackage.eINSTANCE.getBook_Title());
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	private IParser authorAuthorName_4001Parser;
 
 	/**
@@ -99,6 +123,8 @@ public class Library07ParserProvider extends AbstractProvider implements
 	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
+		case BookEditPart.VISUAL_ID:
+			return getBookBook_2001Parser();
 		case AuthorNameEditPart.VISUAL_ID:
 			return getAuthorAuthorName_4001Parser();
 		case ShelfNameEditPart.VISUAL_ID:
