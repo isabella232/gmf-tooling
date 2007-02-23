@@ -52,6 +52,11 @@
         <childMetaFeature
             href="library07.genmodel#//library/Shelf/books"/>
       </modelFacet>
+      <labelModelFacet
+          xsi:type="gmfgen:FeatureLabelModelFacet">
+        <metaFeatures
+            href="library07.genmodel#//library/Book/title"/>
+      </labelModelFacet>
     </childNodes>
     <topLevelNodes
         visualID="1001"
