@@ -85,7 +85,7 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		}
 
 		public Command getCreateNodeCommand(View parentView, GenCommonBase nodeType) {
-			CreateRequest req = new CreateRequestEx(new int[] {nodeType.getVisualID()});
+			CreateRequest req = new CreateRequestEx(nodeType.getDiagram().getEditorGen().getModelID(), new int[] {nodeType.getVisualID()});
 			req.setLocation(new Point(0,0));
 			req.setSize(new Dimension(100, 100));
 			CreationFactory factory = new ModelCreationFactory(Node.class);
@@ -94,7 +94,7 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		}
 
 		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType) {
-			CreateConnectionRequest req = new CreateConnectionRequestEx(new int[] {linkType.getVisualID()});
+			CreateConnectionRequest req = new CreateConnectionRequestEx(linkType.getDiagram().getEditorGen().getModelID(), new int[] {linkType.getVisualID()});
 			req.setType(RequestConstants.REQ_CONNECTION_END);
 			EditPart sourceEditPart = findEditPart(source);
 			Assert.assertNotNull(sourceEditPart);
@@ -107,7 +107,7 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		}
 
 		public Command getStartLinkCommand(View source, GenCommonBase linkType) {
-			CreateConnectionRequest req = new CreateConnectionRequestEx(new int[] {linkType.getVisualID()});
+			CreateConnectionRequest req = new CreateConnectionRequestEx(linkType.getDiagram().getEditorGen().getModelID(), new int[] {linkType.getVisualID()});
 			req.setType(RequestConstants.REQ_CONNECTION_START);
 			EditPart sourceEditPart = findEditPart(source);
 			Assert.assertNotNull(sourceEditPart);
