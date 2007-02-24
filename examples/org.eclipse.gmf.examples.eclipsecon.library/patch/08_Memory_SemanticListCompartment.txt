@@ -3,11 +3,11 @@
 Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java
 ===================================================================
 RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java,v
-retrieving revision 1.1
-diff -u -r1.1 ShelfBooksCompartmentEditPart.java
---- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
-+++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	20 Feb 2007 19:56:05 -0000
-@@ -1,10 +1,17 @@
+retrieving revision 1.2
+diff -u -r1.2 ShelfBooksCompartmentEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	22 Feb 2007 21:51:43 -0000	1.2
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/ShelfBooksCompartmentEditPart.java	24 Feb 2007 01:59:59 -0000
+@@ -1,11 +1,18 @@
  package org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.parts;
  
 +import java.util.ArrayList;
@@ -22,22 +22,22 @@ diff -u -r1.1 ShelfBooksCompartmentEditPart.java
 +import org.eclipse.gmf.examples.eclipsecon.library.Book;
 +import org.eclipse.gmf.examples.eclipsecon.library.Shelf;
  import org.eclipse.gmf.examples.eclipsecon.library.diagram.edit.policies.ShelfBooksCompartmentItemSemanticEditPolicy;
+ import org.eclipse.gmf.examples.eclipsecon.library.diagram.part.Messages;
 -import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 +import org.eclipse.gmf.runtime.diagram.ui.editparts.SemanticListCompartmentEditPart;
  import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
  import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
  import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-@@ -15,7 +22,8 @@
+@@ -16,7 +23,7 @@
  /**
   * @generated
   */
 -public class ShelfBooksCompartmentEditPart extends ListCompartmentEditPart {
-+public class ShelfBooksCompartmentEditPart extends
-+		SemanticListCompartmentEditPart {
++public class ShelfBooksCompartmentEditPart extends SemanticListCompartmentEditPart {
  
  	/**
  	 * @generated
-@@ -64,8 +72,6 @@
+@@ -65,8 +72,6 @@
  				new CreationEditPolicy());
  		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
  				new DragDropEditPolicy());
@@ -46,7 +46,7 @@ diff -u -r1.1 ShelfBooksCompartmentEditPart.java
  	}
  
  	/**
-@@ -76,4 +82,27 @@
+@@ -77,4 +82,27 @@
  			super.setRatio(ratio);
  		}
  	}
@@ -55,33 +55,32 @@ diff -u -r1.1 ShelfBooksCompartmentEditPart.java
 +		List views = super.getModelChildren();
 +		Iterator iterator = views.iterator();
 +		while (iterator.hasNext()) {
-+			Book book = (Book) ((View) iterator.next()).getElement();
++			Book book = (Book) iterator.next();
 +			if (book.getTitle() != null && book.getTitle().contains("COBOL")) {
 +				iterator.remove();
 +			}
 +		}
 +		return views;
 +	}
++    
++    protected List getSemanticChildrenList() {
++        return new ArrayList(((Shelf) resolveSemanticElement()).getBooks());
++    }
 +
-+	protected List getSemanticChildrenList() {
-+		return new ArrayList(((Shelf) resolveSemanticElement()).getBooks());
-+	}
-+
-+	protected void semanticChildAdded(EObject child, int index) {
-+		if (child != null) {
-+			EditPart ep = new BookEditPart(child);
-+			addChild(ep, index);
-+		}
-+	}
++    protected void semanticChildAdded(EObject child, int index) {
++        if (child != null) {
++            EditPart ep = new BookEditPart(child);
++            addChild(ep, index);
++        }
++    }
  }
-
 Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java
 ===================================================================
 RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java,v
-retrieving revision 1.1
-diff -u -r1.1 BookEditPart.java
---- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java	20 Feb 2007 01:26:48 -0000	1.1
-+++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java	20 Feb 2007 18:53:04 -0000
+retrieving revision 1.2
+diff -u -r1.2 BookEditPart.java
+--- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java	22 Feb 2007 21:51:43 -0000	1.2
++++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/edit/parts/BookEditPart.java	24 Feb 2007 01:59:59 -0000
 @@ -16,6 +16,7 @@
  import org.eclipse.gef.requests.DirectEditRequest;
  import org.eclipse.gef.requests.SelectionRequest;
@@ -99,7 +98,7 @@ diff -u -r1.1 BookEditPart.java
  		super(view);
  	}
  
-@@ -207,10 +208,9 @@
+@@ -207,11 +208,10 @@
  	 */
  	protected String getLabelText() {
  		String text = null;
@@ -107,67 +106,30 @@ diff -u -r1.1 BookEditPart.java
 -			text = getParser().getPrintString(
 -					new EObjectAdapter(getParserElement()),
 -					getParserOptions().intValue());
-+		Book book = (Book)resolveSemanticElement();
-+		if (book != null) {
-+			text = book.getTitle();
- 		}
+-		}
++        Book book = (Book)resolveSemanticElement();
++        if (book != null) {
++            text = book.getTitle();
++        }
  		if (text == null || text.length() == 0) {
  			text = defaultText;
+ 		}
 @@ -304,7 +304,7 @@
  	 */
  	public IParser getParser() {
  		if (parser == null) {
 -			String parserHint = ((View) getModel()).getType();
-+			String parserHint = "2001"; //$NON-NLS-1$
++            String parserHint = "2001"; //$NON-NLS-1$
  			ParserHintAdapter hintAdapter = new ParserHintAdapter(
  					getParserElement(), parserHint) {
  
-@@ -611,5 +611,9 @@
+@@ -612,5 +612,8 @@
  		}
  
  	}
 -
-+	
-+	public boolean hasNotationView() {
-+		return false;
-+	}
-+	
++    
++    public boolean hasNotationView() {
++        return false;
++    }
  }
-Index: src/org/eclipse/gmf/examples/eclipsecon/library/diagram/providers/Library07ParserProvider.java
-===================================================================
-RCS file: /cvsroot/technology/org.eclipse.gmf/examples/org.eclipse.gmf.examples.eclipsecon.library.diagram/src/org/eclipse/gmf/examples/eclipsecon/library/diagram/providers/Library07ParserProvider.java,v
-retrieving revision 1.1
-diff -u -r1.1 Library07ParserProvider.java
---- src/org/eclipse/gmf/examples/eclipsecon/library/diagram/providers/Library07ParserProvider.java	20 Feb 2007 01:26:48 -0000	1.1
-+++ src/org/eclipse/gmf/examples/eclipsecon/library/diagram/providers/Library07ParserProvider.java	20 Feb 2007 18:53:04 -0000
-@@ -118,6 +118,30 @@
- 		return parser;
- 	}
- 
-+    /**
-+     * @generated
-+     */
-+    private IParser bookBookTitle_2001Parser;
-+
-+    /**
-+     * @generated
-+     */
-+    private IParser getBookBookTitle_2001Parser() {
-+        if (bookBookTitle_2001Parser == null) {
-+            bookBookTitle_2001Parser = createBookBookTitle_2001Parser();
-+    }
-+    return bookBookTitle_2001Parser;
-+    }
-+
-+    /**
-+     * @generated
-+     */
-+    protected IParser createBookBookTitle_2001Parser() {
-+        Library07StructuralFeatureParser parser = new Library07StructuralFeatureParser(
-+            LibraryPackage.eINSTANCE.getBook_Title());
-+        return parser;
-+    }
-+
- 	/**
- 	 * @generated
- 	 */
