@@ -167,7 +167,7 @@ private boolean isMapEntryFeature(genmodel::GenFeature gf) :
 
 // GenClassImpl#isMapEntry
 boolean isMapEntry(genmodel::GenClass gc) :
-	("java.util.Map.Entry" == gc.ecoreClass.name || "java.util.Map$Entry" == gc.ecoreClass.name) 
+	("java.util.Map.Entry" == gc.ecoreClass.instanceClassName || "java.util.Map$Entry" == gc.ecoreClass.instanceClassName) 
 		&& gc.ecoreClass.getEStructuralFeature("key") != null
 		&& gc.ecoreClass.getEStructuralFeature("value") != null
 ;
