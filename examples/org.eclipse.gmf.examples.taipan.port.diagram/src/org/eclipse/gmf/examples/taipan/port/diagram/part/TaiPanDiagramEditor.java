@@ -135,7 +135,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
 			setDocumentProvider(PortDiagramEditorPlugin.getInstance().getDocumentProvider());
 		} else {
-			setDocumentProvider(new StorageDiagramDocumentProvider());
+			super.setDocumentProvider(input);
 		}
 	}
 

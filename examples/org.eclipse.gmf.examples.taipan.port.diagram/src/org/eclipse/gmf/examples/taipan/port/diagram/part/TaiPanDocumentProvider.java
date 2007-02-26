@@ -110,8 +110,6 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
-		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
-		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
 	}
 
@@ -346,7 +344,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					PortDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+					PortDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
 				}
 			}
 			return info.isReadOnly();
@@ -369,7 +367,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					PortDiagramEditorPlugin.getInstance().logError(EditorMessages.StorageDocumentProvider_isModifiable, ex);
+					PortDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
 				}
 			}
 			return info.isModifiable();
@@ -581,7 +579,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			try {
 				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (CoreException ex) {
-				PortDiagramEditorPlugin.getInstance().logError(EditorMessages.FileDocumentProvider_handleElementContentChanged, ex);
+				PortDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_handleElementContentChanged, ex);
 			}
 		}
 		changedResource.unload();
@@ -687,11 +685,18 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		/**
 		 * @generated
 		 */
+		private ResourceSetModificationListener myResourceSetListener;
+
+		/**
+		 * @generated
+		 */
 		public ResourceSetInfo(IDiagramDocument document, IEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
 			startResourceListening();
+			myResourceSetListener = new ResourceSetModificationListener(this);
+			getResourceSet().eAdapters().add(myResourceSetListener);
 		}
 
 		/**
@@ -727,6 +732,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		 */
 		public void dispose() {
 			stopResourceListening();
+			getResourceSet().eAdapters().remove(myResourceSetListener);
 			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource resource = (Resource) it.next();
 				resource.unload();
