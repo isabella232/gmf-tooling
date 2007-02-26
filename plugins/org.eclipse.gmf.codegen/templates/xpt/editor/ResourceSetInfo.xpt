@@ -89,6 +89,9 @@ protected class ResourceSetInfo extends ElementInfo {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private boolean myReadOnly = true;
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	private ResourceSetModificationListener myResourceSetListener;
 «ENDDEFINE»
 
 «DEFINE constructor FOR gmfgen::GenDiagram-»
@@ -100,6 +103,8 @@ public ResourceSetInfo(org.eclipse.gmf.runtime.diagram.ui.resources.editor.docum
 	«IF null == editorGen.application-»
 	startResourceListening();
 	«ENDIF-»
+	myResourceSetListener = new ResourceSetModificationListener(this);
+	getResourceSet().eAdapters().add(myResourceSetListener);
 }
 «ENDDEFINE»
 
@@ -137,6 +142,7 @@ public void dispose() {
 	«IF null == editorGen.application-»
 	stopResourceListening();
 	«ENDIF-»
+	getResourceSet().eAdapters().remove(myResourceSetListener);
 	for (java.util.Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();

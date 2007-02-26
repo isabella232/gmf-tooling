@@ -104,8 +104,6 @@ protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.
 	ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 	info.setModificationStamp(computeModificationStamp(info));
 	info.fStatus = null;
-	ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
-	info.getResourceSet().eAdapters().add(modificationListener);
 	return info;
 }
 «ENDDEFINE»
