@@ -76,8 +76,6 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
-		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
-		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
 	}
 
@@ -653,11 +651,18 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		/**
 		 * @generated
 		 */
+		private ResourceSetModificationListener myResourceSetListener;
+
+		/**
+		 * @generated
+		 */
 		public ResourceSetInfo(IDiagramDocument document, IEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
 			startResourceListening();
+			myResourceSetListener = new ResourceSetModificationListener(this);
+			getResourceSet().eAdapters().add(myResourceSetListener);
 		}
 
 		/**
@@ -693,6 +698,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		 */
 		public void dispose() {
 			stopResourceListening();
+			getResourceSet().eAdapters().remove(myResourceSetListener);
 			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource resource = (Resource) it.next();
 				resource.unload();
