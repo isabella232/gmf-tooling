@@ -36,7 +36,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
@@ -49,7 +48,7 @@ import org.eclipse.ui.IEditorInput;
 /**
  * @generated
  */
-public class URIDiagramDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
+public class TaiPanDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
 
 	/**
 	 * @generated
@@ -64,38 +63,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
-		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
-		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void disposeElementInfo(Object element, ElementInfo info) {
-		if (info instanceof ResourceSetInfo) {
-			ResourceSetInfo resourceSetInfo = (ResourceSetInfo) info;
-			resourceSetInfo.dispose();
-		}
-		super.disposeElementInfo(element, info);
-	}
-
-	/**
-	 * @generated
-	 */
-	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-		return editorInput;
-	}
-
-	/**
-	 * @generated
-	 */
-	public IDiagramDocument getDiagramDocument(Object element) {
-		IDocument doc = getDocument(element);
-		if (doc instanceof IDiagramDocument) {
-			return (IDiagramDocument) doc;
-		}
-		return null;
 	}
 
 	/**
@@ -106,7 +74,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 			throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		IDocument document = createEmptyDocument();
-		setDocumentContent(document, (URIEditorInput) element);
+		setDocumentContent(document, (IEditorInput) element);
 		setupDocument(element, document);
 		return document;
 	}
@@ -115,13 +83,28 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * Sets up the given document as it would be provided for the given element. The
 	 * content of the document is not changed. This default implementation is empty.
 	 * Subclasses may reimplement.
-	 *
+	 * 
 	 * @param element the blue-print element
 	 * @param document the document to set up
 	 * @generated
 	 */
 	protected void setupDocument(Object element, IDocument document) {
 		// for subclasses
+	}
+
+	/**
+	 * @generated
+	 */
+	private long computeModificationStamp(ResourceSetInfo info) {
+		int result = 0;
+		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource nextResource = (Resource) it.next();
+			File file = getFile(nextResource);
+			if (file != null && file.exists()) {
+				result += file.lastModified();
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -174,6 +157,91 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
+	protected void setDocumentContent(IDocument document, IEditorInput element) throws CoreException {
+		IDiagramDocument diagramDocument = (IDiagramDocument) document;
+		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+		if (element instanceof URIEditorInput) {
+			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			Resource resource = null;
+			try {
+				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
+				if (resource == null) {
+					resource = domain.getResourceSet().createResource(uri.trimFragment());
+				}
+				if (!resource.isLoaded()) {
+					try {
+						Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
+						// @see 171060 
+						// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+						resource.load(options);
+					} catch (IOException e) {
+						resource.unload();
+						throw e;
+					}
+				}
+				if (resource == null) {
+					throw new RuntimeException("Unable to load diagram resource");
+				}
+				if (uri.fragment() != null) {
+					EObject rootElement = resource.getEObject(uri.fragment());
+					if (rootElement instanceof Diagram) {
+						document.setContent((Diagram) rootElement);
+						return;
+					}
+				} else {
+					for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
+						Object rootElement = it.next();
+						if (rootElement instanceof Diagram) {
+							document.setContent((Diagram) rootElement);
+							return;
+						}
+					}
+				}
+				throw new RuntimeException("Diagram is not present in resource");
+			} catch (Exception e) {
+				CoreException thrownExcp = null;
+				if (e instanceof CoreException) {
+					thrownExcp = (CoreException) e;
+				} else {
+					String msg = e.getLocalizedMessage();
+					thrownExcp = new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+				}
+				throw thrownExcp;
+			}
+		} else {
+			throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public long getModificationStamp(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			return computeModificationStamp(info);
+		}
+		return super.getModificationStamp(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isDeleted(Object element) {
+		IDiagramDocument document = getDiagramDocument(element);
+		if (document != null) {
+			Resource diagramResource = document.getDiagram().eResource();
+			if (diagramResource != null) {
+				File file = getFile(diagramResource);
+				return file != null && !file.exists();
+			}
+		}
+		return super.isDeleted(element);
+	}
+
+	/**
+	 * @generated
+	 */
 	public ResourceSetInfo getResourceSetInfo(Object editorInput) {
 		return (ResourceSetInfo) super.getElementInfo(editorInput);
 	}
@@ -181,59 +249,111 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	protected void setDocumentContent(IDocument document, IEditorInput element) throws CoreException {
-		if (false == element instanceof URIEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+	protected void disposeElementInfo(Object element, ElementInfo info) {
+		if (info instanceof ResourceSetInfo) {
+			ResourceSetInfo resourceSetInfo = (ResourceSetInfo) info;
+			resourceSetInfo.dispose();
 		}
-		org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
-		IDiagramDocument diagramDocument = (IDiagramDocument) document;
-		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		Resource resource = null;
-		try {
-			resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
-			if (resource == null) {
-				resource = domain.getResourceSet().createResource(uri.trimFragment());
-			}
-			if (!resource.isLoaded()) {
+		super.disposeElementInfo(element, info);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isReadOnly(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
 				try {
-					Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
-					// @see 171060 
-					// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-					resource.load(options);
-				} catch (IOException e) {
-					resource.unload();
-					throw e;
+					updateCache(element);
+				} catch (CoreException ex) {
+					TaiPanDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
 				}
 			}
-			if (resource == null) {
-				throw new RuntimeException("Unable to load diagram resource");
+			return info.isReadOnly();
+		}
+		return super.isReadOnly(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isModifiable(Object element) {
+		if (!isStateValidated(element)) {
+			if (element instanceof URIEditorInput) {
+				return true;
 			}
-			if (uri.fragment() != null) {
-				EObject rootElement = resource.getEObject(uri.fragment());
-				if (rootElement instanceof Diagram) {
-					document.setContent((Diagram) rootElement);
+		}
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
+				try {
+					updateCache(element);
+				} catch (CoreException ex) {
+					TaiPanDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
+				}
+			}
+			return info.isModifiable();
+		}
+		return super.isModifiable(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void updateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+				Resource nextResource = (Resource) it.next();
+				File file = getFile(nextResource);
+				if (file != null && file.exists() && !file.canWrite()) {
+					info.setReadOnly(true);
+					info.setModifiable(false);
 					return;
 				}
-			} else {
-				for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
-					Object rootElement = it.next();
-					if (rootElement instanceof Diagram) {
-						document.setContent((Diagram) rootElement);
-						return;
-					}
-				}
 			}
-			throw new RuntimeException("Diagram is not present in resource");
-		} catch (Exception e) {
-			CoreException thrownExcp = null;
-			if (e instanceof CoreException) {
-				thrownExcp = (CoreException) e;
-			} else {
-				String msg = e.getLocalizedMessage();
-				thrownExcp = new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
-			}
-			throw thrownExcp;
+			info.setReadOnly(false);
+			info.setModifiable(true);
+			return;
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doUpdateStateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			info.setUpdateCache(true);
+		}
+		super.doUpdateStateCache(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isSynchronized(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			return info.isSynchronized();
+		}
+		return super.isSynchronized(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
+				Resource nextResource = (Resource) it.next();
+				handleElementChanged(info, nextResource, monitor);
+			}
+			return;
+		}
+		super.doSynchronize(element, monitor);
 	}
 
 	/**
@@ -275,85 +395,6 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	public boolean isDeleted(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			return file != null && !file.exists();
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public boolean isReadOnly(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			if (file != null && file.exists()) {
-				return !file.canWrite();
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	public boolean isModifiable(Object element) {
-		if (element instanceof URIEditorInput) {
-			File file = getFile((URIEditorInput) element);
-			if (file != null && file.exists()) {
-				return file.canWrite();
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static File getFile(URIEditorInput input) {
-		return getFile(input.getURI().trimFragment());
-	}
-
-	/**
-	 * @generated
-	 */
-	public static File getFile(org.eclipse.emf.common.util.URI resourceUri) {
-		if (resourceUri != null && resourceUri.isFile()) {
-			File file = new File(resourceUri.toFileString());
-			if (!file.isDirectory()) {
-				return file;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private long computeModificationStamp(ResourceSetInfo info) {
-		int result = 0;
-		for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
-			Resource nextResource = (Resource) it.next();
-			File file = getFile(nextResource.getURI());
-			if (file != null && file.exists()) {
-				result += file.lastModified();
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void handleElementChanged(ResourceSetInfo info, Resource changedResource, IProgressMonitor monitor) {
 		changedResource.unload();
 
@@ -376,6 +417,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	 * @generated
 	 */
 	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+
 		// TODO: append suffix to the URI! (use diagram as a parameter)
 		fireElementMoved(input, new URIEditorInput(uri));
 	}
@@ -383,12 +425,40 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 	/**
 	 * @generated
 	 */
-	public boolean isSynchronized(Object element) {
-		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null) {
-			return info.isSynchronized();
+	public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
+		return editorInput;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IDiagramDocument getDiagramDocument(Object element) {
+		IDocument doc = getDocument(element);
+		if (doc instanceof IDiagramDocument) {
+			return (IDiagramDocument) doc;
 		}
-		return super.isSynchronized(element);
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static File getFile(Resource resource) {
+		org.eclipse.emf.common.util.URI resourceUri = resource.getURI();
+		if (resourceUri != null && resourceUri.isFile()) {
+			File file = new File(resourceUri.toFileString());
+			if (!file.isDirectory()) {
+				return file;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -429,10 +499,17 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 		/**
 		 * @generated
 		 */
+		private ResourceSetModificationListener myResourceSetListener;
+
+		/**
+		 * @generated
+		 */
 		public ResourceSetInfo(IDiagramDocument document, IEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
+			myResourceSetListener = new ResourceSetModificationListener(this);
+			getResourceSet().eAdapters().add(myResourceSetListener);
 		}
 
 		/**
@@ -467,6 +544,7 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 		 * @generated
 		 */
 		public void dispose() {
+			getResourceSet().eAdapters().remove(myResourceSetListener);
 			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource resource = (Resource) it.next();
 				resource.unload();
@@ -480,26 +558,44 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 			return getModificationStamp() == computeModificationStamp(this);
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isUpdateCache() {
 			return myUpdateCache;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setUpdateCache(boolean update) {
 			myUpdateCache = update;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isModifiable() {
 			return myModifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setModifiable(boolean modifiable) {
 			myModifiable = modifiable;
 		}
 
+		/**
+		 * @generated
+		 */
 		public boolean isReadOnly() {
 			return myReadOnly;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void setReadOnly(boolean readOnly) {
 			myReadOnly = readOnly;
 		}
@@ -568,4 +664,5 @@ public class URIDiagramDocumentProvider extends AbstractDocumentProvider impleme
 		}
 
 	}
+
 }

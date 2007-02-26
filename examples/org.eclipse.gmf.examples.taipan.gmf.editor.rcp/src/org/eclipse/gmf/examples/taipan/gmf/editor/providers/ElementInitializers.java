@@ -47,6 +47,7 @@ public class ElementInitializers {
 						TaiPanPackage.eINSTANCE.getRoute())));
 			}
 		}; // Route_4002 ObjectInitializer		
+
 		/**
 		 * @generated
 		 */
@@ -84,6 +85,7 @@ public class ElementInitializers {
 			 * @generated
 			 */
 			final EClass element;
+
 			/** 
 			 * @generated
 			 */

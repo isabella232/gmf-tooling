@@ -120,6 +120,7 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 		 * @generated
 		 */
 		public static final String VALIDATE_ACTION_KEY = "validateAction"; //$NON-NLS-1$
+
 		/**
 		 * @generated
 		 */

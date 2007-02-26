@@ -17,36 +17,19 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-import org.eclipse.emf.transaction.NotificationFilter;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -99,7 +82,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof URIEditorInput) {
-			setDocumentProvider(new URIDiagramDocumentProvider());
+			setDocumentProvider(TaiPanDiagramEditorPlugin.getInstance().getDocumentProvider());
 		} else {
 			super.setDocumentProvider(input);
 		}
@@ -110,7 +93,7 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor {
 	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
 		if (input instanceof URIEditorInput) {
-			return new URIDiagramDocumentProvider();
+			return TaiPanDiagramEditorPlugin.getInstance().getDocumentProvider();
 		}
 		return super.getDocumentProvider(input);
 	}
