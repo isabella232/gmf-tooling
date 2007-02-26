@@ -141,27 +141,7 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
-		<!-- preparation: discovering oeg.examples feature among installed in the platform -->
-		
-		<!-- the feature we're looking for -->
-		<property name="examples.feature.id" value="org.eclipse.gmf.examples"/>
-
-		<!-- loading examples map file into properties -->
-		<property file = "${buildDirectory}/maps/org.eclipse.gmf.releng/maps/gmf-examples.map"/>
-		
-		<!-- discovering qualified version for the oeg.examples feature source plugin -->
-		<condition property="examples.feature.qualifiedVersion" value="${forceContextQualifier}">
-			<isset property="forceContextQualifier"/>
-		</condition>
-		<propertycopy property="mapEntry" from="feature@${examples.feature.id}" override="true"/>
-		<propertyregex property="examples.feature.qualifiedVersion"
-		              input="${mapEntry}"
-		              regexp="\A([^\,]*)"
-		              select="\1"
-		              casesensitive="false" />
-		<echo message="qualifiedVersion: ${examples.feature.qualifiedVersion}"/>
-
-		<!-- now iterating through the examples features to pack them all into zips -->
+		<!-- iterating through the examples features to pack them all into zips -->
 		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
 		<propertyselector property="zip.list"
 		                         delimiter=","
