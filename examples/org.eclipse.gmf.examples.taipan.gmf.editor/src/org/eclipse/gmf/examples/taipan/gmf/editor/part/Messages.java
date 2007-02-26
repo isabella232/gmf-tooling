@@ -9,6 +9,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	private Messages() {
 	}
 
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_handleElementContentChanged;
+
 	//TODO: put accessor fields manually	
 	/**
 	 * @generated
