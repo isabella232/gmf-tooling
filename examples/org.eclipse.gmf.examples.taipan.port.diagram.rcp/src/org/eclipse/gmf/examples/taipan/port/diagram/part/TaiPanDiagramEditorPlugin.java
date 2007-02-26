@@ -61,6 +61,11 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private TaiPanDocumentProvider myDocumentProvider;
+
+	/**
+	 * @generated
+	 */
 	public TaiPanDiagramEditorPlugin() {
 	}
 
@@ -180,6 +185,16 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public TaiPanDocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new TaiPanDocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**

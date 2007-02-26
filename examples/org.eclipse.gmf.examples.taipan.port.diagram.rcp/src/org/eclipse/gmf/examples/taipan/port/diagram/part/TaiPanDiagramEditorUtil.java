@@ -237,14 +237,17 @@ public class TaiPanDiagramEditorUtil {
 		 * @generated
 		 */
 		private Map element2ViewMap;
+
 		/**
 		 * @generated
 		 */
 		private View scope;
+
 		/**
 		 * @generated
 		 */
 		private Set elementSet;
+
 		/**
 		 * @generated
 		 */

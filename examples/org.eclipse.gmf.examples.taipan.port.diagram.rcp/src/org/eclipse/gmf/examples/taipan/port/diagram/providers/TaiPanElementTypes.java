@@ -167,6 +167,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Port_1000 = getElementType("org.eclipse.gmf.examples.taipan.port.diagram.rcp.Port_1000"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
