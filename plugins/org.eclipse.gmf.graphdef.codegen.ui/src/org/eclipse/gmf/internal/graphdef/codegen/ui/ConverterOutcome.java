@@ -79,16 +79,12 @@ class ConverterOutcome {
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	private FigureGallery[] inputAsGalleries() {
-		// TODO Auto-generated method stub
-		return null;
+		return findFigures(myInput);
 	}
 
 	private Canvas inputAsCanvas() {
-		return (Canvas) myInput[0].getContents().get(0);
+		return findCanvases(myInput)[0];
 	}
 
 	public IStatus createResources(ResourceSet rs, URI galleryResourceURI, URI mirroredCanvasURI) {
