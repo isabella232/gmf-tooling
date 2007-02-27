@@ -94,8 +94,8 @@ public class ConverterSection extends OptionTemplateSection {
 	public void addPages(Wizard wizard) {
 		super.addPages(wizard);
 		WizardPage page = createPage(THE_ONLY_PAGE_INDEX);
-		page.setDescription("ConverterSection.description");
-		page.setTitle("ConverterSection.title");
+		page.setDescription("Converts an existing instance of the gmfgraph model into plugin code");
+		page.setTitle("Figure definitions converter");
 		wizard.addPage(page);
 		markPagesAdded();
 		validateOptions(myPackageNameOption);
