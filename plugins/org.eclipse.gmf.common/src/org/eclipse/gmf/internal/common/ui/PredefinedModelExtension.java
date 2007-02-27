@@ -53,7 +53,7 @@ public class PredefinedModelExtension implements ModelSelectionPageExtension {
 			plate.setLayoutData(data);
 		}
 		plate.setLayout(new GridLayout());
-		ExpandableComposite hlSection = new ExpandableComposite(plate, ExpandableComposite.TWISTIE);
+		ExpandableComposite hlSection = new ExpandableComposite(plate, SWT.NONE, ExpandableComposite.TWISTIE);
 		hlSection.setText(getLabelText());
 		hlSection.setLayoutData(new GridData());
 		Composite hlPlate = new Composite(hlSection, SWT.NONE);
