@@ -23,3 +23,5 @@ plugin@org.eclipse.gmf.tooldef=v20070208-1800,:pserver:anonymous@dev.eclipse.org
 plugin@org.eclipse.gmf.tooldef.edit=v20070208-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
 plugin@org.eclipse.gmf.validate=v20070208-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.validate
 plugin@org.eclipse.gmf.xpand=v20070208-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
+
+feature@org.eclipse.gmf.examples=v20070221-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature
