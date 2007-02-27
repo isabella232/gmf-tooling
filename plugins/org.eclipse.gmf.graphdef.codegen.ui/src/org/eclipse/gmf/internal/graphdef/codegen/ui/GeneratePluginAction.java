@@ -163,11 +163,11 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		return myTargetPart.getSite().getShell();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, ISelection selection) {
 		mySelectedFiles = new ArrayList<IFile>(5);
 		if (selection instanceof IStructuredSelection) {
-			mySelectedFiles.addAll(((IStructuredSelection) selection).toList());
+			@SuppressWarnings("unchecked") List<IFile> sel = ((IStructuredSelection) selection).toList();
+			mySelectedFiles.addAll(sel);
 		}
 	}
 
