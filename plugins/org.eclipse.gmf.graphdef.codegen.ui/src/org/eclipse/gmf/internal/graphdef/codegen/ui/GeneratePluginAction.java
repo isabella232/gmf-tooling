@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -242,7 +243,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	        }
 	        if (errorMessage == null && templatesPathControl.getText().trim().length() > 0) { // do dynamic templates check only when pluginID is ok
 	        	try {
-	        		new URL(templatesPathControl.getText().trim());
+	        		new URL(guessAndResolvePathURL(templatesPathControl.getText().trim()));
 	        	} catch (Exception ex) {
 	        		errorMessage = "Illegal dynamic templates path";
 	        	}
@@ -263,9 +264,17 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	    	templatesPath = templatesPathControl.getText().trim();
 	    	if (templatesPath.length() == 0) {
 	    		templatesPath = null;
+	    	} else {
+	    		templatesPath = guessAndResolvePathURL(templatesPath);
 	    	}
 	    	super.okPressed();
 	    }
+
+		private static String guessAndResolvePathURL(String path) {
+			assert path != null;
+			URI templatesURI = path.indexOf(':') == -1 ? URI.createPlatformResourceURI(path, true) : URI.createURI(path);
+			return CommonPlugin.resolve(templatesURI).toString();
+		}
 
 	    public String getPluginId() {
 	    	return pluginId;
