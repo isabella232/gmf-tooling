@@ -1,5 +1,7 @@
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -42,6 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
 public class GeneratePluginAction implements IObjectActionDelegate, IInputValidator {
 	private List<IFile> mySelectedFiles = Collections.emptyList();
@@ -70,7 +73,17 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 			MessageDialog.openInformation(getShell(), "Nothing to do", inputCheck.getMessage());
 			return;
 		}
-		final StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, dialog.getFigureQualifiedNameSwitch());
+		URL[] dynamicTemplates = null;
+		if (dialog.getTemplatesPath() != null) {
+			try {
+				dynamicTemplates = new URL[1];
+				dynamicTemplates[0] = new URL(dialog.getTemplatesPath());
+			} catch (MalformedURLException ex) {
+				MessageDialog.openWarning(getShell(), "Invalid dynamic template path", "Path for dynamic templates is invalid, proceeding without dynamic templates");
+				// fallthrough
+			}
+		}
+		final StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, dialog.getFigureQualifiedNameSwitch(), dynamicTemplates);
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {
@@ -175,7 +188,9 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	    private IInputValidator pluginIdValidator;
 	    private Text pluginIdText;
 		private String pluginId;
+		private String templatesPath;
 		private final boolean shouldWarnLiteVerstionDoesNotSupportMapMode;
+		private Text templatesPathControl;
 
 		public StandaloneGeneratorOptionsDialog(Shell parentShell, String initialPluginId, boolean initialUseRuntimeFigures, IInputValidator pluginIdValidator) {
 			this(parentShell, initialPluginId, initialUseRuntimeFigures, false, pluginIdValidator);
@@ -202,11 +217,21 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	        pluginIdText = new Text(result, SWT.SINGLE | SWT.BORDER);
 	        pluginIdText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
 	                | GridData.HORIZONTAL_ALIGN_FILL));
-	        pluginIdText.addModifyListener(new ModifyListener() {
-	            public void modifyText(ModifyEvent e) {
-	                validateInput();
-	            }
-	        });
+	        final ModifyListener modifyListener = new ModifyListener() {
+				            public void modifyText(ModifyEvent e) {
+				                validateInput();
+				            }
+				        };
+			pluginIdText.addModifyListener(modifyListener);
+	        ExpandableComposite c = new ExpandableComposite(result, SWT.NONE, ExpandableComposite.TWISTIE);
+	        final GridData d = new GridData(SWT.FILL, SWT.TOP, true, true);
+	        d.minimumHeight = convertVerticalDLUsToPixels(IDialogConstants.BUTTON_BAR_HEIGHT);
+	        d.verticalIndent = 10;
+			c.setLayoutData(d);
+	        c.setText("Dynamic templates");
+	        templatesPathControl = new Text(c, SWT.SINGLE | SWT.BORDER);
+	        templatesPathControl.addModifyListener(modifyListener);
+			c.setClient(templatesPathControl);
 			super.createControls(result);
 		}
 
@@ -214,6 +239,13 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	        String errorMessage = null;
 	        if (pluginIdValidator != null) {
 	            errorMessage = pluginIdValidator.isValid(pluginIdText.getText());
+	        }
+	        if (errorMessage == null && templatesPathControl.getText().trim().length() > 0) { // do dynamic templates check only when pluginID is ok
+	        	try {
+	        		new URL(templatesPathControl.getText().trim());
+	        	} catch (Exception ex) {
+	        		errorMessage = "Illegal dynamic templates path";
+	        	}
 	        }
 	        // Bug 16256: important not to treat "" (blank error) the same as null
 	        // (no error)
@@ -228,11 +260,18 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 
 	    protected void okPressed() {
 	    	pluginId = pluginIdText.getText();
+	    	templatesPath = templatesPathControl.getText().trim();
+	    	if (templatesPath.length() == 0) {
+	    		templatesPath = null;
+	    	}
 	    	super.okPressed();
 	    }
 
 	    public String getPluginId() {
 	    	return pluginId;
+	    }
+	    public String getTemplatesPath() {
+	    	return templatesPath;
 	    }
 	}
 }
