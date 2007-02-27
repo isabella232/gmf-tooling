@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
