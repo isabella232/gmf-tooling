@@ -17,6 +17,7 @@
             id="org.eclipse.gmf.examples.runtime">
       </category>
       
+      <!-- Logic Example -->
       <wizard
             name="%newWizards.examples.logic.name"
             icon="icons/logic.gif"
@@ -49,6 +50,7 @@
          </description>
       </wizard>  
       
+      <!-- Geoshape Example -->
       <wizard
             name="%newWizards.examples.geoshapes.name"
             icon="icons/geoshape.gif"
@@ -67,7 +69,8 @@
             %newWizards.examples.geoshapes.desc
          </description>
       </wizard>  
-      
+
+	  <!-- Square Layout Provider Example -->       
       <wizard
             name="%newWizards.examples.layoutservice.name"
             icon="icons/diagram2.gif"
@@ -86,7 +89,8 @@
             %newWizards.examples.layoutservice.desc
          </description>
       </wizard>  
-      
+
+	  <!-- Review Decorator Provider Example -->      
       <wizard
             name="%newWizards.examples.decorationservice.name"
             icon="icons/diagram.gif"
@@ -106,6 +110,7 @@
          </description>
       </wizard>  
       
+      <!-- Service Example -->
       <wizard
             category="org.eclipse.ui.Examples/org.eclipse.gmf.examples.runtime"
             class="org.eclipse.gmf.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard"
@@ -122,6 +127,26 @@
            </project> 	
          <description>
             %newWizards.examples.serviceexample.description
+         </description>
+      </wizard>      
+
+	  <!-- Clipboard Support Example -->
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.gmf.examples.runtime"
+            class="org.eclipse.gmf.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard"
+            finalPerspective="org.eclipse.pde.ui.PDEPerspective"
+            icon="icons/clipboard.gif"
+            id="org.eclipse.gmf.examples.runtime.common.service.wizards"
+            name="%newWizards.examples.clipboard.name"
+            project="true"
+            projectPageTitle="%newWizards.examples.clipboard.projectPage.title"
+            projectPageDescription="%newWizards.examples.clipboard.projectPage.desc"
+            projectName="%newWizards.examples.clipboard.projectName">
+            <project
+            	zipPath = "%zip@org.eclipse.gmf.examples.runtime.emf.clipboard">
+           </project>
+         <description>
+            %newWizards.examples.clipboard.description
          </description>
       </wizard>      
       
