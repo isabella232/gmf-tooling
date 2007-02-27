@@ -83,12 +83,12 @@ public class CanvasProcessor extends Processor {
 	}
 
 	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
-		ArrayList/*<String>*/ rv = new ArrayList();
+		ArrayList<String> rv = new ArrayList<String>();
 		for (Iterator galleries = myInput.getFigures().iterator(); galleries.hasNext();) {
 			FigureGallery next = (FigureGallery) galleries.next();
 			rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
 		}
-		return (String[]) rv.toArray(new String[rv.size()]);
+		return rv.toArray(new String[rv.size()]);
 	}
 
 	private void handleNodes() throws InterruptedException {
@@ -181,7 +181,7 @@ public class CanvasProcessor extends Processor {
 		if (!figure.getChildren().isEmpty()) {
 			return false;
 		}
-		final Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
+		final LinkedList<EStructuralFeature> featuresToCheck = new LinkedList<EStructuralFeature>(figure.eClass().getEAllStructuralFeatures());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigure_Children());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureMarker_Parent());
@@ -191,8 +191,7 @@ public class CanvasProcessor extends Processor {
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 
-		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
-			final EStructuralFeature next = (EStructuralFeature) it.next();
+		for(EStructuralFeature next : featuresToCheck) {
 			if (next.isDerived()) {
 				continue;
 			}
