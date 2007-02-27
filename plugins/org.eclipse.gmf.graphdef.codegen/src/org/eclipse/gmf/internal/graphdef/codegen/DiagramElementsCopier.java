@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,13 +23,17 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 
 class DiagramElementsCopier extends EcoreUtil.Copier {
-	private final HashSet myOriginalFigures = new HashSet();
+	private final HashSet<Figure> myOriginalFigures = new HashSet<Figure>();
 	
 	public void registerSubstitution(Figure original, CustomFigure substituted){
 		put(original, substituted);
 		myOriginalFigures.add(original);
 	}
-	
+
+	public boolean isSubstituted(Figure original) {
+		return containsKey(original);
+	}
+
 	protected void copyReference(EReference eReference, EObject eObject, EObject copyEObject) {
 		if (EcoreUtil.isAncestor(myOriginalFigures, eObject)){
 			//no such features in the CustomFigure's
@@ -38,6 +42,9 @@ class DiagramElementsCopier extends EcoreUtil.Copier {
 		super.copyReference(eReference, eObject, copyEObject);
 	}
 
+	/**
+	 * 	FIXME this method has nothing to do with DiagramElementsCopier 
+	 */
 	static CustomFigure createCustomFigure(Figure original){
 		GMFGraphFactory factory = GMFGraphFactory.eINSTANCE;
 		if (original instanceof DecorationFigure){

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -161,6 +161,13 @@ public class CanvasProcessor extends Processor {
 	}
 
 	private void handleFigure(Figure figure) throws InterruptedException {
+		if (myElementCopier.isSubstituted(figure)) {
+			// already processed, nothing to do
+			return;
+			// XXX originally CustomFigures do not get into history of elementCopier, 
+			// hence may still get copied more than once. Perhaps, makes sense to have separate 'History'
+			// to keep track of processed figures?
+		}
 		if (figure instanceof CustomFigure && isPlainBareCustomFigure((CustomFigure) figure)) {
 			// XXX an implementationBundle might be an issue here (#x#),
 			// since myOutcomeGallery gonna get one we generate, while the original CustomFigure
