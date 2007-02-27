@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -43,7 +44,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class GeneratePluginAction implements IObjectActionDelegate, IInputValidator {
-	private List/*IFile*/ mySelectedFiles = Collections.EMPTY_LIST;
+	private List<IFile> mySelectedFiles = Collections.emptyList();
 	private IWorkbenchPart myTargetPart;
 	private ConverterOptions myOptions;
 
@@ -130,15 +131,14 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	private Resource[] loadFromSelection(ResourceSet rs) {
 		Resource[] rv = new Resource[mySelectedFiles.size()];
 		int i = 0;
-		for (Iterator it = mySelectedFiles.iterator(); it.hasNext(); i++) {
-			IFile next = (IFile) it.next();
-			rv[i] = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString(), true), true);
+		for (IFile next : mySelectedFiles) {
+			rv[i++] = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString(), true), true);
 		}
 		return rv;
 	}
 
 	public String isValid(String newText) {
-		IStatus s = JavaConventions.validatePackageName(newText);
+		IStatus s = JavaConventions.validatePackageName(newText, JavaCore.VERSION_1_4, JavaCore.VERSION_1_4);
 		if (s.isOK()) {
 			return null;
 		}
@@ -149,8 +149,9 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		return myTargetPart.getSite().getShell();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedFiles = new ArrayList(5);
+		mySelectedFiles = new ArrayList<IFile>(5);
 		if (selection instanceof IStructuredSelection) {
 			mySelectedFiles.addAll(((IStructuredSelection) selection).toList());
 		}

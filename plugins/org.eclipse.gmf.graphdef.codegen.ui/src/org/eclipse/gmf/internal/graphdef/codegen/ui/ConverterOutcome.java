@@ -133,32 +133,32 @@ class ConverterOutcome {
 	}
 
 	private static FigureGallery[] findFigures(Resource[] resources) {
-		ArrayList rv = new ArrayList();
+		ArrayList<FigureGallery> rv = new ArrayList<FigureGallery>();
 		for (int i = 0; i < resources.length; i++) {
 			for(TreeIterator it = resources[i].getAllContents(); it.hasNext();) {
 				EObject next = (EObject) it.next();
 				// FigureGallery could be either top element or as a child of canvas
 				if (next.eClass().getClassifierID() == GMFGraphPackage.FIGURE_GALLERY) {
-					rv.add(next);
+					rv.add((FigureGallery) next);
 					it.prune();
 				} else if (next.eClass().getClassifierID() != GMFGraphPackage.CANVAS) {
 					it.prune();
 				}
 			}
 		}
-		return (FigureGallery[]) rv.toArray(new FigureGallery[rv.size()]);
+		return rv.toArray(new FigureGallery[rv.size()]);
 	}
 
 	private static Canvas[] findCanvases(Resource[] resources) {
-		ArrayList rv = new ArrayList();
+		ArrayList<Canvas> rv = new ArrayList<Canvas>();
 		for (int i = 0; i < resources.length; i++) {
 			for(Iterator it = resources[i].getContents().iterator(); it.hasNext();) {
 				EObject next = (EObject) it.next();
 				if (next.eClass().getClassifierID() == GMFGraphPackage.CANVAS) {
-					rv.add(next);
+					rv.add((Canvas) next);
 				}
 			}
 		}
-		return (Canvas[]) rv.toArray(new Canvas[rv.size()]);
+		return rv.toArray(new Canvas[rv.size()]);
 	}
 }
