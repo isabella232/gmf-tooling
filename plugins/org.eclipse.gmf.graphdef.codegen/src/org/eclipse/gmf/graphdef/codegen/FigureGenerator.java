@@ -12,6 +12,7 @@
 package org.eclipse.gmf.graphdef.codegen;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +48,10 @@ public class FigureGenerator implements TextEmitter {
 	}
 
 	public FigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass) {
+		this(fqnSwitch, mapModeStrategy, mapModeAccessor, asInnerClass, null);
+	}
+
+	public FigureGenerator(FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy, String mapModeAccessor, boolean asInnerClass, URL[] dynamicTemplates) {
 		myIsInnerClassCode = asInnerClass;
 		if (mapModeStrategy == MapModeCodeGenStrategy.STATIC) {
 			if (mapModeAccessor != null && mapModeAccessor.trim().length() > 0) {
@@ -78,7 +83,7 @@ public class FigureGenerator implements TextEmitter {
 		slots.put("staticFields", additionalFields);
 		BufferOutput bufferOutput = new BufferOutput(result, slots);
 
-		ResourceManager resourceManager = Activator.createResourceEngine(mapModeStrategy);
+		ResourceManager resourceManager = Activator.createResourceEngine(mapModeStrategy, dynamicTemplates);
 		xpandFacade = new XpandFacade(ContextFactory.createXpandContext(resourceManager, bufferOutput, globals, getClass().getClassLoader()));
 	}
 

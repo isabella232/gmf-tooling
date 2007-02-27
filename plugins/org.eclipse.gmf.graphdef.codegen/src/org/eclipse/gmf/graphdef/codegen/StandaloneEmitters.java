@@ -12,6 +12,7 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -27,9 +28,9 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 class StandaloneEmitters {
 	private final ResourceManager myResourceManager;
 
-	StandaloneEmitters(MapModeCodeGenStrategy mapModeStrategy) {
+	StandaloneEmitters(MapModeCodeGenStrategy mapModeStrategy, URL[] dynamicTemplates) {
 		assert mapModeStrategy != null;
-		myResourceManager = Activator.createResourceEngine(mapModeStrategy);
+		myResourceManager = Activator.createResourceEngine(mapModeStrategy, dynamicTemplates);
 	}
 	
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {

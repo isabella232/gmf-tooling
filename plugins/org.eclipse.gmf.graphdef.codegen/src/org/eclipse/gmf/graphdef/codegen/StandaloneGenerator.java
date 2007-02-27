@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
+import java.net.URL;
+
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -24,6 +26,9 @@ import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
+/**
+ * FIXME move to internal package as it's not necessary to expose this class to public
+ */
 public class StandaloneGenerator extends GeneratorBase {
 	protected final Config myArgs;
 	private final TextEmitter myFigureGenerator;
@@ -116,6 +121,10 @@ public class StandaloneGenerator extends GeneratorBase {
 
 
 	public StandaloneGenerator(Processor p, Config config, FigureQualifiedNameSwitch fqnSwitch) {
+		this(p, config, fqnSwitch, null);
+	}
+
+	public StandaloneGenerator(Processor p, Config config, FigureQualifiedNameSwitch fqnSwitch, URL[] dynamicTemplates) {
 		assert p != null && config != null && fqnSwitch != null;
 		myArgs = config;
 		myProcessor = p;
@@ -131,8 +140,8 @@ public class StandaloneGenerator extends GeneratorBase {
 			accessor = null;
 		}
 		
-		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, accessor, false);
-		myAuxiliaryGenerators = new StandaloneEmitters(strategy);
+		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, accessor, false, dynamicTemplates);
+		myAuxiliaryGenerators = new StandaloneEmitters(strategy, dynamicTemplates);
 	}
 
 	/**

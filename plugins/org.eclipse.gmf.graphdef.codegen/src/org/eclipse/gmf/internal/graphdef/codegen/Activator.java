@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
@@ -34,10 +35,15 @@ public class Activator extends Plugin {
 		super.stop(context);
 	}
 
-	public static ResourceManager createResourceEngine(MapModeCodeGenStrategy strategy) {
+	public static ResourceManager createResourceEngine(MapModeCodeGenStrategy strategy, URL... dynamicTemplates) {
 		try {
 			URL baseURL = instance.getBundle().getEntry("/templates/");
 			ArrayList<URL> urls = new ArrayList<URL>(3);
+			if (dynamicTemplates != null) {
+				// XXX perhaps, add strategy token to each url
+				// to keep dynamic template structure similar to those bundled?
+				urls.addAll(Arrays.asList(dynamicTemplates));
+			}
 			if (strategy.getToken().length() > 0) {
 				urls.add(new URL(baseURL, strategy.getToken() + '/'));
 			}
