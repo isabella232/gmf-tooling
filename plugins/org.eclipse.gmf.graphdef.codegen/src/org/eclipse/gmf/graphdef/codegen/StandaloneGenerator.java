@@ -19,7 +19,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
-import org.eclipse.gmf.internal.common.codegen.DelegateImportManager;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
@@ -28,7 +27,6 @@ import org.eclipse.gmf.internal.common.codegen.TextMerger;
 public class StandaloneGenerator extends GeneratorBase {
 	protected final Config myArgs;
 	private final TextEmitter myFigureGenerator;
-	private DelegateImportManager myMapModeImportHack;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
 	protected final FigureQualifiedNameSwitch myFigureNameSwitch;
@@ -126,7 +124,6 @@ public class StandaloneGenerator extends GeneratorBase {
 		MapModeCodeGenStrategy strategy;
 		String accessor;
 		if (config.needsMapMode()) {
-			myMapModeImportHack = new DelegateImportManager();
 			strategy = MapModeCodeGenStrategy.DYNAMIC;
 			accessor = pluginActivatorFQN + ".getDefault().";
 		} else {
@@ -192,9 +189,6 @@ public class StandaloneGenerator extends GeneratorBase {
 	private String visitFigure(Figure figure) throws InterruptedException {
 		final ImportAssistant importAssistant = new ImportUtil(getPackageName(), CodeGenUtil.validJavaIdentifier(figure.getName()));
 		Object[] args = new Object[] { figure, importAssistant };
-		if (myMapModeImportHack != null) {
-			myMapModeImportHack.setDelegate(importAssistant);
-		}
 		doGenerateJavaClass(myFigureGenerator, getPackageName(), importAssistant.getCompilationUnitName(), args);
 		return composeFQN(getPackageName(), importAssistant.getCompilationUnitName());
 	}
