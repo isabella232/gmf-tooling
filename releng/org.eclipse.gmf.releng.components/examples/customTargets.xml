@@ -83,12 +83,14 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
+<!--
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFT" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
-		<ant antfile="${scripts}/install.xml" target="installGMF" />	
+		<ant antfile="${scripts}/install.xml" target="installGMF" />
+		-->	
 	</target>
 	
 	<!-- ===================================================================== -->
