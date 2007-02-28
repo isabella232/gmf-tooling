@@ -119,14 +119,18 @@ public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.
 	String key = getImageRegistryKey(element);
 	org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
 	if (imageDescriptor == null) {
-		imageDescriptor = getProvidedImageDescriptor(element);
-		if (imageDescriptor == null) {
-			imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
-		}
-		getImageRegistry().put(key, imageDescriptor);
+		«EXPAND loadProvidedImageDescriptor-»
 	}
 	return imageDescriptor;
 }
+«ENDDEFINE»
+
+«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-»
+imageDescriptor = getProvidedImageDescriptor(element);
+if (imageDescriptor == null) {
+	imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
+}
+getImageRegistry().put(key, imageDescriptor);
 «ENDDEFINE»
 
 «DEFINE getNamedElementImage FOR gmfgen::GenDiagram-»
@@ -135,11 +139,7 @@ public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENam
 	String key = getImageRegistryKey(element);
 	org.eclipse.swt.graphics.Image image = getImageRegistry().get(key);
 	if (image == null) {
-		org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getProvidedImageDescriptor(element);
-		if (imageDescriptor == null) {
-			imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
-		}
-		getImageRegistry().put(key, imageDescriptor);
+		org.eclipse.jface.resource.ImageDescriptor «EXPAND loadProvidedImageDescriptor-»
 		image = getImageRegistry().get(key);
 	}
 	return image;
@@ -149,21 +149,22 @@ public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENam
 «DEFINE getAdaptableImageDescriptor FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.core.runtime.IAdaptable hint) {
-	org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
-	if (element == null) {
-		return null;
-	}
+	«EXPAND getNamedElement-»
 	return getImageDescriptor(element);
+}
+«ENDDEFINE»
+
+«DEFINE getNamedElement FOR gmfgen::GenDiagram-»
+org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
+if (element == null) {
+	return null;
 }
 «ENDDEFINE»
 
 «DEFINE getAdaptableImage FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.core.runtime.IAdaptable hint) {
-	org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
-	if (element == null) {
-		return null;
-	}
+	«EXPAND getNamedElement-»
 	return getImage(element);
 }
 «ENDDEFINE»
