@@ -407,7 +407,7 @@ public class TransformToGenModelOperation {
 			// allow to run without dialogs
 			FigureQualifiedNameSwitch fSwitch = getUseRuntimeFigures().booleanValue() ? new RuntimeFQNSwitch() : new RuntimeLiteFQNSwitch();
 			MapModeCodeGenStrategy mmStrategy = getUseMapMode().booleanValue() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
-			return new InnerClassViewmapProducer(fSwitch, mmStrategy);
+			return new InnerClassViewmapProducer(fSwitch, mmStrategy, null);
 		}
 		if (!checkLiteOptionPresent()) {
 			final String rcpmsg = "Would you like to generate RCP application?";
@@ -423,7 +423,7 @@ public class TransformToGenModelOperation {
 			} else {
 				strategy = MapModeCodeGenStrategy.STATIC;
 			}
-			return new InnerClassViewmapProducer(new RuntimeFQNSwitch(), strategy);
+			return new InnerClassViewmapProducer(new RuntimeFQNSwitch(), strategy, null);
 		}
 		TransformToGenModelOptionsDialog dlg = new TransformToGenModelOptionsDialog(shell, "Create Generator Model",
 				getUseRuntimeFigures() == null ? true : getUseRuntimeFigures(),
@@ -433,7 +433,7 @@ public class TransformToGenModelOperation {
 			return null;
 		}
 		setRCP(dlg.isRCP());
-		return new InnerClassViewmapProducer(dlg.getFigureQualifiedNameSwitch(), dlg.getMapModeCodeGenStrategy());
+		return new InnerClassViewmapProducer(dlg.getFigureQualifiedNameSwitch(), dlg.getMapModeCodeGenStrategy(), null);
 	}
 
 	private static boolean checkLiteOptionPresent() {
