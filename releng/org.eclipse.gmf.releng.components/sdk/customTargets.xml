@@ -174,7 +174,50 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
+		<!-- iterating through the examples features to pack them all into zips -->
+		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
+		<propertyselector property="zip.list"
+		                         delimiter=","
+		                         match="zip@(.*)"
+		                         select="\1"
+		                         casesensitive="false" />
+		<echo message="zip.list: ${zip.list}"/>
+		<foreach list="${zip.list}"
+		                delimiter=","
+		                target="zipExamplePlugin"
+		                param="example.plugin.id" 
+						inheritall="true"/>
 	</target>
+	
+	<target name="zipExamplePlugin">
+		<propertycopy property="zipFile" from="zip@${example.plugin.id}" /> 
+		<echo message="Plugin ${example.plugin.id}, zip file name: ${zipFile}"/>
+
+<!-- -->	
+		<for param="dir1">
+		  <path>
+		    <dirset dir="${baseLocation}/plugins/" includes="org.eclipse.gmf.examples.source_*"/>
+		  </path>
+		  <sequential>
+			<for param="example.plugin.src">
+			  <path>
+			    <dirset dir="@{dir1}/src" includes="${example.plugin.id}*"/>
+			  </path>
+			  <sequential>
+			  	<!-- this should in fact happen only once: that's our way to avoid knowing exact versions of the plugins -->
+				<unzip src= "@{example.plugin.src}/src.zip" 
+					dest="@{example.plugin.src}/src" overwrite="true"
+				/>
+				<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/${zipFile}"
+				 	basedir="@{example.plugin.src}"
+					excludes="**/src.zip"
+				  />		
+				</sequential>
+			</for>
+			</sequential>
+		  </for>
+		
+	</target>	
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do after  running assemble. -->
