@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -19,6 +22,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
@@ -71,12 +75,6 @@ public abstract class CompilationTest extends TestCase {
 		return new GenASetup(mmSource.getMapping(), rcp);
 	}
 
-	public void testCompileDistinctModelAndDiagramFiles() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen(false);
-		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
-		generateAndCompile(gmfGenSource);
-	}
-
 	// avoid requests like #174171
 	public void testCompileWithStrictOptions() throws Exception {
 		final HashMap<String, String> options = new HashMap<String,String>();
@@ -84,7 +82,7 @@ public abstract class CompilationTest extends TestCase {
 		//
 		switchJavaOptions(options);
 		try {
-			testCompileDistinctModelAndDiagramFiles(); // run any test
+			testCompileMultiPackageDomain(); // run any test
 		} finally {
 			switchJavaOptions(options);
 		}
@@ -105,28 +103,15 @@ public abstract class CompilationTest extends TestCase {
 		JavaCore.setOptions(settings);
 	}
 
-	public void testCompileSingleDiagramFile() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen(false);
-		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
-		generateAndCompile(gmfGenSource);
-	}
-
-	public void testRCPCompileDistinctModelAndDiagramFiles() throws Exception {
+	public void testRCPCompile() throws Exception {
 		DiaGenSource gmfGenSource = getLibraryGen(true);
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, getMutatorsForRCP());
 	}
 
-	public void testRCPCompileSingleDiagramFile() throws Exception {
-		DiaGenSource gmfGenSource = getLibraryGen(true);
-		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
-		generateAndCompile(gmfGenSource);
-	}
-	
-	public void testCompileNONsynchronizedDiagram() throws Exception {
+	public void testCompileDiagram() throws Exception {
 		DiaGenSource gmfGenSource = getLibraryGen(false);
-		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, getMutators());
 	}
 
 	public void testCompilePotentialNameClashes() throws Exception {
@@ -139,24 +124,16 @@ public abstract class CompilationTest extends TestCase {
 		domainModel.getDiagramElement().setName("Diagram");
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModel, new ToolDefSetup());
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 	
 	public void testCompileInstanceClassNames() throws Exception {
 		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, getMutatorsForInstanceClassNames());
 	}
 	
-	public void testCompileNONsynchronizedInstanceClassNames() throws Exception {
-		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
-		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
-		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
-		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
-		generateAndCompile(gmfGenSource);
-	}
-
 	public void testCompileMultiPackageDomain() throws Exception {
 		DomainModelSource ds = new MultiplePackagesDomainModelSetup().init();
 		MapDefSource ms = new MapSetup().init(new DiaDefSetup().init(), ds, new ToolDefSetup());
@@ -168,10 +145,79 @@ public abstract class CompilationTest extends TestCase {
 
 		DiaGenSource gmfGenSource = new MultiPackageGenSetup(additionalPacks).init(ms);
 
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
-	protected void generateAndCompile(DiaGenSource genSource) throws Exception {
-		new GenProjectBaseSetup(getGeneratorConfiguration()).generateAndCompile(genSource);
+	protected void generateAndCompile(DiaGenSource genSource, final Collection<IGenDiagramMutator> mutators) throws Exception {
+		new GenProjectBaseSetup(getGeneratorConfiguration()) {
+			@Override
+			protected void generateDiagramPlugin(GenDiagram d) throws Exception {
+				super.generateDiagramPlugin(d);
+				for(IGenDiagramMutator next : mutators) {
+					next.doMutation(d);
+					try {
+						super.generateDiagramPlugin(d);
+					} finally {
+						next.undoMutation(d);
+					}
+				}
+			}
+		}.generateAndCompile(genSource);
 	}
+
+	protected Collection<IGenDiagramMutator> getMutators() {
+		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
+		result.add(SAME_FILE_MUTATOR);
+		result.add(SYNCHRONIZED_MUTATOR);
+		return result;
+	}
+
+	protected Collection<IGenDiagramMutator> getMutatorsForRCP() {
+		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
+		result.add(SAME_FILE_MUTATOR);
+		return result;
+	}
+
+	protected Collection<IGenDiagramMutator> getMutatorsForInstanceClassNames() {
+		Collection<IGenDiagramMutator> result = new ArrayList<IGenDiagramMutator>();
+		result.add(SYNCHRONIZED_MUTATOR);
+		return result;
+	}
+
+	protected static interface IGenDiagramMutator {
+		public void doMutation(GenDiagram d);
+		public void undoMutation(GenDiagram d);
+	}
+
+	protected static final IGenDiagramMutator SAME_FILE_MUTATOR = new IGenDiagramMutator() {
+		private boolean myIsSameFileForDiagramAndModel;
+		private String myPluginId;
+		public void doMutation(GenDiagram d) {
+			myIsSameFileForDiagramAndModel = d.getEditorGen().isSameFileForDiagramAndModel();
+			d.getEditorGen().setSameFileForDiagramAndModel(!myIsSameFileForDiagramAndModel);
+			myPluginId = d.getEditorGen().getPlugin().getID();
+			d.getEditorGen().getPlugin().setID(myPluginId + ".sameFileForDiagramAndModel");
+		}
+		public void undoMutation(GenDiagram d) {
+			d.getEditorGen().setSameFileForDiagramAndModel(myIsSameFileForDiagramAndModel);
+			d.getEditorGen().getPlugin().setID(myPluginId);
+		}
+	};
+
+	protected static final IGenDiagramMutator SYNCHRONIZED_MUTATOR = new IGenDiagramMutator() {
+		private boolean myIsSynchronized;
+		private String myPluginId;
+		public void doMutation(GenDiagram d) {
+			myIsSynchronized = d.isSynchronized();
+			d.setSynchronized(!myIsSynchronized);
+			myPluginId = d.getEditorGen().getPlugin().getID();
+			d.getEditorGen().getPlugin().setID(myPluginId + ".synchronized");
+		}
+		public void undoMutation(GenDiagram d) {
+			d.setSynchronized(myIsSynchronized);
+			d.getEditorGen().getPlugin().setID(myPluginId);
+		}
+	};
+
+	protected static final Collection<IGenDiagramMutator> NO_MUTATORS = Collections.emptyList();
 }

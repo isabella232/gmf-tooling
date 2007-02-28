@@ -44,7 +44,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		mmSource.detachFromDomainModel();
 		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), false);
 		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
 	protected GeneratorConfiguration getGeneratorConfiguration() {
