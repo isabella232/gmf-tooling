@@ -1,4 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 	
 	<property name="id" value="org.eclipse.gmf.sdk" />
 	<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
