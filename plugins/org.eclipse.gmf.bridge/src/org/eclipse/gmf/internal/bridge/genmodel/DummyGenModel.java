@@ -13,8 +13,8 @@ package org.eclipse.gmf.internal.bridge.genmodel;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
@@ -45,7 +45,7 @@ public class DummyGenModel {
 		if (myAdditionalPackages == null) {
 			genModel.initialize(Collections.singleton(myModel));
 		} else {
-			HashSet<EPackage> allPacks = new HashSet<EPackage>();
+			LinkedHashSet<EPackage> allPacks = new LinkedHashSet<EPackage>();
 			allPacks.add(myModel);
 			allPacks.addAll(myAdditionalPackages);
 			genModel.initialize(allPacks);
