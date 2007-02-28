@@ -288,6 +288,30 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
 	</target>
 	
+	<target name="checkGMFRuntimeInstalled">
+		<property file="${buildRoot}/runtime/finalFeaturesVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf_${org.eclipse.gmf}/feature.xml" property="gmfRuntimeExists" />
+	</target>
+
+	<target name="installGMFRuntime" unless="gmfRuntimeExists" depends="checkGMFRuntimeInstalled">
+<!-- TODO: restore install from mirror capability after devising a way to update site.xml -->		
+<!--	<antcall target="installGMFRuntimeFromMirror" /> -->
+		<antcall target="installGMFRuntimeFromZip" />
+	</target>
+
+	<target name="installGMFRuntimeFromMirror" if="usingMirror">
+		<property file="${buildRoot}/runtime/finalFeaturesVersions.properties"/>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf" />
+			<property name="version" value="${org.eclipse.gmf}" />
+		</ant>
+	</target>
+
+	<target name="installGMFRuntimeFromZip" unless=""> <!-- TODO: restore usingMirror -->
+		<echo message="Installing GMF Runtime from zip file..." />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-runtime-${buildId}.zip" />
+	</target>
+
 	<target name="checkGMFExperimentalInstalled">
 		<property file="${buildRoot}/sdk-experimental/finalFeaturesVersions.properties"/>
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk.experimental_${org.eclipse.gmf.sdk.experimental}/feature.xml" property="gmfExperimentalExists" />
