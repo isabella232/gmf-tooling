@@ -37,7 +37,7 @@ public class LiteCompilationTestWithImportConflicts extends LiteCompilationTest 
 		IProject diagramProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
 		if (!diagramProject.isAccessible()) {
 			//Initialize the plugin the same way it would be initialized if present.
-			Generator.createEMFProject(diagramProject.getFolder("src").getFullPath(), null, Collections.EMPTY_LIST, new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE);	//$NON-NLS-1$
+			Generator.createEMFProject(diagramProject.getFolder("src").getFullPath(), null, Collections.<IProject>emptyList(), new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE);	//$NON-NLS-1$
 		}
 		IJavaProject javaProject = JavaCore.create(diagramProject);
 		assertTrue(javaProject.exists());
@@ -51,7 +51,7 @@ public class LiteCompilationTestWithImportConflicts extends LiteCompilationTest 
 		} else {
 			pf.createCompilationUnit(cu.getElementName(), contents, false, new NullProgressMonitor());
 		}
-		generateAndCompile(gmfGenSource);
+		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}
 
 	private String createContents(String packageName, String className, String conflictingImport) {
