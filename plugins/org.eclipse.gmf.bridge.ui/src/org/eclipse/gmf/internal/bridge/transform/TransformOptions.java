@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.internal.bridge.transform;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
@@ -21,14 +24,16 @@ import org.eclipse.gmf.internal.bridge.ui.Plugin;
 
 public class TransformOptions extends AbstractPreferenceInitializer {
 	
-	public static final String PREF_GENERATE_RCP = "generate_rcp"; //$NON-NLS-1$
-	public static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
-	public static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
+	private static final String PREF_GENERATE_RCP = "generate_rcp"; //$NON-NLS-1$
+	private static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
+	private static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
+	private static final String PREF_FIGURE_TEMPLATES = "dynamic_figure_templates"; //$NON-NLS-1$
 	
 	private static String[] PROP_NAMES = new String[] {
 		PREF_GENERATE_RCP, 
 		PREF_USE_MAP_MODE, 
-		PREF_USE_RUNTIME_FIGURES 
+		PREF_USE_RUNTIME_FIGURES,
+		PREF_FIGURE_TEMPLATES
 		};
 	
 	private Preferences myPreferences;
@@ -56,10 +61,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 	
 	private void copyPreferences(Preferences source, Preferences target) {
-		for (int i = 0; i < PROP_NAMES.length; i++) {
-			String name = PROP_NAMES[i];
-			String value = source.getString(name);
-			target.setValue(name, value);
+		for (String name : PROP_NAMES) {
+			if (source.contains(name)) {
+				target.setValue(name, source.getString(name));
+			}
 		}
 	}
 	
@@ -75,6 +80,19 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		return getPreferences().getBoolean(PREF_USE_RUNTIME_FIGURES);
 	}
 
+	public URL getFigureTemplatesPath() {
+		final String value = getPreferences().getString(PREF_FIGURE_TEMPLATES);
+		if (value == null || value.length() == 0) {
+			return null;
+		}
+		try {
+			return new URL(value);
+		} catch (MalformedURLException ex) {
+			Plugin.log(ex);
+		}
+		return null;
+	}
+
 	public void setGenerateRCP(boolean value) {
 		getPreferences().setValue(PREF_GENERATE_RCP, value);
 	}
@@ -87,9 +105,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		getPreferences().setValue(PREF_USE_RUNTIME_FIGURES, value);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
-	 */
+	public void setFigureTemplatesPath(URL path) {
+		getPreferences().setValue(PREF_FIGURE_TEMPLATES, path.toString());
+	}
+
 	@Override
 	public void initializeDefaultPreferences() {
 		DefaultScope scope = new DefaultScope();

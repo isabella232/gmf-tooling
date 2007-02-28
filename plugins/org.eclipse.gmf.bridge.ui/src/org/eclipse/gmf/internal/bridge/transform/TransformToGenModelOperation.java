@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.bridge.transform;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -307,7 +308,8 @@ public class TransformToGenModelOperation {
 	private ViewmapProducer detectTransformationOptions() {
 		FigureQualifiedNameSwitch fSwitch = getOptions().getUseRuntimeFigures() ? new RuntimeFQNSwitch() : new RuntimeLiteFQNSwitch();
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
-		return new InnerClassViewmapProducer(fSwitch, mmStrategy);
+		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();
+		return new InnerClassViewmapProducer(fSwitch, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] {dynamicFigureTemplates});
 	}
 
 	private VisualIdentifierDispenserProvider getVisualIdDispenser() {
