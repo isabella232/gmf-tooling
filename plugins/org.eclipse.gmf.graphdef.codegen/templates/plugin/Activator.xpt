@@ -23,7 +23,7 @@ public class «pluginActivatorClassName» extends org.eclipse.core.runtime.Plugin 
 	/**
 	 * @generated
 	 */
-	public static final String ID = "«pluginID»"; //\u0024NON-NLS-1\u0024 XXX FIXME DollarSign support
+	public static final String ID = "«pluginID»"; //$NON-NLS-1$
 
 	/**
 	 * @generated
