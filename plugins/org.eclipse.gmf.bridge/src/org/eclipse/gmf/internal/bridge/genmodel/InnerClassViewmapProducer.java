@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -56,14 +57,14 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	private final Set<Figure> processedFigures;
 
 	public InnerClassViewmapProducer() {
-		this(new RuntimeFQNSwitch(), MapModeCodeGenStrategy.DYNAMIC);
+		this(new RuntimeFQNSwitch(), MapModeCodeGenStrategy.DYNAMIC, null);
 	}
 
-	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
+	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy, URL[] dynamicFigureTemplates) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
 		processedFigures = new HashSet<Figure>();
-		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, null, true);
+		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, null, true, dynamicFigureTemplates);
 	}
 
 	public Viewmap create(Node node) {
