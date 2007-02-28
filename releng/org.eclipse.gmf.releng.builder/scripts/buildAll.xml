@@ -29,15 +29,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<echo message="Building sdk..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="sdk" />
-			<property name="wipe" value="true" />
-			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${stable.maps}" />
-			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="componentsTag" value="${stable.components}" />
-		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
@@ -50,6 +41,15 @@
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples-pde" />
 			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="componentsTag" value="${stable.components}" />
+		</ant>
+		<echo message="Building sdk..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
