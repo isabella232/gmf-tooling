@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.LinkedHashSet;
 
 import junit.framework.TestCase;
 
@@ -138,7 +138,7 @@ public abstract class CompilationTest extends TestCase {
 		DomainModelSource ds = new MultiplePackagesDomainModelSetup().init();
 		MapDefSource ms = new MapSetup().init(new DiaDefSetup().init(), ds, new ToolDefSetup());
 
-		final HashSet<EPackage> additionalPacks = new HashSet<EPackage>(8);
+		final LinkedHashSet<EPackage> additionalPacks = new LinkedHashSet<EPackage>(8);
 		additionalPacks.add(ds.getNodeA().getEClass().getEPackage());
 		additionalPacks.add(ds.getNodeB().getEClass().getEPackage());
 		additionalPacks.add(ds.getLinkAsClass().getEClass().getEPackage());
