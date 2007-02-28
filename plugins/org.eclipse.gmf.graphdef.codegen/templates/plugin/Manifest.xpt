@@ -24,6 +24,7 @@ Export-Package:«EXPAND exportPackageHeader FOR exportedPackages»
 Require-Bundle:«EXPAND requireBundleHeader FOR s»
 «ENDLET-»
 Eclipse-LazyStart: true
+«EXPAND additions-»
 «ENDDEFINE»
 
 «DEFINE exportPackageHeader FOR List[String]-»
@@ -36,3 +37,5 @@ Eclipse-LazyStart: true
 «ENDDEFINE»
 
 «DEFINE print FOR string» «this»«ENDDEFINE»
+
+«DEFINE additions FOR Object»«ENDDEFINE»
