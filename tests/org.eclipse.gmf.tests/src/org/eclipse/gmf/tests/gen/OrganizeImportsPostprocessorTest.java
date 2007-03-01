@@ -49,6 +49,8 @@ import org.eclipse.jdt.core.dom.ThrowStatement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
 
 public class OrganizeImportsPostprocessorTest extends TestCase {
 
@@ -1105,6 +1107,61 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         assertEquals("Failed to organize imports", buf.toString(), icu.getBuffer().getContents());
     }
 
+    public void testHardcodedTypenames() throws Exception {
+        String className = "TestHardcodedTypenames";
+        final List<String> typeNameRefs = Arrays.asList(new String[] {
+                NLS.class.getCanonicalName(),
+                SWT.class.getCanonicalName(),
+        });
+        final List<String> simpleTypeNameRefs = new ArrayList(Arrays.asList(new String[] {
+                NLS.class.getSimpleName(),
+                SWT.class.getSimpleName(),
+        }));
+        StringBuffer buf = new StringBuffer();
+        buf.append("public class ").append(className).append(" {").append(nl);
+        buf.append(nl);
+        buf.append("    private static int setLineStyle(int style) {");
+        buf.append("        style = ").append(typeNameRefs.get(1)).append(".NONE;");
+        buf.append("        ").append(typeNameRefs.get(0)).append(".bind(\"NONE style has {0} code\", style);");
+        buf.append("        return style;");
+        buf.append("    }");
+        buf.append(nl);
+        buf.append("}").append(nl);
+
+        ICompilationUnit icu = JavaProjectHelper.createJavaFile(className+".java", buf.toString());
+        new OrganizeImportsPostprocessor().organizeImports(icu, null);
+        icu.save(null, true);
+        
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
+        parser.setSource(icu);
+        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+        List imports = cu.imports();
+        
+        assertEquals("Failed to generate enough import statements: "+imports, typeNameRefs.size(), imports.size());
+        for (int i=0; i<imports.size(); i++) {
+            String nextImport = ((ImportDeclaration) imports.get(i)).getName().getFullyQualifiedName();
+            assertEquals("Unexpected import found", typeNameRefs.get(i), nextImport);
+        }
+        
+        cu.accept(new ASTVisitor(){
+            public boolean visit(MethodDeclaration node) {
+                node.getBody().accept(new ASTVisitor() {
+                    public boolean visit(QualifiedName node) {
+                        assertTrue("Unexpected full-qualified name found!", simpleTypeNameRefs.remove(node.getQualifier().getFullyQualifiedName()));
+                        return false;
+                    }
+                    
+                    public boolean visit(SimpleName node) {
+                        simpleTypeNameRefs.remove(node.getFullyQualifiedName());
+                        return false;
+                    }
+                });
+                return super.visit(node);
+            }
+        });
+        assertTrue("Failed to organize all referenced types", simpleTypeNameRefs.isEmpty());
+    }
+    
     public static class JavaProjectHelper {
         private static String myTmpProjectNamePrefix = "imports.tmp";
         
