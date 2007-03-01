@@ -1113,7 +1113,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
                 NLS.class.getCanonicalName(),
                 SWT.class.getCanonicalName(),
         });
-        final List<String> simpleTypeNameRefs = new ArrayList(Arrays.asList(new String[] {
+        final List<String> simpleTypeNameRefs = new ArrayList<String>(Arrays.asList(new String[] {
                 NLS.class.getSimpleName(),
                 SWT.class.getSimpleName(),
         }));
