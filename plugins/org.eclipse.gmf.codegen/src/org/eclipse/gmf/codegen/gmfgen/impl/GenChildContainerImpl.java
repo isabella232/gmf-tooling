@@ -11,12 +11,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -93,7 +93,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public EList getContainedNodes() {
 		List childNodes = getChildNodes();
-		return new BasicEList.UnmodifiableEList(childNodes.size(), childNodes.toArray());
+		return new EcoreEList.UnmodifiableEList(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), childNodes.size(), childNodes.toArray());
 	}
 
 	/**

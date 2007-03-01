@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
@@ -1516,7 +1517,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public EList getContainedNodes() {
 		List topLevelNodes = getTopLevelNodes();
-		return new BasicEList.UnmodifiableEList(topLevelNodes.size(), topLevelNodes.toArray());
+		return new EcoreEList.UnmodifiableEList(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), topLevelNodes.size(), topLevelNodes.toArray());
 	}
 
 	/**
