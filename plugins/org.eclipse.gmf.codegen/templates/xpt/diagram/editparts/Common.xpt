@@ -26,7 +26,7 @@
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::CustomBehaviour-»
-	installEditPolicy("«key»", new «getEditPolicyQualifiedClassName()»()); //$NON-NLS-1$
+	installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.startsWith('\"') && key.endsWith('\"')»//$NON-NLS-1$«ENDIF»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
