@@ -20,14 +20,14 @@
 		</delete>
 	</target>
 	
-	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
+	<target name="runtests" description="Executes the junit tests for a specified plug-in.">
 		<ant antfile="${basedir}/src/${testPlugin}_${version}/test.xml" dir="${eclipse-home}" />
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${basedir}/testresults/xml/${testPlugin}.xml" />
 	</target>
 
 	<!-- For each, the version value is what's found in generated finalPluginVersions.properties file. Typically, 
 	     it is the build id (e.g. I20060131-0200) -->
-	<target name="all" depends="" description="Runs the test.xml of the test plugins">
+	<target name="all" depends="cleanup.config" description="Runs the test.xml of the test plugins">
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests" />
 			<param name="version" value="${org.eclipse.gmf.tests}" />
