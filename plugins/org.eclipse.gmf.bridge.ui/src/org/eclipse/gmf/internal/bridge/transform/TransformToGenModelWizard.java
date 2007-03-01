@@ -124,7 +124,10 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			final IStatus[] s = new IStatus[1];
 			IRunnableWithProgress iwr = new IRunnableWithProgress() {
 				public void run(IProgressMonitor monitor) {
-					s[0] = getTransformOperation().executeTransformation(resourceSet, monitor);
+					TransformToGenModelOperation op = getTransformOperation();
+					IFile target = getTargetFile();
+					op.setGenURI(URI.createPlatformResourceURI(target.getFullPath().toString(), true));
+					s[0] = op.executeTransformation(resourceSet, monitor);
 				}
 			};
 			getContainer().run(false, false, iwr);
