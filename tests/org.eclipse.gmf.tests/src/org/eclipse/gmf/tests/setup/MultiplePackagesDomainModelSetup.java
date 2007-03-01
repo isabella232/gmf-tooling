@@ -39,7 +39,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 
 	public MultiplePackagesDomainModelSetup init() {
 		myPrimaryPackage = createPackage("prim");
-		final EClass iElement = createEClass("IElement", null, false, true);
+		final EClass iElement = createEClass("IElement", null, true, true);
 		myPrimaryPackage.getEClassifiers().add(iElement);
 		final EClass iDiagramContainer = createEClass("IDiagramContainer", null, true, false);
 		final EReference cr = createERef("all", true, iElement);
@@ -58,7 +58,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 		final EClass link = createEClass("Link", null);
 		final EReference target = createERef("targetToN1", false, node1);
 		link.getEStructuralFeatures().add(target);
-		final EClass someThingToContain = createEClass("SomeThingToContain", null, false, true);
+		final EClass someThingToContain = createEClass("SomeThingToContain", null, true, true);
 		final EClass diagramContainerImpl = createEClass("DiagramContainerImpl", iDiagramContainer, false, false);
 		p4.getEClassifiers().add(link);
 		p4.getEClassifiers().add(someThingToContain);
@@ -91,6 +91,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 	}
 
 	private static EClass createEClass(String name, EClass superClass, boolean isA, boolean isI) {
+		assert !isI || isA : "Interfaces should be abstract";
 		EClass rv = EcoreFactory.eINSTANCE.createEClass();
 		rv.setInterface(isI);
 		rv.setAbstract(isA);
