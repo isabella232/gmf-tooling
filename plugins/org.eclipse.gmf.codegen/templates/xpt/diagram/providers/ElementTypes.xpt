@@ -234,5 +234,5 @@ KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE additions FOR gmfgen::GenCommonBase-»
+«DEFINE additions FOR gmfgen::GenDiagram-»
 «ENDDEFINE»
