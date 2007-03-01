@@ -26,6 +26,8 @@ import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
 
 class PackageReferencesCollector extends ASTVisitor {
 
@@ -33,16 +35,26 @@ class PackageReferencesCollector extends ASTVisitor {
         node.accept(new PackageReferencesCollector(resultingQualifiedTypeReferences, resultingSimpleTypeReferences, resultingImportDeclarations));
     }
 
+    public static void collect(ASTNode node, Collection<Name> resultingQualifiedTypeReferences, Collection<SimpleName> resultingSimpleTypeReferences, Collection<String> resultingImportDeclarations, Collection<String> hardcodedTypeNames) {
+        node.accept(new PackageReferencesCollector(resultingQualifiedTypeReferences, resultingSimpleTypeReferences, resultingImportDeclarations, hardcodedTypeNames));
+    }
+
     private Collection<SimpleName> mySimpleTypeReferences;
     private Collection<Name> myQualifiedTypeReferences;
     private Collection<String> myImportDeclarations;
     private Collection<String> myKnownPackages = new HashSet<String>();
+    private Collection<String> myHardcodedTypes;
 
     private PackageReferencesCollector(Collection<Name> resultingTypeReferences, Collection<SimpleName> resultingSimpleTypeReferences, Collection<String> resultingImportDeclarations) {
+        this(resultingTypeReferences, resultingSimpleTypeReferences, resultingImportDeclarations, null);
+    }
+
+    private PackageReferencesCollector(Collection<Name> resultingTypeReferences, Collection<SimpleName> resultingSimpleTypeReferences, Collection<String> resultingImportDeclarations, Collection<String> hardcodedTypes) {
         super(true);
         myQualifiedTypeReferences = resultingTypeReferences;
         mySimpleTypeReferences = resultingSimpleTypeReferences;
         myImportDeclarations = resultingImportDeclarations;
+        myHardcodedTypes = hardcodedTypes;
     }
 
     private void addQualifiedReference(QualifiedName node) {
@@ -83,12 +95,15 @@ class PackageReferencesCollector extends ASTVisitor {
         Name name = node;
         List<Name> qualifiers = new ArrayList<Name>();
         while (name.isQualifiedName()) {
-            qualifiers.add(qualifiers.size(), name);
+            qualifiers.add(name);
             name = ((QualifiedName) name).getQualifier();
         }
         qualifiers.add(name);
         for (ListIterator<Name> it=qualifiers.listIterator(qualifiers.size()); it.hasPrevious();) {
             Name packagePart = it.previous();
+            if (getHardcodedTypes().contains(packagePart.getFullyQualifiedName())) {
+                return packagePart;
+            }
             SimpleName lastPart = packagePart.isSimpleName() ? (SimpleName)packagePart : ((QualifiedName)packagePart).getName();
             char[] letters = lastPart.getFullyQualifiedName().toCharArray();
             if (letters.length > 0) {
@@ -100,7 +115,7 @@ class PackageReferencesCollector extends ASTVisitor {
                         }
                     }
                 } else {
-                    //XXX: Package referenct is recognized for all its chars are Lower case or digits
+                    //XXX: Package reference is recognized for all its chars are Lower case or digits
                     for (int i=0; i<letters.length; i++) {
                         if (!(Character.isLowerCase(letters[i]) || Character.isDigit(letters[i]))) {
                             return null;
@@ -112,6 +127,19 @@ class PackageReferencesCollector extends ASTVisitor {
         return null;
     }
     
+    public Collection<String> getHardcodedTypes() {
+        if (myHardcodedTypes == null) {
+            myHardcodedTypes = new HashSet<String>();
+            initializeDefaultHardcodedTypes(myHardcodedTypes);
+        }
+        return myHardcodedTypes;
+    }
+
+    protected void initializeDefaultHardcodedTypes(Collection<String> container) {
+        container.add(SWT.class.getCanonicalName());
+        container.add(NLS.class.getCanonicalName());
+    }
+
     public boolean visit(ImportDeclaration node) {
         if (node.isOnDemand()) {
             myKnownPackages.add(node.getName().getFullyQualifiedName());
