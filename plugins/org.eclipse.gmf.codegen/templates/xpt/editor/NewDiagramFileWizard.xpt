@@ -72,7 +72,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
 				String fileExtension = ".«editorGen.diagramFileExtension»"; //$NON-NLS-1$
 				String fileName = originalFileName + fileExtension;
-				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
+				for (int i = 1; parentContainer.getFile(new org.eclipse.core.runtime.Path(fileName)).exists(); i++) {
 					fileName = originalFileName + i + fileExtension;
 				}
 				setFileName(fileName);
