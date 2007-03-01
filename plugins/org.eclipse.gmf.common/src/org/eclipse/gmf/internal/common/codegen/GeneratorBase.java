@@ -171,7 +171,8 @@ public abstract class GeneratorBase implements Runnable {
 	 * @see #initializeEditorProject(String, IPath, List)
 	 */
 	protected final void initializeEditorProject(String pluginId, IPath projectLocation) throws UnexpectedBehaviourException, InterruptedException {
-		initializeEditorProject(pluginId, projectLocation, Collections.EMPTY_LIST);
+		final List<IProject> referencedProjects = Collections.emptyList();
+		initializeEditorProject(pluginId, projectLocation, referencedProjects);
 	}
 
 	/**
@@ -181,7 +182,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * @throws UnexpectedBehaviourException something goes really wrong 
 	 * @throws InterruptedException user canceled operation
 	 */
-	protected final void initializeEditorProject(String pluginId, IPath projectLocation, List/*<IProject>*/ referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
+	protected final void initializeEditorProject(String pluginId, IPath projectLocation, List<IProject> referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
 		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
