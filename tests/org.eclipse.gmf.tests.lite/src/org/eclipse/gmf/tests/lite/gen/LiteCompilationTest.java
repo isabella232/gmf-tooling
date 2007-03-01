@@ -33,7 +33,7 @@ public class LiteCompilationTest extends CompilationTest {
 	}
 
 	protected ViewmapProducer getViewmapProducer() {
-		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC);
+		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC, null);
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class LiteSessionSetup extends SessionSetup {
 	}
 
 	protected DiaGenSource createGenModel() {
-		final InnerClassViewmapProducer viewmapProducer = new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC);
+		final InnerClassViewmapProducer viewmapProducer = new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), MapModeCodeGenStrategy.STATIC, null);
 		return new DiaGenSetup(viewmapProducer).init(getMapModel());
 	}
 
