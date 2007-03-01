@@ -728,11 +728,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateNewDiagramFileWizard() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-				myEmitters.getNewDiagramFileWizardEmitter(),
-				myEditorGen.getEditor().getPackageName(),
-				myDiagram.getNewDiagramFileWizardClassName(),
-				myDiagram);	
+		if (!myDiagram.isSynchronized()) {
+			internalGenerateJavaClass(
+					myEmitters.getDiagramContentsInitializerEmitter(),
+					myEditorGen.getEditor().getPackageName(),
+					"DiagramContentsInitializer",
+					myDiagram);
+		}
+		doGenerateJavaClass(myEmitters.getNewDiagramFileWizardEmitter(), myEmitters.getNewDiagramFileWizardName(myDiagram), myDiagram);
 	}
 
 	private void generatePalette() throws UnexpectedBehaviourException, InterruptedException {

@@ -259,7 +259,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_240 = ", ";
   protected final String TEXT_241 = ".VISUAL_ID));";
   protected final String TEXT_242 = NL + "\t\t";
-  protected final String TEXT_243 = " nextNode = ViewService.createNode(diagram, nextDestination, ";
+  protected final String TEXT_243 = " nextNode = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(diagram, nextDestination, ";
   protected final String TEXT_244 = ".getType(";
   protected final String TEXT_245 = ".VISUAL_ID), ";
   protected final String TEXT_246 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tmyEObject2NodeMap.put(nextDestination, nextNode);" + NL + "\t\tcreate";

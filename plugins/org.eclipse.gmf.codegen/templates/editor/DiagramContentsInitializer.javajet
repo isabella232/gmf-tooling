@@ -1,0 +1,24 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramContentsInitializerGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
+	skeleton="../common.skeleton"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%
+importManager.emitPackageStatement(stringBuffer);
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class DiagramContentsInitializer {
+
+<%@ include file="../semanticSync.jetinc/initDiagramContents.jetinc"%>
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,240 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - rewritten in xpand
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE className FOR gmfgen::GenDiagram»«newDiagramFileWizardClassName»«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE NewDiagramFileWizard FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «editorGen.editor.packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.emf.transaction.TransactionalEditingDomain myEditingDomain;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «EXPAND creationPage» myFileCreationPage;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.core.resources.IFile mySelectedModelFile;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.ui.IWorkbenchPage myWorkbenchPage;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.jface.viewers.IStructuredSelection mySelection;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.emf.ecore.EObject myDiagramRoot;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»(org.eclipse.core.resources.IFile selectedModelFile,
+			org.eclipse.ui.IWorkbenchPage workbenchPage,
+			org.eclipse.jface.viewers.IStructuredSelection selection,
+			org.eclipse.emf.ecore.EObject diagramRoot,
+			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
+		assert selectedModelFile != null : "Null selectedModelFile in «EXPAND className» constructor"; //$NON-NLS-1$
+		assert workbenchPage != null : "Null workbenchPage in «EXPAND className» constructor"; //$NON-NLS-1$
+		assert selection != null : "Null selection in «EXPAND className» constructor"; //$NON-NLS-1$
+	    assert diagramRoot != null : "Null diagramRoot in «EXPAND className» constructor"; //$NON-NLS-1$
+	    assert editingDomain != null : "Null editingDomain in «EXPAND className» constructor"; //$NON-NLS-1$
+	    
+	   	mySelectedModelFile = selectedModelFile;
+	   	myWorkbenchPage = workbenchPage;
+	   	mySelection = selection;
+	   	myDiagramRoot = diagramRoot;
+	   	myEditingDomain = editingDomain;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void addPages() {
+		myFileCreationPage = new «EXPAND creationPage»("Initialize new Ecore diagram file", mySelection) {
+
+			public void createControl(org.eclipse.swt.widgets.Composite parent) {
+				super.createControl(parent);
+				org.eclipse.core.resources.IContainer parentContainer = mySelectedModelFile.getParent();
+				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
+				String fileExtension = ".«editorGen.diagramFileExtension»"; //$NON-NLS-1$
+				String fileName = originalFileName + fileExtension;
+				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
+					fileName = originalFileName + i + fileExtension;
+				}
+				setFileName(fileName);
+			}
+		};
+		myFileCreationPage.setTitle("Diagram file");
+		myFileCreationPage.setDescription(
+			"Create new diagram based on " + «getEditPartQualifiedClassName()».MODEL_ID + " model content");
+		addPage(myFileCreationPage);
+		addPage(new RootElementSelectorPage());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean performFinish() {
+		org.eclipse.core.resources.IFile diagramFile = myFileCreationPage.createNewFile();
+		try {
+			diagramFile.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); //$NON-NLS-1$
+		} catch (org.eclipse.core.runtime.CoreException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				"Unable to set charset for diagram file", e); //$NON-NLS-1$
+		}
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = myEditingDomain.getResourceSet();
+		final org.eclipse.emf.ecore.resource.Resource diagramResource = resourceSet.createResource(
+			org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
+		java.util.List affectedFiles = new java.util.LinkedList();
+		affectedFiles.add(mySelectedModelFile);
+		affectedFiles.add(diagramFile);
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command =
+			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
+				myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
+					org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+						throws org.eclipse.core.commands.ExecutionException {
+				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(myDiagramRoot);
+				if (diagramVID != «getEditPartQualifiedClassName()».VISUAL_ID) {
+					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
+						"Incorrect model object stored as a root resource object"); //$NON-NLS-1$
+				}
+				org.eclipse.gmf.runtime.notation.Diagram diagram =
+					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
+						myDiagramRoot, «getEditPartQualifiedClassName()».MODEL_ID,
+						«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+				diagramResource.getContents().add(diagram);
+				«IF editorGen.sameFileForDiagramAndModel-»
+				diagramResource.getContents().add(diagram.getElement());
+				«ENDIF»
+				«IF !synchronized-»
+				new «editorGen.editor.packageName».DiagramContentsInitializer().initDiagramContents(diagram, myDiagramRoot);
+				«ENDIF»
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+			}
+		};
+		try {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
+				command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
+			diagramResource.save(java.util.Collections.EMPTY_MAP);
+			«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagramResource);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				"Unable to create model and diagram", e); //$NON-NLS-1$
+		} catch (java.io.IOException ex) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				"Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		} catch (org.eclipse.ui.PartInitException ex) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				"Unable to open editor", ex); //$NON-NLS-1$
+		}			
+		return true;
+	}
+
+	«EXPAND xpt::Common::generatedClassComment»
+	private class RootElementSelectorPage extends org.eclipse.jface.wizard.WizardPage implements org.eclipse.jface.viewers.ISelectionChangedListener {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected RootElementSelectorPage() {
+			super("Select diagram root element");
+			setTitle("Diagram root element");
+			setDescription("Select semantic model element to be depicted on diagram");
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void createControl(org.eclipse.swt.widgets.Composite parent) {
+			initializeDialogUnits(parent);
+			org.eclipse.swt.widgets.Composite topLevel = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
+			topLevel.setLayout(new org.eclipse.swt.layout.GridLayout());
+			topLevel.setLayoutData(new org.eclipse.swt.layout.GridData(
+				org.eclipse.swt.layout.GridData.VERTICAL_ALIGN_FILL | org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_FILL));
+			topLevel.setFont(parent.getFont());
+			setControl(topLevel);
+			createModelBrowser(topLevel);
+			setPageComplete(validatePage());
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private void createModelBrowser(org.eclipse.swt.widgets.Composite parent) {
+			org.eclipse.swt.widgets.Composite panel = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
+			panel.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_BOTH));
+			org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout();
+			layout.marginWidth = 0;
+			panel.setLayout(layout);
+			
+			org.eclipse.swt.widgets.Label label = new org.eclipse.swt.widgets.Label(panel, org.eclipse.swt.SWT.NONE);
+			label.setText("Select diagram root element:");
+			label.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_BEGINNING));
+		
+			org.eclipse.jface.viewers.TreeViewer treeViewer = new org.eclipse.jface.viewers.TreeViewer(panel,
+				org.eclipse.swt.SWT.SINGLE | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL | org.eclipse.swt.SWT.BORDER);
+			org.eclipse.swt.layout.GridData layoutData = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_BOTH);
+			layoutData.heightHint = 300;
+			layoutData.widthHint = 300;
+			treeViewer.getTree().setLayoutData(layoutData);
+			treeViewer.setContentProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setLabelProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setInput(myDiagramRoot.eResource());
+			treeViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(myDiagramRoot));
+			treeViewer.addSelectionChangedListener(this);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+			myDiagramRoot = null;
+			if (event.getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+				org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) event.getSelection();
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof org.eclipse.emf.edit.provider.IWrapperItemProvider) {
+						selectedElement = ((org.eclipse.emf.edit.provider.IWrapperItemProvider) selectedElement).getValue();
+					}
+					if (selectedElement instanceof org.eclipse.emf.ecore.util.FeatureMap.Entry) {
+						selectedElement = ((org.eclipse.emf.ecore.util.FeatureMap.Entry) selectedElement).getValue();
+					}
+					if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
+						myDiagramRoot = (org.eclipse.emf.ecore.EObject) selectedElement;
+					}
+				}
+			}
+			setPageComplete(validatePage());
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private boolean validatePage() {
+			if (myDiagramRoot == null) {
+				setErrorMessage("Diagram root element is not selected");
+				return false;
+			}
+			boolean result = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(
+				new org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation(
+					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(myDiagramRoot),
+					«getEditPartQualifiedClassName()».MODEL_ID,
+					«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			return result;
+		}
+	}
+}
+«ENDDEFINE»
+
+«DEFINE creationPage FOR gmfgen::GenDiagram»
+«IF null == editorGen.application-»
+org.eclipse.ui.dialogs.WizardNewFileCreationPage«ELSE-»
+«editorGen.application.packageName».WizardNewFileCreationPage«ENDIF-»
+«ENDDEFINE»

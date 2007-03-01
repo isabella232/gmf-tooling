@@ -35,13 +35,13 @@ import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
+import org.eclipse.gmf.codegen.templates.editor.DiagramContentsInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
-import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
@@ -189,8 +189,8 @@ public class CodegenEmitters {
 		put(tr, "/editor/ShortcutPropertyTester.javajet", ShortcutsPropertyTester.class); //$NON-NLS-1$
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/editor/DiagramContentsInitializer.javajet", DiagramContentsInitializerGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
-		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
@@ -479,12 +479,20 @@ public class CodegenEmitters {
 
 	// editor
 
+	public TextEmitter getDiagramContentsInitializerEmitter() throws UnexpectedBehaviourException {
+		return retrieve(DiagramContentsInitializerGenerator.class);
+	}
+
 	public TextEmitter getInitDiagramFileActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(InitDiagramFileActionGenerator.class);
 	}
-	
+
+	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::NewDiagramFileWizard", input); //$NON-NLS-1$
+	}
+
 	public TextEmitter getNewDiagramFileWizardEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NewDiagramFileWizardGenerator.class);
+		return getPrimaryEmitter("xpt::editor::NewDiagramFileWizard"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
