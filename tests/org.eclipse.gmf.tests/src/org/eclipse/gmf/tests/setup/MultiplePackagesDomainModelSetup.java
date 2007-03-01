@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -81,7 +82,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 		myDiagramElement = diagramContainerImpl;
 
 		confineInResource("r1", Collections.singletonList(myPrimaryPackage));
-		confineInResource("r2", Arrays.asList(new Object[] {p2, p3, p4}));
+		confineInResource("r2", Arrays.asList(new EObject[] {p2, p3, p4}));
 
 		return this;
 	}
@@ -118,7 +119,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 		return cr;
 	}
 
-	private void confineInResource(String name, List toConfine) {
+	private void confineInResource(String name, List<? extends EObject> toConfine) {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/MultiPackSetup/" + name)).getContents().addAll(toConfine);
 	}
 
