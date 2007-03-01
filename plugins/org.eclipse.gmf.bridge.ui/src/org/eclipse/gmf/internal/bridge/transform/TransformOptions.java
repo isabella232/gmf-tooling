@@ -106,7 +106,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 
 	public void setFigureTemplatesPath(URL path) {
-		getPreferences().setValue(PREF_FIGURE_TEMPLATES, path.toString());
+		getPreferences().setValue(PREF_FIGURE_TEMPLATES, path == null ? "" : path.toString()); //$NON-NLS-1$
 	}
 
 	@Override
