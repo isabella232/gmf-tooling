@@ -62,9 +62,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	
 	private void copyPreferences(Preferences source, Preferences target) {
 		for (String name : PROP_NAMES) {
-			if (source.contains(name)) {
-				target.setValue(name, source.getString(name));
-			}
+			target.setValue(name, source.getString(name));
 		}
 	}
 	
