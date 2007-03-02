@@ -141,7 +141,6 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 
 			public void createControl(Composite parent) {
 				super.createControl(parent);
-
 				IContainer parentContainer = mySelectedModelFile.getParent();
 				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
 				String fileExtension = ".gmfgraph_diagram"; //$NON-NLS-1$
@@ -151,7 +150,6 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 				}
 				setFileName(fileName);
 			}
-
 		};
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram based on " + CanvasEditPart.MODEL_ID + " model content");
@@ -169,14 +167,11 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 		} catch (CoreException e) {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
 		}
-
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
-
+		final Resource diagramResource = resourceSet.createResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		List affectedFiles = new LinkedList();
 		affectedFiles.add(mySelectedModelFile);
 		affectedFiles.add(diagramFile);
-
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -186,10 +181,10 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 				}
 				Diagram diagram = ViewService.createDiagram(myDiagramRoot, CanvasEditPart.MODEL_ID, GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
+
 				return CommandResult.newOKCommandResult();
 			}
 		};
-
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);

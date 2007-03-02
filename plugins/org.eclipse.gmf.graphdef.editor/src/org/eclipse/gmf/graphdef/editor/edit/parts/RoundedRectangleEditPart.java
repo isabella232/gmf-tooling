@@ -32,6 +32,7 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -53,9 +54,10 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.Bounds;
+import org.eclipse.gmf.runtime.notation.FillStyle;
+import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-import org.eclipse.gmf.runtime.notation.ShapeStyle;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -191,8 +193,8 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model so
+	 * you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -206,9 +208,11 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane.
-	 * Respects layout one may have set for generated figure.
-	 * @param nodeShape instance of generated figure class
+	 * Default implementation treats passed figure as content pane. Respects
+	 * layout one may have set for generated figure.
+	 * 
+	 * @param nodeShape
+	 *            instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -349,6 +353,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 
 			public void notifyChanged(Notification notification) {
 				myFigure.setCornerDimensions(new Dimension(getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())));
+				myFigure.repaint();
 			}
 		}, modelElement, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth());
 
@@ -356,6 +361,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 
 			public void notifyChanged(Notification notification) {
 				myFigure.setCornerDimensions(new Dimension(getMapMode().DPtoLP(modelElement.getCornerWidth()), getMapMode().DPtoLP(modelElement.getCornerHeight())));
+				myFigure.repaint();
 			}
 		}, modelElement, GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight());
 
@@ -477,7 +483,7 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 			}
 		}, bounds);
 
-		final ShapeStyle shapeStyle = (ShapeStyle) view.getStyle(NotationPackage.eINSTANCE.getShapeStyle());
+		final FillStyle theFillStyle = (FillStyle) view.getStyle(NotationPackage.eINSTANCE.getFillStyle());
 		if (modelElement.getBackgroundColor() != null) {
 			final int rgbColor;
 			if (modelElement.getBackgroundColor() instanceof RGBColor) {
@@ -485,33 +491,25 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 				rgbColor = (modelColor.getRed() & 0xFF) | ((modelColor.getGreen() & 0xFF) << 8) | ((modelColor.getBlue() & 0xFF) << 16);
 			} else {
 				ConstantColor modelColor = (ConstantColor) modelElement.getBackgroundColor();
-				switch (modelColor.getValue().getValue()) {
-				/*
-				 case <nextValue>: {
-				 rgbColor = org.eclipse.draw2d.ColorConstants.<nextColorLiteral.getName()>.getRGB().hashCode();
-				 break;
-				 }
-				 */
-				default:
-					rgbColor = -1;
-				}
+				rgbColor = getRgbColor(modelColor);
 			}
-			if (rgbColor != -1 && shapeStyle.getFillColor() != rgbColor) {
+			if (rgbColor != -1 && theFillStyle.getFillColor() != rgbColor) {
 				AbstractEMFOperation setColorOperation = new AbstractEMFOperation(getEditingDomain(),
 						"Synchronizing view Background color with the model", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
 
 					protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-						shapeStyle.setFillColor(rgbColor);
+						theFillStyle.setFillColor(rgbColor);
 						return Status.OK_STATUS;
 					}
 				};
 				try {
 					setColorOperation.execute(new NullProgressMonitor(), null);
 				} catch (ExecutionException e) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view Background background color with the model", e); //$NON-NLS-1$
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view Background color with the model", e); //$NON-NLS-1$
 				}
 			}
 		}
+		final LineStyle theLineStyle = (LineStyle) view.getStyle(NotationPackage.eINSTANCE.getLineStyle());
 		if (modelElement.getForegroundColor() != null) {
 			final int rgbColor;
 			if (modelElement.getForegroundColor() instanceof RGBColor) {
@@ -519,44 +517,36 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 				rgbColor = (modelColor.getRed() & 0xFF) | ((modelColor.getGreen() & 0xFF) << 8) | ((modelColor.getBlue() & 0xFF) << 16);
 			} else {
 				ConstantColor modelColor = (ConstantColor) modelElement.getForegroundColor();
-				switch (modelColor.getValue().getValue()) {
-				/*
-				 case <nextValue>: {
-				 rgbColor = org.eclipse.draw2d.ColorConstants.<nextColorLiteral.getName()>.getRGB().hashCode();
-				 break;
-				 }
-				 */
-				default:
-					rgbColor = -1;
-				}
+				rgbColor = getRgbColor(modelColor);
 			}
-			if (rgbColor != -1 && shapeStyle.getLineColor() != rgbColor) {
+			if (rgbColor != -1 && theLineStyle.getLineColor() != rgbColor) {
 				AbstractEMFOperation setColorOperation = new AbstractEMFOperation(getEditingDomain(),
 						"Synchronizing view Foreground color with the model", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
 
 					protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-						shapeStyle.setLineColor(rgbColor);
+						theLineStyle.setLineColor(rgbColor);
 						return Status.OK_STATUS;
 					}
 				};
 				try {
 					setColorOperation.execute(new NullProgressMonitor(), null);
 				} catch (ExecutionException e) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view Foreground background color with the model", e); //$NON-NLS-1$
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view Foreground color with the model", e); //$NON-NLS-1$
 				}
 			}
 		}
-		addListenerFilter("ShapeStyleListener", new NotificationListener() {
+
+		final FillStyle theFillStyle1 = (FillStyle) view.getStyle(NotationPackage.eINSTANCE.getFillStyle());
+		addListenerFilter("FillStyleListener", new NotificationListener() {
 
 			public void notifyChanged(final Notification notification) {
 				try {
-					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model Background color with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
 
 						protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-							ShapeStyle shapeStyle = (ShapeStyle) notification.getNotifier();
-							switch (notification.getFeatureID(ShapeStyle.class)) {
-							case NotationPackage.SHAPE_STYLE__FILL_COLOR: {
-								int color = shapeStyle.getFillColor();
+							FillStyle theFillStyle = (FillStyle) notification.getNotifier();
+							if (notification.getFeatureID(FillStyle.class) == NotationPackage.FILL_STYLE__FILL_COLOR) {
+								int color = theFillStyle.getFillColor();
 								RGBColor modelColor;
 								if (modelElement.getBackgroundColor() instanceof RGBColor) {
 									modelColor = (RGBColor) modelElement.getBackgroundColor();
@@ -569,10 +559,26 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 									modelColor.setGreen((color & 0x0000FF00) >> 8);
 									modelColor.setBlue((color & 0x00FF0000) >> 16);
 								}
-								break;
 							}
-							case NotationPackage.SHAPE_STYLE__LINE_COLOR: {
-								int color = shapeStyle.getLineColor();
+							return Status.OK_STATUS;
+						}
+					}.execute(new NullProgressMonitor(), null);
+				} catch (ExecutionException e) {
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model Background color with the view", e); //$NON-NLS-1$
+				}
+			}
+		}, theFillStyle1);
+		final LineStyle theLineStyle1 = (LineStyle) view.getStyle(NotationPackage.eINSTANCE.getLineStyle());
+		addListenerFilter("LineStyleListener", new NotificationListener() {
+
+			public void notifyChanged(final Notification notification) {
+				try {
+					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model Foreground color with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+
+						protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+							LineStyle theLineStyle = (LineStyle) notification.getNotifier();
+							if (notification.getFeatureID(LineStyle.class) == NotationPackage.LINE_STYLE__LINE_COLOR) {
+								int color = theLineStyle.getLineColor();
 								RGBColor modelColor;
 								if (modelElement.getForegroundColor() instanceof RGBColor) {
 									modelColor = (RGBColor) modelElement.getForegroundColor();
@@ -585,17 +591,16 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 									modelColor.setGreen((color & 0x0000FF00) >> 8);
 									modelColor.setBlue((color & 0x00FF0000) >> 16);
 								}
-								break;
-							}
 							}
 							return Status.OK_STATUS;
 						}
 					}.execute(new NullProgressMonitor(), null);
 				} catch (ExecutionException e) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model Foreground color with the view", e); //$NON-NLS-1$
 				}
 			}
-		}, shapeStyle);
+		}, theLineStyle1);
+
 		super.activate();
 	}
 
@@ -624,6 +629,78 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 		} else {
 			super.refreshBounds();
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static int getRgbColor(ConstantColor modelColor) {
+		final int rgbColor;
+		switch (modelColor.getValue().getValue()) {
+		case ColorConstants.WHITE: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.white.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.BLACK: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.black.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.LIGHT_GRAY: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.lightGray.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.GRAY: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.gray.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.DARK_GRAY: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.darkGray.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.RED: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.red.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.ORANGE: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.orange.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.YELLOW: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.yellow.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.GREEN: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.green.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.LIGHT_GREEN: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.lightGreen.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.DARK_GREEN: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.darkGreen.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.CYAN: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.cyan.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.LIGHT_BLUE: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.lightBlue.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.BLUE: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.blue.getRGB().hashCode();
+			break;
+		}
+		case ColorConstants.DARK_BLUE: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.darkBlue.getRGB().hashCode();
+			break;
+		}
+		default:
+			rgbColor = -1;
+		}
+		return rgbColor;
 	}
 
 	/**

@@ -6,7 +6,7 @@
     modelID="GMFGraph"
     dynamicTemplates="true"
     templateDirectory="/org.eclipse.gmf.graphdef.editor/templates/"
-    copyrightText=" Copyright (c) 2006 Borland Software Corporation and others.&#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;     Borland Software Corporation - initial API and implementation">
+    copyrightText=" Copyright (c) 2006, 2007 Borland Software Corporation and others.&#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;     Borland Software Corporation - initial API and implementation">
   <diagram
       visualID="1000"
       editPartClassName="CanvasEditPart"
@@ -14,8 +14,8 @@
       notationViewFactoryClassName="CanvasViewFactory"
       canonicalEditPolicyClassName="CanvasCanonicalEditPolicy"
       iconProviderPriority="Low"
-      validationProviderPriority="Low"
-      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
+      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
+      validationProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -942,14 +942,29 @@
         label="Rulers &amp; Grid"/>
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
-        iD="domain"
-        label="Core">
+        iD="custom"
+        label="Styles"
+        className="CustomPropertySection">
       <filter
-          xsi:type="gmfgen:TypeTabFilter">
-        <types>org.eclipse.gmf.runtime.notation.View</types>
-        <types>org.eclipse.gef.EditPart</types>
-        <generatedTypes>abstractNavigatorItem</generatedTypes>
-      </filter>
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$ShapeFilter"/>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="layout"
+        label="Layout"
+        className="LayoutPropertySection">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$LayoutableFilter"/>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="points"
+        className="PointsPropertySection">
+      <filter
+          xsi:type="gmfgen:CustomTabFilter"
+          className="PropertySectionFilters$PolylineFilter"/>
     </tabs>
   </propertySheet>
   <domainGenModel

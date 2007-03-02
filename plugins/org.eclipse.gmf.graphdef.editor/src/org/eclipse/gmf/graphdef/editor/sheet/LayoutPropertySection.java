@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,107 +25,52 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Layoutable;
-import org.eclipse.gmf.gmfgraph.Point;
-import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource;
 import org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource;
 import org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection;
 import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource;
-import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 /**
  * @generated
  */
-public class GMFGraphPropertySection extends AdvancedPropertySection implements IPropertySourceProvider {
+public class LayoutPropertySection extends AdvancedPropertySection implements IPropertySourceProvider {
 
 	/**
 	 * @generated
 	 */
 	public IPropertySource getPropertySource(Object object) {
 		if (object instanceof Layoutable) {
-			CompositePropertySource compositeSource = new CompositePropertySource(object);
+			ICompositePropertySource compositeSource = new CompositePropertySource(object);
 
-			compositeSource.addPropertySource(adaptToOldCompositePropertySource(object));
-
-			IItemPropertyDescriptor layoutPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), "Layout Manager",
+			IItemPropertyDescriptor layoutPropertyDescriptor = new LayoutItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), "Layout Manager",
 					"Layout Manager", GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), true, new EObject[] { GMFGraphFactory.eINSTANCE.createBorderLayout(),
 							GMFGraphFactory.eINSTANCE.createCustomLayout(), GMFGraphFactory.eINSTANCE.createFlowLayout(), GMFGraphFactory.eINSTANCE.createGridLayout(),
 							GMFGraphFactory.eINSTANCE.createStackLayout(), GMFGraphFactory.eINSTANCE.createXYLayout() });
 			compositeSource.addPropertySource(new EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutPropertyDescriptor), "EMF")); //$NON-NLS-1$
 
-			IItemPropertyDescriptor layoutDataPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), "Layout Data",
+			IItemPropertyDescriptor layoutDataPropertyDescriptor = new LayoutItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), "Layout Data",
 					"Layout Data", GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), true, new EObject[] { GMFGraphFactory.eINSTANCE.createBorderLayoutData(),
 							GMFGraphFactory.eINSTANCE.createCustomLayoutData(), GMFGraphFactory.eINSTANCE.createGridLayoutData(), GMFGraphFactory.eINSTANCE.createXYLayoutData() });
 			compositeSource.addPropertySource(new EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutDataPropertyDescriptor), "EMF")); //$NON-NLS-1$
 
-			if (object instanceof Polyline) {
-				int counter = 1;
-				for (Iterator it = ((Polyline) object).getTemplate().iterator(); it.hasNext(); counter++) {
-					Point nextPoint = (Point) it.next();
-					final String titleX = "Point " + counter + " X";
-					IItemPropertyDescriptor nextPointPropertyDescriptorX = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleX, titleX,
-							GMFGraphPackage.eINSTANCE.getPoint_X(), true, "Template");
-					compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
-
-						protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
-							return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
-
-								public Object getId() {
-									return titleX;
-								}
-							};
-						}
-					});
-
-					final String titleY = "Point " + counter + " Y";
-					IItemPropertyDescriptor nextPointPropertyDescriptorY = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleY, titleY,
-							GMFGraphPackage.eINSTANCE.getPoint_Y(), true, "Template");
-					compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
-
-						protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
-							return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
-
-								public Object getId() {
-									return titleY;
-								}
-							};
-						}
-					});
-				}
-			}
-
 			return compositeSource;
 		}
-		if (object instanceof IPropertySource) {
-			return (IPropertySource) object;
-		}
-		AdapterFactory af = getAdapterFactory(object);
-		if (af != null) {
-			IItemPropertySource ips = (IItemPropertySource) af.adapt(object, IItemPropertySource.class);
-			if (ips != null) {
-				return new PropertySource(object, ips);
-			}
-		}
-		if (object instanceof IAdaptable) {
-			return (IPropertySource) ((IAdaptable) object).getAdapter(IPropertySource.class);
-		}
 		return null;
+
 	}
 
 	/**
@@ -137,6 +82,7 @@ public class GMFGraphPropertySection extends AdvancedPropertySection implements 
 
 	/**
 	 * Modify/unwrap selection.
+	 * 
 	 * @generated
 	 */
 	protected Object transformSelection(Object selected) {
@@ -192,27 +138,7 @@ public class GMFGraphPropertySection extends AdvancedPropertySection implements 
 	/**
 	 * @generated
 	 */
-	private ICompositePropertySource adaptToOldCompositePropertySource(Object object) {
-		if (object instanceof ICompositePropertySource) {
-			return (ICompositePropertySource) object;
-		}
-		AdapterFactory af = getAdapterFactory(object);
-		if (af != null) {
-			IItemPropertySource ips = (IItemPropertySource) af.adapt(object, IItemPropertySource.class);
-			if (ips != null) {
-				return new EMFCompositePropertySource(object, ips, "EMF");
-			}
-		}
-		if (object instanceof IAdaptable) {
-			return (ICompositePropertySource) ((IAdaptable) object).getAdapter(ICompositePropertySource.class);
-		}
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class SingleDescriptorPropertySource implements IItemPropertySource {
+	private static class SingleDescriptorPropertySource implements IItemPropertySource {
 
 		/**
 		 * @generated
@@ -257,7 +183,7 @@ public class GMFGraphPropertySection extends AdvancedPropertySection implements 
 	/**
 	 * @generated
 	 */
-	public static class ChildMetaclassItemPropertyDescriptor extends ItemPropertyDescriptor {
+	public static class LayoutItemPropertyDescriptor extends ItemPropertyDescriptor {
 
 		/**
 		 * @generated
@@ -267,7 +193,7 @@ public class GMFGraphPropertySection extends AdvancedPropertySection implements 
 		/**
 		 * @generated
 		 */
-		ChildMetaclassItemPropertyDescriptor(AdapterFactory adapterFactory, String displayName, String description, EStructuralFeature feature, boolean isSettable, EObject[] valueInstances) {
+		LayoutItemPropertyDescriptor(AdapterFactory adapterFactory, String displayName, String description, EStructuralFeature feature, boolean isSettable, EObject[] valueInstances) {
 			super(adapterFactory, displayName, description, feature, isSettable);
 			myValues = valueInstances;
 		}

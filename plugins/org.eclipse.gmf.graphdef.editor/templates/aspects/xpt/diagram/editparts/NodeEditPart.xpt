@@ -31,7 +31,42 @@ if (modelElement.«this.getGetAccessor()»() != null) {
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE listenViewColor(String modelColorProperty, String viewColorProperty) FOR gmfgen::GenNode-»
+final org.eclipse.gmf.runtime.notation.«viewColorProperty»Style the«viewColorProperty»Style1 = (org.eclipse.gmf.runtime.notation.«viewColorProperty»Style) view.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.get«viewColorProperty»Style());
+addListenerFilter("«viewColorProperty»StyleListener", new org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener() {
+	public void notifyChanged(final org.eclipse.emf.common.notify.Notification notification) {
+		try {
+			new org.eclipse.emf.workspace.AbstractEMFOperation(getEditingDomain(), "Synchronizing model «modelColorProperty» color with the view", java.util.Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+				protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+					org.eclipse.gmf.runtime.notation.«viewColorProperty»Style the«viewColorProperty»Style = (org.eclipse.gmf.runtime.notation.«viewColorProperty»Style) notification.getNotifier();
+					if (notification.getFeatureID(org.eclipse.gmf.runtime.notation.«viewColorProperty»Style.class) == org.eclipse.gmf.runtime.notation.NotationPackage.«viewColorProperty.toUpperCase()»_STYLE__«viewColorProperty.toUpperCase()»_COLOR)
+						{
+							int color = the«viewColorProperty»Style.get«viewColorProperty»Color();
+							org.eclipse.gmf.gmfgraph.RGBColor modelColor;
+							if (modelElement.get«modelColorProperty»Color() instanceof org.eclipse.gmf.gmfgraph.RGBColor) {
+								modelColor = (org.eclipse.gmf.gmfgraph.RGBColor) modelElement.get«modelColorProperty»Color();
+							} else {
+								modelColor = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createRGBColor();
+								modelElement.set«modelColorProperty»Color(modelColor);
+							}
+							if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
+								modelColor.setRed(color & 0x000000FF);
+								modelColor.setGreen((color & 0x0000FF00) >> 8);
+								modelColor.setBlue((color & 0x00FF0000) >> 16);
+							}
+						}
+					return org.eclipse.core.runtime.Status.OK_STATUS;
+				}
+			}.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize model «modelColorProperty» color with the view", e); //$NON-NLS-1$
+		}
+	}
+}, the«viewColorProperty»Style1);
+«ENDDEFINE»
+
 «DEFINE setViewColor(String modelColorProperty, String viewColorProperty) FOR gmfgen::GenNode-»
+final org.eclipse.gmf.runtime.notation.«viewColorProperty»Style the«viewColorProperty»Style = (org.eclipse.gmf.runtime.notation.«viewColorProperty»Style) view.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.get«viewColorProperty»Style());
 if (modelElement.get«modelColorProperty»Color() != null) {
 	final int rgbColor;
 	if (modelElement.get«modelColorProperty»Color() instanceof org.eclipse.gmf.gmfgraph.RGBColor) {
@@ -39,28 +74,19 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 		rgbColor = (modelColor.getRed()& 0xFF) | ((modelColor.getGreen() & 0xFF) << 8) | ((modelColor.getBlue() & 0xFF) << 16);
 	} else {
 		org.eclipse.gmf.gmfgraph.ConstantColor modelColor = (org.eclipse.gmf.gmfgraph.ConstantColor) modelElement.get«modelColorProperty»Color();
-		switch (modelColor.getValue().getValue()) {
-/*
-		case <nextValue>: {
-			rgbColor = org.eclipse.draw2d.ColorConstants.<nextColorLiteral.getName()>.getRGB().hashCode();
-			break;
-		}
-*/
-		default: 
-			rgbColor = -1;
-		}
+		rgbColor = getRgbColor(modelColor);
 	}
-	if (rgbColor != -1 && shapeStyle.get«viewColorProperty»Color() != rgbColor) {
+	if (rgbColor != -1 && the«viewColorProperty»Style.get«viewColorProperty»Color() != rgbColor) {
 		org.eclipse.emf.workspace.AbstractEMFOperation setColorOperation = new org.eclipse.emf.workspace.AbstractEMFOperation(getEditingDomain(), "Synchronizing view «modelColorProperty» color with the model", java.util.Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
 			protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-				shapeStyle.set«viewColorProperty»Color(rgbColor);
+				the«viewColorProperty»Style.set«viewColorProperty»Color(rgbColor);
 				return org.eclipse.core.runtime.Status.OK_STATUS;
 			}
 		};
 		try {
 			setColorOperation.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
-			«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize view «modelColorProperty» background color with the model", e); //$NON-NLS-1$
+			«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize view «modelColorProperty» color with the model", e); //$NON-NLS-1$
 		}
 	}
 }
@@ -150,6 +176,9 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 			public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
 			    «EXPAND notifyBodyForDatatype FOR nextGenFeature-»
 			    «getProcessChangesCall(nextGenFeature, "modelElement")»;
+			    «IF isCornerWidthOrHeight(nextGenFeature)-»
+			    myFigure.repaint();
+			    «ENDIF-»
 			}
 		}, modelElement, «nextGenFeature.genClass.genPackage.getQualifiedPackageInterfaceName()».eINSTANCE.get«nextGenFeature.getFeatureAccessorName()»());
             «ENDIF-»
@@ -270,59 +299,12 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 			}
 		}, bounds);
 		
-		final org.eclipse.gmf.runtime.notation.ShapeStyle shapeStyle = (org.eclipse.gmf.runtime.notation.ShapeStyle) view.getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getShapeStyle());
 		«EXPAND setViewColor("Background", "Fill")-»
 		«EXPAND setViewColor("Foreground", "Line")-»
-		addListenerFilter("ShapeStyleListener", new org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener() {
-			public void notifyChanged(final org.eclipse.emf.common.notify.Notification notification) {
-				try {
-					new org.eclipse.emf.workspace.AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", java.util.Collections.singletonMap(org.eclipse.emf.transaction.Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-						protected org.eclipse.core.runtime.IStatus doExecute(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-							org.eclipse.gmf.runtime.notation.ShapeStyle shapeStyle = (org.eclipse.gmf.runtime.notation.ShapeStyle) notification.getNotifier();
-							switch (notification.getFeatureID(org.eclipse.gmf.runtime.notation.ShapeStyle.class)) {
-							case org.eclipse.gmf.runtime.notation.NotationPackage.SHAPE_STYLE__FILL_COLOR:
-								{
-									int color = shapeStyle.getFillColor();
-									org.eclipse.gmf.gmfgraph.RGBColor modelColor;
-									if (modelElement.getBackgroundColor() instanceof org.eclipse.gmf.gmfgraph.RGBColor) {
-										modelColor = (org.eclipse.gmf.gmfgraph.RGBColor) modelElement.getBackgroundColor();
-									} else {
-										modelColor = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createRGBColor();
-										modelElement.setBackgroundColor(modelColor);
-									}
-									if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
-										modelColor.setRed(color & 0x000000FF);
-										modelColor.setGreen((color & 0x0000FF00) >> 8);
-										modelColor.setBlue((color & 0x00FF0000) >> 16);
-									}
-									break;
-								}
-							case org.eclipse.gmf.runtime.notation.NotationPackage.SHAPE_STYLE__LINE_COLOR:
-								{
-									int color = shapeStyle.getLineColor();
-									org.eclipse.gmf.gmfgraph.RGBColor modelColor;
-									if (modelElement.getForegroundColor() instanceof org.eclipse.gmf.gmfgraph.RGBColor) {
-										modelColor = (org.eclipse.gmf.gmfgraph.RGBColor) modelElement.getForegroundColor();
-									} else {
-										modelColor = org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createRGBColor();
-										modelElement.setForegroundColor(modelColor);
-									}
-									if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
-										modelColor.setRed(color & 0x000000FF);
-										modelColor.setGreen((color & 0x0000FF00) >> 8);
-										modelColor.setBlue((color & 0x00FF0000) >> 16);
-									}
-									break;
-								}
-							}
-							return org.eclipse.core.runtime.Status.OK_STATUS;
-						}
-					}.execute(new org.eclipse.core.runtime.NullProgressMonitor(), null);
-				} catch (org.eclipse.core.commands.ExecutionException e) {
-					«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
-				}
-			}
-		}, shapeStyle);
+
+		«EXPAND listenViewColor("Background", "Fill")-»
+		«EXPAND listenViewColor("Foreground", "Line")-»
+		
 		super.activate();
 	}
 	
@@ -346,6 +328,76 @@ if (modelElement.get«modelColorProperty»Color() != null) {
 			super.refreshBounds();
 		}
 	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+    public static int getRgbColor(org.eclipse.gmf.gmfgraph.ConstantColor modelColor) {
+        final int rgbColor;
+		switch (modelColor.getValue().getValue()) {
+        case org.eclipse.gmf.gmfgraph.ColorConstants.WHITE: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.white.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.BLACK: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.black.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.LIGHT_GRAY: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.lightGray.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.GRAY: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.gray.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.DARK_GRAY: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.darkGray.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.RED: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.red.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.ORANGE: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.orange.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.YELLOW: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.yellow.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.GREEN: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.green.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.LIGHT_GREEN: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.lightGreen.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.DARK_GREEN: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.darkGreen.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.CYAN: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.cyan.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.LIGHT_BLUE: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.lightBlue.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.BLUE: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.blue.getRGB().hashCode();
+            break;
+        }
+        case org.eclipse.gmf.gmfgraph.ColorConstants.DARK_BLUE: {
+            rgbColor = org.eclipse.draw2d.ColorConstants.darkBlue.getRGB().hashCode();
+            break;
+        }
+        default:
+            rgbColor = -1;
+        }
+        return rgbColor;
+    }	
 «ENDDEFINE»
 
 «DEFINE overrideGetCurrentConstraintFor(gmfgen::Viewmap innerViewmap) FOR gmfgen::GenNode-»«ENDDEFINE»

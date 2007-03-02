@@ -50,8 +50,6 @@ import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
@@ -86,6 +84,8 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
 
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 
 /**
  * @generated
@@ -131,8 +131,8 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 	 * @generated
 	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
-		if (input instanceof URIEditorInput) {
-			return new URIDiagramDocumentProvider();
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
+			return GMFGraphDiagramEditorPlugin.getInstance().getDocumentProvider();
 		}
 		return super.getDocumentProvider(input);
 	}
@@ -152,12 +152,10 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof IFileEditorInput) {
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
 			setDocumentProvider(GMFGraphDiagramEditorPlugin.getInstance().getDocumentProvider());
-		} else if (input instanceof URIEditorInput) {
-			setDocumentProvider(new URIDiagramDocumentProvider());
 		} else {
-			setDocumentProvider(new StorageDiagramDocumentProvider());
+			super.setDocumentProvider(input);
 		}
 	}
 

@@ -212,9 +212,17 @@
              id="property.tab.DiagramPropertySection"
              label="%tab.diagram"/>
           <propertyTab
-             category="domain"
-             id="property.tab.domain"
-             label="%tab.domain"/>
+             category="extra"
+             id="property.tab.custom"
+             label="%tab.custom"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.layout"
+             label="%tab.layout"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.points"
+             label="%tab.points"/>
       </propertyTabs>
    </extension>
 
@@ -242,12 +250,22 @@
             tab="property.tab.DiagramPropertySection">
          </propertySection>     
          <propertySection
-            id="property.section.domain" 
-            tab="property.tab.domain"
-            class="org.eclipse.gmf.graphdef.editor.sheet.GMFGraphPropertySection">
-            <input type="org.eclipse.gmf.runtime.notation.View"/>
-            <input type="org.eclipse.gef.EditPart"/>
-            <input type="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>
+            id="property.section.custom" 
+            tab="property.tab.custom"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.CustomPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.layout" 
+            tab="property.tab.layout"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.points" 
+            tab="property.tab.points"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
          </propertySection>
       </propertySections>
    </extension>

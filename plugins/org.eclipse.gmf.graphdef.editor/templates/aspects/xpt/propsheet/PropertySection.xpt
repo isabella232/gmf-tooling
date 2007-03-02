@@ -12,10 +12,60 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION aspects::xpt::propsheet::Utils»
+
+«AROUND extendsList FOR gmfgen::GenCustomPropertyTab»«IF isCustomTab()»org.eclipse.gmf.graphdef.editor.sheet.AbstractCustomPropertySection«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+
+«AROUND implementsClause FOR gmfgen::GenCustomPropertyTab»«IF isCustomTab()»«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+
+«AROUND transfromSelectionMethod FOR gmfgen::GenCustomPropertyTab»
+«IF isLayoutTab() || isViewTab() || isPointTab() || isCustomTab()»
+	«EXPAND xpt::Common::generatedMemberComment("Modify/unwrap selection.")»
+	protected Object transformSelection(Object selected) {
+«IF isViewTab() -»
+		if (selected instanceof org.eclipse.gef.EditPart) {
+			return ((org.eclipse.gef.EditPart) selected).getModel();
+		}
+		if (selected instanceof org.eclipse.gmf.runtime.notation.View || selected instanceof org.eclipse.gmf.runtime.notation.Style) {
+			return selected;
+		}
+		if (selected instanceof org.eclipse.core.runtime.IAdaptable) {
+			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) selected).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+			if (view != null) {
+				return view;
+			}
+		}
+«ELSE-»
+		if (selected instanceof org.eclipse.gef.EditPart) {
+			Object model = ((org.eclipse.gef.EditPart) selected).getModel();
+			return model instanceof org.eclipse.gmf.runtime.notation.View ? ((org.eclipse.gmf.runtime.notation.View) model).getElement() : null;
+		}
+		if (selected instanceof org.eclipse.gmf.runtime.notation.View) {
+			return ((org.eclipse.gmf.runtime.notation.View) selected).getElement();
+		}
+		if (selected instanceof org.eclipse.core.runtime.IAdaptable) {
+			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) selected).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+			if (view != null) {
+				return view.getElement();
+			}
+		}
+«ENDIF-»
+		return selected;
+	}
+«ELSE-»
+«targetDef.proceed()»
+«ENDIF-»
+«ENDAROUND»
+
 «AROUND getPropertySourceMethod FOR gmfgen::GenCustomPropertyTab-»
+«IF isLayoutTab() || isViewTab() || isPointTab()»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.ui.views.properties.IPropertySource getPropertySource(Object object) {
-	    «EXPAND additionalPropertiesProvider-»
+		«IF isLayoutTab()-»
+		«EXPAND createLayoutSources»
+		«ELSEIF isPointTab()-»
+		«EXPAND createTemplatePointSources»
+		«ELSE-»
 		if (object instanceof org.eclipse.ui.views.properties.IPropertySource) {
 			return (org.eclipse.ui.views.properties.IPropertySource) object;
 		}
@@ -23,88 +73,127 @@
 		if (af != null) {
 			org.eclipse.emf.edit.provider.IItemPropertySource ips = (org.eclipse.emf.edit.provider.IItemPropertySource) af.adapt(object, org.eclipse.emf.edit.provider.IItemPropertySource.class);
 			if (ips != null) {
-				return new org.eclipse.emf.edit.ui.provider.PropertySource(object, ips);
+				return createPropertySource(object, ips);
 			}
 		}
 		if (object instanceof org.eclipse.core.runtime.IAdaptable) {
 			return (org.eclipse.ui.views.properties.IPropertySource) ((org.eclipse.core.runtime.IAdaptable) object).getAdapter(org.eclipse.ui.views.properties.IPropertySource.class);
 		}
 		return null;
+		«ENDIF-»
 	}
+«ELSEIF isCustomTab()»
+«ELSE-»
+«targetDef.proceed()»
+«ENDIF-»
 «ENDAROUND»
 
-«DEFINE additionalPropertiesProvider FOR gmfgen::GenCustomPropertyTab-»
+«AROUND getPropertySourceProviderMethod FOR gmfgen::GenCustomPropertyTab»
+«IF isCustomTab()»
+«ELSE-»
+«targetDef.proceed()»
+«ENDIF-»
+«ENDAROUND»
+
+«AROUND getAdapterFactoryMethod FOR gmfgen::GenCustomPropertyTab»
+«IF isLayoutTab() || isViewTab() || isPointTab()»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.emf.common.notify.AdapterFactory getAdapterFactory(Object object) {
+		if (getEditingDomain() instanceof org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) {
+			return ((org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();
+		}
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(object);
+		if (editingDomain != null) {
+			return ((org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
+		}
+		return null;
+	}
+«ELSEIF isCustomTab()»
+«ELSE-»
+«targetDef.proceed()»
+«ENDIF-»
+«ENDAROUND»
+
+«DEFINE createLayoutSources FOR gmfgen::GenCustomPropertyTab-»
 if (object instanceof org.eclipse.gmf.gmfgraph.Layoutable) {
-	org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource compositeSource = new org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource(object);	
-
-	compositeSource.addPropertySource(adaptToOldCompositePropertySource(object));
-
-	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Manager", "Layout Manager", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createFlowLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createStackLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayout()});
+	org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource compositeSource = new org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource(object);
+		
+	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutPropertyDescriptor = new LayoutItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Manager", "Layout Manager", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createFlowLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createStackLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayout()});
 	compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutPropertyDescriptor), "EMF")); //$NON-NLS-1$
 
-	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutDataPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Data", "Layout Data", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayoutData()});
+	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutDataPropertyDescriptor = new LayoutItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Data", "Layout Data", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayoutData()});
 	compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutDataPropertyDescriptor), "EMF")); //$NON-NLS-1$
-
-	if (object instanceof org.eclipse.gmf.gmfgraph.Polyline) {
-		int counter = 1;
-		for (java.util.Iterator it = ((org.eclipse.gmf.gmfgraph.Polyline) object).getTemplate().iterator(); it.hasNext(); counter++) {
-			org.eclipse.gmf.gmfgraph.Point nextPoint = (org.eclipse.gmf.gmfgraph.Point) it.next();
-			final String titleX = "Point " + counter + " X";
-			org.eclipse.emf.edit.provider.IItemPropertyDescriptor nextPointPropertyDescriptorX = new org.eclipse.emf.edit.provider.ItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), titleX, titleX, org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getPoint_X(), true, "Template");
-			compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
-				protected org.eclipse.ui.views.properties.IPropertyDescriptor newPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
-					return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
-						public Object getId() {
-							return titleX;
-						}
-					};
-				}
-			});
-
-			final String titleY = "Point " + counter + " Y";
-			org.eclipse.emf.edit.provider.IItemPropertyDescriptor nextPointPropertyDescriptorY = new org.eclipse.emf.edit.provider.ItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), titleY, titleY, org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getPoint_Y(), true, "Template");
-			compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
-				protected org.eclipse.ui.views.properties.IPropertyDescriptor newPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
-					return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
-						public Object getId() {
-							return titleY;
-						}
-					};
-				}
-			});
-		}
-	}
-
+	
 	return compositeSource;
 }
+return null;
+«ENDDEFINE»
+
+«DEFINE createTemplatePointSources FOR gmfgen::GenCustomPropertyTab-»
+if (object instanceof org.eclipse.gmf.gmfgraph.Polyline) {
+	org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource compositeSource = new org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource(object);
+
+	int counter = 1;
+	for (java.util.Iterator it = ((org.eclipse.gmf.gmfgraph.Polyline) object).getTemplate().iterator(); it.hasNext(); counter++) {
+		org.eclipse.gmf.gmfgraph.Point nextPoint = (org.eclipse.gmf.gmfgraph.Point) it.next();
+		final String titleX = "Point " + counter + " X";
+		org.eclipse.emf.edit.provider.IItemPropertyDescriptor nextPointPropertyDescriptorX = new org.eclipse.emf.edit.provider.ItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), titleX, titleX, org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getPoint_X(), true, "Template");
+		compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
+			protected org.eclipse.ui.views.properties.IPropertyDescriptor newPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
+				return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+					public Object getId() {
+						return titleX;
+					}
+				};
+			}
+		});
+
+		final String titleY = "Point " + counter + " Y";
+		org.eclipse.emf.edit.provider.IItemPropertyDescriptor nextPointPropertyDescriptorY = new org.eclipse.emf.edit.provider.ItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), titleY, titleY, org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getPoint_Y(), true, "Template");
+		compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
+			protected org.eclipse.ui.views.properties.IPropertyDescriptor newPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
+				return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+					public Object getId() {
+						return titleY;
+					}
+				};
+			}
+		});
+	}
+	
+	return compositeSource;
+}
+return null;
 «ENDDEFINE»
 
 «AROUND additions FOR gmfgen::GenCustomPropertyTab-»
-«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource adaptToOldCompositePropertySource(Object object) {
-	if (object instanceof org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource) {
-		return (org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource) object;
-	}
-	org.eclipse.emf.common.notify.AdapterFactory af = getAdapterFactory(object);
-	if (af != null) {
-		org.eclipse.emf.edit.provider.IItemPropertySource ips = (org.eclipse.emf.edit.provider.IItemPropertySource) af.adapt(object, org.eclipse.emf.edit.provider.IItemPropertySource.class);
-		if (ips != null) {
-			return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, ips, "EMF");
-		}
-	}
-	if (object instanceof org.eclipse.core.runtime.IAdaptable) {
-		return (org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource) ((org.eclipse.core.runtime.IAdaptable) object).getAdapter(org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource.class);
-	}
-	return null;
-}
-
-«EXPAND SingleDescriptorPropertySourceClass-»
-«EXPAND ChildMetaclassItemPropertyDescriptorClass-»
+	«IF isLayoutTab() || isPointTab()»
+		«EXPAND SingleDescriptorPropertySourceClass-»
+		«IF isLayoutTab()»
+			«EXPAND LayoutItemPropertyDescriptorClass-»
+		«ENDIF»
+	«ELSEIF isCustomTab()»
+	    «EXPAND getImageRegistry-»
+	«ELSE»
+		«EXPAND createPropertySource»
+	«ENDIF»
 «ENDAROUND»
+
+
+«DEFINE createPropertySource FOR gmfgen::GenCustomPropertyTab-»
+«EXPAND xpt::Common::generatedMemberComment»
+    protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
+«IF isViewTab()-»
+        return new org.eclipse.gmf.runtime.diagram.ui.properties.descriptors.NotationPropertySource(object, itemPropertySource, "View");
+«ELSE-»
+        return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, itemPropertySource, "EMF");
+«ENDIF-»    
+    }
+«ENDDEFINE»
 
 «DEFINE SingleDescriptorPropertySourceClass FOR gmfgen::GenCustomPropertyTab»
 «EXPAND xpt::Common::generatedMemberComment»
-public static class SingleDescriptorPropertySource implements org.eclipse.emf.edit.provider.IItemPropertySource {
+private static class SingleDescriptorPropertySource implements org.eclipse.emf.edit.provider.IItemPropertySource {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.emf.edit.provider.IItemPropertyDescriptor myPropertyDescriptor;
@@ -135,15 +224,15 @@ public static class SingleDescriptorPropertySource implements org.eclipse.emf.ed
 }
 «ENDDEFINE»
 
-«DEFINE ChildMetaclassItemPropertyDescriptorClass FOR gmfgen::GenCustomPropertyTab»
+«DEFINE LayoutItemPropertyDescriptorClass FOR gmfgen::GenCustomPropertyTab»
 «EXPAND xpt::Common::generatedMemberComment»
-public static class ChildMetaclassItemPropertyDescriptor extends org.eclipse.emf.edit.provider.ItemPropertyDescriptor {
+public static class LayoutItemPropertyDescriptor extends org.eclipse.emf.edit.provider.ItemPropertyDescriptor {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.emf.ecore.EObject[] myValues;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	ChildMetaclassItemPropertyDescriptor(org.eclipse.emf.common.notify.AdapterFactory adapterFactory, String displayName, String description, org.eclipse.emf.ecore.EStructuralFeature feature, boolean isSettable, org.eclipse.emf.ecore.EObject[] valueInstances) {
+	LayoutItemPropertyDescriptor(org.eclipse.emf.common.notify.AdapterFactory adapterFactory, String displayName, String description, org.eclipse.emf.ecore.EStructuralFeature feature, boolean isSettable, org.eclipse.emf.ecore.EObject[] valueInstances) {
 		super(adapterFactory, displayName, description, feature, isSettable);
 		myValues = valueInstances;
 	}
@@ -189,3 +278,57 @@ public static class ChildMetaclassItemPropertyDescriptor extends org.eclipse.emf
 	}
 }
 «ENDDEFINE»
+
+«DEFINE getImageRegistry FOR gmfgen::GenCustomPropertyTab-»
+  «EXPAND xpt::Common::generatedMemberComment»
+  private static org.eclipse.jface.resource.ImageRegistry ourImageRegistry = new org.eclipse.jface.resource.ImageRegistry();
+  
+  «EXPAND xpt::Common::generatedMemberComment»
+  static {
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_SOLID_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_solid.png"));
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASH_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dash.png"));
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dot.png"));
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASHDOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dashdot.png"));
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASHDOTDOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dashdotdot.png"));
+      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_CUSTOM_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_custom.png"));
+  }
+
+  «EXPAND xpt::Common::generatedMemberComment»
+  public org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
+      return ourImageRegistry;
+  }
+«ENDDEFINE»
+
+«AROUND setInputMethod FOR gmfgen::GenCustomPropertyTab»
+«IF isCustomTab()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.util.Collection mySavedSelection = new java.util.ArrayList();
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public java.util.Collection getSavedSelection() {
+	    //StructuredSelection structured = (StructuredSelection) super.getSelection();
+	    //return structured.toList();
+	    return mySavedSelection;
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setInput(org.eclipse.ui.IWorkbenchPart part, org.eclipse.jface.viewers.ISelection selection) {
+		if (selection.isEmpty() || false == selection instanceof org.eclipse.jface.viewers.StructuredSelection) {
+			super.setInput(part, selection);
+			return;
+		}
+		final org.eclipse.jface.viewers.StructuredSelection structuredSelection = ((org.eclipse.jface.viewers.StructuredSelection) selection);
+		java.util.ArrayList transformedSelection = new java.util.ArrayList(structuredSelection.size());
+		for (java.util.Iterator it = structuredSelection.iterator();  it.hasNext();) {
+			Object r = transformSelection(it.next());
+			if (r != null) {
+				transformedSelection.add(r);
+			}
+		}
+		mySavedSelection = transformedSelection;
+		super.setInput(part, new org.eclipse.jface.viewers.StructuredSelection(transformedSelection));
+	}
+«ELSE-»
+«targetDef.proceed()»
+«ENDIF-»
+«ENDAROUND»

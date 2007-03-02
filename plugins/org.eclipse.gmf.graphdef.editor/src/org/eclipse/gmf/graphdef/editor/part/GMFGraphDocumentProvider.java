@@ -35,6 +35,8 @@ import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -43,6 +45,7 @@ import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider;
@@ -50,7 +53,9 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
+import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
@@ -60,24 +65,52 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @generated
  */
-public class GMFGraphDocumentProvider extends StorageDocumentProvider implements IDiagramDocumentProvider {
+public class GMFGraphDocumentProvider extends AbstractDocumentProvider implements IDiagramDocumentProvider {
 
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws CoreException {
-		if (false == element instanceof FileEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, "Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+	protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException, CoreException {
+		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		FileEditorInput editorInput = (FileEditorInput) element;
+		IEditorInput editorInput = (IEditorInput) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
 
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
-		ResourceSetModificationListener modificationListener = new ResourceSetModificationListener(info);
-		info.getResourceSet().eAdapters().add(modificationListener);
 		return info;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IDocument createDocument(Object element) throws CoreException {
+		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		IDocument document = createEmptyDocument();
+		setDocumentContent(document, (IEditorInput) element);
+		setupDocument(element, document);
+		return document;
+	}
+
+	/**
+	 * Sets up the given document as it would be provided for the given element.
+	 * The content of the document is not changed. This default implementation
+	 * is empty. Subclasses may reimplement.
+	 * 
+	 * @param element
+	 *            the blue-print element
+	 * @param document
+	 *            the document to set up
+	 * @generated
+	 */
+	protected void setupDocument(Object element, IDocument document) {
+		// for subclasses
 	}
 
 	/**
@@ -108,16 +141,18 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		return document;
 	}
 
-	private TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+	private org.eclipse.emf.transaction.TransactionalEditingDomain createEditingDomain() {
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory.getInstance().createEditingDomain();
 		editingDomain.setID("org.eclipse.gmf.graphdef.editor.EditingDomain"); //$NON-NLS-1$
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
-				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
-		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
+		final org.eclipse.emf.transaction.NotificationFilter diagramResourceModifiedFilter = org.eclipse.emf.transaction.NotificationFilter.createNotifierFilter(editingDomain.getResourceSet()).and(
+				org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.ADD)).and(
+				org.eclipse.emf.transaction.NotificationFilter
+						.createFeatureFilter(org.eclipse.emf.ecore.resource.ResourceSet.class, org.eclipse.emf.ecore.resource.ResourceSet.RESOURCE_SET__RESOURCES));
+		editingDomain.getResourceSet().eAdapters().add(new org.eclipse.emf.common.notify.Adapter() {
 
-			private Notifier myTarger;
+			private org.eclipse.emf.common.notify.Notifier myTarger;
 
-			public Notifier getTarget() {
+			public org.eclipse.emf.common.notify.Notifier getTarget() {
 				return myTarger;
 			}
 
@@ -125,16 +160,16 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 				return false;
 			}
 
-			public void notifyChanged(Notification notification) {
+			public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
 				if (diagramResourceModifiedFilter.matches(notification)) {
 					Object value = notification.getNewValue();
-					if (value instanceof Resource) {
-						((Resource) value).setTrackingModification(true);
+					if (value instanceof org.eclipse.emf.ecore.resource.Resource) {
+						((org.eclipse.emf.ecore.resource.Resource) value).setTrackingModification(true);
 					}
 				}
 			}
 
-			public void setTarget(Notifier newTarget) {
+			public void setTarget(org.eclipse.emf.common.notify.Notifier newTarget) {
 				myTarger = newTarget;
 			}
 
@@ -146,22 +181,66 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void setDocumentContentFromStorage(IDocument document, IStorage storage) throws CoreException {
+	protected void setDocumentContent(IDocument document, IEditorInput element) throws CoreException {
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
-		//	org.eclipse.gmf.runtime.notation.Diagram diagram = diagramDocument.getDiagram();
-
-		//	org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		//	diagram = org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-		//	if (myContentObjectURI != null && diagram != null && diagram.eResource() != null && !diagram.eResource().getURIFragment(diagram).equals(myContentObjectURI)) {
-		//		org.eclipse.emf.ecore.EObject anotherContentObject = diagram.eResource().getEObject(myContentObjectURI);
-		//		document.setContent(anotherContentObject);
-		//	} else {
-		//		document.setContent(diagram);
-		//	}
-
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-		Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-		document.setContent(diagram);
+		if (element instanceof FileEditorInput) {
+			IStorage storage = ((FileEditorInput) element).getStorage();
+			Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
+			document.setContent(diagram);
+		} else if (element instanceof URIEditorInput) {
+			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			Resource resource = null;
+			try {
+				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
+				if (resource == null) {
+					resource = domain.getResourceSet().createResource(uri.trimFragment());
+				}
+				if (!resource.isLoaded()) {
+					try {
+						Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
+						// @see 171060
+						// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE,
+						// Boolean.TRUE);
+						resource.load(options);
+					} catch (IOException e) {
+						resource.unload();
+						throw e;
+					}
+				}
+				if (resource == null) {
+					throw new RuntimeException("Unable to load diagram resource");
+				}
+				if (uri.fragment() != null) {
+					EObject rootElement = resource.getEObject(uri.fragment());
+					if (rootElement instanceof Diagram) {
+						document.setContent((Diagram) rootElement);
+						return;
+					}
+				} else {
+					for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
+						Object rootElement = it.next();
+						if (rootElement instanceof Diagram) {
+							document.setContent((Diagram) rootElement);
+							return;
+						}
+					}
+				}
+				throw new RuntimeException("Diagram is not present in resource");
+			} catch (Exception e) {
+				CoreException thrownExcp = null;
+				if (e instanceof CoreException) {
+					thrownExcp = (CoreException) e;
+				} else {
+					String msg = e.getLocalizedMessage();
+					thrownExcp = new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+				}
+				throw thrownExcp;
+			}
+		} else {
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
+					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 	}
 
 	/**
@@ -178,25 +257,14 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	public long getSynchronizationStamp(Object element) {
-		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null) {
-			return info.getModificationStamp();
-		}
-		return super.getSynchronizationStamp(element);
-	}
-
-	/**
-	 * @generated
-	 */
 	public boolean isDeleted(Object element) {
-		if (element instanceof IFileEditorInput) {
-			IFileEditorInput input = (IFileEditorInput) element;
-			IPath path = input.getFile().getLocation();
-			if (path == null) {
-				return true;
+		IDiagramDocument document = getDiagramDocument(element);
+		if (document != null) {
+			Resource diagramResource = document.getDiagram().eResource();
+			if (diagramResource != null) {
+				IFile file = WorkspaceSynchronizer.getFile(diagramResource);
+				return file == null || file.getLocation() == null || !file.getLocation().toFile().exists();
 			}
-			return !path.toFile().exists();
 		}
 		return super.isDeleted(element);
 	}
@@ -222,7 +290,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void doValidateState(Object element, Object computationContext) throws CoreException {
+	protected void doValidateState(Object element, Object computationContext) throws org.eclipse.core.runtime.CoreException, CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection files2Validate = new ArrayList();
@@ -242,11 +310,40 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
+	public boolean isReadOnly(Object element) {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
+				try {
+					updateCache(element);
+				} catch (CoreException ex) {
+					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
+				}
+			}
+			return info.isReadOnly();
+		}
+		return super.isReadOnly(element);
+	}
+
+	/**
+	 * @generated
+	 */
 	public boolean isModifiable(Object element) {
 		if (!isStateValidated(element)) {
-			if (element instanceof FileEditorInput) {
+			if (element instanceof FileEditorInput || element instanceof URIEditorInput) {
 				return true;
 			}
+		}
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			if (info.isUpdateCache()) {
+				try {
+					updateCache(element);
+				} catch (CoreException ex) {
+					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
+				}
+			}
+			return info.isModifiable();
 		}
 		return super.isModifiable(element);
 	}
@@ -254,23 +351,33 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void updateCache(IStorageEditorInput input) throws CoreException {
-		ResourceSetInfo info = getResourceSetInfo(input);
+	protected void updateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				IFile file = WorkspaceSynchronizer.getFile(nextResource);
 				if (file != null && file.isReadOnly()) {
-					info.fIsReadOnly = true;
-					info.fIsModifiable = false;
+					info.setReadOnly(true);
+					info.setModifiable(false);
 					return;
 				}
 			}
-			info.fIsReadOnly = false;
-			info.fIsModifiable = true;
+			info.setReadOnly(false);
+			info.setModifiable(true);
 			return;
 		}
-		super.updateCache(input);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doUpdateStateCache(Object element) throws CoreException {
+		ResourceSetInfo info = getResourceSetInfo(element);
+		if (info != null) {
+			info.setUpdateCache(true);
+		}
+		super.doUpdateStateCache(element);
 	}
 
 	/**
@@ -387,7 +494,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	 */
 	protected void doSynchronize(Object element, IProgressMonitor monitor) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
-		if (info != null && element instanceof FileEditorInput) {
+		if (info != null) {
 			for (Iterator it = info.getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource nextResource = (Resource) it.next();
 				handleElementChanged(info, nextResource, monitor);
@@ -400,21 +507,11 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void markWholeResourceSetAsDirty(ResourceSet resourceSet) {
-		for (Iterator it = resourceSet.getResources().iterator(); it.hasNext();) {
-			Resource nextResource = (Resource) it.next();
-			nextResource.setModified(true);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, "The file has been changed on the file system", null)); //$NON-NLS-1$
+				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IStatus.OK, "The file has been changed on the file system", null)); //$NON-NLS-1$
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
@@ -443,13 +540,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 			} finally {
 				info.startResourceListening();
 			}
-
-			if (info != null) {
-				info.setModificationStamp(computeModificationStamp(info));
-				info.setSynchronized();
-			}
 		}
-		super.doSaveDocument(monitor, element, document, overwrite);
 	}
 
 	/**
@@ -460,8 +551,8 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		if (file != null) {
 			try {
 				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			} catch (CoreException e) {
-				handleCoreException(e, "FileDocumentProvider.handleElementContentChanged");
+			} catch (CoreException ex) {
+				GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_handleElementContentChanged, ex);
 			}
 		}
 		changedResource.unload();
@@ -484,17 +575,14 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(FileEditorInput input, IPath path) {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IFile newFile = workspace.getRoot().getFile(path);
-		fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleElementDeleted(FileEditorInput input) {
-		fireElementDeleted(input);
+	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+		if (input instanceof FileEditorInput) {
+			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
+			fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
+			return;
+		}
+		// TODO: append suffix to the URI! (use diagram as a parameter)
+		fireElementMoved(input, new URIEditorInput(uri));
 	}
 
 	/**
@@ -518,7 +606,14 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 	/**
 	 * @generated
 	 */
-	protected class ResourceSetInfo extends StorageInfo {
+	protected IRunnableContext getOperationRunner(IProgressMonitor monitor) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected class ResourceSetInfo extends ElementInfo {
 
 		/**
 		 * @generated
@@ -543,16 +638,38 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		/**
 		 * @generated
 		 */
-		private FileEditorInput myEditorInput;
+		private IEditorInput myEditorInput;
 
 		/**
 		 * @generated
 		 */
-		public ResourceSetInfo(IDiagramDocument document, FileEditorInput editorInput) {
+		private boolean myUpdateCache = true;
+
+		/**
+		 * @generated
+		 */
+		private boolean myModifiable = false;
+
+		/**
+		 * @generated
+		 */
+		private boolean myReadOnly = true;
+
+		/**
+		 * @generated
+		 */
+		private ResourceSetModificationListener myResourceSetListener;
+
+		/**
+		 * @generated
+		 */
+		public ResourceSetInfo(IDiagramDocument document, IEditorInput editorInput) {
 			super(document);
 			myDocument = document;
 			myEditorInput = editorInput;
 			startResourceListening();
+			myResourceSetListener = new ResourceSetModificationListener(this);
+			getResourceSet().eAdapters().add(myResourceSetListener);
 		}
 
 		/**
@@ -579,7 +696,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		/**
 		 * @generated
 		 */
-		public FileEditorInput getEditorInput() {
+		public IEditorInput getEditorInput() {
 			return myEditorInput;
 		}
 
@@ -588,6 +705,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		 */
 		public void dispose() {
 			stopResourceListening();
+			getResourceSet().eAdapters().remove(myResourceSetListener);
 			for (Iterator it = getResourceSet().getResources().iterator(); it.hasNext();) {
 				Resource resource = (Resource) it.next();
 				resource.unload();
@@ -599,13 +717,6 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		 */
 		public boolean isSynchronized() {
 			return myUnSynchronizedResources.size() == 0;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setSynchronized() {
-			myUnSynchronizedResources.clear();
 		}
 
 		/**
@@ -640,6 +751,48 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 		/**
 		 * @generated
 		 */
+		public boolean isUpdateCache() {
+			return myUpdateCache;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setUpdateCache(boolean update) {
+			myUpdateCache = update;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean isModifiable() {
+			return myModifiable;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setModifiable(boolean modifiable) {
+			myModifiable = modifiable;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean isReadOnly() {
+			return myReadOnly;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setReadOnly(boolean readOnly) {
+			myReadOnly = readOnly;
+		}
+
+		/**
+		 * @generated
+		 */
 		private class SynchronizerDelegate implements WorkspaceSynchronizer.Delegate {
 
 			/**
@@ -652,6 +805,12 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 			 * @generated
 			 */
 			public boolean handleResourceChanged(final Resource resource) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
 				Display.getDefault().asyncExec(new Runnable() {
 
 					public void run() {
@@ -665,10 +824,16 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 			 * @generated
 			 */
 			public boolean handleResourceDeleted(Resource resource) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
 				Display.getDefault().asyncExec(new Runnable() {
 
 					public void run() {
-						handleElementDeleted(ResourceSetInfo.this.getEditorInput());
+						fireElementDeleted(ResourceSetInfo.this.getEditorInput());
 					}
 				});
 				return true;
@@ -678,12 +843,17 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 			 * @generated
 			 */
 			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
-				IFile file = WorkspaceSynchronizer.getFile(resource);
-				if (file != null && file.equals(ResourceSetInfo.this.getEditorInput().getFile())) {
+				synchronized (ResourceSetInfo.this) {
+					if (ResourceSetInfo.this.fCanBeSaved) {
+						ResourceSetInfo.this.setUnSynchronized(resource);
+						return true;
+					}
+				}
+				if (myDocument.getDiagram().eResource() == resource) {
 					Display.getDefault().asyncExec(new Runnable() {
 
 						public void run() {
-							handleElementMoved(ResourceSetInfo.this.getEditorInput(), new Path(org.eclipse.emf.common.util.URI.decode(newURI.path())).removeFirstSegments(1));
+							handleElementMoved(ResourceSetInfo.this.getEditorInput(), newURI);
 						}
 					});
 				} else {
@@ -750,6 +920,7 @@ public class GMFGraphDocumentProvider extends StorageDocumentProvider implements
 						}
 						if (dirtyStateChanged) {
 							fireElementDirtyStateChanged(myInfo.getEditorInput(), modified);
+
 							if (!modified) {
 								myInfo.setModificationStamp(computeModificationStamp(myInfo));
 							}

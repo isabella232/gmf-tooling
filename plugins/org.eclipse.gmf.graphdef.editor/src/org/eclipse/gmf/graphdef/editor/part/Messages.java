@@ -10,16 +10,18 @@
  */
 package org.eclipse.gmf.graphdef.editor.part;
 
+import org.eclipse.osgi.util.NLS;
+
 /**
  * @generated
  */
-public class Messages extends org.eclipse.osgi.util.NLS {
+public class Messages extends NLS {
 
 	/**
 	 * @generated
 	 */
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
+		NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
 	}
 
 	/**
@@ -27,6 +29,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	private Messages() {
 	}
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_handleElementContentChanged;
 
 	/**
 	 * @generated
@@ -243,5 +255,5 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	public static String NavigatorGroupName_DiagramElementFigure_4001_target;
 
-	//TODO: put accessor fields manually	
+	// TODO: put accessor fields manually
 }

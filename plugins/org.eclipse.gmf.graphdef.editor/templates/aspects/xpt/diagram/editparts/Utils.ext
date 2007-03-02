@@ -89,7 +89,7 @@ default : getValueString
 }
 ;
 
-private boolean isCornerWidthOrHeight(genmodel::GenFeature genFeature) :
+boolean isCornerWidthOrHeight(genmodel::GenFeature genFeature) :
 getName(genFeature).matches("cornerWidth|cornerHeight")
 ;
 

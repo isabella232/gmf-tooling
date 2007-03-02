@@ -296,7 +296,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 *@generated
+	 * @generated
 	 */
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
@@ -311,7 +311,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 *@generated
+	 * @generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 
@@ -362,10 +362,19 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, int linkVID) {
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
 			this(source, destination, linkVID);
 			myLinkElement = linkElement;
-			mySemanticAdapter = new EObjectAdapter(linkElement);
+			final IElementType elementTypeCopy = elementType;
+			mySemanticAdapter = new EObjectAdapter(linkElement) {
+
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return super.getAdapter(adapter);
+				}
+			};
 		}
 
 		/**
