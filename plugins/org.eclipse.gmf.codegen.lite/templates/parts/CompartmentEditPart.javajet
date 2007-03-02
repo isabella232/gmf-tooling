@@ -21,7 +21,6 @@ importManager.addImport("org.eclipse.gef.requests.CreateRequest");
 
 importManager.markImportLocation(stringBuffer);
 %>
-<%@ include file="../common/relatedNodesFinder.jetinc"%>
 
 /**
  * @generated
@@ -69,7 +68,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 */
 	protected void createEditPolicies() {
 <%if (!genCompartment.isListLayout()) {%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.XYLayoutEditPolicy")%>() {
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx")%>() {
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
 <%@include file="changeConstraintCommand.jetinc"%>
 			}
@@ -79,7 +78,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 			}
 <%@include file="preservePrimaryDragEditPolicy.jetinc"%>
 <%} else {%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy")%>() {
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.ListLayoutEditPolicy")%>() {
 			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
 				return null;
 			}

@@ -163,6 +163,14 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::commands::CreateNodeCommand::CreateNodeCommand");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getAddNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::AddNodeCommand::AddNodeCommand");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getCloneNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::commands::CloneNodeCommand::CloneNodeCommand");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getCreateLinkStartCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::commands::CreateLinkStartCommand::CreateLinkStartCommand");	//$NON-NLS-1$
 	}

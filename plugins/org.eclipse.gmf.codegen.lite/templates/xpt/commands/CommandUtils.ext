@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2007 Borland Software Corp.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
+
+Collection[gmfgen::GenNode] getChildNodes(gmfgen::GenContainerBase parent) :
+null
+;
+
+Collection[gmfgen::GenNode] getChildNodes(gmfgen::GenDiagram parent) :
+parent.topLevelNodes
+;
+
+Collection[gmfgen::GenNode] getChildNodes(gmfgen::GenChildContainer parent) :
+parent.childNodes
+;
+
+Collection[gmfgen::GenNode] getRelatedGenNodes(gmfgen::GenNode node) :
+node.getDiagram().getAllNodes().select(e| node.getDomainMetaClass().ecoreClass.isSuperTypeOf(e.getDomainMetaClass().ecoreClass))
+;

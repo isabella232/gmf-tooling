@@ -14,7 +14,6 @@ importManager.registerInnerClass("TreeEditPartAdapter");
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
-<%@ include file="../common/relatedNodesFinder.jetinc"%>
 
 <%
 class NodeEditPartHelper {
@@ -233,9 +232,9 @@ GenCommonBase genCommonBase = genNode;%>
 <%
 String layoutEditPolicyBaseClass;
 if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
-	layoutEditPolicyBaseClass = "org.eclipse.gef.editpolicies.XYLayoutEditPolicy";
+	layoutEditPolicyBaseClass = "org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx";
 } else {
-	layoutEditPolicyBaseClass = "org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy";
+	layoutEditPolicyBaseClass = "org.eclipse.gmf.runtime.lite.edit.policies.ListLayoutEditPolicy";
 }
 %>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName(layoutEditPolicyBaseClass)%>() {

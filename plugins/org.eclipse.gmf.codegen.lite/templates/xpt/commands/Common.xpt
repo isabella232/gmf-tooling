@@ -15,6 +15,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::Utils»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
 /*
  * A slightly more sophisticated version of xpt::Common::getFeatureValue().
@@ -72,6 +73,30 @@ org.eclipse.emf.edit.command.RemoveCommand.create(«domainVar», «containerVar», «
 «ELSE-»
 org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXPAND xpt::Common::metaFeatureAccessor», org.eclipse.emf.edit.command.SetCommand.UNSET_VALUE)«-»
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE adjustConstraint FOR gmfgen::GenNode-»
+«LET defaultSizeWidth(viewmap, 40) AS defaultWidth-»
+«LET defaultSizeHeight(viewmap, 40) AS defaultHeight-»
+«LET getResizeConstraints(viewmap) AS rc-»
+«LET rc == null || rc.resizeHandleNames.select(e| e=="EAST" || e=="WEST").size() > 0 AS resizableWidth-»
+«LET rc == null || rc.resizeHandleNames.select(e| e=="NORTH" || e=="SOUTH").size() > 0 AS resizableHeight-»
+		if (constraint != null) {
+	«IF resizableWidth || resizableHeight-»
+			constraint.union(new org.eclipse.draw2d.geometry.Dimension(«defaultWidth», «defaultHeight»));
+	«ENDIF-»
+	«IF !resizableWidth-»
+			constraint.width = «defaultWidth»;
+	«ENDIF-»
+	«IF !resizableHeight-»
+			constraint.height = «defaultHeight»;
+	«ENDIF-»
+		}
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
 
 /*

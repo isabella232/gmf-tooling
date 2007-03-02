@@ -288,6 +288,16 @@ public class Generator extends GeneratorBase implements Runnable {
 				"Create" + commandNameInfix + "Command",
 				genNode
 			);
+		internalGenerateJavaClass(myEmitters.getAddNodeCommandEmitter(), 
+				myDiagram.getEditCommandsPackageName(),
+				"Add" + commandNameInfix + "Command",
+				genNode
+			);
+		internalGenerateJavaClass(myEmitters.getCloneNodeCommandEmitter(), 
+				myDiagram.getEditCommandsPackageName(),
+				"Clone" + commandNameInfix + "Command",
+				genNode
+			);
 	}
 
 	private void generateCommands(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {

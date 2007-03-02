@@ -14,7 +14,6 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
 
 «DEFINE CreateNodeCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
@@ -52,27 +51,7 @@ public class «EXPAND className» «EXPAND supertypes» {
 		«EXPAND xpt::Common::newInstanceAsEObject("createdDomainElement") FOR modelFacet.metaClass-»
 		«EXPAND xpt::commands::Common::DomainElementInitializerQualifiedClassName».«getUniqueIdentifier()».initializeElement(createdDomainElement);
 		«EXPAND initializeDomainModelCommand FOR modelFacet-»
-«LET defaultSizeWidth(viewmap, 40) AS defaultWidth-»
-«LET defaultSizeHeight(viewmap, 40) AS defaultHeight-»
-«LET getResizeConstraints(viewmap) AS rc-»
-«LET rc == null || rc.resizeHandleNames.select(e| e=="EAST" || e=="WEST").size() > 0 AS resizableWidth-»
-«LET rc == null || rc.resizeHandleNames.select(e| e=="NORTH" || e=="SOUTH").size() > 0 AS resizableHeight-»
-		if (constraint != null) {
-	«IF resizableWidth || resizableHeight-»
-			constraint.union(new org.eclipse.draw2d.geometry.Dimension(«defaultWidth», «defaultHeight»));
-	«ENDIF-»
-	«IF !resizableWidth-»
-			constraint.width = «defaultWidth»;
-	«ENDIF-»
-	«IF !resizableHeight-»
-			constraint.height = «defaultHeight»;
-	«ENDIF-»
-		}
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
+		«EXPAND xpt::commands::Common::adjustConstraint-»
 		this.notationAddCommand = new org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand(parent, createdDomainElement, 
 			constraint, «getNotationViewFactoryQualifiedClassName()».INSTANCE);
 		request.setCreatedObject(notationAddCommand.getCreatedView());

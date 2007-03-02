@@ -10,7 +10,6 @@ List childNodes = genDiagram.getTopLevelNodes();
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
-<%@ include file="../common/relatedNodesFinder.jetinc"%>
 
 <%
 class DiagramEditPartHelper {
@@ -84,10 +83,8 @@ importManager.addImport("org.eclipse.draw2d.geometry.Point");
 importManager.addImport("org.eclipse.gef.EditPart");
 importManager.addImport("org.eclipse.gef.SnapToGrid");
 importManager.addImport("org.eclipse.gef.SnapToHelper");
-importManager.addImport("org.eclipse.gef.editpolicies.RootComponentEditPolicy");
 importManager.addImport("org.eclipse.gef.commands.UnexecutableCommand");
 importManager.addImport("org.eclipse.gef.editpolicies.RootComponentEditPolicy");
-importManager.addImport("org.eclipse.gef.editpolicies.XYLayoutEditPolicy");
 importManager.addImport("org.eclipse.gef.requests.ChangeBoundsRequest");
 importManager.addImport("org.eclipse.gef.requests.CreateRequest");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Bounds");
@@ -144,7 +141,7 @@ GenCommonBase genCommonBase = genDiagram;%>
 	 */
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new RootComponentEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx")%>() {
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(CreateRequest request) {
 <%if (null != genDiagram.getPalette()) {%>
 				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {

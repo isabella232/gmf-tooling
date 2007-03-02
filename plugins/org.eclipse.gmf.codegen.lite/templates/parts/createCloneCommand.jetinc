@@ -1,33 +1,6 @@
 <%
-/* delegation from getCloneCommand to createCloneCommand is 100% analogous to delegation from getAddCommand() to createAddCommand() in ConstrainedLayoutEditPolicy. */
-%>
-<%
 if (!childNodes.isEmpty()) {
 %>
-protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCloneCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request) {
-	<%=importManager.getImportedName("java.util.List")%> editParts = request.getEditParts();
-	<%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> command = new <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%>();
-	command.setDebugLabel("Clone in ConstrainedLayoutEditPolicy");//$NON-NLS-1$
-	<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> childPart;
-	<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> r;
-	Object constraint;
-
-	for (int i = 0; i < editParts.size(); i++) {
-		childPart = (<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>)editParts.get(i);
-		r = childPart.getFigure().getBounds().getCopy();
-		//convert r to absolute from childpart figure
-		childPart.getFigure().translateToAbsolute(r);
-		r = request.getTransformedRectangle(r);
-		//convert this figure to relative 
-		getLayoutContainer().translateToRelative(r);
-		getLayoutContainer().translateFromParent(r);
-		r.translate(getLayoutOrigin().getNegated());
-		constraint = getConstraintFor(r);
-		command.add(createCloneCommand(childPart,
-			translateToModelConstraint(constraint)));
-	}
-	return command.unwrap();
-}
 protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createCloneCommand(final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, final Object constraint) {
 	if (child.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) {
 		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> childNode = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) child.getModel();
@@ -40,92 +13,11 @@ protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>
 <%
 	for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 		GenNode next = (GenNode) it.next();
-		TypeModelFacet facet = next.getModelFacet();
-		GenFeature childFeature = facet.getChildMetaFeature();
-		GenFeature containmentFeature = facet.getContainmentMetaFeature();
 %>
 			case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				command = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CommandWrapper")%>() {
-					private <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> afterCopyCommand;
-					protected <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createCommand() {
-						<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = childNode.getElement();
-						//We are being optimistic here about whether further commands can be executed.
-						//Otherwise, we would have to execute the CopyCommand on every mouse move, which could be much too expensive.  
-						return <%=importManager.getImportedName("org.eclipse.emf.edit.command.CopyCommand")%>.create(editingDomain, element);
-					}
-					protected boolean prepare() {
-						if (!super.prepare()) {
-							return false;
-						}
-<%
-		if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
-			GenFeature _feature = childFeature;
-			String _ownerInstance = _getViewCode + ".getElement()";
-			String _exceedsUpperBound = "return false;";
-			GenClass _ownerGenClass = null;
-%>
-<%@ include file="../common/featureMultiplicity.jetinc"%>
-<%
-		}
-		{
-			GenFeature _feature = containmentFeature;
-			String _ownerInstance = _getViewCode + ".getElement()";
-			String _exceedsUpperBound = "return false;";
-			GenClass _ownerGenClass = null;
-%>
-<%@ include file="../common/featureMultiplicity.jetinc"%>
-<%
-		}
-%>
-						return true;
-					}
-					public void execute() {
-						super.execute();
-						final <%=importManager.getImportedName("java.util.Collection")%> results = super.getResult();
-						assert results.size() == 1;
-						<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> result = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) results.iterator().next();
-						afterCopyCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-<%
-		if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
-%>
-						afterCopyCommand.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
-							editingDomain,
-							<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), result));
-<%
-		}
-%>
-						afterCopyCommand.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
-							editingDomain,
-							<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), result));
-<%
-		{
-			int defaultWidth = 40;
-			int defaultHeight = 40;
-			DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) next.getViewmap().find(DefaultSizeAttributes.class);
-			if (defSizeAttrs != null) {
-				defaultWidth = defSizeAttrs.getWidth();
-				defaultHeight = defSizeAttrs.getHeight();
-			}
-%>
-						afterCopyCommand.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%>(<%=_getViewCode%>, result, <%if (isListLayout) {%>null<%} else {%>((<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>) constraint).getCopy().union(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=defaultWidth%>, <%=defaultHeight%>))<%}%>, <%=importManager.getImportedName(next.getNotationViewFactoryQualifiedClassName())%>.INSTANCE));
-						if (afterCopyCommand.canExecute()) {
-							afterCopyCommand.execute();
-						} else {
-							assert false;
-						}
-					}
-					public void undo() {
-						afterCopyCommand.undo();
-						super.undo();
-					}
-					public void redo() {
-						super.redo();
-						afterCopyCommand.redo();
-					}
-				};
+				command = new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Clone" + next.getModelFacet().getMetaClass().getName() + next.getVisualID() + "Command")%>(<%=_getViewCode%>, childNode, <%if (isListLayout) {%>null<%} else {%>(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>) constraint<%}%>);
 				break;
 <%
-		}
 	}	//for
 %>
 			}
