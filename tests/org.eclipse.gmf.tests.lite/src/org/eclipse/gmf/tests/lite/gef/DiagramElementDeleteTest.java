@@ -72,11 +72,9 @@ public class DiagramElementDeleteTest extends GeneratedCanvasTest {
 	public void testIncomingTypeLinksToDeletedElement() throws Exception {
 		GenNode metaBook = getSetup().getGenModel().getNodeB();
 		Node book1Node = createNode(metaBook, getDiagram());
-		EObject book1 = book1Node.getElement();
 		NodeEditPart book1EP = (NodeEditPart) findEditPart(book1Node);
 		GenNode metaWriter = getSetup().getGenModel().getNodeA();
 		Node writer1Node = createNode(metaWriter, getDiagram());
-		EObject writer1 = writer1Node.getElement();
 		NodeEditPart writer1EP = (NodeEditPart) findEditPart(writer1Node);
 		GenLink metaOpinion = getSetup().getGenModel().getLinkC();
 		Edge opinion1Edge = createLink(metaOpinion, writer1Node, book1Node);
