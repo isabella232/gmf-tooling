@@ -12,6 +12,9 @@
 package org.eclipse.gmf.graphdef.codegen;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -36,6 +39,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	private boolean mySkipPluginStructire;
 	protected final FigureQualifiedNameSwitch myFigureNameSwitch;
 	protected Processor myProcessor;
+	private final Map<String, Figure> myCallbackFigures = new LinkedHashMap<String, Figure>(); 
 	
 	public interface Config {
 		public String getPluginID();
@@ -169,16 +173,16 @@ public class StandaloneGenerator extends GeneratorBase {
 			generatePluginStructure();
 		}
 		try {
-			generatePluginActivator();
 			generateTopLevelFigures();
+			generatePluginActivator();
 		} catch (IllegalStateException e){
 			throw new UnexpectedBehaviourException(e);
 		}
 	}
 	
 	protected void generatePluginActivator() throws UnexpectedBehaviourException, InterruptedException{
-		Object[] args = new Object[] {myArgs, new ImportUtil(myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName())};
-		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), new Object[] {args});		
+		Object[] args = new Object[] {myArgs, new ImportUtil(myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName()), new ArrayList<String>(myCallbackFigures.keySet())};
+		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), args);		
 	}
 	
 	protected void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
@@ -188,6 +192,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 
 	private void generateTopLevelFigures() throws InterruptedException {
+		myCallbackFigures.clear(); // just in case
 		myProcessor.go(new ProcessorCallback() {
 			public String visitFigure(Figure f) throws InterruptedException {
 				return StandaloneGenerator.this.visitFigure(f);
@@ -199,7 +204,9 @@ public class StandaloneGenerator extends GeneratorBase {
 		final ImportAssistant importAssistant = new ImportUtil(getPackageName(), CodeGenUtil.validJavaIdentifier(figure.getName()));
 		Object[] args = new Object[] { figure, importAssistant };
 		doGenerateJavaClass(myFigureGenerator, getPackageName(), importAssistant.getCompilationUnitName(), args);
-		return composeFQN(getPackageName(), importAssistant.getCompilationUnitName());
+		final String qualifiedName = composeFQN(getPackageName(), importAssistant.getCompilationUnitName());
+		myCallbackFigures.put(qualifiedName, figure);
+		return qualifiedName;
 	}
 
 	private String getPackageName(){

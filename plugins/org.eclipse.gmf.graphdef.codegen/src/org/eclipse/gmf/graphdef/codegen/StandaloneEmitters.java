@@ -76,9 +76,15 @@ class StandaloneEmitters {
 	public TextEmitter getPluginActivatorEmitter() throws UnexpectedBehaviourException {
 		return new XpandTextEmitter(myResourceManager, "plugin::Activator::Init", getClass().getClassLoader()) {
 			@Override
+			protected Object extractTarget(Object[] arguments) {
+				assert arguments != null && arguments.length >= 2;
+				assert arguments[2] instanceof List;
+				return arguments[2];
+			}
+			@Override
 			protected Object[] extractArguments(Object[] arguments) {
-				assert arguments != null && arguments.length > 0 && arguments[0] instanceof Object[];
-				Config config = (Config) ((Object[]) arguments[0])[0];
+				assert arguments != null && arguments.length > 0 && arguments[0] instanceof Config;
+				Config config = (Config) arguments[0];
 				return new Object[] {
 					config.getPluginActivatorPackageName(),
 					config.getPluginActivatorClassName(),
