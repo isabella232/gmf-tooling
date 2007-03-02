@@ -80,7 +80,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.workbench.texteditor" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.ui.views" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.ui.ide" version="3.2.0" match="compatible"/>
-      <import plugin="net.sourceforge.lpg.lpgjavaruntime"/>
    </requires>
 
    <plugin
