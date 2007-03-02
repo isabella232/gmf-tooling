@@ -1,3 +1,4 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="BuildPropertiesGenerator"%>
 bin.includes = .,\
                META-INF/,\
                plugin.xml,\

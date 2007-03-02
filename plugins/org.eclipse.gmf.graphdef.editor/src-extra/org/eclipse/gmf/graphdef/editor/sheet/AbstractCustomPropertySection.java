@@ -32,7 +32,7 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 
 	private static final int LINE_WIDTH = 203;
 
-	private LineWidthListener myListener;
+	private ModelUpdater myListener;
 
 	private org.eclipse.swt.widgets.Group myLineStyleGroup;
 
@@ -148,7 +148,7 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 			org.eclipse.swt.graphics.Image image, int kind) {
 		org.eclipse.swt.widgets.Button radio = getWidgetFactory().createButton(parent, "", org.eclipse.swt.SWT.RADIO);
 		radio.setImage(image);
-		radio.setData(KIND_KEY, new Integer(kind));
+		radio.setData(KIND_KEY, Integer.valueOf(kind));
 		org.eclipse.swt.layout.FormData data = new org.eclipse.swt.layout.FormData();
 		if (topControl == null) {
 			data.top = new org.eclipse.swt.layout.FormAttachment(0);
@@ -215,7 +215,7 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 	protected org.eclipse.swt.widgets.Button createCheckbox(org.eclipse.swt.widgets.Group parent, String label, org.eclipse.swt.widgets.Control topControl,
 			org.eclipse.swt.widgets.Control leftControl, int kind) {
 		org.eclipse.swt.widgets.Button checkbox = getWidgetFactory().createButton(parent, label, org.eclipse.swt.SWT.CHECK);
-		checkbox.setData(KIND_KEY, new Integer(kind));
+		checkbox.setData(KIND_KEY, Integer.valueOf(kind));
 		org.eclipse.swt.layout.FormData data = new org.eclipse.swt.layout.FormData();
 		if (topControl == null) {
 			data.top = new org.eclipse.swt.layout.FormAttachment(0);
@@ -371,14 +371,14 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 		refresh();
 	}
 
-	private LineWidthListener getListener() {
+	private ModelUpdater getListener() {
 		if (myListener == null) {
-			myListener = new LineWidthListener();
+			myListener = new ModelUpdater();
 		}
 		return myListener;
 	}
 
-	private class LineWidthListener implements org.eclipse.swt.events.ModifyListener, org.eclipse.swt.events.SelectionListener {
+	private class ModelUpdater implements org.eclipse.swt.events.ModifyListener, org.eclipse.swt.events.SelectionListener {
 
 		private boolean nonUserChange;
 
@@ -500,7 +500,7 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 		spinner.setPageIncrement(100);
 		spinner.setBackground(parent.getBackground());
 		spinner.setForeground(parent.getForeground());
-		spinner.setData(KIND_KEY, kind);
+		spinner.setData(KIND_KEY, Integer.valueOf(kind));
 		org.eclipse.swt.layout.FormData data = new org.eclipse.swt.layout.FormData();
 		if (leftWidget != null) {
 			data.left = new org.eclipse.swt.layout.FormAttachment(leftWidget);
@@ -619,25 +619,6 @@ public abstract class AbstractCustomPropertySection extends org.eclipse.gmf.runt
 			}
 		} finally {
 			getListener().finishNonUserChange();
-		}
-	}
-
-	private org.eclipse.swt.widgets.Button getLineKindButton(int lineKind) {
-		switch (lineKind) {
-		case org.eclipse.swt.SWT.LINE_SOLID:
-			return myLineStyle_Solid;
-		case org.eclipse.swt.SWT.LINE_DOT:
-			return myLineStyle_Dot;
-		case org.eclipse.swt.SWT.LINE_DASH:
-			return myLineStyle_Dash;
-		case org.eclipse.swt.SWT.LINE_DASHDOT:
-			return myLineStyle_DashDot;
-		case org.eclipse.swt.SWT.LINE_DASHDOTDOT:
-			return myLineStyle_DashDotDot;
-		case org.eclipse.swt.SWT.LINE_CUSTOM:
-			return myLineStyle_Custom;
-		default:
-			return null;
 		}
 	}
 }
