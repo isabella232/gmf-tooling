@@ -679,6 +679,9 @@ if (!childNodes.isEmpty()) {
     
 for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
+	if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_133);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));

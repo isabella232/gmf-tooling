@@ -266,6 +266,9 @@ if (palette != null && !genNode.getChildNodes().isEmpty()) {
 <%
 	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
 		GenChildNode next = (GenChildNode)it.next();
+		if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
+			continue;
+		}
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
 							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>((View) getModel(), requestEx<%if (isXYLayout) {%>, 

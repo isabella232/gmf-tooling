@@ -708,6 +708,9 @@ GenCommonBase genCommonBase = genDiagram;
     
 for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
+	if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_46);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));

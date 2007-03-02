@@ -283,11 +283,13 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateCommands(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
 		String commandNameInfix = genNode.getDomainMetaClass().getName() + genNode.getVisualID();
-		internalGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), 
-				myDiagram.getEditCommandsPackageName(),
-				"Create" + commandNameInfix + "Command",
-				genNode
-			);
+		if (!genNode.getDomainMetaClass().isAbstract()) {
+			internalGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), 
+					myDiagram.getEditCommandsPackageName(),
+					"Create" + commandNameInfix + "Command",
+					genNode
+				);
+		}
 		internalGenerateJavaClass(myEmitters.getAddNodeCommandEmitter(), 
 				myDiagram.getEditCommandsPackageName(),
 				"Add" + commandNameInfix + "Command",

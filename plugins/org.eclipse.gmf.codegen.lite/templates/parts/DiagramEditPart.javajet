@@ -157,6 +157,9 @@ GenCommonBase genCommonBase = genDiagram;%>
 <%
 for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
+	if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
+		continue;
+	}
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
 							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>(getDiagram(), requestEx, (<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)));

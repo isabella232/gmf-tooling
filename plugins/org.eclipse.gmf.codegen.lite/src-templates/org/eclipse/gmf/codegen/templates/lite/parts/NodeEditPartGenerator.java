@@ -1470,6 +1470,9 @@ if (palette != null && !genNode.getChildNodes().isEmpty()) {
     
 	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
 		GenChildNode next = (GenChildNode)it.next();
+		if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
+			continue;
+		}
 
     stringBuffer.append(TEXT_114);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
