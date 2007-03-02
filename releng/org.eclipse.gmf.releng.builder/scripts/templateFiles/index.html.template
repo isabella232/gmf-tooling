@@ -66,114 +66,57 @@
     </tr>    
   </tbody>
 </table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
-		<font face="Arial,Helvetica" color="#FFFFFF">SDK (includes runtime, tooling, documentation, and source)</font></b></td>
-	</tr>
-</table>
-<table border="0" cellspacing="2" cellpadding="0" width="100%">
-	<tr>
-		<td align="RIGHT" valign="TOP" width="7%">
-		<div align="left">
-			<b>Status</b></div>
-		</td>
-		<td width="34%"><b>Platform</b></td>
-		<td width="59%"><b>Download</b></td>
-		%sdk%
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
-		<font face="Arial,Helvetica" color="#FFFFFF">SDK Experimental (pure GEF diagramming)</font></b></td>
-	</tr>
-</table>
-<table border="0" cellspacing="2" cellpadding="0" width="100%">
-	<tr>
-		<td align="RIGHT" valign="TOP" width="7%">
-		<div align="left">
-			<b>Status</b></div>
-		</td>
-		<td width="34%"><b>Platform</b></td>
-		<td width="59%"><b>Download</b></td>
-		%sdk-experimental%
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
-		<font face="Arial,Helvetica" color="#FFFFFF">Runtime</font></b></td>
-	</tr>
-</table>
-<table border="0" cellspacing="2" cellpadding="0" width="100%">
-	<tr>
-		<td align="RIGHT" valign="TOP" width="7%">
-		<div align="left">
-			<b>Status</b></div>
-		</td>
-		<td width="34%"><b>Platform</b></td>
-		<td width="59%"><b>Download</b></td>
-		%runtime%
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
-		<font face="Arial,Helvetica" color="#FFFFFF">Examples (includes source)</font></b>
-		</td>
-	</tr>
-</table>
-<table border="0" cellspacing="2" cellpadding="0" width="100%">
-	<tr>
-		<td align="RIGHT" valign="TOP" width="7%">
-		<div align="left">
-			<b>Status</b></div>
-		</td>
-		<td width="34%"><b>Platform</b></td>
-		<td width="59%"><b>Download</b></td>
-		%examples-pde%
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
-		<font face="Arial,Helvetica" color="#FFFFFF">JUnit Plugin Tests</font></b></td>
-	</tr>
-</table>
-<table border="0" cellspacing="2" cellpadding="0" width="100%">
-	<tr>
-		<td align="RIGHT" valign="TOP" width="7%">
-		<div align="left">
-			<b>Status</b></div>
-		</td>
-		<td width="34%"><b>Platform</b></td>
-		<td width="59%"><b>Download</b></td>
-		%tests%
-	</tr>
-</table>
-<table border="0" cellspacing="5" cellpadding="2" width="100%">
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
+
+
+<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+<tr><td><div class="homeitem3col">
+<h3><a name="SDK">SDK</a></h3>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
+<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+</tr> %sdk% </table>
+</div></td></tr>
+
+<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+<tr><td><div class="homeitem3col">
+<h3><a name="SDK">SDK</a></h3>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
+<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+</tr> %sdk-experimental% </table>
+</div></td></tr>
+
+<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+<tr><td><div class="homeitem3col">
+<h3><a name="SDK">SDK</a></h3>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
+<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+</tr> %runtime% </table>
+</div></td></tr>
+
+<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+<tr><td><div class="homeitem3col">
+<h3><a name="SDK">SDK</a></h3>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
+<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+</tr> %examples-pde% </table>
+</div></td></tr>
+
+<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+<tr><td><div class="homeitem3col">
+<h3><a name="SDK">SDK</a></h3>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
+<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+</tr> %tests% </table>
+</div></td></tr>
 </table>
 <p>&nbsp;</p>
 
