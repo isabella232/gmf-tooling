@@ -10,9 +10,6 @@
  */
 package org.eclipse.gmf.graphdef.editor.providers;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 
 /**
  * @generated
