@@ -361,7 +361,7 @@
 		<ant antfile="deploy.xml" target="deploy.zips" />		
 	</target>
 	
-	<target name="publish" depends="">
+	<target name="publish" depends="init">
 		<!-- Fake a component, use sdk -->
 		<property name="component" value="sdk" />
 		<property file="build.properties" />
