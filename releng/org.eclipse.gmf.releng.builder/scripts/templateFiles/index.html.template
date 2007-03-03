@@ -49,6 +49,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 <div id="topnav">
 	<ul>
 		<li><a>Downloads</a></li>
+<!--
 		<li class="tabstartselected">&#160;&#160;&#160;</li>
 		<li><a class="tabselected" href="index.php" target="_self">All Platforms</a></li>
 		<li class="tabseparatorselected">&#160;&#160;&#160;</li>
@@ -61,7 +62,8 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<li><a class="" href="aixPlatform.php" target="_self">AIX</a></li>
 		<li class="tabstart">&#160;&#160;&#160;</li>	
 		<li><a class="" href="macPlatform.php" target="_self">Macintosh</a></li>
-		<li class="tabseparator">&#160;&#160;&#160;</li>			
+		<li class="tabseparator">&#160;&#160;&#160;</li>
+-->					
 	</ul>
 </div>
 <div id="topnavsep"></div>
@@ -153,6 +155,19 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 				<li><a href="directory.txt">View the <b>map file entries</b> for the current build.</a></li></ul>
 		</div>
 
+		<div class="homeitem">
+			<h3>Requirements</h3>
+				<ul class="midlist">
+				<li><a href="sourceBuilds.php">Access the <b>Source Builds</b> page.</a></li>
+				<li>Eclipse build @eclipseBuildId@: (<a href="@eclipseDownloadPage@">build page</a>)</li>
+				<li>EMF build @emfVersion@: (<a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a>, <a href="@emfUpdateSite@">update site</a>)</li>
+				<li>GEF Build @gefVersion@: (<a href="@gefDownloadPage@">build page</a>, <a href="@gefUpdateSite@">update site</a>)</li>
+				<li>EMF OCL build @emfOCLVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a>, <a href="@emfOCLUpdateSite@">update site</a>)</li>
+				<li>EMF Validation build @emfValidationVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a>, <a href="@emfValidationUpdateSite@">update site</a>)</li>
+				<li>EMF Query build @emfQueryVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a>, <a href="@emfQueryUpdateSite@">update site</a>)</li>
+				<li>EMF Transaction build @emfTransactionVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a>)</li>
+				</ul>
+		</div>
 	<hr class="clearer" />
 	</div>
 
