@@ -133,10 +133,9 @@ GenCommonBase genCommonBase = genLabel;%>
 <%
 if (genLabel.isElementIcon()) {
 %>
-		<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%> element = resolveSemanticElement();
-		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> imageDescriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(element);
-		if (imageDescriptor != null) {
-			return imageDescriptor.createImage();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> semanticElement = <%if (genHost.getDomainMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>resolveSemanticElement();
+		if (semanticElement != null) {
+			return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(semanticElement.eClass());
 		}
 <%
 }

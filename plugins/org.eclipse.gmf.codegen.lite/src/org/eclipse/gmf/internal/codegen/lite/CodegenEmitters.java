@@ -303,6 +303,10 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::editor::LoadResourceAction::LoadResourceAction");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getElementTypesGenerator() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::providers::ElementTypes::ElementTypes");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getPluginPropertiesGenerator() throws UnexpectedBehaviourException {
 		return retrieveXpand("xpt::properties::properties");	//$NON-NLS-1$
 	}

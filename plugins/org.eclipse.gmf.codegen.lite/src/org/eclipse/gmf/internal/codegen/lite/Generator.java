@@ -93,6 +93,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getInitDiagramFileActionGenerator(), myDiagram.getInitDiagramFileActionQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getNewDiagramFileWizardGenerator(), myDiagram.getNewDiagramFileWizardQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getLoadResourceActionGenerator(), myDiagram.getLoadResourceActionQualifiedClassName(), myDiagram);
+		internalGenerateJavaClass(myEmitters.getElementTypesGenerator(), myDiagram.getElementTypesQualifiedClassName(), myDiagram);
 
 		internalGenerateJavaClass(myEmitters.getActionBarContributorGenerator(), myEditorGen.getEditor().getActionBarContributorQualifiedClassName(), myEditorGen.getEditor());
 		internalGenerateJavaClass(myEmitters.getDiagramEditorUtilGenerator(), myDiagram.getDiagramEditorUtilQualifiedClassName(), myDiagram);

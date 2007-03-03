@@ -943,39 +943,41 @@ public class NodeEditPartGenerator
   protected final String TEXT_922 = " domainModelRefresher = new ";
   protected final String TEXT_923 = "(this);" + NL;
   protected final String TEXT_924 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getText() {" + NL + "\t\t\t";
-  protected final String TEXT_925 = " primaryLabelEditPart = getPrimaryLabelEditPart();" + NL + "\t\t\tif (primaryLabelEditPart != null) {" + NL + "\t\t\t\treturn primaryLabelEditPart.getLabelText();" + NL + "\t\t\t}" + NL + "\t\t\treturn super.getText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
-  protected final String TEXT_926 = " getPrimaryLabelEditPart() {" + NL + "\t\t\tfor(";
-  protected final String TEXT_927 = " it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
-  protected final String TEXT_928 = " nextChild = (";
-  protected final String TEXT_929 = ")it.next();" + NL + "\t\t\t\tif (";
-  protected final String TEXT_930 = ".getVisualID(nextChild) == ";
-  protected final String TEXT_931 = ".VISUAL_ID) {" + NL + "\t\t\t\t\treturn (";
-  protected final String TEXT_932 = ") ";
-  protected final String TEXT_933 = ".this.getViewer().getEditPartRegistry().get(nextChild);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}";
-  protected final String TEXT_934 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void createRefreshers() {" + NL + "\t\t\tsuper.createRefreshers();" + NL + "\t\t\tRefresher labelRefresher = new Refresher() {" + NL + "\t\t\t\tpublic void refresh() {" + NL + "\t\t\t\t\trefreshVisuals();" + NL + "\t\t\t\t}" + NL + "\t\t\t};";
-  protected final String TEXT_935 = NL + "\t\t\tregisterRefresher(";
-  protected final String TEXT_936 = ".eINSTANCE.get";
-  protected final String TEXT_937 = "(), labelRefresher);";
-  protected final String TEXT_938 = NL + "\t\t\tregisterRefresher(";
-  protected final String TEXT_939 = ".eINSTANCE.get";
-  protected final String TEXT_940 = "(), labelRefresher);";
-  protected final String TEXT_941 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_942 = " getModelChildren() {" + NL + "\t\t\t";
-  protected final String TEXT_943 = " result = new ";
-  protected final String TEXT_944 = "();" + NL + "\t\t\tfor(";
-  protected final String TEXT_945 = " it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
-  protected final String TEXT_946 = " next = (";
-  protected final String TEXT_947 = ") it.next();" + NL + "\t\t\t\t";
-  protected final String TEXT_948 = " style = (";
-  protected final String TEXT_949 = ") next.getStyle(";
-  protected final String TEXT_950 = ".eINSTANCE.getDrawerStyle());" + NL + "\t\t\t\tif (style != null && style.isCollapsed()) {" + NL + "\t\t\t\t\tcontinue;" + NL + "\t\t\t\t}" + NL + "\t\t\t\tswitch (";
-  protected final String TEXT_951 = ".getVisualID(next)) {";
-  protected final String TEXT_952 = NL + "\t\t\t\tcase ";
-  protected final String TEXT_953 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.add(next);" + NL + "\t\t\t\t\tbreak;";
+  protected final String TEXT_925 = " primaryLabelEditPart = getPrimaryLabelEditPart();" + NL + "\t\t\tif (primaryLabelEditPart != null) {" + NL + "\t\t\t\treturn primaryLabelEditPart.getLabelText();" + NL + "\t\t\t}" + NL + "\t\t\treturn super.getText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_926 = " getImage() {" + NL + "\t\t\t";
+  protected final String TEXT_927 = " primaryLabelEditPart = getPrimaryLabelEditPart();" + NL + "\t\t\tif (primaryLabelEditPart != null) {" + NL + "\t\t\t\treturn primaryLabelEditPart.getLabelIcon();" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
+  protected final String TEXT_928 = " getPrimaryLabelEditPart() {" + NL + "\t\t\tfor(";
+  protected final String TEXT_929 = " it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
+  protected final String TEXT_930 = " nextChild = (";
+  protected final String TEXT_931 = ")it.next();" + NL + "\t\t\t\tif (";
+  protected final String TEXT_932 = ".getVisualID(nextChild) == ";
+  protected final String TEXT_933 = ".VISUAL_ID) {" + NL + "\t\t\t\t\treturn (";
+  protected final String TEXT_934 = ") ";
+  protected final String TEXT_935 = ".this.getViewer().getEditPartRegistry().get(nextChild);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}";
+  protected final String TEXT_936 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void createRefreshers() {" + NL + "\t\t\tsuper.createRefreshers();" + NL + "\t\t\tRefresher labelRefresher = new Refresher() {" + NL + "\t\t\t\tpublic void refresh() {" + NL + "\t\t\t\t\trefreshVisuals();" + NL + "\t\t\t\t}" + NL + "\t\t\t};";
+  protected final String TEXT_937 = NL + "\t\t\tregisterRefresher(";
+  protected final String TEXT_938 = ".eINSTANCE.get";
+  protected final String TEXT_939 = "(), labelRefresher);";
+  protected final String TEXT_940 = NL + "\t\t\tregisterRefresher(";
+  protected final String TEXT_941 = ".eINSTANCE.get";
+  protected final String TEXT_942 = "(), labelRefresher);";
+  protected final String TEXT_943 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_944 = " getModelChildren() {" + NL + "\t\t\t";
+  protected final String TEXT_945 = " result = new ";
+  protected final String TEXT_946 = "();" + NL + "\t\t\tfor(";
+  protected final String TEXT_947 = " it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
+  protected final String TEXT_948 = " next = (";
+  protected final String TEXT_949 = ") it.next();" + NL + "\t\t\t\t";
+  protected final String TEXT_950 = " style = (";
+  protected final String TEXT_951 = ") next.getStyle(";
+  protected final String TEXT_952 = ".eINSTANCE.getDrawerStyle());" + NL + "\t\t\t\tif (style != null && style.isCollapsed()) {" + NL + "\t\t\t\t\tcontinue;" + NL + "\t\t\t\t}" + NL + "\t\t\t\tswitch (";
+  protected final String TEXT_953 = ".getVisualID(next)) {";
   protected final String TEXT_954 = NL + "\t\t\t\tcase ";
-  protected final String TEXT_955 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.addAll(next.getChildren());" + NL + "\t\t\t\t\tbreak;";
-  protected final String TEXT_956 = NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tresult.addAll(getDiagramNode().getSourceEdges());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_957 = NL;
+  protected final String TEXT_955 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.add(next);" + NL + "\t\t\t\t\tbreak;";
+  protected final String TEXT_956 = NL + "\t\t\t\tcase ";
+  protected final String TEXT_957 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.addAll(next.getChildren());" + NL + "\t\t\t\t\tbreak;";
+  protected final String TEXT_958 = NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tresult.addAll(getDiagramNode().getSourceEdges());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_959 = NL;
 
   public String generate(Object argument)
   {
@@ -3892,26 +3894,30 @@ if (myHelper.getPrimaryLabel() != null) {
     stringBuffer.append(TEXT_924);
     stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_925);
-    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
     stringBuffer.append(TEXT_926);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_927);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_928);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_929);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_930);
-    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_931);
-    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_932);
-    stringBuffer.append(genNode.getEditPartClassName());
+    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_933);
+    stringBuffer.append(importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_934);
+    stringBuffer.append(genNode.getEditPartClassName());
+    stringBuffer.append(TEXT_935);
     
 }
 
-    stringBuffer.append(TEXT_934);
+    stringBuffer.append(TEXT_936);
     
 if (myHelper.getPrimaryLabel() != null) {
 	LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
@@ -3920,11 +3926,11 @@ if (myHelper.getPrimaryLabel() != null) {
 		for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 			GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_935);
-    stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_936);
-    stringBuffer.append(next.getFeatureAccessorName());
     stringBuffer.append(TEXT_937);
+    stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
+    stringBuffer.append(TEXT_938);
+    stringBuffer.append(next.getFeatureAccessorName());
+    stringBuffer.append(TEXT_939);
     
 		}
 	}
@@ -3935,11 +3941,11 @@ if (myHelper.getPrimaryLabel() != null) {
 		for(Iterator it = labelNotifyFeatures.iterator(); it.hasNext(); ) {
 			GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_938);
-    stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_939);
-    stringBuffer.append(next.getFeatureAccessorName());
     stringBuffer.append(TEXT_940);
+    stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
+    stringBuffer.append(TEXT_941);
+    stringBuffer.append(next.getFeatureAccessorName());
+    stringBuffer.append(TEXT_942);
     
 		}
 	}
@@ -3947,40 +3953,30 @@ if (myHelper.getPrimaryLabel() != null) {
     
 }
 
-    stringBuffer.append(TEXT_941);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_942);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_943);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_944);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_945);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_946);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_947);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_948);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_949);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
     stringBuffer.append(TEXT_950);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle"));
     stringBuffer.append(TEXT_951);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_952);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_953);
     
 	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
 		GenChildNode next = (GenChildNode)it.next();
-
-    stringBuffer.append(TEXT_952);
-    stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_953);
-    
-}
-
-    
-		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
-			GenCompartment next = (GenCompartment) compartments.next();
 
     stringBuffer.append(TEXT_954);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
@@ -3988,9 +3984,19 @@ if (myHelper.getPrimaryLabel() != null) {
     
 }
 
+    
+		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
+			GenCompartment next = (GenCompartment) compartments.next();
+
     stringBuffer.append(TEXT_956);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_957);
+    
+}
+
+    stringBuffer.append(TEXT_958);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_959);
     return stringBuffer.toString();
   }
 }

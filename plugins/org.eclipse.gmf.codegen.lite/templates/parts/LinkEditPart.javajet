@@ -468,6 +468,17 @@ if (primaryLabel != null) {
 		/**
 		 * @generated
 		 */
+		protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage() {
+			<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
+			if (primaryLabelEditPart != null) {
+				return primaryLabelEditPart.getLabelIcon();
+			}
+			return null;
+		}
+
+		/**
+		 * @generated
+		 */
 		private <%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%> getPrimaryLabelEditPart() {
 			for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramEdge().getChildren().iterator(); it.hasNext(); ) {
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();

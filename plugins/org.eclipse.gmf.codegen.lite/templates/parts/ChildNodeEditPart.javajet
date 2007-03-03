@@ -136,14 +136,14 @@ if (!isReadOnly) {
 <%
 if (genChildNode.isLabelElementIcon()) {
 %>
-		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> imageDescriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(getDiagramNode().getElement());
-		if (imageDescriptor != null) {
-			return imageDescriptor.createImage();
-		}
+		return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(getDiagramNode().getElement().eClass());
+<%
+} else {
+%>
+		return null;
 <%
 }
 %>
-		return null;
 	}
 
 	/**
@@ -322,6 +322,13 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		 */
 		protected String getText() {
 			return getLabelText();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage() {
+			return getLabelIcon();
 		}
 
 		/**
