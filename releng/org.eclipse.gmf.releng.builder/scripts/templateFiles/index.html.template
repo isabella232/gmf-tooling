@@ -129,6 +129,19 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		</div>
 		
 		<div class="homeitem">
+			<h3>Requirements</h3>
+				<ul class="midlist">
+				<li>Eclipse build @eclipseBuildId@<br/><a href="@eclipseDownloadPage@">build page</a></li>
+				<li>EMF build @emfVersion@<br/><a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a> / <a href="@emfUpdateSite@">update site</a></li>
+				<li>GEF Build @gefVersion@<br/><a href="@gefDownloadPage@">build page</a> / <a href="@gefUpdateSite@">update site</a></li>
+				<li>EMF OCL build @emfOCLVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a> / <a href="@emfOCLUpdateSite@">update site</a></li>
+				<li>EMF Validation build @emfValidationVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a> / <a href="@emfValidationUpdateSite@">update site</a></li>
+				<li>EMF Query build @emfQueryVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a> / <a href="@emfQueryUpdateSite@">update site</a></li>
+				<li>EMF Transaction build @emfTransactionVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a> / <a href="@emfTransactionUpdateSite@">update site</a></li>
+				</ul>
+		</div>
+
+		<div class="homeitem">
 			<h3>Related Links</h3>
 				<ul class="midlist">
 				<li><a href="buildNotes.php">View the <b>build notes</b> for the current build.</a></li>
@@ -155,18 +168,6 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 				<li><a href="directory.txt">View the <b>map file entries</b> for the current build.</a></li></ul>
 		</div>
 
-		<div class="homeitem">
-			<h3>Requirements</h3>
-				<ul class="midlist">
-				<li>Eclipse build @eclipseBuildId@<br/><a href="@eclipseDownloadPage@">build page</a></li>
-				<li>EMF build @emfVersion@<br/><a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a>, <a href="@emfUpdateSite@">update site</a>)</li>
-				<li>GEF Build @gefVersion@<br/><a href="@gefDownloadPage@">build page</a>, <a href="@gefUpdateSite@">update site</a></li>
-				<li>EMF OCL build @emfOCLVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a>, <a href="@emfOCLUpdateSite@">update site</a></li>
-				<li>EMF Validation build @emfValidationVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a>, <a href="@emfValidationUpdateSite@">update site</a></li>
-				<li>EMF Query build @emfQueryVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a>, <a href="@emfQueryUpdateSite@">update site</a></li>
-				<li>EMF Transaction build @emfTransactionVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a></li>
-				</ul>
-		</div>
 	<hr class="clearer" />
 	</div>
 
@@ -185,15 +186,15 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 function column($servername) {
 
  if (! preg_match("/.eclipse.org/i",$servername)) {
-      echo "<td width=\"7%\"><b>Download</b></td>";
-          echo "<td width=\"7%\"><b>Size</b></td>";
-                echo "<td width=\"37%\"><b>File</b></td>";
-                   echo "<td width=\"11%\"><b>Checksum</b></td>";
+      echo "<td width=\"30%\"><b>Download</b></td>";
+          echo "<td width=\"10%\"><b>Size</b></td>";
+                echo "<td width=\"30%\"><b>File</b></td>";
+                   echo "<td width=\"10%\"><b>Checksum</b></td>";
       } else { 
-           echo "<td width=\"7%\"><b>Download</b></td>";
-          echo "<td width=\"7%\"><b>Size</b></td>";
-                echo "<td width=\"37%\"><b>File</b></td>";
-                   echo "<td width=\"11%\"><b>Checksum</b></td>";
+           echo "<td width=\"30%\"><b>Download</b></td>";
+          echo "<td width=\"10%\"><b>Size</b></td>";
+                echo "<td width=\"30%\"><b>File</b></td>";
+                   echo "<td width=\"10%\"><b>Checksum</b></td>";
     }
     return;
 }
@@ -255,7 +256,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
 <TR> <TD> <P>Includes runtime, tooling, documentation, and source</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %sdk% </table>
 </div></td></tr>
 
@@ -264,7 +265,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>Pure GEF diagramming, Ecore Editor</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %sdk-experimental% </table>
 </div></td></tr>
 
@@ -273,7 +274,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>Runtime Libraries</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %runtime% </table>
 </div></td></tr>
 
@@ -282,7 +283,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>PDE Examples Wizard</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %examples-pde% </table>
 </div></td></tr>
 
@@ -291,7 +292,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>JUnit Plugin Tests</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %tests% </table>
 </div></td></tr>
 </table>
