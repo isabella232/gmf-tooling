@@ -88,9 +88,6 @@ public class DiagramElementDeleteTest extends GeneratedCanvasTest {
 		deleteRequest.setEditParts(book1EP);
 		org.eclipse.gef.commands.Command command = book1EP.getCommand(deleteRequest);
 		assertNotNull(command);
-		if (!command.canExecute()) {
-			System.out.println("The returned command is " + command);
-		}
 		assertTrue(command.canExecute());
 		execute(command);
 
