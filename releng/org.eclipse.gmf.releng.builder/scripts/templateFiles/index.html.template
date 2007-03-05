@@ -158,14 +158,13 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<div class="homeitem">
 			<h3>Requirements</h3>
 				<ul class="midlist">
-				<li><a href="sourceBuilds.php">Access the <b>Source Builds</b> page.</a></li>
-				<li>Eclipse build @eclipseBuildId@: (<a href="@eclipseDownloadPage@">build page</a>)</li>
-				<li>EMF build @emfVersion@: (<a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a>, <a href="@emfUpdateSite@">update site</a>)</li>
-				<li>GEF Build @gefVersion@: (<a href="@gefDownloadPage@">build page</a>, <a href="@gefUpdateSite@">update site</a>)</li>
-				<li>EMF OCL build @emfOCLVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a>, <a href="@emfOCLUpdateSite@">update site</a>)</li>
-				<li>EMF Validation build @emfValidationVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a>, <a href="@emfValidationUpdateSite@">update site</a>)</li>
-				<li>EMF Query build @emfQueryVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a>, <a href="@emfQueryUpdateSite@">update site</a>)</li>
-				<li>EMF Transaction build @emfTransactionVersion@: (<a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a>)</li>
+				<li>Eclipse build @eclipseBuildId@<br/><a href="@eclipseDownloadPage@">build page</a></li>
+				<li>EMF build @emfVersion@<br/><a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a>, <a href="@emfUpdateSite@">update site</a>)</li>
+				<li>GEF Build @gefVersion@<br/><a href="@gefDownloadPage@">build page</a>, <a href="@gefUpdateSite@">update site</a></li>
+				<li>EMF OCL build @emfOCLVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a>, <a href="@emfOCLUpdateSite@">update site</a></li>
+				<li>EMF Validation build @emfValidationVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a>, <a href="@emfValidationUpdateSite@">update site</a></li>
+				<li>EMF Query build @emfQueryVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=query&showAll=0&showMax=5">build page</a>, <a href="@emfQueryUpdateSite@">update site</a></li>
+				<li>EMF Transaction build @emfTransactionVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=transaction&showAll=0&showMax=5">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a></li>
 				</ul>
 		</div>
 	<hr class="clearer" />
@@ -252,38 +251,38 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 
 <tr><td><div class="homeitem3col">
-<h3><a name="SDK">SDK</a></h3>
-<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
-<TR> <TD> <P>SDK (includes runtime, tooling, documentation, and source)</P></TD></TR></table>
+<h3><a name="SDK">GMF SDK</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<TR> <TD> <P>Includes runtime, tooling, documentation, and source</P></TD></TR></table>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %sdk% </table>
 </div></td></tr>
 
 <tr><td><div class="homeitem3col">
-<h3><a name="SDKExperimental">SDK Experimental</a></h3>
+<h3><a name="SDKExperimental">GMF Experimental SDK</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
-<TR> <TD> <P>SDK Experimental (pure GEF diagramming)</P></TD></TR></table>
+<TR> <TD> <P>Pure GEF diagramming, Ecore Editor</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %sdk-experimental% </table>
 </div></td></tr>
 
 <tr><td><div class="homeitem3col">
-<h3><a name="Runtime">Runtime</a></h3>
+<h3><a name="Runtime">GMF Runtime</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
-<TR> <TD> <P>Runtime</P></TD></TR></table>
+<TR> <TD> <P>Runtime Libraries</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %runtime% </table>
 </div></td></tr>
 
 <tr><td><div class="homeitem3col">
-<h3><a name="Examples">Examples</a></h3>
+<h3><a name="Examples">GMF Examples</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>PDE Examples Wizard</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %examples-pde% </table>
 </div></td></tr>
 
@@ -292,7 +291,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
 <TR> <TD> <P>JUnit Plugin Tests</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
-<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="33%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
+<tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="10%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %tests% </table>
 </div></td></tr>
 </table>
