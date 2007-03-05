@@ -132,7 +132,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			<h3>Requirements</h3>
 				<ul class="midlist">
 				<li>Eclipse build @eclipseBuildId@<br/><a href="@eclipseDownloadPage@">build page</a></li>
-				<li>EMF build @emfVersion@<br/><a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf">build page</a> / <a href="@emfUpdateSite@">update site</a></li>
+				<li>EMF build @emfVersion@<br/>[<a href="http://www.eclipse.org/modeling/emf/downloads/?project=emf"><b>build page</b></a>] [<a href="@emfUpdateSite@"><b>update site</b></a></li>
 				<li>GEF Build @gefVersion@<br/><a href="@gefDownloadPage@">build page</a> / <a href="@gefUpdateSite@">update site</a></li>
 				<li>EMF OCL build @emfOCLVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=ocl&showAll=0&showMax=5">build page</a> / <a href="@emfOCLUpdateSite@">update site</a></li>
 				<li>EMF Validation build @emfValidationVersion@<br/><a href="http://www.eclipse.org/emft/downloads/index.php?project=validation&showAll=0&showMax=5">build page</a> / <a href="@emfValidationUpdateSite@">update site</a></li>
@@ -281,7 +281,7 @@ if (preg_match("/.eclipse.org/i",$servername)) {
 <tr><td><div class="homeitem3col">
 <h3><a name="Examples">GMF Examples</a></h3>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" > 
-<TR> <TD> <P>PDE Examples Wizard</P></TD></TR></table>
+<TR> <TD> <P>Examples PDE Wizard</P></TD></TR></table>
 <table BORDER=0 CELLSPACING=2 CELLPADDING=0 WIDTH="99%" bordercolor="#999999" >
 <tr> <td align=RIGHT valign=TOP width="5%"> <div align="left"><b>Status</b></div></td><td width="15%"><b>Platform</b></td><?php column($HTTP_SERVER_VARS["SERVER_NAME"]); ?> 
 </tr> %examples-pde% </table>
