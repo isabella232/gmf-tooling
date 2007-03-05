@@ -1,0 +1,18 @@
+<%
+{
+	/*See xpt::diagram::policies::ClassNames.ext#getComponentEditPolicyClassName(GenCommonBase)*/
+	String editPolicyClassName = genElement.getEditPartClassName();
+	if (editPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
+		editPolicyClassName = editPolicyClassName.substring(0, editPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
+	}
+	editPolicyClassName += "ComponentEditPolicy";
+%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName(genDiagram.getEditPoliciesPackageName() + "." + editPolicyClassName)%>()<%
+		if (genElement instanceof GenNode) {%> {
+			protected <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> getGraphicalEditPart() {
+				return <%=genElement.getEditPartClassName()%>.this;
+			}
+		}<%}%>);
+<%
+}
+%>

@@ -349,7 +349,7 @@ if (genLink.getViewmap() instanceof InnerClassViewmap) {
 		 * @generated
 		 */
 		protected void createEditPolicies() {
-<%@ include file="componentEditPolicy.javajetinc"%>
+<%@ include file="treeComponentEditPolicy.javajetinc"%>
 <%
 if (primaryLabel != null && genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		String editPatternCode = importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName()) + ".EDIT_PATTERN";

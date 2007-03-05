@@ -256,7 +256,7 @@ final Viewmap viewmap = genChildNode.getViewmap();
 		 * @generated
 		 */
 		protected void createEditPolicies() {
-<%@ include file="componentEditPolicy.javajetinc"%>
+<%@ include file="treeComponentEditPolicy.javajetinc"%>
 <%
 if (!isReadOnly) {
 		String editPatternCode = "EDIT_PATTERN";	//declared in labelText.javajetinc, used in directEditCommand.jetinc.

@@ -283,88 +283,92 @@ public class ChildNodeEditPartGenerator
   protected final String TEXT_263 = NL;
   protected final String TEXT_264 = NL + "\t\tinstallEditPolicy(";
   protected final String TEXT_265 = ".COMPONENT_ROLE, new ";
-  protected final String TEXT_266 = "());";
-  protected final String TEXT_267 = NL;
-  protected final String TEXT_268 = "\t\tinstallEditPolicy(";
-  protected final String TEXT_269 = ".DIRECT_EDIT_ROLE," + NL + "\t\t\t\tnew ";
-  protected final String TEXT_270 = "() {" + NL + "\t\t\t\t\tprotected void showCurrentEditValue(";
-  protected final String TEXT_271 = " request) {" + NL + "\t\t\t\t\t\tString value = (String) request.getCellEditor().getValue();" + NL + "\t\t\t\t\t\tsetWidgetText(value);" + NL + "\t\t\t\t\t}";
-  protected final String TEXT_272 = NL;
-  protected final String TEXT_273 = "\t\t\t\t\tprotected ";
-  protected final String TEXT_274 = " getDirectEditCommand(";
-  protected final String TEXT_275 = " request) {";
-  protected final String TEXT_276 = NL + "\t\t\t\t\t\treturn ";
-  protected final String TEXT_277 = ".INSTANCE;";
-  protected final String TEXT_278 = NL + "\t\t\t\t\t\tString value = (String) request.getCellEditor().getValue();" + NL + "\t\t\t\t\t\tif (value == null) {" + NL + "\t\t\t\t\t\t\t//Invalid value is transformed into a null by the validator." + NL + "\t\t\t\t\t\t\t//XXX: implement validator" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_279 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\tfinal Object[] parseResult;";
-  protected final String TEXT_280 = NL + "\t\t\t\t\t\tif (value.length() == 0) {" + NL + "\t\t\t\t\t\t\tparseResult = new Object[] { null };" + NL + "\t\t\t\t\t\t} else {";
-  protected final String TEXT_281 = NL + "\t\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t\tparseResult = new ";
-  protected final String TEXT_282 = "(";
-  protected final String TEXT_283 = ").parse(value);" + NL + "\t\t\t\t\t\t} catch (IllegalArgumentException e) {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_284 = ".INSTANCE;" + NL + "\t\t\t\t\t\t} catch (";
-  protected final String TEXT_285 = " e) {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_286 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}";
-  protected final String TEXT_287 = NL + "\t\t\t\t\t\t}";
-  protected final String TEXT_288 = NL + "\t\t\t\t\t\t";
-  protected final String TEXT_289 = " editingDomain = ";
-  protected final String TEXT_290 = ".getEditingDomain(";
-  protected final String TEXT_291 = ".getDiagram().getElement());" + NL + "\t\t\t\t\t\tif (parseResult.length != ";
-  protected final String TEXT_292 = ") {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_293 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_294 = " domainModelCommand = createDomainModelCommand(editingDomain, parseResult);" + NL + "\t\t\t\t\t\treturn new ";
-  protected final String TEXT_295 = "(editingDomain, domainModelCommand);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\t";
-  protected final String TEXT_296 = " createDomainModelCommand(";
-  protected final String TEXT_297 = " editingDomain, Object[] values) {" + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_298 = " element = ";
-  protected final String TEXT_299 = ";" + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_300 = " result = new ";
-  protected final String TEXT_301 = "();" + NL + "\t\t\t\t\t\tObject valueToSet;";
-  protected final String TEXT_302 = NL + "\t\t\t\t\t\t";
-  protected final String TEXT_303 = " ";
-  protected final String TEXT_304 = "feature = (";
-  protected final String TEXT_305 = ") ";
-  protected final String TEXT_306 = ".eINSTANCE.get";
-  protected final String TEXT_307 = "();" + NL + "\t\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t\tvalueToSet = ";
-  protected final String TEXT_308 = ".parseValue(feature, values[";
-  protected final String TEXT_309 = "]);" + NL + "\t\t\t\t\t\t} catch (IllegalArgumentException e) {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_310 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}";
-  protected final String TEXT_311 = NL + "\t\t\t\t\t\t";
-  protected final String TEXT_312 = " ";
-  protected final String TEXT_313 = "values = new ";
-  protected final String TEXT_314 = "();" + NL + "\t\t\t\t\t\tvalues.addAll(element.get";
-  protected final String TEXT_315 = "());" + NL + "\t\t\t\t\t\tresult.append(";
-  protected final String TEXT_316 = ".create(editingDomain, element, feature, values));" + NL + "\t\t\t\t\t\tif (valueToSet != null) {" + NL + "\t\t\t\t\t\t\tresult.append(";
-  protected final String TEXT_317 = ".create(editingDomain, element, feature, valueToSet));" + NL + "\t\t\t\t\t\t}";
-  protected final String TEXT_318 = NL + "\t\t\t\t\t\tresult.append(";
-  protected final String TEXT_319 = ".create(editingDomain, element, feature, valueToSet == null ? ";
-  protected final String TEXT_320 = ".UNSET_VALUE : valueToSet));";
-  protected final String TEXT_321 = NL + "\t\t\t\t\t\treturn result;" + NL + "\t\t\t\t\t}";
-  protected final String TEXT_322 = NL + "\t\t\t\t});";
-  protected final String TEXT_323 = NL + "\t\t}" + NL;
-  protected final String TEXT_324 = NL;
-  protected final String TEXT_325 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_326 = " manager;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void performRequest(";
-  protected final String TEXT_327 = " req) {" + NL + "\t\tif (";
-  protected final String TEXT_328 = ".REQ_DIRECT_EDIT == req.getType()) {" + NL + "\t\t\tperformDirectEdit();" + NL + "\t\t} else {" + NL + "\t\t\tsuper.performRequest(req);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_329 = " getManager() {" + NL + "\t\tif (manager == null) {" + NL + "\t\t\tmanager = new ";
-  protected final String TEXT_330 = "(this, ";
-  protected final String TEXT_331 = ".class, new ";
-  protected final String TEXT_332 = "() {" + NL + "\t\t\t\tpublic void relocate(";
-  protected final String TEXT_333 = " celleditor) {" + NL + "\t\t\t\t\tif (checkTreeItem()) {" + NL + "\t\t\t\t\t\tcelleditor.getControl().setFont(((";
-  protected final String TEXT_334 = ") getWidget()).getFont());" + NL + "\t\t\t\t\t\tcelleditor.getControl().setBounds(((";
-  protected final String TEXT_335 = ") getWidget()).getBounds());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}) {" + NL + "\t\t\t\tprotected void initCellEditor() {" + NL + "\t\t\t\t\tgetCellEditor().setValue(getEditText());" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "\t\treturn manager;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void performDirectEdit() {" + NL + "\t\tgetManager().show();" + NL + "\t}" + NL + "" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getEditText() {" + NL + "\t\t\treturn getLabelEditText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void activate() {" + NL + "\t\t\tsuper.activate();" + NL + "\t\t\tgetDiagramNode().getElement().eAdapters().add(domainModelRefresher);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void deactivate() {" + NL + "\t\t\tgetDiagramNode().getElement().eAdapters().remove(domainModelRefresher);" + NL + "\t\t\tsuper.deactivate();" + NL + "\t\t}" + NL;
-  protected final String TEXT_336 = NL;
-  protected final String TEXT_337 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_338 = " domainModelRefresher = new ";
-  protected final String TEXT_339 = "(this);" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void createRefreshers() {" + NL + "\t\t\tsuper.createRefreshers();" + NL + "\t\t\tRefresher labelRefresher = new Refresher() {" + NL + "\t\t\t\tpublic void refresh() {" + NL + "\t\t\t\t\trefreshVisuals();" + NL + "\t\t\t\t}" + NL + "\t\t\t};";
-  protected final String TEXT_340 = NL + "\t\t\tregisterRefresher(";
-  protected final String TEXT_341 = ".eINSTANCE.get";
-  protected final String TEXT_342 = "(), labelRefresher);";
-  protected final String TEXT_343 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getText() {" + NL + "\t\t\treturn getLabelText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_344 = " getImage() {" + NL + "\t\t\treturn getLabelIcon();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_345 = " getModelChildren() {" + NL + "\t\t\treturn ";
-  protected final String TEXT_346 = ".EMPTY_LIST;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_347 = NL;
+  protected final String TEXT_266 = "()";
+  protected final String TEXT_267 = " {" + NL + "\t\t\tprotected ";
+  protected final String TEXT_268 = " getGraphicalEditPart() {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_269 = ".this;" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_270 = ");";
+  protected final String TEXT_271 = NL;
+  protected final String TEXT_272 = "\t\tinstallEditPolicy(";
+  protected final String TEXT_273 = ".DIRECT_EDIT_ROLE," + NL + "\t\t\t\tnew ";
+  protected final String TEXT_274 = "() {" + NL + "\t\t\t\t\tprotected void showCurrentEditValue(";
+  protected final String TEXT_275 = " request) {" + NL + "\t\t\t\t\t\tString value = (String) request.getCellEditor().getValue();" + NL + "\t\t\t\t\t\tsetWidgetText(value);" + NL + "\t\t\t\t\t}";
+  protected final String TEXT_276 = NL;
+  protected final String TEXT_277 = "\t\t\t\t\tprotected ";
+  protected final String TEXT_278 = " getDirectEditCommand(";
+  protected final String TEXT_279 = " request) {";
+  protected final String TEXT_280 = NL + "\t\t\t\t\t\treturn ";
+  protected final String TEXT_281 = ".INSTANCE;";
+  protected final String TEXT_282 = NL + "\t\t\t\t\t\tString value = (String) request.getCellEditor().getValue();" + NL + "\t\t\t\t\t\tif (value == null) {" + NL + "\t\t\t\t\t\t\t//Invalid value is transformed into a null by the validator." + NL + "\t\t\t\t\t\t\t//XXX: implement validator" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_283 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\tfinal Object[] parseResult;";
+  protected final String TEXT_284 = NL + "\t\t\t\t\t\tif (value.length() == 0) {" + NL + "\t\t\t\t\t\t\tparseResult = new Object[] { null };" + NL + "\t\t\t\t\t\t} else {";
+  protected final String TEXT_285 = NL + "\t\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t\tparseResult = new ";
+  protected final String TEXT_286 = "(";
+  protected final String TEXT_287 = ").parse(value);" + NL + "\t\t\t\t\t\t} catch (IllegalArgumentException e) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_288 = ".INSTANCE;" + NL + "\t\t\t\t\t\t} catch (";
+  protected final String TEXT_289 = " e) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_290 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}";
+  protected final String TEXT_291 = NL + "\t\t\t\t\t\t}";
+  protected final String TEXT_292 = NL + "\t\t\t\t\t\t";
+  protected final String TEXT_293 = " editingDomain = ";
+  protected final String TEXT_294 = ".getEditingDomain(";
+  protected final String TEXT_295 = ".getDiagram().getElement());" + NL + "\t\t\t\t\t\tif (parseResult.length != ";
+  protected final String TEXT_296 = ") {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_297 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_298 = " domainModelCommand = createDomainModelCommand(editingDomain, parseResult);" + NL + "\t\t\t\t\t\treturn new ";
+  protected final String TEXT_299 = "(editingDomain, domainModelCommand);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\t";
+  protected final String TEXT_300 = " createDomainModelCommand(";
+  protected final String TEXT_301 = " editingDomain, Object[] values) {" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_302 = " element = ";
+  protected final String TEXT_303 = ";" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_304 = " result = new ";
+  protected final String TEXT_305 = "();" + NL + "\t\t\t\t\t\tObject valueToSet;";
+  protected final String TEXT_306 = NL + "\t\t\t\t\t\t";
+  protected final String TEXT_307 = " ";
+  protected final String TEXT_308 = "feature = (";
+  protected final String TEXT_309 = ") ";
+  protected final String TEXT_310 = ".eINSTANCE.get";
+  protected final String TEXT_311 = "();" + NL + "\t\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\t\tvalueToSet = ";
+  protected final String TEXT_312 = ".parseValue(feature, values[";
+  protected final String TEXT_313 = "]);" + NL + "\t\t\t\t\t\t} catch (IllegalArgumentException e) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_314 = ".INSTANCE;" + NL + "\t\t\t\t\t\t}";
+  protected final String TEXT_315 = NL + "\t\t\t\t\t\t";
+  protected final String TEXT_316 = " ";
+  protected final String TEXT_317 = "values = new ";
+  protected final String TEXT_318 = "();" + NL + "\t\t\t\t\t\tvalues.addAll(element.get";
+  protected final String TEXT_319 = "());" + NL + "\t\t\t\t\t\tresult.append(";
+  protected final String TEXT_320 = ".create(editingDomain, element, feature, values));" + NL + "\t\t\t\t\t\tif (valueToSet != null) {" + NL + "\t\t\t\t\t\t\tresult.append(";
+  protected final String TEXT_321 = ".create(editingDomain, element, feature, valueToSet));" + NL + "\t\t\t\t\t\t}";
+  protected final String TEXT_322 = NL + "\t\t\t\t\t\tresult.append(";
+  protected final String TEXT_323 = ".create(editingDomain, element, feature, valueToSet == null ? ";
+  protected final String TEXT_324 = ".UNSET_VALUE : valueToSet));";
+  protected final String TEXT_325 = NL + "\t\t\t\t\t\treturn result;" + NL + "\t\t\t\t\t}";
+  protected final String TEXT_326 = NL + "\t\t\t\t});";
+  protected final String TEXT_327 = NL + "\t\t}" + NL;
+  protected final String TEXT_328 = NL;
+  protected final String TEXT_329 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_330 = " manager;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void performRequest(";
+  protected final String TEXT_331 = " req) {" + NL + "\t\tif (";
+  protected final String TEXT_332 = ".REQ_DIRECT_EDIT == req.getType()) {" + NL + "\t\t\tperformDirectEdit();" + NL + "\t\t} else {" + NL + "\t\t\tsuper.performRequest(req);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_333 = " getManager() {" + NL + "\t\tif (manager == null) {" + NL + "\t\t\tmanager = new ";
+  protected final String TEXT_334 = "(this, ";
+  protected final String TEXT_335 = ".class, new ";
+  protected final String TEXT_336 = "() {" + NL + "\t\t\t\tpublic void relocate(";
+  protected final String TEXT_337 = " celleditor) {" + NL + "\t\t\t\t\tif (checkTreeItem()) {" + NL + "\t\t\t\t\t\tcelleditor.getControl().setFont(((";
+  protected final String TEXT_338 = ") getWidget()).getFont());" + NL + "\t\t\t\t\t\tcelleditor.getControl().setBounds(((";
+  protected final String TEXT_339 = ") getWidget()).getBounds());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}) {" + NL + "\t\t\t\tprotected void initCellEditor() {" + NL + "\t\t\t\t\tgetCellEditor().setValue(getEditText());" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "\t\treturn manager;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void performDirectEdit() {" + NL + "\t\tgetManager().show();" + NL + "\t}" + NL + "" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getEditText() {" + NL + "\t\t\treturn getLabelEditText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void activate() {" + NL + "\t\t\tsuper.activate();" + NL + "\t\t\tgetDiagramNode().getElement().eAdapters().add(domainModelRefresher);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void deactivate() {" + NL + "\t\t\tgetDiagramNode().getElement().eAdapters().remove(domainModelRefresher);" + NL + "\t\t\tsuper.deactivate();" + NL + "\t\t}" + NL;
+  protected final String TEXT_340 = NL;
+  protected final String TEXT_341 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_342 = " domainModelRefresher = new ";
+  protected final String TEXT_343 = "(this);" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void createRefreshers() {" + NL + "\t\t\tsuper.createRefreshers();" + NL + "\t\t\tRefresher labelRefresher = new Refresher() {" + NL + "\t\t\t\tpublic void refresh() {" + NL + "\t\t\t\t\trefreshVisuals();" + NL + "\t\t\t\t}" + NL + "\t\t\t};";
+  protected final String TEXT_344 = NL + "\t\t\tregisterRefresher(";
+  protected final String TEXT_345 = ".eINSTANCE.get";
+  protected final String TEXT_346 = "(), labelRefresher);";
+  protected final String TEXT_347 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getText() {" + NL + "\t\t\treturn getLabelText();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_348 = " getImage() {" + NL + "\t\t\treturn getLabelIcon();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_349 = " getModelChildren() {" + NL + "\t\t\treturn ";
+  protected final String TEXT_350 = ".EMPTY_LIST;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_351 = NL;
 
   public String generate(Object argument)
   {
@@ -1183,208 +1187,217 @@ if (classBody.indexOf("DPtoLP") != -1) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPoliciesPackageName() + "." + editPolicyClassName));
     stringBuffer.append(TEXT_266);
     
+		if (genElement instanceof GenNode) {
+    stringBuffer.append(TEXT_267);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
+    stringBuffer.append(TEXT_268);
+    stringBuffer.append(genElement.getEditPartClassName());
+    stringBuffer.append(TEXT_269);
+    }
+    stringBuffer.append(TEXT_270);
+    
 }
 
     
 if (!isReadOnly) {
 		String editPatternCode = "EDIT_PATTERN";	//declared in labelText.javajetinc, used in directEditCommand.jetinc.
 
-    stringBuffer.append(TEXT_267);
-    stringBuffer.append(TEXT_268);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
-    stringBuffer.append(TEXT_269);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.DirectEditPolicy"));
-    stringBuffer.append(TEXT_270);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest"));
     stringBuffer.append(TEXT_271);
     stringBuffer.append(TEXT_272);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_273);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.DirectEditPolicy"));
     stringBuffer.append(TEXT_274);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest"));
     stringBuffer.append(TEXT_275);
+    stringBuffer.append(TEXT_276);
+    stringBuffer.append(TEXT_277);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(TEXT_278);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest"));
+    stringBuffer.append(TEXT_279);
     
 if (labelModelFacet instanceof FeatureLabelModelFacet == false) {
 
-    stringBuffer.append(TEXT_276);
+    stringBuffer.append(TEXT_280);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_277);
+    stringBuffer.append(TEXT_281);
     
 } else {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	List metaFeatures = featureLabelModelFacet.getMetaFeatures();
 
-    stringBuffer.append(TEXT_278);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_279);
-    
-	if (metaFeatures.size() == 1 && String.class.equals(((GenFeature) metaFeatures.get(0)).getEcoreFeature().getEType().getInstanceClass())) {
-
-    stringBuffer.append(TEXT_280);
-    
-	}
-
-    stringBuffer.append(TEXT_281);
-    stringBuffer.append(importManager.getImportedName("java.text.MessageFormat"));
     stringBuffer.append(TEXT_282);
-    stringBuffer.append(editPatternCode);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_283);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_284);
-    stringBuffer.append(importManager.getImportedName("java.text.ParseException"));
-    stringBuffer.append(TEXT_285);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_286);
     
 	if (metaFeatures.size() == 1 && String.class.equals(((GenFeature) metaFeatures.get(0)).getEcoreFeature().getEType().getInstanceClass())) {
 
-    stringBuffer.append(TEXT_287);
+    stringBuffer.append(TEXT_284);
     
 	}
 
-    stringBuffer.append(TEXT_288);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
-    stringBuffer.append(TEXT_289);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil"));
-    stringBuffer.append(TEXT_290);
-    stringBuffer.append(primaryView);
-    stringBuffer.append(TEXT_291);
-    stringBuffer.append(metaFeatures.size());
-    stringBuffer.append(TEXT_292);
+    stringBuffer.append(TEXT_285);
+    stringBuffer.append(importManager.getImportedName("java.text.MessageFormat"));
+    stringBuffer.append(TEXT_286);
+    stringBuffer.append(editPatternCode);
+    stringBuffer.append(TEXT_287);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_293);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.Command"));
-    stringBuffer.append(TEXT_294);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand"));
-    stringBuffer.append(TEXT_295);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.Command"));
-    stringBuffer.append(TEXT_296);
+    stringBuffer.append(TEXT_288);
+    stringBuffer.append(importManager.getImportedName("java.text.ParseException"));
+    stringBuffer.append(TEXT_289);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
+    stringBuffer.append(TEXT_290);
+    
+	if (metaFeatures.size() == 1 && String.class.equals(((GenFeature) metaFeatures.get(0)).getEcoreFeature().getEType().getInstanceClass())) {
+
+    stringBuffer.append(TEXT_291);
+    
+	}
+
+    stringBuffer.append(TEXT_292);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
+    stringBuffer.append(TEXT_293);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil"));
+    stringBuffer.append(TEXT_294);
+    stringBuffer.append(primaryView);
+    stringBuffer.append(TEXT_295);
+    stringBuffer.append(metaFeatures.size());
+    stringBuffer.append(TEXT_296);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_297);
-    stringBuffer.append(importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.Command"));
     stringBuffer.append(TEXT_298);
-    stringBuffer.append(resolvedSemanticElement);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand"));
     stringBuffer.append(TEXT_299);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.Command"));
     stringBuffer.append(TEXT_300);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
     stringBuffer.append(TEXT_301);
+    stringBuffer.append(importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName()));
+    stringBuffer.append(TEXT_302);
+    stringBuffer.append(resolvedSemanticElement);
+    stringBuffer.append(TEXT_303);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand"));
+    stringBuffer.append(TEXT_304);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand"));
+    stringBuffer.append(TEXT_305);
     
 	boolean haveDeclaredValues = false;
 	for(int i = 0; i < metaFeatures.size(); i++) {
 		GenFeature nextFeatureToSet = (GenFeature) metaFeatures.get(i);
 		EStructuralFeature nextEcoreFeature = nextFeatureToSet.getEcoreFeature();
 
-    stringBuffer.append(TEXT_302);
+    stringBuffer.append(TEXT_306);
     if (i == 0) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAttribute"));
-    stringBuffer.append(TEXT_303);
-    }
-    stringBuffer.append(TEXT_304);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAttribute"));
-    stringBuffer.append(TEXT_305);
-    stringBuffer.append(importManager.getImportedName(nextFeatureToSet.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_306);
-    stringBuffer.append(nextFeatureToSet.getFeatureAccessorName());
     stringBuffer.append(TEXT_307);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.ParserUtil"));
+    }
     stringBuffer.append(TEXT_308);
-    stringBuffer.append(i);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAttribute"));
     stringBuffer.append(TEXT_309);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand"));
+    stringBuffer.append(importManager.getImportedName(nextFeatureToSet.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_310);
+    stringBuffer.append(nextFeatureToSet.getFeatureAccessorName());
+    stringBuffer.append(TEXT_311);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.ParserUtil"));
+    stringBuffer.append(TEXT_312);
+    stringBuffer.append(i);
+    stringBuffer.append(TEXT_313);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand"));
+    stringBuffer.append(TEXT_314);
     
 		if (nextEcoreFeature.isMany()) {
 
-    stringBuffer.append(TEXT_311);
+    stringBuffer.append(TEXT_315);
     if (!haveDeclaredValues) { haveDeclaredValues = true;
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.EList"));
-    stringBuffer.append(TEXT_312);
-    }
-    stringBuffer.append(TEXT_313);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.BasicEList"));
-    stringBuffer.append(TEXT_314);
-    stringBuffer.append(nextFeatureToSet.getAccessorName());
-    stringBuffer.append(TEXT_315);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand"));
     stringBuffer.append(TEXT_316);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.AddCommand"));
+    }
     stringBuffer.append(TEXT_317);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.BasicEList"));
+    stringBuffer.append(TEXT_318);
+    stringBuffer.append(nextFeatureToSet.getAccessorName());
+    stringBuffer.append(TEXT_319);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand"));
+    stringBuffer.append(TEXT_320);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.AddCommand"));
+    stringBuffer.append(TEXT_321);
     
 		} else {
 
-    stringBuffer.append(TEXT_318);
+    stringBuffer.append(TEXT_322);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand"));
-    stringBuffer.append(TEXT_319);
+    stringBuffer.append(TEXT_323);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand"));
-    stringBuffer.append(TEXT_320);
+    stringBuffer.append(TEXT_324);
     
 		}
 
     
 	}
 
-    stringBuffer.append(TEXT_321);
-    
-}
-
-    stringBuffer.append(TEXT_322);
-    
-}
-
-    stringBuffer.append(TEXT_323);
-    stringBuffer.append(TEXT_324);
     stringBuffer.append(TEXT_325);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager"));
+    
+}
+
     stringBuffer.append(TEXT_326);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
+    
+}
+
     stringBuffer.append(TEXT_327);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
     stringBuffer.append(TEXT_328);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager"));
     stringBuffer.append(TEXT_329);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager"));
     stringBuffer.append(TEXT_330);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.TextCellEditor"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
     stringBuffer.append(TEXT_331);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.tools.CellEditorLocator"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.RequestConstants"));
     stringBuffer.append(TEXT_332);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.CellEditor"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager"));
     stringBuffer.append(TEXT_333);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.TreeItem"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager"));
     stringBuffer.append(TEXT_334);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.TreeItem"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.TextCellEditor"));
     stringBuffer.append(TEXT_335);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.tools.CellEditorLocator"));
     stringBuffer.append(TEXT_336);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.CellEditor"));
     stringBuffer.append(TEXT_337);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.TreeItem"));
     stringBuffer.append(TEXT_338);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.TreeItem"));
     stringBuffer.append(TEXT_339);
+    stringBuffer.append(TEXT_340);
+    stringBuffer.append(TEXT_341);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter"));
+    stringBuffer.append(TEXT_342);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter"));
+    stringBuffer.append(TEXT_343);
     
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_340);
+    stringBuffer.append(TEXT_344);
     stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_341);
+    stringBuffer.append(TEXT_345);
     stringBuffer.append(next.getFeatureAccessorName());
-    stringBuffer.append(TEXT_342);
+    stringBuffer.append(TEXT_346);
     
 	}
 }
 
-    stringBuffer.append(TEXT_343);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
-    stringBuffer.append(TEXT_344);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_345);
-    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_346);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_347);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
+    stringBuffer.append(TEXT_348);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_349);
+    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
+    stringBuffer.append(TEXT_350);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_351);
     return stringBuffer.toString();
   }
 }

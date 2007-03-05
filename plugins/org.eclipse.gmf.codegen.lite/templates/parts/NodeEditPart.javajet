@@ -1340,7 +1340,7 @@ if (genNode.getViewmap() instanceof InnerClassViewmap) {
 		 * @generated
 		 */
 		protected void createEditPolicies() {
-<%@ include file="componentEditPolicy.javajetinc"%>
+<%@ include file="treeComponentEditPolicy.javajetinc"%>
 <%
 if (myHelper.getPrimaryLabel() != null) {
 		String editPatternCode = importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()) + ".EDIT_PATTERN";
