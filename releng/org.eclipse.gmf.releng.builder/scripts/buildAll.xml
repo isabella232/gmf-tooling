@@ -372,6 +372,7 @@
 		<property name="result" value="${buildRoot}/artifacts/${buildLabel}" />
 
 		<ant antfile="${publish.xml}" dir="${basedir}">
+			<property name="testResultsTemplateFileName" value="${basedir}/templateFiles/testResults.php.template" />
 			<property name="platformIdentifierToken" value="%platform%"/>
 			<property name="platformSpecificTemplateList"
 			value="Windows,index.html.template,index.html,Linux,index.html.template,index.html"/>
