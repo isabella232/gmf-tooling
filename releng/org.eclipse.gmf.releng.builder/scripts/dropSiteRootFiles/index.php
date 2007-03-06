@@ -1,32 +1,117 @@
-<?php  																														require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/nav.class.php"); 	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/menu.class.php"); 	$App 	= new App();	$Nav	= new Nav();	$Menu 	= new Menu();		include($App->getProjectCommon());    # All on the same line to unclutter the user's desktop'
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>GMF Project Downloads</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="author" content="Eclipse Foundation, Inc." />
+	<meta name="keywords" content="gmf,graphical modeling framework, eclipse, plug-ins,plugins,java,gef,emf,open source,modeling,uml" />
+	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/visual.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/layout.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/print.css" media="print" />
+	<script type="text/javascript">
 
+sfHover = function() {
+	var sfEls = document.getElementById("leftnav").getElementsByTagName("LI");
+	for (var i=0; i<sfEls.length; i++) {
+		sfEls[i].onmouseover=function() {
+			this.className+=" sfhover";
+		}
+		sfEls[i].onmouseout=function() {
+			this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+		}
+	}
+}
+if (window.attachEvent) window.attachEvent("onload", sfHover);
+</script>
+</head>
+<body>
 
-	#*****************************************************************************
-	#
-	# index.php
-	#
-	# Author: 		Richard C. Gronback
-	# Date:			2005-12-01
-	#
-	# Description: 
-	#
-	#
-	#****************************************************************************
-	
-	#
-	# Begin: page-specific settings.  Change these. 
-	$pageTitle 		= "Graphical Modeling Framework Downloads";
-	$pageKeywords	= "eclipse,project,graphical,modeling,model-driven";
-	$pageAuthor		= "Richard C. Gronback";
-	
-	# Add page-specific Nav bars here
-	# Format is Link text, link URL (can be http://www.someothersite.com/), target (_self, _blank), level (1, 2 or 3)
-	# $Nav->addNavSeparator("My Page Links", 	"downloads.php");
-	# $Nav->addCustomNav("My Link", "mypage.php", "_self", 3);
-	# $Nav->addCustomNav("Google", "http://www.google.com/", "_blank", 3);
+<div id="header">
+	<a href="http://www.eclipse.org/"><img src="/eclipse/eclipse.org-common/stylesheets/header_logo.gif" width="163" height="68" border="0" alt="Eclipse Logo" class="logo" /></a>
+	<div id="searchbar">
+		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_transition.gif" width="92" height="26" class="transition" alt="" />
+		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_header.gif" width="64" height="17" class="header" alt="Search" />
+		<form method="get" action="http://www.eclipse.org/search/search.cgi">
+			<input type="hidden" name="t" value="All" />
+			<input type="hidden" name="t" value="Doc" />
+			<input type="hidden" name="t" value="Downloads" />
+			<input type="hidden" name="t" value="Wiki" />
+			<input type="hidden" name="wf" value="574a74" />
+			<input type="text" name="q" value="" />
+			<input type="image" class="button" src="/eclipse/eclipse.org-common/stylesheets/searchbar_submit.gif" alt="Submit" onclick="this.submit();" />
+		</form>
+	</div>
+	<ul id="headernav">
+		<li class="first"><a href="http://www.eclipse.org/org/foundation/contact.php">Contact</a></li>
+		<li><a href="http://www.eclipse.org/legal/">Legal</a></li>
+	</ul>
+</div>
+<div id="topnav">
+	<ul>
+		<li><a>Downloads</a></li>
+<!--
+		<li class="tabstartselected">&#160;&#160;&#160;</li>
+		<li><a class="tabselected" href="index.php" target="_self">All Platforms</a></li>
+		<li class="tabseparatorselected">&#160;&#160;&#160;</li>
+		<li><a class="" href="winPlatform.php" target="_self">Windows</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="linPlatform.php" target="_self">Linux</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="solPlatform.php" target="_self">Solaris</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="aixPlatform.php" target="_self">AIX</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>	
+		<li><a class="" href="macPlatform.php" target="_self">Macintosh</a></li>
+		<li class="tabseparator">&#160;&#160;&#160;</li>
+-->					
+	</ul>
+</div>
+<div id="topnavsep"></div>
+<div id="leftcol">
+<ul id="leftnav">
+<li><a href="#SDK">SDK</a></li>
+<li><a href="#SDKExperimental">SDK Experimental</a></li>
+<li><a href="#Runtime">Runtime</a></li>
+<li><a href="#Examples">Examples</a></li>
+<li><a href="#Tests">JUnit Plugin Tests</a></li>
+ 
+  </li>
+  <li style="background-image: url(/eclipse/eclipse.org-common/stylesheets/leftnav_fade.jpg); background-repeat: repeat-x; border-style: none;">
+			<br /><br /><br /><br /><br />
+  </li>
+</ul>
 
-	# End: page-specific settings
-	#
+</div>
+
+&nbsp;
+
+<div id="midcolumn">
+	<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
+	<tr> 
+		<td> 
+				<p><b><font face="Verdana" size="+3">Graphical Modeling Framework Downloads</font></b><br> 
+				These downloads are provided under the <a href="http://www.eclipse.org/legal/epl/notice.html">
+				<b>Eclipse Foundation Software User Agreement</b></a>.</p>
+		</td><tr><tr>
+	<tr>
+			<td width="75%">
+				<p>On this page you can find the latest builds produced by the GMF project. 
+				To get started run the program and go through the user and developer documentation 
+				provided in the online help system. If you have problems downloading the drops, 
+				contact the <font face="arial,helvetica,geneva" size="-1"><a href="mailto:webmaster@eclipse.org">webmaster</a></font>.</p>
+				<p> For information
+				about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
+				<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
+				<a href="http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml" target="_self">steps</a>.
+				</p>
+			</td>
+		</tr>
+	</table>
+
+  <div class="homeitem3col">
+	<h3>Latest Downloads</h3>
+
+  <?php
 	
 	$fileHandle = fopen("dlconfig.txt", "r");
 	while (!feof($fileHandle)) {
@@ -88,12 +173,25 @@
 			}
 		}
 	}
-	
-	$latest = "";
+	// $aDirectory.closedir();
+ ?>
+ 
+<table width="100%" cellspacing=0 cellpadding=3 align=center>
+
+
+<TABLE  width="100%" CELLSPACING=0 CELLPADDING=3>
+<tr>
+	<td width=\"30%\"><b>Build Type</b></td>
+	<td><b>Build Name</b></td>
+	<td><b>Build Date</b></td>
+</tr>
+
+<?php
 	foreach($dropType as $value) {
 		$prefix=$typeToPrefix[$value];
 		$fileName = $latestFile[$prefix];
-		$latest .= "<tr><td width=\"30%\">$value</td>";
+		echo "<tr>
+			<td width=\"30%\">$value</td>";
 		
 		$parts = explode("-", $fileName);
 		
@@ -101,24 +199,45 @@
 		// echo "<td><a href=license.php?license=drops/$fileName>$parts[1]</a></td>";
 		
 		// Comment the line below if we need click through licenses.
-		$latest .= "<td><a href=\"drops/$fileName/index.php\">$parts[1]</a></td>";
+		echo "<td><a href=\"drops/$fileName/index.php\">$parts[1]</a></td>";
 		
-		$latest .= "<td>$timeStamps[$fileName]</td>";
-		$latest .= "</tr>";
+		echo "<td>$timeStamps[$fileName]</td>";
+		echo "</tr>";
 	}
+?>
+</table></table>
+</div>
+<hr class="clearer" />
+</div>
 
-	$list = "";
+<div id="rightcolumn">
+		</br></br></br></br>
+		<div class="sideitem">
+			<h6>GMF Update Sites</h6>
+			<ul>
+				<li><a href="http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml">
+				Release builds</a></li>
+				<li><a href="http://download.eclipse.org/modeling/gmf/update-site/milestone/site.xml">
+				Milestone builds</a></li>
+				<li><a href="http://download.eclipse.org/modeling/gmf/update-site/interim/site.xml">
+				Integration builds</a></li>
+				<li><a href="http://download.eclipse.org/modeling/gmf/update-site/europa/site.xml">
+				Europa builds</a></li>
+			</ul>
+		</div>		
+</div>		
+
+<div id="main">
+<table align=center cellspacing=0 cellpadding=3 WIDTH="100%">
+
+<?php
 	foreach($dropType as $value) {
 		$prefix=$typeToPrefix[$value];
-		$list .="
-		<table width=\"100%\" cellspacing=0 cellpadding=3 align=center>
-		<tr bgcolor=\"#999999\">
-		<td align=left width=\"30%\"><b><a name=\"$value\"><font color=\"#FFFFFF\" face=\"Arial,Helvetica\">$value";
-		$list .= "s</font></b></a></td>
-		</TR>
-		<TR>
-		<td align=left>
-		<TABLE  width=\"100%\" CELLSPACING=0 CELLPADDING=3>
+		echo "
+		<tr><td><div class=\"homeitem3col\">
+		<h3><a name=\"{$value}s\">{$value}s</a></h3></td></tr>";
+		echo "
+		<table BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH=\"100%\" bordercolor=\"#999999\" >
 		<tr>
 		<td width=\"30%\"><b>Build Name</b></td>
 		<td><b>Build Date</b></td>
@@ -129,86 +248,22 @@
 			rsort($aBucket);
 			foreach($aBucket as $innerValue) {
 				$parts = explode("-", $innerValue);
-				$list .="<tr>";
+				echo "<tr>";
 				
 					// Uncomment the line below if we need click through licenses.
 					// echo "<td><a href=\"license.php?license=drops/$innerValue\">$parts[1]</a></td>";
 					
 					// Comment the line below if we need click through licenses.
-					$list .=+ "<td><a href=\"drops/$innerValue/index.php\">$parts[1]</a></td>";
+					echo "<td><a href=\"drops/$innerValue/index.php\">$parts[1]</a></td>";
 
-					$list .="<td>$timeStamps[$innerValue]</td>
+					echo "<td>$timeStamps[$innerValue]</td>
 					</tr>";
 			}
 		}
-		$list .="</table></table>&nbsp;";
+		echo "</table></div>";
 	}
-	
-		
-	# Paste your HTML content between the EOHTML markers!	
-	$html = <<<EOHTML
-
-<div id="maincontent">
-	<div id="midcolumn"><br/>
-		<table border="0" cellpadding="2" cellspacing="0" width="100%">
-			<tbody>
-				<tr>
-					<td align="left"><h1>$pageTitle</h1></td>
-					<td align="right"><img align="right" src="http://www.eclipse.org/gmf/images/logo_banner.png" /></td>
-				</tr>
-			</tbody>
-		</table>
-
-<div class="homeitem3col"><h3>Download Information</h3>
-<table border=0 cellspacing=5 cellpadding=2 width="100%" >
-  
-	<tr> <td> <p>On this
-page you can find the latest builds produced by
-the GMF project. To get started run the program and go through the
-user and developer documentation provided in the online help system. If you have
-problems downloading the drops, contact the <a href="mailto:webmaster@eclipse.org">webmaster</a>.
-All downloads are provided under the terms and conditions of the <a href="http://www.eclipse.org/legal/notice.html">Eclipse.org
-Software User Agreement</a> unless otherwise specified. </p>
-<p> For information
-about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
-
-<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
-<a href="http://download.eclipse.org/modeling/gmf/update-site/releases/index.html" target="_self">steps</a>.
-</p></td></tr>
-</table>
-</div>
-
-<div class="homeitem3col"><h3>Latest Downloads</h3>
-
-<table width="100%" cellspacing=0 cellpadding=3 align=center>
-
-
-<td align=left>
-<TABLE  width="100%" CELLSPACING=0 CELLPADDING=3>
-<tr>
-	<td width=\"30%\"><b>Build Type</b></td>
-	<td><b>Build Name</b></td>
-	<td><b>Build Date</b></td>
-</tr>
-
-$latest
-</table>
-</table>
-&nbsp;
-$list
-	</div>
-			</div>
-</div>
-
-
-EOHTML;
-
-
-	# Generate the web page
-	$App->generatePage($theme, $Menu, $Nav, $pageAuthor, $pageKeywords, $pageTitle, $html);
 ?>
+</table>
+</div>
 
- 
-
-
-
+</body></html>
