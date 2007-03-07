@@ -24,94 +24,10 @@ sfHover = function() {
 if (window.attachEvent) window.attachEvent("onload", sfHover);
 </script>
 </head>
+
 <body>
 
-<div id="header">
-	<a href="http://www.eclipse.org/"><img src="/eclipse/eclipse.org-common/stylesheets/header_logo.gif" width="163" height="68" border="0" alt="Eclipse Logo" class="logo" /></a>
-	<div id="searchbar">
-		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_transition.gif" width="92" height="26" class="transition" alt="" />
-		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_header.gif" width="64" height="17" class="header" alt="Search" />
-		<form method="get" action="http://www.eclipse.org/search/search.cgi">
-			<input type="hidden" name="t" value="All" />
-			<input type="hidden" name="t" value="Doc" />
-			<input type="hidden" name="t" value="Downloads" />
-			<input type="hidden" name="t" value="Wiki" />
-			<input type="hidden" name="wf" value="574a74" />
-			<input type="text" name="q" value="" />
-			<input type="image" class="button" src="/eclipse/eclipse.org-common/stylesheets/searchbar_submit.gif" alt="Submit" onclick="this.submit();" />
-		</form>
-	</div>
-	<ul id="headernav">
-		<li class="first"><a href="http://www.eclipse.org/org/foundation/contact.php">Contact</a></li>
-		<li><a href="http://www.eclipse.org/legal/">Legal</a></li>
-	</ul>
-</div>
-<div id="topnav">
-	<ul>
-		<li><a>Downloads</a></li>
-<!--
-		<li class="tabstartselected">&#160;&#160;&#160;</li>
-		<li><a class="tabselected" href="index.php" target="_self">All Platforms</a></li>
-		<li class="tabseparatorselected">&#160;&#160;&#160;</li>
-		<li><a class="" href="winPlatform.php" target="_self">Windows</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="linPlatform.php" target="_self">Linux</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="solPlatform.php" target="_self">Solaris</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>
-		<li><a class="" href="aixPlatform.php" target="_self">AIX</a></li>
-		<li class="tabstart">&#160;&#160;&#160;</li>	
-		<li><a class="" href="macPlatform.php" target="_self">Macintosh</a></li>
-		<li class="tabseparator">&#160;&#160;&#160;</li>
--->					
-	</ul>
-</div>
-<div id="topnavsep"></div>
-<div id="leftcol">
-<ul id="leftnav">
-<li><a href="#SDK">SDK</a></li>
-<li><a href="#SDKExperimental">SDK Experimental</a></li>
-<li><a href="#Runtime">Runtime</a></li>
-<li><a href="#Examples">Examples</a></li>
-<li><a href="#Tests">JUnit Plugin Tests</a></li>
- 
-  </li>
-  <li style="background-image: url(/eclipse/eclipse.org-common/stylesheets/leftnav_fade.jpg); background-repeat: repeat-x; border-style: none;">
-			<br /><br /><br /><br /><br />
-  </li>
-</ul>
-
-</div>
-
-&nbsp;
-
-<div id="midcolumn">
-	<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
-	<tr> 
-		<td> 
-				<p><b><font face="Verdana" size="+3">Graphical Modeling Framework Downloads</font></b><br> 
-				These downloads are provided under the <a href="http://www.eclipse.org/legal/epl/notice.html">
-				<b>Eclipse Foundation Software User Agreement</b></a>.</p>
-		</td><tr><tr>
-	<tr>
-			<td width="75%">
-				<p>On this page you can find the latest builds produced by the GMF project. 
-				To get started run the program and go through the user and developer documentation 
-				provided in the online help system. If you have problems downloading the drops, 
-				contact the <font face="arial,helvetica,geneva" size="-1"><a href="mailto:webmaster@eclipse.org">webmaster</a></font>.</p>
-				<p> For information
-				about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
-				<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
-				<a href="http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml" target="_self">steps</a>.
-				</p>
-			</td>
-		</tr>
-	</table>
-
-  <div class="homeitem3col">
-	<h3>Latest Downloads</h3>
-
-  <?php
+<?php
 	
 	$fileHandle = fopen("dlconfig.txt", "r");
 	while (!feof($fileHandle)) {
@@ -174,8 +90,92 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		}
 	}
 	// $aDirectory.closedir();
- ?>
- 
+?>
+
+<div id="header">
+	<a href="http://www.eclipse.org/"><img src="/eclipse/eclipse.org-common/stylesheets/header_logo.gif" width="163" height="68" border="0" alt="Eclipse Logo" class="logo" /></a>
+	<div id="searchbar">
+		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_transition.gif" width="92" height="26" class="transition" alt="" />
+		<img src="/eclipse/eclipse.org-common/stylesheets/searchbar_header.gif" width="64" height="17" class="header" alt="Search" />
+		<form method="get" action="http://www.eclipse.org/search/search.cgi">
+			<input type="hidden" name="t" value="All" />
+			<input type="hidden" name="t" value="Doc" />
+			<input type="hidden" name="t" value="Downloads" />
+			<input type="hidden" name="t" value="Wiki" />
+			<input type="hidden" name="wf" value="574a74" />
+			<input type="text" name="q" value="" />
+			<input type="image" class="button" src="/eclipse/eclipse.org-common/stylesheets/searchbar_submit.gif" alt="Submit" onclick="this.submit();" />
+		</form>
+	</div>
+	<ul id="headernav">
+		<li class="first"><a href="http://www.eclipse.org/org/foundation/contact.php">Contact</a></li>
+		<li><a href="http://www.eclipse.org/legal/">Legal</a></li>
+	</ul>
+</div>
+<div id="topnav">
+	<ul>
+		<li><a>GMF Downloads</a></li>
+		<li class="tabstartselected">&#160;&#160;&#160;</li>
+		<li><a class="tabselected" href="http://www.eclipse.org/gmf" target="_self">GMF Homepage</a></li>
+<!--
+		<li class="tabseparatorselected">&#160;&#160;&#160;</li>
+		<li><a class="" href="winPlatform.php" target="_self">Windows</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="linPlatform.php" target="_self">Linux</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="solPlatform.php" target="_self">Solaris</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>
+		<li><a class="" href="aixPlatform.php" target="_self">AIX</a></li>
+		<li class="tabstart">&#160;&#160;&#160;</li>	
+		<li><a class="" href="macPlatform.php" target="_self">Macintosh</a></li>
+		<li class="tabseparator">&#160;&#160;&#160;</li>
+-->					
+	</ul>
+</div>
+<div id="topnavsep"></div>
+<div id="leftcol">
+<ul id="leftnav">
+  <?php
+	foreach($dropType as $value) {
+		echo "<li><a href=\"#{$value}s\">{$value}s</a></li>";
+	}
+  ?>	 
+  <li style="background-image: url(/eclipse/eclipse.org-common/stylesheets/leftnav_fade.jpg); background-repeat: repeat-x; border-style: none;">
+			<br /><br /><br /><br /><br />
+  </li>
+</ul>
+
+</div>
+
+&nbsp;
+
+<div id="midcolumn">
+	<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
+	<tr> 
+		<td> 
+				<p><b><font face="Verdana" size="+3">Graphical Modeling Framework Downloads</font></b><br> 
+				These downloads are provided under the <a href="http://www.eclipse.org/legal/epl/notice.html">
+				<b>Eclipse Foundation Software User Agreement</b></a>.</p>
+		</td><tr><tr>
+	<tr>
+			<td width="75%">
+				<p>On this page you can find the latest builds produced by the GMF project. 
+				To get started run the program and go through the user and developer documentation 
+				provided in the online help system. If you have problems downloading the drops, 
+				contact the <font face="arial,helvetica,geneva" size="-1"><a href="mailto:webmaster@eclipse.org">webmaster</a></font>.</p>
+				<p> For information
+				about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
+				<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
+				<a href="http://download.eclipse.org/modeling/gmf/update-site/releases/site.xml" target="_self">steps</a>.
+				</p>
+			</td>
+		</tr>
+	</table>
+
+  <div class="homeitem3col">
+	<h3>Latest Downloads</h3>
+
+
 <table width="100%" cellspacing=0 cellpadding=3 align=center>
 
 
@@ -211,7 +211,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 </div>
 
 <div id="rightcolumn">
-		</br></br></br></br>
+		</br></br></br></br></br>
 		<div class="sideitem">
 			<h6>GMF Update Sites</h6>
 			<ul>
@@ -227,15 +227,14 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		</div>		
 </div>		
 
-<div id="main">
-<table align=center cellspacing=0 cellpadding=3 WIDTH="100%">
+<table align="left" cellspacing=0 cellpadding=3 WIDTH="100%">
 
 <?php
 	foreach($dropType as $value) {
 		$prefix=$typeToPrefix[$value];
 		echo "
 		<tr><td><div class=\"homeitem3col\">
-		<h3><a name=\"{$value}s\">{$value}s</a></h3></td></tr>";
+		<h3><a name=\"{$value}s\">{$value}s</a></h3>";
 		echo "
 		<table BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH=\"100%\" bordercolor=\"#999999\" >
 		<tr>
@@ -260,10 +259,9 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 					</tr>";
 			}
 		}
-		echo "</table></div>";
+		echo "</table></div></td></tr>";
 	}
 ?>
 </table>
-</div>
 
 </body></html>
