@@ -149,8 +149,8 @@ public class RuntimeWorkspaceSetup {
 		ensureJava14();
 		turnWorkspaceHistoryOff();
 		if (isDevLaunchMode) {
-			// Need to get some gmf source code into target workspace 
-			importDevPluginsIntoRunTimeWorkspace(pluginsToImport);
+			// Need to get some gmf source code into target workspace
+			importDevPluginsIntoRunTimeWorkspace(pluginsToImport); // takes 2,5 seconds
 		}
 	}
 
