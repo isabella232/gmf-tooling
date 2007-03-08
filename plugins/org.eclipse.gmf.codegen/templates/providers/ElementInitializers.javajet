@@ -16,8 +16,6 @@ final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
 %>
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 <%importManager.markImportLocation(stringBuffer);%>
 <%String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());%>
 
@@ -141,7 +139,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 			/** 
 			 * @generated
 			 */		
-			final EClass element;		
+			final <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> element;		
 			/** 
 			 * @generated
 			 */		
@@ -149,7 +147,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 			/** 
 			 * @generated
 			 */
-			ObjectInitializer(EClass element) {
+			ObjectInitializer(<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> element) {
 				this.element = element;
 				init();
 			}
@@ -192,8 +190,8 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/**
 		 * @generated
 		 */		
-		static IFeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {
-			final EStructuralFeature feature = initFeature;
+		static IFeatureInitializer createNewElementFeatureInitializer(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> initFeature, ObjectInitializer[] newObjectInitializers) {
+			final <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature = initFeature;
 			final ObjectInitializer[] initializers = newObjectInitializers;
 			return new IFeatureInitializer() {
 				public void init(EObject contextInstance) {
@@ -213,8 +211,8 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/**
 		 * @generated
 		 */		
-		static IFeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> valueExpression) {
-			final EStructuralFeature feature = initFeature;
+		static IFeatureInitializer createExpressionFeatureInitializer(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> initFeature, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> valueExpression) {
+			final <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature = initFeature;
 			final <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression = valueExpression;
 			return new IFeatureInitializer() {				
 				public void init(EObject contextInstance) {
