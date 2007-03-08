@@ -4,7 +4,7 @@
 	
 	<target name="init">
 		<antcall target="wipe"/>
-		<mkdir dir="${buildDirectory}" />
+		<mkdir dir="${buildDirectory}/artifacts" />
 		<touch file="${user.home}/.cvspass" />
 		<cvs command="export -d component" cvsRoot="${cvs.root}" package="${componentsRoot}/${component}" dest="${buildDirectory}" tag="${componentsTag}" />		
 		<available file="label.properties" property="label.properties.present"/>
