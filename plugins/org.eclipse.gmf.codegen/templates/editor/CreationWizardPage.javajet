@@ -55,7 +55,7 @@ public class <%=importManager.getCompilationUnitName()%> extends
 	 */
 	public URI getURI() {
 <%if (application == null) {%>
-		return URI.createPlatformResourceURI(getFilePath().toString());
+		return URI.createPlatformResourceURI(getFilePath().toString(), false);
 <%} else {%>
 		return URI.createFileURI(getFilePath().toString());
 <%}%>
