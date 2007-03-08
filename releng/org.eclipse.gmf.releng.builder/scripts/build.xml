@@ -13,7 +13,7 @@
 		<antcall target="initCC"/>
 	</target>
 	
-	<target name="initCC">
+	<target name="initCC" if="usingCC">
 		<copy todir="${ccwebapplocation}/css" overwrite="true">
 		    <fileset dir="${scripts}/css"/>
 		</copy>
