@@ -62,7 +62,7 @@ public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parentView, org.
 «ENDDEFINE»
 
 «DEFINE createCommand FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.common.command.Command createCommand() {
 	«EXPAND checkFeatures FOR modelFacet-»
 	org.eclipse.emf.ecore.EObject element = childNode.getElement();

@@ -1,3 +1,0 @@
-				final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> node = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) child.getModel();
-				<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> emfCommand = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.ChangeBoundsCommand")%>(node, request, ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>)child).getFigure());
-				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(node.getDiagram().getElement()), emfCommand);

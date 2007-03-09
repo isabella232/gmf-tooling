@@ -67,75 +67,9 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 * @generated
 	 */
 	protected void createEditPolicies() {
-<%if (!genCompartment.isListLayout()) {%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx")%>() {
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
-<%@include file="changeConstraintCommand.jetinc"%>
-			}
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
-				assert false;
-				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-			}
-<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
-<%} else {%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.ListLayoutEditPolicy")%>() {
-			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
-				return null;
-			}
-			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
-				return null;
-			}
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(EditPart child, Object constraint) {
-				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-			}
-<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
-<%}%>
-<%
-{
-	String _getViewCode = "getDiagramNode()";
-	boolean isListLayout = genCompartment.isListLayout();
-%>
-<%@include file="createAddCommand.jetinc"%>
-<%@include file="createCloneCommand.jetinc"%>
-<%
-}
-%>
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(CreateRequest request) {
-<%if (null != genDiagram.getPalette()) {%>
-				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
-					if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(requestEx.getModelID())) {
-						return null;
-					}
-					int[] visualIds = requestEx.getVisualIds();
-					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-					for(int i = 0; i < visualIds.length; i++) {
-						int nextVisualId = visualIds[i];
-						switch (nextVisualId) {
-<%
-for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
-	GenChildNode next = (GenChildNode)it.next();
-	if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
-		continue;
-	}
-%>
-						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
-								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
-							break;
-<%
-}
-%>
-						}
-					}
-					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((View) getModel()).getDiagram().getElement()), result);
-				}
-<%}/*when there's palette*/%>
-				return null;
-			}
-		});
 <%{
 GenCommonBase genCommonBase = genCompartment;%>
+<%@ include file="layoutEditPolicy.jetinc"%>
 <%@ include file="customBehaviour.jetinc"%>
 <%@include file="openEditPolicy.jetinc"%>
 <%}%>

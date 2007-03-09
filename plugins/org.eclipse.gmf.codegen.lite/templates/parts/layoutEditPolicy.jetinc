@@ -1,0 +1,8 @@
+<%
+String layoutEditPolicyClassName = genCommonBase.getEditPartClassName();
+if (layoutEditPolicyClassName.endsWith(GenCommonBase.EDIT_PART_SUFFIX)) {
+	layoutEditPolicyClassName = layoutEditPolicyClassName.substring(0, layoutEditPolicyClassName.length() - GenCommonBase.EDIT_PART_SUFFIX.length());
+}
+layoutEditPolicyClassName = genDiagram.getEditPoliciesPackageName() + "." + layoutEditPolicyClassName + "LayoutEditPolicy";
+%>
+installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName(layoutEditPolicyClassName)%>());

@@ -1,0 +1,169 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::diagram::policies::ClassNames»
+«EXTENSION xpt::diagram::Helper»
+«EXTENSION xpt::commands::CommandUtils»
+
+«DEFINE LayoutEditPolicy FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
+package «getDiagram().editPoliciesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «getLayoutEditPolicyClassName()» «EXPAND supertypes» {
+	«EXPAND getCreateCommand-»
+«IF getChildNodes().size() > 0-»
+	«EXPAND createAddCommand-»
+	«EXPAND createCloneCommand-»
+«ENDIF-»
+	«EXPAND createChildEditPolicy-»
+	«EXPAND createChangeConstraintCommand-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenContainerBase-»
+«IF needsXYLayout()»extends org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx«ELSE»extends org.eclipse.gmf.runtime.lite.edit.policies.ListLayoutEditPolicy«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getCreateCommand FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gef.requests.CreateRequest request) {
+«IF null != getDiagram().palette && getChildNodes().size() > 0-»
+	if (request instanceof org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) {
+		org.eclipse.gmf.runtime.lite.requests.CreateRequestEx requestEx = (org.eclipse.gmf.runtime.lite.requests.CreateRequestEx) request;
+		if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(requestEx.getModelID())) {
+			return null;
+		}
+		int[] visualIds = requestEx.getVisualIds();
+		org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();
+		for(int i = 0; i < visualIds.length; i++) {
+			int nextVisualId = visualIds[i];
+			switch (nextVisualId) {
+«EXPAND getCreateCommandContribution(this) FOREACH getChildNodes()-»
+			}
+		}
+		return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND xpt::diagram::policies::Common::getDiagramElementCode»), result);
+	}
+«ENDIF-»
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getCreateCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
+«IF !sansDomain && !modelFacet.metaClass.ecoreClass.abstract-»
+case «getEditPartQualifiedClassName()».VISUAL_ID:
+	result.append(new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CreateNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», requestEx«IF container.needsXYLayout()», (org.eclipse.draw2d.geometry.Rectangle) getConstraintFor(request)«ENDIF»));
+	break;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE createAddCommand FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, Object constraint) {
+	if (child.getModel() instanceof org.eclipse.gmf.runtime.notation.Node) {
+		org.eclipse.gmf.runtime.notation.Node childNode = (org.eclipse.gmf.runtime.notation.Node) child.getModel();
+		String modelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(childNode);
+		if («getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(modelID)) {
+			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
+			org.eclipse.emf.common.command.Command command = null;
+			switch (newVisualID) {
+«EXPAND getAddCommandContribution(this) FOREACH getChildNodes()-»
+			}
+			if (command != null) {
+				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(childNode.getDiagram().getElement());
+				return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, command);
+			}
+		}
+	}
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getAddCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
+case «getEditPartQualifiedClassName()».VISUAL_ID:
+	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::AddNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, newVisualID, «IF container.needsXYLayout()»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
+	break;
+«ENDDEFINE»
+
+«DEFINE createCloneCommand FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command createCloneCommand(org.eclipse.gef.EditPart child, Object constraint) {
+	if (child.getModel() instanceof org.eclipse.gmf.runtime.notation.Node) {
+		org.eclipse.gmf.runtime.notation.Node childNode = (org.eclipse.gmf.runtime.notation.Node) child.getModel();
+		String modelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(childNode);
+		if («getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(modelID)) {
+			int newVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».INSTANCE.getNodeVisualID(«EXPAND xpt::diagram::policies::Common::getViewCode», childNode.getElement());
+			org.eclipse.emf.common.command.Command command = null;
+			switch (newVisualID) {
+«EXPAND getCloneCommandContribution(this) FOREACH getChildNodes()-»
+			}
+			if (command != null) {
+				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(childNode.getDiagram().getElement());
+				return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, command);
+			}
+		}
+	}
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getCloneCommandContribution(gmfgen::GenContainerBase container) FOR gmfgen::GenNode-»
+case «getEditPartQualifiedClassName()».VISUAL_ID:
+	command = new «getDiagram().editCommandsPackageName».«EXPAND xpt::commands::CloneNodeCommand::className»(«EXPAND xpt::diagram::policies::Common::getViewCode FOR container», childNode, «IF container.needsXYLayout()»(org.eclipse.draw2d.geometry.Rectangle) constraint«ELSE»null«ENDIF»);
+	break;
+«ENDDEFINE»
+
+«DEFINE createChildEditPolicy FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE createChildEditPolicy FOR gmfgen::GenNode-»
+«IF getExternalLabels().size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
+	org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+	if (result != null) {
+		return result;
+	}
+	if ((«EXPAND xpt::diagram::policies::Common::getCastToEditPart»).isExternalLabel(child)) {
+		return new org.eclipse.gef.editpolicies.ResizableEditPolicy() {
+			public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+				if (org.eclipse.gef.RequestConstants.REQ_SELECTION.equals(request.getType())) {
+					return «getLayoutEditPolicyClassName()».this.getHost();
+				}
+				return super.getTargetEditPart(request);
+			}
+		};
+	}
+	return super.createChildEditPolicy(child);
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE createChangeConstraintCommand FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
+«DEFINE createChangeConstraintCommand FOR gmfgen::GenNode-»
+«IF needsXYLayout()-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command createChangeConstraintCommand(org.eclipse.gef.requests.ChangeBoundsRequest request, org.eclipse.gef.EditPart child, Object constraint) {
+	if (!(«EXPAND xpt::diagram::policies::Common::getCastToEditPart»).isDirectChild(child)) {
+		return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
+	}
+	return super.createChangeConstraintCommand(request, child, constraint);
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»

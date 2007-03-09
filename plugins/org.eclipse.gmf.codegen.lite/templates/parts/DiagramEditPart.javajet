@@ -141,60 +141,9 @@ GenCommonBase genCommonBase = genDiagram;%>
 	 */
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new RootComponentEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.XYLayoutEditPolicyEx")%>() {
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(CreateRequest request) {
-<%if (null != genDiagram.getPalette()) {%>
-				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
-					if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(requestEx.getModelID())) {
-						return null;
-					}
-					int[] visualIds = requestEx.getVisualIds();
-					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-					for(int i = 0; i < visualIds.length; i++) {
-						int nextVisualId = visualIds[i];
-						switch (nextVisualId) {
-<%
-for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
-	GenTopLevelNode next = (GenTopLevelNode)it.next();
-	if (next.isSansDomain() || next.getDomainMetaClass().isAbstract()) {
-		continue;
-	}
-%>
-						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".Create" + next.getDomainMetaClass().getName() + next.getVisualID() + "Command")%>(getDiagram(), requestEx, (<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)));
-							break;
-<%
-}
-%>
-						}
-					}
-					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), result);
-				}
-<%}/*when there's palette*/%>
-				return null;
-			}
-<%
-{
-	String _getViewCode = "getDiagram()";
-	boolean isListLayout = false;
-%>
-<%@include file="createAddCommand.jetinc"%>
-<%@include file="createCloneCommand.jetinc"%>
-<%
-}
-%>
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
-<%@include file="changeConstraintCommand.jetinc"%>
-			}
-			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
-				assert false;
-				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-			}
-<%@include file="preservePrimaryDragEditPolicy.jetinc"%>
-		});
 <%{
 GenCommonBase genCommonBase = genDiagram;%>
+<%@ include file="layoutEditPolicy.jetinc"%>
 <%@ include file="customBehaviour.jetinc"%>
 <%}%>
 		installNotationModelRefresher();

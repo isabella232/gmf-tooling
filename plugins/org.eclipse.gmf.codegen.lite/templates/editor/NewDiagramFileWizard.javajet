@@ -234,7 +234,14 @@ if (!genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 					if (graphicalViewer != null) {
 						<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> layoutCommand = layouter.layout((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) graphicalViewer.getContents());
 						if (layoutCommand != null && layoutCommand.canExecute()) {
-							new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, layoutCommand).execute();
+							graphicalViewer.getEditDomain().getCommandStack().execute(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, layoutCommand));
+<%
+if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
+%>
+							diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+<%
+}
+%>
 						}
 					}
 				}

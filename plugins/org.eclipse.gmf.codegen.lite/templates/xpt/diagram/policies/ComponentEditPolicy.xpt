@@ -102,14 +102,14 @@ protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.r
 «ENDDEFINE»
 
 «DEFINE getDiagramNode FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.notation.Node getDiagramNode() {
 	return (org.eclipse.gmf.runtime.notation.Node) getHost().getModel();
 }
 «ENDDEFINE»
 
 «DEFINE getDiagramEdge FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gmf.runtime.notation.Edge getDiagramEdge() {
 	return (org.eclipse.gmf.runtime.notation.Edge) getHost().getModel();
 }

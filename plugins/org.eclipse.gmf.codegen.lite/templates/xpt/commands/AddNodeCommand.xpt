@@ -53,7 +53,7 @@ private final org.eclipse.draw2d.geometry.Rectangle constraint;
 «ENDDEFINE»
 
 «DEFINE ctors(boolean multipleRelatedNodes) FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedMemberComment»
 public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parentView, org.eclipse.gmf.runtime.notation.Node childNode, int newVisualID, org.eclipse.draw2d.geometry.Rectangle constraint) {
 	this.parentView = parentView;
 	this.childNode = childNode;
@@ -66,7 +66,7 @@ public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parentView, org.
 «ENDDEFINE»
 
 «DEFINE createCommand(Collection[gmfgen::GenNode] relatedNodes) FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedClassComment»
+«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.common.command.Command createCommand() {
 	«EXPAND checkFeatures FOR modelFacet-»
 	org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();

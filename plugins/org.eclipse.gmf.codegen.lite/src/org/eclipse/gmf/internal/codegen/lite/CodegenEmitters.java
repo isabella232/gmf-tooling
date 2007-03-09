@@ -195,6 +195,14 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::diagram::policies::ComponentEditPolicy::ComponentEditPolicy");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::diagram::policies::LayoutEditPolicy::LayoutEditPolicy");	//$NON-NLS-1$
+	}
+
+	public TextEmitter getGraphicalEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieveXpand("xpt::diagram::policies::GraphicalNodeEditPolicy::GraphicalNodeEditPolicy");	//$NON-NLS-1$
+	}
+
 	public TextEmitter getValidationProviderGenerator() throws UnexpectedBehaviourException {
 		return retrieve(ValidationProviderGenerator.class);
 	}
