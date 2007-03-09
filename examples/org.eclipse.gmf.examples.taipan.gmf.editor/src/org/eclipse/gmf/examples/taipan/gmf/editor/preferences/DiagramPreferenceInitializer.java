@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.notation.Routing;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 
 /**
@@ -39,7 +40,7 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 		store.setDefault(IPreferenceConstants.PREF_ENABLE_ANIMATED_ZOOM, true);
 		store.setDefault(IPreferenceConstants.PREF_ENABLE_ANTIALIAS, true);
 
-		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_DEFAULT_FONT, new FontData("monospaced", 12, org.eclipse.swt.SWT.NORMAL));
+		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_DEFAULT_FONT, new FontData("monospaced", 12, SWT.NORMAL));
 
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_FONT_COLOR, DiagramColorConstants.black.getRGB());
 

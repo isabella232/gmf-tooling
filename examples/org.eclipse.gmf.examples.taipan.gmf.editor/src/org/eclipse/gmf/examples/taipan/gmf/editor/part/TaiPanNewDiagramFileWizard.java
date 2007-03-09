@@ -194,7 +194,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		 */
 		public void createControl(Composite parent) {
 			initializeDialogUnits(parent);
-			Composite topLevel = new Composite(parent, org.eclipse.swt.SWT.NONE);
+			Composite topLevel = new Composite(parent, SWT.NONE);
 			topLevel.setLayout(new GridLayout());
 			topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
 			topLevel.setFont(parent.getFont());
@@ -207,17 +207,17 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		 * @generated
 		 */
 		private void createModelBrowser(Composite parent) {
-			Composite panel = new Composite(parent, org.eclipse.swt.SWT.NONE);
+			Composite panel = new Composite(parent, SWT.NONE);
 			panel.setLayoutData(new GridData(GridData.FILL_BOTH));
 			GridLayout layout = new GridLayout();
 			layout.marginWidth = 0;
 			panel.setLayout(layout);
 
-			Label label = new Label(panel, org.eclipse.swt.SWT.NONE);
+			Label label = new Label(panel, SWT.NONE);
 			label.setText("Select diagram root element:");
 			label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 
-			TreeViewer treeViewer = new TreeViewer(panel, org.eclipse.swt.SWT.SINGLE | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL | org.eclipse.swt.SWT.BORDER);
+			TreeViewer treeViewer = new TreeViewer(panel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 			GridData layoutData = new GridData(GridData.FILL_BOTH);
 			layoutData.heightHint = 300;
 			layoutData.widthHint = 300;
