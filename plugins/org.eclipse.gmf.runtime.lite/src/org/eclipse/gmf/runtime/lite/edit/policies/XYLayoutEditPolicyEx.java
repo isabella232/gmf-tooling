@@ -14,14 +14,19 @@ package org.eclipse.gmf.runtime.lite.edit.policies;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.runtime.lite.commands.ChangeBoundsCommand;
+import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
+import org.eclipse.gmf.runtime.notation.Node;
 
 /**
  * Edit policy for use with edit parts with XYLayout generated with the lite runtime.
@@ -71,5 +76,18 @@ public abstract class XYLayoutEditPolicyEx extends XYLayoutEditPolicy {
 			return result;
 		}
 		return super.createChildEditPolicy(child);
+	}
+
+	@Override
+	protected Command createChangeConstraintCommand(final ChangeBoundsRequest request, final EditPart child, Object constraint) {
+		final Node node = (Node) child.getModel();
+		ChangeBoundsCommand emfCommand = new ChangeBoundsCommand(node, request, ((GraphicalEditPart) child).getFigure());
+		return new WrappingCommand(TransactionUtil.getEditingDomain(node.getDiagram().getElement()), emfCommand);
+	}
+
+	@Override
+	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+		assert false;
+		return UnexecutableCommand.INSTANCE;
 	}
 }
