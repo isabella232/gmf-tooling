@@ -115,6 +115,27 @@
 			</fileset>
 		</unzip>
 		
+		<unzip dest="${javadoc.link.location}/emft/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.transaction.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emfv/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.validation.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emfq/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.query.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
 		<unzip dest="${javadoc.link.location}/platform/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
