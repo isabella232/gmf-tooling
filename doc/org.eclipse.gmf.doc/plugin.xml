@@ -4,9 +4,7 @@
   
    <extension point="org.eclipse.help.toc">
       <toc file="toc.xml" primary="true"/>
-      <toc file="toc-runtime.xml"/>
       <toc file="toc-runtime-ext-pt.xml"/>
-      <toc file="toc-tooling.xml"/>
    </extension>
 
 </plugin>
