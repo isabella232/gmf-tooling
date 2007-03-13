@@ -156,6 +156,7 @@
 			<property name="packageBatik" value="true"/>
 			<property name="packageXerces" value="true"/>
 		</ant>
+		<antcall target="some"/>
 	</target>
 
 	<!-- ===================================================================== -->
