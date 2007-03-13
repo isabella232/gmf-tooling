@@ -19,7 +19,7 @@
 	</target>
 	
 	<target name="unpackUpdateJarsForPackaging">
-		<property name="tmpsite" value="${buildDirectory}/${buildLabel}/tmpsite" />
+		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
 		<mkdir dir="${tmpsite}/new/eclipse/features" />
 		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
 		<exec executable="unzip" dir="${buildDirectory}/${buildLabel}">
@@ -36,7 +36,7 @@
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
-		<delete dir="${tmpsite}"/>
+	<!--	<delete dir="${tmpsite}"/>  -->
 	</target>
 	
 	<target name="packageBatik" if="packageBatik">
