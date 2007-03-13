@@ -27,7 +27,7 @@
         eType="#//Figure" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementationBundle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Identity" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Identity" abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Easy and readable way to reference element of the model from another one"/>
     </eAnnotations>
@@ -80,7 +80,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VisualFacet" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisualFacet" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="GeneralFacet" eSuperTypes="#//VisualFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="provide means to attach arbitrary data to your diagram element definition. It's up to you (template author) to process it somehow."/>
@@ -106,21 +106,23 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultSize" eType="#//Dimension"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FigureMarker" interface="true" eSuperTypes="#//Layoutable">
+  <eClassifiers xsi:type="ecore:EClass" name="FigureMarker" abstract="true" interface="true"
+      eSuperTypes="#//Layoutable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Anything you could combine visual representation from. Ordinary GEF figures, custom-defined or references to defined elsewhere."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Figure"
         changeable="false" resolveProxies="false" eOpposite="#//Figure/children"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FigureHandle" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="FigureHandle" abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Entry in the figure's hierarchy to reference from diagram element"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencingElements" upperBound="-1"
         eType="#//DiagramElement" eOpposite="#//DiagramElement/figure"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Figure" interface="true" eSuperTypes="#//FigureMarker #//FigureHandle #//Identity">
+  <eClassifiers xsi:type="ecore:EClass" name="Figure" abstract="true" interface="true"
+      eSuperTypes="#//FigureMarker #//FigureHandle #//Identity">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.Figure"/>
     </eAnnotations>
@@ -157,8 +159,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConnectionFigure" interface="true" eSuperTypes="#//Figure"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DecorationFigure" interface="true" eSuperTypes="#//Figure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionFigure" abstract="true" interface="true"
+      eSuperTypes="#//Figure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DecorationFigure" abstract="true" interface="true"
+      eSuperTypes="#//Figure"/>
   <eClassifiers xsi:type="ecore:EClass" name="Shape" abstract="true" eSuperTypes="#//Figure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.Shape"/>
@@ -243,7 +247,7 @@
       <details key="documentation" value="org.eclipse.draw2d.PolygonDecoration"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CustomClass" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="CustomClass" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
@@ -280,7 +284,7 @@
       <details key="documentation" value="Same as CustomFigure, but for Connections"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Color" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Color" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="RGBColor" eSuperTypes="#//Color">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -306,7 +310,7 @@
     <eLiterals name="blue" value="13"/>
     <eLiterals name="darkBlue" value="14"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Font" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Font" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="BasicFont" eSuperTypes="#//Font">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="faceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -333,7 +337,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bottom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="right" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Border" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Border" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="LineBorder" eSuperTypes="#//Border">
     <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
         containment="true"/>
@@ -379,7 +383,7 @@
     <eLiterals name="LINE_DASHDOTDOT" value="5"/>
     <eLiterals name="LINE_CUSTOM" value="6"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LayoutData" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutData" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//Layoutable"
         eOpposite="#//Layoutable/layoutData"/>
   </eClassifiers>
@@ -416,13 +420,13 @@
     <eLiterals name="END" value="2"/>
     <eLiterals name="FILL" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Layoutable" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Layoutable" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="layoutData" eType="#//LayoutData"
         containment="true" eOpposite="#//LayoutData/owner"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//Layout"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Layout" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Layout" abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="CustomLayout" eSuperTypes="#//Layout #//CustomClass"/>
   <eClassifiers xsi:type="ecore:EClass" name="GridLayout" eSuperTypes="#//Layout">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numColumns" lowerBound="1"
