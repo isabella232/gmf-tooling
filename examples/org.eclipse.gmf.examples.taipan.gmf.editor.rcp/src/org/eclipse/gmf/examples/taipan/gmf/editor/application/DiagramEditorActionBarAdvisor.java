@@ -33,6 +33,8 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IWorkbench;
@@ -274,7 +276,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
 		if (editorDescriptor == null) {
-			MessageDialog.openError(workbenchWindow.getShell(), Messages.DiagramEditorActionBarAdvisor_DefaultFileEditorTitle, org.eclipse.osgi.util.NLS.bind(
+			MessageDialog.openError(workbenchWindow.getShell(), Messages.DiagramEditorActionBarAdvisor_DefaultFileEditorTitle, NLS.bind(
 					Messages.DiagramEditorActionBarAdvisor_DefaultFileEditorMessage, fileURI.toFileString()));
 			return false;
 		} else {
@@ -331,7 +333,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 		 * @generated
 		 */
 		public void run(IAction action) {
-			FileDialog fileDialog = new FileDialog(getWindow().getShell(), org.eclipse.swt.SWT.OPEN);
+			FileDialog fileDialog = new FileDialog(getWindow().getShell(), SWT.OPEN);
 			fileDialog.open();
 			if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
 				openEditor(getWindow().getWorkbench(), org.eclipse.emf.common.util.URI.createFileURI(fileDialog.getFilterPath() + File.separator + fileDialog.getFileName()));
