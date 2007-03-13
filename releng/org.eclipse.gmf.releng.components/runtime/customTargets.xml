@@ -151,6 +151,11 @@
 	<!-- Steps to do after  running package. -->
 	<!-- ===================================================================== -->
 	<target name="postPackage">
+		<ant antfile="${scripts}/package.xml" target="pack200" />
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" >
+			<property name="packageBatik" value="true"/>
+			<property name="packageXerces" value="true"/>
+		</ant>
 	</target>
 
 	<!-- ===================================================================== -->
@@ -160,18 +165,9 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" >
-			<property name="packageBatik" value="true"/>
-			<property name="packageXerces" value="true"/>
-		</ant>
 	</target>
 	
-	<target name="pack200" if="pack200">
-		<ant antfile="${scripts}/package.xml" target="pack200" />
-	</target>
-
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
