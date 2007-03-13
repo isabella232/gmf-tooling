@@ -50,7 +50,7 @@ public class EcoreCreationWizardPage extends WizardNewFileCreationPage {
 	 * @generated
 	 */
 	public URI getURI() {
-		return URI.createPlatformResourceURI(getFilePath().toString());
+		return URI.createPlatformResourceURI(getFilePath().toString(), false);
 	}
 
 	/**
