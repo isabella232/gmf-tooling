@@ -49,7 +49,7 @@ public void notifyChanged(org.eclipse.emf.common.notify.Notification notificatio
 	if (notification.getNotifier() instanceof org.eclipse.emf.ecore.resource.ResourceSet) {
 		super.notifyChanged(notification);
 	}
-	if (myModifiedFilter.matches(notification)) {
+	if (!notification.isTouch() && myModifiedFilter.matches(notification)) {
 		if (notification.getNotifier() instanceof org.eclipse.emf.ecore.resource.Resource) {
 			org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) notification.getNotifier();
 			if (resource.isLoaded()) {
