@@ -11,8 +11,9 @@
  */
 package org.eclipse.gmf.codegen.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -23,12 +24,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
 public class EmfUtils {
 	
 	public static final List getReferencingObjects(EObject target) {
-		List result = new ArrayList(); 
+		LinkedList<EObject> result = new LinkedList<EObject>(); 
 		Collection<EStructuralFeature.Setting> settings = CrossReferencer.find(target.eResource().getContents()).get(target);
-		for (Setting setting : settings) {
-			result.add(setting.getEObject());
-		}
+        if (settings == null) {
+        	return Collections.emptyList();
+        }
+        for (Setting setting : settings) {
+            result.add(setting.getEObject());
+        }
 		return result;
 	}
-
 }
