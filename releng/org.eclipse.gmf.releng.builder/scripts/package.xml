@@ -19,10 +19,10 @@
 	</target>
 	
 	<target name="unpackUpdateJarsForPackaging">
-		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
+		<property name="tmpsite" value="${buildDirectory}/${buildLabel}/tmpsite" />
 		<mkdir dir="${tmpsite}/new/eclipse/features" />
 		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
-		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
+		<exec executable="unzip" dir="${buildDirectory}/${buildLabel}">
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<copy todir="${buildUpdateSitePath}">
@@ -33,7 +33,7 @@
 		<antcall target="packageBatik"/>
 		<antcall target="packageXerces"/>
 		<antcall target="packageLicenseFiles"/>
-		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
+		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
 		<delete dir="${tmpsite}"/>
