@@ -12,7 +12,7 @@
 	           maxmemory="128m"
 			   dir="${buildDirectory}">
 	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
-	         <arg line="-jarProcessor -outputDir ${buildLabel} -pack -repack ${packtmp}/${archiveName}"/>
+	         <arg line="-jarProcessor -processAll -outputDir ${buildLabel} -pack -repack ${packtmp}/${archiveName}"/>
 	       </java>
 	
 		<delete dir="${packtmp}" />
