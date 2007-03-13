@@ -1,125 +1,191 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link rel="Stylesheet" type="text/css" href="../../technote.css">
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" type="text/css" href="../../technote.css" />
 <title>Tutorial: Extensible Type Registry</title>
 </head>
-
 <body lang="EN-US" link="blue" vlink="blue">
-
-<a name=top></a><img src="../../../logo.gif" border="0">
+<a id="top" name="top"></a><img src="../../../logo.gif"
+border="0" /> 
 
 <h1 align="center">Tutorial: Extensible Type Registry</h1>
 
-<table  border="0" cellspacing="8" cellpadding="0">
- <tr>
-  <td>Version: 0.1</td>
-  <td>Date: December 28, 2005</td>
- </tr>
+<table border="0" cellspacing="8" cellpadding="0">
+<tr>
+<td>Version: 0.1</td>
+<td>Date: December 28, 2005</td>
+</tr>
 </table>
 
 <h2>Contents</h2>
 
 <ul>
-  <li><a href="#overview">Overview</a></li>
-  <li><a href="#refs">References</a></li>
-	<LI><A href="#intro">Introduction</A></LI>
-	<li><a href="#batch">Specifying a Metamodel Type</a></li>
-  <li><a href="#live">Specifying a Specialization Type</a></li>
-  <li><a href="#eval">Creating Model Elements</a></li>
-  <li><a href="#summary">Summary</a></li>
+<li><a href="#overview">Overview</a></li>
+
+<li><a href="#refs">References</a></li>
+
+<li><a href="#intro">Introduction</a></li>
+
+<li><a href="#batch">Specifying a Metamodel Type</a></li>
+
+<li><a href="#live">Specifying a Specialization Type</a></li>
+
+<li><a href="#eval">Creating Model Elements</a></li>
+
+<li><a href="#summary">Summary</a></li>
 </ul>
 
-<hr/>
+<hr />
+<h2><a id="overview" name="overview"></a></h2>
 
-<h2><a name="overview"></a></a>Overview</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p>
+Overview 
 
-<p>
-The GMF Extensible Type Registry provides an extension point for plug-ins to
-add new element types to the registry.  This extension point  provides a way for GMF clients to define an
-application-specific classification system based on, but alternative to,
-the metaclasses defined by an Ecore metamodel. You can use this extension point when you wish to extend the metamodel and provide specialized model elements in your GMF application.  You may also use this extension point to extend the editing behaviour of existing element types.</p><p>
-This tutorial will  illustrate how to contribute element types and edit behaviour using the Extensible Type Registry.
-</p>
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
 
-<h2><a name="refs"></a>References</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p>
+<p>The GMF Extensible Type Registry provides an extension point for
+plug-ins to add new element types to the registry. This extension
+point provides a way for GMF clients to define an
+application-specific classification system based on, but
+alternative to, the metaclasses defined by an Ecore metamodel. You
+can use this extension point when you wish to extend the metamodel
+and provide specialized model elements in your GMF application. You
+may also use this extension point to extend the editing behaviour
+of existing element types.</p>
 
-<p>
-To see the complete source code for the examples shown in this tutorial, install
-the <A href="../../../examples-guide/diagram/logicExample.html">Logic
-Example</A>
-plug-in into your workspace.
-</p><p>
-Other references:
-</p>
+<p>This tutorial will illustrate how to contribute element types
+and edit behaviour using the Extensible Type Registry.</p>
+
+<h2><a id="refs" name="refs"></a>References</h2>
+
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
+
+<p>To see the complete source code for the examples shown in this
+tutorial, install the <a
+href="../../../examples-guide/diagram/logicExample.html">Logic
+Example</a> plug-in into your workspace.</p>
+
+<p>Other references:</p>
+
 <ul>
-  <li>The <A href="../../../prog-guide/common/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html">Developer's Guide to the Extensible Type Registry</A>
-contains a description of the Extensible Type Registry in GMF.</li>
-	<li><A
-		href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html">org.eclipse.gmf.runtime.emf.type.core.elementTypes</A> extension point</li></ul>
+<li>The <a
+href="../../../prog-guide/common/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html">
+Developer's Guide to the Extensible Type Registry</a> contains a
+description of the Extensible Type Registry in GMF.</li>
 
-<hr/>
+<li><a
+href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html">
+org.eclipse.gmf.runtime.emf.type.core.elementTypes</a> extension
+point</li>
+</ul>
 
-<H2><A name="intro"></A>Introduction</H2>
-<P class="backto"><SPAN style="FONT-SIZE: 10pt">[<A href="#top"><SPAN
-	class="GramE">back</SPAN> to top</A>]</SPAN></P>
-<P>In this tutorial, we will use the Logic Diagram Example to illustrate
-how to create element types used by a graphical editor for the digital logic domain. To gain
-familiarity with the Logic Diagram Example, refer to the <A
-	href="../../../examples-guide/diagram/logicExample.html">Logic
-Example Guide</A>.  The example provides other element types,
-but will also include the element types and menu items that we add in this tutorial</P>
-<P>For reference, here is the ECore model for the Logic Diagram Example:</P>
-<P><IMG border="0" src="images/logicSemantic.gif" width="622"
-	height="293"></P>
-<P>This tutorial will guide you through the specification of the metamodel type for the Circuit metaclass and show you how to create a specialization of the Circuit type that describes a Half Adder. You will learn how to add context menu items that allow you to create  Circuit and a Half Adder elements using the edit behaviour that you have associated with these two element types.</P>
-<h2><a name="batch"></a>Specifying a Metamodel  Type</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p><p>We start with the extension declaration in the plugin.xml file, in which we indicate the <CODE>EPackage</CODE> for which we are contributing our metamodel type by referencing the logic example's  namespace 
-URI: </p>
+<hr />
+<h2><a id="intro" name="intro"></a>Introduction</h2>
+
+<p class="backto"><span style="FONT-SIZE: 10pt">[<a
+href="#top"><span class="GramE">back</span> to top</a>]</span></p>
+
+<p>In this tutorial, we will use the Logic Diagram Example to
+illustrate how to create element types used by a graphical editor
+for the digital logic domain. To gain familiarity with the Logic
+Diagram Example, refer to the <a
+href="../../../examples-guide/diagram/logicExample.html">Logic
+Example Guide</a>. The example provides other element types, but
+will also include the element types and menu items that we add in
+this tutorial</p>
+
+<p>For reference, here is the ECore model for the Logic Diagram
+Example:</p>
+
+<p><img border="0" src="images/logicSemantic.gif" width="622"
+height="293" /></p>
+
+<p>This tutorial will guide you through the specification of the
+metamodel type for the Circuit metaclass and show you how to create
+a specialization of the Circuit type that describes a Half Adder.
+You will learn how to add context menu items that allow you to
+create Circuit and a Half Adder elements using the edit behaviour
+that you have associated with these two element types.</p>
+
+<h2><a id="batch" name="batch"></a>Specifying a Metamodel Type</h2>
+
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
+
+<p>We start with the extension declaration in the plugin.xml file,
+in which we indicate the <code>EPackage</code> for which we are
+contributing our metamodel type by referencing the logic example's
+namespace URI:</p>
+
 <pre class="snippet">
 &lt;extension
       point="org.eclipse.gmf.runtime.emf.type.core.elementTypes"&gt;
    &lt;metamodel
-         nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;</pre><P>Next, we define a metamodel type   for the Circuit metaclass in the digital logic ECore model. Inside of the <CODE>&lt;metamodel&gt;</CODE> element, we declare
- the Circuit metamodel type with the following data:</P>
-<UL>
-	<LI>a unique ID</LI>
-	<LI>an icon from the icons directory located in the <A
-		href="../../../examples-guide/diagram/logicExample.html">Logic Example</A>
-	plugin, for display in the UI</LI>
-	<LI>a localized name, for display in the UI</LI>
-	<LI>the name of the Circuit <CODE>EClass</CODE></LI>
-	<LI>the fully qualified name of the class that implements the <CODE>IEditHelper</CODE>
-	for Circuits</LI>
-	<LI>the kind of the <CODE>IElementTypeFactory</CODE> that is used to
-	instantiate the Circuit element type</LI>
-	<LI>the semanticHint parameter value. The semantic hint is used by the
-	<CODE>LogicViewProvider</CODE> to determine if it provides a view for
-	that kind of element.</LI>
-</UL>
-<PRE class="snippet">
+         nsURI="http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic"&gt;
+</pre>
+
+<p>Next, we define a metamodel type for the Circuit metaclass in
+the digital logic ECore model. Inside of the
+<code>&lt;metamodel&gt;</code> element, we declare the Circuit
+metamodel type with the following data:</p>
+
+<ul>
+<li>a unique ID</li>
+
+<li>an icon from the icons directory located in the <a
+href="../../../examples-guide/diagram/logicExample.html">Logic
+Example</a> plugin, for display in the UI</li>
+
+<li>a localized name, for display in the UI</li>
+
+<li>the name of the Circuit <code>EClass</code></li>
+
+<li>the fully qualified name of the class that implements the
+<code>IEditHelper</code> for Circuits</li>
+
+<li>the kind of the <code>IElementTypeFactory</code> that is used
+to instantiate the Circuit element type</li>
+
+<li>the semanticHint parameter value. The semantic hint is used by
+the <code>LogicViewProvider</code> to determine if it provides a
+view for that kind of element.</li>
+</ul>
+
+<pre class="snippet">
 &lt;metamodelType
-      id=&quot;logic.circuit&quot;     
-      icon=&quot;icons/circuit16.gif&quot;
-      name=&quot;%CircuitTool.Label&quot;
-      eclass=&quot;Circuit&quot;
-      edithelper=&quot;org.eclipse.gmf.examples.runtime.diagram.logic.internal.edithelpers.CircuitEditHelper&quot; 
-      kind=&quot;org.eclipse.gmf.runtime.emf.core.internal.util.IHintedType&quot;&gt; 
-   &lt;param name=&quot;semanticHint&quot; value=&quot;circuit&quot;/&gt;
-&lt;/metamodelType&gt;</PRE>
-<P>The  Circuit type name  is localized in the plugin.properties
-file:</P>
-<PRE class="snippet">
-CircuitTool.Label = Circuit</PRE>
-<p>
-Next, we implement the edit helper for the Circuit element type. The <CODE>CircuitEditHelper</CODE>
-extends the edit helper for all ContainerElements, since the Circuit EClass extends the ContainerElement EClass. The<CODE> ContainerElementEditHelper</CODE>  defines behaviour common to all ContainerElements. The <CODE>CircuitEditHelper</CODE>
-extends this behaviour to configure a new Circuit with its eight terminals.</p>
-<pre class="snippet">public class CircuitEditHelper extends ContainerElementEditHelper {
+      id="logic.circuit"     
+      icon="icons/circuit16.gif"
+      name="%CircuitTool.Label"
+      eclass="Circuit"
+      edithelper="org.eclipse.gmf.examples.runtime.diagram.logic.internal.edithelpers.CircuitEditHelper" 
+      kind="org.eclipse.gmf.runtime.emf.core.internal.util.IHintedType"&gt; 
+   &lt;param name="semanticHint" value="circuit"/&gt;
+&lt;/metamodelType&gt;
+</pre>
+
+<p>The Circuit type name is localized in the plugin.properties
+file:</p>
+
+<pre class="snippet">
+CircuitTool.Label = Circuit
+</pre>
+
+<p>Next, we implement the edit helper for the Circuit element type.
+The <code>CircuitEditHelper</code> extends the edit helper for all
+ContainerElements, since the Circuit EClass extends the
+ContainerElement EClass. The
+<code>ContainerElementEditHelper</code> defines behaviour common to
+all ContainerElements. The <code>CircuitEditHelper</code> extends
+this behaviour to configure a new Circuit with its eight
+terminals.</p>
+
+<pre class="snippet">
+public class CircuitEditHelper extends ContainerElementEditHelper {
 
    /**
     * Gets a command to configure a circuit after it has been created.
@@ -133,55 +199,82 @@ extends this behaviour to configure a new Circuit with its eight terminals.</p>
 
             Circuit oCircuit = (Circuit) req.getElementToConfigure();
 
-            createInputOutputTerminal(oCircuit, &quot;A&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;B&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;C&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;D&quot;, progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "A", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "B", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "C", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "D", progressMonitor); //$NON-NLS-1$
 
-            createInputOutputTerminal(oCircuit, &quot;1&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;2&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;3&quot;, progressMonitor); //$NON-NLS-1$
-            createInputOutputTerminal(oCircuit, &quot;4&quot;, progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "1", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "2", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "3", progressMonitor); //$NON-NLS-1$
+            createInputOutputTerminal(oCircuit, "4", progressMonitor); //$NON-NLS-1$
 
             return newOKCommandResult(oCircuit);
          }
       };
    }
-}</pre><h2><a name="live"></a>Specifying a Specialization Type</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p>
+}
+</pre>
 
-<p>
-Creating a specialization type is very similar; the main differences are that
-</p>
+<h2><a id="live" name="live"></a>Specifying a Specialization
+Type</h2>
+
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
+
+<p>Creating a specialization type is very similar; the main
+differences are that</p>
+
 <ul>
-  <li>it declares the element type that it specializes</li>
-	<LI>it has an edit helper advice that decorates the edit commands returned by the edit helper of the type it specializes</LI>
+<li>it declares the element type that it specializes</li>
+
+<li>it has an edit helper advice that decorates the edit commands
+returned by the edit helper of the type it specializes</li>
 </ul>
-<p>
-The following specialization type defines a half adder circuit.   The half adder is a digital logic circuit built from two logic gates that adds two one-bit binary numbers and produces two outputs: the sum and the carry. Add this into the same
-<code>&lt;metamodel&gt;</code> element as the previous metamodel type:
-</p>
+
+<p>The following specialization type defines a half adder circuit.
+The half adder is a digital logic circuit built from two logic
+gates that adds two one-bit binary numbers and produces two
+outputs: the sum and the carry. Add this into the same
+<code>&lt;metamodel&gt;</code> element as the previous metamodel
+type:</p>
+
 <pre class="snippet">
 &lt;specializationType
-      id=&quot;logic.halfAdder&quot;     
-      icon=&quot;icons/halfadder16.gif&quot;
-      name=&quot;%HalfAdderTool.Label&quot;
-      edithelperadvice=&quot;org.eclipse.gmf.examples.runtime.diagram.logic.internal.edithelpers.HalfAdderAdvice&quot;
-      kind=&quot;org.eclipse.gmf.runtime.emf.core.internal.util.IHintedType&quot;&gt; 
-   &lt;specializes id=&quot;logic.circuit&quot;/&gt;
-   &lt;param name=&quot;semanticHint&quot; value=&quot;circuit&quot;/&gt;
-&lt;/specializationType&gt;</pre>
-<p>
-And, of course, the localized string for the name:
-</p>
+      id="logic.halfAdder"     
+      icon="icons/halfadder16.gif"
+      name="%HalfAdderTool.Label"
+      edithelperadvice="org.eclipse.gmf.examples.runtime.diagram.logic.internal.edithelpers.HalfAdderAdvice"
+      kind="org.eclipse.gmf.runtime.emf.core.internal.util.IHintedType"&gt; 
+   &lt;specializes id="logic.circuit"/&gt;
+   &lt;param name="semanticHint" value="circuit"/&gt;
+&lt;/specializationType&gt;
+</pre>
+
+<p>And, of course, the localized string for the name:</p>
+
 <pre class="snippet">
-HalfAdderTool.Label: HalfAdder</pre>
+HalfAdderTool.Label: HalfAdder
+</pre>
 
-<P>The <CODE>HalfAdderAdvice</CODE> class is responsible for configuring a new circuit element to look like a half adder. The half adder has four terminals; two  for the 1-bit binary numbers that it adds (A and B), one for the sum of the two bits (1), and one for the carry (2). Inputs A and B are directed through an XOR gate to produce the sum bit, at the same time also being directed through an AND gate to produce the carry bit.</P>
-<P>Because the Circuit configuration provided by the <CODE>CircuitEditHelper </CODE>creates eight terminals and the half adder has only four terminals, it is easiest in this case configure our half adder by completely replacing the default configuration behaviour for Circuits. We replace the default configuration
-behaviour by setting the <CODE>REPLACE_DEFAULT_EDIT_COMMAND</CODE> to <CODE>TRUE</CODE>.</P>
+<p>The <code>HalfAdderAdvice</code> class is responsible for
+configuring a new circuit element to look like a half adder. The
+half adder has four terminals; two for the 1-bit binary numbers
+that it adds (A and B), one for the sum of the two bits (1), and
+one for the carry (2). Inputs A and B are directed through an XOR
+gate to produce the sum bit, at the same time also being directed
+through an AND gate to produce the carry bit.</p>
 
-<PRE class="snippet">public class HalfAdderAdvice extends AbstractEditHelperAdvice {
+<p>Because the Circuit configuration provided by the
+<code>CircuitEditHelper</code> creates eight terminals and the half
+adder has only four terminals, it is easiest in this case configure
+our half adder by completely replacing the default configuration
+behaviour for Circuits. We replace the default configuration
+behaviour by setting the <code>REPLACE_DEFAULT_EDIT_COMMAND</code>
+to <code>TRUE</code>.</p>
+
+<pre class="snippet">
+public class HalfAdderAdvice extends AbstractEditHelperAdvice {
 
    protected ICommand getBeforeConfigureCommand(final ConfigureRequest request) {
 
@@ -189,7 +282,7 @@ behaviour by setting the <CODE>REPLACE_DEFAULT_EDIT_COMMAND</CODE> to <CODE>TRUE
       // configuration.
       request.setParameter(IEditCommandRequest.REPLACE_DEFAULT_EDIT_COMMAND,
                            Boolean.TRUE);
-		
+        
       return new ConfigureLogicElementCommand(request,
                                SemanticPackage.eINSTANCE.getCircuit()) {
 
@@ -199,17 +292,17 @@ behaviour by setting the <CODE>REPLACE_DEFAULT_EDIT_COMMAND</CODE> to <CODE>TRUE
 
             // Input two 1-bit binary numbers
             InputOutputTerminal a = createInputOutputTerminal(
-                                          circuit, &quot;A&quot;, progressMonitor); //$NON-NLS-1$
+                                          circuit, "A", progressMonitor); //$NON-NLS-1$
             InputOutputTerminal b = createInputOutputTerminal(
-                                          circuit, &quot;B&quot;, progressMonitor); //$NON-NLS-1$
+                                          circuit, "B", progressMonitor); //$NON-NLS-1$
 
             // Sum of the the two bits
             InputOutputTerminal s = createInputOutputTerminal(
-                                          circuit, &quot;1&quot;, progressMonitor); //$NON-NLS-1$
+                                          circuit, "1", progressMonitor); //$NON-NLS-1$
 
             // Carry
             InputOutputTerminal c = createInputOutputTerminal(
-                                          circuit, &quot;2&quot;, progressMonitor); //$NON-NLS-1$
+                                          circuit, "2", progressMonitor); //$NON-NLS-1$
 
             // The half adder contains an XOR gate and an AND gate
             Gate xorGate = createGate(circuit, LogicSemanticType.XORGATE, progressMonitor);
@@ -237,45 +330,63 @@ behaviour by setting the <CODE>REPLACE_DEFAULT_EDIT_COMMAND</CODE> to <CODE>TRUE
          }
       };
    }
-}</PRE><h2><a name="eval"></a>Creating Model Elements</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p>
+}
+</pre>
 
-<p>
-To see these two new element types in action, we will create context menu items that will create Circuits and Half Adders. We contribute the context menu items to all <CODE>IGraphicalEditPart</CODE>s that adapt to <CODE>ContainerElement</CODE>, using the Eclipse <CODE>popupMenus</CODE> extension point:</p>
-<PRE class="snippet">&lt;extension
-         point=&quot;org.eclipse.ui.popupMenus&quot;&gt;
+<h2><a id="eval" name="eval"></a>Creating Model Elements</h2>
+
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
+
+<p>To see these two new element types in action, we will create
+context menu items that will create Circuits and Half Adders. We
+contribute the context menu items to all
+<code>IGraphicalEditPart</code>s that adapt to
+<code>ContainerElement</code>, using the Eclipse
+<code>popupMenus</code> extension point:</p>
+
+<pre class="snippet">
+&lt;extension
+         point="org.eclipse.ui.popupMenus"&gt;
    &lt;objectContribution
-         id=&quot;LogicContainerElementObjectContribution&quot;
-         objectClass=&quot;org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart&quot;&gt;
+         id="LogicContainerElementObjectContribution"
+         objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"&gt;
       &lt;enablement&gt;
-         &lt;adapt type=&quot;org.eclipse.emf.ecore.EObject&quot;&gt;
-            &lt;instanceof value=&quot;ContainerElement&quot;/&gt;
+         &lt;adapt type="org.eclipse.emf.ecore.EObject"&gt;
+            &lt;instanceof value="ContainerElement"/&gt;
          &lt;/adapt&gt;
       &lt;/enablement&gt;
       &lt;action
-            id=&quot;logic.circuit&quot;
-            label=&quot;%CreateCircuit.ActionLabel&quot;
-            icon=&quot;icons/circuit16.gif&quot;
-            menubarPath=&quot;addGroup&quot;
-            class=&quot;org.eclipse.gmf.examples.runtime.diagram.logic.internal.actions.CreateLogicElementActionDelegate&quot;
-            enablesFor=&quot;1&quot;&gt;
+            id="logic.circuit"
+            label="%CreateCircuit.ActionLabel"
+            icon="icons/circuit16.gif"
+            menubarPath="addGroup"
+            class="org.eclipse.gmf.examples.runtime.diagram.logic.internal.actions.CreateLogicElementActionDelegate"
+            enablesFor="1"&gt;
       &lt;/action&gt;
       &lt;action
-            id=&quot;logic.halfAdder&quot;
-            label=&quot;%CreateHalfAdder.ActionLabel&quot;
-            icon=&quot;icons/halfadder16.gif&quot;
-            menubarPath=&quot;addGroup&quot;
-            class=&quot;org.eclipse.gmf.examples.runtime.diagram.logic.internal.actions.CreateLogicElementActionDelegate&quot;
-            enablesFor=&quot;1&quot;&gt;
+            id="logic.halfAdder"
+            label="%CreateHalfAdder.ActionLabel"
+            icon="icons/halfadder16.gif"
+            menubarPath="addGroup"
+            class="org.eclipse.gmf.examples.runtime.diagram.logic.internal.actions.CreateLogicElementActionDelegate"
+            enablesFor="1"&gt;
       &lt;/action&gt;
    &lt;/viewerContribution&gt;
-&lt;/extension&gt;</PRE>
+&lt;/extension&gt;
+</pre>
 
+<p>The ID of each action corresponds to the ID of the element type
+that the action will create. This way, we can use a single action
+delegate to create any kind of logic element.</p>
 
-<P>The ID of each action corresponds to the ID of the element type that the action will create. This way, we can use a single action delegate to create any kind of logic element.</P>
-<P>Next, we implement the <CODE>CreateLogicElementActionDelegate</CODE>. It obtains a command to create a new logic element from the selected edit part:</P>
-<PRE class="snippet">public class CreateLogicElementActionDelegate extends AbstractActionDelegate
-		implements IObjectActionDelegate {
+<p>Next, we implement the
+<code>CreateLogicElementActionDelegate</code>. It obtains a command
+to create a new logic element from the selected edit part:</p>
+
+<pre class="snippet">
+public class CreateLogicElementActionDelegate extends AbstractActionDelegate
+        implements IObjectActionDelegate {
 
    protected void doRun(IProgressMonitor progressMonitor) {
 
@@ -285,9 +396,9 @@ To see these two new element types in action, we will create context menu items 
 
       if (elementType == null) {
          // Problem in the Action contribution XML
-         throw new IllegalArgumentException(&quot;Action id '&quot; //$NON-NLS-1$
+         throw new IllegalArgumentException("Action id '" //$NON-NLS-1$
                                             + actionId
-                          + &quot;' does not correspond to an existing element type ID.&quot;); //$NON-NLS-1$
+                          + "' does not correspond to an existing element type ID."); //$NON-NLS-1$
       }
 
       // Get the selected edit part
@@ -296,8 +407,8 @@ To see these two new element types in action, we will create context menu items 
 
       if (!(selection instanceof IGraphicalEditPart)) {
          // Action enablement criteria expected to prevent this
-         throw new IllegalArgumentException(&quot;Selected element '&quot; //$NON-NLS-1$
-                          + selection + &quot;' is not an IGraphicalEditPart.&quot;); //$NON-NLS-1$
+         throw new IllegalArgumentException("Selected element '" //$NON-NLS-1$
+                          + selection + "' is not an IGraphicalEditPart."); //$NON-NLS-1$
       }
 
       IGraphicalEditPart container = (IGraphicalEditPart) selection;
@@ -311,8 +422,8 @@ To see these two new element types in action, we will create context menu items 
 
       if (command == null || !(command.canExecute())) {
          // Action enablement criteria expected to prevent this
-         throw new IllegalArgumentException(&quot;Command for '&quot; //$NON-NLS-1$
-                          + actionId + &quot;' is not executable.&quot;); //$NON-NLS-1$
+         throw new IllegalArgumentException("Command for '" //$NON-NLS-1$
+                          + actionId + "' is not executable."); //$NON-NLS-1$
       }
 
       // Create the new element
@@ -320,24 +431,35 @@ To see these two new element types in action, we will create context menu items 
                                                   .getDiagramCommandStack();
       commandStack.execute(command);
    }
-}</PRE>
+}
+</pre>
 
-<h2><a name="summary"></a>Summary</h2>
-<p class="backto"><font size="-1">[<a href="#top">back to top</a>]</font></p>
+<h2><a id="summary" name="summary"></a>Summary</h2>
 
-<p>
-To illustrate how to implement editing behaviour in using the GMF Extensible Type Registry, we
-</p>
+<p class="backto"><font size="-1">[<a href="#top">back to
+top</a>]</font></p>
+
+<p>To illustrate how to implement editing behaviour in using the
+GMF Extensible Type Registry, we</p>
+
 <ol>
-  <li>Created a metamodel type and its edit helper.</li>
-  <li>Created a specialization type and its edit helper advice.</li>
-  <li>Added context menu items to create these element types from the  diagram.</li>
+<li>Created a metamodel type and its edit helper.</li>
+
+<li>Created a specialization type and its edit helper advice.</li>
+
+<li>Added context menu items to create these element types from the
+diagram.</li>
 </ol>
 
-<br/>
-<br/>
-<hr/>
-<P><a href="http://www.eclipse.org/legal/epl-v10.html">
-Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a></P>
+<br />
+<br />
+<hr />
+<p><a href="http://www.eclipse.org/legal/epl-v10.html">Copyright
+(c) 2000,2005 IBM Corporation and others. All Rights
+Reserved.</a></p>
 
+<br />
+<br />
+</body>
 </html>
+

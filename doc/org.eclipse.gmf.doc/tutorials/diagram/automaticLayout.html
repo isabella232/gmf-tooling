@@ -1,501 +1,196 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:w="urn:schemas-microsoft-com:office:word"
-xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
-xmlns="http://www.w3.org/TR/REC-html40">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
-<meta name=ProgId content=Word.Document>
-<meta name=Generator content="Microsoft Word 10">
-<meta name=Originator content="Microsoft Word 10">
-<link rel=File-List href="Tutorial_files/filelist.xml">
-<link rel=Edit-Time-Data href="Tutorial_files/editdata.mso">
-<!--[if !mso]>
-<style>
-v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style>
-<![endif]-->
-<title>Tutorial: Automatic Layout</title>
-<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
- name="City"/>
-<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
- name="place"/>
-<!--[if gte mso 9]><xml>
- <o:DocumentProperties>
-  <o:Author>jcorchis</o:Author>
-  <o:LastAuthor>jcorchis</o:LastAuthor>
-  <o:Revision>7</o:Revision>
-  <o:TotalTime>111</o:TotalTime>
-  <o:Created>2005-04-21T14:33:00Z</o:Created>
-  <o:LastSaved>2005-04-21T18:18:00Z</o:LastSaved>
-  <o:Pages>1</o:Pages>
-  <o:Words>636</o:Words>
-  <o:Characters>3627</o:Characters>
-  <o:Company>Rational Software</o:Company>
-  <o:Lines>30</o:Lines>
-  <o:Paragraphs>8</o:Paragraphs>
-  <o:CharactersWithSpaces>4255</o:CharactersWithSpaces>
-  <o:Version>10.6735</o:Version>
- </o:DocumentProperties>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <w:WordDocument>
-  <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
-  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
- </w:WordDocument>
-</xml><![endif]--><!--[if !mso]><object
- classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
-<style>
-st1\:*{behavior:url(#ieooui) }
-</style>
-<![endif]-->
-<link rel=Stylesheet type="text/css" media=all href=technote.css>
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;
-	mso-font-charset:2;
-	mso-generic-font-family:auto;
-	mso-font-pitch:variable;
-	mso-font-signature:0 268435456 0 0 -2147483648 0;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{mso-style-parent:"";
-	margin:0in;
-	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	mso-fareast-font-family:"Times New Roman";}
-h1
-	{mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:1;
-	font-size:24.0pt;
-	font-family:"Times New Roman";
-	font-weight:bold;}
-h2
-	{mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:2;
-	font-size:18.0pt;
-	font-family:"Times New Roman";
-	font-weight:bold;}
-h3
-	{mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:3;
-	font-size:13.5pt;
-	font-style:italic;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;
-	text-underline:single;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:blue;
-	text-decoration:underline;
-	text-underline:single;}
-p
-	{mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	mso-fareast-font-family:"Times New Roman";}
-code
-	{font-family:"Courier New";
-	mso-ascii-font-family:"Courier New";
-	mso-fareast-font-family:"Times New Roman";
-	mso-hansi-font-family:"Courier New";
-	mso-bidi-font-family:"Courier New";}
-pre
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:24.0pt;
-	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
-	font-size:10.0pt;
-	font-family:"Courier New";
-	mso-fareast-font-family:"Times New Roman";}
-p.notabene, li.notabene, div.notabene
-	{mso-style-name:notabene;
-	mso-margin-top-alt:auto;
-	margin-right:48.0pt;
-	mso-margin-bottom-alt:auto;
-	margin-left:48.0pt;
-	mso-pagination:widow-orphan;
-	border:none;
-	mso-border-top-alt:solid windowtext .75pt;
-	mso-border-bottom-alt:solid windowtext .75pt;
-	padding:0in;
-	mso-padding-alt:4.0pt 0in 4.0pt 0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	mso-fareast-font-family:"Times New Roman";}
-p.question, li.question, div.question
-	{mso-style-name:question;
-	mso-margin-top-alt:auto;
-	margin-right:48.0pt;
-	mso-margin-bottom-alt:auto;
-	margin-left:48.0pt;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	mso-fareast-font-family:"Times New Roman";
-	font-style:italic;}
-p.backto, li.backto, div.backto
-	{mso-style-name:backto;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	mso-fareast-font-family:"Times New Roman";}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
-@page Section1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;
-	mso-header-margin:35.4pt;
-	mso-footer-margin:35.4pt;
-	mso-paper-source:0;}
-div.Section1
-	{page:Section1;}
- /* List Definitions */
- @list l0
-	{mso-list-id:1754820217;
-	mso-list-template-ids:-806848416;}
-@list l0:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
--->
-</style>
-<!--[if gte mso 10]>
-<style>
- /* Style Definitions */
- table.MsoNormalTable
-	{mso-style-name:"Table Normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-parent:"";
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-para-margin:0in;
-	mso-para-margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;}
-</style>
-<![endif]-->
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title></title>
 </head>
+<body>
+<p><img src="../../logo.gif" /></p>
 
-<body lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+<h1>Tutorial: Modifying a container to support automatic
+layout</h1>
 
-<div class=Section1>
-
-<p class=MsoNormal><img id="_x0000_i1025"
-src="../../logo.gif"></p>
-
-<h1 align=center style='text-align:center'>Tutorial: Modifying a container to support automatic layout</h1>
-
-<table class=MsoNormalTable border=0 cellspacing=8 cellpadding=0
- style='mso-cellspacing:6.0pt;margin-left:24.0pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-lastrow:yes'>
-  <td style='padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal>Version: 0.1</p>
-  </td>
-  <td style='padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal>Date: August 11, 2005</p>
-  </td>
- </tr>
+<table border="0">
+<tr>
+<td>
+<p>Version: 0.1</p>
+</td>
+<td>
+<p>Date: August 11, 2005</p>
+</td>
+</tr>
 </table>
 
 <h2>Contents</h2>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><a
-href="#_Overview">Overview</a></p>
+<p>&middot; <a href="#_Overview">Overview</a></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><a
-href="#_References">References</a></p>
+<p>&middot; <a href="#_References">References</a></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><a
-href="#_Introduction">Introduction</a><BR>
-<![if !supportLists]><SPAN
-	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
-	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
-	href="#automaticLayout">Modifying a container to support automatic
-layout</A>
-</p><p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><a
-	href="#summary">Summary</a></p>
+<p>&middot; <a href="#_Introduction">Introduction</a><br />
+ &middot; <a href="#automaticLayout">Modifying a container to
+support automatic layout</a></p>
 
-<div class=MsoNormal align=center style='text-align:center'>
+<p>&middot; <a href="#summary">Summary</a></p>
 
-<hr size=2 width="100%" align=center></div>
+<h2><a id="_Overview" name="_Overview"></a>Overview</h2>
 
-<h2><a name="_Overview"></a>Overview</h2>
+<p>[<a href="#top">back to top</a>]</p>
 
-<p class=backto><span style='font-size:10.0pt'>[<a href="#top"><span
-class=GramE>back</span> to top</a>]</span></p>
+<p>This tutorial provides the reader with the steps to initializing
+a container that can automatically layout it's children accordingly
+to a specific hseuristic.</p>
 
-<p>This tutorial provides the reader with the steps to initializing a container that can automatically layout it's children accordingly to a specific hseuristic. </p>
+<h2><a id="_References" name="_References"></a>References</h2>
 
-<h2><a name="_References"></a>References</h2>
+<p>[<a href="#top">back to top</a>]</p>
 
-<p class=backto><span style='font-size:10.0pt'>[<a href="#top"><span
-class=GramE>back</span> to top</a>]</span></p><p>
+<p>This tutorial references the following tutoral:<br />
+<br />
+ <a href="createShape.html">Create a shape</a></p>
 
-This tutorial references the following tutoral:<BR>
-<BR>
-<A href="createShape.html">Create a shape</A>
-</p>
+<h2><a id="_Introduction"
+name="_Introduction"></a>Introduction</h2>
 
-<h2><a name="_Introduction"></a>Introduction</h2>
+<p>[<a href="#top">back to top</a>]</p>
 
-<p class=backto><span style='font-size:10.0pt'>[<a href="#top"><span
-class=GramE>back</span> to top</a>]</span></p>
+<p>In this tutorial, we will use the Logic Diagram Example to
+illustrate how to initialize the logic flow container to layout
+it's children by utilizing a flow layout. To gain familiarity with
+the Logic Diagram Example, refer to the <a
+href="../../examples-guide/diagram/logicExample.htm">Logic Example
+Guide</a>.</p>
 
-<p>In this tutorial, we will use the Logic Diagram Example to illustrate how to initialize the logic flow container to layout it's children by utilizing a flow layout. To gain familiarity with the Logic Diagram Example, refer to the <A
-	href="../../examples-guide/diagram/logicExample.htm">Logic Example
-Guide</A>. </p>
-<H2><A name="automaticLayout">Modifying a container to support automatic
-layout</A><BR>
-<SPAN style="font-size:10.0pt">[<A href="#top"><SPAN class="GramE">back</SPAN>
-to top</A>]</SPAN>
-</H2>
+<h2><a id="automaticLayout" name="automaticLayout">Modifying a
+container to support automatic layout</a><br />
+ [<a href="#top">back to top</a>]</h2>
 
-<P class="MsoNormal" style="margin-left:.5in">Layout is usually managed
-by the user through explicit movement of diagram shapes inside the
-container.<SPAN style="mso-spacerun:yes">  </SPAN>Sometimes, it is more
-convenient to have a managed layout that automatically places shapes
-based on an algorithm.<SPAN style="mso-spacerun:yes">  </SPAN>In the
-Logic example, the Flow container shape is an example of this.<SPAN
-	style="mso-spacerun:yes">  </SPAN>Logic elements placed inside the flow
-container are automatically positioned relative to the other elements.<SPAN
-	style="mso-spacerun:yes">  </SPAN>To do this we need to override some
-default behavior that container shapes in exhibit.</P>
+<p>Layout is usually managed by the user through explicit movement
+of diagram shapes inside the container.&nbsp; Sometimes, it is more
+convenient to have a managed layout that automatically places
+shapes based on an algorithm.&nbsp; In the Logic example, the Flow
+container shape is an example of this.&nbsp; Logic elements placed
+inside the flow container are automatically positioned relative to
+the other elements.&nbsp; To do this we need to override some
+default behavior that container shapes in exhibit.</p>
 
-<P class="MsoNormal" style="margin-left:.5in"></P>
+<h3><a id="_Toc104273264" name="_Toc104273264">Example: Flow
+Container Shape displaying automatic layout containment</a><br />
+ <img width="236" height="188" src="flowContainer.gif" /><br />
+</h3>
 
-<H3><A name="_Toc104273264">Example:
-Flow Container Shape displaying automatic layout containment</A><BR>
-<IMG border="0" width="236" height="188" src="flowContainer.gif"
-	v:shapes="_x0000_i1032">
-<BR>
-</H3>
-<P>By default the XYLayoutEditPolicy is installed on a shape container
-that allows for specific placement of elements with-in the container.<SPAN
-	style="mso-spacerun:yes">  </SPAN>If you wish to have a more managed
-layout that automatically positions elements, then a different layout
-edit policy would need to be installed.<SPAN style="mso-spacerun:yes"> 
-</SPAN>In this example, we are interested in installed a directed flow
-layout such that the elements positions are automatically placed in a
-flow chart like manner.</P>
-<P class="MsoNormal" style="margin-left:.5in"><o:p>&nbsp;</o:p></P>
+<p>By default the XYLayoutEditPolicy is installed on a shape
+container that allows for specific placement of elements with-in
+the container.&nbsp; If you wish to have a more managed layout that
+automatically positions elements, then a different layout edit
+policy would need to be installed.&nbsp; In this example, we are
+interested in installed a directed flow layout such that the
+elements positions are automatically placed in a flow chart like
+manner.</p>
 
-<H3><A name="_Toc104273265">Add
-entries to the contribution for the palette provider for the flow
-container shape</A></H3>
+<h3><a id="_Toc104273265" name="_Toc104273265">Add entries to the
+contribution for the palette provider for the flow container
+shape</a></h3>
 
-<P class="MsoNormal" style="margin-left:.5in">See<A
-	href="createShape.html#palette"> <A href="createShape.html#palette">#Add
-entries to the contribution for the palette provider.</A></A></P>
+<p>See <a href="createShape.html#palette"><a
+href="createShape.html#palette">#Add entries to the contribution
+for the palette provider.</a></a></p>
 
-<P class="MsoNormal" style="margin-left:.5in"></P><P class="MsoNormal" style="margin-left:.5in"></P>
+<h3><a id="_Toc104273267" name="_Toc104273267">Add new View
+provider entry for the flow container shape</a></h3>
 
-<H3><A name="_Toc104273267">Add
-new View provider entry for the flow container shape</A></H3>
+<p>This is very similar to the Circuit shape view provider in that
+a sub-container view is created to contain the children.</p>
 
-<P class="MsoNormal" style="margin-left:.5in">This is very similar to
-the Circuit shape view provider in that a sub-container view is created
-to contain the children.</P>
+<p>See <a href="createShape.html#notation">#Add new View provider
+entry for the Circuit shape</a></p>
 
-<P class="MsoNormal" style="margin-left:.5in">See <A
-	href="createShape.html#notation">#Add new View provider entry for the
-Circuit shape</A></P>
+<h3><a id="_Toc104273268" name="_Toc104273268">Add new EditPart
+provider entry for the flow container shape</a></h3>
 
-<P class="MsoNormal" style="margin-left:.5in"></P>
+<p>A custom EditPart is necessary to handle the unique
+functionality of the Logic Flow container (See <a
+href="createShape.html#editpart">#Add new EditPart provider
+entry</a>). Since the layout of the children is handled uniquely
+(i.e. managed), a new layout EditPolicy needs to be installed on
+the container compartment.&nbsp; This EditPolicy is called the
+?LogicFlowEditPolicy? and it will automatically layout the shapes
+in a grid fashion. LogicFlowEditPolicy? is needed since flow
+container uses ?FlowLayout? to arrange components. Make
+?LogicFlowEditPolicy? inherit from
+?FlowLayoutEditPolicy?.&nbsp;</p>
 
-<H3><A name="_Toc104273268">Add
-new EditPart provider entry for the flow container shape</A></H3>
+<p>The ?LogicFlowCompartmentEditPart? inherits from
+?ListCompartmentEditPart? instead of ?ShapeCompartmentEditPart?.
+The reason is that the latter assumes that the layout is going to
+be manipulated by the user (i.e. XYLayoutEditPolicy) instead of
+managed by the container.&nbsp; ?ListCompartmentEditPart? is
+lightweight and doesn?t make any such assumptions. In the
+?LogicFlowCompartmentEditPart, the ?createFigure? method was
+overridden to allow automatic positioning of the children properly
+by setting the layout manager as ?FlowLayout?.&nbsp; It was also
+necessary to overwrite the abstract method
+?hasModelChildrenChanged? from ListCompartmentEditPart in
+?LogicFlowCompartmentEditPart? since there is no canonical
+reflection of the underlying semantic elements inside the
+container.</p>
 
-<P class="MsoNormal" style="margin-left:.5in">A custom EditPart is
-necessary to handle the unique functionality of the Logic Flow container
-(See <A href="createShape.html#editpart">#Add new EditPart provider
-entry</A>). Since the layout of the children is handled
-uniquely (i.e. managed), a new layout EditPolicy needs to be installed
-on the container compartment.<SPAN style="mso-spacerun:yes">  </SPAN>This
-EditPolicy is called the ?LogicFlowEditPolicy? and it <SPAN
-	class="GramE">will</SPAN> automatically layout the shapes in a grid
-fashion. LogicFlowEditPolicy? is needed since flow container uses
-?FlowLayout? to arrange components. Make ?LogicFlowEditPolicy? inherit
-from ?FlowLayoutEditPolicy?.<SPAN style="mso-spacerun:yes">  </SPAN></P>
+<p>In LogicFlowCompartmentEditPart:</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><o:p>&nbsp;</o:p></P>
+<p><i></i></p>
 
-<P class="MsoNormal" style="margin-left:.5in">The
-?LogicFlowCompartmentEditPart? inherits from ?ListCompartmentEditPart?
-instead of ?ShapeCompartmentEditPart?. The reason is that the latter
-assumes that the layout is going to be manipulated by the user (i.e.
-XYLayoutEditPolicy) instead of managed by the container.<SPAN
-	style="mso-spacerun:yes">  </SPAN>?ListCompartmentEditPart? is
-lightweight and doesn?t make any such assumptions. <SPAN class="GramE">In
-the ?LogicFlowCompartmentEditPart, the ?createFigure? method was
-overridden to allow automatic positioning of the children properly by
-setting the layout manager as ?FlowLayout?.</SPAN><SPAN
-	style="mso-spacerun:yes">  </SPAN>It was also necessary to overwrite
-the abstract method ?hasModelChildrenChanged? from
-ListCompartmentEditPart in ?LogicFlowCompartmentEditPart? since there is
-no canonical reflection of the underlying semantic elements inside the
-container.</P>
+<p>/**</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN style="color:black"><o:p>&nbsp;</o:p></SPAN></P>
+<p>&nbsp;* @see
+org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN style="color:black">In
-LogicFlowCompartmentEditPart:<o:p></o:p></SPAN></P>
+<p>&nbsp;*/</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><I
-	style="mso-bidi-font-style:normal"><SPAN style="color:black"><o:p>&nbsp;</o:p></SPAN></I></P>
+<p>public IFigure createFigure() {</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'>/**<o:p></o:p></SPAN></P>
+<p>ResizableCompartmentFigure rcf = (ResizableCompartmentFigure)
+super.createFigure();</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-spacerun:yes"> </SPAN>* @see
-org.eclipse.gef.editparts.AbstractGraphicalEditPart#<SPAN class="GramE">createFigure()</SPAN><o:p></o:p></SPAN></P>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FlowLayout layout = new
+FlowLayout();</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-spacerun:yes"> </SPAN>*/<o:p></o:p></SPAN></P>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+layout.setMajorSpacing(MapMode.DPtoLP(5));</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN class="GramE"><SPAN
-	style='font-size:8.0pt;font-family:"Courier New"'>public</SPAN></SPAN><SPAN
-	style='font-size:8.0pt;font-family:"Courier New"'> IFigure
-createFigure() {<o:p></o:p></SPAN></P>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+layout.setMinorSpacing(MapMode.DPtoLP(5));</p>
 
-<P class="MsoNormal" style="margin-left:1.0in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'>ResizableCompartmentFigure
-rcf = (ResizableCompartmentFigure) <SPAN class="GramE">super.createFigure(</SPAN>);<o:p></o:p></SPAN></P>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rcf.getContentPane().setLayoutManager(layout);</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-tab-count:1">       </SPAN>FlowLayout layout = new <SPAN
-	class="GramE">FlowLayout(</SPAN>);<o:p></o:p></SPAN></P>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return rcf;</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-tab-count:1">       </SPAN><SPAN class="GramE">layout.setMajorSpacing(</SPAN>MapMode.DPtoLP(5));<o:p></o:p></SPAN></P>
+<p>}</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-tab-count:1">       </SPAN><SPAN class="GramE">layout.setMinorSpacing(</SPAN>MapMode.DPtoLP(5));<o:p></o:p></SPAN></P>
+<h3><a id="_Toc104273269" name="_Toc104273269">Example Logic Flow
+Container structure:</a><br />
+ <img width="623" height="614" src="flowStructure.gif" /></h3>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-tab-count:1">       </SPAN><SPAN class="GramE">rcf.getContentPane(</SPAN>).setLayoutManager(layout);<o:p></o:p></SPAN></P>
+<h2><a id="summary" name="summary">Summary</a></h2>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'><SPAN
-	style="mso-tab-count:1">       </SPAN><SPAN class="GramE">return</SPAN>
-rcf;<o:p></o:p></SPAN></P>
+<p>[<a href="#top">back to top</a>]</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><SPAN
-	style='font-size:8.0pt;
-font-family:"Courier New"'>}<o:p></o:p></SPAN></P>
+<p>In this tutorial, we did the following:</p>
 
-<P class="MsoNormal" style="margin-left:.5in"><o:p>&nbsp;</o:p></P>
+<ol>
+<li>Initialized the flow container class to support a custom layout
+type that automatically laid-out it's children.</li>
+</ol>
 
-<P class="MsoNormal" style="margin-left:.5in"><o:p>&nbsp;</o:p></P>
+<br />
+<br />
+<p><a href="http://www.eclipse.org/legal/epl-v10.html">Copyright
+(c) 2000,2005 IBM Corporation and others. All Rights
+Reserved.</a></p>
 
-<H3><A name="_Toc104273269">Example
-Logic Flow Container structure:</A><BR>
-<IMG border="0" width="623" height="614" src="flowStructure.gif"
-	v:shapes="_x0000_i1033">
-</H3><P class="MsoNormal"></P>
-
-<P class="MsoNormal"></P><div class=MsoNormal align=center style='text-align:center'>
-
-<hr size=2 width="100%" align=center>
-
-</div>
-
-<h2><A name="summary">Summary</A></h2>
-
-<p><span style='font-size:10.0pt'>[<a href="#top"><span class=GramE>back</span>
-to top</a>]</span></p>
-
-<P>In this tutorial, we did the following:</P>
-<OL>
-	<LI>Initialized the flow container class to support a custom layout type that automatically laid-out it's children.</LI></OL>
-
-
-<br/>
-<br/>
-<hr/>
-<P><a href="http://www.eclipse.org/legal/epl-v10.html">
-Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a></P>
-	
-</div>
-
+<br />
+ <br />
 </body>
-
 </html>
+

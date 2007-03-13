@@ -1,9 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<TITLE>Developer's Guide to the Extensible Type Registry</TITLE>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Developer's Guide to the Extensible Type Registry</title>
+<script language="JavaScript" type="text/javascript">
 <!--
 if (navigator.userAgent.toLowerCase().indexOf('microsoft') >= 0) {
     document.write('<LINK rel="stylesheet" href="./styles/technote-ie.css" type="text/css">')
@@ -11,7 +11,7 @@ if (navigator.userAgent.toLowerCase().indexOf('microsoft') >= 0) {
     document.write('<LINK rel="stylesheet" href="./styles/technote.css" type="text/css">')
 }
 // -->
-</SCRIPT>
+</script>
 <style type="text/css" media="screen">
     <!-- @import url("./styles/menuExpandable.css"); -->
 </style>
@@ -54,26 +54,24 @@ if (navigator.userAgent.toLowerCase().indexOf('microsoft') >= 0) {
     }
 //-->
 </script>
-</HEAD>
+</head>
 
-<BODY>
-<A name="top"></A><IMG border="0" src="./icons/gmf_header.gif" width="347" height="134">
-<H1 align="center">Developer's Guide to the Extensible Type Registry</H1>
+<body>
+<a name="top"></a><img border="0" src="./icons/gmf_header.gif" width="347" height="134" />
+<h1 align="center">Developer's Guide to the Extensible Type Registry</h1>
 
-<H2>Contents</H2>
-Items marked with <img src="./icons/plus.gif"/> expand when selected.
-<UL>
-    <LI class="menuitem"><A href="#intro">Introduction</A></LI>
-    <LI class="menuitem"><A href="#ext_points">Extension Points and API</A></LI>
-    <LI class="menuitem"><A href="#concepts">Concepts</A></LI>
-    <LI class="menuitem"><A href="#use">Use of the Extensible Type Registry in GMF</A></LI>
+<h2>Contents</h2>
+Items marked with <img src="./icons/plus.gif" /> expand when selected.
+<ul>
+    <li class="menuitem"><a href="#intro">Introduction</a></li>
+    <li class="menuitem"><a href="#ext_points">Extension Points and API</a></li>
+    <li class="menuitem"><a href="#concepts">Concepts</a></li>
+    <li class="menuitem"><a href="#use">Use of the Extensible Type Registry in GMF</a></li>
     <li class="menubar">
-        <a href="#" id="examplesActuator"
-           class="actuator">Examples</a>
+        <a href="#" id="examplesActuator" class="actuator">Examples</a>
         <ul id="examplesMenu" class="menu">
           <li><a href="#examples">Overview</a></li>
-          <li><a href="#" id="ex_txActuator"
-            class="actuator">Code Examples</a>
+          <li><a href="#" id="ex_txActuator" class="actuator">Code Examples</a>
             <ul id="ex_txMenu" class="submenu">
               <li><a href="#ex_define">Defining an Element Type</a></li>
               <li><a href="#ex_bind">Binding Advice to an Existing Element Type</a></li>
@@ -84,34 +82,33 @@ Items marked with <img src="./icons/plus.gif"/> expand when selected.
               <li><a href="#ex_registry">Using the Element Type Registry</a></li>
             </ul></li>
         </ul></li>
-    <LI class="menuitem"><A href="#models">Design/Code/Interaction Models</A></LI>
-</UL>
-<HR>
-<H2><A name="intro"></A>Introduction</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<P>The Eclipse GMF project uses  EMF to build its structured data model. EMF defines a framework that allows users to create, modify and destroy model elements in an application. However, the metaclasses defined in an EMF Ecore metamodel are not always sufficient to build a full-featured graphical modeling application. As well, a third party may wish to extend the metamodel and provide specialized model elements in their application.  </P>
-<P>The Extensible Type Registry provides a way for GMF clients to define an
+    <li class="menuitem"><a href="#models">Design/Code/Interaction Models</a></li>
+</ul>
+<hr />
+<h2><a name="intro"></a>Introduction</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
+<p>The Eclipse GMF project uses  EMF to build its structured data model. EMF defines a framework that allows users to create, modify and destroy model elements in an application. However, the metaclasses defined in an EMF Ecore metamodel are not always sufficient to build a full-featured graphical modeling application. As well, a third party may wish to extend the metamodel and provide specialized model elements in their application.  </p>
+<p>The Extensible Type Registry provides a way for GMF clients to define an
 application-specific classification system based on, but alternative to,
-the metaclasses defined by an Ecore metamodel. It allows GMF clients to describe the domain elements in their application by:</P>
-<UL>
-	<LI>contributing icons and display names for EMF metamodel types and
-	specializations</LI>
-	<LI>defining reusable default editing behaviour for EMF metamodel types</LI>
-	<LI>defining additional behaviour for specializations </LI>
-	<LI>extending the default editing behaviour for metamodel types
-	and specializations defined by other plugins</LI>
-</UL>
-<P>For example, consider a metamodel for the digital logic domain. It contains the basic building blocks for digital logic circuits, such as metaclasses for circuit, AND gate, OR gate and XOR gate. An editor for digital logic diagrams will provide creation tools for these fundamental elements. It should also provide creation tools for some commonly used 'canned' circuits, such as those for a Half Adder or a Full Adder. The Half Adder and the Full Adder are Circuits that contain a specific arrangement of AND, OR and XOR gates. As such, the Half Adder and the Full Adder are element types that add deeper meaning to the Circuit EClass with a specific arrangement of child gates. The editor will need to prevent the deletion of the individual AND, OR and XOR gates contained in a Half Adder or a Full Adder, because deleting them would change the function of the circuit. The Half and Full Adder types and their edit behaviour are defined in the extensible element type registry.</P>
-<P>Element types can also be used by visual editing tools to set the values of existing elements in a model.</P>
-<P>For example, consider the metamodel for the library domain. It contains, among other things, Writers that have a feature referencing the Books they have written. An editor for library diagrams may provide a drawing tool to connect a Writer to a Book, which means that the Writer is the author of that Book. This drawing tool creates the 'Writes' relationship between a Writer and a Book by adding the Book to the books feature of the Writer. This 'Writes' relationship can be expressed as an element type.</P>
-<P>This document describes the concepts behind the  Extensible Type Registy and outlines how it is used in other parts of GMF. It includes code examples illustrating how to implement some of the key concepts as well as an overview of the registry design.</P><HR>
-<H2><A name="ext_points"></A>Extension Points and API</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+the metaclasses defined by an Ecore metamodel. It allows GMF clients to describe the domain elements in their application by:</p>
+<ul>
+	<li>contributing icons and display names for EMF metamodel types and
+	specializations</li>
+	<li>defining reusable default editing behaviour for EMF metamodel types</li>
+	<li>defining additional behaviour for specializations </li>
+	<li>extending the default editing behaviour for metamodel types
+	and specializations defined by other plugins</li>
+</ul>
+<p>For example, consider a metamodel for the digital logic domain. It contains the basic building blocks for digital logic circuits, such as metaclasses for circuit, AND gate, OR gate and XOR gate. An editor for digital logic diagrams will provide creation tools for these fundamental elements. It should also provide creation tools for some commonly used 'canned' circuits, such as those for a Half Adder or a Full Adder. The Half Adder and the Full Adder are Circuits that contain a specific arrangement of AND, OR and XOR gates. As such, the Half Adder and the Full Adder are element types that add deeper meaning to the Circuit EClass with a specific arrangement of child gates. The editor will need to prevent the deletion of the individual AND, OR and XOR gates contained in a Half Adder or a Full Adder, because deleting them would change the function of the circuit. The Half and Full Adder types and their edit behaviour are defined in the extensible element type registry.</p>
+<p>Element types can also be used by visual editing tools to set the values of existing elements in a model.</p>
+<p>For example, consider the metamodel for the library domain. It contains, among other things, Writers that have a feature referencing the Books they have written. An editor for library diagrams may provide a drawing tool to connect a Writer to a Book, which means that the Writer is the author of that Book. This drawing tool creates the 'Writes' relationship between a Writer and a Book by adding the Book to the books feature of the Writer. This 'Writes' relationship can be expressed as an element type.</p>
+<p>This document describes the concepts behind the  Extensible Type Registy and outlines how it is used in other parts of GMF. It includes code examples illustrating how to implement some of the key concepts as well as an overview of the registry design.</p><hr />
+<h2><a name="ext_points"></a>Extension Points and API</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
 The extensible type registry defines the following extension points:
 <ul>
 	<li><a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html">org.eclipse.gmf.runtime.emf.type.core.elementTypes</a></li>
-	<li><a
-		href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html">org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings</a></li>
+	<li><a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html">org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings</a></li>
 </ul>
 The extensible type registry API is defined in the following packages:
 <ul>
@@ -122,94 +119,91 @@ The extensible type registry API is defined in the following packages:
 	<li><a href="../../../reference/api/common/org/eclipse/gmf/runtime/emf/type/ui/package-summary.html">org.eclipse.gmf.runtime.emf.type.ui</a></li>
 </ul>
 
-<H2><A name="concepts"></A>Concepts</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<H3>Element Types</H3>
-<P></P>
-<P></P>
-<P>The domain-specific concepts that can be displayed, created, modified and
+<h2><a name="concepts"></a>Concepts</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
+<h3>Element Types</h3>
+<p></p>
+<p></p>
+<p>The domain-specific concepts that can be displayed, created, modified and
 destroyed as logical elements in a GMF application are described using
 element types. Each element type defines how model objects that match
 its type are to be displayed (by icon and display name), as well as how
 they are to be created, modified and deleted (by an edit helper and edit
-helper advice).</P>
-<P>There are two kinds of element types: <I>metamodel</I>
-types and <I>specialization</I> types.</P>
-<P>A <I>metamodel</I> type corresponds directly with an EClass in the
+helper advice).</p>
+<p>There are two kinds of element types: <i>metamodel</i>
+types and <i>specialization</i> types.</p>
+<p>A <i>metamodel</i> type corresponds directly with an EClass in the
 domain's EMF model, with no futher qualifications. It is not permitted
-to define more than <I></I>one metamodel type for <I></I>a single
+to define more than <i></i>one metamodel type for <i></i>a single
 EClass in a given client context. All model objects with the same EClass and client context have the same metamodel
 type. The metamodel type defines the editing behaviour for these
-matching model objects in its <I>edit helper</I>. By defining a metamodel type for an EClass, the application-specific editing behaviour for that type of element can be defined, and third parties can extend the editing behaviour. An icon and display name other than those defined in the Ecore model can also be associated with this type of element.</P>
-<P><I>Specialization</I> types can extend a single metamodel type or any
+matching model objects in its <i>edit helper</i>. By defining a metamodel type for an EClass, the application-specific editing behaviour for that type of element can be defined, and third parties can extend the editing behaviour. An icon and display name other than those defined in the Ecore model can also be associated with this type of element.</p>
+<p><i>Specialization</i> types can extend a single metamodel type or any
 number of other specialization types. The purpose of a specialization type is to define bind points for advice, icons and display names for new classifications of model objects. It is not permitted to define a
 specialization type that specializes (directly or indirectly) more than
 a single metamodel type. All model objects matching the characteristics
 described by the specialization type as well as those described by the type
 it specializes will share the same specialization type. A specialization
 type can extend the editing behaviour of the element type that it
-specializes by its <I>edit helper advice</I>.</P><H3>Element Type Registry</H3>
-<P>A registry of element types is maintained in GMF and it provides the
-ability to find:</P>
-<UL>
-	<LI>element types by their unique identifiers</LI>
-	<LI>the element types that match an existing model object or its EClass</LI>
-	<LI>the edit helper advice that applies to an element type or an
-	existing model object</LI>
-	<LI>the element types that describe model objects which can be
-	contained in a given feature of a given container object</LI>
-</UL>
-<P>Static declarations of element types in the <A href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><CODE>elementTypes</CODE></A>
+specializes by its <i>edit helper advice</i>.</p><h3>Element Type Registry</h3>
+<p>A registry of element types is maintained in GMF and it provides the
+ability to find:</p>
+<ul>
+	<li>element types by their unique identifiers</li>
+	<li>the element types that match an existing model object or its EClass</li>
+	<li>the edit helper advice that applies to an element type or an
+	existing model object</li>
+	<li>the element types that describe model objects which can be
+	contained in a given feature of a given container object</li>
+</ul>
+<p>Static declarations of element types in the <a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><code>elementTypes</code></a>
 extension point are added automatically to this registry the first time
 the registry is used. Element types can also be registered dynamically,
 and interested parties can listen for notification of dynamic changes to
-the registry.<SPAN
-	style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol"><SPAN
-	style="mso-list:Ignore"><SPAN style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></SPAN></SPAN></P>
-<P>Only one metamodel type  matches a model object, but many specialization types can match the same object. Edit helper advice bound to all matching element types will be considered when editing the model object.</P>
-<H3>Element Type Factory</H3>
-<P>Default implementations of metamodel and specialization types are
-used to instantiate types registered through the <A href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><CODE>elementTypes</CODE></A>
+the registry. </p>
+<p>Only one metamodel type  matches a model object, but many specialization types can match the same object. Edit helper advice bound to all matching element types will be considered when editing the model object.</p>
+<h3>Element Type Factory</h3>
+<p>Default implementations of metamodel and specialization types are
+used to instantiate types registered through the <a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><code>elementTypes</code></a>
 extension point. If a custom element type implementation is required
 (e.g., if there are additional properties associated with an element
 type, or there is a need to replace the default editing behaviour), an
 element type factory can be declared to instantiate specific element
 types . The factory is identified by its 'kind', and element types that want to be created by this factory
-must specify its factory kind in their extension. Alternatively, custom element type implementations can be instantiated by a client and registered dynamically with the element type registry.</P>
-<H3>Edit Helpers</H3>
-<P>Editing behaviour for a metamodel type is defined in its <I>edit
-helper</I>. The edit helper is a factory for edit commands. These
+must specify its factory kind in their extension. Alternatively, custom element type implementations can be instantiated by a client and registered dynamically with the element type registry.</p>
+<h3>Edit Helpers</h3>
+<p>Editing behaviour for a metamodel type is defined in its <i>edit
+helper</i>. The edit helper is a factory for edit commands. These
 commands are instantiated in response to requests to edit a model object
 whose EClass matches the metamodel type. By default, the edit commands
 returned by an edit helper are decorated with commands from advice that
-matches the model object being edited.</P>
-<H3>Edit Helper Advice</H3>
-<P class="MsoBodyText">Editing behaviour for a specialization type is
-defined in its <I>edit helper advice</I>. The specialized behaviour
+matches the model object being edited.</p>
+<h3>Edit Helper Advice</h3>
+<p class="MsoBodyText">Editing behaviour for a specialization type is
+defined in its <i>edit helper advice</i>. The specialized behaviour
 decorates the default behaviour provided by the edit helper of the
 metamodel type that it specializes. When an edit is performed on a model
 object, advice from all of the specializations that match that object is
 contributed to the command. Advice can be contributed before or after
 the default behaviour. Note that there is no guarantee in which order
 advice commands will be applied relative to each other, except to say
-that all 'before' advice occurs before the basic edit and all  'after' advice occurs after the basic edit.</P><P class="MsoBodyText">Edit helper advice returns a null command when there is no advice to contribute. It returns an unexecutable command when it wishes to disable the editing gesture.</P>
-<P class="MsoBodyText">Edit helper advice belonging to a specialization
-type will also apply to all further specializations of that type. </P>
-<H3>Advice Bindings</H3>
-<P>Edit helper advice can be bound to any existing metamodel type or
+that all 'before' advice occurs before the basic edit and all  'after' advice occurs after the basic edit.</p><p class="MsoBodyText">Edit helper advice returns a null command when there is no advice to contribute. It returns an unexecutable command when it wishes to disable the editing gesture.</p>
+<p class="MsoBodyText">Edit helper advice belonging to a specialization
+type will also apply to all further specializations of that type. </p>
+<h3>Advice Bindings</h3>
+<p>Edit helper advice can be bound to any existing metamodel type or
 specialization type to extend the editing behaviour for model objects of
-its kind.</P>
-<P>The scope of an advice binding is an optional attribute specified in the binding XML (the attribute name is 'inheritance'). It can be one of the following:</P>
-<UL>
-	<LI>The advice will apply to the target element type, and to all
+its kind.</p>
+<p>The scope of an advice binding is an optional attribute specified in the binding XML (the attribute name is 'inheritance'). It can be one of the following:</p>
+<ul>
+	<li>The advice will apply to the target element type, and to all
 	metamodel types whose EClasses are subtypes of the target type, and to
-	all specializations of those metamodel types. For example, </LI>
-	<LI>The advice will apply only to the target element type and its
+	all specializations of those metamodel types. For example, </li>
+	<li>The advice will apply only to the target element type and its
 	specializations. It is not applied to related metamodel types or their
 	specializations.
-	</LI>
-</UL>
+	</li>
+</ul>
 <h3>Client Context</h3>
 <p>A client can define its own context and bind it to the element types and advice that it contributes to the element type registry. In this way, the contents of the element type registry are partitioned by  client context and two or more clients that work with the same metamodel can be co-deployed without interfering with each other's editing behaviour. </p>
 <p>The use of client contexts in the element type API is optional. A default client context is implicitly bound to any types and advice that are not explicity bound to a client context.</p>
@@ -220,15 +214,15 @@ is found to belong to more that one client context, only the element
 types and advice that are bound to <b>all</b> client contexts will be applied
 when editing that object. This means that when two clients are co-deployed that edit
 objects from the same metamodel, their element types must be integrated in such a way that  the editing behaviour from one context
-does not conflict with the editing behaviour from the other.</p><H3>Edit Requests</H3>
-<P>An edit request carries the information required to obtain an edit
-command from an edit helper.</P>
-<P>The edit request carries a collection of parameters which are used to
+does not conflict with the editing behaviour from the other.</p><h3>Edit Requests</h3>
+<p>An edit request carries the information required to obtain an edit
+command from an edit helper.</p>
+<p>The edit request carries a collection of parameters which are used to
 communicate arbitrary data to the edit helpers and advice. It is
 recommended that any client contributing element types to the extensible
 type registry publish a list of the edit request parameters that are
-understood by its edit helpers and advice.</P>
-<P>Each edit request has an edit helper context which is used to
+understood by its edit helpers and advice.</p>
+<p>Each edit request has an edit helper context which is used to
 identify the model element being edited by the request, from which is
 derived the edit helper and advice to honour the edit request. For
 element creation, the model object being edited is the one that will
@@ -238,8 +232,8 @@ of the create request will in turn ask the type that is being created
 for the edit helper context. Edit helpers and advice bound to the type
 being created can change the default container by finding or creating a
 different container for the new element in response to the request for
-the edit helper context.</P>
-<P>The edit request for element creation may have specified the feature
+the edit helper context.</p>
+<p>The edit request for element creation may have specified the feature
 that should contain the new element. It is recommended that edit helpers
 be equipped to use a default containment feature, if possible, in the
 event that one is not specified in the request. This is recommended for
@@ -247,39 +241,38 @@ the convenience of clients that do not wish to be aware of the feature
 that should contain a certain kind of element. A specialization type
 that declares that model objects of its kind must be contained in a
 specific feature will be created in that feature by default if the
-request does not specify a feature.</P>
-<H2><A name="use"></A>Use of the Extensible Type Registry in GMF</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<H3>Diagram Assistant and Palette Creation Tools</H3>
-<P>Items in the diagram popup bar and connection handles are associated with the element type that will be created when the item is selected. Creation tools on the diagram palette are likewise associated with the element type that will be created when the tool is selected and applied to the diagram.</P>
-<H3>Semantic Edit Policy</H3>
-<P>The default semantic edit policy installed on edit parts on a diagram uses the extensible type registry to obtain the command to honour the semantic edit request. It does a lookup in the registry for the type
+request does not specify a feature.</p>
+<h2><a name="use"></a>Use of the Extensible Type Registry in GMF</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
+<h3>Diagram Assistant and Palette Creation Tools</h3>
+<p>Items in the diagram popup bar and connection handles are associated with the element type that will be created when the item is selected. Creation tools on the diagram palette are likewise associated with the element type that will be created when the tool is selected and applied to the diagram.</p>
+<h3>Semantic Edit Policy</h3>
+<p>The default semantic edit policy installed on edit parts on a diagram uses the extensible type registry to obtain the command to honour the semantic edit request. It does a lookup in the registry for the type
 matching the edit context of the request, and obtains the edit command from that type. If the edit command is null or
-non-executable, the editing gesture cannot be performed.</P>
-<H3>Icon Service</H3>
-<P>A lowest-priority icon provider is registered with the Icon Service that  returns the icon for an element type by resolving its icon URL. </P>
-<P>The same icon provider will also provide the icon for an existing model object by finding the icon for its matching element type from the registry. In cases where many
+non-executable, the editing gesture cannot be performed.</p>
+<h3>Icon Service</h3>
+<p>A lowest-priority icon provider is registered with the Icon Service that  returns the icon for an element type by resolving its icon URL. </p>
+<p>The same icon provider will also provide the icon for an existing model object by finding the icon for its matching element type from the registry. In cases where many
 specialized types apply to the model object, the  provider will return the
-icon defined by the first specialization it encounters<SPAN
-	style="mso-spacerun:yes">&nbsp; </SPAN>(searching breadth-first from
-most specialized to least specialized).</P><H3>View Service</H3>
-<P class="MsoBodyText">Element types can be used as the semantic adapter  in a request to the View Service. In this capacity, the element type communicates the kind of model object for which a view is requested.</P>
-<P class="MsoBodyText">The element type semantic adapter is used by the view service in one of two ways:</P>
-<OL>
-	<LI>the EClass associated with the element type is used to identify the view</LI>
-	<LI>the element type is a kind of IHintedType, and its semantic hint is used to identify the view</LI>
-</OL><H3>Modeling Assistant Service</H3>
-<P>The modeling assistant service returns element types to describe the kinds of elements and relationships that can be created in a given modeling gesture. For example, if a connection handle is used to create a relationship between two model objects, a popup menu will appear listing the kinds of relationships that can be created between the two objects. This list is populated with element types that describe the relationships.</P>
-<H2><A name="examples"></A>Examples</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<P>This section illustrates the usage of the Extensible Type Registry using code examples.
-Many of these examples are taken from the GMF logic and library examples.</P>
-<H3><A name="ex_define"></A>Defining an Element Type</H3>
-<P>Element types are declared on the <A href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><CODE>elementTypes</CODE></A>
-extension point.</P>
-<P>When the type describes a metaclass in the domain model with no
-further matching conditions, a <I>metamodel</I> type can be defined:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+icon defined by the first specialization it encounters (searching breadth-first from
+most specialized to least specialized).</p><h3>View Service</h3>
+<p class="MsoBodyText">Element types can be used as the semantic adapter  in a request to the View Service. In this capacity, the element type communicates the kind of model object for which a view is requested.</p>
+<p class="MsoBodyText">The element type semantic adapter is used by the view service in one of two ways:</p>
+<ol>
+	<li>the EClass associated with the element type is used to identify the view</li>
+	<li>the element type is a kind of IHintedType, and its semantic hint is used to identify the view</li>
+</ol><h3>Modeling Assistant Service</h3>
+<p>The modeling assistant service returns element types to describe the kinds of elements and relationships that can be created in a given modeling gesture. For example, if a connection handle is used to create a relationship between two model objects, a popup menu will appear listing the kinds of relationships that can be created between the two objects. This list is populated with element types that describe the relationships.</p>
+<h2><a name="examples"></a>Examples</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
+<p>This section illustrates the usage of the Extensible Type Registry using code examples.
+Many of these examples are taken from the GMF logic and library examples.</p>
+<h3><a name="ex_define"></a>Defining an Element Type</h3>
+<p>Element types are declared on the <a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><code>elementTypes</code></a>
+extension point.</p>
+<p>When the type describes a metaclass in the domain model with no
+further matching conditions, a <i>metamodel</i> type can be defined:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
          nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;
       &lt;metamodelType
@@ -290,11 +283,11 @@ further matching conditions, a <I>metamodel</I> type can be defined:</P>
              edithelper=&quot;org.eclipse.gmf.examples.logic.CircuitEditHelper&quot;&gt;
       &lt;/metamodelType&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
-<P>When the type describes a specialization of a metaclass in the domain
-model to which further characteristics have been ascribed, a <I>specialization</I>
-type can be defined with an Eclipse enablement expression (<CODE>org.eclipse.core.expressions</CODE>) that captures those further characteristics:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+&lt;/extension&gt;</pre>
+<p>When the type describes a specialization of a metaclass in the domain
+model to which further characteristics have been ascribed, a <i>specialization</i>
+type can be defined with an Eclipse enablement expression (<code>org.eclipse.core.expressions</code>) that captures those further characteristics:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
          nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;
       &lt;specializationType
@@ -310,10 +303,10 @@ type can be defined with an Eclipse enablement expression (<CODE>org.eclipse.cor
          &lt;/enablement&gt;
       &lt;/specializationType&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
-<P>When the Eclipse expression language (<CODE>org.eclipse.core.expressions</CODE>) is not effective in specifying the
-matching conditions, a custom matcher may be provided:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+&lt;/extension&gt;</pre>
+<p>When the Eclipse expression language (<code>org.eclipse.core.expressions</code>) is not effective in specifying the
+matching conditions, a custom matcher may be provided:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
          nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;
       &lt;specializationType
@@ -325,9 +318,9 @@ matching conditions, a custom matcher may be provided:</P>
          &lt;matcher class=&quot;org.eclipse.gmf.examples.logic.FullAdderMatcher&quot;/&gt;
       &lt;/specializationType&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
-<P>with the particular matcher implementation perhaps looking like:</P>
-<PRE class="snippet">public class FullAdderMatcher implements IElementMatcher {
+&lt;/extension&gt;</pre>
+<p>with the particular matcher implementation perhaps looking like:</p>
+<pre class="snippet">public class FullAdderMatcher implements IElementMatcher {
     public boolean matches(EObject eObject) {
         boolean result = false;
         
@@ -345,11 +338,11 @@ matching conditions, a custom matcher may be provided:</P>
         // ... determine whether 'circuit' is a
         //     full adder
     }
-}</PRE>
-<P>When the type describes something that has no direct relationship to
+}</pre>
+<p>When the type describes something that has no direct relationship to
 a metaclass in the domain model, such as a reference relationship, a
-specialization of the <I>null</I> element type can be defined:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+specialization of the <i>null</i> element type can be defined:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
     &lt;specializationType
             id=&quot;library.writeBook&quot;     
             icon=&quot;icons/writeBook.gif&quot;
@@ -357,10 +350,10 @@ specialization of the <I>null</I> element type can be defined:</P>
             edithelperadvice=&quot;org.eclipse.gmf.examples.library.WriteBookAdvice&quot;&gt; 
         &lt;specializes id=&quot;org.eclipse.gmf.runtime.emf.type.core.null&quot;/&gt;
     &lt;/specializationType&gt;
-&lt;/extension&gt;</PRE>
-<P>with the particular edit helper advice implementation perhaps looking
-like:</P>
-<PRE class="snippet">public class WriteBookAdvice extends AbstractEditHelperAdvice {
+&lt;/extension&gt;</pre>
+<p>with the particular edit helper advice implementation perhaps looking
+like:</p>
+<pre class="snippet">public class WriteBookAdvice extends AbstractEditHelperAdvice {
     protected ICommand getBeforeConfigureCommand(ConfigureRequest request) {
         ICommand result = null;
 
@@ -389,18 +382,17 @@ like:</P>
         
         return result;
     }
-}</PRE>
-<P>Note that in this last case, it was not necessary to specify the
+}</pre>
+<p>Note that in this last case, it was not necessary to specify the
 metamodel namespace URI, because there are no references to the domain
-model (e.g., EClasses, reference features) in the XML definition.</P>
+model (e.g., EClasses, reference features) in the XML definition.</p>
 
 
-<h3><A name="ex_client_context"></A>Defining a Client Context</h3>
-<p>Client contexts are declared and bound to element types and advice on the <a
-	href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html"><code>elementTypeBindings</code></a>
+<h3><a name="ex_client_context"></a>Defining a Client Context</h3>
+<p>Client contexts are declared and bound to element types and advice on the <a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypeBindings.html"><code>elementTypeBindings</code></a>
 extension point.</p>
 <p>The following example shows a client context for all model objects that are in the logic editing domain. The client context is bound to all of the logic element types, as well as two specific pieces of advice from GMF:</p>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings&quot;&gt;
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings&quot;&gt;
     &lt;clientContext id=&quot;org.eclipse.gmf.example.runtime.diagram.logic.context&quot;&gt;
        &lt;enablement&gt;
           &lt;test
@@ -413,13 +405,13 @@ extension point.</p>
        &lt;advice ref=&quot;org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents&quot;/&gt;
        &lt;advice ref=&quot;org.eclipse.gmf.runtime.diagram.core.advice.removeBookmarks&quot;/&gt;
     &lt;/binding&gt;
-&lt;/extension&gt;</PRE>
-<H3><A name="ex_bind"></A>Binding Advice to an Existing Element Type</H3>
-<P class="MsoBodyText">Edit advice can be bound to any existing element
+&lt;/extension&gt;</pre>
+<h3><a name="ex_bind"></a>Binding Advice to an Existing Element Type</h3>
+<p class="MsoBodyText">Edit advice can be bound to any existing element
 type to decorate the resulting edit command with additional behaviour.
 Example of a binding for the Writer element type that limits the
-creation of the WriteBook relationship from Writers to Books:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+creation of the WriteBook relationship from Writers to Books:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
            nsURI=&quot;http://org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0&quot;&gt;
        &lt;adviceBinding
@@ -429,10 +421,10 @@ creation of the WriteBook relationship from Writers to Books:</P>
                inheritance=&quot;all&quot;&gt;
        &lt;/adviceBinding&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
-<P>with the particular advice binding implementation perhaps looking
-like:</P>
-<PRE class="snippet">public class WriterAdviceBinding extends AbstractEditHelperAdvice {
+&lt;/extension&gt;</pre>
+<p>with the particular advice binding implementation perhaps looking
+like:</p>
+<pre class="snippet">public class WriterAdviceBinding extends AbstractEditHelperAdvice {
     protected ICommand getBeforeCreateRelationshipCommand(
                           CreateRelationshipRequest request) {
         
@@ -460,17 +452,17 @@ like:</P>
 
         return result;
     }
-}</PRE>
-<H3><A name="ex_context"></A>Changing the Edit Helper Context during Element Creation</H3>
-<P>When a request is made to create a new model object, the edit helper
+}</pre>
+<h3><a name="ex_context"></a>Changing the Edit Helper Context during Element Creation</h3>
+<p>When a request is made to create a new model object, the edit helper
 (or edit helper advice) of the element type being created can change the
 edit helper context used to identify the model element being edited by
 the request. In short, the element type to be created can suggest a new
-container for itself other than the one supplied in the request.</P>
-<P>Example of an edit helper that changes the edit helper context from a
+container for itself other than the one supplied in the request.</p>
+<p>Example of an edit helper that changes the edit helper context from a
 Diagram to the element that contains, or is associated with that
-diagram:</P>
-<PRE class="snippet">protected ICommand getEditContextCommand(GetEditContextRequest req) {
+diagram:</p>
+<pre class="snippet">protected ICommand getEditContextCommand(GetEditContextRequest req) {
 
     GetEditContextCommand result = null;  
 		
@@ -496,15 +488,15 @@ diagram:</P>
         result.setEditContext(container);
     }
     return result;
-}</PRE>
-<H3><A name="ex_configure"></A>Configuring a new Element</H3>
-<P>When a request is made to create a new model object, the edit helper
+}</pre>
+<h3><a name="ex_configure"></a>Configuring a new Element</h3>
+<p>When a request is made to create a new model object, the edit helper
 (or edit helper advice) of the element type being created is given the
 opportunity to configure the new model object to conform to its
-specifications.</P>
-<P>Example of an edit helper that configures a new logic gate with two
-input terminals and an output terminal:</P>
-<PRE class="snippet">protected ICommand getConfigureCommand(final ConfigureRequest req) {
+specifications.</p>
+<p>Example of an edit helper that configures a new logic gate with two
+input terminals and an output terminal:</p>
+<pre class="snippet">protected ICommand getConfigureCommand(final ConfigureRequest req) {
 
     return new ConfigureLogicElementCommand(req, 
                         SemanticPackage.eINSTANCE.getGate()) {
@@ -520,26 +512,26 @@ input terminals and an output terminal:</P>
             return newOKCommandResult(oGate);
         }
     };
-}</PRE>
+}</pre>
 
-<H3><A name="ex_factory"></A>Defining a Factory to Instantiate Custom Element Types</H3>
-<P>A factory can be registered to instantiate elements types with a
-custom implementation.</P>
-<P>Example of a factory that instantiates element types with additional
-parameters:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+<h3><a name="ex_factory"></a>Defining a Factory to Instantiate Custom Element Types</h3>
+<p>A factory can be registered to instantiate elements types with a
+custom implementation.</p>
+<p>Example of a factory that instantiates element types with additional
+parameters:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
     &lt;elementTypeFactory
         factory=&quot;org.eclipse.gmf.examples.logic.AdderTypeFactory&quot;
         kind=&quot;org.eclipse.gmf.examples.logic.AdderType&quot;
         params=&quot;adderKind&quot;&gt;
     &lt;/elementTypeFactory&gt;
-&lt;/extension&gt;</PRE>
+&lt;/extension&gt;</pre>
 
 
-<P>with the particular factory implementation perhaps looking like:</P>
+<p>with the particular factory implementation perhaps looking like:</p>
 
 
-<PRE class="snippet">public class NotationTypeFactory extends AbstractElementTypeFactory {
+<pre class="snippet">public class NotationTypeFactory extends AbstractElementTypeFactory {
 
     private static final class AdderType
             extends SpecializationType
@@ -568,17 +560,17 @@ parameters:</P>
         String semanticHint = descriptor.getParamValue(parameterName);                       
         return new AdderType(descriptor, semanticHint);
     }
-}</PRE>
-<P>and an element type declaring that it should be instantiated by this
-factory like this:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+}</pre>
+<p>and an element type declaring that it should be instantiated by this
+factory like this:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
          nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;
       &lt;specializationType
              id=&quot;logic.fullAdder&quot;
              icon=&quot;icons/fullAdder.gif&quot;
              name=&quot;%FullAdderTool.Label&quot;
-             <B>kind=&quot;org.eclipse.gmf.examples.logic.AdderType&quot;</B>
+             <b>kind=&quot;org.eclipse.gmf.examples.logic.AdderType&quot;</b>
              edithelperadvice=&quot;org.eclipse.gmf.examples.logic.AdderAdvice&quot;&gt; 
          &lt;specializes id=&quot;logic.circuit&quot;/&gt;
          &lt;param name=&quot;adderKind&quot; value=&quot;full&quot;/&gt;
@@ -589,26 +581,26 @@ factory like this:</P>
          &lt;/enablement&gt;
       &lt;/specializationType&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
+&lt;/extension&gt;</pre>
 
 
 
 
-<P>If a specialization element types wishes to completely replace the
+<p>If a specialization element types wishes to completely replace the
 editing behaviour of the type that it specializes, a factory can be
-registered to instantiate the element type:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+registered to instantiate the element type:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
     &lt;elementTypeFactory
         factory=&quot;org.eclipse.gmf.examples.logic.HalfAdderTypeFactory&quot;
         kind=&quot;org.eclipse.gmf.examples.logic.HalfAdderType&quot;&gt;
     &lt;/elementTypeFactory&gt;
-&lt;/extension&gt;</PRE>
+&lt;/extension&gt;</pre>
 
 
-<P>with the particular factory implementation perhaps looking like:</P>
+<p>with the particular factory implementation perhaps looking like:</p>
 
 
-<PRE class="snippet">public class HalfAdderTypeFactory extends AbstractElementTypeFactory {
+<pre class="snippet">public class HalfAdderTypeFactory extends AbstractElementTypeFactory {
 
     // a custom element type implementation for half adders
     public static final class HalfAdderType extends SpecializationType {
@@ -638,18 +630,18 @@ registered to instantiate the element type:</P>
         // instantiate the custom element type
         return new HalfAdderType(descriptor);
     }
-}</PRE>
+}</pre>
 
-<P>and an element type declaring that it should be instantiated by this
-factory like this:</P>
-<PRE class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
+<p>and an element type declaring that it should be instantiated by this
+factory like this:</p>
+<pre class="snippet">&lt;extension point=&quot;org.eclipse.gmf.runtime.emf.type.core.elementTypes&quot;&gt;
    &lt;metamodel
          nsURI=&quot;http://www.eclipse.org/gmf/examples/runtime/1.0.0/logicsemantic&quot;&gt;
       &lt;specializationType
              id=&quot;logic.halfAdder&quot;
              icon=&quot;icons/halfAdder.gif&quot;
              name=&quot;%HalfAdderTool.Label&quot;
-             <B>kind=&quot;org.eclipse.gmf.examples.logic.HalfAdderType&quot;&gt; </B>
+             <b>kind=&quot;org.eclipse.gmf.examples.logic.HalfAdderType&quot;&gt; </b>
          &lt;specializes id=&quot;logic.circuit&quot;/&gt;
          &lt;enablement&gt;
             &lt;test 
@@ -658,25 +650,25 @@ factory like this:</P>
          &lt;/enablement&gt;
       &lt;/specializationType&gt;
    &lt;/metamodel&gt;
-&lt;/extension&gt;</PRE>
+&lt;/extension&gt;</pre>
 
 
 
-<H3><A name="ex_registry"></A>Using the Element Type Registry</H3>
-<P>The element type registry is used to find element types by ID:</P>
+<h3><a name="ex_registry"></a>Using the Element Type Registry</h3>
+<p>The element type registry is used to find element types by ID:</p>
 
 
 
-<PRE class="snippet">
+<pre class="snippet">
 String logicCircuitID = &quot;logic.circuit&quot;; //$NON-NLS-1$
 ElementTypeRegistry registry = ElementTypeRegistry.getInstance();
-IElementType logicCircuitType = registry.getType(logicCircuitID);</PRE>
-<P>The element type registry is used to find the kinds model objects
-that can be contained in a specific feature of a container object:</P>
+IElementType logicCircuitType = registry.getType(logicCircuitID);</pre>
+<p>The element type registry is used to find the kinds model objects
+that can be contained in a specific feature of a container object:</p>
 
 
 
-<PRE class="snippet">
+<pre class="snippet">
 private void fillMenu(Menu menu, EObject container, EReference feature) {
 
     // fills a menu with items that create model objects in the 
@@ -708,13 +700,13 @@ private void fillMenu(Menu menu, EObject container, EReference feature) {
             }
         }
     }
-}</PRE>
+}</pre>
 
-<P>The element type registry is used to find edit commands:</P>
+<p>The element type registry is used to find edit commands:</p>
 
 
 
-<PRE class="snippet">
+<pre class="snippet">
 public ICommand getEditCommand(IEditCommandRequest request) {
 
     ICommand result = null;
@@ -728,72 +720,66 @@ public ICommand getEditCommand(IEditCommandRequest request) {
     }
 
     return result;
-}</PRE>
-<H3></H3>
-<H2><A name="models"></A>Design/Code/Interaction Models</H2>
-<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<P>The main part of the extensible type registry API is depicted in the
-figure below.</P>
-<P><IMG border="1" src="./icons/ETR Class Diagram.gif"></P>
-<P><MAP name="ClientContexts">
-	<AREA shape="rect" href="#ClientContextManager_api"
-		coords="43,1,523,200">
-	<AREA shape="rect" target="_blank"
-		href="http://help.eclipse.org/help30/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/expressions/Expression.html"
-		coords="448,514,590,612">
-	<AREA shape="rect" href="#IClientContext_api" coords="123,219,450,365">
-	<AREA shape="rect" href="#IClientSelector_api" coords="3,398,265,496">
-	<AREA shape="default" nohref>
-</MAP></P>
-<P>The ElementTypeRegistry
-is responsible for loading the element types and advice bindings from the <A href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><CODE>elementTypes</CODE></A> extension
+}</pre>
+<h3></h3>
+<h2><a name="models"></a>Design/Code/Interaction Models</h2>
+<p class="backto"><font size="2">[<a href="#top">back to top</a>]</font></p>
+<p>The main part of the extensible type registry API is depicted in the
+figure below.</p>
+<p><img border="1" src="./icons/ETR Class Diagram.gif" /></p>
+<p><map name="ClientContexts">
+	<area shape="rect" href="#ClientContextManager_api" coords="43,1,523,200" />
+	<area shape="rect" target="_blank" href="http://help.eclipse.org/help30/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/expressions/Expression.html" coords="448,514,590,612" />
+	<area shape="rect" href="#IClientContext_api" coords="123,219,450,365" />
+	<area shape="rect" href="#IClientSelector_api" coords="3,398,265,496" />
+	<area shape="default" nohref="nohref" />
+</map></p>
+<p>The ElementTypeRegistry
+is responsible for loading the element types and advice bindings from the <a href="../../../reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html"><code>elementTypes</code></a> extension
 point, and for filtering the edit helper advice applicable to an object
-according to its container descriptor and its matcher criteria.</P>
-<P>The sequence diagram below shows how the AbstractEditHelper  uses the <CODE>ElementTypeRegistry</CODE>
-to decorate an edit command with advice before and after the default editing behaviour supplied by the edit helper itself. </P>
-<P><IMG border="1" src="icons/getEditCommand.gif"></P>
-<P>The steps are as follows:</P>
-<OL>
-	<LI>The edit helper asks the extensible type registry for all element types that apply to a specific edit helper context <CODE>(EObject</CODE> or <CODE>IElementType</CODE>). The registry iterates over the registered edit advice and  tests the container descriptor and matcher of each advice against the edit helper context.</LI>
-	<LI>The registry returns all of the advice whose criteria matched the <CODE>EObject</CODE> or <CODE>IElementType</CODE>.</LI>
-	<LI>The edit helper constructs a new composite command.</LI>
-	<BR>
+according to its container descriptor and its matcher criteria.</p>
+<p>The sequence diagram below shows how the AbstractEditHelper  uses the <code>ElementTypeRegistry</code>
+to decorate an edit command with advice before and after the default editing behaviour supplied by the edit helper itself. </p>
+<p><img border="1" src="icons/getEditCommand.gif" /></p>
+<p>The steps are as follows:</p>
+<ol>
+	<li>The edit helper asks the extensible type registry for all element types that apply to a specific edit helper context <code>(EObject</code> or <code>IElementType</code>). The registry iterates over the registered edit advice and  tests the container descriptor and matcher of each advice against the edit helper context.</li>
+	<li>The registry returns all of the advice whose criteria matched the <code>EObject</code> or <code>IElementType</code>.</li>
+	<li>The edit helper constructs a new composite command.</li>
+	<br />
 	The edit helper iterates the advice returned by the
 	registry:
-	<OL>
-		<LI>For each advice, the edit helper asks it for a before command for
-		the edit request.</LI>
-		<LI>The advice returns a before command, or <CODE>null</CODE> if it
-		has no advice to offer for that request.</LI>
-		<LI>The edit helper adds the advice to the composite command, if it is not
-		<CODE>null</CODE>.</LI>
-		<LI>The composite command returns itself.<BR>
-		</LI>
-	</OL>
-	<LI>The edit helper gets the default edit behaviour.</LI>
-	<LI>The default edit behaviour is returned. Subclasses will override the default behaviour as required.</LI>
-	<LI>The edit helper adds the default edit behaviour to the composite command.</LI>
-	<LI>The composite command returns itself.<BR>
-	<BR>The edit helper iterates the advice returned by the
+	<ol>
+		<li>For each advice, the edit helper asks it for a before command for
+		the edit request.</li>
+		<li>The advice returns a before command, or <code>null</code> if it
+		has no advice to offer for that request.</li>
+		<li>The edit helper adds the advice to the composite command, if it is not
+		<code>null</code>.</li>
+		<li>The composite command returns itself.<br />
+		</li>
+	</ol>
+	<li>The edit helper gets the default edit behaviour.</li>
+	<li>The default edit behaviour is returned. Subclasses will override the default behaviour as required.</li>
+	<li>The edit helper adds the default edit behaviour to the composite command.</li>
+	<li>The composite command returns itself.<br />
+	<br />The edit helper iterates the advice returned by the
 	registry:
-	<OL>
-		<LI>For each advice, the edit helper asks it for an  after command for
-		the edit request.</LI>
-		<LI>The advice returns an after  command, or <CODE>null</CODE> if it
-		has no advice to offer for that request.</LI>
-		<LI>The edit helper adds the advice to the composite command, if it is not
-		<CODE>null</CODE>.</LI>
-		<LI>The composite command returns itself.
-		<BR>
-		</LI>
-	</OL>
-	The edit helper returns the composite command. </OL>
-<P><MAP name="ClientContextUsage">
-</MAP></P>
-<P></P><P></P>
-<DL>
-	<DD></DD>
-</DL>
-<HR>
-</BODY>
-</HTML>
+	<ol>
+		<li>For each advice, the edit helper asks it for an  after command for
+		the edit request.</li>
+		<li>The advice returns an after  command, or <code>null</code> if it
+		has no advice to offer for that request.</li>
+		<li>The edit helper adds the advice to the composite command, if it is not
+		<code>null</code>.</li>
+		<li>The composite command returns itself.
+		<br />
+		</li>
+	</ol>
+	The edit helper returns the composite command. </li>
+<p><map name="ClientContextUsage">
+</map></p>
+<hr />
+</ol>
+</body>
+</html>
