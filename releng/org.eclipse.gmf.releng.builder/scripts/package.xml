@@ -36,7 +36,7 @@
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
-	<!--	<delete dir="${tmpsite}"/>  -->
+		<delete dir="${tmpsite}"/>
 	</target>
 	
 	<target name="packageBatik" if="packageBatik">
