@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -131,8 +130,8 @@ class ConverterOutcome {
 	private static FigureGallery[] findFigures(Resource[] resources) {
 		ArrayList<FigureGallery> rv = new ArrayList<FigureGallery>();
 		for (int i = 0; i < resources.length; i++) {
-			for(TreeIterator it = resources[i].getAllContents(); it.hasNext();) {
-				EObject next = (EObject) it.next();
+			for(TreeIterator<EObject> it = resources[i].getAllContents(); it.hasNext();) {
+				EObject next = it.next();
 				// FigureGallery could be either top element or as a child of canvas
 				if (next.eClass().getClassifierID() == GMFGraphPackage.FIGURE_GALLERY) {
 					rv.add((FigureGallery) next);
@@ -148,8 +147,7 @@ class ConverterOutcome {
 	private static Canvas[] findCanvases(Resource[] resources) {
 		ArrayList<Canvas> rv = new ArrayList<Canvas>();
 		for (int i = 0; i < resources.length; i++) {
-			for(Iterator it = resources[i].getContents().iterator(); it.hasNext();) {
-				EObject next = (EObject) it.next();
+			for(EObject next : resources[i].getContents()) {
 				if (next.eClass().getClassifierID() == GMFGraphPackage.CANVAS) {
 					rv.add((Canvas) next);
 				}

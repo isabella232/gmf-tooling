@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -420,8 +420,8 @@ public class ConverterSection extends OptionTemplateSection {
 		private void classifyContents(Resource resource){
 			myHasDiagramElement = false;
 			myHasFigure = false;
-			for (TreeIterator contents = resource.getAllContents(); contents.hasNext();){
-				EObject next = (EObject) contents.next();
+			for (TreeIterator<EObject> contents = resource.getAllContents(); contents.hasNext();){
+				EObject next = contents.next();
 				if (next instanceof FigureGallery){
 					if (!myHasFigure){
 						FigureGallery nextGallery = (FigureGallery) next;
