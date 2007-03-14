@@ -161,12 +161,11 @@
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
 	<target name="postBuild">	
+		<ant antfile="${scripts}/package.xml" target="pack200" />
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>	
-		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 		<!-- Execute tests. -->
 		<antcall target="test"/>
 		<!-- Publish results to CC TODO: clean up CC logic to make optional based on property -->
@@ -175,10 +174,6 @@
 		</copy>
 	</target>
 
-	<target name="pack200" if="pack200">
-		<ant antfile="${scripts}/package.xml" target="pack200" />
-	</target>
-	
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
@@ -198,11 +193,16 @@
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
 	<target name="publish">		
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/${buildLabel}"/>
+		<!-- Publishing zip archive containing packed jars for update site -->
+		<copy file="${buildDirectory}/${buildLabel}/${archiveName}" todir="${artifacts}/updates/${buildLabel}"/>
+		<!-- Unpacking jars to produce downloadable zips -->
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsAndRepack" />
+		<!-- Publishing downloadable bits -->
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/drops/${buildLabel}"/>
 		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
 		<delete dir="${artifacts}/cc" failonerror="false"/>
 		<copy todir="${artifacts}/cc">
-		    <fileset dir="${artifacts}/${buildLabel}"/>
+		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
 		</copy>
 	</target>
 
