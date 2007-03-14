@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.validate.expressions;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
@@ -64,8 +63,7 @@ public abstract class AbstractExpression implements IModelExpression  {
 		this.status = Status.OK_STATUS;
 		if(extendedEnv != null) {
 			this.extEnv = new HashMap<String, EClassifier>(5);			
-			for (Iterator it = extendedEnv.getVariableNames().iterator(); it.hasNext();) {
-				String nextVar = (String) it.next();
+			for (String nextVar : extendedEnv.getVariableNames()) {
 				extEnv.put(nextVar, extendedEnv.getTypeOf(nextVar));
 			}
 		} else {
@@ -73,13 +71,10 @@ public abstract class AbstractExpression implements IModelExpression  {
 		}
 	}
 	
-	protected Map getExtEnvironment() {
+	protected Map<String, EClassifier> getExtEnvironment() {
 		return extEnv;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#isLooselyTyped()
-	 */
 	public boolean isLooselyTyped() {
 		return true;
 	}
@@ -121,35 +116,20 @@ public abstract class AbstractExpression implements IModelExpression  {
 	 */	
 	protected abstract Object doEvaluate(Object context, IEvaluationEnvironment extendedEnv);	
 		
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#getResultType()
-	 */
 	public EClassifier getResultType() {
 		return EcorePackage.eINSTANCE.getEJavaObject();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#isConformantTo(org.eclipse.emf.ecore.EClassifier)
-	 */
 	public abstract boolean isAssignableTo(EClassifier ecoreType);
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#isConformantTo(org.eclipse.emf.ecore.ETypedElement)
-	 */
 	public abstract boolean isAssignableToElement(ETypedElement typedElement);
 	
 	public abstract String getLanguage();	
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#evaluate(org.eclipse.emf.ecore.EObject)
-	 */
 	public final Object evaluate(Object context) {
 		return evaluate(context, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#evaluate(org.eclipse.emf.ecore.EObject, org.eclipse.gmf.validate.expressions.IEvaluationEnvironment)
-	 */	
 	public final Object evaluate(Object contextInstance, IEvaluationEnvironment extendedEnv) {
 		if(contextInstance == null || !hasCompatibleContext(contextInstance)) {
 			throw new IllegalArgumentException("Invalid evaluation context:" + contextInstance); //$NON-NLS-1$
@@ -171,23 +151,14 @@ public abstract class AbstractExpression implements IModelExpression  {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#getStatus()
-	 */
 	public IStatus getStatus() {
 		return status;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#getBody()
-	 */
 	public String getBody() {
 		return body;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.validate.expressions.IModelExpression#getContextClass()
-	 */
 	public EClassifier getContext() {
 		return contextClassifier; 
 	}

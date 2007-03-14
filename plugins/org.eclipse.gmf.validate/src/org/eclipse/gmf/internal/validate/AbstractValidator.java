@@ -92,7 +92,7 @@ public class AbstractValidator implements EValidator {
 		return (EObject)rootObj;
 	}
 	
-	private static void ensureRootTargetInitialized(EObject target, Map context) {
+	private static void ensureRootTargetInitialized(EObject target, Map<Object, Object> context) {
 		if(context != null && !context.containsKey(ROOT_TARGET_OBJECT_KEY)) {
 			setRootTargetObject(target, context);
 		}
@@ -149,16 +149,16 @@ public class AbstractValidator implements EValidator {
 		context.put(ValidationOptions.class, options);
 	}	
 	
-	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		ensureRootTargetInitialized(eObject, context);
 		return true;
 	}
 
-	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map context) {		
+	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {		
 		return true;
 	}
 
-	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		ensureRootTargetInitialized(eObject, context);		
 		return true;
 	}

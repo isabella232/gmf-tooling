@@ -44,7 +44,7 @@ public interface IEvaluationEnvironment {
 	 * Gets the names of all variables currently set in this environments.
 	 * @return set of String objects representing the names, never <code>null</code>   
 	 */
-	Set/*String*/ getVariableNames();
+	Set<String> getVariableNames();
 	
 	/**
 	 * Removes all variables set in this environment

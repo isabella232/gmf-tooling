@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - static-less
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -22,7 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class EDataTypeConversion {
 	
-	private static final Class[][] integralsToFloatsArray = new Class[][] { 
+	private final Class<?>[][] integralsToFloatsArray = new Class[][] { 
 			new Class[] { Byte.class,	Float.class },
 			new Class[] { Short.class, Float.class },
 			new Class[] { Integer.class, Float.class },
@@ -30,34 +31,36 @@ public class EDataTypeConversion {
 			new Class[] { BigInteger.class, BigDecimal.class }
 	};
 	
-	private static final List<Class> integrals = new ArrayList<Class>();	
-	static {
+	private final List<Class<?>> integrals = new ArrayList<Class<?>>();	
+
+	private final List<Class<?>> floats = Arrays.asList(new Class<?>[] { 	
+			Float.class, Double.class, BigDecimal.class,
+	});		
+
+	public EDataTypeConversion() {
 		for (int i = 0; i < integralsToFloatsArray.length; i++) {
 			integrals.add(integralsToFloatsArray[i][0]);
 		}
 	}
 	
-	private static final List floats = Arrays.asList(new Class[] { 	
-		Float.class, Double.class, BigDecimal.class,
-	});		
 		
 	
-	public static boolean isConvertable(EDataType leftDataType, EDataType rightDataType) {
+	public boolean isConvertable(EDataType leftDataType, EDataType rightDataType) {
 		if(leftDataType == null || rightDataType == null) {
 			throw new IllegalArgumentException("null data type"); //$NON-NLS-1$
 		}
 		if(leftDataType.getInstanceClass() == null || rightDataType.getInstanceClass() == null) {
 			return false;
 		}
-		Class leftClass = EcoreUtil.wrapperClassFor(leftDataType.getInstanceClass());
-		Class rightClass = EcoreUtil.wrapperClassFor(rightDataType.getInstanceClass());
+		Class<?> leftClass = EcoreUtil.wrapperClassFor(leftDataType.getInstanceClass());
+		Class<?> rightClass = EcoreUtil.wrapperClassFor(rightDataType.getInstanceClass());
 		if(Number.class.isAssignableFrom(leftClass) && Number.class.isAssignableFrom(leftClass)) {
 			return isConvertable(leftClass, rightClass);
 		}
 		return leftClass.equals(rightClass);
 	}
 	
-	private static boolean isConvertable(Class<?> left, Class<?> right) {
+	private boolean isConvertable(Class<?> left, Class<?> right) {
 		if(left == null || right == null) {
 			throw new IllegalArgumentException("null Class argument"); //$NON-NLS-1$
 		}

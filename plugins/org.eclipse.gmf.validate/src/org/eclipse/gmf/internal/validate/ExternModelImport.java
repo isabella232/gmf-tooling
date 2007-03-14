@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.validate;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -41,8 +40,7 @@ public class ExternModelImport {
 	
 	private static final EValidator VALIDATOR = new AbstractValidator() {
 		
-		@SuppressWarnings("synthetic-access")
-		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			super.validate(eClass, eObject, diagnostics, context);
 			ExternModelImport importer = getImporter(context, eObject);
 			if(eObject instanceof EAnnotation) {
@@ -93,7 +91,7 @@ public class ExternModelImport {
 	/**
 	 * @return The import package registry associated with the context or <code>null</code> if there is no such registry 
 	 */
-	public static EPackage.Registry getPackageRegistry(Map context) {
+	public static EPackage.Registry getPackageRegistry(Map<Object, Object> context) {
 		Object registry = context.get(EPackageRegistryImpl.class);
 		assert registry == null || registry instanceof EPackage.Registry : "registry must be EPackage.Registry"; //$NON-NLS-1$
 		return (EPackage.Registry)registry;
@@ -105,8 +103,8 @@ public class ExternModelImport {
 	
 	private boolean processAnnotations(EPackage importingPackage, DiagnosticChain diagnostics) {
 		boolean result = true;
-		for (Iterator it = importingPackage.getEAnnotations().iterator(); it.hasNext();) {
-			result &= processAnnotation((EAnnotation) it.next(), diagnostics);
+		for (EAnnotation next : importingPackage.getEAnnotations()) {
+			result &= processAnnotation(next, diagnostics);
 		}
 		processedPackages.add(importingPackage);
 		return result;
@@ -121,8 +119,7 @@ public class ExternModelImport {
 	
 	public void intializeExternPackages(EObject root) {
 		EPackage.Registry registryToInit = registry != null ? registry : EPackage.Registry.INSTANCE;
-		for (Iterator refIt = EcoreUtil.ExternalCrossReferencer.find(root).keySet().iterator(); refIt.hasNext();) {
-			Object next = refIt.next();
+		for (EObject next : EcoreUtil.ExternalCrossReferencer.find(root).keySet()) {
 			EPackage nextPackage = null;
 			if (next instanceof EClassifier) {
 				nextPackage = ((EClassifier) next).getEPackage();
@@ -151,12 +148,11 @@ public class ExternModelImport {
 	
 	private boolean processImportEAnnotation(EAnnotation annotation, DiagnosticChain diagnostics) {
 		boolean result = true;
-		for (Iterator it = annotation.getDetails().entrySet().iterator(); it.hasNext();) {
-			Map.Entry nextEntry = (Map.Entry)it.next();
+		for (Map.Entry<String, String> nextEntry : annotation.getDetails()) {
 			if(!nextEntry.getKey().equals(Annotations.Meta.IMPORT)) {
 				continue;
 			}			
-			String importVal = (String) nextEntry.getValue();
+			String importVal = nextEntry.getValue();
 			if(importVal != null) {
 				importVal = importVal.trim();
 				EPackage p = EPackage.Registry.INSTANCE.getEPackage(importVal);
@@ -220,9 +216,8 @@ public class ExternModelImport {
 	}
 	
 	private boolean importModelFromResource(URI modelURI) throws RuntimeException {
-		EList contents = importedModels.getResource(modelURI, true).getContents();
-		for (Iterator it = contents.iterator(); it.hasNext();) {
-			EObject nextObj = (EObject) it.next();
+		EList<EObject> contents = importedModels.getResource(modelURI, true).getContents();
+		for (EObject nextObj : contents) {
 			if(nextObj instanceof EPackage) {
 				EPackage ePackage = (EPackage)nextObj;
 				if(ePackage.getNsURI() != null) {					

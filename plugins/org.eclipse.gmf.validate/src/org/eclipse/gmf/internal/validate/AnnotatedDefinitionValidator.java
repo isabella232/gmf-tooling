@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.validate;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,23 +54,23 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 	public AnnotatedDefinitionValidator() {		
 	}
 	
-	public ValueSpecDef getDefinition(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public ValueSpecDef getDefinition(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		EClass eClass = (eObject instanceof EClass) ? (EClass) eObject : eObject.eClass();
 		return getDefinition(eClass, eObject, diagnostics, null, context);
 	}
 	
-	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 	
-	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate(eObject.eClass(), eObject, diagnostics, context);
 	}
 
 	/**
 	 * @see EObjectValidator#validate(org.eclipse.emf.ecore.EClass, org.eclipse.emf.ecore.EObject, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
 	 */	
-	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if(eObject.eClass().getEPackage() == EcorePackage.eINSTANCE) {
 			if(eObject instanceof EModelElement) {
 				return validateMetaModel((EModelElement)eObject, diagnostics, context);
@@ -83,7 +82,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 	}
 	
 	
-	protected boolean validateModel(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	protected boolean validateModel(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			
 		ValueSpecDef def = getDefinition(eObject, diagnostics, context);
 		if(def == null) {
@@ -128,9 +127,8 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			if(contextData.environment != null) {
 				env = EnvironmentProvider.createParseEnv();
 				env.setImportRegistry(ExternModelImport.getPackageRegistry(context));
-				for (Iterator it = contextData.environment.keySet().iterator(); it.hasNext();) {
-					String varName = (String) it.next();
-					TypeProvider typeProvider = (TypeProvider)contextData.environment.get(varName);
+				for (String varName : contextData.environment.keySet()) {
+					TypeProvider typeProvider = contextData.environment.get(varName);
 					EClassifier type = typeProvider.getType(contexEClassEvalCtx[0]);
 					if(type != null) {
 						// TODO - produce error status as no variable type is available
@@ -172,7 +170,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return true;
 	}
 	
-	public ContextData getContextBinding(EObject eObject, EObject[] contextHolder, Map context) {
+	public ContextData getContextBinding(EObject eObject, EObject[] contextHolder, Map<Object, Object> context) {
 		EStructuralFeature feature = eObject.eContainingFeature();
 		if(feature != null) {
 			EObject container = eObject.eContainer();
@@ -208,7 +206,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return null;
 	}
 		
-	protected boolean validateMetaModel(EModelElement modelElement, DiagnosticChain diagnostics, Map context) {
+	protected boolean validateMetaModel(EModelElement modelElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		EAnnotation annotation = (modelElement instanceof EAnnotation) ? (EAnnotation)modelElement : null;		
 		if(annotation != null) {
 			if(!Annotations.CONSTRAINTS_META_URI.equals(annotation.getSource())) {
@@ -241,7 +239,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return true;
 	}	
 	
-	public static ContextProvider getContextClass(EStructuralFeature bindFeature, final Map validationContext) {
+	public static ContextProvider getContextClass(EStructuralFeature bindFeature, final Map<Object, Object> validationContext) {
 		IModelExpressionProvider oclExprProvider = new IModelExpressionProvider() {
 			public IModelExpression createExpression(String body, EClassifier contextClassifier) {
 				return getExpression(Annotations.Meta.OCL_KEY, body, contextClassifier, validationContext);
@@ -256,19 +254,18 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 					ExternModelImport.getPackageRegistry(validationContext));
 	}
 	
-	private ContextProvider createContextProvider(String ctxExpression, EClass contextClass, Map context) {
+	private ContextProvider createContextProvider(String ctxExpression, EClass contextClass, Map<Object, Object> context) {
 		return new ExpressionContextProvider(getExpression(Meta.OCL_KEY, ctxExpression, contextClass, context));
 	}
 	
-	public ValueSpecDef getDefinition(EClass metaClass, EObject modelElement, DiagnosticChain diagnostics, DefData data, Map context) {
+	public ValueSpecDef getDefinition(EClass metaClass, EObject modelElement, DiagnosticChain diagnostics, DefData data, Map<Object, Object> context) {
 		ValueSpecDef definition = findDefinition(metaClass, context);
 		if(definition != null) {
 			return definition;
 		}
 
 		if(data == null) {		
-			for (Iterator it = metaClass.getEAnnotations().iterator(); it.hasNext();) {
-				EAnnotation nextAnnotation = (EAnnotation) it.next();
+			for (EAnnotation nextAnnotation : metaClass.getEAnnotations()) {
 				if(Annotations.CONSTRAINTS_META_URI.equals(nextAnnotation.getSource())) {
 					String val = nextAnnotation.getDetails().get(Meta.DEF_KEY);
 					if(val != null && (val.equals(Meta.VALUESPEC) || 
@@ -282,17 +279,14 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			}
 		}				
 		
-		EList superTypes = metaClass.getESuperTypes();		
+		EList<EClass> superTypes = metaClass.getESuperTypes();		
 		if(data == null && superTypes.isEmpty()) {
 			return null;
 		}
 		
 		if(data != null) {
-			for (Iterator it = metaClass.getEStructuralFeatures().iterator(); it.hasNext();) {
-				EStructuralFeature nextAttr = (EStructuralFeature) it.next();
-
-				for (Iterator annotationIt = nextAttr.getEAnnotations().iterator(); annotationIt.hasNext();) {
-					EAnnotation annotation = (EAnnotation)annotationIt.next();
+			for (EStructuralFeature nextAttr : metaClass.getEStructuralFeatures()) {
+				for (EAnnotation annotation : nextAttr.getEAnnotations()) {
 					if(!Annotations.CONSTRAINTS_META_URI.equals(annotation.getSource())) {
 						continue;
 					}
@@ -355,8 +349,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			}
 		}
 				
-		for (Iterator it = superTypes.iterator(); it.hasNext();) {
-			EClass superClass = (EClass) it.next();
+		for (EClass superClass : superTypes) {
 			ValueSpecDef inheritedDef = getDefinition(superClass, modelElement, diagnostics, data, context);
 			if(inheritedDef != null) {
 				if(data == null) {
@@ -379,11 +372,11 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return null;
 	}
 	
-	private static TypeProvider getTypeInfo(EModelElement typeAnnotationSource, EClass resolutionContext, DiagnosticChain diagnostics, Map validationContext) {
+	private static TypeProvider getTypeInfo(EModelElement typeAnnotationSource, EClass resolutionContext, DiagnosticChain diagnostics, Map<Object, Object> validationContext) {
 		TypeProvider typeProvider = null;		
-		List annotations = DefUtils.getAnnotationsWithKeyAndValue(typeAnnotationSource, Annotations.CONSTRAINTS_META_URI, Annotations.Meta.DEF_KEY, Annotations.Meta.TYPE);
+		List<EAnnotation> annotations = DefUtils.getAnnotationsWithKeyAndValue(typeAnnotationSource, Annotations.CONSTRAINTS_META_URI, Annotations.Meta.DEF_KEY, Annotations.Meta.TYPE);
 		
-		EAnnotation typeAnnotation = annotations.isEmpty() ? null : (EAnnotation)annotations.get(0);		
+		EAnnotation typeAnnotation = annotations.isEmpty() ? null : annotations.get(0);		
 		
 		if(typeAnnotation != null && Meta.TYPE.equals(typeAnnotation.getDetails().get(Meta.DEF_KEY))) {
 			String typeExprBody = typeAnnotation.getDetails().get(Meta.OCL_KEY);
@@ -435,19 +428,19 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return true;
 	}
 
-	private static ValueSpecDef findDefinition(EClass eClass, Map context) {
+	private static ValueSpecDef findDefinition(EClass eClass, Map<Object, Object> context) {
 		if(context != null) {
-			Map defMap = (Map)context.get(ValueSpecDef.class);
+			Map<?,?> defMap = (Map<?,?>)context.get(ValueSpecDef.class);
 			return (defMap != null) ? (ValueSpecDef)defMap.get(eClass) : null;
 		}
 		return null;
 	}	
 	
-	private static ContextData getCachedCtxBinding(EModelElement modelElement, Map context) {
+	private static ContextData getCachedCtxBinding(EModelElement modelElement, Map<Object, Object> context) {
 		if(context != null) {
-			Map bindMap = (Map)context.get(ContextProvider.class);
+			Map<?,?> bindMap = (Map<?,?>)context.get(ContextProvider.class);
 			if(bindMap != null) {
-				return (ContextData)bindMap.get(modelElement);				
+				return (ContextData) bindMap.get(modelElement);				
 			}
 		}
 		if(Trace.shouldTrace(DebugOptions.DEBUG)) {
@@ -456,8 +449,8 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return null;
 	}
 	
-	private static Map getEnvProvider(EStructuralFeature contextBindFeature, Map context) {
-		List varDefs = DefUtils.getAnnotationsWithKeyAndValue( 
+	private static Map<String, TypeProvider> getEnvProvider(EStructuralFeature contextBindFeature, Map<Object, Object> context) {
+		List<EAnnotation> varDefs = DefUtils.getAnnotationsWithKeyAndValue( 
 				contextBindFeature, Annotations.CONSTRAINTS_META_URI, 
 				Annotations.Meta.DEF_KEY, Annotations.Meta.VARIABLE);
 		if(varDefs.isEmpty()) {
@@ -465,14 +458,12 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		}
 		
 		Map<String, TypeProvider> env = null;
-		for (Iterator it = varDefs.iterator(); it.hasNext();) {
-			EAnnotation nextVarAnnotation = (EAnnotation) it.next();
-			
+		for (EAnnotation nextVarAnnotation : varDefs) {
 			TypeProvider type = null;
 			String typePrefix = Annotations.Meta.TYPE + "."; //$NON-NLS-1$
-			Map.Entry typeExpression = DefUtils.getKeyPreffixAnnotation(nextVarAnnotation, typePrefix);
+			Map.Entry<String, String> typeExpression = DefUtils.getKeyPrefixAnnotation(nextVarAnnotation, typePrefix);
 			if(typeExpression != null) {
-				String body = (String)typeExpression.getValue();
+				String body = typeExpression.getValue();
 				if(body == null) {
 					// TODO - report missing var type status
 				} else {
@@ -496,10 +487,10 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return env;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static void registerCtxBinding(EStructuralFeature contextDefOwner, ContextData contextData, Map context) {
-		if(context != null) {			
-			Map bindMap = (Map)context.get(ContextProvider.class);
+	private static void registerCtxBinding(EStructuralFeature contextDefOwner, ContextData contextData, Map<Object, Object> context) {
+		if(context != null) {
+			@SuppressWarnings("unchecked")
+			Map<EStructuralFeature, ContextData> bindMap = (Map<EStructuralFeature, ContextData>)context.get(ContextProvider.class);
 			if(bindMap == null) {
 				bindMap = new HashMap<EStructuralFeature, ContextData>();
 				context.put(ContextProvider.class, bindMap);
@@ -508,13 +499,13 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		}
 	}		
 	
-	@SuppressWarnings("unchecked")
-	private static void registerDefinition(EClass eClass, ValueSpecDef definition, Map context) {
+	private static void registerDefinition(EClass eClass, ValueSpecDef definition, Map<Object, Object> context) {
 		assert definition != null;
 		assert eClass != null;
 		
 		if(context != null) {
-			Map defMap = (Map)context.get(ValueSpecDef.class);
+			@SuppressWarnings("unchecked")
+			Map<EClass, ValueSpecDef> defMap = (Map<EClass, ValueSpecDef>) context.get(ValueSpecDef.class);
 			if(defMap == null) {
 				defMap = new HashMap<EClass, ValueSpecDef>();
 				context.put(ValueSpecDef.class, defMap);
@@ -535,8 +526,8 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 	
 	private static class ContextData {		
 		final ContextProvider contextClass;
-		final Map environment;
-		public ContextData(ContextProvider contextProvider, Map environment) {	
+		final Map<String, TypeProvider> environment;
+		public ContextData(ContextProvider contextProvider, Map<String, TypeProvider> environment) {	
 			this.contextClass = contextProvider;
 			this.environment = environment;
 		}				

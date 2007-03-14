@@ -70,7 +70,7 @@ public class ExpressionProviderRegistry {
 	 * Gets supported expression languages by providers in this registry.
 	 * @return set of language identifiers strings, never <code>null</code>
 	 */
-	public Set getLanguages() {
+	public Set<String> getLanguages() {
 		return registry.keySet();
 	}
 	

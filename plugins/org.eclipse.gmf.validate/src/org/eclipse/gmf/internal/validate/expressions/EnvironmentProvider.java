@@ -95,7 +95,7 @@ public class EnvironmentProvider {
 			return get(name);
 		}
 		
-		public Set getVariableNames() {		
+		public Set<String> getVariableNames() {		
 			return keySet();
 		}		
 		

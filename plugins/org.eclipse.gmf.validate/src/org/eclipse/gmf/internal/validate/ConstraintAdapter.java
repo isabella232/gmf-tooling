@@ -38,7 +38,7 @@ public class ConstraintAdapter extends AbstractExpression {
 		if(getStatus().isOK()) {
 			this.resultType = expression.getResultType();				
 			if(this.resultType != null && !expression.isLooselyTyped()) { 
-				Class resultClass = resultType.getInstanceClass();
+				Class<?> resultClass = resultType.getInstanceClass();
 				if(!(Boolean.class.equals(resultClass) || boolean.class.equals(resultClass))) {
 					String msg = MessageFormat.format(
 							Messages.invalidConstraintExprType, 

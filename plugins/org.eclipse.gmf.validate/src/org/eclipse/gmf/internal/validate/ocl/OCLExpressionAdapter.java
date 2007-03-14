@@ -175,7 +175,7 @@ class OCLExpressionAdapter extends AbstractExpression {
 		}
 		
 		if(thisOclType instanceof EDataType && anotherOclType instanceof EDataType) {
-			if(EDataTypeConversion.isConvertable((EDataType)anotherOclType, (EDataType)thisOclType)) {
+			if(new EDataTypeConversion().isConvertable((EDataType)anotherOclType, (EDataType)thisOclType)) {
 				return true;
 			}
 		}

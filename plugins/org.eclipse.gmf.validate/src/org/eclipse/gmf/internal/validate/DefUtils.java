@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -172,7 +172,7 @@ public class DefUtils {
 						return contextCache.get(typeNameObj);
 					}
 					String[] typeName = ((String)typeNameObj).split("::"); //$NON-NLS-1$
-					List nameSeq = new ArrayList<String>(Arrays.asList(typeName));
+					ArrayList<String> nameSeq = new ArrayList<String>(Arrays.asList(typeName));
 					if(typeName.length > 1) {
 						nameSeq.remove(typeName.length - 1);
 						EPackage ePackage = EcoreEnvironment.findPackage(nameSeq, registry);
@@ -255,11 +255,11 @@ public class DefUtils {
 			
 			if(contextRef != null) {
 				EClass referencedClass = contextRef.getEReferenceType();
-				List<EClassifier> subTypes  = getSubTypes(getRootEPackage(referencedClass.getEPackage()), referencedClass, new ArrayList<EClassifier>());
+				List<EClass> subTypes  = getSubTypes(getRootEPackage(referencedClass.getEPackage()), referencedClass, new LinkedList<EClass>());
 				
 				referencedContexts = new HashMap<EClass, ContextProvider>(5);				
-				for (Iterator it = subTypes.iterator(); it.hasNext();) {
-					EClass nextClass = (EClass) it.next();
+				for (Iterator<EClass> it = subTypes.iterator(); it.hasNext();) {
+					EClass nextClass = it.next();
 					ContextProvider referencedContext = DefUtils.getContextClass(nextClass, oclExprProvider, null, registry);
 					if(referencedContext != null) {
 						referencedContexts.put(nextClass, referencedContext);
@@ -268,8 +268,8 @@ public class DefUtils {
 				}
 				// perform coverage check
 				List<IStatus> statuses = Collections.emptyList();
-				for (Iterator it = subTypes.iterator(); it.hasNext();) {
-					EClass nextClass = (EClass) it.next();
+				for (Iterator<EClass> it = subTypes.iterator(); it.hasNext();) {
+					EClass nextClass = it.next();
 					
 					if(getProvider(nextClass) == null && !(nextClass.isInterface() || nextClass.isAbstract())) {
 						String message = NLS.bind(Messages.def_NoCtxInProviderForCtxBinding, 
@@ -312,8 +312,8 @@ public class DefUtils {
 		private ContextProvider getProvider(EClass contextProviderEClass) {
 			ContextProvider provider = referencedContexts.get(contextProviderEClass);
 			if(provider == null) {
-				for(Iterator it = contextProviderEClass.getESuperTypes().iterator(); it.hasNext();) {
-					ContextProvider nextProvider = referencedContexts.get(it.next());
+				for (EClass nextClass : contextProviderEClass.getESuperTypes()) {
+					ContextProvider nextProvider = referencedContexts.get(nextClass);
 					if(nextProvider != null) {
 						return nextProvider;
 					}
@@ -428,12 +428,12 @@ public class DefUtils {
 	}
 	
 	public static DiagnosticChain mergeAndFlatten(Diagnostic diagnostic, DiagnosticChain diagnosticChain) {
-		List children = diagnostic.getChildren();
+		List<Diagnostic> children = diagnostic.getChildren();
 		if(children == null || children.isEmpty()) {
 			diagnosticChain.add(diagnostic);
 		} else {
-			for (Iterator it = children.iterator(); it.hasNext();) {
-				mergeAndFlatten((Diagnostic) it.next(), diagnosticChain);
+			for (Diagnostic next : children) {
+				mergeAndFlatten(next, diagnosticChain);
 			}
 		}
 		return diagnosticChain;
@@ -491,7 +491,7 @@ public class DefUtils {
 				return true;
 			}
 		} else {
-			Class rightClass = right.getInstanceClass();
+			Class<?> rightClass = right.getInstanceClass();
 			Class<?> leftClass = left.getInstanceClass();			
 			if(leftClass != null && rightClass != null && leftClass.isAssignableFrom(rightClass)) {
 				return true;
@@ -516,8 +516,7 @@ public class DefUtils {
 	}
 	
 	public static EAnnotation getAnnotationWithKey(EModelElement eModelElement, String sourceURI, String key) {
-		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
-			EAnnotation nextAnnotation = (EAnnotation) it.next();
+		for (EAnnotation nextAnnotation : eModelElement.getEAnnotations()) {
 			if(sourceURI.equals(nextAnnotation.getSource()) && nextAnnotation.getDetails().containsKey(key)) {
 				return nextAnnotation;
 			}
@@ -525,12 +524,10 @@ public class DefUtils {
 		return null;
 	}
 	
-	public static Map.Entry findAnnotationDetailEntry(EModelElement eModelElement, String sourceURI, String key, String val) {
-		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
-			EAnnotation nextAnnotation = (EAnnotation) it.next();
+	public static Map.Entry<String, String> findAnnotationDetailEntry(EModelElement eModelElement, String sourceURI, String key, String val) {
+		for (EAnnotation nextAnnotation : eModelElement.getEAnnotations()) {
 			if(sourceURI.equals(nextAnnotation.getSource()) && nextAnnotation.getDetails().containsKey(key)) {
-				for (Iterator entryIt = nextAnnotation.getDetails().iterator(); entryIt.hasNext();) {
-					Map.Entry nextEntry = (Map.Entry)entryIt.next();
+				for (Map.Entry<String, String> nextEntry  : nextAnnotation.getDetails()) {
 					if(nextEntry.getValue() == val || nextEntry.getKey().equals(key)) {
 						return nextEntry;
 					}
@@ -541,32 +538,32 @@ public class DefUtils {
 	}
 	
 	
-	public static Map.Entry getKeyPreffixAnnotation(EAnnotation annotation, String keyPrefix) {
-		for (Iterator it = annotation.getDetails().entrySet().iterator(); it.hasNext();) {
-			Map.Entry nextEntry = (Map.Entry)it.next();
-			if(((String)nextEntry.getKey()).startsWith(keyPrefix)) {
+	public static Map.Entry<String, String> getKeyPrefixAnnotation(EAnnotation annotation, String keyPrefix) {
+		for (Map.Entry<String, String> nextEntry : annotation.getDetails()) {
+			if(nextEntry.getKey().startsWith(keyPrefix)) {
 				return nextEntry;
 			}
 		}
 		return null;
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public static List getAnnotationsWithKeyAndValue(EModelElement eModelElement, String sourceURI, String key, String value) {
-		List annotations = null;
-		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
-			EAnnotation nextAnnotation = (EAnnotation) it.next();
+	public static List<EAnnotation> getAnnotationsWithKeyAndValue(EModelElement eModelElement, String sourceURI, String key, String value) {
+		ArrayList<EAnnotation> annotations = null;
+		for (EAnnotation nextAnnotation : eModelElement.getEAnnotations()) {
 			if(sourceURI.equals(nextAnnotation.getSource())) {
 				Object detailVal = nextAnnotation.getDetails().get(key);
 				if((value != null && value.equals(detailVal)) || value == detailVal) {
 					if(annotations == null) {
-						annotations = new ArrayList(eModelElement.getEAnnotations().size());
+						annotations = new ArrayList<EAnnotation>(eModelElement.getEAnnotations().size());
 					}
 					annotations.add(nextAnnotation);					
 				}
 			}
 		}
-		return annotations != null ? annotations : Collections.EMPTY_LIST;
+		if (annotations != null) {
+			return annotations;
+		}
+		return Collections.emptyList();
 	}	
 	
 	@SuppressWarnings("unchecked")
@@ -605,19 +602,6 @@ public class DefUtils {
 		return (eCoreCanonical == null) ? classifier : eCoreCanonical;
 	}
 	
-	/**
-	 * @return String value associated with the given key in given detail map or
-	 * <code>null</code> if not key is present in the value
-	 */
-	public static String getAnnotationDetailValue(EMap detail, String key) {
-		if(detail == null || key == null) {
-			throw new IllegalArgumentException("null detail map or key"); //$NON-NLS-1$
-		}
-		Object val = detail.get(key);
-		return val instanceof String ? (String) val : null;
-	}
-	
-	
 	public static ContextProvider getContextClass(EClass resolutionContext, IModelExpressionProvider oclExprProvider, EStructuralFeature bindFeature, EPackage.Registry registry) {
 		assert bindFeature == null || bindFeature.getEContainingClass().isSuperTypeOf(resolutionContext);
 
@@ -625,10 +609,9 @@ public class DefUtils {
 		EAnnotation ctxAnnotation = annotationTarget.getEAnnotation(Annotations.CONSTRAINTS_META_URI);
 
 		if (ctxAnnotation != null && Annotations.Meta.CONTEXT.equals(ctxAnnotation.getDetails().get(Annotations.Meta.DEF_KEY))) {
-			for (Iterator it = ctxAnnotation.getDetails().entrySet().iterator(); it.hasNext();) {
-				Map.Entry nextDetail = (Map.Entry) it.next();
-				Object key = nextDetail.getKey();
-				String value = nextDetail.getValue() instanceof String ? (String) nextDetail.getValue() : ""; //$NON-NLS-1$
+			for (Map.Entry<String, String> nextDetail : ctxAnnotation.getDetails()) {
+				String key = nextDetail.getKey();
+				String value = nextDetail.getValue() != null ? nextDetail.getValue() : ""; //$NON-NLS-1$
 
 				if (Annotations.Meta.OCL_KEY.equals(key)) {
 					if (value != null) {
@@ -664,15 +647,14 @@ public class DefUtils {
 	 *            placeholder for the collected sub-types
 	 * @return passed <code>foundSubTypes</code> list for convenience
 	 */
-	static List<EClassifier> getSubTypes(EPackage ePackage, EClass superType, List<EClassifier> foundSubTypes) {
-		for (Iterator it = ePackage.getEClassifiers().iterator(); it.hasNext();) {
-			EClassifier classifier = (EClassifier) it.next();
+	static List<EClass> getSubTypes(EPackage ePackage, EClass superType, List<EClass> foundSubTypes) {
+		for (EClassifier classifier : ePackage.getEClassifiers()) {
 			if(classifier instanceof EClass && (superType).isSuperTypeOf((EClass)classifier)) {
-				foundSubTypes.add(classifier);
+				foundSubTypes.add((EClass) classifier);
 			}
 		}
-		for (Iterator it = ePackage.getESubpackages().iterator(); it.hasNext();) {
-			getSubTypes((EPackage) it.next(), superType, foundSubTypes);			
+		for (EPackage next : ePackage.getESubpackages()) {
+			getSubTypes(next, superType, foundSubTypes);			
 		}
 		return foundSubTypes;
 	}

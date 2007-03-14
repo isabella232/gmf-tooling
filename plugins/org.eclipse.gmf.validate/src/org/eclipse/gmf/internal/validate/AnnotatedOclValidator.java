@@ -12,14 +12,12 @@
 package org.eclipse.gmf.internal.validate;
 
 import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -29,7 +27,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.gmf.internal.validate.expressions.ExpressionProviderRegistry;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 import org.eclipse.gmf.validate.ValidationOptions;
@@ -54,24 +51,15 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 	public AnnotatedOclValidator() {
 	}
 			
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EValidator#validate(org.eclipse.emf.ecore.EDataType, java.lang.Object, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 */
-	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.EValidator#validate(org.eclipse.emf.ecore.EObject, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 */
-	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate(eObject.eClass(), eObject, diagnostics, context);
 	}
 	
-	/**
-	 * @see EObjectValidator#validate(org.eclipse.emf.ecore.EClass, org.eclipse.emf.ecore.EObject, org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 */
-	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validateOCL(eObject, diagnostics, context);
 	}
 
@@ -83,7 +71,7 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 	 * @param context the context of validation activity
 	 * @return <code>true</code>if object is valid; <code>false</code> otherwise
 	 */
-	protected boolean validateOCL(EObject eObject, final DiagnosticChain diagnostics, Map context) {		
+	protected boolean validateOCL(EObject eObject, final DiagnosticChain diagnostics, Map<Object, Object> context) {		
 		if(eObject instanceof EAnnotation) {
 			return oclHandler.handleEAnnotation((EAnnotation)eObject, diagnostics, context);
 		}
@@ -107,18 +95,17 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return null;
 		}
 		
-		protected boolean handleEAnnotation(EAnnotation annotation, DiagnosticChain diagnostics, Map context) {
+		protected boolean handleEAnnotation(EAnnotation annotation, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			return handleEAnnotation(annotation, null /* no instance to evaluate against */, diagnostics, context);
 		}
 		
-		protected boolean handleEAnnotation(EAnnotation annotation, EObject contextInstance, DiagnosticChain diagnostics, Map context) {
+		protected boolean handleEAnnotation(EAnnotation annotation, EObject contextInstance, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			if(!Annotations.CONSTRAINTS_URI.equals(annotation.getSource())) {
 				return true;
 			}
 
 			boolean isValid = true;
-			for(Iterator it = annotation.getDetails().iterator(); it.hasNext();) {
-				Map.Entry nextDetail = (Map.Entry)it.next();
+			for(Map.Entry<String,String> nextDetail : annotation.getDetails()) {
 				String key = String.valueOf(nextDetail.getKey());
 				if(ExpressionProviderRegistry.getInstance().getLanguages().contains(key)) {
 					String body = readBodyDetail(nextDetail, diagnostics);
@@ -185,8 +172,8 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return val != null ? String.valueOf(val) : null; 		
 		}
 		
-		private static String readBodyDetail(Map.Entry bodyEntry, DiagnosticChain diagnostics) {
-			String body = (String)bodyEntry.getValue();
+		private static String readBodyDetail(Map.Entry<String, String> bodyEntry, DiagnosticChain diagnostics) {
+			String body = bodyEntry.getValue();
 			if(body != null && body.trim().length() > 0) {
 				return body;
 			}
@@ -197,39 +184,32 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return null;
 		}
 		
-		protected boolean handleMetaModel(EClass eClass, EObject modelElement, DiagnosticChain diagnostics, Map context) {
+		protected boolean handleMetaModel(EClass eClass, EObject modelElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			boolean isValid = true;
 			
-			for (Iterator it = eClass.getEAnnotations().iterator(); it.hasNext();) {
-				EAnnotation nextAnnocation = (EAnnotation) it.next();
+			for (EAnnotation nextAnnocation : eClass.getEAnnotations()) {
 				if(Annotations.CONSTRAINTS_URI.equals(nextAnnocation.getSource())) {
 					isValid &= handleEAnnotation(nextAnnocation, modelElement, diagnostics, context);					
 				}
 			}
-			
-			for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) {
-				EOperation nextOperation = (EOperation) it.next();
-				for(Iterator annotIt = nextOperation.getEAnnotations().iterator(); annotIt.hasNext();) {
-					EAnnotation annotation = (EAnnotation)annotIt.next();
+			// FIXME do not duplicate same &= handleEAnnotation three times, 
+			for (EOperation nextOperation : eClass.getEOperations()) {
+				for(EAnnotation annotation : nextOperation.getEAnnotations()) {
 					if(Annotations.CONSTRAINTS_URI.equals(annotation.getSource())) {
 						isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);						
 					}
 				}
 			}
 			
-			for (Iterator it = eClass.getEStructuralFeatures().iterator(); it.hasNext();) {
-				EStructuralFeature nextFeature = (EStructuralFeature) it.next();
-				for(Iterator annotIt = nextFeature.getEAnnotations().iterator(); annotIt.hasNext();) {
-					EAnnotation annotation = (EAnnotation)annotIt.next();
+			for (EStructuralFeature nextFeature : eClass.getEStructuralFeatures()) {
+				for(EAnnotation annotation : nextFeature.getEAnnotations()) {
 					if(Annotations.CONSTRAINTS_URI.equals(annotation.getSource())) {
 						isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);					
 					}
 				}
 			}			
 			
-			EList superTypes = eClass.getESuperTypes();
-			for (Iterator it = superTypes.iterator(); it.hasNext();) {
-				EClass nextSuperType = (EClass) it.next();
+			for (EClass nextSuperType : eClass.getESuperTypes()) {
 				isValid &= handleMetaModel(nextSuperType, modelElement, diagnostics, context); 
 			}			
 			
@@ -263,7 +243,7 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return true;			
 		}
 		
-		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, DiagnosticChain diagnostics, Map context) {
+		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
 			if(!constraint.isSatisfied(constrainedElement)) {
 				String message = null;
 				if(constraint.getDescription() == null) {
