@@ -20,6 +20,7 @@ import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 
 public class NamingStrategyTest extends AbstractMappingTransformerTest {
 	/**
@@ -63,9 +64,10 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 		final String nodeEPName = strategy.get(getNodeMapping());
 		final String linkEPName = strategy.get(getLinkMapping());
 
-		assertStatus("Invalid Java class name '" + diagramEPName + " for diagram", JavaConventions.validateJavaTypeName(diagramEPName));
-		assertStatus("Invalid Java class name '" + nodeEPName + " for node", JavaConventions.validateJavaTypeName(nodeEPName));
-		assertStatus("Invalid Java class name '" + linkEPName + " for link", JavaConventions.validateJavaTypeName(linkEPName));
+		final String complianceLevel = JavaCore.VERSION_1_4;
+		assertStatus("Invalid Java class name '" + diagramEPName + " for diagram", JavaConventions.validateJavaTypeName(diagramEPName, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + nodeEPName + " for node", JavaConventions.validateJavaTypeName(nodeEPName, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + linkEPName + " for link", JavaConventions.validateJavaTypeName(linkEPName, complianceLevel, complianceLevel));
 	}
 
 	private void assertStatus(String message, IStatus status) {

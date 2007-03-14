@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import java.util.Iterator;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -45,8 +44,7 @@ public class DiaGenFileSetup implements DiaGenSource {
  		GenEditorGenerator editorGen = (GenEditorGenerator) srcRes.getContents().get(0);
  		myGenDiagram = editorGen.getDiagram();
  		// FIXME somehow select particular link - protected find()
- 		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
- 			GenLink next = (GenLink) it.next();
+ 		for (GenLink next : myGenDiagram.getLinks()) {
  			if (myLinkC == null && next.getModelFacet() instanceof TypeModelFacet) {
  				myLinkC = next;
  			}
@@ -55,8 +53,8 @@ public class DiaGenFileSetup implements DiaGenSource {
  			}
  		}
  		// TODO decide from myLinkC modelFacet or even introduce source/target genNodes attrs in GenLink (!!!)
- 		myNodeA = (GenNode) myGenDiagram.getTopLevelNodes().get(0);
- 		myNodeB = (GenNode) myGenDiagram.getTopLevelNodes().get(1);
+ 		myNodeA = myGenDiagram.getTopLevelNodes().get(0);
+ 		myNodeB = myGenDiagram.getTopLevelNodes().get(1);
  		return this;
 	}
 

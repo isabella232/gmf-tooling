@@ -12,7 +12,6 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -29,12 +28,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * Tests hancoded method in model for audit rule definitions 
  */
 public class AuditHandcodedTest extends ConfiguredTestCase {
-	private final String javaLevel = "1.4";
+	private final String javaLevel = JavaCore.VERSION_1_4;
 
 	private GenAuditRoot root;
 	private GenAuditContainer topCat;
@@ -102,8 +102,7 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 		}
 
 		int i = 0;		
-		for (Iterator it = root.getRules().iterator(); it.hasNext(); i++) {
-			GenAuditRule audit = (GenAuditRule) it.next();
+		for (GenAuditRule audit : root.getRules()) {
 			audit.setTarget((GenAuditable)EcoreUtil.copy(targets[i%targets.length]));
 			
 			IStatus s = JavaConventions.validateIdentifier(audit.getContextSelectorLocalClassName(), javaLevel, javaLevel);
@@ -118,8 +117,7 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 	
 	public void testModelConstraintAdapters() throws Exception {
 		int i = 1;
-		for (Iterator it = root.getRules().iterator(); it.hasNext(); i++) {
-			GenAuditRule nextAudit = (GenAuditRule) it.next();
+		for (GenAuditRule nextAudit : root.getRules()) {
 			assertEquals("Adapter" + i, nextAudit.getConstraintAdapterLocalClassName()); //$NON-NLS-1$
 		}
 	}

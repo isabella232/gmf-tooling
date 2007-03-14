@@ -28,6 +28,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -57,6 +58,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
@@ -82,6 +84,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * Tests for handcoded method implementations in GMFGen model
@@ -95,7 +98,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	
 	private GenDiagram myGenModel;
 
-	private final String javaLevel = "1.4";
+	private final String javaLevel = JavaCore.VERSION_1_4;
 
 	public HandcodedImplTest(String name) {
 		super(name);
@@ -121,7 +124,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	public void testUniqueIdentifier_IsUnique() {
 		HashSet<String> allIds = new HashSet<String>(1<<7);
 		for (GenCommonBaseIterator it = new GenCommonBaseIterator(myGenModel); it.hasNext();) {
-			GenCommonBase next = it.nextElement();
+			GenCommonBase next = it.next();
 			assertFalse("There should be no two same 'unique' identifiers in GMFGen", allIds.contains(next.getUniqueIdentifier()));
 			allIds.add(next.getUniqueIdentifier());
 		}
@@ -132,14 +135,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	public void testUniqueIdentifier_IsConstant() {
 		LinkedList<String> allIdsOrdered = new LinkedList<String>();
 		for (GenCommonBaseIterator it = new GenCommonBaseIterator(myGenModel); it.hasNext();) {
-			GenCommonBase next = it.nextElement();
+			GenCommonBase next = it.next();
 			allIdsOrdered.add(next.getUniqueIdentifier());
 		}
 		assertTrue("Test is not valid unless there are few elements to check", allIdsOrdered.size() > 1);
-		Iterator itSaved = allIdsOrdered.iterator();
+		Iterator<String> itSaved = allIdsOrdered.iterator();
 		GenCommonBaseIterator it = new GenCommonBaseIterator(myGenModel);
 		for (; it.hasNext() && itSaved.hasNext();) {
-			GenCommonBase next = it.nextElement();
+			GenCommonBase next = it.next();
 			String savedID = itSaved.next().toString();
 			assertEquals("Subsequent invocations of getUniqueIdentifier produce different results", savedID, next.getUniqueIdentifier());
 		}
@@ -270,19 +273,19 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenDiagram mockDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		mockGenerator.setDiagram(mockDiagram);
 		
-		GenNode mockNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		GenTopLevelNode mockNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		mockDiagram.getTopLevelNodes().add(mockNodeA);
 		Viewmap mockViewmapA = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		mockViewmapA.getRequiredPluginIDs().add(BUNDLE_VIEWMAPS_ONE);
 		mockNodeA.setViewmap(mockViewmapA);
 		
-		GenNode mockNodeB = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		GenTopLevelNode mockNodeB = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		mockDiagram.getTopLevelNodes().add(mockNodeB);
 		Viewmap mockViewmapB = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		mockViewmapB.getRequiredPluginIDs().addAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY));
 		mockNodeB.setViewmap(mockViewmapB);
 		
-		List allRequired = mockPlugin.getRequiredPluginIDs();  
+		List<String> allRequired = mockPlugin.getRequiredPluginIDs();  
 		assertTrue(allRequired.contains(BUNDLE_EXPRESSIONS));
 		assertTrue(allRequired.contains(BUNDLE_VIEWMAPS_ONE));
 		assertTrue(allRequired.containsAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY)));
@@ -357,7 +360,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenCompartment genCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		genDiagram.getCompartments().add(genCompartment);
 		
-		Collection nodes = genDiagram.getAllNodes();
+		Collection<GenNode> nodes = genDiagram.getAllNodes();
 		assertTrue(nodes.contains(topLevelNode));
 		assertTrue(nodes.contains(childNode));
 		assertFalse(nodes.contains(genCompartment));
@@ -373,7 +376,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenCompartment genCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		genDiagram.getCompartments().add(genCompartment);
 		
-		Collection nodes = genDiagram.getAllChildContainers();
+		Collection<GenChildContainer> nodes = genDiagram.getAllChildContainers();
 		assertTrue(nodes.contains(topLevelNode));
 		assertTrue(nodes.contains(childNode));
 		assertTrue(nodes.contains(genCompartment));
@@ -389,7 +392,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenCompartment genCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		genDiagram.getCompartments().add(genCompartment);
 		
-		Collection nodes = genDiagram.getAllContainers();
+		Collection<GenContainerBase> nodes = genDiagram.getAllContainers();
 		assertTrue(nodes.contains(topLevelNode));
 		assertTrue(nodes.contains(childNode));
 		assertTrue(nodes.contains(genCompartment));
@@ -564,7 +567,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	private void assertClassNamePrefix(GenCommonBase commonBase) {
 		assertNotNull(commonBase.getClassNamePrefix());
 		assertTrue(commonBase.getClassNamePrefix().length() > 0);
-		IStatus s = JavaConventions.validateJavaTypeName(commonBase.getClassNamePrefix());
+		IStatus s = JavaConventions.validateJavaTypeName(commonBase.getClassNamePrefix(), JavaCore.VERSION_1_4, JavaCore.VERSION_1_4);
 		assertTrue("Default prefix: " + s.getMessage(), s.getSeverity() != IStatus.ERROR);		
 	}
 	
@@ -878,8 +881,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 
 		// coverage check
-		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
-			Object next = classifiers.next();
+		for (Object next : GMFGenPackage.eINSTANCE.getEClassifiers()) {
 			if (next instanceof EClass) {
 				checkPackageNamesCoverage(state, (EClass) next);
 			}
@@ -983,7 +985,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenPlugin genPlugin = genDiagram.getEditorGen().getPlugin();
 		checkClassName(state, "GenPlugin:Activator", genPlugin.getActivatorClassName(), genPlugin.getActivatorQualifiedClassName());
 		for (GenCommonBaseIterator entities = new GenCommonBaseIterator(genDiagram); entities.hasNext();) {
-			GenCommonBase nextEntity = entities.nextElement();
+			GenCommonBase nextEntity = entities.next();
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());
 			checkClassName(state, "GenCommonBase:ItemSemanticEditPolicy", nextEntity.getItemSemanticEditPolicyClassName(), nextEntity.getItemSemanticEditPolicyQualifiedClassName());
 			checkClassName(state, "GenCommonBase:NotationViewFactory", nextEntity.getNotationViewFactoryClassName(), nextEntity.getNotationViewFactoryQualifiedClassName());
@@ -1004,8 +1006,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 					checkClassName(state, "TypeLinkModelFacet:CreateCommand", modelFacet.getCreateCommandClassName(), modelFacet.getCreateCommandQualifiedClassName());
 				}
 			}
-			for (Iterator it = nextEntity.getBehaviour().iterator(); it.hasNext();) {
-				Behaviour nextB = (Behaviour) it.next();
+			for (Behaviour nextB : nextEntity.getBehaviour()) {
 				String epClassName = CodeGenUtil.getSimpleClassName(nextB.getEditPolicyQualifiedClassName()); // just for checkClassName to be happy
 				checkClassName(state, "Behaviour:EditPolicy", epClassName, nextB.getEditPolicyQualifiedClassName());
 			}
@@ -1013,8 +1014,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenAuditRoot audits = genDiagram.getEditorGen().getAudits();
 		assertTrue("Need AuditRoot instance with rules to check handcoded methods", audits != null && audits.getRules().size() > 0);
 		Set<String> checkedContexts = new HashSet<String>();
-		for (Iterator it = audits.getRules().iterator(); it.hasNext();) {
-			GenAuditRule nextAudit = (GenAuditRule) it.next();
+		for (GenAuditRule nextAudit : audits.getRules()) {
 			if (!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
 				checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
 				checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());
@@ -1045,8 +1045,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenCustomPreferencePage:Qualified");
 		
 		// coverage check
-		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
-			Object next = classifiers.next();
+		for (Object next : GMFGenPackage.eINSTANCE.getEClassifiers()) {
 			if (next instanceof EClass) {
 				checkClassNamesCoverage(state, (EClass) next);
 			}
@@ -1084,8 +1083,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 	protected void checkPackageNamesCoverage(Set<String> state, EClass eClass) {
 		final String PN = "PackageName";
-		for (Iterator attributes = eClass.getEAttributes().iterator(); attributes.hasNext();) {
-			EAttribute attribute = (EAttribute) attributes.next();
+		for (EAttribute attribute : eClass.getEAttributes()) {
 			if (attribute.getName().endsWith(PN) && attribute.getName().length() > PN.length()) {
 				String packageName = attribute.getName();
 				packageName = packageName.substring(0, packageName.length() - PN.length());
@@ -1100,8 +1098,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		final String CN = "ClassName";
 		final String QCN = "QualifiedClassName";
 		final String GET = "get";
-		for (Iterator attributes = eClass.getEAttributes().iterator(); attributes.hasNext();) {
-			EAttribute attribute = (EAttribute) attributes.next();
+		for (EAttribute attribute : eClass.getEAttributes()) {
 			if (attribute.getName().endsWith(QCN) && attribute.getName().length() > QCN.length()) {
 				// TODO : attribute with fqn; ignore for now
 			} else if (attribute.getName().endsWith(CN) && attribute.getName().length() > CN.length()) {
@@ -1113,8 +1110,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				assertTrue(id + " simple class name is not checked", state.contains(id));
 			}
 		}
-		for (Iterator operations = eClass.getEOperations().iterator(); operations.hasNext();) {
-			EOperation operation = (EOperation) operations.next();
+		for (EOperation operation : eClass.getEOperations()) {
 			if (operation.getName().startsWith(GET) && operation.getName().endsWith(QCN)
 					&& operation.getName().length() > GET.length() + QCN.length()) {
 				String className = operation.getName();
@@ -1126,9 +1122,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 	}
 
-	private static class GenCommonBaseIterator implements Iterator {
+	private static class GenCommonBaseIterator implements Iterator<GenCommonBase> {
 		private GenCommonBase nextBase;
-		private Iterator wrappedIterator;
+		private Iterator<?> wrappedIterator;
 
 		public GenCommonBaseIterator(GenDiagram genDiagram) {
 			assert genDiagram != null;
@@ -1138,7 +1134,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		public boolean hasNext() {
 			return nextBase != null;
 		}
-		public GenCommonBase nextElement() {
+
+		public GenCommonBase next() {
 			if (nextBase == null) {
 				throw new NoSuchElementException();
 			}
@@ -1146,9 +1143,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			advance();
 			return rv;
 		}
-		public Object next() {
-			return nextElement();
-		}
+
 		private void advance() {
 			nextBase = null;
 			while (wrappedIterator.hasNext()) {
@@ -1165,14 +1160,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 	
 	private class CustomLinkModelFacet extends EObjectImpl implements LinkModelFacet {
-		private EList myTypes;
+		private EList<GenClass> myTypes;
 		protected CustomLinkModelFacet(GenClass[] types) {
-			myTypes = new UnmodifiableEList(types.length, types);
+			myTypes = new UnmodifiableEList<GenClass>(types.length, types);
 		}
-		public EList getAssistantSourceTypes() {
+		public EList<GenClass> getAssistantSourceTypes() {
 			return myTypes;
 		}
-		public EList getAssistantTargetTypes() {
+		public EList<GenClass> getAssistantTargetTypes() {
 			return myTypes;
 		}
 		public GenClass getSourceType() {
@@ -1181,7 +1176,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		public GenClass getTargetType() {
 			return null;
 		}
-		public TreeIterator eAllContents() {
+		public TreeIterator<EObject> eAllContents() {
 			return null;
 		}
 		public EClass eClass() {
@@ -1196,10 +1191,10 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		public EReference eContainmentFeature() {
 			return null;
 		}
-		public EList eContents() {
+		public EList<EObject> eContents() {
 			return null;
 		}
-		public EList eCrossReferences() {
+		public EList<EObject> eCrossReferences() {
 			return null;
 		}
 		public Object eGet(EStructuralFeature feature) {
@@ -1219,7 +1214,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 		public void eSet(EStructuralFeature feature, Object newValue) {}
 		public void eUnset(EStructuralFeature feature) {}
-		public EList eAdapters() {
+		public EList<Adapter> eAdapters() {
 			return null;
 		}
 		public boolean eDeliver() {

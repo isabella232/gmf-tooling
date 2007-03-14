@@ -199,7 +199,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 	}
 
 	private GenNode createGenNode() {
-		GenNode node = GMFGenFactory.eINSTANCE.createGenChildNode();
+		GenChildNode node = GMFGenFactory.eINSTANCE.createGenChildNode();
 		myDiagram.getChildNodes().add(node);
 		initializeMF(node);
 		return node;
@@ -228,7 +228,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 	}
 
 	public void testIndirectChildPaths() {
-		GenNode indirectChildNode = createIndirectChildNode();
+		GenChildNode indirectChildNode = createIndirectChildNode();
 		GenCompartment indirectChildNodeCompartment = createIndirectChildNodeCompartment(indirectChildNode);
 		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.CHILDREN_LITERAL);
 
@@ -291,24 +291,24 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 
 	}
 
-	private GenCompartment createIndirectChildNodeCompartment(GenNode indirectChildNode) {
+	private GenCompartment createIndirectChildNodeCompartment(GenChildNode indirectChildNode) {
 		GenCompartment indirectChildNodeCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		indirectChildNode.getCompartments().add(indirectChildNodeCompartment);
 		indirectChildNodeCompartment.getChildNodes().add(indirectChildNode);
 		return indirectChildNodeCompartment;
 	}
 
-	private GenNode createIndirectChildNode() {
-		GenNode indirectChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+	private GenChildNode createIndirectChildNode() {
+		GenChildNode indirectChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		myStartNodeCompartment.getChildNodes().add(indirectChildNode);
 		myDiagram.getChildNodes().add(indirectChildNode);
 		return indirectChildNode;
 	}
 
 	public void testSeveralChildPaths() {
-		GenNode indirectChildNode = createIndirectChildNode();
+		GenChildNode indirectChildNode = createIndirectChildNode();
 		GenCompartment indirectChildNodeCompartment = createIndirectChildNodeCompartment(indirectChildNode);
-		GenNode doublePathChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		GenChildNode doublePathChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		myDiagram.getChildNodes().add(doublePathChildNode);
 		myStartNodeCompartment.getChildNodes().add(doublePathChildNode);
 		indirectChildNodeCompartment.getChildNodes().add(doublePathChildNode);

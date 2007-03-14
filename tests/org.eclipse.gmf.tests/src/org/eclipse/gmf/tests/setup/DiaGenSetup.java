@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -34,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -58,7 +58,7 @@ import org.eclipse.gmf.tests.Utils;
  */
 public class DiaGenSetup implements DiaGenSource {
 	private GenDiagram myGenDiagram;
-	private GenNode myNodeA;
+	private GenTopLevelNode myNodeA;
 	private GenLink myLinkC;
 	private GenLink myLinkD;
 	private GenNode myNodeB;
@@ -186,8 +186,7 @@ public class DiaGenSetup implements DiaGenSource {
 		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.get(mapSource.getNodeB());
 		final String cLinkEPName = epns.get(mapSource.getClassLink());
 		final String dLinkEPName = epns.get(mapSource.getReferenceLink());
-		for (Iterator it = myGenDiagram.getTopLevelNodes().iterator(); it.hasNext();) {
-			GenNode n = (GenNode) it.next();
+		for (GenTopLevelNode n : myGenDiagram.getTopLevelNodes()) {
 			if (n.getEditPartClassName().equals(aNodeEPName)) {
 				myNodeA = n;
 			}
@@ -195,8 +194,7 @@ public class DiaGenSetup implements DiaGenSource {
 				myNodeB = n;
 			}
 		}
-		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
-			GenLink l = (GenLink) it.next();
+		for (GenLink l : myGenDiagram.getLinks()) {
 			if (l.getEditPartClassName().equals(cLinkEPName)) {
 				myLinkC = l;
 			}
@@ -215,8 +213,7 @@ public class DiaGenSetup implements DiaGenSource {
 	}
 	
 	private void initSpecific(MapSetup setup) {
-		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
+		for (GenLink nextLink : myGenDiagram.getLinks()) {
 			if (nextLink == myLinkC || nextLink == myLinkD) {
 				continue;
 			}
