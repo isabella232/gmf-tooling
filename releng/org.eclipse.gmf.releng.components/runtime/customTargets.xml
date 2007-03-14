@@ -186,7 +186,7 @@
 		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
 		<delete dir="${artifacts}/cc" failonerror="false"/>
 		<copy todir="${artifacts}/cc">
-		    <fileset dir="${artifacts}/${buildLabel}"/>
+		    <fileset dir="${artifacts}/drops/${buildLabel}"/>
 		</copy>
 	</target>
 
