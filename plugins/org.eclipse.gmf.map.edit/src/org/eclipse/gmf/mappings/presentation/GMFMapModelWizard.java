@@ -138,7 +138,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 
 							// Save the contents of the resource to the file system.
 							//
-							Map options = new HashMap();
+							Map<String, String> options = new HashMap<String, String>();
 							options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 							resource.save(options);
 						}

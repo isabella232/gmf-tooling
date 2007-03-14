@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corp
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -42,15 +43,13 @@ import org.eclipse.gmf.mappings.TopNodeReference;
 
 public class FilterUtil {
 
-	private static Comparator EOBJECTS_COMPARATOR = new EObjectsComparator();
-
-	public static List sort(Collection eObjects) {
-		List result = new ArrayList(eObjects);
-		Collections.sort(result, EOBJECTS_COMPARATOR);
+	public static <T> List<T> sort(Collection<T> eObjects) {
+		ArrayList<T> result = new ArrayList<T>(eObjects);
+		Collections.sort(result, new EObjectsComparator());
 		return result;
 	}
 
-	public static List filterByResourceSet(Collection eClasses, ResourceSet resourceSet) {
+	public static <T> List<T> filterByResourceSet(Collection<T> eClasses, ResourceSet resourceSet) {
 		return sort(getValidEClassesFrom(eClasses, resourceSet));
 	}
 
@@ -226,7 +225,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection getValidEStructuralFeatures(Collection structuralFeatures) {
+	private static Collection<EStructuralFeature> getValidEStructuralFeatures(Collection structuralFeatures) {
 		Collection result = getValidEObjects(structuralFeatures);
 		for (Iterator it = result.iterator(); it.hasNext();) {
 			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
@@ -237,7 +236,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection getValidEClassesFrom(Collection eClasses, ResourceSet resourceSet) {
+	private static <T> Collection<T> getValidEClassesFrom(Collection<T> eClasses, ResourceSet resourceSet) {
 		Collection result = getValidEObjects(eClasses);
 		for (Iterator it = result.iterator(); it.hasNext();) {
 			EClass nextEClass = (EClass) it.next();
@@ -251,8 +250,8 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection getValidEObjects(Collection eObjects) {
-		List result = new ArrayList();
+	private static Collection<EObject> getValidEObjects(Collection<?> eObjects) {
+		LinkedList<EObject> result = new LinkedList<EObject>();
 		for (Iterator it = eObjects.iterator(); it.hasNext();) {
 			EObject nextEObject = (EObject) it.next();
 			if (nextEObject != null && (nextEObject.eContainer() == null)) {
@@ -288,7 +287,7 @@ public class FilterUtil {
 		return result;
 	}
 	
-	private static class EObjectsComparator implements Comparator {
+	private static class EObjectsComparator implements Comparator<Object> {
 
 		public int compare(Object o1, Object o2) {
 			if (o1 instanceof EObject && o2 instanceof EObject) {

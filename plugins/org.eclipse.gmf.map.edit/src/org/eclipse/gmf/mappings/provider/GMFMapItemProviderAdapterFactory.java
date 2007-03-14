@@ -57,7 +57,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -70,7 +70,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
-		supportedTypes.add(IItemPropertySource.class);		
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**
@@ -87,6 +87,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createNodeMappingAdapter() {
 		if (nodeMappingItemProvider == null) {
 			nodeMappingItemProvider = new NodeMappingItemProvider(this);
@@ -109,6 +110,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCompartmentMappingAdapter() {
 		if (compartmentMappingItemProvider == null) {
 			compartmentMappingItemProvider = new CompartmentMappingItemProvider(this);
@@ -131,6 +133,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLinkMappingAdapter() {
 		if (linkMappingItemProvider == null) {
 			linkMappingItemProvider = new LinkMappingItemProvider(this);
@@ -153,6 +156,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCanvasMappingAdapter() {
 		if (canvasMappingItemProvider == null) {
 			canvasMappingItemProvider = new CanvasMappingItemProvider(this);
@@ -175,6 +179,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLabelMappingAdapter() {
 		if (labelMappingItemProvider == null) {
 			labelMappingItemProvider = new LabelMappingItemProvider(this);
@@ -197,6 +202,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureLabelMappingAdapter() {
 		if (featureLabelMappingItemProvider == null) {
 			featureLabelMappingItemProvider = new FeatureLabelMappingItemProvider(this);
@@ -219,6 +225,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDesignLabelMappingAdapter() {
 		if (designLabelMappingItemProvider == null) {
 			designLabelMappingItemProvider = new DesignLabelMappingItemProvider(this);
@@ -241,6 +248,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMappingAdapter() {
 		if (mappingItemProvider == null) {
 			mappingItemProvider = new MappingItemProvider(this);
@@ -263,6 +271,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createChildReferenceAdapter() {
 		if (childReferenceItemProvider == null) {
 			childReferenceItemProvider = new ChildReferenceItemProvider(this);
@@ -285,6 +294,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createTopNodeReferenceAdapter() {
 		if (topNodeReferenceItemProvider == null) {
 			topNodeReferenceItemProvider = new TopNodeReferenceItemProvider(this);
@@ -307,6 +317,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createConstraintAdapter() {
 		if (constraintItemProvider == null) {
 			constraintItemProvider = new ConstraintItemProvider(this);
@@ -329,6 +340,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLinkConstraintsAdapter() {
 		if (linkConstraintsItemProvider == null) {
 			linkConstraintsItemProvider = new LinkConstraintsItemProvider(this);
@@ -351,6 +363,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createValueExpressionAdapter() {
 		if (valueExpressionItemProvider == null) {
 			valueExpressionItemProvider = new ValueExpressionItemProvider(this);
@@ -373,6 +386,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureSeqInitializerAdapter() {
 		if (featureSeqInitializerItemProvider == null) {
 			featureSeqInitializerItemProvider = new FeatureSeqInitializerItemProvider(this);
@@ -395,6 +409,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureValueSpecAdapter() {
 		if (featureValueSpecItemProvider == null) {
 			featureValueSpecItemProvider = new FeatureValueSpecItemProvider(this);
@@ -417,6 +432,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createReferenceNewElementSpecAdapter() {
 		if (referenceNewElementSpecItemProvider == null) {
 			referenceNewElementSpecItemProvider = new ReferenceNewElementSpecItemProvider(this);
@@ -439,6 +455,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createAuditContainerAdapter() {
 		if (auditContainerItemProvider == null) {
 			auditContainerItemProvider = new AuditContainerItemProvider(this);
@@ -461,6 +478,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createAuditRuleAdapter() {
 		if (auditRuleItemProvider == null) {
 			auditRuleItemProvider = new AuditRuleItemProvider(this);
@@ -483,6 +501,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDomainElementTargetAdapter() {
 		if (domainElementTargetItemProvider == null) {
 			domainElementTargetItemProvider = new DomainElementTargetItemProvider(this);
@@ -505,6 +524,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDomainAttributeTargetAdapter() {
 		if (domainAttributeTargetItemProvider == null) {
 			domainAttributeTargetItemProvider = new DomainAttributeTargetItemProvider(this);
@@ -527,6 +547,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDiagramElementTargetAdapter() {
 		if (diagramElementTargetItemProvider == null) {
 			diagramElementTargetItemProvider = new DiagramElementTargetItemProvider(this);
@@ -549,6 +570,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createNotationElementTargetAdapter() {
 		if (notationElementTargetItemProvider == null) {
 			notationElementTargetItemProvider = new NotationElementTargetItemProvider(this);
@@ -571,6 +593,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMetricContainerAdapter() {
 		if (metricContainerItemProvider == null) {
 			metricContainerItemProvider = new MetricContainerItemProvider(this);
@@ -593,6 +616,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMetricRuleAdapter() {
 		if (metricRuleItemProvider == null) {
 			metricRuleItemProvider = new MetricRuleItemProvider(this);
@@ -615,6 +639,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createAuditedMetricTargetAdapter() {
 		if (auditedMetricTargetItemProvider == null) {
 			auditedMetricTargetItemProvider = new AuditedMetricTargetItemProvider(this);
@@ -648,6 +673,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -658,6 +684,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -667,10 +694,11 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class)type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}

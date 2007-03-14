@@ -45,10 +45,10 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 	 */
 	public GMFMapEditPlugin() {
 		super
-		  (new ResourceLocator [] {
-		     GMFGraphEditPlugin.INSTANCE,
-		     GMFToolEditPlugin.INSTANCE,
-		   });
+			(new ResourceLocator [] {
+				GMFGraphEditPlugin.INSTANCE,
+				GMFToolEditPlugin.INSTANCE,
+			});
 	}
 
 	/**
@@ -58,6 +58,7 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 	 * @return the singleton instance.
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}
@@ -103,7 +104,7 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 		 */
 		public Implementation() {
 			super();
-
+	
 			// Remember the static instance.
 			//
 			plugin = this;
