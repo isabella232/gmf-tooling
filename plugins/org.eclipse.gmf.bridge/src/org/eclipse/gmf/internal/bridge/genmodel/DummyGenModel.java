@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.bridge.genmodel;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
@@ -24,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * @see org.eclipse.emf.codegen.ecore.Generator#run(java.lang.Object) (-ecore2GenModel key)
@@ -58,8 +58,7 @@ public class DummyGenModel {
 		// need different prefix to avoid name collisions with code generated
 		// for domain model
 		final String basePackage = asValidPackageName(pluginID);
-		for (Iterator it = genModel.getGenPackages().iterator(); it.hasNext();) {
-			GenPackage genPackage = (GenPackage) it.next();
+		for (GenPackage genPackage : genModel.getGenPackages()) {
 			if (basePackage != null) {
 				if (basePackage.endsWith('.' + genPackage.getEcorePackage().getName())) {
 					genPackage.setBasePackage(basePackage.substring(0, basePackage.lastIndexOf('.')));
@@ -93,7 +92,7 @@ public class DummyGenModel {
 
 	private String asValidPackageName(String pluginID) {
 		String rv = pluginID.toLowerCase();
-		final String complianceLevel = "1.3"; //$NON-NLS-1$
+		final String complianceLevel = JavaCore.VERSION_1_4;
 		if (JavaConventions.validatePackageName(rv, complianceLevel, complianceLevel).getSeverity() != IStatus.ERROR) {
 			return rv;
 		}
