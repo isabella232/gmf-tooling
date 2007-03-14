@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,62 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class LineKind extends AbstractEnumerator {
+public enum LineKind implements Enumerator
+{
+	/**
+	 * The '<em><b>LINE SOLID</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_SOLID
+	 * @generated
+	 * @ordered
+	 */
+	LINE_SOLID_LITERAL(1, "LINE_SOLID", "LINE_SOLID"),
+	/**
+	 * The '<em><b>LINE DASH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_DASH
+	 * @generated
+	 * @ordered
+	 */
+	LINE_DASH_LITERAL(2, "LINE_DASH", "LINE_DASH"),
+	/**
+	 * The '<em><b>LINE DOT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_DOT
+	 * @generated
+	 * @ordered
+	 */
+	LINE_DOT_LITERAL(3, "LINE_DOT", "LINE_DOT"),
+	/**
+	 * The '<em><b>LINE DASHDOT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_DASHDOT
+	 * @generated
+	 * @ordered
+	 */
+	LINE_DASHDOT_LITERAL(4, "LINE_DASHDOT", "LINE_DASHDOT"),
+	/**
+	 * The '<em><b>LINE DASHDOTDOT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_DASHDOTDOT
+	 * @generated
+	 * @ordered
+	 */
+	LINE_DASHDOTDOT_LITERAL(5, "LINE_DASHDOTDOT", "LINE_DASHDOTDOT"),
+	/**
+	 * The '<em><b>LINE CUSTOM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LINE_CUSTOM
+	 * @generated
+	 * @ordered
+	 */
+	LINE_CUSTOM_LITERAL(6, "LINE_CUSTOM", "LINE_CUSTOM");
 	/**
 	 * The '<em><b>LINE SOLID</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -116,66 +171,6 @@ public final class LineKind extends AbstractEnumerator {
 	public static final int LINE_CUSTOM = 6;
 
 	/**
-	 * The '<em><b>LINE SOLID</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_SOLID
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_SOLID_LITERAL = new LineKind(LINE_SOLID, "LINE_SOLID", "LINE_SOLID");
-
-	/**
-	 * The '<em><b>LINE DASH</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_DASH
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_DASH_LITERAL = new LineKind(LINE_DASH, "LINE_DASH", "LINE_DASH");
-
-	/**
-	 * The '<em><b>LINE DOT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_DOT
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_DOT_LITERAL = new LineKind(LINE_DOT, "LINE_DOT", "LINE_DOT");
-
-	/**
-	 * The '<em><b>LINE DASHDOT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_DASHDOT
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_DASHDOT_LITERAL = new LineKind(LINE_DASHDOT, "LINE_DASHDOT", "LINE_DASHDOT");
-
-	/**
-	 * The '<em><b>LINE DASHDOTDOT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_DASHDOTDOT
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_DASHDOTDOT_LITERAL = new LineKind(LINE_DASHDOTDOT, "LINE_DASHDOTDOT", "LINE_DASHDOTDOT");
-
-	/**
-	 * The '<em><b>LINE CUSTOM</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LINE_CUSTOM
-	 * @generated
-	 * @ordered
-	 */
-	public static final LineKind LINE_CUSTOM_LITERAL = new LineKind(LINE_CUSTOM, "LINE_CUSTOM", "LINE_CUSTOM");
-
-	/**
 	 * An array of all the '<em><b>Line Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -197,7 +192,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<LineKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified literal value.
@@ -246,8 +241,29 @@ public final class LineKind extends AbstractEnumerator {
 			case LINE_DASHDOTDOT: return LINE_DASHDOTDOT_LITERAL;
 			case LINE_CUSTOM: return LINE_CUSTOM_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -256,7 +272,46 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 */
 	private LineKind(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //LineKind
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

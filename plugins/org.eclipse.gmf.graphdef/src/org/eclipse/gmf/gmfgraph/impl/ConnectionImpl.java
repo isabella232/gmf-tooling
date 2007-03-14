@@ -39,6 +39,7 @@ public class ConnectionImpl extends DiagramElementImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getConnection();
 	}
@@ -57,6 +58,7 @@ public class ConnectionImpl extends DiagramElementImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.CONNECTION__CONNECTION_FIGURE:
@@ -70,6 +72,7 @@ public class ConnectionImpl extends DiagramElementImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CONNECTION__CONNECTION_FIGURE:

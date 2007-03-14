@@ -55,7 +55,7 @@ public interface Figure extends FigureMarker, FigureHandle, Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.FigureMarker" opposite="parent" containment="true"
 	 * @generated
 	 */
-	EList getChildren();
+	EList<FigureMarker> getChildren();
 
 	/**
 	 * Returns the value of the '<em><b>Foreground Color</b></em>' containment reference.

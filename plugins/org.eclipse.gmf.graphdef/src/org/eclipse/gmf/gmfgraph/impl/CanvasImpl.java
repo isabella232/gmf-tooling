@@ -72,7 +72,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList figures = null;
+	protected EList<FigureGallery> figures = null;
 
 	/**
 	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
@@ -82,7 +82,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList nodes = null;
+	protected EList<Node> nodes = null;
 
 	/**
 	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
@@ -92,7 +92,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList connections = null;
+	protected EList<Connection> connections = null;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -102,7 +102,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList compartments = null;
+	protected EList<Compartment> compartments = null;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -112,7 +112,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList labels = null;
+	protected EList<DiagramLabel> labels = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -128,6 +128,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCanvas();
 	}
@@ -158,9 +159,9 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFigures() {
+	public EList<FigureGallery> getFigures() {
 		if (figures == null) {
-			figures = new EObjectContainmentEList(FigureGallery.class, this, GMFGraphPackage.CANVAS__FIGURES);
+			figures = new EObjectContainmentEList<FigureGallery>(FigureGallery.class, this, GMFGraphPackage.CANVAS__FIGURES);
 		}
 		return figures;
 	}
@@ -170,9 +171,9 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNodes() {
+	public EList<Node> getNodes() {
 		if (nodes == null) {
-			nodes = new EObjectContainmentEList(Node.class, this, GMFGraphPackage.CANVAS__NODES);
+			nodes = new EObjectContainmentEList<Node>(Node.class, this, GMFGraphPackage.CANVAS__NODES);
 		}
 		return nodes;
 	}
@@ -182,9 +183,9 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getConnections() {
+	public EList<Connection> getConnections() {
 		if (connections == null) {
-			connections = new EObjectContainmentEList(Connection.class, this, GMFGraphPackage.CANVAS__CONNECTIONS);
+			connections = new EObjectContainmentEList<Connection>(Connection.class, this, GMFGraphPackage.CANVAS__CONNECTIONS);
 		}
 		return connections;
 	}
@@ -194,9 +195,9 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCompartments() {
+	public EList<Compartment> getCompartments() {
 		if (compartments == null) {
-			compartments = new EObjectContainmentEList(Compartment.class, this, GMFGraphPackage.CANVAS__COMPARTMENTS);
+			compartments = new EObjectContainmentEList<Compartment>(Compartment.class, this, GMFGraphPackage.CANVAS__COMPARTMENTS);
 		}
 		return compartments;
 	}
@@ -206,9 +207,9 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLabels() {
+	public EList<DiagramLabel> getLabels() {
 		if (labels == null) {
-			labels = new EObjectContainmentEList(DiagramLabel.class, this, GMFGraphPackage.CANVAS__LABELS);
+			labels = new EObjectContainmentEList<DiagramLabel>(DiagramLabel.class, this, GMFGraphPackage.CANVAS__LABELS);
 		}
 		return labels;
 	}
@@ -218,18 +219,19 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__FIGURES:
-				return ((InternalEList)getFigures()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getFigures()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CANVAS__NODES:
-				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CANVAS__CONNECTIONS:
-				return ((InternalEList)getConnections()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CANVAS__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCompartments()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CANVAS__LABELS:
-				return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLabels()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -239,6 +241,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__NAME:
@@ -262,6 +265,8 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__NAME:
@@ -269,23 +274,23 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 				return;
 			case GMFGraphPackage.CANVAS__FIGURES:
 				getFigures().clear();
-				getFigures().addAll((Collection)newValue);
+				getFigures().addAll((Collection<? extends FigureGallery>)newValue);
 				return;
 			case GMFGraphPackage.CANVAS__NODES:
 				getNodes().clear();
-				getNodes().addAll((Collection)newValue);
+				getNodes().addAll((Collection<? extends Node>)newValue);
 				return;
 			case GMFGraphPackage.CANVAS__CONNECTIONS:
 				getConnections().clear();
-				getConnections().addAll((Collection)newValue);
+				getConnections().addAll((Collection<? extends Connection>)newValue);
 				return;
 			case GMFGraphPackage.CANVAS__COMPARTMENTS:
 				getCompartments().clear();
-				getCompartments().addAll((Collection)newValue);
+				getCompartments().addAll((Collection<? extends Compartment>)newValue);
 				return;
 			case GMFGraphPackage.CANVAS__LABELS:
 				getLabels().clear();
-				getLabels().addAll((Collection)newValue);
+				getLabels().addAll((Collection<? extends DiagramLabel>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -296,6 +301,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__NAME:
@@ -325,6 +331,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__NAME:
@@ -348,6 +355,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

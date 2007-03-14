@@ -43,6 +43,6 @@ public interface Polyline extends Shape {
 	 * @model type="org.eclipse.gmf.gmfgraph.Point" containment="true"
 	 * @generated
 	 */
-	EList getTemplate();
+	EList<Point> getTemplate();
 
 } // Polyline

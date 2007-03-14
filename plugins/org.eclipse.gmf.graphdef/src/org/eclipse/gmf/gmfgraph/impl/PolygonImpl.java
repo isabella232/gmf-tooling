@@ -34,6 +34,7 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPolygon();
 	}

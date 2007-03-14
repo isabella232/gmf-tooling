@@ -44,6 +44,6 @@ public interface CustomFigure extends Figure, CustomClass {
 	 * @model type="org.eclipse.gmf.gmfgraph.FigureAccessor" containment="true"
 	 * @generated
 	 */
-	EList getCustomChildren();
+	EList<FigureAccessor> getCustomChildren();
 
 } // CustomFigure

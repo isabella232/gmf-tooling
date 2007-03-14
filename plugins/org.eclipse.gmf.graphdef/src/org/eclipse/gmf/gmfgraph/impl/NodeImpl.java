@@ -84,6 +84,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getNode();
 	}
@@ -144,6 +145,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__NODE_FIGURE:
@@ -161,6 +163,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
@@ -178,6 +181,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
@@ -195,6 +199,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__NODE_FIGURE:
@@ -212,6 +217,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

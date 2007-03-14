@@ -8,7 +8,6 @@ package org.eclipse.gmf.gmfgraph.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -103,7 +102,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList referencingElements = null;
+	protected EList<DiagramElement> referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -133,7 +132,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList children = null;
+	protected EList<FigureMarker> children = null;
 
 	/**
 	 * The cached value of the '{@link #getForegroundColor() <em>Foreground Color</em>}' containment reference.
@@ -369,6 +368,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getShape();
 	}
@@ -485,9 +485,9 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
+	public EList<FigureMarker> getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentWithInverseEList(FigureMarker.class, this, GMFGraphPackage.SHAPE__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
+			children = new EObjectContainmentWithInverseEList<FigureMarker>(FigureMarker.class, this, GMFGraphPackage.SHAPE__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
 		}
 		return children;
 	}
@@ -937,9 +937,9 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getReferencingElements() {
+	public EList<DiagramElement> getReferencingElements() {
 		if (referencingElements == null) {
-			referencingElements = new EObjectWithInverseResolvingEList(DiagramElement.class, this, GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
+			referencingElements = new EObjectWithInverseResolvingEList<DiagramElement>(DiagramElement.class, this, GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
 		}
 		return referencingElements;
 	}
@@ -949,18 +949,17 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getResolvedChildren() {
-		ArrayList r = new ArrayList(getChildren().size());
-		for (Iterator it = getChildren().iterator(); it.hasNext();) {
-			FigureMarker next = (FigureMarker) it.next();
+	public EList<Figure> getResolvedChildren() {
+		ArrayList<Figure> r = new ArrayList<Figure>(getChildren().size());
+		for (FigureMarker next : getChildren()) {
 			if (next instanceof FigureRef) {
 				r.add(((FigureRef) next).getFigure());
 			} else {
 				assert next instanceof Figure;
-				r.add(next);
+				r.add((Figure) next);
 			}
 		}
-		return new EcoreEList.UnmodifiableEList(this, GMFGraphPackage.eINSTANCE.getShape_ResolvedChildren(), r.size(), r.toArray());
+		return new EcoreEList.UnmodifiableEList<Figure>(this, GMFGraphPackage.eINSTANCE.getShape_ResolvedChildren(), r.size(), r.toArray());
 	}
 
 	/**
@@ -968,6 +967,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -979,9 +980,9 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.SHAPE__PARENT, msgs);
 			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingElements()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -991,6 +992,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -1000,9 +1002,9 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 			case GMFGraphPackage.SHAPE__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.SHAPE__PARENT, msgs);
 			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 				return basicSetForegroundColor(null, msgs);
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
@@ -1032,6 +1034,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGraphPackage.SHAPE__PARENT:
@@ -1045,6 +1048,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -1102,6 +1106,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -1112,14 +1118,14 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return;
 			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
 				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
+				getReferencingElements().addAll((Collection<? extends DiagramElement>)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__NAME:
 				setName((String)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
+				getChildren().addAll((Collection<? extends FigureMarker>)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 				setForegroundColor((Color)newValue);
@@ -1178,6 +1184,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -1252,6 +1259,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
@@ -1435,7 +1443,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == FigureHandle.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
@@ -1456,7 +1465,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == FigureHandle.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS;
@@ -1477,6 +1487,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -29,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
  */
 public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 
-	protected void collectDependencies(FigureGallery gallery, UniqueEList result) {
+	protected void collectDependencies(FigureGallery gallery, UniqueEList<String> result) {
 		super.collectDependencies(gallery, result);
 		final String pluginRuntimeDraw2d = "org.eclipse.gmf.runtime.draw2d.ui"; //$NON-NLS-1$
 		if (usesEClassWithID(gallery, new int[] {GMFGraphPackage.POLYLINE_CONNECTION, GMFGraphPackage.LABEL})) {
@@ -41,29 +41,28 @@ public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 		// Perhaps, EcoreUtil.getAllContents(gallery, false) would be better - 
 		// - e.g. if eClass().getClassifierID() works for proxies?
 		Arrays.sort(ids);
-		for (Iterator it = gallery.eAllContents(); it.hasNext(); ) {
-			Object next = it.next();
-			assert next instanceof EObject;
-			if (Arrays.binarySearch(ids, ((EObject) next).eClass().getClassifierID()) >= 0) {
+		for (Iterator<EObject> it = gallery.eAllContents(); it.hasNext(); ) {
+			EObject next = it.next();
+			if (Arrays.binarySearch(ids, next.eClass().getClassifierID()) >= 0) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public Object caseGridLayout(GridLayout object) {
+	public String caseGridLayout(GridLayout object) {
 		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayout";
 	}
 
-	public Object caseGridLayoutData(GridLayoutData object) {
+	public String caseGridLayoutData(GridLayoutData object) {
 		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayoutData";
 	}
 	
-	public Object casePolylineConnection(PolylineConnection object) {
+	public String casePolylineConnection(PolylineConnection object) {
 		return "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"; //$NON-NLS-1$
 	}
 
-	public Object caseLabel(Label object) {
+	public String caseLabel(Label object) {
 		return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"; //$NON-NLS-1$
 	}
 }

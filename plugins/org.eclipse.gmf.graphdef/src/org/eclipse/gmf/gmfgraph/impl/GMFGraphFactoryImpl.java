@@ -109,6 +109,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GMFGraphPackage.CANVAS: return createCanvas();
@@ -169,6 +170,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case GMFGraphPackage.COLOR_CONSTANTS:
@@ -191,6 +193,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case GMFGraphPackage.COLOR_CONSTANTS:
@@ -803,6 +806,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static GMFGraphPackage getPackage() {
 		return GMFGraphPackage.eINSTANCE;
 	}

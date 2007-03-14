@@ -2531,6 +2531,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 		canvasEClass.getESuperTypes().add(this.getIdentity());
 		figureGalleryEClass.getESuperTypes().add(this.getIdentity());

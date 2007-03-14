@@ -86,7 +86,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList attributes = null;
+	protected EList<CustomAttribute> attributes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,6 +102,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCustomBorder();
 	}
@@ -153,9 +154,9 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAttributes() {
+	public EList<CustomAttribute> getAttributes() {
 		if (attributes == null) {
-			attributes = new EObjectContainmentEList(CustomAttribute.class, this, GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES);
+			attributes = new EObjectContainmentEList<CustomAttribute>(CustomAttribute.class, this, GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES);
 		}
 		return attributes;
 	}
@@ -165,10 +166,11 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
-				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -178,6 +180,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
@@ -195,6 +198,8 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
@@ -205,7 +210,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 				return;
 			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
 				getAttributes().clear();
-				getAttributes().addAll((Collection)newValue);
+				getAttributes().addAll((Collection<? extends CustomAttribute>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -216,6 +221,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
@@ -236,6 +242,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
@@ -253,7 +260,8 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == CustomClass.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME;
@@ -270,7 +278,8 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == CustomClass.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME;
@@ -287,6 +296,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

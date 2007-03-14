@@ -51,7 +51,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList referencingElements = null;
+	protected EList<DiagramElement> referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getAccessor() <em>Accessor</em>}' attribute.
@@ -97,6 +97,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getFigureAccessor();
 	}
@@ -106,9 +107,9 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getReferencingElements() {
+	public EList<DiagramElement> getReferencingElements() {
 		if (referencingElements == null) {
-			referencingElements = new EObjectWithInverseResolvingEList(DiagramElement.class, this, GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
+			referencingElements = new EObjectWithInverseResolvingEList<DiagramElement>(DiagramElement.class, this, GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
 		}
 		return referencingElements;
 	}
@@ -177,10 +178,12 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingElements()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -190,10 +193,11 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -203,6 +207,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
@@ -221,11 +226,13 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
 				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
+				getReferencingElements().addAll((Collection<? extends DiagramElement>)newValue);
 				return;
 			case GMFGraphPackage.FIGURE_ACCESSOR__ACCESSOR:
 				setAccessor((String)newValue);
@@ -242,6 +249,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
@@ -262,6 +270,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_ACCESSOR__REFERENCING_ELEMENTS:
@@ -279,6 +288,7 @@ public class FigureAccessorImpl extends EObjectImpl implements FigureAccessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

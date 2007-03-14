@@ -40,7 +40,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList template = null;
+	protected EList<Point> template = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -56,6 +56,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPolyline();
 	}
@@ -65,9 +66,9 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTemplate() {
+	public EList<Point> getTemplate() {
 		if (template == null) {
-			template = new EObjectContainmentEList(Point.class, this, GMFGraphPackage.POLYLINE__TEMPLATE);
+			template = new EObjectContainmentEList<Point>(Point.class, this, GMFGraphPackage.POLYLINE__TEMPLATE);
 		}
 		return template;
 	}
@@ -77,10 +78,11 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
-				return ((InternalEList)getTemplate()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTemplate()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -90,6 +92,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
@@ -103,11 +106,13 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
 				getTemplate().clear();
-				getTemplate().addAll((Collection)newValue);
+				getTemplate().addAll((Collection<? extends Point>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -118,6 +123,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
@@ -132,6 +138,7 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE__TEMPLATE:

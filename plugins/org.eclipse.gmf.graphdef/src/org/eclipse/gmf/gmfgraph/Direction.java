@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,116 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class Direction extends AbstractEnumerator {
+public enum Direction implements Enumerator
+{
+	/**
+	 * The '<em><b>NONE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @generated
+	 * @ordered
+	 */
+	NONE_LITERAL(0, "NONE", "NONE"),
+	/**
+	 * The '<em><b>NORTH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORTH
+	 * @generated
+	 * @ordered
+	 */
+	NORTH_LITERAL(1, "NORTH", "NORTH"),
+	/**
+	 * The '<em><b>SOUTH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SOUTH
+	 * @generated
+	 * @ordered
+	 */
+	SOUTH_LITERAL(4, "SOUTH", "SOUTH"),
+	/**
+	 * The '<em><b>WEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WEST
+	 * @generated
+	 * @ordered
+	 */
+	WEST_LITERAL(8, "WEST", "WEST"),
+	/**
+	 * The '<em><b>EAST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EAST
+	 * @generated
+	 * @ordered
+	 */
+	EAST_LITERAL(16, "EAST", "EAST"),
+	/**
+	 * The '<em><b>NORTH EAST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORTH_EAST
+	 * @generated
+	 * @ordered
+	 */
+	NORTH_EAST_LITERAL(17, "NORTH_EAST", "NORTH_EAST"),
+	/**
+	 * The '<em><b>NORTH WEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORTH_WEST
+	 * @generated
+	 * @ordered
+	 */
+	NORTH_WEST_LITERAL(9, "NORTH_WEST", "NORTH_WEST"),
+	/**
+	 * The '<em><b>SOUTH EAST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SOUTH_EAST
+	 * @generated
+	 * @ordered
+	 */
+	SOUTH_EAST_LITERAL(20, "SOUTH_EAST", "SOUTH_EAST"),
+	/**
+	 * The '<em><b>SOUTH WEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SOUTH_WEST
+	 * @generated
+	 * @ordered
+	 */
+	SOUTH_WEST_LITERAL(12, "SOUTH_WEST", "SOUTH_WEST"),
+	/**
+	 * The '<em><b>NORTH SOUTH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORTH_SOUTH
+	 * @generated
+	 * @ordered
+	 */
+	NORTH_SOUTH_LITERAL(5, "NORTH_SOUTH", "NORTH_SOUTH"),
+	/**
+	 * The '<em><b>EAST WEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EAST_WEST
+	 * @generated
+	 * @ordered
+	 */
+	EAST_WEST_LITERAL(24, "EAST_WEST", "EAST_WEST"),
+	/**
+	 * The '<em><b>NSEW</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NSEW
+	 * @generated
+	 * @ordered
+	 */
+	NSEW_LITERAL(29, "NSEW", "NSEW");
 	/**
 	 * The '<em><b>NONE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -206,126 +315,6 @@ public final class Direction extends AbstractEnumerator {
 	public static final int NSEW = 29;
 
 	/**
-	 * The '<em><b>NONE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NONE
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NONE_LITERAL = new Direction(NONE, "NONE", "NONE");
-
-	/**
-	 * The '<em><b>NORTH</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORTH
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NORTH_LITERAL = new Direction(NORTH, "NORTH", "NORTH");
-
-	/**
-	 * The '<em><b>SOUTH</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SOUTH
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction SOUTH_LITERAL = new Direction(SOUTH, "SOUTH", "SOUTH");
-
-	/**
-	 * The '<em><b>WEST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #WEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction WEST_LITERAL = new Direction(WEST, "WEST", "WEST");
-
-	/**
-	 * The '<em><b>EAST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #EAST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction EAST_LITERAL = new Direction(EAST, "EAST", "EAST");
-
-	/**
-	 * The '<em><b>NORTH EAST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORTH_EAST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NORTH_EAST_LITERAL = new Direction(NORTH_EAST, "NORTH_EAST", "NORTH_EAST");
-
-	/**
-	 * The '<em><b>NORTH WEST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORTH_WEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NORTH_WEST_LITERAL = new Direction(NORTH_WEST, "NORTH_WEST", "NORTH_WEST");
-
-	/**
-	 * The '<em><b>SOUTH EAST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SOUTH_EAST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction SOUTH_EAST_LITERAL = new Direction(SOUTH_EAST, "SOUTH_EAST", "SOUTH_EAST");
-
-	/**
-	 * The '<em><b>SOUTH WEST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SOUTH_WEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction SOUTH_WEST_LITERAL = new Direction(SOUTH_WEST, "SOUTH_WEST", "SOUTH_WEST");
-
-	/**
-	 * The '<em><b>NORTH SOUTH</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORTH_SOUTH
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NORTH_SOUTH_LITERAL = new Direction(NORTH_SOUTH, "NORTH_SOUTH", "NORTH_SOUTH");
-
-	/**
-	 * The '<em><b>EAST WEST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #EAST_WEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction EAST_WEST_LITERAL = new Direction(EAST_WEST, "EAST_WEST", "EAST_WEST");
-
-	/**
-	 * The '<em><b>NSEW</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NSEW
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction NSEW_LITERAL = new Direction(NSEW, "NSEW", "NSEW");
-
-	/**
 	 * An array of all the '<em><b>Direction</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -353,7 +342,7 @@ public final class Direction extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<Direction> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Direction</b></em>' literal with the specified literal value.
@@ -408,8 +397,29 @@ public final class Direction extends AbstractEnumerator {
 			case EAST_WEST: return EAST_WEST_LITERAL;
 			case NSEW: return NSEW_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -418,7 +428,46 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 */
 	private Direction(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //Direction
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

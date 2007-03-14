@@ -63,6 +63,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPolylineConnection();
 	}
@@ -148,6 +149,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
@@ -165,6 +167,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
@@ -182,6 +185,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
@@ -199,6 +203,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:

@@ -65,6 +65,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCompoundBorder();
 	}
@@ -160,6 +161,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPOUND_BORDER__OUTER:
@@ -175,6 +177,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPOUND_BORDER__OUTER:
@@ -190,6 +193,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPOUND_BORDER__OUTER:
@@ -207,6 +211,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPOUND_BORDER__OUTER:
@@ -224,6 +229,7 @@ public class CompoundBorderImpl extends EObjectImpl implements CompoundBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPOUND_BORDER__OUTER:

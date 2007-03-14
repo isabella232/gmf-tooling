@@ -34,6 +34,7 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getEllipse();
 	}

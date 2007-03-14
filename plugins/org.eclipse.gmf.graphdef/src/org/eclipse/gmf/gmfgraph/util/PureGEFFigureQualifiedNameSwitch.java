@@ -36,10 +36,10 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData;
 /**
  * @author artem
  */
-class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch implements FigureQualifiedNameSwitch  {
+class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch<String> implements FigureQualifiedNameSwitch  {
 
 	public String get(EObject gmfgraphObject) {
-		return (String) doSwitch(gmfgraphObject);
+		return doSwitch(gmfgraphObject);
 	}
 
 	public String get(EObject gmfgraphObject, ImportAssistant importManager) {
@@ -47,12 +47,12 @@ class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch implements FigureQ
 	}
 
 	public String[] getDependencies(FigureGallery gallery) {
-		UniqueEList rv = new UniqueEList();
+		UniqueEList<String> rv = new UniqueEList<String>(); // FIXME why UniqueEList, not Set?
 		collectDependencies(gallery, rv);
-		return (String[]) rv.toArray(new String[rv.size()]);
+		return rv.toArray(new String[rv.size()]);
 	}
 
-	protected void collectDependencies(FigureGallery gallery, UniqueEList result) {
+	protected void collectDependencies(FigureGallery gallery, UniqueEList<String> result) {
 		final String pluginBasicDraw2d = "org.eclipse.draw2d"; //$NON-NLS-1$
 		if (usesDraw2dFigures(gallery)) {
 			result.add(pluginBasicDraw2d);
@@ -67,74 +67,74 @@ class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch implements FigureQ
 		return !gallery.getFigures().isEmpty();
 	}
 
-	public Object caseCustomClass(CustomClass object) {
+	public String caseCustomClass(CustomClass object) {
 		return object.getQualifiedClassName();
 	}
 
-	public Object caseFlowLayout(FlowLayout object) {
+	public String caseFlowLayout(FlowLayout object) {
 		return object.isForceSingleLine() ? "org.eclipse.draw2d.ToolbarLayout" : "org.eclipse.draw2d.FlowLayout";
 	}
 	
-	public Object caseXYLayout(XYLayout object) {
+	public String caseXYLayout(XYLayout object) {
 		return "org.eclipse.draw2d.XYLayout";
 	}
 	
-	public Object caseXYLayoutData(XYLayoutData object) {
+	public String caseXYLayoutData(XYLayoutData object) {
 		return "org.eclipse.draw2d.geometry.Rectangle";
 	}
 	
-	public Object caseStackLayout(StackLayout object) {
+	public String caseStackLayout(StackLayout object) {
 		return "org.eclipse.draw2d.StackLayout";
 	}
 
-	public Object caseBorderLayout(BorderLayout object) {
+	public String caseBorderLayout(BorderLayout object) {
 		return "org.eclipse.draw2d.BorderLayout";
 	}
 
-	public Object caseLabel(Label object) {
+	public String caseLabel(Label object) {
 		return "org.eclipse.draw2d.Label"; //$NON-NLS-1$
 	}
 
-	public Object caseLabeledContainer(LabeledContainer object) {
+	public String caseLabeledContainer(LabeledContainer object) {
 		return "org.eclipse.draw2d.LabeledContainer"; //$NON-NLS-1$
 	}
 
-	public Object caseRectangle(Rectangle object) {
+	public String caseRectangle(Rectangle object) {
 		return "org.eclipse.draw2d.RectangleFigure"; //$NON-NLS-1$
 	}
 
-	public Object caseRoundedRectangle(RoundedRectangle object) {
+	public String caseRoundedRectangle(RoundedRectangle object) {
 		return "org.eclipse.draw2d.RoundedRectangle"; //$NON-NLS-1$
 	}
 
-	public Object caseEllipse(Ellipse object) {
+	public String caseEllipse(Ellipse object) {
 		return "org.eclipse.draw2d.Ellipse"; //$NON-NLS-1$
 	}
 
-	public Object casePolygon(Polygon object) {
+	public String casePolygon(Polygon object) {
 		return "org.eclipse.draw2d.Polygon"; //$NON-NLS-1$
 	}
 	
-	public Object caseScalablePolygon(ScalablePolygon object) {
+	public String caseScalablePolygon(ScalablePolygon object) {
 		//custom implementation
 		return object.eContainer() instanceof FigureGallery ? 
 				"org.eclipse.draw2d.Shape" : //$NON-NLS-1$
 				"ScalablePolygon";
 	}
 
-	public Object casePolygonDecoration(PolygonDecoration object) {
+	public String casePolygonDecoration(PolygonDecoration object) {
 		return "org.eclipse.draw2d.PolygonDecoration"; //$NON-NLS-1$
 	}
 
-	public Object casePolyline(Polyline object) {
+	public String casePolyline(Polyline object) {
 		return "org.eclipse.draw2d.Polyline"; //$NON-NLS-1$
 	}
 
-	public Object casePolylineDecoration(PolylineDecoration object) {
+	public String casePolylineDecoration(PolylineDecoration object) {
 		return "org.eclipse.draw2d.PolylineDecoration"; //$NON-NLS-1$
 	}
 
-	public Object casePolylineConnection(PolylineConnection object) {
+	public String casePolylineConnection(PolylineConnection object) {
 		return "org.eclipse.draw2d.PolylineConnection"; //$NON-NLS-1$
 	}
 }

@@ -34,6 +34,7 @@ public class RectangleImpl extends ShapeImpl implements Rectangle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getRectangle();
 	}

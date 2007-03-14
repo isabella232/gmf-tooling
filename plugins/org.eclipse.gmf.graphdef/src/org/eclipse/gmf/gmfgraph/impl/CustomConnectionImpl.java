@@ -34,6 +34,7 @@ public class CustomConnectionImpl extends CustomFigureImpl implements CustomConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCustomConnection();
 	}

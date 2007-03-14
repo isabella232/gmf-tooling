@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class FontStyle extends AbstractEnumerator {
+public enum FontStyle implements Enumerator
+{
+	/**
+	 * The '<em><b>NORMAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORMAL
+	 * @generated
+	 * @ordered
+	 */
+	NORMAL_LITERAL(0, "NORMAL", "NORMAL"),
+	/**
+	 * The '<em><b>BOLD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BOLD
+	 * @generated
+	 * @ordered
+	 */
+	BOLD_LITERAL(1, "BOLD", "BOLD"),
+	/**
+	 * The '<em><b>ITALIC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ITALIC
+	 * @generated
+	 * @ordered
+	 */
+	ITALIC_LITERAL(2, "ITALIC", "ITALIC");
 	/**
 	 * The '<em><b>NORMAL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -68,36 +96,6 @@ public final class FontStyle extends AbstractEnumerator {
 	public static final int ITALIC = 2;
 
 	/**
-	 * The '<em><b>NORMAL</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORMAL
-	 * @generated
-	 * @ordered
-	 */
-	public static final FontStyle NORMAL_LITERAL = new FontStyle(NORMAL, "NORMAL", "NORMAL");
-
-	/**
-	 * The '<em><b>BOLD</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BOLD
-	 * @generated
-	 * @ordered
-	 */
-	public static final FontStyle BOLD_LITERAL = new FontStyle(BOLD, "BOLD", "BOLD");
-
-	/**
-	 * The '<em><b>ITALIC</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ITALIC
-	 * @generated
-	 * @ordered
-	 */
-	public static final FontStyle ITALIC_LITERAL = new FontStyle(ITALIC, "ITALIC", "ITALIC");
-
-	/**
 	 * An array of all the '<em><b>Font Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +114,7 @@ public final class FontStyle extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<FontStyle> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Font Style</b></em>' literal with the specified literal value.
@@ -162,8 +160,29 @@ public final class FontStyle extends AbstractEnumerator {
 			case BOLD: return BOLD_LITERAL;
 			case ITALIC: return ITALIC_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -172,7 +191,46 @@ public final class FontStyle extends AbstractEnumerator {
 	 * @generated
 	 */
 	private FontStyle(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //FontStyle
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

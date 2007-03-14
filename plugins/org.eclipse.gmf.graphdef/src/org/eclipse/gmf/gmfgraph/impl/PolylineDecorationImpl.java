@@ -34,6 +34,7 @@ public class PolylineDecorationImpl extends PolylineImpl implements PolylineDeco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPolylineDecoration();
 	}

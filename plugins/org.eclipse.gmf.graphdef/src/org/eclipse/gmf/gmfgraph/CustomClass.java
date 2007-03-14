@@ -94,6 +94,6 @@ public interface CustomClass extends EObject {
 	 * @model type="org.eclipse.gmf.gmfgraph.CustomAttribute" containment="true"
 	 * @generated
 	 */
-	EList getAttributes();
+	EList<CustomAttribute> getAttributes();
 
 } // CustomClass

@@ -79,6 +79,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getFigureRef();
 	}
@@ -222,6 +223,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:
@@ -241,6 +243,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:
@@ -258,6 +261,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGraphPackage.FIGURE_REF__PARENT:
@@ -271,6 +275,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:
@@ -291,6 +296,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:
@@ -311,6 +317,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:
@@ -331,6 +338,7 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_REF__LAYOUT_DATA:

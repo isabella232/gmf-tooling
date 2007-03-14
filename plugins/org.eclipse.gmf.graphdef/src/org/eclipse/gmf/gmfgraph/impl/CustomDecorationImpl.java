@@ -34,6 +34,7 @@ public class CustomDecorationImpl extends CustomFigureImpl implements CustomDeco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCustomDecoration();
 	}

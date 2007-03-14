@@ -37,6 +37,7 @@ public class XYLayoutImpl extends EObjectImpl implements XYLayout {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getXYLayout();
 	}

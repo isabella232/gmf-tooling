@@ -92,7 +92,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList referencingElements = null;
+	protected EList<DiagramElement> referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -122,7 +122,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList children = null;
+	protected EList<FigureMarker> children = null;
 
 	/**
 	 * The cached value of the '{@link #getForegroundColor() <em>Foreground Color</em>}' containment reference.
@@ -258,6 +258,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getLabel();
 	}
@@ -374,9 +375,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
+	public EList<FigureMarker> getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentWithInverseEList(FigureMarker.class, this, GMFGraphPackage.LABEL__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
+			children = new EObjectContainmentWithInverseEList<FigureMarker>(FigureMarker.class, this, GMFGraphPackage.LABEL__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
 		}
 		return children;
 	}
@@ -826,9 +827,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getReferencingElements() {
+	public EList<DiagramElement> getReferencingElements() {
 		if (referencingElements == null) {
-			referencingElements = new EObjectWithInverseResolvingEList(DiagramElement.class, this, GMFGraphPackage.LABEL__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
+			referencingElements = new EObjectWithInverseResolvingEList<DiagramElement>(DiagramElement.class, this, GMFGraphPackage.LABEL__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
 		}
 		return referencingElements;
 	}
@@ -859,6 +860,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -870,9 +873,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABEL__PARENT, msgs);
 			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingElements()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -882,6 +885,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -891,9 +895,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.LABEL__PARENT, msgs);
 			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
 				return basicSetForegroundColor(null, msgs);
 			case GMFGraphPackage.LABEL__BACKGROUND_COLOR:
@@ -923,6 +927,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGraphPackage.LABEL__PARENT:
@@ -936,6 +941,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -981,6 +987,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -991,14 +999,14 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return;
 			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
 				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
+				getReferencingElements().addAll((Collection<? extends DiagramElement>)newValue);
 				return;
 			case GMFGraphPackage.LABEL__NAME:
 				setName((String)newValue);
 				return;
 			case GMFGraphPackage.LABEL__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
+				getChildren().addAll((Collection<? extends FigureMarker>)newValue);
 				return;
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
 				setForegroundColor((Color)newValue);
@@ -1042,6 +1050,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -1101,6 +1110,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL__LAYOUT_DATA:
@@ -1146,7 +1156,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == FigureHandle.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
@@ -1167,7 +1178,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == FigureHandle.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.LABEL__REFERENCING_ELEMENTS;
@@ -1188,6 +1200,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

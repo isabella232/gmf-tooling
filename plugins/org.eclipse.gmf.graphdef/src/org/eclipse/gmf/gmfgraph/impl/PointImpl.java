@@ -82,6 +82,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPoint();
 	}
@@ -133,6 +134,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
@@ -148,6 +150,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
@@ -165,6 +168,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
@@ -182,6 +186,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
@@ -197,6 +202,7 @@ public class PointImpl extends EObjectImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

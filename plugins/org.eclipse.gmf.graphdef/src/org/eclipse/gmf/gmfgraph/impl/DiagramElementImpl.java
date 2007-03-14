@@ -7,7 +7,6 @@
 package org.eclipse.gmf.gmfgraph.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -77,7 +76,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * @generated
 	 * @ordered
 	 */
-	protected EList facets = null;
+	protected EList<VisualFacet> facets = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,6 +92,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getDiagramElement();
 	}
@@ -183,9 +183,9 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFacets() {
+	public EList<VisualFacet> getFacets() {
 		if (facets == null) {
-			facets = new EObjectContainmentEList(VisualFacet.class, this, GMFGraphPackage.DIAGRAM_ELEMENT__FACETS);
+			facets = new EObjectContainmentEList<VisualFacet>(VisualFacet.class, this, GMFGraphPackage.DIAGRAM_ELEMENT__FACETS);
 		}
 		return facets;
 	}
@@ -202,10 +202,9 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 		if (facetClass == null) {
 			throw new NullPointerException(); // do this explicitly
 		}
-		for (Iterator it = getFacets().iterator(); it.hasNext(); ) {
-			Object next = it.next();
+		for (VisualFacet next : getFacets()) {
 			if (facetClass.isAssignableFrom(next.getClass())) {
-				return (VisualFacet) next;
+				return next;
 			}
 		}
 		return null;
@@ -216,6 +215,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
@@ -231,12 +231,13 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
 				return basicSetFigure(null, msgs);
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-				return ((InternalEList)getFacets()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getFacets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -246,6 +247,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
@@ -264,6 +266,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
@@ -274,7 +278,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 				return;
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				getFacets().clear();
-				getFacets().addAll((Collection)newValue);
+				getFacets().addAll((Collection<? extends VisualFacet>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -285,6 +289,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
@@ -305,6 +310,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
@@ -322,6 +328,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

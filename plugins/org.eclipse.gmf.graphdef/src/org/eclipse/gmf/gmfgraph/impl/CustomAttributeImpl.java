@@ -124,6 +124,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCustomAttribute();
 	}
@@ -217,6 +218,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__NAME:
@@ -236,6 +238,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__NAME:
@@ -259,6 +262,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__NAME:
@@ -282,6 +286,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__NAME:
@@ -301,6 +306,7 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -113,6 +113,7 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -129,201 +130,266 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GMFGraphSwitch modelSwitch =
-		new GMFGraphSwitch() {
-			public Object caseCanvas(Canvas object) {
+	protected GMFGraphSwitch<Adapter> modelSwitch =
+		new GMFGraphSwitch<Adapter>() {
+			@Override
+			public Adapter caseCanvas(Canvas object) {
 				return createCanvasAdapter();
 			}
-			public Object caseFigureGallery(FigureGallery object) {
+			@Override
+			public Adapter caseFigureGallery(FigureGallery object) {
 				return createFigureGalleryAdapter();
 			}
-			public Object caseIdentity(Identity object) {
+			@Override
+			public Adapter caseIdentity(Identity object) {
 				return createIdentityAdapter();
 			}
-			public Object caseDiagramElement(DiagramElement object) {
+			@Override
+			public Adapter caseDiagramElement(DiagramElement object) {
 				return createDiagramElementAdapter();
 			}
-			public Object caseNode(Node object) {
+			@Override
+			public Adapter caseNode(Node object) {
 				return createNodeAdapter();
 			}
-			public Object caseConnection(Connection object) {
+			@Override
+			public Adapter caseConnection(Connection object) {
 				return createConnectionAdapter();
 			}
-			public Object caseCompartment(Compartment object) {
+			@Override
+			public Adapter caseCompartment(Compartment object) {
 				return createCompartmentAdapter();
 			}
-			public Object caseDiagramLabel(DiagramLabel object) {
+			@Override
+			public Adapter caseDiagramLabel(DiagramLabel object) {
 				return createDiagramLabelAdapter();
 			}
-			public Object caseVisualFacet(VisualFacet object) {
+			@Override
+			public Adapter caseVisualFacet(VisualFacet object) {
 				return createVisualFacetAdapter();
 			}
-			public Object caseGeneralFacet(GeneralFacet object) {
+			@Override
+			public Adapter caseGeneralFacet(GeneralFacet object) {
 				return createGeneralFacetAdapter();
 			}
-			public Object caseAlignmentFacet(AlignmentFacet object) {
+			@Override
+			public Adapter caseAlignmentFacet(AlignmentFacet object) {
 				return createAlignmentFacetAdapter();
 			}
-			public Object caseGradientFacet(GradientFacet object) {
+			@Override
+			public Adapter caseGradientFacet(GradientFacet object) {
 				return createGradientFacetAdapter();
 			}
-			public Object caseLabelOffsetFacet(LabelOffsetFacet object) {
+			@Override
+			public Adapter caseLabelOffsetFacet(LabelOffsetFacet object) {
 				return createLabelOffsetFacetAdapter();
 			}
-			public Object caseDefaultSizeFacet(DefaultSizeFacet object) {
+			@Override
+			public Adapter caseDefaultSizeFacet(DefaultSizeFacet object) {
 				return createDefaultSizeFacetAdapter();
 			}
-			public Object caseFigureMarker(FigureMarker object) {
+			@Override
+			public Adapter caseFigureMarker(FigureMarker object) {
 				return createFigureMarkerAdapter();
 			}
-			public Object caseFigureHandle(FigureHandle object) {
+			@Override
+			public Adapter caseFigureHandle(FigureHandle object) {
 				return createFigureHandleAdapter();
 			}
-			public Object caseFigure(Figure object) {
+			@Override
+			public Adapter caseFigure(Figure object) {
 				return createFigureAdapter();
 			}
-			public Object caseFigureRef(FigureRef object) {
+			@Override
+			public Adapter caseFigureRef(FigureRef object) {
 				return createFigureRefAdapter();
 			}
-			public Object caseConnectionFigure(ConnectionFigure object) {
+			@Override
+			public Adapter caseConnectionFigure(ConnectionFigure object) {
 				return createConnectionFigureAdapter();
 			}
-			public Object caseDecorationFigure(DecorationFigure object) {
+			@Override
+			public Adapter caseDecorationFigure(DecorationFigure object) {
 				return createDecorationFigureAdapter();
 			}
-			public Object caseShape(Shape object) {
+			@Override
+			public Adapter caseShape(Shape object) {
 				return createShapeAdapter();
 			}
-			public Object caseLabel(Label object) {
+			@Override
+			public Adapter caseLabel(Label object) {
 				return createLabelAdapter();
 			}
-			public Object caseLabeledContainer(LabeledContainer object) {
+			@Override
+			public Adapter caseLabeledContainer(LabeledContainer object) {
 				return createLabeledContainerAdapter();
 			}
-			public Object caseRectangle(Rectangle object) {
+			@Override
+			public Adapter caseRectangle(Rectangle object) {
 				return createRectangleAdapter();
 			}
-			public Object caseRoundedRectangle(RoundedRectangle object) {
+			@Override
+			public Adapter caseRoundedRectangle(RoundedRectangle object) {
 				return createRoundedRectangleAdapter();
 			}
-			public Object caseEllipse(Ellipse object) {
+			@Override
+			public Adapter caseEllipse(Ellipse object) {
 				return createEllipseAdapter();
 			}
-			public Object casePolyline(Polyline object) {
+			@Override
+			public Adapter casePolyline(Polyline object) {
 				return createPolylineAdapter();
 			}
-			public Object casePolygon(Polygon object) {
+			@Override
+			public Adapter casePolygon(Polygon object) {
 				return createPolygonAdapter();
 			}
-			public Object caseScalablePolygon(ScalablePolygon object) {
+			@Override
+			public Adapter caseScalablePolygon(ScalablePolygon object) {
 				return createScalablePolygonAdapter();
 			}
-			public Object casePolylineConnection(PolylineConnection object) {
+			@Override
+			public Adapter casePolylineConnection(PolylineConnection object) {
 				return createPolylineConnectionAdapter();
 			}
-			public Object casePolylineDecoration(PolylineDecoration object) {
+			@Override
+			public Adapter casePolylineDecoration(PolylineDecoration object) {
 				return createPolylineDecorationAdapter();
 			}
-			public Object casePolygonDecoration(PolygonDecoration object) {
+			@Override
+			public Adapter casePolygonDecoration(PolygonDecoration object) {
 				return createPolygonDecorationAdapter();
 			}
-			public Object caseCustomClass(CustomClass object) {
+			@Override
+			public Adapter caseCustomClass(CustomClass object) {
 				return createCustomClassAdapter();
 			}
-			public Object caseCustomAttribute(CustomAttribute object) {
+			@Override
+			public Adapter caseCustomAttribute(CustomAttribute object) {
 				return createCustomAttributeAdapter();
 			}
-			public Object caseFigureAccessor(FigureAccessor object) {
+			@Override
+			public Adapter caseFigureAccessor(FigureAccessor object) {
 				return createFigureAccessorAdapter();
 			}
-			public Object caseCustomFigure(CustomFigure object) {
+			@Override
+			public Adapter caseCustomFigure(CustomFigure object) {
 				return createCustomFigureAdapter();
 			}
-			public Object caseCustomDecoration(CustomDecoration object) {
+			@Override
+			public Adapter caseCustomDecoration(CustomDecoration object) {
 				return createCustomDecorationAdapter();
 			}
-			public Object caseCustomConnection(CustomConnection object) {
+			@Override
+			public Adapter caseCustomConnection(CustomConnection object) {
 				return createCustomConnectionAdapter();
 			}
-			public Object caseColor(Color object) {
+			@Override
+			public Adapter caseColor(Color object) {
 				return createColorAdapter();
 			}
-			public Object caseRGBColor(RGBColor object) {
+			@Override
+			public Adapter caseRGBColor(RGBColor object) {
 				return createRGBColorAdapter();
 			}
-			public Object caseConstantColor(ConstantColor object) {
+			@Override
+			public Adapter caseConstantColor(ConstantColor object) {
 				return createConstantColorAdapter();
 			}
-			public Object caseFont(Font object) {
+			@Override
+			public Adapter caseFont(Font object) {
 				return createFontAdapter();
 			}
-			public Object caseBasicFont(BasicFont object) {
+			@Override
+			public Adapter caseBasicFont(BasicFont object) {
 				return createBasicFontAdapter();
 			}
-			public Object casePoint(Point object) {
+			@Override
+			public Adapter casePoint(Point object) {
 				return createPointAdapter();
 			}
-			public Object caseDimension(Dimension object) {
+			@Override
+			public Adapter caseDimension(Dimension object) {
 				return createDimensionAdapter();
 			}
-			public Object caseInsets(Insets object) {
+			@Override
+			public Adapter caseInsets(Insets object) {
 				return createInsetsAdapter();
 			}
-			public Object caseBorder(Border object) {
+			@Override
+			public Adapter caseBorder(Border object) {
 				return createBorderAdapter();
 			}
-			public Object caseLineBorder(LineBorder object) {
+			@Override
+			public Adapter caseLineBorder(LineBorder object) {
 				return createLineBorderAdapter();
 			}
-			public Object caseMarginBorder(MarginBorder object) {
+			@Override
+			public Adapter caseMarginBorder(MarginBorder object) {
 				return createMarginBorderAdapter();
 			}
-			public Object caseCompoundBorder(CompoundBorder object) {
+			@Override
+			public Adapter caseCompoundBorder(CompoundBorder object) {
 				return createCompoundBorderAdapter();
 			}
-			public Object caseCustomBorder(CustomBorder object) {
+			@Override
+			public Adapter caseCustomBorder(CustomBorder object) {
 				return createCustomBorderAdapter();
 			}
-			public Object caseLayoutData(LayoutData object) {
+			@Override
+			public Adapter caseLayoutData(LayoutData object) {
 				return createLayoutDataAdapter();
 			}
-			public Object caseCustomLayoutData(CustomLayoutData object) {
+			@Override
+			public Adapter caseCustomLayoutData(CustomLayoutData object) {
 				return createCustomLayoutDataAdapter();
 			}
-			public Object caseGridLayoutData(GridLayoutData object) {
+			@Override
+			public Adapter caseGridLayoutData(GridLayoutData object) {
 				return createGridLayoutDataAdapter();
 			}
-			public Object caseBorderLayoutData(BorderLayoutData object) {
+			@Override
+			public Adapter caseBorderLayoutData(BorderLayoutData object) {
 				return createBorderLayoutDataAdapter();
 			}
-			public Object caseLayoutable(Layoutable object) {
+			@Override
+			public Adapter caseLayoutable(Layoutable object) {
 				return createLayoutableAdapter();
 			}
-			public Object caseLayout(Layout object) {
+			@Override
+			public Adapter caseLayout(Layout object) {
 				return createLayoutAdapter();
 			}
-			public Object caseCustomLayout(CustomLayout object) {
+			@Override
+			public Adapter caseCustomLayout(CustomLayout object) {
 				return createCustomLayoutAdapter();
 			}
-			public Object caseGridLayout(GridLayout object) {
+			@Override
+			public Adapter caseGridLayout(GridLayout object) {
 				return createGridLayoutAdapter();
 			}
-			public Object caseBorderLayout(BorderLayout object) {
+			@Override
+			public Adapter caseBorderLayout(BorderLayout object) {
 				return createBorderLayoutAdapter();
 			}
-			public Object caseFlowLayout(FlowLayout object) {
+			@Override
+			public Adapter caseFlowLayout(FlowLayout object) {
 				return createFlowLayoutAdapter();
 			}
-			public Object caseXYLayout(XYLayout object) {
+			@Override
+			public Adapter caseXYLayout(XYLayout object) {
 				return createXYLayoutAdapter();
 			}
-			public Object caseXYLayoutData(XYLayoutData object) {
+			@Override
+			public Adapter caseXYLayoutData(XYLayoutData object) {
 				return createXYLayoutDataAdapter();
 			}
-			public Object caseStackLayout(StackLayout object) {
+			@Override
+			public Adapter caseStackLayout(StackLayout object) {
 				return createStackLayoutAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -336,8 +402,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

@@ -103,6 +103,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getRGBColor();
 	}
@@ -175,6 +176,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
@@ -192,6 +194,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
@@ -212,6 +215,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
@@ -232,6 +236,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
@@ -249,6 +254,7 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -37,6 +37,7 @@ public class StackLayoutImpl extends EObjectImpl implements StackLayout {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getStackLayout();
 	}

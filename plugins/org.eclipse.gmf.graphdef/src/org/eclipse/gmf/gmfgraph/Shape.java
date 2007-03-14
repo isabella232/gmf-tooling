@@ -215,6 +215,6 @@ public interface Shape extends Figure {
 	 * @model type="org.eclipse.gmf.gmfgraph.Figure" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList getResolvedChildren();
+	EList<Figure> getResolvedChildren();
 
 } // Shape

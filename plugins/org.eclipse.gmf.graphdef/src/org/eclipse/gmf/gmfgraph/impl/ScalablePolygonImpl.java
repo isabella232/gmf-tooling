@@ -35,6 +35,7 @@ public class ScalablePolygonImpl extends PolygonImpl implements ScalablePolygon 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getScalablePolygon();
 	}

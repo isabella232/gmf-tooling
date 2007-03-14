@@ -47,6 +47,6 @@ public interface FigureHandle extends EObject {
 	 * @model type="org.eclipse.gmf.gmfgraph.DiagramElement" opposite="figure"
 	 * @generated
 	 */
-	EList getReferencingElements();
+	EList<DiagramElement> getReferencingElements();
 
 } // FigureHandle

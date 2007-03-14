@@ -89,7 +89,7 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData;
  * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage
  * @generated
  */
-public class GMFGraphSwitch {
+public class GMFGraphSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -117,7 +117,7 @@ public class GMFGraphSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -128,16 +128,16 @@ public class GMFGraphSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -148,38 +148,38 @@ public class GMFGraphSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case GMFGraphPackage.CANVAS: {
 				Canvas canvas = (Canvas)theEObject;
-				Object result = caseCanvas(canvas);
+				T result = caseCanvas(canvas);
 				if (result == null) result = caseIdentity(canvas);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE_GALLERY: {
 				FigureGallery figureGallery = (FigureGallery)theEObject;
-				Object result = caseFigureGallery(figureGallery);
+				T result = caseFigureGallery(figureGallery);
 				if (result == null) result = caseIdentity(figureGallery);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.IDENTITY: {
 				Identity identity = (Identity)theEObject;
-				Object result = caseIdentity(identity);
+				T result = caseIdentity(identity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.DIAGRAM_ELEMENT: {
 				DiagramElement diagramElement = (DiagramElement)theEObject;
-				Object result = caseDiagramElement(diagramElement);
+				T result = caseDiagramElement(diagramElement);
 				if (result == null) result = caseIdentity(diagramElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.NODE: {
 				Node node = (Node)theEObject;
-				Object result = caseNode(node);
+				T result = caseNode(node);
 				if (result == null) result = caseDiagramElement(node);
 				if (result == null) result = caseIdentity(node);
 				if (result == null) result = defaultCase(theEObject);
@@ -187,7 +187,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.CONNECTION: {
 				Connection connection = (Connection)theEObject;
-				Object result = caseConnection(connection);
+				T result = caseConnection(connection);
 				if (result == null) result = caseDiagramElement(connection);
 				if (result == null) result = caseIdentity(connection);
 				if (result == null) result = defaultCase(theEObject);
@@ -195,7 +195,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.COMPARTMENT: {
 				Compartment compartment = (Compartment)theEObject;
-				Object result = caseCompartment(compartment);
+				T result = caseCompartment(compartment);
 				if (result == null) result = caseDiagramElement(compartment);
 				if (result == null) result = caseIdentity(compartment);
 				if (result == null) result = defaultCase(theEObject);
@@ -203,7 +203,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.DIAGRAM_LABEL: {
 				DiagramLabel diagramLabel = (DiagramLabel)theEObject;
-				Object result = caseDiagramLabel(diagramLabel);
+				T result = caseDiagramLabel(diagramLabel);
 				if (result == null) result = caseNode(diagramLabel);
 				if (result == null) result = caseDiagramElement(diagramLabel);
 				if (result == null) result = caseIdentity(diagramLabel);
@@ -212,61 +212,61 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.VISUAL_FACET: {
 				VisualFacet visualFacet = (VisualFacet)theEObject;
-				Object result = caseVisualFacet(visualFacet);
+				T result = caseVisualFacet(visualFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.GENERAL_FACET: {
 				GeneralFacet generalFacet = (GeneralFacet)theEObject;
-				Object result = caseGeneralFacet(generalFacet);
+				T result = caseGeneralFacet(generalFacet);
 				if (result == null) result = caseVisualFacet(generalFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.ALIGNMENT_FACET: {
 				AlignmentFacet alignmentFacet = (AlignmentFacet)theEObject;
-				Object result = caseAlignmentFacet(alignmentFacet);
+				T result = caseAlignmentFacet(alignmentFacet);
 				if (result == null) result = caseVisualFacet(alignmentFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.GRADIENT_FACET: {
 				GradientFacet gradientFacet = (GradientFacet)theEObject;
-				Object result = caseGradientFacet(gradientFacet);
+				T result = caseGradientFacet(gradientFacet);
 				if (result == null) result = caseVisualFacet(gradientFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.LABEL_OFFSET_FACET: {
 				LabelOffsetFacet labelOffsetFacet = (LabelOffsetFacet)theEObject;
-				Object result = caseLabelOffsetFacet(labelOffsetFacet);
+				T result = caseLabelOffsetFacet(labelOffsetFacet);
 				if (result == null) result = caseVisualFacet(labelOffsetFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.DEFAULT_SIZE_FACET: {
 				DefaultSizeFacet defaultSizeFacet = (DefaultSizeFacet)theEObject;
-				Object result = caseDefaultSizeFacet(defaultSizeFacet);
+				T result = caseDefaultSizeFacet(defaultSizeFacet);
 				if (result == null) result = caseVisualFacet(defaultSizeFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE_MARKER: {
 				FigureMarker figureMarker = (FigureMarker)theEObject;
-				Object result = caseFigureMarker(figureMarker);
+				T result = caseFigureMarker(figureMarker);
 				if (result == null) result = caseLayoutable(figureMarker);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE_HANDLE: {
 				FigureHandle figureHandle = (FigureHandle)theEObject;
-				Object result = caseFigureHandle(figureHandle);
+				T result = caseFigureHandle(figureHandle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE: {
 				Figure figure = (Figure)theEObject;
-				Object result = caseFigure(figure);
+				T result = caseFigure(figure);
 				if (result == null) result = caseFigureMarker(figure);
 				if (result == null) result = caseFigureHandle(figure);
 				if (result == null) result = caseIdentity(figure);
@@ -276,7 +276,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.FIGURE_REF: {
 				FigureRef figureRef = (FigureRef)theEObject;
-				Object result = caseFigureRef(figureRef);
+				T result = caseFigureRef(figureRef);
 				if (result == null) result = caseFigureMarker(figureRef);
 				if (result == null) result = caseLayoutable(figureRef);
 				if (result == null) result = defaultCase(theEObject);
@@ -284,7 +284,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.CONNECTION_FIGURE: {
 				ConnectionFigure connectionFigure = (ConnectionFigure)theEObject;
-				Object result = caseConnectionFigure(connectionFigure);
+				T result = caseConnectionFigure(connectionFigure);
 				if (result == null) result = caseFigure(connectionFigure);
 				if (result == null) result = caseFigureMarker(connectionFigure);
 				if (result == null) result = caseFigureHandle(connectionFigure);
@@ -295,7 +295,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.DECORATION_FIGURE: {
 				DecorationFigure decorationFigure = (DecorationFigure)theEObject;
-				Object result = caseDecorationFigure(decorationFigure);
+				T result = caseDecorationFigure(decorationFigure);
 				if (result == null) result = caseFigure(decorationFigure);
 				if (result == null) result = caseFigureMarker(decorationFigure);
 				if (result == null) result = caseFigureHandle(decorationFigure);
@@ -306,7 +306,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.SHAPE: {
 				Shape shape = (Shape)theEObject;
-				Object result = caseShape(shape);
+				T result = caseShape(shape);
 				if (result == null) result = caseFigure(shape);
 				if (result == null) result = caseFigureMarker(shape);
 				if (result == null) result = caseFigureHandle(shape);
@@ -317,7 +317,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.LABEL: {
 				Label label = (Label)theEObject;
-				Object result = caseLabel(label);
+				T result = caseLabel(label);
 				if (result == null) result = caseFigure(label);
 				if (result == null) result = caseFigureMarker(label);
 				if (result == null) result = caseFigureHandle(label);
@@ -328,7 +328,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.LABELED_CONTAINER: {
 				LabeledContainer labeledContainer = (LabeledContainer)theEObject;
-				Object result = caseLabeledContainer(labeledContainer);
+				T result = caseLabeledContainer(labeledContainer);
 				if (result == null) result = caseFigure(labeledContainer);
 				if (result == null) result = caseFigureMarker(labeledContainer);
 				if (result == null) result = caseFigureHandle(labeledContainer);
@@ -339,7 +339,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.RECTANGLE: {
 				Rectangle rectangle = (Rectangle)theEObject;
-				Object result = caseRectangle(rectangle);
+				T result = caseRectangle(rectangle);
 				if (result == null) result = caseShape(rectangle);
 				if (result == null) result = caseFigure(rectangle);
 				if (result == null) result = caseFigureMarker(rectangle);
@@ -351,7 +351,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.ROUNDED_RECTANGLE: {
 				RoundedRectangle roundedRectangle = (RoundedRectangle)theEObject;
-				Object result = caseRoundedRectangle(roundedRectangle);
+				T result = caseRoundedRectangle(roundedRectangle);
 				if (result == null) result = caseShape(roundedRectangle);
 				if (result == null) result = caseFigure(roundedRectangle);
 				if (result == null) result = caseFigureMarker(roundedRectangle);
@@ -363,7 +363,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.ELLIPSE: {
 				Ellipse ellipse = (Ellipse)theEObject;
-				Object result = caseEllipse(ellipse);
+				T result = caseEllipse(ellipse);
 				if (result == null) result = caseShape(ellipse);
 				if (result == null) result = caseFigure(ellipse);
 				if (result == null) result = caseFigureMarker(ellipse);
@@ -375,7 +375,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.POLYLINE: {
 				Polyline polyline = (Polyline)theEObject;
-				Object result = casePolyline(polyline);
+				T result = casePolyline(polyline);
 				if (result == null) result = caseShape(polyline);
 				if (result == null) result = caseFigure(polyline);
 				if (result == null) result = caseFigureMarker(polyline);
@@ -387,7 +387,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.POLYGON: {
 				Polygon polygon = (Polygon)theEObject;
-				Object result = casePolygon(polygon);
+				T result = casePolygon(polygon);
 				if (result == null) result = casePolyline(polygon);
 				if (result == null) result = caseShape(polygon);
 				if (result == null) result = caseFigure(polygon);
@@ -400,7 +400,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.SCALABLE_POLYGON: {
 				ScalablePolygon scalablePolygon = (ScalablePolygon)theEObject;
-				Object result = caseScalablePolygon(scalablePolygon);
+				T result = caseScalablePolygon(scalablePolygon);
 				if (result == null) result = casePolygon(scalablePolygon);
 				if (result == null) result = casePolyline(scalablePolygon);
 				if (result == null) result = caseShape(scalablePolygon);
@@ -414,7 +414,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.POLYLINE_CONNECTION: {
 				PolylineConnection polylineConnection = (PolylineConnection)theEObject;
-				Object result = casePolylineConnection(polylineConnection);
+				T result = casePolylineConnection(polylineConnection);
 				if (result == null) result = casePolyline(polylineConnection);
 				if (result == null) result = caseConnectionFigure(polylineConnection);
 				if (result == null) result = caseShape(polylineConnection);
@@ -428,7 +428,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.POLYLINE_DECORATION: {
 				PolylineDecoration polylineDecoration = (PolylineDecoration)theEObject;
-				Object result = casePolylineDecoration(polylineDecoration);
+				T result = casePolylineDecoration(polylineDecoration);
 				if (result == null) result = casePolyline(polylineDecoration);
 				if (result == null) result = caseDecorationFigure(polylineDecoration);
 				if (result == null) result = caseShape(polylineDecoration);
@@ -442,7 +442,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.POLYGON_DECORATION: {
 				PolygonDecoration polygonDecoration = (PolygonDecoration)theEObject;
-				Object result = casePolygonDecoration(polygonDecoration);
+				T result = casePolygonDecoration(polygonDecoration);
 				if (result == null) result = casePolygon(polygonDecoration);
 				if (result == null) result = caseDecorationFigure(polygonDecoration);
 				if (result == null) result = casePolyline(polygonDecoration);
@@ -457,26 +457,26 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.CUSTOM_CLASS: {
 				CustomClass customClass = (CustomClass)theEObject;
-				Object result = caseCustomClass(customClass);
+				T result = caseCustomClass(customClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE: {
 				CustomAttribute customAttribute = (CustomAttribute)theEObject;
-				Object result = caseCustomAttribute(customAttribute);
+				T result = caseCustomAttribute(customAttribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FIGURE_ACCESSOR: {
 				FigureAccessor figureAccessor = (FigureAccessor)theEObject;
-				Object result = caseFigureAccessor(figureAccessor);
+				T result = caseFigureAccessor(figureAccessor);
 				if (result == null) result = caseFigureHandle(figureAccessor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_FIGURE: {
 				CustomFigure customFigure = (CustomFigure)theEObject;
-				Object result = caseCustomFigure(customFigure);
+				T result = caseCustomFigure(customFigure);
 				if (result == null) result = caseFigure(customFigure);
 				if (result == null) result = caseCustomClass(customFigure);
 				if (result == null) result = caseFigureMarker(customFigure);
@@ -488,7 +488,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.CUSTOM_DECORATION: {
 				CustomDecoration customDecoration = (CustomDecoration)theEObject;
-				Object result = caseCustomDecoration(customDecoration);
+				T result = caseCustomDecoration(customDecoration);
 				if (result == null) result = caseCustomFigure(customDecoration);
 				if (result == null) result = caseDecorationFigure(customDecoration);
 				if (result == null) result = caseFigure(customDecoration);
@@ -502,7 +502,7 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.CUSTOM_CONNECTION: {
 				CustomConnection customConnection = (CustomConnection)theEObject;
-				Object result = caseCustomConnection(customConnection);
+				T result = caseCustomConnection(customConnection);
 				if (result == null) result = caseCustomFigure(customConnection);
 				if (result == null) result = caseConnectionFigure(customConnection);
 				if (result == null) result = caseFigure(customConnection);
@@ -516,85 +516,85 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.COLOR: {
 				Color color = (Color)theEObject;
-				Object result = caseColor(color);
+				T result = caseColor(color);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.RGB_COLOR: {
 				RGBColor rgbColor = (RGBColor)theEObject;
-				Object result = caseRGBColor(rgbColor);
+				T result = caseRGBColor(rgbColor);
 				if (result == null) result = caseColor(rgbColor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CONSTANT_COLOR: {
 				ConstantColor constantColor = (ConstantColor)theEObject;
-				Object result = caseConstantColor(constantColor);
+				T result = caseConstantColor(constantColor);
 				if (result == null) result = caseColor(constantColor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FONT: {
 				Font font = (Font)theEObject;
-				Object result = caseFont(font);
+				T result = caseFont(font);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.BASIC_FONT: {
 				BasicFont basicFont = (BasicFont)theEObject;
-				Object result = caseBasicFont(basicFont);
+				T result = caseBasicFont(basicFont);
 				if (result == null) result = caseFont(basicFont);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.POINT: {
 				Point point = (Point)theEObject;
-				Object result = casePoint(point);
+				T result = casePoint(point);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.DIMENSION: {
 				Dimension dimension = (Dimension)theEObject;
-				Object result = caseDimension(dimension);
+				T result = caseDimension(dimension);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.INSETS: {
 				Insets insets = (Insets)theEObject;
-				Object result = caseInsets(insets);
+				T result = caseInsets(insets);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.BORDER: {
 				Border border = (Border)theEObject;
-				Object result = caseBorder(border);
+				T result = caseBorder(border);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.LINE_BORDER: {
 				LineBorder lineBorder = (LineBorder)theEObject;
-				Object result = caseLineBorder(lineBorder);
+				T result = caseLineBorder(lineBorder);
 				if (result == null) result = caseBorder(lineBorder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.MARGIN_BORDER: {
 				MarginBorder marginBorder = (MarginBorder)theEObject;
-				Object result = caseMarginBorder(marginBorder);
+				T result = caseMarginBorder(marginBorder);
 				if (result == null) result = caseBorder(marginBorder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.COMPOUND_BORDER: {
 				CompoundBorder compoundBorder = (CompoundBorder)theEObject;
-				Object result = caseCompoundBorder(compoundBorder);
+				T result = caseCompoundBorder(compoundBorder);
 				if (result == null) result = caseBorder(compoundBorder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_BORDER: {
 				CustomBorder customBorder = (CustomBorder)theEObject;
-				Object result = caseCustomBorder(customBorder);
+				T result = caseCustomBorder(customBorder);
 				if (result == null) result = caseBorder(customBorder);
 				if (result == null) result = caseCustomClass(customBorder);
 				if (result == null) result = defaultCase(theEObject);
@@ -602,13 +602,13 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.LAYOUT_DATA: {
 				LayoutData layoutData = (LayoutData)theEObject;
-				Object result = caseLayoutData(layoutData);
+				T result = caseLayoutData(layoutData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA: {
 				CustomLayoutData customLayoutData = (CustomLayoutData)theEObject;
-				Object result = caseCustomLayoutData(customLayoutData);
+				T result = caseCustomLayoutData(customLayoutData);
 				if (result == null) result = caseLayoutData(customLayoutData);
 				if (result == null) result = caseCustomClass(customLayoutData);
 				if (result == null) result = defaultCase(theEObject);
@@ -616,33 +616,33 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.GRID_LAYOUT_DATA: {
 				GridLayoutData gridLayoutData = (GridLayoutData)theEObject;
-				Object result = caseGridLayoutData(gridLayoutData);
+				T result = caseGridLayoutData(gridLayoutData);
 				if (result == null) result = caseLayoutData(gridLayoutData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.BORDER_LAYOUT_DATA: {
 				BorderLayoutData borderLayoutData = (BorderLayoutData)theEObject;
-				Object result = caseBorderLayoutData(borderLayoutData);
+				T result = caseBorderLayoutData(borderLayoutData);
 				if (result == null) result = caseLayoutData(borderLayoutData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.LAYOUTABLE: {
 				Layoutable layoutable = (Layoutable)theEObject;
-				Object result = caseLayoutable(layoutable);
+				T result = caseLayoutable(layoutable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.LAYOUT: {
 				Layout layout = (Layout)theEObject;
-				Object result = caseLayout(layout);
+				T result = caseLayout(layout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.CUSTOM_LAYOUT: {
 				CustomLayout customLayout = (CustomLayout)theEObject;
-				Object result = caseCustomLayout(customLayout);
+				T result = caseCustomLayout(customLayout);
 				if (result == null) result = caseLayout(customLayout);
 				if (result == null) result = caseCustomClass(customLayout);
 				if (result == null) result = defaultCase(theEObject);
@@ -650,42 +650,42 @@ public class GMFGraphSwitch {
 			}
 			case GMFGraphPackage.GRID_LAYOUT: {
 				GridLayout gridLayout = (GridLayout)theEObject;
-				Object result = caseGridLayout(gridLayout);
+				T result = caseGridLayout(gridLayout);
 				if (result == null) result = caseLayout(gridLayout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.BORDER_LAYOUT: {
 				BorderLayout borderLayout = (BorderLayout)theEObject;
-				Object result = caseBorderLayout(borderLayout);
+				T result = caseBorderLayout(borderLayout);
 				if (result == null) result = caseLayout(borderLayout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.FLOW_LAYOUT: {
 				FlowLayout flowLayout = (FlowLayout)theEObject;
-				Object result = caseFlowLayout(flowLayout);
+				T result = caseFlowLayout(flowLayout);
 				if (result == null) result = caseLayout(flowLayout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.XY_LAYOUT: {
 				XYLayout xyLayout = (XYLayout)theEObject;
-				Object result = caseXYLayout(xyLayout);
+				T result = caseXYLayout(xyLayout);
 				if (result == null) result = caseLayout(xyLayout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.XY_LAYOUT_DATA: {
 				XYLayoutData xyLayoutData = (XYLayoutData)theEObject;
-				Object result = caseXYLayoutData(xyLayoutData);
+				T result = caseXYLayoutData(xyLayoutData);
 				if (result == null) result = caseLayoutData(xyLayoutData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.STACK_LAYOUT: {
 				StackLayout stackLayout = (StackLayout)theEObject;
-				Object result = caseStackLayout(stackLayout);
+				T result = caseStackLayout(stackLayout);
 				if (result == null) result = caseLayout(stackLayout);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -705,7 +705,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCanvas(Canvas object) {
+	public T caseCanvas(Canvas object) {
 		return null;
 	}
 
@@ -720,7 +720,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigureGallery(FigureGallery object) {
+	public T caseFigureGallery(FigureGallery object) {
 		return null;
 	}
 
@@ -735,7 +735,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseIdentity(Identity object) {
+	public T caseIdentity(Identity object) {
 		return null;
 	}
 
@@ -750,7 +750,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDiagramElement(DiagramElement object) {
+	public T caseDiagramElement(DiagramElement object) {
 		return null;
 	}
 
@@ -765,7 +765,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNode(Node object) {
+	public T caseNode(Node object) {
 		return null;
 	}
 
@@ -780,7 +780,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseConnection(Connection object) {
+	public T caseConnection(Connection object) {
 		return null;
 	}
 
@@ -795,7 +795,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCompartment(Compartment object) {
+	public T caseCompartment(Compartment object) {
 		return null;
 	}
 
@@ -810,7 +810,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDiagramLabel(DiagramLabel object) {
+	public T caseDiagramLabel(DiagramLabel object) {
 		return null;
 	}
 
@@ -825,7 +825,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseVisualFacet(VisualFacet object) {
+	public T caseVisualFacet(VisualFacet object) {
 		return null;
 	}
 
@@ -840,7 +840,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGeneralFacet(GeneralFacet object) {
+	public T caseGeneralFacet(GeneralFacet object) {
 		return null;
 	}
 
@@ -855,7 +855,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAlignmentFacet(AlignmentFacet object) {
+	public T caseAlignmentFacet(AlignmentFacet object) {
 		return null;
 	}
 
@@ -870,7 +870,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGradientFacet(GradientFacet object) {
+	public T caseGradientFacet(GradientFacet object) {
 		return null;
 	}
 
@@ -885,7 +885,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLabelOffsetFacet(LabelOffsetFacet object) {
+	public T caseLabelOffsetFacet(LabelOffsetFacet object) {
 		return null;
 	}
 
@@ -900,7 +900,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDefaultSizeFacet(DefaultSizeFacet object) {
+	public T caseDefaultSizeFacet(DefaultSizeFacet object) {
 		return null;
 	}
 
@@ -915,7 +915,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigureMarker(FigureMarker object) {
+	public T caseFigureMarker(FigureMarker object) {
 		return null;
 	}
 
@@ -930,7 +930,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigureHandle(FigureHandle object) {
+	public T caseFigureHandle(FigureHandle object) {
 		return null;
 	}
 
@@ -945,7 +945,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigure(Figure object) {
+	public T caseFigure(Figure object) {
 		return null;
 	}
 
@@ -960,7 +960,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigureRef(FigureRef object) {
+	public T caseFigureRef(FigureRef object) {
 		return null;
 	}
 
@@ -975,7 +975,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseConnectionFigure(ConnectionFigure object) {
+	public T caseConnectionFigure(ConnectionFigure object) {
 		return null;
 	}
 
@@ -990,7 +990,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDecorationFigure(DecorationFigure object) {
+	public T caseDecorationFigure(DecorationFigure object) {
 		return null;
 	}
 
@@ -1005,7 +1005,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseShape(Shape object) {
+	public T caseShape(Shape object) {
 		return null;
 	}
 
@@ -1020,7 +1020,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLabel(Label object) {
+	public T caseLabel(Label object) {
 		return null;
 	}
 
@@ -1035,7 +1035,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLabeledContainer(LabeledContainer object) {
+	public T caseLabeledContainer(LabeledContainer object) {
 		return null;
 	}
 
@@ -1050,7 +1050,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRectangle(Rectangle object) {
+	public T caseRectangle(Rectangle object) {
 		return null;
 	}
 
@@ -1065,7 +1065,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRoundedRectangle(RoundedRectangle object) {
+	public T caseRoundedRectangle(RoundedRectangle object) {
 		return null;
 	}
 
@@ -1080,7 +1080,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEllipse(Ellipse object) {
+	public T caseEllipse(Ellipse object) {
 		return null;
 	}
 
@@ -1095,7 +1095,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePolyline(Polyline object) {
+	public T casePolyline(Polyline object) {
 		return null;
 	}
 
@@ -1110,7 +1110,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePolygon(Polygon object) {
+	public T casePolygon(Polygon object) {
 		return null;
 	}
 
@@ -1125,7 +1125,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseScalablePolygon(ScalablePolygon object) {
+	public T caseScalablePolygon(ScalablePolygon object) {
 		return null;
 	}
 
@@ -1140,7 +1140,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePolylineConnection(PolylineConnection object) {
+	public T casePolylineConnection(PolylineConnection object) {
 		return null;
 	}
 
@@ -1155,7 +1155,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePolylineDecoration(PolylineDecoration object) {
+	public T casePolylineDecoration(PolylineDecoration object) {
 		return null;
 	}
 
@@ -1170,7 +1170,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePolygonDecoration(PolygonDecoration object) {
+	public T casePolygonDecoration(PolygonDecoration object) {
 		return null;
 	}
 
@@ -1185,7 +1185,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomClass(CustomClass object) {
+	public T caseCustomClass(CustomClass object) {
 		return null;
 	}
 
@@ -1200,7 +1200,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomFigure(CustomFigure object) {
+	public T caseCustomFigure(CustomFigure object) {
 		return null;
 	}
 
@@ -1215,7 +1215,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomDecoration(CustomDecoration object) {
+	public T caseCustomDecoration(CustomDecoration object) {
 		return null;
 	}
 
@@ -1230,7 +1230,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomConnection(CustomConnection object) {
+	public T caseCustomConnection(CustomConnection object) {
 		return null;
 	}
 
@@ -1245,7 +1245,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseColor(Color object) {
+	public T caseColor(Color object) {
 		return null;
 	}
 
@@ -1260,7 +1260,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRGBColor(RGBColor object) {
+	public T caseRGBColor(RGBColor object) {
 		return null;
 	}
 
@@ -1275,7 +1275,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseConstantColor(ConstantColor object) {
+	public T caseConstantColor(ConstantColor object) {
 		return null;
 	}
 
@@ -1290,7 +1290,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFont(Font object) {
+	public T caseFont(Font object) {
 		return null;
 	}
 
@@ -1305,7 +1305,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBasicFont(BasicFont object) {
+	public T caseBasicFont(BasicFont object) {
 		return null;
 	}
 
@@ -1320,7 +1320,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePoint(Point object) {
+	public T casePoint(Point object) {
 		return null;
 	}
 
@@ -1335,7 +1335,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDimension(Dimension object) {
+	public T caseDimension(Dimension object) {
 		return null;
 	}
 
@@ -1350,7 +1350,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInsets(Insets object) {
+	public T caseInsets(Insets object) {
 		return null;
 	}
 
@@ -1365,7 +1365,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBorder(Border object) {
+	public T caseBorder(Border object) {
 		return null;
 	}
 
@@ -1380,7 +1380,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLineBorder(LineBorder object) {
+	public T caseLineBorder(LineBorder object) {
 		return null;
 	}
 
@@ -1395,7 +1395,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMarginBorder(MarginBorder object) {
+	public T caseMarginBorder(MarginBorder object) {
 		return null;
 	}
 
@@ -1410,7 +1410,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCompoundBorder(CompoundBorder object) {
+	public T caseCompoundBorder(CompoundBorder object) {
 		return null;
 	}
 
@@ -1425,7 +1425,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomBorder(CustomBorder object) {
+	public T caseCustomBorder(CustomBorder object) {
 		return null;
 	}
 
@@ -1440,7 +1440,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLayoutData(LayoutData object) {
+	public T caseLayoutData(LayoutData object) {
 		return null;
 	}
 
@@ -1455,7 +1455,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomLayoutData(CustomLayoutData object) {
+	public T caseCustomLayoutData(CustomLayoutData object) {
 		return null;
 	}
 
@@ -1470,7 +1470,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGridLayoutData(GridLayoutData object) {
+	public T caseGridLayoutData(GridLayoutData object) {
 		return null;
 	}
 
@@ -1485,7 +1485,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBorderLayoutData(BorderLayoutData object) {
+	public T caseBorderLayoutData(BorderLayoutData object) {
 		return null;
 	}
 
@@ -1500,7 +1500,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLayoutable(Layoutable object) {
+	public T caseLayoutable(Layoutable object) {
 		return null;
 	}
 
@@ -1515,7 +1515,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLayout(Layout object) {
+	public T caseLayout(Layout object) {
 		return null;
 	}
 
@@ -1530,7 +1530,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomLayout(CustomLayout object) {
+	public T caseCustomLayout(CustomLayout object) {
 		return null;
 	}
 
@@ -1545,7 +1545,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGridLayout(GridLayout object) {
+	public T caseGridLayout(GridLayout object) {
 		return null;
 	}
 
@@ -1560,7 +1560,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBorderLayout(BorderLayout object) {
+	public T caseBorderLayout(BorderLayout object) {
 		return null;
 	}
 
@@ -1575,7 +1575,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCustomAttribute(CustomAttribute object) {
+	public T caseCustomAttribute(CustomAttribute object) {
 		return null;
 	}
 
@@ -1590,7 +1590,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFigureAccessor(FigureAccessor object) {
+	public T caseFigureAccessor(FigureAccessor object) {
 		return null;
 	}
 
@@ -1605,7 +1605,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFlowLayout(FlowLayout object) {
+	public T caseFlowLayout(FlowLayout object) {
 		return null;
 	}
 
@@ -1620,7 +1620,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseXYLayout(XYLayout object) {
+	public T caseXYLayout(XYLayout object) {
 		return null;
 	}
 
@@ -1635,7 +1635,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseXYLayoutData(XYLayoutData object) {
+	public T caseXYLayoutData(XYLayoutData object) {
 		return null;
 	}
 
@@ -1650,7 +1650,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseStackLayout(StackLayout object) {
+	public T caseStackLayout(StackLayout object) {
 		return null;
 	}
 
@@ -1665,7 +1665,7 @@ public class GMFGraphSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

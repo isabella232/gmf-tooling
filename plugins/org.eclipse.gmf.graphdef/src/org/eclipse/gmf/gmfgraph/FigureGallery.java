@@ -44,7 +44,7 @@ public interface FigureGallery extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.Figure" containment="true"
 	 * @generated
 	 */
-	EList getFigures();
+	EList<Figure> getFigures();
 
 	/**
 	 * Returns the value of the '<em><b>Implementation Bundle</b></em>' attribute.

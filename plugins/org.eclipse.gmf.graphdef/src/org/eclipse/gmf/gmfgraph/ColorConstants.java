@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,143 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class ColorConstants extends AbstractEnumerator {
+public enum ColorConstants implements Enumerator
+{
+	/**
+	 * The '<em><b>White</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WHITE
+	 * @generated
+	 * @ordered
+	 */
+	WHITE_LITERAL(0, "white", "white"),
+	/**
+	 * The '<em><b>Black</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BLACK
+	 * @generated
+	 * @ordered
+	 */
+	BLACK_LITERAL(1, "black", "black"),
+	/**
+	 * The '<em><b>Light Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_GRAY_LITERAL(2, "lightGray", "lightGray"),
+	/**
+	 * The '<em><b>Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GRAY
+	 * @generated
+	 * @ordered
+	 */
+	GRAY_LITERAL(3, "gray", "gray"),
+	/**
+	 * The '<em><b>Dark Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	DARK_GRAY_LITERAL(4, "darkGray", "darkGray"),
+	/**
+	 * The '<em><b>Red</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RED
+	 * @generated
+	 * @ordered
+	 */
+	RED_LITERAL(5, "red", "red"),
+	/**
+	 * The '<em><b>Orange</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ORANGE
+	 * @generated
+	 * @ordered
+	 */
+	ORANGE_LITERAL(6, "orange", "orange"),
+	/**
+	 * The '<em><b>Yellow</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #YELLOW
+	 * @generated
+	 * @ordered
+	 */
+	YELLOW_LITERAL(7, "yellow", "yellow"),
+	/**
+	 * The '<em><b>Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GREEN
+	 * @generated
+	 * @ordered
+	 */
+	GREEN_LITERAL(8, "green", "green"),
+	/**
+	 * The '<em><b>Light Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_GREEN
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_GREEN_LITERAL(9, "lightGreen", "lightGreen"),
+	/**
+	 * The '<em><b>Dark Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_GREEN
+	 * @generated
+	 * @ordered
+	 */
+	DARK_GREEN_LITERAL(10, "darkGreen", "darkGreen"),
+	/**
+	 * The '<em><b>Cyan</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CYAN
+	 * @generated
+	 * @ordered
+	 */
+	CYAN_LITERAL(11, "cyan", "cyan"),
+	/**
+	 * The '<em><b>Light Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_BLUE_LITERAL(12, "lightBlue", "lightBlue"),
+	/**
+	 * The '<em><b>Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BLUE
+	 * @generated
+	 * @ordered
+	 */
+	BLUE_LITERAL(13, "blue", "blue"),
+	/**
+	 * The '<em><b>Dark Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	DARK_BLUE_LITERAL(14, "darkBlue", "darkBlue");
 	/**
 	 * The '<em><b>White</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -248,156 +384,6 @@ public final class ColorConstants extends AbstractEnumerator {
 	public static final int DARK_BLUE = 14;
 
 	/**
-	 * The '<em><b>White</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #WHITE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants WHITE_LITERAL = new ColorConstants(WHITE, "white", "white");
-
-	/**
-	 * The '<em><b>Black</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BLACK
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants BLACK_LITERAL = new ColorConstants(BLACK, "black", "black");
-
-	/**
-	 * The '<em><b>Light Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants LIGHT_GRAY_LITERAL = new ColorConstants(LIGHT_GRAY, "lightGray", "lightGray");
-
-	/**
-	 * The '<em><b>Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants GRAY_LITERAL = new ColorConstants(GRAY, "gray", "gray");
-
-	/**
-	 * The '<em><b>Dark Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants DARK_GRAY_LITERAL = new ColorConstants(DARK_GRAY, "darkGray", "darkGray");
-
-	/**
-	 * The '<em><b>Red</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #RED
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants RED_LITERAL = new ColorConstants(RED, "red", "red");
-
-	/**
-	 * The '<em><b>Orange</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ORANGE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants ORANGE_LITERAL = new ColorConstants(ORANGE, "orange", "orange");
-
-	/**
-	 * The '<em><b>Yellow</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #YELLOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants YELLOW_LITERAL = new ColorConstants(YELLOW, "yellow", "yellow");
-
-	/**
-	 * The '<em><b>Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants GREEN_LITERAL = new ColorConstants(GREEN, "green", "green");
-
-	/**
-	 * The '<em><b>Light Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants LIGHT_GREEN_LITERAL = new ColorConstants(LIGHT_GREEN, "lightGreen", "lightGreen");
-
-	/**
-	 * The '<em><b>Dark Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants DARK_GREEN_LITERAL = new ColorConstants(DARK_GREEN, "darkGreen", "darkGreen");
-
-	/**
-	 * The '<em><b>Cyan</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CYAN
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants CYAN_LITERAL = new ColorConstants(CYAN, "cyan", "cyan");
-
-	/**
-	 * The '<em><b>Light Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants LIGHT_BLUE_LITERAL = new ColorConstants(LIGHT_BLUE, "lightBlue", "lightBlue");
-
-	/**
-	 * The '<em><b>Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants BLUE_LITERAL = new ColorConstants(BLUE, "blue", "blue");
-
-	/**
-	 * The '<em><b>Dark Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ColorConstants DARK_BLUE_LITERAL = new ColorConstants(DARK_BLUE, "darkBlue", "darkBlue");
-
-	/**
 	 * An array of all the '<em><b>Color Constants</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -428,7 +414,7 @@ public final class ColorConstants extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ColorConstants> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Color Constants</b></em>' literal with the specified literal value.
@@ -486,8 +472,29 @@ public final class ColorConstants extends AbstractEnumerator {
 			case BLUE: return BLUE_LITERAL;
 			case DARK_BLUE: return DARK_BLUE_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -496,7 +503,46 @@ public final class ColorConstants extends AbstractEnumerator {
 	 * @generated
 	 */
 	private ColorConstants(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //ColorConstants
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

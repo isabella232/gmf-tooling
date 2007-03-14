@@ -34,6 +34,7 @@ public class PolygonDecorationImpl extends PolygonImpl implements PolygonDecorat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getPolygonDecoration();
 	}

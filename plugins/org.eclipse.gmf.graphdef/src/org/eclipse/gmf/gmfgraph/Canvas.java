@@ -46,7 +46,7 @@ public interface Canvas extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.FigureGallery" containment="true"
 	 * @generated
 	 */
-	EList getFigures();
+	EList<FigureGallery> getFigures();
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
@@ -62,7 +62,7 @@ public interface Canvas extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.Node" containment="true"
 	 * @generated
 	 */
-	EList getNodes();
+	EList<Node> getNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
@@ -78,7 +78,7 @@ public interface Canvas extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.Connection" containment="true"
 	 * @generated
 	 */
-	EList getConnections();
+	EList<Connection> getConnections();
 
 	/**
 	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
@@ -94,7 +94,7 @@ public interface Canvas extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.Compartment" containment="true"
 	 * @generated
 	 */
-	EList getCompartments();
+	EList<Compartment> getCompartments();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -110,6 +110,6 @@ public interface Canvas extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.DiagramLabel" containment="true"
 	 * @generated
 	 */
-	EList getLabels();
+	EList<DiagramLabel> getLabels();
 
 } // Canvas

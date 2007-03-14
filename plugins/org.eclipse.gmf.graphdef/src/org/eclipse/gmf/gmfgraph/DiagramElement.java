@@ -67,7 +67,7 @@ public interface DiagramElement extends Identity {
 	 * @model type="org.eclipse.gmf.gmfgraph.VisualFacet" containment="true"
 	 * @generated
 	 */
-	EList getFacets();
+	EList<VisualFacet> getFacets();
 
 	/**
 	 * <!-- begin-user-doc -->

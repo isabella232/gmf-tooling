@@ -65,7 +65,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList figures = null;
+	protected EList<Figure> figures = null;
 
 	/**
 	 * The default value of the '{@link #getImplementationBundle() <em>Implementation Bundle</em>}' attribute.
@@ -101,6 +101,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getFigureGallery();
 	}
@@ -131,9 +132,9 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFigures() {
+	public EList<Figure> getFigures() {
 		if (figures == null) {
-			figures = new EObjectContainmentEList(Figure.class, this, GMFGraphPackage.FIGURE_GALLERY__FIGURES);
+			figures = new EObjectContainmentEList<Figure>(Figure.class, this, GMFGraphPackage.FIGURE_GALLERY__FIGURES);
 		}
 		return figures;
 	}
@@ -172,10 +173,11 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
-				return ((InternalEList)getFigures()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getFigures()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -185,6 +187,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_GALLERY__NAME:
@@ -202,6 +205,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_GALLERY__NAME:
@@ -209,7 +214,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return;
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
 				getFigures().clear();
-				getFigures().addAll((Collection)newValue);
+				getFigures().addAll((Collection<? extends Figure>)newValue);
 				return;
 			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				setImplementationBundle((String)newValue);
@@ -223,6 +228,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_GALLERY__NAME:
@@ -243,6 +249,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.FIGURE_GALLERY__NAME:
@@ -260,6 +267,7 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

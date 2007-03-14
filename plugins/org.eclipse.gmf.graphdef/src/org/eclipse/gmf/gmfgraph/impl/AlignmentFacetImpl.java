@@ -65,6 +65,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getAlignmentFacet();
 	}
@@ -95,6 +96,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.ALIGNMENT_FACET__ALIGNMENT:
@@ -108,6 +110,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.ALIGNMENT_FACET__ALIGNMENT:
@@ -122,6 +125,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.ALIGNMENT_FACET__ALIGNMENT:
@@ -136,6 +140,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGraphPackage.ALIGNMENT_FACET__ALIGNMENT:
@@ -149,6 +154,7 @@ public class AlignmentFacetImpl extends EObjectImpl implements AlignmentFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
