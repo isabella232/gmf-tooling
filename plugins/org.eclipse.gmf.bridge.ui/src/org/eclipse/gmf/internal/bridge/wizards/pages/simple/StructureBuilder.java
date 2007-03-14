@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.internal.bridge.resolver.ContainmentClosure;
@@ -51,8 +52,8 @@ public class StructureBuilder {
 
 	public ResolvedItem process(DomainModelSource dms) {
 		ResolvedItem item = new ResolvedItem(null, dms.getContents(), null, ResolvedItem.NO_RESOLUTIONS, false);
-		for (Iterator it = dms.getContents().eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = dms.getContents().eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof EClass) {
 				item.addChild(process((EClass) next, dms));
 			}
@@ -99,7 +100,7 @@ public class StructureBuilder {
 			return;
 		}
 		Resolution baseResolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
-		Collection resolvedAttrs = Collections.emptyList();
+		Collection<EAttribute> resolvedAttrs = Collections.emptyList();
 		if (typeItem.getPattern() != null) {
 			resolvedAttrs = Arrays.asList(typeItem.getPattern().getLabels());
 		}
@@ -112,7 +113,7 @@ public class StructureBuilder {
 
 	protected void addRefLinks(ResolvedItem typeItem, EClass type, DomainModelSource dms) {
 		Resolution baseResolution = typeItem.getResolution() != Resolution.NODE ? null : Resolution.LINK;
-		Collection resolvedRefs = Collections.emptyList();
+		Collection<EReference> resolvedRefs = Collections.emptyList();
 		if (typeItem.getPattern() instanceof NodePattern) {
 			resolvedRefs = Arrays.asList(((NodePattern) typeItem.getPattern()).getRefLinks());
 		}

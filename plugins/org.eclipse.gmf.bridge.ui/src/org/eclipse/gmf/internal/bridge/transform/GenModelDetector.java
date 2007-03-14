@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -88,14 +89,13 @@ public class GenModelDetector {
 	
 	private Collection<EPackage> findEPackages(Mapping mapping) {
 		Collection<EPackage> packages = new HashSet<EPackage>();
-		for (Iterator it = EcoreUtil.ExternalCrossReferencer.find(mapping).keySet().iterator(); it.hasNext();) {
-			Object next = it.next();
+		for (EObject next : EcoreUtil.ExternalCrossReferencer.find(mapping).keySet()) {
 			if (next instanceof EClass) {
 				packages.add(((EClass) next).getEPackage());
 			}
 		}
-		for (Iterator it = packages.iterator(); it.hasNext();) {
-			EPackage next = (EPackage) it.next();
+		for (Iterator<EPackage> it = packages.iterator(); it.hasNext();) {
+			EPackage next = it.next();
 			if (next.getESuperPackage() != null && EcoreUtil.isAncestor(packages, next.getESuperPackage())) {
 				it.remove();
 			}

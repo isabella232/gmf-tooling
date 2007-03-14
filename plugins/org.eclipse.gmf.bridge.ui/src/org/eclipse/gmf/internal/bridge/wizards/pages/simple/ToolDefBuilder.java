@@ -47,7 +47,7 @@ public class ToolDefBuilder {
 		this.existingToolRegistry = existingToolRegistry;
 	}
 
-	public static CreationTool getCreationTool(Iterator source, EObject domainElement) {
+	public static CreationTool getCreationTool(Iterator<EObject> source, EObject domainElement) {
 		String name = WizardUtil.getCapName(domainElement);
 		if (name == null) {
 			return null;
@@ -55,7 +55,7 @@ public class ToolDefBuilder {
 		return getCreationTool(source, name);
 	}
 
-	public static CreationTool getCreationTool(Iterator source, String domainObjectName) {
+	public static CreationTool getCreationTool(Iterator<EObject> source, String domainObjectName) {
 		while (source.hasNext()) {
 			Object next = source.next();
 			if (next instanceof CreationTool && domainObjectName.equals(((CreationTool) next).getTitle())) {
@@ -80,8 +80,8 @@ public class ToolDefBuilder {
 	}
 
 	protected void addExistingNames(ToolRegistry toolRegistry) {
-		for (Iterator it = toolRegistry.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = toolRegistry.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof AbstractTool) {
 				addExistingName(((AbstractTool) next).getTitle());
 			}

@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * @author artem
@@ -35,9 +36,9 @@ public class ExcludeDiagramContainerNodeStrategy implements Strategy {
 		return "excludeDiagramContainer";
 	}
 
-	public void filter(Collection soFar, Hierarchy hierarchy) {
+	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {// FIXME Collection<EClass>
 		if (myWithSubclasses && hierarchy.getDiagramContainer() != null) {
-			for (Iterator it = soFar.iterator(); it.hasNext();) {
+			for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
 				EClass next = (EClass) it.next();
 				if (hierarchy.getDiagramContainer().isSuperTypeOf(next)) {
 					it.remove();

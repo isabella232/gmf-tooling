@@ -55,7 +55,7 @@ public class GraphDefBuilder {
 		this.existingCanvas = existingCanvas;
 	}
 
-	public static DiagramElement getDiagramElement(Iterator source, EObject domainElement) {
+	public static DiagramElement getDiagramElement(Iterator<EObject> source, EObject domainElement) {
 		String name = WizardUtil.getCapName(domainElement);
 		if (name == null) {
 			return null;
@@ -63,7 +63,7 @@ public class GraphDefBuilder {
 		return getDiagramElement(source, name);
 	}
 
-	public static DiagramElement getDiagramElement(Iterator source, String domainObjectName) {
+	public static DiagramElement getDiagramElement(Iterator<EObject> source, String domainObjectName) {
 		while (source.hasNext()) {
 			Object next = source.next();
 			if (next instanceof DiagramElement && domainObjectName.equals(((DiagramElement) next).getName())) {
@@ -88,8 +88,8 @@ public class GraphDefBuilder {
 	}
 
 	protected void addExistingNames(Canvas canvas) {
-		for (Iterator it = canvas.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = canvas.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof Identity) {
 				addExistingName(((Identity) next).getName());
 			}

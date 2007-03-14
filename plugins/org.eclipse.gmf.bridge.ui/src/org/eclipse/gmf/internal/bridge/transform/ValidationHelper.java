@@ -139,7 +139,7 @@ public class ValidationHelper {
 			getDiagnostic2MarkerMap().put(diagnostic, marker);
 
 			// adjust marker to support IGotoMarker for standard EMF generated editors 
-			List data = diagnostic.getData();
+			List<?> data = diagnostic.getData();
 			if (data != null && !data.isEmpty()) {
 				Object target = data.get(0);
 				if (target instanceof EObject) {
@@ -276,7 +276,7 @@ public class ValidationHelper {
 		try {			
 			int count = IProgressMonitor.UNKNOWN;
 			if(progressMonitor != null) {
-				for (Iterator i = eObject.eAllContents(); i.hasNext(); i.next()) {
+				for (Iterator<EObject> i = eObject.eAllContents(); i.hasNext(); i.next()) {
 					++count;
 				}
 			}
@@ -331,9 +331,8 @@ public class ValidationHelper {
 	 * @see #validate(EObject, boolean, IProgressMonitor)
 	 */
 	public static DiagnosticMarkerMap getDiagnosticMarkerMap(Diagnostic diagnostic) {
-		List data = (diagnostic.getData() != null) ? diagnostic.getData() : Collections.EMPTY_LIST;
-		for (Iterator it = data.iterator(); it.hasNext();) {
-			Object dataItem = it.next();
+		List<?> data = (diagnostic.getData() != null) ? diagnostic.getData() : Collections.EMPTY_LIST;
+		for (Object dataItem : data) {
 			if (dataItem instanceof DiagnosticMarkerMap) {
 				return (DiagnosticMarkerMap) dataItem;
 			}			

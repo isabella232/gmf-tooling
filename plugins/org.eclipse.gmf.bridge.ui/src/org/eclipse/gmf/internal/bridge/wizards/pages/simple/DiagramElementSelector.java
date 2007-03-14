@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -102,8 +101,8 @@ class DiagramElementSelector {
 		}
 		String contents = control.getText();
 		control.removeAll();
-		for (Iterator it = types.iterator(); it.hasNext();) {
-			EClass type = (EClass) ((ResolvedItem) it.next()).getDomainRef();
+		for (ResolvedItem next : types) {
+			EClass type = (EClass) next.getDomainRef();
 			control.add(type.getName());
 			if (contents.equals(type.getName())) {
 				control.setText(contents);
@@ -124,8 +123,8 @@ class DiagramElementSelector {
 				types.add(item);
 			}
 		}
-		for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-			collectResolvedDomainTypes(types, (ResolvedItem) it.next());
+		for (ResolvedItem next : item.getChildren()) {
+			collectResolvedDomainTypes(types, next);
 		}
 	}
 
@@ -133,8 +132,8 @@ class DiagramElementSelector {
 		if (item.getDomainRef() instanceof EClass && ((EClass) item.getDomainRef()).getName().equals(typeName)) {
 			return item;
 		}
-		for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-			ResolvedItem result = findResolvedItemByTypeName((ResolvedItem) it.next(), typeName);
+		for (ResolvedItem next : item.getChildren()) {
+			ResolvedItem result = findResolvedItemByTypeName(next, typeName);
 			if (result != null) {
 				return result;
 			}

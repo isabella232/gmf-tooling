@@ -100,12 +100,12 @@ class DomainModelViewerFactory {
 		}
 
 		public Object[] getChildren(Object parentElement) {
-			List children = ((ResolvedItem) parentElement).getChildren();
+			List<?> children = ((ResolvedItem) parentElement).getChildren();
 			return children.toArray();
 		}
 
 		public boolean hasChildren(Object element) {
-			List children = ((ResolvedItem) element).getChildren();
+			List<?> children = ((ResolvedItem) element).getChildren();
 			return !children.isEmpty();
 		}
 

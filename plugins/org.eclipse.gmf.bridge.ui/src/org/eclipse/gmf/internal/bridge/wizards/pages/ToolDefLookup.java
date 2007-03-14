@@ -34,7 +34,7 @@ public class ToolDefLookup implements ToolDefSupplier {
 	public ToolDefLookup(ToolRegistry registry) {
 		assert registry != null && registry.getPalette() != null;
 		myRegistry = registry;
-		final List tools = myRegistry.getPalette().getTools();
+		final List<AbstractTool> tools = myRegistry.getPalette().getTools();
 		int i = tools.size();
 		boolean found = false;
 		while (!found && i > 0) {

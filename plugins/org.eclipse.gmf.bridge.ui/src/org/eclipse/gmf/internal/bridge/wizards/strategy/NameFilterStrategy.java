@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * Removes elements that don't match specified patterns 
@@ -48,8 +49,8 @@ public class NameFilterStrategy implements Strategy {
 	/**
 	 * @param soFar - expects <code>List&lt;ENamedElement&gt;</code>
 	 */
-	public void filter(Collection soFar, Hierarchy hierarchy) {
-		for (Iterator it = soFar.iterator(); it.hasNext();) {
+	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
+		for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
 			ENamedElement next = (ENamedElement) it.next();
 			if (!match(next.getName())) {
 				it.remove();

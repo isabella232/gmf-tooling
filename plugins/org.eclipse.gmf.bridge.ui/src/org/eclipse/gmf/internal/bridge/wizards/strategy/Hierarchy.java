@@ -57,18 +57,15 @@ public class Hierarchy {
 		myDiagramContainer = diagramContainer;
 		myDomainModel = domainModel;
 		myResult = new HashMap<EClass, Set<EClass>>();
-		for (Iterator iter = eRefs.iterator(); iter.hasNext();) {
-			EReference element = (EReference) iter.next();
+		for (EReference element : eRefs) {
 			myResult.put(element.getEReferenceType(), new HashSet<EClass>());
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Hierarchy(EClass diagramContainer) {
 		this(diagramContainer.getEAllContainments(), diagramContainer, diagramContainer.getEPackage());
 	}
 
-	@SuppressWarnings("unchecked")
 	public Hierarchy(EClass diagramContainer, EPackage domainModel) {
 		this(diagramContainer.getEAllContainments(), diagramContainer, domainModel);
 	}
@@ -81,8 +78,7 @@ public class Hierarchy {
 	}
 
 	public EReference nodeBackRef(EClass nodeElement) {
-		for (Iterator it2 = myRefs.iterator(); it2.hasNext();) {
-			EReference r = (EReference) it2.next();
+		for (EReference r : myRefs) {
 			if (r.getEReferenceType().isSuperTypeOf(nodeElement)) {
 				return r;
 			}
@@ -92,8 +88,7 @@ public class Hierarchy {
 
 	public EReference linkBackRef(EClass linkElement) {
 		ArrayList<EReference> compatible = new ArrayList<EReference>();
-		for (Iterator it = myLinkClassContainmentRefs.iterator(); it.hasNext();) {
-			EReference r = (EReference) it.next();
+		for (EReference r : myLinkClassContainmentRefs) {
 			if (r.getEReferenceType().isSuperTypeOf(linkElement)) {
 				compatible.add(r);
 			}
@@ -121,15 +116,13 @@ public class Hierarchy {
 		if (l.isEmpty()) {
 			return null;
 		}
-		for (Iterator iter = l.iterator(); iter.hasNext();) {
-			EReference ref = (EReference) iter.next();
+		for (EReference ref : l) {
 			if (element.isSuperTypeOf(ref.getEReferenceType())) {
 				continue;
 			}
 			// check that target is accessible (part of the scope) 
 			// i.e. link target could be either superclass or subclass of one of root classes.
-			for (Iterator it2 = myResult.keySet().iterator(); it2.hasNext();) {
-				EClass c = (EClass) it2.next();
+			for (EClass c : myResult.keySet()) {
 				if (c.isSuperTypeOf(ref.getEReferenceType()) || ref.getEReferenceType().isSuperTypeOf(c)) {
 					return ref;
 				}

@@ -114,10 +114,9 @@ public class MapDefFeeder {
 		};
 	}
 
-	private List<NodeReference> nodesFrom(List<EClass> candidates) {
-		ArrayList<NodeReference> rv = new ArrayList<NodeReference>(candidates.size());
-		for (Iterator iter = candidates.iterator(); iter.hasNext();) {
-			EClass eClass = (EClass) iter.next();
+	private List<TopNodeReference> nodesFrom(List<EClass> candidates) {
+		ArrayList<TopNodeReference> rv = new ArrayList<TopNodeReference>(candidates.size());
+		for (EClass eClass : candidates) {
 			NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 			nm.setDomainMetaElement(eClass); 
 			nm.setDiagramNode(myGraphDefLookup.findSuitableNode(nm));
@@ -133,8 +132,7 @@ public class MapDefFeeder {
 
 	private List<LinkMapping> linksFrom(List<EObject> candidates) {
 		ArrayList<LinkMapping> rv = new ArrayList<LinkMapping>(candidates.size());
-		for (Iterator iter = candidates.iterator(); iter.hasNext();) {
-			Object next = iter.next();
+		for (EObject next : candidates) {
 			LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
 			if (next instanceof EClass) {
 				EClass eClass = (EClass) next;

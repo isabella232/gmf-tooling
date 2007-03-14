@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
@@ -123,8 +121,7 @@ public class DefinitionPage extends WizardPage {
 			}
 
 			private void deselectChildren(ResolvedItem item) {
-				for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-					ResolvedItem child = (ResolvedItem) it.next();
+				for (ResolvedItem child : item.getChildren()) {
 					child.setResolution(null);
 					deselectChildren(child);
 				}

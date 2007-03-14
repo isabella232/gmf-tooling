@@ -340,7 +340,7 @@ public class TransformToGenModelOperation {
 		Resource resource = null;
 		try {
 			resource = rs.getResource(getGenURI(), true);
-			List contents = resource.getContents();
+			List<EObject> contents = resource.getContents();
 			if (!contents.isEmpty() && contents.get(0) instanceof GenEditorGenerator) {
 				old = (GenEditorGenerator) contents.get(0);
 			}
@@ -362,7 +362,7 @@ public class TransformToGenModelOperation {
 		dgmmRes.save(getSaveOptions());
 	}
 
-	private Map getSaveOptions() {
+	private Map<?,?> getSaveOptions() {
 		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
 		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 		return saveOptions;

@@ -30,7 +30,7 @@ public class AccessibleClassNodeStrategy implements Strategy {
 	 * @param soFar - exects <code>List&lt;Classifier&gt;</code>
 	 */
 	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
-		for (Iterator it = soFar.iterator(); it.hasNext();) {
+		for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
 			if (!hierarchy.getAccessibleClasses().contains(it.next())) {
 				it.remove();
 			}

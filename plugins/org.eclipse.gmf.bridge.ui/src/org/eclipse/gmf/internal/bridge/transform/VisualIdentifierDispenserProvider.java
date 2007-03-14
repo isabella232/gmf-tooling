@@ -37,7 +37,7 @@ public class VisualIdentifierDispenserProvider {
 		Bundle tracePluginBundle = Platform.getBundle("org.eclipse.gmf.bridge.trace"); //$NON-NLS-1$
 		if (tracePluginBundle != null) {
 			try {
-				Class despenserClass = tracePluginBundle.loadClass("org.eclipse.gmf.internal.bridge.trace.MergingIdentifierDispenser"); //$NON-NLS-1$
+				Class<?> despenserClass = tracePluginBundle.loadClass("org.eclipse.gmf.internal.bridge.trace.MergingIdentifierDispenser"); //$NON-NLS-1$
 				return (VisualIdentifierDispenser) despenserClass.newInstance();
 			} catch (ClassNotFoundException e) {
 				Plugin.log(Plugin.createError("MergingIdentifierDispenser was not found in org.eclipse.gmf.bridge.trace bundle", e)); //$NON-NLS-1$

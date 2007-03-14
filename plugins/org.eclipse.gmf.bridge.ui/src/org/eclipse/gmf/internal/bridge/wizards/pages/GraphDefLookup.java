@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -47,7 +46,7 @@ public class GraphDefLookup {
 		return (Connection) doSearch(myCanvas.getConnections(), name);
 	}
 
-	private DiagramElement doSearch(List/*<DiagramElement>*/ elements, String namePart) {
+	private DiagramElement doSearch(List<? extends DiagramElement> elements, String namePart) {
 		if (elements.isEmpty()) {
 			return null;
 		}
@@ -57,12 +56,11 @@ public class GraphDefLookup {
 				return c;
 			}
 		}
-		return (DiagramElement) elements.get(0);
+		return elements.get(0);
 	}
 
-	private DiagramElement matchName(List/*<DiagramElement>*/ elements, String namePart) {
-		for (Iterator it = elements.iterator(); it.hasNext();) {
-			DiagramElement next = (DiagramElement) it.next();
+	private DiagramElement matchName(List<? extends DiagramElement> elements, String namePart) {
+		for (DiagramElement next : elements) {
 			if (next.getName() != null && next.getName().indexOf(namePart) >= 0) {
 				return next;
 			}

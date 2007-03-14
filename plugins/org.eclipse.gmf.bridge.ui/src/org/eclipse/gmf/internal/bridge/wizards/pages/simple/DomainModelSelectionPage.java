@@ -46,7 +46,7 @@ public class DomainModelSelectionPage extends ExtensibleModelSelectionPage imple
 		super.resourceChanged();
 		contents = null;
 		if (getResource() != null) {
-			List rc = getResource().getContents();
+			List<EObject> rc = getResource().getContents();
 			if (rc.size() >= 1 && rc.get(0) instanceof EPackage) {
 				contents = (EPackage) rc.get(0);
 			}

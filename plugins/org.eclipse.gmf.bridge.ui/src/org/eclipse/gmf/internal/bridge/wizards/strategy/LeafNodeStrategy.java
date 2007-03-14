@@ -31,7 +31,7 @@ public class LeafNodeStrategy implements Strategy {
 	 * @param soFar - expects <code>List&lt;EClass&gt;</code>
 	 */
 	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
-		for (Iterator it = soFar.iterator(); it.hasNext();) {
+		for (Iterator<EObject> it = soFar.iterator(); it.hasNext();) {
 			EClass next = (EClass) it.next();
 			if (!hierarchy.isLeaf(next)) {
 				it.remove();

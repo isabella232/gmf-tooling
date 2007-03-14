@@ -15,7 +15,6 @@ package org.eclipse.gmf.internal.bridge.transform;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -56,8 +55,7 @@ public class StaleGenModelDetector {
 			return Status.OK_STATUS;
 		}
 		HashSet<URI> ecoreURIs = new HashSet<URI>(); 
-		for (Iterator it = myGenModel.getAllGenAndUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
-			GenPackage next = (GenPackage) it.next();
+		for (GenPackage next : myGenModel.getAllGenAndUsedGenPackagesWithClassifiers()) {
 			if (next.getEcorePackage().eResource() != null) {
 				final URI uri = next.getEcorePackage().eResource().getURI();
 				if (isFileURI(uri)) {

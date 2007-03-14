@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
-import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -193,7 +193,7 @@ public class EntriesPage extends WizardPage {
 		private void populateNodesList() {
 			String[] items = new String[getMapInstance().getNodes().size()];
 			int i = 0;
-			for (Iterator it = getMapInstance().getNodes().iterator(); it.hasNext(); i++) {
+			for (Iterator<?> it = getMapInstance().getNodes().iterator(); it.hasNext(); i++) {
 				items[i] = myLabelProvider.getText(it.next());
 			}
 			nodesList.setItems(items);
@@ -202,7 +202,7 @@ public class EntriesPage extends WizardPage {
 		private void populateLinksList() {
 			String[] items = new String[getMapInstance().getLinks().size()];
 			int i = 0;
-			for (Iterator it = getMapInstance().getLinks().iterator(); it.hasNext(); i++) {
+			for (Iterator<?> it = getMapInstance().getLinks().iterator(); it.hasNext(); i++) {
 				items[i] = myLabelProvider.getText(it.next());
 			}
 			linksList.setItems(items);
@@ -457,11 +457,11 @@ public class EntriesPage extends WizardPage {
 					}
 					if (d.open() == ListDialog.OK) {
 						if (isNodeInSelection) {
-							getMapInstance().getNodes().addAll(Arrays.asList(d.getResult()));
+							getMapInstance().getNodes().addAll(Arrays.asList((TopNodeReference[]) d.getResult()));
 							nodesList.removeAll();
 							populateNodesList();
 						} else {
-							getMapInstance().getLinks().addAll(Arrays.asList(d.getResult()));
+							getMapInstance().getLinks().addAll(Arrays.asList((LinkMapping[]) d.getResult()));
 							linksList.removeAll();
 							populateLinksList();
 						}
@@ -533,9 +533,8 @@ public class EntriesPage extends WizardPage {
 				return;
 			}
 			FeatureSeqInitializer fsi = (FeatureSeqInitializer) selectedEntry.getDomainInitializer();
-			StringBuffer sb = new StringBuffer();
-			for (Iterator it = fsi.getInitializers().iterator(); it.hasNext();) {
-				FeatureValueSpec next = (FeatureValueSpec) it.next();
+			StringBuilder sb = new StringBuilder();
+			for (FeatureInitializer next : fsi.getInitializers()) {
 				sb.append(next.getFeature().getName());
 				sb.append("; ");
 			}
@@ -578,7 +577,7 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.setEnabled(false);
 			asLinkButton.setEnabled(true);
 			assert nodesList.getSelectionIndex() != -1;
-			selectedNode = (NodeReference) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+			selectedNode = getMapInstance().getNodes().get(nodesList.getSelectionIndex());
 			isNodeInSelection = true;
 			refreshNodeDetails();
 		}
@@ -586,7 +585,7 @@ public class EntriesPage extends WizardPage {
 		void handleLinksListSelectionChange() {
 			assert linksList.getSelectionIndex() != -1;
 			asLinkButton.setEnabled(false);
-			selectedLink =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+			selectedLink = getMapInstance().getLinks().get(linksList.getSelectionIndex());
 			asNodeButton.setEnabled(selectedLink.getDomainMetaElement() != null);
 			isNodeInSelection = false;
 			refreshLinkDetails();
