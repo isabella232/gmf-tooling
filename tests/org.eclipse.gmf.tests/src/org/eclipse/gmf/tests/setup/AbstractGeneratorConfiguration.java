@@ -61,7 +61,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		gv.getEditDomain().setCommandStack(new DiagramCommandStack(ded));
 
 		String epFactoryClassName = sessionSetup.getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
-		Class epFactory = sessionSetup.getGenProject().getBundle().loadClass(epFactoryClassName);
+		Class<?> epFactory = sessionSetup.getGenProject().getBundle().loadClass(epFactoryClassName);
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		gv.setEditPartFactory((EditPartFactory) epFactory.newInstance());
 		gv.setContents(canvas);
@@ -103,7 +103,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 			return result;
 		}
 		
-		protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
+		protected final Class<?> loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
 			return myGenProject.loadClass(qualifiedClassName);
 		}
 		
@@ -114,7 +114,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		protected IPreferenceStore getDefaultPreferences() {
 			if (myDefaultPreferences == null){
 				try {
-					Class activatorClazz = loadGeneratedClass(mySessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+					Class<?> activatorClazz = loadGeneratedClass(mySessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
 					Field field = activatorClazz.getField("DIAGRAM_PREFERENCES_HINT");
 					myDefaultPreferences = (PreferencesHint)field.get(null);
 				} catch (ClassNotFoundException e) {

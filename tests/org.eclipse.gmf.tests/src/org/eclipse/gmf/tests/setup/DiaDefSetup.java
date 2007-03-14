@@ -162,14 +162,14 @@ public class DiaDefSetup implements DiaDefSource {
 		nodeDef.setName("Test-dd-node");
 		nodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRoundedRectangle());
 		nodeDef.getNodeFigure().setName("nf1");
-		myFigureContainer.getFigures().add(nodeDef.getFigure());
+		myFigureContainer.getFigures().add((Figure) nodeDef.getFigure());
 	}
 
 	private void commonSetupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
 		linkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
 		linkDef.getConnectionFigure().setName("lf1");
-		myFigureContainer.getFigures().add(linkDef.getFigure());
+		myFigureContainer.getFigures().add((Figure) linkDef.getFigure());
 	}
 	
 	private void commonSetupLabelDef(DiagramLabel labelDef) {
@@ -177,7 +177,7 @@ public class DiaDefSetup implements DiaDefSource {
 		Label figure; 
 		labelDef.setFigure(figure = GMFGraphFactory.eINSTANCE.createLabel());
 		figure.setName("LabelFig");
-		myFigureContainer.getFigures().add(labelDef.getFigure());
+		myFigureContainer.getFigures().add((Figure) labelDef.getFigure());
 	}
 
 	protected void setupCanvasDef(Canvas canvasDef) {

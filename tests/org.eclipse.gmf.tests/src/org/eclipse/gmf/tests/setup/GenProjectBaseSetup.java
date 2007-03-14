@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,7 +18,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,8 +73,7 @@ public class GenProjectBaseSetup {
 		final GenDiagram d = diaGenSource.getGenDiagram();
 		generateDiagramPrerequisites(d);
 		generateDiagramPlugin(d);
-		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
-			String pluginID = (String) it.next();
+		for (String pluginID : projectsToInit) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
 			hookProjectBuild(p);
 		}
@@ -145,14 +143,12 @@ public class GenProjectBaseSetup {
 		Attributes attributes = manifest.getMainAttributes();
 		StringBuffer exportedPackages = new StringBuffer(attributes.getValue(Constants.EXPORT_PACKAGE));
 		
-        Collection genClassifiers = new ArrayList();
-        for (Iterator it = domainGenModel.getGenPackages().iterator(); it.hasNext();) {
-			GenPackage nextPackage = (GenPackage) it.next();
+        Collection<GenClassifier> genClassifiers = new ArrayList<GenClassifier>();
+        for (GenPackage nextPackage : domainGenModel.getGenPackages()) {
 			genClassifiers.addAll(nextPackage.getGenClassifiers());
 		}
         
-        for (Iterator it = genClassifiers.iterator(); it.hasNext();) {
-			GenClassifier nextGenClassifier = (GenClassifier) it.next();
+        for (GenClassifier nextGenClassifier : genClassifiers) {
 			if (nextGenClassifier.getEcoreClassifier().eIsSet(EcorePackage.Literals.ECLASSIFIER__INSTANCE_CLASS_NAME)) {
 				generateUserInterface(nextGenClassifier.getEcoreClassifier().getInstanceClassName(), theRoot, exportedPackages);
 			}

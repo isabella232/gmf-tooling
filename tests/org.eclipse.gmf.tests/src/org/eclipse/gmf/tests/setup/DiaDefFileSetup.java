@@ -33,9 +33,9 @@ public class DiaDefFileSetup implements DiaDefSource {
 		ResourceSet srcResSet = new ResourceSetImpl();
 		Resource srcRes = srcResSet.getResource(sourceURI, true);
 		myCanvasDef = (Canvas) srcRes.getContents().get(0);
-		myNodeDef = (Node) myCanvasDef.getNodes().get(0);
-		myLinkDef = (Connection) myCanvasDef.getConnections().get(0);
-		myLabelDef = (DiagramLabel) myCanvasDef.getLabels().get(0);
+		myNodeDef = myCanvasDef.getNodes().get(0);
+		myLinkDef = myCanvasDef.getConnections().get(0);
+		myLabelDef = myCanvasDef.getLabels().get(0);
 		return this;
 	}
 
