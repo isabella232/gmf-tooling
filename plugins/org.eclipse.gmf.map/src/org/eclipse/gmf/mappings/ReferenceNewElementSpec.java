@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpec.java,v 1.1 2006/09/28 18:20:40 radvorak Exp $
+ * $Id: ReferenceNewElementSpec.java,v 1.2 2007/03/14 13:00:05 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -42,6 +42,6 @@ public interface ReferenceNewElementSpec extends FeatureInitializer {
 	 * @model type="org.eclipse.gmf.mappings.FeatureSeqInitializer" opposite="creatingInitializer" containment="true" required="true"
 	 * @generated
 	 */
-	EList getNewElementInitializers();
+	EList<FeatureSeqInitializer> getNewElementInitializers();
 
 } // ReferenceNewElementSpec

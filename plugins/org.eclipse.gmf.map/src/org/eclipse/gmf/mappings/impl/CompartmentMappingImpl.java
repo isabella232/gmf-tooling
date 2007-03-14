@@ -57,7 +57,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * @generated
 	 * @ordered
 	 */
-	protected EList children = null;
+	protected EList<ChildReference> children = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,6 +73,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getCompartmentMapping();
 	}
@@ -130,9 +131,9 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
+	public EList<ChildReference> getChildren() {
 		if (children == null) {
-			children = new EObjectWithInverseResolvingEList(ChildReference.class, this, GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__COMPARTMENT);
+			children = new EObjectWithInverseResolvingEList<ChildReference>(ChildReference.class, this, GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__COMPARTMENT);
 		}
 		return children;
 	}
@@ -142,6 +143,8 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
@@ -149,7 +152,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -159,12 +162,13 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
 				return eBasicSetContainer(null, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -174,6 +178,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
@@ -187,6 +192,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
@@ -205,6 +211,8 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
@@ -212,7 +220,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 				return;
 			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
+				getChildren().addAll((Collection<? extends ChildReference>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,6 +231,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
@@ -240,6 +249,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:

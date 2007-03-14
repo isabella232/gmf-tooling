@@ -56,6 +56,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getDomainElementTarget();
 	}
@@ -103,6 +104,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET__ELEMENT:
@@ -117,6 +119,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET__ELEMENT:
@@ -131,6 +134,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET__ELEMENT:
@@ -145,6 +149,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET__ELEMENT:

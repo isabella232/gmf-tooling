@@ -67,6 +67,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getLinkConstraints();
 	}
@@ -172,6 +173,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
@@ -187,6 +189,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
@@ -204,6 +207,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
@@ -217,6 +221,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
@@ -234,6 +239,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
@@ -251,6 +257,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
@@ -268,6 +275,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:

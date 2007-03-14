@@ -46,7 +46,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList metrics = null;
+	protected EList<MetricRule> metrics = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,6 +62,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getMetricContainer();
 	}
@@ -71,9 +72,9 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getMetrics() {
+	public EList<MetricRule> getMetrics() {
 		if (metrics == null) {
-			metrics = new EObjectContainmentWithInverseEList(MetricRule.class, this, GMFMapPackage.METRIC_CONTAINER__METRICS, GMFMapPackage.METRIC_RULE__CONTAINER);
+			metrics = new EObjectContainmentWithInverseEList<MetricRule>(MetricRule.class, this, GMFMapPackage.METRIC_CONTAINER__METRICS, GMFMapPackage.METRIC_RULE__CONTAINER);
 		}
 		return metrics;
 	}
@@ -83,10 +84,12 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:
-				return ((InternalEList)getMetrics()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getMetrics()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -96,10 +99,11 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:
-				return ((InternalEList)getMetrics()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMetrics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -109,6 +113,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:
@@ -122,11 +127,13 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:
 				getMetrics().clear();
-				getMetrics().addAll((Collection)newValue);
+				getMetrics().addAll((Collection<? extends MetricRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,6 +144,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:
@@ -151,6 +159,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_CONTAINER__METRICS:

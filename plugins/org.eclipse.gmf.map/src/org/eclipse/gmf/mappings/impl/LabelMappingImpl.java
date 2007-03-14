@@ -6,29 +6,15 @@
  */
 package org.eclipse.gmf.mappings.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
-
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
-
 import org.eclipse.gmf.mappings.MappingEntry;
 
 /**
@@ -91,6 +77,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getLabelMapping();
 	}
@@ -169,6 +156,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
@@ -184,6 +172,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
@@ -197,6 +186,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
@@ -210,6 +200,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
@@ -228,6 +219,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
@@ -245,6 +237,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
@@ -262,6 +255,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
@@ -279,6 +273,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

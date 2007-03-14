@@ -56,6 +56,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getAuditedMetricTarget();
 	}
@@ -103,6 +104,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.AUDITED_METRIC_TARGET__METRIC:
@@ -117,6 +119,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.AUDITED_METRIC_TARGET__METRIC:
@@ -131,6 +134,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.AUDITED_METRIC_TARGET__METRIC:
@@ -145,6 +149,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.AUDITED_METRIC_TARGET__METRIC:

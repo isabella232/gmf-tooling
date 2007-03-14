@@ -53,7 +53,7 @@ public interface FeatureSeqInitializer extends ElementInitializer {
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
-	EList getInitializers();
+	EList<FeatureInitializer> getInitializers();
 
 	/**
 	 * Returns the value of the '<em><b>Element Class</b></em>' reference.

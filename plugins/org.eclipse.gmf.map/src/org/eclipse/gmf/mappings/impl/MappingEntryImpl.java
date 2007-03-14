@@ -81,7 +81,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected EList labelMappings = null;
+	protected EList<LabelMapping> labelMappings = null;
 
 	/**
 	 * The cached value of the '{@link #getRelatedDiagrams() <em>Related Diagrams</em>}' reference list.
@@ -91,7 +91,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected EList relatedDiagrams = null;
+	protected EList<CanvasMapping> relatedDiagrams = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -107,6 +107,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getMappingEntry();
 	}
@@ -240,9 +241,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLabelMappings() {
+	public EList<LabelMapping> getLabelMappings() {
 		if (labelMappings == null) {
-			labelMappings = new EObjectContainmentWithInverseEList(LabelMapping.class, this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY);
+			labelMappings = new EObjectContainmentWithInverseEList<LabelMapping>(LabelMapping.class, this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY);
 		}
 		return labelMappings;
 	}
@@ -252,9 +253,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRelatedDiagrams() {
+	public EList<CanvasMapping> getRelatedDiagrams() {
 		if (relatedDiagrams == null) {
-			relatedDiagrams = new EObjectResolvingEList(CanvasMapping.class, this, GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS);
+			relatedDiagrams = new EObjectResolvingEList<CanvasMapping>(CanvasMapping.class, this, GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS);
 		}
 		return relatedDiagrams;
 	}
@@ -271,10 +272,12 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLabelMappings()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -284,6 +287,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_SPECIALIZATION:
@@ -291,7 +295,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER:
 				return basicSetDomainInitializer(null, msgs);
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLabelMappings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -301,6 +305,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_META_ELEMENT:
@@ -323,6 +328,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_META_ELEMENT:
@@ -336,11 +343,11 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return;
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				getLabelMappings().clear();
-				getLabelMappings().addAll((Collection)newValue);
+				getLabelMappings().addAll((Collection<? extends LabelMapping>)newValue);
 				return;
 			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
 				getRelatedDiagrams().clear();
-				getRelatedDiagrams().addAll((Collection)newValue);
+				getRelatedDiagrams().addAll((Collection<? extends CanvasMapping>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -351,6 +358,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_META_ELEMENT:
@@ -377,6 +385,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_META_ELEMENT:

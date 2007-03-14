@@ -76,7 +76,7 @@ public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @model type="org.eclipse.gmf.mappings.ChildReference" opposite="parentNode" containment="true"
 	 * @generated
 	 */
-	EList getChildren();
+	EList<ChildReference> getChildren();
 
 	/**
 	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
@@ -94,6 +94,6 @@ public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @model type="org.eclipse.gmf.mappings.CompartmentMapping" opposite="parentNode" containment="true"
 	 * @generated
 	 */
-	EList getCompartments();
+	EList<CompartmentMapping> getCompartments();
 
 } // NodeMapping

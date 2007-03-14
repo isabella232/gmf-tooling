@@ -34,6 +34,7 @@ public class ConstraintImpl extends ValueExpressionImpl implements Constraint {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getConstraint();
 	}

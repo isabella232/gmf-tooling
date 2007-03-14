@@ -90,7 +90,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList menuContributions = null;
+	protected EList<MainMenu> menuContributions = null;
 
 	/**
 	 * The cached value of the '{@link #getToolbarContributions() <em>Toolbar Contributions</em>}' reference list.
@@ -100,7 +100,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList toolbarContributions = null;
+	protected EList<Toolbar> toolbarContributions = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -116,6 +116,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getCanvasMapping();
 	}
@@ -277,9 +278,9 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getMenuContributions() {
+	public EList<MainMenu> getMenuContributions() {
 		if (menuContributions == null) {
-			menuContributions = new EObjectResolvingEList(MainMenu.class, this, GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS);
+			menuContributions = new EObjectResolvingEList<MainMenu>(MainMenu.class, this, GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS);
 		}
 		return menuContributions;
 	}
@@ -289,9 +290,9 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getToolbarContributions() {
+	public EList<Toolbar> getToolbarContributions() {
 		if (toolbarContributions == null) {
-			toolbarContributions = new EObjectResolvingEList(Toolbar.class, this, GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS);
+			toolbarContributions = new EObjectResolvingEList<Toolbar>(Toolbar.class, this, GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS);
 		}
 		return toolbarContributions;
 	}
@@ -301,6 +302,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
@@ -328,6 +330,8 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
@@ -344,11 +348,11 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 				return;
 			case GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS:
 				getMenuContributions().clear();
-				getMenuContributions().addAll((Collection)newValue);
+				getMenuContributions().addAll((Collection<? extends MainMenu>)newValue);
 				return;
 			case GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS:
 				getToolbarContributions().clear();
-				getToolbarContributions().addAll((Collection)newValue);
+				getToolbarContributions().addAll((Collection<? extends Toolbar>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -359,6 +363,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
@@ -388,6 +393,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:

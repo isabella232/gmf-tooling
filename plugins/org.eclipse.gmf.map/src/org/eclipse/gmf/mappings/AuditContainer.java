@@ -154,7 +154,7 @@ public interface AuditContainer extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.AuditRule" opposite="container" containment="true"
 	 * @generated
 	 */
-	EList getAudits();
+	EList<AuditRule> getAudits();
 
 	/**
 	 * Returns the value of the '<em><b>Child Containers</b></em>' containment reference list.
@@ -172,6 +172,6 @@ public interface AuditContainer extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.AuditContainer" opposite="parentContainer" containment="true"
 	 * @generated
 	 */
-	EList getChildContainers();
+	EList<AuditContainer> getChildContainers();
 
 } // AuditContainer

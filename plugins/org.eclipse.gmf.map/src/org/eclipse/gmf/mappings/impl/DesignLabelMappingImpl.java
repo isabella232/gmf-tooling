@@ -35,6 +35,7 @@ public class DesignLabelMappingImpl extends LabelMappingImpl implements DesignLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getDesignLabelMapping();
 	}

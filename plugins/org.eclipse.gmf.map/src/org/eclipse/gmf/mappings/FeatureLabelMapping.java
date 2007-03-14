@@ -7,6 +7,7 @@
 package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,7 +47,7 @@ public interface FeatureLabelMapping extends LabelMapping {
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='features->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))' description='Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry'"
 	 * @generated
 	 */
-	EList getFeatures();
+	EList<EAttribute> getFeatures();
 
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.

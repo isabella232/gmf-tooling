@@ -109,7 +109,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList audits = null;
+	protected EList<AuditRule> audits = null;
 
 	/**
 	 * The cached value of the '{@link #getChildContainers() <em>Child Containers</em>}' containment reference list.
@@ -119,7 +119,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childContainers = null;
+	protected EList<AuditContainer> childContainers = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -135,6 +135,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getAuditContainer();
 	}
@@ -248,9 +249,9 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAudits() {
+	public EList<AuditRule> getAudits() {
 		if (audits == null) {
-			audits = new EObjectContainmentWithInverseEList(AuditRule.class, this, GMFMapPackage.AUDIT_CONTAINER__AUDITS, GMFMapPackage.AUDIT_RULE__CONTAINER);
+			audits = new EObjectContainmentWithInverseEList<AuditRule>(AuditRule.class, this, GMFMapPackage.AUDIT_CONTAINER__AUDITS, GMFMapPackage.AUDIT_RULE__CONTAINER);
 		}
 		return audits;
 	}
@@ -260,9 +261,9 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildContainers() {
+	public EList<AuditContainer> getChildContainers() {
 		if (childContainers == null) {
-			childContainers = new EObjectContainmentWithInverseEList(AuditContainer.class, this, GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER);
+			childContainers = new EObjectContainmentWithInverseEList<AuditContainer>(AuditContainer.class, this, GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER);
 		}
 		return childContainers;
 	}
@@ -272,6 +273,8 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
@@ -279,9 +282,9 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetParentContainer((AuditContainer)otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
-				return ((InternalEList)getAudits()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAudits()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:
-				return ((InternalEList)getChildContainers()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildContainers()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -291,14 +294,15 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
 				return basicSetParentContainer(null, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
-				return ((InternalEList)getAudits()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAudits()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:
-				return ((InternalEList)getChildContainers()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildContainers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -308,6 +312,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
@@ -321,6 +326,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__ID:
@@ -344,6 +350,8 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__ID:
@@ -360,11 +368,11 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 				return;
 			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
 				getAudits().clear();
-				getAudits().addAll((Collection)newValue);
+				getAudits().addAll((Collection<? extends AuditRule>)newValue);
 				return;
 			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:
 				getChildContainers().clear();
-				getChildContainers().addAll((Collection)newValue);
+				getChildContainers().addAll((Collection<? extends AuditContainer>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -375,6 +383,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__ID:
@@ -404,6 +413,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__ID:
@@ -427,6 +437,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

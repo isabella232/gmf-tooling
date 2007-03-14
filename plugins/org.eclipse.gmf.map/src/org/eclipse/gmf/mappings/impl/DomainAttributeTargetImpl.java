@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainAttributeTargetImpl.java,v 1.1 2006/04/25 19:15:49 radvorak Exp $
+ * $Id: DomainAttributeTargetImpl.java,v 1.2 2007/03/14 13:00:04 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
@@ -77,6 +77,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getDomainAttributeTarget();
 	}
@@ -145,6 +146,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE:
@@ -161,6 +163,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE:
@@ -178,6 +181,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE:
@@ -195,6 +199,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE:
@@ -210,6 +215,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -100,7 +100,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList children = null;
+	protected EList<ChildReference> children = null;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -110,7 +110,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList compartments = null;
+	protected EList<CompartmentMapping> compartments = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,6 +126,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getNodeMapping();
 	}
@@ -287,9 +288,9 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
+	public EList<ChildReference> getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentWithInverseEList(ChildReference.class, this, GMFMapPackage.NODE_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE);
+			children = new EObjectContainmentWithInverseEList<ChildReference>(ChildReference.class, this, GMFMapPackage.NODE_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE);
 		}
 		return children;
 	}
@@ -299,9 +300,9 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCompartments() {
+	public EList<CompartmentMapping> getCompartments() {
 		if (compartments == null) {
-			compartments = new EObjectContainmentWithInverseEList(CompartmentMapping.class, this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE);
+			compartments = new EObjectContainmentWithInverseEList<CompartmentMapping>(CompartmentMapping.class, this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE);
 		}
 		return compartments;
 	}
@@ -311,12 +312,14 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCompartments()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -326,12 +329,13 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCompartments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -341,6 +345,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CONTEXT_MENU:
@@ -368,6 +373,8 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CONTEXT_MENU:
@@ -384,11 +391,11 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return;
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
+				getChildren().addAll((Collection<? extends ChildReference>)newValue);
 				return;
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				getCompartments().clear();
-				getCompartments().addAll((Collection)newValue);
+				getCompartments().addAll((Collection<? extends CompartmentMapping>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -399,6 +406,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CONTEXT_MENU:
@@ -428,6 +436,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.NODE_MAPPING__CONTEXT_MENU:
@@ -451,7 +460,8 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == MenuOwner.class) {
 			switch (derivedFeatureID) {
 				case GMFMapPackage.NODE_MAPPING__CONTEXT_MENU: return GMFMapPackage.MENU_OWNER__CONTEXT_MENU;
@@ -478,7 +488,8 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == MenuOwner.class) {
 			switch (baseFeatureID) {
 				case GMFMapPackage.MENU_OWNER__CONTEXT_MENU: return GMFMapPackage.NODE_MAPPING__CONTEXT_MENU;

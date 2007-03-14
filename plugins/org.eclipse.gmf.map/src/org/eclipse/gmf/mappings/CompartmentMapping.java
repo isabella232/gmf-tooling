@@ -88,6 +88,6 @@ public interface CompartmentMapping extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.ChildReference" opposite="compartment"
 	 * @generated
 	 */
-	EList getChildren();
+	EList<ChildReference> getChildren();
 
 } // CompartmentMapping

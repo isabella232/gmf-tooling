@@ -43,6 +43,6 @@ public interface MetricContainer extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.MetricRule" opposite="container" containment="true" required="true"
 	 * @generated
 	 */
-	EList getMetrics();
+	EList<MetricRule> getMetrics();
 
 } // MetricContainer

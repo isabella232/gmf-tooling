@@ -42,11 +42,11 @@ public class GMFMapMigration {
 				protected void handleResourceLoaded(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
 					// https://bugs.eclipse.org/bugs/show_bug.cgi?id=161380
 					// replace FeatureLabelMappings without features by LabelMappings
-					for (Iterator it = resource.getAllContents(); it.hasNext();) {
-						EObject object = (EObject) it.next();
+					for (Iterator<EObject> it = resource.getAllContents(); it.hasNext();) {
+						EObject object = it.next();
 						if (object instanceof MappingEntry) {
 							MappingEntry entry = (MappingEntry) object;
-							Collection<? extends LabelMapping> mappings = (Collection<? extends LabelMapping>) new ArrayList(entry.getLabelMappings());
+							Collection<LabelMapping> mappings = new ArrayList<LabelMapping>(entry.getLabelMappings());
 							for (LabelMapping mapping : mappings) {
 								if (mapping instanceof FeatureLabelMapping && ((FeatureLabelMapping) mapping).getFeatures().isEmpty()) {
 									entry.getLabelMappings().remove(mapping);

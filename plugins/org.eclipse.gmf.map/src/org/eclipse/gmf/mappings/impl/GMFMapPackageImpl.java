@@ -1735,6 +1735,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		GMFToolPackage theGMFToolPackage = (GMFToolPackage)EPackage.Registry.INSTANCE.getEPackage(GMFToolPackage.eNS_URI);
 		GMFGraphPackage theGMFGraphPackage = (GMFGraphPackage)EPackage.Registry.INSTANCE.getEPackage(GMFGraphPackage.eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 		nodeReferenceEClass.getESuperTypes().add(this.getNeedsContainment());
 		childReferenceEClass.getESuperTypes().add(this.getNodeReference());

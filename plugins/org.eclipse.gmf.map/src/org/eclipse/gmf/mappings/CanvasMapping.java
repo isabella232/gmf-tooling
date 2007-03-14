@@ -11,7 +11,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.tooldef.MainMenu;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooldef.Toolbar;
 
 /**
  * <!-- begin-user-doc -->
@@ -153,7 +155,7 @@ public interface CanvasMapping extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.MainMenu"
 	 * @generated
 	 */
-	EList getMenuContributions();
+	EList<MainMenu> getMenuContributions();
 
 	/**
 	 * Returns the value of the '<em><b>Toolbar Contributions</b></em>' reference list.
@@ -169,6 +171,6 @@ public interface CanvasMapping extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.Toolbar"
 	 * @generated
 	 */
-	EList getToolbarContributions();
+	EList<Toolbar> getToolbarContributions();
 
 } // CanvasMapping

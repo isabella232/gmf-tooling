@@ -50,7 +50,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initializers = null;
+	protected EList<FeatureInitializer> initializers = null;
 
 	/**
 	 * The cached value of the '{@link #getElementClass() <em>Element Class</em>}' reference.
@@ -76,6 +76,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getFeatureSeqInitializer();
 	}
@@ -108,9 +109,9 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getInitializers() {
+	public EList<FeatureInitializer> getInitializers() {
 		if (initializers == null) {
-			initializers = new EObjectContainmentWithInverseEList(FeatureInitializer.class, this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
+			initializers = new EObjectContainmentWithInverseEList<FeatureInitializer>(FeatureInitializer.class, this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
 		}
 		return initializers;
 	}
@@ -200,10 +201,12 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
-				return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInitializers()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -217,10 +220,11 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
-				return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitializers()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				return eBasicSetContainer(null, GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, msgs);
 		}
@@ -232,6 +236,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
@@ -245,6 +250,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY:
@@ -266,11 +272,13 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				getInitializers().clear();
-				getInitializers().addAll((Collection)newValue);
+				getInitializers().addAll((Collection<? extends FeatureInitializer>)newValue);
 				return;
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS:
 				setElementClass((EClass)newValue);
@@ -284,6 +292,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
@@ -301,6 +310,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY:

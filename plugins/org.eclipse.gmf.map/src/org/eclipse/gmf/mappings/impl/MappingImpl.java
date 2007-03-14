@@ -53,7 +53,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList nodes = null;
+	protected EList<TopNodeReference> nodes = null;
 
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
@@ -63,7 +63,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList links = null;
+	protected EList<LinkMapping> links = null;
 
 	/**
 	 * The cached value of the '{@link #getDiagram() <em>Diagram</em>}' containment reference.
@@ -83,7 +83,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList appearanceStyles = null;
+	protected EList<StyleSelector> appearanceStyles = null;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
@@ -119,6 +119,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getMapping();
 	}
@@ -128,9 +129,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNodes() {
+	public EList<TopNodeReference> getNodes() {
 		if (nodes == null) {
-			nodes = new EObjectContainmentEList(TopNodeReference.class, this, GMFMapPackage.MAPPING__NODES);
+			nodes = new EObjectContainmentEList<TopNodeReference>(TopNodeReference.class, this, GMFMapPackage.MAPPING__NODES);
 		}
 		return nodes;
 	}
@@ -140,9 +141,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLinks() {
+	public EList<LinkMapping> getLinks() {
 		if (links == null) {
-			links = new EObjectContainmentEList(LinkMapping.class, this, GMFMapPackage.MAPPING__LINKS);
+			links = new EObjectContainmentEList<LinkMapping>(LinkMapping.class, this, GMFMapPackage.MAPPING__LINKS);
 		}
 		return links;
 	}
@@ -195,9 +196,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAppearanceStyles() {
+	public EList<StyleSelector> getAppearanceStyles() {
 		if (appearanceStyles == null) {
-			appearanceStyles = new EObjectContainmentEList(StyleSelector.class, this, GMFMapPackage.MAPPING__APPEARANCE_STYLES);
+			appearanceStyles = new EObjectContainmentEList<StyleSelector>(StyleSelector.class, this, GMFMapPackage.MAPPING__APPEARANCE_STYLES);
 		}
 		return appearanceStyles;
 	}
@@ -293,16 +294,17 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
-				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__LINKS:
-				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return basicSetDiagram(null, msgs);
 			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
-				return ((InternalEList)getAppearanceStyles()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAppearanceStyles()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__AUDITS:
 				return basicSetAudits(null, msgs);
 			case GMFMapPackage.MAPPING__METRICS:
@@ -316,6 +318,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
@@ -339,22 +342,24 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
 				getNodes().clear();
-				getNodes().addAll((Collection)newValue);
+				getNodes().addAll((Collection<? extends TopNodeReference>)newValue);
 				return;
 			case GMFMapPackage.MAPPING__LINKS:
 				getLinks().clear();
-				getLinks().addAll((Collection)newValue);
+				getLinks().addAll((Collection<? extends LinkMapping>)newValue);
 				return;
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				setDiagram((CanvasMapping)newValue);
 				return;
 			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
 				getAppearanceStyles().clear();
-				getAppearanceStyles().addAll((Collection)newValue);
+				getAppearanceStyles().addAll((Collection<? extends StyleSelector>)newValue);
 				return;
 			case GMFMapPackage.MAPPING__AUDITS:
 				setAudits((AuditContainer)newValue);
@@ -371,6 +376,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
@@ -400,6 +406,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:

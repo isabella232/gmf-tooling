@@ -73,6 +73,7 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -89,117 +90,154 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GMFMapSwitch modelSwitch =
-		new GMFMapSwitch() {
-			public Object caseMapping(Mapping object) {
+	protected GMFMapSwitch<Adapter> modelSwitch =
+		new GMFMapSwitch<Adapter>() {
+			@Override
+			public Adapter caseMapping(Mapping object) {
 				return createMappingAdapter();
 			}
-			public Object caseMappingEntry(MappingEntry object) {
+			@Override
+			public Adapter caseMappingEntry(MappingEntry object) {
 				return createMappingEntryAdapter();
 			}
-			public Object caseNeedsContainment(NeedsContainment object) {
+			@Override
+			public Adapter caseNeedsContainment(NeedsContainment object) {
 				return createNeedsContainmentAdapter();
 			}
-			public Object caseNodeReference(NodeReference object) {
+			@Override
+			public Adapter caseNodeReference(NodeReference object) {
 				return createNodeReferenceAdapter();
 			}
-			public Object caseChildReference(ChildReference object) {
+			@Override
+			public Adapter caseChildReference(ChildReference object) {
 				return createChildReferenceAdapter();
 			}
-			public Object caseTopNodeReference(TopNodeReference object) {
+			@Override
+			public Adapter caseTopNodeReference(TopNodeReference object) {
 				return createTopNodeReferenceAdapter();
 			}
-			public Object caseNodeMapping(NodeMapping object) {
+			@Override
+			public Adapter caseNodeMapping(NodeMapping object) {
 				return createNodeMappingAdapter();
 			}
-			public Object caseCompartmentMapping(CompartmentMapping object) {
+			@Override
+			public Adapter caseCompartmentMapping(CompartmentMapping object) {
 				return createCompartmentMappingAdapter();
 			}
-			public Object caseLinkMapping(LinkMapping object) {
+			@Override
+			public Adapter caseLinkMapping(LinkMapping object) {
 				return createLinkMappingAdapter();
 			}
-			public Object caseCanvasMapping(CanvasMapping object) {
+			@Override
+			public Adapter caseCanvasMapping(CanvasMapping object) {
 				return createCanvasMappingAdapter();
 			}
-			public Object caseLabelMapping(LabelMapping object) {
+			@Override
+			public Adapter caseLabelMapping(LabelMapping object) {
 				return createLabelMappingAdapter();
 			}
-			public Object caseFeatureLabelMapping(FeatureLabelMapping object) {
+			@Override
+			public Adapter caseFeatureLabelMapping(FeatureLabelMapping object) {
 				return createFeatureLabelMappingAdapter();
 			}
-			public Object caseDesignLabelMapping(DesignLabelMapping object) {
+			@Override
+			public Adapter caseDesignLabelMapping(DesignLabelMapping object) {
 				return createDesignLabelMappingAdapter();
 			}
-			public Object caseConstraint(Constraint object) {
+			@Override
+			public Adapter caseConstraint(Constraint object) {
 				return createConstraintAdapter();
 			}
-			public Object caseLinkConstraints(LinkConstraints object) {
+			@Override
+			public Adapter caseLinkConstraints(LinkConstraints object) {
 				return createLinkConstraintsAdapter();
 			}
-			public Object caseValueExpression(ValueExpression object) {
+			@Override
+			public Adapter caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
 			}
-			public Object caseElementInitializer(ElementInitializer object) {
+			@Override
+			public Adapter caseElementInitializer(ElementInitializer object) {
 				return createElementInitializerAdapter();
 			}
-			public Object caseFeatureSeqInitializer(FeatureSeqInitializer object) {
+			@Override
+			public Adapter caseFeatureSeqInitializer(FeatureSeqInitializer object) {
 				return createFeatureSeqInitializerAdapter();
 			}
-			public Object caseFeatureInitializer(FeatureInitializer object) {
+			@Override
+			public Adapter caseFeatureInitializer(FeatureInitializer object) {
 				return createFeatureInitializerAdapter();
 			}
-			public Object caseFeatureValueSpec(FeatureValueSpec object) {
+			@Override
+			public Adapter caseFeatureValueSpec(FeatureValueSpec object) {
 				return createFeatureValueSpecAdapter();
 			}
-			public Object caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
+			@Override
+			public Adapter caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
 				return createReferenceNewElementSpecAdapter();
 			}
-			public Object caseMenuOwner(MenuOwner object) {
+			@Override
+			public Adapter caseMenuOwner(MenuOwner object) {
 				return createMenuOwnerAdapter();
 			}
-			public Object caseToolOwner(ToolOwner object) {
+			@Override
+			public Adapter caseToolOwner(ToolOwner object) {
 				return createToolOwnerAdapter();
 			}
-			public Object caseAppearanceSteward(AppearanceSteward object) {
+			@Override
+			public Adapter caseAppearanceSteward(AppearanceSteward object) {
 				return createAppearanceStewardAdapter();
 			}
-			public Object caseAuditContainer(AuditContainer object) {
+			@Override
+			public Adapter caseAuditContainer(AuditContainer object) {
 				return createAuditContainerAdapter();
 			}
-			public Object caseRuleBase(RuleBase object) {
+			@Override
+			public Adapter caseRuleBase(RuleBase object) {
 				return createRuleBaseAdapter();
 			}
-			public Object caseAuditRule(AuditRule object) {
+			@Override
+			public Adapter caseAuditRule(AuditRule object) {
 				return createAuditRuleAdapter();
 			}
-			public Object caseDomainElementTarget(DomainElementTarget object) {
+			@Override
+			public Adapter caseDomainElementTarget(DomainElementTarget object) {
 				return createDomainElementTargetAdapter();
 			}
-			public Object caseDomainAttributeTarget(DomainAttributeTarget object) {
+			@Override
+			public Adapter caseDomainAttributeTarget(DomainAttributeTarget object) {
 				return createDomainAttributeTargetAdapter();
 			}
-			public Object caseDiagramElementTarget(DiagramElementTarget object) {
+			@Override
+			public Adapter caseDiagramElementTarget(DiagramElementTarget object) {
 				return createDiagramElementTargetAdapter();
 			}
-			public Object caseNotationElementTarget(NotationElementTarget object) {
+			@Override
+			public Adapter caseNotationElementTarget(NotationElementTarget object) {
 				return createNotationElementTargetAdapter();
 			}
-			public Object caseMetricContainer(MetricContainer object) {
+			@Override
+			public Adapter caseMetricContainer(MetricContainer object) {
 				return createMetricContainerAdapter();
 			}
-			public Object caseMetricRule(MetricRule object) {
+			@Override
+			public Adapter caseMetricRule(MetricRule object) {
 				return createMetricRuleAdapter();
 			}
-			public Object caseAuditedMetricTarget(AuditedMetricTarget object) {
+			@Override
+			public Adapter caseAuditedMetricTarget(AuditedMetricTarget object) {
 				return createAuditedMetricTargetAdapter();
 			}
-			public Object caseAuditable(Auditable object) {
+			@Override
+			public Adapter caseAuditable(Auditable object) {
 				return createAuditableAdapter();
 			}
-			public Object caseMeasurable(Measurable object) {
+			@Override
+			public Adapter caseMeasurable(Measurable object) {
 				return createMeasurableAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -212,8 +250,9 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

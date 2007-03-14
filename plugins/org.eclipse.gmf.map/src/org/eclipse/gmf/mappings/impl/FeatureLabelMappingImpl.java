@@ -46,7 +46,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * @generated
 	 * @ordered
 	 */
-	protected EList features = null;
+	protected EList<EAttribute> features = null;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
@@ -102,6 +102,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getFeatureLabelMapping();
 	}
@@ -111,9 +112,9 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFeatures() {
+	public EList<EAttribute> getFeatures() {
 		if (features == null) {
-			features = new EObjectResolvingEList(EAttribute.class, this, GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES);
+			features = new EObjectResolvingEList<EAttribute>(EAttribute.class, this, GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES);
 		}
 		return features;
 	}
@@ -165,6 +166,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
@@ -182,11 +184,13 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
-				getFeatures().addAll((Collection)newValue);
+				getFeatures().addAll((Collection<? extends EAttribute>)newValue);
 				return;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern((String)newValue);
@@ -203,6 +207,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
@@ -223,6 +228,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__FEATURES:
@@ -240,6 +246,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

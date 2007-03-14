@@ -49,7 +49,7 @@ import org.eclipse.gmf.mappings.ValueExpression;
  * @see org.eclipse.gmf.mappings.GMFMapPackage
  * @generated
  */
-public class GMFMapSwitch {
+public class GMFMapSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -77,7 +77,7 @@ public class GMFMapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -88,16 +88,16 @@ public class GMFMapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -108,36 +108,36 @@ public class GMFMapSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case GMFMapPackage.MAPPING: {
 				Mapping mapping = (Mapping)theEObject;
-				Object result = caseMapping(mapping);
+				T result = caseMapping(mapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.MAPPING_ENTRY: {
 				MappingEntry mappingEntry = (MappingEntry)theEObject;
-				Object result = caseMappingEntry(mappingEntry);
+				T result = caseMappingEntry(mappingEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.NEEDS_CONTAINMENT: {
 				NeedsContainment needsContainment = (NeedsContainment)theEObject;
-				Object result = caseNeedsContainment(needsContainment);
+				T result = caseNeedsContainment(needsContainment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.NODE_REFERENCE: {
 				NodeReference nodeReference = (NodeReference)theEObject;
-				Object result = caseNodeReference(nodeReference);
+				T result = caseNodeReference(nodeReference);
 				if (result == null) result = caseNeedsContainment(nodeReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.CHILD_REFERENCE: {
 				ChildReference childReference = (ChildReference)theEObject;
-				Object result = caseChildReference(childReference);
+				T result = caseChildReference(childReference);
 				if (result == null) result = caseNodeReference(childReference);
 				if (result == null) result = caseNeedsContainment(childReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -145,7 +145,7 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.TOP_NODE_REFERENCE: {
 				TopNodeReference topNodeReference = (TopNodeReference)theEObject;
-				Object result = caseTopNodeReference(topNodeReference);
+				T result = caseTopNodeReference(topNodeReference);
 				if (result == null) result = caseNodeReference(topNodeReference);
 				if (result == null) result = caseNeedsContainment(topNodeReference);
 				if (result == null) result = defaultCase(theEObject);
@@ -153,7 +153,7 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.NODE_MAPPING: {
 				NodeMapping nodeMapping = (NodeMapping)theEObject;
-				Object result = caseNodeMapping(nodeMapping);
+				T result = caseNodeMapping(nodeMapping);
 				if (result == null) result = caseMappingEntry(nodeMapping);
 				if (result == null) result = caseMenuOwner(nodeMapping);
 				if (result == null) result = caseToolOwner(nodeMapping);
@@ -163,13 +163,13 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.COMPARTMENT_MAPPING: {
 				CompartmentMapping compartmentMapping = (CompartmentMapping)theEObject;
-				Object result = caseCompartmentMapping(compartmentMapping);
+				T result = caseCompartmentMapping(compartmentMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.LINK_MAPPING: {
 				LinkMapping linkMapping = (LinkMapping)theEObject;
-				Object result = caseLinkMapping(linkMapping);
+				T result = caseLinkMapping(linkMapping);
 				if (result == null) result = caseMappingEntry(linkMapping);
 				if (result == null) result = caseNeedsContainment(linkMapping);
 				if (result == null) result = caseMenuOwner(linkMapping);
@@ -180,71 +180,71 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.CANVAS_MAPPING: {
 				CanvasMapping canvasMapping = (CanvasMapping)theEObject;
-				Object result = caseCanvasMapping(canvasMapping);
+				T result = caseCanvasMapping(canvasMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.LABEL_MAPPING: {
 				LabelMapping labelMapping = (LabelMapping)theEObject;
-				Object result = caseLabelMapping(labelMapping);
+				T result = caseLabelMapping(labelMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.FEATURE_LABEL_MAPPING: {
 				FeatureLabelMapping featureLabelMapping = (FeatureLabelMapping)theEObject;
-				Object result = caseFeatureLabelMapping(featureLabelMapping);
+				T result = caseFeatureLabelMapping(featureLabelMapping);
 				if (result == null) result = caseLabelMapping(featureLabelMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.DESIGN_LABEL_MAPPING: {
 				DesignLabelMapping designLabelMapping = (DesignLabelMapping)theEObject;
-				Object result = caseDesignLabelMapping(designLabelMapping);
+				T result = caseDesignLabelMapping(designLabelMapping);
 				if (result == null) result = caseLabelMapping(designLabelMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.CONSTRAINT: {
 				Constraint constraint = (Constraint)theEObject;
-				Object result = caseConstraint(constraint);
+				T result = caseConstraint(constraint);
 				if (result == null) result = caseValueExpression(constraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.LINK_CONSTRAINTS: {
 				LinkConstraints linkConstraints = (LinkConstraints)theEObject;
-				Object result = caseLinkConstraints(linkConstraints);
+				T result = caseLinkConstraints(linkConstraints);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.VALUE_EXPRESSION: {
 				ValueExpression valueExpression = (ValueExpression)theEObject;
-				Object result = caseValueExpression(valueExpression);
+				T result = caseValueExpression(valueExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.ELEMENT_INITIALIZER: {
 				ElementInitializer elementInitializer = (ElementInitializer)theEObject;
-				Object result = caseElementInitializer(elementInitializer);
+				T result = caseElementInitializer(elementInitializer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER: {
 				FeatureSeqInitializer featureSeqInitializer = (FeatureSeqInitializer)theEObject;
-				Object result = caseFeatureSeqInitializer(featureSeqInitializer);
+				T result = caseFeatureSeqInitializer(featureSeqInitializer);
 				if (result == null) result = caseElementInitializer(featureSeqInitializer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.FEATURE_INITIALIZER: {
 				FeatureInitializer featureInitializer = (FeatureInitializer)theEObject;
-				Object result = caseFeatureInitializer(featureInitializer);
+				T result = caseFeatureInitializer(featureInitializer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.FEATURE_VALUE_SPEC: {
 				FeatureValueSpec featureValueSpec = (FeatureValueSpec)theEObject;
-				Object result = caseFeatureValueSpec(featureValueSpec);
+				T result = caseFeatureValueSpec(featureValueSpec);
 				if (result == null) result = caseValueExpression(featureValueSpec);
 				if (result == null) result = caseFeatureInitializer(featureValueSpec);
 				if (result == null) result = defaultCase(theEObject);
@@ -252,51 +252,51 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC: {
 				ReferenceNewElementSpec referenceNewElementSpec = (ReferenceNewElementSpec)theEObject;
-				Object result = caseReferenceNewElementSpec(referenceNewElementSpec);
+				T result = caseReferenceNewElementSpec(referenceNewElementSpec);
 				if (result == null) result = caseFeatureInitializer(referenceNewElementSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.MENU_OWNER: {
 				MenuOwner menuOwner = (MenuOwner)theEObject;
-				Object result = caseMenuOwner(menuOwner);
+				T result = caseMenuOwner(menuOwner);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.TOOL_OWNER: {
 				ToolOwner toolOwner = (ToolOwner)theEObject;
-				Object result = caseToolOwner(toolOwner);
+				T result = caseToolOwner(toolOwner);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.APPEARANCE_STEWARD: {
 				AppearanceSteward appearanceSteward = (AppearanceSteward)theEObject;
-				Object result = caseAppearanceSteward(appearanceSteward);
+				T result = caseAppearanceSteward(appearanceSteward);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.AUDIT_CONTAINER: {
 				AuditContainer auditContainer = (AuditContainer)theEObject;
-				Object result = caseAuditContainer(auditContainer);
+				T result = caseAuditContainer(auditContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.RULE_BASE: {
 				RuleBase ruleBase = (RuleBase)theEObject;
-				Object result = caseRuleBase(ruleBase);
+				T result = caseRuleBase(ruleBase);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.AUDIT_RULE: {
 				AuditRule auditRule = (AuditRule)theEObject;
-				Object result = caseAuditRule(auditRule);
+				T result = caseAuditRule(auditRule);
 				if (result == null) result = caseRuleBase(auditRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: {
 				DomainElementTarget domainElementTarget = (DomainElementTarget)theEObject;
-				Object result = caseDomainElementTarget(domainElementTarget);
+				T result = caseDomainElementTarget(domainElementTarget);
 				if (result == null) result = caseAuditable(domainElementTarget);
 				if (result == null) result = caseMeasurable(domainElementTarget);
 				if (result == null) result = defaultCase(theEObject);
@@ -304,14 +304,14 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET: {
 				DomainAttributeTarget domainAttributeTarget = (DomainAttributeTarget)theEObject;
-				Object result = caseDomainAttributeTarget(domainAttributeTarget);
+				T result = caseDomainAttributeTarget(domainAttributeTarget);
 				if (result == null) result = caseAuditable(domainAttributeTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: {
 				DiagramElementTarget diagramElementTarget = (DiagramElementTarget)theEObject;
-				Object result = caseDiagramElementTarget(diagramElementTarget);
+				T result = caseDiagramElementTarget(diagramElementTarget);
 				if (result == null) result = caseAuditable(diagramElementTarget);
 				if (result == null) result = caseMeasurable(diagramElementTarget);
 				if (result == null) result = defaultCase(theEObject);
@@ -319,7 +319,7 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.NOTATION_ELEMENT_TARGET: {
 				NotationElementTarget notationElementTarget = (NotationElementTarget)theEObject;
-				Object result = caseNotationElementTarget(notationElementTarget);
+				T result = caseNotationElementTarget(notationElementTarget);
 				if (result == null) result = caseAuditable(notationElementTarget);
 				if (result == null) result = caseMeasurable(notationElementTarget);
 				if (result == null) result = defaultCase(theEObject);
@@ -327,33 +327,33 @@ public class GMFMapSwitch {
 			}
 			case GMFMapPackage.METRIC_CONTAINER: {
 				MetricContainer metricContainer = (MetricContainer)theEObject;
-				Object result = caseMetricContainer(metricContainer);
+				T result = caseMetricContainer(metricContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.METRIC_RULE: {
 				MetricRule metricRule = (MetricRule)theEObject;
-				Object result = caseMetricRule(metricRule);
+				T result = caseMetricRule(metricRule);
 				if (result == null) result = caseRuleBase(metricRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.AUDITED_METRIC_TARGET: {
 				AuditedMetricTarget auditedMetricTarget = (AuditedMetricTarget)theEObject;
-				Object result = caseAuditedMetricTarget(auditedMetricTarget);
+				T result = caseAuditedMetricTarget(auditedMetricTarget);
 				if (result == null) result = caseAuditable(auditedMetricTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.AUDITABLE: {
 				Auditable auditable = (Auditable)theEObject;
-				Object result = caseAuditable(auditable);
+				T result = caseAuditable(auditable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.MEASURABLE: {
 				Measurable measurable = (Measurable)theEObject;
-				Object result = caseMeasurable(measurable);
+				T result = caseMeasurable(measurable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -372,7 +372,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMappingEntry(MappingEntry object) {
+	public T caseMappingEntry(MappingEntry object) {
 		return null;
 	}
 
@@ -387,7 +387,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNeedsContainment(NeedsContainment object) {
+	public T caseNeedsContainment(NeedsContainment object) {
 		return null;
 	}
 
@@ -402,7 +402,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNodeReference(NodeReference object) {
+	public T caseNodeReference(NodeReference object) {
 		return null;
 	}
 
@@ -417,7 +417,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseChildReference(ChildReference object) {
+	public T caseChildReference(ChildReference object) {
 		return null;
 	}
 
@@ -432,7 +432,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTopNodeReference(TopNodeReference object) {
+	public T caseTopNodeReference(TopNodeReference object) {
 		return null;
 	}
 
@@ -447,7 +447,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNodeMapping(NodeMapping object) {
+	public T caseNodeMapping(NodeMapping object) {
 		return null;
 	}
 
@@ -462,7 +462,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCompartmentMapping(CompartmentMapping object) {
+	public T caseCompartmentMapping(CompartmentMapping object) {
 		return null;
 	}
 
@@ -477,7 +477,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLinkMapping(LinkMapping object) {
+	public T caseLinkMapping(LinkMapping object) {
 		return null;
 	}
 
@@ -492,7 +492,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCanvasMapping(CanvasMapping object) {
+	public T caseCanvasMapping(CanvasMapping object) {
 		return null;
 	}
 
@@ -507,7 +507,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLabelMapping(LabelMapping object) {
+	public T caseLabelMapping(LabelMapping object) {
 		return null;
 	}
 
@@ -522,7 +522,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFeatureLabelMapping(FeatureLabelMapping object) {
+	public T caseFeatureLabelMapping(FeatureLabelMapping object) {
 		return null;
 	}
 
@@ -537,7 +537,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDesignLabelMapping(DesignLabelMapping object) {
+	public T caseDesignLabelMapping(DesignLabelMapping object) {
 		return null;
 	}
 
@@ -552,7 +552,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMapping(Mapping object) {
+	public T caseMapping(Mapping object) {
 		return null;
 	}
 
@@ -567,7 +567,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseConstraint(Constraint object) {
+	public T caseConstraint(Constraint object) {
 		return null;
 	}
 
@@ -582,7 +582,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLinkConstraints(LinkConstraints object) {
+	public T caseLinkConstraints(LinkConstraints object) {
 		return null;
 	}
 
@@ -597,7 +597,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseValueExpression(ValueExpression object) {
+	public T caseValueExpression(ValueExpression object) {
 		return null;
 	}
 
@@ -612,7 +612,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseElementInitializer(ElementInitializer object) {
+	public T caseElementInitializer(ElementInitializer object) {
 		return null;
 	}
 
@@ -627,7 +627,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFeatureSeqInitializer(FeatureSeqInitializer object) {
+	public T caseFeatureSeqInitializer(FeatureSeqInitializer object) {
 		return null;
 	}
 
@@ -642,7 +642,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFeatureInitializer(FeatureInitializer object) {
+	public T caseFeatureInitializer(FeatureInitializer object) {
 		return null;
 	}
 
@@ -657,7 +657,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFeatureValueSpec(FeatureValueSpec object) {
+	public T caseFeatureValueSpec(FeatureValueSpec object) {
 		return null;
 	}
 
@@ -672,7 +672,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
+	public T caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
 		return null;
 	}
 
@@ -687,7 +687,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMenuOwner(MenuOwner object) {
+	public T caseMenuOwner(MenuOwner object) {
 		return null;
 	}
 
@@ -702,7 +702,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolOwner(ToolOwner object) {
+	public T caseToolOwner(ToolOwner object) {
 		return null;
 	}
 
@@ -717,7 +717,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAppearanceSteward(AppearanceSteward object) {
+	public T caseAppearanceSteward(AppearanceSteward object) {
 		return null;
 	}
 
@@ -732,7 +732,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAuditContainer(AuditContainer object) {
+	public T caseAuditContainer(AuditContainer object) {
 		return null;
 	}
 
@@ -747,7 +747,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAuditRule(AuditRule object) {
+	public T caseAuditRule(AuditRule object) {
 		return null;
 	}
 
@@ -762,7 +762,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRuleBase(RuleBase object) {
+	public T caseRuleBase(RuleBase object) {
 		return null;
 	}
 
@@ -777,7 +777,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDomainElementTarget(DomainElementTarget object) {
+	public T caseDomainElementTarget(DomainElementTarget object) {
 		return null;
 	}
 
@@ -792,7 +792,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDomainAttributeTarget(DomainAttributeTarget object) {
+	public T caseDomainAttributeTarget(DomainAttributeTarget object) {
 		return null;
 	}
 
@@ -807,7 +807,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDiagramElementTarget(DiagramElementTarget object) {
+	public T caseDiagramElementTarget(DiagramElementTarget object) {
 		return null;
 	}
 
@@ -822,7 +822,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNotationElementTarget(NotationElementTarget object) {
+	public T caseNotationElementTarget(NotationElementTarget object) {
 		return null;
 	}
 
@@ -837,7 +837,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMetricContainer(MetricContainer object) {
+	public T caseMetricContainer(MetricContainer object) {
 		return null;
 	}
 
@@ -852,7 +852,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMetricRule(MetricRule object) {
+	public T caseMetricRule(MetricRule object) {
 		return null;
 	}
 
@@ -867,7 +867,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAuditedMetricTarget(AuditedMetricTarget object) {
+	public T caseAuditedMetricTarget(AuditedMetricTarget object) {
 		return null;
 	}
 
@@ -882,7 +882,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAuditable(Auditable object) {
+	public T caseAuditable(Auditable object) {
 		return null;
 	}
 
@@ -897,7 +897,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMeasurable(Measurable object) {
+	public T caseMeasurable(Measurable object) {
 		return null;
 	}
 
@@ -912,7 +912,7 @@ public class GMFMapSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

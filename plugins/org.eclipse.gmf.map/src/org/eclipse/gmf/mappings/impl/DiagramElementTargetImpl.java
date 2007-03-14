@@ -57,6 +57,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getDiagramElementTarget();
 	}
@@ -104,6 +105,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET__ELEMENT:
@@ -118,6 +120,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET__ELEMENT:
@@ -132,6 +135,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET__ELEMENT:
@@ -146,6 +150,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET__ELEMENT:

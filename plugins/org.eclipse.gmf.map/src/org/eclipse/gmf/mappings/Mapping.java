@@ -8,6 +8,7 @@ package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.tooldef.StyleSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +46,7 @@ public interface Mapping extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true"
 	 * @generated
 	 */
-	EList getNodes();
+	EList<TopNodeReference> getNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.
@@ -61,7 +62,7 @@ public interface Mapping extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.LinkMapping" containment="true"
 	 * @generated
 	 */
-	EList getLinks();
+	EList<LinkMapping> getLinks();
 
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' containment reference.
@@ -103,7 +104,7 @@ public interface Mapping extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.StyleSelector" containment="true"
 	 * @generated
 	 */
-	EList getAppearanceStyles();
+	EList<StyleSelector> getAppearanceStyles();
 
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.

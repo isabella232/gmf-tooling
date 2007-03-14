@@ -56,6 +56,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getFeatureValueSpec();
 	}
@@ -113,6 +114,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -128,6 +130,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -141,6 +144,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -154,6 +158,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
@@ -170,6 +175,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
@@ -184,6 +190,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
@@ -198,6 +205,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
@@ -213,7 +221,8 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == FeatureInitializer.class) {
 			switch (derivedFeatureID) {
 				case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE: return GMFMapPackage.FEATURE_INITIALIZER__FEATURE;
@@ -229,7 +238,8 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == FeatureInitializer.class) {
 			switch (baseFeatureID) {
 				case GMFMapPackage.FEATURE_INITIALIZER__FEATURE: return GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE;

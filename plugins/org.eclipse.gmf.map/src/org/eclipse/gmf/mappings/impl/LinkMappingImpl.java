@@ -140,6 +140,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getLinkMapping();
 	}
@@ -476,6 +477,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
@@ -491,6 +493,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
@@ -504,6 +507,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
@@ -538,6 +542,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
@@ -573,6 +578,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
@@ -608,6 +614,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
@@ -635,7 +642,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == NeedsContainment.class) {
 			switch (derivedFeatureID) {
 				case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE: return GMFMapPackage.NEEDS_CONTAINMENT__CONTAINMENT_FEATURE;
@@ -668,7 +676,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == NeedsContainment.class) {
 			switch (baseFeatureID) {
 				case GMFMapPackage.NEEDS_CONTAINMENT__CONTAINMENT_FEATURE: return GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE;

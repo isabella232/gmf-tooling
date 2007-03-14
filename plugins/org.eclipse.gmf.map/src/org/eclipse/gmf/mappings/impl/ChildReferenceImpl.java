@@ -82,6 +82,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getChildReference();
 	}
@@ -273,6 +274,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -292,6 +294,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -309,6 +312,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -322,6 +326,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -343,6 +348,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -366,6 +372,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
@@ -389,6 +396,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:

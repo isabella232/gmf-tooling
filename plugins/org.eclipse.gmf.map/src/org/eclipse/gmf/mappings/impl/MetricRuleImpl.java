@@ -178,6 +178,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getMetricRule();
 	}
@@ -419,6 +420,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
@@ -434,6 +436,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__RULE:
@@ -451,6 +454,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
@@ -464,6 +468,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__NAME:
@@ -491,6 +496,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__NAME:
@@ -526,6 +532,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__NAME:
@@ -561,6 +568,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFMapPackage.METRIC_RULE__NAME:
@@ -588,6 +596,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

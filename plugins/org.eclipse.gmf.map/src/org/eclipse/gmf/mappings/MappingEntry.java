@@ -126,7 +126,7 @@ public interface MappingEntry extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.LabelMapping" opposite="mapEntry" containment="true"
 	 * @generated
 	 */
-	EList getLabelMappings();
+	EList<LabelMapping> getLabelMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Related Diagrams</b></em>' reference list.
@@ -141,7 +141,7 @@ public interface MappingEntry extends EObject {
 	 * @model type="org.eclipse.gmf.mappings.CanvasMapping"
 	 * @generated
 	 */
-	EList getRelatedDiagrams();
+	EList<CanvasMapping> getRelatedDiagrams();
 
 	/**
 	 * <!-- begin-user-doc -->

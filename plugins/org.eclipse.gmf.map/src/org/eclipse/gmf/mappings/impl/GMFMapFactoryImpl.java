@@ -74,6 +74,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GMFMapPackage.MAPPING: return createMapping();
@@ -111,6 +112,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case GMFMapPackage.SEVERITY:
@@ -127,6 +129,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case GMFMapPackage.SEVERITY:
@@ -443,6 +446,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static GMFMapPackage getPackage() {
 		return GMFMapPackage.eINSTANCE;
 	}
