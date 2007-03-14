@@ -57,7 +57,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -70,7 +70,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
-		supportedTypes.add(IItemPropertySource.class);		
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**
@@ -87,6 +87,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenEditorGeneratorAdapter() {
 		if (genEditorGeneratorItemProvider == null) {
 			genEditorGeneratorItemProvider = new GenEditorGeneratorItemProvider(this);
@@ -109,6 +110,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenDiagramAdapter() {
 		if (genDiagramItemProvider == null) {
 			genDiagramItemProvider = new GenDiagramItemProvider(this);
@@ -131,6 +133,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenEditorViewAdapter() {
 		if (genEditorViewItemProvider == null) {
 			genEditorViewItemProvider = new GenEditorViewItemProvider(this);
@@ -153,6 +156,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenCustomPreferencePageAdapter() {
 		if (genCustomPreferencePageItemProvider == null) {
 			genCustomPreferencePageItemProvider = new GenCustomPreferencePageItemProvider(this);
@@ -175,6 +179,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenStandardPreferencePageAdapter() {
 		if (genStandardPreferencePageItemProvider == null) {
 			genStandardPreferencePageItemProvider = new GenStandardPreferencePageItemProvider(this);
@@ -197,6 +202,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenDiagramPreferencesAdapter() {
 		if (genDiagramPreferencesItemProvider == null) {
 			genDiagramPreferencesItemProvider = new GenDiagramPreferencesItemProvider(this);
@@ -219,6 +225,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenStandardFontAdapter() {
 		if (genStandardFontItemProvider == null) {
 			genStandardFontItemProvider = new GenStandardFontItemProvider(this);
@@ -241,6 +248,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenCustomFontAdapter() {
 		if (genCustomFontItemProvider == null) {
 			genCustomFontItemProvider = new GenCustomFontItemProvider(this);
@@ -263,6 +271,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenRGBColorAdapter() {
 		if (genRGBColorItemProvider == null) {
 			genRGBColorItemProvider = new GenRGBColorItemProvider(this);
@@ -285,6 +294,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenConstantColorAdapter() {
 		if (genConstantColorItemProvider == null) {
 			genConstantColorItemProvider = new GenConstantColorItemProvider(this);
@@ -307,6 +317,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenPluginAdapter() {
 		if (genPluginItemProvider == null) {
 			genPluginItemProvider = new GenPluginItemProvider(this);
@@ -329,6 +340,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomBehaviourAdapter() {
 		if (customBehaviourItemProvider == null) {
 			customBehaviourItemProvider = new CustomBehaviourItemProvider(this);
@@ -351,6 +363,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSharedBehaviourAdapter() {
 		if (sharedBehaviourItemProvider == null) {
 			sharedBehaviourItemProvider = new SharedBehaviourItemProvider(this);
@@ -373,6 +386,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createOpenDiagramBehaviourAdapter() {
 		if (openDiagramBehaviourItemProvider == null) {
 			openDiagramBehaviourItemProvider = new OpenDiagramBehaviourItemProvider(this);
@@ -395,6 +409,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenTopLevelNodeAdapter() {
 		if (genTopLevelNodeItemProvider == null) {
 			genTopLevelNodeItemProvider = new GenTopLevelNodeItemProvider(this);
@@ -417,6 +432,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenChildNodeAdapter() {
 		if (genChildNodeItemProvider == null) {
 			genChildNodeItemProvider = new GenChildNodeItemProvider(this);
@@ -439,6 +455,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenChildSideAffixedNodeAdapter() {
 		if (genChildSideAffixedNodeItemProvider == null) {
 			genChildSideAffixedNodeItemProvider = new GenChildSideAffixedNodeItemProvider(this);
@@ -461,6 +478,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenChildLabelNodeAdapter() {
 		if (genChildLabelNodeItemProvider == null) {
 			genChildLabelNodeItemProvider = new GenChildLabelNodeItemProvider(this);
@@ -483,6 +501,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenCompartmentAdapter() {
 		if (genCompartmentItemProvider == null) {
 			genCompartmentItemProvider = new GenCompartmentItemProvider(this);
@@ -505,6 +524,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenLinkAdapter() {
 		if (genLinkItemProvider == null) {
 			genLinkItemProvider = new GenLinkItemProvider(this);
@@ -527,6 +547,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNodeLabelAdapter() {
 		if (genNodeLabelItemProvider == null) {
 			genNodeLabelItemProvider = new GenNodeLabelItemProvider(this);
@@ -549,6 +570,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenExternalNodeLabelAdapter() {
 		if (genExternalNodeLabelItemProvider == null) {
 			genExternalNodeLabelItemProvider = new GenExternalNodeLabelItemProvider(this);
@@ -571,6 +593,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenLinkLabelAdapter() {
 		if (genLinkLabelItemProvider == null) {
 			genLinkLabelItemProvider = new GenLinkLabelItemProvider(this);
@@ -593,6 +616,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMetamodelTypeAdapter() {
 		if (metamodelTypeItemProvider == null) {
 			metamodelTypeItemProvider = new MetamodelTypeItemProvider(this);
@@ -615,6 +639,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSpecializationTypeAdapter() {
 		if (specializationTypeItemProvider == null) {
 			specializationTypeItemProvider = new SpecializationTypeItemProvider(this);
@@ -637,6 +662,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createNotationTypeAdapter() {
 		if (notationTypeItemProvider == null) {
 			notationTypeItemProvider = new NotationTypeItemProvider(this);
@@ -659,6 +685,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createTypeModelFacetAdapter() {
 		if (typeModelFacetItemProvider == null) {
 			typeModelFacetItemProvider = new TypeModelFacetItemProvider(this);
@@ -681,6 +708,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createTypeLinkModelFacetAdapter() {
 		if (typeLinkModelFacetItemProvider == null) {
 			typeLinkModelFacetItemProvider = new TypeLinkModelFacetItemProvider(this);
@@ -703,6 +731,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureLinkModelFacetAdapter() {
 		if (featureLinkModelFacetItemProvider == null) {
 			featureLinkModelFacetItemProvider = new FeatureLinkModelFacetItemProvider(this);
@@ -725,6 +754,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureLabelModelFacetAdapter() {
 		if (featureLabelModelFacetItemProvider == null) {
 			featureLabelModelFacetItemProvider = new FeatureLabelModelFacetItemProvider(this);
@@ -747,6 +777,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDesignLabelModelFacetAdapter() {
 		if (designLabelModelFacetItemProvider == null) {
 			designLabelModelFacetItemProvider = new DesignLabelModelFacetItemProvider(this);
@@ -769,6 +800,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createColorAttributesAdapter() {
 		if (colorAttributesItemProvider == null) {
 			colorAttributesItemProvider = new ColorAttributesItemProvider(this);
@@ -791,6 +823,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createStyleAttributesAdapter() {
 		if (styleAttributesItemProvider == null) {
 			styleAttributesItemProvider = new StyleAttributesItemProvider(this);
@@ -813,6 +846,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createResizeConstraintsAdapter() {
 		if (resizeConstraintsItemProvider == null) {
 			resizeConstraintsItemProvider = new ResizeConstraintsItemProvider(this);
@@ -835,6 +869,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDefaultSizeAttributesAdapter() {
 		if (defaultSizeAttributesItemProvider == null) {
 			defaultSizeAttributesItemProvider = new DefaultSizeAttributesItemProvider(this);
@@ -857,6 +892,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLabelOffsetAttributesAdapter() {
 		if (labelOffsetAttributesItemProvider == null) {
 			labelOffsetAttributesItemProvider = new LabelOffsetAttributesItemProvider(this);
@@ -879,6 +915,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFigureViewmapAdapter() {
 		if (figureViewmapItemProvider == null) {
 			figureViewmapItemProvider = new FigureViewmapItemProvider(this);
@@ -901,6 +938,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSnippetViewmapAdapter() {
 		if (snippetViewmapItemProvider == null) {
 			snippetViewmapItemProvider = new SnippetViewmapItemProvider(this);
@@ -923,6 +961,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createInnerClassViewmapAdapter() {
 		if (innerClassViewmapItemProvider == null) {
 			innerClassViewmapItemProvider = new InnerClassViewmapItemProvider(this);
@@ -945,6 +984,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createParentAssignedViewmapAdapter() {
 		if (parentAssignedViewmapItemProvider == null) {
 			parentAssignedViewmapItemProvider = new ParentAssignedViewmapItemProvider(this);
@@ -967,6 +1007,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPaletteAdapter() {
 		if (paletteItemProvider == null) {
 			paletteItemProvider = new PaletteItemProvider(this);
@@ -989,6 +1030,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createToolEntryAdapter() {
 		if (toolEntryItemProvider == null) {
 			toolEntryItemProvider = new ToolEntryItemProvider(this);
@@ -1011,6 +1053,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createStandardEntryAdapter() {
 		if (standardEntryItemProvider == null) {
 			standardEntryItemProvider = new StandardEntryItemProvider(this);
@@ -1033,6 +1076,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSeparatorAdapter() {
 		if (separatorItemProvider == null) {
 			separatorItemProvider = new SeparatorItemProvider(this);
@@ -1055,6 +1099,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createToolGroupAdapter() {
 		if (toolGroupItemProvider == null) {
 			toolGroupItemProvider = new ToolGroupItemProvider(this);
@@ -1077,6 +1122,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenFeatureSeqInitializerAdapter() {
 		if (genFeatureSeqInitializerItemProvider == null) {
 			genFeatureSeqInitializerItemProvider = new GenFeatureSeqInitializerItemProvider(this);
@@ -1099,6 +1145,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenFeatureValueSpecAdapter() {
 		if (genFeatureValueSpecItemProvider == null) {
 			genFeatureValueSpecItemProvider = new GenFeatureValueSpecItemProvider(this);
@@ -1121,6 +1168,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenReferenceNewElementSpecAdapter() {
 		if (genReferenceNewElementSpecItemProvider == null) {
 			genReferenceNewElementSpecItemProvider = new GenReferenceNewElementSpecItemProvider(this);
@@ -1143,6 +1191,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenLinkConstraintsAdapter() {
 		if (genLinkConstraintsItemProvider == null) {
 			genLinkConstraintsItemProvider = new GenLinkConstraintsItemProvider(this);
@@ -1165,6 +1214,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenAuditRootAdapter() {
 		if (genAuditRootItemProvider == null) {
 			genAuditRootItemProvider = new GenAuditRootItemProvider(this);
@@ -1187,6 +1237,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenAuditContainerAdapter() {
 		if (genAuditContainerItemProvider == null) {
 			genAuditContainerItemProvider = new GenAuditContainerItemProvider(this);
@@ -1209,6 +1260,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenAuditRuleAdapter() {
 		if (genAuditRuleItemProvider == null) {
 			genAuditRuleItemProvider = new GenAuditRuleItemProvider(this);
@@ -1231,6 +1283,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenDomainElementTargetAdapter() {
 		if (genDomainElementTargetItemProvider == null) {
 			genDomainElementTargetItemProvider = new GenDomainElementTargetItemProvider(this);
@@ -1253,6 +1306,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenDiagramElementTargetAdapter() {
 		if (genDiagramElementTargetItemProvider == null) {
 			genDiagramElementTargetItemProvider = new GenDiagramElementTargetItemProvider(this);
@@ -1275,6 +1329,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenDomainAttributeTargetAdapter() {
 		if (genDomainAttributeTargetItemProvider == null) {
 			genDomainAttributeTargetItemProvider = new GenDomainAttributeTargetItemProvider(this);
@@ -1297,6 +1352,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNotationElementTargetAdapter() {
 		if (genNotationElementTargetItemProvider == null) {
 			genNotationElementTargetItemProvider = new GenNotationElementTargetItemProvider(this);
@@ -1319,6 +1375,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenMetricContainerAdapter() {
 		if (genMetricContainerItemProvider == null) {
 			genMetricContainerItemProvider = new GenMetricContainerItemProvider(this);
@@ -1341,6 +1398,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenMetricRuleAdapter() {
 		if (genMetricRuleItemProvider == null) {
 			genMetricRuleItemProvider = new GenMetricRuleItemProvider(this);
@@ -1363,6 +1421,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenAuditedMetricTargetAdapter() {
 		if (genAuditedMetricTargetItemProvider == null) {
 			genAuditedMetricTargetItemProvider = new GenAuditedMetricTargetItemProvider(this);
@@ -1385,6 +1444,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenExpressionProviderContainerAdapter() {
 		if (genExpressionProviderContainerItemProvider == null) {
 			genExpressionProviderContainerItemProvider = new GenExpressionProviderContainerItemProvider(this);
@@ -1407,6 +1467,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenJavaExpressionProviderAdapter() {
 		if (genJavaExpressionProviderItemProvider == null) {
 			genJavaExpressionProviderItemProvider = new GenJavaExpressionProviderItemProvider(this);
@@ -1429,6 +1490,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenExpressionInterpreterAdapter() {
 		if (genExpressionInterpreterItemProvider == null) {
 			genExpressionInterpreterItemProvider = new GenExpressionInterpreterItemProvider(this);
@@ -1451,6 +1513,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNavigatorAdapter() {
 		if (genNavigatorItemProvider == null) {
 			genNavigatorItemProvider = new GenNavigatorItemProvider(this);
@@ -1473,6 +1536,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNavigatorChildReferenceAdapter() {
 		if (genNavigatorChildReferenceItemProvider == null) {
 			genNavigatorChildReferenceItemProvider = new GenNavigatorChildReferenceItemProvider(this);
@@ -1495,6 +1559,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNavigatorPathAdapter() {
 		if (genNavigatorPathItemProvider == null) {
 			genNavigatorPathItemProvider = new GenNavigatorPathItemProvider(this);
@@ -1517,6 +1582,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenNavigatorPathSegmentAdapter() {
 		if (genNavigatorPathSegmentItemProvider == null) {
 			genNavigatorPathSegmentItemProvider = new GenNavigatorPathSegmentItemProvider(this);
@@ -1539,6 +1605,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenPropertySheetAdapter() {
 		if (genPropertySheetItemProvider == null) {
 			genPropertySheetItemProvider = new GenPropertySheetItemProvider(this);
@@ -1561,6 +1628,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenStandardPropertyTabAdapter() {
 		if (genStandardPropertyTabItemProvider == null) {
 			genStandardPropertyTabItemProvider = new GenStandardPropertyTabItemProvider(this);
@@ -1583,6 +1651,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenCustomPropertyTabAdapter() {
 		if (genCustomPropertyTabItemProvider == null) {
 			genCustomPropertyTabItemProvider = new GenCustomPropertyTabItemProvider(this);
@@ -1605,6 +1674,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createTypeTabFilterAdapter() {
 		if (typeTabFilterItemProvider == null) {
 			typeTabFilterItemProvider = new TypeTabFilterItemProvider(this);
@@ -1627,6 +1697,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomTabFilterAdapter() {
 		if (customTabFilterItemProvider == null) {
 			customTabFilterItemProvider = new CustomTabFilterItemProvider(this);
@@ -1649,6 +1720,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenSharedContributionItemAdapter() {
 		if (genSharedContributionItemItemProvider == null) {
 			genSharedContributionItemItemProvider = new GenSharedContributionItemItemProvider(this);
@@ -1671,6 +1743,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenGroupMarkerAdapter() {
 		if (genGroupMarkerItemProvider == null) {
 			genGroupMarkerItemProvider = new GenGroupMarkerItemProvider(this);
@@ -1693,6 +1766,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenSeparatorAdapter() {
 		if (genSeparatorItemProvider == null) {
 			genSeparatorItemProvider = new GenSeparatorItemProvider(this);
@@ -1715,6 +1789,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenActionFactoryContributionItemAdapter() {
 		if (genActionFactoryContributionItemItemProvider == null) {
 			genActionFactoryContributionItemItemProvider = new GenActionFactoryContributionItemItemProvider(this);
@@ -1737,6 +1812,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenMenuManagerAdapter() {
 		if (genMenuManagerItemProvider == null) {
 			genMenuManagerItemProvider = new GenMenuManagerItemProvider(this);
@@ -1759,6 +1835,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenToolBarManagerAdapter() {
 		if (genToolBarManagerItemProvider == null) {
 			genToolBarManagerItemProvider = new GenToolBarManagerItemProvider(this);
@@ -1781,6 +1858,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenApplicationAdapter() {
 		if (genApplicationItemProvider == null) {
 			genApplicationItemProvider = new GenApplicationItemProvider(this);
@@ -1803,6 +1881,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createValueExpressionAdapter() {
 		if (valueExpressionItemProvider == null) {
 			valueExpressionItemProvider = new ValueExpressionItemProvider(this);
@@ -1825,6 +1904,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenConstraintAdapter() {
 		if (genConstraintItemProvider == null) {
 			genConstraintItemProvider = new GenConstraintItemProvider(this);
@@ -1858,6 +1938,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -1868,6 +1949,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -1877,10 +1959,11 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class)type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}

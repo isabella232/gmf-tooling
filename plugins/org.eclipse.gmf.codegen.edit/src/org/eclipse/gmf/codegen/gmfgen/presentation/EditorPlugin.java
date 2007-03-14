@@ -44,10 +44,10 @@ public final class EditorPlugin extends EMFPlugin {
 	 */
 	public EditorPlugin() {
 		super
-		  (new ResourceLocator [] {
-		     EcoreEditPlugin.INSTANCE,
-		     GenModelEditPlugin.INSTANCE,
-		   });
+			(new ResourceLocator [] {
+				EcoreEditPlugin.INSTANCE,
+				GenModelEditPlugin.INSTANCE,
+			});
 	}
 
 	/**
@@ -57,6 +57,7 @@ public final class EditorPlugin extends EMFPlugin {
 	 * @return the singleton instance.
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}
@@ -87,7 +88,7 @@ public final class EditorPlugin extends EMFPlugin {
 		 */
 		public Implementation() {
 			super();
-
+	
 			// Remember the static instance.
 			//
 			plugin = this;
