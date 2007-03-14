@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.common.util.EList;
@@ -39,7 +38,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * @generated
 	 * @ordered
 	 */
-	protected EList element = null;
+	protected EList<GenCommonBase> element = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -55,6 +54,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenDiagramElementTarget();
 	}
@@ -64,9 +64,9 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getElement() {
+	public EList<GenCommonBase> getElement() {
 		if (element == null) {
-			element = new EObjectResolvingEList(GenCommonBase.class, this, GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT);
+			element = new EObjectResolvingEList<GenCommonBase>(GenCommonBase.class, this, GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT);
 		}
 		return element;
 	}
@@ -80,7 +80,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 		if(getElement().isEmpty()) {
 			return null;
 		}
-		return ((GenCommonBase)getElement().get(0)).getDiagramRunTimeClass();
+		return getElement().get(0).getDiagramRunTimeClass();
 	}
 	
 	/**
@@ -89,9 +89,8 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * @generated NOT
 	 */
 	public String getClientContextID() {	
-		StringBuffer buf = new StringBuffer("Ctx"); //$NON-NLS-1$
-		for (Iterator it = getElement().iterator(); it.hasNext();) {
-			GenCommonBase nextElement = (GenCommonBase) it.next();			
+		StringBuilder buf = new StringBuilder("Ctx"); //$NON-NLS-1$
+		for (GenCommonBase nextElement : getElement()) {
 			buf.append('_');
 			int id = nextElement.getVisualID();
 			if(id < 0) {
@@ -107,6 +106,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
@@ -120,11 +120,13 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
 				getElement().clear();
-				getElement().addAll((Collection)newValue);
+				getElement().addAll((Collection<? extends GenCommonBase>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,6 +137,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
@@ -149,6 +152,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:

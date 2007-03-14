@@ -48,7 +48,7 @@ public interface LinkModelFacet extends ModelFacet {
 	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
 	 * @generated
 	 */
-	EList getAssistantSourceTypes();
+	EList<GenClass> getAssistantSourceTypes();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -56,6 +56,6 @@ public interface LinkModelFacet extends ModelFacet {
 	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
 	 * @generated
 	 */
-	EList getAssistantTargetTypes();
+	EList<GenClass> getAssistantTargetTypes();
 
 } // LinkModelFacet

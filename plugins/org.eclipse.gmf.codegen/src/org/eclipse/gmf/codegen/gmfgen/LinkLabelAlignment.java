@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class LinkLabelAlignment extends AbstractEnumerator {
+public enum LinkLabelAlignment implements Enumerator
+{
+	/**
+	 * The '<em><b>MIDDLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MIDDLE
+	 * @generated
+	 * @ordered
+	 */
+	MIDDLE_LITERAL(4, "MIDDLE", "MIDDLE"),
+	/**
+	 * The '<em><b>TARGET</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TARGET
+	 * @generated
+	 * @ordered
+	 */
+	TARGET_LITERAL(3, "TARGET", "TARGET"),
+	/**
+	 * The '<em><b>SOURCE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SOURCE
+	 * @generated
+	 * @ordered
+	 */
+	SOURCE_LITERAL(2, "SOURCE", "SOURCE");
 	/**
 	 * The '<em><b>MIDDLE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -71,36 +99,6 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	public static final int SOURCE = 2;
 
 	/**
-	 * The '<em><b>MIDDLE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MIDDLE
-	 * @generated
-	 * @ordered
-	 */
-	public static final LinkLabelAlignment MIDDLE_LITERAL = new LinkLabelAlignment(MIDDLE, "MIDDLE", "MIDDLE");
-
-	/**
-	 * The '<em><b>TARGET</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TARGET
-	 * @generated
-	 * @ordered
-	 */
-	public static final LinkLabelAlignment TARGET_LITERAL = new LinkLabelAlignment(TARGET, "TARGET", "TARGET");
-
-	/**
-	 * The '<em><b>SOURCE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SOURCE
-	 * @generated
-	 * @ordered
-	 */
-	public static final LinkLabelAlignment SOURCE_LITERAL = new LinkLabelAlignment(SOURCE, "SOURCE", "SOURCE");
-
-	/**
 	 * An array of all the '<em><b>Link Label Alignment</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,7 +117,7 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<LinkLabelAlignment> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified literal value.
@@ -165,8 +163,29 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 			case TARGET: return TARGET_LITERAL;
 			case SOURCE: return SOURCE_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -175,7 +194,46 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * @generated
 	 */
 	private LinkLabelAlignment(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //LinkLabelAlignment
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

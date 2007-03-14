@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreter.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
+ * $Id: GenExpressionInterpreter.java,v 1.3 2007/03/14 14:39:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -67,7 +67,7 @@ public interface GenExpressionInterpreter extends GenExpressionProviderBase {
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
-	EList getRequiredPluginIDs();
+	EList<String> getRequiredPluginIDs();
 
 	/**
 	 * Returns the value of the '<em><b>Language</b></em>' attribute.

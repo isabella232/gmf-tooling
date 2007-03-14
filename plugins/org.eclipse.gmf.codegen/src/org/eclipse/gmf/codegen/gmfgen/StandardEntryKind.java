@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class StandardEntryKind extends AbstractEnumerator {
+public enum StandardEntryKind implements Enumerator
+{
+	/**
+	 * The '<em><b>SELECT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SELECT
+	 * @generated
+	 * @ordered
+	 */
+	SELECT_LITERAL(0, "SELECT", "SELECT"),
+	/**
+	 * The '<em><b>MARQUEE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MARQUEE
+	 * @generated
+	 * @ordered
+	 */
+	MARQUEE_LITERAL(1, "MARQUEE", "MARQUEE"),
+	/**
+	 * The '<em><b>ZOOM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ZOOM
+	 * @generated
+	 * @ordered
+	 */
+	ZOOM_LITERAL(2, "ZOOM", "ZOOM");
 	/**
 	 * The '<em><b>SELECT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -68,36 +96,6 @@ public final class StandardEntryKind extends AbstractEnumerator {
 	public static final int ZOOM = 2;
 
 	/**
-	 * The '<em><b>SELECT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SELECT
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardEntryKind SELECT_LITERAL = new StandardEntryKind(SELECT, "SELECT", "SELECT");
-
-	/**
-	 * The '<em><b>MARQUEE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MARQUEE
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardEntryKind MARQUEE_LITERAL = new StandardEntryKind(MARQUEE, "MARQUEE", "MARQUEE");
-
-	/**
-	 * The '<em><b>ZOOM</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZOOM
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardEntryKind ZOOM_LITERAL = new StandardEntryKind(ZOOM, "ZOOM", "ZOOM");
-
-	/**
 	 * An array of all the '<em><b>Standard Entry Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +114,7 @@ public final class StandardEntryKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<StandardEntryKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Standard Entry Kind</b></em>' literal with the specified literal value.
@@ -162,8 +160,29 @@ public final class StandardEntryKind extends AbstractEnumerator {
 			case MARQUEE: return MARQUEE_LITERAL;
 			case ZOOM: return ZOOM_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -172,7 +191,46 @@ public final class StandardEntryKind extends AbstractEnumerator {
 	 * @generated
 	 */
 	private StandardEntryKind(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //StandardEntryKind
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

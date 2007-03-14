@@ -14,7 +14,6 @@ package org.eclipse.gmf.codegen.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -188,8 +187,7 @@ public class GenModelGraphAnalyzer {
 			}
 			// TODO: this method could be moved to GenNode
 			Collection<GenCommonBase> potentialLinks = new ArrayList<GenCommonBase>();
-			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
-				GenLink nextLink = (GenLink) it.next();
+			for (GenLink nextLink : myDiagram.getLinks()) {
 				if (nextLink.getModelFacet() == null) {
 					potentialLinks.add(nextLink);
 				} else {
@@ -209,10 +207,11 @@ public class GenModelGraphAnalyzer {
 				potentialNodes.addAll(myDiagram.getAllNodes());
 			} else {
 				GenClass genClass = myIsInLinkDirection ? link.getModelFacet().getTargetType() : link.getModelFacet().getSourceType();
-				for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genClass != null && genNodes.hasNext();) {
-					GenNode nextNode = (GenNode) genNodes.next();
-					if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
-						potentialNodes.add(nextNode);
+				if (genClass != null) {
+					for (GenNode nextNode : myDiagram.getAllNodes()) {
+						if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
+							potentialNodes.add(nextNode);
+						}
 					}
 				}
 			}

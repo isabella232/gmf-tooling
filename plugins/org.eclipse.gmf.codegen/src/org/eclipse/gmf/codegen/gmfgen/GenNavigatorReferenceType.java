@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class GenNavigatorReferenceType extends AbstractEnumerator {
+public enum GenNavigatorReferenceType implements Enumerator
+{
+	/**
+	 * The '<em><b>Children</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CHILDREN
+	 * @generated
+	 * @ordered
+	 */
+	CHILDREN_LITERAL(0, "children", "children"),
+	/**
+	 * The '<em><b>Out taget</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OUT_TAGET
+	 * @generated
+	 * @ordered
+	 */
+	OUT_TAGET_LITERAL(1, "out_taget", "out_taget"),
+	/**
+	 * The '<em><b>In source</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IN_SOURCE
+	 * @generated
+	 * @ordered
+	 */
+	IN_SOURCE_LITERAL(2, "in_source", "in_source");
 	/**
 	 * The '<em><b>Children</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -68,36 +96,6 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 	public static final int IN_SOURCE = 2;
 
 	/**
-	 * The '<em><b>Children</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CHILDREN
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenNavigatorReferenceType CHILDREN_LITERAL = new GenNavigatorReferenceType(CHILDREN, "children", "children");
-
-	/**
-	 * The '<em><b>Out taget</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OUT_TAGET
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenNavigatorReferenceType OUT_TAGET_LITERAL = new GenNavigatorReferenceType(OUT_TAGET, "out_taget", "out_taget");
-
-	/**
-	 * The '<em><b>In source</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #IN_SOURCE
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenNavigatorReferenceType IN_SOURCE_LITERAL = new GenNavigatorReferenceType(IN_SOURCE, "in_source", "in_source");
-
-	/**
 	 * An array of all the '<em><b>Gen Navigator Reference Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +114,7 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<GenNavigatorReferenceType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Gen Navigator Reference Type</b></em>' literal with the specified literal value.
@@ -162,8 +160,29 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 			case OUT_TAGET: return OUT_TAGET_LITERAL;
 			case IN_SOURCE: return IN_SOURCE_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -172,7 +191,46 @@ public final class GenNavigatorReferenceType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private GenNavigatorReferenceType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //GenNavigatorReferenceType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

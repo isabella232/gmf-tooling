@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,44 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class ViewmapLayoutType extends AbstractEnumerator {
+public enum ViewmapLayoutType implements Enumerator
+{
+	/**
+	 * The '<em><b>UNKNOWN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UNKNOWN
+	 * @generated
+	 * @ordered
+	 */
+	UNKNOWN_LITERAL(0, "UNKNOWN", "UNKNOWN"),
+	/**
+	 * The '<em><b>XY LAYOUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #XY_LAYOUT
+	 * @generated
+	 * @ordered
+	 */
+	XY_LAYOUT_LITERAL(1, "XY_LAYOUT", "XY_LAYOUT"),
+	/**
+	 * The '<em><b>FLOW LAYOUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FLOW_LAYOUT
+	 * @generated
+	 * @ordered
+	 */
+	FLOW_LAYOUT_LITERAL(2, "FLOW_LAYOUT", "FLOW_LAYOUT"),
+	/**
+	 * The '<em><b>TOOLBAR LAYOUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TOOLBAR_LAYOUT
+	 * @generated
+	 * @ordered
+	 */
+	TOOLBAR_LAYOUT_LITERAL(3, "TOOLBAR_LAYOUT", "TOOLBAR_LAYOUT");
 	/**
 	 * The '<em><b>UNKNOWN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -83,46 +120,6 @@ public final class ViewmapLayoutType extends AbstractEnumerator {
 	public static final int TOOLBAR_LAYOUT = 3;
 
 	/**
-	 * The '<em><b>UNKNOWN</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #UNKNOWN
-	 * @generated
-	 * @ordered
-	 */
-	public static final ViewmapLayoutType UNKNOWN_LITERAL = new ViewmapLayoutType(UNKNOWN, "UNKNOWN", "UNKNOWN");
-
-	/**
-	 * The '<em><b>XY LAYOUT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #XY_LAYOUT
-	 * @generated
-	 * @ordered
-	 */
-	public static final ViewmapLayoutType XY_LAYOUT_LITERAL = new ViewmapLayoutType(XY_LAYOUT, "XY_LAYOUT", "XY_LAYOUT");
-
-	/**
-	 * The '<em><b>FLOW LAYOUT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FLOW_LAYOUT
-	 * @generated
-	 * @ordered
-	 */
-	public static final ViewmapLayoutType FLOW_LAYOUT_LITERAL = new ViewmapLayoutType(FLOW_LAYOUT, "FLOW_LAYOUT", "FLOW_LAYOUT");
-
-	/**
-	 * The '<em><b>TOOLBAR LAYOUT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TOOLBAR_LAYOUT
-	 * @generated
-	 * @ordered
-	 */
-	public static final ViewmapLayoutType TOOLBAR_LAYOUT_LITERAL = new ViewmapLayoutType(TOOLBAR_LAYOUT, "TOOLBAR_LAYOUT", "TOOLBAR_LAYOUT");
-
-	/**
 	 * An array of all the '<em><b>Viewmap Layout Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -142,7 +139,7 @@ public final class ViewmapLayoutType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ViewmapLayoutType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Viewmap Layout Type</b></em>' literal with the specified literal value.
@@ -189,8 +186,29 @@ public final class ViewmapLayoutType extends AbstractEnumerator {
 			case FLOW_LAYOUT: return FLOW_LAYOUT_LITERAL;
 			case TOOLBAR_LAYOUT: return TOOLBAR_LAYOUT_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -199,7 +217,46 @@ public final class ViewmapLayoutType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private ViewmapLayoutType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //ViewmapLayoutType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

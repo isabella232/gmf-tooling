@@ -6,8 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -102,6 +100,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenLabel();
 	}
@@ -196,12 +195,12 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getMetaFeatures() {
+	public EList<GenFeature> getMetaFeatures() {
 		return getMetaFeatures(getModelFacet());
 	}
 
-	public static EList getMetaFeatures(LabelModelFacet modelFacet) {
-		EList metaFeatures = new BasicEList();
+	public static EList<GenFeature> getMetaFeatures(LabelModelFacet modelFacet) {
+		BasicEList<GenFeature> metaFeatures = new BasicEList<GenFeature>();
 		if (modelFacet instanceof FeatureLabelModelFacet) {
 			metaFeatures.addAll(((FeatureLabelModelFacet) modelFacet).getMetaFeatures());
 		}
@@ -213,6 +212,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
@@ -226,6 +226,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
@@ -243,6 +244,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
@@ -263,6 +265,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
@@ -283,6 +286,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
@@ -300,6 +304,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -316,9 +321,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 
 	public String getClassNamePrefix() {
 		// should be consistent with ClassNamingStrategy
-		StringBuffer sb = new StringBuffer();
-		for (Iterator it = getMetaFeatures().iterator(); it.hasNext();) {
-			GenFeature metaFeature = (GenFeature) it.next();
+		StringBuilder sb = new StringBuilder();
+		for (GenFeature metaFeature : getMetaFeatures()) {
 			sb.append(metaFeature.getCapName());
 		}
 		return getHostName() + (sb.length() > 0 ? sb.toString() : CLASS_NAME_PREFIX);

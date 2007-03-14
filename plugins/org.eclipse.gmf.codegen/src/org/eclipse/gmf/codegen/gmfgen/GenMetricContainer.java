@@ -8,6 +8,7 @@ package org.eclipse.gmf.codegen.gmfgen;
 
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -63,7 +64,7 @@ public interface GenMetricContainer extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenMetricRule" opposite="container" containment="true" required="true"
 	 * @generated
 	 */
-	EList getMetrics();
+	EList<GenMetricRule> getMetrics();
 
-	Set getAllTargetedModelPackages();	
+	Set<GenPackage> getAllTargetedModelPackages();	
 } // GenMetricContainer

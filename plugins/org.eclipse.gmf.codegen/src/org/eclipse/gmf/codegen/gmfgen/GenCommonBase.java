@@ -248,7 +248,7 @@ public interface GenCommonBase extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.Behaviour" opposite="subject" containment="true"
 	 * @generated
 	 */
-	EList getBehaviour();
+	EList<Behaviour> getBehaviour();
 
 	/**
 	 * Returns the value of the '<em><b>Sans Domain</b></em>' attribute.

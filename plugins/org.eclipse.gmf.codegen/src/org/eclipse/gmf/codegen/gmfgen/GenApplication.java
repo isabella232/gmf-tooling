@@ -289,7 +289,7 @@ public interface GenApplication extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenContributionItem" containment="true"
 	 * @generated
 	 */
-	EList getSharedContributionItems();
+	EList<GenContributionItem> getSharedContributionItems();
 
 	/**
 	 * Returns the value of the '<em><b>Main Menu</b></em>' containment reference.

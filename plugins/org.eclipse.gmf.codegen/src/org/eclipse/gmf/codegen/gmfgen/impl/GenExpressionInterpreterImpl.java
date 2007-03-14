@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.3 2006/07/20 17:40:06 ashatalin Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.4 2007/03/14 14:39:34 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -83,7 +83,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList requiredPluginIDs = null;
+	protected EList<String> requiredPluginIDs = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,6 +99,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenExpressionInterpreter();
 	}
@@ -143,9 +144,9 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRequiredPluginIDs() {
+	public EList<String> getRequiredPluginIDs() {
 		if (requiredPluginIDs == null) {
-			requiredPluginIDs = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS);
+			requiredPluginIDs = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS);
 		}
 		return requiredPluginIDs;
 	}
@@ -194,6 +195,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
@@ -211,6 +213,8 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
@@ -221,7 +225,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:
 				getRequiredPluginIDs().clear();
-				getRequiredPluginIDs().addAll((Collection)newValue);
+				getRequiredPluginIDs().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -232,6 +236,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
@@ -252,6 +257,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
@@ -269,6 +275,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

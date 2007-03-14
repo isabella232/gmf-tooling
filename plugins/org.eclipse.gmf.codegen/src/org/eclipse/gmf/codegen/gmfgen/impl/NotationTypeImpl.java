@@ -35,6 +35,7 @@ public class NotationTypeImpl extends ElementTypeImpl implements NotationType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getNotationType();
 	}

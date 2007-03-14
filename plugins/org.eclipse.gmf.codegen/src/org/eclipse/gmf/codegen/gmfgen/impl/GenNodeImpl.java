@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -16,6 +15,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -70,7 +70,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated
 	 * @ordered
 	 */
-	protected EList labels = null;
+	protected EList<GenNodeLabel> labels = null;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' reference list.
@@ -80,7 +80,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated
 	 * @ordered
 	 */
-	protected EList compartments = null;
+	protected EList<GenCompartment> compartments = null;
 
 	/**
 	 * The default value of the '{@link #getPrimaryDragEditPolicyQualifiedClassName() <em>Primary Drag Edit Policy Qualified Class Name</em>}' attribute.
@@ -156,6 +156,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNode();
 	}
@@ -192,12 +193,14 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__LABELS:
-				return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLabels()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCompartments()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -207,14 +210,15 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				return basicSetModelFacet(null, msgs);
 			case GMFGenPackage.GEN_NODE__LABELS:
-				return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLabels()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCompartments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -224,6 +228,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
@@ -249,6 +254,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
@@ -256,11 +263,11 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				return;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				getLabels().clear();
-				getLabels().addAll((Collection)newValue);
+				getLabels().addAll((Collection<? extends GenNodeLabel>)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				getCompartments().clear();
-				getCompartments().addAll((Collection)newValue);
+				getCompartments().addAll((Collection<? extends GenCompartment>)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME:
 				setPrimaryDragEditPolicyQualifiedClassName((String)newValue);
@@ -280,6 +287,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
@@ -309,6 +317,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
@@ -334,9 +343,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLabels() {
+	public EList<GenNodeLabel> getLabels() {
 		if (labels == null) {
-			labels = new EObjectContainmentWithInverseEList(GenNodeLabel.class, this, GMFGenPackage.GEN_NODE__LABELS, GMFGenPackage.GEN_NODE_LABEL__NODE);
+			labels = new EObjectContainmentWithInverseEList<GenNodeLabel>(GenNodeLabel.class, this, GMFGenPackage.GEN_NODE__LABELS, GMFGenPackage.GEN_NODE_LABEL__NODE);
 		}
 		return labels;
 	}
@@ -346,9 +355,9 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCompartments() {
+	public EList<GenCompartment> getCompartments() {
 		if (compartments == null) {
-			compartments = new EObjectWithInverseResolvingEList(GenCompartment.class, this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__NODE);
+			compartments = new EObjectWithInverseResolvingEList<GenCompartment>(GenCompartment.class, this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__NODE);
 		}
 		return compartments;
 	}
@@ -472,6 +481,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -502,15 +512,14 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getReorientedIncomingLinks() {
+	public EList<GenLink> getReorientedIncomingLinks() {
 		if (getModelFacet() == null) {
-			return new BasicEList.UnmodifiableEList(0, new Object[0]);
+			return ECollections.emptyEList();
 		}
 		// [artem] XXX not sure there might be two equal links in the genDiagram.links
 		// but 'set' was there in the original template. legacy is the only reason i kept it,
 		Set<GenLink> reorientedLinks = new HashSet<GenLink>();
-		for (Iterator links = getDiagram().getLinks().iterator(); links.hasNext(); ) {
-			GenLink genLink = (GenLink) links.next();
+		for (GenLink genLink : getDiagram().getLinks()) {
 			if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
 				continue;
 			}
@@ -550,7 +559,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				reorientedLinks.add(genLink);
 			}
 		}
-		return new BasicEList.UnmodifiableEList(reorientedLinks.size(), reorientedLinks.toArray());
+		return new BasicEList.UnmodifiableEList<GenLink>(reorientedLinks.size(), reorientedLinks.toArray());
 	}
 	
 	public boolean isSansDomain() {

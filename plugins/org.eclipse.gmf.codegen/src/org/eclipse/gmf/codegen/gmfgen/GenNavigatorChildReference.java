@@ -224,6 +224,6 @@ public interface GenNavigatorChildReference extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath"
 	 * @generated
 	 */
-	EList findConnectionPaths();
+	EList<GenNavigatorPath> findConnectionPaths();
 
 } // GenNavigatorChildReference

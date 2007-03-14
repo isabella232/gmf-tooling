@@ -72,6 +72,6 @@ public interface GenContributionManager extends GenContributionItem {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenContributionItem" opposite="owner" containment="true"
 	 * @generated
 	 */
-	EList getItems();
+	EList<GenContributionItem> getItems();
 
 } // GenContributionManager

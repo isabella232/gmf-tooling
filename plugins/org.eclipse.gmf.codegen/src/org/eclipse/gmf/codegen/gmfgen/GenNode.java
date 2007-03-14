@@ -90,7 +90,7 @@ public interface GenNode extends GenChildContainer {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNodeLabel" opposite="node" containment="true"
 	 * @generated
 	 */
-	EList getLabels();
+	EList<GenNodeLabel> getLabels();
 
 	/**
 	 * Returns the value of the '<em><b>Compartments</b></em>' reference list.
@@ -108,7 +108,7 @@ public interface GenNode extends GenChildContainer {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="node"
 	 * @generated
 	 */
-	EList getCompartments();
+	EList<GenCompartment> getCompartments();
 
 	/**
 	 * Returns the value of the '<em><b>Primary Drag Edit Policy Qualified Class Name</b></em>' attribute.
@@ -205,7 +205,7 @@ public interface GenNode extends GenChildContainer {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList getReorientedIncomingLinks();
+	EList<GenLink> getReorientedIncomingLinks();
 
 	/**
 	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.

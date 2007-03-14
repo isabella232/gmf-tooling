@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,9 +31,11 @@ import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -1140,7 +1141,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList containsShortcutsTo = null;
+	protected EList<String> containsShortcutsTo = null;
 
 	/**
 	 * The cached value of the '{@link #getShortcutsProvidedFor() <em>Shortcuts Provided For</em>}' attribute list.
@@ -1150,7 +1151,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList shortcutsProvidedFor = null;
+	protected EList<String> shortcutsProvidedFor = null;
 
 	/**
 	 * The default value of the '{@link #getValidationProviderClassName() <em>Validation Provider Class Name</em>}' attribute.
@@ -1410,7 +1411,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childNodes = null;
+	protected EList<GenChildNode> childNodes = null;
 
 	/**
 	 * The cached value of the '{@link #getTopLevelNodes() <em>Top Level Nodes</em>}' containment reference list.
@@ -1420,7 +1421,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList topLevelNodes = null;
+	protected EList<GenTopLevelNode> topLevelNodes = null;
 
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
@@ -1430,7 +1431,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList links = null;
+	protected EList<GenLink> links = null;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -1440,7 +1441,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList compartments = null;
+	protected EList<GenCompartment> compartments = null;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
@@ -1490,7 +1491,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preferencePages = null;
+	protected EList<GenPreferencePage> preferencePages = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1506,6 +1507,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenDiagram();
 	}
@@ -1515,9 +1517,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getContainedNodes() {
-		List topLevelNodes = getTopLevelNodes();
-		return new EcoreEList.UnmodifiableEList(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), topLevelNodes.size(), topLevelNodes.toArray());
+	public EList<GenNode> getContainedNodes() {
+		List<GenTopLevelNode> topLevelNodes = getTopLevelNodes();
+		return new EcoreEList.UnmodifiableEList<GenNode>(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), topLevelNodes.size(), topLevelNodes.toArray());
 	}
 
 	/**
@@ -1563,9 +1565,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildNodes() {
+	public EList<GenChildNode> getChildNodes() {
 		if (childNodes == null) {
-			childNodes = new EObjectContainmentWithInverseEList(GenChildNode.class, this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM);
+			childNodes = new EObjectContainmentWithInverseEList<GenChildNode>(GenChildNode.class, this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM);
 		}
 		return childNodes;
 	}
@@ -1575,9 +1577,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTopLevelNodes() {
+	public EList<GenTopLevelNode> getTopLevelNodes() {
 		if (topLevelNodes == null) {
-			topLevelNodes = new EObjectContainmentWithInverseEList(GenTopLevelNode.class, this, GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES, GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM);
+			topLevelNodes = new EObjectContainmentWithInverseEList<GenTopLevelNode>(GenTopLevelNode.class, this, GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES, GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM);
 		}
 		return topLevelNodes;
 	}
@@ -1587,9 +1589,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLinks() {
+	public EList<GenLink> getLinks() {
 		if (links == null) {
-			links = new EObjectContainmentWithInverseEList(GenLink.class, this, GMFGenPackage.GEN_DIAGRAM__LINKS, GMFGenPackage.GEN_LINK__DIAGRAM);
+			links = new EObjectContainmentWithInverseEList<GenLink>(GenLink.class, this, GMFGenPackage.GEN_DIAGRAM__LINKS, GMFGenPackage.GEN_LINK__DIAGRAM);
 		}
 		return links;
 	}
@@ -1599,9 +1601,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCompartments() {
+	public EList<GenCompartment> getCompartments() {
 		if (compartments == null) {
-			compartments = new EObjectContainmentWithInverseEList(GenCompartment.class, this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM);
+			compartments = new EObjectContainmentWithInverseEList<GenCompartment>(GenCompartment.class, this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM);
 		}
 		return compartments;
 	}
@@ -1718,9 +1720,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getPreferencePages() {
+	public EList<GenPreferencePage> getPreferencePages() {
 		if (preferencePages == null) {
-			preferencePages = new EObjectContainmentEList(GenPreferencePage.class, this, GMFGenPackage.GEN_DIAGRAM__PREFERENCE_PAGES);
+			preferencePages = new EObjectContainmentEList<GenPreferencePage>(GenPreferencePage.class, this, GMFGenPackage.GEN_DIAGRAM__PREFERENCE_PAGES);
 		}
 		return preferencePages;
 	}
@@ -2256,9 +2258,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getContainsShortcutsTo() {
+	public EList<String> getContainsShortcutsTo() {
 		if (containsShortcutsTo == null) {
-			containsShortcutsTo = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO);
+			containsShortcutsTo = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO);
 		}
 		return containsShortcutsTo;
 	}
@@ -2268,9 +2270,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getShortcutsProvidedFor() {
+	public EList<String> getShortcutsProvidedFor() {
 		if (shortcutsProvidedFor == null) {
-			shortcutsProvidedFor = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR);
+			shortcutsProvidedFor = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR);
 		}
 		return shortcutsProvidedFor;
 	}
@@ -3496,11 +3498,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllNodes() {
-		EList result = new BasicEList();
+	public EList<GenNode> getAllNodes() {
+		BasicEList<GenNode> result = new BasicEList<GenNode>();
 		result.addAll(getTopLevelNodes());
 		result.addAll(getChildNodes());
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+		return new BasicEList.UnmodifiableEList<GenNode>(result.size(), result.toArray());
 	}
 
 	/**
@@ -3508,11 +3510,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllChildContainers() {
-		EList result = new BasicEList();
+	public EList<GenChildContainer> getAllChildContainers() {
+		BasicEList<GenChildContainer> result = new BasicEList<GenChildContainer>();
 		result.addAll(getAllNodes());
 		result.addAll(getCompartments());
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+		return new BasicEList.UnmodifiableEList<GenChildContainer>(result.size(), result.toArray());
 	}
 
 	/**
@@ -3520,11 +3522,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllContainers() {
-		EList result = new BasicEList();
+	public EList<GenContainerBase> getAllContainers() {
+		BasicEList<GenContainerBase> result = new BasicEList<GenContainerBase>();
 		result.addAll(getAllChildContainers());
 		result.add(this);
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+		return new BasicEList.UnmodifiableEList<GenContainerBase>(result.size(), result.toArray());
 	}
 
 	/**
@@ -3673,6 +3675,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3680,13 +3684,13 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
-				return ((InternalEList)getTopLevelNodes()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTopLevelNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				return ((InternalEList)getLinks()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCompartments()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				if (palette != null)
 					msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
@@ -3700,24 +3704,25 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
-				return ((InternalEList)getTopLevelNodes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTopLevelNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
-				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCompartments()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return basicSetPalette(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
 				return basicSetPreferences(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_PAGES:
-				return ((InternalEList)getPreferencePages()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreferencePages()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -3727,6 +3732,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3740,6 +3746,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
@@ -3902,6 +3909,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
@@ -4053,11 +4062,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 				getContainsShortcutsTo().clear();
-				getContainsShortcutsTo().addAll((Collection)newValue);
+				getContainsShortcutsTo().addAll((Collection<? extends String>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				getShortcutsProvidedFor().clear();
-				getShortcutsProvidedFor().addAll((Collection)newValue);
+				getShortcutsProvidedFor().addAll((Collection<? extends String>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 				setValidationProviderClassName((String)newValue);
@@ -4100,19 +4109,19 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
+				getChildNodes().addAll((Collection<? extends GenChildNode>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				getTopLevelNodes().clear();
-				getTopLevelNodes().addAll((Collection)newValue);
+				getTopLevelNodes().addAll((Collection<? extends GenTopLevelNode>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
-				getLinks().addAll((Collection)newValue);
+				getLinks().addAll((Collection<? extends GenLink>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 				getCompartments().clear();
-				getCompartments().addAll((Collection)newValue);
+				getCompartments().addAll((Collection<? extends GenCompartment>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
@@ -4125,7 +4134,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_PAGES:
 				getPreferencePages().clear();
-				getPreferencePages().addAll((Collection)newValue);
+				getPreferencePages().addAll((Collection<? extends GenPreferencePage>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -4136,6 +4145,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
@@ -4363,6 +4373,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
@@ -4524,7 +4535,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == PackageNames.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME;
@@ -4636,7 +4648,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == PackageNames.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME;
@@ -4749,8 +4762,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public boolean hasLinkCreationConstraints() {
-		for (Iterator it = getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
+		for (GenLink nextLink : getLinks()) {
 			if(nextLink.getCreationConstraints() != null) {
 				return true;
 			}
@@ -5028,6 +5040,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -5178,16 +5191,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	
 	public Map<TypeModelFacet, GenCommonBase> getTypeModelFacet2GenBaseMap() {
 		Map<TypeModelFacet, GenCommonBase> resultMap = new LinkedHashMap<TypeModelFacet, GenCommonBase>();
-		for (Iterator it = getAllNodes().iterator(); it.hasNext(); ) {
-			GenNode next = (GenNode) it.next();
+		for (GenNode next : getAllNodes()) {
 			TypeModelFacet modelFacet = null;
 			modelFacet = next.getModelFacet();
 			if(modelFacet != null) {
 				resultMap.put(modelFacet, next);					
 			}
 		}
-		for (Iterator it = getLinks().iterator(); it.hasNext();) {
-			GenLink next = (GenLink) it.next();
+		for (GenLink next : getLinks()) {
 			if (next.getModelFacet() instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) next.getModelFacet();
 				if(modelFacet != null) {
@@ -5200,8 +5211,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public Map<GenClass, GenTopLevelNode> getGenClass2PhantomMap() {
 		LinkedHashMap<GenClass, GenTopLevelNode> genClass2Phantom = new LinkedHashMap<GenClass, GenTopLevelNode>();
-		for (Iterator topLevelNodes = getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
-			GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
+		for (GenTopLevelNode nextTopLevelNode : getTopLevelNodes()) {
 			TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
 			if (nextModelFacet == null || !nextModelFacet.isPhantomElement()) {
 				continue;
@@ -5213,8 +5223,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public List<GenLink> getPhantomLinks() {
 		LinkedList<GenLink> phantomLinks = new LinkedList<GenLink>();
-		for (Iterator it = getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
+		for (GenLink nextLink : getLinks()) {
 			if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 				FeatureLinkModelFacet nextModelFacet = (FeatureLinkModelFacet) nextLink.getModelFacet();
 				if (nextModelFacet.getMetaFeature().isContains()) {

@@ -46,6 +46,6 @@ public interface GenChildContainer extends GenContainerBase {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="containers"
 	 * @generated
 	 */
-	EList getChildNodes();
+	EList<GenChildNode> getChildNodes();
 
 } // GenChildContainer

@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -49,7 +48,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList attributes = null;
+	protected EList<Attributes> attributes = null;
 
 	/**
 	 * The cached value of the '{@link #getRequiredPluginIDs() <em>Required Plugin IDs</em>}' attribute list.
@@ -59,7 +58,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList requiredPluginIDs = null;
+	protected EList<String> requiredPluginIDs = null;
 
 	/**
 	 * The default value of the '{@link #getLayoutType() <em>Layout Type</em>}' attribute.
@@ -95,6 +94,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getViewmap();
 	}
@@ -104,9 +104,9 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRequiredPluginIDs() {
+	public EList<String> getRequiredPluginIDs() {
 		if (requiredPluginIDs == null) {
-			requiredPluginIDs = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS);
+			requiredPluginIDs = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS);
 		}
 		return requiredPluginIDs;
 	}
@@ -137,9 +137,9 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAttributes() {
+	public EList<Attributes> getAttributes() {
 		if (attributes == null) {
-			attributes = new EObjectContainmentEList(Attributes.class, this, GMFGenPackage.VIEWMAP__ATTRIBUTES);
+			attributes = new EObjectContainmentEList<Attributes>(Attributes.class, this, GMFGenPackage.VIEWMAP__ATTRIBUTES);
 		}
 		return attributes;
 	}
@@ -150,8 +150,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * @generated NOT
 	 */
 	public Attributes find(Class attributesClass) {
-		for (Iterator it = getAttributes().iterator(); it.hasNext(); ) {
-			Attributes next = (Attributes) it.next();
+		for (Attributes next : getAttributes()) {
 			if (attributesClass.isInstance(next)) {
 				return next;
 			}
@@ -164,10 +163,11 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
-				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -177,6 +177,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
@@ -194,15 +195,17 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
 				getAttributes().clear();
-				getAttributes().addAll((Collection)newValue);
+				getAttributes().addAll((Collection<? extends Attributes>)newValue);
 				return;
 			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
 				getRequiredPluginIDs().clear();
-				getRequiredPluginIDs().addAll((Collection)newValue);
+				getRequiredPluginIDs().addAll((Collection<? extends String>)newValue);
 				return;
 			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
 				setLayoutType((ViewmapLayoutType)newValue);
@@ -216,6 +219,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
@@ -236,6 +240,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
@@ -253,6 +258,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

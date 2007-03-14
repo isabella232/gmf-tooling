@@ -49,6 +49,7 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -65,360 +66,478 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GMFGenSwitch modelSwitch =
-		new GMFGenSwitch() {
-			public Object caseGenEditorGenerator(GenEditorGenerator object) {
+	protected GMFGenSwitch<Adapter> modelSwitch =
+		new GMFGenSwitch<Adapter>() {
+			@Override
+			public Adapter caseGenEditorGenerator(GenEditorGenerator object) {
 				return createGenEditorGeneratorAdapter();
 			}
-			public Object caseGenDiagram(GenDiagram object) {
+			@Override
+			public Adapter caseGenDiagram(GenDiagram object) {
 				return createGenDiagramAdapter();
 			}
-			public Object caseGenEditorView(GenEditorView object) {
+			@Override
+			public Adapter caseGenEditorView(GenEditorView object) {
 				return createGenEditorViewAdapter();
 			}
-			public Object caseGenPreferencePage(GenPreferencePage object) {
+			@Override
+			public Adapter caseGenPreferencePage(GenPreferencePage object) {
 				return createGenPreferencePageAdapter();
 			}
-			public Object caseGenCustomPreferencePage(GenCustomPreferencePage object) {
+			@Override
+			public Adapter caseGenCustomPreferencePage(GenCustomPreferencePage object) {
 				return createGenCustomPreferencePageAdapter();
 			}
-			public Object caseGenStandardPreferencePage(GenStandardPreferencePage object) {
+			@Override
+			public Adapter caseGenStandardPreferencePage(GenStandardPreferencePage object) {
 				return createGenStandardPreferencePageAdapter();
 			}
-			public Object caseGenDiagramPreferences(GenDiagramPreferences object) {
+			@Override
+			public Adapter caseGenDiagramPreferences(GenDiagramPreferences object) {
 				return createGenDiagramPreferencesAdapter();
 			}
-			public Object caseGenFont(GenFont object) {
+			@Override
+			public Adapter caseGenFont(GenFont object) {
 				return createGenFontAdapter();
 			}
-			public Object caseGenStandardFont(GenStandardFont object) {
+			@Override
+			public Adapter caseGenStandardFont(GenStandardFont object) {
 				return createGenStandardFontAdapter();
 			}
-			public Object caseGenCustomFont(GenCustomFont object) {
+			@Override
+			public Adapter caseGenCustomFont(GenCustomFont object) {
 				return createGenCustomFontAdapter();
 			}
-			public Object caseGenColor(GenColor object) {
+			@Override
+			public Adapter caseGenColor(GenColor object) {
 				return createGenColorAdapter();
 			}
-			public Object caseGenRGBColor(GenRGBColor object) {
+			@Override
+			public Adapter caseGenRGBColor(GenRGBColor object) {
 				return createGenRGBColorAdapter();
 			}
-			public Object caseGenConstantColor(GenConstantColor object) {
+			@Override
+			public Adapter caseGenConstantColor(GenConstantColor object) {
 				return createGenConstantColorAdapter();
 			}
-			public Object caseBatchValidation(BatchValidation object) {
+			@Override
+			public Adapter caseBatchValidation(BatchValidation object) {
 				return createBatchValidationAdapter();
 			}
-			public Object caseProviderClassNames(ProviderClassNames object) {
+			@Override
+			public Adapter caseProviderClassNames(ProviderClassNames object) {
 				return createProviderClassNamesAdapter();
 			}
-			public Object caseShortcuts(Shortcuts object) {
+			@Override
+			public Adapter caseShortcuts(Shortcuts object) {
 				return createShortcutsAdapter();
 			}
-			public Object casePackageNames(PackageNames object) {
+			@Override
+			public Adapter casePackageNames(PackageNames object) {
 				return createPackageNamesAdapter();
 			}
-			public Object caseLinkConstraints(LinkConstraints object) {
+			@Override
+			public Adapter caseLinkConstraints(LinkConstraints object) {
 				return createLinkConstraintsAdapter();
 			}
-			public Object caseEditorCandies(EditorCandies object) {
+			@Override
+			public Adapter caseEditorCandies(EditorCandies object) {
 				return createEditorCandiesAdapter();
 			}
-			public Object caseEditPartCandies(EditPartCandies object) {
+			@Override
+			public Adapter caseEditPartCandies(EditPartCandies object) {
 				return createEditPartCandiesAdapter();
 			}
-			public Object caseMeasurementUnit(MeasurementUnit object) {
+			@Override
+			public Adapter caseMeasurementUnit(MeasurementUnit object) {
 				return createMeasurementUnitAdapter();
 			}
-			public Object caseGenPlugin(GenPlugin object) {
+			@Override
+			public Adapter caseGenPlugin(GenPlugin object) {
 				return createGenPluginAdapter();
 			}
-			public Object caseGenCommonBase(GenCommonBase object) {
+			@Override
+			public Adapter caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
-			public Object caseBehaviour(Behaviour object) {
+			@Override
+			public Adapter caseBehaviour(Behaviour object) {
 				return createBehaviourAdapter();
 			}
-			public Object caseCustomBehaviour(CustomBehaviour object) {
+			@Override
+			public Adapter caseCustomBehaviour(CustomBehaviour object) {
 				return createCustomBehaviourAdapter();
 			}
-			public Object caseSharedBehaviour(SharedBehaviour object) {
+			@Override
+			public Adapter caseSharedBehaviour(SharedBehaviour object) {
 				return createSharedBehaviourAdapter();
 			}
-			public Object caseOpenDiagramBehaviour(OpenDiagramBehaviour object) {
+			@Override
+			public Adapter caseOpenDiagramBehaviour(OpenDiagramBehaviour object) {
 				return createOpenDiagramBehaviourAdapter();
 			}
-			public Object caseGenContainerBase(GenContainerBase object) {
+			@Override
+			public Adapter caseGenContainerBase(GenContainerBase object) {
 				return createGenContainerBaseAdapter();
 			}
-			public Object caseGenChildContainer(GenChildContainer object) {
+			@Override
+			public Adapter caseGenChildContainer(GenChildContainer object) {
 				return createGenChildContainerAdapter();
 			}
-			public Object caseGenNode(GenNode object) {
+			@Override
+			public Adapter caseGenNode(GenNode object) {
 				return createGenNodeAdapter();
 			}
-			public Object caseGenTopLevelNode(GenTopLevelNode object) {
+			@Override
+			public Adapter caseGenTopLevelNode(GenTopLevelNode object) {
 				return createGenTopLevelNodeAdapter();
 			}
-			public Object caseGenChildNode(GenChildNode object) {
+			@Override
+			public Adapter caseGenChildNode(GenChildNode object) {
 				return createGenChildNodeAdapter();
 			}
-			public Object caseGenChildSideAffixedNode(GenChildSideAffixedNode object) {
+			@Override
+			public Adapter caseGenChildSideAffixedNode(GenChildSideAffixedNode object) {
 				return createGenChildSideAffixedNodeAdapter();
 			}
-			public Object caseGenChildLabelNode(GenChildLabelNode object) {
+			@Override
+			public Adapter caseGenChildLabelNode(GenChildLabelNode object) {
 				return createGenChildLabelNodeAdapter();
 			}
-			public Object caseGenCompartment(GenCompartment object) {
+			@Override
+			public Adapter caseGenCompartment(GenCompartment object) {
 				return createGenCompartmentAdapter();
 			}
-			public Object caseGenLink(GenLink object) {
+			@Override
+			public Adapter caseGenLink(GenLink object) {
 				return createGenLinkAdapter();
 			}
-			public Object caseGenLabel(GenLabel object) {
+			@Override
+			public Adapter caseGenLabel(GenLabel object) {
 				return createGenLabelAdapter();
 			}
-			public Object caseGenNodeLabel(GenNodeLabel object) {
+			@Override
+			public Adapter caseGenNodeLabel(GenNodeLabel object) {
 				return createGenNodeLabelAdapter();
 			}
-			public Object caseGenExternalNodeLabel(GenExternalNodeLabel object) {
+			@Override
+			public Adapter caseGenExternalNodeLabel(GenExternalNodeLabel object) {
 				return createGenExternalNodeLabelAdapter();
 			}
-			public Object caseGenLinkLabel(GenLinkLabel object) {
+			@Override
+			public Adapter caseGenLinkLabel(GenLinkLabel object) {
 				return createGenLinkLabelAdapter();
 			}
-			public Object caseElementType(ElementType object) {
+			@Override
+			public Adapter caseElementType(ElementType object) {
 				return createElementTypeAdapter();
 			}
-			public Object caseMetamodelType(MetamodelType object) {
+			@Override
+			public Adapter caseMetamodelType(MetamodelType object) {
 				return createMetamodelTypeAdapter();
 			}
-			public Object caseSpecializationType(SpecializationType object) {
+			@Override
+			public Adapter caseSpecializationType(SpecializationType object) {
 				return createSpecializationTypeAdapter();
 			}
-			public Object caseNotationType(NotationType object) {
+			@Override
+			public Adapter caseNotationType(NotationType object) {
 				return createNotationTypeAdapter();
 			}
-			public Object caseModelFacet(ModelFacet object) {
+			@Override
+			public Adapter caseModelFacet(ModelFacet object) {
 				return createModelFacetAdapter();
 			}
-			public Object caseLinkModelFacet(LinkModelFacet object) {
+			@Override
+			public Adapter caseLinkModelFacet(LinkModelFacet object) {
 				return createLinkModelFacetAdapter();
 			}
-			public Object caseLabelModelFacet(LabelModelFacet object) {
+			@Override
+			public Adapter caseLabelModelFacet(LabelModelFacet object) {
 				return createLabelModelFacetAdapter();
 			}
-			public Object caseTypeModelFacet(TypeModelFacet object) {
+			@Override
+			public Adapter caseTypeModelFacet(TypeModelFacet object) {
 				return createTypeModelFacetAdapter();
 			}
-			public Object caseTypeLinkModelFacet(TypeLinkModelFacet object) {
+			@Override
+			public Adapter caseTypeLinkModelFacet(TypeLinkModelFacet object) {
 				return createTypeLinkModelFacetAdapter();
 			}
-			public Object caseFeatureLinkModelFacet(FeatureLinkModelFacet object) {
+			@Override
+			public Adapter caseFeatureLinkModelFacet(FeatureLinkModelFacet object) {
 				return createFeatureLinkModelFacetAdapter();
 			}
-			public Object caseFeatureLabelModelFacet(FeatureLabelModelFacet object) {
+			@Override
+			public Adapter caseFeatureLabelModelFacet(FeatureLabelModelFacet object) {
 				return createFeatureLabelModelFacetAdapter();
 			}
-			public Object caseDesignLabelModelFacet(DesignLabelModelFacet object) {
+			@Override
+			public Adapter caseDesignLabelModelFacet(DesignLabelModelFacet object) {
 				return createDesignLabelModelFacetAdapter();
 			}
-			public Object caseAttributes(Attributes object) {
+			@Override
+			public Adapter caseAttributes(Attributes object) {
 				return createAttributesAdapter();
 			}
-			public Object caseColorAttributes(ColorAttributes object) {
+			@Override
+			public Adapter caseColorAttributes(ColorAttributes object) {
 				return createColorAttributesAdapter();
 			}
-			public Object caseStyleAttributes(StyleAttributes object) {
+			@Override
+			public Adapter caseStyleAttributes(StyleAttributes object) {
 				return createStyleAttributesAdapter();
 			}
-			public Object caseResizeConstraints(ResizeConstraints object) {
+			@Override
+			public Adapter caseResizeConstraints(ResizeConstraints object) {
 				return createResizeConstraintsAdapter();
 			}
-			public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
+			@Override
+			public Adapter caseDefaultSizeAttributes(DefaultSizeAttributes object) {
 				return createDefaultSizeAttributesAdapter();
 			}
-			public Object caseLabelOffsetAttributes(LabelOffsetAttributes object) {
+			@Override
+			public Adapter caseLabelOffsetAttributes(LabelOffsetAttributes object) {
 				return createLabelOffsetAttributesAdapter();
 			}
-			public Object caseViewmap(Viewmap object) {
+			@Override
+			public Adapter caseViewmap(Viewmap object) {
 				return createViewmapAdapter();
 			}
-			public Object caseFigureViewmap(FigureViewmap object) {
+			@Override
+			public Adapter caseFigureViewmap(FigureViewmap object) {
 				return createFigureViewmapAdapter();
 			}
-			public Object caseSnippetViewmap(SnippetViewmap object) {
+			@Override
+			public Adapter caseSnippetViewmap(SnippetViewmap object) {
 				return createSnippetViewmapAdapter();
 			}
-			public Object caseInnerClassViewmap(InnerClassViewmap object) {
+			@Override
+			public Adapter caseInnerClassViewmap(InnerClassViewmap object) {
 				return createInnerClassViewmapAdapter();
 			}
-			public Object caseParentAssignedViewmap(ParentAssignedViewmap object) {
+			@Override
+			public Adapter caseParentAssignedViewmap(ParentAssignedViewmap object) {
 				return createParentAssignedViewmapAdapter();
 			}
-			public Object caseValueExpression(ValueExpression object) {
+			@Override
+			public Adapter caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
 			}
-			public Object caseGenConstraint(GenConstraint object) {
+			@Override
+			public Adapter caseGenConstraint(GenConstraint object) {
 				return createGenConstraintAdapter();
 			}
-			public Object casePalette(Palette object) {
+			@Override
+			public Adapter casePalette(Palette object) {
 				return createPaletteAdapter();
 			}
-			public Object caseEntryBase(EntryBase object) {
+			@Override
+			public Adapter caseEntryBase(EntryBase object) {
 				return createEntryBaseAdapter();
 			}
-			public Object caseAbstractToolEntry(AbstractToolEntry object) {
+			@Override
+			public Adapter caseAbstractToolEntry(AbstractToolEntry object) {
 				return createAbstractToolEntryAdapter();
 			}
-			public Object caseToolEntry(ToolEntry object) {
+			@Override
+			public Adapter caseToolEntry(ToolEntry object) {
 				return createToolEntryAdapter();
 			}
-			public Object caseStandardEntry(StandardEntry object) {
+			@Override
+			public Adapter caseStandardEntry(StandardEntry object) {
 				return createStandardEntryAdapter();
 			}
-			public Object caseToolGroupItem(ToolGroupItem object) {
+			@Override
+			public Adapter caseToolGroupItem(ToolGroupItem object) {
 				return createToolGroupItemAdapter();
 			}
-			public Object caseSeparator(Separator object) {
+			@Override
+			public Adapter caseSeparator(Separator object) {
 				return createSeparatorAdapter();
 			}
-			public Object caseToolGroup(ToolGroup object) {
+			@Override
+			public Adapter caseToolGroup(ToolGroup object) {
 				return createToolGroupAdapter();
 			}
-			public Object caseGenElementInitializer(GenElementInitializer object) {
+			@Override
+			public Adapter caseGenElementInitializer(GenElementInitializer object) {
 				return createGenElementInitializerAdapter();
 			}
-			public Object caseGenFeatureSeqInitializer(GenFeatureSeqInitializer object) {
+			@Override
+			public Adapter caseGenFeatureSeqInitializer(GenFeatureSeqInitializer object) {
 				return createGenFeatureSeqInitializerAdapter();
 			}
-			public Object caseGenFeatureValueSpec(GenFeatureValueSpec object) {
+			@Override
+			public Adapter caseGenFeatureValueSpec(GenFeatureValueSpec object) {
 				return createGenFeatureValueSpecAdapter();
 			}
-			public Object caseGenReferenceNewElementSpec(GenReferenceNewElementSpec object) {
+			@Override
+			public Adapter caseGenReferenceNewElementSpec(GenReferenceNewElementSpec object) {
 				return createGenReferenceNewElementSpecAdapter();
 			}
-			public Object caseGenFeatureInitializer(GenFeatureInitializer object) {
+			@Override
+			public Adapter caseGenFeatureInitializer(GenFeatureInitializer object) {
 				return createGenFeatureInitializerAdapter();
 			}
-			public Object caseGenLinkConstraints(GenLinkConstraints object) {
+			@Override
+			public Adapter caseGenLinkConstraints(GenLinkConstraints object) {
 				return createGenLinkConstraintsAdapter();
 			}
-			public Object caseGenAuditRoot(GenAuditRoot object) {
+			@Override
+			public Adapter caseGenAuditRoot(GenAuditRoot object) {
 				return createGenAuditRootAdapter();
 			}
-			public Object caseGenAuditContainer(GenAuditContainer object) {
+			@Override
+			public Adapter caseGenAuditContainer(GenAuditContainer object) {
 				return createGenAuditContainerAdapter();
 			}
-			public Object caseGenRuleBase(GenRuleBase object) {
+			@Override
+			public Adapter caseGenRuleBase(GenRuleBase object) {
 				return createGenRuleBaseAdapter();
 			}
-			public Object caseGenAuditRule(GenAuditRule object) {
+			@Override
+			public Adapter caseGenAuditRule(GenAuditRule object) {
 				return createGenAuditRuleAdapter();
 			}
-			public Object caseGenRuleTarget(GenRuleTarget object) {
+			@Override
+			public Adapter caseGenRuleTarget(GenRuleTarget object) {
 				return createGenRuleTargetAdapter();
 			}
-			public Object caseGenDomainElementTarget(GenDomainElementTarget object) {
+			@Override
+			public Adapter caseGenDomainElementTarget(GenDomainElementTarget object) {
 				return createGenDomainElementTargetAdapter();
 			}
-			public Object caseGenDiagramElementTarget(GenDiagramElementTarget object) {
+			@Override
+			public Adapter caseGenDiagramElementTarget(GenDiagramElementTarget object) {
 				return createGenDiagramElementTargetAdapter();
 			}
-			public Object caseGenDomainAttributeTarget(GenDomainAttributeTarget object) {
+			@Override
+			public Adapter caseGenDomainAttributeTarget(GenDomainAttributeTarget object) {
 				return createGenDomainAttributeTargetAdapter();
 			}
-			public Object caseGenNotationElementTarget(GenNotationElementTarget object) {
+			@Override
+			public Adapter caseGenNotationElementTarget(GenNotationElementTarget object) {
 				return createGenNotationElementTargetAdapter();
 			}
-			public Object caseGenMetricContainer(GenMetricContainer object) {
+			@Override
+			public Adapter caseGenMetricContainer(GenMetricContainer object) {
 				return createGenMetricContainerAdapter();
 			}
-			public Object caseGenMetricRule(GenMetricRule object) {
+			@Override
+			public Adapter caseGenMetricRule(GenMetricRule object) {
 				return createGenMetricRuleAdapter();
 			}
-			public Object caseGenAuditedMetricTarget(GenAuditedMetricTarget object) {
+			@Override
+			public Adapter caseGenAuditedMetricTarget(GenAuditedMetricTarget object) {
 				return createGenAuditedMetricTargetAdapter();
 			}
-			public Object caseGenAuditable(GenAuditable object) {
+			@Override
+			public Adapter caseGenAuditable(GenAuditable object) {
 				return createGenAuditableAdapter();
 			}
-			public Object caseGenMeasurable(GenMeasurable object) {
+			@Override
+			public Adapter caseGenMeasurable(GenMeasurable object) {
 				return createGenMeasurableAdapter();
 			}
-			public Object caseGenExpressionProviderContainer(GenExpressionProviderContainer object) {
+			@Override
+			public Adapter caseGenExpressionProviderContainer(GenExpressionProviderContainer object) {
 				return createGenExpressionProviderContainerAdapter();
 			}
-			public Object caseGenExpressionProviderBase(GenExpressionProviderBase object) {
+			@Override
+			public Adapter caseGenExpressionProviderBase(GenExpressionProviderBase object) {
 				return createGenExpressionProviderBaseAdapter();
 			}
-			public Object caseGenJavaExpressionProvider(GenJavaExpressionProvider object) {
+			@Override
+			public Adapter caseGenJavaExpressionProvider(GenJavaExpressionProvider object) {
 				return createGenJavaExpressionProviderAdapter();
 			}
-			public Object caseGenExpressionInterpreter(GenExpressionInterpreter object) {
+			@Override
+			public Adapter caseGenExpressionInterpreter(GenExpressionInterpreter object) {
 				return createGenExpressionInterpreterAdapter();
 			}
-			public Object caseGenNavigator(GenNavigator object) {
+			@Override
+			public Adapter caseGenNavigator(GenNavigator object) {
 				return createGenNavigatorAdapter();
 			}
-			public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
+			@Override
+			public Adapter caseGenNavigatorChildReference(GenNavigatorChildReference object) {
 				return createGenNavigatorChildReferenceAdapter();
 			}
-			public Object caseGenNavigatorPath(GenNavigatorPath object) {
+			@Override
+			public Adapter caseGenNavigatorPath(GenNavigatorPath object) {
 				return createGenNavigatorPathAdapter();
 			}
-			public Object caseGenNavigatorPathSegment(GenNavigatorPathSegment object) {
+			@Override
+			public Adapter caseGenNavigatorPathSegment(GenNavigatorPathSegment object) {
 				return createGenNavigatorPathSegmentAdapter();
 			}
-			public Object caseGenPropertySheet(GenPropertySheet object) {
+			@Override
+			public Adapter caseGenPropertySheet(GenPropertySheet object) {
 				return createGenPropertySheetAdapter();
 			}
-			public Object caseGenPropertyTab(GenPropertyTab object) {
+			@Override
+			public Adapter caseGenPropertyTab(GenPropertyTab object) {
 				return createGenPropertyTabAdapter();
 			}
-			public Object caseGenStandardPropertyTab(GenStandardPropertyTab object) {
+			@Override
+			public Adapter caseGenStandardPropertyTab(GenStandardPropertyTab object) {
 				return createGenStandardPropertyTabAdapter();
 			}
-			public Object caseGenCustomPropertyTab(GenCustomPropertyTab object) {
+			@Override
+			public Adapter caseGenCustomPropertyTab(GenCustomPropertyTab object) {
 				return createGenCustomPropertyTabAdapter();
 			}
-			public Object caseGenPropertyTabFilter(GenPropertyTabFilter object) {
+			@Override
+			public Adapter caseGenPropertyTabFilter(GenPropertyTabFilter object) {
 				return createGenPropertyTabFilterAdapter();
 			}
-			public Object caseTypeTabFilter(TypeTabFilter object) {
+			@Override
+			public Adapter caseTypeTabFilter(TypeTabFilter object) {
 				return createTypeTabFilterAdapter();
 			}
-			public Object caseCustomTabFilter(CustomTabFilter object) {
+			@Override
+			public Adapter caseCustomTabFilter(CustomTabFilter object) {
 				return createCustomTabFilterAdapter();
 			}
-			public Object caseGenContributionItem(GenContributionItem object) {
+			@Override
+			public Adapter caseGenContributionItem(GenContributionItem object) {
 				return createGenContributionItemAdapter();
 			}
-			public Object caseGenSharedContributionItem(GenSharedContributionItem object) {
+			@Override
+			public Adapter caseGenSharedContributionItem(GenSharedContributionItem object) {
 				return createGenSharedContributionItemAdapter();
 			}
-			public Object caseGenGroupMarker(GenGroupMarker object) {
+			@Override
+			public Adapter caseGenGroupMarker(GenGroupMarker object) {
 				return createGenGroupMarkerAdapter();
 			}
-			public Object caseGenSeparator(GenSeparator object) {
+			@Override
+			public Adapter caseGenSeparator(GenSeparator object) {
 				return createGenSeparatorAdapter();
 			}
-			public Object caseGenActionFactoryContributionItem(GenActionFactoryContributionItem object) {
+			@Override
+			public Adapter caseGenActionFactoryContributionItem(GenActionFactoryContributionItem object) {
 				return createGenActionFactoryContributionItemAdapter();
 			}
-			public Object caseGenContributionManager(GenContributionManager object) {
+			@Override
+			public Adapter caseGenContributionManager(GenContributionManager object) {
 				return createGenContributionManagerAdapter();
 			}
-			public Object caseGenMenuManager(GenMenuManager object) {
+			@Override
+			public Adapter caseGenMenuManager(GenMenuManager object) {
 				return createGenMenuManagerAdapter();
 			}
-			public Object caseGenToolBarManager(GenToolBarManager object) {
+			@Override
+			public Adapter caseGenToolBarManager(GenToolBarManager object) {
 				return createGenToolBarManagerAdapter();
 			}
-			public Object caseGenApplication(GenApplication object) {
+			@Override
+			public Adapter caseGenApplication(GenApplication object) {
 				return createGenApplicationAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -431,8 +550,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

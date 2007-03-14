@@ -43,6 +43,6 @@ public interface GenNavigatorPath extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment" opposite="path" containment="true"
 	 * @generated
 	 */
-	EList getSegments();
+	EList<GenNavigatorPathSegment> getSegments();
 
 } // GenNavigatorPath

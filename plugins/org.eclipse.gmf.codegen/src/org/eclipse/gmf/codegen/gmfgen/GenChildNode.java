@@ -61,6 +61,6 @@ public interface GenChildNode extends GenNode {
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)' description='Node is referenced from multiple containers with different \'List Layout\' value'"
 	 * @generated
 	 */
-	EList getContainers();
+	EList<GenChildContainer> getContainers();
 
 } // GenChildNode

@@ -43,7 +43,7 @@ public interface TypeTabFilter extends GenPropertyTabFilter {
 	 * @model type="java.lang.String" required="true"
 	 * @generated
 	 */
-	EList getTypes();
+	EList<String> getTypes();
 
 	/**
 	 * Returns the value of the '<em><b>Generated Types</b></em>' attribute list.
@@ -61,7 +61,7 @@ public interface TypeTabFilter extends GenPropertyTabFilter {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GeneratedType"
 	 * @generated
 	 */
-	EList getGeneratedTypes();
+	EList<GeneratedType> getGeneratedTypes();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,6 +69,6 @@ public interface TypeTabFilter extends GenPropertyTabFilter {
 	 * @model kind="operation" type="java.lang.String" required="true"
 	 * @generated
 	 */
-	EList getAllTypes();
+	EList<String> getAllTypes();
 
 } // TypeTabFilter

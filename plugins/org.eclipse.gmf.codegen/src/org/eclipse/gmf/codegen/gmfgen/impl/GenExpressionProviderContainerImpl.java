@@ -2,12 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.4 2006/07/20 17:40:06 ashatalin Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.5 2007/03/14 14:39:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -90,7 +89,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * @generated
 	 * @ordered
 	 */
-	protected EList providers = null;
+	protected EList<GenExpressionProviderBase> providers = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,6 +105,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer();
 	}
@@ -185,9 +185,9 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getProviders() {
+	public EList<GenExpressionProviderBase> getProviders() {
 		if (providers == null) {
-			providers = new EObjectContainmentWithInverseEList(GenExpressionProviderBase.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER);
+			providers = new EObjectContainmentWithInverseEList<GenExpressionProviderBase>(GenExpressionProviderBase.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER);
 		}
 		return providers;
 	}
@@ -252,8 +252,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * @generated NOT
 	 */
 	public GenExpressionProviderBase getProvider(ValueExpression expression) {
-		for (Iterator it = getProviders().iterator(); it.hasNext();) {
-			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+		for (GenExpressionProviderBase nextProvider : getProviders()) {
 			if(nextProvider.getExpressions().contains(expression)) {
 				return nextProvider;
 			}
@@ -261,8 +260,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 		// Note: lookup by expression language is performed in order to handle multiple
 		// copies of expression coming from single node mapping reuse as only a single instance 
 		// of ValueExpression is included in the 'expressions' feature.
-		for (Iterator it = getProviders().iterator(); it.hasNext();) {
-			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+		for (GenExpressionProviderBase nextProvider : getProviders()) {
 			if(expression != null && expression.getLanguage() != null && 
 				expression.getLanguage().equals(nextProvider.getLanguage())) {
 				return nextProvider;
@@ -285,10 +283,12 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS:
-				return ((InternalEList)getProviders()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getProviders()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -302,10 +302,11 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS:
-				return ((InternalEList)getProviders()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getProviders()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
 				return basicSetEditorGen(null, msgs);
 		}
@@ -317,6 +318,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
@@ -330,6 +332,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME:
@@ -349,6 +352,8 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME:
@@ -359,7 +364,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS:
 				getProviders().clear();
-				getProviders().addAll((Collection)newValue);
+				getProviders().addAll((Collection<? extends GenExpressionProviderBase>)newValue);
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN:
 				setEditorGen((GenEditorGenerator)newValue);
@@ -373,6 +378,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME:
@@ -396,6 +402,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME:
@@ -415,6 +422,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

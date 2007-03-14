@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,53 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class ProviderPriority extends AbstractEnumerator {
+public enum ProviderPriority implements Enumerator
+{
+	/**
+	 * The '<em><b>Lowest</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LOWEST
+	 * @generated
+	 * @ordered
+	 */
+	LOWEST_LITERAL(0, "Lowest", "Lowest"),
+	/**
+	 * The '<em><b>Low</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LOW
+	 * @generated
+	 * @ordered
+	 */
+	LOW_LITERAL(1, "Low", "Low"),
+	/**
+	 * The '<em><b>Medium</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MEDIUM
+	 * @generated
+	 * @ordered
+	 */
+	MEDIUM_LITERAL(2, "Medium", "Medium"),
+	/**
+	 * The '<em><b>High</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HIGH
+	 * @generated
+	 * @ordered
+	 */
+	HIGH_LITERAL(3, "High", "High"),
+	/**
+	 * The '<em><b>Highest</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HIGHEST
+	 * @generated
+	 * @ordered
+	 */
+	HIGHEST_LITERAL(4, "Highest", "Highest");
 	/**
 	 * The '<em><b>Lowest</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -98,56 +144,6 @@ public final class ProviderPriority extends AbstractEnumerator {
 	public static final int HIGHEST = 4;
 
 	/**
-	 * The '<em><b>Lowest</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LOWEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final ProviderPriority LOWEST_LITERAL = new ProviderPriority(LOWEST, "Lowest", "Lowest");
-
-	/**
-	 * The '<em><b>Low</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final ProviderPriority LOW_LITERAL = new ProviderPriority(LOW, "Low", "Low");
-
-	/**
-	 * The '<em><b>Medium</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MEDIUM
-	 * @generated
-	 * @ordered
-	 */
-	public static final ProviderPriority MEDIUM_LITERAL = new ProviderPriority(MEDIUM, "Medium", "Medium");
-
-	/**
-	 * The '<em><b>High</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #HIGH
-	 * @generated
-	 * @ordered
-	 */
-	public static final ProviderPriority HIGH_LITERAL = new ProviderPriority(HIGH, "High", "High");
-
-	/**
-	 * The '<em><b>Highest</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #HIGHEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final ProviderPriority HIGHEST_LITERAL = new ProviderPriority(HIGHEST, "Highest", "Highest");
-
-	/**
 	 * An array of all the '<em><b>Provider Priority</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,7 +164,7 @@ public final class ProviderPriority extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ProviderPriority> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Provider Priority</b></em>' literal with the specified literal value.
@@ -216,8 +212,29 @@ public final class ProviderPriority extends AbstractEnumerator {
 			case HIGH: return HIGH_LITERAL;
 			case HIGHEST: return HIGHEST_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -226,7 +243,46 @@ public final class ProviderPriority extends AbstractEnumerator {
 	 * @generated
 	 */
 	private ProviderPriority(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //ProviderPriority
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

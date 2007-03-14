@@ -466,7 +466,7 @@ public interface GenNavigator extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference" opposite="navigator" containment="true"
 	 * @generated
 	 */
-	EList getChildReferences();
+	EList<GenNavigatorChildReference> getChildReferences();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -539,6 +539,6 @@ public interface GenNavigator extends EObject {
 	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='corresponding method should be implemented in .ext file'"
 	 * @generated
 	 */
-	EList getChildReferencesTo(GenCommonBase child);
+	EList<GenNavigatorChildReference> getChildReferencesTo(GenCommonBase child);
 
 } // GenNavigator

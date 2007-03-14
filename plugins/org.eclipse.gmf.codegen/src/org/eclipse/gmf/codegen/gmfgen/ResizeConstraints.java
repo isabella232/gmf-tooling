@@ -97,7 +97,7 @@ public interface ResizeConstraints extends Attributes {
 	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList getResizeHandleNames();
+	EList<String> getResizeHandleNames();
 
 	/**
 	 * Returns the value of the '<em><b>Non Resize Handle Names</b></em>' attribute list.
@@ -112,6 +112,6 @@ public interface ResizeConstraints extends Attributes {
 	 * @model type="java.lang.String" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList getNonResizeHandleNames();
+	EList<String> getNonResizeHandleNames();
 
 } // ResizeConstraints

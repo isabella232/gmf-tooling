@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,7 +67,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childNodes = null;
+	protected EList<GenChildNode> childNodes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,6 +83,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenChildContainer();
 	}
@@ -91,9 +93,9 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getContainedNodes() {
-		List childNodes = getChildNodes();
-		return new EcoreEList.UnmodifiableEList(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), childNodes.size(), childNodes.toArray());
+	public EList<GenNode> getContainedNodes() {
+		List<GenChildNode> childNodes = getChildNodes();
+		return new EcoreEList.UnmodifiableEList<GenNode>(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), childNodes.size(), childNodes.toArray());
 	}
 
 	/**
@@ -101,9 +103,9 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildNodes() {
+	public EList<GenChildNode> getChildNodes() {
 		if (childNodes == null) {
-			childNodes = new EObjectWithInverseResolvingEList.ManyInverse(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS);
+			childNodes = new EObjectWithInverseResolvingEList.ManyInverse<GenChildNode>(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS);
 		}
 		return childNodes;
 	}
@@ -162,10 +164,12 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildNodes()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -175,10 +179,11 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildNodes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -188,6 +193,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
@@ -205,6 +211,8 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
@@ -212,7 +220,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
+				getChildNodes().addAll((Collection<? extends GenChildNode>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,6 +231,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
@@ -240,6 +249,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
@@ -257,6 +267,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

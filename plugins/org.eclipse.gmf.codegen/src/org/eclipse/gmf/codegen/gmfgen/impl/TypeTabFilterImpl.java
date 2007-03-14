@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -53,7 +52,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList types = null;
+	protected EList<String> types = null;
 
 	/**
 	 * The cached value of the '{@link #getGeneratedTypes() <em>Generated Types</em>}' attribute list.
@@ -63,7 +62,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList generatedTypes = null;
+	protected EList<GeneratedType> generatedTypes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,6 +78,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getTypeTabFilter();
 	}
@@ -98,9 +98,9 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTypes() {
+	public EList<String> getTypes() {
 		if (types == null) {
-			types = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.TYPE_TAB_FILTER__TYPES);
+			types = new EDataTypeUniqueEList<String>(String.class, this, GMFGenPackage.TYPE_TAB_FILTER__TYPES);
 		}
 		return types;
 	}
@@ -110,9 +110,9 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getGeneratedTypes() {
+	public EList<GeneratedType> getGeneratedTypes() {
 		if (generatedTypes == null) {
-			generatedTypes = new EDataTypeUniqueEList(GeneratedType.class, this, GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES);
+			generatedTypes = new EDataTypeUniqueEList<GeneratedType>(GeneratedType.class, this, GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES);
 		}
 		return generatedTypes;
 	}
@@ -122,12 +122,11 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllTypes() {
-		Collection result = new ArrayList();
+	public EList<String> getAllTypes() {
+		ArrayList<String> result = new ArrayList<String>();
 		result.addAll(getTypes());
 		if (getGeneratedTypes().size() > 0) {
-			for (Iterator it = getGeneratedTypes().iterator(); it.hasNext();) {
-				GeneratedType nextGeneratedType = (GeneratedType) it.next();
+			for (GeneratedType nextGeneratedType : getGeneratedTypes()) {
 				if (nextGeneratedType == GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL) {
 					GenNavigator navigator = getTab().getSheet().getEditorGen().getNavigator();
 					if (navigator != null) {
@@ -136,7 +135,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 				}
 			}
 		}
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+		return new BasicEList.UnmodifiableEList<String>(result.size(), result.toArray());
 	}
 
 	/**
@@ -144,6 +143,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
@@ -159,6 +159,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
@@ -172,6 +173,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
@@ -185,6 +187,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
@@ -202,15 +205,17 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				getTypes().clear();
-				getTypes().addAll((Collection)newValue);
+				getTypes().addAll((Collection<? extends String>)newValue);
 				return;
 			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
 				getGeneratedTypes().clear();
-				getGeneratedTypes().addAll((Collection)newValue);
+				getGeneratedTypes().addAll((Collection<? extends GeneratedType>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -221,6 +226,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
@@ -238,6 +244,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TAB:
@@ -255,6 +262,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

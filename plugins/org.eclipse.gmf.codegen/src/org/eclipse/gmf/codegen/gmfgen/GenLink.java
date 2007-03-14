@@ -94,7 +94,7 @@ public interface GenLink extends GenCommonBase {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLinkLabel" opposite="link" containment="true"
 	 * @generated
 	 */
-	EList getLabels();
+	EList<GenLinkLabel> getLabels();
 
 	/**
 	 * Returns the value of the '<em><b>Outgoing Creation Allowed</b></em>' attribute.
@@ -210,7 +210,7 @@ public interface GenLink extends GenCommonBase {
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
 	 * @generated
 	 */
-	EList getAssistantSources();
+	EList<GenCommonBase> getAssistantSources();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,6 +221,6 @@ public interface GenLink extends GenCommonBase {
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
 	 * @generated
 	 */
-	EList getAssistantTargets();
+	EList<GenCommonBase> getAssistantTargets();
 
 } // GenLink

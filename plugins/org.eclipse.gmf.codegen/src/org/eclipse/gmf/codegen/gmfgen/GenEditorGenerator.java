@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -535,7 +536,7 @@ public interface GenEditorGenerator extends EObject {
 	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenPackage"
 	 * @generated
 	 */
-	EList getAllDomainGenPackages(boolean withUsed);
+	EList<GenPackage> getAllDomainGenPackages(boolean withUsed);
 
 	boolean hasAudits(); // Indicates whether this generator defines at least one AuditRule
 } // GenEditorGenerator

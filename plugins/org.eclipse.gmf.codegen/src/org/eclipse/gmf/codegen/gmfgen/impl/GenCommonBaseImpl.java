@@ -173,7 +173,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated
 	 * @ordered
 	 */
-	protected EList behaviour = null;
+	protected EList<Behaviour> behaviour = null;
 
 	/**
 	 * The default value of the '{@link #isSansDomain() <em>Sans Domain</em>}' attribute.
@@ -199,6 +199,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenCommonBase();
 	}
@@ -428,9 +429,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getBehaviour() {
+	public EList<Behaviour> getBehaviour() {
 		if (behaviour == null) {
-			behaviour = new EObjectContainmentWithInverseEList(Behaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GMFGenPackage.BEHAVIOUR__SUBJECT);
+			behaviour = new EObjectContainmentWithInverseEList<Behaviour>(Behaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GMFGenPackage.BEHAVIOUR__SUBJECT);
 		}
 		return behaviour;
 	}
@@ -504,6 +505,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
@@ -511,7 +514,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 					msgs = ((InternalEObject)elementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, null, msgs);
 				return basicSetElementType((ElementType)otherEnd, msgs);
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
-				return ((InternalEList)getBehaviour()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getBehaviour()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -521,6 +524,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
@@ -528,7 +532,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return basicSetViewmap(null, msgs);
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
-				return ((InternalEList)getBehaviour()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getBehaviour()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -538,6 +542,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
@@ -568,6 +573,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
@@ -593,7 +600,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				getBehaviour().clear();
-				getBehaviour().addAll((Collection)newValue);
+				getBehaviour().addAll((Collection<? extends Behaviour>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -604,6 +611,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
@@ -639,6 +647,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
@@ -702,6 +711,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

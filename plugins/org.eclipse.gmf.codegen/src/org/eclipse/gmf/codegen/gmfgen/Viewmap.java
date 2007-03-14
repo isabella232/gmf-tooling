@@ -42,7 +42,7 @@ public interface Viewmap extends EObject {
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
-	EList getRequiredPluginIDs();
+	EList<String> getRequiredPluginIDs();
 
 	/**
 	 * Returns the value of the '<em><b>Layout Type</b></em>' attribute.
@@ -88,7 +88,7 @@ public interface Viewmap extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.Attributes" containment="true"
 	 * @generated
 	 */
-	EList getAttributes();
+	EList<Attributes> getAttributes();
 
 	/**
 	 * <!-- begin-user-doc -->

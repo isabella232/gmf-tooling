@@ -219,7 +219,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList sharedContributionItems = null;
+	protected EList<GenContributionItem> sharedContributionItems = null;
 
 	/**
 	 * The cached value of the '{@link #getMainMenu() <em>Main Menu</em>}' containment reference.
@@ -255,6 +255,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenApplication();
 	}
@@ -476,9 +477,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getSharedContributionItems() {
+	public EList<GenContributionItem> getSharedContributionItems() {
 		if (sharedContributionItems == null) {
-			sharedContributionItems = new EObjectContainmentEList(GenContributionItem.class, this, GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS);
+			sharedContributionItems = new EObjectContainmentEList<GenContributionItem>(GenContributionItem.class, this, GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS);
 		}
 		return sharedContributionItems;
 	}
@@ -619,6 +620,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
@@ -634,12 +636,13 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_APPLICATION__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
-				return ((InternalEList)getSharedContributionItems()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSharedContributionItems()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
 				return basicSetMainMenu(null, msgs);
 			case GMFGenPackage.GEN_APPLICATION__MAIN_TOOL_BAR:
@@ -653,6 +656,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
@@ -666,6 +670,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
@@ -705,6 +710,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__ID:
@@ -727,7 +734,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return;
 			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
 				getSharedContributionItems().clear();
-				getSharedContributionItems().addAll((Collection)newValue);
+				getSharedContributionItems().addAll((Collection<? extends GenContributionItem>)newValue);
 				return;
 			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
 				setMainMenu((GenMenuManager)newValue);
@@ -744,6 +751,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__ID:
@@ -782,6 +790,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
@@ -821,6 +830,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

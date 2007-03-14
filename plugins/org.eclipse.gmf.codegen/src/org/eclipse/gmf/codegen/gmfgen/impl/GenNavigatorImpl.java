@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -369,7 +368,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childReferences = null;
+	protected EList<GenNavigatorChildReference> childReferences = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -385,6 +384,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNavigator();
 	}
@@ -841,9 +841,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildReferences() {
+	public EList<GenNavigatorChildReference> getChildReferences() {
 		if (childReferences == null) {
-			childReferences = new EObjectContainmentWithInverseEList(GenNavigatorChildReference.class, this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
+			childReferences = new EObjectContainmentWithInverseEList<GenNavigatorChildReference>(GenNavigatorChildReference.class, this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
 		}
 		return childReferences;
 	}
@@ -925,15 +925,14 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getChildReferencesTo(GenCommonBase child) {
-		Collection result = new ArrayList();
-		for (Iterator it = getChildReferences().iterator(); it.hasNext();) {
-			GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+	public EList<GenNavigatorChildReference> getChildReferencesTo(GenCommonBase child) {
+		ArrayList<GenNavigatorChildReference> result = new ArrayList<GenNavigatorChildReference>();
+		for (GenNavigatorChildReference nextReference : getChildReferences()) {
 			if (child == nextReference.getChild()) {
 				result.add(nextReference);
 			}
 		}
-		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+		return new BasicEList.UnmodifiableEList<GenNavigatorChildReference>(result.size(), result.toArray());
 	}
 
 	/**
@@ -941,6 +940,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
@@ -948,7 +949,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
-				return ((InternalEList)getChildReferences()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildReferences()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -958,12 +959,13 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
-				return ((InternalEList)getChildReferences()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildReferences()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -973,6 +975,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
@@ -986,6 +989,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
@@ -1031,6 +1035,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
@@ -1080,7 +1086,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				getChildReferences().clear();
-				getChildReferences().addAll((Collection)newValue);
+				getChildReferences().addAll((Collection<? extends GenNavigatorChildReference>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1091,6 +1097,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
@@ -1150,6 +1157,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
@@ -1195,6 +1203,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

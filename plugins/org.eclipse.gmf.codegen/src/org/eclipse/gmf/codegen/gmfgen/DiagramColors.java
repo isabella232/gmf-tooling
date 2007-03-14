@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,413 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class DiagramColors extends AbstractEnumerator {
+public enum DiagramColors implements Enumerator
+{
+	/**
+	 * The '<em><b>Button Lightest</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BUTTON_LIGHTEST
+	 * @generated
+	 * @ordered
+	 */
+	BUTTON_LIGHTEST_LITERAL(0, "buttonLightest", "buttonLightest"),
+	/**
+	 * The '<em><b>Button</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BUTTON
+	 * @generated
+	 * @ordered
+	 */
+	BUTTON_LITERAL(1, "button", "button"),
+	/**
+	 * The '<em><b>Button Darker</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BUTTON_DARKER
+	 * @generated
+	 * @ordered
+	 */
+	BUTTON_DARKER_LITERAL(2, "buttonDarker", "buttonDarker"),
+	/**
+	 * The '<em><b>Button Darkest</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BUTTON_DARKEST
+	 * @generated
+	 * @ordered
+	 */
+	BUTTON_DARKEST_LITERAL(3, "buttonDarkest", "buttonDarkest"),
+	/**
+	 * The '<em><b>List Background</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIST_BACKGROUND
+	 * @generated
+	 * @ordered
+	 */
+	LIST_BACKGROUND_LITERAL(4, "listBackground", "listBackground"),
+	/**
+	 * The '<em><b>List Foreground</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIST_FOREGROUND
+	 * @generated
+	 * @ordered
+	 */
+	LIST_FOREGROUND_LITERAL(5, "listForeground", "listForeground"),
+	/**
+	 * The '<em><b>Menu Background</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MENU_BACKGROUND
+	 * @generated
+	 * @ordered
+	 */
+	MENU_BACKGROUND_LITERAL(6, "menuBackground", "menuBackground"),
+	/**
+	 * The '<em><b>Menu Foreground</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MENU_FOREGROUND
+	 * @generated
+	 * @ordered
+	 */
+	MENU_FOREGROUND_LITERAL(7, "menuForeground", "menuForeground"),
+	/**
+	 * The '<em><b>Menu Background Selected</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MENU_BACKGROUND_SELECTED
+	 * @generated
+	 * @ordered
+	 */
+	MENU_BACKGROUND_SELECTED_LITERAL(8, "menuBackgroundSelected", "menuBackgroundSelected"),
+	/**
+	 * The '<em><b>Menu Foreground Selected</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MENU_FOREGROUND_SELECTED
+	 * @generated
+	 * @ordered
+	 */
+	MENU_FOREGROUND_SELECTED_LITERAL(9, "menuForegroundSelected", "menuForegroundSelected"),
+	/**
+	 * The '<em><b>Title Background</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_BACKGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_BACKGROUND_LITERAL(10, "titleBackground", "titleBackground"),
+	/**
+	 * The '<em><b>Title Gradient</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_GRADIENT
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_GRADIENT_LITERAL(11, "titleGradient", "titleGradient"),
+	/**
+	 * The '<em><b>Title Foreground</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_FOREGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_FOREGROUND_LITERAL(12, "titleForeground", "titleForeground"),
+	/**
+	 * The '<em><b>Title Inactive Foreground</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_INACTIVE_FOREGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_INACTIVE_FOREGROUND_LITERAL(13, "titleInactiveForeground", "titleInactiveForeground"),
+	/**
+	 * The '<em><b>Title Inactive Background</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_INACTIVE_BACKGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_INACTIVE_BACKGROUND_LITERAL(14, "titleInactiveBackground", "titleInactiveBackground"),
+	/**
+	 * The '<em><b>Title Inactive Gradient</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TITLE_INACTIVE_GRADIENT
+	 * @generated
+	 * @ordered
+	 */
+	TITLE_INACTIVE_GRADIENT_LITERAL(15, "titleInactiveGradient", "titleInactiveGradient"),
+	/**
+	 * The '<em><b>Tooltip Foreground</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TOOLTIP_FOREGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TOOLTIP_FOREGROUND_LITERAL(16, "tooltipForeground", "tooltipForeground"),
+	/**
+	 * The '<em><b>Tooltip Background</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TOOLTIP_BACKGROUND
+	 * @generated
+	 * @ordered
+	 */
+	TOOLTIP_BACKGROUND_LITERAL(17, "tooltipBackground", "tooltipBackground"),
+	/**
+	 * The '<em><b>White</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WHITE
+	 * @generated
+	 * @ordered
+	 */
+	WHITE_LITERAL(18, "white", "white"),
+	/**
+	 * The '<em><b>Light Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_GRAY_LITERAL(19, "lightGray", "lightGray"),
+	/**
+	 * The '<em><b>Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GRAY
+	 * @generated
+	 * @ordered
+	 */
+	GRAY_LITERAL(20, "gray", "gray"),
+	/**
+	 * The '<em><b>Dark Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	DARK_GRAY_LITERAL(21, "darkGray", "darkGray"),
+	/**
+	 * The '<em><b>Black</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BLACK
+	 * @generated
+	 * @ordered
+	 */
+	BLACK_LITERAL(22, "black", "black"),
+	/**
+	 * The '<em><b>Red</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RED
+	 * @generated
+	 * @ordered
+	 */
+	RED_LITERAL(23, "red", "red"),
+	/**
+	 * The '<em><b>Orange</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ORANGE
+	 * @generated
+	 * @ordered
+	 */
+	ORANGE_LITERAL(24, "orange", "orange"),
+	/**
+	 * The '<em><b>Yellow</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #YELLOW
+	 * @generated
+	 * @ordered
+	 */
+	YELLOW_LITERAL(25, "yellow", "yellow"),
+	/**
+	 * The '<em><b>Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GREEN
+	 * @generated
+	 * @ordered
+	 */
+	GREEN_LITERAL(26, "green", "green"),
+	/**
+	 * The '<em><b>Light Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_GREEN
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_GREEN_LITERAL(27, "lightGreen", "lightGreen"),
+	/**
+	 * The '<em><b>Dark Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_GREEN
+	 * @generated
+	 * @ordered
+	 */
+	DARK_GREEN_LITERAL(28, "darkGreen", "darkGreen"),
+	/**
+	 * The '<em><b>Cyan</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CYAN
+	 * @generated
+	 * @ordered
+	 */
+	CYAN_LITERAL(29, "cyan", "cyan"),
+	/**
+	 * The '<em><b>Light Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIGHT_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	LIGHT_BLUE_LITERAL(30, "lightBlue", "lightBlue"),
+	/**
+	 * The '<em><b>Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BLUE
+	 * @generated
+	 * @ordered
+	 */
+	BLUE_LITERAL(31, "blue", "blue"),
+	/**
+	 * The '<em><b>Dark Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DARK_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	DARK_BLUE_LITERAL(32, "darkBlue", "darkBlue"),
+	/**
+	 * The '<em><b>Diagram Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_GREEN
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_GREEN_LITERAL(33, "diagramGreen", "diagramGreen"),
+	/**
+	 * The '<em><b>Diagram Light Red</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_LIGHT_RED
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_LIGHT_RED_LITERAL(34, "diagramLightRed", "diagramLightRed"),
+	/**
+	 * The '<em><b>Diagram Red</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_RED
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_RED_LITERAL(35, "diagramRed", "diagramRed"),
+	/**
+	 * The '<em><b>Diagram Light Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_LIGHT_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_LIGHT_BLUE_LITERAL(36, "diagramLightBlue", "diagramLightBlue"),
+	/**
+	 * The '<em><b>Diagram Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_BLUE
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_BLUE_LITERAL(37, "diagramBlue", "diagramBlue"),
+	/**
+	 * The '<em><b>Diagram Light Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_LIGHT_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_LIGHT_GRAY_LITERAL(38, "diagramLightGray", "diagramLightGray"),
+	/**
+	 * The '<em><b>Diagram Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_GRAY_LITERAL(39, "diagramGray", "diagramGray"),
+	/**
+	 * The '<em><b>Diagram Dark Gray</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_DARK_GRAY
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_DARK_GRAY_LITERAL(40, "diagramDarkGray", "diagramDarkGray"),
+	/**
+	 * The '<em><b>Diagram Light Yellow</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_LIGHT_YELLOW
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_LIGHT_YELLOW_LITERAL(41, "diagramLightYellow", "diagramLightYellow"),
+	/**
+	 * The '<em><b>Diagram Dark Yellow</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_DARK_YELLOW
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_DARK_YELLOW_LITERAL(42, "diagramDarkYellow", "diagramDarkYellow"),
+	/**
+	 * The '<em><b>Diagram Light Gold Yellow</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_LIGHT_GOLD_YELLOW
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_LIGHT_GOLD_YELLOW_LITERAL(43, "diagramLightGoldYellow", "diagramLightGoldYellow"),
+	/**
+	 * The '<em><b>Diagram Burgundy Red</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIAGRAM_BURGUNDY_RED
+	 * @generated
+	 * @ordered
+	 */
+	DIAGRAM_BURGUNDY_RED_LITERAL(44, "diagramBurgundyRed", "diagramBurgundyRed");
 	/**
 	 * The '<em><b>Button Lightest</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -698,456 +1104,6 @@ public final class DiagramColors extends AbstractEnumerator {
 	public static final int DIAGRAM_BURGUNDY_RED = 44;
 
 	/**
-	 * The '<em><b>Button Lightest</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BUTTON_LIGHTEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BUTTON_LIGHTEST_LITERAL = new DiagramColors(BUTTON_LIGHTEST, "buttonLightest", "buttonLightest");
-
-	/**
-	 * The '<em><b>Button</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BUTTON
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BUTTON_LITERAL = new DiagramColors(BUTTON, "button", "button");
-
-	/**
-	 * The '<em><b>Button Darker</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BUTTON_DARKER
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BUTTON_DARKER_LITERAL = new DiagramColors(BUTTON_DARKER, "buttonDarker", "buttonDarker");
-
-	/**
-	 * The '<em><b>Button Darkest</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BUTTON_DARKEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BUTTON_DARKEST_LITERAL = new DiagramColors(BUTTON_DARKEST, "buttonDarkest", "buttonDarkest");
-
-	/**
-	 * The '<em><b>List Background</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIST_BACKGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors LIST_BACKGROUND_LITERAL = new DiagramColors(LIST_BACKGROUND, "listBackground", "listBackground");
-
-	/**
-	 * The '<em><b>List Foreground</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIST_FOREGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors LIST_FOREGROUND_LITERAL = new DiagramColors(LIST_FOREGROUND, "listForeground", "listForeground");
-
-	/**
-	 * The '<em><b>Menu Background</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MENU_BACKGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors MENU_BACKGROUND_LITERAL = new DiagramColors(MENU_BACKGROUND, "menuBackground", "menuBackground");
-
-	/**
-	 * The '<em><b>Menu Foreground</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MENU_FOREGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors MENU_FOREGROUND_LITERAL = new DiagramColors(MENU_FOREGROUND, "menuForeground", "menuForeground");
-
-	/**
-	 * The '<em><b>Menu Background Selected</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MENU_BACKGROUND_SELECTED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors MENU_BACKGROUND_SELECTED_LITERAL = new DiagramColors(MENU_BACKGROUND_SELECTED, "menuBackgroundSelected", "menuBackgroundSelected");
-
-	/**
-	 * The '<em><b>Menu Foreground Selected</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MENU_FOREGROUND_SELECTED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors MENU_FOREGROUND_SELECTED_LITERAL = new DiagramColors(MENU_FOREGROUND_SELECTED, "menuForegroundSelected", "menuForegroundSelected");
-
-	/**
-	 * The '<em><b>Title Background</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_BACKGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_BACKGROUND_LITERAL = new DiagramColors(TITLE_BACKGROUND, "titleBackground", "titleBackground");
-
-	/**
-	 * The '<em><b>Title Gradient</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_GRADIENT
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_GRADIENT_LITERAL = new DiagramColors(TITLE_GRADIENT, "titleGradient", "titleGradient");
-
-	/**
-	 * The '<em><b>Title Foreground</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_FOREGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_FOREGROUND_LITERAL = new DiagramColors(TITLE_FOREGROUND, "titleForeground", "titleForeground");
-
-	/**
-	 * The '<em><b>Title Inactive Foreground</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_INACTIVE_FOREGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_INACTIVE_FOREGROUND_LITERAL = new DiagramColors(TITLE_INACTIVE_FOREGROUND, "titleInactiveForeground", "titleInactiveForeground");
-
-	/**
-	 * The '<em><b>Title Inactive Background</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_INACTIVE_BACKGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_INACTIVE_BACKGROUND_LITERAL = new DiagramColors(TITLE_INACTIVE_BACKGROUND, "titleInactiveBackground", "titleInactiveBackground");
-
-	/**
-	 * The '<em><b>Title Inactive Gradient</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TITLE_INACTIVE_GRADIENT
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TITLE_INACTIVE_GRADIENT_LITERAL = new DiagramColors(TITLE_INACTIVE_GRADIENT, "titleInactiveGradient", "titleInactiveGradient");
-
-	/**
-	 * The '<em><b>Tooltip Foreground</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TOOLTIP_FOREGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TOOLTIP_FOREGROUND_LITERAL = new DiagramColors(TOOLTIP_FOREGROUND, "tooltipForeground", "tooltipForeground");
-
-	/**
-	 * The '<em><b>Tooltip Background</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TOOLTIP_BACKGROUND
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors TOOLTIP_BACKGROUND_LITERAL = new DiagramColors(TOOLTIP_BACKGROUND, "tooltipBackground", "tooltipBackground");
-
-	/**
-	 * The '<em><b>White</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #WHITE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors WHITE_LITERAL = new DiagramColors(WHITE, "white", "white");
-
-	/**
-	 * The '<em><b>Light Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors LIGHT_GRAY_LITERAL = new DiagramColors(LIGHT_GRAY, "lightGray", "lightGray");
-
-	/**
-	 * The '<em><b>Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors GRAY_LITERAL = new DiagramColors(GRAY, "gray", "gray");
-
-	/**
-	 * The '<em><b>Dark Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DARK_GRAY_LITERAL = new DiagramColors(DARK_GRAY, "darkGray", "darkGray");
-
-	/**
-	 * The '<em><b>Black</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BLACK
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BLACK_LITERAL = new DiagramColors(BLACK, "black", "black");
-
-	/**
-	 * The '<em><b>Red</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #RED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors RED_LITERAL = new DiagramColors(RED, "red", "red");
-
-	/**
-	 * The '<em><b>Orange</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ORANGE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors ORANGE_LITERAL = new DiagramColors(ORANGE, "orange", "orange");
-
-	/**
-	 * The '<em><b>Yellow</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #YELLOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors YELLOW_LITERAL = new DiagramColors(YELLOW, "yellow", "yellow");
-
-	/**
-	 * The '<em><b>Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors GREEN_LITERAL = new DiagramColors(GREEN, "green", "green");
-
-	/**
-	 * The '<em><b>Light Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors LIGHT_GREEN_LITERAL = new DiagramColors(LIGHT_GREEN, "lightGreen", "lightGreen");
-
-	/**
-	 * The '<em><b>Dark Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DARK_GREEN_LITERAL = new DiagramColors(DARK_GREEN, "darkGreen", "darkGreen");
-
-	/**
-	 * The '<em><b>Cyan</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CYAN
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors CYAN_LITERAL = new DiagramColors(CYAN, "cyan", "cyan");
-
-	/**
-	 * The '<em><b>Light Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LIGHT_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors LIGHT_BLUE_LITERAL = new DiagramColors(LIGHT_BLUE, "lightBlue", "lightBlue");
-
-	/**
-	 * The '<em><b>Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors BLUE_LITERAL = new DiagramColors(BLUE, "blue", "blue");
-
-	/**
-	 * The '<em><b>Dark Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DARK_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DARK_BLUE_LITERAL = new DiagramColors(DARK_BLUE, "darkBlue", "darkBlue");
-
-	/**
-	 * The '<em><b>Diagram Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_GREEN
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_GREEN_LITERAL = new DiagramColors(DIAGRAM_GREEN, "diagramGreen", "diagramGreen");
-
-	/**
-	 * The '<em><b>Diagram Light Red</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_LIGHT_RED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_LIGHT_RED_LITERAL = new DiagramColors(DIAGRAM_LIGHT_RED, "diagramLightRed", "diagramLightRed");
-
-	/**
-	 * The '<em><b>Diagram Red</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_RED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_RED_LITERAL = new DiagramColors(DIAGRAM_RED, "diagramRed", "diagramRed");
-
-	/**
-	 * The '<em><b>Diagram Light Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_LIGHT_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_LIGHT_BLUE_LITERAL = new DiagramColors(DIAGRAM_LIGHT_BLUE, "diagramLightBlue", "diagramLightBlue");
-
-	/**
-	 * The '<em><b>Diagram Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_BLUE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_BLUE_LITERAL = new DiagramColors(DIAGRAM_BLUE, "diagramBlue", "diagramBlue");
-
-	/**
-	 * The '<em><b>Diagram Light Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_LIGHT_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_LIGHT_GRAY_LITERAL = new DiagramColors(DIAGRAM_LIGHT_GRAY, "diagramLightGray", "diagramLightGray");
-
-	/**
-	 * The '<em><b>Diagram Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_GRAY_LITERAL = new DiagramColors(DIAGRAM_GRAY, "diagramGray", "diagramGray");
-
-	/**
-	 * The '<em><b>Diagram Dark Gray</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_DARK_GRAY
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_DARK_GRAY_LITERAL = new DiagramColors(DIAGRAM_DARK_GRAY, "diagramDarkGray", "diagramDarkGray");
-
-	/**
-	 * The '<em><b>Diagram Light Yellow</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_LIGHT_YELLOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_LIGHT_YELLOW_LITERAL = new DiagramColors(DIAGRAM_LIGHT_YELLOW, "diagramLightYellow", "diagramLightYellow");
-
-	/**
-	 * The '<em><b>Diagram Dark Yellow</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_DARK_YELLOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_DARK_YELLOW_LITERAL = new DiagramColors(DIAGRAM_DARK_YELLOW, "diagramDarkYellow", "diagramDarkYellow");
-
-	/**
-	 * The '<em><b>Diagram Light Gold Yellow</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_LIGHT_GOLD_YELLOW
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_LIGHT_GOLD_YELLOW_LITERAL = new DiagramColors(DIAGRAM_LIGHT_GOLD_YELLOW, "diagramLightGoldYellow", "diagramLightGoldYellow");
-
-	/**
-	 * The '<em><b>Diagram Burgundy Red</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIAGRAM_BURGUNDY_RED
-	 * @generated
-	 * @ordered
-	 */
-	public static final DiagramColors DIAGRAM_BURGUNDY_RED_LITERAL = new DiagramColors(DIAGRAM_BURGUNDY_RED, "diagramBurgundyRed", "diagramBurgundyRed");
-
-	/**
 	 * An array of all the '<em><b>Diagram Colors</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1208,7 +1164,7 @@ public final class DiagramColors extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<DiagramColors> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Diagram Colors</b></em>' literal with the specified literal value.
@@ -1296,8 +1252,29 @@ public final class DiagramColors extends AbstractEnumerator {
 			case DIAGRAM_LIGHT_GOLD_YELLOW: return DIAGRAM_LIGHT_GOLD_YELLOW_LITERAL;
 			case DIAGRAM_BURGUNDY_RED: return DIAGRAM_BURGUNDY_RED_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -1306,7 +1283,46 @@ public final class DiagramColors extends AbstractEnumerator {
 	 * @generated
 	 */
 	private DiagramColors(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //DiagramColors
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

@@ -91,6 +91,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getResizeConstraints();
 	}
@@ -142,7 +143,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getResizeHandleNames() {
+	public EList<String> getResizeHandleNames() {
 		return getPositionConstantNames(getResizeHandles());
 	}
 
@@ -155,12 +156,12 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getNonResizeHandleNames() {
+	public EList<String> getNonResizeHandleNames() {
 		return getPositionConstantNames(getNonResizeHandles());
 	}
 
-	private EList getPositionConstantNames(int value) {
-		EList rv = new BasicEList();
+	private EList<String> getPositionConstantNames(int value) {
+		BasicEList<String> rv = new BasicEList<String>();
 		addConstantIfFlagSet(value, PositionConstants.NORTH, "NORTH", rv);
 		addConstantIfFlagSet(value, PositionConstants.SOUTH, "SOUTH", rv);
 		addConstantIfFlagSet(value, PositionConstants.WEST, "WEST", rv);
@@ -168,7 +169,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 		return rv;
 	}
 
-	private static void addConstantIfFlagSet(int value, int flag, String constantName, EList list) {
+	private static void addConstantIfFlagSet(int value, int flag, String constantName, EList<String> list) {
 		if ((value & flag) == flag) {
 			list.add(constantName);
 		}
@@ -179,6 +180,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
@@ -198,6 +200,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
@@ -215,6 +218,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
@@ -232,6 +236,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
@@ -251,6 +256,7 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

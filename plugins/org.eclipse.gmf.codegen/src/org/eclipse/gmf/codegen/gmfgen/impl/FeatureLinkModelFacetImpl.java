@@ -60,6 +60,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getFeatureLinkModelFacet();
 	}
@@ -131,10 +132,10 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAssistantSourceTypes() {
+	public EList<GenClass> getAssistantSourceTypes() {
 		// TODO: Modify this method in accordance on implementing
 		// AssistantProvider.
-		EList sources = new BasicEList();
+		BasicEList<GenClass> sources = new BasicEList<GenClass>();
 		GenClass sourceType = getSourceType();
 		if (sourceType != null) {
 			sources.add(sourceType);
@@ -147,10 +148,10 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAssistantTargetTypes() {
+	public EList<GenClass> getAssistantTargetTypes() {
 		// TODO: Modify this method in accordance on implementing
 		// AssistantProvider.
-		EList targets = new BasicEList();
+		BasicEList<GenClass> targets = new BasicEList<GenClass>();
 		GenClass targetType = getTargetType();
 		if (targetType != null) {
 			targets.add(targetType);
@@ -163,6 +164,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET__META_FEATURE:
@@ -177,6 +179,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET__META_FEATURE:
@@ -191,6 +194,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET__META_FEATURE:
@@ -205,6 +209,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET__META_FEATURE:

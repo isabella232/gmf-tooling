@@ -63,7 +63,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected EList items = null;
+	protected EList<GenContributionItem> items = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,6 +79,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenContributionManager();
 	}
@@ -109,9 +110,9 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getItems() {
+	public EList<GenContributionItem> getItems() {
 		if (items == null) {
-			items = new EObjectContainmentWithInverseEList(GenContributionItem.class, this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER);
+			items = new EObjectContainmentWithInverseEList<GenContributionItem>(GenContributionItem.class, this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER);
 		}
 		return items;
 	}
@@ -121,10 +122,12 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
-				return ((InternalEList)getItems()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getItems()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -134,10 +137,11 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
-				return ((InternalEList)getItems()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getItems()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -147,6 +151,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ID:
@@ -162,6 +167,8 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ID:
@@ -169,7 +176,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 				return;
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS:
 				getItems().clear();
-				getItems().addAll((Collection)newValue);
+				getItems().addAll((Collection<? extends GenContributionItem>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -180,6 +187,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ID:
@@ -197,6 +205,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ID:
@@ -212,6 +221,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

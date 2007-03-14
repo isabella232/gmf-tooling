@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,62 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class StandardPreferencePages extends AbstractEnumerator {
+public enum StandardPreferencePages implements Enumerator
+{
+	/**
+	 * The '<em><b>General</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GENERAL
+	 * @generated
+	 * @ordered
+	 */
+	GENERAL_LITERAL(0, "General", "General"),
+	/**
+	 * The '<em><b>Appearance</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #APPEARANCE
+	 * @generated
+	 * @ordered
+	 */
+	APPEARANCE_LITERAL(1, "Appearance", "Appearance"),
+	/**
+	 * The '<em><b>Connections</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONNECTIONS
+	 * @generated
+	 * @ordered
+	 */
+	CONNECTIONS_LITERAL(2, "Connections", "Connections"),
+	/**
+	 * The '<em><b>Printing</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRINTING
+	 * @generated
+	 * @ordered
+	 */
+	PRINTING_LITERAL(3, "Printing", "Printing"),
+	/**
+	 * The '<em><b>Rulers And Grid</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RULERS_AND_GRID
+	 * @generated
+	 * @ordered
+	 */
+	RULERS_AND_GRID_LITERAL(4, "RulersAndGrid", "RulersAndGrid"),
+	/**
+	 * The '<em><b>Pathmaps</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PATHMAPS
+	 * @generated
+	 * @ordered
+	 */
+	PATHMAPS_LITERAL(5, "Pathmaps", "Pathmaps");
 	/**
 	 * The '<em><b>General</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -113,66 +168,6 @@ public final class StandardPreferencePages extends AbstractEnumerator {
 	public static final int PATHMAPS = 5;
 
 	/**
-	 * The '<em><b>General</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GENERAL
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages GENERAL_LITERAL = new StandardPreferencePages(GENERAL, "General", "General");
-
-	/**
-	 * The '<em><b>Appearance</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #APPEARANCE
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages APPEARANCE_LITERAL = new StandardPreferencePages(APPEARANCE, "Appearance", "Appearance");
-
-	/**
-	 * The '<em><b>Connections</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CONNECTIONS
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages CONNECTIONS_LITERAL = new StandardPreferencePages(CONNECTIONS, "Connections", "Connections");
-
-	/**
-	 * The '<em><b>Printing</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PRINTING
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages PRINTING_LITERAL = new StandardPreferencePages(PRINTING, "Printing", "Printing");
-
-	/**
-	 * The '<em><b>Rulers And Grid</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #RULERS_AND_GRID
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages RULERS_AND_GRID_LITERAL = new StandardPreferencePages(RULERS_AND_GRID, "RulersAndGrid", "RulersAndGrid");
-
-	/**
-	 * The '<em><b>Pathmaps</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PATHMAPS
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardPreferencePages PATHMAPS_LITERAL = new StandardPreferencePages(PATHMAPS, "Pathmaps", "Pathmaps");
-
-	/**
 	 * An array of all the '<em><b>Standard Preference Pages</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -194,7 +189,7 @@ public final class StandardPreferencePages extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<StandardPreferencePages> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Standard Preference Pages</b></em>' literal with the specified literal value.
@@ -243,8 +238,29 @@ public final class StandardPreferencePages extends AbstractEnumerator {
 			case RULERS_AND_GRID: return RULERS_AND_GRID_LITERAL;
 			case PATHMAPS: return PATHMAPS_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -253,7 +269,46 @@ public final class StandardPreferencePages extends AbstractEnumerator {
 	 * @generated
 	 */
 	private StandardPreferencePages(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //StandardPreferencePages
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

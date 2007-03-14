@@ -338,6 +338,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenEditorGenerator();
 	}
@@ -752,7 +753,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		if (getDomainGenModel() == null || getDomainGenModel().getGenPackages().isEmpty()) {
 			return null;
 		}
-		return (GenPackage) getDomainGenModel().getGenPackages().get(0);
+		return getDomainGenModel().getGenPackages().get(0);
 	}
 
 	/**
@@ -996,13 +997,13 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllDomainGenPackages(boolean withUsed) {
-		List<GenPackage> result = new ArrayList<GenPackage>();
+	public EList<GenPackage> getAllDomainGenPackages(boolean withUsed) {
+		ArrayList<GenPackage> result = new ArrayList<GenPackage>();
 		GenModel genModel = getDomainGenModel();
 		if (genModel != null) {
-			List genPackages = genModel.getAllGenPackagesWithClassifiers();
+			List<GenPackage> genPackages = genModel.getAllGenPackagesWithClassifiers();
 			for (int i = 0; i < genPackages.size(); i++) {
-				GenPackage genPackage = (GenPackage) genPackages.get(i);
+				GenPackage genPackage = genPackages.get(i);
 				if (genPackage.getGenModel().hasEditSupport()) {
 					result.add(genPackage);
 				}
@@ -1010,14 +1011,14 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			if (withUsed) {
 				genPackages = genModel.getAllUsedGenPackagesWithClassifiers();
 				for (int i = 0; i < genPackages.size(); i++) {
-					GenPackage genPackage = (GenPackage) genPackages.get(i);
+					GenPackage genPackage = genPackages.get(i);
 					if (genPackage.getGenModel().hasEditSupport()) {
 						result.add(genPackage);
 					}
 				}
 			}
 		}
-	    return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+	    return new BasicEList.UnmodifiableEList<GenPackage>(result.size(), result.toArray());
 	}
 	
 	/**
@@ -1034,6 +1035,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1081,6 +1083,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1110,6 +1113,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1158,6 +1162,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1223,6 +1228,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1288,6 +1294,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
@@ -1335,6 +1342,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

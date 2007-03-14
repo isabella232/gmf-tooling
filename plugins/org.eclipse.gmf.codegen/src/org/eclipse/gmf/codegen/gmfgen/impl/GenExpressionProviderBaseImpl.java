@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.5 2007/01/25 16:57:54 ashatalin Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.6 2007/03/14 14:39:34 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -10,12 +10,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -52,7 +50,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected EList expressions = null;
+	protected EList<ValueExpression> expressions = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,6 +66,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenExpressionProviderBase();
 	}
@@ -88,7 +87,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 		if(genClassifier instanceof GenClass) {
 			return ((GenClass)genClassifier).getQualifiedInterfaceName();
 		} else if(genClassifier instanceof GenDataType) {
-			Class clazz = genClassifier.getEcoreClassifier().getInstanceClass();
+			Class<?> clazz = genClassifier.getEcoreClassifier().getInstanceClass();
 			if(clazz != null && clazz.isPrimitive()) {
 				return EcoreUtil.wrapperClassFor(clazz).getName();
 			}
@@ -115,9 +114,9 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getExpressions() {
+	public EList<ValueExpression> getExpressions() {
 		if (expressions == null) {
-			expressions = new EObjectResolvingEList(ValueExpression.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS);
+			expressions = new EObjectResolvingEList<ValueExpression>(ValueExpression.class, this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS);
 		}
 		return expressions;
 	}
@@ -168,15 +167,14 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getRequiredPluginIDs() {
-		return new BasicEList();
-	}
+	public abstract EList<String> getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
@@ -192,6 +190,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
@@ -205,6 +204,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
@@ -218,6 +218,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:
@@ -233,11 +234,13 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:
 				getExpressions().clear();
-				getExpressions().addAll((Collection)newValue);
+				getExpressions().addAll((Collection<? extends ValueExpression>)newValue);
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
 				setContainer((GenExpressionProviderContainer)newValue);
@@ -251,6 +254,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:
@@ -268,6 +272,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS:

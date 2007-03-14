@@ -52,7 +52,7 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
-	EList getInitializers();
+	EList<GenFeatureInitializer> getInitializers();
 
 	/**
 	 * Returns the value of the '<em><b>Element Class</b></em>' reference.

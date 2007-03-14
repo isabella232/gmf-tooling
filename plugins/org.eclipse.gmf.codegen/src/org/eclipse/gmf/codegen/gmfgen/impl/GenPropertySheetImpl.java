@@ -54,7 +54,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * @generated
 	 * @ordered
 	 */
-	protected EList tabs = null;
+	protected EList<GenPropertyTab> tabs = null;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -150,6 +150,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenPropertySheet();
 	}
@@ -169,9 +170,9 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTabs() {
+	public EList<GenPropertyTab> getTabs() {
 		if (tabs == null) {
-			tabs = new EObjectContainmentWithInverseEList(GenPropertyTab.class, this, GMFGenPackage.GEN_PROPERTY_SHEET__TABS, GMFGenPackage.GEN_PROPERTY_TAB__SHEET);
+			tabs = new EObjectContainmentWithInverseEList<GenPropertyTab>(GenPropertyTab.class, this, GMFGenPackage.GEN_PROPERTY_SHEET__TABS, GMFGenPackage.GEN_PROPERTY_TAB__SHEET);
 		}
 		return tabs;
 	}
@@ -290,6 +291,8 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
@@ -297,7 +300,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
-				return ((InternalEList)getTabs()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTabs()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -307,12 +310,13 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
-				return ((InternalEList)getTabs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTabs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -322,6 +326,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
@@ -335,6 +340,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
@@ -358,11 +364,13 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
 				getTabs().clear();
-				getTabs().addAll((Collection)newValue);
+				getTabs().addAll((Collection<? extends GenPropertyTab>)newValue);
 				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__PACKAGE_NAME:
 				setPackageName((String)newValue);
@@ -385,6 +393,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:
@@ -411,6 +420,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
@@ -434,6 +444,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

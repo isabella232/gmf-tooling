@@ -65,6 +65,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenConstantColor();
 	}
@@ -95,6 +96,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONSTANT_COLOR__NAME:
@@ -108,6 +110,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONSTANT_COLOR__NAME:
@@ -122,6 +125,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONSTANT_COLOR__NAME:
@@ -136,6 +140,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONSTANT_COLOR__NAME:
@@ -149,6 +154,7 @@ public class GenConstantColorImpl extends EObjectImpl implements GenConstantColo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

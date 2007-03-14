@@ -69,7 +69,7 @@ public interface GenPropertySheet extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPropertyTab" opposite="sheet" containment="true" required="true"
 	 * @generated
 	 */
-	EList getTabs();
+	EList<GenPropertyTab> getTabs();
 
 	/**
 	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.

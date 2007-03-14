@@ -35,6 +35,7 @@ public class DesignLabelModelFacetImpl extends EObjectImpl implements DesignLabe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getDesignLabelModelFacet();
 	}

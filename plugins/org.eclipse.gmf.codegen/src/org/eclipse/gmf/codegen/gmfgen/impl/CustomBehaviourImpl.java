@@ -92,6 +92,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getCustomBehaviour();
 	}
@@ -153,6 +154,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
@@ -168,6 +170,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
@@ -181,6 +184,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
@@ -194,6 +198,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
@@ -211,6 +216,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__KEY:
@@ -228,6 +234,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__KEY:
@@ -245,6 +252,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
@@ -262,6 +270,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

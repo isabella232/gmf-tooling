@@ -35,6 +35,7 @@ public class GenStandardPropertyTabImpl extends GenPropertyTabImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenStandardPropertyTab();
 	}

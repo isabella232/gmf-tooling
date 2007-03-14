@@ -222,7 +222,7 @@ public class CodegenEmitters {
 	/**
 	 * @see #retrieve(Class)
 	 */
-	private static void put(StaticTemplateRegistry tr, String path, Class precompiledTemplate) {
+	private static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
 		tr.put(precompiledTemplate, path, precompiledTemplate);
 	}
 
@@ -230,7 +230,7 @@ public class CodegenEmitters {
 	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl - class object of
 	 * precompiled template serves as a key
 	 */
-	public TextEmitter retrieve(Class key) throws UnexpectedBehaviourException {
+	public TextEmitter retrieve(Class<?> key) throws UnexpectedBehaviourException {
 		try {
 			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {

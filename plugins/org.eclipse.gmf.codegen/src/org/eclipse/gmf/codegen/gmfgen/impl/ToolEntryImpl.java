@@ -9,10 +9,12 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
@@ -41,7 +43,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList genNodes = null;
+	protected EList<GenNode> genNodes = null;
 
 	/**
 	 * The cached value of the '{@link #getGenLinks() <em>Gen Links</em>}' reference list.
@@ -51,7 +53,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList genLinks = null;
+	protected EList<GenLink> genLinks = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,6 +69,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getToolEntry();
 	}
@@ -76,9 +79,9 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getGenNodes() {
+	public EList<GenNode> getGenNodes() {
 		if (genNodes == null) {
-			genNodes = new EObjectResolvingEList(GenNode.class, this, GMFGenPackage.TOOL_ENTRY__GEN_NODES);
+			genNodes = new EObjectResolvingEList<GenNode>(GenNode.class, this, GMFGenPackage.TOOL_ENTRY__GEN_NODES);
 		}
 		return genNodes;
 	}
@@ -88,9 +91,9 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getGenLinks() {
+	public EList<GenLink> getGenLinks() {
 		if (genLinks == null) {
-			genLinks = new EObjectResolvingEList(GenLink.class, this, GMFGenPackage.TOOL_ENTRY__GEN_LINKS);
+			genLinks = new EObjectResolvingEList<GenLink>(GenLink.class, this, GMFGenPackage.TOOL_ENTRY__GEN_LINKS);
 		}
 		return genLinks;
 	}
@@ -100,11 +103,14 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getElements() {
+	public EList<GenCommonBase> getElements() {
+		EList<? extends GenCommonBase> picked;
 		if (getGenNodes().isEmpty()) {
-			return getGenLinks();
+			picked = getGenLinks();
+		} else {
+			picked = getGenNodes();
 		}
-		return getGenNodes();
+		return new BasicEList.UnmodifiableEList<GenCommonBase>(picked.size(), picked.toArray());
 	}
 
 	/**
@@ -112,6 +118,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__GEN_NODES:
@@ -129,15 +136,17 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__GEN_NODES:
 				getGenNodes().clear();
-				getGenNodes().addAll((Collection)newValue);
+				getGenNodes().addAll((Collection<? extends GenNode>)newValue);
 				return;
 			case GMFGenPackage.TOOL_ENTRY__GEN_LINKS:
 				getGenLinks().clear();
-				getGenLinks().addAll((Collection)newValue);
+				getGenLinks().addAll((Collection<? extends GenLink>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -148,6 +157,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__GEN_NODES:
@@ -165,6 +175,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__GEN_NODES:

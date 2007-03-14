@@ -41,6 +41,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenTopLevelNode();
 	}
@@ -60,6 +61,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:
@@ -75,6 +77,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:
@@ -88,6 +91,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:
@@ -101,6 +105,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:
@@ -114,6 +119,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:

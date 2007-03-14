@@ -8,15 +8,14 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -47,7 +46,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * @generated
 	 * @ordered
 	 */
-	protected EList metrics = null;
+	protected EList<GenMetricRule> metrics = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,6 +62,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenMetricContainer();
 	}
@@ -82,9 +82,9 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getMetrics() {
+	public EList<GenMetricRule> getMetrics() {
 		if (metrics == null) {
-			metrics = new EObjectContainmentWithInverseEList(GenMetricRule.class, this, GMFGenPackage.GEN_METRIC_CONTAINER__METRICS, GMFGenPackage.GEN_METRIC_RULE__CONTAINER);
+			metrics = new EObjectContainmentWithInverseEList<GenMetricRule>(GenMetricRule.class, this, GMFGenPackage.GEN_METRIC_CONTAINER__METRICS, GMFGenPackage.GEN_METRIC_RULE__CONTAINER);
 		}
 		return metrics;
 	}
@@ -94,11 +94,9 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Set getAllTargetedModelPackages() {
-		Set packages = new HashSet();
-		EList allRules = getMetrics();
-		for (Iterator it = allRules.iterator(); it.hasNext();) {
-			GenMetricRule nextRule = (GenMetricRule) it.next();
+	public Set<GenPackage> getAllTargetedModelPackages() {
+		HashSet<GenPackage> packages = new HashSet<GenPackage>();
+		for (GenMetricRule nextRule  : getMetrics()) {
 			if(nextRule.getTarget() != null && nextRule.getTarget().getContext() != null) {
 				packages.add(nextRule.getTarget().getContext().getGenPackage());
 			}
@@ -111,6 +109,8 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
@@ -118,7 +118,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
-				return ((InternalEList)getMetrics()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getMetrics()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -128,12 +128,13 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
-				return ((InternalEList)getMetrics()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMetrics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -143,6 +144,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
@@ -156,6 +158,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:
@@ -171,11 +174,13 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
 				getMetrics().clear();
-				getMetrics().addAll((Collection)newValue);
+				getMetrics().addAll((Collection<? extends GenMetricRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -186,6 +191,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__METRICS:
@@ -200,6 +206,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN:

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class GenSeverity extends AbstractEnumerator {
+public enum GenSeverity implements Enumerator
+{
+	/**
+	 * The '<em><b>INFO</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #INFO
+	 * @generated
+	 * @ordered
+	 */
+	INFO_LITERAL(0, "INFO", "INFO"),
+	/**
+	 * The '<em><b>WARNING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WARNING
+	 * @generated
+	 * @ordered
+	 */
+	WARNING_LITERAL(1, "WARNING", "WARNING"),
+	/**
+	 * The '<em><b>ERROR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ERROR
+	 * @generated
+	 * @ordered
+	 */
+	ERROR_LITERAL(2, "ERROR", "ERROR");
 	/**
 	 * The '<em><b>INFO</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -68,36 +96,6 @@ public final class GenSeverity extends AbstractEnumerator {
 	public static final int ERROR = 2;
 
 	/**
-	 * The '<em><b>INFO</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #INFO
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenSeverity INFO_LITERAL = new GenSeverity(INFO, "INFO", "INFO");
-
-	/**
-	 * The '<em><b>WARNING</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #WARNING
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenSeverity WARNING_LITERAL = new GenSeverity(WARNING, "WARNING", "WARNING");
-
-	/**
-	 * The '<em><b>ERROR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ERROR
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenSeverity ERROR_LITERAL = new GenSeverity(ERROR, "ERROR", "ERROR");
-
-	/**
 	 * An array of all the '<em><b>Gen Severity</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +114,7 @@ public final class GenSeverity extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<GenSeverity> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Gen Severity</b></em>' literal with the specified literal value.
@@ -162,8 +160,29 @@ public final class GenSeverity extends AbstractEnumerator {
 			case WARNING: return WARNING_LITERAL;
 			case ERROR: return ERROR_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -172,7 +191,46 @@ public final class GenSeverity extends AbstractEnumerator {
 	 * @generated
 	 */
 	private GenSeverity(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //GenSeverity
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

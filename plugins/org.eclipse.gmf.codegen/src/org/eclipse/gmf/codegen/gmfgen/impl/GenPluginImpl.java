@@ -187,6 +187,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenPlugin();
 	}
@@ -372,20 +373,19 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getRequiredPluginIDs() {
+	public EList<String> getRequiredPluginIDs() {
 		Collection<String> requiredPlugins = new LinkedHashSet<String>();
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
 		requiredPlugins.addAll(getMetricsRequiredPluginIDs());
 		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
-		for (Iterator it = requiredPlugins.iterator(); it.hasNext();) {
-			String next =  (String) it.next();
-			if (GenCommonBaseImpl.isEmpty(next)) {
+		for (Iterator<String> it = requiredPlugins.iterator(); it.hasNext();) {
+			if (GenCommonBaseImpl.isEmpty(it.next())) {
 				it.remove();
 			}
 		}
-		return new BasicEList(requiredPlugins);
+		return new BasicEList<String>(requiredPlugins);
 	}
 
 	/**
@@ -400,8 +400,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	private Set<String> getExpressionsRequiredPluginIDs() {
 		Set<String> requiredIDs = new HashSet<String>();
 		if(getEditorGen().getExpressionProviders() != null) {
-			for (Iterator it = getEditorGen().getExpressionProviders().getProviders().iterator(); it.hasNext();) {
-				GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+			for (GenExpressionProviderBase nextProvider : getEditorGen().getExpressionProviders().getProviders()) {
 				requiredIDs.addAll(nextProvider.getRequiredPluginIDs());
 			}
 		}
@@ -413,8 +412,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	private Collection<String> getViewmapRequiredPluginIDs() {
 		Collection<String> result = null;
-		for (TreeIterator contents = EcoreUtil.getAllContents(getDiagram().getAllNodes()); contents.hasNext();){
-			EObject next = (EObject) contents.next();
+		for (TreeIterator<EObject> contents = EcoreUtil.getAllContents(getDiagram().getAllNodes()); contents.hasNext();){
+			EObject next = contents.next();
 			if (next instanceof Viewmap && next.eIsSet(GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs())){
 				if (result == null){
 					result = new HashSet<String>();
@@ -462,6 +461,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
@@ -477,6 +477,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
@@ -490,6 +491,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
@@ -503,6 +505,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
@@ -528,6 +531,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__ID:
@@ -557,6 +561,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__ID:
@@ -586,6 +591,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
@@ -611,6 +617,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

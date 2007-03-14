@@ -6,16 +6,13 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -100,6 +97,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenChildLabelNode();
 	}
@@ -194,7 +192,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getLabelMetaFeatures() {
+	public EList<GenFeature> getLabelMetaFeatures() {
 		return GenLabelImpl.getMetaFeatures(getLabelModelFacet());
 	}
 
@@ -203,6 +201,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
@@ -216,6 +215,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
@@ -233,6 +233,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
@@ -253,6 +254,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
@@ -273,6 +275,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
@@ -290,6 +293,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

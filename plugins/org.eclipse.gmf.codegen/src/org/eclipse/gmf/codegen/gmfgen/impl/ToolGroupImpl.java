@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
@@ -90,7 +89,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList entries = null;
+	protected EList<ToolGroupItem> entries = null;
 
 	/**
 	 * The default value of the '{@link #isToolsOnly() <em>Tools Only</em>}' attribute.
@@ -116,6 +115,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getToolGroup();
 	}
@@ -153,9 +153,9 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getEntries() {
+	public EList<ToolGroupItem> getEntries() {
 		if (entries == null) {
-			entries = new EObjectContainmentWithInverseEList(ToolGroupItem.class, this, GMFGenPackage.TOOL_GROUP__ENTRIES, GMFGenPackage.TOOL_GROUP_ITEM__GROUP);
+			entries = new EObjectContainmentWithInverseEList<ToolGroupItem>(ToolGroupItem.class, this, GMFGenPackage.TOOL_GROUP__ENTRIES, GMFGenPackage.TOOL_GROUP_ITEM__GROUP);
 		}
 		return entries;
 	}
@@ -166,8 +166,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated NOT
 	 */
 	public boolean isToolsOnly() {
-		for (Iterator it = getEntries().iterator(); it.hasNext(); ) {
-			if (it.next() instanceof ToolGroup) {
+		for (Object element : getEntries()) {
+			if (element instanceof ToolGroup) {
 				return false;
 			}
 		}
@@ -179,6 +179,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
@@ -190,7 +192,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
-				return ((InternalEList)getEntries()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getEntries()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -242,6 +244,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
@@ -249,7 +252,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
-				return ((InternalEList)getEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEntries()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -259,6 +262,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
@@ -274,6 +278,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
@@ -297,6 +302,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__STACK:
@@ -307,7 +314,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				return;
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
 				getEntries().clear();
-				getEntries().addAll((Collection)newValue);
+				getEntries().addAll((Collection<? extends ToolGroupItem>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -318,6 +325,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__STACK:
@@ -338,6 +346,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
@@ -361,7 +370,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ToolGroupItem.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.TOOL_GROUP__GROUP: return GMFGenPackage.TOOL_GROUP_ITEM__GROUP;
@@ -376,7 +386,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ToolGroupItem.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.TOOL_GROUP_ITEM__GROUP: return GMFGenPackage.TOOL_GROUP__GROUP;
@@ -391,6 +402,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

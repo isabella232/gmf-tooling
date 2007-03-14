@@ -149,7 +149,7 @@ public interface GenAuditContainer extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" required="true"
 	 * @generated
 	 */
-	EList getPath();
+	EList<GenAuditContainer> getPath();
 
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' reference list.
@@ -167,6 +167,6 @@ public interface GenAuditContainer extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="category"
 	 * @generated
 	 */
-	EList getAudits();
+	EList<GenAuditRule> getAudits();
 
 } // GenAuditContainer

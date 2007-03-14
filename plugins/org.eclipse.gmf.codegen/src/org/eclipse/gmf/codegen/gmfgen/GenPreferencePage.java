@@ -98,7 +98,7 @@ public interface GenPreferencePage extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" opposite="parent" containment="true"
 	 * @generated
 	 */
-	EList getChildren();
+	EList<GenPreferencePage> getChildren();
 
 	/**
 	 * Returns the value of the '<em><b>Parent</b></em>' container reference.

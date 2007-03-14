@@ -65,7 +65,7 @@ public interface GenAuditRoot extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditContainer" opposite="root" containment="true"
 	 * @generated
 	 */
-	EList getCategories();
+	EList<GenAuditContainer> getCategories();
 
 	/**
 	 * Returns the value of the '<em><b>Rules</b></em>' containment reference list.
@@ -83,7 +83,7 @@ public interface GenAuditRoot extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenAuditRule" opposite="root" containment="true"
 	 * @generated
 	 */
-	EList getRules();
+	EList<GenAuditRule> getRules();
 
 	List<GenPackage> getTargetedModelPackages();
 } // GenAuditRoot

@@ -101,7 +101,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="diagram" containment="true"
 	 * @generated
 	 */
-	EList getChildNodes();
+	EList<GenChildNode> getChildNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Top Level Nodes</b></em>' containment reference list.
@@ -119,7 +119,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode" opposite="diagram" containment="true"
 	 * @generated
 	 */
-	EList getTopLevelNodes();
+	EList<GenTopLevelNode> getTopLevelNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.
@@ -137,7 +137,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" opposite="diagram" containment="true"
 	 * @generated
 	 */
-	EList getLinks();
+	EList<GenLink> getLinks();
 
 	/**
 	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
@@ -155,7 +155,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="diagram" containment="true"
 	 * @generated
 	 */
-	EList getCompartments();
+	EList<GenCompartment> getCompartments();
 
 	/**
 	 * Returns the value of the '<em><b>Palette</b></em>' containment reference.
@@ -252,7 +252,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenPreferencePage" containment="true"
 	 * @generated
 	 */
-	EList getPreferencePages();
+	EList<GenPreferencePage> getPreferencePages();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,7 +260,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
 	 * @generated
 	 */
-	EList getAllNodes();
+	EList<GenNode> getAllNodes();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -268,7 +268,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer"
 	 * @generated
 	 */
-	EList getAllChildContainers();
+	EList<GenChildContainer> getAllChildContainers();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -276,7 +276,7 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerBase"
 	 * @generated
 	 */
-	EList getAllContainers();
+	EList<GenContainerBase> getAllContainers();
 
 	/**
 	 * <!-- begin-user-doc -->

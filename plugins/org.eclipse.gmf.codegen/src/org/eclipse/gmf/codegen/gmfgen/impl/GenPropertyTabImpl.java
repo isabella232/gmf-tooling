@@ -90,6 +90,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenPropertyTab();
 	}
@@ -159,6 +160,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
@@ -174,6 +176,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
@@ -187,6 +190,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
@@ -200,6 +204,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
@@ -217,6 +222,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__ID:
@@ -234,6 +240,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__ID:
@@ -251,6 +258,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
@@ -268,6 +276,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

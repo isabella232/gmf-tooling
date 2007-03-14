@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenLanguage.java,v 1.1 2006/06/06 16:22:23 radvorak Exp $
+ * $Id: GenLanguage.java,v 1.2 2007/03/14 14:39:36 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,44 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class GenLanguage extends AbstractEnumerator {
+public enum GenLanguage implements Enumerator
+{
+	/**
+	 * The '<em><b>Ocl</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OCL
+	 * @generated
+	 * @ordered
+	 */
+	OCL_LITERAL(0, "ocl", "ocl"),
+	/**
+	 * The '<em><b>Java</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JAVA
+	 * @generated
+	 * @ordered
+	 */
+	JAVA_LITERAL(1, "java", "java"),
+	/**
+	 * The '<em><b>Regexp</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REGEXP
+	 * @generated
+	 * @ordered
+	 */
+	REGEXP_LITERAL(2, "regexp", "regexp"),
+	/**
+	 * The '<em><b>Nregexp</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NREGEXP
+	 * @generated
+	 * @ordered
+	 */
+	NREGEXP_LITERAL(3, "nregexp", "nregexp");
 	/**
 	 * The '<em><b>Ocl</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -83,46 +120,6 @@ public final class GenLanguage extends AbstractEnumerator {
 	public static final int NREGEXP = 3;
 
 	/**
-	 * The '<em><b>Ocl</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OCL
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenLanguage OCL_LITERAL = new GenLanguage(OCL, "ocl", "ocl");
-
-	/**
-	 * The '<em><b>Java</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #JAVA
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenLanguage JAVA_LITERAL = new GenLanguage(JAVA, "java", "java");
-
-	/**
-	 * The '<em><b>Regexp</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REGEXP
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenLanguage REGEXP_LITERAL = new GenLanguage(REGEXP, "regexp", "regexp");
-
-	/**
-	 * The '<em><b>Nregexp</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NREGEXP
-	 * @generated
-	 * @ordered
-	 */
-	public static final GenLanguage NREGEXP_LITERAL = new GenLanguage(NREGEXP, "nregexp", "nregexp");
-
-	/**
 	 * An array of all the '<em><b>Gen Language</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -142,7 +139,7 @@ public final class GenLanguage extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<GenLanguage> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Gen Language</b></em>' literal with the specified literal value.
@@ -189,8 +186,29 @@ public final class GenLanguage extends AbstractEnumerator {
 			case REGEXP: return REGEXP_LITERAL;
 			case NREGEXP: return NREGEXP_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -199,7 +217,46 @@ public final class GenLanguage extends AbstractEnumerator {
 	 * @generated
 	 */
 	private GenLanguage(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //GenLanguage
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

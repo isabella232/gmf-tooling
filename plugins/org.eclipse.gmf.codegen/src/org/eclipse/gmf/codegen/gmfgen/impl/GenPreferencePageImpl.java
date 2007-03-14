@@ -91,7 +91,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList children = null;
+	protected EList<GenPreferencePage> children = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -107,6 +107,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenPreferencePage();
 	}
@@ -158,9 +159,9 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
+	public EList<GenPreferencePage> getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentWithInverseEList(GenPreferencePage.class, this, GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT);
+			children = new EObjectContainmentWithInverseEList<GenPreferencePage>(GenPreferencePage.class, this, GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT);
 		}
 		return children;
 	}
@@ -195,10 +196,12 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -212,10 +215,11 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT, msgs);
 		}
@@ -227,6 +231,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
@@ -240,6 +245,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__ID:
@@ -259,6 +265,8 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__ID:
@@ -269,7 +277,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				return;
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
+				getChildren().addAll((Collection<? extends GenPreferencePage>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -280,6 +288,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__ID:
@@ -300,6 +309,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__ID:
@@ -319,6 +329,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -179,7 +179,7 @@ public interface Shortcuts extends EObject {
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
-	EList getContainsShortcutsTo();
+	EList<String> getContainsShortcutsTo();
 
 	/**
 	 * Returns the value of the '<em><b>Shortcuts Provided For</b></em>' attribute list.
@@ -194,7 +194,7 @@ public interface Shortcuts extends EObject {
 	 * @model type="java.lang.String"
 	 * @generated
 	 */
-	EList getShortcutsProvidedFor();
+	EList<String> getShortcutsProvidedFor();
 
 	/**
 	 * <!-- begin-user-doc -->

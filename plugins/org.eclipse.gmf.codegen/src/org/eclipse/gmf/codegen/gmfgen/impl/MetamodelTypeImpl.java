@@ -66,6 +66,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getMetamodelType();
 	}
@@ -128,6 +129,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME:
@@ -141,6 +143,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME:
@@ -155,6 +158,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME:
@@ -169,6 +173,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME:
@@ -182,6 +187,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

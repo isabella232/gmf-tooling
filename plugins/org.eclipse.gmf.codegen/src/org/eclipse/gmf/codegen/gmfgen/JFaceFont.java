@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,53 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class JFaceFont extends AbstractEnumerator {
+public enum JFaceFont implements Enumerator
+{
+	/**
+	 * The '<em><b>Default</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DEFAULT
+	 * @generated
+	 * @ordered
+	 */
+	DEFAULT_LITERAL(0, "Default", "Default"),
+	/**
+	 * The '<em><b>Text</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TEXT
+	 * @generated
+	 * @ordered
+	 */
+	TEXT_LITERAL(1, "Text", "Text"),
+	/**
+	 * The '<em><b>Banner</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BANNER
+	 * @generated
+	 * @ordered
+	 */
+	BANNER_LITERAL(2, "Banner", "Banner"),
+	/**
+	 * The '<em><b>Dialog</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIALOG
+	 * @generated
+	 * @ordered
+	 */
+	DIALOG_LITERAL(3, "Dialog", "Dialog"),
+	/**
+	 * The '<em><b>Header</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HEADER
+	 * @generated
+	 * @ordered
+	 */
+	HEADER_LITERAL(4, "Header", "Header");
 	/**
 	 * The '<em><b>Default</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -98,56 +144,6 @@ public final class JFaceFont extends AbstractEnumerator {
 	public static final int HEADER = 4;
 
 	/**
-	 * The '<em><b>Default</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DEFAULT
-	 * @generated
-	 * @ordered
-	 */
-	public static final JFaceFont DEFAULT_LITERAL = new JFaceFont(DEFAULT, "Default", "Default");
-
-	/**
-	 * The '<em><b>Text</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TEXT
-	 * @generated
-	 * @ordered
-	 */
-	public static final JFaceFont TEXT_LITERAL = new JFaceFont(TEXT, "Text", "Text");
-
-	/**
-	 * The '<em><b>Banner</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BANNER
-	 * @generated
-	 * @ordered
-	 */
-	public static final JFaceFont BANNER_LITERAL = new JFaceFont(BANNER, "Banner", "Banner");
-
-	/**
-	 * The '<em><b>Dialog</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DIALOG
-	 * @generated
-	 * @ordered
-	 */
-	public static final JFaceFont DIALOG_LITERAL = new JFaceFont(DIALOG, "Dialog", "Dialog");
-
-	/**
-	 * The '<em><b>Header</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #HEADER
-	 * @generated
-	 * @ordered
-	 */
-	public static final JFaceFont HEADER_LITERAL = new JFaceFont(HEADER, "Header", "Header");
-
-	/**
 	 * An array of all the '<em><b>JFace Font</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,7 +164,7 @@ public final class JFaceFont extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<JFaceFont> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>JFace Font</b></em>' literal with the specified literal value.
@@ -216,8 +212,29 @@ public final class JFaceFont extends AbstractEnumerator {
 			case DIALOG: return DIALOG_LITERAL;
 			case HEADER: return HEADER_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -226,7 +243,46 @@ public final class JFaceFont extends AbstractEnumerator {
 	 * @generated
 	 */
 	private JFaceFont(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //JFaceFont
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

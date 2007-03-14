@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -46,7 +47,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature" required="true"
 	 * @generated
 	 */
-	EList getMetaFeatures();
+	EList<GenFeature> getMetaFeatures();
 
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.

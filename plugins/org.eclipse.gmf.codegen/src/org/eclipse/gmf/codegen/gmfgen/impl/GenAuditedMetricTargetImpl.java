@@ -66,6 +66,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenAuditedMetricTarget();
 	}
@@ -173,6 +174,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
@@ -190,6 +192,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
@@ -207,6 +210,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
@@ -224,6 +228,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:

@@ -6,8 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -41,6 +40,7 @@ public abstract class GenAuditableImpl extends EObjectImpl implements GenAuditab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenAuditable();
 	}
@@ -82,14 +82,14 @@ public abstract class GenAuditableImpl extends EObjectImpl implements GenAuditab
 		if(getTargetClass() == null || getTargetClass().getGenPackage() == null) {
 			return null;
 		}
-		ArrayList packageNames = new ArrayList(3);
+		LinkedList<String> packageNames = new LinkedList<String>();
 		for(GenPackage genPackage = getTargetClass().getGenPackage(); genPackage != null;) {
-			packageNames.add(0, genPackage.getPackageName());			
+			packageNames.addFirst(genPackage.getPackageName());			
 			genPackage = genPackage.getSuperGenPackage(); 
 		}
-		StringBuffer buf = new StringBuffer(getTargetClass().getQualifiedInterfaceName().length());
-		for (Iterator it = packageNames.iterator(); it.hasNext();) {
-			buf.append(it.next()).append('.');			
+		StringBuilder buf = new StringBuilder(getTargetClass().getQualifiedInterfaceName().length());
+		for (String next : packageNames) {
+			buf.append(next).append('.');			
 		}		
 		return buf.append(getTargetClass().getName()).toString();
 	}

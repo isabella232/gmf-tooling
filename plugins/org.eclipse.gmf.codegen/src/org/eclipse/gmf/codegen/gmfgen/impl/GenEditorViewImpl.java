@@ -182,6 +182,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenEditorView();
 	}
@@ -408,6 +409,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
@@ -423,6 +425,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
@@ -436,6 +439,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
@@ -449,6 +453,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
@@ -476,6 +481,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__PACKAGE_NAME:
@@ -505,6 +511,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__PACKAGE_NAME:
@@ -534,6 +541,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
@@ -561,6 +569,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

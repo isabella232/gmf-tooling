@@ -8,23 +8,16 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
@@ -55,7 +48,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList categories = null;
+	protected EList<GenAuditContainer> categories = null;
 
 	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
@@ -65,7 +58,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList rules = null;
+	protected EList<GenAuditRule> rules = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -81,6 +74,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenAuditRoot();
 	}
@@ -100,9 +94,9 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCategories() {
+	public EList<GenAuditContainer> getCategories() {
 		if (categories == null) {
-			categories = new EObjectContainmentWithInverseEList(GenAuditContainer.class, this, GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT);
+			categories = new EObjectContainmentWithInverseEList<GenAuditContainer>(GenAuditContainer.class, this, GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT);
 		}
 		return categories;
 	}
@@ -112,9 +106,9 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getRules() {
+	public EList<GenAuditRule> getRules() {
 		if (rules == null) {
-			rules = new EObjectContainmentWithInverseEList(GenAuditRule.class, this, GMFGenPackage.GEN_AUDIT_ROOT__RULES, GMFGenPackage.GEN_AUDIT_RULE__ROOT);
+			rules = new EObjectContainmentWithInverseEList<GenAuditRule>(GenAuditRule.class, this, GMFGenPackage.GEN_AUDIT_ROOT__RULES, GMFGenPackage.GEN_AUDIT_RULE__ROOT);
 		}
 		return rules;
 	}
@@ -124,6 +118,8 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
@@ -131,9 +127,9 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
-				return ((InternalEList)getCategories()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCategories()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
-				return ((InternalEList)getRules()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getRules()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -143,14 +139,15 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
-				return ((InternalEList)getCategories()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
-				return ((InternalEList)getRules()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -160,6 +157,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
@@ -173,6 +171,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
@@ -190,15 +189,17 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
 				getCategories().clear();
-				getCategories().addAll((Collection)newValue);
+				getCategories().addAll((Collection<? extends GenAuditContainer>)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_ROOT__RULES:
 				getRules().clear();
-				getRules().addAll((Collection)newValue);
+				getRules().addAll((Collection<? extends GenAuditRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -209,6 +210,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__CATEGORIES:
@@ -226,6 +228,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
@@ -240,8 +243,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 
 	public List<GenPackage> getTargetedModelPackages() {
 		ArrayList<GenPackage> targetPackages = new ArrayList<GenPackage>();
-		for (Iterator it = getRules().iterator(); it.hasNext();) {
-			GenAuditRule r = (GenAuditRule) it.next();
+		for (GenAuditRule r : getRules()) {
 			if (r.getTarget() != null && r.getTarget().getTargetClass() != null) {
 				targetPackages.add(r.getTarget().getTargetClass().getGenPackage());
 			}

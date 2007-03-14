@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,17 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class GeneratedType extends AbstractEnumerator {
+public enum GeneratedType implements Enumerator
+{
+	/**
+	 * The '<em><b>Abstract Navigator Item</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ABSTRACT_NAVIGATOR_ITEM
+	 * @generated
+	 * @ordered
+	 */
+	ABSTRACT_NAVIGATOR_ITEM_LITERAL(0, "abstractNavigatorItem", "abstractNavigatorItem");
 	/**
 	 * The '<em><b>Abstract Navigator Item</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -36,16 +46,6 @@ public final class GeneratedType extends AbstractEnumerator {
 	 * @ordered
 	 */
 	public static final int ABSTRACT_NAVIGATOR_ITEM = 0;
-
-	/**
-	 * The '<em><b>Abstract Navigator Item</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ABSTRACT_NAVIGATOR_ITEM
-	 * @generated
-	 * @ordered
-	 */
-	public static final GeneratedType ABSTRACT_NAVIGATOR_ITEM_LITERAL = new GeneratedType(ABSTRACT_NAVIGATOR_ITEM, "abstractNavigatorItem", "abstractNavigatorItem");
 
 	/**
 	 * An array of all the '<em><b>Generated Type</b></em>' enumerators.
@@ -64,7 +64,7 @@ public final class GeneratedType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<GeneratedType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Generated Type</b></em>' literal with the specified literal value.
@@ -108,8 +108,29 @@ public final class GeneratedType extends AbstractEnumerator {
 		switch (value) {
 			case ABSTRACT_NAVIGATOR_ITEM: return ABSTRACT_NAVIGATOR_ITEM_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -118,7 +139,46 @@ public final class GeneratedType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private GeneratedType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //GeneratedType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

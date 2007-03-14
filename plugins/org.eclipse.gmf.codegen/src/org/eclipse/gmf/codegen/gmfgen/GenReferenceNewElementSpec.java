@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpec.java,v 1.1 2006/09/05 23:41:12 radvorak Exp $
+ * $Id: GenReferenceNewElementSpec.java,v 1.2 2007/03/14 14:39:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -41,6 +41,6 @@ public interface GenReferenceNewElementSpec extends GenFeatureInitializer {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer" opposite="creatingInitializer" containment="true" required="true"
 	 * @generated
 	 */
-	EList getNewElementInitializers();
+	EList<GenFeatureSeqInitializer> getNewElementInitializers();
 
 } // GenReferenceNewElementSpec

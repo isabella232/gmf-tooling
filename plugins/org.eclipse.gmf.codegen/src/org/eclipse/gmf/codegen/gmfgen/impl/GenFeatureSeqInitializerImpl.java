@@ -9,7 +9,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initializers = null;
+	protected EList<GenFeatureInitializer> initializers = null;
 
 	/**
 	 * The cached value of the '{@link #getElementClass() <em>Element Class</em>}' reference.
@@ -86,6 +85,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer();
 	}
@@ -105,9 +105,9 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getInitializers() {
+	public EList<GenFeatureInitializer> getInitializers() {
 		if (initializers == null) {
-			initializers = new EObjectContainmentWithInverseEList(GenFeatureInitializer.class, this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
+			initializers = new EObjectContainmentWithInverseEList<GenFeatureInitializer>(GenFeatureInitializer.class, this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
 		}
 		return initializers;
 	}
@@ -170,7 +170,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 			}
 			if(getCreatingInitializer().getFeature() != null) {
 				buf.append(getCreatingInitializer().getFeature().getName());
-				EList siblingInitalizers = getCreatingInitializer().getNewElementInitializers();		
+				EList<GenFeatureSeqInitializer> siblingInitalizers = getCreatingInitializer().getNewElementInitializers();		
 				if(siblingInitalizers.size() > 1) {
 					int pos = siblingInitalizers.indexOf(this);
 					buf.append('_').append(pos + 1);
@@ -188,8 +188,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	public List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers() {
 		List<GenFeatureSeqInitializer> result = new ArrayList<GenFeatureSeqInitializer>();
 		result.add(this);
-		for (Iterator it = getInitializers().iterator(); it.hasNext();) {
-			GenFeatureInitializer nextFeatureInit = (GenFeatureInitializer)it.next();
+		for (GenFeatureInitializer nextFeatureInit : getInitializers()) {
 			result.addAll(nextFeatureInit.getAllFeatureSeqInitializers());
 		}
 		return Collections.unmodifiableList(result);
@@ -220,10 +219,12 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
-				return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInitializers()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -237,10 +238,11 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
-				return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitializers()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER, msgs);
 		}
@@ -252,6 +254,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
@@ -265,6 +268,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
@@ -286,11 +290,13 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				getInitializers().clear();
-				getInitializers().addAll((Collection)newValue);
+				getInitializers().addAll((Collection<? extends GenFeatureInitializer>)newValue);
 				return;
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS:
 				setElementClass((GenClass)newValue);
@@ -304,6 +310,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
@@ -321,6 +328,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
@@ -405,8 +413,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	public LinkedHashSet<GenFeatureValueSpec> getJavaExpressionFeatureInitializers(GenExpressionProviderContainer expressionProviders) {
 		LinkedHashSet<GenFeatureValueSpec> result = new LinkedHashSet<GenFeatureValueSpec>();
 		if(expressionProviders != null) {
-			for (Iterator it = getInitializers().iterator(); it.hasNext();) {
-				GenFeatureInitializer next = (GenFeatureInitializer) it.next();
+			for (GenFeatureInitializer next : getInitializers()) {
 				if(next instanceof GenFeatureValueSpec) {
 					GenFeatureValueSpec featureValueSpec = (GenFeatureValueSpec) next;				
 					if(expressionProviders.getProvider(featureValueSpec) instanceof GenJavaExpressionProvider && 

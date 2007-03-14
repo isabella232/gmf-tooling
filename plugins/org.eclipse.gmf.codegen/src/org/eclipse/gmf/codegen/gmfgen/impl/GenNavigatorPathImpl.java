@@ -46,7 +46,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList segments = null;
+	protected EList<GenNavigatorPathSegment> segments = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,6 +62,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNavigatorPath();
 	}
@@ -71,9 +72,9 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getSegments() {
+	public EList<GenNavigatorPathSegment> getSegments() {
 		if (segments == null) {
-			segments = new EObjectContainmentWithInverseEList(GenNavigatorPathSegment.class, this, GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH);
+			segments = new EObjectContainmentWithInverseEList<GenNavigatorPathSegment>(GenNavigatorPathSegment.class, this, GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS, GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH);
 		}
 		return segments;
 	}
@@ -83,10 +84,12 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:
-				return ((InternalEList)getSegments()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSegments()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -96,10 +99,11 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:
-				return ((InternalEList)getSegments()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSegments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -109,6 +113,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:
@@ -122,11 +127,13 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:
 				getSegments().clear();
-				getSegments().addAll((Collection)newValue);
+				getSegments().addAll((Collection<? extends GenNavigatorPathSegment>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,6 +144,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:
@@ -151,6 +159,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS:

@@ -91,7 +91,7 @@ public interface Palette extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" opposite="palette" containment="true" required="true"
 	 * @generated
 	 */
-	EList getGroups();
+	EList<ToolGroup> getGroups();
 
 	/**
 	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.

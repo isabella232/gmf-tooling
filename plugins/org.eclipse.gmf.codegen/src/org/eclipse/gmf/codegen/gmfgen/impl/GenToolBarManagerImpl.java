@@ -35,6 +35,7 @@ public class GenToolBarManagerImpl extends GenContributionManagerImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenToolBarManager();
 	}

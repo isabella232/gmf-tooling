@@ -217,7 +217,7 @@ public interface GenPlugin extends EObject {
 	 * @model kind="operation" type="java.lang.String"
 	 * @generated
 	 */
-	EList getRequiredPluginIDs();
+	EList<String> getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

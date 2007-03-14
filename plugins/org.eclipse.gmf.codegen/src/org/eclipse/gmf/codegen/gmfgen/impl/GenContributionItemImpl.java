@@ -44,6 +44,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenContributionItem();
 	}
@@ -72,6 +73,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
@@ -87,6 +89,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
@@ -100,6 +103,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
@@ -113,6 +117,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:
@@ -128,6 +133,7 @@ public abstract class GenContributionItemImpl extends EObjectImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CONTRIBUTION_ITEM__OWNER:

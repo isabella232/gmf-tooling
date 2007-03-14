@@ -34,6 +34,7 @@ public class GenConstraintImpl extends ValueExpressionImpl implements GenConstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenConstraint();
 	}

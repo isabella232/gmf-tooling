@@ -59,6 +59,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenFeatureValueSpec();
 	}
@@ -135,6 +136,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -150,6 +152,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -163,6 +166,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -176,6 +180,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
@@ -192,6 +197,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
@@ -206,6 +212,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
@@ -220,6 +227,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
@@ -235,7 +243,8 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == GenFeatureInitializer.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE: return GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE;
@@ -251,7 +260,8 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == GenFeatureInitializer.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE: return GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE;

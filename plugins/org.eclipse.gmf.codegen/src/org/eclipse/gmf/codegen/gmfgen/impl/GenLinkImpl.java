@@ -7,13 +7,14 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
@@ -68,7 +70,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList labels = null;
+	protected EList<GenLinkLabel> labels = null;
 
 	/**
 	 * The default value of the '{@link #isOutgoingCreationAllowed() <em>Outgoing Creation Allowed</em>}' attribute.
@@ -154,6 +156,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenLink();
 	}
@@ -216,9 +219,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLabels() {
+	public EList<GenLinkLabel> getLabels() {
 		if (labels == null) {
-			labels = new EObjectContainmentWithInverseEList(GenLinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.GEN_LINK_LABEL__LINK);
+			labels = new EObjectContainmentWithInverseEList<GenLinkLabel>(GenLinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.GEN_LINK_LABEL__LINK);
 		}
 		return labels;
 	}
@@ -334,9 +337,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAssistantSources() {
+	public EList<GenCommonBase> getAssistantSources() {
 		if (getModelFacet() == null) {
-			return new BasicEList();
+			return ECollections.emptyEList();
 		}
 		return getParticipants(getModelFacet().getAssistantSourceTypes());
 	}
@@ -346,17 +349,16 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAssistantTargets() {
+	public EList<GenCommonBase> getAssistantTargets() {
 		if (getModelFacet() == null) {
-			return new BasicEList();
+			return ECollections.emptyEList();
 		}
 		return getParticipants(getModelFacet().getAssistantTargetTypes());
 	}
 
-	protected EList getParticipants(EList participantTypes) {
-		BasicEList participants = new BasicEList();
-		for (Iterator nodes = getDiagram().getAllNodes().iterator(); nodes.hasNext();) {
-			GenNode node = (GenNode) nodes.next();
+	protected EList<GenCommonBase> getParticipants(EList<GenClass> participantTypes) {
+		LinkedList<GenNode> participants = new LinkedList<GenNode>();
+		for (GenNode node : getDiagram().getAllNodes()) {
 			if (node.getModelFacet() != null) {
 				GenClass nodeType = node.getModelFacet().getMetaClass();
 				if (participantTypes.contains(nodeType)) {
@@ -364,7 +366,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				}
 			}
 		}
-		return participants;
+		return new BasicEList.UnmodifiableEList<GenCommonBase>(participants.size(), participants.toArray());
 	}
 
 	/**
@@ -372,6 +374,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
@@ -379,7 +383,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 			case GMFGenPackage.GEN_LINK__LABELS:
-				return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLabels()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				if (creationConstraints != null)
 					msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, null, msgs);
@@ -393,6 +397,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
@@ -400,7 +405,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				return basicSetModelFacet(null, msgs);
 			case GMFGenPackage.GEN_LINK__LABELS:
-				return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLabels()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return basicSetCreationConstraints(null, msgs);
 		}
@@ -412,6 +417,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
@@ -425,6 +431,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
@@ -450,6 +457,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -457,7 +466,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return;
 			case GMFGenPackage.GEN_LINK__LABELS:
 				getLabels().clear();
-				getLabels().addAll((Collection)newValue);
+				getLabels().addAll((Collection<? extends GenLinkLabel>)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
 				setOutgoingCreationAllowed(((Boolean)newValue).booleanValue());
@@ -480,6 +489,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -509,6 +519,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
@@ -534,6 +545,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

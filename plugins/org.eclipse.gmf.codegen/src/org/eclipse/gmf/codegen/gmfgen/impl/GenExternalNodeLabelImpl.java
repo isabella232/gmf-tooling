@@ -34,6 +34,7 @@ public class GenExternalNodeLabelImpl extends GenNodeLabelImpl implements GenExt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenExternalNodeLabel();
 	}

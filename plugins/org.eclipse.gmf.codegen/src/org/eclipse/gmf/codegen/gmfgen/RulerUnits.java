@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,35 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class RulerUnits extends AbstractEnumerator {
+public enum RulerUnits implements Enumerator
+{
+	/**
+	 * The '<em><b>INCHES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #INCHES
+	 * @generated
+	 * @ordered
+	 */
+	INCHES_LITERAL(0, "INCHES", "INCHES"),
+	/**
+	 * The '<em><b>CENTIMETERS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CENTIMETERS
+	 * @generated
+	 * @ordered
+	 */
+	CENTIMETERS_LITERAL(1, "CENTIMETERS", "CENTIMETERS"),
+	/**
+	 * The '<em><b>PIXELS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PIXELS
+	 * @generated
+	 * @ordered
+	 */
+	PIXELS_LITERAL(2, "PIXELS", "PIXELS");
 	/**
 	 * The '<em><b>INCHES</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -68,36 +96,6 @@ public final class RulerUnits extends AbstractEnumerator {
 	public static final int PIXELS = 2;
 
 	/**
-	 * The '<em><b>INCHES</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #INCHES
-	 * @generated
-	 * @ordered
-	 */
-	public static final RulerUnits INCHES_LITERAL = new RulerUnits(INCHES, "INCHES", "INCHES");
-
-	/**
-	 * The '<em><b>CENTIMETERS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CENTIMETERS
-	 * @generated
-	 * @ordered
-	 */
-	public static final RulerUnits CENTIMETERS_LITERAL = new RulerUnits(CENTIMETERS, "CENTIMETERS", "CENTIMETERS");
-
-	/**
-	 * The '<em><b>PIXELS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PIXELS
-	 * @generated
-	 * @ordered
-	 */
-	public static final RulerUnits PIXELS_LITERAL = new RulerUnits(PIXELS, "PIXELS", "PIXELS");
-
-	/**
 	 * An array of all the '<em><b>Ruler Units</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -116,7 +114,7 @@ public final class RulerUnits extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<RulerUnits> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Ruler Units</b></em>' literal with the specified literal value.
@@ -162,8 +160,29 @@ public final class RulerUnits extends AbstractEnumerator {
 			case CENTIMETERS: return CENTIMETERS_LITERAL;
 			case PIXELS: return PIXELS_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -172,7 +191,46 @@ public final class RulerUnits extends AbstractEnumerator {
 	 * @generated
 	 */
 	private RulerUnits(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //RulerUnits
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

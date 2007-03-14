@@ -2,14 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpecImpl.java,v 1.1 2006/09/05 23:41:12 radvorak Exp $
+ * $Id: GenReferenceNewElementSpecImpl.java,v 1.2 2007/03/14 14:39:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -58,7 +57,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * @generated
 	 * @ordered
 	 */
-	protected EList newElementInitializers = null;
+	protected EList<GenFeatureSeqInitializer> newElementInitializers = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -72,6 +71,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenReferenceNewElementSpec();
 	}
@@ -124,9 +124,9 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNewElementInitializers() {
+	public EList<GenFeatureSeqInitializer> getNewElementInitializers() {
 		if (newElementInitializers == null) {
-			newElementInitializers = new EObjectContainmentWithInverseEList(GenFeatureSeqInitializer.class, this, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
+			newElementInitializers = new EObjectContainmentWithInverseEList<GenFeatureSeqInitializer>(GenFeatureSeqInitializer.class, this, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
 		}
 		return newElementInitializers;
 	}
@@ -136,8 +136,8 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 */
 	public List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers() {
 		List<GenFeatureSeqInitializer> result = new ArrayList<GenFeatureSeqInitializer>();
-		for (Iterator it = getNewElementInitializers().iterator(); it.hasNext();) {
-			result.addAll(((GenFeatureSeqInitializer) it.next()).getAllFeatureSeqInitializers());
+		for (GenFeatureSeqInitializer element : getNewElementInitializers()) {
+			result.addAll(element.getAllFeatureSeqInitializers());
 		}
 		return Collections.unmodifiableList(result);
 	}
@@ -158,6 +158,8 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -165,7 +167,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
-				return ((InternalEList)getNewElementInitializers()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNewElementInitializers()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -174,12 +176,13 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
-				return ((InternalEList)getNewElementInitializers()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getNewElementInitializers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -188,6 +191,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
@@ -200,6 +204,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
@@ -217,6 +222,8 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
@@ -224,7 +231,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 				return;
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				getNewElementInitializers().clear();
-				getNewElementInitializers().addAll((Collection)newValue);
+				getNewElementInitializers().addAll((Collection<? extends GenFeatureSeqInitializer>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -234,6 +241,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
@@ -250,6 +258,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE:

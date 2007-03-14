@@ -40,7 +40,7 @@ public interface GenContainerBase extends GenCommonBase {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList getContainedNodes();
+	EList<GenNode> getContainedNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.

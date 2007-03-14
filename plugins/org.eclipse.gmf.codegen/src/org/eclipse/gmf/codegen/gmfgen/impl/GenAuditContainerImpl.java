@@ -113,7 +113,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * @generated
 	 * @ordered
 	 */
-	protected EList path = null;
+	protected EList<GenAuditContainer> path = null;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' reference list.
@@ -123,7 +123,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * @generated
 	 * @ordered
 	 */
-	protected EList audits = null;
+	protected EList<GenAuditRule> audits = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,6 +139,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenAuditContainer();
 	}
@@ -221,9 +222,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getPath() {
+	public EList<GenAuditContainer> getPath() {
 		if (path == null) {
-			path = new EObjectResolvingEList(GenAuditContainer.class, this, GMFGenPackage.GEN_AUDIT_CONTAINER__PATH);
+			path = new EObjectResolvingEList<GenAuditContainer>(GenAuditContainer.class, this, GMFGenPackage.GEN_AUDIT_CONTAINER__PATH);
 		}
 		return path;
 	}
@@ -233,9 +234,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAudits() {
+	public EList<GenAuditRule> getAudits() {
 		if (audits == null) {
-			audits = new EObjectWithInverseResolvingEList(GenAuditRule.class, this, GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS, GMFGenPackage.GEN_AUDIT_RULE__CATEGORY);
+			audits = new EObjectWithInverseResolvingEList<GenAuditRule>(GenAuditRule.class, this, GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS, GMFGenPackage.GEN_AUDIT_RULE__CATEGORY);
 		}
 		return audits;
 	}
@@ -245,6 +246,8 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
@@ -252,7 +255,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
-				return ((InternalEList)getAudits()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAudits()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -262,12 +265,13 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
-				return ((InternalEList)getAudits()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAudits()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -277,6 +281,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
@@ -290,6 +295,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
@@ -313,6 +319,8 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ID:
@@ -326,11 +334,11 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PATH:
 				getPath().clear();
-				getPath().addAll((Collection)newValue);
+				getPath().addAll((Collection<? extends GenAuditContainer>)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
 				getAudits().clear();
-				getAudits().addAll((Collection)newValue);
+				getAudits().addAll((Collection<? extends GenAuditRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -341,6 +349,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ID:
@@ -367,6 +376,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT:
@@ -390,6 +400,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

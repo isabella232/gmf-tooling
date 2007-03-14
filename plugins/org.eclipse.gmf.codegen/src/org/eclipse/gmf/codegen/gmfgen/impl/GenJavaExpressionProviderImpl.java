@@ -2,11 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenJavaExpressionProviderImpl.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
+ * $Id: GenJavaExpressionProviderImpl.java,v 1.3 2007/03/14 14:39:35 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
@@ -37,6 +39,7 @@ public class GenJavaExpressionProviderImpl extends GenExpressionProviderBaseImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenJavaExpressionProvider();
 	}
@@ -60,6 +63,11 @@ public class GenJavaExpressionProviderImpl extends GenExpressionProviderBaseImpl
 			return "Null"; //$NON-NLS-1$
 		}
 		return CodeGenUtil.validJavaIdentifier(expression.getBody());
+	}
+
+	@Override
+	public EList<String> getRequiredPluginIDs() {
+		return ECollections.emptyEList();
 	}
 
 } //GenJavaExpressionProviderImpl

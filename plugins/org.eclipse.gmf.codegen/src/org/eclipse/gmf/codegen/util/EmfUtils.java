@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
 
 public class EmfUtils {
 	
-	public static final List getReferencingObjects(EObject target) {
+	public static final List<EObject> getReferencingObjects(EObject target) {
 		LinkedList<EObject> result = new LinkedList<EObject>(); 
 		Collection<EStructuralFeature.Setting> settings = CrossReferencer.find(target.eResource().getContents()).get(target);
         if (settings == null) {

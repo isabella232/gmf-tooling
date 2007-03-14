@@ -48,6 +48,6 @@ public interface GenDiagramElementTarget extends GenAuditable, GenMeasurable {
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))' description='Multiple diagram elements must be GenNode type conformant'"
 	 * @generated
 	 */
-	EList getElement();
+	EList<GenCommonBase> getElement();
 
 } // GenDiagramElementTarget

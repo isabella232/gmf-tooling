@@ -109,20 +109,17 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramItemSemanticEditPolicy();
 		generateTextSelectionEditPolicy();
 		generateTextNonResizableEditPolicy();
-		for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
-			GenTopLevelNode node = (GenTopLevelNode) nodes.next();
+		for (GenTopLevelNode node : myDiagram.getTopLevelNodes()) {
 			generateNode(node);
 		}
-		for (Iterator nodes = myDiagram.getChildNodes().iterator(); nodes.hasNext();) {
-			GenChildNode node = (GenChildNode) nodes.next();
+		for (GenChildNode node : myDiagram.getChildNodes()) {
 			if (node instanceof GenChildLabelNode) {
 				generateChildLabelNode((GenChildLabelNode) node);
 			} else {
 				generateNode(node);
 			}
 		}
-		for (Iterator compartments = myDiagram.getCompartments().iterator(); compartments.hasNext();) {
-			GenCompartment compartment = (GenCompartment) compartments.next();
+		for (GenCompartment compartment : myDiagram.getCompartments()) {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
 			generateViewFactory(compartment);
@@ -130,16 +127,14 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateChildContainerCanonicalEditPolicy(compartment);
 			}
 		}
-		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
-			final GenLink next = (GenLink) it.next();
+		for (GenLink next: myDiagram.getLinks()) {
 			generateViewFactory(next);
 			generateEditSupport(next);
 			generateLinkEditPart(next);
 			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
 			generateLinkCreateCommand(next);
-			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
-				GenLinkLabel label = (GenLinkLabel) labels.next();
+			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);
 				generateLinkLabelViewFactory(label);
 			}
@@ -263,8 +258,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty()) {
 			generateNodeGraphicalNodeEditPolicy(node);
 		}
-		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
-			GenNodeLabel label = (GenNodeLabel) labels.next();
+		for (GenNodeLabel label : node.getLabels()) {
 			if (label instanceof GenExternalNodeLabel) {
 				GenExternalNodeLabel extLabel = (GenExternalNodeLabel) label;
 				generateExternalNodeLabelEditPart(extLabel);
@@ -928,8 +922,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {
 		Set<String> groupIcons = new HashSet<String>(); 
-		for (Iterator it = myEditorGen.getNavigator().getChildReferences().iterator(); it.hasNext();) {
-			GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+		for (GenNavigatorChildReference nextReference : myEditorGen.getNavigator().getChildReferences()) {
 			if (nextReference.getGroupIcon() != null && nextReference.getGroupIcon().length() > 0) {
 				groupIcons.add(nextReference.getGroupIcon());
 			}
@@ -957,8 +950,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEditorGen.getPropertySheet().getLabelProviderQualifiedClassName(), 
 				myEditorGen.getPropertySheet());
 		}
-		for (Iterator it = myEditorGen.getPropertySheet().getTabs().iterator(); it.hasNext(); ) {
-			GenPropertyTab tab = (GenPropertyTab) it.next();
+		for (GenPropertyTab tab : myEditorGen.getPropertySheet().getTabs()) {
 			if (tab instanceof GenCustomPropertyTab) {
 				internalGenerateJavaClass(
 					myEmitters.getPropertySectionEmitter(),
@@ -979,8 +971,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram
 		);
 
-		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
-			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
 			if(nextProvider instanceof GenExpressionInterpreter) {
 				TextEmitter providerEmitter = null;
 				if(GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
@@ -988,7 +979,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				} else if(GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage()) || GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
 				}
-				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;
+				GenExpressionInterpreter interpreter = (GenExpressionInterpreter) nextProvider;
 				if(providerEmitter != null) {
 					internalGenerateJavaClass(
 							providerEmitter,

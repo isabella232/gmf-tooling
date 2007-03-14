@@ -94,6 +94,6 @@ public interface AbstractToolEntry extends EntryBase, ToolGroupItem {
 	 * @model mapType="org.eclipse.emf.ecore.EStringToStringMapEntry" keyType="java.lang.String" valueType="java.lang.String"
 	 * @generated
 	 */
-	EMap getProperties();
+	EMap<String, String> getProperties();
 
 } // AbstractToolEntry

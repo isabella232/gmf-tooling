@@ -115,7 +115,7 @@ public interface ToolGroup extends EntryBase, ToolGroupItem {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroupItem" opposite="group" containment="true" required="true"
 	 * @generated
 	 */
-	EList getEntries();
+	EList<ToolGroupItem> getEntries();
 
 	/**
 	 * Returns the value of the '<em><b>Tools Only</b></em>' attribute.

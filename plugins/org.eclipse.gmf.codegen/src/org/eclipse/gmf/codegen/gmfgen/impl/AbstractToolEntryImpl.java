@@ -93,7 +93,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap properties = null;
+	protected EMap<String, String> properties = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -109,6 +109,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getAbstractToolEntry();
 	}
@@ -170,9 +171,9 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EMap getProperties() {
+	public EMap<String, String> getProperties() {
 		if (properties == null) {
-			properties = new EcoreEMap(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES);
+			properties = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES);
 		}
 		return properties;
 	}
@@ -182,6 +183,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
@@ -197,12 +199,13 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
 				return eBasicSetContainer(null, GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP, msgs);
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES:
-				return ((InternalEList)getProperties()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -212,6 +215,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
@@ -225,6 +229,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
@@ -245,6 +250,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
@@ -265,6 +271,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
@@ -285,6 +292,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
@@ -304,7 +312,8 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ToolGroupItem.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP: return GMFGenPackage.TOOL_GROUP_ITEM__GROUP;
@@ -319,7 +328,8 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ToolGroupItem.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.TOOL_GROUP_ITEM__GROUP: return GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP;
@@ -334,6 +344,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

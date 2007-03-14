@@ -55,6 +55,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNotationElementTarget();
 	}
@@ -102,6 +103,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET__ELEMENT:
@@ -116,6 +118,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET__ELEMENT:
@@ -130,6 +133,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET__ELEMENT:
@@ -144,6 +148,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET__ELEMENT:

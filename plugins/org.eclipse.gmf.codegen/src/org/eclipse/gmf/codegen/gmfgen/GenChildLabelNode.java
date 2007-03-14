@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -117,6 +118,6 @@ public interface GenChildLabelNode extends GenChildNode {
 	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature"
 	 * @generated
 	 */
-	EList getLabelMetaFeatures();
+	EList<GenFeature> getLabelMetaFeatures();
 
 } // GenChildLabelNode

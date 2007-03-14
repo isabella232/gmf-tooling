@@ -70,6 +70,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenNavigatorPathSegment();
 	}
@@ -165,6 +166,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
@@ -180,6 +182,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
@@ -193,6 +196,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
@@ -206,6 +210,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
@@ -225,6 +230,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__FROM:
@@ -242,6 +248,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__FROM:
@@ -259,6 +266,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:

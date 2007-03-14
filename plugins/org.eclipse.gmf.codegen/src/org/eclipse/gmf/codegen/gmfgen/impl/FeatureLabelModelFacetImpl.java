@@ -42,7 +42,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * @generated
 	 * @ordered
 	 */
-	protected EList metaFeatures = null;
+	protected EList<GenFeature> metaFeatures = null;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
@@ -98,6 +98,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet();
 	}
@@ -107,9 +108,9 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getMetaFeatures() {
+	public EList<GenFeature> getMetaFeatures() {
 		if (metaFeatures == null) {
-			metaFeatures = new EObjectResolvingEList(GenFeature.class, this, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES);
+			metaFeatures = new EObjectResolvingEList<GenFeature>(GenFeature.class, this, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES);
 		}
 		return metaFeatures;
 	}
@@ -161,6 +162,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
@@ -178,11 +180,13 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
 				getMetaFeatures().clear();
-				getMetaFeatures().addAll((Collection)newValue);
+				getMetaFeatures().addAll((Collection<? extends GenFeature>)newValue);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
@@ -199,6 +203,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
@@ -219,6 +224,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
@@ -236,6 +242,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

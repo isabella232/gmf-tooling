@@ -70,7 +70,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList groups = null;
+	protected EList<ToolGroup> groups = null;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -126,6 +126,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getPalette();
 	}
@@ -166,9 +167,9 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getGroups() {
+	public EList<ToolGroup> getGroups() {
 		if (groups == null) {
-			groups = new EObjectContainmentWithInverseEList(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS, GMFGenPackage.TOOL_GROUP__PALETTE);
+			groups = new EObjectContainmentWithInverseEList<ToolGroup>(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS, GMFGenPackage.TOOL_GROUP__PALETTE);
 		}
 		return groups;
 	}
@@ -241,7 +242,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	}
 
 	public boolean definesStandardTools() {
-		for (Iterator it = eAllContents(); it.hasNext();) {
+		for (Iterator<?> it = eAllContents(); it.hasNext();) {
 			if (it.next() instanceof StandardEntry) {
 				return true;
 			}
@@ -254,6 +255,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
@@ -261,7 +264,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
 			case GMFGenPackage.PALETTE__GROUPS:
-				return ((InternalEList)getGroups()).basicAdd(otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getGroups()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -271,12 +274,13 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return eBasicSetContainer(null, GMFGenPackage.PALETTE__DIAGRAM, msgs);
 			case GMFGenPackage.PALETTE__GROUPS:
-				return ((InternalEList)getGroups()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getGroups()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -286,6 +290,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
@@ -299,6 +304,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
@@ -320,6 +326,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__FLYOUT:
@@ -327,7 +335,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				return;
 			case GMFGenPackage.PALETTE__GROUPS:
 				getGroups().clear();
-				getGroups().addAll((Collection)newValue);
+				getGroups().addAll((Collection<? extends ToolGroup>)newValue);
 				return;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				setPackageName((String)newValue);
@@ -344,6 +352,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__FLYOUT:
@@ -367,6 +376,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
@@ -388,6 +398,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
