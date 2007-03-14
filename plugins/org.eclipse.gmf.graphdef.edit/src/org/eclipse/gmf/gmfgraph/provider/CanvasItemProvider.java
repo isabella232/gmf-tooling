@@ -22,6 +22,7 @@ import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
@@ -63,7 +64,8 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPropertyDescriptors(Object object) {
+	@Override
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
@@ -102,7 +104,8 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Figures());
@@ -137,6 +140,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/Canvas"));
 	}
@@ -147,6 +151,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((Canvas)object).getName();
 		return label == null || label.length() == 0 ?
@@ -161,6 +166,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -186,7 +192,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void collectNewChildDescriptorsGen(Collection newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptorsGen(Collection<CommandParameter> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
@@ -220,17 +226,16 @@ public class CanvasItemProvider
 				 GMFGraphFactory.eINSTANCE.createDiagramLabel()));
 	}
 
-	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
-		LinkedList allGenerated = new LinkedList();
+	protected void collectNewChildDescriptors(Collection<CommandParameter> newChildDescriptors, Object object) {
+		LinkedList<CommandParameter> allGenerated = new LinkedList<CommandParameter>();
 		collectNewChildDescriptorsGen(allGenerated, object);
 		
 		CommandParameter toRemove = createChildParameter(
 				GMFGraphPackage.eINSTANCE.getCanvas_Nodes(),
 				GMFGraphFactory.eINSTANCE.createDiagramLabel());
 
-		for (Iterator generated = allGenerated.iterator(); generated.hasNext();){
-			CommandParameter next = (CommandParameter)generated.next();
-			if (equalsChildParameters(toRemove, next)){
+		for (Iterator<CommandParameter> generated = allGenerated.iterator(); generated.hasNext();){
+			if (equalsChildParameters(toRemove, generated.next())){
 				generated.remove();
 				break;
 			}
@@ -263,7 +268,8 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;
 
@@ -285,6 +291,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return GMFGraphEditPlugin.INSTANCE;
 	}

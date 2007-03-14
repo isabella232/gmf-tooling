@@ -57,7 +57,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -70,7 +70,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
-		supportedTypes.add(IItemPropertySource.class);		
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**
@@ -87,6 +87,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCanvasAdapter() {
 		if (canvasItemProvider == null) {
 			canvasItemProvider = new CanvasItemProvider(this);
@@ -109,6 +110,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFigureGalleryAdapter() {
 		if (figureGalleryItemProvider == null) {
 			figureGalleryItemProvider = new FigureGalleryItemProvider(this);
@@ -131,6 +133,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createNodeAdapter() {
 		if (nodeItemProvider == null) {
 			nodeItemProvider = new NodeItemProvider(this);
@@ -153,6 +156,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createConnectionAdapter() {
 		if (connectionItemProvider == null) {
 			connectionItemProvider = new ConnectionItemProvider(this);
@@ -175,6 +179,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCompartmentAdapter() {
 		if (compartmentItemProvider == null) {
 			compartmentItemProvider = new CompartmentItemProvider(this);
@@ -197,6 +202,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDiagramLabelAdapter() {
 		if (diagramLabelItemProvider == null) {
 			diagramLabelItemProvider = new DiagramLabelItemProvider(this);
@@ -219,6 +225,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGeneralFacetAdapter() {
 		if (generalFacetItemProvider == null) {
 			generalFacetItemProvider = new GeneralFacetItemProvider(this);
@@ -241,6 +248,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createAlignmentFacetAdapter() {
 		if (alignmentFacetItemProvider == null) {
 			alignmentFacetItemProvider = new AlignmentFacetItemProvider(this);
@@ -263,6 +271,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGradientFacetAdapter() {
 		if (gradientFacetItemProvider == null) {
 			gradientFacetItemProvider = new GradientFacetItemProvider(this);
@@ -285,6 +294,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLabelOffsetFacetAdapter() {
 		if (labelOffsetFacetItemProvider == null) {
 			labelOffsetFacetItemProvider = new LabelOffsetFacetItemProvider(this);
@@ -307,6 +317,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDefaultSizeFacetAdapter() {
 		if (defaultSizeFacetItemProvider == null) {
 			defaultSizeFacetItemProvider = new DefaultSizeFacetItemProvider(this);
@@ -329,6 +340,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFigureRefAdapter() {
 		if (figureRefItemProvider == null) {
 			figureRefItemProvider = new FigureRefItemProvider(this);
@@ -351,6 +363,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLabelAdapter() {
 		if (labelItemProvider == null) {
 			labelItemProvider = new LabelItemProvider(this);
@@ -373,6 +386,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLabeledContainerAdapter() {
 		if (labeledContainerItemProvider == null) {
 			labeledContainerItemProvider = new LabeledContainerItemProvider(this);
@@ -395,6 +409,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createRectangleAdapter() {
 		if (rectangleItemProvider == null) {
 			rectangleItemProvider = new RectangleItemProvider(this);
@@ -417,6 +432,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createRoundedRectangleAdapter() {
 		if (roundedRectangleItemProvider == null) {
 			roundedRectangleItemProvider = new RoundedRectangleItemProvider(this);
@@ -439,6 +455,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createEllipseAdapter() {
 		if (ellipseItemProvider == null) {
 			ellipseItemProvider = new EllipseItemProvider(this);
@@ -461,6 +478,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPolylineAdapter() {
 		if (polylineItemProvider == null) {
 			polylineItemProvider = new PolylineItemProvider(this);
@@ -483,6 +501,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPolygonAdapter() {
 		if (polygonItemProvider == null) {
 			polygonItemProvider = new PolygonItemProvider(this);
@@ -505,6 +524,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createScalablePolygonAdapter() {
 		if (scalablePolygonItemProvider == null) {
 			scalablePolygonItemProvider = new ScalablePolygonItemProvider(this);
@@ -527,6 +547,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPolylineConnectionAdapter() {
 		if (polylineConnectionItemProvider == null) {
 			polylineConnectionItemProvider = new PolylineConnectionItemProvider(this);
@@ -549,6 +570,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPolylineDecorationAdapter() {
 		if (polylineDecorationItemProvider == null) {
 			polylineDecorationItemProvider = new PolylineDecorationItemProvider(this);
@@ -571,6 +593,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPolygonDecorationAdapter() {
 		if (polygonDecorationItemProvider == null) {
 			polygonDecorationItemProvider = new PolygonDecorationItemProvider(this);
@@ -593,6 +616,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomFigureAdapter() {
 		if (customFigureItemProvider == null) {
 			customFigureItemProvider = new CustomFigureItemProvider(this);
@@ -615,6 +639,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomDecorationAdapter() {
 		if (customDecorationItemProvider == null) {
 			customDecorationItemProvider = new CustomDecorationItemProvider(this);
@@ -637,6 +662,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomConnectionAdapter() {
 		if (customConnectionItemProvider == null) {
 			customConnectionItemProvider = new CustomConnectionItemProvider(this);
@@ -659,6 +685,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createRGBColorAdapter() {
 		if (rgbColorItemProvider == null) {
 			rgbColorItemProvider = new RGBColorItemProvider(this);
@@ -681,6 +708,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createConstantColorAdapter() {
 		if (constantColorItemProvider == null) {
 			constantColorItemProvider = new ConstantColorItemProvider(this);
@@ -703,6 +731,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createBasicFontAdapter() {
 		if (basicFontItemProvider == null) {
 			basicFontItemProvider = new BasicFontItemProvider(this);
@@ -725,6 +754,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPointAdapter() {
 		if (pointItemProvider == null) {
 			pointItemProvider = new PointItemProvider(this);
@@ -747,6 +777,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDimensionAdapter() {
 		if (dimensionItemProvider == null) {
 			dimensionItemProvider = new DimensionItemProvider(this);
@@ -769,6 +800,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createInsetsAdapter() {
 		if (insetsItemProvider == null) {
 			insetsItemProvider = new InsetsItemProvider(this);
@@ -791,6 +823,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLineBorderAdapter() {
 		if (lineBorderItemProvider == null) {
 			lineBorderItemProvider = new LineBorderItemProvider(this);
@@ -813,6 +846,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMarginBorderAdapter() {
 		if (marginBorderItemProvider == null) {
 			marginBorderItemProvider = new MarginBorderItemProvider(this);
@@ -835,6 +869,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCompoundBorderAdapter() {
 		if (compoundBorderItemProvider == null) {
 			compoundBorderItemProvider = new CompoundBorderItemProvider(this);
@@ -857,6 +892,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomBorderAdapter() {
 		if (customBorderItemProvider == null) {
 			customBorderItemProvider = new CustomBorderItemProvider(this);
@@ -879,6 +915,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomLayoutDataAdapter() {
 		if (customLayoutDataItemProvider == null) {
 			customLayoutDataItemProvider = new CustomLayoutDataItemProvider(this);
@@ -901,6 +938,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGridLayoutDataAdapter() {
 		if (gridLayoutDataItemProvider == null) {
 			gridLayoutDataItemProvider = new GridLayoutDataItemProvider(this);
@@ -923,6 +961,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createBorderLayoutDataAdapter() {
 		if (borderLayoutDataItemProvider == null) {
 			borderLayoutDataItemProvider = new BorderLayoutDataItemProvider(this);
@@ -945,6 +984,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomLayoutAdapter() {
 		if (customLayoutItemProvider == null) {
 			customLayoutItemProvider = new CustomLayoutItemProvider(this);
@@ -967,6 +1007,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGridLayoutAdapter() {
 		if (gridLayoutItemProvider == null) {
 			gridLayoutItemProvider = new GridLayoutItemProvider(this);
@@ -989,6 +1030,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createBorderLayoutAdapter() {
 		if (borderLayoutItemProvider == null) {
 			borderLayoutItemProvider = new BorderLayoutItemProvider(this);
@@ -1011,6 +1053,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCustomAttributeAdapter() {
 		if (customAttributeItemProvider == null) {
 			customAttributeItemProvider = new CustomAttributeItemProvider(this);
@@ -1033,6 +1076,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFigureAccessorAdapter() {
 		if (figureAccessorItemProvider == null) {
 			figureAccessorItemProvider = new FigureAccessorItemProvider(this);
@@ -1055,6 +1099,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFlowLayoutAdapter() {
 		if (flowLayoutItemProvider == null) {
 			flowLayoutItemProvider = new FlowLayoutItemProvider(this);
@@ -1077,6 +1122,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createXYLayoutAdapter() {
 		if (xyLayoutItemProvider == null) {
 			xyLayoutItemProvider = new XYLayoutItemProvider(this);
@@ -1099,6 +1145,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createXYLayoutDataAdapter() {
 		if (xyLayoutDataItemProvider == null) {
 			xyLayoutDataItemProvider = new XYLayoutDataItemProvider(this);
@@ -1121,6 +1168,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createStackLayoutAdapter() {
 		if (stackLayoutItemProvider == null) {
 			stackLayoutItemProvider = new StackLayoutItemProvider(this);
@@ -1154,6 +1202,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -1164,6 +1213,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -1173,10 +1223,11 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class)type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}

@@ -41,8 +41,8 @@ public final class GMFGraphEditPlugin extends EMFPlugin {
 	 */
 	public GMFGraphEditPlugin() {
 		super
-		  (new ResourceLocator [] {
-		   });
+			(new ResourceLocator [] {
+			});
 	}
 
 	/**
@@ -52,6 +52,7 @@ public final class GMFGraphEditPlugin extends EMFPlugin {
 	 * @return the singleton instance.
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}
@@ -82,7 +83,7 @@ public final class GMFGraphEditPlugin extends EMFPlugin {
 		 */
 		public Implementation() {
 			super();
-
+	
 			// Remember the static instance.
 			//
 			plugin = this;
