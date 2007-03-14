@@ -45,12 +45,14 @@
 	</target>
 	
 	<target name="publishLocal" if="useMirror">
+<!-- TODO
 		<copy todir="${localUpdateSitePath}/features">
 		    <fileset dir="${buildUpdateSitePath}/features"/>
 		</copy>
 		<copy todir="${localUpdateSitePath}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins"/>
 		</copy>
+-->
 	</target>
 	
 	<!-- TODO: need to find a way to merge site.xml after initialization, mirror of EMF/GEF, and later 
