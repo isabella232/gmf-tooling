@@ -85,7 +85,7 @@
 	
 	<target name="installTestsFromZip" unless=""> <!-- restore usingMirror -->
 		<echo message="Installing GMF tests from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-tests-${buildId}.zip" />
 	</target>
 	
 	<target name="installTestsExperimental">		
@@ -111,7 +111,7 @@
 	
 	<target name="installTestsExperimentalFromZip" unless=""> <!-- restore usingMirror -->
 		<echo message="Installing GMF Experimental tests from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-experimental-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-tests-experimental-${buildId}.zip" />
 	</target>
 
 	<target name="checkEMFInstalled">
@@ -285,7 +285,7 @@
 
 	<target name="installGMFfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF for testing from zip file..." />
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-sdk-${buildId}.zip" />
 	</target>
 	
 	<target name="checkGMFRuntimeInstalled">
@@ -309,7 +309,7 @@
 
 	<target name="installGMFRuntimeFromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Runtime from zip file..." />
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-runtime-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-runtime-${buildId}.zip" />
 	</target>
 
 	<target name="checkGMFExperimentalInstalled">
@@ -333,7 +333,7 @@
 
 	<target name="installGMFExperimentalfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Lite for testing from zip file..." />
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-experimental-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-sdk-experimental-${buildId}.zip" />
 	</target>
 	
 	<target name="checkExamplesInstalled">
@@ -357,7 +357,7 @@
 
 	<target name="installExamplesfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Examples for testing from zip file..." />
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/drops/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
 	
 	<target name="checkXercesInstalled">
