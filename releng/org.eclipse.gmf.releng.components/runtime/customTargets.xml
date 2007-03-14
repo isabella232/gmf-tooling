@@ -157,7 +157,7 @@
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
 	<target name="postBuild">
-		<antcall target="repackage" />
+		<ant antfile="${scripts}/package.xml" target="pack200" />
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
@@ -169,13 +169,6 @@
 	<!-- ===================================================================== -->
 	<target name="test">
 	</target>
-
-	<!-- ===================================================================== -->
-	<!-- Repackage the build results -->
-	<!-- ===================================================================== -->
-	<target name="repackage">
-		<ant antfile="${scripts}/package.xml" target="pack200" />
-	</target>	
 	
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
