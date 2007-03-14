@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
@@ -40,8 +39,7 @@ public class GalleryProcessor extends Processor {
 	
 	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
 		for (int i = 0; i < myInput.length; i++) {
-			for (Iterator it = myInput[i].getFigures().iterator(); it.hasNext();) {
-				Figure next = (Figure) it.next();
+			for (Figure next : myInput[i].getFigures()) {
 				String fqn = callback.visitFigure(next);
 				handle(next, fqn);
 			}

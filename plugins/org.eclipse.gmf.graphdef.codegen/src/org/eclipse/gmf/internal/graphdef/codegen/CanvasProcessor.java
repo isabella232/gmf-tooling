@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -56,7 +55,7 @@ public class CanvasProcessor extends Processor {
 	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
 		myCallback = callback;
 		myOutcomeGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
-		myOutcomeGallery.setName(myInput.getFigures().size() == 1 ? ((FigureGallery) myInput.getFigures().get(0)).getName() : "GeneratedGallery");
+		myOutcomeGallery.setName(myInput.getFigures().size() == 1 ? myInput.getFigures().get(0).getName() : "GeneratedGallery");
 		// TODO respect implementation from original FigureGallery, see (#x#) 
 		myOutcomeGallery.setImplementationBundle(config.getPluginID());
 		handleNodes();
@@ -83,30 +82,26 @@ public class CanvasProcessor extends Processor {
 
 	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
 		ArrayList<String> rv = new ArrayList<String>();
-		for (Iterator galleries = myInput.getFigures().iterator(); galleries.hasNext();) {
-			FigureGallery next = (FigureGallery) galleries.next();
+		for (FigureGallery next : myInput.getFigures()) {
 			rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
 		}
 		return rv.toArray(new String[rv.size()]);
 	}
 
 	private void handleNodes() throws InterruptedException {
-		for (Iterator it = myInput.getNodes().iterator(); it.hasNext();) {
-			Node next = (Node) it.next();
+		for (Node next : myInput.getNodes()) {
 			handleFigure(next.getNodeFigure());
 		}
 	}
 
 	private void handleLinks() throws InterruptedException {
-		for (Iterator it = myInput.getConnections().iterator(); it.hasNext();) {
-			Connection next = (Connection) it.next();
+		for (Connection next : myInput.getConnections()) {
 			handleFigure(next.getConnectionFigure());
 		}
 	}
 
 	private void handleCompartments() throws InterruptedException {
-		for (Iterator it = myInput.getCompartments().iterator(); it.hasNext();) {
-			Compartment next = (Compartment) it.next();
+		for (Compartment next : myInput.getCompartments()) {
 			FigureHandle nextFigure = next.getFigure();
 			if (nextFigure == null){
 				throw new NullPointerException("Compartment without figure : " + next);
@@ -120,8 +115,7 @@ public class CanvasProcessor extends Processor {
 	}
 
 	private void handleLabels() throws InterruptedException {
-		for (Iterator it = myInput.getLabels().iterator(); it.hasNext();) {
-			DiagramLabel next = (DiagramLabel) it.next();
+		for (DiagramLabel next : myInput.getLabels()) {
 			if (next.getFigure() instanceof FigureAccessor) {
 				assert myElementCopier.containsKey(next.getFigure()) : "Should be copied as part of previously referenced CustomFigure";
 			} else {
@@ -172,7 +166,7 @@ public class CanvasProcessor extends Processor {
 			// XXX an implementationBundle might be an issue here (#x#),
 			// since myOutcomeGallery gonna get one we generate, while the original CustomFigure
 			// may have one specified in the ownining FigureGallery. 
-			myOutcomeGallery.getFigures().add(myElementCopier.copy(figure));
+			myOutcomeGallery.getFigures().add((CustomFigure) myElementCopier.copy(figure));
 		} else {
 			String fqn = myCallback.visitFigure(figure);
 			myElementCopier.registerSubstitution(figure, createCustomFigure(figure, fqn));

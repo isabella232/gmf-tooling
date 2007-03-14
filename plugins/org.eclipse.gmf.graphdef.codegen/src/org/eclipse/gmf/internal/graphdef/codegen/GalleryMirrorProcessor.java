@@ -47,8 +47,8 @@ public class GalleryMirrorProcessor extends GalleryProcessor {
 		result.setName("GeneratedGallery"); // FIXME smth reasonable
 		result.setImplementationBundle(myGeneratedBundle);
 		
-		for (Enumeration originalFigures = myGenerationInfo.getProcessedFigures(); originalFigures.hasMoreElements();){
-			Figure nextOriginal = (Figure) originalFigures.nextElement();
+		for (Enumeration<Figure> originalFigures = myGenerationInfo.getProcessedFigures(); originalFigures.hasMoreElements();) {
+			Figure nextOriginal = originalFigures.nextElement();
 			String nextConvertedFqn = myGenerationInfo.getGeneratedClassFQN(nextOriginal);
 			CustomFigure custom = DiagramElementsCopier.createCustomFigure(nextOriginal);
 			custom.setName(nextOriginal.getName());
@@ -69,6 +69,7 @@ public class GalleryMirrorProcessor extends GalleryProcessor {
 	}
 
 	public interface GenerationInfo {
+		// FIXME use iterator instead to allow enhanced for loop
 		public Enumeration<Figure> getProcessedFigures();
 		public String getGeneratedClassFQN(Figure figure);
 	}
