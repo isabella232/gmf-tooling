@@ -7,7 +7,6 @@
 package org.eclipse.gmf.tooldef.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -40,7 +39,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * @generated
 	 * @ordered
 	 */
-	protected EList values = null;
+	protected EList<AppearanceStyle> values = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -56,6 +55,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getGenericStyleSelector();
 	}
@@ -65,9 +65,9 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getValues() {
+	public EList<AppearanceStyle> getValues() {
 		if (values == null) {
-			values = new EDataTypeUniqueEList(AppearanceStyle.class, this, GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES);
+			values = new EDataTypeUniqueEList<AppearanceStyle>(AppearanceStyle.class, this, GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES);
 		}
 		return values;
 	}
@@ -82,8 +82,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 			return false;
 		}
 		final String styleName = ((EObject) style).eClass().getName();
-		for (Iterator it = getValues().iterator(); it.hasNext(); ) {
-			AppearanceStyle s = (AppearanceStyle) it.next();
+		for (AppearanceStyle s : getValues()) {
 			if (styleName.equals(s.getName() + "Style")) {
 				return true;
 			}
@@ -96,6 +95,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
@@ -109,11 +109,13 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
 			getValues().clear();
-			getValues().addAll((Collection) newValue);
+			getValues().addAll((Collection<? extends AppearanceStyle>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,6 +126,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
@@ -138,6 +141,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
@@ -151,6 +155,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy())
 			return super.toString();

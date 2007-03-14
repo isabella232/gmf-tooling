@@ -46,7 +46,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList items = null;
+	protected EList<ItemBase> items = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,6 +62,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getMenu();
 	}
@@ -71,9 +72,9 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getItems() {
+	public EList<ItemBase> getItems() {
 		if (items == null) {
-			items = new EObjectContainmentEList(ItemBase.class, this, GMFToolPackage.MENU__ITEMS);
+			items = new EObjectContainmentEList<ItemBase>(ItemBase.class, this, GMFToolPackage.MENU__ITEMS);
 		}
 		return items;
 	}
@@ -83,10 +84,11 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GMFToolPackage.MENU__ITEMS:
-			return ((InternalEList) getItems()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getItems()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,6 +98,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.MENU__ITEMS:
@@ -109,11 +112,13 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.MENU__ITEMS:
 			getItems().clear();
-			getItems().addAll((Collection) newValue);
+			getItems().addAll((Collection<? extends ItemBase>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,6 +129,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.MENU__ITEMS:
@@ -138,6 +144,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.MENU__ITEMS:

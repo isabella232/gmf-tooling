@@ -37,6 +37,7 @@ public class DefaultImageImpl extends EObjectImpl implements DefaultImage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getDefaultImage();
 	}

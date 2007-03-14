@@ -35,6 +35,7 @@ public class ToolbarImpl extends MenuImpl implements Toolbar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getToolbar();
 	}

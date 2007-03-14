@@ -65,6 +65,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getPredefinedMenu();
 	}
@@ -95,6 +96,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_MENU__IDENTIFIER:
@@ -108,6 +110,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_MENU__IDENTIFIER:
@@ -122,6 +125,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_MENU__IDENTIFIER:
@@ -136,6 +140,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_MENU__IDENTIFIER:
@@ -149,7 +154,8 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ItemBase.class) {
 			switch (derivedFeatureID) {
 			default:
@@ -172,7 +178,8 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ItemBase.class) {
 			switch (baseFeatureID) {
 			default:
@@ -195,6 +202,7 @@ public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy())
 			return super.toString();

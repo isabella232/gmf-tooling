@@ -52,6 +52,7 @@ public class GMFToolAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,112 +69,139 @@ public class GMFToolAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GMFToolSwitch modelSwitch = new GMFToolSwitch() {
-		public Object caseToolRegistry(ToolRegistry object) {
+	protected GMFToolSwitch<Adapter> modelSwitch = new GMFToolSwitch<Adapter>() {
+		@Override
+		public Adapter caseToolRegistry(ToolRegistry object) {
 			return createToolRegistryAdapter();
 		}
 
-		public Object caseAbstractTool(AbstractTool object) {
+		@Override
+		public Adapter caseAbstractTool(AbstractTool object) {
 			return createAbstractToolAdapter();
 		}
 
-		public Object caseToolContainer(ToolContainer object) {
+		@Override
+		public Adapter caseToolContainer(ToolContainer object) {
 			return createToolContainerAdapter();
 		}
 
-		public Object casePaletteSeparator(PaletteSeparator object) {
+		@Override
+		public Adapter casePaletteSeparator(PaletteSeparator object) {
 			return createPaletteSeparatorAdapter();
 		}
 
-		public Object caseToolGroup(ToolGroup object) {
+		@Override
+		public Adapter caseToolGroup(ToolGroup object) {
 			return createToolGroupAdapter();
 		}
 
-		public Object casePalette(Palette object) {
+		@Override
+		public Adapter casePalette(Palette object) {
 			return createPaletteAdapter();
 		}
 
-		public Object caseStandardTool(StandardTool object) {
+		@Override
+		public Adapter caseStandardTool(StandardTool object) {
 			return createStandardToolAdapter();
 		}
 
-		public Object caseCreationTool(CreationTool object) {
+		@Override
+		public Adapter caseCreationTool(CreationTool object) {
 			return createCreationToolAdapter();
 		}
 
-		public Object caseGenericTool(GenericTool object) {
+		@Override
+		public Adapter caseGenericTool(GenericTool object) {
 			return createGenericToolAdapter();
 		}
 
-		public Object caseItemBase(ItemBase object) {
+		@Override
+		public Adapter caseItemBase(ItemBase object) {
 			return createItemBaseAdapter();
 		}
 
-		public Object caseMenu(Menu object) {
+		@Override
+		public Adapter caseMenu(Menu object) {
 			return createMenuAdapter();
 		}
 
-		public Object caseSeparator(Separator object) {
+		@Override
+		public Adapter caseSeparator(Separator object) {
 			return createSeparatorAdapter();
 		}
 
-		public Object casePredefinedItem(PredefinedItem object) {
+		@Override
+		public Adapter casePredefinedItem(PredefinedItem object) {
 			return createPredefinedItemAdapter();
 		}
 
-		public Object casePredefinedMenu(PredefinedMenu object) {
+		@Override
+		public Adapter casePredefinedMenu(PredefinedMenu object) {
 			return createPredefinedMenuAdapter();
 		}
 
-		public Object caseContributionItem(ContributionItem object) {
+		@Override
+		public Adapter caseContributionItem(ContributionItem object) {
 			return createContributionItemAdapter();
 		}
 
-		public Object caseMenuAction(MenuAction object) {
+		@Override
+		public Adapter caseMenuAction(MenuAction object) {
 			return createMenuActionAdapter();
 		}
 
-		public Object caseItemRef(ItemRef object) {
+		@Override
+		public Adapter caseItemRef(ItemRef object) {
 			return createItemRefAdapter();
 		}
 
-		public Object caseContextMenu(ContextMenu object) {
+		@Override
+		public Adapter caseContextMenu(ContextMenu object) {
 			return createContextMenuAdapter();
 		}
 
-		public Object casePopupMenu(PopupMenu object) {
+		@Override
+		public Adapter casePopupMenu(PopupMenu object) {
 			return createPopupMenuAdapter();
 		}
 
-		public Object caseMainMenu(MainMenu object) {
+		@Override
+		public Adapter caseMainMenu(MainMenu object) {
 			return createMainMenuAdapter();
 		}
 
-		public Object caseToolbar(Toolbar object) {
+		@Override
+		public Adapter caseToolbar(Toolbar object) {
 			return createToolbarAdapter();
 		}
 
-		public Object caseImage(Image object) {
+		@Override
+		public Adapter caseImage(Image object) {
 			return createImageAdapter();
 		}
 
-		public Object caseDefaultImage(DefaultImage object) {
+		@Override
+		public Adapter caseDefaultImage(DefaultImage object) {
 			return createDefaultImageAdapter();
 		}
 
-		public Object caseBundleImage(BundleImage object) {
+		@Override
+		public Adapter caseBundleImage(BundleImage object) {
 			return createBundleImageAdapter();
 		}
 
-		public Object caseStyleSelector(StyleSelector object) {
+		@Override
+		public Adapter caseStyleSelector(StyleSelector object) {
 			return createStyleSelectorAdapter();
 		}
 
-		public Object caseGenericStyleSelector(GenericStyleSelector object) {
+		@Override
+		public Adapter caseGenericStyleSelector(GenericStyleSelector object) {
 			return createGenericStyleSelectorAdapter();
 		}
 
-		public Object defaultCase(EObject object) {
+		@Override
+		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
 	};
@@ -186,8 +214,9 @@ public class GMFToolAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter) modelSwitch.doSwitch((EObject) target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
 
 	/**

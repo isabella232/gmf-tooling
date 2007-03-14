@@ -57,6 +57,7 @@ public class GMFToolFactoryImpl extends EFactoryImpl implements GMFToolFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case GMFToolPackage.TOOL_REGISTRY:
@@ -107,6 +108,7 @@ public class GMFToolFactoryImpl extends EFactoryImpl implements GMFToolFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case GMFToolPackage.STANDARD_TOOL_KIND:
@@ -125,6 +127,7 @@ public class GMFToolFactoryImpl extends EFactoryImpl implements GMFToolFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case GMFToolPackage.STANDARD_TOOL_KIND:
@@ -406,6 +409,7 @@ public class GMFToolFactoryImpl extends EFactoryImpl implements GMFToolFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static GMFToolPackage getPackage() {
 		return GMFToolPackage.eINSTANCE;
 	}

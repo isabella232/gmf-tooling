@@ -35,6 +35,7 @@ public class CreationToolImpl extends AbstractToolImpl implements CreationTool {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getCreationTool();
 	}

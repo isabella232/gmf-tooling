@@ -52,7 +52,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList sharedActions = null;
+	protected EList<MenuAction> sharedActions = null;
 
 	/**
 	 * The cached value of the '{@link #getAllMenus() <em>All Menus</em>}' containment reference list.
@@ -62,7 +62,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList allMenus = null;
+	protected EList<Menu> allMenus = null;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
@@ -88,6 +88,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getToolRegistry();
 	}
@@ -97,9 +98,9 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getSharedActions() {
+	public EList<MenuAction> getSharedActions() {
 		if (sharedActions == null) {
-			sharedActions = new EObjectContainmentEList(MenuAction.class, this, GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS);
+			sharedActions = new EObjectContainmentEList<MenuAction>(MenuAction.class, this, GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS);
 		}
 		return sharedActions;
 	}
@@ -109,9 +110,9 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAllMenus() {
+	public EList<Menu> getAllMenus() {
 		if (allMenus == null) {
-			allMenus = new EObjectContainmentEList(Menu.class, this, GMFToolPackage.TOOL_REGISTRY__ALL_MENUS);
+			allMenus = new EObjectContainmentEList<Menu>(Menu.class, this, GMFToolPackage.TOOL_REGISTRY__ALL_MENUS);
 		}
 		return allMenus;
 	}
@@ -167,12 +168,13 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS:
-			return ((InternalEList) getSharedActions()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getSharedActions()).basicRemove(otherEnd, msgs);
 		case GMFToolPackage.TOOL_REGISTRY__ALL_MENUS:
-			return ((InternalEList) getAllMenus()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getAllMenus()).basicRemove(otherEnd, msgs);
 		case GMFToolPackage.TOOL_REGISTRY__PALETTE:
 			return basicSetPalette(null, msgs);
 		}
@@ -184,6 +186,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS:
@@ -201,15 +204,17 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS:
 			getSharedActions().clear();
-			getSharedActions().addAll((Collection) newValue);
+			getSharedActions().addAll((Collection<? extends MenuAction>) newValue);
 			return;
 		case GMFToolPackage.TOOL_REGISTRY__ALL_MENUS:
 			getAllMenus().clear();
-			getAllMenus().addAll((Collection) newValue);
+			getAllMenus().addAll((Collection<? extends Menu>) newValue);
 			return;
 		case GMFToolPackage.TOOL_REGISTRY__PALETTE:
 			setPalette((Palette) newValue);
@@ -223,6 +228,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS:
@@ -243,6 +249,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_REGISTRY__SHARED_ACTIONS:

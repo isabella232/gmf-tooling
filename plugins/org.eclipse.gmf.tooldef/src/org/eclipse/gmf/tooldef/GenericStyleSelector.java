@@ -41,6 +41,6 @@ public interface GenericStyleSelector extends StyleSelector {
 	 * @model type="org.eclipse.gmf.tooldef.AppearanceStyle" required="true"
 	 * @generated
 	 */
-	EList getValues();
+	EList<AppearanceStyle> getValues();
 
 } // GenericStyleSelector

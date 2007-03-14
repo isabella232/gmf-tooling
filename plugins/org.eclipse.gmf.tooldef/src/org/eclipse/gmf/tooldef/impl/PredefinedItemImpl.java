@@ -64,6 +64,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getPredefinedItem();
 	}
@@ -94,6 +95,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_ITEM__IDENTIFIER:
@@ -107,6 +109,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_ITEM__IDENTIFIER:
@@ -121,6 +124,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_ITEM__IDENTIFIER:
@@ -135,6 +139,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.PREDEFINED_ITEM__IDENTIFIER:
@@ -148,6 +153,7 @@ public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy())
 			return super.toString();

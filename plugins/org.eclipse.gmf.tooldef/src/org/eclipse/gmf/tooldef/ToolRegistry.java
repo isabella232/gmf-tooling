@@ -42,7 +42,7 @@ public interface ToolRegistry extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.MenuAction" containment="true"
 	 * @generated
 	 */
-	EList getSharedActions();
+	EList<MenuAction> getSharedActions();
 
 	/**
 	 * Returns the value of the '<em><b>All Menus</b></em>' containment reference list.
@@ -58,7 +58,7 @@ public interface ToolRegistry extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.Menu" containment="true"
 	 * @generated
 	 */
-	EList getAllMenus();
+	EList<Menu> getAllMenus();
 
 	/**
 	 * Returns the value of the '<em><b>Palette</b></em>' containment reference.

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,61 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class StandardToolKind extends AbstractEnumerator {
+public enum StandardToolKind implements Enumerator {
+	/**
+	 * The '<em><b>SELECT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SELECT
+	 * @generated
+	 * @ordered
+	 */
+	SELECT_LITERAL(0, "SELECT", "SELECT"),
+	/**
+	 * The '<em><b>SELECT PAN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SELECT_PAN
+	 * @generated
+	 * @ordered
+	 */
+	SELECT_PAN_LITERAL(1, "SELECT_PAN", "SELECT_PAN"),
+	/**
+	 * The '<em><b>MARQUEE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MARQUEE
+	 * @generated
+	 * @ordered
+	 */
+	MARQUEE_LITERAL(2, "MARQUEE", "MARQUEE"),
+	/**
+	 * The '<em><b>ZOOM PAN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ZOOM_PAN
+	 * @generated
+	 * @ordered
+	 */
+	ZOOM_PAN_LITERAL(3, "ZOOM_PAN", "ZOOM_PAN"),
+	/**
+	 * The '<em><b>ZOOM IN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ZOOM_IN
+	 * @generated
+	 * @ordered
+	 */
+	ZOOM_IN_LITERAL(4, "ZOOM_IN", "ZOOM_IN"),
+	/**
+	 * The '<em><b>ZOOM OUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ZOOM_OUT
+	 * @generated
+	 * @ordered
+	 */
+	ZOOM_OUT_LITERAL(5, "ZOOM_OUT", "ZOOM_OUT");
 	/**
 	 * The '<em><b>SELECT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -113,66 +167,6 @@ public final class StandardToolKind extends AbstractEnumerator {
 	public static final int ZOOM_OUT = 5;
 
 	/**
-	 * The '<em><b>SELECT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SELECT
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind SELECT_LITERAL = new StandardToolKind(SELECT, "SELECT", "SELECT");
-
-	/**
-	 * The '<em><b>SELECT PAN</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SELECT_PAN
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind SELECT_PAN_LITERAL = new StandardToolKind(SELECT_PAN, "SELECT_PAN", "SELECT_PAN");
-
-	/**
-	 * The '<em><b>MARQUEE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MARQUEE
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind MARQUEE_LITERAL = new StandardToolKind(MARQUEE, "MARQUEE", "MARQUEE");
-
-	/**
-	 * The '<em><b>ZOOM PAN</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZOOM_PAN
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind ZOOM_PAN_LITERAL = new StandardToolKind(ZOOM_PAN, "ZOOM_PAN", "ZOOM_PAN");
-
-	/**
-	 * The '<em><b>ZOOM IN</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZOOM_IN
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind ZOOM_IN_LITERAL = new StandardToolKind(ZOOM_IN, "ZOOM_IN", "ZOOM_IN");
-
-	/**
-	 * The '<em><b>ZOOM OUT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZOOM_OUT
-	 * @generated
-	 * @ordered
-	 */
-	public static final StandardToolKind ZOOM_OUT_LITERAL = new StandardToolKind(ZOOM_OUT, "ZOOM_OUT", "ZOOM_OUT");
-
-	/**
 	 * An array of all the '<em><b>Standard Tool Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,7 +180,7 @@ public final class StandardToolKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<StandardToolKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Standard Tool Kind</b></em>' literal with the specified literal value.
@@ -245,13 +239,73 @@ public final class StandardToolKind extends AbstractEnumerator {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
+
+	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private StandardToolKind(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //StandardToolKind
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+		return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

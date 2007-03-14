@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,52 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class ActionKind extends AbstractEnumerator {
+public enum ActionKind implements Enumerator {
+	/**
+	 * The '<em><b>CREATE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CREATE
+	 * @generated
+	 * @ordered
+	 */
+	CREATE_LITERAL(0, "CREATE", "CREATE"),
+	/**
+	 * The '<em><b>PROPCHANGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PROPCHANGE
+	 * @generated
+	 * @ordered
+	 */
+	PROPCHANGE_LITERAL(1, "PROPCHANGE", "PROPCHANGE"),
+	/**
+	 * The '<em><b>MODIFY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MODIFY
+	 * @generated
+	 * @ordered
+	 */
+	MODIFY_LITERAL(2, "MODIFY", "MODIFY"),
+	/**
+	 * The '<em><b>PROCESS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PROCESS
+	 * @generated
+	 * @ordered
+	 */
+	PROCESS_LITERAL(3, "PROCESS", "PROCESS"),
+	/**
+	 * The '<em><b>CUSTOM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CUSTOM
+	 * @generated
+	 * @ordered
+	 */
+	CUSTOM_LITERAL(99, "CUSTOM", "CUSTOM");
 	/**
 	 * The '<em><b>CREATE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -98,56 +143,6 @@ public final class ActionKind extends AbstractEnumerator {
 	public static final int CUSTOM = 99;
 
 	/**
-	 * The '<em><b>CREATE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CREATE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ActionKind CREATE_LITERAL = new ActionKind(CREATE, "CREATE", "CREATE");
-
-	/**
-	 * The '<em><b>PROPCHANGE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PROPCHANGE
-	 * @generated
-	 * @ordered
-	 */
-	public static final ActionKind PROPCHANGE_LITERAL = new ActionKind(PROPCHANGE, "PROPCHANGE", "PROPCHANGE");
-
-	/**
-	 * The '<em><b>MODIFY</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MODIFY
-	 * @generated
-	 * @ordered
-	 */
-	public static final ActionKind MODIFY_LITERAL = new ActionKind(MODIFY, "MODIFY", "MODIFY");
-
-	/**
-	 * The '<em><b>PROCESS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PROCESS
-	 * @generated
-	 * @ordered
-	 */
-	public static final ActionKind PROCESS_LITERAL = new ActionKind(PROCESS, "PROCESS", "PROCESS");
-
-	/**
-	 * The '<em><b>CUSTOM</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CUSTOM
-	 * @generated
-	 * @ordered
-	 */
-	public static final ActionKind CUSTOM_LITERAL = new ActionKind(CUSTOM, "CUSTOM", "CUSTOM");
-
-	/**
 	 * An array of all the '<em><b>Action Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -161,7 +156,7 @@ public final class ActionKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ActionKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Action Kind</b></em>' literal with the specified literal value.
@@ -218,13 +213,73 @@ public final class ActionKind extends AbstractEnumerator {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
+
+	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private ActionKind(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //ActionKind
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+		return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

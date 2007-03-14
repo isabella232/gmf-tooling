@@ -41,6 +41,6 @@ public interface Menu extends EObject {
 	 * @model type="org.eclipse.gmf.tooldef.ItemBase" containment="true"
 	 * @generated
 	 */
-	EList getItems();
+	EList<ItemBase> getItems();
 
 } // Menu

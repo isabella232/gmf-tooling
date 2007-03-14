@@ -980,6 +980,10 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 		toolContainerEClass.getESuperTypes().add(this.getAbstractTool());
 		paletteSeparatorEClass.getESuperTypes().add(this.getAbstractTool());

@@ -39,6 +39,6 @@ public interface ToolContainer extends AbstractTool {
 	 * @model type="org.eclipse.gmf.tooldef.AbstractTool" containment="true"
 	 * @generated
 	 */
-	EList getTools();
+	EList<AbstractTool> getTools();
 
 } // ToolContainer

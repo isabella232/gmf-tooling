@@ -26,7 +26,7 @@ import org.eclipse.gmf.tooldef.*;
  * @see org.eclipse.gmf.tooldef.GMFToolPackage
  * @generated
  */
-public class GMFToolSwitch {
+public class GMFToolSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class GMFToolSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -65,12 +65,12 @@ public class GMFToolSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		} else {
-			List eSuperTypes = theEClass.getESuperTypes();
-			return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch((EClass) eSuperTypes.get(0), theEObject);
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
+			return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -81,25 +81,25 @@ public class GMFToolSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case GMFToolPackage.TOOL_REGISTRY: {
 			ToolRegistry toolRegistry = (ToolRegistry) theEObject;
-			Object result = caseToolRegistry(toolRegistry);
+			T result = caseToolRegistry(toolRegistry);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.ABSTRACT_TOOL: {
 			AbstractTool abstractTool = (AbstractTool) theEObject;
-			Object result = caseAbstractTool(abstractTool);
+			T result = caseAbstractTool(abstractTool);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.TOOL_CONTAINER: {
 			ToolContainer toolContainer = (ToolContainer) theEObject;
-			Object result = caseToolContainer(toolContainer);
+			T result = caseToolContainer(toolContainer);
 			if (result == null)
 				result = caseAbstractTool(toolContainer);
 			if (result == null)
@@ -108,7 +108,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.PALETTE_SEPARATOR: {
 			PaletteSeparator paletteSeparator = (PaletteSeparator) theEObject;
-			Object result = casePaletteSeparator(paletteSeparator);
+			T result = casePaletteSeparator(paletteSeparator);
 			if (result == null)
 				result = caseAbstractTool(paletteSeparator);
 			if (result == null)
@@ -117,7 +117,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.TOOL_GROUP: {
 			ToolGroup toolGroup = (ToolGroup) theEObject;
-			Object result = caseToolGroup(toolGroup);
+			T result = caseToolGroup(toolGroup);
 			if (result == null)
 				result = caseToolContainer(toolGroup);
 			if (result == null)
@@ -128,7 +128,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.PALETTE: {
 			Palette palette = (Palette) theEObject;
-			Object result = casePalette(palette);
+			T result = casePalette(palette);
 			if (result == null)
 				result = caseToolContainer(palette);
 			if (result == null)
@@ -139,7 +139,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.STANDARD_TOOL: {
 			StandardTool standardTool = (StandardTool) theEObject;
-			Object result = caseStandardTool(standardTool);
+			T result = caseStandardTool(standardTool);
 			if (result == null)
 				result = caseAbstractTool(standardTool);
 			if (result == null)
@@ -148,7 +148,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.CREATION_TOOL: {
 			CreationTool creationTool = (CreationTool) theEObject;
-			Object result = caseCreationTool(creationTool);
+			T result = caseCreationTool(creationTool);
 			if (result == null)
 				result = caseAbstractTool(creationTool);
 			if (result == null)
@@ -157,7 +157,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.GENERIC_TOOL: {
 			GenericTool genericTool = (GenericTool) theEObject;
-			Object result = caseGenericTool(genericTool);
+			T result = caseGenericTool(genericTool);
 			if (result == null)
 				result = caseAbstractTool(genericTool);
 			if (result == null)
@@ -166,21 +166,21 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.ITEM_BASE: {
 			ItemBase itemBase = (ItemBase) theEObject;
-			Object result = caseItemBase(itemBase);
+			T result = caseItemBase(itemBase);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.MENU: {
 			Menu menu = (Menu) theEObject;
-			Object result = caseMenu(menu);
+			T result = caseMenu(menu);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.SEPARATOR: {
 			Separator separator = (Separator) theEObject;
-			Object result = caseSeparator(separator);
+			T result = caseSeparator(separator);
 			if (result == null)
 				result = caseItemBase(separator);
 			if (result == null)
@@ -189,7 +189,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.PREDEFINED_ITEM: {
 			PredefinedItem predefinedItem = (PredefinedItem) theEObject;
-			Object result = casePredefinedItem(predefinedItem);
+			T result = casePredefinedItem(predefinedItem);
 			if (result == null)
 				result = caseItemBase(predefinedItem);
 			if (result == null)
@@ -198,7 +198,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.PREDEFINED_MENU: {
 			PredefinedMenu predefinedMenu = (PredefinedMenu) theEObject;
-			Object result = casePredefinedMenu(predefinedMenu);
+			T result = casePredefinedMenu(predefinedMenu);
 			if (result == null)
 				result = caseMenu(predefinedMenu);
 			if (result == null)
@@ -211,7 +211,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.CONTRIBUTION_ITEM: {
 			ContributionItem contributionItem = (ContributionItem) theEObject;
-			Object result = caseContributionItem(contributionItem);
+			T result = caseContributionItem(contributionItem);
 			if (result == null)
 				result = caseItemBase(contributionItem);
 			if (result == null)
@@ -220,7 +220,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.MENU_ACTION: {
 			MenuAction menuAction = (MenuAction) theEObject;
-			Object result = caseMenuAction(menuAction);
+			T result = caseMenuAction(menuAction);
 			if (result == null)
 				result = caseContributionItem(menuAction);
 			if (result == null)
@@ -231,7 +231,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.ITEM_REF: {
 			ItemRef itemRef = (ItemRef) theEObject;
-			Object result = caseItemRef(itemRef);
+			T result = caseItemRef(itemRef);
 			if (result == null)
 				result = caseItemBase(itemRef);
 			if (result == null)
@@ -240,7 +240,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.CONTEXT_MENU: {
 			ContextMenu contextMenu = (ContextMenu) theEObject;
-			Object result = caseContextMenu(contextMenu);
+			T result = caseContextMenu(contextMenu);
 			if (result == null)
 				result = caseMenu(contextMenu);
 			if (result == null)
@@ -249,7 +249,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.POPUP_MENU: {
 			PopupMenu popupMenu = (PopupMenu) theEObject;
-			Object result = casePopupMenu(popupMenu);
+			T result = casePopupMenu(popupMenu);
 			if (result == null)
 				result = caseMenu(popupMenu);
 			if (result == null)
@@ -262,7 +262,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.MAIN_MENU: {
 			MainMenu mainMenu = (MainMenu) theEObject;
-			Object result = caseMainMenu(mainMenu);
+			T result = caseMainMenu(mainMenu);
 			if (result == null)
 				result = caseMenu(mainMenu);
 			if (result == null)
@@ -271,7 +271,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.TOOLBAR: {
 			Toolbar toolbar = (Toolbar) theEObject;
-			Object result = caseToolbar(toolbar);
+			T result = caseToolbar(toolbar);
 			if (result == null)
 				result = caseMenu(toolbar);
 			if (result == null)
@@ -280,14 +280,14 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.IMAGE: {
 			Image image = (Image) theEObject;
-			Object result = caseImage(image);
+			T result = caseImage(image);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.DEFAULT_IMAGE: {
 			DefaultImage defaultImage = (DefaultImage) theEObject;
-			Object result = caseDefaultImage(defaultImage);
+			T result = caseDefaultImage(defaultImage);
 			if (result == null)
 				result = caseImage(defaultImage);
 			if (result == null)
@@ -296,7 +296,7 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.BUNDLE_IMAGE: {
 			BundleImage bundleImage = (BundleImage) theEObject;
-			Object result = caseBundleImage(bundleImage);
+			T result = caseBundleImage(bundleImage);
 			if (result == null)
 				result = caseImage(bundleImage);
 			if (result == null)
@@ -305,14 +305,14 @@ public class GMFToolSwitch {
 		}
 		case GMFToolPackage.STYLE_SELECTOR: {
 			StyleSelector styleSelector = (StyleSelector) theEObject;
-			Object result = caseStyleSelector(styleSelector);
+			T result = caseStyleSelector(styleSelector);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
 		case GMFToolPackage.GENERIC_STYLE_SELECTOR: {
 			GenericStyleSelector genericStyleSelector = (GenericStyleSelector) theEObject;
-			Object result = caseGenericStyleSelector(genericStyleSelector);
+			T result = caseGenericStyleSelector(genericStyleSelector);
 			if (result == null)
 				result = caseStyleSelector(genericStyleSelector);
 			if (result == null)
@@ -335,7 +335,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolRegistry(ToolRegistry object) {
+	public T caseToolRegistry(ToolRegistry object) {
 		return null;
 	}
 
@@ -350,7 +350,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAbstractTool(AbstractTool object) {
+	public T caseAbstractTool(AbstractTool object) {
 		return null;
 	}
 
@@ -365,7 +365,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolContainer(ToolContainer object) {
+	public T caseToolContainer(ToolContainer object) {
 		return null;
 	}
 
@@ -380,7 +380,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePaletteSeparator(PaletteSeparator object) {
+	public T casePaletteSeparator(PaletteSeparator object) {
 		return null;
 	}
 
@@ -395,7 +395,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolGroup(ToolGroup object) {
+	public T caseToolGroup(ToolGroup object) {
 		return null;
 	}
 
@@ -410,7 +410,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePalette(Palette object) {
+	public T casePalette(Palette object) {
 		return null;
 	}
 
@@ -425,7 +425,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseStandardTool(StandardTool object) {
+	public T caseStandardTool(StandardTool object) {
 		return null;
 	}
 
@@ -440,7 +440,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCreationTool(CreationTool object) {
+	public T caseCreationTool(CreationTool object) {
 		return null;
 	}
 
@@ -455,7 +455,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenericTool(GenericTool object) {
+	public T caseGenericTool(GenericTool object) {
 		return null;
 	}
 
@@ -470,7 +470,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseItemBase(ItemBase object) {
+	public T caseItemBase(ItemBase object) {
 		return null;
 	}
 
@@ -485,7 +485,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMenu(Menu object) {
+	public T caseMenu(Menu object) {
 		return null;
 	}
 
@@ -500,7 +500,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSeparator(Separator object) {
+	public T caseSeparator(Separator object) {
 		return null;
 	}
 
@@ -515,7 +515,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePredefinedItem(PredefinedItem object) {
+	public T casePredefinedItem(PredefinedItem object) {
 		return null;
 	}
 
@@ -530,7 +530,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePredefinedMenu(PredefinedMenu object) {
+	public T casePredefinedMenu(PredefinedMenu object) {
 		return null;
 	}
 
@@ -545,7 +545,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseContributionItem(ContributionItem object) {
+	public T caseContributionItem(ContributionItem object) {
 		return null;
 	}
 
@@ -560,7 +560,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMenuAction(MenuAction object) {
+	public T caseMenuAction(MenuAction object) {
 		return null;
 	}
 
@@ -575,7 +575,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseItemRef(ItemRef object) {
+	public T caseItemRef(ItemRef object) {
 		return null;
 	}
 
@@ -590,7 +590,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseContextMenu(ContextMenu object) {
+	public T caseContextMenu(ContextMenu object) {
 		return null;
 	}
 
@@ -605,7 +605,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePopupMenu(PopupMenu object) {
+	public T casePopupMenu(PopupMenu object) {
 		return null;
 	}
 
@@ -620,7 +620,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMainMenu(MainMenu object) {
+	public T caseMainMenu(MainMenu object) {
 		return null;
 	}
 
@@ -635,7 +635,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolbar(Toolbar object) {
+	public T caseToolbar(Toolbar object) {
 		return null;
 	}
 
@@ -650,7 +650,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseImage(Image object) {
+	public T caseImage(Image object) {
 		return null;
 	}
 
@@ -665,7 +665,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDefaultImage(DefaultImage object) {
+	public T caseDefaultImage(DefaultImage object) {
 		return null;
 	}
 
@@ -680,7 +680,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBundleImage(BundleImage object) {
+	public T caseBundleImage(BundleImage object) {
 		return null;
 	}
 
@@ -695,7 +695,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseStyleSelector(StyleSelector object) {
+	public T caseStyleSelector(StyleSelector object) {
 		return null;
 	}
 
@@ -710,7 +710,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenericStyleSelector(GenericStyleSelector object) {
+	public T caseGenericStyleSelector(GenericStyleSelector object) {
 		return null;
 	}
 
@@ -725,7 +725,7 @@ public class GMFToolSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

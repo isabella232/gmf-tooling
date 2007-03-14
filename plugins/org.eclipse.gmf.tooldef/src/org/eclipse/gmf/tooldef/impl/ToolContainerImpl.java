@@ -44,7 +44,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * @generated
 	 * @ordered
 	 */
-	protected EList tools = null;
+	protected EList<AbstractTool> tools = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -60,6 +60,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getToolContainer();
 	}
@@ -69,9 +70,9 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getTools() {
+	public EList<AbstractTool> getTools() {
 		if (tools == null) {
-			tools = new EObjectContainmentEList(AbstractTool.class, this, GMFToolPackage.TOOL_CONTAINER__TOOLS);
+			tools = new EObjectContainmentEList<AbstractTool>(AbstractTool.class, this, GMFToolPackage.TOOL_CONTAINER__TOOLS);
 		}
 		return tools;
 	}
@@ -81,10 +82,11 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_CONTAINER__TOOLS:
-			return ((InternalEList) getTools()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getTools()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -94,6 +96,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_CONTAINER__TOOLS:
@@ -107,11 +110,13 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_CONTAINER__TOOLS:
 			getTools().clear();
-			getTools().addAll((Collection) newValue);
+			getTools().addAll((Collection<? extends AbstractTool>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -122,6 +127,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_CONTAINER__TOOLS:
@@ -136,6 +142,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_CONTAINER__TOOLS:

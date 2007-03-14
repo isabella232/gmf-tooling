@@ -35,6 +35,7 @@ public class PaletteSeparatorImpl extends AbstractToolImpl implements PaletteSep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return GMFToolPackage.eINSTANCE.getPaletteSeparator();
 	}
