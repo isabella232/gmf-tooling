@@ -59,7 +59,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -89,6 +89,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createToolRegistryAdapter() {
 		if (toolRegistryItemProvider == null) {
 			toolRegistryItemProvider = new ToolRegistryItemProvider(this);
@@ -111,6 +112,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPaletteSeparatorAdapter() {
 		if (paletteSeparatorItemProvider == null) {
 			paletteSeparatorItemProvider = new PaletteSeparatorItemProvider(this);
@@ -133,6 +135,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createToolGroupAdapter() {
 		if (toolGroupItemProvider == null) {
 			toolGroupItemProvider = new ToolGroupItemProvider(this);
@@ -155,6 +158,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPaletteAdapter() {
 		if (paletteItemProvider == null) {
 			paletteItemProvider = new PaletteItemProvider(this);
@@ -177,6 +181,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createStandardToolAdapter() {
 		if (standardToolItemProvider == null) {
 			standardToolItemProvider = new StandardToolItemProvider(this);
@@ -199,6 +204,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createCreationToolAdapter() {
 		if (creationToolItemProvider == null) {
 			creationToolItemProvider = new CreationToolItemProvider(this);
@@ -221,6 +227,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenericToolAdapter() {
 		if (genericToolItemProvider == null) {
 			genericToolItemProvider = new GenericToolItemProvider(this);
@@ -243,6 +250,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSeparatorAdapter() {
 		if (separatorItemProvider == null) {
 			separatorItemProvider = new SeparatorItemProvider(this);
@@ -265,6 +273,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPredefinedItemAdapter() {
 		if (predefinedItemItemProvider == null) {
 			predefinedItemItemProvider = new PredefinedItemItemProvider(this);
@@ -287,6 +296,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPredefinedMenuAdapter() {
 		if (predefinedMenuItemProvider == null) {
 			predefinedMenuItemProvider = new PredefinedMenuItemProvider(this);
@@ -309,6 +319,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMenuActionAdapter() {
 		if (menuActionItemProvider == null) {
 			menuActionItemProvider = new MenuActionItemProvider(this);
@@ -331,6 +342,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createItemRefAdapter() {
 		if (itemRefItemProvider == null) {
 			itemRefItemProvider = new ItemRefItemProvider(this);
@@ -353,6 +365,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createContextMenuAdapter() {
 		if (contextMenuItemProvider == null) {
 			contextMenuItemProvider = new ContextMenuItemProvider(this);
@@ -375,6 +388,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPopupMenuAdapter() {
 		if (popupMenuItemProvider == null) {
 			popupMenuItemProvider = new PopupMenuItemProvider(this);
@@ -397,6 +411,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createMainMenuAdapter() {
 		if (mainMenuItemProvider == null) {
 			mainMenuItemProvider = new MainMenuItemProvider(this);
@@ -419,6 +434,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createToolbarAdapter() {
 		if (toolbarItemProvider == null) {
 			toolbarItemProvider = new ToolbarItemProvider(this);
@@ -441,6 +457,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createDefaultImageAdapter() {
 		if (defaultImageItemProvider == null) {
 			defaultImageItemProvider = new DefaultImageItemProvider(this);
@@ -463,6 +480,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createBundleImageAdapter() {
 		if (bundleImageItemProvider == null) {
 			bundleImageItemProvider = new BundleImageItemProvider(this);
@@ -485,6 +503,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createGenericStyleSelectorAdapter() {
 		if (genericStyleSelectorItemProvider == null) {
 			genericStyleSelectorItemProvider = new GenericStyleSelectorItemProvider(this);
@@ -518,6 +537,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -528,6 +548,7 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -537,10 +558,11 @@ public class GMFToolItemProviderAdapterFactory extends GMFToolAdapterFactory imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class) type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>) type).isInstance(adapter))) {
 				return adapter;
 			}
 		}

@@ -124,7 +124,7 @@ public class GMFToolModelWizard extends Wizard implements INewWizard {
 
 					// Get the URI of the model file.
 					//
-					URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString());
+					URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), false);
 
 					// Create a resource for this file.
 					//
@@ -139,7 +139,7 @@ public class GMFToolModelWizard extends Wizard implements INewWizard {
 
 					// Save the contents of the resource to the file system.
 					//
-					Map options = new HashMap();
+					Map<String, String> options = new HashMap<String, String>();
 					options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 					resource.save(options);
 				} catch (Exception exception) {
