@@ -110,6 +110,7 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 			String ctxID = audit.getTarget().getClientContextID();
 			s = JavaConventions.validateIdentifier(ctxID, javaLevel, javaLevel);
 			assertTrue("Context ID must be a valid java identifier", s.getSeverity() != IStatus.ERROR); //$NON-NLS-1$
+			i++;
 		}
 		
 		assertTargetedModels(targets);		
@@ -119,6 +120,7 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 		int i = 1;
 		for (GenAuditRule nextAudit : root.getRules()) {
 			assertEquals("Adapter" + i, nextAudit.getConstraintAdapterLocalClassName()); //$NON-NLS-1$
+			i++;
 		}
 	}
 	
