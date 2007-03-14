@@ -369,7 +369,7 @@
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
 
 		<property name="indexFileName" value="index.php" />
-		<property name="result" value="${buildRoot}/artifacts/${buildLabel}" />
+		<property name="result" value="${artifacts}/drops/${buildLabel}" />
 
 		<ant antfile="${publish.xml}" dir="${basedir}">
 			<property name="dropTemplateFileName" value="${basedir}/templateFiles/index.php.template" />
@@ -381,7 +381,7 @@
 		</ant>
 
 		<!-- Copy the directory.txt file to destination for download page -->
-		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/${buildLabel}" />
+		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/drops/${buildLabel}" />
 
 		<replace file="${result}/${indexFileName}">
 			<!--  Insert url for supported eclipse drop-->
@@ -427,13 +427,16 @@
 		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/modeling/gmf/downloads/drops/${buildLabel}/" />
 		<!-- Correct the slashes for the compilation logs on Windows -->
 		<replace file="${result}/testResults.php" token="\" value="/" />
+		
 		<!-- Copy update jars as well -->
+		<!--
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 			<fileset dir="${buildUpdateSitePath}/features" />
 		</copy>
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins" />
 		</copy>
+		-->
 	</target>
 		
 	<target name="statCVS" if="statCVShome">

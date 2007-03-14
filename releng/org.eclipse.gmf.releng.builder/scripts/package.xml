@@ -18,6 +18,23 @@
 		<delete dir="${packtmp}" />
 	</target>
 	
+	<target name="unpackUpdateJarsAndRepack">
+		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
+		<mkdir dir="${tmpsite}/new/eclipse/features" />
+		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
+		<exec executable="unzip" dir="${buildDirectory}/${buildLabel}">
+			<arg line="-q ${archiveName} -d ${tmpsite}" />
+		</exec>
+		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+		<antcall target="packageBatik"/>
+		<antcall target="packageXerces"/>
+		<antcall target="packageLicenseFiles"/>
+		<zip destfile="${buildDirectory}/${buildLabel}/${archiveName}"
+			basedir="${tmpsite}/new"
+	  	/>
+		<delete dir="${tmpsite}"/>
+	</target>
+
 	<target name="unpackUpdateJarsForPackaging">
 		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
 		<mkdir dir="${tmpsite}/new/eclipse/features" />

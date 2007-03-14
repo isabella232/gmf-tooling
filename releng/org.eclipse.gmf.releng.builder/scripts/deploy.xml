@@ -87,7 +87,7 @@
 	</target>
 
 	<target name="deploy.updates.europa" depends="init" unless="skipUpload"> 	
-		<!-- Downloading EMTF plugins from the update site -->
+		<!-- PLACEHOLDER: Downloading EMTF plugins from the update site -->
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="europa"/>
 			<param name="updateSitePath" value="europa"/>
