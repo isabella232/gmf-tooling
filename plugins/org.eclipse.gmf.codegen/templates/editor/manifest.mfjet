@@ -74,3 +74,4 @@ Require-Bundle: org.eclipse.core.runtime,
  <%=requiredBundleIterator.next()%>;visibility:=reexport
 <%}%>
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4

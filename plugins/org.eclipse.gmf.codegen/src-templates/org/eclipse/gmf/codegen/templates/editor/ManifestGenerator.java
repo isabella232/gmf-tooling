@@ -42,7 +42,7 @@ public class ManifestGenerator
   protected final String TEXT_24 = ",";
   protected final String TEXT_25 = NL + " ";
   protected final String TEXT_26 = ";visibility:=reexport";
-  protected final String TEXT_27 = NL + "Eclipse-LazyStart: true";
+  protected final String TEXT_27 = NL + "Eclipse-LazyStart: true" + NL + "Bundle-RequiredExecutionEnvironment: J2SE-1.4";
   protected final String TEXT_28 = NL;
 
   public String generate(Object argument)
