@@ -186,7 +186,7 @@
 		<!-- run the tests -->
 		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/test.xml"
 	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/testresults" todir="${artifacts}/drops/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
