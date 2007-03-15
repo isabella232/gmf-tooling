@@ -64,6 +64,8 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	private NamingStrategy myNodeCreateCommand;
 
+	private NamingStrategy myLinkReorientCommand;
+
 	public GenModelNamingMediatorImpl() {
 		this(new IncrementalNamesDispenser());
 	}
@@ -79,6 +81,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		setEditHelperAdvice(createNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX));
 		setTypeLinkCreateCommand(createNamingStrategy(TypeLinkModelFacet.CREATE_COMMAND_SUFFIX));
 		setNodeCreateCommand(createNamingStrategy(GenNode.CREATE_COMMAND_SUFFIX));
+		setLinkReorientCommand(createNamingStrategy(GenLink.REORIENT_COMMAND_SUFFIX));
 	}
 
 	protected NamingStrategy createNamingStrategy(String suffixPart) {
@@ -141,6 +144,10 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		myNodeCreateCommand = nodeCreateCommand;
 	}
 
+	private void setLinkReorientCommand(NamingStrategy strategy) {
+		myLinkReorientCommand = strategy;
+	}
+
 	private NamingStrategy getNodeGraphicalPolicy() {
 		return myNodeGraphicalPolicy;
 	}
@@ -171,6 +178,10 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	
 	public NamingStrategy getNodeCreateCommand() {
 		return myNodeCreateCommand;
+	}
+
+	public NamingStrategy getLinkReorientCommand() {
+		return myLinkReorientCommand;
 	}
 	
 	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
@@ -214,6 +225,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 			modelFacet.setCreateCommandClassName(getTypeLinkCreateCommand().get(lme));
 		}
+		genLink.setReorientCommandClassName(getLinkReorientCommand().get(lme));
 	}
 
 	public void feed(GenCompartment genCompartment, CompartmentMapping mapping) {
