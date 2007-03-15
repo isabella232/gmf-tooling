@@ -134,6 +134,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
 			generateLinkCreateCommand(next);
+			if (next.getModelFacet() instanceof TypeLinkModelFacet) {
+				generateReorientLinkCommand(next);
+			}
 			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);
 				generateLinkLabelViewFactory(label);
@@ -496,6 +499,10 @@ public class Generator extends GeneratorBase implements Runnable {
 				modelFacet.getCreateCommandClassName(),
 				genLink
 			);
+	}
+
+	private void generateReorientLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getReorientLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

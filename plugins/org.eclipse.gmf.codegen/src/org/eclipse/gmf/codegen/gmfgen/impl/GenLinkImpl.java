@@ -46,6 +46,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -141,6 +142,26 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected GenLinkConstraints creationConstraints = null;
+
+	/**
+	 * The default value of the '{@link #getReorientCommandClassName() <em>Reorient Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReorientCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REORIENT_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getReorientCommandClassName() <em>Reorient Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReorientCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String reorientCommandClassName = REORIENT_COMMAND_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -335,6 +356,31 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getReorientCommandClassNameGen() {
+		return reorientCommandClassName;
+	}
+
+	public String getReorientCommandClassName() {
+		return GenCommonBaseImpl.getValidClassName(getReorientCommandClassNameGen(), this, REORIENT_COMMAND_SUFFIX);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReorientCommandClassName(String newReorientCommandClassName) {
+		String oldReorientCommandClassName = reorientCommandClassName;
+		reorientCommandClassName = newReorientCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME, oldReorientCommandClassName, reorientCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenCommonBase> getAssistantSources() {
@@ -354,6 +400,15 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			return ECollections.emptyEList();
 		}
 		return getParticipants(getModelFacet().getAssistantTargetTypes());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getReorientCommandQualifiedClassName() {
+		return getDiagram().getEditCommandsPackageName() + '.' + getReorientCommandClassName();
 	}
 
 	protected EList<GenCommonBase> getParticipants(EList<GenClass> participantTypes) {
@@ -448,6 +503,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
+			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
+				return getReorientCommandClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -480,6 +537,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
+				setReorientCommandClassName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -510,6 +570,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)null);
 				return;
+			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
+				setReorientCommandClassName(REORIENT_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -536,6 +599,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return viewDirectionAlignedWithModel != VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
+			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
+				return REORIENT_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientCommandClassName != null : !REORIENT_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientCommandClassName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -556,6 +621,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		result.append(incomingCreationAllowed);
 		result.append(", viewDirectionAlignedWithModel: ");
 		result.append(viewDirectionAlignedWithModel);
+		result.append(", reorientCommandClassName: ");
+		result.append(reorientCommandClassName);
 		result.append(')');
 		return result.toString();
 	}

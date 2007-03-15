@@ -31,10 +31,13 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 	
 		«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 	«ENDIF-»
-	
+
 	«EXPAND getDestroyElementCommand-»
 	«IF !getAllPotentialLinks(this).isEmpty()-»
 		«EXPAND createLinks-»
+	«ENDIF-»
+	«IF getReroutableLinks(this).size() > 0-»
+		«EXPAND getReorientLinkCommand-»
 	«ENDIF-»
 	«EXPAND additions-»
 }
@@ -262,6 +265,27 @@ if (container == null) {
 
 «DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet-»
 	«ERROR "Unrecognized link model facet: " + this-»
+«ENDDEFINE»
+
+«DEFINE getReorientLinkCommand FOR gmfgen::GenNode»
+
+	/**
+	 * Returns command to reorient link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
+			org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
+		«FOREACH getReroutableLinks(this) AS link-»
+		«FOREACH {link.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).metaClass AS linkClass-»
+		if (req.getRelationship() instanceof «getQualifiedInterfaceName(linkClass)») {
+			return getMSLWrapper(new «link.getReorientCommandQualifiedClassName()»(req));
+		}
+		«ENDFOREACH-»
+		«ENDFOREACH-»
+		return super.getReorientRelationshipCommand(req);
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»

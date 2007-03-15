@@ -4413,13 +4413,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__CREATION_CONSTRAINTS = GEN_COMMON_BASE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Reorient Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -11720,6 +11729,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenLink_CreationConstraints();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Reorient Command Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_ReorientCommandClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel <em>Gen Label</em>}'.

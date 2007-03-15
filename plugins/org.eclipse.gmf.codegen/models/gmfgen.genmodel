@@ -464,8 +464,10 @@
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/reorientCommandClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantSources"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantTargets"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getReorientCommandQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>

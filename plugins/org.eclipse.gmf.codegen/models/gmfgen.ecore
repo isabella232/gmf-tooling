@@ -727,6 +727,7 @@
         <details key="documentation" value="Returns link targets in this genmodel"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getReorientCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/links"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//LinkModelFacet"
@@ -757,6 +758,8 @@
         <details key="documentation" value="Specifies additional restrictions on link creation"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientCommandClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLabel" abstract="true" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

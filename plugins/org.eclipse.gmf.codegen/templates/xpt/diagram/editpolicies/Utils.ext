@@ -52,6 +52,14 @@ List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::GenNode node) :
 	selectValidLinks(node.getDiagram().links).select(l | isSelf(l, node) || isOutgoing(l, node) || isIncoming(l, node))
 ;
 
+List[gmfgen::GenLink] getReroutableLinks(gmfgen::GenNode node) :
+	node.getDiagram().links.select(link | isTypeLink(link) && (canBeSource(link, node) || canBeTarget(link, node)))
+;
+
+private boolean isTypeLink(gmfgen::GenLink link) :
+	{link.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0
+;
+
 private List[gmfgen::GenLink] selectValidLinks(List[gmfgen::GenLink] allLinks) :
 	allLinks.select(l | null != l.modelFacet)
 		.select(l | l.outgoingCreationAllowed || l.incomingCreationAllowed)
