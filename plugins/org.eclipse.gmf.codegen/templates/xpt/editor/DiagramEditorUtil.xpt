@@ -28,8 +28,6 @@ public class «diagramEditorUtilClassName» {
 	«EXPAND getFileMethod»
 «ENDIF»
 
-«EXPAND existsMethod»
-
 «EXPAND getUniqueFileNameMethod»
 
 «EXPAND createDiagramMethod»
@@ -93,13 +91,6 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
-«DEFINE existsMethod FOR gmfgen::GenDiagram»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static boolean exists(org.eclipse.core.runtime.IPath path) {
-		«IF editorGen.application == null»return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().exists(path);«ELSE»return path.toFile().exists();«ENDIF»
-	}
-«ENDDEFINE»
-
 «DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static String getUniqueFileName(org.eclipse.core.runtime.IPath containerFullPath, String fileName, String extension) {
@@ -116,7 +107,13 @@ public class «diagramEditorUtilClassName» {
 		extension = filePath.getFileExtension();
 		fileName = filePath.removeFileExtension().lastSegment();
 		int i = 1;
-		while (exists(filePath)) {
+		while (
+		«IF editorGen.application == null-»
+			org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().exists(filePath)
+		«ELSE-»
+			filePath.toFile().exists()
+		«ENDIF-»
+		) {
 			i++;
 			filePath = containerFullPath.append(fileName + i);
 			if (extension != null) {
