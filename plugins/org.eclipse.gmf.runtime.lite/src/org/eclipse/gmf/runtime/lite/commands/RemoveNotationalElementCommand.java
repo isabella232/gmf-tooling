@@ -16,6 +16,8 @@ import java.util.Iterator;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -31,6 +33,10 @@ public class RemoveNotationalElementCommand extends AbstractCommand {
 	}
 
 	protected boolean prepare() {
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
+		if (domain == null || domain.isReadOnly(getParent().eResource())) {
+			return false;
+		}
 		if (!parentView.getChildren().contains(childView)) {
 			return false;
 		}

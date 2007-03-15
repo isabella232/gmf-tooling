@@ -14,6 +14,8 @@ package org.eclipse.gmf.runtime.lite.commands;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.lite.services.IViewDecorator;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -64,8 +66,12 @@ public class CreateNotationalNodeCommand extends CreateNotationalElementCommand 
 		}
 	}
 
-	public boolean canExecute() {
+	protected boolean prepare() {
 		if (getCreatedView() instanceof Node == false) {
+			return false;
+		}
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
+		if (domain == null || domain.isReadOnly(getParent().eResource())) {
 			return false;
 		}
 		if (myExposeCommand != null && !myExposeCommand.canExecute()) {

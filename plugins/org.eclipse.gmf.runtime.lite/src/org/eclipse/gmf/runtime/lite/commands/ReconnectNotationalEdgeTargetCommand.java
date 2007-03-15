@@ -12,6 +12,8 @@
 package org.eclipse.gmf.runtime.lite.commands;
 
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -25,7 +27,11 @@ public class ReconnectNotationalEdgeTargetCommand extends AbstractCommand {
 		this.newTarget = newTarget;
 	}
 
-	public boolean canExecute() {
+	protected boolean prepare() {
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(edge);
+		if (domain == null || domain.isReadOnly(edge.eResource())) {
+			return false;
+		}
 		return newTarget != null;
 	}
 

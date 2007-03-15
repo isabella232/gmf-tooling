@@ -21,6 +21,7 @@ Eclipse-LazyStart: true
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.edit.parts.decorations,
+ org.eclipse.gmf.runtime.lite.edit.parts.labels,
  org.eclipse.gmf.runtime.lite.edit.parts.tree,
  org.eclipse.gmf.runtime.lite.edit.parts.update,
  org.eclipse.gmf.runtime.lite.edit.parts.update.canonical,

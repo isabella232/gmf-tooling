@@ -16,6 +16,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -41,6 +43,10 @@ public class ChangeBoundsCommand extends AbstractCommand {
 
 	protected boolean prepare() {
 		if (myNode.getLayoutConstraint() instanceof Bounds == false) {
+			return false;
+		}
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(myNode);
+		if (domain == null || domain.isReadOnly(myNode.eResource())) {
 			return false;
 		}
 		Bounds bounds = (Bounds) myNode.getLayoutConstraint();

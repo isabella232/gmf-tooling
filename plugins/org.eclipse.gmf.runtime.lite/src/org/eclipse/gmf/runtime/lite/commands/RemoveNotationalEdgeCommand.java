@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.runtime.lite.commands;
 
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
@@ -23,7 +25,11 @@ public class RemoveNotationalEdgeCommand extends RemoveNotationalElementCommand 
 		super(parentView, childView);
 	}
 
-	public boolean canExecute() {
+	protected boolean prepare() {
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
+		if (domain == null || domain.isReadOnly(getParent().eResource())) {
+			return false;
+		}
 		return getParent() instanceof Diagram && getChildView() instanceof Edge
 			&& ((Diagram) getParent()).getEdges().contains(getChildView());
 	}

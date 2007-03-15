@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,6 @@ package org.eclipse.gmf.runtime.lite.edit.parts.update;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -35,12 +34,11 @@ public interface IUpdatableEditPart {
 		}
 
 		public void refresh() {
-			for(Iterator it = refreshers.iterator(); it.hasNext(); ) {
-				Refresher next = (Refresher) it.next();
+			for(Refresher next : refreshers) {
 				next.refresh();
 			}
 		}
 
-		private Collection/*<Refresher>*/ refreshers = new ArrayList();
+		private Collection<Refresher> refreshers = new ArrayList<Refresher>();
 	}
 }

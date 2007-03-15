@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,6 +26,13 @@ public class RefreshAdapter extends AdapterImpl {
 		super.notifyChanged(msg);
 		if (msg.isTouch()) {
 			return;
+		}
+		if (myHost instanceof IExternallyUpdatableEditPart) {
+			for (IExternallyUpdatableEditPart.ExternalRefresher nextExternalRefresher : ((IExternallyUpdatableEditPart) myHost).getExternalRefreshers()) {
+				if (nextExternalRefresher.isAffectingEvent(msg)) {
+					nextExternalRefresher.refresh();
+				}
+			}
 		}
 		IUpdatableEditPart.Refresher refresher = myHost.getRefresher((EStructuralFeature) msg.getFeature(), msg);
 		if (refresher != null) {

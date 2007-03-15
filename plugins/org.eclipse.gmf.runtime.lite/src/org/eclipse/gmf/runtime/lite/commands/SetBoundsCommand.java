@@ -13,6 +13,8 @@ package org.eclipse.gmf.runtime.lite.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
@@ -37,6 +39,10 @@ public class SetBoundsCommand extends AbstractCommand {
 	}
 
 	protected boolean prepare() {
+		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(myNode);
+		if (domain == null || domain.isReadOnly(myNode.eResource())) {
+			return false;
+		}
 		if (myNode.getLayoutConstraint() == null) {
 			myOldBounds = null;
 			return true;
