@@ -32,7 +32,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	private «EXPAND creationPage» myFileCreationPage;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.common.util.URI mySelectedModelFile;
+	private org.eclipse.emf.common.util.URI domainModelURI;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.ui.IWorkbenchPage myWorkbenchPage;
@@ -41,16 +41,16 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	private org.eclipse.emf.ecore.EObject myDiagramRoot;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «EXPAND className»(org.eclipse.emf.common.util.URI selectedModelFile,
+	public «EXPAND className»(org.eclipse.emf.common.util.URI domainModelURI,
 			org.eclipse.ui.IWorkbenchPage workbenchPage,
 			org.eclipse.emf.ecore.EObject diagramRoot,
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
-		assert selectedModelFile != null : "Null selectedModelFile in «EXPAND className» constructor"; //$NON-NLS-1$
+		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert workbenchPage != null : "Null workbenchPage in «EXPAND className» constructor"; //$NON-NLS-1$
 	    assert diagramRoot != null : "Null diagramRoot in «EXPAND className» constructor"; //$NON-NLS-1$
 	    assert editingDomain != null : "Null editingDomain in «EXPAND className» constructor"; //$NON-NLS-1$
-	    
-	   	mySelectedModelFile = selectedModelFile;
+
+	   	this.domainModelURI = domainModelURI;
 	   	myWorkbenchPage = workbenchPage;
 	   	myDiagramRoot = diagramRoot;
 	   	myEditingDomain = editingDomain;
@@ -63,14 +63,14 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		myFileCreationPage.setDescription(
 			"Create new diagram based on " + «getEditPartQualifiedClassName()».MODEL_ID + " model content");
 		org.eclipse.core.runtime.IPath filePath;
-		String fileName = mySelectedModelFile.trimFileExtension().lastSegment();
-		if (mySelectedModelFile.isPlatformResource()) {
-			filePath = new org.eclipse.core.runtime.Path(mySelectedModelFile.trimSegments(1).toPlatformString(true));
-		} else if (mySelectedModelFile.isFile()) {
-			filePath = new org.eclipse.core.runtime.Path(mySelectedModelFile.trimSegments(1).toFileString());
+		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		if (domainModelURI.isPlatformResource()) {
+			filePath = new org.eclipse.core.runtime.Path(domainModelURI.trimSegments(1).toPlatformString(true));
+		} else if (domainModelURI.isFile()) {
+			filePath = new org.eclipse.core.runtime.Path(domainModelURI.trimSegments(1).toFileString());
 		} else {
 			// TODO : use some default path
-			throw new IllegalArgumentException("Unsupported URI: " + mySelectedModelFile);
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(filePath, fileName, "«editorGen.diagramFileExtension»")); //$NON-NLS-1$
