@@ -589,16 +589,6 @@
          <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
          <package namespaceUri="http://www.eclipse.org/examples/gmf/taipan"/>
                <constraints categories="taipan">
-                  <constraint id="ship_name"
-            lang="Java" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$Adapter2"
-            name="Ship Name"
-            mode="Batch"
-            severity="ERROR" statusCode="200">
-            
-            <description><![CDATA[Empty ship name check]]></description>
-            <message><![CDATA[Ship name should not be empty]]></message>
-            <target class="taipan.Ship"/>
-         </constraint>
                   <constraint id="port_location"
             lang="OCL"
             name="Port Location"
@@ -608,6 +598,16 @@
             <description><![CDATA[Empty port location check]]></description>
             <message><![CDATA[Port location should not be empty]]></message>
             <target class="taipan.Port"/>
+         </constraint>
+                  <constraint id="ship_name"
+            lang="Java" class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider$Adapter2"
+            name="Ship Name"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[Empty ship name check]]></description>
+            <message><![CDATA[Ship name should not be empty]]></message>
+            <target class="taipan.Ship"/>
          </constraint>
                   </constraints>
       </constraintProvider>
