@@ -33,16 +33,16 @@
 	<target name="deploy.zips" depends="init" unless="skipUpload"> 	
 		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
 	
-		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/compilelogs" prefix="compilelogs"/>
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/buildnotes" prefix="buildnotes"/>
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/testresults" prefix="testresults"/>
+		<zip destfile="${buildRoot}/artifacts/drops/${buildLabel}/logs.zip">
+	    	<zipfileset dir="${buildRoot}/artifacts/drops/${buildLabel}/compilelogs" prefix="compilelogs"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/drops/${buildLabel}/buildnotes" prefix="buildnotes"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/drops/${buildLabel}/testresults" prefix="testresults"/>
 	  	</zip>
    
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
-	    <fileset dir="${buildRoot}/artifacts/${buildLabel}">
+	    <fileset dir="${buildRoot}/artifacts/drops/${buildLabel}">
 	    	<include name="*.php"/>
 	    	<include name="*.gif"/>
 	    	<include name="files.count"/>
@@ -60,39 +60,59 @@
 		<antcall target="init.site">
 			<param name="updateSiteName" value="interim"/>
 		</antcall>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="interim"/>
-			<param name="updateSitePath" value=""/>
-			<param name="excludes" value="org.eclipse.gmf.europa"/>
-			<param name="excludes" value="org.eclipse.gmf.examples"/>
 		</antcall>
+		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
 	<target name="deploy.updates.milestone" depends="init" unless="skipUpload"> 	
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="milestone"/>
-			<param name="updateSitePath" value=""/>
-			<param name="excludes" value="org.eclipse.gmf.europa"/>
-			<param name="excludes" value="org.eclipse.gmf.examples"/>
 		</antcall>
+		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
 	<target name="deploy.updates.release" depends="init" unless="skipUpload"> 	
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="releases"/>
-			<param name="updateSitePath" value=""/>
-			<param name="excludes" value="org.eclipse.gmf.europa"/>
-			<param name="excludes" value="org.eclipse.gmf.examples"/>
 		</antcall>
+		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
 	<target name="deploy.updates.europa" depends="init" unless="skipUpload"> 	
+		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-europa-${buildId}.zip"
+			dest="${buildRoot}/uploadsite"/>
 		<!-- PLACEHOLDER: Downloading EMTF plugins from the update site -->
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="europa"/>
-			<param name="updateSitePath" value="europa"/>
 			<param name="includes" value="org.eclipse.gmf.europa"/>
 		</antcall>
+		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
 	<target name="deploy.updates.batik" depends="init" unless="skipUpload"> 	
@@ -109,22 +129,22 @@
 	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
 		<echo message="Updating update site ${updateSiteName} ..."/>
 	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
-	  		localTodir="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/"/>
+	  		localTodir="${buildRoot}/uploadsite"/>
 	  	<antcall target= "build.site.manifesto">
-			<param name="siteXml" value="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/site.xml"/>
+			<param name="siteXml" value="${buildRoot}/uploadsite/site.xml"/>
 	  	</antcall>	
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/features">
+	    	<fileset dir="${buildRoot}/uploadsite/features">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
 	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/plugins">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/plugins">
+	    	<fileset dir="${buildRoot}/uploadsite/plugins">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}"
-	    	file="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}/site.xml"/>
+	    	file="${buildRoot}/uploadsite/site.xml"/>
 	</target>
 	
 	<!-- @param updateSiteName -->
@@ -158,7 +178,7 @@
             <arg value="-build"/>                                                                                       
             <arg value="${buildLabel}"/>                                                                                
             <arg value="-site"/>                                                                                        
-            <arg value="${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel}"/>                                                                       
+            <arg value="${buildRoot}/uploadsite"/>                                                                       
             <arg value="-sitexml"/>                                                                                     
             <arg value="${siteXml}"/>
         	   <arg value="-exclude"/>
@@ -169,7 +189,7 @@
 	     <java jar="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar" fork="true" failonerror="true">
 	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
 	         <arg line="-digestBuilder
-	         	  -digestOutputDir=${buildRoot}/artifacts/updates/${updateSitePath}/${buildLabel} -siteXML=${siteXml}"/>
+	         	  -digestOutputDir=${buildRoot}/uploadsite -siteXML=${siteXml}"/>
 	       </java>
 		
     </target>  
