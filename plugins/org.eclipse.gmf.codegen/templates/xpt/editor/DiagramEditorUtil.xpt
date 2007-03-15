@@ -30,6 +30,8 @@ public class «diagramEditorUtilClassName» {
 
 «EXPAND existsMethod»
 
+«EXPAND getUniqueFileNameMethod»
+
 «EXPAND createDiagramMethod»
 «IF domainDiagramElement != null»
 	«EXPAND createInitialModelMethod»
@@ -91,11 +93,37 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
-// XXX Who's using this one?
 «DEFINE existsMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static boolean exists(org.eclipse.core.runtime.IPath path) {
 		«IF editorGen.application == null»return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().exists(path);«ELSE»return path.toFile().exists();«ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static String getUniqueFileName(org.eclipse.core.runtime.IPath containerFullPath, String fileName, String extension) {
+		if (containerFullPath == null) {
+			containerFullPath = new org.eclipse.core.runtime.Path(""); //$NON-NLS-1$
+		}
+		if (fileName == null || fileName.trim().length() == 0) {
+			fileName = "default"; //$NON-NLS-1$
+		}
+		org.eclipse.core.runtime.IPath filePath = containerFullPath.append(fileName);
+		if (extension != null && !extension.equals(filePath.getFileExtension())) {
+			filePath = filePath.addFileExtension(extension);
+		}
+		extension = filePath.getFileExtension();
+		fileName = filePath.removeFileExtension().lastSegment();
+		int i = 1;
+		while (exists(filePath)) {
+			i++;
+			filePath = containerFullPath.append(fileName + i);
+			if (extension != null) {
+				filePath = filePath.addFileExtension(extension);
+			}
+		}
+		return filePath.lastSegment();
 	}
 «ENDDEFINE»
 
