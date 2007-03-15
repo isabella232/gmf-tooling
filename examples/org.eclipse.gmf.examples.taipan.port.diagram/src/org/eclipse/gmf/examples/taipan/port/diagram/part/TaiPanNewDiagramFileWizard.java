@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IFile;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -100,7 +101,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private IFile mySelectedModelFile;
+	private org.eclipse.emf.common.util.URI mySelectedModelFile;
 
 	/**
 	 * @generated
@@ -110,26 +111,19 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private IStructuredSelection mySelection;
-
-	/**
-	 * @generated
-	 */
 	private EObject myDiagramRoot;
 
 	/**
 	 * @generated
 	 */
-	public TaiPanNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI selectedModelFile, IWorkbenchPage workbenchPage, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert selectedModelFile != null : "Null selectedModelFile in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert workbenchPage != null : "Null workbenchPage in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert selection != null : "Null selection in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert diagramRoot != null : "Null diagramRoot in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert editingDomain != null : "Null editingDomain in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 
 		mySelectedModelFile = selectedModelFile;
 		myWorkbenchPage = workbenchPage;
-		mySelection = selection;
 		myDiagramRoot = diagramRoot;
 		myEditingDomain = editingDomain;
 	}
@@ -138,22 +132,21 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public void addPages() {
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection) {
-
-			public void createControl(Composite parent) {
-				super.createControl(parent);
-				IContainer parentContainer = mySelectedModelFile.getParent();
-				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".port_diagram"; //$NON-NLS-1$
-				String fileName = originalFileName + fileExtension;
-				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
-					fileName = originalFileName + i + fileExtension;
-				}
-				setFileName(fileName);
-			}
-		};
+		myFileCreationPage = new WizardNewFileCreationPage("Initialize new diagram file", StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram based on " + PortEditPart.MODEL_ID + " model content");
+		IPath filePath;
+		String fileName = mySelectedModelFile.trimFileExtension().lastSegment();
+		if (mySelectedModelFile.isPlatformResource()) {
+			filePath = new Path(mySelectedModelFile.trimSegments(1).toPlatformString(true));
+		} else if (mySelectedModelFile.isFile()) {
+			filePath = new Path(mySelectedModelFile.trimSegments(1).toFileString());
+		} else {
+			// TODO : use some default path
+			throw new IllegalArgumentException("Unsupported URI: " + mySelectedModelFile);
+		}
+		myFileCreationPage.setContainerFullPath(filePath);
+		myFileCreationPage.setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
 		addPage(myFileCreationPage);
 		addPage(new RootElementSelectorPage());
 	}
@@ -171,7 +164,6 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		List affectedFiles = new LinkedList();
-		affectedFiles.add(mySelectedModelFile);
 		affectedFiles.add(diagramFile);
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 

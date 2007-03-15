@@ -55,12 +55,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private IFile mySelectedModelFile;
-
-	/**
-	 * @generated
-	 */
-	private IStructuredSelection mySelection;
+	private URI mySelectedModelFile;
 
 	/**
 	 * @generated
@@ -74,13 +69,12 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		mySelectedModelFile = null;
-		mySelection = StructuredSelection.EMPTY;
 		action.setEnabled(false);
 		if (selection instanceof IStructuredSelection == false || selection.isEmpty()) {
 			return;
 		}
-		mySelection = (IStructuredSelection) selection;
-		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		mySelectedModelFile = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
 	}
 
@@ -92,16 +86,16 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		EObject diagramRoot = null;
 		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString(), true), true);
+			Resource resource = resourceSet.getResource(mySelectedModelFile, true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
-			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile, ex);
 		}
 		if (diagramRoot == null) {
 			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
 			return;
 		}
-		Wizard wizard = new TaiPanNewDiagramFileWizard(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);
+		Wizard wizard = new TaiPanNewDiagramFileWizard(mySelectedModelFile, myPart.getSite().getPage(), diagramRoot, editingDomain);
 		IDialogSettings pluginDialogSettings = PortDiagramEditorPlugin.getInstance().getDialogSettings();
 		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
 		if (initDiagramFileSettings == null) {
