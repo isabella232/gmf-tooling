@@ -101,7 +101,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.emf.common.util.URI mySelectedModelFile;
+	private org.eclipse.emf.common.util.URI domainModelURI;
 
 	/**
 	 * @generated
@@ -116,13 +116,13 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI selectedModelFile, IWorkbenchPage workbenchPage, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
-		assert selectedModelFile != null : "Null selectedModelFile in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, IWorkbenchPage workbenchPage, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert workbenchPage != null : "Null workbenchPage in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert diagramRoot != null : "Null diagramRoot in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert editingDomain != null : "Null editingDomain in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 
-		mySelectedModelFile = selectedModelFile;
+		this.domainModelURI = domainModelURI;
 		myWorkbenchPage = workbenchPage;
 		myDiagramRoot = diagramRoot;
 		myEditingDomain = editingDomain;
@@ -136,14 +136,14 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram based on " + PortEditPart.MODEL_ID + " model content");
 		IPath filePath;
-		String fileName = mySelectedModelFile.trimFileExtension().lastSegment();
-		if (mySelectedModelFile.isPlatformResource()) {
-			filePath = new Path(mySelectedModelFile.trimSegments(1).toPlatformString(true));
-		} else if (mySelectedModelFile.isFile()) {
-			filePath = new Path(mySelectedModelFile.trimSegments(1).toFileString());
+		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		if (domainModelURI.isPlatformResource()) {
+			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
+		} else if (domainModelURI.isFile()) {
+			filePath = new Path(domainModelURI.trimSegments(1).toFileString());
 		} else {
 			// TODO : use some default path
-			throw new IllegalArgumentException("Unsupported URI: " + mySelectedModelFile);
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
