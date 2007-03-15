@@ -37,7 +37,7 @@ importManager.markImportLocation(stringBuffer);
  		baseClass = "org.eclipse.gef.editparts.AbstractGraphicalEditPart";
  	}
  %>
-public class <%=genLabel.getEditPartClassName()%> extends <%=importManager.getImportedName(baseClass)%> {
+public class <%=genLabel.getEditPartClassName()%> extends <%=importManager.getImportedName(baseClass)%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController")%> {
 <%{
 GenCommonBase genCommonBase = genLabel;%>
 <%@ include file="visualID.jetinc"%>
@@ -77,12 +77,18 @@ if (!isExternal) {
 	/**
 	 * @generated
 	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getDiagramNode() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void createEditPolicies() {
 <%
 	final String primaryView = "getUpdatableParent().getDiagramNode()";
 	final String resolvedSemanticElement = "resolveSemanticElement()";
 	if (!isReadOnly) {
-		String editPatternCode = "EDIT_PATTERN";	//declared in labelText.javajetinc, used in directEditCommand.jetinc.
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 <%
@@ -185,16 +191,8 @@ if (isExternal) {
 			updatableParent.addRefresher(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
 <%
 }
-if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
-		GenFeature next = (GenFeature) it.next();
 %>
-			updatableParent.addRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-	}
-}
-%>
+			updatableParent.addExternalRefresher(getLabelRefresher());
 		}
 	}
 
@@ -220,28 +218,12 @@ if (isExternal) {
 			updatableParent.removeRefresher(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
 <%
 }
-if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
-		GenFeature next = (GenFeature) it.next();
 %>
-			updatableParent.removeRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-	}
-}
-%>
+			updatableParent.removeExternalRefresher(getLabelRefresher());
 		}
 	}
 
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher labelRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher() {
-		public void refresh() {
-			refreshLabel();
-		}
-	};
-
+<%@ include file="refreshers.javajetinc/labelRefresher.jetinc"%>
 
 	/**
 	 * @generated

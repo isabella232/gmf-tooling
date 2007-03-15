@@ -3,7 +3,7 @@
 <%
 GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
-Collection commonBaseElements = new ArrayList(genDiagram.getAllContainers());
+Collection<GenCommonBase> commonBaseElements = new ArrayList<GenCommonBase>(genDiagram.getAllContainers());
 commonBaseElements.addAll(genDiagram.getLinks());
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
@@ -97,8 +97,8 @@ final class RegistryKey {
 		LabelModelFacet modelFacet = genLabel.getModelFacet();
 		if (modelFacet instanceof FeatureLabelModelFacet) {
 			String result = "";
-			for (Iterator it = ((FeatureLabelModelFacet) genLabel).getMetaFeatures().iterator(); it.hasNext();) {
-				result += getKeyFragment((GenFeature) it.next());
+			for (GenFeature next : ((FeatureLabelModelFacet) genLabel).getMetaFeatures()) {
+				result += getKeyFragment(next);
 			}
 			return result;
 		} else if (modelFacet instanceof DesignLabelModelFacet) {
@@ -189,8 +189,7 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 	 */
 	public <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
-<%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+<%for (GenCommonBase nextCommonBase : commonBaseElements) {
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
 		RegistryKey registryKey = new RegistryKey(nextCommonBase);
 %>
@@ -286,8 +285,7 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 	 */
 	public String getText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
-<%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+<%for (GenCommonBase nextCommonBase : commonBaseElements) {
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {%>
 		case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
 			return get<%=nextCommonBase.getUniqueIdentifier()%>Text(view);
@@ -298,8 +296,7 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 		}
 	}
 
-<%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+<%for (GenCommonBase nextCommonBase : commonBaseElements) {
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {%>
 	/**
 	 * @generated
@@ -307,38 +304,24 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 	private String get<%=nextCommonBase.getUniqueIdentifier()%>Text(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 <%		LabelModelFacet labelModelFacet = null;
 		GenCommonBase labelHolder = null;
-		GenClass underlyingMetaClass = null;
 		if (nextCommonBase instanceof GenChildLabelNode) {
 			labelModelFacet = ((GenChildLabelNode) nextCommonBase).getLabelModelFacet();
 			labelHolder = nextCommonBase;
-			underlyingMetaClass = ((GenChildLabelNode) nextCommonBase).getDomainMetaClass();
 		} else if (nextCommonBase instanceof GenNode) {
-			Collection labels = ((GenNode) nextCommonBase).getLabels();
-			for(Iterator it2 = labels.iterator(); it2.hasNext(); ) {
-				GenLabel nextLabel = (GenLabel) it2.next();
+			Collection<GenNodeLabel> labels = ((GenNode) nextCommonBase).getLabels();
+			for(GenLabel nextLabel : labels) {
 				if (false == nextLabel.getModelFacet() instanceof FeatureLabelModelFacet) {
 					continue;
 				}
 				labelModelFacet = nextLabel.getModelFacet();
 				labelHolder = nextLabel;
-				underlyingMetaClass = ((GenNode) nextCommonBase).getDomainMetaClass();
 				break;
 			}
 		} else if (nextCommonBase instanceof GenLink) {
 			GenLink genLink = (GenLink) nextCommonBase;
-			Collection labels = genLink.getLabels();
-			for(Iterator it2 = labels.iterator(); it2.hasNext(); ) {
-				GenLabel nextLabel = (GenLabel) it2.next();
+			Collection<GenLinkLabel> labels = genLink.getLabels();
+			for(GenLabel nextLabel : labels) {
 				if (false == nextLabel.getModelFacet() instanceof FeatureLabelModelFacet) {
-					continue;
-				}
-				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-					TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-					underlyingMetaClass = typeLinkModelFacet.getMetaClass();
-				} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
-					FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) genLink.getModelFacet();
-					underlyingMetaClass = featureLinkModelFacet.getMetaFeature().getTypeGenClass();
-				} else {
 					continue;
 				}
 				labelModelFacet = nextLabel.getModelFacet();
@@ -348,22 +331,6 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 		} else if (nextCommonBase instanceof GenLabel) {
 			labelModelFacet = ((GenLabel) nextCommonBase).getModelFacet();
 			labelHolder = nextCommonBase;
-			if (nextCommonBase instanceof GenNodeLabel) {
-				underlyingMetaClass = ((GenNodeLabel) nextCommonBase).getNode().getDomainMetaClass();
-			} else if (nextCommonBase instanceof GenLinkLabel) {
-				GenLink genLink = ((GenLinkLabel) nextCommonBase).getLink();
-				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-					TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-					underlyingMetaClass = typeLinkModelFacet.getMetaClass();
-				} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
-					FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) genLink.getModelFacet();
-					underlyingMetaClass = featureLinkModelFacet.getMetaFeature().getTypeGenClass();
-				}
-			} else {
-				labelHolder = null;
-				labelModelFacet = null;
-				underlyingMetaClass = null;
-			}
 		}
 		
 		if (labelHolder != null) {
@@ -374,9 +341,7 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 		if (domainModelElement == null) {
 			return "";
 		}
-		String result = <%=importManager.getImportedName(labelHolder.getEditPartQualifiedClassName())%>.buildTextByPattern(
-			(<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%>) domainModelElement, 
-			<%=importManager.getImportedName(labelHolder.getEditPartQualifiedClassName())%>.VIEW_PATTERN);
+		String result = <%=importManager.getImportedName(labelHolder.getEditPartQualifiedClassName())%>.LABEL_DISPLAYER.getDisplayText(domainModelElement);
 		if (result == null) {
 			return "";
 		}

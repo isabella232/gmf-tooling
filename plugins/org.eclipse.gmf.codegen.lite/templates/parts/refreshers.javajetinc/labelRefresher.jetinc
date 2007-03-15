@@ -1,0 +1,15 @@
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart")%>.ExternalRefresher labelRefresher;
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart")%>.ExternalRefresher getLabelRefresher() {
+		if (labelRefresher == null && getDiagramNode() != null) {
+			labelRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController")%>.ExternalRefresherAdapter(this, getDiagramNode().getElement());
+		}
+		return labelRefresher;
+	}
+

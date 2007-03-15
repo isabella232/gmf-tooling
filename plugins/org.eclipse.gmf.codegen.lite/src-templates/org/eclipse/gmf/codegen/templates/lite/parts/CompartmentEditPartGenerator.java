@@ -324,8 +324,6 @@ final FeatureGetAccessorHelper myFeatureGetAccessorHelper = new FeatureGetAccess
     stringBuffer.append(TEXT_20);
     importManager.emitPackageStatement(stringBuffer);
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
-importManager.addImport("org.eclipse.gef.commands.Command");
-importManager.addImport("org.eclipse.gef.commands.CompoundCommand");
 importManager.addImport("org.eclipse.gef.EditPart");
 importManager.addImport("org.eclipse.gef.requests.CreateRequest");
 

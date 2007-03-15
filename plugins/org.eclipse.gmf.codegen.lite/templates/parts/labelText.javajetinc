@@ -1,19 +1,11 @@
+	/**
+	 * @generated
+	 */
+	private static <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer")%> createLabelTextDisplayer() {
 <%
-/*genFeature.getObjectType() throws NPE on primitive types. This is a workaround. */
-HashMap primitiveTypeToWrapperClassName = new HashMap();
-primitiveTypeToWrapperClassName.put(Boolean.TYPE, "Boolean");
-primitiveTypeToWrapperClassName.put(Byte.TYPE, "Byte");
-primitiveTypeToWrapperClassName.put(Character.TYPE, "Character");
-primitiveTypeToWrapperClassName.put(Double.TYPE, "Double");
-primitiveTypeToWrapperClassName.put(Float.TYPE, "Float");
-primitiveTypeToWrapperClassName.put(Integer.TYPE, "Integer");
-primitiveTypeToWrapperClassName.put(Long.TYPE, "Long");
-primitiveTypeToWrapperClassName.put(Short.TYPE, "Short");
-String viewPattern = null;
-String editPattern = null;
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	viewPattern = featureLabelModelFacet.getViewPattern();
+	String viewPattern = featureLabelModelFacet.getViewPattern();
 	if (viewPattern == null || viewPattern.length() == 0) {
 		StringBuffer patternBuffer = new StringBuffer();
 		for(int i = 0; i < featureLabelModelFacet.getMetaFeatures().size(); i++) {
@@ -21,92 +13,65 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		}
 		viewPattern = patternBuffer.toString().trim();
 	}
-	editPattern = featureLabelModelFacet.getEditPattern();
-	if (editPattern == null || editPattern.length() == 0) {
-		StringBuffer patternBuffer = new StringBuffer();
-		for(int i = 0; i < featureLabelModelFacet.getMetaFeatures().size(); i++) {
-			patternBuffer.append("{").append(i).append("} ");
+	String editPattern = null;
+	if (!isReadOnly) {
+		editPattern = featureLabelModelFacet.getEditPattern();
+		if (editPattern == null || editPattern.length() == 0) {
+			StringBuffer patternBuffer = new StringBuffer();
+			for(int i = 0; i < featureLabelModelFacet.getMetaFeatures().size(); i++) {
+				patternBuffer.append("{").append(i).append("} ");
+			}
+			editPattern = patternBuffer.toString().trim();
 		}
-		editPattern = patternBuffer.toString().trim();
 	}
+%>
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.SimpleLabelTextDisplayer")%>("<%=viewPattern%>"<%if (!isReadOnly) {%>, "<%=editPattern%>"<%}%>, 
+			new <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%>[] {
+<%
+	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+		GenFeature next = (GenFeature) it.next();
+%>
+		<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>()<%if (it.hasNext()) {%>,<%}
+%>
+<%
+	}
+%>});
+<%
+} else {
+%>
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		return null;
+<%
 }
 %>
-	/**
-	 * @generated
-	 */
-	public static final String VIEW_PATTERN = "<%=viewPattern%>";
+	}
 
 	/**
 	 * @generated
 	 */
-	public static final String EDIT_PATTERN = "<%=editPattern%>";
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer")%> getLabelTextDisplayer() {
+		return LABEL_DISPLAYER;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+	}
 
 	/**
 	 * @generated
 	 */
 	protected String getLabelText() {
-		<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = <%=primaryView%>.getElement();
 		if (element == null) {
 			return defaultText;
 		}
-		String result = buildTextByPattern(element, VIEW_PATTERN);
+		String result = getLabelTextDisplayer().getDisplayText(element);
 		if (result == null || result.length() == 0) {
 			return defaultText;
 		}
 		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected String getLabelEditText() {
-		<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
-		if (element == null) {
-			return "";	//$NON-NLS-1$
-		}
-		String result = buildTextByPattern(element, EDIT_PATTERN);
-		if (result == null) {
-			return "";	//$NON-NLS-1$
-		}
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static String buildTextByPattern(<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element, String pattern) {
-<%
-if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-%>
-		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
-<%
-	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
-		GenFeature next = (GenFeature) it.next();
-		if (next.isPrimitiveType()) {
-%>
-			new <%=primitiveTypeToWrapperClassName.get(next.getTypeGenClassifier().getEcoreClassifier().getInstanceClass())%>(<%
-		}
-		myFeatureGetAccessorHelper.appendFeatureValueGetter("element", next, underlyingMetaClass, false);
-		if (next.isPrimitiveType()) {
-%>)<%
-		} else {
-			if (String.class.equals(next.getEcoreFeature().getEType().getInstanceClass())) {
-%> == null ? "" : <%
-				myFeatureGetAccessorHelper.appendFeatureValueGetter("element", next, underlyingMetaClass, false);
-			}
-		}
-		if (it.hasNext()) {%>,<%}%>
-<%
-	}
-%>
-		});
-<%
-} else {
-%>
-		//XXX: unexpected model facet.
-		return null;
-<%
-}
-%>
 	}

@@ -76,14 +76,12 @@ importManager.addImport("org.eclipse.draw2d.IFigure");
 importManager.addImport("org.eclipse.draw2d.FreeformLayer");
 importManager.addImport("org.eclipse.draw2d.FreeformLayout");
 importManager.addImport("org.eclipse.draw2d.MarginBorder");
-importManager.addImport("org.eclipse.gef.commands.Command");
 importManager.addImport("org.eclipse.gef.EditPolicy");
 importManager.addImport("org.eclipse.draw2d.geometry.Dimension");
 importManager.addImport("org.eclipse.draw2d.geometry.Point");
 importManager.addImport("org.eclipse.gef.EditPart");
 importManager.addImport("org.eclipse.gef.SnapToGrid");
 importManager.addImport("org.eclipse.gef.SnapToHelper");
-importManager.addImport("org.eclipse.gef.commands.UnexecutableCommand");
 importManager.addImport("org.eclipse.gef.editpolicies.RootComponentEditPolicy");
 importManager.addImport("org.eclipse.gef.requests.ChangeBoundsRequest");
 importManager.addImport("org.eclipse.gef.requests.CreateRequest");
@@ -310,21 +308,15 @@ final boolean _includeUncontainedLinks = true;
 			if (!getDiagram().eAdapters().contains(getTreeUpdateManager())) {
 				getDiagram().eAdapters().add(getTreeUpdateManager());
 			}
-			if (!getDiagram().getElement().eAdapters().contains(domainModelRefresher)) {
-				getDiagram().getElement().eAdapters().add(domainModelRefresher);
-			}
 		}
 
 		/**
 		 * @generated
 		 */
 		public void deactivate() {
-			getDiagram().getElement().eAdapters().remove(domainModelRefresher);
 			getDiagram().eAdapters().remove(getTreeUpdateManager());
 			super.deactivate();
 		}
-
-<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
 
 		/**
 		 * @generated

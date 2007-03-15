@@ -155,7 +155,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>
@@ -926,6 +926,7 @@ if (!genNode.getChildNodes().isEmpty()) {
 <%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
 
 <%@ include file="refreshers.javajetinc/externalRefreshers.javajetinc"%>
+<%@ include file="refreshers.javajetinc/external.jetinc"%>
 
 <%
 	final String primaryView = "getDiagramNode()";
@@ -978,12 +979,8 @@ if (genNode.getViewmap() instanceof InnerClassViewmap) {
 <%@ include file="treeComponentEditPolicy.javajetinc"%>
 <%
 if (myHelper.getPrimaryLabel() != null) {
-		String editPatternCode = importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()) + ".EDIT_PATTERN";
-		String resolvedSemanticElement = "(" + importManager.getImportedName(genNode.getDomainMetaClass().getQualifiedInterfaceName()) + ") getDiagramNode().getElement()";
-		LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
-		GenClass underlyingMetaClass = genNode.getDomainMetaClass();
 %>
-<%@ include file="treeDirectEditPolicy.jetinc"%>
+<%@ include file="directEditPolicy.javajetinc"%>
 <%
 }
 %>
@@ -992,52 +989,15 @@ if (myHelper.getPrimaryLabel() != null) {
 <%
 if (myHelper.getPrimaryLabel() != null) {
 %>
-<%@include file="treeDirectEdit.jetinc" %>
-
 		/**
 		 * @generated
 		 */
-		protected String getEditText() {
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer")%> createLabelTextDisplayer() {
 			<%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
 			if (primaryLabelEditPart != null) {
-				return primaryLabelEditPart.getLabelEditText();
+				return primaryLabelEditPart.getLabelTextDisplayer();
 			}
-			return "";
-		}
-
-<%
-}
-%>
-		/**
-		 * @generated
-		 */
-		public void activate() {
-			super.activate();
-			getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
-		}
-
-		/**
-		 * @generated
-		 */
-		public void deactivate() {
-			getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
-			super.deactivate();
-		}
-
-<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
-
-<%
-if (myHelper.getPrimaryLabel() != null) {
-%>
-		/**
-		 * @generated
-		 */
-		protected String getText() {
-			<%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
-			if (primaryLabelEditPart != null) {
-				return primaryLabelEditPart.getLabelText();
-			}
-			return super.getText();
+			return super.createLabelTextDisplayer();
 		}
 
 		/**
@@ -1066,45 +1026,6 @@ if (myHelper.getPrimaryLabel() != null) {
 <%
 }
 %>
-
-		/**
-		 * @generated
-		 */
-		protected void createRefreshers() {
-			super.createRefreshers();
-			Refresher labelRefresher = new Refresher() {
-				public void refresh() {
-					refreshVisuals();
-				}
-			};
-<%
-if (myHelper.getPrimaryLabel() != null) {
-	LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
-	if (labelModelFacet instanceof FeatureLabelModelFacet) {
-		FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-		for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
-			GenFeature next = (GenFeature) it.next();
-%>
-			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-		}
-	}
-} else {
-	GenClass metaClass = genNode.getDomainMetaClass();
-	if (metaClass != null) {
-		List labelNotifyFeatures = metaClass.getLabelNotifyFeatures();
-		for(Iterator it = labelNotifyFeatures.iterator(); it.hasNext(); ) {
-			GenFeature next = (GenFeature) it.next();
-%>
-			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-		}
-	}
-%>
-<%
-}
-%>
-		}
 
 		/**
 		 * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well.

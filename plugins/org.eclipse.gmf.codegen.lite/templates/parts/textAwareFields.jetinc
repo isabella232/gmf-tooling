@@ -14,3 +14,9 @@ if (!isReadOnly) {
 	 * @generated
 	 */
 	private String defaultText;
+
+	/**
+	 * @generated
+	 */
+	public static final <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer")%> LABEL_DISPLAYER = createLabelTextDisplayer();
+

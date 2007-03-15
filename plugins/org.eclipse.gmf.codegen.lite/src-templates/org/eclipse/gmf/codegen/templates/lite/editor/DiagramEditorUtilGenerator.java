@@ -255,8 +255,12 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_236 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static URI getDiagramFileURI(URI modelFileURI) {" + NL + "\t\tif (modelFileURI == null || !modelFileURI.isFile()) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn modelFileURI.trimFileExtension().appendFileExtension(\"";
   protected final String TEXT_237 = "\");" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static URI getModelFileURI(URI diagramFileURI) {" + NL + "\t\tif (diagramFileURI == null || !diagramFileURI.isFile()) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn diagramFileURI.trimFileExtension().appendFileExtension(\"";
   protected final String TEXT_238 = "\");" + NL + "\t}";
-  protected final String TEXT_239 = NL + "}";
-  protected final String TEXT_240 = NL;
+  protected final String TEXT_239 = NL + NL + "\t/**" + NL + "\t * Returns whether the given element is read only in its editing domain." + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static boolean isReadOnly(";
+  protected final String TEXT_240 = " element) {" + NL + "\t\tif (element == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_241 = " resource = element.eResource();" + NL + "\t\tif (resource == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_242 = " editingDomain = ";
+  protected final String TEXT_243 = ".getEditingDomain(resource);" + NL + "\t\tif (editingDomain == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\treturn editingDomain.isReadOnly(resource);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_244 = NL;
 
   public String generate(Object argument)
   {
@@ -1243,8 +1247,16 @@ if (!genDiagram.getEditorGen().isSameFileForDiagramAndModel()) {
 }
 
     stringBuffer.append(TEXT_239);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_240);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
+    stringBuffer.append(TEXT_241);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
+    stringBuffer.append(TEXT_242);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil"));
+    stringBuffer.append(TEXT_243);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_244);
     return stringBuffer.toString();
   }
 }

@@ -17,7 +17,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
+public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.decorations.IDecoratableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genLink;%>
 <%@ include file="visualID.jetinc"%>
@@ -212,6 +212,7 @@ if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 }
 %>
 <%@ include file="refreshers.javajetinc/externalRefreshers.javajetinc"%>
+<%@ include file="refreshers.javajetinc/external.jetinc"%>
 
 	/**
 	 * @generated
@@ -352,101 +353,9 @@ if (genLink.getViewmap() instanceof InnerClassViewmap) {
 <%@ include file="treeComponentEditPolicy.javajetinc"%>
 <%
 if (primaryLabel != null && genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-		String editPatternCode = importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName()) + ".EDIT_PATTERN";
-		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		String primaryView = "getDiagramEdge()";
-		String resolvedSemanticElement = "(" + importManager.getImportedName(typeLinkModelFacet.getMetaClass().getQualifiedInterfaceName()) + ") getDiagramEdge().getElement()";
-		LabelModelFacet labelModelFacet = primaryLabel.getModelFacet();
-		GenClass underlyingMetaClass = typeLinkModelFacet.getMetaClass();
 %>
-<%@ include file="treeDirectEditPolicy.jetinc"%>
+<%@ include file="directEditPolicy.javajetinc"%>
 <%
-}
-%>
-		}
-
-<%
-if (primaryLabel != null && genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-%>
-<%@include file="treeDirectEdit.jetinc" %>
-
-		/**
-		 * @generated
-		 */
-		protected String getEditText() {
-			<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
-	
-			if (primaryLabelEditPart != null) {
-				return primaryLabelEditPart.getLabelEditText();
-			}
-			return "";
-		}
-
-<%
-}
-%>
-
-<%
-if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-	//Otherwise, there's no element associated with the element
-%>
-		/**
-		 * @generated
-		 */
-		public void activate() {
-			super.activate();
-			getDiagramEdge().getElement().eAdapters().add(domainModelRefresher);
-		}
-
-		/**
-		 * @generated
-		 */
-		public void deactivate() {
-			getDiagramEdge().getElement().eAdapters().remove(domainModelRefresher);
-			super.deactivate();
-		}
-
-<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
-
-<%
-}
-%>
-		/**
-		 * @generated
-		 */
-		protected void createRefreshers() {
-			super.createRefreshers();
-<%
-if (genLink.getModelFacet() instanceof TypeLinkModelFacet || primaryLabel != null) {
-	//Otherwise, an empty string will be returned, and it will not change no matter what.
-%>
-			Refresher labelRefresher = new Refresher() {
-				public void refresh() {
-					refreshVisuals();
-				}
-			};
-<%
-	if (primaryLabel != null) {
-		LabelModelFacet labelModelFacet = primaryLabel.getModelFacet();
-		if (labelModelFacet instanceof FeatureLabelModelFacet) {
-			FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-			for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
-				GenFeature next = (GenFeature) it.next();
-%>
-			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-			}
-		}
-	} else {
-		GenClass metaClass = ((TypeLinkModelFacet) genLink.getModelFacet()).getMetaClass();
-		List labelNotifyFeatures = metaClass.getLabelNotifyFeatures();
-		for(Iterator it = labelNotifyFeatures.iterator(); it.hasNext(); ) {
-			GenFeature next = (GenFeature) it.next();
-%>
-			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
-<%
-		}
-	}
 }
 %>
 		}
@@ -457,12 +366,12 @@ if (primaryLabel != null) {
 		/**
 		 * @generated
 		 */
-		protected String getText() {
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer")%> createLabelTextDisplayer() {
 			<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
 			if (primaryLabelEditPart != null) {
-				return primaryLabelEditPart.getLabelText();
+				return primaryLabelEditPart.getLabelTextDisplayer();
 			}
-			return super.getText();
+			return super.createLabelTextDisplayer();
 		}
 
 		/**

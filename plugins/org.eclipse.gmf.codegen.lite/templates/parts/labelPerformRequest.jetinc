@@ -5,7 +5,7 @@
 <%
 if (!isReadOnly) {
 %>
-		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT.equals(req.getType())) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT.equals(req.getType()) && understandsRequest(req)) {
 			performDirectEdit();
 			return;
 		}

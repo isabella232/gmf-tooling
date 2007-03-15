@@ -155,5 +155,24 @@ if (!genDiagram.getEditorGen().isSameFileForDiagramAndModel()) {
 <%
 }
 %>
+
+	/**
+	 * Returns whether the given element is read only in its editing domain.
+	 * @generated
+	 */
+	public static boolean isReadOnly(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element) {
+		if (element == null) {
+			return true;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = element.eResource();
+		if (resource == null) {
+			return true;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(resource);
+		if (editingDomain == null) {
+			return true;
+		}
+		return editingDomain.isReadOnly(resource);
+	}
 }
 <%importManager.emitSortedImports();%>
