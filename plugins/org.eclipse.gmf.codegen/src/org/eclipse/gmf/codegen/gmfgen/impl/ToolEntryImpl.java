@@ -9,10 +9,10 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -110,7 +110,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 		} else {
 			picked = getGenNodes();
 		}
-		return new BasicEList.UnmodifiableEList<GenCommonBase>(picked.size(), picked.toArray());
+		return new EcoreEList.UnmodifiableEList<GenCommonBase>(this, GMFGenPackage.eINSTANCE.getToolEntry_Elements(), picked.size(), picked.toArray());
 	}
 
 	/**
