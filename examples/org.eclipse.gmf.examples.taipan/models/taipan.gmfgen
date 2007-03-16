@@ -7,11 +7,11 @@
     copyrightText=" Copyright (c) 2006, 2007 Borland Software Corporation&#xD;&#xA; &#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA; &#xD;&#xA; Contributors:&#xD;&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
   <audits>
     <categories
-      id="taipan"
-      name="TaiPan Audits"
+        id="taipan"
+        name="TaiPan Audits"
         description="All TaiPan audits"
         path="//@audits/@categories.0"
-        audits="//@audits/@rules.1 //@audits/@rules.0"/>
+        audits="//@audits/@rules.0 //@audits/@rules.1"/>
     <rules
         name="Port Location"
         description="Empty port location check"
@@ -317,7 +317,8 @@
         visualID="4001"
         editPartClassName="ShipDestinationEditPart"
         itemSemanticEditPolicyClassName="ShipDestinationItemSemanticEditPolicy"
-        notationViewFactoryClassName="ShipDestinationViewFactory">
+        notationViewFactoryClassName="ShipDestinationViewFactory"
+        reorientCommandClassName="ShipDestinationReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
@@ -361,7 +362,8 @@
         visualID="4002"
         editPartClassName="RouteEditPart"
         itemSemanticEditPolicyClassName="RouteItemSemanticEditPolicy"
-        notationViewFactoryClassName="RouteViewFactory">
+        notationViewFactoryClassName="RouteViewFactory"
+        reorientCommandClassName="RouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
@@ -456,7 +458,8 @@
         visualID="4003"
         editPartClassName="Route2EditPart"
         itemSemanticEditPolicyClassName="Route2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="Route2ViewFactory">
+        notationViewFactoryClassName="Route2ViewFactory"
+        reorientCommandClassName="Route2ReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
