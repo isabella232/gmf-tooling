@@ -25,7 +25,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IObjectActionDelegate;
@@ -84,11 +83,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
 			return;
 		}
-		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, myPart.getSite().getPage(), diagramRoot, editingDomain);
+		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
 		IDialogSettings pluginDialogSettings = TaiPanDiagramEditorPlugin.getInstance().getDialogSettings();
-		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
+		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InitDiagramFile"); //$NON-NLS-1$
 		if (initDiagramFileSettings == null) {
-			initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
+			initDiagramFileSettings = pluginDialogSettings.addNewSection("InitDiagramFile"); //$NON-NLS-1$
 		}
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);

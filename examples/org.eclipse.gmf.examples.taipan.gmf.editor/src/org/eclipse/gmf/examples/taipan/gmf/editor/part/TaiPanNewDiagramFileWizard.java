@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -81,24 +80,17 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private IWorkbenchPage myWorkbenchPage;
-
-	/**
-	 * @generated
-	 */
 	private EObject myDiagramRoot;
 
 	/**
 	 * @generated
 	 */
-	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, IWorkbenchPage workbenchPage, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-		assert workbenchPage != null : "Null workbenchPage in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert diagramRoot != null : "Null diagramRoot in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert editingDomain != null : "Null editingDomain in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
 
 		this.domainModelURI = domainModelURI;
-		myWorkbenchPage = workbenchPage;
 		myDiagramRoot = diagramRoot;
 		myEditingDomain = editingDomain;
 	}
