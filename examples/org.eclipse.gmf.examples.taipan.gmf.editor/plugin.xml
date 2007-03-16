@@ -597,8 +597,8 @@
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.port_location"/>
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
-      </binding>
-   </extension>
+               </binding>
+               </extension>
 
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
