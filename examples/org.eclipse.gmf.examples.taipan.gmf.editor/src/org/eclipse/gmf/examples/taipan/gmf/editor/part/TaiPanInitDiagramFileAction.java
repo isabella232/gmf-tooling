@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -49,6 +50,13 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		this.targetPart = targetPart;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Shell getShell() {
+		return targetPart.getSite().getShell();
 	}
 
 	/**
@@ -79,7 +87,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(targetPart.getSite().getShell(), "Error", "Model file loading failed");
+			MessageDialog.openError(getShell(), "Error", "Model file loading failed");
 			return;
 		}
 		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
@@ -91,7 +99,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
 		wizard.setWindowTitle("Initialize new " + AquatoryEditPart.MODEL_ID + " diagram file");
-		WizardDialog dialog = new WizardDialog(targetPart.getSite().getShell(), wizard);
+		WizardDialog dialog = new WizardDialog(getShell(), wizard);
 		dialog.create();
 		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
 		dialog.open();
