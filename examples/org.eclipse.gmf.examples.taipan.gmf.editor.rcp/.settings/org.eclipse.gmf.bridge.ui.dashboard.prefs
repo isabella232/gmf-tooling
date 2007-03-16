@@ -1,0 +1,8 @@
+#Fri Mar 16 15:19:05 MSK 2007
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan_rcp.genmodel
+gmf_dashboard/domainModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan.ecore
+gmf_dashboard/generationModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan_rcp.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/org.eclipse.gmf.examples.taipan/models/taipan.gmftool

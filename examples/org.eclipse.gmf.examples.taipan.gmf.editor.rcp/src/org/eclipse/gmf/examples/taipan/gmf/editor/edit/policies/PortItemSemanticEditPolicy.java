@@ -23,6 +23,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -31,10 +32,13 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2ReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2TypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 
@@ -200,6 +204,22 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
 		return getMSLWrapper(new Route2TypeLinkCreateCommand(req, container, source, target));
+	}
+
+	/**
+	 * Returns command to reorient link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
+		if (req.getRelationship() instanceof Route) {
+			return getMSLWrapper(new RouteReorientCommand(req));
+		}
+		if (req.getRelationship() instanceof Route) {
+			return getMSLWrapper(new Route2ReorientCommand(req));
+		}
+		return super.getReorientRelationshipCommand(req);
 	}
 
 }
