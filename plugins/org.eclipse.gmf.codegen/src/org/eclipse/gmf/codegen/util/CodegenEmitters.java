@@ -38,7 +38,6 @@ import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramContentsInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
-import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
@@ -190,7 +189,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/DiagramContentsInitializer.javajet", DiagramContentsInitializerGenerator.class);
-		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
@@ -487,8 +485,12 @@ public class CodegenEmitters {
 		return retrieve(DiagramContentsInitializerGenerator.class);
 	}
 
+	public String getInitDiagramFileActionName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::InitDiagramFileAction", input); //$NON-NLS-1$
+	}
+
 	public TextEmitter getInitDiagramFileActionEmitter() throws UnexpectedBehaviourException {
-		return retrieve(InitDiagramFileActionGenerator.class);
+		return getPrimaryEmitter("xpt::editor::InitDiagramFileAction"); //$NON-NLS-1$
 	}
 
 	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {

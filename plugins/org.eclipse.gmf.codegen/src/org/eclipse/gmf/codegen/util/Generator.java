@@ -721,13 +721,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	// editor
 
 	private void generateInitDiagramFileAction() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getInitDiagramFileActionEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getInitDiagramFileActionClassName(),
-			myDiagram);
+		doGenerateJavaClass(myEmitters.getInitDiagramFileActionEmitter(), myEmitters.getInitDiagramFileActionName(myDiagram), myDiagram);
 	}
-	
+
 	private void generateNewDiagramFileWizard() throws UnexpectedBehaviourException, InterruptedException {
 		if (!myDiagram.isSynchronized()) {
 			internalGenerateJavaClass(
