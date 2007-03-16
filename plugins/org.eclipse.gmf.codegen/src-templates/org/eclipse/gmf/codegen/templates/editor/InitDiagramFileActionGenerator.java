@@ -29,8 +29,8 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_11 = NL + "\t\tResourceSet resourceSet = editingDomain.getResourceSet();";
   protected final String TEXT_12 = NL + "\t\tEObject diagramRoot = null;" + NL + "\t\ttry {" + NL + "\t\t\tResource resource = resourceSet.getResource(domainModelURI, true);" + NL + "\t\t\tdiagramRoot = (EObject) resource.getContents().get(0);" + NL + "\t\t} catch (WrappedException ex) {" + NL + "\t\t\t";
   protected final String TEXT_13 = ".getInstance().logError(\"Unable to load resource: \" + domainModelURI, ex);" + NL + "\t\t}" + NL + "\t\tif (diagramRoot == null) {" + NL + "\t\t\tMessageDialog.openError(myPart.getSite().getShell(), \"Error\", \"Model file loading failed\");" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tWizard wizard = new ";
-  protected final String TEXT_14 = "(domainModelURI, myPart.getSite().getPage(), diagramRoot, editingDomain);" + NL + "        IDialogSettings pluginDialogSettings = ";
-  protected final String TEXT_15 = ".getInstance().getDialogSettings();" + NL + "        IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        if (initDiagramFileSettings == null) {" + NL + "        \tinitDiagramFileSettings = pluginDialogSettings.addNewSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        }" + NL + "        wizard.setDialogSettings(initDiagramFileSettings);" + NL + "\t\twizard.setForcePreviousAndNextButtons(false);" + NL + "\t\twizard.setWindowTitle(\"Initialize new \" + ";
+  protected final String TEXT_14 = "(domainModelURI, diagramRoot, editingDomain);" + NL + "        IDialogSettings pluginDialogSettings = ";
+  protected final String TEXT_15 = ".getInstance().getDialogSettings();" + NL + "        IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection(\"InitDiagramFile\"); //$NON-NLS-1$" + NL + "        if (initDiagramFileSettings == null) {" + NL + "        \tinitDiagramFileSettings = pluginDialogSettings.addNewSection(\"InitDiagramFile\"); //$NON-NLS-1$" + NL + "        }" + NL + "        wizard.setDialogSettings(initDiagramFileSettings);" + NL + "\t\twizard.setForcePreviousAndNextButtons(false);" + NL + "\t\twizard.setWindowTitle(\"Initialize new \" + ";
   protected final String TEXT_16 = ".MODEL_ID + \" diagram file\");" + NL + "" + NL + "        WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);" + NL + "        dialog.create();" + NL + "        dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);" + NL + "        dialog.open();" + NL + "\t}" + NL + "" + NL + "}";
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
@@ -161,7 +161,6 @@ importManager.addImport("org.eclipse.jface.action.IAction");
 importManager.addImport("org.eclipse.jface.dialogs.IDialogSettings");
 importManager.addImport("org.eclipse.jface.viewers.ISelection");
 importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
-importManager.addImport("org.eclipse.jface.viewers.StructuredSelection");
 importManager.addImport("org.eclipse.jface.wizard.WizardDialog");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
 importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
