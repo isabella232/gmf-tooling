@@ -166,11 +166,11 @@ if (!genDiagram.getEditorGen().isSameFileForDiagramAndModel()) {
 		}
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = element.eResource();
 		if (resource == null) {
-			return true;
+			return false;
 		}
 		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(resource);
 		if (editingDomain == null) {
-			return true;
+			return false;
 		}
 		return editingDomain.isReadOnly(resource);
 	}

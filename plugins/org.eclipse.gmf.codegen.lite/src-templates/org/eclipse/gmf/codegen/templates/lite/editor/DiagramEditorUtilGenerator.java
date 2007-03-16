@@ -257,9 +257,9 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_238 = "\");" + NL + "\t}";
   protected final String TEXT_239 = NL + NL + "\t/**" + NL + "\t * Returns whether the given element is read only in its editing domain." + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static boolean isReadOnly(";
   protected final String TEXT_240 = " element) {" + NL + "\t\tif (element == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t";
-  protected final String TEXT_241 = " resource = element.eResource();" + NL + "\t\tif (resource == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_241 = " resource = element.eResource();" + NL + "\t\tif (resource == null) {" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\t";
   protected final String TEXT_242 = " editingDomain = ";
-  protected final String TEXT_243 = ".getEditingDomain(resource);" + NL + "\t\tif (editingDomain == null) {" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\treturn editingDomain.isReadOnly(resource);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_243 = ".getEditingDomain(resource);" + NL + "\t\tif (editingDomain == null) {" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn editingDomain.isReadOnly(resource);" + NL + "\t}" + NL + "}";
   protected final String TEXT_244 = NL;
 
   public String generate(Object argument)
