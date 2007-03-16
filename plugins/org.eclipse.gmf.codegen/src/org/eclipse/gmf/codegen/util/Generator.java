@@ -188,14 +188,14 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditor();
 		generateDocumentProvider();
 		generateLoadResourceAction();
+		if (myDiagram.generateInitDiagramAction()) {
+			generateInitDiagramFileAction();
+			generateNewDiagramFileWizard();
+		}
 		if (myDiagram.getEditorGen().getApplication() == null) {
 			generateCreateShortcutAction();
 			generateCreateShortcutDecorationCommand();
 			generateElementChooser();
-			if (myDiagram.generateInitDiagramAction()) {
-				generateInitDiagramFileAction();
-				generateNewDiagramFileWizard();
-			}
 		}
 		generateActionBarContributor();
 		generateMatchingStrategy();

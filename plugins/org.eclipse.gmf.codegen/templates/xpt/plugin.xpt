@@ -55,20 +55,6 @@
 
    <extension point="org.eclipse.ui.popupMenus">
       «EXPAND xpt::Common::xmlGeneratedTag»
-«IF null == editorGen.application && editorGen.diagram.generateInitDiagramAction()-»
-      <objectContribution
-            id="«iD».ui.objectContribution.IFile1"
-            nameFilter="*.«editorGen.domainFileExtension»"
-            objectClass="org.eclipse.core.resources.IFile">
-         <action
-               label="%initDiagramActionLabel"
-               class="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»"
-               menubarPath="additions"
-               enablesFor="1"
-               id="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»ID">
-         </action>
-      </objectContribution>
-«ENDIF-»
 «IF null == editorGen.application && editorGen.diagram.generateCreateShortcutAction()-»
       <objectContribution
             adaptable="false"

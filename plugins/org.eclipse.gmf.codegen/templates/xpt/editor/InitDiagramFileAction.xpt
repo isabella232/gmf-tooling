@@ -81,7 +81,18 @@ implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void run(org.eclipse.jface.action.IAction action) {
-		«IF editorGen.application == null-»
+		«IF null != editorGen.application-»
+		org.eclipse.swt.widgets.FileDialog fileDialog = new org.eclipse.swt.widgets.FileDialog(getShell(), org.eclipse.swt.SWT.OPEN);
+		fileDialog.open();
+		String fileName = fileDialog.getFileName();
+		if (fileName == null || fileName.length() == 0) {
+			return;
+		}
+		if (fileDialog.getFilterPath() != null) {
+			fileName = fileDialog.getFilterPath() + java.io.File.separator + fileName;
+		}
+		org.eclipse.emf.common.util.URI domainModelURI = org.eclipse.emf.common.util.URI.createFileURI(fileName);
+		«ENDIF-»
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
 			org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		«IF editorGen.sameFileForDiagramAndModel-»
@@ -101,12 +112,7 @@ implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
 			org.eclipse.jface.dialogs.MessageDialog.openError(getShell(), "Error", "Model file loading failed");
 			return;
 		}
-		«ENDIF-»
-		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(
-		«IF editorGen.application == null-»
-		domainModelURI, diagramRoot, editingDomain
-		«ENDIF-»
-		);
+		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(domainModelURI, diagramRoot, editingDomain);
         org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings =
         	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDialogSettings();
         org.eclipse.jface.dialogs.IDialogSettings initDiagramFileSettings =

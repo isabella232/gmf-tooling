@@ -15,7 +15,7 @@
 
 «DEFINE extensions FOR gmfgen::GenEditorGenerator-»
    <extension point="org.eclipse.ui.editors">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <editor
          id="«editor.iD»"
          name="%editorName"
@@ -29,7 +29,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
   	  <wizard
   	     name="%newWizardName"
   	     icon="«diagram.creationWizardIconPathX»"
@@ -39,4 +39,39 @@
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
+«IF diagram.generateInitDiagramAction()-»
+
+	«IF null == application-»
+   <extension point="org.eclipse.ui.popupMenus">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <objectContribution
+            id="«plugin.iD».InitDiagram"
+            nameFilter="*.«domainFileExtension»"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+               menubarPath="additions"
+               enablesFor="1"
+               id="«plugin.iD».InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	«ELSE-»
+   <extension point="org.eclipse.ui.actionSets">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="«plugin.iD».InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+               menubarPath="file/additions"
+               id="«plugin.iD».InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
