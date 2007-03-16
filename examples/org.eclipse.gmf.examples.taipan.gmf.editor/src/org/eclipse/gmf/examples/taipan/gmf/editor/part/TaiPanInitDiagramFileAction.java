@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -38,18 +37,18 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private IWorkbenchPart myPart;
+	private IWorkbenchPart targetPart;
 
 	/**
 	 * @generated
 	 */
-	private URI domainModelURI;
+	private org.eclipse.emf.common.util.URI domainModelURI;
 
 	/**
 	 * @generated
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		myPart = targetPart;
+		this.targetPart = targetPart;
 	}
 
 	/**
@@ -62,7 +61,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			return;
 		}
 		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
-		domainModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+		domainModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
 	}
 
@@ -80,7 +79,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+			MessageDialog.openError(targetPart.getSite().getShell(), "Error", "Model file loading failed");
 			return;
 		}
 		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
@@ -92,11 +91,9 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
 		wizard.setWindowTitle("Initialize new " + AquatoryEditPart.MODEL_ID + " diagram file");
-
-		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
+		WizardDialog dialog = new WizardDialog(targetPart.getSite().getShell(), wizard);
 		dialog.create();
 		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
 		dialog.open();
 	}
-
 }
