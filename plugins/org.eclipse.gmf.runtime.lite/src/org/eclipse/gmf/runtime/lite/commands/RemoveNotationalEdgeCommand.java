@@ -27,7 +27,7 @@ public class RemoveNotationalEdgeCommand extends RemoveNotationalElementCommand 
 
 	protected boolean prepare() {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
-		if (domain == null || domain.isReadOnly(getParent().eResource())) {
+		if (domain != null && domain.isReadOnly(getParent().eResource())) {
 			return false;
 		}
 		return getParent() instanceof Diagram && getChildView() instanceof Edge

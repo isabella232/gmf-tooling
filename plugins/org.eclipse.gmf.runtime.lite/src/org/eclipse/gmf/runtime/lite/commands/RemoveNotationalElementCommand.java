@@ -34,7 +34,7 @@ public class RemoveNotationalElementCommand extends AbstractCommand {
 
 	protected boolean prepare() {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
-		if (domain == null || domain.isReadOnly(getParent().eResource())) {
+		if (domain != null && domain.isReadOnly(getParent().eResource())) {
 			return false;
 		}
 		if (!parentView.getChildren().contains(childView)) {

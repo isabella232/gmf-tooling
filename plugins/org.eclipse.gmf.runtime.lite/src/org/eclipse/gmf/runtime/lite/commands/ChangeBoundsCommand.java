@@ -46,7 +46,7 @@ public class ChangeBoundsCommand extends AbstractCommand {
 			return false;
 		}
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(myNode);
-		if (domain == null || domain.isReadOnly(myNode.eResource())) {
+		if (domain != null && domain.isReadOnly(myNode.eResource())) {
 			return false;
 		}
 		Bounds bounds = (Bounds) myNode.getLayoutConstraint();

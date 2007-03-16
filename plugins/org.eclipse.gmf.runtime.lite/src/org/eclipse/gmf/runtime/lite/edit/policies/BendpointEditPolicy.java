@@ -80,7 +80,7 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 		@Override
 		protected boolean prepare() {
 			TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getDiagramEdge());
-			if (domain == null || domain.isReadOnly(getDiagramEdge().eResource())) {
+			if (domain != null && domain.isReadOnly(getDiagramEdge().eResource())) {
 				return false;
 			}
 			Connection connection = getConnection();

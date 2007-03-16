@@ -40,7 +40,7 @@ public class CreateNotationalEdgeCommand extends CreateNotationalElementCommand 
 			return false;
 		}
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getParent());
-		if (domain == null || domain.isReadOnly(getParent().eResource())) {
+		if (domain != null && domain.isReadOnly(getParent().eResource())) {
 			return false;
 		}
 		return true;

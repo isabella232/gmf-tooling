@@ -256,14 +256,14 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 		Resource notationResource = getNotationView().eResource();
 		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(notationResource);
 		if (editingDomain == null) {
-			return true;
+			return false;
 		}
 		if (editingDomain.isReadOnly(notationResource)) {
 			return true;
 		}
 		Resource domainResource = getElement().eResource();
 		if (domainResource == null) {
-			return true;
+			return false;
 		}
 		return editingDomain.isReadOnly(domainResource);
 	}

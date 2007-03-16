@@ -29,7 +29,7 @@ public class ReconnectNotationalEdgeTargetCommand extends AbstractCommand {
 
 	protected boolean prepare() {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(edge);
-		if (domain == null || domain.isReadOnly(edge.eResource())) {
+		if (domain != null && domain.isReadOnly(edge.eResource())) {
 			return false;
 		}
 		return newTarget != null;

@@ -40,7 +40,7 @@ public class SetBoundsCommand extends AbstractCommand {
 
 	protected boolean prepare() {
 		TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(myNode);
-		if (domain == null || domain.isReadOnly(myNode.eResource())) {
+		if (domain != null && domain.isReadOnly(myNode.eResource())) {
 			return false;
 		}
 		if (myNode.getLayoutConstraint() == null) {
