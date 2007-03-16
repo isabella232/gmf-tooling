@@ -782,9 +782,16 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_DOMAIN_MODEL_NAVIGATOR: {
+				GenDomainModelNavigator genDomainModelNavigator = (GenDomainModelNavigator)theEObject;
+				T result = caseGenDomainModelNavigator(genDomainModelNavigator);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_NAVIGATOR: {
 				GenNavigator genNavigator = (GenNavigator)theEObject;
 				T result = caseGenNavigator(genNavigator);
+				if (result == null) result = caseGenDomainModelNavigator(genNavigator);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2326,6 +2333,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenExpressionInterpreter(GenExpressionInterpreter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Model Navigator</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenDomainModelNavigator(GenDomainModelNavigator object) {
 		return null;
 	}
 

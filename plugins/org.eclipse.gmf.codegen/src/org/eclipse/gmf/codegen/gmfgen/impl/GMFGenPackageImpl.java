@@ -712,6 +712,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genDomainModelNavigatorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genNavigatorEClass = null;
 
 	/**
@@ -4754,6 +4761,78 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenDomainModelNavigator() {
+		return genDomainModelNavigatorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_GenerateDomainModelNavigator() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainContentExtensionID() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainContentExtensionName() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainContentExtensionPriority() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainContentProviderClassName() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainLabelProviderClassName() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainModelNavigator_DomainModelElementTesterClassName() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenNavigator() {
 		return genNavigatorEClass;
 	}
@@ -6188,6 +6267,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__CLASS_NAME);
 		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS);
 
+		genDomainModelNavigatorEClass = createEClass(GEN_DOMAIN_MODEL_NAVIGATOR);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME);
+
 		genNavigatorEClass = createEClass(GEN_NAVIGATOR);
 		createEReference(genNavigatorEClass, GEN_NAVIGATOR__EDITOR_GEN);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_ID);
@@ -6419,6 +6507,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genMeasurableEClass.getESuperTypes().add(this.getGenRuleTarget());
 		genJavaExpressionProviderEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
 		genExpressionInterpreterEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
+		genNavigatorEClass.getESuperTypes().add(this.getGenDomainModelNavigator());
 		genStandardPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
 		genCustomPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
 		typeTabFilterEClass.getESuperTypes().add(this.getGenPropertyTabFilter());
@@ -7173,6 +7262,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		op = addEOperation(genExpressionInterpreterEClass, ecorePackage.getEString(), "getExpressionAccessor", 0, 1);
 		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
+
+		initEClass(genDomainModelNavigatorEClass, GenDomainModelNavigator.class, "GenDomainModelNavigator", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenDomainModelNavigator_GenerateDomainModelNavigator(), ecorePackage.getEBoolean(), "generateDomainModelNavigator", "true", 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionID(), ecorePackage.getEString(), "domainContentExtensionID", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionName(), ecorePackage.getEString(), "domainContentExtensionName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionPriority(), ecorePackage.getEString(), "domainContentExtensionPriority", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainContentProviderClassName(), ecorePackage.getEString(), "domainContentProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainLabelProviderClassName(), ecorePackage.getEString(), "domainLabelProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainModelElementTesterClassName(), ecorePackage.getEString(), "domainModelElementTesterClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainContentProviderQualifiedClassName", 0, 1);
+
+		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainLabelProviderQualifiedClassName", 0, 1);
+
+		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainModelElementTesterQualifiedClassName", 0, 1);
 
 		initEClass(genNavigatorEClass, GenNavigator.class, "GenNavigator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNavigator_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Navigator(), "editorGen", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -325,7 +325,7 @@ public class CodegenEmitters {
 
 	// policies
 
-	public TextEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getBaseItemSemanticEditPolicyEmitter() {
 		return newXpandEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
@@ -353,7 +353,7 @@ public class CodegenEmitters {
 		return retrieve(GraphicalNodeEditPolicyGenerator.class);
 	}
 
-	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNodeItemSemanticEditPolicyEmitter() {
 		return newXpandEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
@@ -541,7 +541,7 @@ public class CodegenEmitters {
 		return retrieve(ElementChooserGenerator.class);
 	}
 	
-	public TextEmitter getDocumentProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDocumentProviderEmitter() {
 		return newXpandEmitter("xpt::editor::DocumentProvider::DocumentProvider"); //$NON-NLS-1$
 	}
 	
@@ -553,8 +553,20 @@ public class CodegenEmitters {
 		return retrieve(MatchingStrategyGenerator.class);
 	}
 	
-	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNavigatorContentProviderEmitter() {
 		return newXpandEmitter("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainNavigatorContentProviderEmitter() {
+		return newXpandEmitter("xpt::navigator::DomainNavigatorContentProvider::DomainNavigatorContentProvider"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
+		return newXpandEmitter("xpt::navigator::DomainNavigatorLabelProvider::DomainNavigatorLabelProvider"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainModelElementTesterEmitter() {
+		return newXpandEmitter("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {

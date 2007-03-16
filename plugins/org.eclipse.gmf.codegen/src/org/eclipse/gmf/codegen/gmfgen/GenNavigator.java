@@ -8,8 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Navigator</b></em>'.
@@ -42,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface GenNavigator extends EObject {
+public interface GenNavigator extends GenDomainModelNavigator {
 	/**
 	 * Returns the value of the '<em><b>Editor Gen</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getNavigator <em>Navigator</em>}'.

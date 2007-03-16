@@ -39,7 +39,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -201,7 +200,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		if (myEditorGen.getNavigator() != null) {
-			generateNavigatorContentProvider(myEditorGen.getNavigator());
+			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
 			generateNavigatorLinkHelper();
 			generateNavigatorSorter();
@@ -210,6 +209,11 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorGroup();
 			generateNavigatorItem();
 			generateNavigatorGroupIcons();
+			if (myEditorGen.getDomainGenModel() != null && myEditorGen.getNavigator().isGenerateDomainModelNavigator()) {
+				generateDomainNavigatorContentProvider();
+				generateDomainNavigatorLabelProvider();
+				generateDomainModelElementTester();
+			}
 		}
 		if (myEditorGen.getPropertySheet() != null) {
 			generatePropertySheetSections();
@@ -374,7 +378,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// edit policies
 
-	private void generateBaseItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateBaseItemSemanticEditPolicy() throws InterruptedException {
 		Collection<GenCommonBase> allSemanticElements = new ArrayList<GenCommonBase>(myDiagram.getAllContainers());
 		allSemanticElements.addAll(myDiagram.getLinks());
 		boolean isSansDomainModel = true;
@@ -457,7 +461,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws InterruptedException {
 		if (genNode.isSansDomain()) {
 			return;
 		}
@@ -833,7 +837,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
+	private void generateDocumentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDocumentProviderEmitter(), myDiagram.getDocumentProviderQualifiedClassName(), myDiagram);
 	}
 
@@ -856,8 +860,20 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 	
-	private void generateNavigatorContentProvider(GenNavigator navigator) throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateJavaClass(myEmitters.getNavigatorContentProviderEmitter(), navigator.getContentProviderQualifiedClassName(), navigator);
+	private void generateNavigatorContentProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNavigatorContentProviderEmitter(), myEditorGen.getNavigator().getContentProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainNavigatorContentProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorContentProviderEmitter(), myEditorGen.getNavigator().getDomainContentProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainNavigatorLabelProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getDomainLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainModelElementTester() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainModelElementTesterEmitter(), myEditorGen.getNavigator().getDomainModelElementTesterQualifiedClassName(), myEditorGen.getNavigator());
 	}
 
 	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {

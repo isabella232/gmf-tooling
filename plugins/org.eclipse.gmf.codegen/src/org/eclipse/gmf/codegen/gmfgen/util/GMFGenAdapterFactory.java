@@ -457,6 +457,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenExpressionInterpreterAdapter();
 			}
 			@Override
+			public Adapter caseGenDomainModelNavigator(GenDomainModelNavigator object) {
+				return createGenDomainModelNavigatorAdapter();
+			}
+			@Override
 			public Adapter caseGenNavigator(GenNavigator object) {
 				return createGenNavigatorAdapter();
 			}
@@ -1869,6 +1873,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenExpressionInterpreterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator <em>Gen Domain Model Navigator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator
+	 * @generated
+	 */
+	public Adapter createGenDomainModelNavigatorAdapter() {
 		return null;
 	}
 

@@ -49,6 +49,9 @@ openActionDescription=Open file
 «ENDIF-»
 
 navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
+«IF null != editorGen.navigator && editorGen.navigator.generateDomainModelNavigator-»
+domainNavigatorContentName=*.«editorGen.domainFileExtension» model contents
+«ENDIF-»
 
 «EXPAND xpt::propsheet::extensions::i18n FOR editorGen.propertySheet-»
 «EXPAND xpt::diagram::preferences::extensions::i18n FOR editorGen.diagram-»

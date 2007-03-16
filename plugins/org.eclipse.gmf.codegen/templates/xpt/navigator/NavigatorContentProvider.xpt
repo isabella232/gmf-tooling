@@ -128,6 +128,19 @@ public boolean hasChildren(Object element) {
 «ENDDEFINE»
 
 «DEFINE getFileChildren FOR gmfgen::GenNavigator-»
+	«EXPAND createReadonlyEditingDomain-»
+java.util.Collection result = new java.util.ArrayList();
+	«LET getChildReferencesFrom(this, null) AS references-»
+		«EXPAND initGroupVariables(this, references, 'file', null) FOREACH getGroupNames(references)-»
+		«FOREACH references AS ref-»
+			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
+		«ENDFOREACH-»
+		«EXPAND addGroups(references) FOREACH getGroupNames(references)-»
+	«ENDLET-»
+return result.toArray();
+«ENDDEFINE»
+
+«DEFINE createReadonlyEditingDomain FOR gmfgen::GenNavigator-»
 org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) parentElement;
 org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain editingDomain = «EXPAND createEditingDomain»;
 editingDomain.setResourceToReadOnlyMap(new java.util.HashMap() {
@@ -142,15 +155,6 @@ org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResour
 			
 org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
-java.util.Collection result = new java.util.ArrayList();
-	«LET getChildReferencesFrom(this, null) AS references-»
-		«EXPAND initGroupVariables(this, references, 'file', null) FOREACH getGroupNames(references)-»
-		«FOREACH references AS ref-»
-			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
-		«ENDFOREACH-»
-		«EXPAND addGroups(references) FOREACH getGroupNames(references)-»
-	«ENDLET-»
-return result.toArray();
 «ENDDEFINE»
 
 «DEFINE getGroupChildren FOR gmfgen::GenNavigator-»

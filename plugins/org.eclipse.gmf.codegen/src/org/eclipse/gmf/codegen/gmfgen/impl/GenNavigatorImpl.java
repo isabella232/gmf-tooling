@@ -37,6 +37,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#isGenerateDomainModelNavigator <em>Generate Domain Model Navigator</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainContentExtensionID <em>Domain Content Extension ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainContentExtensionName <em>Domain Content Extension Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainContentExtensionPriority <em>Domain Content Extension Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainContentProviderClassName <em>Domain Content Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainLabelProviderClassName <em>Domain Label Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getDomainModelElementTesterClassName <em>Domain Model Element Tester Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentExtensionID <em>Content Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentExtensionName <em>Content Extension Name</em>}</li>
@@ -60,16 +67,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  * @generated
  */
 public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
-	/**
-	 * The default value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTENT_EXTENSION_ID_EDEFAULT = null;
-
 	/**
 	 * The cached value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -359,6 +356,156 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @ordered
 	 */
 	protected String packageName = PACKAGE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateDomainModelNavigator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateDomainModelNavigator()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean generateDomainModelNavigator = GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionID = DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionName = DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionPriority = DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentProviderClassName = DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainLabelProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainLabelProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainLabelProviderClassName = DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainModelElementTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainModelElementTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainModelElementTesterClassName = DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTENT_EXTENSION_ID_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getChildReferences() <em>Child References</em>}' containment reference list.
@@ -841,6 +988,201 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isGenerateDomainModelNavigator() {
+		return generateDomainModelNavigator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGenerateDomainModelNavigator(boolean newGenerateDomainModelNavigator) {
+		boolean oldGenerateDomainModelNavigator = generateDomainModelNavigator;
+		generateDomainModelNavigator = newGenerateDomainModelNavigator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR, oldGenerateDomainModelNavigator, generateDomainModelNavigator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainContentExtensionIDGen() {
+		return domainContentExtensionID;
+	}
+	
+	public String getDomainContentExtensionID() {
+		String value = getDomainContentExtensionIDGen();
+		if (isEmpty(value)) {
+			value = getEditorGen().getPlugin().getID() + ".domainResourceContent";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainContentExtensionID(String newDomainContentExtensionID) {
+		String oldDomainContentExtensionID = domainContentExtensionID;
+		domainContentExtensionID = newDomainContentExtensionID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID, oldDomainContentExtensionID, domainContentExtensionID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainContentExtensionNameGen() {
+		return domainContentExtensionName;
+	}
+	
+	public String getDomainContentExtensionName() {
+		String value = getDomainContentExtensionNameGen();
+		if (isEmpty(value)) {
+			value = "%domainNavigatorContentName";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainContentExtensionName(String newDomainContentExtensionName) {
+		String oldDomainContentExtensionName = domainContentExtensionName;
+		domainContentExtensionName = newDomainContentExtensionName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME, oldDomainContentExtensionName, domainContentExtensionName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainContentExtensionPriorityGen() {
+		return domainContentExtensionPriority;
+	}
+	
+	public String getDomainContentExtensionPriority() {
+		String value = getDomainContentExtensionPriorityGen();
+		if (isEmpty(value)) {
+			value = "normal"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainContentExtensionPriority(String newDomainContentExtensionPriority) {
+		String oldDomainContentExtensionPriority = domainContentExtensionPriority;
+		domainContentExtensionPriority = newDomainContentExtensionPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY, oldDomainContentExtensionPriority, domainContentExtensionPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainContentProviderClassNameGen() {
+		return domainContentProviderClassName;
+	}
+	
+	public String getDomainContentProviderClassName() {
+		String value = getDomainContentProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DomainNavigatorContentProvider"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainContentProviderClassName(String newDomainContentProviderClassName) {
+		String oldDomainContentProviderClassName = domainContentProviderClassName;
+		domainContentProviderClassName = newDomainContentProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME, oldDomainContentProviderClassName, domainContentProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainLabelProviderClassNameGen() {
+		return domainLabelProviderClassName;
+	}
+	
+	public String getDomainLabelProviderClassName() {
+		String value = getDomainLabelProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DomainNavigatorLabelProvider"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainLabelProviderClassName(String newDomainLabelProviderClassName) {
+		String oldDomainLabelProviderClassName = domainLabelProviderClassName;
+		domainLabelProviderClassName = newDomainLabelProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME, oldDomainLabelProviderClassName, domainLabelProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainModelElementTesterClassNameGen() {
+		return domainModelElementTesterClassName;
+	}
+	
+	public String getDomainModelElementTesterClassName() {
+		String value = getDomainModelElementTesterClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DomainModelElementTester"; //$NON-NLS-1$
+		}
+		return value;
+	}	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainModelElementTesterClassName(String newDomainModelElementTesterClassName) {
+		String oldDomainModelElementTesterClassName = domainModelElementTesterClassName;
+		domainModelElementTesterClassName = newDomainModelElementTesterClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME, oldDomainModelElementTesterClassName, domainModelElementTesterClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<GenNavigatorChildReference> getChildReferences() {
 		if (childReferences == null) {
 			childReferences = new EObjectContainmentWithInverseEList<GenNavigatorChildReference>(GenNavigatorChildReference.class, this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
@@ -925,6 +1267,33 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getDomainContentProviderQualifiedClassName() {
+		return getPackageName() + '.' + getDomainContentProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getDomainLabelProviderQualifiedClassName() {
+		return getPackageName() + '.' + getDomainLabelProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getDomainModelElementTesterQualifiedClassName() {
+		return getEditorGen().getEditor().getPackageName() + '.' + getDomainModelElementTesterClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public EList<GenNavigatorChildReference> getChildReferencesTo(GenCommonBase child) {
 		ArrayList<GenNavigatorChildReference> result = new ArrayList<GenNavigatorChildReference>();
 		for (GenNavigatorChildReference nextReference : getChildReferences()) {
@@ -992,6 +1361,20 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
+				return isGenerateDomainModelNavigator() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
+				return getDomainContentExtensionID();
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
+				return getDomainContentExtensionName();
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY:
+				return getDomainContentExtensionPriority();
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
+				return getDomainContentProviderClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
+				return getDomainLabelProviderClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
+				return getDomainModelElementTesterClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
 				return getEditorGen();
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
@@ -1039,6 +1422,27 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
+				setGenerateDomainModelNavigator(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
+				setDomainContentExtensionID((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
+				setDomainContentExtensionName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY:
+				setDomainContentExtensionPriority((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
+				setDomainContentProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
+				setDomainLabelProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
+				setDomainModelElementTesterClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 				setContentExtensionID((String)newValue);
 				return;
@@ -1100,6 +1504,27 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
+				setGenerateDomainModelNavigator(GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
+				setDomainContentExtensionID(DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
+				setDomainContentExtensionName(DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY:
+				setDomainContentExtensionPriority(DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
+				setDomainContentProviderClassName(DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
+				setDomainLabelProviderClassName(DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
+				setDomainModelElementTesterClassName(DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 				setContentExtensionID(CONTENT_EXTENSION_ID_EDEFAULT);
 				return;
@@ -1160,6 +1585,20 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
+				return generateDomainModelNavigator != GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT;
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
+				return DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT == null ? domainContentExtensionID != null : !DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT.equals(domainContentExtensionID);
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
+				return DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT == null ? domainContentExtensionName != null : !DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT.equals(domainContentExtensionName);
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY:
+				return DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT == null ? domainContentExtensionPriority != null : !DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT.equals(domainContentExtensionPriority);
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
+				return DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? domainContentProviderClassName != null : !DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(domainContentProviderClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
+				return DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT == null ? domainLabelProviderClassName != null : !DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT.equals(domainLabelProviderClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
+				return DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT == null ? domainModelElementTesterClassName != null : !DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT.equals(domainModelElementTesterClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
 				return getEditorGen() != null;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
@@ -1208,7 +1647,21 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (contentExtensionID: ");
+		result.append(" (generateDomainModelNavigator: ");
+		result.append(generateDomainModelNavigator);
+		result.append(", domainContentExtensionID: ");
+		result.append(domainContentExtensionID);
+		result.append(", domainContentExtensionName: ");
+		result.append(domainContentExtensionName);
+		result.append(", domainContentExtensionPriority: ");
+		result.append(domainContentExtensionPriority);
+		result.append(", domainContentProviderClassName: ");
+		result.append(domainContentProviderClassName);
+		result.append(", domainLabelProviderClassName: ");
+		result.append(domainLabelProviderClassName);
+		result.append(", domainModelElementTesterClassName: ");
+		result.append(domainModelElementTesterClassName);
+		result.append(", contentExtensionID: ");
 		result.append(contentExtensionID);
 		result.append(", contentExtensionName: ");
 		result.append(contentExtensionName);

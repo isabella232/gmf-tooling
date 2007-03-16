@@ -92,7 +92,7 @@ Iterator<String> requiredBundleIterator = requiredPluginIDs.iterator();
     if (genPlugin.getEditorGen().getApplication() == null) {
     stringBuffer.append(TEXT_10);
     }
-    if (genPlugin.getEditorGen().getDiagram().generateShortcutIcon()) {
+    if (genPlugin.getEditorGen().getDiagram().generateShortcutIcon() || (genPlugin.getEditorGen().getNavigator() != null && genPlugin.getEditorGen().getNavigator().isGenerateDomainModelNavigator())) {
     stringBuffer.append(TEXT_11);
     }
     stringBuffer.append(TEXT_12);

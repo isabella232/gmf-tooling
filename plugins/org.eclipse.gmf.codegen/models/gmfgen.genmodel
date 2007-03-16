@@ -763,6 +763,18 @@
         <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor/expression"/>
       </genOperations>
     </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenDomainModelNavigator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/generateDomainModelNavigator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentExtensionID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentExtensionName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentExtensionPriority"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainLabelProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainModelElementTesterClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainContentProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainLabelProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainModelElementTesterQualifiedClassName"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNavigator" labelFeature="#//gmfgen/GenNavigator/contentProviderClassName">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigator/editorGen"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionID"/>
