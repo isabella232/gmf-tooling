@@ -69,6 +69,13 @@ public class GenNavigatorItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addGenerateDomainModelNavigatorPropertyDescriptor(object);
+			addDomainContentExtensionIDPropertyDescriptor(object);
+			addDomainContentExtensionNamePropertyDescriptor(object);
+			addDomainContentExtensionPriorityPropertyDescriptor(object);
+			addDomainContentProviderClassNamePropertyDescriptor(object);
+			addDomainLabelProviderClassNamePropertyDescriptor(object);
+			addDomainModelElementTesterClassNamePropertyDescriptor(object);
 			addContentExtensionIDPropertyDescriptor(object);
 			addContentExtensionNamePropertyDescriptor(object);
 			addContentExtensionPriorityPropertyDescriptor(object);
@@ -419,6 +426,160 @@ public class GenNavigatorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Generate Domain Model Navigator feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenerateDomainModelNavigatorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_generateDomainModelNavigator_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_generateDomainModelNavigator_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_GenerateDomainModelNavigator(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Content Extension ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainContentExtensionIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainContentExtensionID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainContentExtensionID_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainContentExtensionID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Content Extension Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainContentExtensionNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainContentExtensionName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainContentExtensionName_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainContentExtensionName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Content Extension Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainContentExtensionPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainContentExtensionPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainContentExtensionPriority_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainContentExtensionPriority(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Content Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainContentProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainContentProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainContentProviderClassName_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainContentProviderClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Label Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainLabelProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainLabelProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainLabelProviderClassName_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainLabelProviderClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Model Element Tester Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainModelElementTesterClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainModelElementTesterClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainModelElementTesterClassName_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainModelElementTesterClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -485,6 +646,13 @@ public class GenNavigatorItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNavigator.class)) {
+			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY:
