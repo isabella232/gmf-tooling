@@ -25,6 +25,7 @@
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${buildDirectory}/component"/>
+			<property name="compilerArg" value="-warn:-raw"/>
 		</ant>
 	</target>
 	
