@@ -521,8 +521,8 @@
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.port_location"/>
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
-      </binding>
-   </extension>
+               </binding>
+               </extension>
 
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
