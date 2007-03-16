@@ -58,7 +58,7 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.IFile1"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagram"
             nameFilter="*.taipan"
             objectClass="org.eclipse.core.resources.IFile">
          <action
@@ -66,33 +66,9 @@
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileActionID">
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagramAction">
          </action>
       </objectContribution>
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart1"
-            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
-         <action
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutActionID"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart2"
-            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
-         <action
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceActionID"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
@@ -621,7 +597,35 @@
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.port_location"/>
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
-               </binding>
-               </extension>
+      </binding>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart1"
+            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
+         <action
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutActionID"
+               label="%createShortcutActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart2"
+            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
+         <action
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceActionID"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>           
+   </extension>
 
 </plugin>
