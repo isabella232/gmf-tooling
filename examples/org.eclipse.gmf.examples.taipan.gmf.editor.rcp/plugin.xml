@@ -418,34 +418,14 @@
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
       <actionSet
-            label="%applicationActionSetLabel"
+            label="%initDiagramActionLabel"
             visible="true"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ActionSet">
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagram">
          <action
-               label="%newDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
-               menubarPath="file/new/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
-         </action>
-         <action
-               label="%aboutActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$AboutAction"
-               menubarPath="help/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.AboutAction">
-         </action>
-         <action
-               label="%openURIActionLabel"
-               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURICommand"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenURIAction"
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
                menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURIAction">
-         </action>
-         <action
-               label="%openActionLabel"
-               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenCommand"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenAction"
-               menubarPath="file/additions"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenAction">
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.InitDiagramAction">
          </action>
       </actionSet>
    </extension><extension point="org.eclipse.ui.preferencePages">
@@ -541,7 +521,42 @@
       <binding context="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.DefaultCtx">
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.port_location"/>
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ship_name"/>
-               </binding>
-               </extension>
+      </binding>
+   </extension>
+
+   <extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%applicationActionSetLabel"
+            visible="true"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ActionSet">
+         <action
+               label="%newDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.NewDiagramAction">
+         </action>
+         <action
+               label="%aboutActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$AboutAction"
+               menubarPath="help/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.AboutAction">
+         </action>
+         <action
+               label="%openURIActionLabel"
+               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURICommand"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenURIAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenURIAction">
+         </action>
+         <action
+               label="%openActionLabel"
+               definitionId="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenCommand"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.application.DiagramEditorActionBarAdvisor$OpenAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.OpenAction">
+         </action>
+      </actionSet>
+   </extension>
 
 </plugin>
