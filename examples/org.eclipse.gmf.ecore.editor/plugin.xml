@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-
 <!--
- Copyright (c) 2006 Borland Software Corporation and others.
+ Copyright (c) 2006, 2007 Borland Software Corp.
+
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
  http://www.eclipse.org/legal/epl-v10.html
 
  Contributors:
-     Borland Software Corporation - initial API and implementation
+    Alexander Shatalin (Borland) - initial API and implementation
 -->
 <plugin>
-
-<!-- gmf generator persistent region begin -->
-<!-- gmf generator persistent region end -->
-
-   <extension point="org.eclipse.core.runtime.preferences">
-      <?gmfgen generated="true"?>
-      <initializer class="org.eclipse.gmf.ecore.preferences.DiagramPreferenceInitializer"/>
-   </extension>
 
    <extension point="org.eclipse.team.core.fileTypes">
       <?gmfgen generated="true"?>
@@ -103,53 +95,6 @@
       </objectContribution>           
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider class="org.eclipse.gmf.ecore.providers.EcoreContributionItemProvider">
-         <Priority name="Low">
-         </Priority>
-         <partContribution id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
-            <partAction menubarPath="/file/print" id="printPreviewAction">
-            </partAction>
-         </partContribution>
-      </contributionItemProvider>
-      <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
-            checkPluginLoaded="false">
-         <Priority name="Low"/>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart"/>
-            <popupAction path="/editGroup" id="deleteFromModelAction"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-      </contributionItemProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -199,6 +144,158 @@
       </GlobalActionHandlerProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      <contributionItemProvider class="org.eclipse.gmf.ecore.providers.EcoreContributionItemProvider">
+         <Priority name="Low">
+         </Priority>
+         <partContribution id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
+            <partAction menubarPath="/file/print" id="printPreviewAction">
+            </partAction>
+         </partContribution>
+      </contributionItemProvider>
+      <contributionItemProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
+            checkPluginLoaded="false">
+         <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBound2EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.gmf.ecore.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.emf.ecore.diagram.general"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.appearance"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.appearance"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.connections"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.connections"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.printing"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.printing"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.rulersAndGrid"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.emf.ecore.diagram.pathmaps"
+            name="%preference.page.title.org.eclipse.emf.ecore.diagram.pathmaps"
+            category="org.eclipse.emf.ecore.diagram.general"
+            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <?gmfgen generated="true"?>
+      <propertyContributor contributorId="org.eclipse.gmf.ecore.editor" labelProvider="org.eclipse.gmf.ecore.sheet.EcoreSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.ecore.editor">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.ecore.editor">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.ecore.sheet.EcorePropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <?gmfgen generated="true"?>
       <viewProvider class="org.eclipse.gmf.ecore.providers.EcoreViewProvider">
@@ -215,8 +312,6 @@
          <Priority name="Lowest"/>
       </editpartProvider>
    </extension>
-
-   
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <?gmfgen generated="true"?>
@@ -475,6 +570,7 @@
 
 
    <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.ecore.editor.ShortcutPropertyTester"
            type="org.eclipse.gmf.runtime.notation.View"
@@ -483,11 +579,13 @@
            class="org.eclipse.gmf.ecore.part.EcoreShortcutPropertyTester">
        </propertyTester>
    </extension>
-   
+
    <extension point="org.eclipse.ui.navigator.viewer">
+      <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="org.eclipse.gmf.ecore.editor.resourceContent"/>
+			<contentExtension pattern="org.eclipse.gmf.ecore.editor.domainResourceContent"/>
             <contentExtension pattern="org.eclipse.gmf.ecore.editor.navigatorLinkHelper"/>
          </includes>
       </viewerContentBinding>
@@ -499,7 +597,8 @@
    </extension>
 
    <extension point="org.eclipse.ui.navigator.navigatorContent">
-      <navigatorContent 
+      <?gmfgen generated="true"?>
+      <navigatorContent
             id="org.eclipse.gmf.ecore.editor.resourceContent" 
             name="%navigatorContentName" 
             priority="normal" 
@@ -541,6 +640,33 @@
             </parentExpression>
          </commonSorter>
       </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.gmf.ecore.editor.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.ecore.navigator.EcoreDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.ecore.navigator.EcoreDomainNavigatorLabelProvider"
+            icon="icons/full/obj16/EcoreModelFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="ecore"/>
+               </and>
+               <and>
+                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
+                  <test property="org.eclipse.gmf.ecore.editor.isDomainModelElement"/>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <and>
+       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
+       	       <test property="org.eclipse.gmf.ecore.editor.isDomainModelElement"/>
+       	    </and>
+         </possibleChildren>
+      </navigatorContent>
       <actionProvider
             id="org.eclipse.gmf.ecore.editor.navigatorActionProvider"
             class="org.eclipse.gmf.ecore.navigator.EcoreNavigatorActionProvider">
@@ -556,6 +682,7 @@
    </extension>
    
    <extension point="org.eclipse.ui.navigator.linkHelper">
+      <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.ecore.editor.navigatorLinkHelper"
             class="org.eclipse.gmf.ecore.navigator.EcoreNavigatorLinkHelper">
@@ -566,105 +693,15 @@
             <instanceof value="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </selectionEnablement>
       </linkHelper>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <propertyContributor contributorId="org.eclipse.gmf.ecore.editor"
-            labelProvider="org.eclipse.gmf.ecore.sheet.EcoreSheetLabelProvider">
-         <propertyCategory category="domain"/>
-         <propertyCategory category="visual"/>
-         <propertyCategory category="extra"/>
-      </propertyContributor>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <propertyTabs contributorId="org.eclipse.gmf.ecore.editor">
-         <propertyTab
-             category="visual"
-             id="property.tab.AppearancePropertySection"
-             label="%tab.appearance"/>
-          <propertyTab
-             category="visual"
-             id="property.tab.DiagramPropertySection"
-             label="%tab.diagram"/>
-          <propertyTab
-             category="domain"
-             id="property.tab.domain"
-             label="%tab.domain"/>
-      </propertyTabs>
-   </extension>
-
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <propertySections contributorId="org.eclipse.gmf.ecore.editor">
-
-         <propertySection id="property.section.ConnectorAppearancePropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection>
-         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection> 
-         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
-            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
-            tab="property.tab.AppearancePropertySection">
-         </propertySection>              
-
-          <propertySection id="property.section.RulerGridPropertySection" 
-             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
-             tab="property.tab.DiagramPropertySection">
-          </propertySection>              
-         <propertySection
-            id="property.section.domain" 
-            tab="property.tab.domain"
-            class="org.eclipse.gmf.ecore.sheet.EcorePropertySection">
-            <input type="org.eclipse.gmf.runtime.notation.View"/>
-            <input type="org.eclipse.gef.EditPart"/>
-            <input type="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
-         </propertySection>
-      </propertySections>
-   </extension><extension point="org.eclipse.ui.preferencePages">
+   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
-      <page
-            id="org.eclipse.emf.ecore.diagram.general"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramGeneralPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.appearance"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.appearance"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramAppearancePreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.connections"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.connections"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramConnectionsPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.printing"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.printing"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramPrintingPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.rulersAndGrid"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.ecore.preferences.DiagramRulersAndGridPreferencePage">
-      </page>
-      <page
-            id="org.eclipse.emf.ecore.diagram.pathmaps"
-            name="%preference.page.title.org.eclipse.emf.ecore.diagram.pathmaps"
-            category="org.eclipse.emf.ecore.diagram.general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
-      </page>
+       <propertyTester
+           id="org.eclipse.gmf.ecore.editor.DomainModelElementTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.ecore.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.ecore.part.EcoreDomainModelElementTester">
+       </propertyTester>
    </extension>
-
 
 </plugin>

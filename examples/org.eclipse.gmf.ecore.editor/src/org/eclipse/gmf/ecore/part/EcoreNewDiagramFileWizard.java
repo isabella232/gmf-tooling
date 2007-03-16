@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,74 +12,47 @@
 package org.eclipse.gmf.ecore.part;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
-import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.ecore.util.FeatureMap;
-
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
-
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-
 import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
-
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 /**
@@ -100,17 +73,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private IFile mySelectedModelFile;
-
-	/**
-	 * @generated
-	 */
-	private IWorkbenchPage myWorkbenchPage;
-
-	/**
-	 * @generated
-	 */
-	private IStructuredSelection mySelection;
+	private org.eclipse.emf.common.util.URI domainModelURI;
 
 	/**
 	 * @generated
@@ -120,16 +83,12 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public EcoreNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
-		assert selectedModelFile != null : "Null selectedModelFile in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert workbenchPage != null : "Null workbenchPage in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert selection != null : "Null selection in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+	public EcoreNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert diagramRoot != null : "Null diagramRoot in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert editingDomain != null : "Null editingDomain in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
 
-		mySelectedModelFile = selectedModelFile;
-		myWorkbenchPage = workbenchPage;
-		mySelection = selection;
+		this.domainModelURI = domainModelURI;
 		myDiagramRoot = diagramRoot;
 		myEditingDomain = editingDomain;
 	}
@@ -138,22 +97,21 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public void addPages() {
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection) {
-
-			public void createControl(Composite parent) {
-				super.createControl(parent);
-				IContainer parentContainer = mySelectedModelFile.getParent();
-				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".ecore_diagram"; //$NON-NLS-1$
-				String fileName = originalFileName + fileExtension;
-				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
-					fileName = originalFileName + i + fileExtension;
-				}
-				setFileName(fileName);
-			}
-		};
+		myFileCreationPage = new WizardNewFileCreationPage("Initialize new diagram file", StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram based on " + EPackageEditPart.MODEL_ID + " model content");
+		IPath filePath;
+		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		if (domainModelURI.isPlatformResource()) {
+			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
+		} else if (domainModelURI.isFile()) {
+			filePath = new Path(domainModelURI.trimSegments(1).toFileString());
+		} else {
+			// TODO : use some default path
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
+		}
+		myFileCreationPage.setContainerFullPath(filePath);
+		myFileCreationPage.setFileName(EcoreDiagramEditorUtil.getUniqueFileName(filePath, fileName, "ecore_diagram")); //$NON-NLS-1$
 		addPage(myFileCreationPage);
 		addPage(new RootElementSelectorPage());
 	}
@@ -171,7 +129,6 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		List affectedFiles = new LinkedList();
-		affectedFiles.add(mySelectedModelFile);
 		affectedFiles.add(diagramFile);
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
@@ -290,6 +247,5 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 			setErrorMessage(result ? null : "Invalid diagram root element was selected");
 			return result;
 		}
-
 	}
 }
