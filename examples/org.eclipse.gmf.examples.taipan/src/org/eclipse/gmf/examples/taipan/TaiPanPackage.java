@@ -472,15 +472,6 @@ public interface TaiPanPackage extends EPackage {
 	int ROUTE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUTE__DESCRIPTION = 2;
-
-	/**
 	 * The feature id for the '<em><b>Reliability</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -543,6 +534,15 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUTE__DESTINATION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUTE__DESCRIPTION = 2;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.

@@ -7,18 +7,13 @@
 package org.eclipse.gmf.examples.taipan.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Small Items</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Small Items</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,16 +26,14 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 public class SmallItemsImpl extends ItemImpl implements SmallItems {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static final String copyright = ""; //$NON-NLS-1$
 
 	/**
 	 * The default value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQuantity()
 	 * @generated
 	 * @ordered
@@ -49,8 +42,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 
 	/**
 	 * The cached value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQuantity()
 	 * @generated
 	 * @ordered
@@ -58,8 +50,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	protected int quantity = QUANTITY_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected SmallItemsImpl() {
@@ -67,8 +58,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -77,8 +67,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public int getQuantity() {
@@ -86,8 +75,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setQuantity(int newQuantity) {
@@ -98,8 +86,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -112,8 +99,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -127,8 +113,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -142,8 +127,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -156,8 +140,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -172,4 +155,4 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 		return result.toString();
 	}
 
-} //SmallItemsImpl
+} // SmallItemsImpl

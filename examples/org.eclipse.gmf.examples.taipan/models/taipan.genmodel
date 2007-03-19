@@ -4,7 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText=""
     modelDirectory="/org.eclipse.gmf.examples.taipan/src" editorDirectory="/org.eclipse.gmf.examples.taipan.editor/src"
     modelPluginID="org.eclipse.gmf.examples.taipan" redirection="" modelName="TaiPan"
-    nonNLSMarkers="true" codeFormatting="true" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore">
+    nonNLSMarkers="true" codeFormatting="true" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0">
   <foreignModel>taipan.ecore</foreignModel>
   <genPackages prefix="TaiPan" basePackage="org.eclipse.gmf.examples" disposableProviderFactory="true"
       ecorePackage="taipan.ecore#/">

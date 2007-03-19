@@ -84,7 +84,7 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList buildings = null;
+	protected EList<Building> buildings = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -131,9 +131,9 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getBuildings() {
+	public EList<Building> getBuildings() {
 		if (buildings == null) {
-			buildings = new EObjectContainmentEList(Building.class, this, TaiPanPackage.PORT__BUILDINGS);
+			buildings = new EObjectContainmentEList<Building>(Building.class, this, TaiPanPackage.PORT__BUILDINGS);
 		}
 		return buildings;
 	}
@@ -147,7 +147,7 @@ public class PortImpl extends EObjectImpl implements Port {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case TaiPanPackage.PORT__BUILDINGS:
-			return ((InternalEList) getBuildings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getBuildings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -182,7 +182,7 @@ public class PortImpl extends EObjectImpl implements Port {
 			return;
 		case TaiPanPackage.PORT__BUILDINGS:
 			getBuildings().clear();
-			getBuildings().addAll((Collection) newValue);
+			getBuildings().addAll((Collection<? extends Building>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

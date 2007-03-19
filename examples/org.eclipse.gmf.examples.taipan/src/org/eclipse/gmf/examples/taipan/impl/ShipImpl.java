@@ -94,7 +94,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList cargo = null;
+	protected EList<Item> cargo = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,9 +179,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCargo() {
+	public EList<Item> getCargo() {
 		if (cargo == null) {
-			cargo = new EObjectContainmentEList(Item.class, this, TaiPanPackage.SHIP__CARGO);
+			cargo = new EObjectContainmentEList<Item>(Item.class, this, TaiPanPackage.SHIP__CARGO);
 		}
 		return cargo;
 	}
@@ -195,7 +195,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case TaiPanPackage.SHIP__CARGO:
-			return ((InternalEList) getCargo()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getCargo()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -237,7 +237,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 			return;
 		case TaiPanPackage.SHIP__CARGO:
 			getCargo().clear();
-			getCargo().addAll((Collection) newValue);
+			getCargo().addAll((Collection<? extends Item>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

@@ -14,23 +14,17 @@ package org.eclipse.gmf.examples.taipan.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.examples.taipan.Order;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Warship</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Warship</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -43,25 +37,22 @@ import org.eclipse.gmf.examples.taipan.Warship;
 public class WarshipImpl extends ShipImpl implements Warship {
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static final String copyright = ""; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getOrders() <em>Orders</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getOrders()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList orders = null;
+	protected EList<Order> orders = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected WarshipImpl() {
@@ -69,8 +60,7 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -79,34 +69,31 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getOrders() {
+	public EList<Order> getOrders() {
 		if (orders == null) {
-			orders = new EObjectContainmentEList(Order.class, this, TaiPanPackage.WARSHIP__ORDERS);
+			orders = new EObjectContainmentEList<Order>(Order.class, this, TaiPanPackage.WARSHIP__ORDERS);
 		}
 		return orders;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case TaiPanPackage.WARSHIP__ORDERS:
-			return ((InternalEList) getOrders()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOrders()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -119,8 +106,7 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -129,15 +115,14 @@ public class WarshipImpl extends ShipImpl implements Warship {
 		switch (featureID) {
 		case TaiPanPackage.WARSHIP__ORDERS:
 			getOrders().clear();
-			getOrders().addAll((Collection) newValue);
+			getOrders().addAll((Collection<? extends Order>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -151,8 +136,7 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -164,4 +148,4 @@ public class WarshipImpl extends ShipImpl implements Warship {
 		return super.eIsSet(featureID);
 	}
 
-} //WarshipImpl
+} // WarshipImpl

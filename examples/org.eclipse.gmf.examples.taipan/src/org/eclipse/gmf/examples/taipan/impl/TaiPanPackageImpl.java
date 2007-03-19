@@ -597,6 +597,10 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 		largeItemEClass.getESuperTypes().add(this.getItem());
 		smallItemsEClass.getESuperTypes().add(this.getItem());

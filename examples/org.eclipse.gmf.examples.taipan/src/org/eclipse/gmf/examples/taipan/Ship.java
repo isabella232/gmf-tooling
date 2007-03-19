@@ -108,6 +108,6 @@ public interface Ship extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Item" containment="true"
 	 * @generated
 	 */
-	EList getCargo();
+	EList<Item> getCargo();
 
 } // Ship

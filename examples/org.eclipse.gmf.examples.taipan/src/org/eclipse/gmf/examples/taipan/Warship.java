@@ -52,6 +52,6 @@ public interface Warship extends Ship {
 	 * @model type="org.eclipse.gmf.examples.taipan.Order" containment="true"
 	 * @generated
 	 */
-	EList getOrders();
+	EList<Order> getOrders();
 
 } // Warship

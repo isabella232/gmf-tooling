@@ -82,61 +82,75 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TaiPanSwitch modelSwitch = new TaiPanSwitch() {
+	protected TaiPanSwitch<Adapter> modelSwitch = new TaiPanSwitch<Adapter>() {
 
-		public Object caseAquatory(Aquatory object) {
+		@Override
+		public Adapter caseAquatory(Aquatory object) {
 			return createAquatoryAdapter();
 		}
 
-		public Object casePort(Port object) {
+		@Override
+		public Adapter casePort(Port object) {
 			return createPortAdapter();
 		}
 
-		public Object caseBuilding(Building object) {
+		@Override
+		public Adapter caseBuilding(Building object) {
 			return createBuildingAdapter();
 		}
 
-		public Object caseRoute(Route object) {
+		@Override
+		public Adapter caseRoute(Route object) {
 			return createRouteAdapter();
 		}
 
-		public Object caseShip(Ship object) {
+		@Override
+		public Adapter caseShip(Ship object) {
 			return createShipAdapter();
 		}
 
-		public Object caseItem(Item object) {
+		@Override
+		public Adapter caseItem(Item object) {
 			return createItemAdapter();
 		}
 
-		public Object caseLargeItem(LargeItem object) {
+		@Override
+		public Adapter caseLargeItem(LargeItem object) {
 			return createLargeItemAdapter();
 		}
 
-		public Object caseSmallItems(SmallItems object) {
+		@Override
+		public Adapter caseSmallItems(SmallItems object) {
 			return createSmallItemsAdapter();
 		}
 
-		public Object caseEmptyBox(EmptyBox object) {
+		@Override
+		public Adapter caseEmptyBox(EmptyBox object) {
 			return createEmptyBoxAdapter();
 		}
 
-		public Object caseWarship(Warship object) {
+		@Override
+		public Adapter caseWarship(Warship object) {
 			return createWarshipAdapter();
 		}
 
-		public Object caseOrder(Order object) {
+		@Override
+		public Adapter caseOrder(Order object) {
 			return createOrderAdapter();
 		}
 
-		public Object caseEscortShipOrder(EscortShipOrder object) {
+		@Override
+		public Adapter caseEscortShipOrder(EscortShipOrder object) {
 			return createEscortShipOrderAdapter();
 		}
 
-		public Object caseBesiegePortOrder(BesiegePortOrder object) {
+		@Override
+		public Adapter caseBesiegePortOrder(BesiegePortOrder object) {
 			return createBesiegePortOrderAdapter();
 		}
 
-		public Object defaultCase(EObject object) {
+		@Override
+		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
 	};
@@ -151,7 +165,7 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter) modelSwitch.doSwitch((EObject) target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
 
 	/**
