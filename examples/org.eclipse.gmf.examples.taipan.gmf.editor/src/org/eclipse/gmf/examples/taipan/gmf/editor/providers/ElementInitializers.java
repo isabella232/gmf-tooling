@@ -11,20 +11,17 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**

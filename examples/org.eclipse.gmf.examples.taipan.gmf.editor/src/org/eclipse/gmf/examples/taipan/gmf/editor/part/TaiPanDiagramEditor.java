@@ -11,10 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
-import org.eclipse.gef.LayerConstants;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,33 +26,21 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-import org.eclipse.emf.transaction.NotificationFilter;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramDropTargetListener;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.ErrorDialog;

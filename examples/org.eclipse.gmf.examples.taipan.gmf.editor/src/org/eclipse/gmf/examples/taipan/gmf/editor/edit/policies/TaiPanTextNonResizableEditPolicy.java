@@ -22,7 +22,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;

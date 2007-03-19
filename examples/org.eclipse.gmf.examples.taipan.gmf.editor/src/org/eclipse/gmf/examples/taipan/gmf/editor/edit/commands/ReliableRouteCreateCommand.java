@@ -13,16 +13,12 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**

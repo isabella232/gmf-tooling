@@ -16,9 +16,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;

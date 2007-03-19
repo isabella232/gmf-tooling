@@ -22,7 +22,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;

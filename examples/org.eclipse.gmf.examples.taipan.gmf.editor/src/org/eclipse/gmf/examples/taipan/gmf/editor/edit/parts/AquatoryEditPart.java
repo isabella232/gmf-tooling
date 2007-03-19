@@ -11,32 +11,24 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryCanonicalEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy;
-
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
-import org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
-import org.eclipse.gmf.runtime.notation.Node;
-
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.TaiPanCreateShortcutDecorationsCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryCanonicalEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryItemSemanticEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

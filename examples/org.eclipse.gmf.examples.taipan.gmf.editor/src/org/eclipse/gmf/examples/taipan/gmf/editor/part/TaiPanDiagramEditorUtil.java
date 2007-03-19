@@ -26,43 +26,34 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
-import org.eclipse.gef.EditPart;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-
-import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
-import org.eclipse.gmf.runtime.notation.View;
-
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.ui.PartInitException;
 
 /**

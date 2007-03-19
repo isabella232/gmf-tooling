@@ -12,11 +12,8 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.expressions.PropertyTester;
-
 import org.eclipse.emf.ecore.EAnnotation;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**

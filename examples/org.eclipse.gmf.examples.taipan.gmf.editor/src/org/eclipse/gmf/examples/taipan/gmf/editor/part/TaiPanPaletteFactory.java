@@ -22,7 +22,6 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
-import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @generated

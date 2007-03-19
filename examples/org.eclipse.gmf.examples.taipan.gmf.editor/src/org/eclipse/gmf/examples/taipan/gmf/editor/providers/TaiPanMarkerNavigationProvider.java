@@ -22,29 +22,18 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.common.util.Diagnostic;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.model.IConstraintStatus;
-
 import org.eclipse.gef.EditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
-
 import org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**

@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.expressions;
 
 import java.lang.ref.WeakReference;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;

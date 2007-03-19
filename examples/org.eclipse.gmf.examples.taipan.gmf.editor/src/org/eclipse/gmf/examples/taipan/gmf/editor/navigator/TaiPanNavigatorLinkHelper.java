@@ -12,16 +12,11 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -29,7 +24,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.navigator.ILinkHelper;
-import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * @generated

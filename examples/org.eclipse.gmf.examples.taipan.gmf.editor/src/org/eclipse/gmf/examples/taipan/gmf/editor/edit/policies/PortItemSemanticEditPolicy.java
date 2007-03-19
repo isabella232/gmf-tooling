@@ -31,7 +31,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteReo
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;

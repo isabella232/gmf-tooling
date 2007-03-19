@@ -12,8 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
