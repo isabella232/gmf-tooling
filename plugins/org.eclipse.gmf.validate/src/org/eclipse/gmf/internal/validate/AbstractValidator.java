@@ -44,11 +44,11 @@ public class AbstractValidator implements EValidator {
 	protected AbstractValidator() {
 	}
 	
-	protected static ExpressionCache getExpressionCache(String language, Map context) {
+	protected static ExpressionCache getExpressionCache(String language, Map<Object, Object> context) {
 		return getExpressionCache(context).getCache(language);
 	}
 	
-	protected static IModelExpression getExpression(String language, String body, EClassifier contextClassifier, Map context) {
+	protected static IModelExpression getExpression(String language, String body, EClassifier contextClassifier, Map<Object, Object> context) {
 		EPackage.Registry reg = ExternModelImport.getPackageRegistry(context);
 		IParseEnvironment env = null;
 		if(reg != null) {
@@ -59,7 +59,7 @@ public class AbstractValidator implements EValidator {
 	}
 	
 	protected static IModelExpression getExpression(String language, String body, 
-			EClassifier contextClassifier, IParseEnvironment env, Map context) {
+			EClassifier contextClassifier, IParseEnvironment env, Map<Object, Object> context) {
 		ExpressionCache cache = getExpressionCache(language, context);
 		if(cache == null) {
 			// no provider for the given language found in registry
@@ -77,7 +77,7 @@ public class AbstractValidator implements EValidator {
 		return cache.getExpression(body, contextClassifier, env);
 	}
 	
-	protected static SubstitutionLabelProvider getLabelProvider(Map context) {
+	protected static SubstitutionLabelProvider getLabelProvider(Map<Object, Object> context) {
 		if(context != null && context.containsKey(SubstitutionLabelProvider.class)) {
 			Object provider = context.get(SubstitutionLabelProvider.class);
 			assert provider instanceof SubstitutionLabelProvider : "Invalid label provider"; //$NON-NLS-1$ 
@@ -86,7 +86,7 @@ public class AbstractValidator implements EValidator {
 		return LabelProvider.INSTANCE;
 	}
 
-	protected static EObject getRootTargetObject(Map context) {
+	protected static EObject getRootTargetObject(Map<Object, Object> context) {
 		Object rootObj = context.get(ROOT_TARGET_OBJECT_KEY);
 		assert rootObj == null || rootObj instanceof EObject;
 		return (EObject)rootObj;
@@ -124,7 +124,7 @@ public class AbstractValidator implements EValidator {
 	 * @return Validation options for the given context. If not options is set to context,
 	 * 	the {@link ValidationOptions#getDefault()} default options } are returned.
 	 */
-	static ValidationOptions getOptions(Map context) {
+	static ValidationOptions getOptions(Map<Object, Object> context) {
 		if(context != null) {
 			ValidationOptions options = (ValidationOptions)context.get(ValidationOptions.class);
 			return options != null ? options : ValidationOptions.getDefault();

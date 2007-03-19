@@ -29,7 +29,7 @@ import org.eclipse.gmf.internal.validate.expressions.IParseEnvironment;
  * @author dvorak
  */
 public abstract class ExpressionCache {
-	private Map body2Entries = new HashMap();
+	private Map<String, Object> body2Entries = new HashMap<String, Object>();
 
 	protected ExpressionCache() {
 	}
