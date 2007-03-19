@@ -84,7 +84,7 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Building> buildings = null;
+	protected EList buildings = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -131,10 +131,9 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Building> getBuildings() {
-		if (buildings == null)
-		{
-			buildings = new EObjectContainmentEList<Building>(Building.class, this, TaiPanPackage.PORT__BUILDINGS);
+	public EList getBuildings() {
+		if (buildings == null) {
+			buildings = new EObjectContainmentEList(Building.class, this, TaiPanPackage.PORT__BUILDINGS);
 		}
 		return buildings;
 	}
@@ -146,10 +145,9 @@ public class PortImpl extends EObjectImpl implements Port {
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID)
-		{
-			case TaiPanPackage.PORT__BUILDINGS:
-				return ((InternalEList<?>)getBuildings()).basicRemove(otherEnd, msgs);
+		switch (featureID) {
+		case TaiPanPackage.PORT__BUILDINGS:
+			return ((InternalEList) getBuildings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -161,12 +159,11 @@ public class PortImpl extends EObjectImpl implements Port {
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID)
-		{
-			case TaiPanPackage.PORT__LOCATION:
-				return getLocation();
-			case TaiPanPackage.PORT__BUILDINGS:
-				return getBuildings();
+		switch (featureID) {
+		case TaiPanPackage.PORT__LOCATION:
+			return getLocation();
+		case TaiPanPackage.PORT__BUILDINGS:
+			return getBuildings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -179,15 +176,14 @@ public class PortImpl extends EObjectImpl implements Port {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID)
-		{
-			case TaiPanPackage.PORT__LOCATION:
-				setLocation((String)newValue);
-				return;
-			case TaiPanPackage.PORT__BUILDINGS:
-				getBuildings().clear();
-				getBuildings().addAll((Collection<? extends Building>)newValue);
-				return;
+		switch (featureID) {
+		case TaiPanPackage.PORT__LOCATION:
+			setLocation((String) newValue);
+			return;
+		case TaiPanPackage.PORT__BUILDINGS:
+			getBuildings().clear();
+			getBuildings().addAll((Collection) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -199,14 +195,13 @@ public class PortImpl extends EObjectImpl implements Port {
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.PORT__LOCATION:
-				setLocation(LOCATION_EDEFAULT);
-				return;
-			case TaiPanPackage.PORT__BUILDINGS:
-				getBuildings().clear();
-				return;
+		switch (featureID) {
+		case TaiPanPackage.PORT__LOCATION:
+			setLocation(LOCATION_EDEFAULT);
+			return;
+		case TaiPanPackage.PORT__BUILDINGS:
+			getBuildings().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,12 +213,11 @@ public class PortImpl extends EObjectImpl implements Port {
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.PORT__LOCATION:
-				return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
-			case TaiPanPackage.PORT__BUILDINGS:
-				return buildings != null && !buildings.isEmpty();
+		switch (featureID) {
+		case TaiPanPackage.PORT__LOCATION:
+			return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
+		case TaiPanPackage.PORT__BUILDINGS:
+			return buildings != null && !buildings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -235,7 +229,8 @@ public class PortImpl extends EObjectImpl implements Port {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (location: "); //$NON-NLS-1$

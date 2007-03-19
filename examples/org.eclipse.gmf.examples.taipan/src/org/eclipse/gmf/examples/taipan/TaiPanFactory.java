@@ -93,6 +93,33 @@ public interface TaiPanFactory extends EFactory {
 	EmptyBox createEmptyBox();
 
 	/**
+	 * Returns a new object of class '<em>Warship</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Warship</em>'.
+	 * @generated
+	 */
+	Warship createWarship();
+
+	/**
+	 * Returns a new object of class '<em>Escort Ship Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Escort Ship Order</em>'.
+	 * @generated
+	 */
+	EscortShipOrder createEscortShipOrder();
+
+	/**
+	 * Returns a new object of class '<em>Besiege Port Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Besiege Port Order</em>'.
+	 * @generated
+	 */
+	BesiegePortOrder createBesiegePortOrder();
+
+	/**
 	 * Returns a new object of class '<em>Route</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -43,16 +43,12 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * @generated
 	 */
 	public static TaiPanFactory init() {
-		try
-		{
-			TaiPanFactory theTaiPanFactory = (TaiPanFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan"); //$NON-NLS-1$ 
-			if (theTaiPanFactory != null)
-			{
+		try {
+			TaiPanFactory theTaiPanFactory = (TaiPanFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan"); //$NON-NLS-1$ 
+			if (theTaiPanFactory != null) {
 				return theTaiPanFactory;
 			}
-		}
-		catch (Exception exception)
-		{
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new TaiPanFactoryImpl();
@@ -75,18 +71,31 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 */
 	@Override
 	public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID())
-		{
-			case TaiPanPackage.AQUATORY: return createAquatory();
-			case TaiPanPackage.PORT: return createPort();
-			case TaiPanPackage.SHIP: return createShip();
-			case TaiPanPackage.LARGE_ITEM: return createLargeItem();
-			case TaiPanPackage.SMALL_ITEMS: return createSmallItems();
-			case TaiPanPackage.EMPTY_BOX: return createEmptyBox();
-			case TaiPanPackage.ROUTE: return createRoute();
-			case TaiPanPackage.BUILDING: return createBuilding();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		switch (eClass.getClassifierID()) {
+		case TaiPanPackage.AQUATORY:
+			return createAquatory();
+		case TaiPanPackage.PORT:
+			return createPort();
+		case TaiPanPackage.BUILDING:
+			return createBuilding();
+		case TaiPanPackage.ROUTE:
+			return createRoute();
+		case TaiPanPackage.SHIP:
+			return createShip();
+		case TaiPanPackage.LARGE_ITEM:
+			return createLargeItem();
+		case TaiPanPackage.SMALL_ITEMS:
+			return createSmallItems();
+		case TaiPanPackage.EMPTY_BOX:
+			return createEmptyBox();
+		case TaiPanPackage.WARSHIP:
+			return createWarship();
+		case TaiPanPackage.ESCORT_SHIP_ORDER:
+			return createEscortShipOrder();
+		case TaiPanPackage.BESIEGE_PORT_ORDER:
+			return createBesiegePortOrder();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -155,6 +164,36 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Warship createWarship() {
+		WarshipImpl warship = new WarshipImpl();
+		return warship;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EscortShipOrder createEscortShipOrder() {
+		EscortShipOrderImpl escortShipOrder = new EscortShipOrderImpl();
+		return escortShipOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BesiegePortOrder createBesiegePortOrder() {
+		BesiegePortOrderImpl besiegePortOrder = new BesiegePortOrderImpl();
+		return besiegePortOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Route createRoute() {
 		RouteImpl route = new RouteImpl();
 		return route;
@@ -176,7 +215,7 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * @generated
 	 */
 	public TaiPanPackage getTaiPanPackage() {
-		return (TaiPanPackage)getEPackage();
+		return (TaiPanPackage) getEPackage();
 	}
 
 	/**

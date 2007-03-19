@@ -81,6 +81,6 @@ public interface Port extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Building" containment="true"
 	 * @generated
 	 */
-	EList<Building> getBuildings();
+	EList getBuildings();
 
 } // Port

@@ -19,16 +19,20 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
+import org.eclipse.gmf.examples.taipan.EscortShipOrder;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.LargeItem;
+import org.eclipse.gmf.examples.taipan.Order;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.Warship;
 
 /**
  * <!-- begin-user-doc -->
@@ -93,6 +97,34 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	private EClass emptyBoxEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass warshipEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass escortShipOrderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass besiegePortOrderEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -202,7 +234,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	public EReference getAquatory_Ships() {
-		return (EReference) aquatoryEClass.getEStructuralFeatures().get(1);
+		return (EReference) aquatoryEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -211,7 +243,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	public EReference getAquatory_Routes() {
-		return (EReference) aquatoryEClass.getEStructuralFeatures().get(2);
+		return (EReference) aquatoryEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -345,6 +377,69 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getWarship() {
+		return warshipEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWarship_Orders() {
+		return (EReference) warshipEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOrder() {
+		return orderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEscortShipOrder() {
+		return escortShipOrderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEscortShipOrder_Ship() {
+		return (EReference) escortShipOrderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBesiegePortOrder() {
+		return besiegePortOrderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBesiegePortOrder_Port() {
+		return (EReference) besiegePortOrderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRoute() {
 		return routeEClass;
 	}
@@ -434,12 +529,21 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		// Create classes and their features
 		aquatoryEClass = createEClass(AQUATORY);
 		createEReference(aquatoryEClass, AQUATORY__PORTS);
-		createEReference(aquatoryEClass, AQUATORY__SHIPS);
 		createEReference(aquatoryEClass, AQUATORY__ROUTES);
+		createEReference(aquatoryEClass, AQUATORY__SHIPS);
 
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__LOCATION);
 		createEReference(portEClass, PORT__BUILDINGS);
+
+		buildingEClass = createEClass(BUILDING);
+		createEAttribute(buildingEClass, BUILDING__ADDRESS);
+
+		routeEClass = createEClass(ROUTE);
+		createEReference(routeEClass, ROUTE__SOURCE);
+		createEReference(routeEClass, ROUTE__DESTINATION);
+		createEAttribute(routeEClass, ROUTE__DESCRIPTION);
+		createEAttribute(routeEClass, ROUTE__RELIABILITY);
 
 		shipEClass = createEClass(SHIP);
 		createEAttribute(shipEClass, SHIP__NAME);
@@ -457,14 +561,16 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		emptyBoxEClass = createEClass(EMPTY_BOX);
 
-		routeEClass = createEClass(ROUTE);
-		createEReference(routeEClass, ROUTE__SOURCE);
-		createEReference(routeEClass, ROUTE__DESTINATION);
-		createEAttribute(routeEClass, ROUTE__DESCRIPTION);
-		createEAttribute(routeEClass, ROUTE__RELIABILITY);
+		warshipEClass = createEClass(WARSHIP);
+		createEReference(warshipEClass, WARSHIP__ORDERS);
 
-		buildingEClass = createEClass(BUILDING);
-		createEAttribute(buildingEClass, BUILDING__ADDRESS);
+		orderEClass = createEClass(ORDER);
+
+		escortShipOrderEClass = createEClass(ESCORT_SHIP_ORDER);
+		createEReference(escortShipOrderEClass, ESCORT_SHIP_ORDER__SHIP);
+
+		besiegePortOrderEClass = createEClass(BESIEGE_PORT_ORDER);
+		createEReference(besiegePortOrderEClass, BESIEGE_PORT_ORDER__PORT);
 	}
 
 	/**
@@ -491,29 +597,42 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
-		// Create type parameters
-
-		// Set bounds for type parameters
-
 		// Add supertypes to classes
 		largeItemEClass.getESuperTypes().add(this.getItem());
 		smallItemsEClass.getESuperTypes().add(this.getItem());
 		emptyBoxEClass.getESuperTypes().add(this.getItem());
+		warshipEClass.getESuperTypes().add(this.getShip());
+		escortShipOrderEClass.getESuperTypes().add(this.getOrder());
+		besiegePortOrderEClass.getESuperTypes().add(this.getOrder());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(aquatoryEClass, Aquatory.class, "Aquatory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getAquatory_Ports(), this.getPort(), null,
 				"ports", null, 0, -1, Aquatory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAquatory_Ships(), this.getShip(), null,
-				"ships", null, 0, -1, Aquatory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getAquatory_Routes(), this.getRoute(), null,
 				"routes", null, 0, -1, Aquatory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAquatory_Ships(), this.getShip(), null,
+				"ships", null, 0, -1, Aquatory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getPort_Location(), ecorePackage.getEString(),
 				"location", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getPort_Buildings(), this.getBuilding(), null,
 				"buildings", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(buildingEClass, Building.class, "Building", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getBuilding_Address(), ecorePackage.getEString(),
+				"address", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getRoute_Source(), this.getPort(), null,
+				"source", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getRoute_Destination(), this.getPort(), null,
+				"destination", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRoute_Description(), ecorePackage.getEString(),
+				"description", null, 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRoute_Reliability(), ecorePackage.getEDouble(),
+				"reliability", "1", 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 
 		initEClass(shipEClass, Ship.class, "Ship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getShip_Name(), ecorePackage.getEString(),
@@ -537,19 +656,19 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		initEClass(emptyBoxEClass, EmptyBox.class, "EmptyBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getRoute_Source(), this.getPort(), null,
-				"source", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRoute_Destination(), this.getPort(), null,
-				"destination", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRoute_Description(), ecorePackage.getEString(),
-				"description", null, 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRoute_Reliability(), ecorePackage.getEDouble(),
-				"reliability", "1", 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEClass(warshipEClass, Warship.class, "Warship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getWarship_Orders(), this.getOrder(), null,
+				"orders", null, 0, -1, Warship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(buildingEClass, Building.class, "Building", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getBuilding_Address(), ecorePackage.getEString(),
-				"address", null, 0, 1, Building.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(orderEClass, Order.class, "Order", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(escortShipOrderEClass, EscortShipOrder.class, "EscortShipOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEscortShipOrder_Ship(), this.getShip(), null,
+				"ship", null, 1, 1, EscortShipOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(besiegePortOrderEClass, BesiegePortOrder.class, "BesiegePortOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getBesiegePortOrder_Port(), this.getPort(), null,
+				"port", null, 1, 1, BesiegePortOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Create resource
 		createResource(eNS_URI);

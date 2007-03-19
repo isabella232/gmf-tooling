@@ -104,10 +104,9 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID)
-		{
-			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-				return new Integer(getQuantity());
+		switch (featureID) {
+		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+			return new Integer(getQuantity());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -119,11 +118,10 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID)
-		{
-			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-				setQuantity(((Integer)newValue).intValue());
-				return;
+		switch (featureID) {
+		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+			setQuantity(((Integer) newValue).intValue());
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -135,11 +133,10 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-				setQuantity(QUANTITY_EDEFAULT);
-				return;
+		switch (featureID) {
+		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+			setQuantity(QUANTITY_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -151,10 +148,9 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-				return quantity != QUANTITY_EDEFAULT;
+		switch (featureID) {
+		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
+			return quantity != QUANTITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -166,7 +162,8 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (quantity: "); //$NON-NLS-1$

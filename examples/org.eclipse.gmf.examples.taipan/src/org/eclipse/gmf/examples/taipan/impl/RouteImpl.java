@@ -133,12 +133,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 */
 	public Port getSource() {
-		if (source != null && source.eIsProxy())
-		{
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (Port)eResolveProxy(oldSource);
-			if (source != oldSource)
-			{
+		if (source != null && source.eIsProxy()) {
+			InternalEObject oldSource = (InternalEObject) source;
+			source = (Port) eResolveProxy(oldSource);
+			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__SOURCE, oldSource, source));
 			}
@@ -173,12 +171,10 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 */
 	public Port getDestination() {
-		if (destination != null && destination.eIsProxy())
-		{
-			InternalEObject oldDestination = (InternalEObject)destination;
-			destination = (Port)eResolveProxy(oldDestination);
-			if (destination != oldDestination)
-			{
+		if (destination != null && destination.eIsProxy()) {
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (Port) eResolveProxy(oldDestination);
+			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__DESTINATION, oldDestination, destination));
 			}
@@ -256,18 +252,19 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID)
-		{
-			case TaiPanPackage.ROUTE__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
-			case TaiPanPackage.ROUTE__DESTINATION:
-				if (resolve) return getDestination();
-				return basicGetDestination();
-			case TaiPanPackage.ROUTE__DESCRIPTION:
-				return getDescription();
-			case TaiPanPackage.ROUTE__RELIABILITY:
-				return new Double(getReliability());
+		switch (featureID) {
+		case TaiPanPackage.ROUTE__SOURCE:
+			if (resolve)
+				return getSource();
+			return basicGetSource();
+		case TaiPanPackage.ROUTE__DESTINATION:
+			if (resolve)
+				return getDestination();
+			return basicGetDestination();
+		case TaiPanPackage.ROUTE__DESCRIPTION:
+			return getDescription();
+		case TaiPanPackage.ROUTE__RELIABILITY:
+			return new Double(getReliability());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -279,20 +276,19 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID)
-		{
-			case TaiPanPackage.ROUTE__SOURCE:
-				setSource((Port)newValue);
-				return;
-			case TaiPanPackage.ROUTE__DESTINATION:
-				setDestination((Port)newValue);
-				return;
-			case TaiPanPackage.ROUTE__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case TaiPanPackage.ROUTE__RELIABILITY:
-				setReliability(((Double)newValue).doubleValue());
-				return;
+		switch (featureID) {
+		case TaiPanPackage.ROUTE__SOURCE:
+			setSource((Port) newValue);
+			return;
+		case TaiPanPackage.ROUTE__DESTINATION:
+			setDestination((Port) newValue);
+			return;
+		case TaiPanPackage.ROUTE__DESCRIPTION:
+			setDescription((String) newValue);
+			return;
+		case TaiPanPackage.ROUTE__RELIABILITY:
+			setReliability(((Double) newValue).doubleValue());
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -304,20 +300,19 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.ROUTE__SOURCE:
-				setSource((Port)null);
-				return;
-			case TaiPanPackage.ROUTE__DESTINATION:
-				setDestination((Port)null);
-				return;
-			case TaiPanPackage.ROUTE__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case TaiPanPackage.ROUTE__RELIABILITY:
-				setReliability(RELIABILITY_EDEFAULT);
-				return;
+		switch (featureID) {
+		case TaiPanPackage.ROUTE__SOURCE:
+			setSource((Port) null);
+			return;
+		case TaiPanPackage.ROUTE__DESTINATION:
+			setDestination((Port) null);
+			return;
+		case TaiPanPackage.ROUTE__DESCRIPTION:
+			setDescription(DESCRIPTION_EDEFAULT);
+			return;
+		case TaiPanPackage.ROUTE__RELIABILITY:
+			setReliability(RELIABILITY_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -329,16 +324,15 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.ROUTE__SOURCE:
-				return source != null;
-			case TaiPanPackage.ROUTE__DESTINATION:
-				return destination != null;
-			case TaiPanPackage.ROUTE__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case TaiPanPackage.ROUTE__RELIABILITY:
-				return reliability != RELIABILITY_EDEFAULT;
+		switch (featureID) {
+		case TaiPanPackage.ROUTE__SOURCE:
+			return source != null;
+		case TaiPanPackage.ROUTE__DESTINATION:
+			return destination != null;
+		case TaiPanPackage.ROUTE__DESCRIPTION:
+			return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+		case TaiPanPackage.ROUTE__RELIABILITY:
+			return reliability != RELIABILITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -350,7 +344,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (description: "); //$NON-NLS-1$

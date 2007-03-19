@@ -31,7 +31,7 @@ import org.eclipse.gmf.examples.taipan.*;
  * @see org.eclipse.gmf.examples.taipan.TaiPanPackage
  * @generated
  */
-public class TaiPanSwitch<T> {
+public class TaiPanSwitch {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -39,6 +39,7 @@ public class TaiPanSwitch<T> {
 	 * @generated
 	 */
 	public static final String copyright = ""; //$NON-NLS-1$
+
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -54,8 +55,7 @@ public class TaiPanSwitch<T> {
 	 * @generated
 	 */
 	public TaiPanSwitch() {
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = TaiPanPackage.eINSTANCE;
 		}
 	}
@@ -67,7 +67,7 @@ public class TaiPanSwitch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public T doSwitch(EObject theEObject) {
+	public Object doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -78,18 +78,12 @@ public class TaiPanSwitch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected T doSwitch(EClass theEClass, EObject theEObject) {
-		if (theEClass.eContainer() == modelPackage)
-		{
+	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
-		}
-		else
-		{
-			List<EClass> eSuperTypes = theEClass.getESuperTypes();
-			return
-				eSuperTypes.isEmpty() ?
-					defaultCase(theEObject) :
-					doSwitch(eSuperTypes.get(0), theEObject);
+		} else {
+			List eSuperTypes = theEClass.getESuperTypes();
+			return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch((EClass) eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -100,76 +94,113 @@ public class TaiPanSwitch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected T doSwitch(int classifierID, EObject theEObject) {
-		switch (classifierID)
-		{
-			case TaiPanPackage.AQUATORY:
-			{
-				Aquatory aquatory = (Aquatory)theEObject;
-				T result = caseAquatory(aquatory);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.PORT:
-			{
-				Port port = (Port)theEObject;
-				T result = casePort(port);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.SHIP:
-			{
-				Ship ship = (Ship)theEObject;
-				T result = caseShip(ship);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.ITEM:
-			{
-				Item item = (Item)theEObject;
-				T result = caseItem(item);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.LARGE_ITEM:
-			{
-				LargeItem largeItem = (LargeItem)theEObject;
-				T result = caseLargeItem(largeItem);
-				if (result == null) result = caseItem(largeItem);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.SMALL_ITEMS:
-			{
-				SmallItems smallItems = (SmallItems)theEObject;
-				T result = caseSmallItems(smallItems);
-				if (result == null) result = caseItem(smallItems);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.EMPTY_BOX:
-			{
-				EmptyBox emptyBox = (EmptyBox)theEObject;
-				T result = caseEmptyBox(emptyBox);
-				if (result == null) result = caseItem(emptyBox);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.ROUTE:
-			{
-				Route route = (Route)theEObject;
-				T result = caseRoute(route);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TaiPanPackage.BUILDING:
-			{
-				Building building = (Building)theEObject;
-				T result = caseBuilding(building);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			default: return defaultCase(theEObject);
+	protected Object doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+		case TaiPanPackage.AQUATORY: {
+			Aquatory aquatory = (Aquatory) theEObject;
+			Object result = caseAquatory(aquatory);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.PORT: {
+			Port port = (Port) theEObject;
+			Object result = casePort(port);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.BUILDING: {
+			Building building = (Building) theEObject;
+			Object result = caseBuilding(building);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.ROUTE: {
+			Route route = (Route) theEObject;
+			Object result = caseRoute(route);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.SHIP: {
+			Ship ship = (Ship) theEObject;
+			Object result = caseShip(ship);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.ITEM: {
+			Item item = (Item) theEObject;
+			Object result = caseItem(item);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.LARGE_ITEM: {
+			LargeItem largeItem = (LargeItem) theEObject;
+			Object result = caseLargeItem(largeItem);
+			if (result == null)
+				result = caseItem(largeItem);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.SMALL_ITEMS: {
+			SmallItems smallItems = (SmallItems) theEObject;
+			Object result = caseSmallItems(smallItems);
+			if (result == null)
+				result = caseItem(smallItems);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.EMPTY_BOX: {
+			EmptyBox emptyBox = (EmptyBox) theEObject;
+			Object result = caseEmptyBox(emptyBox);
+			if (result == null)
+				result = caseItem(emptyBox);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.WARSHIP: {
+			Warship warship = (Warship) theEObject;
+			Object result = caseWarship(warship);
+			if (result == null)
+				result = caseShip(warship);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.ORDER: {
+			Order order = (Order) theEObject;
+			Object result = caseOrder(order);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.ESCORT_SHIP_ORDER: {
+			EscortShipOrder escortShipOrder = (EscortShipOrder) theEObject;
+			Object result = caseEscortShipOrder(escortShipOrder);
+			if (result == null)
+				result = caseOrder(escortShipOrder);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.BESIEGE_PORT_ORDER: {
+			BesiegePortOrder besiegePortOrder = (BesiegePortOrder) theEObject;
+			Object result = caseBesiegePortOrder(besiegePortOrder);
+			if (result == null)
+				result = caseOrder(besiegePortOrder);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		default:
+			return defaultCase(theEObject);
 		}
 	}
 
@@ -184,7 +215,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAquatory(Aquatory object) {
+	public Object caseAquatory(Aquatory object) {
 		return null;
 	}
 
@@ -199,7 +230,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePort(Port object) {
+	public Object casePort(Port object) {
 		return null;
 	}
 
@@ -214,7 +245,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseShip(Ship object) {
+	public Object caseShip(Ship object) {
 		return null;
 	}
 
@@ -229,7 +260,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseItem(Item object) {
+	public Object caseItem(Item object) {
 		return null;
 	}
 
@@ -244,7 +275,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseLargeItem(LargeItem object) {
+	public Object caseLargeItem(LargeItem object) {
 		return null;
 	}
 
@@ -259,7 +290,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSmallItems(SmallItems object) {
+	public Object caseSmallItems(SmallItems object) {
 		return null;
 	}
 
@@ -274,7 +305,67 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEmptyBox(EmptyBox object) {
+	public Object caseEmptyBox(EmptyBox object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Warship</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Warship</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseWarship(Warship object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Order</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseOrder(Order object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Escort Ship Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Escort Ship Order</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseEscortShipOrder(EscortShipOrder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Besiege Port Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Besiege Port Order</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBesiegePortOrder(BesiegePortOrder object) {
 		return null;
 	}
 
@@ -289,7 +380,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseRoute(Route object) {
+	public Object caseRoute(Route object) {
 		return null;
 	}
 
@@ -304,7 +395,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBuilding(Building object) {
+	public Object caseBuilding(Building object) {
 		return null;
 	}
 
@@ -319,7 +410,7 @@ public class TaiPanSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public T defaultCase(EObject object) {
+	public Object defaultCase(EObject object) {
 		return null;
 	}
 

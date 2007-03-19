@@ -105,10 +105,9 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID)
-		{
-			case TaiPanPackage.BUILDING__ADDRESS:
-				return getAddress();
+		switch (featureID) {
+		case TaiPanPackage.BUILDING__ADDRESS:
+			return getAddress();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -120,11 +119,10 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID)
-		{
-			case TaiPanPackage.BUILDING__ADDRESS:
-				setAddress((String)newValue);
-				return;
+		switch (featureID) {
+		case TaiPanPackage.BUILDING__ADDRESS:
+			setAddress((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -136,11 +134,10 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.BUILDING__ADDRESS:
-				setAddress(ADDRESS_EDEFAULT);
-				return;
+		switch (featureID) {
+		case TaiPanPackage.BUILDING__ADDRESS:
+			setAddress(ADDRESS_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -152,10 +149,9 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID)
-		{
-			case TaiPanPackage.BUILDING__ADDRESS:
-				return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
+		switch (featureID) {
+		case TaiPanPackage.BUILDING__ADDRESS:
+			return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -167,7 +163,8 @@ public class BuildingImpl extends EObjectImpl implements Building {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (address: "); //$NON-NLS-1$

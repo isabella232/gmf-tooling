@@ -24,8 +24,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getPorts <em>Ports</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getShips <em>Ships</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getRoutes <em>Routes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getShips <em>Ships</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,7 +56,7 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Port" containment="true"
 	 * @generated
 	 */
-	EList<Port> getPorts();
+	EList getPorts();
 
 	/**
 	 * Returns the value of the '<em><b>Ships</b></em>' containment reference list.
@@ -72,7 +72,7 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Ship" containment="true"
 	 * @generated
 	 */
-	EList<Ship> getShips();
+	EList getShips();
 
 	/**
 	 * Returns the value of the '<em><b>Routes</b></em>' containment reference list.
@@ -88,6 +88,6 @@ public interface Aquatory extends EObject {
 	 * @model type="org.eclipse.gmf.examples.taipan.Route" containment="true"
 	 * @generated
 	 */
-	EList<Route> getRoutes();
+	EList getRoutes();
 
 } // Aquatory
