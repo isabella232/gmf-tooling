@@ -17,6 +17,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 
@@ -87,16 +88,20 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * @generated
 	 */
 	protected IAction showPropertiesViewAction = new Action(TaiPanEditorPlugin.INSTANCE.getString("_UI_ShowPropertiesView_menu_item")) //$NON-NLS-1$
-	{
-
-		public void run() {
-			try {
-				getPage().showView("org.eclipse.ui.views.PropertySheet"); //$NON-NLS-1$
-			} catch (PartInitException exception) {
-				TaiPanEditorPlugin.INSTANCE.log(exception);
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					getPage().showView("org.eclipse.ui.views.PropertySheet"); //$NON-NLS-1$
+				}
+				catch (PartInitException exception)
+				{
+					TaiPanEditorPlugin.INSTANCE.log(exception);
+				}
 			}
-		}
-	};
+		};
 
 	/**
 	 * This action refreshes the viewer of the current editor if the editor
@@ -106,21 +111,26 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * @generated
 	 */
 	protected IAction refreshViewerAction = new Action(TaiPanEditorPlugin.INSTANCE.getString("_UI_RefreshViewer_menu_item")) //$NON-NLS-1$
-	{
+		{
+			@Override
+			public boolean isEnabled()
+			{
+				return activeEditorPart instanceof IViewerProvider;
+			}
 
-		public boolean isEnabled() {
-			return activeEditorPart instanceof IViewerProvider;
-		}
-
-		public void run() {
-			if (activeEditorPart instanceof IViewerProvider) {
-				Viewer viewer = ((IViewerProvider) activeEditorPart).getViewer();
-				if (viewer != null) {
-					viewer.refresh();
+			@Override
+			public void run()
+			{
+				if (activeEditorPart instanceof IViewerProvider)
+				{
+					Viewer viewer = ((IViewerProvider)activeEditorPart).getViewer();
+					if (viewer != null)
+					{
+						viewer.refresh();
+					}
 				}
 			}
-		}
-	};
+		};
 
 	/**
 	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
@@ -129,7 +139,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection createChildActions;
+	protected Collection<IAction> createChildActions;
 
 	/**
 	 * This is the menu manager into which menu contribution items should be added for CreateChild actions.
@@ -146,7 +156,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection createSiblingActions;
+	protected Collection<IAction> createSiblingActions;
 
 	/**
 	 * This is the menu manager into which menu contribution items should be added for CreateSibling actions.
@@ -175,6 +185,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		toolBarManager.add(new Separator("taipan-settings")); //$NON-NLS-1$
 		toolBarManager.add(new Separator("taipan-additions")); //$NON-NLS-1$
@@ -187,6 +198,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void contributeToMenu(IMenuManager menuManager) {
 		super.contributeToMenu(menuManager);
 
@@ -209,12 +221,14 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 
 		// Force an update because Eclipse hides empty menus now.
 		//
-		submenuManager.addMenuListener(new IMenuListener() {
-
-			public void menuAboutToShow(IMenuManager menuManager) {
-				menuManager.updateAll(true);
-			}
-		});
+		submenuManager.addMenuListener
+			(new IMenuListener()
+			 {
+				 public void menuAboutToShow(IMenuManager menuManager)
+				 {
+					 menuManager.updateAll(true);
+				 }
+			 });
 
 		addGlobalActions(submenuManager);
 	}
@@ -225,24 +239,30 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActiveEditor(IEditorPart part) {
 		super.setActiveEditor(part);
 		activeEditorPart = part;
 
 		// Switch to the new selection provider.
 		//
-		if (selectionProvider != null) {
+		if (selectionProvider != null)
+		{
 			selectionProvider.removeSelectionChangedListener(this);
 		}
-		if (part == null) {
+		if (part == null)
+		{
 			selectionProvider = null;
-		} else {
+		}
+		else
+		{
 			selectionProvider = part.getSite().getSelectionProvider();
 			selectionProvider.addSelectionChangedListener(this);
 
 			// Fake a selection changed event to update the menus.
 			//
-			if (selectionProvider.getSelection() != null) {
+			if (selectionProvider.getSelection() != null)
+			{
 				selectionChanged(new SelectionChangedEvent(selectionProvider, selectionProvider.getSelection()));
 			}
 		}
@@ -259,23 +279,26 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	public void selectionChanged(SelectionChangedEvent event) {
 		// Remove any menu items for old selection.
 		//
-		if (createChildMenuManager != null) {
+		if (createChildMenuManager != null)
+		{
 			depopulateManager(createChildMenuManager, createChildActions);
 		}
-		if (createSiblingMenuManager != null) {
+		if (createSiblingMenuManager != null)
+		{
 			depopulateManager(createSiblingMenuManager, createSiblingActions);
 		}
 
 		// Query the new selection for appropriate new child/sibling descriptors
 		//
-		Collection newChildDescriptors = null;
-		Collection newSiblingDescriptors = null;
+		Collection<CommandParameter> newChildDescriptors = null;
+		Collection<CommandParameter> newSiblingDescriptors = null;
 
 		ISelection selection = event.getSelection();
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			Object object = ((IStructuredSelection) selection).getFirstElement();
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1)
+		{
+			Object object = ((IStructuredSelection)selection).getFirstElement();
 
-			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
+			EditingDomain domain = ((IEditingDomainProvider)activeEditorPart).getEditingDomain();
 
 			newChildDescriptors = domain.getNewChildDescriptors(object, null);
 			newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
@@ -286,11 +309,13 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 		createChildActions = generateCreateChildActions(newChildDescriptors, selection);
 		createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, selection);
 
-		if (createChildMenuManager != null) {
+		if (createChildMenuManager != null)
+		{
 			populateManager(createChildMenuManager, createChildActions, null);
 			createChildMenuManager.update(true);
 		}
-		if (createSiblingMenuManager != null) {
+		if (createSiblingMenuManager != null)
+		{
 			populateManager(createSiblingMenuManager, createSiblingActions, null);
 			createSiblingMenuManager.update(true);
 		}
@@ -303,11 +328,13 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection generateCreateChildActions(Collection descriptors, ISelection selection) {
-		Collection actions = new ArrayList();
-		if (descriptors != null) {
-			for (Iterator i = descriptors.iterator(); i.hasNext();) {
-				actions.add(new CreateChildAction(activeEditorPart, selection, i.next()));
+	protected Collection<IAction> generateCreateChildActions(Collection<? extends CommandParameter> descriptors, ISelection selection) {
+		Collection<IAction> actions = new ArrayList<IAction>();
+		if (descriptors != null)
+		{
+			for (CommandParameter descriptor : descriptors)
+			{
+				actions.add(new CreateChildAction(activeEditorPart, selection, descriptor));
 			}
 		}
 		return actions;
@@ -320,11 +347,13 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection generateCreateSiblingActions(Collection descriptors, ISelection selection) {
-		Collection actions = new ArrayList();
-		if (descriptors != null) {
-			for (Iterator i = descriptors.iterator(); i.hasNext();) {
-				actions.add(new CreateSiblingAction(activeEditorPart, selection, i.next()));
+	protected Collection<IAction> generateCreateSiblingActions(Collection<? extends CommandParameter> descriptors, ISelection selection) {
+		Collection<IAction> actions = new ArrayList<IAction>();
+		if (descriptors != null)
+		{
+			for (CommandParameter descriptor : descriptors)
+			{
+				actions.add(new CreateSiblingAction(activeEditorPart, selection, descriptor));
 			}
 		}
 		return actions;
@@ -339,13 +368,17 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void populateManager(IContributionManager manager, Collection actions, String contributionID) {
-		if (actions != null) {
-			for (Iterator i = actions.iterator(); i.hasNext();) {
-				IAction action = (IAction) i.next();
-				if (contributionID != null) {
+	protected void populateManager(IContributionManager manager, Collection<? extends IAction> actions, String contributionID) {
+		if (actions != null)
+		{
+			for (IAction action : actions)
+			{
+				if (contributionID != null)
+				{
 					manager.insertBefore(contributionID, action);
-				} else {
+				}
+				else
+				{
 					manager.add(action);
 				}
 			}
@@ -359,22 +392,27 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void depopulateManager(IContributionManager manager, Collection actions) {
-		if (actions != null) {
+	protected void depopulateManager(IContributionManager manager, Collection<? extends IAction> actions) {
+		if (actions != null)
+		{
 			IContributionItem[] items = manager.getItems();
-			for (int i = 0; i < items.length; i++) {
+			for (int i = 0; i < items.length; i++)
+			{
 				// Look into SubContributionItems
 				//
 				IContributionItem contributionItem = items[i];
-				while (contributionItem instanceof SubContributionItem) {
-					contributionItem = ((SubContributionItem) contributionItem).getInnerItem();
+				while (contributionItem instanceof SubContributionItem)
+				{
+					contributionItem = ((SubContributionItem)contributionItem).getInnerItem();
 				}
 
 				// Delete the ActionContributionItems with matching action.
 				//
-				if (contributionItem instanceof ActionContributionItem) {
-					IAction action = ((ActionContributionItem) contributionItem).getAction();
-					if (actions.contains(action)) {
+				if (contributionItem instanceof ActionContributionItem)
+				{
+					IAction action = ((ActionContributionItem)contributionItem).getAction();
+					if (actions.contains(action))
+					{
 						manager.remove(contributionItem);
 					}
 				}
@@ -388,6 +426,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void menuAboutToShow(IMenuManager menuManager) {
 		super.menuAboutToShow(menuManager);
 		MenuManager submenuManager = null;
@@ -407,11 +446,12 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void addGlobalActions(IMenuManager menuManager) {
 		menuManager.insertAfter("additions-end", new Separator("ui-actions")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuManager.insertAfter("ui-actions", showPropertiesViewAction); //$NON-NLS-1$
 
-		refreshViewerAction.setEnabled(refreshViewerAction.isEnabled());
+		refreshViewerAction.setEnabled(refreshViewerAction.isEnabled());		
 		menuManager.insertAfter("ui-actions", refreshViewerAction); //$NON-NLS-1$
 
 		super.addGlobalActions(menuManager);
@@ -423,6 +463,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean removeAllReferencesOnDelete() {
 		return true;
 	}

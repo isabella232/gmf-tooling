@@ -55,7 +55,10 @@ public final class TaiPanEditorPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public TaiPanEditorPlugin() {
-		super(new ResourceLocator[] {});
+		super
+			(new ResourceLocator [] 
+			{
+			});
 	}
 
 	/**
@@ -65,6 +68,7 @@ public final class TaiPanEditorPlugin extends EMFPlugin {
 	 * @return the singleton instance.
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}
@@ -96,7 +100,7 @@ public final class TaiPanEditorPlugin extends EMFPlugin {
 		 */
 		public Implementation() {
 			super();
-
+	
 			// Remember the static instance.
 			//
 			plugin = this;
