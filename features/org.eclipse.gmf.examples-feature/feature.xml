@@ -26,47 +26,56 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.gmf.runtime.common.core"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.notation"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.core"/>
+      <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.common.core" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.notation" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.change" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.clipboard.core" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.examples.library.editor" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.ide" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.core" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui.services" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.render" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.geoshapes" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.edit" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gef" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.draw2d" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui.action.ide" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.gef.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.commands.core" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.examples.runtime.diagram.logic.model" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.examples.runtime.diagram.logic.model.edit" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui.services.dnd" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.edit.ui" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.type.core" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.jface"/>
-      <import plugin="org.eclipse.emf.examples.library"/>
-      <import plugin="org.eclipse.emf.examples.library.edit"/>
-      <import plugin="org.eclipse.emf.examples.library.editor"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui"/>
-      <import plugin="org.eclipse.emf.ecore.change"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.clipboard.core"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.gef"/>
-      <import plugin="org.eclipse.draw2d"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
-      <import plugin="org.eclipse.gmf.runtime.notation.edit"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui.services"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui.action.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.gef.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
-      <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
-      <import plugin="org.eclipse.emf.edit.ui"/>
-      <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
       <import plugin="org.eclipse.ui.views"/>
-      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
+      <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
       <import plugin="org.eclipse.emf.query.ocl"/>
+      <import plugin="org.eclipse.emf.ocl"/>
+      <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.workspace.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.transaction" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.transaction.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.workspace" version="1.0.0" match="compatible"/>
    </requires>
 
    <plugin
