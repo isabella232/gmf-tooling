@@ -360,10 +360,10 @@
     </links>
     <links
         visualID="4002"
-        editPartClassName="RouteEditPart"
-        itemSemanticEditPolicyClassName="RouteItemSemanticEditPolicy"
-        notationViewFactoryClassName="RouteViewFactory"
-        reorientCommandClassName="RouteReorientCommand">
+        editPartClassName="ReliableRouteEditPart"
+        itemSemanticEditPolicyClassName="ReliableRouteItemSemanticEditPolicy"
+        notationViewFactoryClassName="ReliableRouteViewFactory"
+        reorientCommandClassName="ReliableRouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
@@ -379,7 +379,7 @@
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="RouteTypeLinkCreateCommand">
+          createCommandClassName="ReliableRouteCreateCommand">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -404,9 +404,9 @@
       </modelFacet>
       <labels
           visualID="6002"
-          editPartClassName="RouteDescriptionEditPart"
-          itemSemanticEditPolicyClassName="RouteDescriptionItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteDescriptionViewFactory"
+          editPartClassName="ReliableRouteDescEditPart"
+          itemSemanticEditPolicyClassName="ReliableRouteDescItemSemanticEditPolicy"
+          notationViewFactoryClassName="ReliableRouteDescViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -430,9 +430,9 @@
       </labels>
       <labels
           visualID="6003"
-          editPartClassName="RouteReliabilityEditPart"
-          itemSemanticEditPolicyClassName="RouteReliabilityItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteReliabilityViewFactory">
+          editPartClassName="ReliableRouteRelbEditPart"
+          itemSemanticEditPolicyClassName="ReliableRouteRelbItemSemanticEditPolicy"
+          notationViewFactoryClassName="ReliableRouteRelbViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -456,10 +456,10 @@
     </links>
     <links
         visualID="4003"
-        editPartClassName="Route2EditPart"
-        itemSemanticEditPolicyClassName="Route2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="Route2ViewFactory"
-        reorientCommandClassName="Route2ReorientCommand">
+        editPartClassName="UnreliableRouteEditPart"
+        itemSemanticEditPolicyClassName="UnreliableRouteItemSemanticEditPolicy"
+        notationViewFactoryClassName="UnreliableRouteViewFactory"
+        reorientCommandClassName="UnreliableRouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
@@ -476,7 +476,7 @@
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="Route2TypeLinkCreateCommand">
+          createCommandClassName="UnreliableRouteCreateCommand">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -501,9 +501,9 @@
       </modelFacet>
       <labels
           visualID="6004"
-          editPartClassName="RouteDescription2EditPart"
-          itemSemanticEditPolicyClassName="RouteDescription2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteDescription2ViewFactory"
+          editPartClassName="UnreliableRouteDescEditPart"
+          itemSemanticEditPolicyClassName="UnreliableRouteDescItemSemanticEditPolicy"
+          notationViewFactoryClassName="UnreliableRouteDescViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -527,9 +527,9 @@
       </labels>
       <labels
           visualID="6005"
-          editPartClassName="RouteReliability2EditPart"
-          itemSemanticEditPolicyClassName="RouteReliability2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteReliability2ViewFactory">
+          editPartClassName="UnreliableRouteRelbEditPart"
+          itemSemanticEditPolicyClassName="UnreliableRouteRelbItemSemanticEditPolicy"
+          notationViewFactoryClassName="UnreliableRouteRelbViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
