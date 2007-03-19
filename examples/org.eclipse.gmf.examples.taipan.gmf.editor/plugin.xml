@@ -439,6 +439,7 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.resourceContent"/>
+			<contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.domainResourceContent"/>
             <contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorLinkHelper"/>
          </includes>
       </viewerContentBinding>
@@ -492,6 +493,33 @@
                </or>
             </parentExpression>
          </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanDomainNavigatorLabelProvider"
+            icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="taipan"/>
+               </and>
+               <and>
+                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
+                  <test property="org.eclipse.gmf.examples.taipan.gmf.editor.isDomainModelElement"/>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <and>
+       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
+       	       <test property="org.eclipse.gmf.examples.taipan.gmf.editor.isDomainModelElement"/>
+       	    </and>
+         </possibleChildren>
       </navigatorContent>
       <actionProvider
             id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorActionProvider"
@@ -626,6 +654,17 @@
                menubarPath="additions">
          </action>
       </objectContribution>           
+   </extension>
+
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.DomainModelElementTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDomainModelElementTester">
+       </propertyTester>
    </extension>
 
 </plugin>
