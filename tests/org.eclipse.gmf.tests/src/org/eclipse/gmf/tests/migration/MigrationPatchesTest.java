@@ -80,7 +80,7 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
 
-		EList warnings = loadHelper.getLoadedResource().getWarnings();
+		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
 		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
 		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationUtil.MigrationDiagnostic); //$NON-NLS-1$
 		assertTrue(loadHelper.getLoadedResource().getErrors().isEmpty());

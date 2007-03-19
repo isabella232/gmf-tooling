@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.gef;
 
-import java.util.Iterator;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PositionConstants;
@@ -25,9 +23,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -114,8 +110,7 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 			public void createAndCheckLabels(GenNode prototype, DiagramLabel eLabel, View notationContainer){
 				assertFalse(prototype.getLabels().isEmpty());
 				View node = createNode(prototype, notationContainer);
-				for (Iterator allLabels = prototype.getLabels().iterator(); allLabels.hasNext();){
-					GenLabel nextLabelType = (GenLabel)allLabels.next();
+				for (GenNodeLabel nextLabelType : prototype.getLabels()){
 					View notationLabel = findChildView(node, nextLabelType);
 					assertNotNull(notationLabel);
 					GraphicalEditPart labelEditPart = (GraphicalEditPart) findEditPart(notationLabel);
@@ -287,13 +282,11 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 		Node node = createNode(genNode, getCanvasInstance().getCanvas());
 		assertNotNull("Notation model Node was not created", node);
 	
-		for (Iterator it = genNode.getLabels().iterator(); it.hasNext();) {
-			GenNodeLabel nextLabel = (GenNodeLabel) it.next();
+		for (GenNodeLabel nextLabel : genNode.getLabels()) {
 			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(node, nextLabel));
 		}
 		
-		for (Iterator it = genNode.getCompartments().iterator(); it.hasNext();) {
-			GenCompartment nextCompartment = (GenCompartment) it.next();
+		for (GenCompartment nextCompartment : genNode.getCompartments()) {
 			assertNotNull("Notation model element was not created for compartment: " + nextCompartment.getVisualID(), findChildView(node, nextCompartment));			
 		}
 	}
@@ -301,10 +294,10 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	public void testCreateLeafChildNodeNotationElements() {
 		GenNode nodeA = getSetup().getGenModel().getNodeA();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeA.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeA.getCompartments().get(0);
+		GenCompartment genCompartment = nodeA.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 1);
 
-		GenNode leafGenChildNodeLabelOnly = (GenNode) genCompartment.getChildNodes().get(1);
+		GenNode leafGenChildNodeLabelOnly = genCompartment.getChildNodes().get(1);
 		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getChildNodes().size() == 0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getCompartments().size() == 0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getLabels().size() == 0);
@@ -313,13 +306,12 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 		assertNotNull("Node was not created", leafNode);
 		assertTrue("Leaf node has children", leafNode.getChildren().size() == 0);
 
-		GenNode leafGenChildNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode leafGenChildNode = genCompartment.getChildNodes().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getChildNodes().size() == 0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getCompartments().size() == 0);
 		leafNode = createNode(leafGenChildNode, getCanvasInstance().getNodeACompartment());
 		assertNotNull("Node was not created", leafNode);
-		for (Iterator it = leafGenChildNode.getLabels().iterator(); it.hasNext();) {
-			GenLabel nextLabel = (GenLabel) it.next();
+		for (GenNodeLabel nextLabel : leafGenChildNode.getLabels()) {
 			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(leafNode, nextLabel));
 		}
 	}
@@ -327,51 +319,50 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	public void testCreateInnerChildNodeNotationElements() {
 		GenNode nodeB = getSetup().getGenModel().getNodeB();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		GenCompartment genCompartment = nodeB.getCompartments().get(0);
 		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
 
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not level-1 child node", childNode.getCompartments().size() > 0);
-		GenCompartment childNodeCompartment = (GenCompartment) childNode.getCompartments().get(0);
+		GenCompartment childNodeCompartment = childNode.getCompartments().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not level-1 child node", childNodeCompartment.getChildNodes().size() > 0);
 		
 		Node level1Child = createNode(childNode, getCanvasInstance().getNodeBCompartment());
 		assertNotNull("Level1 ChildNode was not created", level1Child);
-		View level1Compartment = findChildView(level1Child, (GenCommonBase) childNode.getCompartments().get(0));
+		View level1Compartment = findChildView(level1Child, childNode.getCompartments().get(0));
 		assertNotNull("Level1 Compartment was not created", level1Compartment);
 		
-		GenNode recursiveChildNode = (GenNode) childNodeCompartment.getChildNodes().get(0);
+		GenNode recursiveChildNode = childNodeCompartment.getChildNodes().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNode.getChildNodes().size() == 0);
 		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNode.getCompartments().size() == 1);
-		GenCompartment recursiveChildNodeCompartment = (GenCompartment) childNode.getCompartments().get(0);
+		GenCompartment recursiveChildNodeCompartment = childNode.getCompartments().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNodeCompartment.getChildNodes().size() > 0);
 		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNodeCompartment.getChildNodes().get(0) == recursiveChildNode);
 
 		Node level2Child = createNode(recursiveChildNode, level1Compartment);
 		assertNotNull("Level2 ChildNode was not created", level2Child);
-		View level2Compartment = findChildView(level2Child, (GenCommonBase) recursiveChildNode.getCompartments().get(0));
+		View level2Compartment = findChildView(level2Child, recursiveChildNode.getCompartments().get(0));
 		assertNotNull("Level1 Compartment was not created", level2Compartment);
 
 		Node level3Child = createNode(recursiveChildNode, level2Compartment);
 		assertNotNull("Level2 ChildNode was not created", level3Child);
-		View level3Compartment = findChildView(level3Child, (GenCommonBase) recursiveChildNode.getCompartments().get(0));
+		View level3Compartment = findChildView(level3Child, recursiveChildNode.getCompartments().get(0));
 		assertNotNull("Level1 Compartment was not created", level3Compartment);
 	}
 	
 
 	public void testCreateChildNodeNotWithinCompartment() {
 		assertTrue("Incorrect Setup: GenModel with only two nodes", getSetup().getGenModel().getGenDiagram().getTopLevelNodes().size() > 2);
-		GenNode genNodeC = (GenNode) getSetup().getGenModel().getGenDiagram().getTopLevelNodes().get(2);
+		GenNode genNodeC = getSetup().getGenModel().getGenDiagram().getTopLevelNodes().get(2);
 		assertFalse("Incorrect Setup: passed node has compartments", genNodeC.getCompartments().size() > 0);
 		assertTrue("Incorrect Setup: passed node has no children", genNodeC.getChildNodes().size() > 0);
 
-		GenNode genChildNode = (GenNode) genNodeC.getChildNodes().get(0);
+		GenNode genChildNode = genNodeC.getChildNodes().get(0);
 
 		Node topLevelNode = createNode(genNodeC, getDiagram());
 		assertNotNull("Top level node was not created", topLevelNode);
 		assertTrue("Incorrect number of top-level node children was created", genNodeC.getLabels().size() == topLevelNode.getChildren().size());
-		for (Iterator it = genNodeC.getLabels().iterator(); it.hasNext();) {
-			GenNodeLabel nextLabel = (GenNodeLabel) it.next();
+		for (GenNodeLabel nextLabel : genNodeC.getLabels()) {
 			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(topLevelNode, nextLabel));
 		}
 		

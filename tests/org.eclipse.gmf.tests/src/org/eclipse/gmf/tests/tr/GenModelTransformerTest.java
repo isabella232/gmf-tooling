@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.tr;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -62,32 +60,29 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		assertNotNull("Diagram filename extension not set", transformationResult.getDiagramFileExtension());
 		// FIXME add more
 
-		GenNode genNode = (GenNode) findGenBaseElement(transformationResult.getDiagram().getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));
+		GenNode genNode = findGenBaseElement(transformationResult.getDiagram().getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));
 		assertNotNull("Result model contains no GenNode for nodeMapping", genNode);
 		// FIXME add more
 
-		GenLink genLink = (GenLink) findGenBaseElement(transformationResult.getDiagram().getLinks(), getEditPartNameStrategy().get(getLinkMapping()));
+		GenLink genLink = findGenBaseElement(transformationResult.getDiagram().getLinks(), getEditPartNameStrategy().get(getLinkMapping()));
 		assertNotNull("Result model contains no GenLink for linkMapping", genLink);
 		// FIXME add more
 	}
 	
 	public void testCreatedPalette() {
 		Palette palette = transformationResult.getDiagram().getPalette();
-		for (Iterator itN = getMapping().getNodes().iterator(); itN.hasNext();) {
-			final TopNodeReference topNode = (TopNodeReference) (itN.next());
+		for (TopNodeReference topNode : getMapping().getNodes()) {
 			final NodeMapping nodeMapping = topNode.getChild();
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(nodeMapping, palette));
 		}
-		for (Iterator itL = getMapping().getLinks().iterator(); itL.hasNext();) {
-			LinkMapping linkMapping = (LinkMapping) (itL.next());
+		for (LinkMapping linkMapping : getMapping().getLinks()) {
 			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(linkMapping, palette));
 		}
 		// TODO add grooping test
 	}
 
-	private GenCommonBase findGenBaseElement(EList/* <GenCommonBase> */genBaseElements, String epName) {
-		for (Iterator it = genBaseElements.iterator(); it.hasNext();) {
-			GenCommonBase next = (GenCommonBase) it.next();
+	private <T extends GenCommonBase> T findGenBaseElement(EList<T> genBaseElements, String epName) {
+		for (T next : genBaseElements) {
 			if (next.getEditPartClassName().equals(epName)) {
 				return next;
 			}
@@ -98,15 +93,12 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	private int countUses(NodeMapping mappingEntry, Palette palette) {
 		int uses = 0;
 		final String epName = getEditPartNameStrategy().get(mappingEntry);
-		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
-			ToolGroup nextGroup = (ToolGroup) (itG.next());
-			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
-				ToolGroupItem item = (ToolGroupItem) itE.next();
+		for (ToolGroup nextGroup : palette.getGroups()) {
+			for (ToolGroupItem item : nextGroup.getEntries()) {
 				if (false == item instanceof ToolEntry) {
 					continue;
 				}
-				for (Iterator itN = ((ToolEntry) item).getGenNodes().iterator(); itN.hasNext();) {
-					GenNode genNode = (GenNode) itN.next();
+				for (GenNode genNode : ((ToolEntry) item).getGenNodes()) {
 					if (genNode.getEditPartClassName().equals(epName)) {
 						uses++;
 					}
@@ -119,15 +111,12 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	private int countUses(LinkMapping mappingEntry, Palette palette) {
 		int uses = 0;
 		final String epName = getEditPartNameStrategy().get(mappingEntry);
-		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
-			ToolGroup nextGroup = (ToolGroup) (itG.next());
-			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
-				ToolGroupItem item = (ToolGroupItem) itE.next();
+		for (ToolGroup nextGroup : palette.getGroups()) {
+			for (ToolGroupItem item : nextGroup.getEntries()) {
 				if (false == item instanceof ToolEntry) {
 					continue;
 				}
-				for (Iterator itL = ((ToolEntry) item).getGenLinks().iterator(); itL.hasNext();) {
-					GenLink genLink = (GenLink) itL.next();
+				for (GenLink genLink : ((ToolEntry) item).getGenLinks()) {
 					if (genLink.getEditPartClassName().equals(epName)) {
 						uses++;
 					}

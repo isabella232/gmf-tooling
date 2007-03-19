@@ -150,15 +150,15 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	
 	private static class StaticFieldsChecker extends FigureCheck {
 		private final int myExpectedFieldCount;
-		private final Class myFieldClazz;
+		private final Class<?> myFieldClazz;
 
-		public StaticFieldsChecker(int expectedFieldCount, Class fieldClazz){
+		public StaticFieldsChecker(int expectedFieldCount, Class<?> fieldClazz){
 			myExpectedFieldCount = expectedFieldCount;
 			myFieldClazz = fieldClazz;
 		}
 		
 		protected void checkFigure(IFigure figure) {
-			Class figureClazz = figure.getClass();
+			Class<? extends IFigure> figureClazz = figure.getClass();
 			Field[] fields = figureClazz.getDeclaredFields();
 			int staticFinalFields = 0;
 			for (int i = 0; i < fields.length; i++){

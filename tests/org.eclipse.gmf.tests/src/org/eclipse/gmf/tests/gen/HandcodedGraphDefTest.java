@@ -107,7 +107,7 @@ public class HandcodedGraphDefTest extends TestCase {
 	}
 
 	private static void assertParentOfFirstChild(Figure figure) {
-		final FigureMarker child = (FigureMarker) figure.getChildren().get(0);
+		final FigureMarker child = figure.getChildren().get(0);
 		assertNotNull(child.getParent());
 		assertEquals(figure, child.getParent());
 	}

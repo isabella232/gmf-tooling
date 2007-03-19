@@ -99,11 +99,10 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		GenModel domainGenModel = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement().getGenPackage().getGenModel();
 		GenClass genClass = null;
 		String qualifiedClassName = null;
-		for (Iterator it = domainGenModel.getAllGenPackagesWithClassifiers().iterator(); it.hasNext();) {
-			GenPackage nextPackage = (GenPackage) it.next();
+		for (GenPackage nextPackage : domainGenModel.getAllGenPackagesWithClassifiers()) {
 			if(nextPackage.getSuperGenPackage() != null) {
 				assertFalse(nextPackage.getGenClasses().isEmpty());				
-				genClass = (GenClass)nextPackage.getGenClasses().get(0);
+				genClass = nextPackage.getGenClasses().get(0);
 				qualifiedClassName = nextPackage.getSuperGenPackage().getPackageName() + "." + //$NON-NLS-1$ 
 										nextPackage.getPackageName() + "." + genClass.getName(); //$NON-NLS-1$
 			}
@@ -182,7 +181,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			assertEquals("Constraint message must match", //$NON-NLS-1$
 				audit.getMessage(), descriptor.getMessagePattern());
 			// check categories
-			Set categories = descriptor.getCategories();
+			Set<?> categories = descriptor.getCategories();
 			assertEquals("Single category expected", 1, categories.size()); //$NON-NLS-1$
 
 			assertEquals(".Constraint category must be registered", //$NON-NLS-1$
@@ -224,7 +223,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			IValidationListener listener = new IValidationListener() {
 				public void validationOccurred(ValidationEvent event) {
 					boolean isTargetMatch = false;
-					for (Iterator it = event.getValidationTargets().iterator(); it.hasNext();) {
+					for (Iterator<?> it = event.getValidationTargets().iterator(); it.hasNext();) {
 						if(it.next() == target) {
 							isTargetMatch = true; //
 							break;
@@ -232,8 +231,8 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 					}
 					if(!isTargetMatch) return;
 
-					for (Iterator it = event.getValidationResults().iterator(); it.hasNext();) {
-						IConstraintStatus status = (IConstraintStatus) it.next();
+					for (@SuppressWarnings("unchecked") Iterator<IConstraintStatus> it = event.getValidationResults().iterator(); it.hasNext();) {
+						IConstraintStatus status = it.next();
 						if (constraintGlobalId(audit).equals(status.getConstraint().getDescriptor().getId())) {
 							constraintFound[0] = status.getConstraint();
 							break;
@@ -244,7 +243,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			Method validationMethod = null;
 			try {
-				Class validationProviderClass = loadGeneratedClass(getGenModel().getGenDiagram().getValidationProviderQualifiedClassName() + "$ValidateAction"); //$NON-NLS-1$
+				Class<?> validationProviderClass = loadGeneratedClass(getGenModel().getGenDiagram().getValidationProviderQualifiedClassName() + "$ValidateAction"); //$NON-NLS-1$
 				validationMethod = validationProviderClass.getMethod("runNonUIValidation", new Class[] { View.class } ); //$NON-NLS-1$
 			} catch (Exception e) {
 				fail(" Could not find runValidation operation in ValidationProvider"); //$NON-NLS-1$ 
@@ -274,12 +273,11 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			assertEquals("Category description must match", //$NON-NLS-1$
 					auditContainer.getDescription(), category.getDescription());		
 
-			for (Iterator it = auditContainer.getAudits().iterator(); it.hasNext();) {
-				AuditRule nextRule = (AuditRule) it.next();
+			for (AuditRule nextRule : auditContainer.getAudits()) {
 				assertAudit(nextRule);
 			}
-			for (Iterator it = auditContainer.getChildContainers().iterator(); it.hasNext();) {
-				assertAuditContainer((AuditContainer) it.next());
+			for (AuditContainer next : auditContainer.getChildContainers()) {
+				assertAuditContainer(next);
 			}
 		}
 
@@ -311,7 +309,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		}
 		assertNotNull("GenPackage for EClass target not found", genPackage); //$NON-NLS-1$		
 		try {
-			Class packageInterfaceClass = getSetup().getGenProject().getBundle().loadClass(genPackage.getQualifiedPackageInterfaceName());
+			Class<?> packageInterfaceClass = getSetup().getGenProject().getBundle().loadClass(genPackage.getQualifiedPackageInterfaceName());
 			Field instanceField = packageInterfaceClass.getField("eINSTANCE"); //$NON-NLS-1$
 			Object packageInstance = instanceField.get(packageInterfaceClass);
 			assertTrue("Expected EPackage instance", packageInstance instanceof EPackage); //$NON-NLS-1$

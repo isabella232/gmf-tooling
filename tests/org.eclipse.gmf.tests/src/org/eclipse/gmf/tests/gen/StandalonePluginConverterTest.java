@@ -104,10 +104,9 @@ public class StandalonePluginConverterTest extends TestCase {
 		
 		assertEquals(3, mirroredGallery.getFigures().size());
 		
-		for (Iterator mirroredFigures = mirroredGallery.getFigures().iterator(); mirroredFigures.hasNext();){
-			Figure next = (Figure) mirroredFigures.next();
-			assertTrue(next instanceof CustomFigure);
-			CustomFigure nextCustom = (CustomFigure)next;
+		for (Figure mirroredFigure : mirroredGallery.getFigures()) {
+			assertTrue(mirroredFigure instanceof CustomFigure);
+			CustomFigure nextCustom = (CustomFigure) mirroredFigure;
 			assertNotNull(nextCustom.getName());
 			// TODO assertEquals(original[x], nextCustom.getName());
 			assertEquals(config.getPluginID(), nextCustom.getBundleName());
@@ -119,7 +118,7 @@ public class StandalonePluginConverterTest extends TestCase {
 		GeneratedClassData[] mirroredClasses = FigureGeneratorUtil.generateAndCompile(mirroredGallery);
 		for (int i = 0; i < originals.length; i++){
 			Figure nextOriginal = originals[i];
-			Class nextClass = searchForFigureName(mirroredClasses, nextOriginal.getName());
+			Class<?> nextClass = searchForFigureName(mirroredClasses, nextOriginal.getName());
 			assertNotNull("Missed class for : " + nextOriginal.getName(), nextClass);
 			
 			new GenericFigureCheck(nextOriginal).go(nextClass);
@@ -224,8 +223,8 @@ public class StandalonePluginConverterTest extends TestCase {
 		return processor.getOutcome();
 	}
 
-	private static Class searchForFigureName(GeneratedClassData[] classes, String expectedName){
-		Class result = null;
+	private static Class<?> searchForFigureName(GeneratedClassData[] classes, String expectedName){
+		Class<?> result = null;
 		for (int i = 0; result == null && i < classes.length; i++){
 			if (expectedName.equals(classes[i].getFigureDef().getName())){
 				result = classes[i].getLoadedClass();
@@ -238,10 +237,10 @@ public class StandalonePluginConverterTest extends TestCase {
 		public Checker(){
 		}
 		
-		public void check(List originalsByType, List mirroredByType){
+		public void check(List<?> originalsByType, List<?> mirroredByType){
 			assertEquals(originalsByType.size(), mirroredByType.size());
-			Iterator allOriginals = originalsByType.iterator();
-			Iterator allMirrored = mirroredByType.iterator();
+			Iterator<?> allOriginals = originalsByType.iterator();
+			Iterator<?> allMirrored = mirroredByType.iterator();
 			while (allOriginals.hasNext() || allMirrored.hasNext()){
 				DiagramElement nextOriginal = (DiagramElement)allOriginals.next();
 				DiagramElement nextMirrored = (DiagramElement)allMirrored.next();

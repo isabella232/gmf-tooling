@@ -11,7 +11,6 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -44,8 +43,8 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 		assertTrue(
 				"Problem in gen-model transformation detected", //$NON-NLS-1$
 				genMetricContainer != null && genMetricContainer.getMetrics().size() == metricContainer.getMetrics().size());
-		Class providerClass = null;
-		Class viewClass = null;		
+		Class<?> providerClass = null;
+		Class<?> viewClass = null;		
 		try {
 			providerClass = loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName());		
 			viewClass = loadGeneratedClass(getGenModel().getGenDiagram().getMetricProviderQualifiedClassName() + "$ResultView"); //$NON-NLS-1$
@@ -60,14 +59,14 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 			fail("Could not find generated metric definitions accessor"); //$NON-NLS-1$			
 		}
 		
-		List metrics = (List)metricAccessor.invoke(viewClass, (Object[]) null); 
+		List<?> metrics = (List<?>)metricAccessor.invoke(viewClass, (Object[]) null); 
 		assertEquals(
 			"All metrics from gmfmap must be registered", //$NON-NLS-1$
 			metrics.size(), metricContainer.getMetrics().size());	
 		assertMetricEvaluation(providerClass);
 	}
 	
-	private void assertMetricEvaluation(Class metricProviderClass) {
+	private void assertMetricEvaluation(Class<?> metricProviderClass) {
 		Method calcMetricMethod = null;
 		try {
 			calcMetricMethod = metricProviderClass.getMethod("calculateMetric", new Class[] { String.class, Object.class }); //$NON-NLS-1$
@@ -76,8 +75,7 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 			fail("Could not find calculateMetric method in the provider. " + e.toString()); //$NON-NLS-1$
 		} 
 		
-		for (Iterator it = genMetricContainer.getMetrics().iterator(); it.hasNext();) {
-			GenMetricRule nextRule = (GenMetricRule) it.next();
+		for (GenMetricRule nextRule : genMetricContainer.getMetrics()) {
 			EClassifier eClassifier = nextRule.getTarget().getContext().getEcoreClassifier();
 			EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(eClassifier.getEPackage().getNsURI());
 			assertNotNull("EPackage must be already generated and initialized", ePackage); //$NON-NLS-1$

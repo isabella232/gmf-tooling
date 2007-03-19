@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.setup.annotated;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +50,8 @@ public abstract class AbstractASetup {
 		String fileName = "gen" + System.currentTimeMillis() + '.' + fileExtension; //$NON-NLS-1$
 		Resource r = rs.createResource(URI.createFileURI(fileFolder + '/' + fileName));
 		r.getContents().add(root);
-		Map options = new HashMap();
 		try {
-			r.save(options);
+			r.save(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,11 +71,11 @@ public abstract class AbstractASetup {
 		return ((ENamedElement) element).getName();
 	}
 
-	protected abstract Iterator getAllDomainModelContents();
+	protected abstract Iterator<EObject> getAllDomainModelContents();
 
 	protected void processDomainModel() {
-		for (Iterator contents = getAllDomainModelContents(); contents.hasNext();) {
-			Object next = contents.next();
+		for (Iterator<EObject> contents = getAllDomainModelContents(); contents.hasNext();) {
+			EObject next = contents.next();
 			if (!(next instanceof EModelElement)) {
 				continue;
 			}
@@ -118,8 +116,7 @@ public abstract class AbstractASetup {
 	 * Finds the first reference in type with specified details entry name.
 	 */
 	protected EReference findReference(EClass type, String aDetailsName) {
-		for (Iterator it = type.getEReferences().iterator(); it.hasNext();) {
-			EReference ref = (EReference) it.next();
+		for (EReference ref : type.getEReferences()) {
 			List<Parameter> params = getParameters(ref);
 			for (Parameter param : params) {
 				if (aDetailsName.equals(param.name)) {
@@ -164,9 +161,8 @@ public abstract class AbstractASetup {
 		List<Parameter> params = new ArrayList<Parameter>();
 		for (EAnnotation annotation : (List<? extends EAnnotation>) element.getEAnnotations()) {
 			if ("gmf".equals(annotation.getSource())) { //$NON-NLS-1$
-				for (Iterator entries = annotation.getDetails().iterator(); entries.hasNext();) {
-					Map.Entry entry = (Map.Entry) entries.next();
-					params.add(new Parameter((String) entry.getKey(), (String) entry.getValue()));
+				for (Map.Entry<String, String> entry : annotation.getDetails()) {
+					params.add(new Parameter(entry.getKey(), entry.getValue()));
 				}
 			}
 		}

@@ -13,7 +13,6 @@ package org.eclipse.gmf.tests.setup;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -21,6 +20,7 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
@@ -39,9 +39,8 @@ public class MultiPackageGenSetup extends DiaGenSetup {
 	protected GenModel initGenModel(EPackage domainModel) {
 		HashSet<EPackage> allPacks = new HashSet<EPackage>(myDomainPackages);
 		// TODO override method in crossReferencer to get only EClasses
-		Map m = EcoreUtil.ExternalCrossReferencer.find(domainModel);
-		for (Iterator it = m.keySet().iterator(); it.hasNext(); ) {
-			Object next = it.next();
+		Map<EObject, ?> m = EcoreUtil.ExternalCrossReferencer.find(domainModel);
+		for (EObject next : m.keySet()) {
 			if (next instanceof EClass) {
 				allPacks.add(((EClass) next).getEPackage());
 			}

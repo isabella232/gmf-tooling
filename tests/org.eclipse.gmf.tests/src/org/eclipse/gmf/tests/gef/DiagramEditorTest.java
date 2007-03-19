@@ -166,9 +166,9 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		Node aNode = checkCreateNode(viewer, diagram, creationTool, genNodeA.getVisualID());
 
 		assertTrue("Incorrect setup passed", genNodeA.getCompartments().size() > 0);
-		GenCompartment genCompartment = (GenCompartment) genNodeA.getCompartments().get(0);
+		GenCompartment genCompartment = genNodeA.getCompartments().get(0);
 		assertTrue("Incorrect setup passed", genCompartment.getChildNodes().size() > 0);
-		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		GenNode childNode = genCompartment.getChildNodes().get(0);
 		assertNotNull("Incorrect setup passed", childNode);
 
 		Node compartment = findChildnode(aNode, genCompartment);
@@ -177,7 +177,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	private Node findChildnode(Node parentNode, GenCommonBase genElement) {
 		String visualID = String.valueOf(genElement.getVisualID());
-		for (Iterator it = parentNode.getChildren().iterator(); it.hasNext();) {
+		for (Iterator<?> it = parentNode.getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView.getType().equals(visualID)) {
 				assertTrue(nextView instanceof Node);
@@ -217,7 +217,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 	}
 
 	private PaletteContainer findPaletteContainer(PaletteRoot paletteRoot, String groupName) {
-		for (Iterator it = paletteRoot.getChildren().iterator(); it.hasNext();) {
+		for (Iterator<?> it = paletteRoot.getChildren().iterator(); it.hasNext();) {
 			PaletteContainer nextContainer = (PaletteContainer) it.next();
 			if (groupName.equals(nextContainer.getLabel())) {
 				return nextContainer;
@@ -333,7 +333,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertEquals("Name was not refreshed", newName, nodeAName);
 	}
 
-	private void saveResources(final List resources) {
+	private void saveResources(final List<Resource> resources) {
 		// Batching all the notifications from Eclipse resource subsystem.
 		// Otherwise notifications will be dispatched on by one and just created
 		// diagram node will be removed by CanonicalEditPolicy because
@@ -342,8 +342,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
 			public void run(IProgressMonitor monitor) throws CoreException {
-				for (Iterator it = resources.iterator(); it.hasNext();) {
-					Resource nextResource = (Resource) it.next();
+				for (Resource nextResource : resources) {
 					try {
 						nextResource.save(Collections.EMPTY_MAP);
 					} catch (IOException e) {

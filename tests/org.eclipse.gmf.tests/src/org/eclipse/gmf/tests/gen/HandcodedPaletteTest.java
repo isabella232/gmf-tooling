@@ -31,7 +31,6 @@ public class HandcodedPaletteTest extends TestCase {
 		super(name);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void setUp() throws Exception {
 		palette = GMFGenFactory.eINSTANCE.createPalette();
@@ -45,11 +44,10 @@ public class HandcodedPaletteTest extends TestCase {
 		palette.getGroups().add(g1);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testGroupGetPalette() {
 		assertTrue(palette.getGroups().size() > 0);
 		for (int i = palette.getGroups().size() - 1;  i >= 0; i--) {
-			ToolGroup g = (ToolGroup) palette.getGroups().get(i);
+			ToolGroup g = palette.getGroups().get(i);
 			assertNotNull(g.getPalette());
 			assertEquals(palette, g.getPalette());
 		}

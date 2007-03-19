@@ -31,7 +31,6 @@ import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
 
-
 public abstract class AbstractFigureGeneratorSetup implements TestConfiguration {
 	
 	private FigureGallery myFigureGallery;
@@ -50,7 +49,7 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 	
 	protected abstract void addFigures(FigureGallery gallery);
 	
-	public Class getFigureClass(Figure f) {
+	public Class<?> getFigureClass(Figure f) {
 		GeneratedClassData[] classDatas = getClassData();
 		for (int i = 0; i < classDatas.length; i++) {
 			if (classDatas[i].getFigureDef() == f) {

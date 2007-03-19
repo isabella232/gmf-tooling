@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.tr;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -165,7 +163,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 		GenNode nodeA = getGenNodeA();
 		
 		assertFalse(nodeA.getLabels().isEmpty());
-		GenChildNode childA = (GenChildNode) nodeA.getChildNodes().get(0);
+		GenChildNode childA = nodeA.getChildNodes().get(0);
 		assertFalse(childA instanceof GenChildLabelNode);
 		assertFalse(childA.getLabels().isEmpty());
 
@@ -174,7 +172,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 	public void testSoleLabelNodeOutcome() {
 		GenNode nodeB = getGenNodeB();
 		assertTrue(nodeB.getLabels().isEmpty()); // sanity
-		GenChildNode childB = (GenChildNode) nodeB.getChildNodes().get(0);
+		GenChildNode childB = nodeB.getChildNodes().get(0);
 		assertTrue (childB instanceof GenChildLabelNode);
 		assertTrue(childB.getLabels().isEmpty());
 	}
@@ -208,12 +206,11 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 	}
 
 	private EClass getNodeDomainElement(int idx) {
-		return ((TopNodeReference) getMapping().getNodes().get(idx)).getOwnedChild().getDomainMetaElement();
+		return (getMapping().getNodes().get(idx)).getOwnedChild().getDomainMetaElement();
 	}
 
 	private GenNode findTopNode(EClass eClass) {
-		for (Iterator it = transformationResult.getDiagram().getTopLevelNodes().iterator(); it.hasNext();) {
-			GenTopLevelNode next = (GenTopLevelNode) it.next();
+		for (GenTopLevelNode next : transformationResult.getDiagram().getTopLevelNodes()) {
 			if (next.getDomainMetaClass().getEcoreClass() == eClass) {
 				return next;
 			}

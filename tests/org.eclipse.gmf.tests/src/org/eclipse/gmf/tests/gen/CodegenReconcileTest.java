@@ -11,12 +11,9 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import junit.framework.Assert;
 
@@ -34,10 +31,12 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
@@ -143,10 +142,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertFalse("Precondition, we need some nodes", diagram.getTopLevelNodes().isEmpty());
 				
 				myCompartmentsTotalCount = 0;
-				for (Iterator allNodes = diagram.getAllNodes().iterator(); allNodes.hasNext();){
-					GenNode next = (GenNode) allNodes.next();
-					for (Iterator compartments = next.getCompartments().iterator(); compartments.hasNext();){
-						GenCompartment nextCompartment = (GenCompartment)compartments.next();
+				for (GenNode next : diagram.getAllNodes()){
+					for (GenCompartment nextCompartment : next.getCompartments()){
 						myCompartmentsTotalCount++;
 						nextCompartment.eSet(myGenCompartmentFeature, myExpectedValue);
 					}
@@ -161,10 +158,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertFalse(diagram.getTopLevelNodes().isEmpty());
 				
 				int actualCompartmentsTotalCount = 0;
-				for (Iterator allNodes = diagram.getAllNodes().iterator(); allNodes.hasNext();){
-					GenNode next = (GenNode) allNodes.next();
-					for (Iterator compartments = next.getCompartments().iterator(); compartments.hasNext();){
-						GenCompartment nextCompartment = (GenCompartment)compartments.next();
+				for (GenNode next : diagram.getAllNodes()){
+					for (GenCompartment nextCompartment : next.getCompartments()){
 						actualCompartmentsTotalCount++;
 						Boolean actualValue = (Boolean)nextCompartment.eGet(myGenCompartmentFeature);
 						assertEquals(getChangeDescription(), myExpectedValue, actualValue);
@@ -207,10 +202,10 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			private final String BAD_GRAPHICAL_EP = "MyGraphicalNodeEditPolicy"; //changed but still follows "(.*)GraphicalNodeEditPolicy" pattern
 			
 			public void applyChanges(GenEditorGenerator old) {
-				EList oldNodes = old.getDiagram().getTopLevelNodes();
+				EList<GenTopLevelNode> oldNodes = old.getDiagram().getTopLevelNodes();
 				assertTrue(oldNodes.size() > 1);
-				GenNode nodeA = (GenNode) oldNodes.get(0);
-				GenNode nodeB = (GenNode) oldNodes.get(1);
+				GenNode nodeA = oldNodes.get(0);
+				GenNode nodeB = oldNodes.get(1);
 				
 				nodeA.setCanonicalEditPolicyClassName(NEW_CANONICAL_EP);
 				nodeA.setGraphicalNodeEditPolicyClassName(NEW_GRAPHICAL_EP);
@@ -220,10 +215,10 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
-				EList currentNodes = current.getDiagram().getTopLevelNodes();
+				EList<GenTopLevelNode> currentNodes = current.getDiagram().getTopLevelNodes();
 				assertTrue(currentNodes.size() > 1);
-				GenNode nodeA = (GenNode) currentNodes.get(0);
-				GenNode nodeB = (GenNode) currentNodes.get(1);
+				GenNode nodeA = currentNodes.get(0);
+				GenNode nodeB = currentNodes.get(1);
 				
 				assertEquals(NEW_CANONICAL_EP, nodeA.getCanonicalEditPolicyClassName());
 				assertEquals(NEW_GRAPHICAL_EP, nodeA.getGraphicalNodeEditPolicyClassName());
@@ -293,22 +288,18 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				diagram.getShortcutsProvidedFor().addAll(Arrays.asList(myProvidedFor));
 				diagram.getContainsShortcutsTo().addAll(Arrays.asList(myContainsTo));
 				
-				assertEqualsLists(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
-				assertEqualsLists(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
+				assertEquals(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
+				assertEquals(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
 			}
 
 			public void assertChangesPreserved(GenEditorGenerator current) {
 				GenDiagram diagram = current.getDiagram();
-				assertEqualsLists(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
-				assertEqualsLists(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
+				assertEquals(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
+				assertEquals(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
 			}
 			
 			public ReconcilerConfigBase getReconcilerConfig() {
 				return new GMFGenConfig();
-			}
-			
-			private void assertEqualsLists(List expected, List actual){
-				assertEquals(new ArrayList(expected), new ArrayList(actual));
 			}
 		}
 		
@@ -454,8 +445,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public final void applyChanges(GenEditorGenerator old) {
 				myAffectedViewmapsCount = 0;
-				for (Iterator allNodes = old.getDiagram().getAllNodes().iterator(); allNodes.hasNext();){
-					GenNode next = (GenNode) allNodes.next();
+				for (GenNode next : old.getDiagram().getAllNodes()){
 					Viewmap nextViewmap = next.getViewmap();
 					if (nextViewmap == null){
 						continue;
@@ -471,8 +461,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public final void assertChangesPreserved(GenEditorGenerator current) {
 				int checkedViewmapsCount = 0;
-				for (Iterator allNodes = current.getDiagram().getAllNodes().iterator(); allNodes.hasNext();){
-					GenNode next = (GenNode)allNodes.next();
+				for (GenNode next : current.getDiagram().getAllNodes()){
 					Viewmap nextViewmap = next.getViewmap();
 					if (nextViewmap == null){
 						continue;
@@ -520,8 +509,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			protected abstract void applyChange(ElementType elementType);
 			protected abstract void assertChange(ElementType elementType);
 			
-			protected Collection collectSubjects(GenEditorGenerator editorGenerator){
-				LinkedList allWithType = new LinkedList();
+			protected Collection<GenContainerBase> collectSubjects(GenEditorGenerator editorGenerator){
+				LinkedList<GenContainerBase> allWithType = new LinkedList<GenContainerBase>();
 				GenDiagram diagram = editorGenerator.getDiagram();
 				allWithType.add(diagram);
 				allWithType.addAll(diagram.getAllChildContainers());
@@ -531,8 +520,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 			
 			public final void applyChanges(GenEditorGenerator old) {
-				for (Iterator all = collectSubjects(old).iterator(); all.hasNext();){
-					GenCommonBase next = (GenCommonBase)all.next();
+				for (GenCommonBase next : collectSubjects(old)) {
 					ElementType nextElementType = next.getElementType();
 					if (nextElementType == null){
 						continue;
@@ -542,8 +530,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 			
 			public final void assertChangesPreserved(GenEditorGenerator current) {
-				for (Iterator all = collectSubjects(current).iterator(); all.hasNext();){
-					GenCommonBase next = (GenCommonBase)all.next();
+				for (GenCommonBase next : collectSubjects(current)) {
 					ElementType nextElementType = next.getElementType();
 					if (nextElementType == null){
 						continue;

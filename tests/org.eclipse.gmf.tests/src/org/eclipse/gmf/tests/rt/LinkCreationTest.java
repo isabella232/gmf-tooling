@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -223,8 +222,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 	}
 
 	private GenLink getSelfLink(boolean typeLink) {
-		for (Iterator it = getSetup().getGenModel().getGenDiagram().getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
+		for (GenLink nextLink : getSetup().getGenModel().getGenDiagram().getLinks()) {
 			if (typeLink && nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
 				if (modelFacet.getTargetMetaFeature().getTypeGenClass() == modelFacet.getContainmentMetaFeature().getGenClass()) {
@@ -242,8 +240,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 	}
 
 	private GenLink getLink(boolean typeLink, int cardinality) {
-		for (Iterator it = getSetup().getGenModel().getGenDiagram().getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
+		for (GenLink nextLink : getSetup().getGenModel().getGenDiagram().getLinks()) {
 			if (typeLink && nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
 				if (modelFacet.getContainmentMetaFeature().getEcoreFeature().getUpperBound() == cardinality) {
@@ -290,7 +287,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		assertNotNull(linkFeature);
 		Object linked = linkSource.eGet(linkFeature);
 		if (linked instanceof Collection) {
-			assertTrue("Link element was not added to the container", ((Collection) linked).contains(linkTarget));
+			assertTrue("Link element was not added to the container", ((Collection<?>) linked).contains(linkTarget));
 		} else {
 			assertEquals("Link element was not added to the container", linkTarget, linked);
 		}
@@ -307,7 +304,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 			assertNotNull(containmentFeature);
 			Object contained = linkSource.eGet(containmentFeature);
 			if (contained instanceof Collection) {
-				assertTrue("Link element was not added to the container", ((Collection) contained).contains(linkElement));
+				assertTrue("Link element was not added to the container", ((Collection<?>) contained).contains(linkElement));
 			} else {
 				assertEquals("Link element was not added to the container", linkElement, contained);
 			}
@@ -316,7 +313,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 			assertNotNull(sourceFeature);
 			Object sources = linkElement.eGet(sourceFeature);
 			if (sources instanceof Collection) {
-				assertTrue("Link source was not set correctly", ((Collection) sources).contains(linkSource));
+				assertTrue("Link source was not set correctly", ((Collection<?>) sources).contains(linkSource));
 			} else {
 				assertEquals("Link source was not set correctly", linkSource, sources);
 			}
@@ -326,7 +323,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		assertNotNull(targetFeature);
 		Object targets = linkElement.eGet(targetFeature);
 		if (targets instanceof Collection) {
-			assertTrue("Link target was not set correctly", ((Collection) targets).contains(linkTarget));
+			assertTrue("Link target was not set correctly", ((Collection<?>) targets).contains(linkTarget));
 		} else {
 			assertEquals("Link target was not set correctly", linkTarget, targets);
 		}

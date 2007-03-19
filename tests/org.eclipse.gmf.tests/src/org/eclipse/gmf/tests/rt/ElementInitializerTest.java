@@ -18,7 +18,6 @@ import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAttribute;
@@ -31,6 +30,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -67,25 +67,24 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(val instanceof EClass);
 		EClass newEClass = (EClass)val;
 		assertEquals("Only one attribute expected", 1, newEClass.getEAllAttributes().size()); //$NON-NLS-1$
-		EAttribute attribute = (EAttribute)newEClass.getEAllAttributes().iterator().next();
+		EAttribute attribute = newEClass.getEAllAttributes().iterator().next();
 		assertEquals("attribute should be named by its EClass name", attribute.eClass().getName(), attribute.getName()); //$NON-NLS-1$
 		assertEquals("attribute must be of String type", EcorePackage.eINSTANCE.getEString(), attribute.getEType()); //$NON-NLS-1$		
 		
 		assertEquals("Only one operation expected", 1, newEClass.getEOperations().size()); //$NON-NLS-1$
-		EOperation operation = (EOperation)newEClass.getEOperations().iterator().next();
+		EOperation operation = newEClass.getEOperations().iterator().next();
 		assertEquals("operation should be named by its metaclass", operation.eClass().getName(), operation.getName()); //$NON-NLS-1$
 		EClassifier expectedType = nodeAElement.eClass();
 		assertEquals("operation should return type of its containing class", expectedType, operation.getEType()); //$NON-NLS-1$
 	}
 	
 	public void testJavaInitializers() throws Exception {
-		Class javaContainerClass = loadJavaContainerClass();
+		Class<?> javaContainerClass = loadJavaContainerClass();
 		assertNotNull("Could not find generated java initializer class", javaContainerClass); //$NON-NLS-1$
 
 		GenJavaExpressionProvider javaProvider = null;
 		GenExpressionProviderContainer container = getGenModel().getGenDiagram().getEditorGen().getExpressionProviders();
-		for (Iterator providerIt = container.getProviders().iterator(); providerIt.hasNext();) {
-			Object nextProvider = providerIt.next();
+		for (GenExpressionProviderBase nextProvider : container.getProviders()) {
 			if(nextProvider instanceof GenJavaExpressionProvider) {
 				javaProvider = (GenJavaExpressionProvider)nextProvider;
 			}
@@ -98,13 +97,12 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		boolean multiObjValTypeAttrTested = false;			
 		boolean multiRefTested = false;			
 					
-		Iterator it = getGenModel().getGenDiagram().eAllContents();
+		Iterator<EObject> it = getGenModel().getGenDiagram().eAllContents();
 		while (it.hasNext()) {
 			Object element = it.next();
 			if(element instanceof GenFeatureSeqInitializer) {
-				GenFeatureSeqInitializer fsInitializer = (GenFeatureSeqInitializer)element;
-				for (Iterator ftIt = fsInitializer.getInitializers().iterator(); ftIt.hasNext();) {					
-					GenFeatureInitializer featureInitializer = (GenFeatureInitializer)ftIt.next();
+				GenFeatureSeqInitializer fsInitializer = (GenFeatureSeqInitializer) element;
+				for (GenFeatureInitializer featureInitializer : fsInitializer.getInitializers()) {					
 					if(!(featureInitializer instanceof GenFeatureValueSpec)) continue;
 					GenFeatureValueSpec nextFtValSpec = (GenFeatureValueSpec)featureInitializer;						
 					if(container.getProvider(nextFtValSpec) != javaProvider) continue;
@@ -152,7 +150,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(multiRefTested);		
 	}	
 
-	protected Class loadJavaContainerClass() {
+	protected Class<?> loadJavaContainerClass() {
 		String javaContainerName = "Initializers$Java"; //$NON-NLS-1$
 		try {
 			return loadGeneratedClass(getGenModel().getGenDiagram().getProvidersPackageName() + ".ElementInitializers$" + javaContainerName); //$NON-NLS-1$
@@ -165,7 +163,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		EStructuralFeature attrManyFeature = nodeBElement.eClass().getEStructuralFeature("integers_Init"); //$NON-NLS-1$		
 		assertNotNull("field not found in tested class", attrManyFeature); //$NON-NLS-1$
 		Object value = nodeBElement.eGet(attrManyFeature);		
-		assertEquals(value, new BasicEList(Arrays.asList(new Object[] { new Integer(10), new Integer(20) })));		
+		assertEquals(value, Arrays.asList(new Object[] { new Integer(10), new Integer(20) }));		
 	}
 	
 	
@@ -173,7 +171,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		EStructuralFeature refToManyFeature = nodeAElement.eClass().getEStructuralFeature("reference_Init"); //$NON-NLS-1$		
 		assertNotNull("field not found in tested class", refToManyFeature); //$NON-NLS-1$
 		Object value = nodeAElement.eGet(refToManyFeature);		
-		assertEquals(value, new BasicEList(Arrays.asList(new Object[] { nodeAElement })));		
+		assertEquals(value, Arrays.asList(new Object[] { nodeAElement }));		
 	}
 	
 	// #115521 - test of enum literal assignment to a structural feature 	
@@ -202,7 +200,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		
 		Object literalValues = nodeAElement.eGet(enumField);
 		assertTrue(literalValues instanceof Collection);
-		Collection retrivedValues = (Collection)literalValues;
+		Collection<?> retrivedValues = (Collection<?>) literalValues;
 		assertEquals(expectedValues, retrivedValues);		
 	}	
 
@@ -212,7 +210,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		
 		Object realValues = nodeAElement.eGet(realField);
 		assertTrue(realValues instanceof Collection);
-		Collection retrivedValues = (Collection)realValues;
+		Collection<?> retrivedValues = (Collection<?>) realValues;
 		// @see LinkSessionSetup
 		Collection<Float> expectedValues = new ArrayList<Float>();
 		expectedValues.add(new Float(1.0));
@@ -228,9 +226,9 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		return literal.getInstance();
 	}
 	
-	private Method findMethod(Class clazz, String methodName, GenClass contextClass) {
+	private Method findMethod(Class<?> clazz, String methodName, GenClass contextClass) {
 		try {
-			Class[] params = new Class[] { loadGeneratedClass(contextClass.getQualifiedInterfaceName()) };
+			Class<?>[] params = new Class[] { loadGeneratedClass(contextClass.getQualifiedInterfaceName()) };
 			for (int i = 0; i < clazz.getDeclaredMethods().length; i++) {
 				Method method = clazz.getDeclaredMethods()[i];
 				if(method.getName().equals(methodName)) {

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.Separator;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
@@ -94,9 +95,9 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		return init;
 	}
 
-	private static List createToolsForOrderCheck(final int numOfTools) {
+	private static List<AbstractTool> createToolsForOrderCheck(final int numOfTools) {
 		assert numOfTools > 0;
-		ArrayList rv = new ArrayList(numOfTools);
+		ArrayList<AbstractTool> rv = new ArrayList<AbstractTool>(numOfTools);
 		for (int i = 0; i < numOfTools; i++) {
 			// testOrderPreserved relies on fact there are GenericTools
 			GenericTool t = GMFToolFactory.eINSTANCE.createGenericTool();
@@ -154,9 +155,9 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	public void testOrderPreserved() {
 		ToolGroup transformed = findTransformedGroup(myGroupWithOrderAndSeparators);
 		assertNotNull(transformed);
-		Iterator itTransformed = transformed.getEntries().iterator();
+		Iterator<ToolGroupItem> itTransformed = transformed.getEntries().iterator();
 		int toolsCompared = 0; 
-		for (Iterator itOriginal = myGroupWithOrderAndSeparators.getTools().iterator(); itOriginal.hasNext();) {
+		for (Iterator<AbstractTool> itOriginal = myGroupWithOrderAndSeparators.getTools().iterator(); itOriginal.hasNext();) {
 			GenericTool next = null;
 			do {
 				Object o = itOriginal.next();
@@ -182,9 +183,9 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	public void testSeparators() {
 		ToolGroup transformed = findTransformedGroup(myGroupWithOrderAndSeparators);
 		assertNotNull(transformed);
-		ToolGroupItem item = (ToolGroupItem) transformed.getEntries().get(SEP_1_POS);
+		ToolGroupItem item = transformed.getEntries().get(SEP_1_POS);
 		assertTrue(item instanceof Separator);
-		item = (ToolGroupItem) transformed.getEntries().get(SEP_2_POS);
+		item = transformed.getEntries().get(SEP_2_POS);
 		assertTrue(item instanceof Separator);
 	}
 	
@@ -200,8 +201,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 
 	private ToolGroup findTransformedGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
 		ToolGroup transformed = null;
-		for (Iterator it = getResultPalette().getGroups().iterator(); it.hasNext();) {
-			ToolGroup next = (ToolGroup) it.next();
+		for (ToolGroup next : getResultPalette().getGroups()) {
 			if (toolGroup.getTitle().equals(next.getTitle())) {
 				transformed = next;
 				break;
@@ -212,8 +212,8 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 
 	private ToolEntry findToolEntry(AbstractTool tool) {
 		Palette palette = getResultPalette();
-		for (Iterator it = palette.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = palette.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof ToolEntry) {
 				ToolEntry toolEntry = (ToolEntry) next;
 				if (tool.getTitle().equals(toolEntry.getTitle())) {
@@ -232,8 +232,8 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	private int countToolEntriesWithName(String name) {
 		int count = 0;
 		Palette palette = getResultPalette();
-		for (Iterator it = palette.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = palette.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof ToolEntry) {
 				ToolEntry toolEntry = (ToolEntry) next;
 				if (name.equals(toolEntry.getTitle())) {

@@ -31,6 +31,7 @@ import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -74,18 +75,19 @@ public class GenericFigureCheck extends FigureCheck {
 	}
 
 	protected void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure) {
-		List gmfChildren = gmfFigure.getChildren();
-		List d2dChildren = d2dFigure.getChildren();
+		List<FigureMarker> gmfChildren = gmfFigure.getChildren();
+		@SuppressWarnings("unchecked")
+		List<IFigure> d2dChildren = d2dFigure.getChildren();
 		assertNotNull(gmfChildren);
 		assertNotNull(d2dChildren);
 		assertEquals(gmfChildren.size(), d2dChildren.size());
 
-		Iterator gmfIter = gmfChildren.iterator();
-		Iterator d2dIter = d2dChildren.iterator();
+		Iterator<FigureMarker> gmfIter = gmfChildren.iterator();
+		Iterator<IFigure> d2dIter = d2dChildren.iterator();
 
 		while (gmfIter.hasNext() && d2dIter.hasNext()) {
 			Figure nextGMF = (Figure) gmfIter.next();
-			IFigure nextD2D = (IFigure) d2dIter.next();
+			IFigure nextD2D = d2dIter.next();
 			checkFigure(nextGMF, nextD2D);
 		}
 	}
@@ -154,7 +156,7 @@ public class GenericFigureCheck extends FigureCheck {
 			org.eclipse.draw2d.Polyline d2dPolyline = (org.eclipse.draw2d.Polyline) d2dFigure;
 
 			PointList d2dPoints = d2dPolyline.getPoints();
-			List gmfPoints = gmfPolyline.getTemplate();
+			List<Point> gmfPoints = gmfPolyline.getTemplate();
 			final Transform transform = new Transform();
 
 			if (gmfFigure instanceof PolylineDecoration || gmfFigure instanceof PolygonDecoration) {
@@ -164,7 +166,7 @@ public class GenericFigureCheck extends FigureCheck {
 
 			assertEquals(gmfPoints.size(), d2dPoints.size());
 			for (int i = 0; i < d2dPoints.size(); i++) {
-				Point ePoint = (Point) gmfPoints.get(i);
+				Point ePoint = gmfPoints.get(i);
 				org.eclipse.draw2d.geometry.Point d2dPoint = d2dPoints.getPoint(i);
 				checkPoint(transform, ePoint, d2dPoint);
 			}
@@ -262,7 +264,7 @@ public class GenericFigureCheck extends FigureCheck {
 		}
 	}
 
-	private static Object getStaticFieldValue(String failureMessage, Class clazz, String fieldName) {
+	private static Object getStaticFieldValue(String failureMessage, Class<?> clazz, String fieldName) {
 		try {
 			Field constant = clazz.getField(fieldName);
 			assertNotNull(failureMessage, constant);
@@ -326,8 +328,7 @@ public class GenericFigureCheck extends FigureCheck {
 
 	protected final void checkCustomBorder(CustomBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure) {
 		assertEquals(eBorder.getQualifiedClassName(), d2dBorder.getClass().getName());
-		for (Iterator attributes = eBorder.getAttributes().iterator(); attributes.hasNext();){
-			CustomAttribute next = (CustomAttribute)attributes.next();
+		for (CustomAttribute next : eBorder.getAttributes()) {
 			checkCustomAttribute(next, d2dBorder);
 		}
 	}
@@ -425,7 +426,7 @@ public class GenericFigureCheck extends FigureCheck {
 		}
 
 		public RGB gmfConstant2swt(ConstantColor gmfColor) {
-			Class d2dClass = org.eclipse.draw2d.ColorConstants.class;
+			Class<org.eclipse.draw2d.ColorConstants> d2dClass = org.eclipse.draw2d.ColorConstants.class;
 			Object d2dValue = getStaticFieldValue("Unknown color: " + gmfColor, d2dClass, gmfColor.getValue().getLiteral());
 			assertTrue(d2dValue instanceof org.eclipse.swt.graphics.Color);
 			return ((org.eclipse.swt.graphics.Color) d2dValue).getRGB();

@@ -172,14 +172,14 @@ public class FigureGeneratorUtil {
 
 		private final Figure myFigureDef;
 
-		private final Class myLoadedClass;
+		private final Class<?> myLoadedClass;
 
-		public GeneratedClassData(Figure figureDef, Class loadedClass) {
+		public GeneratedClassData(Figure figureDef, Class<?> loadedClass) {
 			myFigureDef = figureDef;
 			myLoadedClass = loadedClass;
 		}
 
-		public Class getLoadedClass() {
+		public Class<?> getLoadedClass() {
 			return myLoadedClass;
 		}
 

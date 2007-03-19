@@ -600,10 +600,10 @@ public class ViewmapProducersTest extends TestCase {
 	}
 
 	private class ResizeConstraintsChecker {
-		private final List myExpectedNames;
+		private final List<String> myExpectedNames;
 
 		public ResizeConstraintsChecker(Direction[] expectedDirectionNames){
-			myExpectedNames = new ArrayList(expectedDirectionNames.length);
+			myExpectedNames = new ArrayList<String>(expectedDirectionNames.length);
 			for (int i = 0; i < expectedDirectionNames.length; i++){
 				myExpectedNames.add(expectedDirectionNames[i].getName());
 			}
@@ -614,7 +614,7 @@ public class ViewmapProducersTest extends TestCase {
 		}
 
 		protected ResizeConstraintsChecker() {
-			myExpectedNames = Collections.EMPTY_LIST;
+			myExpectedNames = Collections.emptyList();
 		}
 
 		public void checkNode(Node node){

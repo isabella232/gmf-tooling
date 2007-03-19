@@ -86,7 +86,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 	 */
 	public Diagram createDiagram(EObject domainElement, SessionSetup sessionSetup) throws Exception {
 		String pluginClassName = sessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName();
-		Class pluginClass = sessionSetup.getGenProject().getBundle().loadClass(pluginClassName);
+		Class<?> pluginClass = sessionSetup.getGenProject().getBundle().loadClass(pluginClassName);
 		Field field = pluginClass.getField("DIAGRAM_PREFERENCES_HINT");
 		final PreferencesHint hint = (PreferencesHint) field.get(null);
 		return ViewService.createDiagram(domainElement, sessionSetup.getGenModel().getGenDiagram().getEditorGen().getModelID(), hint);
@@ -186,7 +186,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		}
 
 		private IElementType getElementType(GenCommonBase genElement) {
-			Class clazz = null;
+			Class<?> clazz = null;
 			try {
 				clazz = loadGeneratedClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName());
 			} catch (Exception e) {
@@ -228,6 +228,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			return (IDiagramEditDomain) super.getEditDomain();
 		}
 
+		@SuppressWarnings("unchecked")
 		public List findEditPartsForElement(String elementIdStr, Class editPartClass) {
 			return Collections.EMPTY_LIST;
 		}

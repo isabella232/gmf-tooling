@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.setup.figures;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 import junit.framework.Assert;
 
@@ -30,7 +29,6 @@ import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
@@ -279,8 +277,7 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 			layout.setEqualWidth(false);
 			myParent6.setLayout(layout);
 			
-			for (Iterator children = myParent6.getChildren().iterator(); children.hasNext();){
-				FigureMarker next = (FigureMarker)children.next();
+			for (FigureMarker next : myParent6.getChildren()){
 				GridLayoutData data = createGridLayoutDataAllProperties(false);
 				data.setHorizontalAlignment(Alignment.FILL_LITERAL);
 				data.setOwner(next);
@@ -295,14 +292,13 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		if (myParent5 == null) {
 			myParent5 = createFigure2();
 			myParent5.setName("Parent5");
-			EList children = myParent5.getChildren();
+			EList<FigureMarker> children = myParent5.getChildren();
 			Assert.assertFalse("Precondition -- children required to test layout", children.isEmpty());
 			
 			myParent5.setLayout(createGridLayoutAllProperties());
 			
 			boolean oddChild = false;
-			for (Iterator it = children.iterator(); it.hasNext();){
-				FigureMarker next = (FigureMarker)it.next();
+			for (FigureMarker next : children){
 				oddChild = !oddChild;
 				LayoutData data = createGridLayoutDataAllProperties(oddChild);
 				next.setLayoutData(data);

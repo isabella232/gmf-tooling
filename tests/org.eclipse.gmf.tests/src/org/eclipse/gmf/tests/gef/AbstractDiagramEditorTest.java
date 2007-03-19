@@ -177,7 +177,7 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected EObject createDiagramDomainObject() throws Exception {
 		GenClass diagramElementGenClass = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement();
 		GenPackage domainGenPackage = diagramElementGenClass.getGenPackage();
-		Class factoryInterface = getSetup().getGenProject().getBundle().loadClass(domainGenPackage.getQualifiedFactoryInterfaceName());
+		Class<?> factoryInterface = getSetup().getGenProject().getBundle().loadClass(domainGenPackage.getQualifiedFactoryInterfaceName());
 		assertNotNull("Factory interface not found", factoryInterface);
 		Field accessor = null;
 		accessor = factoryInterface.getField(domainGenPackage.getFactoryInstanceName());

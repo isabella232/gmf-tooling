@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.tr;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
@@ -87,9 +86,8 @@ public class AuditRootTest extends TestCase {
 		//count nodes
 		assertEquals(4, genRoot.getCategories().size());
 		assertEquals(4, genRoot.getRules().size());
-		HashSet c = new HashSet(genRoot.getCategories());
-		for (Iterator it = genRoot.getRules().iterator(); it.hasNext();) {
-			GenAuditRule r = (GenAuditRule) it.next();
+		HashSet<GenAuditContainer> c = new HashSet<GenAuditContainer>(genRoot.getCategories());
+		for (GenAuditRule r : genRoot.getRules()) {
 			assertNotNull(r.getCategory());
 			assertTrue("each rule belongs to sole category", c.remove(r.getCategory()));
 			assertEquals(genRoot, r.getCategory().getRoot()); // temp check
@@ -102,18 +100,18 @@ public class AuditRootTest extends TestCase {
 		assertEquals(1, c1.getPath().size());
 		assertEquals(c1, c1.getPath().get(0));
 
-		final AuditContainer ac2 = (AuditContainer) topCat.getChildContainers().get(0);
+		final AuditContainer ac2 = topCat.getChildContainers().get(0);
 		final GenAuditContainer c2 = findGenCategory(ac2);
 		assertEquals(2, c2.getPath().size());
 		assertEquals(c1, c2.getPath().get(0));
 		assertEquals(c2, c2.getPath().get(1));
 
-		final GenAuditContainer c2bis = findGenCategory((AuditContainer) topCat.getChildContainers().get(1));
+		final GenAuditContainer c2bis = findGenCategory(topCat.getChildContainers().get(1));
 		assertEquals(2, c2bis.getPath().size());
 		assertEquals(c1, c2bis.getPath().get(0));
 		assertEquals(c2bis, c2bis.getPath().get(1));
 
-		final GenAuditContainer c3 = findGenCategory((AuditContainer) ac2.getChildContainers().get(0));
+		final GenAuditContainer c3 = findGenCategory(ac2.getChildContainers().get(0));
 		assertEquals(3, c3.getPath().size());
 		assertEquals(c1, c3.getPath().get(0));
 		assertEquals(c2, c3.getPath().get(1));
@@ -122,7 +120,7 @@ public class AuditRootTest extends TestCase {
 
 	public void testCategoryAttributes() {
 		// id, message, desc
-		AuditContainer ci = (AuditContainer) topCat.getChildContainers().get(1);
+		AuditContainer ci = topCat.getChildContainers().get(1);
 		GenAuditContainer co = findGenCategory(ci);
 		assertNotNull(co);
 		assertEquals(ci.getDescription(), co.getDescription());
@@ -130,7 +128,7 @@ public class AuditRootTest extends TestCase {
 	}
 
 	public void testRuleAttributes() {
-		final AuditRule ri = (AuditRule) ((AuditContainer) topCat.getChildContainers().get(1)).getAudits().get(0);
+		final AuditRule ri = (topCat.getChildContainers().get(1)).getAudits().get(0);
 		GenAuditRule ro = findGenRule(ri);
 		assertNotNull(ro);
 		assertEquals(ri.getName(), ro.getName());

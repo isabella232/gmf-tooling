@@ -146,7 +146,7 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 
 	protected static View findChildView(View parentView, GenCommonBase childType){
 		String notationType = String.valueOf(childType.getVisualID());
-		for (Iterator children = parentView.getChildren().iterator(); children.hasNext();){
+		for (Iterator<?> children = parentView.getChildren().iterator(); children.hasNext();){
 			View next = (View) children.next();
 			if (notationType.equals(next.getType())){
 				return next;
@@ -155,7 +155,7 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 		return null;
 	}
 
-	protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
+	protected final Class<?> loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
 		return myGenProject.loadClass(qualifiedClassName);
 	}
 

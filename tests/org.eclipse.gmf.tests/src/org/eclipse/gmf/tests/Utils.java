@@ -19,6 +19,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
 import org.eclipse.swt.widgets.Display;
@@ -49,8 +50,8 @@ public class Utils {
 	}
 
 	public static GenClass findGenClass(GenModel genModel, String className) {
-		for (TreeIterator it = genModel.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (TreeIterator<EObject> it = genModel.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof GenClassifier == false) {
 				continue;
 			}

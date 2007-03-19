@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup.figures;
 
-import java.util.Iterator;
-
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
@@ -99,8 +97,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		if (myRainbow == null) {
 			myRainbow = GMFGraphFactory.eINSTANCE.createRectangle();
 			myRainbow.setName("Rainbow");
-			for (Iterator colors = ColorConstants.VALUES.iterator(); colors.hasNext();){
-				ColorConstants next = (ColorConstants)colors.next();
+			for (ColorConstants next : ColorConstants.VALUES){
 				Rectangle nextColored = GMFGraphFactory.eINSTANCE.createRectangle();
 				nextColored.setName(next.getLiteral());
 				nextColored.setBackgroundColor(FigureGeneratorUtil.createConstantColor(next));
@@ -279,8 +276,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		if (myContainer == null) {
 			myContainer = GMFGraphFactory.eINSTANCE.createRectangle();
 			myContainer.setName("Container");
-			for (Iterator kinds = LineKind.VALUES.iterator(); kinds.hasNext(); ) {
-				LineKind next = (LineKind) kinds.next();
+			for (LineKind next : LineKind.VALUES) {
 				Shape shape = GMFGraphFactory.eINSTANCE.createEllipse();
 				shape.setName("Ellipse_" + next.getLiteral());
 				shape.setLineKind(next);

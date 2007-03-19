@@ -11,7 +11,6 @@
 package org.eclipse.gmf.tests;
 
 import java.util.Iterator;
-import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -50,8 +49,7 @@ public class EPath {
 			}
 		}) {
 			protected EObject resolveRootInitCtx(String elementName) {
-				for (Iterator it = registry.entrySet().iterator(); it.hasNext();) {
-					Object nextEntry = ((Map.Entry)it.next()).getValue();
+				for (Object nextEntry : registry.values()) {
 					if (nextEntry instanceof EPackage) {
 						EPackage ePackage = (EPackage) nextEntry;
 						if(ePackage.getESuperPackage() == null && elementName.equals(ePackage.getName())) {
@@ -160,8 +158,7 @@ public class EPath {
 			throw new IllegalArgumentException("Simple name required"); //$NON-NLS-1$
 		}
 		
-		for (Iterator it = initialContext.eContents().iterator(); it.hasNext();) {
-			EObject nextObj = (EObject) it.next();
+		for (EObject nextObj : initialContext.eContents()) {
 			String name = nameAdapter.getName(nextObj);
 			if(elementName.equals(name)) {
 				return nextObj;
@@ -199,8 +196,7 @@ public class EPath {
 	 *         found
 	 */
 	public static EStructuralFeature findLocalFeature(EClass eClass, String name) {
-		for (Iterator it = eClass.getEStructuralFeatures().iterator(); it.hasNext();) {
-			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
+		for (EStructuralFeature nextFeature : eClass.getEStructuralFeatures()) {
 			if(name.equals(nextFeature.getName())) {
 				return nextFeature;
 			}
@@ -221,8 +217,7 @@ public class EPath {
 	public static EStructuralFeature findFeature(EClass eClass, String name) {
 		EStructuralFeature foundFeature = findLocalFeature(eClass, name);
 		if(foundFeature == null) {
-			for (Iterator it = eClass.getESuperTypes().iterator(); it.hasNext();) {
-				EClass nextSuperClass = (EClass) it.next();
+			for (EClass nextSuperClass : eClass.getESuperTypes()) {
 				foundFeature = findFeature(nextSuperClass, name);
 				if(foundFeature != null) break;
 			}

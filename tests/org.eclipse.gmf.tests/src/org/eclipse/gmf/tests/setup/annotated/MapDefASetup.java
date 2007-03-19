@@ -71,7 +71,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		this.canvas = canvas;
 	}
 
-	protected Iterator getAllDomainModelContents() {
+	protected Iterator<EObject> getAllDomainModelContents() {
 		return ePackage.eAllContents();
 	}
 
@@ -101,7 +101,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		assert nodeMappings.isEmpty() : "Inconsistent gmf annotations (nodes)"; //$NON-NLS-1$
 
 		// distribute label mappings among node and link mappings
-		for (Iterator it = mapping.eAllContents(); it.hasNext();) {
+		for (Iterator<EObject> it = mapping.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof MappingEntry) {
 				MappingEntry entry = (MappingEntry) next;
@@ -140,8 +140,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 			if ("in".equals(param.name)) { //$NON-NLS-1$
 				String comparmtentName = param.value;
 				assert comparmtentName != null;
-				for (Iterator it = parent.getCompartments().iterator(); it.hasNext();) {
-					CompartmentMapping cmapping = (CompartmentMapping) it.next();
+				for (CompartmentMapping cmapping : parent.getCompartments()) {
 					if (cmapping.getCompartment().getName().equals(comparmtentName)) {
 						return cmapping;
 					}
@@ -183,7 +182,8 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		assert name != null;
 		CompartmentMapping cmapping = GMFMapFactory.eINSTANCE.createCompartmentMapping();
 		cmapping.setCompartment(findCompartment(element, name));
-		List<CompartmentMapping> list = compartmentMappings.get((EClass) element);
+		assert element instanceof EClass;
+		List<CompartmentMapping> list = compartmentMappings.get(element);
 		if (list == null) {
 			list = new ArrayList<CompartmentMapping>();
 			compartmentMappings.put((EClass) element, list);
@@ -223,8 +223,8 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected CreationTool findCreationTool(EModelElement element, String name) {
-		for (Iterator it = registry.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (Iterator<EObject> it = registry.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof CreationTool) {
 				CreationTool tool = (CreationTool) next;
 				if (name.equals(tool.getTitle())) {
@@ -236,8 +236,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected Node findNode(EModelElement element, String name) {
-		for (Iterator it = canvas.getNodes().iterator(); it.hasNext();) {
-			Node node = (Node) it.next();
+		for (Node node : canvas.getNodes()) {
 			if (name.equals(node.getName())) {
 				return node;
 			}
@@ -246,8 +245,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected Compartment findCompartment(EModelElement element, String name) {
-		for (Iterator it = canvas.getCompartments().iterator(); it.hasNext();) {
-			Compartment compartment = (Compartment) it.next();
+		for (Compartment compartment : canvas.getCompartments()) {
 			if (name.equals(compartment.getName())) {
 				return compartment;
 			}
@@ -256,8 +254,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected Connection findConnection(EModelElement element, String name) {
-		for (Iterator it = canvas.getConnections().iterator(); it.hasNext();) {
-			Connection connection = (Connection) it.next();
+		for (Connection connection : canvas.getConnections()) {
 			if (name.equals(connection.getName())) {
 				return connection;
 			}
@@ -266,8 +263,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected DiagramLabel findLabel(EModelElement element, String name) {
-		for (Iterator it = canvas.getLabels().iterator(); it.hasNext();) {
-			DiagramLabel label = (DiagramLabel) it.next();
+		for (DiagramLabel label : canvas.getLabels()) {
 			if (name.equals(label.getName())) {
 				return label;
 			}
@@ -284,12 +280,12 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		Mapping mapping = getMapping();
 		mapping.getDiagram().setDomainModel(null);
 		mapping.getDiagram().setDomainMetaElement(null);
-		for (TopNodeReference tref : (List<TopNodeReference>) mapping.getNodes()) {
+		for (TopNodeReference tref : mapping.getNodes()) {
 			tref.setContainmentFeature(null);
 			tref.setChildrenFeature(null);
 			detachNodeMapping(tref.getOwnedChild());
 		}
-		for (LinkMapping linkMapping : (List<LinkMapping>) mapping.getLinks()) {
+		for (LinkMapping linkMapping : mapping.getLinks()) {
 			linkMapping.setContainmentFeature(null);
 			linkMapping.setDomainMetaElement(null);
 			linkMapping.setLinkMetaFeature(null);
@@ -301,22 +297,19 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		}
 
 		// check that mapping model was detached from domain model
-		for (Iterator it = mapping.eAllContents(); it.hasNext();) {
-			Object next = it.next();
-			if (next instanceof EObject) {
-				EObject enext = (EObject) next;
-				for (EReference ref : (List<EReference>) enext.eClass().getEAllReferences()) {
-					Object value = enext.eGet(ref);
-					if (value == null) {
-						continue;
+		for (Iterator<EObject> it = mapping.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
+			for (EReference ref : next.eClass().getEAllReferences()) {
+				Object value = next.eGet(ref);
+				if (value == null) {
+					continue;
+				}
+				if (value instanceof List) {
+					for (Object nvalue : (List<?>) value) {
+						checkNotDomainElement((EObject) nvalue);
 					}
-					if (value instanceof List) {
-						for (Object nvalue : (List) value) {
-							checkNotDomainElement((EObject) nvalue);
-						}
-					} else {
-						checkNotDomainElement(((EObject) value));
-					}
+				} else {
+					checkNotDomainElement(((EObject) value));
 				}
 			}
 		}
@@ -331,7 +324,7 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 		nodeMapping.setDomainInitializer(null);
 		nodeMapping.setDomainSpecialization(null);
 		detachLabelMappings(nodeMapping);
-		for (ChildReference ref : (List<ChildReference>) nodeMapping.getChildren()) {
+		for (ChildReference ref : nodeMapping.getChildren()) {
 			ref.setChildrenFeature(null);
 			ref.setContainmentFeature(null);
 			detachNodeMapping(ref.getOwnedChild());
@@ -339,9 +332,9 @@ public class MapDefASetup extends AbstractASetup implements MapDefSource {
 	}
 
 	protected void detachLabelMappings(MappingEntry entry) {
-		List list = entry.getLabelMappings();
+		List<LabelMapping> list = entry.getLabelMappings();
 		for (int i = 0; i < list.size(); i++) {
-			LabelMapping labelMapping = (LabelMapping) list.get(i);
+			LabelMapping labelMapping = list.get(i);
 			if (labelMapping instanceof FeatureLabelMapping) {
 				DesignLabelMapping newLebdelMapping = GMFMapFactory.eINSTANCE.createDesignLabelMapping();
 				newLebdelMapping.setDiagramLabel(labelMapping.getDiagramLabel());

@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 import org.eclipse.gmf.tooldef.AbstractTool;
@@ -43,7 +44,7 @@ public class ToolDefASetup extends AbstractASetup implements ToolDefSource {
 		this.ePackage = ePackage;
 	}
 
-	protected Iterator getAllDomainModelContents() {
+	protected Iterator<EObject> getAllDomainModelContents() {
 		return ePackage.eAllContents();
 	}
 

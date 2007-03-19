@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.setup.annotated;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -43,7 +44,7 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 		this.rcp = rcp;
 	}
 
-	protected Iterator getAllDomainModelContents() {
+	protected Iterator<EObject> getAllDomainModelContents() {
 		return null;
 	}
 

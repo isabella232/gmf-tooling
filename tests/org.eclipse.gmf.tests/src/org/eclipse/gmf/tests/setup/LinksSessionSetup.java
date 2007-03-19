@@ -13,7 +13,6 @@ package org.eclipse.gmf.tests.setup;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -60,7 +59,6 @@ import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 import org.osgi.framework.BundleException;
 
-@SuppressWarnings("unchecked")
 public class LinksSessionSetup extends SessionSetup {
 
 	public static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
@@ -135,8 +133,7 @@ public class LinksSessionSetup extends SessionSetup {
 		diaGenSetup.getGenDiagram().setValidationDecorators(true);
 		// fix Prefixes for nested packages
 		GenModel genModel = diaGenSetup.getGenDiagram().getDiagram().getDomainDiagramElement().getGenModel();
-		for (Iterator it = genModel.getAllGenPackagesWithClassifiers().iterator(); it.hasNext();) {
-			GenPackage nextGenPackage = (GenPackage) it.next();
+		for (GenPackage nextGenPackage : genModel.getAllGenPackagesWithClassifiers()) {
 			if(nextGenPackage.getPrefix() == null || nextGenPackage.getPrefix().length() == 0) {
 				StringBuffer buf = new StringBuffer(nextGenPackage.getPackageName());
 				buf.setCharAt(0, Character.toUpperCase(buf.charAt(0)));
@@ -163,18 +160,16 @@ public class LinksSessionSetup extends SessionSetup {
 		GenModel domainGenModel = diaGenSetup.getGenDiagram().getDomainDiagramElement().getGenModel();
 		genModels.add(domainGenModel);
 		
-		Map crossRefs = EcoreUtil.ExternalCrossReferencer.find(EcoreUtil.getRootContainer(diaGenSetup.getGenDiagram()));
-		for (Iterator it = crossRefs.keySet().iterator(); it.hasNext();) {
-			EObject crossReferenced = (EObject)it.next(); 
+		Map<EObject, ?> crossRefs = EcoreUtil.ExternalCrossReferencer.find(EcoreUtil.getRootContainer(diaGenSetup.getGenDiagram()));
+		for (EObject crossReferenced : crossRefs.keySet()) {
 			if(crossReferenced.eResource() == null && crossReferenced instanceof GenBase) {
 				genModels.add(((GenBase)crossReferenced).getGenModel());
 			}
 		}
 		
 		int modelID = 0;
-		for (Iterator it = genModels.iterator(); it.hasNext(); modelID++) {
-			GenModel nextGenModel = (GenModel) it.next();
-			rset.createResource(URI.createURI("uri:/myTestModel/genmodel/" + modelID)).getContents().add(nextGenModel); //$NON-NLS-1$			
+		for (GenModel nextGenModel : genModels) {
+			rset.createResource(URI.createURI("uri:/myTestModel/genmodel/" + modelID++)).getContents().add(nextGenModel); //$NON-NLS-1$
 		}			
 	}	
 	
@@ -409,7 +404,7 @@ public class LinksSessionSetup extends SessionSetup {
 			AuditedMetricTarget metricTarget = GMFMapFactory.eINSTANCE.createAuditedMetricTarget();
 			Assert.assertTrue("Requires at least one metric definition", //$NON-NLS-1$
 					getMapping().getMetrics() != null && getMapping().getMetrics().getMetrics().size() > 0);
-			metricTarget.setMetric((MetricRule)getMapping().getMetrics().getMetrics().get(0));
+			metricTarget.setMetric(getMapping().getMetrics().getMetrics().get(0));
 			AuditRule metricAuditRule = createAudit("audit.metricTarget.id", "self > 0 and false", metricTarget, Severity.INFO_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			auditContainer.getAudits().add(metricAuditRule);			
 		}

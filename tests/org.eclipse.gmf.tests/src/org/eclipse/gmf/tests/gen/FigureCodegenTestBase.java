@@ -36,7 +36,7 @@ public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 
 	protected void performTests(Figure f, FigureCheck check) {
 		FigureGeneratorUtil.generateAndParse(f);
-		Class figureClass = mySessionSetup.getFigureClass(f);
+		Class<?> figureClass = mySessionSetup.getFigureClass(f);
 		check.go(figureClass);
 	}
 }

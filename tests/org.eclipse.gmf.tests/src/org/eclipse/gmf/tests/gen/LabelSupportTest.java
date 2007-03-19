@@ -67,7 +67,7 @@ public class LabelSupportTest extends FigureCodegenTestBase {
 					hasMethod(figure, "getFigure" + CodeGenUtil.capName(myLabelName), null));
 		}	
 		
-		private static boolean hasMethod(Object instance, String methodName, Class[] params) {
+		private static boolean hasMethod(Object instance, String methodName, Class<?>[] params) {
 			try {
 				Method method = instance.getClass().getMethod(methodName, params);
 				return method != null;

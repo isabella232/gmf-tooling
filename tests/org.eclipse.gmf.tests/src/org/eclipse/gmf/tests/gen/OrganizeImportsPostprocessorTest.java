@@ -791,7 +791,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
     
     public void testSimpleAndQualifiedTypesMatch() throws Exception {
         String className = "SimpleAndQualifiedTypesMatch";
-        Class[] typeRefs = new Class[] {
+        Class<?>[] typeRefs = new Class<?>[] {
                 ArrayList.class,
         };
         
@@ -959,7 +959,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
     
     public void testFullQualifiedArrays() throws Exception {
         String testClassName = "FullQualifiedArrays";
-        List<Class> typeRefs = Arrays.asList(new Class[] {
+        List<Class<?>> typeRefs = Arrays.asList(new Class<?>[] {
                 ArrayList.class,
                 List.class,
                 Map.class,
@@ -969,8 +969,8 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
                 "javax.some.Map",
         };
         final List<String> typeNameRefs = new ArrayList<String>(typeRefs.size()+conflictedTypeNames.length);
-        for (Iterator<Class> it = typeRefs.iterator(); it.hasNext();) {
-            typeNameRefs.add(getInnerClassAwareName(it.next()));
+        for (Class<?> next : typeRefs) {
+            typeNameRefs.add(getInnerClassAwareName(next));
         }
         String localVariable = typeNameRefs.get(2)+".SMTH.ourEntries";
         //String localVariable2 = "org.eclipse.draw2d.Graphics";
@@ -1025,7 +1025,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         assertEquals("Failed to leave unqualified only 1 reference", conflictedTypeNames.length, typeNameRefs.size()-1);
     }
 
-    private String getInnerClassAwareName(Class clazz) {
+    private String getInnerClassAwareName(Class<?> clazz) {
         return clazz.getName();//.replace('$', '.');
     }
 

@@ -52,7 +52,7 @@ public class GraphDefASetup extends AbstractASetup implements DiaDefSource {
 		this.ePackage = ePackage;
 	}
 
-	protected Iterator getAllDomainModelContents() {
+	protected Iterator<EObject> getAllDomainModelContents() {
 		return ePackage.eAllContents();
 	}
 

@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -86,11 +87,11 @@ public class HistoryTest extends TestCase {
 		assertNotNull(childGenNode);
 		assertNotNull(anotherChildGenNode);
 
-		final List l1 = Arrays.asList(history.findChildNodes(nodeMapping));
+		final List<GenChildNode> l1 = Arrays.asList(history.findChildNodes(nodeMapping));
 		assertTrue(l1.contains(childGenNode));
 		assertTrue(l1.contains(anotherChildGenNode));
 
-		final List l2 = Arrays.asList(history.find(nodeMapping));
+		final List<GenNode> l2 = Arrays.asList(history.find(nodeMapping));
 		assertTrue(l2.contains(childGenNode));
 		assertTrue(l2.contains(anotherChildGenNode));
 

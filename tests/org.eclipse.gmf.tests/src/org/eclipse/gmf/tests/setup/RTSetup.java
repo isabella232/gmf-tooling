@@ -14,7 +14,6 @@ package org.eclipse.gmf.tests.setup;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -175,10 +174,9 @@ public class RTSetup implements RTSource {
 		return result;
 	}
 	
-	private List setupNotationCompartments(Node notationParent, GenNode genParent){
-		List compartments = new LinkedList();
-		for (Iterator it = genParent.getCompartments().iterator(); it.hasNext();) {
-			GenCompartment nextCompartment = (GenCompartment) it.next();
+	private List<Node> setupNotationCompartments(Node notationParent, GenNode genParent){
+		LinkedList<Node> compartments = new LinkedList<Node>();
+		for (GenCompartment nextCompartment : genParent.getCompartments()) {
 			Node notationCompartment = NotationFactory.eINSTANCE.createNode();	
 			notationCompartment.setType(String.valueOf(nextCompartment.getVisualID()));
 			notationParent.getTransientChildren().add(notationCompartment);
@@ -272,7 +270,8 @@ public class RTSetup implements RTSource {
 		public void setFeatureValue(EObject src, EObject value, GenFeature genFeature) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			if (genFeature.isListType()) {
-				Collection result = (Collection) src.eGet(feature);
+				@SuppressWarnings("unchecked")
+				Collection<EObject> result = (Collection<EObject>) src.eGet(feature);
 				result.add(value);
 			} else {
 				src.eSet(feature, value);
@@ -287,7 +286,7 @@ public class RTSetup implements RTSource {
 		private final Bundle bundle;
 		public EObject createInstance(GenClass genClass) {
 			try {
-				Class factoryClass = getFactoryClass(genClass);
+				Class<?> factoryClass = getFactoryClass(genClass);
 				Method m = factoryClass.getMethod("create" + genClass.getName(), new Class[0]);
 				return (EObject) m.invoke(getInstance(factoryClass), new Object[0]);
 			} catch (Exception ex) {
@@ -298,11 +297,12 @@ public class RTSetup implements RTSource {
 		}
 		public void setFeatureValue(EObject src, EObject value, GenFeature genFeature) {
 			try {
-				Class packageClass = getPackageClass(genFeature);
+				Class<?> packageClass = getPackageClass(genFeature);
 				Method featureAccessor = packageClass.getMethod("get" + genFeature.getFeatureAccessorName(), new Class[0]);
 				EStructuralFeature feature = (EStructuralFeature) featureAccessor.invoke(getInstance(packageClass), new Object[0]);
 				if (genFeature.isListType()) {
-					Collection result = (Collection) src.eGet(feature);
+					@SuppressWarnings("unchecked")
+					Collection<EObject> result = (Collection<EObject>) src.eGet(feature);
 					result.add(value);
 				} else {
 					src.eSet(feature, value);
@@ -311,13 +311,13 @@ public class RTSetup implements RTSource {
 				Assert.fail(ex.getClass().getSimpleName() + ":" + ex.getMessage());
 			}
 		}
-		private Class getFactoryClass(GenClass genClass) throws ClassNotFoundException {
+		private Class<?> getFactoryClass(GenClass genClass) throws ClassNotFoundException {
 			return bundle.loadClass(genClass.getGenPackage().getQualifiedFactoryInterfaceName());
 		}
-		private Object getInstance(Class interfaceClass) throws NoSuchFieldException, IllegalAccessException {
+		private Object getInstance(Class<?> interfaceClass) throws NoSuchFieldException, IllegalAccessException {
 			return interfaceClass.getField("eINSTANCE").get(null);
 		}
-		private Class getPackageClass(GenFeature genFeature) throws ClassNotFoundException {
+		private Class<?> getPackageClass(GenFeature genFeature) throws ClassNotFoundException {
 			return bundle.loadClass(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
 		}
 		public CoolDomainInstanceProducer(Bundle b) {

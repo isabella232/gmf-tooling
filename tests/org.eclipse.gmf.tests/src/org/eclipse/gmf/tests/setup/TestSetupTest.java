@@ -186,8 +186,8 @@ public class TestSetupTest extends TestCase {
 
 	private static String getSeverityMessage(Diagnostic d) {
 		// walk down to find first leaf with same severity as top-level d
-		for (Iterator it = d.getChildren().iterator(); it.hasNext();) {
-			Diagnostic child = (Diagnostic) it.next();
+		for (Iterator<Diagnostic> it = d.getChildren().iterator(); it.hasNext();) {
+			Diagnostic child = it.next();
 			if (child.getSeverity() == d.getSeverity()) {
 				if (child.getChildren().isEmpty()) {
 					return child.getMessage();

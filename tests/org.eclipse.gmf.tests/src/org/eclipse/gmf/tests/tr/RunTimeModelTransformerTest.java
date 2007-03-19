@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -81,8 +82,8 @@ public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest 
 	}
 
 	private static EClass findEClass(EPackage model, String name) {
-		for (TreeIterator it = model.eAllContents(); it.hasNext();) {
-			Object next = it.next();
+		for (TreeIterator<EObject> it = model.eAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			if (next instanceof EClassifier) {
 				if (name.equals(((EClassifier) next).getName()) && next instanceof EClass) {
 					return (EClass) next;

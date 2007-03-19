@@ -44,7 +44,6 @@ public class GenericMigrationTest extends TestCase {
 		createMetaModel();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void createMetaModel() {
 		EPackage mm = EcoreFactory.eINSTANCE.createEPackage();
 		EClass mc = EcoreFactory.eINSTANCE.createEClass();
@@ -123,7 +122,7 @@ public class GenericMigrationTest extends TestCase {
 			assertNotNull(migrated);
 			assertTrue(migrated.getErrors().isEmpty() && migrated.getWarnings().isEmpty());
 			assertEquals(1, migrated.getContents().size());
-			EObject migratedObj = (EObject) migrated.getContents().get(0);
+			EObject migratedObj = migrated.getContents().get(0);
 			assertEquals(testObject.eClass(), migratedObj.eClass());
 		} finally {
 			// clean-up, avoid any chances to affect other tests

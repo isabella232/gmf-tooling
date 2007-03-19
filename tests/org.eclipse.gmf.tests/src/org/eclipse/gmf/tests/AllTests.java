@@ -166,14 +166,14 @@ public class AllTests {
 		return suite;
 	}
 
-	protected static Test feed(Class theClass, TestConfiguration config) {
+	protected static Test feed(Class<?> theClass, TestConfiguration config) {
 		TestSuite suite = new TestSuite(theClass);
 		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
 			return suite;
 		}
 		try {
 			Method m = null;
-			Class configClass = config.getClass();
+			Class<?> configClass = config.getClass();
 			while (m == null && configClass != null) {
 				try {
 					m = theClass.getMethod(NeedsSetup.METHOD_NAME, new Class[] { configClass });
@@ -186,7 +186,7 @@ public class AllTests {
 				return new ConfigurationFailedCase(theClass.getName() + " has no method compatible with " + methodInvocation);
 			}
 			final Object[] args = new Object[] { config };
-			for (Enumeration en = suite.tests(); en.hasMoreElements(); ) {
+			for (Enumeration<?> en = suite.tests(); en.hasMoreElements(); ) {
 				Object nextTest = en.nextElement();
 				m.invoke(nextTest, args);
 			}

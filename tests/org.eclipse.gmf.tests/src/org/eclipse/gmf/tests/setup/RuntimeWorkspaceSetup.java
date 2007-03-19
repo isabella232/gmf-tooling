@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -170,7 +171,8 @@ public class RuntimeWorkspaceSetup {
 	private void importDevPluginsIntoRunTimeWorkspace(String[] pluginIDs) throws CoreException {
 		IProject p = getSOSProject();
 		final Path srcPath = new Path('/' + p.getName() + "/src"); //$NON-NLS-1$
-		Generator.createEMFProject(srcPath, null, Collections.EMPTY_LIST, new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE, null);
+		final List<IProject> referencedProjects = Collections.emptyList();
+		Generator.createEMFProject(srcPath, null, referencedProjects, new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE, null);
 		
 		StringBuffer pluginXmlContent = new StringBuffer();
 		pluginXmlContent.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?eclipse version=\"3.0\"?>\n<plugin "); //$NON-NLS-1$
@@ -242,8 +244,8 @@ public class RuntimeWorkspaceSetup {
 		for (int i = 0; i < cpOrigResolved.length; i++) {
 			uniqueClassPathEntries.add(cpOrigResolved[i].getPath());
 		}
-		for (Iterator it = rv.iterator(); it.hasNext();) {
-			IClasspathEntry next = (IClasspathEntry) it.next();
+		for (Iterator<IClasspathEntry> it = rv.iterator(); it.hasNext();) {
+			IClasspathEntry next = it.next();
 			if (uniqueClassPathEntries.contains(next.getPath())) {
 				it.remove();
 			} else {

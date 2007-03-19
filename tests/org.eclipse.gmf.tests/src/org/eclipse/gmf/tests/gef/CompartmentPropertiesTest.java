@@ -161,7 +161,7 @@ public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
 	 * getSetup().getGenModel() and remove this method
 	 */
 	private final GenCompartment getGenCompartment(GenNode genNode) {
-		return (GenCompartment) genNode.getCompartments().get(0);
+		return genNode.getCompartments().get(0);
 	}
 	
 }

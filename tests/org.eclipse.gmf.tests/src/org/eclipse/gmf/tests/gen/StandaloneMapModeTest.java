@@ -52,7 +52,7 @@ public class StandaloneMapModeTest extends TestCase {
 		GeneratedClassData[] theOnly = FigureGeneratorUtil.generateAndCompile(config, createTestFigure());
 		assertNotNull(theOnly);
 		assertEquals(1, theOnly.length);
-		Class figureClass = theOnly[0].getLoadedClass();
+		Class<?> figureClass = theOnly[0].getLoadedClass();
 		new InstantiateFigureHook(123, 456, MapModeTypes.IDENTITY_MM, config).go(figureClass);
 		new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, config).go(figureClass);
 	}
@@ -86,7 +86,7 @@ public class StandaloneMapModeTest extends TestCase {
 			myConfig = config;
 		}
 		
-		protected IFigure instantiateFigure(Class figureClass) {
+		protected IFigure instantiateFigure(Class<?> figureClass) {
 			try {
 				hookMapMode();
 			} catch (Exception e) {
@@ -98,7 +98,7 @@ public class StandaloneMapModeTest extends TestCase {
 		private void hookMapMode() throws Exception {
 			Bundle bundle = Platform.getBundle(myConfig.getPluginID());
 			assertNotNull(bundle);
-			Class activatorClass = bundle.loadClass(myConfig.getPluginActivatorPackageName() + "." + myConfig.getPluginActivatorClassName());
+			Class<?> activatorClass = bundle.loadClass(myConfig.getPluginActivatorPackageName() + "." + myConfig.getPluginActivatorClassName());
 			assertNotNull(activatorClass);
 			Method getDefault = activatorClass.getMethod("getDefault", new Class[0]);
 			assertNotNull(getDefault);

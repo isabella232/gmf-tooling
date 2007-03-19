@@ -42,7 +42,7 @@ public abstract class FigureCheck extends Assert {
 		return this;
 	}
 
-	public final void go(Class figureClass) {
+	public final void go(Class<?> figureClass) {
 		IFigure figure = instantiateFigure(figureClass);
 		assertNotNull(figure);
 		go(figure);
@@ -58,7 +58,7 @@ public abstract class FigureCheck extends Assert {
 	/**
 	 * Overridable to allow not default construction
 	 */
-	protected IFigure instantiateFigure(Class figureClass) {
+	protected IFigure instantiateFigure(Class<?> figureClass) {
 		Object result = null;
 		try {
 			result = figureClass.newInstance();
