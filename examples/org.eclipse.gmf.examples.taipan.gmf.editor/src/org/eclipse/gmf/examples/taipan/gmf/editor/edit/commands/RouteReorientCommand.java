@@ -15,6 +15,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
@@ -47,13 +48,32 @@ public class RouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	public boolean canExecute() {
+		if (!(getElementToEdit() instanceof Route)) {
+			return false;
+		}
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			return newEnd instanceof Port;
+		}
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			return newEnd instanceof Port;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		Route link = (Route) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			//link.setSource(newEnd);
-		} else if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			//link.setDestination(newEnd);
+			link.setSource((Port) newEnd);
+			return CommandResult.newOKCommandResult(link);
 		}
-		return CommandResult.newOKCommandResult(link);
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			link.setDestination((Port) newEnd);
+			return CommandResult.newOKCommandResult(link);
+		}
+		return CommandResult.newErrorCommandResult("Unknown direction: " + reorientDirection);
 	}
 }

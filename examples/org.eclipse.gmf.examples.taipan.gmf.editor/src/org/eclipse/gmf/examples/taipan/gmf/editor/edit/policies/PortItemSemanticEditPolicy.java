@@ -34,6 +34,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteReorientCom
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
@@ -211,10 +214,10 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (req.getRelationship() instanceof Route) {
+		if (RouteEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new RouteReorientCommand(req));
 		}
-		if (req.getRelationship() instanceof Route) {
+		if (Route2EditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new Route2ReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
