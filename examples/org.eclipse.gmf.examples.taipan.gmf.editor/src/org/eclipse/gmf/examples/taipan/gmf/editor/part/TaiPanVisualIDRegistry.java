@@ -16,15 +16,20 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
+import org.eclipse.gmf.examples.taipan.EscortShipOrder;
 import org.eclipse.gmf.examples.taipan.LargeItem;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
@@ -43,6 +48,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -180,6 +187,11 @@ public class TaiPanVisualIDRegistry {
 				return ShipLargeCargoEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShip_2002ChildNodeID(domainElement, semanticHint);
+		case WarshipEditPart.VISUAL_ID:
+			if (WarshipNameEditPart.VISUAL_ID == nodeVisualID) {
+				return WarshipNameEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedWarship_2003ChildNodeID(domainElement, semanticHint);
 		case SmallItemsEditPart.VISUAL_ID:
 			return getUnrecognizedSmallItems_3001ChildNodeID(domainElement, semanticHint);
 		case LargeItemEditPart.VISUAL_ID:
@@ -216,6 +228,10 @@ public class TaiPanVisualIDRegistry {
 			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeShip_2002((Ship) domainElement))) {
 				return ShipEditPart.VISUAL_ID;
+			}
+			if ((semanticHint == null || WarshipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeWarship_2003((Warship) domainElement))) {
+				return WarshipEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
 		case ShipDestinationEditPart.VISUAL_ID:
@@ -262,6 +278,12 @@ public class TaiPanVisualIDRegistry {
 			return ReliableRouteEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4003((Route) domainElement))) {
 			return UnreliableRouteEditPart.VISUAL_ID;
+		} else if (TaiPanPackage.eINSTANCE.getEscortShipOrder().isSuperTypeOf(domainElementMetaclass)
+				&& (domainElement == null || isLinkWithClassEscortShipOrder_4004((EscortShipOrder) domainElement))) {
+			return EscortShipOrderEditPart.VISUAL_ID;
+		} else if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElementMetaclass)
+				&& (domainElement == null || isLinkWithClassBesiegePortOrder_4005((BesiegePortOrder) domainElement))) {
+			return BesiegePortOrderEditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
@@ -313,6 +335,16 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
+	private static boolean isNodeWarship_2003(Warship element) {
+		return true;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
 	private static boolean isNodeSmallItems_3001(SmallItems element) {
 		return true;
 	}
@@ -354,6 +386,16 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getUnrecognizedShip_2002ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedWarship_2003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -475,6 +517,26 @@ public class TaiPanVisualIDRegistry {
 	 */
 	private static boolean isLinkWithClassRoute_4003(Route element) {
 		return Route_4003.matches(element);
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private static boolean isLinkWithClassEscortShipOrder_4004(EscortShipOrder element) {
+		return true;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private static boolean isLinkWithClassBesiegePortOrder_4005(BesiegePortOrder element) {
+		return true;
 	}
 
 	/**

@@ -110,6 +110,36 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
+	public static String Warship9CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Warship9CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String BesiegeOrder10CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String BesiegeOrder10CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String EscortOrder11CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EscortOrder11CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String ShipSmallCargoEditPart_title;
 
 	/**
@@ -140,7 +170,22 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_Ship_2002_incominglinks;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_Ship_2002_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Warship_2003_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Warship_2003_outgoinglinks;
 
 	/**
 	 * @generated
@@ -171,6 +216,26 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Route_4003_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EscortShipOrder_4004_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EscortShipOrder_4004_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_BesiegePortOrder_4005_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_BesiegePortOrder_4005_source;
 
 	//TODO: put accessor fields manually	
 }

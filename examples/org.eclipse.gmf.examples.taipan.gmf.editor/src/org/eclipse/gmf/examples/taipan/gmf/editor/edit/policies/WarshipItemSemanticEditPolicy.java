@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,10 +25,12 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
@@ -42,7 +44,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -56,7 +58,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		for (Iterator it = allEdges.iterator(); it.hasNext();) {
 			Edge nextEdge = (Edge) it.next();
 			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((ShipEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
+			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((WarshipEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
 					Collections.EMPTY_MAP);
 			cc.add(nextEditPart.getCommand(editCommandRequest));
 		}
@@ -83,7 +85,10 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
 		}
 		if (TaiPanElementTypes.EscortShipOrder_4004 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipOrder_4004Command(req);
+			return req.getTarget() == null ? getCreateStartOutgoingEscortShipOrder_4004Command(req) : getCreateCompleteIncomingEscortShipOrder_4004Command(req);
+		}
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingBesiegePortOrder_4005Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -98,6 +103,22 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		Ship source = (Ship) sourceEObject;
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(source, null)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingEscortShipOrder_4004Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		if (false == sourceEObject instanceof Warship) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Warship source = (Warship) sourceEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipOrder_4004(source, null)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		return new Command() {
@@ -125,6 +146,22 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	}
 
 	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		if (false == sourceEObject instanceof Warship) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Warship source = (Warship) sourceEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, null)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		return new Command() {
+		};
+	}
+
+	/**
 	 * Returns command to reorient link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
@@ -134,7 +171,9 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (EscortShipOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new EscortShipOrderReorientCommand(req));
 		}
+		if (BesiegePortOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
+		}
 		return super.getReorientRelationshipCommand(req);
 	}
-
 }

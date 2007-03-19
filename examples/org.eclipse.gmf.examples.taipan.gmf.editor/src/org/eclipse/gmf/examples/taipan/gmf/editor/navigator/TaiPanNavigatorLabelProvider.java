@@ -15,7 +15,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
@@ -28,6 +30,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -111,6 +115,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Port", TaiPanElementTypes.Port_2001);
 		case ShipEditPart.VISUAL_ID:
 			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Ship", TaiPanElementTypes.Ship_2002);
+		case WarshipEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Warship", TaiPanElementTypes.Warship_2003);
 		case SmallItemsEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?SmallItems", TaiPanElementTypes.SmallItems_3001);
 		case LargeItemEditPart.VISUAL_ID:
@@ -125,6 +131,10 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4002);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4003);
+		case EscortShipOrderEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?EscortShipOrder", TaiPanElementTypes.EscortShipOrder_4004);
+		case BesiegePortOrderEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?BesiegePortOrder", TaiPanElementTypes.BesiegePortOrder_4005);
 		default:
 			return getImage("Navigator?UnknownElement", null);
 		}
@@ -184,6 +194,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getPort_2001Text(view);
 		case ShipEditPart.VISUAL_ID:
 			return getShip_2002Text(view);
+		case WarshipEditPart.VISUAL_ID:
+			return getWarship_2003Text(view);
 		case SmallItemsEditPart.VISUAL_ID:
 			return getSmallItems_3001Text(view);
 		case LargeItemEditPart.VISUAL_ID:
@@ -198,6 +210,10 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getRoute_4002Text(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003Text(view);
+		case EscortShipOrderEditPart.VISUAL_ID:
+			return getEscortShipOrder_4004Text(view);
+		case BesiegePortOrderEditPart.VISUAL_ID:
+			return getBesiegePortOrder_4005Text(view);
 		default:
 			return getUnknownElementText(view);
 		}
@@ -247,6 +263,30 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5004);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getWarship_2003Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(WarshipNameEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.Warship_2003;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005);
 			return "";
 		}
 	}
@@ -389,6 +429,20 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6004);
 			return "";
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getEscortShipOrder_4004Text(View view) {
+		return "";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getBesiegePortOrder_4005Text(View view) {
+		return "";
 	}
 
 	/**

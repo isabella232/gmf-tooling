@@ -162,6 +162,8 @@ public class TaiPanElementTypes extends ElementInitializers {
 
 			elements.put(Ship_2002, TaiPanPackage.eINSTANCE.getShip());
 
+			elements.put(Warship_2003, TaiPanPackage.eINSTANCE.getWarship());
+
 			elements.put(SmallItems_3001, TaiPanPackage.eINSTANCE.getSmallItems());
 
 			elements.put(LargeItem_3002, TaiPanPackage.eINSTANCE.getLargeItem());
@@ -173,6 +175,10 @@ public class TaiPanElementTypes extends ElementInitializers {
 			elements.put(Route_4002, TaiPanPackage.eINSTANCE.getRoute());
 
 			elements.put(Route_4003, TaiPanPackage.eINSTANCE.getRoute());
+
+			elements.put(EscortShipOrder_4004, TaiPanPackage.eINSTANCE.getEscortShipOrder());
+
+			elements.put(BesiegePortOrder_4005, TaiPanPackage.eINSTANCE.getBesiegePortOrder());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -210,6 +216,11 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Warship_2003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Warship_2003"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType ShipDestination_4001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"); //$NON-NLS-1$
 
 	/**
@@ -221,6 +232,16 @@ public class TaiPanElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Route_4003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EscortShipOrder_4004 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipOrder_4004"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType BesiegePortOrder_4005 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.BesiegePortOrder_4005"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -243,12 +264,15 @@ public class TaiPanElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(Aquatory_1000);
 			KNOWN_ELEMENT_TYPES.add(Port_2001);
 			KNOWN_ELEMENT_TYPES.add(Ship_2002);
+			KNOWN_ELEMENT_TYPES.add(Warship_2003);
 			KNOWN_ELEMENT_TYPES.add(SmallItems_3001);
 			KNOWN_ELEMENT_TYPES.add(LargeItem_3002);
 			KNOWN_ELEMENT_TYPES.add(EmptyBox_3003);
 			KNOWN_ELEMENT_TYPES.add(ShipDestination_4001);
 			KNOWN_ELEMENT_TYPES.add(Route_4002);
 			KNOWN_ELEMENT_TYPES.add(Route_4003);
+			KNOWN_ELEMENT_TYPES.add(EscortShipOrder_4004);
+			KNOWN_ELEMENT_TYPES.add(BesiegePortOrder_4005);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}

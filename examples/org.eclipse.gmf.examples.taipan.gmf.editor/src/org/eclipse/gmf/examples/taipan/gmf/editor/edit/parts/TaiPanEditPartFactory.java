@@ -54,6 +54,12 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case ShipNameEditPart.VISUAL_ID:
 				return new ShipNameEditPart(view);
 
+			case WarshipEditPart.VISUAL_ID:
+				return new WarshipEditPart(view);
+
+			case WarshipNameEditPart.VISUAL_ID:
+				return new WarshipNameEditPart(view);
+
 			case SmallItemsEditPart.VISUAL_ID:
 				return new SmallItemsEditPart(view);
 
@@ -98,6 +104,12 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 
 			case UnreliableRouteRelbEditPart.VISUAL_ID:
 				return new UnreliableRouteRelbEditPart(view);
+
+			case EscortShipOrderEditPart.VISUAL_ID:
+				return new EscortShipOrderEditPart(view);
+
+			case BesiegePortOrderEditPart.VISUAL_ID:
+				return new BesiegePortOrderEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

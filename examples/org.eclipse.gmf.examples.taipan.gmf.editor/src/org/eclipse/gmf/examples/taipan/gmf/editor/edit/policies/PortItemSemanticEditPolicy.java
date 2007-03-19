@@ -26,10 +26,14 @@ import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
@@ -93,6 +97,9 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartOutgoingRoute_4003Command(req) : getCreateCompleteIncomingRoute_4003Command(req);
+		}
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingBesiegePortOrder_4005Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -204,6 +211,26 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	}
 
 	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Port) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Warship source = (Warship) sourceEObject;
+		Port target = (Port) targetEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_Orders());
+		}
+		return getMSLWrapper(new BesiegePortOrderTypeLinkCreateCommand(req, source, target));
+	}
+
+	/**
 	 * Returns command to reorient link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
@@ -215,6 +242,9 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		if (UnreliableRouteEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new UnreliableRouteReorientCommand(req));
+		}
+		if (BesiegePortOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}

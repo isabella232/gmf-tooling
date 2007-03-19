@@ -16,6 +16,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.WarshipCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
@@ -42,6 +43,12 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
 			return getMSLWrapper(new ShipCreateCommand(req));
+		}
+		if (TaiPanElementTypes.Warship_2003 == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
+			}
+			return getMSLWrapper(new WarshipCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

@@ -19,6 +19,7 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.TaiPanBaseEditHelper;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
@@ -270,6 +271,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateEscortShipOrder_4004(Warship source, Ship target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
 			return true;
 		}
 	}
