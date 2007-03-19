@@ -19,9 +19,11 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
@@ -63,6 +65,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -132,6 +135,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/Route")); //$NON-NLS-1$
 	}
@@ -142,6 +146,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((Route) object).getDescription();
 		return label == null || label.length() == 0 ? getString("_UI_Route_type") : //$NON-NLS-1$
@@ -155,6 +160,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -174,6 +180,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -184,6 +191,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return TaiPanEditPlugin.INSTANCE;
 	}

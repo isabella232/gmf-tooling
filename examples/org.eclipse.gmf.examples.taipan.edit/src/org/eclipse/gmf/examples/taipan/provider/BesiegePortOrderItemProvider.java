@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.command.CommandParameter;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -27,19 +28,18 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
-import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.SmallItems} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.BesiegePortOrder} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SmallItemsItemProvider extends ItemItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class BesiegePortOrderItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SmallItemsItemProvider(AdapterFactory adapterFactory) {
+	public BesiegePortOrderItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -69,33 +69,33 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addQuantityPropertyDescriptor(object);
+			addPortPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Quantity feature.
+	 * This adds a property descriptor for the Port feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addQuantityPropertyDescriptor(Object object) {
+	protected void addPortPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_SmallItems_quantity_feature"), //$NON-NLS-1$
-				getString("_UI_PropertyDescriptor_description", "_UI_SmallItems_quantity_feature", "_UI_SmallItems_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TaiPanPackage.Literals.SMALL_ITEMS__QUANTITY, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				getString("_UI_BesiegePortOrder_port_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_BesiegePortOrder_port_feature", "_UI_BesiegePortOrder_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.BESIEGE_PORT_ORDER__PORT, true, false, true, null, null, null));
 	}
 
 	/**
-	 * This returns SmallItems.gif.
+	 * This returns BesiegePortOrder.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SmallItems")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BesiegePortOrder")); //$NON-NLS-1$
 	}
 
 	/**
@@ -106,9 +106,7 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SmallItems) object).getArticle();
-		return label == null || label.length() == 0 ? getString("_UI_SmallItems_type") : //$NON-NLS-1$
-				getString("_UI_SmallItems_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return getString("_UI_BesiegePortOrder_type"); //$NON-NLS-1$
 	}
 
 	/**
@@ -121,12 +119,6 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(SmallItems.class)) {
-		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 

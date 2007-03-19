@@ -19,8 +19,10 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
@@ -58,6 +60,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -72,6 +75,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/EmptyBox")); //$NON-NLS-1$
 	}
@@ -82,6 +86,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((EmptyBox) object).getArticle();
 		return label == null || label.length() == 0 ? getString("_UI_EmptyBox_type") : //$NON-NLS-1$
@@ -95,6 +100,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -107,6 +113,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -117,6 +124,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return TaiPanEditPlugin.INSTANCE;
 	}

@@ -102,6 +102,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createAquatoryAdapter() {
 		if (aquatoryItemProvider == null) {
 			aquatoryItemProvider = new AquatoryItemProvider(this);
@@ -124,6 +125,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPortAdapter() {
 		if (portItemProvider == null) {
 			portItemProvider = new PortItemProvider(this);
@@ -146,6 +148,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createShipAdapter() {
 		if (shipItemProvider == null) {
 			shipItemProvider = new ShipItemProvider(this);
@@ -168,6 +171,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createLargeItemAdapter() {
 		if (largeItemItemProvider == null) {
 			largeItemItemProvider = new LargeItemItemProvider(this);
@@ -190,6 +194,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSmallItemsAdapter() {
 		if (smallItemsItemProvider == null) {
 			smallItemsItemProvider = new SmallItemsItemProvider(this);
@@ -212,12 +217,82 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createEmptyBoxAdapter() {
 		if (emptyBoxItemProvider == null) {
 			emptyBoxItemProvider = new EmptyBoxItemProvider(this);
 		}
 
 		return emptyBoxItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.Warship} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WarshipItemProvider warshipItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.Warship}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWarshipAdapter() {
+		if (warshipItemProvider == null) {
+			warshipItemProvider = new WarshipItemProvider(this);
+		}
+
+		return warshipItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.EscortShipOrder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EscortShipOrderItemProvider escortShipOrderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.EscortShipOrder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEscortShipOrderAdapter() {
+		if (escortShipOrderItemProvider == null) {
+			escortShipOrderItemProvider = new EscortShipOrderItemProvider(this);
+		}
+
+		return escortShipOrderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.BesiegePortOrder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BesiegePortOrderItemProvider besiegePortOrderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.BesiegePortOrder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBesiegePortOrderAdapter() {
+		if (besiegePortOrderItemProvider == null) {
+			besiegePortOrderItemProvider = new BesiegePortOrderItemProvider(this);
+		}
+
+		return besiegePortOrderItemProvider;
 	}
 
 	/**
@@ -234,6 +309,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createRouteAdapter() {
 		if (routeItemProvider == null) {
 			routeItemProvider = new RouteItemProvider(this);
@@ -256,6 +332,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createBuildingAdapter() {
 		if (buildingItemProvider == null) {
 			buildingItemProvider = new BuildingItemProvider(this);
@@ -289,6 +366,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -299,6 +377,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -308,6 +387,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
@@ -364,6 +444,10 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			aquatoryItemProvider.dispose();
 		if (portItemProvider != null)
 			portItemProvider.dispose();
+		if (buildingItemProvider != null)
+			buildingItemProvider.dispose();
+		if (routeItemProvider != null)
+			routeItemProvider.dispose();
 		if (shipItemProvider != null)
 			shipItemProvider.dispose();
 		if (largeItemItemProvider != null)
@@ -372,10 +456,12 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			smallItemsItemProvider.dispose();
 		if (emptyBoxItemProvider != null)
 			emptyBoxItemProvider.dispose();
-		if (routeItemProvider != null)
-			routeItemProvider.dispose();
-		if (buildingItemProvider != null)
-			buildingItemProvider.dispose();
+		if (warshipItemProvider != null)
+			warshipItemProvider.dispose();
+		if (escortShipOrderItemProvider != null)
+			escortShipOrderItemProvider.dispose();
+		if (besiegePortOrderItemProvider != null)
+			besiegePortOrderItemProvider.dispose();
 	}
 
 }

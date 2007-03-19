@@ -21,8 +21,10 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
@@ -64,6 +66,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -80,12 +83,13 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__PORTS);
-			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__SHIPS);
 			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__ROUTES);
+			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__SHIPS);
 		}
 		return childrenFeatures;
 	}
@@ -95,6 +99,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -108,6 +113,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/Aquatory")); //$NON-NLS-1$
 	}
@@ -118,6 +124,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return getString("_UI_Aquatory_type"); //$NON-NLS-1$
 	}
@@ -129,13 +136,14 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Aquatory.class)) {
 		case TaiPanPackage.AQUATORY__PORTS:
-		case TaiPanPackage.AQUATORY__SHIPS:
 		case TaiPanPackage.AQUATORY__ROUTES:
+		case TaiPanPackage.AQUATORY__SHIPS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -149,14 +157,17 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__PORTS, TaiPanFactory.eINSTANCE.createPort()));
 
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__ROUTES, TaiPanFactory.eINSTANCE.createRoute()));
+
 		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__SHIPS, TaiPanFactory.eINSTANCE.createShip()));
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__ROUTES, TaiPanFactory.eINSTANCE.createRoute()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__SHIPS, TaiPanFactory.eINSTANCE.createWarship()));
 	}
 
 	/**
@@ -165,6 +176,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return TaiPanEditPlugin.INSTANCE;
 	}
