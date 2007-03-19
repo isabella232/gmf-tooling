@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,7 +28,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class RouteTypeLinkCreateCommand extends CreateRelationshipCommand {
+public class ReliableRouteCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -48,7 +48,7 @@ public class RouteTypeLinkCreateCommand extends CreateRelationshipCommand {
 	/**
 	 * @generated
 	 */
-	public RouteTypeLinkCreateCommand(CreateRelationshipRequest req, Aquatory container, Port source, Port target) {
+	public ReliableRouteCreateCommand(CreateRelationshipRequest req, Aquatory container, Port source, Port target) {
 		super(req);
 		super.setElementToEdit(container);
 		myContainer = container;
@@ -82,7 +82,7 @@ public class RouteTypeLinkCreateCommand extends CreateRelationshipCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return TaiPanPackage.eINSTANCE.getAquatory();
-	};
+	}
 
 	/**
 	 * @generated

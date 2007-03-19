@@ -19,12 +19,12 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteRelbEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -273,13 +273,13 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getPortPortLocation_5001Parser();
 		case ShipNameEditPart.VISUAL_ID:
 			return getShipShipName_5004Parser();
-		case RouteDescriptionEditPart.VISUAL_ID:
+		case ReliableRouteDescEditPart.VISUAL_ID:
 			return getRouteRouteDescription_6002Parser();
-		case RouteReliabilityEditPart.VISUAL_ID:
+		case ReliableRouteRelbEditPart.VISUAL_ID:
 			return getRouteRouteReliability_6003Parser();
-		case RouteDescription2EditPart.VISUAL_ID:
+		case UnreliableRouteDescEditPart.VISUAL_ID:
 			return getRouteRouteDescription_6004Parser();
-		case RouteReliability2EditPart.VISUAL_ID:
+		case UnreliableRouteRelbEditPart.VISUAL_ID:
 			return getRouteRouteReliability_6005Parser();
 		}
 		return null;

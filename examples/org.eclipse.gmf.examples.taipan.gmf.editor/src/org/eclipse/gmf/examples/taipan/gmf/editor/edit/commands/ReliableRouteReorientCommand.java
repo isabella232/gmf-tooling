@@ -24,7 +24,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 /**
  * @generated
  */
-public class RouteReorientCommand extends EditElementCommand {
+public class ReliableRouteReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -39,7 +39,7 @@ public class RouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public RouteReorientCommand(ReorientRelationshipRequest request) {
+	public ReliableRouteReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
 		newEnd = request.getNewRelationshipEnd();

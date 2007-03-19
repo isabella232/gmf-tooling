@@ -20,7 +20,6 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -28,13 +27,13 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
@@ -161,9 +160,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), ReliableRouteEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), UnreliableRouteEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			if (!links.isEmpty()) {
 				result.add(links);
@@ -177,13 +176,13 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Port_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), ReliableRouteEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), RouteEditPart.VISUAL_ID);
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ReliableRouteEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), UnreliableRouteEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), Route2EditPart.VISUAL_ID);
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), UnreliableRouteEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -231,7 +230,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case RouteEditPart.VISUAL_ID: {
+		case ReliableRouteEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
@@ -248,7 +247,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case Route2EditPart.VISUAL_ID: {
+		case UnreliableRouteEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4003_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Route_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$

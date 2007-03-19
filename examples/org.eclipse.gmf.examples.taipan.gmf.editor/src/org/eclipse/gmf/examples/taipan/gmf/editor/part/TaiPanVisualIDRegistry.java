@@ -30,12 +30,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteRelbEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationMarkerEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
@@ -43,6 +40,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditP
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDescEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -223,20 +223,20 @@ public class TaiPanVisualIDRegistry {
 				return ShipDestinationMarkerEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipDestination_4001LinkLabelID(semanticHint);
-		case RouteEditPart.VISUAL_ID:
-			if (RouteDescriptionEditPart.VISUAL_ID == nodeVisualID) {
-				return RouteDescriptionEditPart.VISUAL_ID;
+		case ReliableRouteEditPart.VISUAL_ID:
+			if (ReliableRouteDescEditPart.VISUAL_ID == nodeVisualID) {
+				return ReliableRouteDescEditPart.VISUAL_ID;
 			}
-			if (RouteReliabilityEditPart.VISUAL_ID == nodeVisualID) {
-				return RouteReliabilityEditPart.VISUAL_ID;
+			if (ReliableRouteRelbEditPart.VISUAL_ID == nodeVisualID) {
+				return ReliableRouteRelbEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRoute_4002LinkLabelID(semanticHint);
-		case Route2EditPart.VISUAL_ID:
-			if (RouteDescription2EditPart.VISUAL_ID == nodeVisualID) {
-				return RouteDescription2EditPart.VISUAL_ID;
+		case UnreliableRouteEditPart.VISUAL_ID:
+			if (UnreliableRouteDescEditPart.VISUAL_ID == nodeVisualID) {
+				return UnreliableRouteDescEditPart.VISUAL_ID;
 			}
-			if (RouteReliability2EditPart.VISUAL_ID == nodeVisualID) {
-				return RouteReliability2EditPart.VISUAL_ID;
+			if (UnreliableRouteRelbEditPart.VISUAL_ID == nodeVisualID) {
+				return UnreliableRouteRelbEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRoute_4003LinkLabelID(semanticHint);
 		}
@@ -259,9 +259,9 @@ public class TaiPanVisualIDRegistry {
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4002((Route) domainElement))) {
-			return RouteEditPart.VISUAL_ID;
+			return ReliableRouteEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4003((Route) domainElement))) {
-			return Route2EditPart.VISUAL_ID;
+			return UnreliableRouteEditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}

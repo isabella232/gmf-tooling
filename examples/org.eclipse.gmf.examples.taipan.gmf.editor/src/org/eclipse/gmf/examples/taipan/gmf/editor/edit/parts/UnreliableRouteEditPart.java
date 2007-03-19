@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.RouteItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.UnreliableRouteItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -22,17 +22,17 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class RouteEditPart extends ConnectionNodeEditPart {
+public class UnreliableRouteEditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4002;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated
 	 */
-	public RouteEditPart(View view) {
+	public UnreliableRouteEditPart(View view) {
 		super(view);
 	}
 
@@ -41,7 +41,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RouteItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new UnreliableRouteItemSemanticEditPolicy());
 	}
 
 	/**
@@ -54,26 +54,27 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new ReliableRouteFigure();
+		return new UnreliableRouteFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ReliableRouteFigure extends PolylineConnectionEx {
+	public class UnreliableRouteFigure extends PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public ReliableRouteFigure() {
+		public UnreliableRouteFigure() {
 			this.setFill(true);
 			this.setFillXOR(false);
 			this.setOutline(true);
 			this.setOutlineXOR(false);
 			this.setLineWidth(1);
-			this.setLineStyle(Graphics.LINE_SOLID);
+			this.setLineStyle(Graphics.LINE_DASH);
 
 		}
 
 	}
+
 }

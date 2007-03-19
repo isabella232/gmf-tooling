@@ -32,11 +32,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -281,7 +281,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (RouteEditPart.VISUAL_ID == linkVID) {
+				if (ReliableRouteEditPart.VISUAL_ID == linkVID) {
 					Object structuralFeatureResult = ((Route) nextValue).getDestination();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;
@@ -304,7 +304,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (Route2EditPart.VISUAL_ID == linkVID) {
+				if (UnreliableRouteEditPart.VISUAL_ID == linkVID) {
 					Object structuralFeatureResult = ((Route) nextValue).getDestination();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;

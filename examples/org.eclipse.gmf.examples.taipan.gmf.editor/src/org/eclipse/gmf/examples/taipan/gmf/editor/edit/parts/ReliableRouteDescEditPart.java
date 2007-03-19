@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -60,7 +60,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwareEditPart {
+public class ReliableRouteDescEditPart extends LabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -91,13 +91,13 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(RouteDescriptionEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ReliableRouteDescEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
 	 * @generated
 	 */
-	public RouteDescriptionEditPart(View view) {
+	public ReliableRouteDescEditPart(View view) {
 		super(view);
 	}
 
