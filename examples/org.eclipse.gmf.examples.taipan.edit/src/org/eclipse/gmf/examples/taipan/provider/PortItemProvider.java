@@ -68,7 +68,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	@Override
-	public List getPropertyDescriptors(Object object) {
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
@@ -98,7 +98,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	@Override
-	public Collection getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(TaiPanPackage.Literals.PORT__BUILDINGS);
@@ -173,7 +173,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<CommandParameter> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.PORT__BUILDINGS, TaiPanFactory.eINSTANCE.createBuilding()));

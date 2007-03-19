@@ -72,7 +72,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection supportedTypes = new ArrayList();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -391,7 +391,7 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class) type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>) type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
