@@ -158,7 +158,6 @@ public class BasicGenModelAccess implements GenModelAccess {
 		return Status.OK_STATUS;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void confineInResource() {
 		Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri", genModel.getModelPluginID(), null));
 		r.getContents().add(genModel);

@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -155,7 +154,6 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		return v;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
 		FigureGallery gallery = findAncestorFigureGallery(figure);
 		if (gallery != null){
@@ -177,7 +175,6 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private static boolean isBareInstance(Figure figure){
 		if (!figure.getChildren().isEmpty()) {
 			return false;
@@ -192,8 +189,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 		}
-		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
-			final EStructuralFeature next = (EStructuralFeature) it.next();
+		for (EStructuralFeature next : featuresToCheck) {
 			if (next.isDerived()) {
 				continue;
 			}

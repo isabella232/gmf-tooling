@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -73,8 +72,7 @@ public class GenModelMatcher {
 		if (gp == null) {
 			throw new IllegalStateException("Can't find genPackage for " + domainMetaClass.getEPackage());
 		}
-		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
-			GenClass genClass = (GenClass) it.next();
+		for (GenClass genClass : gp.getGenClasses()) {
 			if (genClass.getEcoreClass().equals(domainMetaClass)) {
 				return genClass;
 			}
@@ -93,8 +91,7 @@ public class GenModelMatcher {
 			return null;
 		}
 		GenClass genClass = findGenClass(domainMetaFeature.getEContainingClass());
-		for (Iterator it = genClass.getGenFeatures().iterator(); it.hasNext();) {
-			GenFeature next = (GenFeature) it.next();
+		for (GenFeature next : genClass.getGenFeatures()) {
 			if (next.getEcoreFeature().equals(domainMetaFeature)) {
 				return next;
 			}

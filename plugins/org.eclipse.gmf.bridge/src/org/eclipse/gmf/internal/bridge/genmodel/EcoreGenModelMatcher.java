@@ -10,8 +10,6 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -46,8 +44,7 @@ public class EcoreGenModelMatcher extends GenModelMatcher {
 	 */
 	public GenPackage findGenPackage(EPackage domainPackage) {
 		if(domainPackage == EcorePackage.eINSTANCE) {
-			for (Iterator it = getGenModel().getGenPackages().iterator(); it.hasNext();) {
-				GenPackage genPackage = (GenPackage) it.next();
+			for (GenPackage genPackage : getGenModel().getGenPackages()) {
 				if(genPackage.getEcorePackage() != null && safeEquals(domainPackage.getNsURI(), genPackage.getEcorePackage().getNsURI())) {
 					return genPackage;
 				}
@@ -82,8 +79,7 @@ public class EcoreGenModelMatcher extends GenModelMatcher {
 		if (gp == null) {
 			throw new IllegalStateException("Can't find genPackage for " + domainMetaClassifier.getEPackage());
 		}
-		for (Iterator it = gp.getGenClassifiers().iterator(); it.hasNext();) {
-			GenClassifier genClassifier = (GenClassifier) it.next();
+		for (GenClassifier genClassifier : gp.getGenClassifiers()) {
 			if (genClassifier.getEcoreClassifier() != null && safeEquals(genClassifier.getEcoreClassifier().getName(), domainMetaClassifier.getName())) {
 				return genClassifier;
 			}

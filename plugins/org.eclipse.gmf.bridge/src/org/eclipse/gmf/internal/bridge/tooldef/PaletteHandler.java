@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.internal.bridge.tooldef;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +21,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -83,18 +81,17 @@ public class PaletteHandler {
 		return myGenPalette != null;
 	}	
 
-	@SuppressWarnings("unchecked")
 	public void process(org.eclipse.gmf.tooldef.Palette palette) {
 		if (!isInitialized()) {
 			return;
 		}
 		// perhaps, moving this code to ToolSwitch and just doSwitch(palette) would be better?
-		List groupItems = new ToolSwitch(myToolHistory).toGroupItems(palette.getTools());
-		EList topLevelTools = new BasicEList();
-		for (Iterator it = groupItems.iterator(); it.hasNext(); ) {
-			ToolGroupItem next = (ToolGroupItem) it.next();
-			if (false == next instanceof ToolGroup) {
-				it.remove();
+		ArrayList<ToolGroup> groups = new ArrayList<ToolGroup>(palette.getTools().size());
+		ArrayList<ToolGroupItem> topLevelTools = new ArrayList<ToolGroupItem>(palette.getTools().size());
+		for (ToolGroupItem next : new ToolSwitch(myToolHistory).toGroupItems(palette.getTools())) {
+			if (next instanceof ToolGroup) {
+				groups.add((ToolGroup) next);
+			} else {
 				topLevelTools.add(next);
 			}
 		}
@@ -106,7 +103,7 @@ public class PaletteHandler {
 			defaultGroup.getEntries().addAll(topLevelTools);
 			getGenPalette().getGroups().add(defaultGroup);
 		}
-		getGenPalette().getGroups().addAll(groupItems);
+		getGenPalette().getGroups().addAll(groups);
 		if (palette.getDefault() != null) {
 			assert false == myToolHistory.get(palette.getDefault()) instanceof Separator;
 			EntryBase eb = (EntryBase) myToolHistory.get(palette.getDefault());
@@ -119,7 +116,6 @@ public class PaletteHandler {
 		getGenPalette().setFlyout(true); // FIXME option
 	}
 
-	@SuppressWarnings("unchecked")
 	public void process(NodeMapping nme, GenNode genNode) {
 		if (!isInitialized() || nme.getTool() == null) {
 			return;
@@ -130,7 +126,6 @@ public class PaletteHandler {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public void process(LinkMapping lme, GenLink genLink) {
 		if (!isInitialized() || lme.getTool() == null) {
 			return;
@@ -168,7 +163,6 @@ public class PaletteHandler {
 		return (ToolEntry) myToolHistory.get(tool);
 	}
 
-	@SuppressWarnings("unchecked")
 	private ToolEntry createMissingToolEntry(AbstractTool tool) {
 		assert tool != null;
 		if (myMisreferencedTools == null) {
@@ -209,7 +203,7 @@ public class PaletteHandler {
 
 
 	// XXX handle other tool types (action, whatever)
-	private static class ToolSwitch extends GMFToolSwitch {
+	private static class ToolSwitch extends GMFToolSwitch<ToolGroupItem> {
 		private final Map<AbstractTool, ToolGroupItem> toolHistory;
 
 		private ToolSwitch(Map<AbstractTool, ToolGroupItem> toolMap) {
@@ -221,7 +215,7 @@ public class PaletteHandler {
 			assert toolDefinitions != null;
 			List<ToolGroupItem> rv = new LinkedList<ToolGroupItem>();
 			for (AbstractTool next : toolDefinitions) {
-				ToolGroupItem value = (ToolGroupItem) doSwitch(next);
+				ToolGroupItem value = doSwitch(next);
 				if (value == null) {
 					logWarning("Can't transform '" + next + " to ToolGroupItem");
 				} else {
@@ -232,17 +226,17 @@ public class PaletteHandler {
 			return rv;
 		}
 
-		public Object casePaletteSeparator(PaletteSeparator object) {
+		public ToolGroupItem casePaletteSeparator(PaletteSeparator object) {
 			return GMFGenFactory.eINSTANCE.createSeparator();
 		}
 		
-		public Object caseCreationTool(CreationTool tool) {
+		public ToolGroupItem caseCreationTool(CreationTool tool) {
 			ToolEntry ne = GMFGenFactory.eINSTANCE.createToolEntry();
 			setupCommonToolEntry(ne, tool);
 			return ne;
 		}
 
-		public Object caseStandardTool(StandardTool standardTool) {
+		public ToolGroupItem caseStandardTool(StandardTool standardTool) {
 			StandardEntry entry = GMFGenFactory.eINSTANCE.createStandardEntry();
 			switch (standardTool.getToolKind().getValue()) {
 				case StandardToolKind.SELECT : {
@@ -262,7 +256,7 @@ public class PaletteHandler {
 			return entry;
 		}
 
-		public Object caseGenericTool(GenericTool tool) {
+		public ToolGroupItem caseGenericTool(GenericTool tool) {
 			if (tool.getToolClass() == null) {
 				logWarning("GenericTool element without a class, no palette entry createed");
 				return null;
@@ -273,8 +267,7 @@ public class PaletteHandler {
 			return ne;
 		}
 
-		@SuppressWarnings("unchecked")
-		public Object caseToolGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
+		public ToolGroupItem caseToolGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
 			ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 			tg.setCollapse(toolGroup.isCollapsible());
 			tg.setStack(toolGroup.isStack());

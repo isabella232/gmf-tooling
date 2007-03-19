@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -72,9 +71,8 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 
 	private Map<String, GenClass> collectGenClasses(GenModel drtGenModel) {
 		TreeMap<String, GenClass> rv = new TreeMap<String, GenClass>();
-		GenPackage genPack = (GenPackage) drtGenModel.getGenPackages().get(0);
-		for (Iterator it =  genPack.getGenClasses().iterator(); it.hasNext();) {
-			GenClass next = (GenClass) it.next();
+		GenPackage genPack = drtGenModel.getGenPackages().get(0);
+		for (GenClass next : genPack.getGenClasses()) {
 			rv.put(next.getName(), next);
 		}
 		return rv;

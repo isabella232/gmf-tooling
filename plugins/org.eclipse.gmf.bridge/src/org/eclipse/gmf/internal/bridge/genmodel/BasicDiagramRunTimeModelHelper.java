@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -67,8 +66,7 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
 		runtimeAccess.ensure(); 
 		GenPackage gp = runtimeAccess.genPackage();
-		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
-			GenClass next = (GenClass) it.next();
+		for (GenClass next  : gp.getGenClasses()) {
 			if (NotationPackage.eINSTANCE.getNode().getName().equals(next.getName())) {
 				myNode = next;
 			} else if (NotationPackage.eINSTANCE.getEdge().getName().equals(next.getName())) {

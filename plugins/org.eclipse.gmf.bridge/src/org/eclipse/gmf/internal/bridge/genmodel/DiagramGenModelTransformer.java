@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +35,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -151,7 +151,6 @@ import org.eclipse.gmf.mappings.TopNodeReference;
  * Creates generation model from diagram definition.
  * @author artem
  */
-@SuppressWarnings("unchecked")
 public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenEditorGenerator myGenModel;
@@ -161,8 +160,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final VisualIdentifierDispenser myVisualIDs;
 	private final boolean rcp;
 	private final History myHistory;
-	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
-	private final Set myProcessedExpressions = new HashSet();
+	private final Map<GenClass, ElementType> myProcessedTypes = new IdentityHashMap<GenClass, ElementType>(); // GenClass -> MetamodelType
+	private final Set<org.eclipse.gmf.mappings.ValueExpression> myProcessedExpressions = new HashSet<org.eclipse.gmf.mappings.ValueExpression>();
 
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
@@ -330,8 +329,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	protected void process(MetricContainer metrics) {
 		if(metrics != null) {
 			GenMetricContainer genMetricContainer = GMFGenFactory.eINSTANCE.createGenMetricContainer();
-			for (Iterator it = metrics.getMetrics().iterator(); it.hasNext();) {
-				genMetricContainer.getMetrics().add(createGenMetric((MetricRule)it.next()));				
+			for (MetricRule next : metrics.getMetrics()) {
+				genMetricContainer.getMetrics().add(createGenMetric(next));				
 			}
 			getGenEssence().setMetrics(genMetricContainer);
 		}
@@ -402,7 +401,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		final GenChildNode childNode;
 		final boolean needCompartmentChildrenLabelProcessing;
 		if (isPureLabelNode(childNodeMapping)) {
-			LabelMapping soleLabel = (LabelMapping) childNodeMapping.getLabelMappings().get(0);
+			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
 			GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
 			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
@@ -468,41 +467,37 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	 */
 	private boolean isPureLabelNode(NodeMapping childNodeMapping) {
 		if (childNodeMapping.getLabelMappings().size() == 1 && childNodeMapping.getChildren().isEmpty()) {
-			LabelMapping soleLabel = (LabelMapping) childNodeMapping.getLabelMappings().get(0);
+			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
 			return childNodeMapping.getDiagramNode() == soleLabel.getDiagramLabel(); 
 		}
 		return false;
 	}
 
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
-		Map compartments2GenCompartmentsMap = new HashMap();
-		for (Iterator it = mapping.getCompartments().iterator(); it.hasNext();) {
-			CompartmentMapping compartmentMapping = (CompartmentMapping) it.next();
+		HashMap<CompartmentMapping, GenCompartment> compartments2GenCompartmentsMap = new HashMap<CompartmentMapping, GenCompartment>();
+		for (CompartmentMapping compartmentMapping : mapping.getCompartments()) {
 			GenCompartment compartmentGen = createGenCompartment(compartmentMapping, genNode);
 			compartments2GenCompartmentsMap.put(compartmentMapping, compartmentGen);
 		}
 
-		for (Iterator it = mapping.getChildren().iterator(); it.hasNext();) {
-			ChildReference childNodeRef = (ChildReference) it.next();
+		for (ChildReference childNodeRef : mapping.getChildren()) {
 // Currently childNodeMapping should has compartment but we plan to make this reference optional
 			CompartmentMapping compartmentMapping = childNodeRef.getCompartment();
 			GenChildContainer genChildContainer;
 			if (compartmentMapping != null && compartments2GenCompartmentsMap.containsKey(compartmentMapping)) {
-				genChildContainer = (GenChildContainer) compartments2GenCompartmentsMap.get(compartmentMapping);
+				genChildContainer = compartments2GenCompartmentsMap.get(compartmentMapping);
 			} else {
 				genChildContainer = genNode;
 			}
 			process(childNodeRef, genChildContainer);
 		}
-		for (Iterator labels = mapping.getLabelMappings().iterator(); labels.hasNext();) {
-			LabelMapping labelMapping = (LabelMapping) labels.next();
+		for (LabelMapping labelMapping : mapping.getLabelMappings()) {
 			GenNodeLabel label = createNodeLabel(genNode, labelMapping);
 
 			// set class names
 			myNamingStrategy.feed(label, labelMapping);
 		}
-		for (Iterator it = mapping.getRelatedDiagrams().iterator(); it.hasNext(); ) {
-			CanvasMapping nextRelatedCanvas = (CanvasMapping) it.next();
+		for (CanvasMapping nextRelatedCanvas : mapping.getRelatedDiagrams()) {
 			OpenDiagramBehaviour openDiagramPolicy = GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour();
 			// ugly check that nodeMapping is related to owning canvasMapping, iow mapping.getCanvasMapping() == nextRelatedCanvas
 			if (nextRelatedCanvas.eResource() != mapping.eResource()) {
@@ -539,8 +534,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setModelFacet(createModelFacet(lme));
 		gl.setVisualID(myVisualIDs.get(gl));
 		myPaletteProcessor.process(lme, gl);
-		for (Iterator labels = lme.getLabelMappings().iterator(); labels.hasNext();) {
-			LabelMapping labelMapping = (LabelMapping) labels.next();
+		for (LabelMapping labelMapping : lme.getLabelMappings()) {
 			GenLinkLabel label = createLinkLabel(gl, labelMapping);
 
 			// set class names
@@ -832,8 +826,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(elementInitializer instanceof FeatureSeqInitializer) {
 			FeatureSeqInitializer fsInitializer = (FeatureSeqInitializer) elementInitializer;
 			GenFeatureSeqInitializer genFsInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
-			for (Iterator it = fsInitializer.getInitializers().iterator(); it.hasNext();) {
-				genFsInitializer.getInitializers().add(createGenFeatureInitializer((FeatureInitializer)it.next()));
+			for (FeatureInitializer next : fsInitializer.getInitializers()) {
+				genFsInitializer.getInitializers().add(createGenFeatureInitializer(next));
 			}
 			if(fsInitializer.eIsSet(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_ElementClass())) {
 				genFsInitializer.setElementClass(findGenClass(fsInitializer.getElementClass()));
@@ -857,8 +851,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec) featureInitializer;
 			GenReferenceNewElementSpec genNewElementSpec = GMFGenFactory.eINSTANCE.createGenReferenceNewElementSpec();
 			genNewElementSpec.setFeature(findGenFeature(newElementSpec.getFeature()));
-			for (Iterator newElemInitIt = newElementSpec.getNewElementInitializers().iterator(); newElemInitIt.hasNext();) { 
-				GenFeatureSeqInitializer nextGenFeatureSeqInitializer = (GenFeatureSeqInitializer)createElementInitializer((FeatureSeqInitializer)newElemInitIt.next());
+			for (FeatureSeqInitializer next : newElementSpec.getNewElementInitializers()) { 
+				GenFeatureSeqInitializer nextGenFeatureSeqInitializer = (GenFeatureSeqInitializer)createElementInitializer(next);
 				genNewElementSpec.getNewElementInitializers().add(nextGenFeatureSeqInitializer);
 			}
 			return genNewElementSpec;
@@ -917,8 +911,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				pathMap.put(nextChild, new LinkedList<GenAuditContainer>(gac.getPath()));
 			}
 			root.getCategories().add(gac);
-			for (Iterator it = nextChild.getAudits().iterator(); it.hasNext();) {
-				final GenAuditRule auditRule = createGenAudit((AuditRule) it.next());
+			for (AuditRule next : nextChild.getAudits()) {
+				final GenAuditRule auditRule = createGenAudit(next);
 				auditRule.setCategory(gac);
 				root.getRules().add(auditRule);
 			}
@@ -1066,8 +1060,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			getGenEssence().setExpressionProviders(providerContainer);
 		}
 		GenExpressionProviderBase provider = null;
-		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
-			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();	
+		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
 			if(language.equals(nextProvider.getLanguage())) {
 				provider = nextProvider;
 				break;
@@ -1159,11 +1152,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return item;
 	}
 
-	private GenSharedContributionItem createSharedItem(List sharedItems, GenContributionItem actualItem) {
+	private GenSharedContributionItem createSharedItem(List<GenContributionItem> sharedItems, GenContributionItem actualItem) {
 		GenSharedContributionItem sitem = GMFGenFactory.eINSTANCE.createGenSharedContributionItem();
 		if (actualItem instanceof GenActionFactoryContributionItem) {
 			GenActionFactoryContributionItem afActualItem = (GenActionFactoryContributionItem) actualItem;
-			for (GenContributionItem item : (List<GenContributionItem>) sharedItems) {
+			for (GenContributionItem item : sharedItems) {
 				if (item instanceof GenActionFactoryContributionItem) {
 					GenActionFactoryContributionItem afItem = (GenActionFactoryContributionItem) item;
 					if (afItem.getName().equals(afActualItem.getName())) {
@@ -1182,7 +1175,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return sitem;
 	}
 
-	private GenMenuManager createFileMenu(List sharedItems) {
+	private GenMenuManager createFileMenu(List<GenContributionItem> sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_FILE"); //$NON-NLS-1$
 		menu.setName("&File"); //$NON-NLS-1$
@@ -1207,7 +1200,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return menu;
 	}
 
-	private GenMenuManager createEditMenu(List sharedItems) {
+	private GenMenuManager createEditMenu(List<GenContributionItem> sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_EDIT"); //$NON-NLS-1$
 		menu.setName("&Edit"); //$NON-NLS-1$
@@ -1230,7 +1223,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return menu;
 	}
 
-	private GenMenuManager createWindowMenu(List sharedItems) {
+	private GenMenuManager createWindowMenu(List<GenContributionItem> sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_WINDOW"); //$NON-NLS-1$
 		menu.setName("&Window"); //$NON-NLS-1$
@@ -1240,7 +1233,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return menu;
 	}
 
-	private GenMenuManager createHelpMenu(List sharedItems) {
+	private GenMenuManager createHelpMenu(List<GenContributionItem> sharedItems) {
 		GenMenuManager menu = GMFGenFactory.eINSTANCE.createGenMenuManager();
 		menu.setID("org.eclipse.ui.IWorkbenchActionConstants.M_HELP"); //$NON-NLS-1$
 		menu.setName("&Help"); //$NON-NLS-1$
@@ -1250,7 +1243,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return menu;
 	}
 
-	private GenToolBarManager createFileToolBar(List sharedItems) {
+	private GenToolBarManager createFileToolBar(List<GenContributionItem> sharedItems) {
 		GenToolBarManager toolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
 		toolBar.setID("org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_FILE"); //$NON-NLS-1$
 		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.NEW_GROUP")); //$NON-NLS-1$
@@ -1264,7 +1257,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return toolBar;
 	}
 
-	private GenToolBarManager createHelpToolBar(List sharedItems) {
+	private GenToolBarManager createHelpToolBar(List<GenContributionItem> sharedItems) {
 		GenToolBarManager toolBar = GMFGenFactory.eINSTANCE.createGenToolBarManager();
 		toolBar.setID("org.eclipse.ui.IWorkbenchActionConstants.TOOLBAR_HELP"); //$NON-NLS-1$
 		toolBar.getItems().add(createSeparator("org.eclipse.ui.IWorkbenchActionConstants.GROUP_HELP")); //$NON-NLS-1$

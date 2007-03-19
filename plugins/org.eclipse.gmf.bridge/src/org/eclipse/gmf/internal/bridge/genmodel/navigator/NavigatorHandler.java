@@ -12,7 +12,7 @@
 package org.eclipse.gmf.internal.bridge.genmodel.navigator;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -112,7 +112,6 @@ public class NavigatorHandler {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private Collection<GenNode> getTargetGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
@@ -120,7 +119,6 @@ public class NavigatorHandler {
 		return getAssignableGenNodes(link.getModelFacet().getTargetType());
 	}
 
-	@SuppressWarnings("unchecked")
 	private Collection<GenNode> getSourceGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
@@ -129,9 +127,11 @@ public class NavigatorHandler {
 	}
 
 	private Collection<GenNode> getAssignableGenNodes(GenClass genClass) {
+		if (genClass == null) {
+			return Collections.emptyList();
+		}
 		Collection<GenNode> result = new LinkedHashSet<GenNode>();
-		for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genClass != null && genNodes.hasNext();) {
-			GenNode nextNode = (GenNode) genNodes.next();
+		for (GenNode nextNode : myDiagram.getAllNodes()) {
 			if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
 				result.add(nextNode);
 			}
@@ -143,7 +143,6 @@ public class NavigatorHandler {
 		createChildReference(childNode, parent, GenNavigatorReferenceType.CHILDREN_LITERAL);
 	}
 
-	@SuppressWarnings("unchecked")
 	private GenNavigatorChildReference createChildReference(GenCommonBase child, GenCommonBase parent, GenNavigatorReferenceType referenceType) {
 		GenNavigatorChildReference childReference = GMFGenFactory.eINSTANCE.createGenNavigatorChildReference();
 		if (parent != null) {
