@@ -154,9 +154,7 @@ public class PluginXMLTextMerger {
 				boolean sameStartEnd = oldDoc.getExtensionsStart() == oldDoc.getExtensionsEnd();
 				boolean afterStart = currentPosition >= oldDoc.getExtensionsStart(); 
 				if (afterStart && (sameStartEnd || currentPosition < oldDoc.getExtensionsEnd())) {
-					List<ExtensionDescriptor> newEDs = newDoc.getExtensions();
-					for (Iterator iter = newEDs.iterator(); iter.hasNext();) {
-						ExtensionDescriptor newED = (ExtensionDescriptor) iter.next();
+					for (ExtensionDescriptor newED : newDoc.getExtensions()) {
 						result.append(newED.getText());
 						newED.remove();
 						result.append(getPlatformNewLine());
@@ -280,8 +278,7 @@ public class PluginXMLTextMerger {
 		boolean hasGeneratedExtension(String point) {
 			List<ExtensionDescriptor> list = getExtensionsByPoint(point);
 			if (list != null && list.size() > 0) {
-				for (Iterator iter = list.iterator(); iter.hasNext();) {
-					ExtensionDescriptor ed = (ExtensionDescriptor) iter.next();
+				for (ExtensionDescriptor ed : list) {
 					if (ed.generated) {
 						return true;
 					}

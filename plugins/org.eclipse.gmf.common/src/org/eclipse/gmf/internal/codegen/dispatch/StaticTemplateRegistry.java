@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class StaticTemplateRegistry implements TemplateRegistry {
 	private final Map<Object,String> pathMap = new HashMap<Object, String>();
-	private final Map<Object,Class> classMap = new HashMap<Object,Class>();
+	private final Map<Object,Class<?>> classMap = new HashMap<Object,Class<?>>();
 	private final Map<Object, ClassLoader> classLoaderMap = new HashMap<Object, ClassLoader>();
 	private final ClassLoader myDefaultClassLoader;
 	
@@ -28,11 +28,11 @@ public class StaticTemplateRegistry implements TemplateRegistry {
 		myDefaultClassLoader = defaultClassLoader;
 	}
 
-	public void put(Object key, String templatePath, Class generatorClass) {
+	public void put(Object key, String templatePath, Class<?> generatorClass) {
 		put(key, templatePath, generatorClass, null);
 	}
 	
-	public void put(Object key, String templatePath, Class generatorClass, ClassLoader templateClassLoader) {
+	public void put(Object key, String templatePath, Class<?> generatorClass, ClassLoader templateClassLoader) {
 		assert key != null && templatePath != null;
 		pathMap.put(key, templatePath);
 		if (generatorClass != null) {
@@ -58,7 +58,7 @@ public class StaticTemplateRegistry implements TemplateRegistry {
 		return classMap.containsKey(key);
 	}
 
-	public Class getGeneratorClass(Object key) {
+	public Class<?> getGeneratorClass(Object key) {
 		return classMap.get(key);
 	}
 

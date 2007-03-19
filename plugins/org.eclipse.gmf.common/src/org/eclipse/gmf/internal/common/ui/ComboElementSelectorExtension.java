@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.common.ui;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.SWT;
@@ -66,7 +64,7 @@ public abstract class ComboElementSelectorExtension extends ElementSelectorExten
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				selectedModelElement = (EObject) modelElements.get(combo.getSelectionIndex());
+				selectedModelElement = modelElements.get(combo.getSelectionIndex());
 				fireModelElementChanged();
 			}
 		});
@@ -81,11 +79,11 @@ public abstract class ComboElementSelectorExtension extends ElementSelectorExten
 		} else {
 			combo.setEnabled(true);
 			modelElements = getModelElements(resource);
-			for (Iterator it = modelElements.iterator(); it.hasNext();) {
-				combo.add(getModelElementLabel((EObject) it.next()));
+			for (EObject next : modelElements) {
+				combo.add(getModelElementLabel(next));
 			}
 			if (!modelElements.isEmpty()) {
-				selectedModelElement = (EObject) modelElements.get(0);
+				selectedModelElement = modelElements.get(0);
 				combo.select(0);
 			}
 		}

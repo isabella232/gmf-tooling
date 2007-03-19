@@ -89,8 +89,8 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 				myEClass2Record.put(eClass, result);
 			} else {
 				result = EMPTY_RECORD;
-				for (Iterator superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
-					EClass nextSuper = (EClass) superClasses.next();
+				for (Iterator<EClass> superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
+					EClass nextSuper = superClasses.next();
 					if (nextSuper.isAbstract()) {
 						result = getTemplateRecord(nextSuper, false);
 					}

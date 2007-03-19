@@ -48,7 +48,6 @@ public interface Copier {
 	
 	public static final Copier COMPLETE_COPY = new Copier(){
 	
-		@SuppressWarnings("unchecked")
 		public EObject copyToCurrent(EObject currentParent, EObject old) {
 			safetyCheck(old);
 			EClass currentParentEClass = currentParent.eClass();
@@ -59,8 +58,10 @@ public interface Copier {
 				currentCopy = EcoreUtil.copy(old);
 				EStructuralFeature containment = old.eContainingFeature();
 				Object currentValue = currentParent.eGet(containment);
-				if (currentValue instanceof Collection){
-					((Collection)currentValue).add(currentCopy);
+				if (currentValue instanceof Collection) {
+					@SuppressWarnings("unchecked")
+					Collection<Object> asCollection = (Collection<Object>) currentValue;
+					asCollection.add(currentCopy);
 				} else {
 					currentParent.eSet(containment, currentCopy);
 				}

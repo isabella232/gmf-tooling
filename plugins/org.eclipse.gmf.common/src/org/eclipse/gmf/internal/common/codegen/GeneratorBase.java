@@ -187,7 +187,7 @@ public abstract class GeneratorBase implements Runnable {
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
 		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
-		final List pluginVariables = null;
+		final List<?> pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
 		setProgressTaskName(GeneratorBaseMessages.initproject);
 
@@ -514,13 +514,12 @@ public abstract class GeneratorBase implements Runnable {
 
 		public int getTotal(EObject from) {
 			int total = process(from);
-			for (Iterator it = from.eAllContents(); it.hasNext();) {
-				total += process((EObject) it.next());
+			for (Iterator<EObject> it = from.eAllContents(); it.hasNext();) {
+				total += process(it.next());
 			}
 			return total;
 		}
 
-		@SuppressWarnings("unchecked")
 		protected int process(EObject next) {
 			final EClass nextKey = next.eClass();
 			Integer cachedValue = checkCached(nextKey);

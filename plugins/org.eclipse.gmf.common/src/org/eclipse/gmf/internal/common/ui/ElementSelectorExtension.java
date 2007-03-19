@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public abstract class ElementSelectorExtension extends Observable implements ModelSelectionPageExtension {
 
-	protected List modelElements = new ArrayList();
+	protected List<EObject> modelElements = new ArrayList<EObject>();
 
 	protected EObject selectedModelElement;
 
@@ -45,8 +45,8 @@ public abstract class ElementSelectorExtension extends Observable implements Mod
 
 	protected List<EObject> getModelElements(Resource resource) {
 		List<EObject> elements = new ArrayList<EObject>();
-		for (Iterator it = resource.getAllContents(); it.hasNext();) {
-			EObject next = (EObject) it.next();
+		for (Iterator<EObject> it = resource.getAllContents(); it.hasNext();) {
+			EObject next = it.next();
 			boolean applicableType = getModelElementClass() == null || next.eClass().equals(getModelElementClass());
 			if (applicableType && isApplicable(next)) {
 				elements.add(next);

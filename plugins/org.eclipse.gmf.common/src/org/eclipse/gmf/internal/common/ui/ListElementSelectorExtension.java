@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.common.ui;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.SWT;
@@ -69,7 +67,7 @@ public abstract class ListElementSelectorExtension extends ElementSelectorExtens
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				selectedModelElement = (EObject) modelElements.get(list.getSelectionIndex());
+				selectedModelElement = modelElements.get(list.getSelectionIndex());
 				fireModelElementChanged();
 			}
 		});
@@ -84,11 +82,11 @@ public abstract class ListElementSelectorExtension extends ElementSelectorExtens
 		} else {
 			list.setEnabled(true);
 			modelElements = getModelElements(resource);
-			for (Iterator it = modelElements.iterator(); it.hasNext();) {
-				list.add(getModelElementLabel((EObject) it.next()));
+			for (EObject next : modelElements) {
+				list.add(getModelElementLabel(next));
 			}
 			if (!modelElements.isEmpty()) {
-				selectedModelElement = (EObject) modelElements.get(0);
+				selectedModelElement = modelElements.get(0);
 				list.select(0);
 			}
 		}

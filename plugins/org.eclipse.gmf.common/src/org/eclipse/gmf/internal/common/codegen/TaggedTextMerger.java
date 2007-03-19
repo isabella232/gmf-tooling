@@ -38,7 +38,7 @@ public class TaggedTextMerger {
 		}
 		StringBuffer sb = new StringBuffer();
 		try {
-			Iterator regions = new RegionsIterator(oldText);
+			RegionsIterator regions = new RegionsIterator(oldText);
 			if (regions.hasNext()) {
 				do {
 					sb.append(regions.next());
@@ -55,7 +55,7 @@ public class TaggedTextMerger {
 		return newText.substring(0, bpos + getBeginTag().length()) + sb.toString() + newText.substring(epos);
 	}
 
-	protected class RegionsIterator implements Iterator {
+	protected class RegionsIterator implements Iterator<String> {
 
 		private String text;
 
@@ -70,7 +70,7 @@ public class TaggedTextMerger {
 			return text.indexOf(getBeginTag(), offset) > 0;
 		}
 
-		public Object next() {
+		public String next() {
 			int bpos = text.indexOf(getBeginTag(), offset);
 			if (bpos < 0) {
 				throw new NoSuchElementException();

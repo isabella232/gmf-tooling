@@ -127,7 +127,6 @@ public class ModelLoadHelper {
 		this.diagnostic = internalLoad(targetResSet, uri);
 	}	
 
-	@SuppressWarnings("unchecked")
 	private static Diagnostic internalLoad(ResourceSet resourceSet, URI uri) {
 		Diagnostic diagnostic = Diagnostic.OK_INSTANCE;
 		Resource resource = resourceSet.createResource(uri);

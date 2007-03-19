@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.common.codegen;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.codegen.util.ImportManager;
@@ -70,7 +68,6 @@ public class ImportUtil implements ImportAssistant {
 		return myUnitName;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void markImportLocation(StringBuffer stringBuffer, GenPackage genPackage) {
 		markImportLocation(stringBuffer);
 		myImportManager.addJavaLangImports(genPackage.getJavaLangConflicts());
@@ -87,8 +84,7 @@ public class ImportUtil implements ImportAssistant {
 		StringBuffer importsBuf = new StringBuffer();
 
 		String previousPackageName = null;
-		for (Iterator iter = myImportManager.getImports().iterator(); iter.hasNext();) {
-			String importName = (String) iter.next();
+		for (String importName : myImportManager.getImports()) {
 			int index = importName.lastIndexOf(".");
 			if (index != -1) {
 				String packageName = importName.substring(0, index);

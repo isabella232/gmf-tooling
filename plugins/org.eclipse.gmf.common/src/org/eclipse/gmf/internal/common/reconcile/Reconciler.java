@@ -42,12 +42,10 @@ public class Reconciler {
 		return copier.copyToCurrent(currentParent, notMatchedOld);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void reconcileResource(Resource current, Resource old){
 		reconcileContents(null, current.getContents(), old.getContents());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void reconcileTree(EObject currentRoot, EObject oldRoot){
 		reconcileVertex(currentRoot, oldRoot);
 		reconcileContents(currentRoot, currentRoot.eContents(), oldRoot.eContents());
@@ -134,13 +132,13 @@ public class Reconciler {
 			}
 		}
 		
-		private EObject removeMatched(EObject current, Collection allOld){
+		private EObject removeMatched(EObject current, Collection<EObject> allOld){
 			EClass eClass = current.eClass();
 			Matcher matcher = myConfig.getMatcher(eClass);
 			EObject result = null;
 			if (matcher != Matcher.FALSE){
-				for (Iterator all = allOld.iterator(); all.hasNext();){
-					EObject next = (EObject)all.next();
+				for (Iterator<EObject> all = allOld.iterator(); all.hasNext();){
+					EObject next = all.next();
 					if (eClass.equals(next.eClass()) && matcher.match(current, next)){
 						result = next;
 						all.remove();

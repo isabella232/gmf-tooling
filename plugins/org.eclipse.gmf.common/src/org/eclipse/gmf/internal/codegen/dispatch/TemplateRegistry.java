@@ -24,7 +24,7 @@ public interface TemplateRegistry {
 
 	boolean hasGeneratorClass(Object key);
 
-	Class getGeneratorClass(Object key);
+	Class<?> getGeneratorClass(Object key);
 
 	void clean();
 

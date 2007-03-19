@@ -71,7 +71,7 @@ public class MigrationResource extends ToolResource {
 		}
 	}
 
-	public final void doLoad(InputStream inputStream, Map options) throws IOException {
+	public final void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
 		try {
 			ignoredAttributes = new HashMap<EObject, Map<String, String>>();
 			super.doLoad(inputStream, options);
@@ -107,7 +107,7 @@ public class MigrationResource extends ToolResource {
 	 * @param exception the exception thrown during {@link #doLoad(InputStream, Map)} or
 	 * 		<code>null</code> in case of load success.
 	 */
-	protected void handlePostLoad(@SuppressWarnings("unused")Exception exception) {
+	protected void handlePostLoad(Exception exception) {
 		if (exception == null && config != null) {
 			config.handleResourceLoaded(this, ignoredAttributes);
 		}
@@ -133,7 +133,6 @@ public class MigrationResource extends ToolResource {
 				};
 			}
 			
-			@SuppressWarnings("unchecked")
 			protected void handlePostLoad(Exception exception) {
 				super.handlePostLoad(exception);
 				// if old model version is loaded, check if any problems during resource load have occured
@@ -156,7 +155,6 @@ public class MigrationResource extends ToolResource {
 	 */	
 	static Resource createCheckAndMigrateOnLoadResource(URI uri) {
 		return new MigrationResource(uri) {
-			@SuppressWarnings("unchecked")
 			protected void handlePostLoad(Exception exception) {
 				super.handlePostLoad(exception);
 				if(this.oldVersionDetected && migrationApplied) {
@@ -174,7 +172,7 @@ public class MigrationResource extends ToolResource {
 		MigrationConfig config;
 		protected boolean fixmePotentiallyCompatibilityIssues;
 
-		BCKWDCompatibleHandler(MigrationResource xmiResource, XMLHelper helper, Map options) {
+		BCKWDCompatibleHandler(MigrationResource xmiResource, XMLHelper helper, Map<?, ?> options) {
 			super(xmiResource, helper, options);
 		}
 
@@ -236,7 +234,7 @@ public class MigrationResource extends ToolResource {
 
 		private FeatureKey processedFeatureKey;
 		
-		MigrationHandler(MigrationResource resource, XMLHelper helper, Map options) {
+		MigrationHandler(MigrationResource resource, XMLHelper helper, Map<?, ?> options) {
 			super(resource, helper, options);
 			this.processedFeatureKey = new FeatureKey();
 		}
