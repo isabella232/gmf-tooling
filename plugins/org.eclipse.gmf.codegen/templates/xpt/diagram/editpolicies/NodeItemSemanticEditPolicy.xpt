@@ -278,11 +278,9 @@ if (container == null) {
 	protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
 		«FOREACH getReroutableLinks(this) AS link-»
-		«FOREACH {link.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).metaClass AS linkClass-»
-		if (req.getRelationship() instanceof «getQualifiedInterfaceName(linkClass)») {
+		if («link.getEditPartQualifiedClassName()».VISUAL_ID == «getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new «link.getReorientCommandQualifiedClassName()»(req));
 		}
-		«ENDFOREACH-»
 		«ENDFOREACH-»
 		return super.getReorientRelationshipCommand(req);
 	}
