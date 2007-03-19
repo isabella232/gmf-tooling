@@ -39,6 +39,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -50,18 +51,25 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private IWorkbenchPart myPart;
+	private IWorkbenchPart targetPart;
 
 	/**
 	 * @generated
 	 */
-	private URI domainModelURI;
+	private org.eclipse.emf.common.util.URI domainModelURI;
 
 	/**
 	 * @generated
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		myPart = targetPart;
+		this.targetPart = targetPart;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Shell getShell() {
+		return targetPart.getSite().getShell();
 	}
 
 	/**
@@ -74,7 +82,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			return;
 		}
 		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
-		domainModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+		domainModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
 	}
 
@@ -92,20 +100,19 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+			MessageDialog.openError(getShell(), "Error", "Model file loading failed");
 			return;
 		}
-		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, myPart.getSite().getPage(), diagramRoot, editingDomain);
+		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
 		IDialogSettings pluginDialogSettings = PortDiagramEditorPlugin.getInstance().getDialogSettings();
-		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
+		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InitDiagramFile"); //$NON-NLS-1$
 		if (initDiagramFileSettings == null) {
-			initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
+			initDiagramFileSettings = pluginDialogSettings.addNewSection("InitDiagramFile"); //$NON-NLS-1$
 		}
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
 		wizard.setWindowTitle("Initialize new " + PortEditPart.MODEL_ID + " diagram file");
-
-		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
+		WizardDialog dialog = new WizardDialog(getShell(), wizard);
 		dialog.create();
 		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
 		dialog.open();
