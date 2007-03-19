@@ -124,6 +124,26 @@
       </compartments>
     </ownedChild>
   </nodes>
+  <nodes>
+    <containmentFeature
+        href="taipan.ecore#//Aquatory/ships"/>
+    <ownedChild>
+      <domainMetaElement
+          href="taipan.ecore#//Warship"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="taipan.gmfgraph#ShipName"/>
+        <features
+            href="taipan.ecore#//Ship/name"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
+      <diagramNode
+          href="taipan.gmfgraph#Ship"/>
+    </ownedChild>
+  </nodes>
   <links>
     <labelMappings
         xsi:type="gmfmap:DesignLabelMapping">
@@ -232,6 +252,34 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//Route/destination"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="taipan.ecore#//EscortShipOrder"/>
+    <containmentFeature
+        href="taipan.ecore#//Warship/orders"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
+    <diagramLink
+        href="taipan.gmfgraph#EscortOrder"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="taipan.ecore#//EscortShipOrder/ship"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="taipan.ecore#//BesiegePortOrder"/>
+    <containmentFeature
+        href="taipan.ecore#//Warship/orders"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="taipan.gmftool#//@palette/@tools.0/@tools.9"/>
+    <diagramLink
+        href="taipan.gmfgraph#BesiegeOrder"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="taipan.ecore#//BesiegePortOrder/port"/>
   </links>
   <diagram>
     <diagramCanvas

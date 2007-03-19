@@ -172,6 +172,24 @@
           name="UnreliableRouteReliabilityFigure"
           text="&lt;...>"/>
     </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="EscortOrder"
+        name="EscortOrderFigure"
+        targetDecoration="EscortOrderDecoration">
+      <children
+          xsi:type="gmfgraph:PolylineDecoration"
+          name="EscortOrderDecoration"/>
+    </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="BesiegeOrder"
+        name="BesiegeOrderFigure"
+        targetDecoration="BesiegeOrderDecoration">
+      <children
+          xsi:type="gmfgraph:PolylineDecoration"
+          name="BesiegeOrderDecoration"/>
+    </figures>
   </figures>
   <figures
       name="images"
@@ -205,6 +223,12 @@
   <connections
       name="UnreliableRoute"
       figure="UnreliableRouteFigure"/>
+  <connections
+      name="EscortOrder"
+      figure="EscortOrderFigure"/>
+  <connections
+      name="BesiegeOrder"
+      figure="BesiegeOrderFigure"/>
   <compartments
       name="SmallCargo"
       figure="SmallCargoFigure"
