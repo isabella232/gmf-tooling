@@ -76,6 +76,7 @@ public class GenNavigatorItemProvider
 			addDomainContentProviderClassNamePropertyDescriptor(object);
 			addDomainLabelProviderClassNamePropertyDescriptor(object);
 			addDomainModelElementTesterClassNamePropertyDescriptor(object);
+			addDomainNavigatorItemClassNamePropertyDescriptor(object);
 			addContentExtensionIDPropertyDescriptor(object);
 			addContentExtensionNamePropertyDescriptor(object);
 			addContentExtensionPriorityPropertyDescriptor(object);
@@ -580,6 +581,28 @@ public class GenNavigatorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Domain Navigator Item Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainNavigatorItemClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDomainModelNavigator_domainNavigatorItemClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainNavigatorItemClassName_feature", "_UI_GenDomainModelNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainNavigatorItemClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -653,6 +676,7 @@ public class GenNavigatorItemProvider
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY:
