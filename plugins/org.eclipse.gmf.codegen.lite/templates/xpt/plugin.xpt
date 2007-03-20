@@ -34,7 +34,7 @@
 
 «DEFINE fileTypes FOR gmfgen::GenPlugin-»
   <extension point="org.eclipse.team.core.fileTypes">
-    <?gmfgen generated="true"?>
+    «EXPAND xpt::Common::xmlGeneratedTag»
       <fileTypes
          type="text"
          extension="«editorGen.diagramFileExtension»">
@@ -44,7 +44,7 @@
 
 «DEFINE menu FOR gmfgen::GenPlugin-»
    <extension point="org.eclipse.ui.popupMenus">
-     <?gmfgen generated="true"?>
+     «EXPAND xpt::Common::xmlGeneratedTag»
 «IF null == editorGen.application-»
       <objectContribution
             id="«iD».ui.objectContribution.IFile1"
