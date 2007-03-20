@@ -68,7 +68,9 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			//link.set((Warship) newEnd);
+			Warship oldEnd = (Warship) link.eContainer();
+			oldEnd.getOrders().remove(link);
+			((Warship) newEnd).getOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {

@@ -68,11 +68,13 @@ public class EscortShipOrderReorientCommand extends EditElementCommand {
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		EscortShipOrder link = (EscortShipOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			//link.set((Warship) newEnd);
+			Warship oldEnd = (Warship) link.eContainer();
+			oldEnd.getOrders().remove(link);
+			((Warship) newEnd).getOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			link.setShip((Warship) newEnd);
+			link.setShip((Ship) newEnd);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown direction: " + reorientDirection);
