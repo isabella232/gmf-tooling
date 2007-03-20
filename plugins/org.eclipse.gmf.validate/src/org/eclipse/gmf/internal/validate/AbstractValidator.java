@@ -98,14 +98,12 @@ public class AbstractValidator implements EValidator {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static void setRootTargetObject(EObject targetObject, Map context) {
+	private static void setRootTargetObject(EObject targetObject, Map<Object, Object> context) {
 		assert !context.containsKey(ROOT_TARGET_OBJECT_KEY);
 		context.put(ROOT_TARGET_OBJECT_KEY, EcoreUtil.getRootContainer(targetObject, true)); 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static MultiProviderCache getExpressionCache(Map context) {
+	private static MultiProviderCache getExpressionCache(Map<Object, Object> context) {
 		if(context != null) {
 			MultiProviderCache cache = (MultiProviderCache)context.get(MultiProviderCache.class);
 			if(cache == null) {
@@ -138,8 +136,7 @@ public class AbstractValidator implements EValidator {
 	 * @param context
 	 * @throws IllegalArgumentException
 	 */
-	@SuppressWarnings("unchecked")
-	static void setOptions(ValidationOptions options, Map context) {
+	static void setOptions(ValidationOptions options, Map<Object, Object> context) {
 		if(context == null) {
 			throw new IllegalArgumentException("Null validation options"); //$NON-NLS-1$
 		}
