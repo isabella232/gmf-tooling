@@ -108,7 +108,18 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		// provided GenCommonBase matched, custom behaviour should be kept as is
 		setMatcher(GMFGEN.getCustomBehaviour(), ALWAYS_MATCH);
 		setCopier(GMFGEN.getCustomBehaviour(), Copier.COMPLETE_COPY);
-		
+
+		// We assume there's only one OpenDiagramBehaviour per GenCommonBase, hence do not attempt to match anything but metaclass
+		setMatcher(GMFGEN.getOpenDiagramBehaviour(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_DiagramKind());
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_EditorID());
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_EditPolicyClassName());
+		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_OpenAsEclipseEditor());
+
+		// if there's a need to keep manually written openDiagramBehavior, uncomment next line 
+		// for Reconciler#handleNotMatchedOld to perform a copy
+		// setCopier(GMFGEN.getOpenDiagramBehaviour(), Copier.COMPLETE_COPY);
+
 		setMatcher(GMFGEN.getMetamodelType(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getMetamodelType(), GMFGEN.getElementType_DisplayName());
 		preserveIfSet(GMFGEN.getMetamodelType(), GMFGEN.getElementType_DefinedExternally());
