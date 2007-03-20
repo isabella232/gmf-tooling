@@ -54,7 +54,7 @@ static {
 		public Class[] getAdapterList() {
 			return supportedTypes;
 		}
-	}, «getActionProviderQualifiedClassName()».class);
+	}, «getAbstractNavigatorItemQualifiedClassName()».class);
 }
 «ENDDEFINE»
 
