@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -91,9 +92,9 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 			myOperation.loadMappingModel(myRS, toolURI, null);
 			fail("Invalid MappingModel should not be accepted");
 		} catch (CoreException e) {
-			IStatus loadStatus = myOperation.getLoadMappingStatus();
-			assertNotNull("Load MappingModel status should be set", loadStatus);
-			assertFalse("Load MappingModel status should differ from OK value", IStatus.OK == loadStatus.getSeverity());
+			Diagnostic validationResult = myOperation.getMapmodelValidationResult();
+			assertNotNull("MappingModel validation result should be set", validationResult);
+			assertFalse("Load MappingModel status should differ from OK value", IStatus.OK == validationResult.getSeverity());
 			assertNull("GenModelDetector should be reset", myOperation.getGenModelDetector());
 			assertNull("GenModel should be reset", myOperation.getGenModel());
 		}
@@ -177,10 +178,10 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		try {
 			mapping = myOperation.loadMappingModel(myRS, mapURI, null);
 			assertNotNull("Mapping should be resolved", mapping);
-			IStatus loadStatus = myOperation.getLoadMappingStatus();
-			assertNotNull("Load MappingModel status should be set", loadStatus);
-			assertFalse("Load MappingModel status should differ from CANCEL value", IStatus.CANCEL == loadStatus.getSeverity());
-			assertFalse("Load MappingModel status should differ from ERROR value", IStatus.ERROR == loadStatus.getSeverity());
+			Diagnostic validationResult = myOperation.getMapmodelValidationResult();
+			assertNotNull("MappingModel validation result should be set", validationResult);
+			assertFalse("MappingModel validation result should differ from CANCEL value", IStatus.CANCEL == validationResult.getSeverity());
+			assertFalse("MappingModel validation result should differ from ERROR value", IStatus.ERROR == validationResult.getSeverity());
 			assertNotNull("GenModelDetector should be initialized", myOperation.getGenModelDetector());
 			assertNull("GenModel should be reset", myOperation.getGenModel());
 		} catch (CoreException e) {
