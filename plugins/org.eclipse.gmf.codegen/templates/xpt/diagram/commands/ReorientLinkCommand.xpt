@@ -33,20 +33,71 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 		reorientDirection = request.getDirection();
 		newEnd = request.getNewRelationshipEnd();
 	}
+«LET (gmfgen::TypeLinkModelFacet)({modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).get(0)) AS typeModelFacet-»
+«LET getQualifiedInterfaceName(typeModelFacet.metaClass) AS linkTypeFQN-»
+«LET getQualifiedInterfaceName(typeModelFacet.getSourceType()) AS sourceTypeFQN-»
+«LET getQualifiedInterfaceName(typeModelFacet.getTargetType()) AS targetTypeFQN-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean canExecute() {
+		if (!(getElementToEdit() instanceof «linkTypeFQN»)) {
+			return false;
+		}
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
+			return newEnd instanceof «sourceTypeFQN»;
+		}
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
+			return newEnd instanceof «targetTypeFQN»;
+		}
+		return false;
+	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
-		«FOREACH {modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).metaClass AS linkClass-»
-		«getQualifiedInterfaceName(linkClass)» link = («getQualifiedInterfaceName(linkClass)») getElementToEdit();
-		«ENDFOREACH-»
+		«linkTypeFQN» link = («linkTypeFQN») getElementToEdit();
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-			//link.setSource(newEnd);
-		} else if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			//link.setDestination(newEnd);
+		«IF null != typeModelFacet.sourceMetaFeature-»
+			«LET getAccessorName(typeModelFacet.sourceMetaFeature) AS accessorName-»
+			«IF typeModelFacet.targetMetaFeature.ecoreFeature.many-»
+			link.get«accessorName»().clear();
+			link.get«accessorName»().add((«sourceTypeFQN») newEnd);
+			«ELSE-»
+			link.set«accessorName»((«sourceTypeFQN») newEnd);
+			«ENDIF-»
+			«ENDLET-»
+		«ELSE-»
+			«LET getAccessorName(typeModelFacet.containmentMetaFeature) AS accessorName-»
+			«sourceTypeFQN» oldEnd = («sourceTypeFQN») link.eContainer();
+			«IF typeModelFacet.containmentMetaFeature.ecoreFeature.many-»
+			oldEnd.get«accessorName»().remove(link);
+			((«sourceTypeFQN») newEnd).get«accessorName»().add(link);
+			«ELSE-»
+			oldEnd.set«accessorName»(null);
+			((«sourceTypeFQN») newEnd).set«accessorName»(link);
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-»
+			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
 		}
-		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
+		«LET getAccessorName(typeModelFacet.targetMetaFeature) AS accessorName-»
+			«IF typeModelFacet.targetMetaFeature.ecoreFeature.many-»
+			link.get«accessorName»().clear();
+			link.get«accessorName»().add((«targetTypeFQN») newEnd);
+			«ELSE-»
+			link.set«accessorName»((«targetTypeFQN») newEnd);
+			«ENDIF-»
+		«ENDLET-»
+			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+		}
+		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
+				"Unknown direction: " + reorientDirection);
 	}
 }
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
