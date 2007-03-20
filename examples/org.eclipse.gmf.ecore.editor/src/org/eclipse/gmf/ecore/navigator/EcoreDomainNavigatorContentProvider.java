@@ -11,12 +11,12 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -39,6 +39,11 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 	 * @generated
 	 */
 	private AdapterFactoryContentProvider myAdapterFctoryContentProvier;
+
+	/**
+	 * @generated
+	 */
+	private static final Object[] EMPTY_ARRAY = new Object[0];
 
 	/**
 	 * @generated
@@ -175,26 +180,35 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 			IFile file = (IFile) parentElement;
 			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
-			return myAdapterFctoryContentProvier.getChildren(resource);
+			return wrapEObjects(myAdapterFctoryContentProvier.getChildren(resource), parentElement);
 		}
-		return myAdapterFctoryContentProvier.getChildren(parentElement);
+
+		if (parentElement instanceof EcoreDomainNavigatorItem) {
+			return wrapEObjects(myAdapterFctoryContentProvier.getChildren(((EcoreDomainNavigatorItem) parentElement).getEObject()), parentElement);
+		}
+		return EMPTY_ARRAY;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object[] wrapEObjects(Object[] objects, Object parentElement) {
+		Collection result = new ArrayList();
+		for (int i = 0; i < objects.length; i++) {
+			if (objects[i] instanceof EObject) {
+				result.add(new EcoreDomainNavigatorItem((EObject) objects[i], parentElement, myAdapterFctoryContentProvier));
+			}
+		}
+		return result.toArray();
 	}
 
 	/**
 	 * @generated
 	 */
 	public Object getParent(Object element) {
-		if (element instanceof EObject) {
-			EObject eObject = (EObject) element;
-			// Should be removed on wrapping EObjects into NavigatorItem instances
-			if (eObject.eResource() == null) {
-				return null;
-			}
-			if (eObject.eContainer() == null && eObject.eResource().getURI().isFile()) {
-				String path = eObject.eResource().getURI().path();
-				return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(path));
-			}
-			return myAdapterFctoryContentProvier.getParent(eObject);
+		if (element instanceof EcoreAbstractNavigatorItem) {
+			EcoreAbstractNavigatorItem abstractNavigatorItem = (EcoreAbstractNavigatorItem) element;
+			return abstractNavigatorItem.getParent();
 		}
 		return null;
 	}

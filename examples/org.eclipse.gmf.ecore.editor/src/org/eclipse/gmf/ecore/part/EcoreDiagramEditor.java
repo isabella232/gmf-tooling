@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -295,7 +296,11 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 					if (nextSelectedObject instanceof EcoreNavigatorItem) {
 						View view = ((EcoreNavigatorItem) nextSelectedObject).getView();
 						nextSelectedObject = view.getElement();
+					} else if (nextSelectedObject instanceof IAdaptable) {
+						IAdaptable adaptable = (IAdaptable) nextSelectedObject;
+						nextSelectedObject = adaptable.getAdapter(EObject.class);
 					}
+
 					if (nextSelectedObject instanceof EObject) {
 						EObject modelElement = (EObject) nextSelectedObject;
 						Resource modelElementResource = modelElement.eResource();
