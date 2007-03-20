@@ -22,6 +22,8 @@ package «packageName»;
 public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICommonContentProvider {
 
 	«EXPAND attributes-»
+	
+	«EXPAND constructor-»
 
 	«EXPAND iContentProvider-»
 	
@@ -38,18 +40,127 @@ public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICom
 «ENDDEFINE»
 
 «DEFINE attributes FOR gmfgen::GenNavigator-»
-«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment»
 private static final Object[] EMPTY_ARRAY = new Object[0];
+
+	«EXPAND commonAttributes-»
+«ENDDEFINE»
+
+«DEFINE commonAttributes FOR gmfgen::GenNavigator-»
+	«EXPAND viewerAttribute-»
+
+	«EXPAND editingDomainAttribute-»
+	«EXPAND workspaceSynchronizationAttributes-»
+«ENDDEFINE»
+
+
+«DEFINE viewerAttribute FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.jface.viewers.Viewer myViewer;
+«ENDDEFINE»
+
+«DEFINE editingDomainAttribute FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain myEditingDomain;
+«ENDDEFINE»
+
+«DEFINE workspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.emf.workspace.util.WorkspaceSynchronizer myWorkspaceSynchronizer;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+private Runnable myViewerRefreshRunnable;
+«ENDDEFINE»
+
+«DEFINE constructor FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public «contentProviderClassName»() {
+	«EXPAND initCommonAttributes-»
+}
+«ENDDEFINE»
+
+«DEFINE initCommonAttributes FOR gmfgen::GenNavigator-»
+	«EXPAND initReadonlyEditingDomain-»
+	«EXPAND initWorkspaceSynchronizationAttributes-»
+«ENDDEFINE»
+
+«DEFINE initReadonlyEditingDomain FOR gmfgen::GenNavigator-»
+myEditingDomain = «EXPAND createEditingDomain»;
+myEditingDomain.setResourceToReadOnlyMap(new java.util.HashMap() {
+	public Object get(Object key) {
+		if (!containsKey(key)) {
+			put(key, Boolean.TRUE);
+		}
+		return super.get(key);
+	}
+});
+«ENDDEFINE»
+
+«DEFINE initWorkspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
+myViewerRefreshRunnable = new Runnable() {
+	public void run() {
+		if (myViewer != null) {
+			myViewer.refresh();
+		}
+	}
+};
+myWorkspaceSynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer((org.eclipse.emf.transaction.TransactionalEditingDomain) myEditingDomain, new org.eclipse.emf.workspace.util.WorkspaceSynchronizer.Delegate() {
+	public void dispose() {
+	}
+
+	public boolean handleResourceChanged(final org.eclipse.emf.ecore.resource.Resource resource) {
+		«EXPAND processChanges-»
+	}
+	
+	public boolean handleResourceDeleted(org.eclipse.emf.ecore.resource.Resource resource) {
+		«EXPAND processChanges-»
+	}
+	
+	public boolean handleResourceMoved(org.eclipse.emf.ecore.resource.Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+		«EXPAND processChanges-»
+	}
+});
+«ENDDEFINE»
+
+«DEFINE processChanges FOR gmfgen::GenNavigator-»
+for (java.util.Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+	org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+	nextResource.unload();
+}
+if (myViewer != null) {
+	myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+}
+return true;
 «ENDDEFINE»
 
 «DEFINE iContentProvider FOR gmfgen::GenNavigator-»
-«EXPAND xpt::Common::generatedMemberComment»
-   public void dispose() {
-   }
+	«EXPAND dispose-»
+	
+	«EXPAND inputChanged-»
+«ENDDEFINE»
 
-«EXPAND xpt::Common::generatedMemberComment»
-   public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
-   }
+«DEFINE dispose FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void dispose() {
+	«EXPAND disposeWorkspaceSynchronizationAttributes-»
+	for (java.util.Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+		resource.unload();
+	}
+}
+«ENDDEFINE»
+
+«DEFINE disposeWorkspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
+myWorkspaceSynchronizer.dispose();
+myViewerRefreshRunnable = null;
+«ENDDEFINE»
+
+«DEFINE inputChanged FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
+	myViewer = viewer;
+}
 «ENDDEFINE»
 
 «DEFINE iStructuredContentProvider FOR gmfgen::GenNavigator-»
@@ -128,7 +239,7 @@ public boolean hasChildren(Object element) {
 «ENDDEFINE»
 
 «DEFINE getFileChildren FOR gmfgen::GenNavigator-»
-	«EXPAND createReadonlyEditingDomain-»
+	«EXPAND getFileResoruce-»
 java.util.Collection result = new java.util.ArrayList();
 	«LET getChildReferencesFrom(this, null) AS references-»
 		«EXPAND initGroupVariables(this, references, 'file', null) FOREACH getGroupNames(references)-»
@@ -140,21 +251,10 @@ java.util.Collection result = new java.util.ArrayList();
 return result.toArray();
 «ENDDEFINE»
 
-«DEFINE createReadonlyEditingDomain FOR gmfgen::GenNavigator-»
+«DEFINE getFileResoruce FOR gmfgen::GenNavigator-»
 org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) parentElement;
-org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain editingDomain = «EXPAND createEditingDomain»;
-editingDomain.setResourceToReadOnlyMap(new java.util.HashMap() {
-	public Object get(Object key) {
-		if (!containsKey(key)) {
-			put(key, Boolean.TRUE);
-		}
-		return super.get(key);
-	}
-});
-org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
-			
 org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
+org.eclipse.emf.ecore.resource.Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 «ENDDEFINE»
 
 «DEFINE getGroupChildren FOR gmfgen::GenNavigator-»

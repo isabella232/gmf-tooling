@@ -912,31 +912,16 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateAbstractNavigatorItem() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getAbstractNavigatorItemEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getAbstractNavigatorItemClassName(),
-				myEditorGen.getNavigator()
-			);
+	private void generateAbstractNavigatorItem() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getAbstractNavigatorItemEmitter(), myEditorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
-	private void generateNavigatorGroup() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorGroupEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getNavigatorGroupClassName(),
-				myEditorGen.getNavigator()
-			);
+	private void generateNavigatorGroup() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNavigatorGroupEmitter(), myEditorGen.getNavigator().getNavigatorGroupQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
-	private void generateNavigatorItem() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorItemEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getNavigatorItemClassName(),
-				myEditorGen.getNavigator()
-			);
+	private void generateNavigatorItem() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNavigatorItemEmitter(), myEditorGen.getNavigator().getNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
 	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {

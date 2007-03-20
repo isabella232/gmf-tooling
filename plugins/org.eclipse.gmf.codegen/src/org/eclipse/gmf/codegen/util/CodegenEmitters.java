@@ -50,10 +50,7 @@ import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGene
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.AbstractNavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
@@ -203,9 +200,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
-		put(tr, "/navigator/AbstractNavigatorItem.javajet", AbstractNavigatorItemGenerator.class);
-		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
-		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
@@ -585,16 +579,16 @@ public class CodegenEmitters {
 		return retrieve(NavigatorActionProviderGenerator.class);
 	}
 	
-	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {
-		return retrieve(AbstractNavigatorItemGenerator.class);
+	public TextEmitter getAbstractNavigatorItemEmitter() {
+		return newXpandEmitter("xpt::navigator::AbstractNavigatorItem::AbstractNavigatorItem"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getNavigatorGroupEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorGroupGenerator.class);
+	public TextEmitter getNavigatorGroupEmitter() {
+		return newXpandEmitter("xpt::navigator::NavigatorGroup::NavigatorGroup"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorItemEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorItemGenerator.class);
+	public TextEmitter getNavigatorItemEmitter() {
+		return newXpandEmitter("xpt::navigator::NavigatorItem::NavigatorItem"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
