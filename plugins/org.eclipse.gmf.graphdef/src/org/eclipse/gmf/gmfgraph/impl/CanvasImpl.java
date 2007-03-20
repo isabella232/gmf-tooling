@@ -266,7 +266,7 @@ public class CanvasImpl extends EObjectImpl implements Canvas {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.CANVAS__NAME:
