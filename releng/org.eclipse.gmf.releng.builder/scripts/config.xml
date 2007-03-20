@@ -88,7 +88,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule interval="300">
-			<ant antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant antscript="./build.${ext}" buildfile="buildAll.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="C" />
@@ -142,7 +142,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant time="0600" antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant time="0600" antscript="./build.${ext}" buildfile="buildAll.xml"
 				target="nightly" uselogger="true" usedebug="false" usequiet="true">				
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="N" />
@@ -188,7 +188,7 @@
 		</modificationset>
 
 		<schedule>
-			<ant time="0300" antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant time="0300" antscript="./build.${ext}" buildfile="buildAll.xml"
 				target="integration" uselogger="true" usedebug="false" usequiet="true">				
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="I" />
