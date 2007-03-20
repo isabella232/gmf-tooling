@@ -248,7 +248,6 @@ private class SynchronizerDelegate implements org.eclipse.emf.workspace.util.Wor
 }
 «ENDDEFINE»
 
-
 «DEFINE disposeSD FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public void dispose() {
