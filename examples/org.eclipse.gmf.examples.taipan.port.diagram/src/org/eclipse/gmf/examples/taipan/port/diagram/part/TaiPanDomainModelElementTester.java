@@ -36,6 +36,12 @@ public class TaiPanDomainModelElementTester extends PropertyTester {
 		if (eClass == TaiPanPackage.eINSTANCE.getPort()) {
 			return true;
 		}
+		if (eClass == TaiPanPackage.eINSTANCE.getBuilding()) {
+			return true;
+		}
+		if (eClass == TaiPanPackage.eINSTANCE.getRoute()) {
+			return true;
+		}
 		if (eClass == TaiPanPackage.eINSTANCE.getShip()) {
 			return true;
 		}
@@ -51,10 +57,16 @@ public class TaiPanDomainModelElementTester extends PropertyTester {
 		if (eClass == TaiPanPackage.eINSTANCE.getEmptyBox()) {
 			return true;
 		}
-		if (eClass == TaiPanPackage.eINSTANCE.getRoute()) {
+		if (eClass == TaiPanPackage.eINSTANCE.getWarship()) {
 			return true;
 		}
-		if (eClass == TaiPanPackage.eINSTANCE.getBuilding()) {
+		if (eClass == TaiPanPackage.eINSTANCE.getOrder()) {
+			return true;
+		}
+		if (eClass == TaiPanPackage.eINSTANCE.getEscortShipOrder()) {
+			return true;
+		}
+		if (eClass == TaiPanPackage.eINSTANCE.getBesiegePortOrder()) {
 			return true;
 		}
 		return false;
