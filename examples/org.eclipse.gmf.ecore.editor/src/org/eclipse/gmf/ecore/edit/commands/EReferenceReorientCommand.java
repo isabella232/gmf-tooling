@@ -14,6 +14,8 @@ package org.eclipse.gmf.ecore.edit.commands;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -47,13 +49,34 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	public boolean canExecute() {
+		if (!(getElementToEdit() instanceof EReference)) {
+			return false;
+		}
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			return newEnd instanceof EClass;
+		}
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			return newEnd instanceof EClassifier;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		EReference link = (EReference) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			//link.setSource(newEnd);
-		} else if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			//link.setDestination(newEnd);
+			EClass oldEnd = (EClass) link.eContainer();
+			oldEnd.getEStructuralFeatures().remove(link);
+			((EClass) newEnd).getEStructuralFeatures().add(link);
+			return CommandResult.newOKCommandResult(link);
 		}
-		return CommandResult.newOKCommandResult(link);
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			link.setEType((EClassifier) newEnd);
+			return CommandResult.newOKCommandResult(link);
+		}
+		return CommandResult.newErrorCommandResult("Unknown direction: " + reorientDirection);
 	}
 }
