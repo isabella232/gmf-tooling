@@ -120,16 +120,17 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public boolean performFinish() {
+		List affectedFiles = new LinkedList();
 		IFile diagramFile = myFileCreationPage.createNewFile();
 		try {
 			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
 		} catch (CoreException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
 		}
-		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet.createResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
-		List affectedFiles = new LinkedList();
 		affectedFiles.add(diagramFile);
+		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
+		ResourceSet resourceSet = myEditingDomain.getResourceSet();
+		final Resource diagramResource = resourceSet.createResource(diagramModelURI);
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
@@ -139,7 +140,6 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 				}
 				Diagram diagram = ViewService.createDiagram(myDiagramRoot, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
-
 				return CommandResult.newOKCommandResult();
 			}
 		};
@@ -150,7 +150,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		} catch (ExecutionException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			EcoreDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + diagramModelURI, ex); //$NON-NLS-1$
 		} catch (PartInitException ex) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
 		}

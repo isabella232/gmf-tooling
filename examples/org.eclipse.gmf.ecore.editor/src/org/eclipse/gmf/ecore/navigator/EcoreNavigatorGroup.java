@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -89,13 +89,20 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof EcoreNavigatorGroup) {
-			EcoreNavigatorGroup anotherGroup = (EcoreNavigatorGroup) obj;
+		if (obj instanceof org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup) {
+			org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup anotherGroup = (org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup) obj;
 			if (getGroupName().equals(anotherGroup.getGroupName())) {
 				return getParent().equals(anotherGroup.getParent());
 			}
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return getGroupName().hashCode();
 	}
 
 }

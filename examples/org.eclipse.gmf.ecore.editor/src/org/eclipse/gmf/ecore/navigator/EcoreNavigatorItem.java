@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,9 +13,9 @@ package org.eclipse.gmf.ecore.navigator;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -31,8 +31,8 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof EcoreNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
-					return ((EcoreNavigatorItem) adaptableObject).getView();
+				if (adaptableObject instanceof org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem) adaptableObject).getView();
 				}
 				return null;
 			}
@@ -40,7 +40,18 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 			public Class[] getAdapterList() {
 				return supportedTypes;
 			}
-		}, EcoreNavigatorItem.class);
+		}, org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem.class);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static org.eclipse.emf.common.util.URI getURI(EObject object) {
+		if (object.eIsProxy()) {
+			return ((InternalEObject) object).eProxyURI();
+		}
+		Resource resource = object.eResource();
+		return resource.getURI().appendFragment(resource.getURIFragment(object));
 	}
 
 	/**
@@ -80,19 +91,24 @@ public class EcoreNavigatorItem extends EcoreAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof EcoreNavigatorItem) {
+		if (obj instanceof org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem) {
 			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((EcoreNavigatorItem) obj).getView().getElement();
+			EObject anotherEObject = ((org.eclipse.gmf.ecore.navigator.EcoreNavigatorItem) obj).getView().getElement();
 			if (eObject == null) {
 				return anotherEObject == null;
 			} else if (anotherEObject == null) {
 				return false;
 			}
-			if (eObject.eResource() != null) {
-				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
-			}
+			return getURI(eObject).equals(getURI(anotherEObject));
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return getURI(getView().getElement()).hashCode();
 	}
 
 }

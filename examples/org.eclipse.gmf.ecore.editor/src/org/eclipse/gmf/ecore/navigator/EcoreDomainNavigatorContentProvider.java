@@ -12,15 +12,17 @@
 package org.eclipse.gmf.ecore.navigator;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.jface.viewers.Viewer;
@@ -36,18 +38,108 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 	/**
 	 * @generated
 	 */
-	private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
+	private AdapterFactoryContentProvider myAdapterFctoryContentProvier;
+
+	/**
+	 * @generated
+	 */
+	private Viewer myViewer;
+
+	/**
+	 * @generated
+	 */
+	private AdapterFactoryEditingDomain myEditingDomain;
+
+	/**
+	 * @generated
+	 */
+	private WorkspaceSynchronizer myWorkspaceSynchronizer;
+
+	/**
+	 * @generated
+	 */
+	private Runnable myViewerRefreshRunnable;
+
+	/**
+	 * @generated
+	 */
+	public EcoreDomainNavigatorContentProvider() {
+		myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
+		myEditingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
+
+			public Object get(Object key) {
+				if (!containsKey(key)) {
+					put(key, Boolean.TRUE);
+				}
+				return super.get(key);
+			}
+		});
+		myViewerRefreshRunnable = new Runnable() {
+
+			public void run() {
+				if (myViewer != null) {
+					myViewer.refresh();
+				}
+			}
+		};
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer((TransactionalEditingDomain) myEditingDomain, new WorkspaceSynchronizer.Delegate() {
+
+			public void dispose() {
+			}
+
+			public boolean handleResourceChanged(final Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceDeleted(Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+		});
+	}
 
 	/**
 	 * @generated
 	 */
 	public void dispose() {
+		myWorkspaceSynchronizer.dispose();
+		myViewerRefreshRunnable = null;
+		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource resource = (Resource) it.next();
+			resource.unload();
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		myViewer = viewer;
 	}
 
 	/**
@@ -81,20 +173,8 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-			editingDomain.setResourceToReadOnlyMap(new HashMap() {
-
-				public Object get(Object key) {
-					if (!containsKey(key)) {
-						put(key, Boolean.TRUE);
-					}
-					return super.get(key);
-				}
-			});
-			ResourceSet resourceSet = editingDomain.getResourceSet();
-
 			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			Resource resource = resourceSet.getResource(fileURI, true);
+			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			return myAdapterFctoryContentProvier.getChildren(resource);
 		}
 		return myAdapterFctoryContentProvier.getChildren(parentElement);
@@ -106,6 +186,10 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 	public Object getParent(Object element) {
 		if (element instanceof EObject) {
 			EObject eObject = (EObject) element;
+			// Should be removed on wrapping EObjects into NavigatorItem instances
+			if (eObject.eResource() == null) {
+				return null;
+			}
 			if (eObject.eContainer() == null && eObject.eResource().getURI().isFile()) {
 				String path = eObject.eResource().getURI().path();
 				return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(path));

@@ -58,7 +58,7 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.IFile1"
+            id="org.eclipse.gmf.ecore.editor.InitDiagram"
             nameFilter="*.ecore"
             objectClass="org.eclipse.core.resources.IFile">
          <action
@@ -66,9 +66,13 @@
                class="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileActionID">
+               id="org.eclipse.gmf.ecore.editor.InitDiagramAction">
          </action>
       </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
       <objectContribution
             adaptable="false"
             id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart1"
@@ -568,7 +572,6 @@
       </binding>
    </extension>
 
-
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
@@ -577,6 +580,17 @@
            namespace="org.eclipse.gmf.ecore.editor"
            properties="isShortcut"
            class="org.eclipse.gmf.ecore.part.EcoreShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.ecore.editor.DomainModelElementTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.ecore.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.ecore.part.EcoreDomainModelElementTester">
        </propertyTester>
    </extension>
 
@@ -693,15 +707,5 @@
             <instanceof value="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </selectionEnablement>
       </linkHelper>
-   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.ecore.editor.DomainModelElementTester"
-           type="org.eclipse.emf.ecore.EObject"
-           namespace="org.eclipse.gmf.ecore.editor"
-           properties="isDomainModelElement"
-           class="org.eclipse.gmf.ecore.part.EcoreDomainModelElementTester">
-       </propertyTester>
    </extension>
-
 </plugin>

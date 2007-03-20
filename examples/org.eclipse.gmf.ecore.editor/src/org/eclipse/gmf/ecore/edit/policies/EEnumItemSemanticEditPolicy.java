@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
@@ -30,6 +29,9 @@ import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
@@ -147,10 +149,10 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (req.getRelationship() instanceof EReference) {
+		if (EReferenceEditPart.VISUAL_ID == EcoreVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new EReferenceReorientCommand(req));
 		}
-		if (req.getRelationship() instanceof EReference) {
+		if (EReference2EditPart.VISUAL_ID == EcoreVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new EReferenceReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);

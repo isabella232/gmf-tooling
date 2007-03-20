@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corp.
+ *  Copyright (c) 2006, 2007 Borland Software Corp.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,16 +11,15 @@
  */
 package org.eclipse.gmf.ecore.navigator;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.Platform;
-
+import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 
 /**
  * @generated
  */
-public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
+public abstract class EcoreAbstractNavigatorItem extends PlatformObject {
 
 	/**
 	 * @generated
@@ -36,7 +35,7 @@ public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof EcoreAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
+				if (adaptableObject instanceof org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
 					return propertySheetPageContributor;
 				}
 				return null;
@@ -45,7 +44,7 @@ public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
 			public Class[] getAdapterList() {
 				return supportedTypes;
 			}
-		}, EcoreAbstractNavigatorItem.class);
+		}, EcoreNavigatorActionProvider.class);
 	}
 
 	/**
@@ -65,13 +64,6 @@ public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
 	 */
 	public Object getParent() {
 		return myParent;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Object getAdapter(Class adapter) {
-		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
 }

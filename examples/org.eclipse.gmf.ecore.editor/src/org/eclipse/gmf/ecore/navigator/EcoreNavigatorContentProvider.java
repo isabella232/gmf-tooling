@@ -20,8 +20,9 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
@@ -77,13 +78,102 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
+	private Viewer myViewer;
+
+	/**
+	 * @generated
+	 */
+	private AdapterFactoryEditingDomain myEditingDomain;
+
+	/**
+	 * @generated
+	 */
+	private WorkspaceSynchronizer myWorkspaceSynchronizer;
+
+	/**
+	 * @generated
+	 */
+	private Runnable myViewerRefreshRunnable;
+
+	/**
+	 * @generated
+	 */
+	public EcoreNavigatorContentProvider() {
+		myEditingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
+
+			public Object get(Object key) {
+				if (!containsKey(key)) {
+					put(key, Boolean.TRUE);
+				}
+				return super.get(key);
+			}
+		});
+		myViewerRefreshRunnable = new Runnable() {
+
+			public void run() {
+				if (myViewer != null) {
+					myViewer.refresh();
+				}
+			}
+		};
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer((TransactionalEditingDomain) myEditingDomain, new WorkspaceSynchronizer.Delegate() {
+
+			public void dispose() {
+			}
+
+			public boolean handleResourceChanged(final Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceDeleted(Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
 	public void dispose() {
+		myWorkspaceSynchronizer.dispose();
+		myViewerRefreshRunnable = null;
+		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource resource = (Resource) it.next();
+			resource.unload();
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		myViewer = viewer;
 	}
 
 	/**
@@ -117,20 +207,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-			editingDomain.setResourceToReadOnlyMap(new HashMap() {
-
-				public Object get(Object key) {
-					if (!containsKey(key)) {
-						put(key, Boolean.TRUE);
-					}
-					return super.get(key);
-				}
-			});
-			ResourceSet resourceSet = editingDomain.getResourceSet();
-
 			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			Resource resource = resourceSet.getResource(fileURI, true);
+			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			Collection result = new ArrayList();
 			result.addAll(createNavigatorItems(selectViewsByType(resource.getContents(), EPackageEditPart.MODEL_ID), file, false));
 			return result.toArray();
