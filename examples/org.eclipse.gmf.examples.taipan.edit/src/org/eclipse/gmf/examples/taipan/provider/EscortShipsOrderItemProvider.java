@@ -1,13 +1,8 @@
-/*
- * Copyright (c) 2007 Borland Software Corporation
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * <copyright>
+ * </copyright>
  *
- * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ * $Id$
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -33,12 +28,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.EscortShipOrder} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.EscortShipsOrder} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class EscortShipOrderItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+public class EscortShipsOrderItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
 
 	/**
@@ -54,7 +49,7 @@ public class EscortShipOrderItemProvider extends ItemProviderAdapter implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EscortShipOrderItemProvider(AdapterFactory adapterFactory) {
+	public EscortShipsOrderItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -69,33 +64,33 @@ public class EscortShipOrderItemProvider extends ItemProviderAdapter implements 
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addShipPropertyDescriptor(object);
+			addShipsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Ship feature.
+	 * This adds a property descriptor for the Ships feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addShipPropertyDescriptor(Object object) {
+	protected void addShipsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_EscortShipOrder_ship_feature"), //$NON-NLS-1$
-				getString("_UI_PropertyDescriptor_description", "_UI_EscortShipOrder_ship_feature", "_UI_EscortShipOrder_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TaiPanPackage.Literals.ESCORT_SHIP_ORDER__SHIP, true, false, true, null, null, null));
+				getString("_UI_EscortShipsOrder_ships_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_EscortShipsOrder_ships_feature", "_UI_EscortShipsOrder_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.ESCORT_SHIPS_ORDER__SHIPS, true, false, true, null, null, null));
 	}
 
 	/**
-	 * This returns EscortShipOrder.gif.
+	 * This returns EscortShipsOrder.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EscortShipOrder")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EscortShipsOrder")); //$NON-NLS-1$
 	}
 
 	/**
@@ -106,7 +101,7 @@ public class EscortShipOrderItemProvider extends ItemProviderAdapter implements 
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_EscortShipOrder_type"); //$NON-NLS-1$
+		return getString("_UI_EscortShipsOrder_type"); //$NON-NLS-1$
 	}
 
 	/**

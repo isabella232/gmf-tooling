@@ -250,26 +250,26 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.EscortShipOrder} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.EscortShipsOrder} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EscortShipOrderItemProvider escortShipOrderItemProvider;
+	protected EscortShipsOrderItemProvider escortShipsOrderItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.EscortShipOrder}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.EscortShipsOrder}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createEscortShipOrderAdapter() {
-		if (escortShipOrderItemProvider == null) {
-			escortShipOrderItemProvider = new EscortShipOrderItemProvider(this);
+	public Adapter createEscortShipsOrderAdapter() {
+		if (escortShipsOrderItemProvider == null) {
+			escortShipsOrderItemProvider = new EscortShipsOrderItemProvider(this);
 		}
 
-		return escortShipOrderItemProvider;
+		return escortShipsOrderItemProvider;
 	}
 
 	/**
@@ -458,8 +458,8 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			emptyBoxItemProvider.dispose();
 		if (warshipItemProvider != null)
 			warshipItemProvider.dispose();
-		if (escortShipOrderItemProvider != null)
-			escortShipOrderItemProvider.dispose();
+		if (escortShipsOrderItemProvider != null)
+			escortShipsOrderItemProvider.dispose();
 		if (besiegePortOrderItemProvider != null)
 			besiegePortOrderItemProvider.dispose();
 	}

@@ -87,7 +87,8 @@ public class WarshipItemProvider extends ShipItemProvider implements IEditingDom
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TaiPanPackage.Literals.WARSHIP__ORDERS);
+			childrenFeatures.add(TaiPanPackage.Literals.WARSHIP__ESCORT_ORDER);
+			childrenFeatures.add(TaiPanPackage.Literals.WARSHIP__ATTACK_ORDERS);
 		}
 		return childrenFeatures;
 	}
@@ -141,7 +142,8 @@ public class WarshipItemProvider extends ShipItemProvider implements IEditingDom
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Warship.class)) {
-		case TaiPanPackage.WARSHIP__ORDERS:
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -159,9 +161,9 @@ public class WarshipItemProvider extends ShipItemProvider implements IEditingDom
 	protected void collectNewChildDescriptors(Collection<CommandParameter> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.WARSHIP__ORDERS, TaiPanFactory.eINSTANCE.createEscortShipOrder()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.WARSHIP__ESCORT_ORDER, TaiPanFactory.eINSTANCE.createEscortShipsOrder()));
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.WARSHIP__ORDERS, TaiPanFactory.eINSTANCE.createBesiegePortOrder()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.WARSHIP__ATTACK_ORDERS, TaiPanFactory.eINSTANCE.createBesiegePortOrder()));
 	}
 
 	/**
