@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,11 +18,11 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
-import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
+import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.common.reconcile.ReflectiveMatcher;
-import org.eclipse.gmf.internal.common.reconcile.StringPatternDecisionMaker;
+import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
 
 /**
  * XXX Perhaps, org.eclipse.gmf.codegen/oeg.internal.util would be better place for this class. 
@@ -153,11 +153,11 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 	
 	private void preserveIfSet(EClass eClass, EAttribute feature){
 		//FIXME: only attributes for now, allow references
-		addDecisionMaker(eClass, new DefaultDecisionMaker(feature));
+		addDecision(eClass, new DefaultDecision(feature));
 	}
 	
 	private void preserveIfNotByPattern(EClass eClass, EAttribute feature, String pattern){
-		addDecisionMaker(eClass, new StringPatternDecisionMaker(pattern, feature));
+		addDecision(eClass, new StringPatternDecision(pattern, feature));
 	}
 	
 }
