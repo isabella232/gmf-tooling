@@ -49,7 +49,6 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 		super(name);
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
 		super.setUp();
 		root = GMFGenFactory.eINSTANCE.createGenAuditRoot();

@@ -32,7 +32,6 @@ import org.eclipse.gmf.validate.GMFValidator;
  * // TODO - 1) make validation.Annotations public
  * 			 2) provide tests for the whole GMF validation 		
  */
-@SuppressWarnings("unchecked")
 public class ConstraintSeverityTest extends TestCase {
 	
 	EClass targetMetaElement;
@@ -106,9 +105,9 @@ public class ConstraintSeverityTest extends TestCase {
 	}
 	
 	static Diagnostic getDiagnosticForDestination(Diagnostic diagnostic, Object validatedObject) {
-		List data = diagnostic.getData();
+		List<?> data = diagnostic.getData();
 		if(data != null) {
-			for (Iterator it = data.iterator(); it.hasNext();) {
+			for (Iterator<?> it = data.iterator(); it.hasNext();) {
 				Object element = it.next();
 				if(element == validatedObject) {
 					return diagnostic;
@@ -116,8 +115,7 @@ public class ConstraintSeverityTest extends TestCase {
 			}
 		}
 		
-		for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
-			Diagnostic childDiagnostic = (Diagnostic) it.next();
+		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {
 			Diagnostic result = getDiagnosticForDestination(childDiagnostic, validatedObject);
 			if(result != null) {
 				return result;

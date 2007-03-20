@@ -92,8 +92,8 @@ public abstract class CompilationTest extends TestCase {
 	 * Installs java compiler options specified in the map, the map gets updated with
 	 * old values.
 	 */
-	@SuppressWarnings("unchecked")
 	private void switchJavaOptions(HashMap<String, String> options) {
+		@SuppressWarnings("unchecked")
 		Hashtable<Object, Object> settings = JavaCore.getOptions();
 		for (String key : options.keySet()) {
 			String originalValue = (String) settings.get(key);
