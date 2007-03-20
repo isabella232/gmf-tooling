@@ -84,7 +84,7 @@ public class NavigatorHandler {
 		Collection<GenNode> targetNodes = getTargetGenNodes(link);
 		for (GenNode node : targetNodes) {
 			if (myShowLinkTargets) {
-				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 				reference.setGroupName("target");
 				reference.setGroupIcon("icons/linkTargetNavigatorGroup.gif");
 			}
@@ -105,7 +105,7 @@ public class NavigatorHandler {
 			}
 			
 			if (myShowOutgoingLinks) {
-				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 				reference.setGroupName("outgoing links");
 				reference.setGroupIcon("icons/outgoingLinksNavigatorGroup.gif");
 			}
