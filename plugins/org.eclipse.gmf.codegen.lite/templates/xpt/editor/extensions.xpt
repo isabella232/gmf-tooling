@@ -26,7 +26,7 @@
 
 «DEFINE editor FOR gmfgen::GenEditorView-»
    <extension point="org.eclipse.ui.editors">
-     <?gmfgen generated="true"?>
+     «EXPAND xpt::Common::xmlGeneratedTag»
      <editor
         id="«iD»"
         name="%editorName"
@@ -41,7 +41,7 @@
 
 «DEFINE view FOR gmfgen::GenEditorView-»
    <extension point="org.eclipse.ui.views">
-     <?gmfgen generated="true"?>
+     «EXPAND xpt::Common::xmlGeneratedTag»
       <view
             allowMultiple="false"
             category="«editorGen.diagram.creationWizardCategoryID»"
@@ -54,7 +54,7 @@
 
 «DEFINE wizard FOR gmfgen::GenEditorGenerator-»
    <extension point="org.eclipse.ui.newWizards">
-     <?gmfgen generated="true"?>
+     «EXPAND xpt::Common::xmlGeneratedTag»
   	  <wizard
   	     name="%wizardName"
   	     icon="«diagram.creationWizardIconPathX»"

@@ -15,7 +15,7 @@
 
 «DEFINE extensions FOR gmfgen::GenNavigator-»
    <extension point="org.eclipse.ui.navigator.viewer">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="«contentExtensionID»"/>
@@ -32,7 +32,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.navigator.navigatorContent">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <navigatorContent
             id="«contentExtensionID»" 
             name="«contentExtensionName»" 
@@ -82,7 +82,7 @@
 
 «IF editorGen.editor.eclipseEditor-»
    <extension point="org.eclipse.ui.navigator.linkHelper">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <linkHelper
             id="«linkHelperExtensionID»"
             class="«getLinkHelperQualifiedClassName()»">

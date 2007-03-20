@@ -30,7 +30,7 @@
          id="diagnostic"
          name="%_UI_Diagnostic_marker"
          point="org.eclipse.core.resources.markers">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <super
             type="org.eclipse.emf.validation.problem">
       </super>
@@ -50,7 +50,7 @@
 «DEFINE metrics FOR gmfgen::GenMetricContainer-»
 «IF metrics.size() > 0-»
 	<extension point="org.eclipse.ui.views">
-	    <?gmfgen generated="true"?>
+	    «EXPAND xpt::Common::xmlGeneratedTag»
    		<view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"
 			id="«editorGen.diagram.getMetricViewID()»"
 			name="%UI_Metrics_View_name"/>
