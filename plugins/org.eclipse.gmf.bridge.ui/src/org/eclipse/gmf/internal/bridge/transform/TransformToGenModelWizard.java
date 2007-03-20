@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -39,14 +40,18 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	private static final String PAGE_ID_GMFGEN = "gmfgen"; //$NON-NLS-1$
 	private static final String PAGE_ID_GENMODEL = "genmodel"; //$NON-NLS-1$
 	private static final String PAGE_ID_GMFMAP = "gmfmap"; //$NON-NLS-1$
+	private static final String PAGE_ID_GMFMAP_DIAGNOSTIC = "gmfmap_diagnostic"; //$NON-NLS-1$
 	private static final String PAGE_ID_TRANSFORM = "transform"; //$NON-NLS-1$
 	
 	private IStructuredSelection mySelection;
 
 	private GMFGenNewFileCreationPage newFileCreationPage;
 	private MapModelConfigurationPage mapModelPage;
+	private MapModelDiagnosticPage mapDiagnosticPage;
 	private GenModelConfigurationPage genModelPage;
 	private ViewmapProducerWizardPage transformOptionPage;
+	
+	private WizardPage myErrorContainer;
 	
 	private TransformToGenModelOperation myOperation;
 
@@ -76,6 +81,11 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		mapModelPage.setPageComplete(false);
 		mapModelPage.setModelRequired(true);
 		addPage(mapModelPage);
+		
+		mapDiagnosticPage = new MapModelDiagnosticPage(PAGE_ID_GMFMAP_DIAGNOSTIC);
+		mapDiagnosticPage.setTitle(Messages.TransformToGenModelWizard_title_mapdiagnostic);
+		mapDiagnosticPage.setDescription(Messages.TransformToGenModelWizard_descr_mapdiagnostic);
+		addPage(mapDiagnosticPage);
 
 		genModelPage = new GenModelConfigurationPage(PAGE_ID_GENMODEL, rlp, resourceSet);
 		genModelPage.setTitle(Messages.TransformToGenModelWizard_title_genmodel);
@@ -92,23 +102,38 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.Wizard#getNextPage(org.eclipse.jface.wizard.IWizardPage)
-	 */
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
+		//clear error message
+		if (myErrorContainer != null) {
+			myErrorContainer.setErrorMessage(null);
+			myErrorContainer = null;
+		}
 		if (page == mapModelPage) {
-			try {
-				GenModel genmmodel = getTransformOperation().findGenmodel(resourceSet);
-				if (genmmodel == null) {
-					genModelPage.setPageComplete(true);
-					return transformOptionPage;
-				}
-			} catch (CoreException e) {
-				genModelPage.setStatusMessage(e.getStatus());
+			Diagnostic diagnostic = getTransformOperation().getMapmodelValidationResult();
+			if (Diagnostic.ERROR == diagnostic.getSeverity()) {
+				//init genModelPage anyway
+				findNextPageAfterMapping();
+				return mapDiagnosticPage;
 			}
+			return findNextPageAfterMapping();
+		} else if (page == mapDiagnosticPage) {
+			return findNextPageAfterMapping();
 		}
 		return super.getNextPage(page);
+	}
+
+	private IWizardPage findNextPageAfterMapping() {
+		try {
+			GenModel genmmodel = getTransformOperation().findGenmodel(resourceSet);
+			if (genmmodel == null) {
+				genModelPage.setPageComplete(true);
+				return transformOptionPage;
+			}
+		} catch (CoreException e) {
+			genModelPage.setStatusMessage(e.getStatus());
+		}
+		return genModelPage;
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -139,13 +164,12 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			setErrorMessage(s[0].getMessage());
 			return false;
 		} catch (InvocationTargetException ex) {
+			String message = Messages.TransformToGenModelOperation_e_generator_creation;
 			Throwable targetException = ex.getTargetException();
 			if (targetException != null && targetException.getMessage() != null) {
-				String message = targetException.getMessage();
-				if (message == null) {
-					message = Messages.TransformToGenModelWizard_e_generator_creation;
-				}
+				message = targetException.getMessage();
 			}
+			setErrorMessage(message);
 			return false;
 		} catch (InterruptedException ex){
 			setErrorMessage(Messages.TransformToGenModelWizard_e_operation_cancelled);
@@ -159,9 +183,6 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.Wizard#performCancel()
-	 */
 	@Override
 	public boolean performCancel() {
 		if (getTransformOperation() != null) {
@@ -190,7 +211,8 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		WizardDialog wd = (WizardDialog) getContainer();
 		WizardPage wp = (WizardPage) wd.getCurrentPage();
 		if (wp != null) {
-			wp.setErrorMessage(message);
+			myErrorContainer = wp;
+			myErrorContainer.setErrorMessage(message);
 		}
 	}
 

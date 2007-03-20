@@ -31,7 +31,11 @@ public class Messages extends NLS {
 
 	public static String GMFGenNewFileCreationPage_e_filename;
 
+	public static String MapModelDiagnosticPage_btn_ignore_text;
+
 	public static String StaleGenModelDetector_stale;
+
+	public static String TransformToGenModelOperation_e_generator_creation;
 
 	public static String TransformToGenModelOperation_e_genmodel_load;
 
@@ -69,17 +73,19 @@ public class Messages extends NLS {
 
 	public static String TransformToGenModelWizard_descr_gmfgen;
 
+	public static String TransformToGenModelWizard_descr_mapdiagnostic;
+
 	public static String TransformToGenModelWizard_descr_mapmodel;
 
 	public static String TransformToGenModelWizard_descr_options;
-
-	public static String TransformToGenModelWizard_e_generator_creation;
 
 	public static String TransformToGenModelWizard_e_operation_cancelled;
 
 	public static String TransformToGenModelWizard_title_genmodel;
 
 	public static String TransformToGenModelWizard_title_gmfgen;
+
+	public static String TransformToGenModelWizard_title_mapdiagnostic;
 
 	public static String TransformToGenModelWizard_title_mapmodel;
 

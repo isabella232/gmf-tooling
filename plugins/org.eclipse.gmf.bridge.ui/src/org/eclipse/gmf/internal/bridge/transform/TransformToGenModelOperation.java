@@ -60,7 +60,7 @@ public class TransformToGenModelOperation {
 	private GenModelDetector myGMDetector;
 	private GenModel myGenModel;
 	
-	private IStatus myLoadMapmodelStatus = Status.CANCEL_STATUS;
+	private Diagnostic myMapmodelValidationResult = Diagnostic.CANCEL_INSTANCE;
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
 	
 	public TransformToGenModelOperation() {
@@ -87,9 +87,9 @@ public class TransformToGenModelOperation {
 		return this.myMapping;
 	}
 	
-	private void setMapping(Mapping m, IStatus loadStatus) {
+	private void setMapping(Mapping m, Diagnostic validationResult) {
 		this.myMapping = m;
-		this.myLoadMapmodelStatus = loadStatus;
+		this.myMapmodelValidationResult = validationResult;
 		myGMDetector = (m != null) ? new GenModelDetector(m) : null;
 		myGenModel = null;
 	}
@@ -98,8 +98,8 @@ public class TransformToGenModelOperation {
 		return myGMDetector;
 	}
 	
-	public IStatus getLoadMappingStatus() {
-		return this.myLoadMapmodelStatus;
+	public Diagnostic getMapmodelValidationResult() {
+		return this.myMapmodelValidationResult;
 	}
 	
 	public IStatus getStaleGenmodelStatus() {
@@ -109,6 +109,7 @@ public class TransformToGenModelOperation {
 	public Mapping loadMappingModel(ResourceSet rs, URI uri, IProgressMonitor pm) throws CoreException {
 		Mapping content = null;
 		IStatus status = Status.CANCEL_STATUS;
+		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
 		IProgressMonitor monitor = null;
 		try {
 			checkResourceSet(rs);
@@ -132,23 +133,19 @@ public class TransformToGenModelOperation {
 				throw new CoreException(status);
 			}
 			content = (Mapping) loadHelper.getContentsRoot();
-			Diagnostic mapIsValid = ValidationHelper.validate(content, true, monitor);
+			validation = ValidationHelper.validate(content, true, monitor);
 			monitor.worked(60);
-			status = getFirst(mapIsValid);
-			if (Diagnostic.CANCEL == status.getSeverity()) {
+			if (Diagnostic.CANCEL == validation.getSeverity()) {
 				throw new CoreException(Plugin.createCancel(cancelMessage));
-			} else if(Diagnostic.ERROR == status.getSeverity()) {
-				throw new CoreException(status);
-			} else {
-				return content;
 			}
+			return content;
 		} catch (CoreException e) {
 			throw e;
 		} catch (Exception e) {
 			IStatus error = Plugin.createError(Messages.TransformToGenModelOperation_e_load_mapping_model, e);
 			throw new CoreException(error);
 		} finally {
-			setMapping(content, status);
+			setMapping(content, validation);
 			if (monitor != null) {
 				monitor.done();
 			}
@@ -269,7 +266,11 @@ public class TransformToGenModelOperation {
 			return validate;
 			
 		} catch (Exception ex) {
-			return Plugin.createError(ex.getMessage(), ex);
+			String message = ex.getMessage();
+			if (message == null) {
+				message = Messages.TransformToGenModelOperation_e_generator_creation;
+			}
+			return Plugin.createError(message, ex);
 		} finally {
 			if (monitor != null) {
 				monitor.done();
@@ -289,7 +290,7 @@ public class TransformToGenModelOperation {
 		}
 	}
 	
-	private IStatus getFirst(Diagnostic d) {
+	static IStatus getFirst(Diagnostic d) {
 		if (d == null) {
 			return Status.OK_STATUS;
 		}

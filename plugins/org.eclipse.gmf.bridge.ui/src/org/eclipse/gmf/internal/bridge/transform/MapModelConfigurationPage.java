@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.bridge.transform;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
@@ -44,17 +45,15 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 		return wizard.getTransformOperation();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.internal.common.ui.ModelSelectionPage#resourceChanged()
-	 */
 	@Override
 	protected void resourceChanged() {
 		super.resourceChanged();
-		IStatus load = getOperation().getLoadMappingStatus();
+		Diagnostic load = getOperation().getMapmodelValidationResult();
 		if (load != null) {
 			if ((load.getSeverity() == IStatus.WARNING) || (load.getSeverity() == IStatus.INFO) ) {
-				setStatusMessage(load);
+				setStatusMessage(TransformToGenModelOperation.getFirst(load));
 			}
 		}
 	}
+
 }
