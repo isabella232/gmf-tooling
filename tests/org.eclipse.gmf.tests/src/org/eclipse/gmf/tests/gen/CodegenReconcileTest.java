@@ -38,7 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
+import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.util.GMFGenConfig;
@@ -622,7 +622,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		
 		private void preserveIfSet(EClass eClass, EAttribute feature){
 			//FIXME: only attributes for now, allow references
-			addDecisionMaker(eClass, new DefaultDecisionMaker(feature));
+			addDecision(eClass, new DefaultDecision(feature));
 		}
 	}
 	
