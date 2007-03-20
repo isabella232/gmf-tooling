@@ -50,8 +50,8 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createUnreliableRoute7CreationTool());
 		paletteContainer.add(createShipDestination8CreationTool());
 		paletteContainer.add(createWarship9CreationTool());
-		paletteContainer.add(createBesiegeOrder10CreationTool());
-		paletteContainer.add(createEscortOrder11CreationTool());
+		paletteContainer.add(createBesiegePortOrder10CreationTool());
+		paletteContainer.add(createEscortShipsOrder11CreationTool());
 		return paletteContainer;
 	}
 
@@ -166,10 +166,10 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createBesiegeOrder10CreationTool() {
+	private ToolEntry createBesiegePortOrder10CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
-		LinkToolEntry entry = new LinkToolEntry(Messages.BesiegeOrder10CreationTool_title, Messages.BesiegeOrder10CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.BesiegePortOrder10CreationTool_title, Messages.BesiegePortOrder10CreationTool_desc, types);
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.BesiegePortOrder_4005));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
@@ -178,11 +178,11 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEscortOrder11CreationTool() {
+	private ToolEntry createEscortShipsOrder11CreationTool() {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.EscortShipOrder_4004);
-		LinkToolEntry entry = new LinkToolEntry(Messages.EscortOrder11CreationTool_title, Messages.EscortOrder11CreationTool_desc, types);
-		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipOrder_4004));
+		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrder11CreationTool_title, Messages.EscortShipsOrder11CreationTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4006));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

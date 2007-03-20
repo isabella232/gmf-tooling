@@ -26,7 +26,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
-import org.eclipse.gmf.examples.taipan.EscortShipOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -34,7 +34,7 @@ import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
@@ -285,7 +285,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
 		storeTypeModelFacetLinks_Route_4002(container, containerMetaclass);
 		storeTypeModelFacetLinks_Route_4003(container, containerMetaclass);
-		storeTypeModelFacetLinks_EscortShipOrder_4004(container, containerMetaclass);
+		storeTypeModelFacetLinks_EscortShipsOrder_4006(container, containerMetaclass);
 		storeTypeModelFacetLinks_BesiegePortOrder_4005(container, containerMetaclass);
 	}
 
@@ -338,18 +338,18 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks_EscortShipOrder_4004(EObject container, EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks_EscortShipsOrder_4006(EObject container, EClass containerMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Warship) container).getOrders().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (EscortShipOrderEditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((EscortShipOrder) nextValue).getShip();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						EObject src = container;
-						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.EscortShipOrder_4004, linkVID));
-					}
+			EObject nextValue = (EObject) ((Warship) container).getEscortOrder();
+			int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
+			if (EscortShipsOrderEditPart.VISUAL_ID == linkVID) {
+				Object structuralFeatureResult = ((EscortShipsOrder) nextValue).getShips();
+				List targets = (List) structuralFeatureResult;
+				structuralFeatureResult = targets.size() == 1 ? targets.get(0) : null;
+				if (structuralFeatureResult instanceof EObject) {
+					EObject dst = (EObject) structuralFeatureResult;
+					EObject src = container;
+					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, TaiPanElementTypes.EscortShipsOrder_4006, linkVID));
 				}
 			}
 		}
@@ -360,7 +360,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	private void storeTypeModelFacetLinks_BesiegePortOrder_4005(EObject container, EClass containerMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((Warship) container).getOrders().iterator(); values.hasNext();) {
+			for (Iterator values = ((Warship) container).getAttackOrders().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 				if (BesiegePortOrderEditPart.VISUAL_ID == linkVID) {

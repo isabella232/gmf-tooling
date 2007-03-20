@@ -14,7 +14,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.examples.taipan.EscortShipOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class EscortShipOrderTypeLinkCreateCommand extends CreateRelationshipCommand {
+public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -41,7 +41,7 @@ public class EscortShipOrderTypeLinkCreateCommand extends CreateRelationshipComm
 	/**
 	 * @generated
 	 */
-	public EscortShipOrderTypeLinkCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
+	public EscortShipsOrderTypeLinkCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
 		super(req);
 		super.setElementToEdit(source);
 		mySource = source;
@@ -80,9 +80,9 @@ public class EscortShipOrderTypeLinkCreateCommand extends CreateRelationshipComm
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		EscortShipOrder newElement = (EscortShipOrder) super.doDefaultElementCreation();
+		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
 		if (newElement != null) {
-			newElement.setShip(myTarget);
+			newElement.getShips().add(myTarget);
 		}
 		return newElement;
 	}

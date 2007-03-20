@@ -25,9 +25,9 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderTypeLinkCreateCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -82,8 +82,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
 		}
-		if (TaiPanElementTypes.EscortShipOrder_4004 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipOrder_4004Command(req);
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -107,7 +107,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEscortShipOrder_4004Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
 		EObject sourceEObject = req.getSource();
 		EObject targetEObject = req.getTarget();
 		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Ship) {
@@ -115,13 +115,13 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		Warship source = (Warship) sourceEObject;
 		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipOrder_4004(source, target)) {
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_Orders());
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
-		return getMSLWrapper(new EscortShipOrderTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EscortShipsOrderTypeLinkCreateCommand(req, source, target));
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (EscortShipOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
-			return getMSLWrapper(new EscortShipOrderReorientCommand(req));
+		if (EscortShipsOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+			return getMSLWrapper(new EscortShipsOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}

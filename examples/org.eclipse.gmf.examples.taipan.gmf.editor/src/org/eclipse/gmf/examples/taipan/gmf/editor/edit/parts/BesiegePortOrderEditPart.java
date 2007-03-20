@@ -56,18 +56,18 @@ public class BesiegePortOrderEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new BesiegeOrderFigure();
+		return new BesiegePortOrderFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class BesiegeOrderFigure extends PolylineConnectionEx {
+	public class BesiegePortOrderFigure extends PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public BesiegeOrderFigure() {
+		public BesiegePortOrderFigure() {
 			this.setFill(true);
 			this.setFillXOR(false);
 			this.setOutline(true);

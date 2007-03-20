@@ -26,10 +26,10 @@ import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -84,8 +84,8 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
 		}
-		if (TaiPanElementTypes.EscortShipOrder_4004 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEscortShipOrder_4004Command(req) : getCreateCompleteIncomingEscortShipOrder_4004Command(req);
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingEscortShipsOrder_4006Command(req) : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartOutgoingBesiegePortOrder_4005Command(req) : null;
@@ -112,13 +112,13 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingEscortShipOrder_4004Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
 		EObject sourceEObject = req.getSource();
 		if (false == sourceEObject instanceof Warship) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		Warship source = (Warship) sourceEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipOrder_4004(source, null)) {
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, null)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		return new Command() {
@@ -128,7 +128,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEscortShipOrder_4004Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
 		EObject sourceEObject = req.getSource();
 		EObject targetEObject = req.getTarget();
 		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Ship) {
@@ -136,13 +136,13 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		}
 		Warship source = (Warship) sourceEObject;
 		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipOrder_4004(source, target)) {
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_Orders());
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
-		return getMSLWrapper(new EscortShipOrderTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EscortShipsOrderTypeLinkCreateCommand(req, source, target));
 	}
 
 	/**
@@ -168,8 +168,8 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (EscortShipOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
-			return getMSLWrapper(new EscortShipOrderReorientCommand(req));
+		if (EscortShipsOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+			return getMSLWrapper(new EscortShipsOrderReorientCommand(req));
 		}
 		if (BesiegePortOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
 			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));

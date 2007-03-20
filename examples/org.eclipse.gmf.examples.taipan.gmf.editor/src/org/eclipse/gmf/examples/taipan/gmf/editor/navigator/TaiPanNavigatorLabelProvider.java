@@ -17,7 +17,7 @@ import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
@@ -131,8 +131,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4002);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4003);
-		case EscortShipOrderEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?EscortShipOrder", TaiPanElementTypes.EscortShipOrder_4004);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?EscortShipsOrder", TaiPanElementTypes.EscortShipsOrder_4006);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?BesiegePortOrder", TaiPanElementTypes.BesiegePortOrder_4005);
 		default:
@@ -210,8 +210,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getRoute_4002Text(view);
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return getRoute_4003Text(view);
-		case EscortShipOrderEditPart.VISUAL_ID:
-			return getEscortShipOrder_4004Text(view);
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return getEscortShipsOrder_4006Text(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005Text(view);
 		default:
@@ -434,7 +434,7 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	/**
 	 * @generated
 	 */
-	private String getEscortShipOrder_4004Text(View view) {
+	private String getEscortShipsOrder_4006Text(View view) {
 		return "";
 	}
 

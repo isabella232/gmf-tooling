@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
@@ -41,7 +41,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.BesiegePortOrderViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EmptyBoxViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EscortShipOrderViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EscortShipsOrderViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemArticleViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemWeightViewFactory;
@@ -159,8 +159,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ReliableRouteViewFactory.class;
 		case UnreliableRouteEditPart.VISUAL_ID:
 			return UnreliableRouteViewFactory.class;
-		case EscortShipOrderEditPart.VISUAL_ID:
-			return EscortShipOrderViewFactory.class;
+		case EscortShipsOrderEditPart.VISUAL_ID:
+			return EscortShipsOrderViewFactory.class;
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return BesiegePortOrderViewFactory.class;
 		}

@@ -63,7 +63,7 @@ public class TaiPanDomainModelElementTester extends PropertyTester {
 		if (eClass == TaiPanPackage.eINSTANCE.getOrder()) {
 			return true;
 		}
-		if (eClass == TaiPanPackage.eINSTANCE.getEscortShipOrder()) {
+		if (eClass == TaiPanPackage.eINSTANCE.getEscortShipsOrder()) {
 			return true;
 		}
 		if (eClass == TaiPanPackage.eINSTANCE.getBesiegePortOrder()) {

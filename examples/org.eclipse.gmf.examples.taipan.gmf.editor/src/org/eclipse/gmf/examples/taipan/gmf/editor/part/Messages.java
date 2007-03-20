@@ -120,22 +120,22 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String BesiegeOrder10CreationTool_title;
+	public static String BesiegePortOrder10CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String BesiegeOrder10CreationTool_desc;
+	public static String BesiegePortOrder10CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortOrder11CreationTool_title;
+	public static String EscortShipsOrder11CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EscortOrder11CreationTool_desc;
+	public static String EscortShipsOrder11CreationTool_desc;
 
 	/**
 	 * @generated
@@ -220,12 +220,12 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_EscortShipOrder_4004_target;
+	public static String NavigatorGroupName_EscortShipsOrder_4006_target;
 
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_EscortShipOrder_4004_source;
+	public static String NavigatorGroupName_EscortShipsOrder_4006_source;
 
 	/**
 	 * @generated

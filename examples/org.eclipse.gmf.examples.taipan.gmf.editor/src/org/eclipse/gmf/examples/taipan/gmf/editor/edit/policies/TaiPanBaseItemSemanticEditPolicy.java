@@ -277,7 +277,12 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEscortShipOrder_4004(Warship source, Ship target) {
+		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
+			if (source != null) {
+				if (source.getEscortOrder() != null) {
+					return false;
+				}
+			}
 			return true;
 		}
 

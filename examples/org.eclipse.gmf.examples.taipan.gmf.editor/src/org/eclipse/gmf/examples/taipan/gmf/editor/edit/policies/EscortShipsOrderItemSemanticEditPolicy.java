@@ -20,7 +20,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 /**
  * @generated
  */
-public class EscortShipOrderItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class EscortShipsOrderItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

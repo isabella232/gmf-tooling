@@ -410,12 +410,12 @@
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipOrder_4004"
-               name="%metatype.name.EscortShipOrder_4004"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipsOrder_4006"
+               name="%metatype.name.EscortShipsOrder_4006"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EscortShipOrder"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EscortShipOrderEditHelper">
-            <param name="semanticHint" value="4004"/>
+               eclass="EscortShipsOrder"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EscortShipsOrderEditHelper">
+            <param name="semanticHint" value="4006"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
@@ -450,7 +450,7 @@
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipOrder_4004"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipsOrder_4006"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.BesiegePortOrder_4005"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>

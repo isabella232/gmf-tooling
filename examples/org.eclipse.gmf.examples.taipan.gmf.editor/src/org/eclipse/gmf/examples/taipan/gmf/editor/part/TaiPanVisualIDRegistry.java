@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
-import org.eclipse.gmf.examples.taipan.EscortShipOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.LargeItem;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
@@ -29,7 +29,7 @@ import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
@@ -278,9 +278,9 @@ public class TaiPanVisualIDRegistry {
 			return ReliableRouteEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_4003((Route) domainElement))) {
 			return UnreliableRouteEditPart.VISUAL_ID;
-		} else if (TaiPanPackage.eINSTANCE.getEscortShipOrder().isSuperTypeOf(domainElementMetaclass)
-				&& (domainElement == null || isLinkWithClassEscortShipOrder_4004((EscortShipOrder) domainElement))) {
-			return EscortShipOrderEditPart.VISUAL_ID;
+		} else if (TaiPanPackage.eINSTANCE.getEscortShipsOrder().isSuperTypeOf(domainElementMetaclass)
+				&& (domainElement == null || isLinkWithClassEscortShipsOrder_4006((EscortShipsOrder) domainElement))) {
+			return EscortShipsOrderEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getBesiegePortOrder().isSuperTypeOf(domainElementMetaclass)
 				&& (domainElement == null || isLinkWithClassBesiegePortOrder_4005((BesiegePortOrder) domainElement))) {
 			return BesiegePortOrderEditPart.VISUAL_ID;
@@ -525,7 +525,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isLinkWithClassEscortShipOrder_4004(EscortShipOrder element) {
+	private static boolean isLinkWithClassEscortShipsOrder_4006(EscortShipsOrder element) {
 		return true;
 	}
 

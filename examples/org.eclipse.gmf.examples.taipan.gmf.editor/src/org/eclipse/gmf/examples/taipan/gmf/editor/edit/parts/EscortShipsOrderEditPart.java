@@ -15,7 +15,7 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.RotatableDecoration;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EscortShipOrderItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EscortShipsOrderItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -24,17 +24,17 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EscortShipOrderEditPart extends ConnectionNodeEditPart {
+public class EscortShipsOrderEditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4004;
+	public static final int VISUAL_ID = 4006;
 
 	/**
 	 * @generated
 	 */
-	public EscortShipOrderEditPart(View view) {
+	public EscortShipsOrderEditPart(View view) {
 		super(view);
 	}
 
@@ -43,7 +43,7 @@ public class EscortShipOrderEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EscortShipOrderItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EscortShipsOrderItemSemanticEditPolicy());
 	}
 
 	/**
@@ -56,18 +56,18 @@ public class EscortShipOrderEditPart extends ConnectionNodeEditPart {
 	 */
 	protected Connection createConnectionFigure() {
 
-		return new EscortOrderFigure();
+		return new EscortShipsOrderFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class EscortOrderFigure extends PolylineConnectionEx {
+	public class EscortShipsOrderFigure extends PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public EscortOrderFigure() {
+		public EscortShipsOrderFigure() {
 			this.setFill(true);
 			this.setFillXOR(false);
 			this.setOutline(true);

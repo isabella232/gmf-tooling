@@ -69,8 +69,8 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 			Warship oldEnd = (Warship) link.eContainer();
-			oldEnd.getOrders().remove(link);
-			((Warship) newEnd).getOrders().add(link);
+			oldEnd.getAttackOrders().remove(link);
+			((Warship) newEnd).getAttackOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {

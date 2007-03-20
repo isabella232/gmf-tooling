@@ -105,8 +105,8 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case UnreliableRouteRelbEditPart.VISUAL_ID:
 				return new UnreliableRouteRelbEditPart(view);
 
-			case EscortShipOrderEditPart.VISUAL_ID:
-				return new EscortShipOrderEditPart(view);
+			case EscortShipsOrderEditPart.VISUAL_ID:
+				return new EscortShipsOrderEditPart(view);
 
 			case BesiegePortOrderEditPart.VISUAL_ID:
 				return new BesiegePortOrderEditPart(view);

@@ -25,7 +25,7 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
@@ -168,7 +168,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), UnreliableRouteEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(view), EscortShipOrderEditPart.VISUAL_ID);
+			connectedViews = getDiagramLinksByType(Collections.singleton(view), EscortShipsOrderEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(view), BesiegePortOrderEditPart.VISUAL_ID);
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
@@ -218,7 +218,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EscortShipOrderEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), EscortShipsOrderEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
@@ -235,9 +235,9 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Warship_2003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EscortShipOrderEditPart.VISUAL_ID);
+			connectedViews = getIncomingLinksByType(Collections.singleton(view), EscortShipsOrderEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EscortShipOrderEditPart.VISUAL_ID);
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EscortShipsOrderEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			connectedViews = getOutgoingLinksByType(Collections.singleton(view), BesiegePortOrderEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
@@ -303,10 +303,10 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case EscortShipOrderEditPart.VISUAL_ID: {
+		case EscortShipsOrderEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_EscortShipOrder_4004_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_EscortShipOrder_4004_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup target = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_EscortShipsOrder_4006_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup source = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_EscortShipsOrder_4006_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), WarshipEditPart.VISUAL_ID);

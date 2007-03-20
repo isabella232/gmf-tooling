@@ -15,7 +15,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.examples.taipan.EscortShipOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -25,7 +25,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 /**
  * @generated
  */
-public class EscortShipOrderReorientCommand extends EditElementCommand {
+public class EscortShipsOrderReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -40,7 +40,7 @@ public class EscortShipOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public EscortShipOrderReorientCommand(ReorientRelationshipRequest request) {
+	public EscortShipsOrderReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
 		newEnd = request.getNewRelationshipEnd();
@@ -50,7 +50,7 @@ public class EscortShipOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof EscortShipOrder)) {
+		if (!(getElementToEdit() instanceof EscortShipsOrder)) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
@@ -66,15 +66,16 @@ public class EscortShipOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EscortShipOrder link = (EscortShipOrder) getElementToEdit();
+		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 			Warship oldEnd = (Warship) link.eContainer();
-			oldEnd.getOrders().remove(link);
-			((Warship) newEnd).getOrders().add(link);
+			oldEnd.setEscortOrder(null);
+			((Warship) newEnd).setEscortOrder(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			link.setShip((Ship) newEnd);
+			link.getShips().clear();
+			link.getShips().add((Ship) newEnd);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown direction: " + reorientDirection);

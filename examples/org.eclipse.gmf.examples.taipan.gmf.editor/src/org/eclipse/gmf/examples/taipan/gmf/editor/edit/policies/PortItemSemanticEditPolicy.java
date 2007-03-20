@@ -225,7 +225,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return UnexecutableCommand.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_Orders());
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
 		}
 		return getMSLWrapper(new BesiegePortOrderTypeLinkCreateCommand(req, source, target));
 	}
