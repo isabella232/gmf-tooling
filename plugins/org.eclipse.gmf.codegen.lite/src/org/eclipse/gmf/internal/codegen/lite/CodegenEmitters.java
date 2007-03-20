@@ -51,8 +51,6 @@ import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerato
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.ValidationProviderGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
@@ -153,8 +151,6 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
-		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
-		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
 
 		return tr;
 	}
@@ -398,7 +394,7 @@ public class CodegenEmitters {
 		return new GIFEmitter(templateLocation);
 	}
 
-	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNavigatorContentProviderEmitter() {
 		return retrieveXpand("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider");	//$NON-NLS-1$
 	}
 
@@ -422,12 +418,12 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::navigator::AbstractNavigatorItem::AbstractNavigatorItem");
 	}
 	
-	public TextEmitter getNavigatorGroupEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorGroupGenerator.class);
+	public TextEmitter getNavigatorGroupEmitter() {
+		return retrieveXpand("xpt::navigator::NavigatorGroup::NavigatorGroup"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorItemEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorItemGenerator.class);
+	public TextEmitter getNavigatorItemEmitter() {
+		return retrieveXpand("xpt::navigator::NavigatorItem::NavigatorItem"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {

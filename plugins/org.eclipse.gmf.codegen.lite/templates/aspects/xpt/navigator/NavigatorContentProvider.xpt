@@ -15,6 +15,12 @@
 
 «AROUND createEditingDomain FOR gmfgen::GenNavigator»(org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDAROUND»
 
+«AROUND workspaceSynchronizerAttribute FOR gmfgen::GenNavigator»«ENDAROUND»
+
+«AROUND initWorkspaceSynchronizer FOR gmfgen::GenNavigator»«ENDAROUND»
+
+«AROUND disposeWorkspaceSynchronizer FOR gmfgen::GenNavigator»«ENDAROUND»
+
 «AROUND getAdaptableChildren FOR gmfgen::GenNavigator-»
 «REM»Currently, no shortcuts are generated in lite mode«ENDREM-»
 «ENDAROUND»

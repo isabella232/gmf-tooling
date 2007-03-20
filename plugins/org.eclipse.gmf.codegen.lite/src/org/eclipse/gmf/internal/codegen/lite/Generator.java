@@ -372,7 +372,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getComponentEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), editPolicyClassName, genElement);
 	}
 
-	private void generateNavigatorContentProvider() throws InterruptedException, UnexpectedBehaviourException {
+	private void generateNavigatorContentProvider() throws InterruptedException {
 		internalGenerateJavaClass(
 				myEmitters.getNavigatorContentProviderEmitter(),
 				myEditorGen.getNavigator().getPackageName(),
@@ -429,7 +429,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateNavigatorGroup() throws InterruptedException, UnexpectedBehaviourException {
+	private void generateNavigatorGroup() throws InterruptedException {
 		internalGenerateJavaClass(
 				myEmitters.getNavigatorGroupEmitter(),
 				myEditorGen.getNavigator().getPackageName(),
@@ -438,7 +438,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateNavigatorItem() throws InterruptedException, UnexpectedBehaviourException {
+	private void generateNavigatorItem() throws InterruptedException {
 		internalGenerateJavaClass(
 				myEmitters.getNavigatorItemEmitter(),
 				myEditorGen.getNavigator().getPackageName(),
