@@ -255,28 +255,28 @@
   </links>
   <links>
     <domainMetaElement
-        href="taipan.ecore#//EscortShipOrder"/>
+        href="taipan.ecore#//EscortShipsOrder"/>
     <containmentFeature
-        href="taipan.ecore#//Warship/orders"/>
+        href="taipan.ecore#//Warship/escortOrder"/>
     <tool
         xsi:type="gmftool:CreationTool"
         href="taipan.gmftool#//@palette/@tools.0/@tools.10"/>
     <diagramLink
-        href="taipan.gmfgraph#EscortOrder"/>
+        href="taipan.gmfgraph#EscortShipsOrder"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
-        href="taipan.ecore#//EscortShipOrder/ship"/>
+        href="taipan.ecore#//EscortShipsOrder/ships"/>
   </links>
   <links>
     <domainMetaElement
         href="taipan.ecore#//BesiegePortOrder"/>
     <containmentFeature
-        href="taipan.ecore#//Warship/orders"/>
+        href="taipan.ecore#//Warship/attackOrders"/>
     <tool
         xsi:type="gmftool:CreationTool"
         href="taipan.gmftool#//@palette/@tools.0/@tools.9"/>
     <diagramLink
-        href="taipan.gmfgraph#BesiegeOrder"/>
+        href="taipan.gmfgraph#BesiegePortOrder"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//BesiegePortOrder/port"/>

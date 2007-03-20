@@ -13,13 +13,16 @@ package org.eclipse.gmf.examples.taipan.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.examples.taipan.Order;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 
@@ -28,7 +31,8 @@ import org.eclipse.gmf.examples.taipan.Warship;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.taipan.impl.WarshipImpl#getOrders <em>Orders</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.WarshipImpl#getEscortOrder <em>Escort Order</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.WarshipImpl#getAttackOrders <em>Attack Orders</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,13 +47,24 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	public static final String copyright = ""; //$NON-NLS-1$
 
 	/**
-	 * The cached value of the '{@link #getOrders() <em>Orders</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getOrders()
+	 * The cached value of the '{@link #getEscortOrder() <em>Escort Order</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEscortOrder()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Order> orders = null;
+	protected EscortShipsOrder escortOrder = null;
+
+	/**
+	 * The cached value of the '{@link #getAttackOrders() <em>Attack Orders</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttackOrders()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BesiegePortOrder> attackOrders = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -69,14 +84,61 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Order> getOrders() {
-		if (orders == null) {
-			orders = new EObjectContainmentEList<Order>(Order.class, this, TaiPanPackage.WARSHIP__ORDERS);
+	public EscortShipsOrder getEscortOrder() {
+		return escortOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEscortOrder(EscortShipsOrder newEscortOrder, NotificationChain msgs) {
+		EscortShipsOrder oldEscortOrder = escortOrder;
+		escortOrder = newEscortOrder;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TaiPanPackage.WARSHIP__ESCORT_ORDER, oldEscortOrder, newEscortOrder);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
-		return orders;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEscortOrder(EscortShipsOrder newEscortOrder) {
+		if (newEscortOrder != escortOrder) {
+			NotificationChain msgs = null;
+			if (escortOrder != null)
+				msgs = ((InternalEObject) escortOrder).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TaiPanPackage.WARSHIP__ESCORT_ORDER, null, msgs);
+			if (newEscortOrder != null)
+				msgs = ((InternalEObject) newEscortOrder).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TaiPanPackage.WARSHIP__ESCORT_ORDER, null, msgs);
+			msgs = basicSetEscortOrder(newEscortOrder, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.WARSHIP__ESCORT_ORDER, newEscortOrder, newEscortOrder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<BesiegePortOrder> getAttackOrders() {
+		if (attackOrders == null) {
+			attackOrders = new EObjectContainmentEList<BesiegePortOrder>(BesiegePortOrder.class, this, TaiPanPackage.WARSHIP__ATTACK_ORDERS);
+		}
+		return attackOrders;
 	}
 
 	/**
@@ -86,8 +148,10 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case TaiPanPackage.WARSHIP__ORDERS:
-			return ((InternalEList<?>) getOrders()).basicRemove(otherEnd, msgs);
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+			return basicSetEscortOrder(null, msgs);
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
+			return ((InternalEList<?>) getAttackOrders()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -99,8 +163,10 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case TaiPanPackage.WARSHIP__ORDERS:
-			return getOrders();
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+			return getEscortOrder();
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
+			return getAttackOrders();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -113,9 +179,12 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case TaiPanPackage.WARSHIP__ORDERS:
-			getOrders().clear();
-			getOrders().addAll((Collection<? extends Order>) newValue);
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+			setEscortOrder((EscortShipsOrder) newValue);
+			return;
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
+			getAttackOrders().clear();
+			getAttackOrders().addAll((Collection<? extends BesiegePortOrder>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,8 +197,11 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case TaiPanPackage.WARSHIP__ORDERS:
-			getOrders().clear();
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+			setEscortOrder((EscortShipsOrder) null);
+			return;
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
+			getAttackOrders().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -142,8 +214,10 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case TaiPanPackage.WARSHIP__ORDERS:
-			return orders != null && !orders.isEmpty();
+		case TaiPanPackage.WARSHIP__ESCORT_ORDER:
+			return escortOrder != null;
+		case TaiPanPackage.WARSHIP__ATTACK_ORDERS:
+			return attackOrders != null && !attackOrders.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

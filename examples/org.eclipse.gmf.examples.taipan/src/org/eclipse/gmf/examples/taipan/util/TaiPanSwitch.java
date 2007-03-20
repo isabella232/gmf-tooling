@@ -181,11 +181,11 @@ public class TaiPanSwitch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case TaiPanPackage.ESCORT_SHIP_ORDER: {
-			EscortShipOrder escortShipOrder = (EscortShipOrder) theEObject;
-			T result = caseEscortShipOrder(escortShipOrder);
+		case TaiPanPackage.ESCORT_SHIPS_ORDER: {
+			EscortShipsOrder escortShipsOrder = (EscortShipsOrder) theEObject;
+			T result = caseEscortShipsOrder(escortShipsOrder);
 			if (result == null)
-				result = caseOrder(escortShipOrder);
+				result = caseOrder(escortShipsOrder);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -340,17 +340,17 @@ public class TaiPanSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Escort Ship Order</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Escort Ships Order</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Escort Ship Order</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Escort Ships Order</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEscortShipOrder(EscortShipOrder object) {
+	public T caseEscortShipsOrder(EscortShipsOrder object) {
 		return null;
 	}
 

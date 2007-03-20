@@ -22,7 +22,7 @@ import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
-import org.eclipse.gmf.examples.taipan.EscortShipOrder;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.LargeItem;
 import org.eclipse.gmf.examples.taipan.Order;
@@ -117,7 +117,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass escortShipOrderEClass = null;
+	private EClass escortShipsOrderEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -386,8 +386,17 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWarship_Orders() {
+	public EReference getWarship_EscortOrder() {
 		return (EReference) warshipEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWarship_AttackOrders() {
+		return (EReference) warshipEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -404,8 +413,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEscortShipOrder() {
-		return escortShipOrderEClass;
+	public EClass getEscortShipsOrder() {
+		return escortShipsOrderEClass;
 	}
 
 	/**
@@ -413,8 +422,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEscortShipOrder_Ship() {
-		return (EReference) escortShipOrderEClass.getEStructuralFeatures().get(0);
+	public EReference getEscortShipsOrder_Ships() {
+		return (EReference) escortShipsOrderEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -562,12 +571,13 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		emptyBoxEClass = createEClass(EMPTY_BOX);
 
 		warshipEClass = createEClass(WARSHIP);
-		createEReference(warshipEClass, WARSHIP__ORDERS);
+		createEReference(warshipEClass, WARSHIP__ESCORT_ORDER);
+		createEReference(warshipEClass, WARSHIP__ATTACK_ORDERS);
 
 		orderEClass = createEClass(ORDER);
 
-		escortShipOrderEClass = createEClass(ESCORT_SHIP_ORDER);
-		createEReference(escortShipOrderEClass, ESCORT_SHIP_ORDER__SHIP);
+		escortShipsOrderEClass = createEClass(ESCORT_SHIPS_ORDER);
+		createEReference(escortShipsOrderEClass, ESCORT_SHIPS_ORDER__SHIPS);
 
 		besiegePortOrderEClass = createEClass(BESIEGE_PORT_ORDER);
 		createEReference(besiegePortOrderEClass, BESIEGE_PORT_ORDER__PORT);
@@ -606,7 +616,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		smallItemsEClass.getESuperTypes().add(this.getItem());
 		emptyBoxEClass.getESuperTypes().add(this.getItem());
 		warshipEClass.getESuperTypes().add(this.getShip());
-		escortShipOrderEClass.getESuperTypes().add(this.getOrder());
+		escortShipsOrderEClass.getESuperTypes().add(this.getOrder());
 		besiegePortOrderEClass.getESuperTypes().add(this.getOrder());
 
 		// Initialize classes and features; add operations and parameters
@@ -661,14 +671,16 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		initEClass(emptyBoxEClass, EmptyBox.class, "EmptyBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(warshipEClass, Warship.class, "Warship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getWarship_Orders(), this.getOrder(), null,
-				"orders", null, 0, -1, Warship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWarship_EscortOrder(), this.getEscortShipsOrder(), null,
+				"escortOrder", null, 0, 1, Warship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWarship_AttackOrders(), this.getBesiegePortOrder(), null,
+				"attackOrders", null, 0, -1, Warship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(orderEClass, Order.class, "Order", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(escortShipOrderEClass, EscortShipOrder.class, "EscortShipOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getEscortShipOrder_Ship(), this.getShip(), null,
-				"ship", null, 1, 1, EscortShipOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(escortShipsOrderEClass, EscortShipsOrder.class, "EscortShipsOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEscortShipsOrder_Ships(), this.getShip(), null,
+				"ships", null, 1, -1, EscortShipsOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(besiegePortOrderEClass, BesiegePortOrder.class, "BesiegePortOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getBesiegePortOrder_Port(), this.getPort(), null,

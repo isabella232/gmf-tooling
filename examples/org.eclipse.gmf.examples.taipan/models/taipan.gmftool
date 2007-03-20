@@ -95,8 +95,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Besiege Order"
-          description="Place new besiege order">
+          title="Besiege Port Order"
+          description="Place new besiege port order">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -104,8 +104,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Escort Order"
-          description="Place new esort order">
+          title="Escort Ships Order"
+          description="Place new esort ships order">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

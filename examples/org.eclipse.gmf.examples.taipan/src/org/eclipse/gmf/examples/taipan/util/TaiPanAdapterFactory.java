@@ -140,8 +140,8 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseEscortShipOrder(EscortShipOrder object) {
-			return createEscortShipOrderAdapter();
+		public Adapter caseEscortShipsOrder(EscortShipsOrder object) {
+			return createEscortShipsOrderAdapter();
 		}
 
 		@Override
@@ -295,16 +295,16 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.EscortShipOrder <em>Escort Ship Order</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.EscortShipsOrder <em>Escort Ships Order</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.examples.taipan.EscortShipOrder
+	 * @see org.eclipse.gmf.examples.taipan.EscortShipsOrder
 	 * @generated
 	 */
-	public Adapter createEscortShipOrderAdapter() {
+	public Adapter createEscortShipsOrderAdapter() {
 		return null;
 	}
 

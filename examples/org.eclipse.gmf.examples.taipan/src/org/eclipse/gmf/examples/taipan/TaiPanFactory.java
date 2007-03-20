@@ -102,13 +102,13 @@ public interface TaiPanFactory extends EFactory {
 	Warship createWarship();
 
 	/**
-	 * Returns a new object of class '<em>Escort Ship Order</em>'.
+	 * Returns a new object of class '<em>Escort Ships Order</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Escort Ship Order</em>'.
+	 * @return a new object of class '<em>Escort Ships Order</em>'.
 	 * @generated
 	 */
-	EscortShipOrder createEscortShipOrder();
+	EscortShipsOrder createEscortShipsOrder();
 
 	/**
 	 * Returns a new object of class '<em>Besiege Port Order</em>'.

@@ -90,8 +90,8 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 			return createEmptyBox();
 		case TaiPanPackage.WARSHIP:
 			return createWarship();
-		case TaiPanPackage.ESCORT_SHIP_ORDER:
-			return createEscortShipOrder();
+		case TaiPanPackage.ESCORT_SHIPS_ORDER:
+			return createEscortShipsOrder();
 		case TaiPanPackage.BESIEGE_PORT_ORDER:
 			return createBesiegePortOrder();
 		default:
@@ -174,9 +174,9 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EscortShipOrder createEscortShipOrder() {
-		EscortShipOrderImpl escortShipOrder = new EscortShipOrderImpl();
-		return escortShipOrder;
+	public EscortShipsOrder createEscortShipsOrder() {
+		EscortShipsOrderImpl escortShipsOrder = new EscortShipsOrderImpl();
+		return escortShipsOrder;
 	}
 
 	/**

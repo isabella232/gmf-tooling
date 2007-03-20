@@ -369,13 +369,22 @@ public interface TaiPanPackage extends EPackage {
 	int WARSHIP__CARGO = SHIP__CARGO;
 
 	/**
-	 * The feature id for the '<em><b>Orders</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Escort Order</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WARSHIP__ORDERS = SHIP_FEATURE_COUNT + 0;
+	int WARSHIP__ESCORT_ORDER = SHIP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Attack Orders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__ATTACK_ORDERS = SHIP_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Warship</em>' class.
@@ -384,7 +393,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WARSHIP_FEATURE_COUNT = SHIP_FEATURE_COUNT + 1;
+	int WARSHIP_FEATURE_COUNT = SHIP_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.Order <em>Order</em>}' class.
@@ -406,32 +415,32 @@ public interface TaiPanPackage extends EPackage {
 	int ORDER_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipOrderImpl <em>Escort Ship Order</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl <em>Escort Ships Order</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.examples.taipan.impl.EscortShipOrderImpl
-	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEscortShipOrder()
+	 * @see org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEscortShipsOrder()
 	 * @generated
 	 */
-	int ESCORT_SHIP_ORDER = 11;
+	int ESCORT_SHIPS_ORDER = 11;
 
 	/**
-	 * The feature id for the '<em><b>Ship</b></em>' reference.
+	 * The feature id for the '<em><b>Ships</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ESCORT_SHIP_ORDER__SHIP = ORDER_FEATURE_COUNT + 0;
+	int ESCORT_SHIPS_ORDER__SHIPS = ORDER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Escort Ship Order</em>' class.
+	 * The number of structural features of the '<em>Escort Ships Order</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ESCORT_SHIP_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
+	int ESCORT_SHIPS_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BesiegePortOrderImpl <em>Besiege Port Order</em>}' class.
@@ -470,15 +479,6 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	int ROUTE = 3;
-
-	/**
-	 * The feature id for the '<em><b>Reliability</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUTE__RELIABILITY = 3;
 
 	/**
 	 * The number of structural features of the '<em>Route</em>' class.
@@ -543,6 +543,15 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUTE__DESCRIPTION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Reliability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUTE__RELIABILITY = 3;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.
@@ -746,15 +755,26 @@ public interface TaiPanPackage extends EPackage {
 	EClass getWarship();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.examples.taipan.Warship#getOrders <em>Orders</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.examples.taipan.Warship#getEscortOrder <em>Escort Order</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Orders</em>'.
-	 * @see org.eclipse.gmf.examples.taipan.Warship#getOrders()
+	 * @return the meta object for the containment reference '<em>Escort Order</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Warship#getEscortOrder()
 	 * @see #getWarship()
 	 * @generated
 	 */
-	EReference getWarship_Orders();
+	EReference getWarship_EscortOrder();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.examples.taipan.Warship#getAttackOrders <em>Attack Orders</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attack Orders</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Warship#getAttackOrders()
+	 * @see #getWarship()
+	 * @generated
+	 */
+	EReference getWarship_AttackOrders();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Order <em>Order</em>}'.
@@ -767,25 +787,25 @@ public interface TaiPanPackage extends EPackage {
 	EClass getOrder();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.EscortShipOrder <em>Escort Ship Order</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.EscortShipsOrder <em>Escort Ships Order</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Escort Ship Order</em>'.
-	 * @see org.eclipse.gmf.examples.taipan.EscortShipOrder
+	 * @return the meta object for class '<em>Escort Ships Order</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.EscortShipsOrder
 	 * @generated
 	 */
-	EClass getEscortShipOrder();
+	EClass getEscortShipsOrder();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.examples.taipan.EscortShipOrder#getShip <em>Ship</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.examples.taipan.EscortShipsOrder#getShips <em>Ships</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Ship</em>'.
-	 * @see org.eclipse.gmf.examples.taipan.EscortShipOrder#getShip()
-	 * @see #getEscortShipOrder()
+	 * @return the meta object for the reference list '<em>Ships</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.EscortShipsOrder#getShips()
+	 * @see #getEscortShipsOrder()
 	 * @generated
 	 */
-	EReference getEscortShipOrder_Ship();
+	EReference getEscortShipsOrder_Ships();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.BesiegePortOrder <em>Besiege Port Order</em>}'.
@@ -1075,12 +1095,20 @@ public interface TaiPanPackage extends EPackage {
 		EClass WARSHIP = eINSTANCE.getWarship();
 
 		/**
-		 * The meta object literal for the '<em><b>Orders</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Escort Order</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference WARSHIP__ORDERS = eINSTANCE.getWarship_Orders();
+		EReference WARSHIP__ESCORT_ORDER = eINSTANCE.getWarship_EscortOrder();
+
+		/**
+		 * The meta object literal for the '<em><b>Attack Orders</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WARSHIP__ATTACK_ORDERS = eINSTANCE.getWarship_AttackOrders();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.Order <em>Order</em>}' class.
@@ -1093,22 +1121,22 @@ public interface TaiPanPackage extends EPackage {
 		EClass ORDER = eINSTANCE.getOrder();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipOrderImpl <em>Escort Ship Order</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl <em>Escort Ships Order</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.gmf.examples.taipan.impl.EscortShipOrderImpl
-		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEscortShipOrder()
+		 * @see org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEscortShipsOrder()
 		 * @generated
 		 */
-		EClass ESCORT_SHIP_ORDER = eINSTANCE.getEscortShipOrder();
+		EClass ESCORT_SHIPS_ORDER = eINSTANCE.getEscortShipsOrder();
 
 		/**
-		 * The meta object literal for the '<em><b>Ship</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Ships</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ESCORT_SHIP_ORDER__SHIP = eINSTANCE.getEscortShipOrder_Ship();
+		EReference ESCORT_SHIPS_ORDER__SHIPS = eINSTANCE.getEscortShipsOrder_Ships();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.BesiegePortOrderImpl <em>Besiege Port Order</em>}' class.

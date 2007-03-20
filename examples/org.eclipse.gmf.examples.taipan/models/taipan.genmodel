@@ -43,11 +43,12 @@
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//EmptyBox"/>
     <genClasses ecoreClass="taipan.ecore#//Warship">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Warship/orders"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Warship/escortOrder"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Warship/attackOrders"/>
     </genClasses>
     <genClasses image="false" ecoreClass="taipan.ecore#//Order"/>
-    <genClasses ecoreClass="taipan.ecore#//EscortShipOrder">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//EscortShipOrder/ship"/>
+    <genClasses ecoreClass="taipan.ecore#//EscortShipsOrder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//EscortShipsOrder/ships"/>
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//BesiegePortOrder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//BesiegePortOrder/port"/>

@@ -21,7 +21,8 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.taipan.Warship#getOrders <em>Orders</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Warship#getEscortOrder <em>Escort Order</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Warship#getAttackOrders <em>Attack Orders</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,19 +40,45 @@ public interface Warship extends Ship {
 	String copyright = ""; //$NON-NLS-1$
 
 	/**
-	 * Returns the value of the '<em><b>Orders</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Order}.
+	 * Returns the value of the '<em><b>Escort Order</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Orders</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Escort Order</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Orders</em>' containment reference list.
-	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getWarship_Orders()
-	 * @model type="org.eclipse.gmf.examples.taipan.Order" containment="true"
+	 * @return the value of the '<em>Escort Order</em>' containment reference.
+	 * @see #setEscortOrder(EscortShipsOrder)
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getWarship_EscortOrder()
+	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Order> getOrders();
+	EscortShipsOrder getEscortOrder();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Warship#getEscortOrder <em>Escort Order</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Escort Order</em>' containment reference.
+	 * @see #getEscortOrder()
+	 * @generated
+	 */
+	void setEscortOrder(EscortShipsOrder value);
+
+	/**
+	 * Returns the value of the '<em><b>Attack Orders</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.BesiegePortOrder}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Attack Orders</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Attack Orders</em>' containment reference list.
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getWarship_AttackOrders()
+	 * @model type="org.eclipse.gmf.examples.taipan.BesiegePortOrder" containment="true"
+	 * @generated
+	 */
+	EList<BesiegePortOrder> getAttackOrders();
 
 } // Warship
