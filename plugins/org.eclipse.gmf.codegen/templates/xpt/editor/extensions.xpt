@@ -41,8 +41,7 @@
    </extension>
 «IF diagram.generateInitDiagramAction()-»
 
-	«IF null == application-»
-   <extension point="org.eclipse.ui.popupMenus">
+   «IF null == application»<extension point="org.eclipse.ui.popupMenus">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <objectContribution
             id="«plugin.iD».InitDiagram"
