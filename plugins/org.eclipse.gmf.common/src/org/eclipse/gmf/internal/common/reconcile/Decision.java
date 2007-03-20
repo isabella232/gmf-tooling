@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,19 +15,45 @@ package org.eclipse.gmf.internal.common.reconcile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-public interface Decision {
-	public void apply(EObject current, EObject old, EStructuralFeature feature);
+public abstract class Decision {
+	private final EStructuralFeature myFeature;
+
+	public abstract void apply(EObject current, EObject old);
 	
-	public static final Decision PRESERVE_OLD = new Decision(){
-		public void apply(EObject current, EObject old, EStructuralFeature feature) {
-			Object oldValue = old.eGet(feature, true);
-			current.eSet(feature, oldValue);
-		}
-	};
+	public Decision(EStructuralFeature feature){
+		myFeature = feature;
+	}
 	
-	public static final Decision ACCEPT_NEW = new Decision(){
-		public void apply(EObject current, EObject old, EStructuralFeature feature) {
-			//do nothing
+	protected final EStructuralFeature getFeature(){
+		return myFeature;
+	}
+	
+	public static class ALWAYS_OLD extends Decision {
+		public ALWAYS_OLD(EStructuralFeature feature){
+			super(feature);
 		}
-	};
+		
+		public void apply(EObject current, EObject old) {
+			preserveOld(current, old);
+		}
+	}
+	
+	public static class ALWAYS_NEW extends Decision {
+		public ALWAYS_NEW(EStructuralFeature feature){
+			super(feature);
+		}
+		
+		public void apply(EObject current, EObject old) {
+			acceptNew(current, old);
+		}
+	}
+
+	protected void acceptNew(EObject current, EObject old) {
+		// do nothing
+	}
+
+	protected void preserveOld(EObject current, EObject old) {
+		Object oldValue = old.eGet(getFeature(), true);
+		current.eSet(getFeature(), oldValue);
+	}
 }

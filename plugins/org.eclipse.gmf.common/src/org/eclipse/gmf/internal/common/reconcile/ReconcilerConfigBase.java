@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -41,8 +41,8 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		return getRecord(eClass, false).getCopier();
 	}
 	
-	public final DecisionMaker[] getDecisionMakers(EClass eClass) {
-		return getRecord(eClass, false).getDecisionMakers();
+	public final Decision[] getDecisions(EClass eClass) {
+		return getRecord(eClass, false).getDecisions();
 	}
 	
 	protected final void setMatcher(EClass eClass, Matcher matcher){
@@ -62,8 +62,8 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		getTemplateRecord(eClass, true).setMatcher(matcher);
 	}
 	
-	protected final void addDecisionMaker(EClass eClass, DecisionMaker decisionMaker){
-		getRecord(eClass, true).addDecisionMaker(decisionMaker);
+	protected final void addDecision(EClass eClass, Decision decision){
+		getRecord(eClass, true).addDecision(decision);
 	}
 	
 	protected final void setMatcher(EClass eClass, EAttribute attribute){  
@@ -129,11 +129,11 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static class EClassRecord {
 		private Matcher myMatcher = Matcher.FALSE; 
 		private Copier myCopier = Copier.NEVER_COPY;
-		private final List<DecisionMaker> myDecisionMakers = new LinkedList<DecisionMaker>();
-		private DecisionMaker[] myMakersArray;
+		private final List<Decision> myDecisions = new LinkedList<Decision>();
+		private Decision[] myMakersArray;
 		
-		public void addDecisionMaker(DecisionMaker maker){
-			myDecisionMakers.add(maker);
+		public void addDecision(Decision maker){
+			myDecisions.add(maker);
 			makersSetChanged();
 		}
 		
@@ -141,9 +141,9 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 			myCopier = copier;
 		}
 
-		public DecisionMaker[] getDecisionMakers(){
+		public Decision[] getDecisions(){
 			if (myMakersArray == null){
-				myMakersArray = myDecisionMakers.toArray(new DecisionMaker[myDecisionMakers.size()]);
+				myMakersArray = myDecisions.toArray(new Decision[myDecisions.size()]);
 			}
 			return myMakersArray;
 		}

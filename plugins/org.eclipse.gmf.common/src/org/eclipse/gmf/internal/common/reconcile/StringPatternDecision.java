@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,14 +18,14 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 
-public class StringPatternDecisionMaker extends DecisionMaker {
-	private Pattern myPattern;
+public class StringPatternDecision extends Decision {
+	private final Pattern myPattern;
 	
-	public StringPatternDecisionMaker(String valuePattern, EAttribute attribute){
+	public StringPatternDecision(String valuePattern, EAttribute attribute){
 		this(Pattern.compile(valuePattern), attribute);
 	}
 	
-	public StringPatternDecisionMaker(Pattern valuePattern, EAttribute attribute){
+	public StringPatternDecision(Pattern valuePattern, EAttribute attribute){
 		super(attribute);
 		if (attribute.getEAttributeType() != EcorePackage.eINSTANCE.getEString()){
 			throw new IllegalArgumentException("Expected string attribute");
@@ -36,12 +36,12 @@ public class StringPatternDecisionMaker extends DecisionMaker {
 		myPattern = valuePattern;
 	}
 	
-	public Decision makeDecision(EObject current, EObject old) {
+	public void apply(EObject current, EObject old) {
 		String oldValue = (String)old.eGet(getFeature());
 		if (oldValue != null && !myPattern.matcher(oldValue).matches()){
-			return Decision.PRESERVE_OLD;
+			preserveOld(current, old);
 		} else {
-			return Decision.ACCEPT_NEW;
+			acceptNew(current, old);
 		}
 	}
 

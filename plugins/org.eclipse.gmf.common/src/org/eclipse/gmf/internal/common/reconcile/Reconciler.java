@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,11 +53,8 @@ public class Reconciler {
 	
 	private void reconcileVertex(EObject current, EObject old){
 		assert current.eClass().equals(old.eClass());
-		DecisionMaker[] decisionMakers = myConfig.getDecisionMakers(current.eClass());
-		for (int i = 0; i < decisionMakers.length; i++){
-			DecisionMaker next = decisionMakers[i];
-			Decision decision = next.makeDecision(current, old);
-			decision.apply(current, old, next.getFeature());
+		for (Decision decision : myConfig.getDecisions(current.eClass())){
+			decision.apply(current, old);
 		}
 	}
 	
@@ -101,9 +98,6 @@ public class Reconciler {
 		public void match(Collection<EObject> currents, Collection<EObject> olds, Collection<Pair> output){
 			assert !myIsMatching;
 			
-			if (myIsMatching){
-				throw new IllegalStateException("FIXME: remove me");
-			}
 			final Collection<EObject> myOlds;
 			final Collection<EObject> myCurrents;
 			try {
