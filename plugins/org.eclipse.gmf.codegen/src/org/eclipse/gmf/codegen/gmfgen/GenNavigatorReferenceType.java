@@ -33,15 +33,14 @@ public enum GenNavigatorReferenceType implements Enumerator
 	 */
 	CHILDREN_LITERAL(0, "children", "children"),
 	/**
-	 * The '<em><b>Out taget</b></em>' literal object.
+	 * The '<em><b>Out target</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OUT_TAGET
+	 * @see #OUT_TARGET
 	 * @generated
 	 * @ordered
 	 */
-	OUT_TAGET_LITERAL(1, "out_taget", "out_taget"),
-	/**
+	OUT_TARGET_LITERAL(1, "out_target", "out_target"), /**
 	 * The '<em><b>In source</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,19 +65,19 @@ public enum GenNavigatorReferenceType implements Enumerator
 	public static final int CHILDREN = 0;
 
 	/**
-	 * The '<em><b>Out taget</b></em>' literal value.
+	 * The '<em><b>Out target</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Out taget</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Out target</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OUT_TAGET_LITERAL
-	 * @model name="out_taget"
+	 * @see #OUT_TARGET_LITERAL
+	 * @model name="out_target"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OUT_TAGET = 1;
+	public static final int OUT_TARGET = 1;
 
 	/**
 	 * The '<em><b>In source</b></em>' literal value.
@@ -104,7 +103,7 @@ public enum GenNavigatorReferenceType implements Enumerator
 	private static final GenNavigatorReferenceType[] VALUES_ARRAY =
 		new GenNavigatorReferenceType[] {
 			CHILDREN_LITERAL,
-			OUT_TAGET_LITERAL,
+			OUT_TARGET_LITERAL,
 			IN_SOURCE_LITERAL,
 		};
 
@@ -157,7 +156,7 @@ public enum GenNavigatorReferenceType implements Enumerator
 	public static GenNavigatorReferenceType get(int value) {
 		switch (value) {
 			case CHILDREN: return CHILDREN_LITERAL;
-			case OUT_TAGET: return OUT_TAGET_LITERAL;
+			case OUT_TARGET: return OUT_TARGET_LITERAL;
 			case IN_SOURCE: return IN_SOURCE_LITERAL;
 		}
 		return null;

@@ -4833,6 +4833,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenDomainModelNavigator_DomainNavigatorItemClassName() {
+		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenNavigator() {
 		return genNavigatorEClass;
 	}
@@ -6275,6 +6284,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME);
 		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME);
 		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME);
+		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME);
 
 		genNavigatorEClass = createEClass(GEN_NAVIGATOR);
 		createEReference(genNavigatorEClass, GEN_NAVIGATOR__EDITOR_GEN);
@@ -7271,12 +7281,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDomainModelNavigator_DomainContentProviderClassName(), ecorePackage.getEString(), "domainContentProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDomainModelNavigator_DomainLabelProviderClassName(), ecorePackage.getEString(), "domainLabelProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDomainModelNavigator_DomainModelElementTesterClassName(), ecorePackage.getEString(), "domainModelElementTesterClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainModelNavigator_DomainNavigatorItemClassName(), ecorePackage.getEString(), "domainNavigatorItemClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainContentProviderQualifiedClassName", 0, 1);
 
 		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainLabelProviderQualifiedClassName", 0, 1);
 
 		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainModelElementTesterQualifiedClassName", 0, 1);
+
+		op = addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainNavigatorItemQualifiedClassName", 0, 1);
 
 		initEClass(genNavigatorEClass, GenNavigator.class, "GenNavigator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNavigator_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Navigator(), "editorGen", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7539,7 +7552,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEEnum(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.class, "GenNavigatorReferenceType");
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.CHILDREN_LITERAL);
-		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 
 		initEEnum(generatedTypeEEnum, GeneratedType.class, "GeneratedType");

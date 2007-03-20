@@ -100,14 +100,22 @@ public void removeListener(org.eclipse.jface.viewers.ILabelProviderListener list
 «DEFINE getImage FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.swt.graphics.Image getImage(Object element) {
-	return myAdapterFactoryLabelProvider.getImage(element);
+	if (element instanceof «getDomainNavigatorItemQualifiedClassName()») {
+		return myAdapterFactoryLabelProvider.getImage(«EXPAND getEObject»);
+	}
+	return null;
 }
 «ENDDEFINE»
+
+«DEFINE getEObject FOR gmfgen::GenNavigator»((«getDomainNavigatorItemQualifiedClassName()») element).getEObject()«ENDDEFINE»
 
 «DEFINE getText FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public String getText(Object element) {
-	return myAdapterFactoryLabelProvider.getText(element);
+	if (element instanceof «getDomainNavigatorItemQualifiedClassName()») {
+		return myAdapterFactoryLabelProvider.getText(«EXPAND getEObject»);
+	}
+	return null;
 }
 «ENDDEFINE»
 

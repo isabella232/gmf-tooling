@@ -7919,13 +7919,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME = 6;
 
 	/**
+	 * The feature id for the '<em><b>Domain Navigator Item Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME = 7;
+
+	/**
 	 * The number of structural features of the '<em>Gen Domain Model Navigator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT = 7;
+	int GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl <em>Gen Navigator</em>}' class.
@@ -7936,42 +7945,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_NAVIGATOR = 98;
-
-	/**
-	 * The feature id for the '<em><b>Content Extension ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__CONTENT_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Content Extension Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__CONTENT_EXTENSION_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Content Extension Priority</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Link Helper Extension ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Sorter Extension ID</b></em>' attribute.
@@ -8136,6 +8109,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Domain Navigator Item Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8143,6 +8125,42 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NAVIGATOR__EDITOR_GEN = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Content Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__CONTENT_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Content Extension Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__CONTENT_EXTENSION_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Content Extension Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Link Helper Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Child References</b></em>' containment reference list.
@@ -13884,6 +13902,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenDomainModelNavigator_DomainModelElementTesterClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainNavigatorItemClassName <em>Domain Navigator Item Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Domain Navigator Item Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainNavigatorItemClassName()
+	 * @see #getGenDomainModelNavigator()
+	 * @generated
+	 */
+	EAttribute getGenDomainModelNavigator_DomainNavigatorItemClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator <em>Gen Navigator</em>}'.

@@ -1699,6 +1699,7 @@
     <eOperations name="getDomainContentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDomainLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDomainModelElementTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getDomainNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateDomainModelNavigator"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainContentExtensionID"
@@ -1712,6 +1713,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainLabelProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainModelElementTesterClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainNavigatorItemClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigator" eSuperTypes="#//GenDomainModelNavigator">
@@ -1759,7 +1762,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenNavigatorReferenceType">
     <eLiterals name="children"/>
-    <eLiterals name="out_taget" value="1"/>
+    <eLiterals name="out_target" value="1"/>
     <eLiterals name="in_source" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorChildReference">

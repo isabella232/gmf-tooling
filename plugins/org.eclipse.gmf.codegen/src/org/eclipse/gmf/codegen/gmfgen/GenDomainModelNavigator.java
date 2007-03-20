@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainContentProviderClassName <em>Domain Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainLabelProviderClassName <em>Domain Label Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainModelElementTesterClassName <em>Domain Model Element Tester Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainNavigatorItemClassName <em>Domain Navigator Item Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -215,6 +216,32 @@ public interface GenDomainModelNavigator extends EObject {
 	void setDomainModelElementTesterClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Domain Navigator Item Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Domain Navigator Item Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Domain Navigator Item Class Name</em>' attribute.
+	 * @see #setDomainNavigatorItemClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDomainModelNavigator_DomainNavigatorItemClassName()
+	 * @model
+	 * @generated
+	 */
+	String getDomainNavigatorItemClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainModelNavigator#getDomainNavigatorItemClassName <em>Domain Navigator Item Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Domain Navigator Item Class Name</em>' attribute.
+	 * @see #getDomainNavigatorItemClassName()
+	 * @generated
+	 */
+	void setDomainNavigatorItemClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -237,5 +264,13 @@ public interface GenDomainModelNavigator extends EObject {
 	 * @generated
 	 */
 	String getDomainModelElementTesterQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getDomainNavigatorItemQualifiedClassName();
 
 } // GenDomainModelNavigator

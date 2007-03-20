@@ -41,7 +41,7 @@ public class GenModelGraphAnalyzer {
 			return getChildConnectionPaths(reference.getParent(), reference.getChild());
 		} else if (reference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
 			return getInSourceLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
-		} else if (reference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
+		} else if (reference.getReferenceType() == GenNavigatorReferenceType.OUT_TARGET_LITERAL) {
 			return getOutTargetLinkConnectionPaths(reference.getParent(), reference.getChild(), reference.getNavigator().getEditorGen().getDiagram());
 		}
 		return Collections.emptyList();

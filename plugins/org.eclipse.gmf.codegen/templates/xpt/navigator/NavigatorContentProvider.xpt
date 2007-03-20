@@ -43,10 +43,6 @@ public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICom
 	«EXPAND xpt::Common::generatedMemberComment»
 private static final Object[] EMPTY_ARRAY = new Object[0];
 
-	«EXPAND commonAttributes-»
-«ENDDEFINE»
-
-«DEFINE commonAttributes FOR gmfgen::GenNavigator-»
 	«EXPAND viewerAttribute-»
 
 	«EXPAND editingDomainAttribute-»
@@ -481,11 +477,11 @@ result.addAll(getForeignShortcuts((org.eclipse.gmf.runtime.notation.Diagram) vie
 «DEFINE addForeignShortcuts FOR gmfgen::GenCommonBase»«ENDDEFINE»
 
 «DEFINE childrenMethodName(gmfgen::GenNavigatorReferenceType referenceType, gmfgen::GenNavigatorPathSegment segment) FOR gmfgen::GenLink-»
-	«IF referenceType.value == gmfgen::GenNavigatorReferenceType::out_taget.value»getLinksTargetByType«ELSE»getLinksSourceByType«ENDIF-»
+	«IF referenceType.value == gmfgen::GenNavigatorReferenceType::out_target.value»getLinksTargetByType«ELSE»getLinksSourceByType«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE childrenMethodName(gmfgen::GenNavigatorReferenceType referenceType, gmfgen::GenNavigatorPathSegment segment) FOR gmfgen::GenCommonBase-»
-	«IF referenceType.value == gmfgen::GenNavigatorReferenceType::out_taget.value-»
+	«IF referenceType.value == gmfgen::GenNavigatorReferenceType::out_target.value-»
 		getOutgoingLinksByType«ELSEIF referenceType.value == gmfgen::GenNavigatorReferenceType::in_source.value-»
 		getIncomingLinksByType«ELSE-»
 		«IF {segment.from}.typeSelect(gmfgen::GenDiagram).size() > 0 && {segment.to}.typeSelect(gmfgen::GenLink).size() > 0-»

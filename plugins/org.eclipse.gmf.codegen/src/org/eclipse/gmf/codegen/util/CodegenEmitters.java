@@ -559,6 +559,10 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::navigator::DomainNavigatorLabelProvider::DomainNavigatorLabelProvider"); //$NON-NLS-1$
 	}
 	
+	public TextEmitter getDomainNavigatorItemEmitter() {
+		return newXpandEmitter("xpt::navigator::DomainNavigatorItem::DomainNavigatorItem"); //$NON-NLS-1$
+	}
+	
 	public TextEmitter getDomainModelElementTesterEmitter() {
 		return newXpandEmitter("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
 	}

@@ -123,7 +123,7 @@
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//GenNavigatorReferenceType">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/children"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/out_taget"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/out_target"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/in_source"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//GeneratedType">
@@ -771,9 +771,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainContentProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainLabelProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainModelElementTesterClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainModelNavigator/domainNavigatorItemClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainContentProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainLabelProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainModelElementTesterQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDomainModelNavigator/getDomainNavigatorItemQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNavigator" labelFeature="#//gmfgen/GenNavigator/contentProviderClassName">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigator/editorGen"/>

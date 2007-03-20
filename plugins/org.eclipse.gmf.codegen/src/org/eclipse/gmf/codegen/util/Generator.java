@@ -212,6 +212,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			if (myEditorGen.getDomainGenModel() != null && myEditorGen.getNavigator().isGenerateDomainModelNavigator()) {
 				generateDomainNavigatorContentProvider();
 				generateDomainNavigatorLabelProvider();
+				generateDomainNavigatorItem();
 				generateDomainModelElementTester();
 			}
 		}
@@ -870,6 +871,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateDomainNavigatorLabelProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDomainNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getDomainLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainNavigatorItem() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorItemEmitter(), myEditorGen.getNavigator().getDomainNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
 	private void generateDomainModelElementTester() throws InterruptedException {
