@@ -99,7 +99,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getActionBarContributorGenerator(), myEditorGen.getEditor().getActionBarContributorQualifiedClassName(), myEditorGen.getEditor());
 		internalGenerateJavaClass(myEmitters.getDiagramEditorUtilGenerator(), myDiagram.getDiagramEditorUtilQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getEditorGenerator(), myEditorGen.getEditor().getQualifiedClassName(), myEditorGen.getEditor());
-		if (!myEditorGen.getDomainGenModel().isRichClientPlatform() && !myEditorGen.getEditor().isEclipseEditor()) {
+		if (myEditorGen.getApplication() == null && !myEditorGen.getEditor().isEclipseEditor()) {
 			//See plugin.xmljet
 			String className = "OpenDiagramIn" + myEditorGen.getDomainGenModel().getModelName() + "DiagramViewAction";
 			className = CodeGenUtil.validJavaIdentifier(className);
@@ -182,7 +182,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateDiagramIcon(myEditorGen.getEditor().getIconPathX());
 		}
 		generateWizardBanner();
-		if (!myEditorGen.getDomainGenModel().isRichClientPlatform() && myEditorGen.getNavigator() != null) {
+		if (myEditorGen.getApplication() == null && myEditorGen.getNavigator() != null) {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
 			generateNavigatorLinkHelper();
