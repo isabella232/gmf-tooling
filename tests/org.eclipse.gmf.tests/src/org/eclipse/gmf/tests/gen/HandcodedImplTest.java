@@ -973,6 +973,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			checkClassName(state, "GenDomainModelNavigator:DomainContentProvider", navigator.getDomainContentProviderClassName(), navigator.getDomainContentProviderQualifiedClassName());
 			checkClassName(state, "GenDomainModelNavigator:DomainLabelProvider", navigator.getDomainLabelProviderClassName(), navigator.getDomainLabelProviderQualifiedClassName());
 			checkClassName(state, "GenDomainModelNavigator:DomainModelElementTester", navigator.getDomainModelElementTesterClassName(), navigator.getDomainModelElementTesterQualifiedClassName());
+			checkClassName(state, "GenDomainModelNavigator:DomainNavigatorItem", navigator.getDomainNavigatorItemClassName(), navigator.getDomainNavigatorItemQualifiedClassName());
 		} else {
 			state.add("GenNavigator:ContentProvider");
 			state.add("GenNavigator:LabelProvider");

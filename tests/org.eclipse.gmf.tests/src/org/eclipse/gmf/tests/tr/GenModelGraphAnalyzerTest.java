@@ -127,7 +127,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 
-		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 		paths = GenModelGraphAnalyzer.getConnectionPaths(myNavigatorChildReference);
 		assertEquals("No paths should be found", 0, paths.size());
 	}
@@ -174,7 +174,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 	public void testDirectLinkPaths() {
 		GenNode node = createGenNode();
 		GenLink link = createGenLink(myStartNode, node);
-		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 
 		myNavigatorChildReference.setParent(myStartNode);
 		myNavigatorChildReference.setChild(link);
@@ -246,7 +246,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		GenNode node1 = createGenNode();
 		GenLink link1 = createGenLink(myStartNode, node1);
 		GenLink link2 = createGenLink(node1, node1);
-		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 
 		myNavigatorChildReference.setParent(myStartNode);
 		myNavigatorChildReference.setChild(node1);
@@ -330,7 +330,7 @@ public class GenModelGraphAnalyzerTest extends TestCase {
 		GenLink link1 = createGenLink(myStartNode, node2);
 		createGenLink(node2, node1);
 
-		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+		myNavigatorChildReference.setReferenceType(GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 
 		// Check only one path returned - paths through 2 links should be
 		// skipped
