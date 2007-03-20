@@ -274,7 +274,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
@@ -351,7 +351,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__ID:
