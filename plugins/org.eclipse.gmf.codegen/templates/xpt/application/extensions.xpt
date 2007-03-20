@@ -16,14 +16,14 @@
 «DEFINE extensions FOR gmfgen::GenApplication-»
 
    <extension id="«iD»" point="org.eclipse.core.runtime.applications">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <application>
          <run class="«getQualifiedClassName()»"/>
       </application>
    </extension>
 
    <extension point="org.eclipse.ui.perspectives">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <perspective
             id="«perspectiveId»"
             name="%perspectiveName"
@@ -32,7 +32,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.commands">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <command
             name="%openURIActionLabel"
             description="%openURIActionDescription"
@@ -46,7 +46,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.bindings">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <key
             commandId="«editorGen.plugin.iD».OpenURICommand"
             sequence="M1+U"
@@ -58,7 +58,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.actionSets">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <actionSet
             label="%applicationActionSetLabel"
             visible="true"

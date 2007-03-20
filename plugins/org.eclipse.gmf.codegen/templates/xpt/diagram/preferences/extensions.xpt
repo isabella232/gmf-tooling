@@ -16,13 +16,13 @@
 «DEFINE extensions FOR gmfgen::GenDiagram-»
 
    <extension point="org.eclipse.core.runtime.preferences">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <initializer class="«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassName»"/>
    </extension>
 
 «IF preferencePages.size() > 0-»
    <extension point="org.eclipse.ui.preferencePages">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
 «FOREACH preferencePages AS page-»
 «EXPAND preferencePage FOR page-»
 «ENDFOREACH-»

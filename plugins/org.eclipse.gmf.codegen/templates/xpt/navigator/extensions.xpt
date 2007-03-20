@@ -18,7 +18,7 @@
 «IF editorGen.diagram.generateShortcutIcon()-»
 
    <extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
        <propertyTester
            id="«editorGen.plugin.iD».ShortcutPropertyTester"
            type="org.eclipse.gmf.runtime.notation.View"
@@ -31,7 +31,7 @@
 «IF generateDomainModelNavigator && null != editorGen.domainGenModel-»
 
    <extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
        <propertyTester
            id="«editorGen.plugin.iD».DomainModelElementTester"
            type="org.eclipse.emf.ecore.EObject"
@@ -43,7 +43,7 @@
 «ENDIF-»
 
    <extension point="org.eclipse.ui.navigator.viewer">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="«contentExtensionID»"/>
@@ -61,7 +61,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.navigator.navigatorContent">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <navigatorContent
             id="«contentExtensionID»" 
             name="«contentExtensionName»" 
@@ -154,7 +154,7 @@
    </extension>
    
    <extension point="org.eclipse.ui.navigator.linkHelper">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <linkHelper
             id="«linkHelperExtensionID»"
             class="«getLinkHelperQualifiedClassName()»">

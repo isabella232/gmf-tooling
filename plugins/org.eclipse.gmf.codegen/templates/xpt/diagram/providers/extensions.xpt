@@ -18,7 +18,7 @@
 «DEFINE extensions FOR gmfgen::GenDiagram-»
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
          <Priority name="«notationViewProviderPriority»"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
@@ -28,28 +28,28 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
          <Priority name="«editPartProviderPriority»"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
          <Priority name="«modelingAssistantProviderPriority»"/>
       </modelingAssistantProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <IconProvider class="«getIconProviderQualifiedClassName()»">
          <Priority name="«iconProviderPriority»"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <ParserProvider class="«getParserProviderQualifiedClassName()»">
          <Priority name="«parserProviderPriority»"/>
       </ParserProvider>
@@ -57,7 +57,7 @@
 «IF generateShortcutIcon()-»
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
          <Priority name="«shortcutsDecoratorProviderPriority»"/>
       </decoratorProvider>
@@ -65,14 +65,14 @@
 «ENDIF-»
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
 «FOREACH getElements() AS e-»
 «EXPAND elementTypeSafe FOR e.elementType-»
 «ENDFOREACH-»
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <clientContext id="«editorGen.modelID»ClientContext">
          <enablement>
             <test

@@ -16,7 +16,7 @@
 «DEFINE extensions FOR gmfgen::GenPropertySheet-»
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <?gmfgen generated="true"?>
+      «EXPAND xpt::Common::xmlGeneratedTag»
       <propertyContributor contributorId="«editorGen.plugin.iD»"«IF needsCaption» labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
@@ -25,14 +25,14 @@
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <?gmfgen generated="true"?>   
+      «EXPAND xpt::Common::xmlGeneratedTag»   
       <propertyTabs contributorId="«editorGen.plugin.iD»">
 «EXPAND tab FOREACH tabs-»
       </propertyTabs>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <?gmfgen generated="true"?>   
+      «EXPAND xpt::Common::xmlGeneratedTag»   
       <propertySections contributorId="«editorGen.plugin.iD»">
 «EXPAND section FOREACH tabs-»
       </propertySections>
