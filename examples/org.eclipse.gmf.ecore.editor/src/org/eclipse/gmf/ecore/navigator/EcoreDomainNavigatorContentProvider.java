@@ -133,11 +133,13 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 	 */
 	public void dispose() {
 		myWorkspaceSynchronizer.dispose();
+		myWorkspaceSynchronizer = null;
 		myViewerRefreshRunnable = null;
 		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
 			Resource resource = (Resource) it.next();
 			resource.unload();
 		}
+		myEditingDomain = null;
 	}
 
 	/**
