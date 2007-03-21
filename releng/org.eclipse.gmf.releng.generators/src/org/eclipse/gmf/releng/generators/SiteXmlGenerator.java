@@ -39,11 +39,9 @@ import org.xml.sax.SAXException;
 /**
  * Utility class to convert buildmanifest.properties files into fetch.xml files.
  */
-public class SiteBuilder extends AbstractApplication {
+public class SiteXmlGenerator extends AbstractApplication {
 
-	protected String siteLocation;
-
-	protected String siteXMLLocation;
+	protected String sitePath;
 
 	protected String buildNumber;
 
@@ -79,12 +77,12 @@ public class SiteBuilder extends AbstractApplication {
 
 	}
 
-	public SiteBuilder() throws Exception {
+	public SiteXmlGenerator() throws Exception {
 		features = new ArrayList();
 	}
 
 	public static void main(String[] args) throws Exception {
-		SiteBuilder builder = new SiteBuilder();
+		SiteXmlGenerator builder = new SiteXmlGenerator();
 		builder.run(args);
 	}
 
@@ -99,7 +97,7 @@ public class SiteBuilder extends AbstractApplication {
 	}
 
 	protected void scanFeatures() throws Exception {
-		File root = new File(siteLocation, "features");
+		File root = new File(sitePath, "features");
 		String[] features = root.list();
 		if (features == null) {
 			System.out.println("Could not find features.");
@@ -264,34 +262,21 @@ public class SiteBuilder extends AbstractApplication {
 			}
 		}
 
-		// read site.xml
-		File originalXML = new File(siteXMLLocation);
-		StringBuffer site = readFile(originalXML);
-		int pos = scan(site, 0, "<category-def");
-		if (pos == -1) {
-			pos = scan(site, 0, "</site");
-		}
-		if (pos == -1) {
-			System.out
-					.println("Error writing site.xml.  Initial file and new file are both probably invalid");
-			pos = 0;
-		}
+		// read site.xml.template
+		StringBuffer site = new StringBuffer(); 
 
-		// Insert features either before the first <category-def or, if there
-		// are
-		// no category-def, then before the /site.
-		site.insert(pos, extraInfo.toString());
+		site.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<?xml-stylesheet type=\"text/xsl\" href=\"web/site.xsl\"?>\n" +
+				"<site>\n");
 
-		// Insert category-def before the /site
-		pos = scan(site, 0, "</site");
-		if (pos == -1) {
-			System.out
-					.println("Error writing site.xml.  Initial file and new file are both probably invalid");
-		} else {
-			site.insert(pos, categoryExtraInfo.toString());
-		}
+		site.append(extraInfo.toString());
+		// Add category-def
+		site.append(categoryExtraInfo.toString());
 
-		File destination = new File(siteLocation, "site.xml");
+		site.append("</site>");
+
+		
+		File destination = new File(sitePath, "site.xml");
 		FileOutputStream fos = new FileOutputStream(destination);
 		try {
 			PrintWriter pw = new PrintWriter(fos);
@@ -301,23 +286,6 @@ public class SiteBuilder extends AbstractApplication {
 		} finally {
 			fos.close();
 		}
-	}
-
-	private int scan(StringBuffer buf, int start, String target) {
-		return scan(buf, start, new String[] { target });
-	}
-
-	private int scan(StringBuffer buf, int start, String[] targets) {
-		for (int i = start; i < buf.length(); i++) {
-			for (int j = 0; j < targets.length; j++) {
-				if (i < buf.length() - targets[j].length()) {
-					String match = buf.substring(i, i + targets[j].length());
-					if (targets[j].equals(match))
-						return i;
-				}
-			}
-		}
-		return -1;
 	}
 
 	protected void processCommandLine(List commands) {
@@ -331,12 +299,8 @@ public class SiteBuilder extends AbstractApplication {
 		// the
 		// plugins and featues directories for the geneated update site.
 		arguments = getArguments(commands, "-site");
-		this.siteLocation = arguments[0]; // only consider one location
+		this.sitePath = arguments[0]; // only consider one location
 
-		// Ful path and name of the site.xml file.
-		arguments = getArguments(commands, "-sitexml");
-		this.siteXMLLocation = arguments[0];
-		
 		// List of the feature IDs of those features, which may be available, but should NOT be listed in  site.xml
 		arguments = getArguments(commands, "-exclude");
 		for (int i=0; i<arguments.length; i++) {
