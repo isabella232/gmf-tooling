@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project name="project" xmlns:antcontrib="antlib:net.sf.antcontrib" default="main">
+    <property file="build.properties"/>
+    <taskdef uri="antlib:net.sf.antcontrib"
+	    resource="net/sf/antcontrib/antlib.xml"
+	    classpath="${lib}/ant-contrib.jar"/>	
+<!--    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/> -->
+
+    <target name="check.site.path" unless="site.path">
+	<echo message="'site.path' property is not set"/>
+	<property name="args.missing" value="true"/>
+    </target>
+    
+    <target name="check.buildLabel" unless="buildLabel">                                                                                                                                           
+	<echo message="'buildLabel' property is not set"/>                                                                                                                                           
+	<property name="args.missing" value="true"/>                                                                                                                                                                                  
+    </target>                       
+   
+    <target name="check.args" depends="check.site.path,check.buildLabel">
+	<fail if="args.missing" message="Some required properties are not set. Site.xml generation failed"/>
+    </target>	                                                                                                                                                              
+    
+    <target name="main" depends="check.args" description="Generate site.xml for the update site">
+        <echo file="${site.path}/site.xml" append="false">                                                                                                                                            
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
+<![CDATA[<?xml-stylesheet type="text/xsl" href="web/site.xsl"?>]]>                                                                                                                               
+<![CDATA[<site>]]>
+	</echo> 
+	<antcontrib:for param="file">
+	    <path>
+		<fileset dir="${site.path}/features" includes="*.jar" />
+	    </path>
+	    <sequential>
+		<echo message="@{file}"/>
+                <antcontrib:propertyregex property="feature.filename"                                                                                                                             
+                    input="@{file}"                                                                                                                                                              
+                    regexp="([^/]*)\.jar"                                                                                                                                                       
+                    select="\0"                                                                                                                                                                  
+                    override="true"/>                                                                                                                                                            
+                <echo message="${feature.filename}"/>     
+                <antcontrib:propertyregex property="feature.id"                                                                                                                            
+                    input="@{file}"                                                                                                                                                              
+                    regexp="([^/]*)_.*\.jar"                                                                                                                                                        
+                    select="\1"                                                                                                                                                                  
+                    override="true"/>                                                                                                                                                            
+                    <echo message="${feature.id}"/>                                                                                                                                            
+		<antcontrib:propertyregex property="feature.version"
+		    input="@{file}"
+		    regexp="([^\_]*)\.jar"
+		    select="\1" 
+		    override="true"/>
+		<echo message="${feature.version}"/>
+		<echo file="${site.path}/site.xml" append="true">
+    <![CDATA[<feature]]> url="features/${feature.filename}" id="${feature.id}" version="${feature.version}"<![CDATA[>]]>
+	<![CDATA[<category]]> name="${buildLabel}"<![CDATA[/>]]>
+    <![CDATA[</feature>]]>		
+		</echo>
+	    </sequential>
+	</antcontrib:for>
+	<echo file="${site.path}/site.xml" append="true">
+    <![CDATA[<category-def]]> label="Graphical Modeling Framework ${buildLabel}" name="${buildLabel}"<![CDATA[>]]>                                                                         
+	<![CDATA[<description>]]>This category contains the various features of the ${buildLabel}" build of the Graphical Modeling Framework<![CDATA[</category>]]>                                                                               
+    <![CDATA[</category-def>]]>
+<![CDATA[</site>]]>
+	</echo>  	
+    </target>
+</project>
+
