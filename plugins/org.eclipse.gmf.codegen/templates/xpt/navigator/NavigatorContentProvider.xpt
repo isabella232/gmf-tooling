@@ -144,11 +144,13 @@ public void dispose() {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();
 	}
+	myEditingDomain = null;
 }
 «ENDDEFINE»
 
 «DEFINE disposeWorkspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
 myWorkspaceSynchronizer.dispose();
+myWorkspaceSynchronizer = null;
 myViewerRefreshRunnable = null;
 «ENDDEFINE»
 
