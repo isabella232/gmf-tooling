@@ -18,8 +18,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.ETypedElement;
-import org.eclipse.emf.ocl.parser.EcoreEnvironment;
-import org.eclipse.emf.ocl.types.TypesPackage;
 import org.eclipse.gmf.internal.validate.expressions.AbstractExpression;
 import org.eclipse.gmf.internal.validate.expressions.IEvaluationEnvironment;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
@@ -38,8 +36,7 @@ public class ConstraintAdapter extends AbstractExpression {
 		if(getStatus().isOK()) {
 			this.resultType = expression.getResultType();				
 			if(this.resultType != null && !expression.isLooselyTyped()) { 
-				Class<?> resultClass = resultType.getInstanceClass();
-				if(!(Boolean.class.equals(resultClass) || boolean.class.equals(resultClass))) {
+				if(!resultType.isInstance(Boolean.TRUE)) {
 					String msg = MessageFormat.format(
 							Messages.invalidConstraintExprType, 
 							new Object[] { resultType.getName(), getBody() }); 
@@ -75,13 +72,11 @@ public class ConstraintAdapter extends AbstractExpression {
 	}
 	
 	public boolean isAssignableToElement(ETypedElement typedElement) {
-		EClassifier classifier = EcoreEnvironment.getOCLType(typedElement);
-		return classifier != null ? classifier == TypesPackage.eINSTANCE.getPrimitiveBoolean() : false;
+		return expression.isAssignableToElement(typedElement);
 	}
 	
 	public boolean isAssignableTo(EClassifier ecoreType) {
-		EClassifier classifier = EcoreEnvironment.getOCLType(ecoreType);
-		return classifier != null ? classifier == TypesPackage.eINSTANCE.getPrimitiveBoolean() : false;
+		return expression.isAssignableTo(ecoreType);		
 	}
 	
 	public EClassifier getResultType() {

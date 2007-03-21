@@ -39,12 +39,14 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ocl.parser.EcoreEnvironment;
+
 import org.eclipse.gmf.internal.validate.IDefElementProvider.ContextProvider;
 import org.eclipse.gmf.internal.validate.IDefElementProvider.StringValProvider;
 import org.eclipse.gmf.internal.validate.IDefElementProvider.TypeProvider;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpressionProvider;
+import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
+
 import org.eclipse.osgi.util.NLS;
 
 public class DefUtils {
@@ -155,6 +157,12 @@ public class DefUtils {
 		}
 	}
 
+	// Remark: Backward compatibility for String expression as qualified name of EClassifier
+	// With MDT OCL, TypeLiteral expression can be used, having the its referred type as
+	// the result of OCL expression evaluation
+	// TODO - Can be replaced by <code>ExpressionContextProvider</code> as soon as definitions in GMF models 
+	// using OCL to define contexts do not use qualified name (String)
+	//       @constraintsMeta(def="context", ocl="'ecore::EDoubleObject'") => @constraintsMeta(def="context", ocl="ecore::EDoubleObject")	
 	public static class LookupByNameContextProvider extends ExpressionBasedProvider implements ContextProvider {
 		private Map<Object, EClassifier> contextCache = new HashMap<Object, EClassifier>(5);
 		private EPackage.Registry registry;		
@@ -174,13 +182,9 @@ public class DefUtils {
 					String[] typeName = ((String)typeNameObj).split("::"); //$NON-NLS-1$
 					ArrayList<String> nameSeq = new ArrayList<String>(Arrays.asList(typeName));
 					if(typeName.length > 1) {
-						nameSeq.remove(typeName.length - 1);
-						EPackage ePackage = EcoreEnvironment.findPackage(nameSeq, registry);
-						if(ePackage != null) {
-							EClassifier contextClassifier = ePackage.getEClassifier(typeName[typeName.length - 1]);
-							contextCache.put(typeNameObj, contextClassifier);
-							return contextClassifier;
-						}
+						EClassifier contextClassifier = new EcoreEnvironmentFactory(registry).createEnvironment().lookupClassifier(nameSeq);
+						contextCache.put(typeNameObj, contextClassifier);
+						return contextClassifier;
 					}
 				}
 			}
@@ -509,10 +513,6 @@ public class DefUtils {
 		
 		return GMFValidationPlugin.createStatus(IStatus.ERROR, 
 				StatusCodes.INVALID_EXPRESSION_TYPE, message, null);		
-	}
-
-	public static EClassifier emfToOclType(EClassifier type) {
-		return EcoreEnvironment.getOCLType(type);
 	}
 	
 	public static EAnnotation getAnnotationWithKey(EModelElement eModelElement, String sourceURI, String key) {

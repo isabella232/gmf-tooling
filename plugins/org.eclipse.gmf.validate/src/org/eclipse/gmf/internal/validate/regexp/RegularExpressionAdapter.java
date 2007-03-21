@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ocl.parser.EcoreEnvironment;
 import org.eclipse.gmf.internal.validate.Annotations;
 import org.eclipse.gmf.internal.validate.DebugOptions;
 import org.eclipse.gmf.internal.validate.DefUtils;
@@ -64,22 +63,18 @@ class RegularExpressionAdapter extends AbstractExpression {
 	}
 	
 	public boolean isAssignableTo(EClassifier ecoreType) {
-		return isTypeConformantTo(ecoreType);			
+		// ask Ecore to check if the type can be assigned a boolean value
+		return ecoreType.isInstance(Boolean.TRUE);			
 	}
 	
 	public boolean isAssignableToElement(ETypedElement typedElement) {
-		EClassifier oclType = EcoreEnvironment.getOCLType(typedElement);
-		if(oclType == null) {
-			return false;
-		}
-		return isTypeConformantTo(oclType);
+		return typedElement.getEType() != null && isAssignableTo(typedElement.getEType());
 	}
 	
-	public EClassifier getResultType() {	
-		//FIXME
+	public EClassifier getResultType() {
 		return DefUtils.getCanonicalEcorePackageClassifier(EcorePackage.eINSTANCE.getEBooleanObject());
 	}
-	
+
 	protected Object doEvaluate(Object context) {
 		if(this.pattern == null || context == null) {
 			return null;
@@ -95,10 +90,6 @@ class RegularExpressionAdapter extends AbstractExpression {
 	
 	protected Object doEvaluate(Object context, IEvaluationEnvironment extEnvironment) {
 		return doEvaluate(context);
-	}
-	
-	private boolean isTypeConformantTo(EClassifier otherType) {
-		return otherType == EcorePackage.eINSTANCE.getEBoolean() || otherType == EcorePackage.eINSTANCE.getEBooleanObject();
 	}
 	
 	private void setInvalidExprStatus(Exception exception) {

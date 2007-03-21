@@ -83,6 +83,8 @@ public class GMFValidator extends ValidatorChain {
 	}
 		
 	private static class DelegateRegistry extends HashMap<EPackage, Object> implements Registry {
+		private static final long serialVersionUID = 8069287594754687573L;
+		
 		private ValidationOptions options;
 		private EValidator gmfValidator;
 		private EValidator noEcoreValidator;

@@ -44,6 +44,8 @@ public class EnvironmentProvider {
 		
 
 	private static class EnvImpl extends HashMap<String, EClassifier> implements IParseEnvironment {
+		private static final long serialVersionUID = 5282996418130231176L;
+		
 		private EPackage.Registry importReg;		
 		EnvImpl() {
 			super(5);			
@@ -83,6 +85,8 @@ public class EnvironmentProvider {
 	}
 	
 	private static class EvalEnvImpl extends HashMap<String, Object> implements IEvaluationEnvironment {
+		private static final long serialVersionUID = 9087665669257460401L;
+
 		EvalEnvImpl() {
 			super(5);
 		}
