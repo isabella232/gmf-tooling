@@ -17,6 +17,7 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.validate.expressions.EnvironmentProvider;
 import org.eclipse.gmf.internal.validate.expressions.ExpressionProviderRegistry;
+import org.eclipse.gmf.internal.validate.expressions.IEvaluationEnvironment;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpressionProvider;
 import org.eclipse.gmf.internal.validate.expressions.IParseEnvironment;
@@ -51,7 +53,27 @@ public class OCLExpressionAdapterTest extends TestCase {
 		this.modelAccess = EPath.createEcorePathFromModel(Plugin.createURI(LinksSessionSetup.modelURI));		
 	}
 
-	public void testReferenceMany() throws Exception {
+	public void testEnvVariables() throws Exception {
+		EClassifier oclIntegerType = provider.createExpression("'aString'", context).getResultType();
+		EClassifier oclBooleanType = provider.createExpression("true", context).getResultType();
+		
+		IParseEnvironment env = EnvironmentProvider.createParseEnv();
+		env.setVariable("intVar", oclIntegerType);
+		env.setVariable("boolVar", oclBooleanType);	
+
+		Integer intVal = new Integer(1);
+		Boolean boolVal = new Boolean(true);
+		IEvaluationEnvironment evalEnv = EnvironmentProvider.createEvaluationEnv();
+		evalEnv.setVariable("intVar", intVal);
+		evalEnv.setVariable("boolVar", boolVal);
+
+		EObject contextInstance = EcorePackage.eINSTANCE.getEClass();		
+		
+		assertSame(intVal, provider.createExpression("intVar", context, env).evaluate(contextInstance, evalEnv));
+		assertSame(boolVal, provider.createExpression("boolVar", context, env).evaluate(contextInstance, evalEnv));		
+	}
+	
+	public void testAssignReferenceMany() throws Exception {
 		EReference ref = modelAccess.lookup("links::Root::elements", EReference.class); //$NON-NLS-1$
 		
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
@@ -65,7 +87,7 @@ public class OCLExpressionAdapterTest extends TestCase {
 		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.lookup("links::Root", EClass.class))); //$NON-NLS-1$		
 	}
 
-	public void testReferenceSingle() throws Exception {
+	public void testAssignReferenceSingle() throws Exception {
 		EReference ref = modelAccess.lookup("links::Link::target", EReference.class); //$NON-NLS-1$
 
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
@@ -165,14 +187,14 @@ public class OCLExpressionAdapterTest extends TestCase {
 		assertTrue(expression("Bag{links::TestEnum::LIT0, links::TestEnum::LIT1}").isAssignableToElement(manyEnumsAttr)); //$NON-NLS-1$
 		assertFalse(expression("Bag{links::TestEnum}").isAssignableToElement(manyEnumsAttr)); //$NON-NLS-1$		
 	}
-	
-	IModelExpression expression(String body) throws Exception {		
+		
+	IModelExpression expression(String body) throws Exception {
 		EPackage.Registry reg = new EPackageRegistryImpl();
-		reg.putAll(EPackage.Registry.INSTANCE);		
+		reg.putAll(EPackage.Registry.INSTANCE);
 		EPackage model = modelAccess.lookup("links", EPackage.class); //$NON-NLS-1$
 		reg.put(model.getNsURI(), model);
-		
-		IParseEnvironment env = EnvironmentProvider.createParseEnv();
+
+		IParseEnvironment env = EnvironmentProvider.createParseEnv();		
 		env.setImportRegistry(reg);		
 		
 		IModelExpression expression = provider.createExpression(body, context, env);
