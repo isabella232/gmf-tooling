@@ -59,7 +59,7 @@
 	</antcontrib:for>
 	<echo file="${site.path}/site.xml" append="true">
     <![CDATA[<category-def]]> label="Graphical Modeling Framework ${buildLabel}" name="${buildLabel}"<![CDATA[>]]>                                                                         
-	<![CDATA[<description>]]>This category contains the various features of the ${buildLabel}" build of the Graphical Modeling Framework<![CDATA[</category>]]>                                                                               
+	<![CDATA[<description>]]>This category contains the various features of the ${buildLabel} build of the Graphical Modeling Framework<![CDATA[</category>]]>                                                                               
     <![CDATA[</category-def>]]>
 <![CDATA[</site>]]>
 	</echo>  	
