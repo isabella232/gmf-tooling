@@ -223,6 +223,9 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	public String getText(View view) {
+		if (view.getElement().eIsProxy()) {
+			return getUnresolvedDomainElementProxyText(view);
+		}
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EClassEditPart.VISUAL_ID:
 			return getEClass_2001Text(view);
@@ -683,6 +686,13 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 */
 	private String getUnknownElementText(View view) {
 		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getUnresolvedDomainElementProxyText(View view) {
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
 	}
 
 	/**
