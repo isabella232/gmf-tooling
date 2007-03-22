@@ -99,7 +99,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 	 * @generated
 	 */
 	public EcoreNavigatorContentProvider() {
-		myEditingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		myEditingDomain = (AdapterFactoryEditingDomain) editingDomain;
 		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
 
 			public Object get(Object key) {
@@ -117,7 +118,7 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 				}
 			}
 		};
-		myWorkspaceSynchronizer = new WorkspaceSynchronizer((TransactionalEditingDomain) myEditingDomain, new WorkspaceSynchronizer.Delegate() {
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer(editingDomain, new WorkspaceSynchronizer.Delegate() {
 
 			public void dispose() {
 			}
