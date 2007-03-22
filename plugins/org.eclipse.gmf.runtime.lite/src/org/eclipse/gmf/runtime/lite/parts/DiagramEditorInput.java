@@ -39,6 +39,20 @@ public class DiagramEditorInput extends PlatformObject implements IEditorInput {
 		return myDiagram.eResource() != null;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof DiagramEditorInput) {
+			DiagramEditorInput that = (DiagramEditorInput) obj;
+			return this.getDiagram().equals(that.getDiagram());
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return getDiagram().hashCode();
+	}
+
 	public ImageDescriptor getImageDescriptor() {
 		return null;
 	}
