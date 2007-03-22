@@ -284,6 +284,9 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 	 * @generated
 	 */
 	public String getText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		if (view.getElement().eIsProxy()) {
+			return getUnresolvedDomainElementProxyText(view);
+		}
 		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
 <%for (GenCommonBase nextCommonBase : commonBaseElements) {
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {%>
@@ -395,6 +398,13 @@ if (false && genDiagram.generateShortcutIcon()) {	//no shortcuts so far in lite
 	 */
 	private String getUnknownElementText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+	}
+	
+	/**
+	 * @generated
+	 */
+	private String getUnresolvedDomainElementProxyText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
 	}
 
 	/**
