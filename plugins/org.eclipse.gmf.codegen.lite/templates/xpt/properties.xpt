@@ -23,6 +23,7 @@ providerName=«provider»
 «EXPAND xpt::providers::extensions::i18n FOR editorGen-»
 
 «EXPAND menu-»
+«EXPAND xpt::navigator::extensions::i18n FOR editorGen.navigator-»
 
 «EXPAND additions-»
 «ENDDEFINE»

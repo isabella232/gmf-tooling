@@ -398,6 +398,22 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::navigator::NavigatorContentProvider::NavigatorContentProvider");	//$NON-NLS-1$
 	}
 
+	public TextEmitter getDomainNavigatorContentProviderEmitter() {
+		return retrieveXpand("xpt::navigator::DomainNavigatorContentProvider::DomainNavigatorContentProvider"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
+		return retrieveXpand("xpt::navigator::DomainNavigatorLabelProvider::DomainNavigatorLabelProvider"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainNavigatorItemEmitter() {
+		return retrieveXpand("xpt::navigator::DomainNavigatorItem::DomainNavigatorItem"); //$NON-NLS-1$
+	}
+	
+	public TextEmitter getDomainModelElementTesterEmitter() {
+		return retrieveXpand("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
+	}
+
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorLabelProviderGenerator.class);
 	}

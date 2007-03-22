@@ -192,6 +192,12 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorGroup();
 			generateNavigatorItem();
 			generateNavigatorGroupIcons();
+			if (myEditorGen.getDomainGenModel() != null && myEditorGen.getNavigator().isGenerateDomainModelNavigator()) {
+				generateDomainNavigatorContentProvider();
+				generateDomainNavigatorLabelProvider();
+				generateDomainNavigatorItem();
+				generateDomainModelElementTester();
+			}
 		}
 		if (myEditorGen.getPropertySheet() != null) {
 			generatePropertySheetSections();
@@ -379,6 +385,22 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEditorGen.getNavigator().getContentProviderClassName(),
 				myEditorGen.getNavigator()
 			);
+	}
+
+	private void generateDomainNavigatorContentProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorContentProviderEmitter(), myEditorGen.getNavigator().getDomainContentProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainNavigatorLabelProvider() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getDomainLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainNavigatorItem() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainNavigatorItemEmitter(), myEditorGen.getNavigator().getDomainNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
+	}
+	
+	private void generateDomainModelElementTester() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDomainModelElementTesterEmitter(), myEditorGen.getNavigator().getDomainModelElementTesterQualifiedClassName(), myEditorGen.getNavigator());
 	}
 
 	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {
