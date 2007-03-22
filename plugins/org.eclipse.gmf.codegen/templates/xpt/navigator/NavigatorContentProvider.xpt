@@ -43,24 +43,11 @@ public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICom
 	«EXPAND xpt::Common::generatedMemberComment»
 private static final Object[] EMPTY_ARRAY = new Object[0];
 
-	«EXPAND viewerAttribute-»
-
-	«EXPAND editingDomainAttribute-»
-	«EXPAND workspaceSynchronizationAttributes-»
-«ENDDEFINE»
-
-
-«DEFINE viewerAttribute FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.jface.viewers.Viewer myViewer;
-«ENDDEFINE»
 
-«DEFINE editingDomainAttribute FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain myEditingDomain;
-«ENDDEFINE»
-
-«DEFINE workspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.emf.workspace.util.WorkspaceSynchronizer myWorkspaceSynchronizer;
@@ -77,12 +64,8 @@ public «contentProviderClassName»() {
 «ENDDEFINE»
 
 «DEFINE initCommonAttributes FOR gmfgen::GenNavigator-»
-	«EXPAND initReadonlyEditingDomain-»
-	«EXPAND initWorkspaceSynchronizationAttributes-»
-«ENDDEFINE»
-
-«DEFINE initReadonlyEditingDomain FOR gmfgen::GenNavigator-»
-myEditingDomain = «EXPAND createEditingDomain»;
+org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = «EXPAND createEditingDomain»;
+myEditingDomain = (org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) editingDomain;
 myEditingDomain.setResourceToReadOnlyMap(new java.util.HashMap() {
 	public Object get(Object key) {
 		if (!containsKey(key)) {
@@ -91,9 +74,6 @@ myEditingDomain.setResourceToReadOnlyMap(new java.util.HashMap() {
 		return super.get(key);
 	}
 });
-«ENDDEFINE»
-
-«DEFINE initWorkspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
 myViewerRefreshRunnable = new Runnable() {
 	public void run() {
 		if (myViewer != null) {
@@ -101,7 +81,7 @@ myViewerRefreshRunnable = new Runnable() {
 		}
 	}
 };
-myWorkspaceSynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer((org.eclipse.emf.transaction.TransactionalEditingDomain) myEditingDomain, new org.eclipse.emf.workspace.util.WorkspaceSynchronizer.Delegate() {
+myWorkspaceSynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer(editingDomain, new org.eclipse.emf.workspace.util.WorkspaceSynchronizer.Delegate() {
 	public void dispose() {
 	}
 
@@ -139,19 +119,15 @@ return true;
 «DEFINE dispose FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public void dispose() {
-	«EXPAND disposeWorkspaceSynchronizationAttributes-»
+	myWorkspaceSynchronizer.dispose();
+	myWorkspaceSynchronizer = null;
+	myViewerRefreshRunnable = null;
 	for (java.util.Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();
 	}
 	myEditingDomain = null;
 }
-«ENDDEFINE»
-
-«DEFINE disposeWorkspaceSynchronizationAttributes FOR gmfgen::GenNavigator-»
-myWorkspaceSynchronizer.dispose();
-myWorkspaceSynchronizer = null;
-myViewerRefreshRunnable = null;
 «ENDDEFINE»
 
 «DEFINE inputChanged FOR gmfgen::GenNavigator-»
@@ -419,7 +395,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE createEditingDomain FOR gmfgen::GenNavigator»(org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
+«DEFINE createEditingDomain FOR gmfgen::GenNavigator»org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
 
 «DEFINE initGroupVariables(gmfgen::GenNavigator navigator, List[gmfgen::GenNavigatorChildReference] references, String parentVarName, gmfgen::GenCommonBase contextElement) FOR String-»
 	«navigator.getNavigatorGroupQualifiedClassName()» «asValidJavaIdentifier(this)» = new «navigator.getNavigatorGroupQualifiedClassName()»(
