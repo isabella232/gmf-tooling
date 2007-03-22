@@ -21,8 +21,6 @@ public class «navigatorItemClassName» extends «getAbstractNavigatorItemQualified
 
 	«EXPAND registerAdapterFactory-»
 	
-	«EXPAND getURI-»
-	
 	«EXPAND attributes-»
 	
 	«EXPAND constructor-»
@@ -56,17 +54,6 @@ static {
 			return supportedTypes;
 		}
 	}, «getNavigatorItemQualifiedClassName()».class);
-}
-«ENDDEFINE»
-
-«DEFINE getURI FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static org.eclipse.emf.common.util.URI getURI(org.eclipse.emf.ecore.EObject object) {
-	if (object.eIsProxy()) {
-		return ((org.eclipse.emf.ecore.InternalEObject) object).eProxyURI();
-	}
-	org.eclipse.emf.ecore.resource.Resource resource = object.eResource();
-	return resource.getURI().appendFragment(resource.getURIFragment(object));
 }
 «ENDDEFINE»
 
@@ -105,14 +92,7 @@ public boolean isLeaf() {
 	«EXPAND xpt::Common::generatedMemberComment»
 public boolean equals(Object obj) {
 	if (obj instanceof «getNavigatorItemQualifiedClassName()») {
-		org.eclipse.emf.ecore.EObject eObject = getView().getElement();
-		org.eclipse.emf.ecore.EObject anotherEObject = ((«getNavigatorItemQualifiedClassName()») obj).getView().getElement();
-		if (eObject == null) {
-			return anotherEObject == null;
-		} else if (anotherEObject == null) {
-			return false;
-		}
-		return getURI(eObject).equals(getURI(anotherEObject));
+		return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getView()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«getNavigatorItemQualifiedClassName()») obj).getView()));
 	}
 	return super.equals(obj);
 }
@@ -121,7 +101,7 @@ public boolean equals(Object obj) {
 «DEFINE  hashCode FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public int hashCode() {
-	return getURI(getView().getElement()).hashCode();
+	return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getView()).hashCode();
 }
 «ENDDEFINE»
 

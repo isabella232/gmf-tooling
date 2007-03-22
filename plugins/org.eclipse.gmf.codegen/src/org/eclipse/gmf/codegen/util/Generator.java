@@ -852,13 +852,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateMatchingStrategy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getMatchingStrategyEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getMatchingStrategyClassName(),
-			myDiagram
-		);
+	private void generateMatchingStrategy() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getMatchingStrategyEmitter(), myDiagram.getMatchingStrategyQualifiedClassName(), myDiagram);
 	}
 	
 	private void generateNavigatorContentProvider() throws InterruptedException {
@@ -890,13 +885,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateNavigatorLinkHelper() throws InterruptedException, UnexpectedBehaviourException {
-		internalGenerateJavaClass(
-				myEmitters.getNavigatorLinkHelperEmitter(),
-				myEditorGen.getNavigator().getPackageName(),
-				myEditorGen.getNavigator().getLinkHelperClassName(), 
-				myEditorGen.getNavigator()
-			);
+	private void generateNavigatorLinkHelper() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNavigatorLinkHelperEmitter(), myEditorGen.getNavigator().getLinkHelperQualifiedClassName(), myEditorGen.getNavigator());
 	}
 	
 	private void generateNavigatorSorter() throws InterruptedException, UnexpectedBehaviourException {

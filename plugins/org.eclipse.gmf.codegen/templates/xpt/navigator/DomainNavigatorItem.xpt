@@ -21,8 +21,6 @@ public class «domainNavigatorItemClassName» extends org.eclipse.core.runtime.Pla
 
 	«EXPAND registerAdapterFactory-»
 	
-	«EXPAND xpt::navigator::NavigatorItem::getURI-»
-	
 	«EXPAND xpt::navigator::AbstractNavigatorItem::attributes-»
 	
 	«EXPAND attributes-»
@@ -106,14 +104,7 @@ public org.eclipse.ui.views.properties.IPropertySourceProvider getPropertySource
 	«EXPAND xpt::Common::generatedMemberComment»
 public boolean equals(Object obj) {
 	if (obj instanceof «getDomainNavigatorItemQualifiedClassName()») {
-		org.eclipse.emf.ecore.EObject eObject = getEObject();
-		org.eclipse.emf.ecore.EObject anotherEObject = ((«getDomainNavigatorItemQualifiedClassName()») obj).getEObject();
-		if (eObject == null) {
-			return anotherEObject == null;
-		} else if (anotherEObject == null) {
-			return false;
-		}
-		return getURI(eObject).equals(getURI(anotherEObject));
+		return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«getDomainNavigatorItemQualifiedClassName()») obj).getEObject()));
 	}
 	return super.equals(obj);
 }
@@ -122,7 +113,7 @@ public boolean equals(Object obj) {
 «DEFINE  hashCode FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public int hashCode() {
-	return getURI(getEObject()).hashCode();
+	return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).hashCode();
 }
 «ENDDEFINE»
 

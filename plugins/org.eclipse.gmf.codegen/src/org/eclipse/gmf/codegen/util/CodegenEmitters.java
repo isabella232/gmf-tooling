@@ -40,7 +40,6 @@ import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
-import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
@@ -52,7 +51,6 @@ import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
-import org.eclipse.gmf.codegen.templates.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
@@ -195,9 +193,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
 		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
-		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
@@ -543,8 +539,8 @@ public class CodegenEmitters {
 		return retrieve(ActionBarContributorGenerator.class);
 	}
 
-	public TextEmitter getMatchingStrategyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(MatchingStrategyGenerator.class);
+	public TextEmitter getMatchingStrategyEmitter() {
+		return newXpandEmitter("xpt::editor::MatchingStrategy::MatchingStrategy"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNavigatorContentProviderEmitter() {
@@ -571,8 +567,8 @@ public class CodegenEmitters {
 		return retrieve(NavigatorLabelProviderGenerator.class);
 	}
 	
-	public TextEmitter getNavigatorLinkHelperEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorLinkHelperGenerator.class);
+	public TextEmitter getNavigatorLinkHelperEmitter() {
+		return newXpandEmitter("xpt::navigator::NavigatorLinkHelper::NavigatorLinkHelper"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {
