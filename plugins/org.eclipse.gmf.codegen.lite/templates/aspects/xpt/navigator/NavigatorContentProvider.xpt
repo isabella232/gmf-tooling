@@ -13,13 +13,7 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«AROUND createEditingDomain FOR gmfgen::GenNavigator»(org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDAROUND»
-
-«AROUND workspaceSynchronizerAttribute FOR gmfgen::GenNavigator»«ENDAROUND»
-
-«AROUND initWorkspaceSynchronizer FOR gmfgen::GenNavigator»«ENDAROUND»
-
-«AROUND disposeWorkspaceSynchronizer FOR gmfgen::GenNavigator»«ENDAROUND»
+«AROUND createEditingDomain FOR gmfgen::GenNavigator»org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDAROUND»
 
 «AROUND getAdaptableChildren FOR gmfgen::GenNavigator-»
 «REM»Currently, no shortcuts are generated in lite mode«ENDREM-»
