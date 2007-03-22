@@ -37,7 +37,6 @@ import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGe
 import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.DiagramEditPartGenerator;
@@ -148,7 +147,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/OpenDiagramEditPolicy.javajet", OpenDiagramPolicyGenerator.class);
 
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
-		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
 		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 
@@ -418,8 +416,8 @@ public class CodegenEmitters {
 		return retrieve(NavigatorLabelProviderGenerator.class);
 	}
 	
-	public TextEmitter getNavigatorLinkHelperEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NavigatorLinkHelperGenerator.class);
+	public TextEmitter getNavigatorLinkHelperEmitter() {
+		return retrieveXpand("xpt::navigator::NavigatorLinkHelper::NavigatorLinkHelper"); //$NON-NLS-1$
 	}
 	
 	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {

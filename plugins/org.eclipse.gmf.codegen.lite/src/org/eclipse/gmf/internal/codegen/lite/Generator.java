@@ -412,7 +412,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
-	private void generateNavigatorLinkHelper() throws InterruptedException, UnexpectedBehaviourException {
+	private void generateNavigatorLinkHelper() throws InterruptedException {
 		if (!myEditorGen.getEditor().isEclipseEditor()) {
 			return;
 		}
