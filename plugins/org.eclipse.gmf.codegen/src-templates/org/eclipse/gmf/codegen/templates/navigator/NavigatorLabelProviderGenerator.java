@@ -87,7 +87,7 @@ public class NavigatorLabelProviderGenerator {
   protected final String TEXT_67 = ") element).getAdapter(";
   protected final String TEXT_68 = ".class);" + NL + "\t\t\tif (view != null && isOwnView(view)) {" + NL + "\t\t\t\treturn getText(view);" + NL + "\t\t\t}" + NL + "\t\t}";
   protected final String TEXT_69 = NL + "\t\treturn super.getText(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(";
-  protected final String TEXT_70 = " view) {" + NL + "\t\tswitch (";
+  protected final String TEXT_70 = " view) {" + NL + "\t\tif (view.getElement().eIsProxy()) {" + NL + "\t\t\treturn getUnresolvedDomainElementProxyText(view);" + NL + "\t\t}" + NL + "\t\tswitch (";
   protected final String TEXT_71 = ".getVisualID(view)) {";
   protected final String TEXT_72 = NL + "\t\tcase ";
   protected final String TEXT_73 = ".VISUAL_ID:" + NL + "\t\t\treturn get";
@@ -123,14 +123,15 @@ public class NavigatorLabelProviderGenerator {
   protected final String TEXT_103 = NL + "\t\treturn \"\";";
   protected final String TEXT_104 = NL + "\t}";
   protected final String TEXT_105 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnknownElementText(";
-  protected final String TEXT_106 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
-  protected final String TEXT_107 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
-  protected final String TEXT_108 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
-  protected final String TEXT_109 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
-  protected final String TEXT_110 = " view) {" + NL + "\t\treturn ";
-  protected final String TEXT_111 = ".MODEL_ID.equals(";
-  protected final String TEXT_112 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_113 = NL;
+  protected final String TEXT_106 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnresolvedDomainElementProxyText(";
+  protected final String TEXT_107 = " view) {" + NL + "\t\treturn \"<Unresolved domain element Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
+  protected final String TEXT_108 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
+  protected final String TEXT_109 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
+  protected final String TEXT_110 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
+  protected final String TEXT_111 = " view) {" + NL + "\t\treturn ";
+  protected final String TEXT_112 = ".MODEL_ID.equals(";
+  protected final String TEXT_113 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_114 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -647,20 +648,22 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_105);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_107);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
     stringBuffer.append(TEXT_108);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
     stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
     stringBuffer.append(TEXT_110);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_112);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_113);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_114);
     return stringBuffer.toString();
   }
 }
