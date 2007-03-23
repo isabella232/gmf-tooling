@@ -97,7 +97,7 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
 		«EXPAND xpt::Common::getFeatureValue(newEndVar, false)».addAll(values);
 	«ELSE-»
-		org.eclipse.emf.ecore.EObject value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
+		Object value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
 		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, false, "null", true)»;
 		«EXPAND xpt::Common::setFeatureValue(newEndVar, false, "value", false)»;
 	«ENDIF-»
