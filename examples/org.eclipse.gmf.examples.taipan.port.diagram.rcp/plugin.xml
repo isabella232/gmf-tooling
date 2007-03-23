@@ -341,6 +341,21 @@
    <extension point="org.eclipse.ui.actionSets">
       <?gmfgen generated="true"?>
       <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanInitDiagramFileAction"
+               menubarPath="file/additions"
+               id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+
+   <extension point="org.eclipse.ui.actionSets">
+      <?gmfgen generated="true"?>
+      <actionSet
             label="%applicationActionSetLabel"
             visible="true"
             id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.ActionSet">
@@ -372,7 +387,5 @@
          </action>
       </actionSet>
    </extension>
-
-
 
 </plugin>
