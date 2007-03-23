@@ -70,7 +70,7 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 
 			((Warship) link.eContainer()).setEscortOrder(null);
-			((Warship) newEnd).setEscortOrder(((EscortShipsOrder) link));
+			((Warship) newEnd).setEscortOrder((EscortShipsOrder) link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {

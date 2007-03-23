@@ -75,7 +75,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 
-			((BesiegePortOrder) link).setPort(((Port) newEnd));
+			((BesiegePortOrder) link).setPort((Port) newEnd);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

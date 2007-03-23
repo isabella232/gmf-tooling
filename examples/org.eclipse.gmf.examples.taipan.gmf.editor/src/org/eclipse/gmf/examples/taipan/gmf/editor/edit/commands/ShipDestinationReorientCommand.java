@@ -74,14 +74,14 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 
-			EObject value = ((Ship) referenceOwner).getDestination();
+			Object value = ((Ship) referenceOwner).getDestination();
 			((Ship) referenceOwner).setDestination(null);
-			((Ship) newEnd).setDestination(((Port) value));
+			((Ship) newEnd).setDestination((Port) value);
 			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 
-			((Ship) referenceOwner).setDestination(((Port) newEnd));
+			((Ship) referenceOwner).setDestination((Port) newEnd);
 			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

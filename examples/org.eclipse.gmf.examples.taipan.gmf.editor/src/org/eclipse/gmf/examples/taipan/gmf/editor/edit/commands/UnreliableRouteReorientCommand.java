@@ -68,12 +68,12 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 		EObject link = getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 
-			((Route) link).setSource(((Port) newEnd));
+			((Route) link).setSource((Port) newEnd);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 
-			((Route) link).setDestination(((Port) newEnd));
+			((Route) link).setDestination((Port) newEnd);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
