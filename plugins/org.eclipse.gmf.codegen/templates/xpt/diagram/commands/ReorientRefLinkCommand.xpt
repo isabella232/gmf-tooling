@@ -93,7 +93,7 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 «ENDREM»
 «DEFINE reorientSelfAsEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
 	«IF ecoreFeature.many-»
-		org.eclipse.emf.common.util.EList values = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
+		java.util.Collection values = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
 		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
 		«EXPAND xpt::Common::getFeatureValue(newEndVar, false)».addAll(values);
 	«ELSE-»
