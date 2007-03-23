@@ -278,10 +278,13 @@ protected org.eclipse.emf.ecore.EObject getSemanticElement() {
 	"the specified element and returns the first element that is instance of\n" +
 	"the specified container class.\n"
 )»
-protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass containerClass, org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
-	for (; element != null; element = element.eContainer()) {
-		if (containerClass.isSuperTypeOf(element.eClass())) {
-			return element;
+protected org.eclipse.emf.ecore.EObject getRelationshipContainer(Object uelement, org.eclipse.emf.ecore.EClass containerClass, org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
+	if (uelement instanceof org.eclipse.emf.ecore.EObject) {
+		org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) uelement;
+		for (; element != null; element = element.eContainer()) {
+			if (containerClass.isSuperTypeOf(element.eClass())) {
+				return element;
+			}
 		}
 	}
 	return null;
