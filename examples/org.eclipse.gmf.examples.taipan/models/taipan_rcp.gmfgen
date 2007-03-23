@@ -313,6 +313,53 @@
         </modelFacet>
       </labels>
     </topLevelNodes>
+    <topLevelNodes
+        visualID="2003"
+        editPartClassName="WarshipEditPart"
+        itemSemanticEditPolicyClassName="WarshipItemSemanticEditPolicy"
+        notationViewFactoryClassName="WarshipViewFactory"
+        canonicalEditPolicyClassName="WarshipCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
+        createCommandClassName="WarshipCreateCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="WarshipEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="ShipFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel shipNameFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();&#xA;shipNameFigure0.setText(&quot;&lt;...>&quot;);&#xA;&#xA;this.add(shipNameFigure0);&#xA;setFigureShipNameFigure(shipNameFigure0);&#xA;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fShipNameFigure; &#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {&#xA;&#x9;&#x9;return fShipNameFigure;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig){&#xA;&#x9;&#x9;fShipNameFigure = fig;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+      <modelFacet>
+        <metaClass
+            href="taipan_rcp.genmodel#//taipan/Warship"/>
+        <containmentMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+        <childMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Aquatory/ships"/>
+      </modelFacet>
+      <labels
+          visualID="5005"
+          editPartClassName="WarshipNameEditPart"
+          itemSemanticEditPolicyClassName="WarshipNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="WarshipNameViewFactory"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ParentAssignedViewmap"
+            getterName="getFigureShipNameFigure"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeatures
+              href="taipan_rcp.genmodel#//taipan/Ship/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
     <links
         visualID="4001"
         editPartClassName="ShipDestinationEditPart"
@@ -551,6 +598,70 @@
         </modelFacet>
       </labels>
     </links>
+    <links
+        visualID="4004"
+        editPartClassName="EscortShipsOrderEditPart"
+        itemSemanticEditPolicyClassName="EscortShipsOrderItemSemanticEditPolicy"
+        notationViewFactoryClassName="EscortShipsOrderViewFactory"
+        reorientCommandClassName="EscortShipsOrderReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          displayName="Escort Ships Order"
+          editHelperClassName="EscortShipsOrderEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="EscortShipsOrderFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EscortShipsOrderFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EscortShipsOrderFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;df.setFill(true);&#xA;df.setFillXOR(false);&#xA;df.setOutline(true);&#xA;df.setOutlineXOR(false);&#xA;df.setLineWidth(1);&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="EscortShipsOrderTypeLinkCreateCommand">
+        <metaClass
+            href="taipan_rcp.genmodel#//taipan/EscortShipsOrder"/>
+        <containmentMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Warship/escortOrder"/>
+        <childMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Warship/escortOrder"/>
+        <targetMetaFeature
+            href="taipan_rcp.genmodel#//taipan/EscortShipsOrder/ships"/>
+      </modelFacet>
+    </links>
+    <links
+        visualID="4005"
+        editPartClassName="BesiegePortOrderEditPart"
+        itemSemanticEditPolicyClassName="BesiegePortOrderItemSemanticEditPolicy"
+        notationViewFactoryClassName="BesiegePortOrderViewFactory"
+        reorientCommandClassName="BesiegePortOrderReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          displayName="Besiege Port Order"
+          editHelperClassName="BesiegePortOrderEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="BesiegePortOrderFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class BesiegePortOrderFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public BesiegePortOrderFigure() {&#xA;&#x9;&#x9;this.setFill(true);&#xA;this.setFillXOR(false);&#xA;this.setOutline(true);&#xA;this.setOutlineXOR(false);&#xA;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;df.setFill(true);&#xA;df.setFillXOR(false);&#xA;df.setOutline(true);&#xA;df.setOutlineXOR(false);&#xA;df.setLineWidth(1);&#xA;df.setLineStyle(org.eclipse.draw2d.Graphics.LINE_SOLID);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;}&#xA;&#xA;">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          createCommandClassName="BesiegePortOrderTypeLinkCreateCommand">
+        <metaClass
+            href="taipan_rcp.genmodel#//taipan/BesiegePortOrder"/>
+        <containmentMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Warship/attackOrders"/>
+        <childMetaFeature
+            href="taipan_rcp.genmodel#//taipan/Warship/attackOrders"/>
+        <targetMetaFeature
+            href="taipan_rcp.genmodel#//taipan/BesiegePortOrder/port"/>
+      </modelFacet>
+    </links>
     <compartments
         visualID="7001"
         editPartClassName="ShipSmallCargoEditPart"
@@ -596,12 +707,12 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Port"
-            description="Create new Port"
+            description="Place new port"
             genNodes="//@diagram/@topLevelNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Ship"
-            description="Create new Ship"
+            description="Place new ship"
             genNodes="//@diagram/@topLevelNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -621,20 +732,35 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Reliable Route"
-            description="Create new Route"
+            description="Mark reliable route"
             genLinks="//@diagram/@links.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Unreliable Route"
-            description="Create new Route"
+            description="Mark unreliable route"
             genLinks="//@diagram/@links.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Ship Destination"
-            description="Create new ship destination"
+            description="Set ship destination"
             largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif"
             smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif"
             genLinks="//@diagram/@links.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Warship"
+            description="Create new warship"
+            genNodes="//@diagram/@topLevelNodes.2"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Besiege Port Order"
+            description="Place new besiege port order"
+            genLinks="//@diagram/@links.4"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Escort Ships Order"
+            description="Place new esort ships order"
+            genLinks="//@diagram/@links.3"/>
       </groups>
     </palette>
     <preferencePages
