@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -41,17 +42,6 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 				return supportedTypes;
 			}
 		}, org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem.class);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static org.eclipse.emf.common.util.URI getURI(EObject object) {
-		if (object.eIsProxy()) {
-			return ((InternalEObject) object).eProxyURI();
-		}
-		Resource resource = object.eResource();
-		return resource.getURI().appendFragment(resource.getURIFragment(object));
 	}
 
 	/**
@@ -92,14 +82,7 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem) {
-			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem) obj).getView().getElement();
-			if (eObject == null) {
-				return anotherEObject == null;
-			} else if (anotherEObject == null) {
-				return false;
-			}
-			return getURI(eObject).equals(getURI(anotherEObject));
+			return EcoreUtil.getURI(getView()).equals(EcoreUtil.getURI(((org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorItem) obj).getView()));
 		}
 		return super.equals(obj);
 	}
@@ -108,7 +91,7 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	 * @generated
 	 */
 	public int hashCode() {
-		return getURI(getView().getElement()).hashCode();
+		return EcoreUtil.getURI(getView()).hashCode();
 	}
 
 }

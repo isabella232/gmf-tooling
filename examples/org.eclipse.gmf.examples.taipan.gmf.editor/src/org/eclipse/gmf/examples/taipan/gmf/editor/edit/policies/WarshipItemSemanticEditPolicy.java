@@ -28,15 +28,17 @@ import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
@@ -168,12 +170,26 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (EscortShipsOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		switch (getVisualID(req)) {
+		case EscortShipsOrderEditPart.VISUAL_ID:
 			return getMSLWrapper(new EscortShipsOrderReorientCommand(req));
-		}
-		if (BesiegePortOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
+	}
+
+	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case ShipDestinationEditPart.VISUAL_ID:
+			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+		}
+		return super.getReorientReferenceRelationshipCommand(req);
 	}
 }

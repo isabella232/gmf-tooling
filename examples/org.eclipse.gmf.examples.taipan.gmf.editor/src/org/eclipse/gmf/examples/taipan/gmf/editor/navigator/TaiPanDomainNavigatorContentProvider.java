@@ -73,7 +73,8 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 	 */
 	public TaiPanDomainNavigatorContentProvider() {
 		myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
-		myEditingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		myEditingDomain = (AdapterFactoryEditingDomain) editingDomain;
 		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
 
 			public Object get(Object key) {
@@ -91,7 +92,7 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 				}
 			}
 		};
-		myWorkspaceSynchronizer = new WorkspaceSynchronizer((TransactionalEditingDomain) myEditingDomain, new WorkspaceSynchronizer.Delegate() {
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer(editingDomain, new WorkspaceSynchronizer.Delegate() {
 
 			public void dispose() {
 			}
@@ -136,11 +137,13 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 	 */
 	public void dispose() {
 		myWorkspaceSynchronizer.dispose();
+		myWorkspaceSynchronizer = null;
 		myViewerRefreshRunnable = null;
 		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
 			Resource resource = (Resource) it.next();
 			resource.unload();
 		}
+		myEditingDomain = null;
 	}
 
 	/**

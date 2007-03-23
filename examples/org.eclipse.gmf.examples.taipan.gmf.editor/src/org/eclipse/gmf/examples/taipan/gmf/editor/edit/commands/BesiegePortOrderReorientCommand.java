@@ -66,17 +66,18 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		EObject link = getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			Warship oldEnd = (Warship) link.eContainer();
-			oldEnd.getAttackOrders().remove(link);
+
+			((Warship) link.eContainer()).getAttackOrders().remove(link);
 			((Warship) newEnd).getAttackOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			link.setPort((Port) newEnd);
+
+			((BesiegePortOrder) link).setPort(((Port) newEnd));
 			return CommandResult.newOKCommandResult(link);
 		}
-		return CommandResult.newErrorCommandResult("Unknown direction: " + reorientDirection);
+		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
 	}
 }

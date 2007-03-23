@@ -31,19 +31,21 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrder
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ReliableRouteReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.UnreliableRouteReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -237,16 +239,29 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (ReliableRouteEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		switch (getVisualID(req)) {
+		case ReliableRouteEditPart.VISUAL_ID:
 			return getMSLWrapper(new ReliableRouteReorientCommand(req));
-		}
-		if (UnreliableRouteEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		case UnreliableRouteEditPart.VISUAL_ID:
 			return getMSLWrapper(new UnreliableRouteReorientCommand(req));
-		}
-		if (BesiegePortOrderEditPart.VISUAL_ID == TaiPanVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
+	}
+
+	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case ShipDestinationEditPart.VISUAL_ID:
+			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+		}
+		return super.getReorientReferenceRelationshipCommand(req);
 	}
 
 }
