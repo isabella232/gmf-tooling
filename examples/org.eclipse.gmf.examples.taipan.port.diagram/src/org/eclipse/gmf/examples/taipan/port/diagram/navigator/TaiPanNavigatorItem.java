@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.Platform;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -31,8 +32,8 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof TaiPanNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
-					return ((TaiPanNavigatorItem) adaptableObject).getView();
+				if (adaptableObject instanceof org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorItem) adaptableObject).getView();
 				}
 				return null;
 			}
@@ -40,7 +41,7 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 			public Class[] getAdapterList() {
 				return supportedTypes;
 			}
-		}, TaiPanNavigatorItem.class);
+		}, org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorItem.class);
 	}
 
 	/**
@@ -80,19 +81,17 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof TaiPanNavigatorItem) {
-			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((TaiPanNavigatorItem) obj).getView().getElement();
-			if (eObject == null) {
-				return anotherEObject == null;
-			} else if (anotherEObject == null) {
-				return false;
-			}
-			if (eObject.eResource() != null) {
-				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
-			}
+		if (obj instanceof org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorItem) {
+			return EcoreUtil.getURI(getView()).equals(EcoreUtil.getURI(((org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorItem) obj).getView()));
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return EcoreUtil.getURI(getView()).hashCode();
 	}
 
 }

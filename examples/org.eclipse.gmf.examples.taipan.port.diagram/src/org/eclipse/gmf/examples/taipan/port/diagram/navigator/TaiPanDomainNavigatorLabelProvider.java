@@ -39,14 +39,20 @@ public class TaiPanDomainNavigatorLabelProvider implements ICommonLabelProvider 
 	 * @generated
 	 */
 	public Image getImage(Object element) {
-		return myAdapterFactoryLabelProvider.getImage(element);
+		if (element instanceof TaiPanDomainNavigatorItem) {
+			return myAdapterFactoryLabelProvider.getImage(((TaiPanDomainNavigatorItem) element).getEObject());
+		}
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
 	public String getText(Object element) {
-		return myAdapterFactoryLabelProvider.getText(element);
+		if (element instanceof TaiPanDomainNavigatorItem) {
+			return myAdapterFactoryLabelProvider.getText(((TaiPanDomainNavigatorItem) element).getEObject());
+		}
+		return null;
 	}
 
 	/**

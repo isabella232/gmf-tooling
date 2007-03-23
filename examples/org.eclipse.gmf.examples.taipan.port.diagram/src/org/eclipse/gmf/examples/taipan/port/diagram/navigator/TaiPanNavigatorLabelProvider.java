@@ -153,6 +153,9 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	public String getText(View view) {
+		if (view.getElement().eIsProxy()) {
+			return getUnresolvedDomainElementProxyText(view);
+		}
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001Text(view);
@@ -205,6 +208,13 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 */
 	private String getUnknownElementText(View view) {
 		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getUnresolvedDomainElementProxyText(View view) {
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">";
 	}
 
 	/**

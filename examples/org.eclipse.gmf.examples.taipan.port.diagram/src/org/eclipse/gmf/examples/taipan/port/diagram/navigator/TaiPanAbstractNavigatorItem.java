@@ -15,12 +15,13 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.Platform;
 
+import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 
 /**
  * @generated
  */
-public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
+public abstract class TaiPanAbstractNavigatorItem extends PlatformObject {
 
 	/**
 	 * @generated
@@ -36,7 +37,7 @@ public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof TaiPanAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
+				if (adaptableObject instanceof org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
 					return propertySheetPageContributor;
 				}
 				return null;
@@ -45,7 +46,7 @@ public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
 			public Class[] getAdapterList() {
 				return supportedTypes;
 			}
-		}, TaiPanAbstractNavigatorItem.class);
+		}, org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanAbstractNavigatorItem.class);
 	}
 
 	/**
@@ -65,13 +66,6 @@ public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
 	 */
 	public Object getParent() {
 		return myParent;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Object getAdapter(Class adapter) {
-		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
 }

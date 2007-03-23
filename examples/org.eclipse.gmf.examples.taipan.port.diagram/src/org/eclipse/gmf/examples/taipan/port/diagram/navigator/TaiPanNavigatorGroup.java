@@ -89,13 +89,20 @@ public class TaiPanNavigatorGroup extends TaiPanAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof TaiPanNavigatorGroup) {
-			TaiPanNavigatorGroup anotherGroup = (TaiPanNavigatorGroup) obj;
+		if (obj instanceof org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorGroup) {
+			org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorGroup anotherGroup = (org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorGroup) obj;
 			if (getGroupName().equals(anotherGroup.getGroupName())) {
 				return getParent().equals(anotherGroup.getParent());
 			}
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return getGroupName().hashCode();
 	}
 
 }
