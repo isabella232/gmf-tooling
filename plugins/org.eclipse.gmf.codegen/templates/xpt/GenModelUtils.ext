@@ -120,6 +120,11 @@ boolean isListType(genmodel::GenFeature feature) :
 JAVA org.eclipse.gmf.codegen.util.GenModelUtils.isListType(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
+// GenFeature#getTypeGenClass()
+genmodel::GenClass getTypeGenClassX(genmodel::GenFeature feature) :
+JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getTypeGenClass(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+;
+
 // GenClass#isExternalInterface()
 boolean isExternalInterface(genmodel::GenClass genClass) :
 	null != genClass.ecoreClass.instanceClassName

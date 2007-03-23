@@ -16,7 +16,7 @@
 
 «EXTENSION xpt::GenModelUtils»
 
-«DEFINE ReorientLinkCommand FOR gmfgen::GenLink-»
+«DEFINE ReorientRefLinkCommand FOR gmfgen::GenLink-»
 «EXPAND xpt::Common::copyright FOR diagram.editorGen-»
 package «diagram.editCommandsPackageName»;
 
@@ -27,26 +27,30 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	private final int reorientDirection;
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EObject referenceOwner;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private final org.eclipse.emf.ecore.EObject newEnd;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «reorientCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest request) {
-		super(request.getLabel(), request.getRelationship(), request);
+	public «reorientCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest request) {
+		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
+		referenceOwner = request.getReferenceOwner();
 		newEnd = request.getNewRelationshipEnd();
 	}
-«LET (gmfgen::TypeLinkModelFacet)({modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).get(0)) AS typeModelFacet-»
+«LET (gmfgen::FeatureLinkModelFacet)({modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).get(0)) AS featureModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof «getQualifiedInterfaceName(typeModelFacet.metaClass)»)) {
+		if (!(referenceOwner instanceof «getQualifiedInterfaceName(featureModelFacet.getSourceType())»)) {
 			return false;
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof «getQualifiedInterfaceName(typeModelFacet.getSourceType())»;
+			return newEnd instanceof «getQualifiedInterfaceName(featureModelFacet.getSourceType())»;
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof «getQualifiedInterfaceName(typeModelFacet.getTargetType())»;
+			return newEnd instanceof «getQualifiedInterfaceName(featureModelFacet.getTargetType())»;
 		}
 		return false;
 	}
@@ -55,18 +59,13 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
-		org.eclipse.emf.ecore.EObject link = getElementToEdit();
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-		«IF null != typeModelFacet.sourceMetaFeature-»
-			«EXPAND reorientEnd("link", "newEnd") FOR typeModelFacet.sourceMetaFeature-»
-		«ELSE-»
-			«EXPAND reorientSelfAsEnd("link", "newEnd") FOR typeModelFacet.containmentMetaFeature-»
-		«ENDIF-»
-			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+			«EXPAND reorientSelfAsEnd("referenceOwner", "newEnd") FOR featureModelFacet.metaFeature-»
+			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			«EXPAND reorientEnd("link", "newEnd") FOR typeModelFacet.targetMetaFeature-»
-			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+			«EXPAND reorientEnd("referenceOwner", "newEnd") FOR featureModelFacet.metaFeature-»
+			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
 				"Unknown link reorient direction: " + reorientDirection);
@@ -79,26 +78,27 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	Set link feature to hold the newEnd value. All old values are discarded.
 	In this context means to reorient the link.
 «ENDREM»
-«DEFINE reorientEnd(String linkVar, String newEndVar) FOR genmodel::GenFeature»
+«DEFINE reorientEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(linkVar, false)».clear();
-		«EXPAND xpt::Common::getFeatureValue(linkVar, false)».add(«newEndVar»);
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».add(«newEndVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(linkVar, false, newEndVar, false)»;
+		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, false, newEndVar, false)»;
 	«ENDIF-»
 «ENDDEFINE»
 
 «REM»
-	Move link to the newEnd container; current link container and newEnd container
-	should have the same feature that contains link instances.
+	Move reference value from the current reference owner to the new end.
 	In this context means to reorient the link.
 «ENDREM»
-«DEFINE reorientSelfAsEnd(String linkVar, String newEndVar) FOR genmodel::GenFeature»
+«DEFINE reorientSelfAsEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(linkVar + ".eContainer()", false)».remove(«linkVar»);
-		«EXPAND xpt::Common::getFeatureValue(newEndVar, false)».add(«linkVar»);
+		org.eclipse.emf.common.util.EList values = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
+		«EXPAND xpt::Common::getFeatureValue(newEndVar, false)».addAll(values);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(linkVar + ".eContainer()", false, "null", true)»;
-		«EXPAND xpt::Common::setFeatureValue(newEndVar, false, linkVar, false)»;
+		org.eclipse.emf.ecore.EObject value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
+		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, false, "null", true)»;
+		«EXPAND xpt::Common::setFeatureValue(newEndVar, false, "value", false)»;
 	«ENDIF-»
 «ENDDEFINE»

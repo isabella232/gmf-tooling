@@ -66,6 +66,15 @@
 	«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE setFeatureValue(String containerVar, boolean typedContainer, String valueVar, boolean typedValue) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(genClass)-»
+((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
+	«ELSE-»
+«IF !typedContainer»((«getQualifiedInterfaceName(genClass)»)«ENDIF»«containerVar»«IF !typedContainer»)«ENDIF».set«getAccessorName(this)»(
+		«IF !typedValue»((«getQualifiedInterfaceName(getTypeGenClassX(this))»)«ENDIF»«valueVar»«IF !typedValue»)«ENDIF»)«-»
+	«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE metaClassAccessor FOR genmodel::GenClass»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(this)»()«ENDDEFINE»
 
 «DEFINE metaFeatureAccessor FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(this)»()«ENDDEFINE»

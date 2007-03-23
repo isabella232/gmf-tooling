@@ -38,4 +38,8 @@ public class GenModelUtils {
 		// part of the check seems to be essential
 		return genFeature.isListType();
 	}
+
+	public static GenClass getTypeGenClass(GenFeature genFeature) {
+		return genFeature.getTypeGenClass();
+	}
 }

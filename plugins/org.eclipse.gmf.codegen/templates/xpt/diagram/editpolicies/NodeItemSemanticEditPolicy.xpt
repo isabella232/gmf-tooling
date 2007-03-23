@@ -39,6 +39,9 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 	«IF getReroutableLinks(this).size() > 0-»
 		«EXPAND getReorientLinkCommand-»
 	«ENDIF-»
+	«IF getReroutableRefLinks(this).size() > 0-»
+		«EXPAND getReorientRefLinkCommand-»
+	«ENDIF-»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
@@ -270,19 +273,40 @@ if (container == null) {
 «DEFINE getReorientLinkCommand FOR gmfgen::GenNode»
 
 	/**
-	 * Returns command to reorient link. New link target or source
+	 * Returns command to reorient EClass based link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
 	 * @generated
 	 */
 	protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
+		switch (getVisualID(req)) {
 		«FOREACH getReroutableLinks(this) AS link-»
-		if («link.getEditPartQualifiedClassName()».VISUAL_ID == «getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(req.getRelationship())) {
-			return getMSLWrapper(new «link.getReorientCommandQualifiedClassName()»(req));
-		}
+			case «link.getEditPartQualifiedClassName()».VISUAL_ID:
+				return getMSLWrapper(new «link.getReorientCommandQualifiedClassName()»(req));
 		«ENDFOREACH-»
+		}
 		return super.getReorientRelationshipCommand(req);
+	}
+«ENDDEFINE»
+
+«DEFINE getReorientRefLinkCommand FOR gmfgen::GenNode»
+
+	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(
+			org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		«FOREACH getReroutableRefLinks(this) AS link-»
+			case «link.getEditPartQualifiedClassName()».VISUAL_ID:
+				return getMSLWrapper(new «link.getReorientCommandQualifiedClassName()»(req));
+		«ENDFOREACH-»
+		}
+		return super.getReorientReferenceRelationshipCommand(req);
 	}
 «ENDDEFINE»
 

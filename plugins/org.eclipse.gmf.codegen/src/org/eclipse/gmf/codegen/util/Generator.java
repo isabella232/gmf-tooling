@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -135,6 +136,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateLinkCreateCommand(next);
 			if (next.getModelFacet() instanceof TypeLinkModelFacet) {
 				generateReorientLinkCommand(next);
+			} else if (next.getModelFacet() instanceof FeatureLinkModelFacet) {
+				generateReorientRefLinkCommand(next);
 			}
 			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);
@@ -508,6 +511,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateReorientLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getReorientLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
+	}
+
+	private void generateReorientRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getReorientRefLinkCommandEmitter(), link.getReorientCommandQualifiedClassName(), link);
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

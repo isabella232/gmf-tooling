@@ -261,6 +261,10 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::commands::ReorientLinkCommand::ReorientLinkCommand"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getReorientRefLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::diagram::commands::ReorientRefLinkCommand::ReorientRefLinkCommand"); //$NON-NLS-1$
+	}
+
 	// helpers
 
 	public TextEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
