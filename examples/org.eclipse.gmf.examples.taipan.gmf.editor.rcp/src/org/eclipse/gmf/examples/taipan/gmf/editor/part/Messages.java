@@ -129,6 +129,36 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String Warship9CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Warship9CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String BesiegePortOrder10CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String BesiegePortOrder10CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String EscortShipsOrder11CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EscortShipsOrder11CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String DiagramEditorActionBarAdvisor_DefaultFileEditorTitle;
 
 	/**

@@ -25,6 +25,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2Ed
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -161,6 +162,29 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
+	private IParser warshipWarshipName_5005Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getWarshipWarshipName_5005Parser() {
+		if (warshipWarshipName_5005Parser == null) {
+			warshipWarshipName_5005Parser = createWarshipWarshipName_5005Parser();
+		}
+		return warshipWarshipName_5005Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createWarshipWarshipName_5005Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip_Name());
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	private IParser routeRouteDescription_6002Parser;
 
 	/**
@@ -273,6 +297,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getPortPortLocation_5001Parser();
 		case ShipNameEditPart.VISUAL_ID:
 			return getShipShipName_5004Parser();
+		case WarshipNameEditPart.VISUAL_ID:
+			return getWarshipWarshipName_5005Parser();
 		case RouteDescriptionEditPart.VISUAL_ID:
 			return getRouteRouteDescription_6002Parser();
 		case RouteReliabilityEditPart.VISUAL_ID:

@@ -15,8 +15,9 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -24,7 +25,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 /**
  * @generated
  */
-public class Route2ReorientCommand extends EditElementCommand {
+public class BesiegePortOrderReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -39,7 +40,7 @@ public class Route2ReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public Route2ReorientCommand(ReorientRelationshipRequest request) {
+	public BesiegePortOrderReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
 		newEnd = request.getNewRelationshipEnd();
@@ -49,11 +50,11 @@ public class Route2ReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof Route)) {
+		if (!(getElementToEdit() instanceof BesiegePortOrder)) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Port;
+			return newEnd instanceof Warship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 			return newEnd instanceof Port;
@@ -68,12 +69,13 @@ public class Route2ReorientCommand extends EditElementCommand {
 		EObject link = getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 
-			((Route) link).setSource(((Port) newEnd));
+			((Warship) link.eContainer()).getAttackOrders().remove(link);
+			((Warship) newEnd).getAttackOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 
-			((Route) link).setDestination(((Port) newEnd));
+			((BesiegePortOrder) link).setPort(((Port) newEnd));
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

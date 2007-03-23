@@ -16,15 +16,16 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 
 /**
  * @generated
  */
-public class Route2ReorientCommand extends EditElementCommand {
+public class ShipDestinationReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -34,14 +35,20 @@ public class Route2ReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject referenceOwner;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
 	 * @generated
 	 */
-	public Route2ReorientCommand(ReorientRelationshipRequest request) {
-		super(request.getLabel(), request.getRelationship(), request);
+	public ShipDestinationReorientCommand(ReorientReferenceRelationshipRequest request) {
+		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
+		referenceOwner = request.getReferenceOwner();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -49,11 +56,11 @@ public class Route2ReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof Route)) {
+		if (!(referenceOwner instanceof Ship)) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Port;
+			return newEnd instanceof Ship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 			return newEnd instanceof Port;
@@ -65,16 +72,17 @@ public class Route2ReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EObject link = getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
 
-			((Route) link).setSource(((Port) newEnd));
-			return CommandResult.newOKCommandResult(link);
+			EObject value = ((Ship) referenceOwner).getDestination();
+			((Ship) referenceOwner).setDestination(null);
+			((Ship) newEnd).setDestination(((Port) value));
+			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
 
-			((Route) link).setDestination(((Port) newEnd));
-			return CommandResult.newOKCommandResult(link);
+			((Ship) referenceOwner).setDestination(((Port) newEnd));
+			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
 	}

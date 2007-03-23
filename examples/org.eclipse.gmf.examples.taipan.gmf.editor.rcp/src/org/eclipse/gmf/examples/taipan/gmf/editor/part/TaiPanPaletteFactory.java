@@ -50,6 +50,9 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createReliableRoute6CreationTool());
 		paletteContainer.add(createUnreliableRoute7CreationTool());
 		paletteContainer.add(createShipDestination8CreationTool());
+		paletteContainer.add(createWarship9CreationTool());
+		paletteContainer.add(createBesiegePortOrder10CreationTool());
+		paletteContainer.add(createEscortShipsOrder11CreationTool());
 		return paletteContainer;
 	}
 
@@ -146,6 +149,42 @@ public class TaiPanPaletteFactory {
 		LinkToolEntry entry = new LinkToolEntry(Messages.ShipDestination8CreationTool_title, Messages.ShipDestination8CreationTool_desc, types);
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif")); //$NON-NLS-1$
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createWarship9CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(TaiPanElementTypes.Warship_2003);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Warship9CreationTool_title, Messages.Warship9CreationTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Warship_2003));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createBesiegePortOrder10CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
+		LinkToolEntry entry = new LinkToolEntry(Messages.BesiegePortOrder10CreationTool_title, Messages.BesiegePortOrder10CreationTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.BesiegePortOrder_4005));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createEscortShipsOrder11CreationTool() {
+		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
+		types.add(TaiPanElementTypes.EscortShipsOrder_4004);
+		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrder11CreationTool_title, Messages.EscortShipsOrder11CreationTool_desc, types);
+		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4004));
+		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
 

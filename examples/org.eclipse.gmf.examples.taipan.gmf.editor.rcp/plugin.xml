@@ -229,6 +229,16 @@
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Warship_2003"
+               name="%metatype.name.Warship_2003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Warship"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.WarshipEditHelper">
+            <param name="semanticHint" value="2003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"
                name="%metatype.name.SmallItems_3001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
@@ -287,6 +297,26 @@
             <param name="semanticHint" value="4003"/>
          </specializationType>
       </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4004"
+               name="%metatype.name.EscortShipsOrder_4004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EscortShipsOrder"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EscortShipsOrderEditHelper">
+            <param name="semanticHint" value="4004"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.BesiegePortOrder_4005"
+               name="%metatype.name.BesiegePortOrder_4005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="BesiegePortOrder"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.BesiegePortOrderEditHelper">
+            <param name="semanticHint" value="4005"/>
+         </metamodelType>
+      </metamodel>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
@@ -302,12 +332,15 @@
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Aquatory_1000"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Port_2001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Ship_2002"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Warship_2003"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.SmallItems_3001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LargeItem_3002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EmptyBox_3003"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ShipDestination_4001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.Route_4003"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.EscortShipsOrder_4004"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.BesiegePortOrder_4005"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
