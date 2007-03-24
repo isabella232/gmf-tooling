@@ -34,34 +34,12 @@
 			<fileset dir="${buildRoot}/artifacts" includes="**/${buildType}*/**" defaultexcludes="no"/>
 		</delete>
 	</target>
-		
-	<target name="cleanLocal" if="useMirror">
-		<!-- Clean out old update jars... only publishing latest build artifacts for GMF on local mirror -->
-		<delete dir="${buildUpdateSitePath}"/>
-		<mkdir dir="${buildUpdateSitePath}"/>
-		<delete>
-		    <fileset dir="${localUpdateSitePath}" includes="**/org.eclipse.gmf*.jar,**/org.apache.batik*.jar"/>
-		</delete>
-	</target>
-	
-	<target name="publishLocal" if="useMirror">
-<!-- TODO
-		<copy todir="${localUpdateSitePath}/features">
-		    <fileset dir="${buildUpdateSitePath}/features"/>
-		</copy>
-		<copy todir="${localUpdateSitePath}/plugins">
-			<fileset dir="${buildUpdateSitePath}/plugins"/>
-		</copy>
--->
-	</target>
-	
-	<!-- TODO: need to find a way to merge site.xml after initialization, mirror of EMF/GEF, and later 
-	           changes in GMF's site.xml -->
-	<!-- TODO: copy css, xsl from scripts directory to the local CC web app for consistent look & feel, when modified -->
+			
+	<!-- TODO: Get rid of this!! -->
 	<target name="initLocalMirror">		
-		<cvs cvsRoot="${cvs.root}" command="export -r HEAD -d updates" package="${updateModule}" dest="${localUpdateSitePath}/../" />
-		<mkdir dir="${localUpdateSitePath}/WEB-INF"/>
-		<move file="${localUpdateSitePath}/web/web.xml" todir="${localUpdateSitePath}/WEB-INF"/>
+		<ant antfile="updatesite.local.xml" target="init.site">
+			<property name="updatesite.name" value="interim"/>
+		</ant>
 	</target>
 	
 	<target name="checkArgs" unless="component">

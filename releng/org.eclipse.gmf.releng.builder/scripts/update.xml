@@ -25,7 +25,7 @@
 			<arg value="-from"/>
 			<arg value="${updateSite}"/>
 			<arg value="-to"/>
-			<arg value="${localUpdateSitePath}"/>
+			<arg value="${updatesite.local.path}/requirements"/>
 		</java>
 	</target>
 	
@@ -48,7 +48,7 @@
 	</target>
 		
 	<target name="install" if="usingMirror">
-		<echo message="Installing ${featureId} ${version} locally from ${localUpdateSite}"/>
+		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/requirements"/>
 		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -59,7 +59,7 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${localUpdateSite}"/>
+			<arg value="${updatesite.local.url}/requirements"/>
 		</java>
 	</target>
 	

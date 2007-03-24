@@ -1,0 +1,64 @@
+<project basedir=".">
+
+	<target name="init">		
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+		<property file="build.properties"/>
+		<condition property="skipUpload">
+			<or>
+				<not>
+					<isset property="ftpUser"/>
+				</not>	
+				<not>
+					<isset property="ftpPassword"/>
+				</not>	
+			</or>
+		</condition>
+	</target>	
+
+	<target name="rsync.down" depends="init" if="updatesite.name">
+		<exec executable="rsync">
+			<arg value="-var"/>
+			<arg value="${ftpUser}@download1.eclipse.org:/home/www/modeling/gmf/update-site/${updatesite.name}"/>
+			<arg value="${updatesite.local.path}/${updatesite.name}"/>
+		</exec>	
+	</target>
+	
+	<target name="rsync.up" depends="init" if="updatesite.name" unless="skipUpload">
+		<exec executable="rsync">
+			<arg value="-var"/>
+			<arg value="${updatesite.local.path}/${updatesite.name}"/>
+			<arg value="${ftpUser}@download1.eclipse.org:/home/www/modeling/gmf/update-site/${updatesite.name}"/>
+		</exec>	
+	</target>	
+	
+	<target name="init.site" depends="init" if="updatesite.name">
+		<mkdir dir="${updatesite.local.path}"/>
+		<delete dir="${updatesite.local.path}/${updatesite.name}" failonerror="false"/>
+		<copy todir="${updatesite.local.path}/${updatesite.name}">
+			<fileset dir="${basedir}/updatesiteDropFiles"/>
+		</copy>
+	</target>
+	
+	<target name="mirror" depends="init">
+		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="mirror"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${from.updatesite}"/>
+			<arg value="-to"/>
+			<arg value="${updatesite.local.path}/${updatesite.name}"/>
+		</java>
+	</target>
+	
+</project>

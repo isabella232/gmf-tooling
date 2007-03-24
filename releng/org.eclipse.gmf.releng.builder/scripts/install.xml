@@ -5,7 +5,7 @@
 		<equals arg1="${archiveType}" arg2="zip" casesensitive="false" trim="true"/>
     </condition>
 	<condition property="mirrorAvailable">
-		<http url="${localUpdateSite}/site.xml"/>
+		<http url="${updatesite.local.path}/requirements/site.xml"/>
 	</condition>
 	<condition property="usingMirror">
 		<and>

@@ -17,7 +17,6 @@
 	<target name="main" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
 		     as these builds are not tagged as are integration and stable builds. -->
-		<ant antfile="build.xml" target="cleanLocal"/>
 		<!-- Delete all previous continuous builds -->
 		<ant antfile="build.xml" target="cleanupArtifacts"/>
 		<echo message="Building runtime..." />
@@ -85,7 +84,6 @@
 	<target name="nightly" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
 		     as these builds are not tagged as are integration and stable builds. -->
-		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -152,7 +150,6 @@
 	</target>
 	
 	<target name="integration" depends="init,checkArgs">
-		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -219,7 +216,6 @@
 	</target>
 	
 	<target name="stable" depends="init,checkArgs">
-		<ant antfile="build.xml" target="cleanLocal"/>
 <!-- don't load label.properties to make this functioning
 		<property name="buildType" value="S" />
 		<property name="buildId" value="${stable.maps}" />
@@ -294,7 +290,6 @@
 	<target name="maintenance" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
 		     as these builds are not tagged as are integration and stable builds. -->
-		<ant antfile="build.xml" target="cleanLocal"/>
 		<!-- Delete all previous continuous builds -->
 		<ant antfile="build.xml" target="cleanupArtifacts"/>
 		<echo message="Building runtime..." />

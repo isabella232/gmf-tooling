@@ -57,9 +57,9 @@
 	</target>
 	
 	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
-		<antcall target="init.site">
-			<param name="updateSiteName" value="interim"/>
-		</antcall>
+		<ant antfile="updatesite.local.xml" target="init.site">
+			<property name="updatesite.name" value="interim"/>
+		</ant>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
@@ -68,9 +68,14 @@
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
-		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="interim"/>
-		</antcall>
+		<ant antfile="deploy.updates.xml" target="deploy.local">
+			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
+			<property name="updatesite.name" value="interim"/>
+			<property name="features.list" value="*"/>
+		</ant>
+		<ant antfile="updatesite.local.xml" target="rsync.up">
+			<property name="updatesite.name" value="interim"/>
+		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
@@ -83,9 +88,11 @@
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
-		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="milestone"/>
-		</antcall>
+		<ant antfile="deploy.updates.xml" target="deploy.local">
+			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
+			<property name="updatesite.name" value="milestone"/>
+			<property name="features.list" value="*"/>
+		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
@@ -98,9 +105,11 @@
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
-		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="releases"/>
-		</antcall>
+		<ant antfile="deploy.updates.xml" target="deploy.local">
+			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
+			<property name="updatesite.name" value="releases"/>
+			<property name="features.list" value="*"/>
+		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
@@ -108,13 +117,15 @@
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-europa-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<!-- PLACEHOLDER: Downloading EMTF plugins from the update site -->
-		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="europa"/>
-			<param name="includes" value="org.eclipse.gmf.europa"/>
-		</antcall>
+		<ant antfile="deploy.updates.xml" target="deploy.local">
+			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
+			<property name="updatesite.name" value="europa"/>
+			<property name="features.list" value="*europa*"/>
+		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
+<!-- TODO	
 	<target name="deploy.updates.batik" depends="init" unless="skipUpload"> 	
 		<antcall target="init.site">
 			<param name="updateSiteName" value="batik"/>
@@ -124,73 +135,6 @@
 			<param name="updateSitePath" value=""/>
 		</antcall>
 	</target>
+-->
 	
-	<!-- @param updateSiteName -->
-	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
-		<echo message="Updating update site ${updateSiteName} ..."/>
-	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
-	  		localTodir="${buildRoot}/uploadsite"/>
-	  	<antcall target= "build.site.manifesto">
-			<param name="siteXml" value="${buildRoot}/uploadsite/site.xml"/>
-	  	</antcall>	
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
-	    	<fileset dir="${buildRoot}/uploadsite/features">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/plugins">
-	    	<fileset dir="${buildRoot}/uploadsite/plugins">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}"
-	    	file="${buildRoot}/uploadsite/site.xml"/>
-	</target>
-	
-	<!-- @param updateSiteName -->
-	<target name="init.site" depends="init" if="updateSiteName">		
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}"/>
-		<cvs cvsRoot="${cvs.root}" command="export -r HEAD -d updates" package="${updateModule}" dest="${buildRoot}" />
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}">
-	    	<fileset dir="${buildRoot}/updates">
-	    		<include name="*.*"/>
-	    	</fileset>
-	  	</scp>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/web"/>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/web">
-	    	<fileset dir="${buildRoot}/updates/web">
-	    		<include name="*.*"/>
-	    	</fileset>
-	  	</scp>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/features"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/plugins"/>
-	</target>
-	
-	<target name="build.site.manifesto">       
-		<property name="excludes" value=""/>
-		<property name="includes" value=""/>
-        <echo message="Building site.xml"/>                                                                             
-        <java jar="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar" fork="true" failonerror="false">                   
-            <arg value="-consolelog"/>                                                                                  
-            <arg value="-application"/>                                                                                 
-            <arg value="org.eclipse.gmf.releng.updateSiteBuilder"/>                                                     
-            <arg value="-build"/>                                                                                       
-            <arg value="${buildLabel}"/>                                                                                
-            <arg value="-site"/>                                                                                        
-            <arg value="${buildRoot}/uploadsite"/>                                                                       
-            <arg value="-sitexml"/>                                                                                     
-            <arg value="${siteXml}"/>
-        	   <arg value="-exclude"/>
-        	   <arg value="${excludes}"/>
-        	   <arg value="-include"/>
-        	   <arg value="${includes}"/>       	
-        </java>
-	     <java jar="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar" fork="true" failonerror="true">
-	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
-	         <arg line="-digestBuilder
-	         	  -digestOutputDir=${buildRoot}/uploadsite -siteXML=${siteXml}"/>
-	       </java>
-		
-    </target>  
 </project>

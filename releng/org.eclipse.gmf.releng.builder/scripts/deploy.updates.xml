@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<project xmlns:antcontrib="antlib:net.sf.antcontrib" default="deploy.local" basedir=".">
+    <taskdef uri="antlib:net.sf.antcontrib"
+	    resource="net/sf/antcontrib/antlib.xml"
+	    classpath="${lib}/ant-contrib.jar"/>	
+<!--    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/> -->	
+	
+    <target name="check.updates.path" unless="site.path">
+		<echo message="'updates.path' property is not set"/>
+		<property name="updates.missing" value="true"/>
+    </target>
+    
+    <target name="check.buildLabel" unless="buildLabel">                                                                                                                                           
+		<echo message="'buildLabel' property is not set"/>                                                                                                                                           
+		<property name="args.missing" value="true"/>                                                                                                                                                                                  
+    </target>                       
+   
+    <target name="check.args" depends="check.updates.path,check.buildLabel">
+		<fail if="args.missing" message="Some required properties are not set. Site.xml generation failed"/>
+    </target>	                                                                                                                                                              
+    
+	<target name="init" depends="check.args">		
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+		<property file="build.properties"/>
+	</target>	
+	
+	<!-- ************************************************************************************** -->
+	<!-- @params features.list - comma-separated list of feature names to include into site.xml -->
+	<!--                         WILDCARDS ARE ALLOWED !!!										-->
+	<!-- @returns set of properies in a form of feature.version!<feature.id>                    -->
+	<!-- 		  initialized with feature versions  											-->
+	<!-- ************************************************************************************** -->
+	<target name="mine.feature.versions" depends="init">
+	    <antcontrib:for list="${features.list}" param="feature2add">
+	    	<sequential>
+			<echo message="@{feature2add}"/>
+			<antcontrib:for param="file">
+			    <path>
+				<fileset dir="${updates.path}/features" includes="@{feature2add}_*.jar" />
+			    </path>
+			    <sequential>
+				<echo message="@{file}"/>
+	            <antcontrib:propertyregex property="feature.id"                                                                                                                            
+	                input="@{file}"                                                                                                                                                              
+	                regexp="([^/]*)_.*\.jar"                                                                                                                                                        
+	                select="\1"                                                                                                                                                                  
+	                override="true"/>                                                                                                                                                            
+	                <echo message="${feature.id}"/>
+				<antcontrib:propertyregex property="feature.version!${feature.id}"
+				    input="@{file}"
+				    regexp="([^\_]*)\.jar"
+				    select="\1" 
+				    override="true"/>
+			    <antcontrib:propertycopy name="feature.version" from="feature.version!${feature.id}" override="true"/>
+			    <echo message="${feature.version}"/>
+			    </sequential>
+			</antcontrib:for>
+			</sequential>
+	    </antcontrib:for>	
+	</target>	
+	
+    <target name="generate.site.xml" depends="init, mine.feature.versions" 
+    					description="Generate site.xml for the update site">
+        <echo file="${updates.path}/site.xml" append="false"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
+<![CDATA[<?xml-stylesheet type="text/xsl" href="web/site.xsl"?>]]>                                                                                                                               
+<![CDATA[<site>]]>
+		</echo>
+    	
+    	<antcontrib:propertyselector property="feature.ids.list"
+                         delimiter=","
+                         match="feature.version!(.*)"
+                         select="\1"
+                         casesensitive="false" />    	
+    	
+    	<antcontrib:for list="${feature.ids.list}" param="feature.id">
+    		<sequential>
+		    	<antcontrib:propertycopy name="feature.version" from="feature.version!@{feature.id}" override="true"/>
+    			<echo message="adding @{feature.id} [${feature.version}] ..."/>
+				<echo file="${updates.path}/site.xml" append="true">
+	<![CDATA[<feature]]> url="features/@{feature.id}_${feature.version}.jar" id="@{feature.id}" version="${feature.version}"<![CDATA[>]]>
+	<![CDATA[<category]]> name="${buildLabel}"<![CDATA[/>]]>
+	<![CDATA[</feature>]]>		
+				</echo>
+			</sequential>
+    	</antcontrib:for>	
+    	<echo file="${updates.path}/site.xml" append="true">
+    <![CDATA[<category-def]]> label="Graphical Modeling Framework ${buildLabel}" name="${buildLabel}"<![CDATA[>]]>                                                                         
+	<![CDATA[<description>]]>This category contains the various features of the ${buildLabel} build of the Graphical Modeling Framework<![CDATA[</description>]]>                                                                               
+    <![CDATA[</category-def>]]>
+<![CDATA[</site>]]>
+		</echo>  	
+    </target>
+	
+	
+	<!-- **************************************************************************************** -->
+	<!-- Creates site.xml manifest for the given updates and deploys them to the local update site -->
+	<!-- @params updates.path - path to the updates to be mirrored								  -->
+	<!-- @params buildLabel - buildLabel. This will be included as a category name			      -->
+	<!-- @params features.list - comma-separated list of feature names to include into site.xml   -->
+	<!--                         WILDCARDS ARE ALLOWED !!!										  -->
+	<!-- @params updatesite.name - local update site name to deploy given updates to		      -->
+	<!-- @returns set of properies in a form of feature.version!<feature.id>                      -->
+	<!-- 		  initialized with feature versions  											  -->
+	<!-- ***************************************************************************************  -->
+    <target name="deploy.local" depends="init, generate.site.xml" if="updatesite.name"
+    					description="Deploys updates to the local update site">    	
+    	<antcontrib:propertyselector property="feature.ids.list"
+                         delimiter=","
+                         match="feature.version!(.*)"
+                         select="\1"
+                         casesensitive="false" />
+    	<antcontrib:for list="${feature.ids.list}" param="feature.id">
+    		<sequential>
+		    	<antcontrib:propertycopy name="feature.version" from="feature.version!@{feature.id}" override="true"/>
+    			<echo message="adding @{feature.id} [${feature.version}] ..."/>
+    			<ant antfile="update.xml" target="mirror">
+    				<property name="featureId" value="@{feature.id}" />
+    				<property name="version" value="${feature.version}" />
+    				<property name="from.updatesite" value="file://${updates.path}/site.xml" />
+ <!--   				<property name="updatesite.name" value="${updatesite.name}" />  -->
+    			</ant>	
+			</sequential>
+    	</antcontrib:for>	
+    </target>
+	
+	
+</project>
+
