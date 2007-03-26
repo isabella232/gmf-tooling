@@ -13,7 +13,7 @@
 
 	<!-- Mirror will check for current install to avoid unnecessary downloads. -->
 	<target name="install" description="Install a feature using the update manager.">		
-		<ant antfile="updatesite.local.xml" target="mirror"/>
+		<ant antfile="${scripts}/updatesite.local.xml" target="mirror"/>
 		<!-- TODO: check on success of mirror and default to install from remote -->
 		<antcall target="install.local"/>
 		<antcall target="install.remote"/>
