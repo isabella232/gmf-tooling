@@ -122,7 +122,7 @@
     		<sequential>
 		    	<antcontrib:propertycopy name="feature.version" from="feature.version!@{feature.id}" override="true"/>
     			<echo message="adding @{feature.id} [${feature.version}] ..."/>
-    			<ant antfile="update.xml" target="mirror">
+    			<ant antfile="updatesite.local.xml" target="mirror">
     				<property name="featureId" value="@{feature.id}" />
     				<property name="version" value="${feature.version}" />
     				<property name="from.updatesite" value="file://${updates.path}/site.xml" />

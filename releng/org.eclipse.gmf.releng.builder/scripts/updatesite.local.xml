@@ -45,8 +45,23 @@
 		</copy>
 	</target>
 	
-	<target name="mirror" depends="init">
-		<ant antfile="update.xml" target="mirror"/>
+	<target name="mirror">
+		<echo message="Mirroring ${featureId} ${version} from ${from.updatesite}"/>
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="mirror"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${from.updatesite}"/>
+			<arg value="-to"/>
+			<arg value="${updatesite.local.path}/${updatesite.name}"/>
+		</java>
 	</target>
+			
 	
 </project>
