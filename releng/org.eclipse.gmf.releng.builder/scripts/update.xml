@@ -39,8 +39,8 @@
 	</target>
 			
 	<target name="install.local" if="usingMirror">
-		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/${updatesite.name}
-				to ${baseLocation}"/>
+		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/${updatesite.name}"/>
+		<echo message=" to ${baseLocation}"/>
 		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -58,8 +58,8 @@
 	</target>
 	
 	<target name="install.remote" unless="usingMirror">
-		<echo message="Installing ${featureId} ${version} remotely from ${from.updatesite}
-				to ${baseLocation}"/>
+		<echo message="Installing ${featureId} ${version} remotely from ${from.updatesite}"/>
+		<echo message=" to ${baseLocation}"/>
 		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
