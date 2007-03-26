@@ -104,7 +104,7 @@ public class NavigatorLabelProviderGenerator
   protected final String TEXT_84 = ") element).getAdapter(";
   protected final String TEXT_85 = ".class);" + NL + "\t\t\tif (view != null && isOwnView(view)) {" + NL + "\t\t\t\treturn getText(view);" + NL + "\t\t\t}" + NL + "\t\t}";
   protected final String TEXT_86 = NL + "\t\treturn super.getText(element);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getText(";
-  protected final String TEXT_87 = " view) {" + NL + "\t\tif (view.getElement().eIsProxy()) {" + NL + "\t\t\treturn getUnresolvedDomainElementProxyText(view);" + NL + "\t\t}" + NL + "\t\tswitch (";
+  protected final String TEXT_87 = " view) {" + NL + "\t\tif (view.getElement() != null && view.getElement().eIsProxy()) {" + NL + "\t\t\treturn getUnresolvedDomainElementProxyText(view);" + NL + "\t\t}" + NL + "\t\tswitch (";
   protected final String TEXT_88 = ".getVisualID(view)) {";
   protected final String TEXT_89 = NL + "\t\tcase ";
   protected final String TEXT_90 = ".VISUAL_ID:" + NL + "\t\t\treturn get";
