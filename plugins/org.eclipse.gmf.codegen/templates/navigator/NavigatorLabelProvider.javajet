@@ -251,7 +251,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 	 * @generated
 	 */
 	public String getText(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
-		if (view.getElement().eIsProxy()) {
+		if (view.getElement() != null && view.getElement().eIsProxy()) {
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view)) {
