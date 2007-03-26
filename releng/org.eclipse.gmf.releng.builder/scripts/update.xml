@@ -2,6 +2,15 @@
 <project name="project" default="">
 	
 	<property file="build.properties"/>
+	<condition property="mirrorAvailable">
+		<http url="${updatesite.local.url}/requirements/site.xml"/>
+	</condition>
+	<condition property="usingMirror">
+		<and>
+			<isset property="mirrorAvailable"/>
+			<isset property="useMirror"/>
+		</and>
+	</condition>
 
 	<!-- Mirror will check for current install to avoid unnecessary downloads. -->
 	<target name="install" description="Install a feature using the update manager.">		
@@ -30,7 +39,8 @@
 	</target>
 			
 	<target name="install.local" if="usingMirror">
-		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/${updatesite.name}"/>
+		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/${updatesite.name}
+				to ${baseLocation}"/>
 		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -48,7 +58,8 @@
 	</target>
 	
 	<target name="install.remote" unless="usingMirror">
-		<echo message="Installing ${featureId} ${version} remotely from ${from.updatesite}"/>
+		<echo message="Installing ${featureId} ${version} remotely from ${from.updatesite}
+				to ${baseLocation}"/>
 		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			

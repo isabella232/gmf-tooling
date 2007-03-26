@@ -4,15 +4,6 @@
 	<condition property="isZip">
 		<equals arg1="${archiveType}" arg2="zip" casesensitive="false" trim="true"/>
     </condition>
-	<condition property="mirrorAvailable">
-		<http url="${updatesite.local.url}/requirements/site.xml"/>
-	</condition>
-	<condition property="usingMirror">
-		<and>
-			<isset property="mirrorAvailable"/>
-			<isset property="useMirror"/>
-		</and>
-	</condition>
 	
 	<target name="getBaseComponentZip" if="isZip">
 		<available file="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" property="baseZipPresent"/>
