@@ -63,6 +63,13 @@
 	    </antcontrib:for>	
 	</target>	
 	
+	<!-- **************************************************************************************** -->
+	<!-- Creates site.xml manifest for the given updates                                          -->
+	<!-- @params updates.path - path to the updates to be mirrored								  -->
+	<!-- @params buildLabel - buildLabel. This will be included as a category name			      -->
+	<!-- @params features.list - comma-separated list of feature names to include into site.xml   -->
+	<!--                         WILDCARDS ARE ALLOWED !!!										  -->
+	<!-- ***************************************************************************************  -->
     <target name="generate.site.xml" depends="init, mine.feature.versions" 
     					description="Generate site.xml for the update site">
         <echo file="${updates.path}/site.xml" append="false"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
@@ -103,8 +110,6 @@
 	<!-- @params features.list - comma-separated list of feature names to include into site.xml   -->
 	<!--                         WILDCARDS ARE ALLOWED !!!										  -->
 	<!-- @params updatesite.name - local update site name to deploy given updates to		      -->
-	<!-- @returns set of properies in a form of feature.version!<feature.id>                      -->
-	<!-- 		  initialized with feature versions  											  -->
 	<!-- ***************************************************************************************  -->
     <target name="deploy.local" depends="init, generate.site.xml" if="updatesite.name"
     					description="Deploys updates to the local update site">    	
