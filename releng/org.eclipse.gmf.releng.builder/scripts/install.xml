@@ -121,7 +121,7 @@
 	</target>
 
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="from.updatesite" value="${emfUpdateSite}" />
@@ -151,37 +151,37 @@
 	<!-- TODO: do check installed for EMFT components as well. -->
 	<target name="installEMFT" unless="emftExists" depends="checkEMFTInstalled">
 		<!--
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfOCLUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQueryOCLFeatureId}" />
 			<property name="version" value="${emfQueryOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryOCLUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfValidationFeatureId}" />
 			<property name="version" value="${emfValidationUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfValidationOCLFeatureId}" />
 			<property name="version" value="${emfValidationOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationOCLUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfTransactionFeatureId}" />
 			<property name="version" value="${emfTransactionUpdateVersion}" />
 			<property name="updateSite" value="${emfTransactionUpdateSite}" />
 		</ant>
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfWorkspaceFeatureId}" />
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
@@ -231,7 +231,7 @@
 	</target>
 	
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfExamplesFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="from.updatesite" value="${emfUpdateSite}" />
@@ -253,7 +253,7 @@
 
 	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
 <!-- GEF doesn't currently have interim builds available via the update manager, so use zip		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${gefFeatureId}" />
 			<property name="version" value="${gefVersion}" />
 			<property name="updateSite" value="${gefUpdateSite}" />
@@ -369,7 +369,7 @@
 	</target>
 
 	<target name="installXerces" unless="xercesExists" depends="checkXercesInstalled">	
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${xercesFeatureId}" />
 			<property name="version" value="${xercesUpdateVersion}" />
 			<property name="from.updatesite" value="${xercesUpdateSite}" />
@@ -382,7 +382,7 @@
 	</target>
 
 	<target name="installBatik" unless="batikExists" depends="checkBatikInstalled">	
-		<ant antfile="${scripts}/update.xml" target="installFeature">
+		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${batikFeatureId}" />
 			<property name="version" value="${batikUpdateVersion}" />
 			<property name="from.updatesite" value="${batikUpdateSite}" />
