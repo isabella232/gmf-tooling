@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <project name="project" default="">
 	
-	<!-- TODO: create custom Ant tasks for update manager -->
+	<property file="build.properties"/>
 
 	<!-- Mirror will check for current install to avoid unnecessary downloads. -->
-	<target name="installFeature" description="Install a feature using the update manager.">		
+	<target name="install" description="Install a feature using the update manager.">		
 		<antcall target="mirror"/>
 		<!-- TODO: check on success of mirror and default to install from remote -->
-		<antcall target="install"/>
-		<antcall target="installRemote"/>
+		<antcall target="install.local"/>
+		<antcall target="install.remote"/>
 	</target>
 	
-	<target name="mirror" if="usingMirror">
-		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
+	<target name="mirror">
+		<echo message="Mirroring ${featureId} ${version} from ${from.updatesite}"/>
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -23,33 +23,15 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${updateSite}"/>
+			<arg value="${from.updatesite}"/>
 			<arg value="-to"/>
-			<arg value="${updatesite.local.path}/requirements"/>
+			<arg value="${updatesite.local.path}/${updatesite.name}"/>
 		</java>
 	</target>
-	
-	<target name="mirror2" if="mirror">
-		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
-			<arg value="-application"/>
-			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
-			<arg value="-command"/>
-			<arg value="mirror"/>
-			<arg value="-featureId"/>
-			<arg value="${featureId}"/>
-			<arg value="-version"/>
-			<arg value="${version}"/>
-			<arg value="-from"/>
-			<arg value="${updateSite}"/>
-			<arg value="-to"/>
-			<arg value="${mirror}"/>
-		</java>
-	</target>
-		
-	<target name="install" if="usingMirror">
-		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/requirements"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
+			
+	<target name="install.local" if="usingMirror">
+		<echo message="Installing ${featureId} ${version} locally from ${updatesite.local.url}/${updatesite.name}"/>
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -59,13 +41,15 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${updatesite.local.url}/requirements"/>
+			<arg value="${updatesite.local.url}/${updatesite.name}"/>
+			<arg value="-to"/>
+			<arg value="${baseLocation}"/>
 		</java>
 	</target>
 	
-	<target name="installRemote" unless="usingMirror">
-		<echo message="Installing ${featureId} ${version} remotely from ${updateSite}"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
+	<target name="install.remote" unless="usingMirror">
+		<echo message="Installing ${featureId} ${version} remotely from ${from.updatesite}"/>
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -75,14 +59,16 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${updateSite}"/>
+			<arg value="${from.updatesite}"/>
+			<arg value="-to"/>
+			<arg value="${baseLocation}"/>
 		</java>
 	</target>
 	
 	<target name="uninstall" if="usingMirror">
 		<!-- First, must disable the feature -->
 		<echo message="Disabling ${featureId} ${version}"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -91,10 +77,12 @@
 			<arg value="${featureId}"/>
 			<arg value="-version"/>
 			<arg value="${version}"/>
+			<arg value="-to"/>
+			<arg value="${baseLocation}"/>
 		</java>
 		<!-- Now, uninstall -->
 		<echo message="Uninstalling ${featureId} ${version}"/>
-		<java jar="${baseLocation}/plugins/${equinoxLauncherJar}" fork="true" failonerror="false">
+		<java jar="${equinox.launcher.jar}" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
 			<arg value="-command"/>
@@ -103,6 +91,8 @@
 			<arg value="${featureId}"/>
 			<arg value="-version"/>
 			<arg value="${version}"/>
+			<arg value="-to"/>
+			<arg value="${baseLocation}"/>
 		</java>		
 	</target>
 
