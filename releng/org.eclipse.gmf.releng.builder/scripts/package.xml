@@ -59,11 +59,11 @@
 	<target name="packageBatik" if="packageBatik">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<mkdir dir="${tmpsite}/batik" />
-		<ant antfile="${scripts}/update.xml" target="mirror2">
+		<ant antfile="${scripts}/update.xml" target="mirror">
 			<property name="featureId" value="${batikFeatureId}" />
 			<property name="version" value="${batikUpdateVersion}" />
-			<property name="updateSite" value="${batikUpdateSite}" />
-			<property name="mirror" value="${tmpsite}/batik" />
+			<property name="from.updatesite" value="${batikUpdateSite}" />
+			<property name="to.updatesite" value="${tmpsite}/batik" />
 		</ant>		
 		<unpackUpdateJars site="${tmpsite}/batik" output="${tmpsite}/new/eclipse"/>
 		<delete dir="${tmpsite}/batik"/>
@@ -72,11 +72,11 @@
 	<target name="packageXerces" if="packageXerces">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<mkdir dir="${tmpsite}/xerces" />
-		<ant antfile="${scripts}/update.xml" target="mirror2">
+		<ant antfile="${scripts}/update.xml" target="mirror">
 			<property name="featureId" value="${xercesFeatureId}" />
 			<property name="version" value="${xercesUpdateVersion}" />
-			<property name="updateSite" value="${xercesUpdateSite}" />
-			<property name="mirror" value="${tmpsite}/xerces" />
+			<property name="from.updatesite" value="${xercesUpdateSite}" />
+			<property name="to.updatesite" value="${tmpsite}/xerces" />
 		</ant>		
 		<unpackUpdateJars site="${tmpsite}/xerces" output="${tmpsite}/new/eclipse"/>
 		<delete dir="${tmpsite}/xerces"/>
