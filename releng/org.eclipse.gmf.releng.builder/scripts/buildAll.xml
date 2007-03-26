@@ -78,7 +78,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
 	</target>
 
 	<target name="nightly" depends="init,checkArgs">
@@ -143,7 +142,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<ant antfile="deploy.xml" target="deploy.zips" />		
 		<antcall target="statCVS" />
@@ -209,7 +207,6 @@
 			<property name="targetConfigTag" value="${integration.target}" />
 			<property name="componentsTag" value="${integration.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>  
 		<antcall target="publish" />
 		<ant antfile="deploy.xml" target="deploy.zips" />		
 		<ant antfile="deploy.xml" target="deploy.updates.interim" />		
@@ -279,7 +276,6 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<!-- Removing auto-deployment of stable builds - better do deploy them manually
 		<ant antfile="deploy.xml" target="deploy.zips" />		
@@ -351,7 +347,6 @@
 			<property name="targetConfigTag" value="${maintenance.target}" />
 			<property name="componentsTag" value="${maintenance.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<ant antfile="deploy.xml" target="deploy.zips" />		
 	</target>
