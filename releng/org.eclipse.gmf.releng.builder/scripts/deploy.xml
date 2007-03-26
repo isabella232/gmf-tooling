@@ -57,9 +57,9 @@
 	</target>
 	
 	<target name="deploy.updates.interim" depends="init"> 	
-<!--		<ant antfile="updatesite.local.xml" target="init.site">
+		<ant antfile="updatesite.local.xml" target="init.site">
 			<property name="updatesite.name" value="interim"/>
-		</ant>  -->
+		</ant> 
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
