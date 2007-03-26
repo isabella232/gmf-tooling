@@ -56,10 +56,10 @@
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
 	
-	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
-		<ant antfile="updatesite.local.xml" target="init.site">
+	<target name="deploy.updates.interim" depends="init"> 	
+<!--		<ant antfile="updatesite.local.xml" target="init.site">
 			<property name="updatesite.name" value="interim"/>
-		</ant>
+		</ant>  -->
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
@@ -79,7 +79,7 @@
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
-	<target name="deploy.updates.milestone" depends="init" unless="skipUpload"> 	
+	<target name="deploy.updates.milestone" depends="init"> 	
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
@@ -96,7 +96,7 @@
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 	
-	<target name="deploy.updates.release" depends="init" unless="skipUpload"> 	
+	<target name="deploy.updates.release" depends="init"> 	
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-sdk-experimental-${buildId}.zip"
@@ -113,7 +113,7 @@
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
 
-	<target name="deploy.updates.europa" depends="init" unless="skipUpload"> 	
+	<target name="deploy.updates.europa" depends="init"> 	
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-europa-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<!-- PLACEHOLDER: Downloading EMTF plugins from the update site -->
@@ -126,7 +126,7 @@
 	</target>
 
 <!-- TODO	
-	<target name="deploy.updates.batik" depends="init" unless="skipUpload"> 	
+	<target name="deploy.updates.batik" depends="init"> 	
 		<antcall target="init.site">
 			<param name="updateSiteName" value="batik"/>
 		</antcall>

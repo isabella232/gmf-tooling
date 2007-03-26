@@ -22,16 +22,18 @@
 	<target name="rsync.down" depends="init" if="updatesite.name">
 		<exec executable="rsync">
 			<arg value="-var"/>
+			<arg value="--delete"/>
 			<arg value="${ftpUser}@download1.eclipse.org:/home/www/modeling/gmf/update-site/${updatesite.name}"/>
-			<arg value="${updatesite.local.path}/${updatesite.name}"/>
+			<arg value="${updatesite.local.path}/"/>
 		</exec>	
 	</target>
 	
 	<target name="rsync.up" depends="init" if="updatesite.name" unless="skipUpload">
 		<exec executable="rsync">
 			<arg value="-var"/>
+			<arg value="--delete"/>
 			<arg value="${updatesite.local.path}/${updatesite.name}"/>
-			<arg value="${ftpUser}@download1.eclipse.org:/home/www/modeling/gmf/update-site/${updatesite.name}"/>
+			<arg value="${ftpUser}@download1.eclipse.org:/home/www/modeling/gmf/update-site/"/>
 		</exec>	
 	</target>	
 	
