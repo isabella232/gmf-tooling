@@ -50,18 +50,19 @@ public class NavigatorActionProviderGenerator
   protected final String TEXT_33 = " page = myViewerSite.getPage();";
   protected final String TEXT_34 = NL + "\t\t\t";
   protected final String TEXT_35 = " editorInput = new ";
-  protected final String TEXT_36 = "(myDiagram);" + NL + "\t\t \ttry {" + NL + "\t\t\t\tpage.openEditor(editorInput, ";
-  protected final String TEXT_37 = ".ID);" + NL + "\t\t\t} catch (";
-  protected final String TEXT_38 = " e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_39 = ".getInstance().logError(\"Exception while openning diagram\", e);" + NL + "\t\t\t}";
-  protected final String TEXT_40 = NL + "\t\t\ttry {" + NL + "\t\t\t\t";
-  protected final String TEXT_41 = " diagramView = (";
-  protected final String TEXT_42 = ")page.showView(";
-  protected final String TEXT_43 = ".ID);" + NL + "\t\t\t\tdiagramView.showDiagram(null, ";
-  protected final String TEXT_44 = ".getURI(myDiagram));" + NL + "\t\t\t} catch (";
-  protected final String TEXT_45 = " e) {" + NL + "\t\t\t\tthrow new RuntimeException(\"Can't open diagram\", e);" + NL + "\t\t\t}";
-  protected final String TEXT_46 = NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_47 = NL;
+  protected final String TEXT_36 = "(";
+  protected final String TEXT_37 = ".getURI(myDiagram));" + NL + "\t\t \ttry {" + NL + "\t\t\t\tpage.openEditor(editorInput, ";
+  protected final String TEXT_38 = ".ID);" + NL + "\t\t\t} catch (";
+  protected final String TEXT_39 = " e) {" + NL + "\t\t\t\t";
+  protected final String TEXT_40 = ".getInstance().logError(\"Exception while opening diagram\", e);" + NL + "\t\t\t}";
+  protected final String TEXT_41 = NL + "\t\t\ttry {" + NL + "\t\t\t\t";
+  protected final String TEXT_42 = " diagramView = (";
+  protected final String TEXT_43 = ")page.showView(";
+  protected final String TEXT_44 = ".ID);" + NL + "\t\t\t\tdiagramView.showDiagram(null, ";
+  protected final String TEXT_45 = ".getURI(myDiagram));" + NL + "\t\t\t} catch (";
+  protected final String TEXT_46 = " e) {" + NL + "\t\t\t\tthrow new RuntimeException(\"Can't open diagram\", e);" + NL + "\t\t\t}";
+  protected final String TEXT_47 = NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_48 = NL;
 
   public String generate(Object argument)
   {
@@ -158,36 +159,38 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil"));
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName()));
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
     stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_40);
     
 } else {
 
-    stringBuffer.append(TEXT_40);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart"));
     stringBuffer.append(TEXT_41);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart"));
     stringBuffer.append(TEXT_42);
-    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramViewPart"));
     stringBuffer.append(TEXT_43);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil"));
+    stringBuffer.append(importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName()));
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil"));
     stringBuffer.append(TEXT_45);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
+    stringBuffer.append(TEXT_46);
     
 }
 
-    stringBuffer.append(TEXT_46);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_47);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_48);
     return stringBuffer.toString();
   }
 }

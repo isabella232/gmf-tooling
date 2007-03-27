@@ -136,11 +136,11 @@ public class <%=genNavigator.getActionProviderClassName()%> extends <%=importMan
 <%
 if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 %>
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput")%>(myDiagram);
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.util.EcoreUtil")%>.getURI(myDiagram));
 		 	try {
 				page.openEditor(editorInput, <%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
 			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
-				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exception while openning diagram", e);
+				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exception while opening diagram", e);
 			}
 <%
 } else {
