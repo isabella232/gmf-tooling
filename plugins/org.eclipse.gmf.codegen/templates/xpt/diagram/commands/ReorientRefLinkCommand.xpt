@@ -59,12 +59,27 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
+		if (false == referenceOwner instanceof «getQualifiedInterfaceName(featureModelFacet.getSourceType())») {
+			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
+				"Incorrect link source: " + referenceOwner);
+		}
+		«getQualifiedInterfaceName(featureModelFacet.getSourceType())» source = («getQualifiedInterfaceName(featureModelFacet.getSourceType())») referenceOwner;
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-			«EXPAND reorientSelfAsEnd("referenceOwner", "newEnd") FOR featureModelFacet.metaFeature-»
+			if (false == newEnd instanceof «getQualifiedInterfaceName(featureModelFacet.getSourceType())») {
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
+					"Incorrect new link source: " + newEnd);
+			}
+			«getQualifiedInterfaceName(featureModelFacet.getSourceType())» newSource = («getQualifiedInterfaceName(featureModelFacet.getSourceType())») newEnd;
+			«EXPAND reorientSelfAsEnd("source", "newSource") FOR featureModelFacet.metaFeature-»
 			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			«EXPAND reorientEnd("referenceOwner", "newEnd") FOR featureModelFacet.metaFeature-»
+			if (false == newEnd instanceof «getQualifiedInterfaceName(featureModelFacet.getTargetType())») {
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
+					"Incorrect new link target: " + newEnd);
+			}
+			«getQualifiedInterfaceName(featureModelFacet.getTargetType())» newTarget = («getQualifiedInterfaceName(featureModelFacet.getTargetType())») newEnd;
+			«EXPAND reorientEnd("source", "newTarget") FOR featureModelFacet.metaFeature-»
 			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
@@ -80,10 +95,10 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 «ENDREM»
 «DEFINE reorientEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
-		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».add(«newEndVar»);
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)».clear();
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)».add(«newEndVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, false, newEndVar, false)»;
+		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, true, newEndVar, true)»;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -93,12 +108,12 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 «ENDREM»
 «DEFINE reorientSelfAsEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
 	«IF ecoreFeature.many-»
-		java.util.Collection values = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
-		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)».clear();
-		«EXPAND xpt::Common::getFeatureValue(newEndVar, false)».addAll(values);
+		java.util.Collection values = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)»;
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)».clear();
+		«EXPAND xpt::Common::getFeatureValue(newEndVar, true)».addAll(values);
 	«ELSE-»
-		Object value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, false)»;
-		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, false, "null", true)»;
-		«EXPAND xpt::Common::setFeatureValue(newEndVar, false, "value", false)»;
+		«getQualifiedInterfaceName(getTypeGenClassX(this))» value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)»;
+		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, true, "null", true)»;
+		«EXPAND xpt::Common::setFeatureValue(newEndVar, true, "value", true)»;
 	«ENDIF-»
 «ENDDEFINE»
