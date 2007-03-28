@@ -91,6 +91,7 @@ public class GenNavigatorItemProvider
 			addAbstractNavigatorItemClassNamePropertyDescriptor(object);
 			addNavigatorGroupClassNamePropertyDescriptor(object);
 			addNavigatorItemClassNamePropertyDescriptor(object);
+			addUriInputTesterClassNamePropertyDescriptor(object);
 			addPackageNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -405,6 +406,28 @@ public class GenNavigatorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Uri Input Tester Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUriInputTesterClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_uriInputTesterClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_uriInputTesterClassName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_UriInputTesterClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Package Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -691,6 +714,7 @@ public class GenNavigatorItemProvider
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
