@@ -66,17 +66,33 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EObject link = getElementToEdit();
-		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+		if (false == getElementToEdit() instanceof EscortShipsOrder) {
+			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		}
 
-			((Warship) link.eContainer()).setEscortOrder(null);
-			((Warship) newEnd).setEscortOrder((EscortShipsOrder) link);
+		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			if (false == newEnd instanceof Warship) {
+				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
+			}
+			Warship newSource = (Warship) newEnd;
+			if (false == getElementToEdit().eContainer() instanceof Warship) {
+				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
+			}
+			Warship source = (Warship) getElementToEdit().eContainer();
+
+			source.setEscortOrder(null);
+			newSource.setEscortOrder(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			if (false == newEnd instanceof Ship) {
+				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
+			}
+			Ship newTarget = (Ship) newEnd;
 
-			((EscortShipsOrder) link).getShips().clear();
-			((EscortShipsOrder) link).getShips().add(newEnd);
+			link.getShips().clear();
+			link.getShips().add(newTarget);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

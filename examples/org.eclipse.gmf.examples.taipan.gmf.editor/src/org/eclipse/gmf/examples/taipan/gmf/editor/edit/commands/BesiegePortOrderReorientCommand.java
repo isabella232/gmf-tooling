@@ -66,16 +66,32 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EObject link = getElementToEdit();
-		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+		if (false == getElementToEdit() instanceof BesiegePortOrder) {
+			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		}
 
-			((Warship) link.eContainer()).getAttackOrders().remove(link);
-			((Warship) newEnd).getAttackOrders().add(link);
+		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			if (false == newEnd instanceof Warship) {
+				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
+			}
+			Warship newSource = (Warship) newEnd;
+			if (false == getElementToEdit().eContainer() instanceof Warship) {
+				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
+			}
+			Warship source = (Warship) getElementToEdit().eContainer();
+
+			source.getAttackOrders().remove(link);
+			newSource.getAttackOrders().add(link);
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			if (false == newEnd instanceof Port) {
+				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
+			}
+			Port newTarget = (Port) newEnd;
 
-			((BesiegePortOrder) link).setPort((Port) newEnd);
+			link.setPort(newTarget);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

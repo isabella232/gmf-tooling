@@ -65,15 +65,28 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EObject link = getElementToEdit();
-		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+		if (false == getElementToEdit() instanceof Route) {
+			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		}
 
-			((Route) link).setSource((Port) newEnd);
+		Route link = (Route) getElementToEdit();
+		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			if (false == newEnd instanceof Port) {
+				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
+			}
+			Port newSource = (Port) newEnd;
+
+			link.setSource(newSource);
+
 			return CommandResult.newOKCommandResult(link);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			if (false == newEnd instanceof Port) {
+				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
+			}
+			Port newTarget = (Port) newEnd;
 
-			((Route) link).setDestination((Port) newEnd);
+			link.setDestination(newTarget);
 			return CommandResult.newOKCommandResult(link);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);

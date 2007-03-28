@@ -72,16 +72,28 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (false == referenceOwner instanceof Ship) {
+			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
+		}
+		Ship source = (Ship) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
+			if (false == newEnd instanceof Ship) {
+				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
+			}
+			Ship newSource = (Ship) newEnd;
 
-			Object value = ((Ship) referenceOwner).getDestination();
-			((Ship) referenceOwner).setDestination(null);
-			((Ship) newEnd).setDestination((Port) value);
+			Port value = source.getDestination();
+			source.setDestination(null);
+			newSource.setDestination(value);
 			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
+			if (false == newEnd instanceof Port) {
+				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
+			}
+			Port newTarget = (Port) newEnd;
 
-			((Ship) referenceOwner).setDestination((Port) newEnd);
+			source.setDestination(newTarget);
 			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
