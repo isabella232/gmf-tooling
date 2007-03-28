@@ -140,13 +140,13 @@
 	<target name="preAssemble">
 		<!-- iterating through the examples features to pack them all into zips -->
 		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
-		<propertyselector property="zip.list"
+		<antcontrib:propertyselector property="zip.list"
 		                         delimiter=","
 		                         match="zip@(.*)"
 		                         select="\1"
 		                         casesensitive="false" />
 		<echo message="zip.list: ${zip.list}"/>
-		<foreach list="${zip.list}"
+		<antcontrib:foreach list="${zip.list}"
 		                delimiter=","
 		                target="zipExamplePlugin"
 		                param="example.plugin.id" 
