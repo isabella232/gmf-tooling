@@ -1,10 +1,7 @@
-<project name="Build specific targets and properties" default="noDefault">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-	<taskdef
-		name="for"
-		classname="net.sf.antcontrib.logic.For"
-		onerror="report"/>
-	
+<project xmlns:antcontrib="antlib:net.sf.antcontrib" name="Build specific targets and properties" default="noDefault">
+   <taskdef uri="antlib:net.sf.antcontrib"
+	    resource="net/sf/antcontrib/antlib.xml"
+	    classpath="${lib}/ant-contrib.jar"/>	
 	
 	<property name="id" value="org.eclipse.gmf.examples.pde"/>
 	<property name="archiveName" value="GMF-examples-pde-${buildId}.zip"/>
@@ -157,16 +154,16 @@
 	</target>
 	
 	<target name="zipExamplePlugin">
-		<propertycopy property="zipFile" from="zip@${example.plugin.id}" /> 
+		<antcontrib:propertycopy property="zipFile" from="zip@${example.plugin.id}" /> 
 		<echo message="Plugin ${example.plugin.id}, zip file name: ${zipFile}"/>
 
 <!-- -->	
-		<for param="dir1">
+		<antcontrib:for param="dir1">
 		  <path>
 		    <dirset dir="${baseLocation}/plugins/" includes="org.eclipse.gmf.examples.source_*"/>
 		  </path>
 		  <sequential>
-			<for param="example.plugin.src">
+			<antcontrib:for param="example.plugin.src">
 			  <path>
 			    <dirset dir="@{dir1}/src" includes="${example.plugin.id}*"/>
 			  </path>
@@ -180,9 +177,9 @@
 					excludes="**/src.zip"
 				  />		
 				</sequential>
-			</for>
+			</antcontrib:for>
 			</sequential>
-		  </for>
+		  </antcontrib:for>
 		
 	</target>	
 	
