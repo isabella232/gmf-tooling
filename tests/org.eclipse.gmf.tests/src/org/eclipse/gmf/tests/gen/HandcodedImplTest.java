@@ -970,6 +970,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			checkClassName(state, "GenNavigator:AbstractNavigatorItem", navigator.getAbstractNavigatorItemClassName(), navigator.getAbstractNavigatorItemQualifiedClassName());
 			checkClassName(state, "GenNavigator:NavigatorGroup", navigator.getNavigatorGroupClassName(), navigator.getNavigatorGroupQualifiedClassName());
 			checkClassName(state, "GenNavigator:NavigatorItem", navigator.getNavigatorItemClassName(), navigator.getNavigatorItemQualifiedClassName());
+			checkClassName(state, "GenNavigator:UriInputTester", navigator.getUriInputTesterClassName(), navigator.getUriInputTesterQualifiedClassName());			
 			checkClassName(state, "GenDomainModelNavigator:DomainContentProvider", navigator.getDomainContentProviderClassName(), navigator.getDomainContentProviderQualifiedClassName());
 			checkClassName(state, "GenDomainModelNavigator:DomainLabelProvider", navigator.getDomainLabelProviderClassName(), navigator.getDomainLabelProviderQualifiedClassName());
 			checkClassName(state, "GenDomainModelNavigator:DomainModelElementTester", navigator.getDomainModelElementTesterClassName(), navigator.getDomainModelElementTesterQualifiedClassName());
