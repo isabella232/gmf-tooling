@@ -53,8 +53,30 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 	/**
 	 * @generated
 	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		mySelectedElement = null;
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) {
+				mySelectedElement = (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) structuredSelection.getFirstElement();
+			}
+		}
+		action.setEnabled(isEnabled());
+	}
+	
+	/**
+	 * @generated
+	 */
+	private boolean isEnabled() {
+		return mySelectedElement != null;
+	}
+
+	/**
+	 * @generated
+	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
+<%if(genDiagram.getEditorGen().getApplication() == null) {%>
 		<%=importManager.getImportedName(genDiagram.getElementChooserQualifiedClassName())%> elementChooser = new <%=importManager.getImportedName(genDiagram.getElementChooserQualifiedClassName())%>(myShell, view);
 		int result = elementChooser.open();
 		if (result != Window.OK) {
@@ -80,28 +102,17 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 		} catch (ExecutionException e) {
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedElement = null;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) {
-				mySelectedElement = (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) structuredSelection.getFirstElement();
-			}
+<%} else {%>
+		org.eclipse.emf.ecore.resource.Resource resource =
+				<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openModel(
+						myShell, "Select model to reference", mySelectedElement.getEditingDomain());
+		if (resource == null || resource.getContents().isEmpty()) {
+			return;
 		}
-		action.setEnabled(isEnabled());
+		ShortcutCreationWizard wizard = new ShortcutCreationWizard((EObject) resource.getContents().get(0), view, mySelectedElement.getEditingDomain());
+		wizard.setWindowTitle("Create shortcut");
+		<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.runWizard(myShell, wizard, "CreateShortcut"); //$NON-NLS-1$
+<%}%>
 	}
-	
-	/**
-	 * @generated
-	 */
-	private boolean isEnabled() {
-		return mySelectedElement != null;
-	}
-
 }
 <%importManager.emitSortedImports();%>

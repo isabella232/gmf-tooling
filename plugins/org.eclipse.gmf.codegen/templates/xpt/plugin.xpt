@@ -55,7 +55,7 @@
 
    <extension point="org.eclipse.ui.popupMenus">
       «EXPAND xpt::Common::xmlGeneratedTag»
-«IF null == editorGen.application && editorGen.diagram.generateCreateShortcutAction()-»
+«IF editorGen.diagram.generateCreateShortcutAction()-»
       <objectContribution
             adaptable="false"
             id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»1"

@@ -191,14 +191,21 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditor();
 		generateDocumentProvider();
 		generateLoadResourceAction();
+		if (myDiagram.generateInitDiagramAction() || myDiagram.generateCreateShortcutAction()) {
+			generateModelElementSelectionPage();
+		}
 		if (myDiagram.generateInitDiagramAction()) {
 			generateInitDiagramFileAction();
 			generateNewDiagramFileWizard();
 		}
-		if (myDiagram.getEditorGen().getApplication() == null) {
+		if (myDiagram.generateCreateShortcutAction()) {
 			generateCreateShortcutAction();
 			generateCreateShortcutDecorationCommand();
-			generateElementChooser();
+			if (myEditorGen.getApplication() == null) {
+				generateElementChooser();
+			} else {
+				generateShortcutCreationWizard();
+			}
 		}
 		generateActionBarContributor();
 		generateMatchingStrategy();
@@ -732,6 +739,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// editor
 
+	private void generateModelElementSelectionPage() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getModelElementSelectionPageEmitter(), myEmitters.getModelElementSelectionPageName(myDiagram), myDiagram);
+	}
+
 	private void generateInitDiagramFileAction() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getInitDiagramFileActionEmitter(), myEmitters.getInitDiagramFileActionName(myDiagram), myDiagram);
 	}
@@ -844,7 +855,11 @@ public class Generator extends GeneratorBase implements Runnable {
 				myDiagram
 			);
 	}
-	
+
+	private void generateShortcutCreationWizard() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getShortcutCreationWizardEmitter(), myEmitters.getShortcutCreationWizardName(myDiagram), myDiagram);
+	}
+
 	private void generateDocumentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDocumentProviderEmitter(), myDiagram.getDocumentProviderQualifiedClassName(), myDiagram);
 	}

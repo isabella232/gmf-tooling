@@ -479,6 +479,22 @@ public class CodegenEmitters {
 		return retrieve(DiagramContentsInitializerGenerator.class);
 	}
 
+	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ShortcutCreationWizard", input); //$NON-NLS-1$
+	}
+
+	public TextEmitter getShortcutCreationWizardEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::editor::ShortcutCreationWizard"); //$NON-NLS-1$
+	}
+
+	public String getModelElementSelectionPageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ModelElementSelectionPage", input); //$NON-NLS-1$
+	}
+
+	public TextEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::editor::ModelElementSelectionPage"); //$NON-NLS-1$
+	}
+
 	public String getInitDiagramFileActionName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::editor::InitDiagramFileAction", input); //$NON-NLS-1$
 	}

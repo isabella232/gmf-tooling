@@ -30,6 +30,56 @@ public class «diagramEditorUtilClassName» {
 
 «EXPAND getUniqueFileNameMethod»
 
+«IF editorGen.application != null»
+	/**
+	 * Allows user to select file and loads it as a model.
+	 * 
+	 * @generated
+	 */
+	public static org.eclipse.emf.ecore.resource.Resource openModel(
+			org.eclipse.swt.widgets.Shell shell, String description, org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
+		org.eclipse.swt.widgets.FileDialog fileDialog = new org.eclipse.swt.widgets.FileDialog(shell, org.eclipse.swt.SWT.OPEN);
+		if (description != null) {
+			fileDialog.setText(description);
+		}
+		fileDialog.open();
+		String fileName = fileDialog.getFileName();
+		if (fileName == null || fileName.length() == 0) {
+			return null;
+		}
+		if (fileDialog.getFilterPath() != null) {
+			fileName = fileDialog.getFilterPath() + java.io.File.separator + fileName;
+		}
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createFileURI(fileName);
+		org.eclipse.emf.ecore.resource.Resource resource = null;
+		try {
+			resource = editingDomain.getResourceSet().getResource(uri, true);
+		} catch (org.eclipse.emf.common.util.WrappedException we) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + uri, we);
+			org.eclipse.jface.dialogs.MessageDialog.openError(shell, "Error", "Failed to load model file " + fileName);
+		}
+		return resource;
+	}
+«ENDIF»
+
+	/**
+	 * Runs the wizard in a dialog.
+	 * 
+	 * @generated
+	 */
+	public static void runWizard(org.eclipse.swt.widgets.Shell shell, org.eclipse.jface.wizard.Wizard wizard, String settingsKey) {
+		org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDialogSettings();
+		org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);
+		if (wizardDialogSettings == null) {
+			wizardDialogSettings = pluginDialogSettings.addNewSection(settingsKey);
+		}
+		wizard.setDialogSettings(wizardDialogSettings);
+		org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(shell, wizard);
+		dialog.create();
+		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+		dialog.open();
+	}
+
 «EXPAND createDiagramMethod»
 «IF domainDiagramElement != null»
 	«EXPAND createInitialModelMethod»

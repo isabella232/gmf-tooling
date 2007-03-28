@@ -26,32 +26,22 @@ package «editorGen.editor.packageName»;
 public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.transaction.TransactionalEditingDomain myEditingDomain;
-
-	«EXPAND xpt::Common::generatedMemberComment»
 	private «EXPAND creationPage» myFileCreationPage;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.common.util.URI domainModelURI;
+	private «EXPAND xpt::editor::ModelElementSelectionPage::qualifiedClassName» diagramRootElementSelectionPage;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.ecore.EObject myDiagramRoot;
+	private org.eclipse.emf.transaction.TransactionalEditingDomain myEditingDomain;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND className»(org.eclipse.emf.common.util.URI domainModelURI,
 			org.eclipse.emf.ecore.EObject diagramRoot,
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-	    assert diagramRoot != null : "Null diagramRoot in «EXPAND className» constructor"; //$NON-NLS-1$
-	    assert editingDomain != null : "Null editingDomain in «EXPAND className» constructor"; //$NON-NLS-1$
+	    assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
+	    assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-	   	this.domainModelURI = domainModelURI;
-	   	myDiagramRoot = diagramRoot;
-	   	myEditingDomain = editingDomain;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void addPages() {
 		myFileCreationPage = new «EXPAND creationPage»("Initialize new diagram file", org.eclipse.jface.viewers.StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription(
@@ -67,9 +57,21 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
-		myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(filePath, fileName, "«editorGen.diagramFileExtension»")); //$NON-NLS-1$
+		myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
+				filePath, fileName, "«editorGen.diagramFileExtension»")); //$NON-NLS-1$
+
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage("Select diagram root element");
+		diagramRootElementSelectionPage.setTitle("Diagram root element");
+		diagramRootElementSelectionPage.setDescription("Select semantic model element to be depicted on diagram");
+		diagramRootElementSelectionPage.setModelElement(diagramRoot);
+
+	   	myEditingDomain = editingDomain;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void addPages() {
 		addPage(myFileCreationPage);
-		addPage(new RootElementSelectorPage());
+		addPage(diagramRootElementSelectionPage);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -98,21 +100,21 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 					org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 						throws org.eclipse.core.commands.ExecutionException {
-				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(myDiagramRoot);
+				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != «getEditPartQualifiedClassName()».VISUAL_ID) {
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
 						"Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
 				org.eclipse.gmf.runtime.notation.Diagram diagram =
 					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
-						myDiagramRoot, «getEditPartQualifiedClassName()».MODEL_ID,
+						diagramRootElementSelectionPage.getModelElement(), «getEditPartQualifiedClassName()».MODEL_ID,
 						«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				«IF editorGen.sameFileForDiagramAndModel-»
 				diagramResource.getContents().add(diagram.getElement());
 				«ENDIF-»
 				«IF !synchronized-»
-				new «editorGen.editor.packageName».DiagramContentsInitializer().initDiagramContents(diagram, myDiagramRoot);
+				new «editorGen.editor.packageName».DiagramContentsInitializer().initDiagramContents(diagram, diagramRootElementSelectionPage.getModelElement());
 				«ENDIF-»
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 			}
@@ -136,88 +138,30 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	}
 
 	«EXPAND xpt::Common::generatedClassComment»
-	private class RootElementSelectorPage extends org.eclipse.jface.wizard.WizardPage implements org.eclipse.jface.viewers.ISelectionChangedListener {
+	private static class DiagramRootElementSelectionPage extends «EXPAND xpt::editor::ModelElementSelectionPage::qualifiedClassName» {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		protected RootElementSelectorPage() {
-			super("Select diagram root element");
-			setTitle("Diagram root element");
-			setDescription("Select semantic model element to be depicted on diagram");
+		protected DiagramRootElementSelectionPage(String pageName) {
+			super(pageName);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public void createControl(org.eclipse.swt.widgets.Composite parent) {
-			initializeDialogUnits(parent);
-			org.eclipse.swt.widgets.Composite topLevel = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
-			topLevel.setLayout(new org.eclipse.swt.layout.GridLayout());
-			topLevel.setLayoutData(new org.eclipse.swt.layout.GridData(
-				org.eclipse.swt.layout.GridData.VERTICAL_ALIGN_FILL | org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_FILL));
-			topLevel.setFont(parent.getFont());
-			setControl(topLevel);
-			createModelBrowser(topLevel);
-			setPageComplete(validatePage());
+		protected String getSelectionTitle() {
+			return "Select diagram root element:";
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private void createModelBrowser(org.eclipse.swt.widgets.Composite parent) {
-			org.eclipse.swt.widgets.Composite panel = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
-			panel.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_BOTH));
-			org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout();
-			layout.marginWidth = 0;
-			panel.setLayout(layout);
-			
-			org.eclipse.swt.widgets.Label label = new org.eclipse.swt.widgets.Label(panel, org.eclipse.swt.SWT.NONE);
-			label.setText("Select diagram root element:");
-			label.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_BEGINNING));
-		
-			org.eclipse.jface.viewers.TreeViewer treeViewer = new org.eclipse.jface.viewers.TreeViewer(panel,
-				org.eclipse.swt.SWT.SINGLE | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL | org.eclipse.swt.SWT.BORDER);
-			org.eclipse.swt.layout.GridData layoutData = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_BOTH);
-			layoutData.heightHint = 300;
-			layoutData.widthHint = 300;
-			treeViewer.getTree().setLayoutData(layoutData);
-			treeViewer.setContentProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setLabelProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setInput(myDiagramRoot.eResource());
-			treeViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(myDiagramRoot));
-			treeViewer.addSelectionChangedListener(this);
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
-			myDiagramRoot = null;
-			if (event.getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-				org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) event.getSelection();
-				if (selection.size() == 1) {
-					Object selectedElement = selection.getFirstElement();
-					if (selectedElement instanceof org.eclipse.emf.edit.provider.IWrapperItemProvider) {
-						selectedElement = ((org.eclipse.emf.edit.provider.IWrapperItemProvider) selectedElement).getValue();
-					}
-					if (selectedElement instanceof org.eclipse.emf.ecore.util.FeatureMap.Entry) {
-						selectedElement = ((org.eclipse.emf.ecore.util.FeatureMap.Entry) selectedElement).getValue();
-					}
-					if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
-						myDiagramRoot = (org.eclipse.emf.ecore.EObject) selectedElement;
-					}
-				}
-			}
-			setPageComplete(validatePage());
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private boolean validatePage() {
-			if (myDiagramRoot == null) {
+		protected boolean validatePage() {
+			if (selectedModelElement == null) {
 				setErrorMessage("Diagram root element is not selected");
 				return false;
 			}
 			boolean result = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(
 				new org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation(
-					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(myDiagramRoot),
+					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement),
 					«getEditPartQualifiedClassName()».MODEL_ID,
 					«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			setErrorMessage(result ? null : "Invalid diagram root element is selected");
 			return result;
 		}
 	}
