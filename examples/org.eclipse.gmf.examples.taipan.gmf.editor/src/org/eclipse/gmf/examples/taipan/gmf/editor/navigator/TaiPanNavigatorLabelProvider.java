@@ -22,6 +22,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEdi
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteDescEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ReliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
@@ -135,6 +136,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?EscortShipsOrder", TaiPanElementTypes.EscortShipsOrder_4006);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?BesiegePortOrder", TaiPanElementTypes.BesiegePortOrder_4005);
+		case PortRegisterEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Port?register", TaiPanElementTypes.PortRegister_4007);
 		default:
 			return getImage("Navigator?UnknownElement", null);
 		}
@@ -217,6 +220,8 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 			return getEscortShipsOrder_4006Text(view);
 		case BesiegePortOrderEditPart.VISUAL_ID:
 			return getBesiegePortOrder_4005Text(view);
+		case PortRegisterEditPart.VISUAL_ID:
+			return getPortRegister_4007Text(view);
 		default:
 			return getUnknownElementText(view);
 		}
@@ -445,6 +450,13 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getBesiegePortOrder_4005Text(View view) {
+		return "";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getPortRegister_4007Text(View view) {
 		return "";
 	}
 

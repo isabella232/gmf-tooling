@@ -334,6 +334,18 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
 			return true;
 		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreatePortRegister_4007(Port source, Ship target) {
+			if (source != null) {
+				if (source.getRegister().contains(target)) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 }

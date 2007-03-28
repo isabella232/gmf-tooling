@@ -22,22 +22,27 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -87,6 +92,9 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
 			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingPortRegister_4007Command(req);
+		}
 		return super.getCreateRelationshipCommand(req);
 	}
 
@@ -127,6 +135,24 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	}
 
 	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingPortRegister_4007Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		EObject targetEObject = req.getTarget();
+		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Ship) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Port source = (Port) sourceEObject;
+		Ship target = (Ship) targetEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4007(source, target)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getPort_Register(), target);
+		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+
+	/**
 	 * Returns command to reorient link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
@@ -150,6 +176,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+		case PortRegisterEditPart.VISUAL_ID:
+			return getMSLWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

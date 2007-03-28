@@ -151,6 +151,11 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
       </contributionItemProvider>
    </extension>
 
@@ -428,6 +433,16 @@
             <param name="semanticHint" value="4005"/>
          </metamodelType>
       </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <specializationType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.PortRegister_4007"
+               name="%metatype.name.PortRegister_4007"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortRegisterEditHelperAdvice">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4007"/>
+         </specializationType>
+      </metamodel>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
@@ -452,6 +467,7 @@
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipsOrder_4006"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.BesiegePortOrder_4005"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.PortRegister_4007"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

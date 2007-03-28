@@ -110,6 +110,9 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 
 			case BesiegePortOrderEditPart.VISUAL_ID:
 				return new BesiegePortOrderEditPart(view);
+
+			case PortRegisterEditPart.VISUAL_ID:
+				return new PortRegisterEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

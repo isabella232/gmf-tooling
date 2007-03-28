@@ -140,6 +140,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
+	public static String Registration12CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Registration12CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String ShipSmallCargoEditPart_title;
 
 	/**
@@ -236,6 +246,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_BesiegePortOrder_4005_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_PortRegister_4007_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_PortRegister_4007_source;
 
 	//TODO: put accessor fields manually	
 }
