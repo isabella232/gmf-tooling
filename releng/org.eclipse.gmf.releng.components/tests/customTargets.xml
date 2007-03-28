@@ -1,5 +1,7 @@
-<project name="Build specific targets and properties" default="noDefault">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+<project xmlns:antcontrib="antlib:net.sf.antcontrib" name="Build specific targets and properties" default="noDefault">
+	<taskdef uri="antlib:net.sf.antcontrib"
+		resource="net/sf/antcontrib/antlib.xml"
+	    classpath="${lib}/ant-contrib.jar"/>	
 
 	<property name="id" value="org.eclipse.gmf.tests"/>
 	<property name="archiveName" value="GMF-tests-${buildId}.zip"/>
@@ -182,7 +184,7 @@
 		<!-- discover feature version -->
 		<var file="${buildRoot}/tests/finalPluginsVersions.properties"/>
 		<property name="sourceVersion" value="${org.eclipse.gmf.tests.source}"/>		
-	  	<var name="org.eclipse.gmf.tests" unset="true"/>
+	  	<antcontrib:var name="org.eclipse.gmf.tests" unset="true"/>
 		<!-- run the tests -->
 		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}/test.xml"
 	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${sourceVersion}" />
