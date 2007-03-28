@@ -11,21 +11,22 @@
  */
 package org.eclipse.gmf.ecore.edit.commands;
 
+import java.util.Collection;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 
 /**
  * @generated
  */
-public class EReferenceReorientCommand extends EditElementCommand {
+public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -35,14 +36,20 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject referenceOwner;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
 	 * @generated
 	 */
-	public EReferenceReorientCommand(ReorientRelationshipRequest request) {
-		super(request.getLabel(), request.getRelationship(), request);
+	public EAnnotationReferencesReorientCommand(ReorientReferenceRelationshipRequest request) {
+		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
+		referenceOwner = request.getReferenceOwner();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -50,14 +57,14 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(getElementToEdit() instanceof EReference)) {
+		if (!(referenceOwner instanceof EAnnotation)) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof EClass;
+			return newEnd instanceof EAnnotation;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof EClassifier;
+			return newEnd instanceof EObject;
 		}
 		return false;
 	}
@@ -66,33 +73,30 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == getElementToEdit() instanceof EReference) {
-			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		if (false == referenceOwner instanceof EAnnotation) {
+			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
 		}
-
-		EReference link = (EReference) getElementToEdit();
+		EAnnotation source = (EAnnotation) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof EClass) {
+			if (false == newEnd instanceof EAnnotation) {
 				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
 			}
-			EClass newSource = (EClass) newEnd;
-			if (false == getElementToEdit().eContainer() instanceof EClass) {
-				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
-			}
-			EClass source = (EClass) getElementToEdit().eContainer();
+			EAnnotation newSource = (EAnnotation) newEnd;
 
-			source.getEStructuralFeatures().remove(link);
-			newSource.getEStructuralFeatures().add(link);
-			return CommandResult.newOKCommandResult(link);
+			Collection values = source.getReferences();
+			source.getReferences().clear();
+			newSource.getReferences().addAll(values);
+			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof EClassifier) {
+			if (false == newEnd instanceof EObject) {
 				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
 			}
-			EClassifier newTarget = (EClassifier) newEnd;
+			EObject newTarget = (EObject) newEnd;
 
-			link.setEType(newTarget);
-			return CommandResult.newOKCommandResult(link);
+			source.getReferences().clear();
+			source.getReferences().add(newTarget);
+			return CommandResult.newOKCommandResult(referenceOwner);
 		}
 		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
 	}

@@ -223,7 +223,7 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	public String getText(View view) {
-		if (view.getElement().eIsProxy()) {
+		if (view.getElement() != null && view.getElement().eIsProxy()) {
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {

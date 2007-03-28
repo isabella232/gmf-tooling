@@ -25,19 +25,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReference2ReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
-import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -143,18 +146,32 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	}
 
 	/**
-	 * Returns command to reorient link. New link target or source
+	 * Returns command to reorient EClass based link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
 	 * @generated
 	 */
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
-		if (EReferenceEditPart.VISUAL_ID == EcoreVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
+		switch (getVisualID(req)) {
+		case EReferenceEditPart.VISUAL_ID:
 			return getMSLWrapper(new EReferenceReorientCommand(req));
-		}
-		if (EReference2EditPart.VISUAL_ID == EcoreVisualIDRegistry.getLinkWithClassVisualID(req.getRelationship())) {
-			return getMSLWrapper(new EReferenceReorientCommand(req));
+		case EReference2EditPart.VISUAL_ID:
+			return getMSLWrapper(new EReference2ReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
+	}
+
+	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case EAnnotationReferencesEditPart.VISUAL_ID:
+			return getMSLWrapper(new EAnnotationReferencesReorientCommand(req));
+		}
+		return super.getReorientReferenceRelationshipCommand(req);
 	}
 }

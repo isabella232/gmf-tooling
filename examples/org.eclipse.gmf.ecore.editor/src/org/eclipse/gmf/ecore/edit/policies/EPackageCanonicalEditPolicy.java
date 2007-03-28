@@ -130,7 +130,20 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
+		}
+
+		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
+		switch (nodeVID) {
+		case EClassEditPart.VISUAL_ID:
+		case EPackage2EditPart.VISUAL_ID:
+		case EAnnotation2EditPart.VISUAL_ID:
+		case EDataType2EditPart.VISUAL_ID:
+		case EEnum2EditPart.VISUAL_ID:
+			return true;
+		}
+		return false;
 	}
 
 	/**

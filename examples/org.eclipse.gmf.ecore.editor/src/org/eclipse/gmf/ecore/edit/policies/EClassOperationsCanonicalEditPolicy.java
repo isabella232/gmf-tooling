@@ -52,7 +52,16 @@ public class EClassOperationsCanonicalEditPolicy extends CanonicalEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
+		}
+
+		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
+		switch (nodeVID) {
+		case EOperationEditPart.VISUAL_ID:
+			return true;
+		}
+		return false;
 	}
 
 	/**

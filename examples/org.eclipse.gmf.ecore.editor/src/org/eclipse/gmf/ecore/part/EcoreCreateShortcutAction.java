@@ -74,6 +74,27 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		mySelectedElement = null;
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof EPackageEditPart) {
+				mySelectedElement = (EPackageEditPart) structuredSelection.getFirstElement();
+			}
+		}
+		action.setEnabled(isEnabled());
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEnabled() {
+		return mySelectedElement != null;
+	}
+
+	/**
+	 * @generated
+	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
 		EcoreElementChooserDialog elementChooser = new EcoreElementChooserDialog(myShell, view);
@@ -102,26 +123,4 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
 		}
 	}
-
-	/**
-	 * @generated
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedElement = null;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof EPackageEditPart) {
-				mySelectedElement = (EPackageEditPart) structuredSelection.getFirstElement();
-			}
-		}
-		action.setEnabled(isEnabled());
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isEnabled() {
-		return mySelectedElement != null;
-	}
-
 }

@@ -7,7 +7,7 @@
       name="Ecore Figure Gallery">
     <figures
         xsi:type="gmfgraph:Rectangle"
-        referencingElements="attributes operations"
+        referencingElements="attributes operations classAnnotations classes packages dataTypes enums packageAnnotations details dataTypeAnnotations literals enumAnnotations"
         name="RectangleFigure"/>
     <figures
         xsi:type="gmfgraph:Label"
@@ -24,33 +24,43 @@
       collapsible="true"/>
   <compartments
       name="classAnnotations"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="classes"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="packages"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="dataTypes"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="enums"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="packageAnnotations"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="details"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="dataTypeAnnotations"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="literals"
+      figure="RectangleFigure"
       collapsible="true"/>
   <compartments
       name="enumAnnotations"
+      figure="RectangleFigure"
       collapsible="true"/>
   <labels
       name="MultiplicityLabel"
