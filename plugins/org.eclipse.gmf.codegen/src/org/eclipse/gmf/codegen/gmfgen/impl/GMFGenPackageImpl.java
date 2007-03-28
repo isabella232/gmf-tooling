@@ -4986,7 +4986,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_PackageName() {
+	public EAttribute getGenNavigator_UriInputTesterClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -4995,8 +4995,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenNavigator_PackageName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenNavigator_ChildReferences() {
-		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(16);
+		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -6302,6 +6311,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__PACKAGE_NAME);
 		createEReference(genNavigatorEClass, GEN_NAVIGATOR__CHILD_REFERENCES);
 
@@ -7307,6 +7317,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigator_AbstractNavigatorItemClassName(), ecorePackage.getEString(), "abstractNavigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_NavigatorGroupClassName(), ecorePackage.getEString(), "navigatorGroupClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_NavigatorItemClassName(), ecorePackage.getEString(), "navigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_UriInputTesterClassName(), ecorePackage.getEString(), "uriInputTesterClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNavigator_ChildReferences(), this.getGenNavigatorChildReference(), this.getGenNavigatorChildReference_Navigator(), "childReferences", null, 0, -1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -7325,6 +7336,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		op = addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorGroupQualifiedClassName", 0, 1);
 
 		op = addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorItemQualifiedClassName", 0, 1);
+
+		op = addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getUriInputTesterQualifiedClassName", 0, 1);
 
 		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesTo", 0, -1);
 		addEParameter(op, this.getGenCommonBase(), "child", 0, 1);
@@ -7831,7 +7844,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
 		   });																																																																																																																																																																									
 		addAnnotation
-		  (genNavigatorEClass.getEOperations().get(8), 
+		  (genNavigatorEClass.getEOperations().get(9), 
 		   source, 
 		   new String[] {
 			 "documentation", "corresponding method should be implemented in .ext file"

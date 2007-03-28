@@ -7947,15 +7947,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR = 98;
 
 	/**
-	 * The feature id for the '<em><b>Sorter Extension ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__SORTER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 5;
-
-	/**
 	 * The feature id for the '<em><b>Action Provider ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8037,13 +8028,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 14;
 
 	/**
+	 * The feature id for the '<em><b>Uri Input Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 15;
+
+	/**
 	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__PACKAGE_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 15;
+	int GEN_NAVIGATOR__PACKAGE_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Generate Domain Model Navigator</b></em>' attribute.
@@ -8163,13 +8163,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Sorter Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__SORTER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 5;
+
+	/**
 	 * The feature id for the '<em><b>Child References</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__CHILD_REFERENCES = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 16;
+	int GEN_NAVIGATOR__CHILD_REFERENCES = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 17;
 
 	/**
 	 * The number of structural features of the '<em>Gen Navigator</em>' class.
@@ -8178,7 +8187,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_FEATURE_COUNT = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 17;
+	int GEN_NAVIGATOR_FEATURE_COUNT = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl <em>Gen Navigator Child Reference</em>}' class.
@@ -14088,6 +14097,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNavigator_NavigatorItemClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getUriInputTesterClassName <em>Uri Input Tester Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Uri Input Tester Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getUriInputTesterClassName()
+	 * @see #getGenNavigator()
+	 * @generated
+	 */
+	EAttribute getGenNavigator_UriInputTesterClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getPackageName <em>Package Name</em>}'.

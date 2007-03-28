@@ -11,6 +11,7 @@
  */
 
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«EXTENSION xpt::navigator::Utils»
 
 «DEFINE NavigatorLinkHelper FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -32,8 +33,40 @@ public class «linkHelperClassName» implements org.eclipse.ui.navigator.ILinkHelp
 «DEFINE findSelection FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.jface.viewers.IStructuredSelection findSelection(org.eclipse.ui.IEditorInput anInput) {
+	«EXPAND getDiagramSelection FOR getDiagramTopReference(this)-»
 	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
 }
+«ENDDEFINE»
+
+«REM»
+	Linking with editor currently supported only for the navigators conteining top 
+	reference to the diagram. In this case diagram node will be selected in navigator.
+«ENDREM»
+«DEFINE getDiagramSelection FOR gmfgen::GenNavigatorChildReference-»
+	«EXPAND getDiagram FOR navigator.editorGen-»
+	«EXPAND getDiagramFile FOR navigator.editorGen-»
+if (file != null) {
+	«IF isInsideGroup()-»
+	«navigator.getNavigatorGroupQualifiedClassName()» parentGroup = new «navigator.getNavigatorGroupQualifiedClassName()»("«groupName»", "«groupIcon»", «navigator.editorGen.diagram.getEditPartQualifiedClassName()».MODEL_ID, file);
+	«ENDIF-»
+	«navigator.getNavigatorItemQualifiedClassName()» item = new «navigator.getNavigatorItemQualifiedClassName()»(diagram, «IF isInsideGroup()»parentGroup«ELSE»file«ENDIF», false);
+	«IF isInsideGroup()-»
+	parentGroup.addChild(item);
+	«ENDIF-»
+	return new org.eclipse.jface.viewers.StructuredSelection(«IF isInsideGroup()»parentGroup«ELSE»item«ENDIF»);
+}
+«ENDDEFINE»
+
+«DEFINE getDiagram FOR gmfgen::GenEditorGenerator-»
+org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = «navigator.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDocumentProvider().getDiagramDocument(anInput);
+if (document == null) {
+	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
+}
+org.eclipse.gmf.runtime.notation.Diagram diagram = document.getDiagram();
+«ENDDEFINE»
+
+«DEFINE getDiagramFile FOR gmfgen::GenEditorGenerator-»
+org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagram.eResource());
 «ENDDEFINE»
 
 «DEFINE activateEditor FOR gmfgen::GenNavigator-»

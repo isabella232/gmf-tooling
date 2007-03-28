@@ -36,6 +36,11 @@ List[gmfgen::GenNavigatorChildReference] getChildReferencesFrom(gmfgen::GenNavig
 	navigator.childReferences.select(r | parent.visualID == r.parent.visualID)
 ;
 
+GenNavigatorChildReference getDiagramTopReference(gmfgen::GenNavigator navigator) :
+	let diagramTopReferences = navigator.childReferences.select(cr | null == cr.parent).select(cr | cr.child == navigator.editorGen.diagram) :
+		diagramTopReferences.size() == 0 ? null : diagramTopReferences.get(0)
+;
+
 //
 // CodeGenUtil#validJavaIdentifier()
 //

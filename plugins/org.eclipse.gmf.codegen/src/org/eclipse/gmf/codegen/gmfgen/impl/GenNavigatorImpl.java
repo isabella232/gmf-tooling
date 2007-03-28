@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getUriInputTesterClassName <em>Uri Input Tester Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getChildReferences <em>Child References</em>}</li>
  * </ul>
@@ -68,16 +69,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  * @generated
  */
 public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
-	/**
-	 * The cached value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected String contentExtensionPriority = CONTENT_EXTENSION_PRIORITY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getLinkHelperExtensionID() <em>Link Helper Extension ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -297,6 +288,26 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @ordered
 	 */
 	protected String navigatorItemClassName = NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUriInputTesterClassName() <em>Uri Input Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUriInputTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String URI_INPUT_TESTER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUriInputTesterClassName() <em>Uri Input Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUriInputTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String uriInputTesterClassName = URI_INPUT_TESTER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -527,6 +538,16 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @ordered
 	 */
 	protected static final String CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contentExtensionPriority = CONTENT_EXTENSION_PRIORITY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getChildReferences() <em>Child References</em>}' containment reference list.
@@ -980,6 +1001,35 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getUriInputTesterClassNameGen() {
+		return uriInputTesterClassName;
+	}
+	
+	public String getUriInputTesterClassName() {
+		String value = getUriInputTesterClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "UriEditorInputTester"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUriInputTesterClassName(String newUriInputTesterClassName) {
+		String oldUriInputTesterClassName = uriInputTesterClassName;
+		uriInputTesterClassName = newUriInputTesterClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME, oldUriInputTesterClassName, uriInputTesterClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getPackageNameGen() {
 		return packageName;
 	}
@@ -1317,6 +1367,15 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getUriInputTesterQualifiedClassName() {
+		return getEditorGen().getEditor().getPackageName() + '.' + getUriInputTesterClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getDomainContentProviderQualifiedClassName() {
 		return getPackageName() + '.' + getDomainContentProviderClassName();
 	}
@@ -1466,6 +1525,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return getNavigatorGroupClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
 				return getNavigatorItemClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME:
+				return getUriInputTesterClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				return getPackageName();
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
@@ -1548,6 +1609,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
 				setNavigatorItemClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME:
+				setUriInputTesterClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				setPackageName((String)newValue);
@@ -1634,6 +1698,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
 				setNavigatorItemClassName(NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME:
+				setUriInputTesterClassName(URI_INPUT_TESTER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;
@@ -1698,6 +1765,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT == null ? navigatorGroupClassName != null : !NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT.equals(navigatorGroupClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
 				return NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT == null ? navigatorItemClassName != null : !NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT.equals(navigatorItemClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME:
+				return URI_INPUT_TESTER_CLASS_NAME_EDEFAULT == null ? uriInputTesterClassName != null : !URI_INPUT_TESTER_CLASS_NAME_EDEFAULT.equals(uriInputTesterClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				return PACKAGE_NAME_EDEFAULT == null ? packageName != null : !PACKAGE_NAME_EDEFAULT.equals(packageName);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
@@ -1760,6 +1829,8 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		result.append(navigatorGroupClassName);
 		result.append(", navigatorItemClassName: ");
 		result.append(navigatorItemClassName);
+		result.append(", uriInputTesterClassName: ");
+		result.append(uriInputTesterClassName);
 		result.append(", packageName: ");
 		result.append(packageName);
 		result.append(')');

@@ -582,6 +582,10 @@ public class CodegenEmitters {
 	public TextEmitter getDomainModelElementTesterEmitter() {
 		return newXpandEmitter("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
 	}
+	
+	public TextEmitter getURIEditorInputTesterEmitter() {
+		return newXpandEmitter("xpt::editor::UriEditorInputTester::UriEditorInputTester"); //$NON-NLS-1$
+	}
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorLabelProviderGenerator.class);

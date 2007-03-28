@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getUriInputTesterClassName <em>Uri Input Tester Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getChildReferences <em>Child References</em>}</li>
  * </ul>
@@ -423,6 +424,32 @@ public interface GenNavigator extends GenDomainModelNavigator {
 	void setNavigatorItemClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Uri Input Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Uri Input Tester Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Uri Input Tester Class Name</em>' attribute.
+	 * @see #setUriInputTesterClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_UriInputTesterClassName()
+	 * @model
+	 * @generated
+	 */
+	String getUriInputTesterClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getUriInputTesterClassName <em>Uri Input Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Uri Input Tester Class Name</em>' attribute.
+	 * @see #getUriInputTesterClassName()
+	 * @generated
+	 */
+	void setUriInputTesterClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -529,6 +556,14 @@ public interface GenNavigator extends GenDomainModelNavigator {
 	 * @generated
 	 */
 	String getNavigatorItemQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getUriInputTesterQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
