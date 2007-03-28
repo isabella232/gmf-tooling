@@ -73,6 +73,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 			super.getPropertyDescriptors(object);
 
 			addLocationPropertyDescriptor(object);
+			addRegisterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,18 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Port_location_feature"), //$NON-NLS-1$
 				getString("_UI_PropertyDescriptor_description", "_UI_Port_location_feature", "_UI_Port_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.PORT__LOCATION, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Register feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRegisterPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Port_register_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Port_register_feature", "_UI_Port_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.PORT__REGISTER, true, false, true, null, null, null));
 	}
 
 	/**
