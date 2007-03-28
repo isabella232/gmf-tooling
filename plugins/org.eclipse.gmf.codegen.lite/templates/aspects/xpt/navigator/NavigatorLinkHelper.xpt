@@ -15,3 +15,13 @@
 «AROUND diagramEditorClassFQName FOR gmfgen::GenNavigator»org.eclipse.gmf.runtime.lite.parts.DiagramEditor«ENDAROUND»
 
 «AROUND getViewFromShortcut FOR gmfgen::GenNavigator»«ENDAROUND»
+
+«REM»Replace with reasonable code for lite runtime«ENDREM»
+«AROUND getDiagramFile FOR gmfgen::GenEditorGenerator-»
+org.eclipse.core.resources.IFile file = null;
+«ENDAROUND»
+
+«REM»Replace with reasonable code for lite runtime«ENDREM»
+«AROUND getDiagram FOR gmfgen::GenEditorGenerator-»
+org.eclipse.gmf.runtime.notation.Diagram diagram = null;
+«ENDAROUND»

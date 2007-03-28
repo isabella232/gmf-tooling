@@ -14,6 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «DEFINE extensions FOR gmfgen::GenNavigator-»
+	«EXPAND editorInputPropertyTester("URIEditorInput", "org.eclipse.emf.common.ui.URIEditorInput", getUriInputTesterQualifiedClassName())-»
 «IF generateDomainModelNavigator && null != editorGen.domainGenModel-»
 
    <extension point="org.eclipse.core.expressions.propertyTesters">
@@ -135,7 +136,10 @@
          <editorInputEnablement>
          	<or>
 	            <instanceof value="org.eclipse.ui.IFileEditorInput"/>
-	            <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+	            <and>
+	               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+	               <test property="«editorGen.plugin.iD».isURIEditorInput"/>
+	            </and>
 	            <instanceof value="org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput"/>
 	        </or>
          </editorInputEnablement>
@@ -152,4 +156,17 @@ navigatorContentName=*.«editorGen.diagramFileExtension» diagram contents
 «IF generateDomainModelNavigator-»
 domainNavigatorContentName=*.«editorGen.domainFileExtension» model contents
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE editorInputPropertyTester(String property, String type, String testerClass) FOR gmfgen::GenNavigator-»
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+       <propertyTester
+           id="«editorGen.plugin.iD».«property»PropertyTester"
+           type="«type»"
+           namespace="«editorGen.plugin.iD»"
+           properties="is«property»"
+           class="«testerClass»">
+       </propertyTester>
+   </extension>
 «ENDDEFINE»
