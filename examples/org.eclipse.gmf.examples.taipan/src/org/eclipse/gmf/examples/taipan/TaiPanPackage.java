@@ -147,13 +147,22 @@ public interface TaiPanPackage extends EPackage {
 	int PORT__BUILDINGS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Register</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__REGISTER = 2;
+
+	/**
 	 * The number of structural features of the '<em>Port</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = 2;
+	int PORT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.
@@ -481,15 +490,6 @@ public interface TaiPanPackage extends EPackage {
 	int ROUTE = 3;
 
 	/**
-	 * The number of structural features of the '<em>Route</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUTE_FEATURE_COUNT = 4;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BuildingImpl <em>Building</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -552,6 +552,15 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUTE__RELIABILITY = 3;
+
+	/**
+	 * The number of structural features of the '<em>Route</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUTE_FEATURE_COUNT = 4;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.
@@ -627,6 +636,17 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPort_Buildings();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.examples.taipan.Port#getRegister <em>Register</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Register</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Port#getRegister()
+	 * @see #getPort()
+	 * @generated
+	 */
+	EReference getPort_Register();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Ship <em>Ship</em>}'.
@@ -985,6 +1005,14 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PORT__BUILDINGS = eINSTANCE.getPort_Buildings();
+
+		/**
+		 * The meta object literal for the '<em><b>Register</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT__REGISTER = eINSTANCE.getPort_Register();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.

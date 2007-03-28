@@ -27,10 +27,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.examples.taipan.Building;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
@@ -42,6 +44,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.PortImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.PortImpl#getBuildings <em>Buildings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.PortImpl#getRegister <em>Register</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,6 +88,16 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * @ordered
 	 */
 	protected EList<Building> buildings = null;
+
+	/**
+	 * The cached value of the '{@link #getRegister() <em>Register</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegister()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Ship> register = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,6 +156,18 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Ship> getRegister() {
+		if (register == null) {
+			register = new EObjectResolvingEList<Ship>(Ship.class, this, TaiPanPackage.PORT__REGISTER);
+		}
+		return register;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -164,6 +189,8 @@ public class PortImpl extends EObjectImpl implements Port {
 			return getLocation();
 		case TaiPanPackage.PORT__BUILDINGS:
 			return getBuildings();
+		case TaiPanPackage.PORT__REGISTER:
+			return getRegister();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -184,6 +211,10 @@ public class PortImpl extends EObjectImpl implements Port {
 			getBuildings().clear();
 			getBuildings().addAll((Collection<? extends Building>) newValue);
 			return;
+		case TaiPanPackage.PORT__REGISTER:
+			getRegister().clear();
+			getRegister().addAll((Collection<? extends Ship>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -202,6 +233,9 @@ public class PortImpl extends EObjectImpl implements Port {
 		case TaiPanPackage.PORT__BUILDINGS:
 			getBuildings().clear();
 			return;
+		case TaiPanPackage.PORT__REGISTER:
+			getRegister().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,6 +252,8 @@ public class PortImpl extends EObjectImpl implements Port {
 			return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
 		case TaiPanPackage.PORT__BUILDINGS:
 			return buildings != null && !buildings.isEmpty();
+		case TaiPanPackage.PORT__REGISTER:
+			return register != null && !register.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

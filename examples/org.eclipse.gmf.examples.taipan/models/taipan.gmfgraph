@@ -190,6 +190,11 @@
           xsi:type="gmfgraph:PolylineDecoration"
           name="BesiegePortOrderDecoration"/>
     </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="Registration"
+        name="RegistrationFigure"
+        lineKind="LINE_DASH"/>
   </figures>
   <figures
       name="images"
@@ -229,6 +234,9 @@
   <connections
       name="BesiegePortOrder"
       figure="BesiegePortOrderFigure"/>
+  <connections
+      name="Registration"
+      figure="RegistrationFigure"/>
   <compartments
       name="SmallCargo"
       figure="SmallCargoFigure"

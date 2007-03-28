@@ -278,6 +278,15 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPort_Register() {
+		return (EReference) portEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getShip() {
 		return shipEClass;
 	}
@@ -544,6 +553,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__LOCATION);
 		createEReference(portEClass, PORT__BUILDINGS);
+		createEReference(portEClass, PORT__REGISTER);
 
 		buildingEClass = createEClass(BUILDING);
 		createEAttribute(buildingEClass, BUILDING__ADDRESS);
@@ -633,6 +643,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				"location", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getPort_Buildings(), this.getBuilding(), null,
 				"buildings", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPort_Register(), this.getShip(), null,
+				"register", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(buildingEClass, Building.class, "Building", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getBuilding_Address(), ecorePackage.getEString(),

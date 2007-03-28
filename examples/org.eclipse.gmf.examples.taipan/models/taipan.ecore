@@ -15,6 +15,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="buildings" upperBound="-1"
         eType="#//Building" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="register" upperBound="-1"
+        eType="#//Ship"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Building">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

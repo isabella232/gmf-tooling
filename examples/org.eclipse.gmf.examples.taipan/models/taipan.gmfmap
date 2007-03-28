@@ -281,6 +281,16 @@
         xsi:type="ecore:EReference"
         href="taipan.ecore#//BesiegePortOrder/port"/>
   </links>
+  <links>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="taipan.gmftool#//@palette/@tools.0/@tools.11"/>
+    <diagramLink
+        href="taipan.gmfgraph#Registration"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="taipan.ecore#//Port/register"/>
+  </links>
   <diagram>
     <diagramCanvas
         href="taipan.gmfgraph#taipan"/>

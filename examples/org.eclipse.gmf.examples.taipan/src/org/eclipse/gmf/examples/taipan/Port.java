@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Port#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Port#getBuildings <em>Buildings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Port#getRegister <em>Register</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,5 +83,21 @@ public interface Port extends EObject {
 	 * @generated
 	 */
 	EList<Building> getBuildings();
+
+	/**
+	 * Returns the value of the '<em><b>Register</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Ship}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Register</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Register</em>' reference list.
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getPort_Register()
+	 * @model type="org.eclipse.gmf.examples.taipan.Ship"
+	 * @generated
+	 */
+	EList<Ship> getRegister();
 
 } // Port
