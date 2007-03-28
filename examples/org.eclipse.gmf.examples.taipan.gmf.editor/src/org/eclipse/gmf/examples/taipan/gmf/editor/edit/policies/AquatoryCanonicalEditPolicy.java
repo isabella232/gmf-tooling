@@ -100,7 +100,18 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
+		}
+
+		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
+		switch (nodeVID) {
+		case PortEditPart.VISUAL_ID:
+		case ShipEditPart.VISUAL_ID:
+		case WarshipEditPart.VISUAL_ID:
+			return true;
+		}
+		return false;
 	}
 
 	/**
