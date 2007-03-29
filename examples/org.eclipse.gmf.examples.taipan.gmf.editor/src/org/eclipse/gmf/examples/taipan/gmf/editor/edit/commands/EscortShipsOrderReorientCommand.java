@@ -66,35 +66,40 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == getElementToEdit() instanceof EscortShipsOrder) {
-			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-
-		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof Warship) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			Warship newSource = (Warship) newEnd;
-			if (false == getElementToEdit().eContainer() instanceof Warship) {
-				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
-			}
-			Warship source = (Warship) getElementToEdit().eContainer();
-
-			source.setEscortOrder(null);
-			newSource.setEscortOrder(link);
-			return CommandResult.newOKCommandResult(link);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof Ship) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			Ship newTarget = (Ship) newEnd;
-
-			link.getShips().clear();
-			link.getShips().add(newTarget);
-			return CommandResult.newOKCommandResult(link);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
+		Warship newSource = (Warship) newEnd;
+		Warship source = (Warship) getElementToEdit().eContainer();
+
+		source.setEscortOrder(null);
+		newSource.setEscortOrder(link);
+		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
+		Ship newTarget = (Ship) newEnd;
+
+		link.getShips().clear();
+		link.getShips().add(newTarget);
+		return CommandResult.newOKCommandResult(link);
 	}
 }

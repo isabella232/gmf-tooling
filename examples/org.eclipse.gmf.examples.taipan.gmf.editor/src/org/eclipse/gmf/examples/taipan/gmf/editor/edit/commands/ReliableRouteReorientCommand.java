@@ -65,30 +65,38 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == getElementToEdit() instanceof Route) {
-			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-
-		Route link = (Route) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof Port) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			Port newSource = (Port) newEnd;
-
-			link.setSource(newSource);
-
-			return CommandResult.newOKCommandResult(link);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof Port) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			Port newTarget = (Port) newEnd;
-
-			link.setDestination(newTarget);
-			return CommandResult.newOKCommandResult(link);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		Route link = (Route) getElementToEdit();
+		Port newSource = (Port) newEnd;
+
+		link.setSource(newSource);
+
+		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		Route link = (Route) getElementToEdit();
+		Port newTarget = (Port) newEnd;
+
+		link.setDestination(newTarget);
+		return CommandResult.newOKCommandResult(link);
 	}
 }

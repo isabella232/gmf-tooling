@@ -72,30 +72,39 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == referenceOwner instanceof Ship) {
-			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-		Ship source = (Ship) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof Ship) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			Ship newSource = (Ship) newEnd;
-
-			Port value = source.getDestination();
-			source.setDestination(null);
-			newSource.setDestination(value);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof Port) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			Port newTarget = (Port) newEnd;
-
-			source.setDestination(newTarget);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		Ship source = (Ship) referenceOwner;
+		Ship newSource = (Ship) newEnd;
+
+		Port value = source.getDestination();
+		source.setDestination(null);
+		newSource.setDestination(value);
+		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		Ship source = (Ship) referenceOwner;
+		Port newTarget = (Port) newEnd;
+
+		source.setDestination(newTarget);
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 }

@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 
-import java.util.Collection;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -74,31 +72,39 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == referenceOwner instanceof Port) {
-			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-		Port source = (Port) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof Port) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			Port newSource = (Port) newEnd;
-
-			Collection values = source.getRegister();
-			source.getRegister().clear();
-			newSource.getRegister().addAll(values);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof Ship) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			Ship newTarget = (Ship) newEnd;
-
-			source.getRegister().clear();
-			source.getRegister().add(newTarget);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		Port source = (Port) referenceOwner;
+		Port newSource = (Port) newEnd;
+
+		source.getRegister().clear();
+		newSource.getRegister().addAll(source.getRegister());
+		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		Port source = (Port) referenceOwner;
+		Ship newTarget = (Ship) newEnd;
+
+		source.getRegister().clear();
+		source.getRegister().add(newTarget);
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 }

@@ -66,34 +66,39 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == getElementToEdit() instanceof BesiegePortOrder) {
-			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-
-		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof Warship) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			Warship newSource = (Warship) newEnd;
-			if (false == getElementToEdit().eContainer() instanceof Warship) {
-				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
-			}
-			Warship source = (Warship) getElementToEdit().eContainer();
-
-			source.getAttackOrders().remove(link);
-			newSource.getAttackOrders().add(link);
-			return CommandResult.newOKCommandResult(link);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof Port) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			Port newTarget = (Port) newEnd;
-
-			link.setPort(newTarget);
-			return CommandResult.newOKCommandResult(link);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		Warship newSource = (Warship) newEnd;
+		Warship source = (Warship) getElementToEdit().eContainer();
+
+		source.getAttackOrders().remove(link);
+		newSource.getAttackOrders().add(link);
+		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		Port newTarget = (Port) newEnd;
+
+		link.setPort(newTarget);
+		return CommandResult.newOKCommandResult(link);
 	}
 }
