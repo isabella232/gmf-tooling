@@ -1,0 +1,170 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::GenModelUtils»
+
+«REM»
+	Generates canExecute() method for the command that reorients link.
+	Implementation should perform all static checks that command can be executed.
+«ENDREM»
+«DEFINE canReorient FOR gmfgen::LinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean canExecute() {
+		«EXPAND checkLinkValidity-»
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
+			return newEnd instanceof «getQualifiedInterfaceName(getSourceType())»;
+		}
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
+			return newEnd instanceof «getQualifiedInterfaceName(getTargetType())»;
+		}
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE checkLinkValidity FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE checkLinkValidity FOR gmfgen::TypeLinkModelFacet-»
+	if (!(getElementToEdit() instanceof «getQualifiedInterfaceName(metaClass)»)) {
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE checkLinkValidity FOR gmfgen::FeatureLinkModelFacet-»
+	if (!(referenceOwner instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+		return false;
+	}
+«ENDDEFINE»
+
+«REM»
+	Generates doExecuteWithResult() method for the command that reorients link.
+	Implementation should throw ExecutionException if it can't execute the command.
+«ENDREM»
+«DEFINE reorient FOR gmfgen::LinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
+			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+			throws org.eclipse.core.commands.ExecutionException {
+		if (!canExecute()) {
+			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
+		}
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
+			return reorientSource();
+		}
+		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
+			return reorientTarget();
+		}
+		throw new IllegalStateException();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.core.command.CommandResult reorientSource()
+			throws org.eclipse.core.commands.ExecutionException {
+		«EXPAND reorientSource-»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.core.command.CommandResult reorientTarget()
+			throws org.eclipse.core.commands.ExecutionException {
+		«EXPAND reorientTarget-»
+	}
+«ENDDEFINE»
+
+«DEFINE reorientSource FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE reorientTarget FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE reorientSource FOR gmfgen::TypeLinkModelFacet-»
+	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
+	«getQualifiedInterfaceName(getSourceType())» newSource = («getQualifiedInterfaceName(getSourceType())») newEnd;
+	«IF null != sourceMetaFeature-»
+		«EXPAND reorientEnd("link", "newSource") FOR sourceMetaFeature-»
+		«REM»Shouldn't we change link container here?«ENDREM»
+	«ELSE-»
+		«getQualifiedInterfaceName(containmentMetaFeature.genClass)» source =
+				(«getQualifiedInterfaceName(containmentMetaFeature.genClass)») getElementToEdit().eContainer();
+		«EXPAND reorientReference("source", "link", "newSource") FOR containmentMetaFeature-»
+	«ENDIF-»
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+«ENDDEFINE»
+
+«DEFINE reorientTarget FOR gmfgen::TypeLinkModelFacet-»
+	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
+	«getQualifiedInterfaceName(getTargetType())» newTarget = («getQualifiedInterfaceName(getTargetType())») newEnd;
+	«EXPAND reorientEnd("link", "newTarget") FOR targetMetaFeature-»
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+«ENDDEFINE»
+
+«DEFINE reorientSource FOR gmfgen::FeatureLinkModelFacet-»
+	«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») referenceOwner;
+	«getQualifiedInterfaceName(getSourceType())» newSource = («getQualifiedInterfaceName(getSourceType())») newEnd;
+	«EXPAND reorientSelfAsEnd("source", "newSource") FOR metaFeature-»
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
+«ENDDEFINE»
+
+«DEFINE reorientTarget FOR gmfgen::FeatureLinkModelFacet-»
+	«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») referenceOwner;
+	«getQualifiedInterfaceName(getTargetType())» newTarget = («getQualifiedInterfaceName(getTargetType())») newEnd;
+	«EXPAND reorientEnd("source", "newTarget") FOR metaFeature-»
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
+«ENDDEFINE»
+
+«REM»
+	Set link feature to hold the newEnd value. All old values are discarded.
+	In this context means to reorient the link.
+«ENDREM»
+«DEFINE reorientEnd(String linkVar, String newEndVar) FOR genmodel::GenFeature»
+	«IF ecoreFeature.many-»
+		«EXPAND xpt::Common::getFeatureValue(linkVar, true)».clear();
+		«EXPAND xpt::Common::getFeatureValue(linkVar, true)».add(«newEndVar»);
+	«ELSE-»
+		«EXPAND xpt::Common::setFeatureValue(linkVar, true, newEndVar, true)»;
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»
+	Remove reference to targetVar element from sourceVar and add it to the newSourceVar
+	sourceVar and newSourceVar should have the same feature pointing to targetVar.
+	In this context means to reorient the link.
+«ENDREM»
+«DEFINE reorientReference(String sourceVar, String targetVar, String newSourceVar) FOR genmodel::GenFeature»
+	«IF ecoreFeature.many-»
+		«EXPAND xpt::Common::getFeatureValue(sourceVar, true)».remove(«targetVar»);
+		«EXPAND xpt::Common::getFeatureValue(newSourceVar, true)».add(«targetVar»);
+	«ELSE-»
+		«EXPAND xpt::Common::setFeatureValue(sourceVar, true, "null", true)»;
+		«EXPAND xpt::Common::setFeatureValue(newSourceVar, true, targetVar, true)»;
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»
+	Move reference value from the current reference owner to the new end.
+	In this context means to reorient the link.
+«ENDREM»
+«DEFINE reorientSelfAsEnd(String referenceOwnerVar, String newEndVar) FOR genmodel::GenFeature»
+	«IF ecoreFeature.many-»
+		«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)».clear();
+		«EXPAND xpt::Common::getFeatureValue(newEndVar, true)».addAll(«EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)»);
+	«ELSE-»
+		«getQualifiedInterfaceName(getTypeGenClassX(this))» value = «EXPAND xpt::Common::getFeatureValue(referenceOwnerVar, true)»;
+		«EXPAND xpt::Common::setFeatureValue(referenceOwnerVar, true, "null", true)»;
+		«EXPAND xpt::Common::setFeatureValue(newEndVar, true, "value", true)»;
+	«ENDIF-»
+«ENDDEFINE»
