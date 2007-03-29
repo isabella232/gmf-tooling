@@ -34,6 +34,11 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -42,6 +47,7 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	public ReliableRouteReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -53,10 +59,10 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		return false;
 	}
@@ -82,6 +88,7 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
 		Route link = (Route) getElementToEdit();
+		Port oldSource = (Port) oldEnd;
 		Port newSource = (Port) newEnd;
 
 		link.setSource(newSource);
@@ -94,6 +101,7 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		Route link = (Route) getElementToEdit();
+		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
 		link.setDestination(newTarget);

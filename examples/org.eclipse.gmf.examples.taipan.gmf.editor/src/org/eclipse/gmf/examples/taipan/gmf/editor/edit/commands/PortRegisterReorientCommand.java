@@ -40,6 +40,11 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -49,6 +54,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
 		referenceOwner = request.getReferenceOwner();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -60,10 +66,10 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Ship && newEnd instanceof Port;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Ship;
+			return oldEnd instanceof Ship && newEnd instanceof Ship;
 		}
 		return false;
 	}
@@ -88,11 +94,12 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
-		Port source = (Port) referenceOwner;
+		Port oldSource = (Port) referenceOwner;
 		Port newSource = (Port) newEnd;
+		Ship target = (Ship) oldEnd;
 
-		source.getRegister().clear();
-		newSource.getRegister().addAll(source.getRegister());
+		oldSource.getRegister().remove(target);
+		newSource.getRegister().add(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -101,9 +108,10 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		Port source = (Port) referenceOwner;
+		Ship oldTarget = (Ship) oldEnd;
 		Ship newTarget = (Ship) newEnd;
 
-		source.getRegister().clear();
+		source.getRegister().remove(oldTarget);
 		source.getRegister().add(newTarget);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}

@@ -35,6 +35,11 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -43,6 +48,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	public BesiegePortOrderReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -54,10 +60,10 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Warship;
+			return oldEnd instanceof Warship && newEnd instanceof Warship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		return false;
 	}
@@ -83,10 +89,10 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		Warship oldSource = (Warship) oldEnd;
 		Warship newSource = (Warship) newEnd;
-		Warship source = (Warship) getElementToEdit().eContainer();
 
-		source.getAttackOrders().remove(link);
+		oldSource.getAttackOrders().remove(link);
 		newSource.getAttackOrders().add(link);
 		return CommandResult.newOKCommandResult(link);
 	}
@@ -96,6 +102,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
+		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
 		link.setPort(newTarget);

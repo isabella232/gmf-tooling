@@ -35,6 +35,11 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -43,6 +48,7 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	public EscortShipsOrderReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -54,10 +60,10 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Warship;
+			return oldEnd instanceof Warship && newEnd instanceof Warship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Ship;
+			return oldEnd instanceof Ship && newEnd instanceof Ship;
 		}
 		return false;
 	}
@@ -83,10 +89,10 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
 		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
+		Warship oldSource = (Warship) oldEnd;
 		Warship newSource = (Warship) newEnd;
-		Warship source = (Warship) getElementToEdit().eContainer();
 
-		source.setEscortOrder(null);
+		oldSource.setEscortOrder(null);
 		newSource.setEscortOrder(link);
 		return CommandResult.newOKCommandResult(link);
 	}
@@ -96,9 +102,10 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
+		Ship oldTarget = (Ship) oldEnd;
 		Ship newTarget = (Ship) newEnd;
 
-		link.getShips().clear();
+		link.getShips().remove(oldTarget);
 		link.getShips().add(newTarget);
 		return CommandResult.newOKCommandResult(link);
 	}

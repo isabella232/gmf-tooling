@@ -40,6 +40,11 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -49,6 +54,7 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
 		referenceOwner = request.getReferenceOwner();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -60,10 +66,10 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Ship;
+			return oldEnd instanceof Port && newEnd instanceof Ship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		return false;
 	}
@@ -88,12 +94,12 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
-		Ship source = (Ship) referenceOwner;
+		Ship oldSource = (Ship) referenceOwner;
 		Ship newSource = (Ship) newEnd;
+		Port target = (Port) oldEnd;
 
-		Port value = source.getDestination();
-		source.setDestination(null);
-		newSource.setDestination(value);
+		oldSource.setDestination(null);
+		newSource.setDestination(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -102,6 +108,7 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		Ship source = (Ship) referenceOwner;
+		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
 		source.setDestination(newTarget);
