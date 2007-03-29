@@ -53,36 +53,6 @@
 
 «DEFINE menu FOR gmfgen::GenPlugin-»
 
-   <extension point="org.eclipse.ui.popupMenus">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«IF editorGen.diagram.generateCreateShortcutAction()-»
-      <objectContribution
-            adaptable="false"
-            id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»1"
-            objectClass="«editorGen.diagram.getEditPartQualifiedClassName()»">
-         <action
-               class="«editorGen.diagram.getCreateShortcutActionQualifiedClassName()»"
-               enablesFor="1"
-               id="«editorGen.diagram.getCreateShortcutActionQualifiedClassName()»ID"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-«ENDIF-»
-      <objectContribution
-            adaptable="false"
-            id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»2"
-            objectClass="«editorGen.diagram.getEditPartQualifiedClassName()»">
-         <action
-               class="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»"
-               enablesFor="1"
-               id="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»ID"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <GlobalActionHandlerProvider

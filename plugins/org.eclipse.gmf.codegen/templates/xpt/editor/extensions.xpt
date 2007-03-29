@@ -39,6 +39,36 @@
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+«IF diagram.generateCreateShortcutAction()-»
+      <objectContribution
+            adaptable="false"
+            id="«plugin.iD».CreateShortcut"
+            objectClass="«diagram.getEditPartQualifiedClassName()»">
+         <action
+               class="«diagram.getCreateShortcutActionQualifiedClassName()»"
+               enablesFor="1"
+               id="«plugin.iD».CreateShortcutAction"
+               label="%createShortcutActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+«ENDIF-»
+      <objectContribution
+            adaptable="false"
+            id="«plugin.iD».LoadResource"
+            objectClass="«diagram.getEditPartQualifiedClassName()»">
+         <action
+               class="«diagram.getLoadResourceActionQualifiedClassName()»"
+               enablesFor="1"
+               id="«plugin.iD».LoadResourceAction"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>           
+   </extension>
 «IF diagram.generateInitDiagramAction()-»
 
    «IF null == application»<extension point="org.eclipse.ui.popupMenus">
