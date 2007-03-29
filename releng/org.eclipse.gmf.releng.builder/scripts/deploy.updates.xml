@@ -74,7 +74,7 @@
     					description="Generate site.xml for the update site">
         <echo file="${updates.path}/site.xml" append="false"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>                                                                                                                                               
 <![CDATA[<?xml-stylesheet type="text/xsl" href="web/site.xsl"?>]]>                                                                                                                               
-<![CDATA[<site>]]>
+<![CDATA[<site pack200="${pack200}">]]>
 		</echo>
     	
     	<antcontrib:propertyselector property="feature.ids.list"
@@ -129,9 +129,31 @@
  <!--   				<property name="updatesite.name" value="${updatesite.name}" />  -->
     			</ant>	
 			</sequential>
-    	</antcontrib:for>	
+    	</antcontrib:for>
+
+    	<!-- WORKAROUND for the standaloneUpdate - doesn't preserve pack200 on mirroring -->
+    	<!-- Keeping pack200 support -->
+		<copy todir="${updatesite.local.path}/${updatesite.name}">
+		    <fileset dir="${updates.path}">
+				<include name="**/*.jar.pack.gz"/>
+		    </fileset>	
+		</copy>
+		<!-- Create update site digest -->
+    	<java jar="${equinox.launcher.jar}" fork="true"
+			jvm="${java15-home}/bin/java"
+			failonerror="true"
+			maxmemory="128m">
+			<arg line="-application org.eclipse.update.core.siteOptimizer"/>
+			<arg line="-digestBuilder -digestOutputDir=${updatesite.local.path}/${updatesite.name} -siteXML=${updatesite.local.path}/${updatesite.name}/site.xml"/>
+		</java>
+
+    	<replace file="${updatesite.local.path}/${updatesite.name}/site.xml">
+			<replacetoken><![CDATA[<site]]></replacetoken>
+    		<replacevalue><![CDATA[<?xml-stylesheet type="text/xsl" href="web/site.xsl"?>
+<site]]> digestURL="http://download.eclipse.org/modeling/gmf/update-site/@updatesite.name@/" mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/modeling/gmf/update-site/@updatesite.name@/site.xml<![CDATA[&amp;]]>format=xml" pack200="true" </replacevalue>
+    	</replace>
+		<replace file="${updatesite.local.path}/${updatesite.name}/site.xml" token="@updatesite.name@" value="${updatesite.name}"/>
+
     </target>
-	
-	
 </project>
 
