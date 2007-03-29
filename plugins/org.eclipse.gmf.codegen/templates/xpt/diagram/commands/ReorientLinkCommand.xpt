@@ -27,12 +27,16 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	private final int reorientDirection;
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EObject oldEnd;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private final org.eclipse.emf.ecore.EObject newEnd;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «reorientCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 	«EXPAND xpt::diagram::commands::ReorientUtils::canReorient FOR modelFacet-»
