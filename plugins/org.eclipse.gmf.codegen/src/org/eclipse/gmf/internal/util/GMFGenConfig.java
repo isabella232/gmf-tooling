@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.util;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -139,6 +140,33 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 
 		preserveIfSet(GMFGEN.getGenCustomPropertyTab(),GMFGEN.getGenPropertyTab_Label());
 		preserveIfSet(GMFGEN.getGenCustomPropertyTab(),GMFGEN.getGenCustomPropertyTab_ClassName());
+		
+		setMatcher(GMFGEN.getGenNavigator(), ALWAYS_MATCH);
+		preserveIfRemoved(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_Navigator());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_GenerateDomainModelNavigator());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainContentExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainContentExtensionName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainContentExtensionPriority());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainContentProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainLabelProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainModelElementTesterClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenDomainModelNavigator_DomainNavigatorItemClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentExtensionPriority());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LinkHelperExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_SorterExtensionID());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ActionProviderID());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ContentProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LabelProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_LinkHelperClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_SorterClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_ActionProviderClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_AbstractNavigatorItemClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_NavigatorGroupClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_NavigatorItemClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_UriInputTesterClassName());
+		preserveIfSet(GMFGEN.getGenNavigator(), GMFGEN.getGenNavigator_PackageName());
 	}
 
 	private Matcher getGenNodeMatcher(){
@@ -154,6 +182,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 	private void preserveIfSet(EClass eClass, EAttribute feature){
 		//FIXME: only attributes for now, allow references
 		addDecision(eClass, new DefaultDecision(feature));
+	}
+	
+	private void preserveIfRemoved(EClass eClass, EStructuralFeature feature) {
+		addDecision(eClass, new DefaultDecision(feature, true));
 	}
 	
 	private void preserveIfNotByPattern(EClass eClass, EAttribute feature, String pattern){
