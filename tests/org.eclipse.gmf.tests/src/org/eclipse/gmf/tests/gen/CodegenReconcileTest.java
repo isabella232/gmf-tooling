@@ -406,6 +406,23 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new ModelIdChange(null));
 
 		checkUserChange(new GenEditorGeneratorChange(GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainFileExtension(), "xxx"));
+		
+		checkUserChange(new UserChange() {
+
+			public void applyChanges(GenEditorGenerator old) {
+				assertNotNull(old.getNavigator());
+				old.setNavigator(null);
+			}
+
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				assertNull(current.getNavigator());
+			}
+
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+			
+		});
 	}
 	
 	public void testReconcileGenEditorView(){
@@ -586,6 +603,62 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		//XXX: does not work: checkUserChange(new DisplayNameChange(""));
 		checkUserChange(new DefinedExternallyChange(true));
 		checkUserChange(new DefinedExternallyChange(false));
+	}
+	
+	public void testGenNavigator() {
+		class DomainNavigatorRemovingChange implements UserChange {
+
+			public void applyChanges(GenEditorGenerator old) {
+				assertNotNull(old.getNavigator());
+				old.getNavigator().setGenerateDomainModelNavigator(false);
+			}
+
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				assertFalse(current.getNavigator().isGenerateDomainModelNavigator());
+			}
+
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+			
+		}
+		checkUserChange(new DomainNavigatorRemovingChange());
+		class NavigatorChange extends SingleChange {
+			
+			public NavigatorChange(EAttribute attribute, String valueToSet) {
+				super(attribute, valueToSet);
+			}
+
+			protected EObject findChangeSubject(GenEditorGenerator root) {
+				assertNotNull(root.getNavigator());
+				return root.getNavigator();
+			}
+			
+		}
+		GMFGenPackage gmfGenPackage = GMFGenPackage.eINSTANCE;
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainContentExtensionID(), "customId"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainContentExtensionName(), "customName"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainContentExtensionPriority(), "customPriorityName"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainContentProviderClassName(), "CustomContentProvider"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainLabelProviderClassName(), "CustomLabelProvider"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainModelElementTesterClassName(), "CustomModelElementTester"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenDomainModelNavigator_DomainNavigatorItemClassName(), "CustomNavigatorItem"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ContentExtensionID(), "customID"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ContentExtensionName(), "customName"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ContentExtensionPriority(), "customPriority"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_LinkHelperExtensionID(), "customID"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_SorterExtensionID(), "customID"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ActionProviderID(), "customID"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ContentProviderClassName(), "CustomContentProvider"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_LabelProviderClassName(), "CustomLabelProvider"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_LinkHelperClassName(), "CustomLinkHelper"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_SorterClassName(), "CustomSorter"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_ActionProviderClassName(), "CustomActionProvider"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_AbstractNavigatorItemClassName(), "CustomAbstractNavigator"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_NavigatorGroupClassName(), "CustomNavigatorGroup"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_NavigatorItemClassName(), "CustomItemClass"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_UriInputTesterClassName(), "CustomURITester"));
+		checkUserChange(new NavigatorChange(gmfGenPackage.getGenNavigator_PackageName(), "customPackage"));
 	}
 	
 	private void checkUserChange(UserChange userChange){
