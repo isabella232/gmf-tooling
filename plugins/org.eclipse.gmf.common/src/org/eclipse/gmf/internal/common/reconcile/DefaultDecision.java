@@ -16,16 +16,25 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class DefaultDecision extends Decision {
+	
+	private boolean myInverted;
+
 	public DefaultDecision(EStructuralFeature feature){
+		this(feature, false);
+	}
+	
+	public DefaultDecision(EStructuralFeature feature, boolean inverted){
 		super(feature);
+		myInverted = inverted;
 	}
 	
 	public void apply(EObject current, EObject old) {
 		assert current.eClass().equals(old.eClass());
-		if (!current.eIsSet(getFeature()) && old.eIsSet(getFeature())) {
+		if (!(myInverted ^ current.eIsSet(getFeature())) && (myInverted ^ old.eIsSet(getFeature()))) {
 			preserveOld(current, old);
 		} else {
 			acceptNew(current, old);
 		}
 	}
+
 }

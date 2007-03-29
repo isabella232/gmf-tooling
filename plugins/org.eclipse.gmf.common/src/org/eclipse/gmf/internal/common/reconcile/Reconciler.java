@@ -35,6 +35,10 @@ public class Reconciler {
 	protected void handleNotMatchedCurrent(EObject current){
 		//FIXME ??? Is it user escape -- check history ???
 		//FIXME How to handle not macthed old ???
+		/*
+		 * [AS]: inversed constructor parameter was added to DefaultDecision, so
+		 * it looks like a way to remove genmodel nodes removed by user.
+		 */
 	}
 	
 	protected EObject handleNotMatchedOld(EObject currentParent, EObject notMatchedOld) {
