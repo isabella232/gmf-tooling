@@ -101,30 +101,16 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.emf.common.util.URI domainModelURI;
-
-	/**
-	 * @generated
-	 */
-	private EObject myDiagramRoot;
+	private ModelElementSelectionPage diagramRootElementSelectionPage;
 
 	/**
 	 * @generated
 	 */
 	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-		assert diagramRoot != null : "Null diagramRoot in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
-		assert editingDomain != null : "Null editingDomain in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
+		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-		this.domainModelURI = domainModelURI;
-		myDiagramRoot = diagramRoot;
-		myEditingDomain = editingDomain;
-	}
-
-	/**
-	 * @generated
-	 */
-	public void addPages() {
 		myFileCreationPage = new WizardNewFileCreationPage("Initialize new diagram file", StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram based on " + PortEditPart.MODEL_ID + " model content");
@@ -140,8 +126,21 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
+
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage("Select diagram root element");
+		diagramRootElementSelectionPage.setTitle("Diagram root element");
+		diagramRootElementSelectionPage.setDescription("Select semantic model element to be depicted on diagram");
+		diagramRootElementSelectionPage.setModelElement(diagramRoot);
+
+		myEditingDomain = editingDomain;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void addPages() {
 		addPage(myFileCreationPage);
-		addPage(new RootElementSelectorPage());
+		addPage(diagramRootElementSelectionPage);
 	}
 
 	/**
@@ -162,11 +161,11 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(myDiagramRoot);
+				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != PortEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(myDiagramRoot, PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(diagramRootElementSelectionPage.getModelElement(), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}
@@ -188,93 +187,34 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private class RootElementSelectorPage extends WizardPage implements ISelectionChangedListener {
+	private static class DiagramRootElementSelectionPage extends ModelElementSelectionPage {
 
 		/**
 		 * @generated
 		 */
-		protected RootElementSelectorPage() {
-			super("Select diagram root element");
-			setTitle("Diagram root element");
-			setDescription("Select semantic model element to be depicted on diagram");
+		protected DiagramRootElementSelectionPage(String pageName) {
+			super(pageName);
 		}
 
 		/**
 		 * @generated
 		 */
-		public void createControl(Composite parent) {
-			initializeDialogUnits(parent);
-			Composite topLevel = new Composite(parent, SWT.NONE);
-			topLevel.setLayout(new GridLayout());
-			topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
-			topLevel.setFont(parent.getFont());
-			setControl(topLevel);
-			createModelBrowser(topLevel);
-			setPageComplete(validatePage());
+		protected String getSelectionTitle() {
+			return "Select diagram root element:";
 		}
 
 		/**
 		 * @generated
 		 */
-		private void createModelBrowser(Composite parent) {
-			Composite panel = new Composite(parent, SWT.NONE);
-			panel.setLayoutData(new GridData(GridData.FILL_BOTH));
-			GridLayout layout = new GridLayout();
-			layout.marginWidth = 0;
-			panel.setLayout(layout);
-
-			Label label = new Label(panel, SWT.NONE);
-			label.setText("Select diagram root element:");
-			label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-
-			TreeViewer treeViewer = new TreeViewer(panel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-			GridData layoutData = new GridData(GridData.FILL_BOTH);
-			layoutData.heightHint = 300;
-			layoutData.widthHint = 300;
-			treeViewer.getTree().setLayoutData(layoutData);
-			treeViewer.setContentProvider(new AdapterFactoryContentProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(PortDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
-			treeViewer.setInput(myDiagramRoot.eResource());
-			treeViewer.setSelection(new StructuredSelection(myDiagramRoot));
-			treeViewer.addSelectionChangedListener(this);
-		}
-
-		/**
-		 * @generated
-		 */
-		public void selectionChanged(SelectionChangedEvent event) {
-			myDiagramRoot = null;
-			if (event.getSelection() instanceof IStructuredSelection) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				if (selection.size() == 1) {
-					Object selectedElement = selection.getFirstElement();
-					if (selectedElement instanceof IWrapperItemProvider) {
-						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
-					}
-					if (selectedElement instanceof FeatureMap.Entry) {
-						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
-					}
-					if (selectedElement instanceof EObject) {
-						myDiagramRoot = (EObject) selectedElement;
-					}
-				}
-			}
-			setPageComplete(validatePage());
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean validatePage() {
-			if (myDiagramRoot == null) {
+		protected boolean validatePage() {
+			if (selectedModelElement == null) {
 				setErrorMessage("Diagram root element is not selected");
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null : "Invalid diagram root element is selected");
 			return result;
 		}
-
 	}
 }

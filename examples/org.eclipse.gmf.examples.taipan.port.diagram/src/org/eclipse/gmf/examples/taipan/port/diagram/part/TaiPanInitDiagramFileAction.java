@@ -104,18 +104,8 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			return;
 		}
 		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		IDialogSettings pluginDialogSettings = PortDiagramEditorPlugin.getInstance().getDialogSettings();
-		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InitDiagramFile"); //$NON-NLS-1$
-		if (initDiagramFileSettings == null) {
-			initDiagramFileSettings = pluginDialogSettings.addNewSection("InitDiagramFile"); //$NON-NLS-1$
-		}
-		wizard.setDialogSettings(initDiagramFileSettings);
-		wizard.setForcePreviousAndNextButtons(false);
 		wizard.setWindowTitle("Initialize new " + PortEditPart.MODEL_ID + " diagram file");
-		WizardDialog dialog = new WizardDialog(getShell(), wizard);
-		dialog.create();
-		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
-		dialog.open();
+		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 
 }

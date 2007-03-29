@@ -405,7 +405,10 @@
             id="org.eclipse.gmf.examples.taipan.port.diagram.navigatorLinkHelper"
             class="org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanNavigatorLinkHelper">
          <editorInputEnablement>
-            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.examples.taipan.port.diagram.isURIEditorInput"/>
+            </and>
          </editorInputEnablement>
          <selectionEnablement>
             <instanceof value="org.eclipse.gmf.examples.taipan.port.diagram.navigator.TaiPanAbstractNavigatorItem"/>
@@ -432,12 +435,22 @@
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
-           id="org.eclipse.gmf.examples.taipan.port.diagram.DomainModelElementTester"
+           id="org.eclipse.gmf.examples.taipan.port.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="org.eclipse.gmf.examples.taipan.port.diagram"
+           properties="isURIEditorInput"
+           class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanUriEditorInputTester">
+       </propertyTester>
+   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.taipan.port.diagram.DomainModelElementPropertyTester"
            type="org.eclipse.emf.ecore.EObject"
            namespace="org.eclipse.gmf.examples.taipan.port.diagram"
            properties="isDomainModelElement"
            class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDomainModelElementTester">
        </propertyTester>
    </extension>
+
 
 </plugin>

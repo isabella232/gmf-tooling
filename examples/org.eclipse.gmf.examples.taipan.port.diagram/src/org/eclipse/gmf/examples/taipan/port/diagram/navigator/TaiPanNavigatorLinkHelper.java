@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.navigator;
 
 import java.util.Iterator;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.ecore.EObject;
 
@@ -23,9 +24,11 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
 
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
 
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -65,6 +68,16 @@ public class TaiPanNavigatorLinkHelper implements ILinkHelper {
 	 * @generated
 	 */
 	public IStructuredSelection findSelection(IEditorInput anInput) {
+		IDiagramDocument document = PortDiagramEditorPlugin.getInstance().getDocumentProvider().getDiagramDocument(anInput);
+		if (document == null) {
+			return StructuredSelection.EMPTY;
+		}
+		Diagram diagram = document.getDiagram();
+		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
+		if (file != null) {
+			TaiPanNavigatorItem item = new TaiPanNavigatorItem(diagram, file, false);
+			return new StructuredSelection(item);
+		}
 		return StructuredSelection.EMPTY;
 	}
 

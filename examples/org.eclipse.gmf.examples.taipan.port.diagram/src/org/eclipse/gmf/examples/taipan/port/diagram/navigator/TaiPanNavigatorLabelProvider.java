@@ -153,7 +153,7 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	public String getText(View view) {
-		if (view.getElement().eIsProxy()) {
+		if (view.getElement() != null && view.getElement().eIsProxy()) {
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
