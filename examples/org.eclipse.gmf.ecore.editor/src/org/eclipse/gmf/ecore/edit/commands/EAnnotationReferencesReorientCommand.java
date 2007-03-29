@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.commands;
 
-import java.util.Collection;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -73,31 +71,39 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == referenceOwner instanceof EAnnotation) {
-			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-		EAnnotation source = (EAnnotation) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof EAnnotation) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			EAnnotation newSource = (EAnnotation) newEnd;
-
-			Collection values = source.getReferences();
-			source.getReferences().clear();
-			newSource.getReferences().addAll(values);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof EObject) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			EObject newTarget = (EObject) newEnd;
-
-			source.getReferences().clear();
-			source.getReferences().add(newTarget);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		EAnnotation source = (EAnnotation) referenceOwner;
+		EAnnotation newSource = (EAnnotation) newEnd;
+
+		source.getReferences().clear();
+		newSource.getReferences().addAll(source.getReferences());
+		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		EAnnotation source = (EAnnotation) referenceOwner;
+		EObject newTarget = (EObject) newEnd;
+
+		source.getReferences().clear();
+		source.getReferences().add(newTarget);
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 }

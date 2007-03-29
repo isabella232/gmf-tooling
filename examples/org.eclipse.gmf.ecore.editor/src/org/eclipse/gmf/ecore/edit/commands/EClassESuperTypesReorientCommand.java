@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.commands;
 
-import java.util.Collection;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -73,31 +71,39 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == referenceOwner instanceof EClass) {
-			return CommandResult.newErrorCommandResult("Incorrect link source: " + referenceOwner);
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-		EClass source = (EClass) referenceOwner;
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof EClass) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			EClass newSource = (EClass) newEnd;
-
-			Collection values = source.getESuperTypes();
-			source.getESuperTypes().clear();
-			newSource.getESuperTypes().addAll(values);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof EClass) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			EClass newTarget = (EClass) newEnd;
-
-			source.getESuperTypes().clear();
-			source.getESuperTypes().add(newTarget);
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		EClass source = (EClass) referenceOwner;
+		EClass newSource = (EClass) newEnd;
+
+		source.getESuperTypes().clear();
+		newSource.getESuperTypes().addAll(source.getESuperTypes());
+		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		EClass source = (EClass) referenceOwner;
+		EClass newTarget = (EClass) newEnd;
+
+		source.getESuperTypes().clear();
+		source.getESuperTypes().add(newTarget);
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 }

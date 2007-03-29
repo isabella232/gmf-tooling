@@ -66,34 +66,39 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (false == getElementToEdit() instanceof EReference) {
-			return CommandResult.newErrorCommandResult("Incorrect link element: " + getElementToEdit());
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
 		}
-
-		EReference link = (EReference) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (false == newEnd instanceof EClass) {
-				return CommandResult.newErrorCommandResult("Incorrect new link source: " + newEnd);
-			}
-			EClass newSource = (EClass) newEnd;
-			if (false == getElementToEdit().eContainer() instanceof EClass) {
-				return CommandResult.newErrorCommandResult("Incorrect link source: " + getElementToEdit().eContainer());
-			}
-			EClass source = (EClass) getElementToEdit().eContainer();
-
-			source.getEStructuralFeatures().remove(link);
-			newSource.getEStructuralFeatures().add(link);
-			return CommandResult.newOKCommandResult(link);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (false == newEnd instanceof EClassifier) {
-				return CommandResult.newErrorCommandResult("Incorrect new link target: " + newEnd);
-			}
-			EClassifier newTarget = (EClassifier) newEnd;
-
-			link.setEType(newTarget);
-			return CommandResult.newOKCommandResult(link);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		EReference link = (EReference) getElementToEdit();
+		EClass newSource = (EClass) newEnd;
+		EClass source = (EClass) getElementToEdit().eContainer();
+
+		source.getEStructuralFeatures().remove(link);
+		newSource.getEStructuralFeatures().add(link);
+		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		EReference link = (EReference) getElementToEdit();
+		EClassifier newTarget = (EClassifier) newEnd;
+
+		link.setEType(newTarget);
+		return CommandResult.newOKCommandResult(link);
 	}
 }
