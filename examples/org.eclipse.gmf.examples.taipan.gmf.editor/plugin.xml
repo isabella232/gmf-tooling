@@ -475,11 +475,11 @@
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
-           id="org.eclipse.gmf.examples.taipan.gmf.editor.ShortcutPropertyTester"
-           type="org.eclipse.gmf.runtime.notation.View"
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
            namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
-           properties="isShortcut"
-           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanShortcutPropertyTester">
+           properties="isURIEditorInput"
+           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanUriEditorInputTester">
        </propertyTester>
    </extension>
 
@@ -590,7 +590,10 @@
             id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorLinkHelper"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorLinkHelper">
          <editorInputEnablement>
-            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.examples.taipan.gmf.editor.isURIEditorInput"/>
+            </and>
          </editorInputEnablement>
          <selectionEnablement>
             <instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
@@ -708,7 +711,16 @@
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
-           id="org.eclipse.gmf.examples.taipan.gmf.editor.DomainModelElementTester"
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
+           properties="isShortcut"
+           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanShortcutPropertyTester">
+       </propertyTester>
+   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.DomainModelElementPropertyTester"
            type="org.eclipse.emf.ecore.EObject"
            namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
            properties="isDomainModelElement"
