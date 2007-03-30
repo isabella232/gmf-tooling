@@ -1,9 +1,9 @@
 !*** Apache Batik feature map *******************************************
 
 !*** Apache Batik features ***************************************************************************
-feature@org.apache.batik=v20061222-1222,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.apache.batik-feature
-feature@org.apache.batik.pdf=v20060619-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.apache.batik.pdf-feature
+feature@org.apache.batik=v20061222-1222,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.apache.batik-feature
+feature@org.apache.batik.pdf=v20060619-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.apache.batik.pdf-feature
 
 !*** Apache Batik plugins ****************************************************************************
-plugin@org.apache.batik=v20061222-1222,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
-plugin@org.apache.batik.pdf=v20060619-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik.pdf
+plugin@org.apache.batik=v20061222-1222,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.apache.batik
+plugin@org.apache.batik.pdf=v20060619-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.apache.batik.pdf
