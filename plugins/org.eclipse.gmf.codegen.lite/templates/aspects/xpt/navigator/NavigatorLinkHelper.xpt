@@ -16,12 +16,18 @@
 
 «AROUND getViewFromShortcut FOR gmfgen::GenNavigator»«ENDAROUND»
 
-«REM»Replace with reasonable code for lite runtime«ENDREM»
-«AROUND getDiagramFile FOR gmfgen::GenEditorGenerator-»
-org.eclipse.core.resources.IFile file = null;
-«ENDAROUND»
-
-«REM»Replace with reasonable code for lite runtime«ENDREM»
 «AROUND getDiagram FOR gmfgen::GenEditorGenerator-»
 org.eclipse.gmf.runtime.notation.Diagram diagram = null;
+if (anInput instanceof org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) {
+	diagram = ((org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) anInput).getDiagram();
+} else {
+	org.eclipse.ui.IWorkbenchWindow activeWindow = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+	if (activeWindow != null) {
+		org.eclipse.ui.IWorkbenchPage activePage = activeWindow.getActivePage();
+		org.eclipse.ui.IEditorPart anEditor = activePage.findEditor(anInput);
+		if (anEditor instanceof «diagram.editorGen.editor.getQualifiedClassName()») {
+			diagram = ((«diagram.editorGen.editor.getQualifiedClassName()») anEditor).getDiagram();
+		}
+	}
+}
 «ENDAROUND»
