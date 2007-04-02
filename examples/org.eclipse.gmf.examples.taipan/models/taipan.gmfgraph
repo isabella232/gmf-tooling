@@ -176,25 +176,23 @@
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="EscortShipsOrder"
         name="EscortShipsOrderFigure"
+        lineWidth="3"
         targetDecoration="EscortShipsOrderDecoration">
       <children
           xsi:type="gmfgraph:PolylineDecoration"
-          name="EscortShipsOrderDecoration"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="BesiegePortOrder"
-        name="BesiegePortOrderFigure"
-        targetDecoration="BesiegePortOrderDecoration">
-      <children
-          xsi:type="gmfgraph:PolylineDecoration"
-          name="BesiegePortOrderDecoration"/>
+          name="EscortShipsOrderDecoration"
+          lineWidth="3"/>
     </figures>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="Registration"
         name="RegistrationFigure"
         lineKind="LINE_DASH"/>
+    <figures
+        xsi:type="gmfgraph:CustomFigure"
+        referencingElements="BesiegePortOrder"
+        name="BesiegePortOrderFigure"
+        qualifiedClassName="org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection"/>
   </figures>
   <figures
       name="images"
