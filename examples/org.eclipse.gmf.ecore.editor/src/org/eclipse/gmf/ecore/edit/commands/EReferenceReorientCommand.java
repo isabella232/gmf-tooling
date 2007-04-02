@@ -35,6 +35,11 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -43,6 +48,7 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	public EReferenceReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -54,10 +60,10 @@ public class EReferenceReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof EClass;
+			return oldEnd instanceof EClass && newEnd instanceof EClass;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof EClassifier;
+			return oldEnd instanceof EClassifier && newEnd instanceof EClassifier;
 		}
 		return false;
 	}
@@ -83,10 +89,10 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
 		EReference link = (EReference) getElementToEdit();
+		EClass oldSource = (EClass) oldEnd;
 		EClass newSource = (EClass) newEnd;
-		EClass source = (EClass) getElementToEdit().eContainer();
 
-		source.getEStructuralFeatures().remove(link);
+		oldSource.getEStructuralFeatures().remove(link);
 		newSource.getEStructuralFeatures().add(link);
 		return CommandResult.newOKCommandResult(link);
 	}
@@ -96,6 +102,7 @@ public class EReferenceReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		EReference link = (EReference) getElementToEdit();
+		EClassifier oldTarget = (EClassifier) oldEnd;
 		EClassifier newTarget = (EClassifier) newEnd;
 
 		link.setEType(newTarget);

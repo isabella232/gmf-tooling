@@ -39,6 +39,11 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -48,6 +53,7 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
 		referenceOwner = request.getReferenceOwner();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -59,10 +65,10 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof EAnnotation;
+			return oldEnd instanceof EObject && newEnd instanceof EAnnotation;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof EObject;
+			return oldEnd instanceof EObject && newEnd instanceof EObject;
 		}
 		return false;
 	}
@@ -87,11 +93,12 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
-		EAnnotation source = (EAnnotation) referenceOwner;
+		EAnnotation oldSource = (EAnnotation) referenceOwner;
 		EAnnotation newSource = (EAnnotation) newEnd;
+		EObject target = (EObject) oldEnd;
 
-		source.getReferences().clear();
-		newSource.getReferences().addAll(source.getReferences());
+		oldSource.getReferences().remove(target);
+		newSource.getReferences().add(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -100,9 +107,10 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		EAnnotation source = (EAnnotation) referenceOwner;
+		EObject oldTarget = (EObject) oldEnd;
 		EObject newTarget = (EObject) newEnd;
 
-		source.getReferences().clear();
+		source.getReferences().remove(oldTarget);
 		source.getReferences().add(newTarget);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}

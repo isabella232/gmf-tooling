@@ -39,6 +39,11 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -48,6 +53,7 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
 		referenceOwner = request.getReferenceOwner();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -59,10 +65,10 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof EClass;
+			return oldEnd instanceof EClass && newEnd instanceof EClass;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof EClass;
+			return oldEnd instanceof EClass && newEnd instanceof EClass;
 		}
 		return false;
 	}
@@ -87,11 +93,12 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	private CommandResult reorientSource() throws ExecutionException {
-		EClass source = (EClass) referenceOwner;
+		EClass oldSource = (EClass) referenceOwner;
 		EClass newSource = (EClass) newEnd;
+		EClass target = (EClass) oldEnd;
 
-		source.getESuperTypes().clear();
-		newSource.getESuperTypes().addAll(source.getESuperTypes());
+		oldSource.getESuperTypes().remove(target);
+		newSource.getESuperTypes().add(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -100,9 +107,10 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	 */
 	private CommandResult reorientTarget() throws ExecutionException {
 		EClass source = (EClass) referenceOwner;
+		EClass oldTarget = (EClass) oldEnd;
 		EClass newTarget = (EClass) newEnd;
 
-		source.getESuperTypes().clear();
+		source.getESuperTypes().remove(oldTarget);
 		source.getESuperTypes().add(newTarget);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}

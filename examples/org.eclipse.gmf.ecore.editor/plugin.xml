@@ -58,6 +58,34 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.ecore.editor.CreateShortcut"
+            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
+         <action
+               class="org.eclipse.gmf.ecore.part.EcoreCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.ecore.editor.CreateShortcutAction"
+               label="%createShortcutActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.ecore.editor.LoadResource"
+            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
+         <action
+               class="org.eclipse.gmf.ecore.part.EcoreLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.ecore.editor.LoadResourceAction"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>           
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
+      <objectContribution
             id="org.eclipse.gmf.ecore.editor.InitDiagram"
             nameFilter="*.ecore"
             objectClass="org.eclipse.core.resources.IFile">
@@ -71,34 +99,6 @@
       </objectContribution>
    </extension>
 	
-   <extension point="org.eclipse.ui.popupMenus">
-      <?gmfgen generated="true"?>
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart1"
-            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
-         <action
-               class="org.eclipse.gmf.ecore.part.EcoreCreateShortcutAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.ecore.part.EcoreCreateShortcutActionID"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart2"
-            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
-         <action
-               class="org.eclipse.gmf.ecore.part.EcoreLoadResourceAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.ecore.part.EcoreLoadResourceActionID"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -571,8 +571,7 @@
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
-
-   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.ecore.editor.URIEditorInputPropertyTester"
@@ -583,7 +582,7 @@
        </propertyTester>
    </extension>
 
-   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.ecore.editor.ShortcutPropertyTester"
@@ -594,7 +593,18 @@
        </propertyTester>
    </extension>
 
-   <extension point="org.eclipse.ui.navigator.viewer">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.ecore.editor.DomainModelElementPropertyTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.ecore.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.ecore.part.EcoreDomainModelElementTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer">
       <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
@@ -695,7 +705,7 @@
       </actionProvider>
    </extension>
    
-   <extension point="org.eclipse.ui.navigator.linkHelper">
+	   <extension point="org.eclipse.ui.navigator.linkHelper">
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.ecore.editor.navigatorLinkHelper"
@@ -710,15 +720,5 @@
             <instanceof value="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </selectionEnablement>
       </linkHelper>
-   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.ecore.editor.DomainModelElementPropertyTester"
-           type="org.eclipse.emf.ecore.EObject"
-           namespace="org.eclipse.gmf.ecore.editor"
-           properties="isDomainModelElement"
-           class="org.eclipse.gmf.ecore.part.EcoreDomainModelElementTester">
-       </propertyTester>
    </extension>
-
 </plugin>

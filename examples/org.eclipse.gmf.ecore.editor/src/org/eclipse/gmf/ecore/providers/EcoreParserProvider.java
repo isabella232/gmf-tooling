@@ -69,6 +69,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEAttributeEAttribute_3001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -92,6 +94,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEOperationEOperation_3002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -115,6 +119,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEAnnotationEAnnotation_3003Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAnnotation_Source());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -138,6 +144,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEClassEClass_3004Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -161,6 +169,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEPackageEPackage_3005Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -184,6 +194,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEDataTypeEDataType_3006Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -207,6 +219,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEEnumEEnum_3007Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -258,6 +272,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEEnumLiteralEEnumLiteral_3009Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -281,6 +297,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEClassEClassName_5001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -304,6 +322,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEPackageEPackageName_5002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -327,6 +347,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEAnnotationEAnnotationSource_5003Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAnnotation_Source());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -350,6 +372,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEDataTypeEDataTypeName_5004Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -373,6 +397,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEEnumEEnumName_5005Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -396,6 +422,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEReferenceEReferenceName_6001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -447,6 +475,8 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser createEReferenceEReferenceName_6002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
