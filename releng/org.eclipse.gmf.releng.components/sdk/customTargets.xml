@@ -155,13 +155,13 @@
 	
 	<target name="runJavadoc" unless="skipJavadoc">
 		<!-- Retrieve doclet -->
-		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
+		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.doclet" 
 		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling" 
 		     dest="${buildDirectory}" />
 		<!-- Compile and package doclet -->
-		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
+		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.doclet/build.xml" 
 		     target="build.jar" 
-		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
+		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.doclet" />
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
