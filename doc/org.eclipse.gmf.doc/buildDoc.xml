@@ -349,7 +349,6 @@
 	 			source="1.5" 
 	        	noindex="false"
 	        	nonavbar="false"
-	        	executable="${javadoc.exe}"
 	        	notree="false"
 	        	splitindex="true"
 	        	stylesheetfile="${doc.plugin.dir}/stylesheet.css"
