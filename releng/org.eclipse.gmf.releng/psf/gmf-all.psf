@@ -35,6 +35,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit,org.eclipse.gmf.graphdef.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.map,org.eclipse.gmf.map"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit,org.eclipse.gmf.map.edit"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/plugins/org.eclipse.gmf.map.editor,org.eclipse.gmf.map.editor"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/releng/org.eclipse.gmf.releng,org.eclipse.gmf.releng"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/releng/org.eclipse.gmf.releng.builder,org.eclipse.gmf.releng.builder"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature,org.eclipse.gmf.runtime-feature"/>
