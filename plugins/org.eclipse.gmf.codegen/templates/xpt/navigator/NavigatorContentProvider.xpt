@@ -126,6 +126,7 @@ public void dispose() {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();
 	}
+	((org.eclipse.emf.transaction.TransactionalEditingDomain) myEditingDomain).dispose();
 	myEditingDomain = null;
 }
 «ENDDEFINE»
