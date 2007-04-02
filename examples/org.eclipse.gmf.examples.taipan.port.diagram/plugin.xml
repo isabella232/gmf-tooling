@@ -58,17 +58,17 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            id="org.eclipse.gmf.examples.taipan.port.diagram.InitDiagram"
-            nameFilter="*.taipan"
-            objectClass="org.eclipse.core.resources.IFile">
+            adaptable="false"
+            id="org.eclipse.gmf.examples.taipan.port.diagram.LoadResource"
+            objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart">
          <action
-               label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanInitDiagramFileAction"
-               menubarPath="additions"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.port.diagram.InitDiagramAction">
+               id="org.eclipse.gmf.examples.taipan.port.diagram.LoadResourceAction"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
          </action>
-      </objectContribution>
+      </objectContribution>           
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
@@ -419,17 +419,17 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.port.diagram.ui.objectContribution.PortEditPart2"
-            objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart">
+            id="org.eclipse.gmf.examples.taipan.port.diagram.InitDiagram"
+            nameFilter="*.taipan"
+            objectClass="org.eclipse.core.resources.IFile">
          <action
-               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceAction"
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanInitDiagramFileAction"
+               menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceActionID"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
+               id="org.eclipse.gmf.examples.taipan.port.diagram.InitDiagramAction">
          </action>
-      </objectContribution>           
+      </objectContribution>
    </extension>
 
    <extension point="org.eclipse.core.expressions.propertyTesters">
