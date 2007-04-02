@@ -140,6 +140,7 @@ public class EcoreDomainNavigatorContentProvider implements ICommonContentProvid
 			Resource resource = (Resource) it.next();
 			resource.unload();
 		}
+		((TransactionalEditingDomain) myEditingDomain).dispose();
 		myEditingDomain = null;
 	}
 
