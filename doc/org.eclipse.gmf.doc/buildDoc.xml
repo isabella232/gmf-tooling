@@ -354,7 +354,7 @@
 	        	splitindex="true"
 	        	stylesheetfile="${doc.plugin.dir}/stylesheet.css"
 	        	use="true"
-	 			doclet="org.eclipse.gmf.runtime.doclet.Doclet"
+	 			doclet="org.eclipse.gmf.doclet.Doclet"
 	 			docletpath="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.doclet/doclet.jar"
 	        	version="false">
 				    <doctitle><![CDATA[<h2>Eclipse Graphical Modeling Framework (GMF)</h2><h2>@{tocTitle} API Specification</h2>]]></doctitle>				    
