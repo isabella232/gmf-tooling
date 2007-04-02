@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2005  IBM Corporation and others.                       -->
+<!-- All rights reserved. This program and the accompanying materials      -->
+<!-- are made available under the terms of the Eclipse Public License v1.0 -->
+<!-- which accompanies this distribution, and is available at              -->
+<!-- http://www.eclipse.org/legal/epl-v10.html                             -->
+<!--                                                                       -->
+<!-- Contributors:                                                         -->
+<!--    IBM Corporation - initial API and implementation                   -->
+<project default="jar" basedir=".">
+
+	<target name="jar">
+		<jar destfile="${basedir}/doclet.jar" basedir="${basedir}/bin" />
+	</target>
+	
+	<path id="project.classpath">
+		<pathelement location="bin" />
+		<pathelement location="${basedir}/tools.jar" />
+	</path>
+	
+	<target name="init">
+		<mkdir dir="bin" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+	
+	<target name="build" depends="init">
+		<javac destdir="bin" source="1.5" target="1.5">
+			<src path="src" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+	
+	<target name="build.jar" depends="build,jar" />
+
+</project>
