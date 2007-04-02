@@ -354,8 +354,6 @@
 	        	splitindex="true"
 	        	stylesheetfile="${doc.plugin.dir}/stylesheet.css"
 	        	use="true"
-	 			doclet="org.eclipse.gmf.doclet.Doclet"
-	 			docletpath="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.doclet/doclet.jar"
 	        	version="false">
 				    <doctitle><![CDATA[<h2>Eclipse Graphical Modeling Framework (GMF)</h2><h2>@{tocTitle} API Specification</h2>]]></doctitle>				    
 	 				<bottom><![CDATA[<font size="-1"><p><a href="/help/topic/org.eclipse.platform.doc.isv/reference/misc/api-usage-rules.html">Guidelines for using Eclipse APIs</a>.</p><p>Copyright (c) IBM Corp., Borland Software Corp., and others 2005,2006. All rights reserved.</font></p>]]></bottom>	
