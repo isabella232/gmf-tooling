@@ -16,7 +16,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipDestinationItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -47,8 +46,17 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipDestinationItemSemanticEditPolicy());
 	}
 
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
 	protected Connection createConnectionFigure() {
-		return new ArrowConnection();
+
+		return new ShipDestinationFigure();
 	}
 
 	/**
