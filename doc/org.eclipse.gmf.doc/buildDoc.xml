@@ -338,6 +338,7 @@
 			<echo level="info" message="***"/>
 		
 	 		<javadoc 
+	 			verbose="true"
 	 			access="protected"
 				additionalparam="-breakiterator -tocFilename '${doc.plugin.dir}/toc-@{subsystem}.xml' -tocTitle '@{tocTitle}' -tocLinkTo '@{tocLinkTo}' -tocRefPrefix reference/api/@{subsystem}/"
 				maxmemory="512M"
