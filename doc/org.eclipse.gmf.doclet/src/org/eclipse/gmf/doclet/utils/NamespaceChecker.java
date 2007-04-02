@@ -9,7 +9,7 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.utils;
+package org.eclipse.gmf.doclet.utils;
 
 
 import java.util.HashMap;

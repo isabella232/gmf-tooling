@@ -9,34 +9,21 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.utils;
-
-
-import java.util.HashMap;
+package org.eclipse.gmf.doclet.proxies;
 
 
 /**
- * Registry of aliases. Maps alias to value.
+ * Utility to deal with proxies
  */
-
-public class AliasRegistry
+public class ProxyUtil
 {
 
-  private HashMap aliasMap;
-
-  public AliasRegistry()
+  public static Object getInnerObject(Object possibleProxy)
   {
-    this.aliasMap = new HashMap();
+    if (possibleProxy instanceof Proxy)
+    {
+      possibleProxy = ((Proxy)possibleProxy).getInnerObject();
+    }
+    return possibleProxy;
   }
-
-  public void registerAlias(String alias, String value)
-  {
-    this.aliasMap.put(alias.trim(), value.trim());
-  }
-
-  public String getAliasValue(String alias)
-  {
-    return (String)this.aliasMap.get(alias);
-  }
-
 }

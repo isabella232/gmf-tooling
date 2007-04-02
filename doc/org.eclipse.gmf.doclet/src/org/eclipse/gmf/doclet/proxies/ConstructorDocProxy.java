@@ -9,35 +9,34 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.proxies;
+package org.eclipse.gmf.doclet.proxies;
+
+
+import com.sun.javadoc.ConstructorDoc;
+import com.sun.javadoc.ExecutableMemberDoc;
 
 
 /**
- * Proxy to a Comparable
+ * Proxy to a ConstructorDoc
  */
-public class ComparableProxy extends Proxy implements Comparable<Object>
+public class ConstructorDocProxy extends ExecutableMemberDocProxy implements ConstructorDoc
 {
 
-  public ComparableProxy(Comparable innerComparable)
+  public ConstructorDocProxy(ExecutableMemberDoc innerConstructorDoc)
   {
-    super(innerComparable);
+    super(innerConstructorDoc);
   }
 
-  private Comparable getInnerComparable()
+  private ConstructorDoc getInnerConstructorDoc()
   {
-    return (Comparable)getInnerObject();
+    return (ConstructorDoc)getInnerObject();
   }
 
   /* (non-Javadoc)
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   * @see com.sun.javadoc.ProgramElementDoc#qualifiedName()
    */
-  public int compareTo(Object o)
+  public String qualifiedName()
   {
-    if (o instanceof Proxy)
-    {
-      o = ((Proxy)o).getInnerObject();
-    }
-    return getInnerComparable().compareTo(o);
+    return getInnerConstructorDoc().qualifiedName();
   }
-
 }

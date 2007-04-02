@@ -9,21 +9,33 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.proxies;
+package org.eclipse.gmf.doclet.proxies;
+
+
+import java.util.HashMap;
 
 
 /**
- * Utility to deal with proxies
+ * Registry of proxies.
  */
-public class ProxyUtil
+public class ProxyRegistry
 {
 
-  public static Object getInnerObject(Object possibleProxy)
+  private HashMap objectToProxyMap;
+
+  public ProxyRegistry()
   {
-    if (possibleProxy instanceof Proxy)
-    {
-      possibleProxy = ((Proxy)possibleProxy).getInnerObject();
-    }
-    return possibleProxy;
+    this.objectToProxyMap = new HashMap();
   }
+
+  public void registerProxy(Object object, Proxy proxy)
+  {
+    this.objectToProxyMap.put(object, proxy);
+  }
+
+  public Proxy getProxyForObject(Object object)
+  {
+    return (Proxy)this.objectToProxyMap.get(object);
+  }
+
 }

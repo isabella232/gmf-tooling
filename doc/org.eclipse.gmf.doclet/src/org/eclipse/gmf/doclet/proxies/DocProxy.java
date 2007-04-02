@@ -9,10 +9,10 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.proxies;
+package org.eclipse.gmf.doclet.proxies;
 
 
-import org.eclipse.gmf.runtime.doclet.Doclet;
+import org.eclipse.gmf.doclet.Doclet;
 
 import com.sun.javadoc.Doc;
 import com.sun.javadoc.PackageDoc;

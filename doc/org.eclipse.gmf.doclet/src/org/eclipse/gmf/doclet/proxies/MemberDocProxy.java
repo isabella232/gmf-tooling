@@ -9,34 +9,35 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet.proxies;
+package org.eclipse.gmf.doclet.proxies;
 
 
-import com.sun.javadoc.ConstructorDoc;
-import com.sun.javadoc.ExecutableMemberDoc;
+import com.sun.javadoc.MemberDoc;
 
 
 /**
- * Proxy to a ConstructorDoc
+ * Proxy to a MemberDoc
  */
-public class ConstructorDocProxy extends ExecutableMemberDocProxy implements ConstructorDoc
+
+public class MemberDocProxy extends ProgramElementDocProxy implements MemberDoc
 {
 
-  public ConstructorDocProxy(ExecutableMemberDoc innerConstructorDoc)
+  public MemberDocProxy(MemberDoc innerMemberDoc)
   {
-    super(innerConstructorDoc);
+    super(innerMemberDoc);
   }
 
-  private ConstructorDoc getInnerConstructorDoc()
+  private MemberDoc getInnerMemberDoc()
   {
-    return (ConstructorDoc)getInnerObject();
+    return (MemberDoc)getInnerObject();
   }
 
   /* (non-Javadoc)
-   * @see com.sun.javadoc.ProgramElementDoc#qualifiedName()
+   * @see com.sun.javadoc.MemberDoc#isSynthetic()
    */
-  public String qualifiedName()
+  public boolean isSynthetic()
   {
-    return getInnerConstructorDoc().qualifiedName();
+    return getInnerMemberDoc().isSynthetic();
   }
+
 }

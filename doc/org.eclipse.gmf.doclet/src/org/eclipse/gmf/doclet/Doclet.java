@@ -9,7 +9,7 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-package org.eclipse.gmf.runtime.doclet;
+package org.eclipse.gmf.doclet;
 
 
 import java.io.File;
@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeSet;
 
-import org.eclipse.gmf.runtime.doclet.proxies.ProxyFactory;
-import org.eclipse.gmf.runtime.doclet.utils.AliasRegistry;
-import org.eclipse.gmf.runtime.doclet.utils.MapsGenerator;
-import org.eclipse.gmf.runtime.doclet.utils.NamespaceChecker;
+import org.eclipse.gmf.doclet.proxies.ProxyFactory;
+import org.eclipse.gmf.doclet.utils.AliasRegistry;
+import org.eclipse.gmf.doclet.utils.MapsGenerator;
+import org.eclipse.gmf.doclet.utils.NamespaceChecker;
 
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.DocErrorReporter;
