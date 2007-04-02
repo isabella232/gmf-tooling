@@ -15,11 +15,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.FreeformLayeredPane;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.TaiPanCreateShortcutDecorationsCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.figures.BottomRightLayout;
+import org.eclipse.gmf.examples.taipan.gmf.editor.figures.RoseFigure;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy;
@@ -29,6 +40,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.resource.JFaceResources;
 
 /**
  * @generated
@@ -44,6 +56,8 @@ public class AquatoryEditPart extends DiagramEditPart {
 	 * @generated
 	 */
 	public static final int VISUAL_ID = 1000;
+
+	private IFigure contentPane;
 
 	/**
 	 * @generated
@@ -77,5 +91,49 @@ public class AquatoryEditPart extends DiagramEditPart {
 				return null;
 			}
 		});
+	}
+
+	/**
+	 * Replaces default figure with layered pane. Lower layer for decorations, upper is original figure.
+	 */
+	protected IFigure createFigure() {
+		FreeformLayeredPane pane = new FreeformLayeredPane();
+		FreeformLayer roseLayer = new FreeformLayer() {
+
+			public Rectangle getFreeformExtent() {
+				// Do not count children; they are decorations that should not interfere with diagram contents.
+				Insets insets = getInsets();
+				return new Rectangle(0, 0, insets.getWidth(), insets.getHeight());
+			}
+		};
+		roseLayer.setLayoutManager(new BottomRightLayout());
+		roseLayer.setBorder(new MarginBorder(10));
+		pane.add(roseLayer);
+		roseLayer.add(createRoseFigure());
+		pane.add(contentPane = super.createFigure());
+		return pane;
+	}
+
+	protected IFigure createRoseFigure() {
+		IFigure composite = new Figure();
+		composite.setLayoutManager(new BorderLayout());
+		RoseFigure rose = new RoseFigure();
+		rose.setBorder(new MarginBorder(5));
+		composite.add(rose, BorderLayout.CENTER);
+		composite.add(createRoseLetter("N"), BorderLayout.TOP); //$NON-NLS-1$
+		composite.add(createRoseLetter("S"), BorderLayout.BOTTOM); //$NON-NLS-1$
+		composite.add(createRoseLetter("W"), BorderLayout.LEFT); //$NON-NLS-1$
+		composite.add(createRoseLetter("E"), BorderLayout.RIGHT); //$NON-NLS-1$
+		return composite;
+	}
+
+	protected Label createRoseLetter(String letter) {
+		Label label = new Label(letter);
+		label.setFont(JFaceResources.getHeaderFont());
+		return label;
+	}
+
+	public IFigure getContentPane() {
+		return contentPane;
 	}
 }
