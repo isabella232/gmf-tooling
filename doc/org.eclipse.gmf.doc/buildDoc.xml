@@ -346,7 +346,7 @@
 				author="false"
 	        	destdir="${doc.plugin.dir}/reference/api/@{subsystem}"
 	 			windowtitle="Eclipse GMF Documentation"
-	 			source="1.4" 
+	 			source="1.5" 
 	        	noindex="false"
 	        	nonavbar="false"
 	        	executable="${javadoc.exe}"
