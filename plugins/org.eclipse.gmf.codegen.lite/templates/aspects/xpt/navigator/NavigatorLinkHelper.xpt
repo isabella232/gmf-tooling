@@ -30,4 +30,7 @@ if (anInput instanceof org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) {
 		}
 	}
 }
+if (diagram == null) {
+	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
+}
 «ENDAROUND»
