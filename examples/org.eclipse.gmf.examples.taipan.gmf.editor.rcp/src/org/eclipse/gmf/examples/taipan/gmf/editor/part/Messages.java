@@ -159,6 +159,16 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String Registration12CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Registration12CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String DiagramEditorActionBarAdvisor_DefaultFileEditorTitle;
 
 	/**
@@ -220,6 +230,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String ShipLargeCargoEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EvaluateOCLLinkConstraintError;
 
 	/**
 	 * @generated

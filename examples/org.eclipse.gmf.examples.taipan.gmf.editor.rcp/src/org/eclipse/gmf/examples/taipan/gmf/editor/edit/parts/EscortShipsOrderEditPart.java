@@ -72,7 +72,7 @@ public class EscortShipsOrderEditPart extends ConnectionNodeEditPart {
 			this.setFillXOR(false);
 			this.setOutline(true);
 			this.setOutlineXOR(false);
-			this.setLineWidth(1);
+			this.setLineWidth(3);
 			this.setLineStyle(Graphics.LINE_SOLID);
 
 			setTargetDecoration(createTargetDecoration());
@@ -87,7 +87,7 @@ public class EscortShipsOrderEditPart extends ConnectionNodeEditPart {
 			df.setFillXOR(false);
 			df.setOutline(true);
 			df.setOutlineXOR(false);
-			df.setLineWidth(1);
+			df.setLineWidth(3);
 			df.setLineStyle(Graphics.LINE_SOLID);
 			return df;
 		}

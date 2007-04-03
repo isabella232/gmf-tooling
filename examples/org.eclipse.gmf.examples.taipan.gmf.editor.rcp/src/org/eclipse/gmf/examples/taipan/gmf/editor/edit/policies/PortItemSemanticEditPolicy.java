@@ -40,6 +40,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderTypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2ReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2TypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteReorientCommand;
@@ -48,6 +49,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationR
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
@@ -108,6 +110,9 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
 			return req.getTarget() == null ? null : getCreateCompleteIncomingBesiegePortOrder_4005Command(req);
+		}
+		if (TaiPanElementTypes.PortRegister_4006 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingPortRegister_4006Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -239,6 +244,22 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	}
 
 	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingPortRegister_4006Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getSource();
+		if (false == sourceEObject instanceof Port) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Port source = (Port) sourceEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4006(source, null)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		return new Command() {
+		};
+	}
+
+	/**
 	 * Returns command to reorient link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
@@ -266,6 +287,8 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+		case PortRegisterEditPart.VISUAL_ID:
+			return getMSLWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

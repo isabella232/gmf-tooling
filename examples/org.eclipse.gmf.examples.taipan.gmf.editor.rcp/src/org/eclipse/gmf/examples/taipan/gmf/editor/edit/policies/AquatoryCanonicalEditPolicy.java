@@ -32,6 +32,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -43,6 +44,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
@@ -412,6 +414,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		}
 
+		if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(containerMetaclass)) {
+			for (Iterator destinations = ((Port) container).getRegister().iterator(); destinations.hasNext();) {
+				EObject nextDestination = (EObject) destinations.next();
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.PortRegister_4006, PortRegisterEditPart.VISUAL_ID));
+
+			}
+		}
 	}
 
 	/**

@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -47,8 +50,13 @@ import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.TaiPanBaseEditHelper;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 /**
@@ -294,6 +302,50 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
+		private static TaiPanAbstractExpression EscortShipsOrder_4004_SourceExpression;
+
+		/**
+		 * @generated
+		 */
+		static {
+			Map env = new HashMap(3);
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
+			EscortShipsOrder_4004_SourceExpression = TaiPanOCLFactory.getExpression(
+					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+		}
+
+		/**
+		 * @generated
+		 */
+		private static TaiPanAbstractExpression EscortShipsOrder_4004_TargetExpression;
+
+		/**
+		 * @generated
+		 */
+		static {
+			Map env = new HashMap(3);
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
+			EscortShipsOrder_4004_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
+		}
+
+		/**
+		 * @generated
+		 */
+		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
+
+		/**
+		 * @generated
+		 */
+		static {
+			Map env = new HashMap(3);
+			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
+			BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory
+					.getExpression("self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+		}
+
+		/**
+		 * @generated
+		 */
 		public static boolean canCreateShipDestination_4001(Ship source, Port target) {
 			if (source != null) {
 				if (source.getDestination() != null) {
@@ -326,6 +378,12 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+			if (!evaluate(EscortShipsOrder_4004_SourceExpression, source, target, false)) {
+				return false;
+			}
+			if (!evaluate(EscortShipsOrder_4004_TargetExpression, target, source, true)) {
+				return false;
+			}
 			return true;
 		}
 
@@ -333,7 +391,39 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
+			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
+				return false;
+			}
 			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreatePortRegister_4006(Port source, Ship target) {
+			if (source != null) {
+				if (source.getRegister().contains(target)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		private static boolean evaluate(TaiPanAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			if (sourceEnd == null) {
+				return true;
+			}
+			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);
+			try {
+				Object val = constraint.evaluate(sourceEnd, evalEnv);
+				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
+			} catch (Exception e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError(Messages.EvaluateOCLLinkConstraintError, e);
+				return false;
+			}
 		}
 	}
 

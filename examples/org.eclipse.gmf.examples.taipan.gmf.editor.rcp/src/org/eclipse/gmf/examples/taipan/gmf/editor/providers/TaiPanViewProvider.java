@@ -46,6 +46,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemArticl
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemWeightViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortLocationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortRegisterViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route2ViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteDescription2ViewFactory;
@@ -147,6 +148,9 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		}
 		if (TaiPanElementTypes.ShipDestination_4001.equals(elementType)) {
 			return ShipDestinationViewFactory.class;
+		}
+		if (TaiPanElementTypes.PortRegister_4006.equals(elementType)) {
+			return PortRegisterViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
