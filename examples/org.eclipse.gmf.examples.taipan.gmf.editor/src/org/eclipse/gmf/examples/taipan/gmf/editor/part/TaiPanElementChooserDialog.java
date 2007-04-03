@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -53,6 +54,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import java.util.Iterator;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * @generated
@@ -67,7 +70,7 @@ public class TaiPanElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	private EObject mySelectedModelElement;
+	private URI mySelectedModelElementURI;
 
 	/**
 	 * @generated
@@ -77,7 +80,7 @@ public class TaiPanElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	private EditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+	private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 
 	/**
 	 * @generated
@@ -142,8 +145,20 @@ public class TaiPanElementChooserDialog extends Dialog {
 	 * @generated
 	 */
 	public URI getSelectedModelElementURI() {
-		Resource resource = mySelectedModelElement.eResource();
-		return resource.getURI().appendFragment(resource.getURIFragment(mySelectedModelElement));
+		return mySelectedModelElementURI;
+	}
+
+	/**
+	 * @generated
+	 */
+	public int open() {
+		int result = super.open();
+		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource resource = (Resource) it.next();
+			resource.unload();
+		}
+		myEditingDomain.dispose();
+		return result;
 	}
 
 	/**
@@ -338,14 +353,15 @@ public class TaiPanElementChooserDialog extends Dialog {
 						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
 					}
 					if (selectedElement instanceof EObject) {
-						mySelectedModelElement = (EObject) selectedElement;
-						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
+						EObject selectedModelElement = (EObject) selectedElement;
+						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(selectedModelElement), myView, null, ViewUtil.APPEND, true,
 								TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+						mySelectedModelElementURI = EcoreUtil.getURI(selectedModelElement);
 						return;
 					}
 				}
 			}
-			mySelectedModelElement = null;
+			mySelectedModelElementURI = null;
 			setOkButtonEnabled(false);
 		}
 
