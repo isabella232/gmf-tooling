@@ -23,6 +23,8 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author dstadnik
@@ -54,6 +56,26 @@ public class InsiderLabelProvider extends LabelProvider {
 				String id = element.getAttribute(ElementMetaInfo.ID_ATTRIBUTE);
 				if (id != null) {
 					type += ' ' + id;
+				}
+			}
+			if (isShowBounds()) {
+				NodeList children = element.getChildNodes();
+				for (int i = 0; i < children.getLength(); i++) {
+					Node child = children.item(i);
+					if (child instanceof Element && ElementMetaInfo.BOUNDS_ELEMENT.equals(child.getNodeName())) {
+						Element boundsElement = (Element) child;
+						StringBuffer sb = new StringBuffer();
+						sb.append(" / [");
+						sb.append(boundsElement.getAttribute(ElementMetaInfo.X_ATTRIBUTE));
+						sb.append(',');
+						sb.append(boundsElement.getAttribute(ElementMetaInfo.Y_ATTRIBUTE));
+						sb.append(',');
+						sb.append(boundsElement.getAttribute(ElementMetaInfo.WIDTH_ATTRIBUTE));
+						sb.append(',');
+						sb.append(boundsElement.getAttribute(ElementMetaInfo.HEIGHT_ATTRIBUTE));
+						sb.append("]");
+						type += sb;
+					}
 				}
 			}
 			return type;
@@ -105,6 +127,15 @@ public class InsiderLabelProvider extends LabelProvider {
 		myShowIds = showIds;
 	}
 
+	public final boolean isShowBounds() {
+		return myShowBounds;
+	}
+
+	public void setShowBounds(boolean showBounds) {
+		myShowBounds = showBounds;
+	}
+
 	private boolean myShowSimpleTypes;
 	private boolean myShowIds;
+	private boolean myShowBounds;
 }

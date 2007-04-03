@@ -14,6 +14,7 @@ package org.eclipse.gmf.dev.insider.internal.ui;
 import org.eclipse.gmf.dev.insider.internal.InsiderAccess;
 import org.eclipse.gmf.dev.insider.internal.ui.actions.MemorizeActiveEditorAction;
 import org.eclipse.gmf.dev.insider.internal.ui.actions.OpenPresentationAction;
+import org.eclipse.gmf.dev.insider.internal.ui.actions.ShowBoundsAction;
 import org.eclipse.gmf.dev.insider.internal.ui.actions.ShowIdsAction;
 import org.eclipse.gmf.dev.insider.internal.ui.actions.ShowSimpleTypesAction;
 import org.eclipse.jface.action.Action;
@@ -41,6 +42,8 @@ public class InsiderActionGroup extends ActionGroup {
 		view.setShowSimpleTypes(myShowSimpleTypesAction.isChecked());
 		myShowIdsAction = new ShowIdsAction(view);
 		view.setShowIds(myShowIdsAction.isChecked());
+		myShowBoundsAction = new ShowBoundsAction(view);
+		view.setShowBounds(myShowBoundsAction.isChecked());
 		myClearAction = new Action("Clear") {
 
 			public void run() {
@@ -54,6 +57,7 @@ public class InsiderActionGroup extends ActionGroup {
 		manager.add(myOpenPresentationAction);
 		manager.add(myShowSimpleTypesAction);
 		manager.add(myShowIdsAction);
+		manager.add(myShowBoundsAction);
 		manager.add(new Separator());
 		myDrill.addNavigationActions(manager);
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
@@ -67,6 +71,7 @@ public class InsiderActionGroup extends ActionGroup {
 	private void fillLocalPullDown(IMenuManager manager) {
 		manager.add(myShowSimpleTypesAction);
 		manager.add(myShowIdsAction);
+		manager.add(myShowBoundsAction);
 		manager.add(myClearAction);
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
@@ -79,6 +84,7 @@ public class InsiderActionGroup extends ActionGroup {
 
 	private ShowSimpleTypesAction myShowSimpleTypesAction;
 	private ShowIdsAction myShowIdsAction;
+	private ShowBoundsAction myShowBoundsAction;
 	private OpenPresentationAction myOpenPresentationAction;
 	private MemorizeActiveEditorAction myMemorizeActiveEditorAction;
 	private IAction myClearAction;

@@ -97,6 +97,18 @@ public class InsiderView extends ViewPart {
 		myViewer.refresh(true);
 	}
 
+	public final boolean isShowBounds() {
+		return getLabelProvider().isShowBounds();
+	}
+
+	public void setShowBounds(boolean showBounds) {
+		if (getLabelProvider().isShowBounds() == showBounds) {
+			return;
+		}
+		getLabelProvider().setShowBounds(showBounds);
+		myViewer.refresh(true);
+	}
+
 	private InsiderLabelProvider getLabelProvider() {
 		return (InsiderLabelProvider) myViewer.getLabelProvider();
 	}
