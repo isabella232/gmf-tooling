@@ -52,9 +52,6 @@ public class CollectionTypeTest extends TestCase {
     }
 
     public final void testStuff() {
-        final List<String> l = new ArrayList<String>();
-        l.add("a");
-        l.add("b");
         try {
             ef.evaluate("{Object.newInstance()} + 'b'");
             fail("EvaluationException expected");
@@ -157,7 +154,17 @@ public class CollectionTypeTest extends TestCase {
         assertEquals(Collections.EMPTY_LIST, ef.evaluate("{}.withoutLast()"));
         assertEquals(null, ef.evaluate("null.withoutLast()"));
     }
-    
+
+    public final void testWithoutFirstLastAreImmutable() {
+        List<Integer> l = new ArrayList<Integer>();
+        l.add(1);
+        l.add(2);
+        l.add(3);
+        List<Integer> masterCopy = new ArrayList<Integer>(l);
+        assertEquals("Immutable withoutFirst", masterCopy, ef.evaluate("x.withoutFirst()->x", Collections.singletonMap("x", l)));
+        assertEquals("Immutable withoutLast", masterCopy, ef.evaluate("x.withoutLast()->x", Collections.singletonMap("x", l)));
+    }
+
     public final void testSetType() {
     	analyzeCollectionExpression(false, true, "Set");
     }
