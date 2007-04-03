@@ -103,4 +103,5 @@ public class EOperationItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}
+
 }

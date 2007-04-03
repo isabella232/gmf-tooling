@@ -50,4 +50,5 @@ public class EStringToStringMapEntryItemSemanticEditPolicy extends EcoreBaseItem
 		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
 		return cc;
 	}
+
 }

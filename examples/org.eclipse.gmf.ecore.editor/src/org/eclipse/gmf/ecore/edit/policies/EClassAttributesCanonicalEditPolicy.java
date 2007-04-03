@@ -55,7 +55,6 @@ public class EClassAttributesCanonicalEditPolicy extends CanonicalEditPolicy {
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-
 		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (nodeVID) {
 		case EAttributeEditPart.VISUAL_ID:

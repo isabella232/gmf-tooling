@@ -55,7 +55,6 @@ public class EDataTypeDataTypeAnnotationsCanonicalEditPolicy extends CanonicalEd
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-
 		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (nodeVID) {
 		case EAnnotationEditPart.VISUAL_ID:

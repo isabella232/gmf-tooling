@@ -103,4 +103,5 @@ public class EEnumLiteralItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}
+
 }

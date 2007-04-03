@@ -50,12 +50,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import java.util.Iterator;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.ui.model.WorkbenchContentProvider;
 
 /**
