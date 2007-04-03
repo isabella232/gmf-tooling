@@ -264,10 +264,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected EObject getRelationshipContainer(EObject element, EClass containerClass, IElementType relationshipType) {
-		for (; element != null; element = element.eContainer()) {
-			if (containerClass.isSuperTypeOf(element.eClass())) {
-				return element;
+	protected EObject getRelationshipContainer(Object uelement, EClass containerClass, IElementType relationshipType) {
+		if (uelement instanceof EObject) {
+			EObject element = (EObject) uelement;
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
 			}
 		}
 		return null;

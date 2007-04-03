@@ -73,41 +73,14 @@ public class TaiPanInitDiagramFileAction implements IWorkbenchWindowActionDelega
 	 * @generated
 	 */
 	public void run(IAction action) {
-		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN);
-		fileDialog.open();
-		String fileName = fileDialog.getFileName();
-		if (fileName == null || fileName.length() == 0) {
-			return;
-		}
-		if (fileDialog.getFilterPath() != null) {
-			fileName = fileDialog.getFilterPath() + File.separator + fileName;
-		}
-		org.eclipse.emf.common.util.URI domainModelURI = org.eclipse.emf.common.util.URI.createFileURI(fileName);
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		ResourceSet resourceSet = editingDomain.getResourceSet();
-		EObject diagramRoot = null;
-		try {
-			Resource resource = resourceSet.getResource(domainModelURI, true);
-			diagramRoot = (EObject) resource.getContents().get(0);
-		} catch (WrappedException ex) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
-		}
-		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), "Error", "Model file loading failed");
+		Resource resource = TaiPanDiagramEditorUtil.openModel(getShell(), "Select domain model", editingDomain);
+		if (resource == null || resource.getContents().isEmpty()) {
 			return;
 		}
-		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		IDialogSettings pluginDialogSettings = TaiPanDiagramEditorPlugin.getInstance().getDialogSettings();
-		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InitDiagramFile"); //$NON-NLS-1$
-		if (initDiagramFileSettings == null) {
-			initDiagramFileSettings = pluginDialogSettings.addNewSection("InitDiagramFile"); //$NON-NLS-1$
-		}
-		wizard.setDialogSettings(initDiagramFileSettings);
-		wizard.setForcePreviousAndNextButtons(false);
+		EObject diagramRoot = (EObject) resource.getContents().get(0);
+		Wizard wizard = new TaiPanNewDiagramFileWizard(resource.getURI(), diagramRoot, editingDomain);
 		wizard.setWindowTitle("Initialize new " + PortEditPart.MODEL_ID + " diagram file");
-		WizardDialog dialog = new WizardDialog(getShell(), wizard);
-		dialog.create();
-		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
-		dialog.open();
+		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }

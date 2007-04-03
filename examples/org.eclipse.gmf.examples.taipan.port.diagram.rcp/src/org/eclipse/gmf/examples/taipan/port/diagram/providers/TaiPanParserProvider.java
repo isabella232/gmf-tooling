@@ -49,6 +49,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createBuildingBuildingAddress_5001Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getBuilding_Address());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 

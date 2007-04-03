@@ -59,12 +59,12 @@
       <?gmfgen generated="true"?>
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.ui.objectContribution.PortEditPart2"
+            id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResource"
             objectClass="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart">
          <action
                class="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanLoadResourceActionID"
+               id="org.eclipse.gmf.examples.taipan.port.diagram.rcp.LoadResourceAction"
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>

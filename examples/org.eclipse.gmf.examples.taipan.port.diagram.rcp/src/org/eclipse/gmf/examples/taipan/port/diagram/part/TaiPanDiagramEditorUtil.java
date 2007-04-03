@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.part;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -21,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -30,6 +32,13 @@ import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
@@ -103,6 +112,53 @@ public class TaiPanDiagramEditorUtil {
 			}
 		}
 		return filePath.lastSegment();
+	}
+
+	/**
+	 * Allows user to select file and loads it as a model.
+	 * 
+	 * @generated
+	 */
+	public static Resource openModel(Shell shell, String description, TransactionalEditingDomain editingDomain) {
+		FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
+		if (description != null) {
+			fileDialog.setText(description);
+		}
+		fileDialog.open();
+		String fileName = fileDialog.getFileName();
+		if (fileName == null || fileName.length() == 0) {
+			return null;
+		}
+		if (fileDialog.getFilterPath() != null) {
+			fileName = fileDialog.getFilterPath() + File.separator + fileName;
+		}
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createFileURI(fileName);
+		Resource resource = null;
+		try {
+			resource = editingDomain.getResourceSet().getResource(uri, true);
+		} catch (WrappedException we) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + uri, we);
+			MessageDialog.openError(shell, "Error", "Failed to load model file " + fileName);
+		}
+		return resource;
+	}
+
+	/**
+	 * Runs the wizard in a dialog.
+	 * 
+	 * @generated
+	 */
+	public static void runWizard(Shell shell, Wizard wizard, String settingsKey) {
+		IDialogSettings pluginDialogSettings = TaiPanDiagramEditorPlugin.getInstance().getDialogSettings();
+		IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);
+		if (wizardDialogSettings == null) {
+			wizardDialogSettings = pluginDialogSettings.addNewSection(settingsKey);
+		}
+		wizard.setDialogSettings(wizardDialogSettings);
+		WizardDialog dialog = new WizardDialog(shell, wizard);
+		dialog.create();
+		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+		dialog.open();
 	}
 
 	/**
