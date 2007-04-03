@@ -309,7 +309,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		static {
 			Map env = new HashMap(3);
 			env.put(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression("self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
+			EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
+					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
 		}
 
 		/**
