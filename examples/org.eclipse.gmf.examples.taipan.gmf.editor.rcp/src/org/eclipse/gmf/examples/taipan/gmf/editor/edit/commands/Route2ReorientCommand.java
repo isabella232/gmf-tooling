@@ -34,6 +34,11 @@ public class Route2ReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -42,6 +47,7 @@ public class Route2ReorientCommand extends EditElementCommand {
 	public Route2ReorientCommand(ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -53,10 +59,10 @@ public class Route2ReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		return false;
 	}
@@ -65,17 +71,40 @@ public class Route2ReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		EObject link = getElementToEdit();
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
+		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-
-			((Route) link).setSource(((Port) newEnd));
-			return CommandResult.newOKCommandResult(link);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-
-			((Route) link).setDestination(((Port) newEnd));
-			return CommandResult.newOKCommandResult(link);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		Route link = (Route) getElementToEdit();
+		Port oldSource = (Port) oldEnd;
+		Port newSource = (Port) newEnd;
+
+		link.setSource(newSource);
+
+		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		Route link = (Route) getElementToEdit();
+		Port oldTarget = (Port) oldEnd;
+		Port newTarget = (Port) newEnd;
+
+		link.setDestination(newTarget);
+		return CommandResult.newOKCommandResult(link);
 	}
 }

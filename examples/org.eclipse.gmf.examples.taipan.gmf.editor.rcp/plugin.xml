@@ -65,24 +65,24 @@
       <?gmfgen generated="true"?>
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ui.objectContribution.AquatoryEditPart1"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.CreateShortcut"
             objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
          <action
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutActionID"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.CreateShortcutAction"
                label="%createShortcutActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.ui.objectContribution.AquatoryEditPart2"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LoadResource"
             objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
          <action
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceActionID"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.rcp.LoadResourceAction"
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>

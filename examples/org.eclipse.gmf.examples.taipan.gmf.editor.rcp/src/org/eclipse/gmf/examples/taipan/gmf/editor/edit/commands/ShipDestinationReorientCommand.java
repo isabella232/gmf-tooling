@@ -40,6 +40,11 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
+	private final EObject oldEnd;
+
+	/**
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
@@ -49,6 +54,7 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
 		referenceOwner = request.getReferenceOwner();
+		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
 
@@ -60,10 +66,10 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return newEnd instanceof Ship;
+			return oldEnd instanceof Port && newEnd instanceof Ship;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return newEnd instanceof Port;
+			return oldEnd instanceof Port && newEnd instanceof Port;
 		}
 		return false;
 	}
@@ -72,18 +78,40 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
+		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-
-			EObject value = ((Ship) referenceOwner).getDestination();
-			((Ship) referenceOwner).setDestination(null);
-			((Ship) newEnd).setDestination(((Port) value));
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-
-			((Ship) referenceOwner).setDestination(((Port) newEnd));
-			return CommandResult.newOKCommandResult(referenceOwner);
+			return reorientTarget();
 		}
-		return CommandResult.newErrorCommandResult("Unknown link reorient direction: " + reorientDirection);
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientSource() throws ExecutionException {
+		Ship oldSource = (Ship) referenceOwner;
+		Ship newSource = (Ship) newEnd;
+		Port target = (Port) oldEnd;
+
+		oldSource.setDestination(null);
+		newSource.setDestination(target);
+		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandResult reorientTarget() throws ExecutionException {
+		Ship source = (Ship) referenceOwner;
+		Port oldTarget = (Port) oldEnd;
+		Port newTarget = (Port) newEnd;
+
+		source.setDestination(newTarget);
+		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 }
