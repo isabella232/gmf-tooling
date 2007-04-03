@@ -16,6 +16,7 @@
     <genClasses ecoreClass="taipan.ecore#//Port">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Port/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Port/buildings"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//Port/register"/>
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//Building">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Building/address"/>
