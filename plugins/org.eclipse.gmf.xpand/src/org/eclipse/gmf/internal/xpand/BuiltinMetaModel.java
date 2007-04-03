@@ -735,7 +735,9 @@ public class BuiltinMetaModel {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
-					target.remove(0);
+					LinkedList rv = new LinkedList(target);
+					rv.removeFirst();
+					return rv;
 				}
 				return target;
 			}
@@ -744,7 +746,9 @@ public class BuiltinMetaModel {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
-					target.remove(target.size() - 1);
+					LinkedList rv = new LinkedList(target);
+					rv.removeLast();
+					return rv;
 				}
 				return target;
 			}
