@@ -143,6 +143,7 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 			Resource resource = (Resource) it.next();
 			resource.unload();
 		}
+		((TransactionalEditingDomain) myEditingDomain).dispose();
 		myEditingDomain = null;
 	}
 
