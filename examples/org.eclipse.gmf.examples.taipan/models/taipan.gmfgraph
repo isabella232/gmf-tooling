@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="taipan">
   <figures
-      name="default">
+      name="nodes">
     <figures
         xsi:type="gmfgraph:Rectangle"
         referencingElements="Ship"
@@ -14,20 +14,6 @@
           referencingElements="ShipName"
           name="ShipNameFigure"
           text="&lt;...>"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="ShipDestination"
-        name="ShipDestinationFigure"
-        targetDecoration="ShipDestinationTargetFigure">
-      <children
-          xsi:type="gmfgraph:PolylineDecoration"
-          name="ShipDestinationTargetFigure"/>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="ShipDestinationMarker"
-          name="ShipDestinationMarkerFigure"
-          text="destination"/>
     </figures>
     <figures
         xsi:type="gmfgraph:Rectangle"
@@ -49,21 +35,6 @@
           text="&lt;...>"/>
     </figures>
     <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="ReliableRoute"
-        name="ReliableRouteFigure">
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="ReliableRouteDescription"
-          name="ReliableRouteDescriptionFigure"
-          text="&lt;...>"/>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="ReliableRouteReliability"
-          name="ReliableRouteReliabilityFigure"
-          text="&lt;...>"/>
-    </figures>
-    <figures
         xsi:type="gmfgraph:Rectangle"
         referencingElements="SmallCargo"
         name="SmallCargoFigure"/>
@@ -71,6 +42,11 @@
         xsi:type="gmfgraph:Rectangle"
         referencingElements="LargeCargo"
         name="LargeCargoFigure"/>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="SmallItems"
+        name="SmallItemsFigure"
+        text="&lt;...>"/>
     <figures
         xsi:type="gmfgraph:CustomFigure"
         referencingElements="Port"
@@ -151,11 +127,34 @@
         referencingElements="PortLocation"
         name="PortLocationFigure"
         text="&lt;...>"/>
+  </figures>
+  <figures
+      name="images"
+      implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
     <figures
-        xsi:type="gmfgraph:Label"
-        referencingElements="SmallItems"
-        name="SmallItemsFigure"
-        text="&lt;...>"/>
+        xsi:type="gmfgraph:CustomFigure"
+        referencingElements="EmptyBox"
+        name="EmptyBoxFigure"
+        qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure"
+        bundleName=""/>
+  </figures>
+  <figures
+      name="links">
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="ReliableRoute"
+        name="ReliableRouteFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ReliableRouteDescription"
+          name="ReliableRouteDescriptionFigure"
+          text="&lt;...>"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ReliableRouteReliability"
+          name="ReliableRouteReliabilityFigure"
+          text="&lt;...>"/>
+    </figures>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="UnreliableRoute"
@@ -174,6 +173,20 @@
     </figures>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="ShipDestination"
+        name="ShipDestinationFigure"
+        targetDecoration="ShipDestinationTargetFigure">
+      <children
+          xsi:type="gmfgraph:PolylineDecoration"
+          name="ShipDestinationTargetFigure"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ShipDestinationMarker"
+          name="ShipDestinationMarkerFigure"
+          text="destination"/>
+    </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
         referencingElements="EscortShipsOrder"
         name="EscortShipsOrderFigure"
         lineWidth="3"
@@ -184,25 +197,15 @@
           lineWidth="3"/>
     </figures>
     <figures
+        xsi:type="gmfgraph:CustomFigure"
+        referencingElements="BesiegePortOrder"
+        name="BesiegePortOrderFigure"
+        qualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection"/>
+    <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="Registration"
         name="RegistrationFigure"
         lineKind="LINE_DASH"/>
-    <figures
-        xsi:type="gmfgraph:CustomFigure"
-        referencingElements="BesiegePortOrder"
-        name="BesiegePortOrderFigure"
-        qualifiedClassName="org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection"/>
-  </figures>
-  <figures
-      name="images"
-      implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
-    <figures
-        xsi:type="gmfgraph:CustomFigure"
-        referencingElements="EmptyBox"
-        name="EmptyBoxFigure"
-        qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure"
-        bundleName=""/>
   </figures>
   <nodes
       name="Port"

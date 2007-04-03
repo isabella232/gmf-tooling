@@ -650,7 +650,7 @@
           editHelperClassName="BesiegePortOrderEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
-          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection">
+          figureQualifiedClassName="org.eclipse.gmf.examples.taipan.figures.ArrowConnection">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
