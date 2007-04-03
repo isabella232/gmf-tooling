@@ -629,6 +629,12 @@
         <targetMetaFeature
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
+      <creationConstraints>
+        <sourceEnd
+            body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
+        <targetEnd
+            body="not self.oclIsKindOf(Warship)"/>
+      </creationConstraints>
     </links>
     <links
         visualID="4005"
@@ -660,6 +666,10 @@
         <targetMetaFeature
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
       </modelFacet>
+      <creationConstraints>
+        <sourceEnd
+            body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
+      </creationConstraints>
     </links>
     <links
         visualID="4007"
@@ -1103,7 +1113,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@audits/@rules.0/@rule">
+        expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@sourceEnd //@diagram/@links.3/@creationConstraints/@targetEnd //@diagram/@links.4/@creationConstraints/@sourceEnd //@audits/@rules.0/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

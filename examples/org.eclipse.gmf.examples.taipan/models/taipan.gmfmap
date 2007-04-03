@@ -266,6 +266,12 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//EscortShipsOrder/ships"/>
+    <creationConstraints>
+      <sourceEnd
+          body="self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()"/>
+      <targetEnd
+          body="not self.oclIsKindOf(Warship)"/>
+    </creationConstraints>
   </links>
   <links>
     <domainMetaElement
@@ -280,6 +286,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="taipan.ecore#//BesiegePortOrder/port"/>
+    <creationConstraints>
+      <sourceEnd
+          body="self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()"/>
+    </creationConstraints>
   </links>
   <links>
     <tool
