@@ -21,6 +21,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
@@ -28,6 +30,7 @@ import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
+import org.eclipse.gmf.examples.design2d.part.Messages;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -50,13 +53,106 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	/**
 	 * @generated
 	 */
+	private Viewer myViewer;
+
+	/**
+	 * @generated
+	 */
+	private AdapterFactoryEditingDomain myEditingDomain;
+
+	/**
+	 * @generated
+	 */
+	private WorkspaceSynchronizer myWorkspaceSynchronizer;
+
+	/**
+	 * @generated
+	 */
+	private Runnable myViewerRefreshRunnable;
+
+	/**
+	 * @generated
+	 */
+	public DesignNavigatorContentProvider() {
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		myEditingDomain = (AdapterFactoryEditingDomain) editingDomain;
+		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
+
+			public Object get(Object key) {
+				if (!containsKey(key)) {
+					put(key, Boolean.TRUE);
+				}
+				return super.get(key);
+			}
+		});
+		myViewerRefreshRunnable = new Runnable() {
+
+			public void run() {
+				if (myViewer != null) {
+					myViewer.refresh();
+				}
+			}
+		};
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer(editingDomain, new WorkspaceSynchronizer.Delegate() {
+
+			public void dispose() {
+			}
+
+			public boolean handleResourceChanged(final Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceDeleted(Resource resource) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+
+			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+					Resource nextResource = (Resource) it.next();
+					nextResource.unload();
+				}
+				if (myViewer != null) {
+					myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
+				}
+				return true;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
 	public void dispose() {
+		myWorkspaceSynchronizer.dispose();
+		myWorkspaceSynchronizer = null;
+		myViewerRefreshRunnable = null;
+		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
+			Resource resource = (Resource) it.next();
+			resource.unload();
+		}
+		((TransactionalEditingDomain) myEditingDomain).dispose();
+		myEditingDomain = null;
 	}
 
 	/**
 	 * @generated
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		myViewer = viewer;
 	}
 
 	/**
@@ -90,20 +186,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-			editingDomain.setResourceToReadOnlyMap(new HashMap() {
-
-				public Object get(Object key) {
-					if (!containsKey(key)) {
-						put(key, Boolean.TRUE);
-					}
-					return super.get(key);
-				}
-			});
-			ResourceSet resourceSet = editingDomain.getResourceSet();
-
 			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			Resource resource = resourceSet.getResource(fileURI, true);
+			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			Collection result = new ArrayList();
 			result.addAll(createNavigatorItems(selectViewsByType(resource.getContents(), Design2DEditPart.MODEL_ID), file, false));
 			return result.toArray();
@@ -133,7 +217,7 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case Design2DEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup links = new DesignNavigatorGroup("links", "icons/linksNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup links = new DesignNavigatorGroup(Messages.NavigatorGroupName_Diagram_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangleEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), SolidEllipse2EditPart.VISUAL_ID);
@@ -148,8 +232,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case SolidRectangleEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
-			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_2001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), SolidEllipseEditPart.VISUAL_ID);
@@ -175,8 +259,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case SolidEllipse2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
-			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_2002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_2002_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), SolidEllipseEditPart.VISUAL_ID);
@@ -202,8 +286,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case SolidRectangle2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
-			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_3001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), SolidEllipseEditPart.VISUAL_ID);
@@ -226,8 +310,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case SolidEllipseEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup("incoming links", "icons/incomingLinksNavigatorGroup.gif", parentElement);
-			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup("outgoing links", "icons/outgoingLinksNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup incominglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			DesignNavigatorGroup outgoinglinks = new DesignNavigatorGroup(Messages.NavigatorGroupName_Node_3002_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangle2EditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), SolidRectangle2EditPart.VISUAL_ID);
@@ -250,8 +334,8 @@ public class DesignNavigatorContentProvider implements ICommonContentProvider {
 
 		case SolidLineEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
-			DesignNavigatorGroup target = new DesignNavigatorGroup("target", "icons/linkTargetNavigatorGroup.gif", parentElement);
-			DesignNavigatorGroup source = new DesignNavigatorGroup("source", "icons/linkSourceNavigatorGroup.gif", parentElement);
+			DesignNavigatorGroup target = new DesignNavigatorGroup(Messages.NavigatorGroupName_Link_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			DesignNavigatorGroup source = new DesignNavigatorGroup(Messages.NavigatorGroupName_Link_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), SolidRectangleEditPart.VISUAL_ID);
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), SolidEllipse2EditPart.VISUAL_ID);

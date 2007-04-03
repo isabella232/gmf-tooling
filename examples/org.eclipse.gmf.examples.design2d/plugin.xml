@@ -65,12 +65,12 @@
       <?gmfgen generated="true"?>
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.design2d.ui.objectContribution.Design2DEditPart2"
+            id="org.eclipse.gmf.examples.design2d.LoadResource"
             objectClass="org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart">
          <action
                class="org.eclipse.gmf.examples.design2d.part.DesignLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.design2d.part.DesignLoadResourceActionID"
+               id="org.eclipse.gmf.examples.design2d.LoadResourceAction"
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
@@ -172,42 +172,42 @@
       <?gmfgen generated="true"?>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Diagram_1000"
-            name="Design2D"
+            name="%metatype.name.Diagram_1000"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="1000"/>
       </specializationType>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Node_2001"
-            name="Solid Rectangle"
+            name="%metatype.name.Node_2001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="2001"/>
       </specializationType>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Node_2002"
-            name="Solid Ellipse"
+            name="%metatype.name.Node_2002"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="2002"/>
       </specializationType>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Node_3001"
-            name="Solid Rectangle"
+            name="%metatype.name.Node_3001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="3001"/>
       </specializationType>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Node_3002"
-            name="Solid Ellipse"
+            name="%metatype.name.Node_3002"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="3002"/>
       </specializationType>
       <specializationType
             id="org.eclipse.gmf.examples.design2d.Link_4001"
-            name="Solid Line"
+            name="%metatype.name.Link_4001"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="4001"/>
@@ -305,7 +305,10 @@
             id="org.eclipse.gmf.examples.design2d.navigatorLinkHelper"
             class="org.eclipse.gmf.examples.design2d.navigator.DesignNavigatorLinkHelper">
          <editorInputEnablement>
-            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.examples.design2d.isURIEditorInput"/>
+            </and>
          </editorInputEnablement>
          <selectionEnablement>
             <instanceof value="org.eclipse.gmf.examples.design2d.navigator.DesignAbstractNavigatorItem"/>
@@ -360,5 +363,16 @@
             tab="property.tab.DiagramPropertySection">
          </propertySection>     
       </propertySections>
+
+   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.design2d.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="org.eclipse.gmf.examples.design2d"
+           properties="isURIEditorInput"
+           class="org.eclipse.gmf.examples.design2d.part.DesignUriEditorInputTester">
+       </propertyTester>
    </extension>
+
 </plugin>

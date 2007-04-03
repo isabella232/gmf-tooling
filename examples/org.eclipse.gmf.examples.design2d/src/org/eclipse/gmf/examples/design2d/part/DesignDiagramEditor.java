@@ -40,6 +40,8 @@ import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService
 
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
@@ -86,51 +88,6 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
-	protected String getEditingDomainID() {
-		return "org.eclipse.gmf.examples.design2d.EditingDomain"; //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	protected TransactionalEditingDomain createEditingDomain() {
-		TransactionalEditingDomain domain = super.createEditingDomain();
-		domain.setID(getEditingDomainID());
-		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(domain.getResourceSet()).and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(
-				NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
-		domain.getResourceSet().eAdapters().add(new Adapter() {
-
-			private Notifier myTarger;
-
-			public Notifier getTarget() {
-				return myTarger;
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return false;
-			}
-
-			public void notifyChanged(Notification notification) {
-				if (diagramResourceModifiedFilter.matches(notification)) {
-					Object value = notification.getNewValue();
-					if (value instanceof Resource) {
-						((Resource) value).setTrackingModification(true);
-					}
-				}
-			}
-
-			public void setTarget(Notifier newTarget) {
-				myTarger = newTarget;
-			}
-
-		});
-
-		return domain;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
 		PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
 		new DesignPaletteFactory().fillPalette(root);
@@ -155,8 +112,8 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	 * @generated
 	 */
 	protected IDocumentProvider getDocumentProvider(IEditorInput input) {
-		if (input instanceof URIEditorInput) {
-			return new URIDiagramDocumentProvider();
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
+			return DesignDiagramEditorPlugin.getInstance().getDocumentProvider();
 		}
 		return super.getDocumentProvider(input);
 	}
@@ -164,13 +121,22 @@ public class DesignDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
+	public TransactionalEditingDomain getEditingDomain() {
+		IDocument document = getEditorInput() != null ? getDocumentProvider().getDocument(getEditorInput()) : null;
+		if (document instanceof IDiagramDocument) {
+			return ((IDiagramDocument) document).getEditingDomain();
+		}
+		return super.getEditingDomain();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new DesignDocumentProvider());
-		} else if (input instanceof URIEditorInput) {
-			setDocumentProvider(new URIDiagramDocumentProvider());
+		if (input instanceof IFileEditorInput || input instanceof URIEditorInput) {
+			setDocumentProvider(DesignDiagramEditorPlugin.getInstance().getDocumentProvider());
 		} else {
-			setDocumentProvider(new StorageDiagramDocumentProvider());
+			super.setDocumentProvider(input);
 		}
 	}
 

@@ -60,6 +60,11 @@ public class DesignDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private DesignDocumentProvider myDocumentProvider;
+
+	/**
+	 * @generated
+	 */
 	public DesignDiagramEditorPlugin() {
 	}
 
@@ -178,6 +183,16 @@ public class DesignDiagramEditorPlugin extends AbstractUIPlugin {
 			image = getImageRegistry().get(path);
 		}
 		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public DesignDocumentProvider getDocumentProvider() {
+		if (myDocumentProvider == null) {
+			myDocumentProvider = new DesignDocumentProvider();
+		}
+		return myDocumentProvider;
 	}
 
 	/**

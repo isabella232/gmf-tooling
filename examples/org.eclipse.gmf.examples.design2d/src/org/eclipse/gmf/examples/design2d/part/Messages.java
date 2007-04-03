@@ -11,16 +11,18 @@
  */
 package org.eclipse.gmf.examples.design2d.part;
 
+import org.eclipse.osgi.util.NLS;
+
 /**
  * @generated
  */
-public class Messages extends org.eclipse.osgi.util.NLS {
+public class Messages extends NLS {
 
 	/**
 	 * @generated
 	 */
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
+		NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
 	}
 
 	/**
@@ -28,6 +30,16 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 */
 	private Messages() {
 	}
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String DocumentProvider_handleElementContentChanged;
 
 	/**
 	 * @generated
@@ -48,6 +60,66 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	 * @generated
 	 */
 	public static String SolidLine3CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Diagram_1000_links;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2002_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2002_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_3001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_3001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_3002_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_3002_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Link_4001_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Link_4001_source;
 
 	//TODO: put accessor fields manually	
 }
