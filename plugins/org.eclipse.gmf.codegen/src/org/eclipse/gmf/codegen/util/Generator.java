@@ -492,16 +492,11 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 
-	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws InterruptedException {
 		if (genLink.isSansDomain()) {
 			return;
 		}
-		internalGenerateJavaClass(
-			myEmitters.getLinkItemSemanticEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			genLink.getItemSemanticEditPolicyClassName(),
-			genLink
-		);
+		doGenerateJavaClass(myEmitters.getLinkItemSemanticEditPolicyEmitter(), genLink.getItemSemanticEditPolicyQualifiedClassName(), genLink);
 	}
 	
 	private void generateLinkCreateCommand(GenLink genLink) throws InterruptedException, UnexpectedBehaviourException {

@@ -225,3 +225,12 @@ private boolean isBlank(String s) :
 private String safeName(String name) :
 JAVA org.eclipse.emf.codegen.util.CodeGenUtil.safeName(java.lang.String)
 ;
+
+// GenFeatureImpl#isContains
+boolean isContains(genmodel::GenFeature gf) :
+	isReferenceType(gf) && ((ecore::EReference) gf.ecoreFeature).containment
+;
+
+private boolean isReferenceType(genmodel::GenFeature gf) :
+	!{gf.ecoreFeature}.typeSelect(ecore::EReference).isEmpty()
+;
