@@ -186,13 +186,13 @@ public class CanvasItemProvider
 	}
 
 	/**
-	 * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-	 * describing all of the children that can be created under this object.
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void collectNewChildDescriptorsGen(Collection<CommandParameter> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptorsGen(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
@@ -226,16 +226,17 @@ public class CanvasItemProvider
 				 GMFGraphFactory.eINSTANCE.createDiagramLabel()));
 	}
 
-	protected void collectNewChildDescriptors(Collection<CommandParameter> newChildDescriptors, Object object) {
-		LinkedList<CommandParameter> allGenerated = new LinkedList<CommandParameter>();
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+		LinkedList<Object> allGenerated = new LinkedList<Object>();
 		collectNewChildDescriptorsGen(allGenerated, object);
 		
 		CommandParameter toRemove = createChildParameter(
 				GMFGraphPackage.eINSTANCE.getCanvas_Nodes(),
 				GMFGraphFactory.eINSTANCE.createDiagramLabel());
 
-		for (Iterator<CommandParameter> generated = allGenerated.iterator(); generated.hasNext();){
-			if (equalsChildParameters(toRemove, generated.next())){
+		for (Iterator<Object> generated = allGenerated.iterator(); generated.hasNext();){
+			final CommandParameter next = (CommandParameter) generated.next();
+			if (equalsChildParameters(toRemove, next)){
 				generated.remove();
 				break;
 			}
