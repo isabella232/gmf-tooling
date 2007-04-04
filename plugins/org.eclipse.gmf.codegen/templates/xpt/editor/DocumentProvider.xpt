@@ -115,7 +115,7 @@ if («IF null == editorGen.application»false == element instanceof «EXPAND fileEd
 «ENDDEFINE»
 
 «DEFINE throwIncorrectInputException FOR gmfgen::GenDiagram-»
-throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of «IF null == editorGen.application»«EXPAND fileEditorInputClassFQName» or «ENDIF»«EXPAND uriEditorInputClassFQName»", null)); //$NON-NLS-1$ //$NON-NLS-2$
+throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of «IF null == editorGen.application»«EXPAND fileEditorInputClassFQName» or «ENDIF»«EXPAND uriEditorInputClassFQName»", null)); «EXPAND xpt::Common::nonNLS» «EXPAND xpt::Common::nonNLS(2)»
 «ENDDEFINE»
 
 «DEFINE fileEditorInputClassFQName FOR gmfgen::GenDiagram»org.eclipse.ui.part.FileEditorInput«ENDDEFINE»
@@ -186,7 +186,7 @@ protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument
 	«EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.emf.transaction.TransactionalEditingDomain createEditingDomain() {
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory.getInstance().createEditingDomain();
-	editingDomain.setID("«editingDomainID»"); //$NON-NLS-1$
+	editingDomain.setID("«editingDomainID»"); «EXPAND xpt::Common::nonNLS»
 	final org.eclipse.emf.transaction.NotificationFilter diagramResourceModifiedFilter = org.eclipse.emf.transaction.NotificationFilter.createNotifierFilter(editingDomain.getResourceSet()).and(org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.ADD)).and(org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(org.eclipse.emf.ecore.resource.ResourceSet.class, org.eclipse.emf.ecore.resource.ResourceSet.RESOURCE_SET__RESOURCES));
 	editingDomain.getResourceSet().eAdapters().add(new org.eclipse.emf.common.notify.Adapter() {
 
@@ -272,7 +272,7 @@ protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.e
 				thrownExcp = (org.eclipse.core.runtime.CoreException) e;
 			} else {
 				String msg = e.getLocalizedMessage();
-				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); «EXPAND xpt::Common::nonNLS»
 			}
 			throw thrownExcp;
 		}
@@ -588,7 +588,7 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		if (!overwrite && !info.isSynchronized()) {
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.runtime.IStatus.OK, "The file has been changed on the file system", null)); //$NON-NLS-1$
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.runtime.IStatus.OK, "The file has been changed on the file system", null)); «EXPAND xpt::Common::nonNLS»
 		}
 	«IF null == editorGen.application-»
 		info.stopResourceListening();

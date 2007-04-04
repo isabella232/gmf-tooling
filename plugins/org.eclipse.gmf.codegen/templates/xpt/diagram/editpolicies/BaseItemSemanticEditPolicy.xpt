@@ -28,7 +28,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	 * 
 	 * @generated
 	 */
-	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
+	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
 
 	/**
 	 * Add visual id of edited editpart to extended data of the request
@@ -114,7 +114,7 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 		editHelperContext = org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
 	}
 	org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-	if (elementType == org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
+	if (elementType == org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { «EXPAND xpt::Common::nonNLS» 
 	«REM»< % = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()) % >.getInstance().logInfo("Failed to get element type for " + editHelperContext); / / $NON-NLS-1$«ENDREM»«-»
 		elementType = null;
 	}
@@ -296,7 +296,7 @@ protected org.eclipse.emf.ecore.EObject getRelationshipContainer(Object uelement
 protected static class «getLinkCreationConstraintsClassName()» {
 	«IF null != editorGen.expressionProviders-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+	private static final String OPPOSITE_END_VAR = "oppositeEnd"; «EXPAND xpt::Common::nonNLS»
 		«EXPAND defineConstraintExpressions FOREACH getValidLinkConstraints(this)-»
 	«ENDIF-»
 	«EXPAND canCreate FOREACH links-»
@@ -332,7 +332,7 @@ private static «container.editorGen.expressionProviders.getAbstractExpressionQua
 «EXPAND xpt::Common::generatedMemberComment»
 static {
 	«EXPAND xpt::expressions::getExpression::initOppositeEndEnv FOR oppositeEndContext-»
-	«varName» = «EXPAND xpt::expressions::getExpression::getExpressionWithEnv(constraint, context)»; //$NON-NLS-1$
+	«varName» = «EXPAND xpt::expressions::getExpression::getExpressionWithEnv(constraint, context)»; «EXPAND xpt::Common::nonNLS»
 }
 «ENDDEFINE»
 

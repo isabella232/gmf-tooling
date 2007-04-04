@@ -82,7 +82,7 @@
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
 		if (!canExecute()) {
-			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
+			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in reorient link command"); «EXPAND xpt::Common::nonNLS»
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
 			return reorientSource();

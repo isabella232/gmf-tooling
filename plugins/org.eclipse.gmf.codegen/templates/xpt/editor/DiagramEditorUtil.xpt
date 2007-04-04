@@ -119,9 +119,9 @@ public class «diagramEditorUtilClassName» {
 			return;
 		}
 		try {
-			file.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); //$NON-NLS-1$
+			file.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); «EXPAND xpt::Common::nonNLS»
 		} catch (org.eclipse.core.runtime.CoreException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); «EXPAND xpt::Common::nonNLS»
 		}
 	}
 «ENDDEFINE»
@@ -130,8 +130,8 @@ public class «diagramEditorUtilClassName» {
 «DEFINE getFileMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.common.util.URI uri) {
-		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
-			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
+		if (uri.toString().startsWith("platform:/resource")) { «EXPAND xpt::Common::nonNLS»
+			String path = uri.toString().substring("platform:/resource".length()); «EXPAND xpt::Common::nonNLS»
 			org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
 			if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
 				return (org.eclipse.core.resources.IFile) workspaceResource;
@@ -145,10 +145,10 @@ public class «diagramEditorUtilClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static String getUniqueFileName(org.eclipse.core.runtime.IPath containerFullPath, String fileName, String extension) {
 		if (containerFullPath == null) {
-			containerFullPath = new org.eclipse.core.runtime.Path(""); //$NON-NLS-1$
+			containerFullPath = new org.eclipse.core.runtime.Path(""); «EXPAND xpt::Common::nonNLS»
 		}
 		if (fileName == null || fileName.trim().length() == 0) {
-			fileName = "default"; //$NON-NLS-1$
+			fileName = "default"; «EXPAND xpt::Common::nonNLS»
 		}
 		org.eclipse.core.runtime.IPath filePath = containerFullPath.append(fileName);
 		if (extension != null && !extension.equals(filePath.getFileExtension())) {
@@ -184,7 +184,7 @@ public class «diagramEditorUtilClassName» {
 		final org.eclipse.emf.ecore.resource.Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 «ENDIF-»
 		final String diagramName = diagramURI.lastSegment();
-		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, "Creating diagram and model", java.util.Collections.EMPTY_LIST) { //$NON-NLS-1$
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, "Creating diagram and model", java.util.Collections.EMPTY_LIST) { «EXPAND xpt::Common::nonNLS»
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 «IF domainDiagramElement != null-»
 				«domainDiagramElement.getQualifiedInterfaceName()» model = createInitialModel();
@@ -205,12 +205,12 @@ public class «diagramEditorUtilClassName» {
 				
 				try {
 					java.util.Map options = new java.util.HashMap();
-					options.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+					options.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
 					«IF standaloneDomainModel()»modelResource.save(options);«ENDIF»
 					diagramResource.save(options);
 				} catch (java.io.IOException e) {
 					«/* TODO CommandResult.newErrorCommandResult(e) would be better? Or even throw ExecutionEx?*/»
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to store model and diagram resources", e); «EXPAND xpt::Common::nonNLS»
 				}
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 			}
@@ -218,7 +218,7 @@ public class «diagramEditorUtilClassName» {
 		try {
 			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.SubProgressMonitor(progressMonitor, 1), null);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
 		}
 «IF editorGen.application == null-»
 		«IF standaloneDomainModel()»setCharset(modelURI);«ENDIF»

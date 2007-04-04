@@ -39,7 +39,7 @@ static {
 	final Class[] supportedTypes = new Class[] { org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class };
 	final org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor propertySheetPageContributor = new org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor() {
 		public String getContributorId() {
-			return "«editorGen.plugin.iD»"; //$NON-NLS-1$
+			return "«editorGen.plugin.iD»"; «EXPAND xpt::Common::nonNLS»
 		}
 	};
 	org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {

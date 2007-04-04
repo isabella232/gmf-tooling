@@ -387,7 +387,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 	java.util.Collection result = new java.util.ArrayList();
 	for (java.util.Iterator it = diagram.getChildren().iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
-		if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+		if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
 			result.add(nextView);
 		}
 	}
@@ -401,7 +401,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 «DEFINE initGroupVariables(gmfgen::GenNavigator navigator, List[gmfgen::GenNavigatorChildReference] references, String parentVarName, gmfgen::GenCommonBase contextElement) FOR String-»
 	«navigator.getNavigatorGroupQualifiedClassName()» «asValidJavaIdentifier(this)» = new «navigator.getNavigatorGroupQualifiedClassName()»(
 	«EXPAND xpt::Externalizer::accessorCall(i18nKeyForGroup(this, contextElement)) FOR navigator.editorGen»,
-	"«getNavigatorReference(this, references).groupIcon»", «parentVarName»); //$NON-NLS-1$
+	"«getNavigatorReference(this, references).groupIcon»", «parentVarName»); «EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE addNavigatorItemsPrefix FOR gmfgen::GenNavigatorChildReference»«IF isInsideGroup()»«asValidJavaIdentifier(groupName)».addChildren(«ELSE»result.addAll(«ENDIF»createNavigatorItems(«ENDDEFINE»

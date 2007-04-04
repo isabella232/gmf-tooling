@@ -38,9 +38,9 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	public «EXPAND className»(org.eclipse.emf.common.util.URI domainModelURI,
 			org.eclipse.emf.ecore.EObject diagramRoot,
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
-		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-	    assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
-	    assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
+		assert domainModelURI != null : "Domain model uri must be specified"; «EXPAND xpt::Common::nonNLS»
+	    assert diagramRoot != null : "Doagram root element must be specified"; «EXPAND xpt::Common::nonNLS»
+	    assert editingDomain != null : "Editing domain must be specified"; «EXPAND xpt::Common::nonNLS»
 
 		myFileCreationPage = new «EXPAND creationPage»("Initialize new diagram file", org.eclipse.jface.viewers.StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle("Diagram file");
@@ -58,7 +58,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
-				filePath, fileName, "«editorGen.diagramFileExtension»")); //$NON-NLS-1$
+				filePath, fileName, "«editorGen.diagramFileExtension»")); «EXPAND xpt::Common::nonNLS»
 
 		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage("Select diagram root element");
 		diagramRootElementSelectionPage.setTitle("Diagram root element");
@@ -80,10 +80,10 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		«IF null == editorGen.application-»
 		org.eclipse.core.resources.IFile diagramFile = myFileCreationPage.createNewFile();
 		try {
-			diagramFile.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); //$NON-NLS-1$
+			diagramFile.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); «EXPAND xpt::Common::nonNLS»
 		} catch (org.eclipse.core.runtime.CoreException e) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-				"Unable to set charset for diagram file", e); //$NON-NLS-1$
+				"Unable to set charset for diagram file", e); «EXPAND xpt::Common::nonNLS»
 		}
 		affectedFiles.add(diagramFile);
 		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
@@ -95,7 +95,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		final org.eclipse.emf.ecore.resource.Resource diagramResource = resourceSet.createResource(diagramModelURI);
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command =
 			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
-				myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+				myEditingDomain, "Initializing diagram contents", affectedFiles) { «EXPAND xpt::Common::nonNLS»
 
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 					org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
@@ -103,7 +103,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != «getEditPartQualifiedClassName()».VISUAL_ID) {
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
-						"Incorrect model object stored as a root resource object"); //$NON-NLS-1$
+						"Incorrect model object stored as a root resource object"); «EXPAND xpt::Common::nonNLS»
 				}
 				org.eclipse.gmf.runtime.notation.Diagram diagram =
 					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
@@ -126,13 +126,13 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagramResource);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-				"Unable to create model and diagram", e); //$NON-NLS-1$
+				"Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
 		} catch (java.io.IOException ex) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-				"Save operation failed for: " + diagramModelURI, ex); //$NON-NLS-1$
+				"Save operation failed for: " + diagramModelURI, ex); «EXPAND xpt::Common::nonNLS»
 		} catch (org.eclipse.ui.PartInitException ex) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-				"Unable to open editor", ex); //$NON-NLS-1$
+				"Unable to open editor", ex); «EXPAND xpt::Common::nonNLS»
 		}			
 		return true;
 	}

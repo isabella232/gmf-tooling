@@ -26,7 +26,7 @@
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::CustomBehaviour-»
-	installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.startsWith('\"') && key.endsWith('\"')»//$NON-NLS-1$«ENDIF»
+	installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.startsWith('\"') && key.endsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
@@ -85,13 +85,13 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addNotationalListeners() {
 		super.addNotationalListeners();
-		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
+		addListenerFilter("PrimaryView", this, getPrimaryView()); «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeNotationalListeners() {
 		super.removeNotationalListeners();
-		removeListenerFilter("PrimaryView"); //$NON-NLS-1$
+		removeListenerFilter("PrimaryView"); «EXPAND xpt::Common::nonNLS»
 	}
 «ENDDEFINE»
 

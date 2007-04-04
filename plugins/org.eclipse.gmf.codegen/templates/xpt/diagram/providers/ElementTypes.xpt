@@ -206,7 +206,7 @@ public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.ru
 «DEFINE elementTypeField FOR gmfgen::GenCommonBase-»
 	«IF null != elementType-»
 		«EXPAND xpt::Common::generatedMemberComment»
-public static final org.eclipse.gmf.runtime.emf.type.core.IElementType «getUniqueIdentifier()» = getElementType("«elementType.uniqueIdentifier»"); //$NON-NLS-1$
+public static final org.eclipse.gmf.runtime.emf.type.core.IElementType «getUniqueIdentifier()» = getElementType("«elementType.uniqueIdentifier»"); «EXPAND xpt::Common::nonNLS»
 	«ENDIF-»
 «ENDDEFINE»
 

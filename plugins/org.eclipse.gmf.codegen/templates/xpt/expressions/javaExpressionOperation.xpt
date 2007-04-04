@@ -20,7 +20,7 @@ private static «EXPAND javaExpressionReturnTypeFQName(this) FOR valueExpr» «getO
 	// TODO: implement this method
 	// Ensure that you remove @generated or mark it @generated NOT
 	
-	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«getOperationName(valueExpr)»' operation"); //$NON-NLS-1$
+	throw new «container.getAbstractExpressionQualifiedClassName()».NoImplException("No user java implementation provided in '«getOperationName(valueExpr)»' operation"); «EXPAND xpt::Common::nonNLS»
 }
 «ENDDEFINE»
 

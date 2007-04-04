@@ -28,10 +28,10 @@ public class «perspectiveClassName» implements org.eclipse.ui.IPerspectiveFactor
 		layout.setEditorAreaVisible(true);
 		layout.addPerspectiveShortcut(«getWorkbenchAdvisorQualifiedClassName()».PERSPECTIVE_ID);
 		org.eclipse.ui.IFolderLayout right = layout.createFolder(
-			"right", org.eclipse.ui.IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$
+			"right", org.eclipse.ui.IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); «EXPAND xpt::Common::nonNLS»
 		right.addView(org.eclipse.ui.IPageLayout.ID_OUTLINE);
 		org.eclipse.ui.IFolderLayout bottomRight = layout.createFolder(
-			"bottomRight", org.eclipse.ui.IPageLayout.BOTTOM, 0.6f, "right"); //$NON-NLS-1$ //$NON-NLS-2$
+			"bottomRight", org.eclipse.ui.IPageLayout.BOTTOM, 0.6f, "right"); «EXPAND xpt::Common::nonNLS»	«EXPAND xpt::Common::nonNLS(2)»
 		bottomRight.addView(org.eclipse.ui.IPageLayout.ID_PROP_SHEET);
 		«EXPAND layoutAdditions-»
 	}

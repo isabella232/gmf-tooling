@@ -79,7 +79,7 @@ implements org.eclipse.ui.IObjectActionDelegate {
 		}
 		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(domainModelURI, diagramRoot, editingDomain);
 		wizard.setWindowTitle("Initialize new " + «getEditPartQualifiedClassName()».MODEL_ID + " diagram file");
-		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
+		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
 	}
 	«ELSE-»
 implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
@@ -118,7 +118,7 @@ implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
 		org.eclipse.emf.ecore.EObject diagramRoot = (org.eclipse.emf.ecore.EObject) resource.getContents().get(0);
 		org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(resource.getURI(), diagramRoot, editingDomain);
 		wizard.setWindowTitle("Initialize new " + «getEditPartQualifiedClassName()».MODEL_ID + " diagram file");
-		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
+		«getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «EXPAND xpt::Common::nonNLS»
 	}
 	«ENDIF-»
 }

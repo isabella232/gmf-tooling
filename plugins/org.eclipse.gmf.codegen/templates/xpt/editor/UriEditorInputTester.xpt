@@ -32,7 +32,7 @@ public boolean test(Object receiver, String method, Object[] args, Object expect
 		return false;
 	}
 	org.eclipse.emf.common.ui.URIEditorInput editorInput = (org.eclipse.emf.common.ui.URIEditorInput) receiver;
-	return "«diagramFileExtension»".equals(editorInput.getURI().fileExtension()); //$NON-NLS-1$
+	return "«diagramFileExtension»".equals(editorInput.getURI().fileExtension()); «EXPAND xpt::Common::nonNLS»
 }
 «ENDDEFINE»
 

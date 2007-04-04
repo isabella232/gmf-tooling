@@ -22,7 +22,7 @@ package «getDiagram().editPartsPackageName»;
 public class «editPartClassName» extends org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public final static String MODEL_ID = "«editorGen.modelID»"; //$NON-NLS-1$
+	public final static String MODEL_ID = "«editorGen.modelID»"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR this-»
 

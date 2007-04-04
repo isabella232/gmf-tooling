@@ -24,7 +24,7 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("«getAccessorName().toLowerCase()»", «getAccessorName()».class); //$NON-NLS-1$
+		org.eclipse.osgi.util.NLS.initializeMessages("«getAccessorName().toLowerCase()»", «getAccessorName()».class); «EXPAND xpt::Common::nonNLS»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»

@@ -33,7 +33,7 @@ public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.Work
 
 «DEFINE perspectiveId FOR gmfgen::GenApplication-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String PERSPECTIVE_ID = "«perspectiveId»"; //$NON-NLS-1$
+	public static final String PERSPECTIVE_ID = "«perspectiveId»"; «EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE getInitialWindowPerspectiveId FOR gmfgen::GenApplication-»

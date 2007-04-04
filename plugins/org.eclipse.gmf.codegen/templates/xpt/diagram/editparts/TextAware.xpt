@@ -134,7 +134,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditText() {
 		if (getParser() == null) {
-			return ""; //$NON-NLS-1$
+			return ""; «EXPAND xpt::Common::nonNLS»
 		}
 		return getParser().getEditString(
 			new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()),
@@ -347,7 +347,7 @@
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 			parserElements = ((org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser()).getSemanticElementsBeingParsed(element);
 			for (int i = 0; i < parserElements.size(); i++) {
-				addListenerFilter("SemanticModel" + i, this, (org.eclipse.emf.ecore.EObject) parserElements.get(i)); //$NON-NLS-1$
+				addListenerFilter("SemanticModel" + i, this, (org.eclipse.emf.ecore.EObject) parserElements.get(i)); «EXPAND xpt::Common::nonNLS»
 			}
 		} else {
 			super.addSemanticListeners();
@@ -358,7 +358,7 @@
 	protected void removeSemanticListeners() {
 		if (parserElements != null) {
 			for (int i = 0; i < parserElements.size(); i++) {
-				removeListenerFilter("SemanticModel" + i); //$NON-NLS-1$
+				removeListenerFilter("SemanticModel" + i); «EXPAND xpt::Common::nonNLS»
 			}
 		} else {
 			super.removeSemanticListeners();
