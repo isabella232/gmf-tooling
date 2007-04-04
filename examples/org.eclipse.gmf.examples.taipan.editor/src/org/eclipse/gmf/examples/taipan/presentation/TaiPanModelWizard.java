@@ -179,16 +179,12 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	protected Collection<String> getInitialObjectNames() {
-		if (initialObjectNames == null)
-		{
+		if (initialObjectNames == null) {
 			initialObjectNames = new ArrayList<String>();
-			for (EClassifier eClassifier : taiPanPackage.getEClassifiers())
-			{
-				if (eClassifier instanceof EClass)
-				{
-					EClass eClass = (EClass)eClassifier;
-					if (!eClass.isAbstract())
-					{
+			for (EClassifier eClassifier : taiPanPackage.getEClassifiers()) {
+				if (eClassifier instanceof EClass) {
+					EClass eClass = (EClass) eClassifier;
+					if (!eClass.isAbstract()) {
 						initialObjectNames.add(eClass.getName());
 					}
 				}
@@ -205,7 +201,7 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	protected EObject createInitialModel() {
-		EClass eClass = (EClass)taiPanPackage.getEClassifier(initialObjectCreationPage.getInitialObjectName());
+		EClass eClass = (EClass) taiPanPackage.getEClassifier(initialObjectCreationPage.getInitialObjectName());
 		EObject rootObject = taiPanFactory.create(eClass);
 		return rootObject;
 	}
@@ -218,58 +214,49 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		try
-		{
+		try {
 			// Remember the file.
 			//
 			final IFile modelFile = getModelFile();
 
 			// Do the work within an operation.
 			//
-			WorkspaceModifyOperation operation =
-				new WorkspaceModifyOperation()
-				{
-					@Override
-					protected void execute(IProgressMonitor progressMonitor)
-					{
-						try
-						{
-							// Create a resource set
-							//
-							ResourceSet resourceSet = new ResourceSetImpl();
+			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 
-							// Get the URI of the model file.
-							//
-							URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
+				@Override
+				protected void execute(IProgressMonitor progressMonitor) {
+					try {
+						// Create a resource set
+						//
+						ResourceSet resourceSet = new ResourceSetImpl();
 
-							// Create a resource for this file.
-							//
-							Resource resource = resourceSet.createResource(fileURI);
+						// Get the URI of the model file.
+						//
+						URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
 
-							// Add the initial model object to the contents.
-							//
-							EObject rootObject = createInitialModel();
-							if (rootObject != null)
-							{
-								resource.getContents().add(rootObject);
-							}
+						// Create a resource for this file.
+						//
+						Resource resource = resourceSet.createResource(fileURI);
 
-							// Save the contents of the resource to the file system.
-							//
-							Map<Object, Object> options = new HashMap<Object, Object>();
-							options.put(XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding());
-							resource.save(options);
+						// Add the initial model object to the contents.
+						//
+						EObject rootObject = createInitialModel();
+						if (rootObject != null) {
+							resource.getContents().add(rootObject);
 						}
-						catch (Exception exception)
-						{
-							TaiPanEditorPlugin.INSTANCE.log(exception);
-						}
-						finally
-						{
-							progressMonitor.done();
-						}
+
+						// Save the contents of the resource to the file system.
+						//
+						Map<Object, Object> options = new HashMap<Object, Object>();
+						options.put(XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding());
+						resource.save(options);
+					} catch (Exception exception) {
+						TaiPanEditorPlugin.INSTANCE.log(exception);
+					} finally {
+						progressMonitor.done();
 					}
-				};
+				}
+			};
 
 			getContainer().run(false, false, operation);
 
@@ -278,37 +265,27 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 			IWorkbenchPage page = workbenchWindow.getActivePage();
 			final IWorkbenchPart activePart = page.getActivePart();
-			if (activePart instanceof ISetSelectionTarget)
-			{
+			if (activePart instanceof ISetSelectionTarget) {
 				final ISelection targetSelection = new StructuredSelection(modelFile);
-				getShell().getDisplay().asyncExec
-					(new Runnable()
-					 {
-						 public void run()
-						 {
-							 ((ISetSelectionTarget)activePart).selectReveal(targetSelection);
-						 }
-					 });
+				getShell().getDisplay().asyncExec(new Runnable() {
+
+					public void run() {
+						((ISetSelectionTarget) activePart).selectReveal(targetSelection);
+					}
+				});
 			}
 
 			// Open an editor on the new file.
 			//
-			try
-			{
-				page.openEditor
-					(new FileEditorInput(modelFile),
-					 workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
-			}
-			catch (PartInitException exception)
-			{
+			try {
+				page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
+			} catch (PartInitException exception) {
 				MessageDialog.openError(workbenchWindow.getShell(), TaiPanEditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage()); //$NON-NLS-1$
 				return false;
 			}
 
 			return true;
-		}
-		catch (Exception exception)
-		{
+		} catch (Exception exception) {
 			TaiPanEditorPlugin.INSTANCE.log(exception);
 			return false;
 		}
@@ -340,24 +317,18 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		 */
 		@Override
 		protected boolean validatePage() {
-			if (super.validatePage())
-			{
+			if (super.validatePage()) {
 				// Make sure the file ends in ".taipan".
 				//
 				String requiredExt = TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameExtension"); //$NON-NLS-1$
 				String enteredExt = new Path(getFileName()).getFileExtension();
-				if (enteredExt == null || !enteredExt.equals(requiredExt))
-				{
-					setErrorMessage(TaiPanEditorPlugin.INSTANCE.getString("_WARN_FilenameExtension", new Object [] { requiredExt })); //$NON-NLS-1$
+				if (enteredExt == null || !enteredExt.equals(requiredExt)) {
+					setErrorMessage(TaiPanEditorPlugin.INSTANCE.getString("_WARN_FilenameExtension", new Object[] { requiredExt })); //$NON-NLS-1$
 					return false;
-				}
-				else
-				{
+				} else {
 					return true;
 				}
-			}
-			else
-			{
+			} else {
 				return false;
 			}
 		}
@@ -448,13 +419,11 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 				initialObjectField.setLayoutData(data);
 			}
 
-			for (String objectName : getInitialObjectNames())
-			{
+			for (String objectName : getInitialObjectNames()) {
 				initialObjectField.add(getLabel(objectName));
 			}
 
-			if (initialObjectField.getItemCount() == 1)
-			{
+			if (initialObjectField.getItemCount() == 1) {
 				initialObjectField.select(0);
 			}
 			initialObjectField.addModifyListener(validator);
@@ -475,8 +444,7 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 				encodingField.setLayoutData(data);
 			}
 
-			for (String encoding : getEncodings())
-			{
+			for (String encoding : getEncodings()) {
 				encodingField.add(encoding);
 			}
 
@@ -492,13 +460,12 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		protected ModifyListener validator = new ModifyListener()
-			{
-				public void modifyText(ModifyEvent e)
-				{
-					setPageComplete(validatePage());
-				}
-			};
+		protected ModifyListener validator = new ModifyListener() {
+
+			public void modifyText(ModifyEvent e) {
+				setPageComplete(validatePage());
+			}
+		};
 
 		/**
 		 * <!-- begin-user-doc -->
@@ -517,15 +484,11 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		@Override
 		public void setVisible(boolean visible) {
 			super.setVisible(visible);
-			if (visible)
-			{
-				if (initialObjectField.getItemCount() == 1)
-				{
+			if (visible) {
+				if (initialObjectField.getItemCount() == 1) {
 					initialObjectField.clearSelection();
 					encodingField.setFocus();
-				}
-				else
-				{
+				} else {
 					encodingField.clearSelection();
 					initialObjectField.setFocus();
 				}
@@ -540,10 +503,8 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		public String getInitialObjectName() {
 			String label = initialObjectField.getText();
 
-			for (String name : getInitialObjectNames())
-			{
-				if (getLabel(name).equals(label))
-				{
+			for (String name : getInitialObjectNames()) {
+				if (getLabel(name).equals(label)) {
 					return name;
 				}
 			}
@@ -566,12 +527,9 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		 * @generated
 		 */
 		protected String getLabel(String typeName) {
-			try
-			{
+			try {
 				return TaiPanEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-			catch(MissingResourceException mre)
-			{
+			} catch (MissingResourceException mre) {
 				TaiPanEditorPlugin.INSTANCE.log(mre);
 			}
 			return typeName;
@@ -583,10 +541,9 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		 * @generated
 		 */
 		protected Collection<String> getEncodings() {
-			if (encodings == null)
-			{
+			if (encodings == null) {
 				encodings = new ArrayList<String>();
-				for (StringTokenizer stringTokenizer = new StringTokenizer(TaiPanEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) //$NON-NLS-1$
+				for (StringTokenizer stringTokenizer = new StringTokenizer(TaiPanEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens();) //$NON-NLS-1$
 				{
 					encodings.add(stringTokenizer.nextToken());
 				}
@@ -608,30 +565,27 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 		newFileCreationPage = new TaiPanModelWizardNewFileCreationPage("Whatever", selection); //$NON-NLS-1$
 		newFileCreationPage.setTitle(TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanModelWizard_label")); //$NON-NLS-1$
 		newFileCreationPage.setDescription(TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanModelWizard_description")); //$NON-NLS-1$
-		newFileCreationPage.setFileName(TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameDefaultBase") + "." + TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameExtension")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newFileCreationPage
+				.setFileName(TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameDefaultBase") + "." + TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameExtension")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		addPage(newFileCreationPage);
 
 		// Try and get the resource selection to determine a current directory for the file dialog.
 		//
-		if (selection != null && !selection.isEmpty())
-		{
+		if (selection != null && !selection.isEmpty()) {
 			// Get the resource...
 			//
 			Object selectedElement = selection.iterator().next();
-			if (selectedElement instanceof IResource)
-			{
+			if (selectedElement instanceof IResource) {
 				// Get the resource parent, if its a file.
 				//
-				IResource selectedResource = (IResource)selectedElement;
-				if (selectedResource.getType() == IResource.FILE)
-				{
+				IResource selectedResource = (IResource) selectedElement;
+				if (selectedResource.getType() == IResource.FILE) {
 					selectedResource = selectedResource.getParent();
 				}
 
 				// This gives us a directory...
 				//
-				if (selectedResource instanceof IFolder || selectedResource instanceof IProject)
-				{
+				if (selectedResource instanceof IFolder || selectedResource instanceof IProject) {
 					// Set this for the container.
 					//
 					newFileCreationPage.setContainerFullPath(selectedResource.getFullPath());
@@ -641,8 +595,7 @@ public class TaiPanModelWizard extends Wizard implements INewWizard {
 					String defaultModelBaseFilename = TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameDefaultBase"); //$NON-NLS-1$
 					String defaultModelFilenameExtension = TaiPanEditorPlugin.INSTANCE.getString("_UI_TaiPanEditorFilenameExtension"); //$NON-NLS-1$
 					String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension; //$NON-NLS-1$
-					for (int i = 1; ((IContainer)selectedResource).findMember(modelFilename) != null; ++i)
-					{
+					for (int i = 1; ((IContainer) selectedResource).findMember(modelFilename) != null; ++i) {
 						modelFilename = defaultModelBaseFilename + i + "." + defaultModelFilenameExtension; //$NON-NLS-1$
 					}
 					newFileCreationPage.setFileName(modelFilename);
