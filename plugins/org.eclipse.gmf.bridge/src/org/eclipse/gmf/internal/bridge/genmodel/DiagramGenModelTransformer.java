@@ -502,8 +502,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			// ugly check that nodeMapping is related to owning canvasMapping, iow mapping.getCanvasMapping() == nextRelatedCanvas
 			if (nextRelatedCanvas.eResource() != mapping.eResource()) {
 				// unless we would like to ask user where to take appropriate .gmfgen...
-				openDiagramPolicy.setDiagramKind("put GenEditorGenerator.modelID value here");
-				openDiagramPolicy.setEditorID("put GenEditorView.id value here");
+				openDiagramPolicy.setDiagramKind("FIXME put GenEditorGenerator.modelID value here");
+				openDiagramPolicy.setEditorID("FIXME put GenEditorView.id value here");
 			}
 			genNode.getBehaviour().add(openDiagramPolicy);
 		}
