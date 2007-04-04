@@ -126,6 +126,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 				}
 			}
 		};
+		// XXX not sure whether to keep old value on newValue == null is right, as null value is perfectly
+		// legal and sensible (meaning this very diagram). Keeping old for now because it seems easier to reset 
+		// value to null rather than to type once again.
 		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_DiagramKind(), "^FIXME.*")); //$NON-NLS-1$
 		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_EditorID(), "^FIXME.*")); //$NON-NLS-1$
 		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_EditPolicyClassName());
