@@ -572,7 +572,10 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_46);
     	for (Iterator it = genNodes.iterator(); it.hasNext();) {
-	GenNode nextNode = (GenNode) it.next();
+		GenNode nextNode = (GenNode) it.next();
+		if (nextNode.getModelFacet().isPhantomElement()) {
+			continue;
+		}
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName(nextNode.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_48);

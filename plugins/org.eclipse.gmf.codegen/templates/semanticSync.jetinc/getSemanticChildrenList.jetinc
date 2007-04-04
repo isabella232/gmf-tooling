@@ -26,7 +26,10 @@ protected boolean shouldDeleteView(<%=importManager.getImportedName("org.eclipse
 	int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
 	switch (nodeVID) {	
 <%	for (Iterator it = genNodes.iterator(); it.hasNext();) {
-	GenNode nextNode = (GenNode) it.next();%>
+		GenNode nextNode = (GenNode) it.next();
+		if (nextNode.getModelFacet().isPhantomElement()) {
+			continue;
+		}%>
 	case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
 <%	}%>
 		return true;
