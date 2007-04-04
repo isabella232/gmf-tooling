@@ -54,7 +54,7 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	 * @generated
 	 * @ordered
 	 */
-	protected EscortShipsOrder escortOrder = null;
+	protected EscortShipsOrder escortOrder;
 
 	/**
 	 * The cached value of the '{@link #getAttackOrders() <em>Attack Orders</em>}' containment reference list.
@@ -64,7 +64,7 @@ public class WarshipImpl extends ShipImpl implements Warship {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<BesiegePortOrder> attackOrders = null;
+	protected EList<BesiegePortOrder> attackOrders;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -175,42 +175,6 @@ public interface TaiPanPackage extends EPackage {
 	int SHIP = 4;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHIP__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHIP__DESTINATION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHIP__CARGO = 2;
-
-	/**
-	 * The number of structural features of the '<em>Ship</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHIP_FEATURE_COUNT = 3;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.ItemImpl <em>Item</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -219,24 +183,6 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	int ITEM = 5;
-
-	/**
-	 * The feature id for the '<em><b>Article</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITEM__ARTICLE = 0;
-
-	/**
-	 * The number of structural features of the '<em>Item</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITEM_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.LargeItemImpl <em>Large Item</em>}' class.
@@ -249,33 +195,6 @@ public interface TaiPanPackage extends EPackage {
 	int LARGE_ITEM = 6;
 
 	/**
-	 * The feature id for the '<em><b>Article</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LARGE_ITEM__ARTICLE = ITEM__ARTICLE;
-
-	/**
-	 * The feature id for the '<em><b>Weight</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LARGE_ITEM__WEIGHT = ITEM_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Large Item</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LARGE_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl <em>Small Items</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -284,33 +203,6 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	int SMALL_ITEMS = 7;
-
-	/**
-	 * The feature id for the '<em><b>Article</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SMALL_ITEMS__ARTICLE = ITEM__ARTICLE;
-
-	/**
-	 * The feature id for the '<em><b>Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SMALL_ITEMS__QUANTITY = ITEM_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Small Items</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SMALL_ITEMS_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl <em>Empty Box</em>}' class.
@@ -323,24 +215,6 @@ public interface TaiPanPackage extends EPackage {
 	int EMPTY_BOX = 8;
 
 	/**
-	 * The feature id for the '<em><b>Article</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EMPTY_BOX__ARTICLE = ITEM__ARTICLE;
-
-	/**
-	 * The number of structural features of the '<em>Empty Box</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EMPTY_BOX_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.WarshipImpl <em>Warship</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -349,60 +223,6 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	int WARSHIP = 9;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP__NAME = SHIP__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP__DESTINATION = SHIP__DESTINATION;
-
-	/**
-	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP__CARGO = SHIP__CARGO;
-
-	/**
-	 * The feature id for the '<em><b>Escort Order</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP__ESCORT_ORDER = SHIP_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Attack Orders</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP__ATTACK_ORDERS = SHIP_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Warship</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WARSHIP_FEATURE_COUNT = SHIP_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.Order <em>Order</em>}' class.
@@ -415,15 +235,6 @@ public interface TaiPanPackage extends EPackage {
 	int ORDER = 10;
 
 	/**
-	 * The number of structural features of the '<em>Order</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDER_FEATURE_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EscortShipsOrderImpl <em>Escort Ships Order</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -434,24 +245,6 @@ public interface TaiPanPackage extends EPackage {
 	int ESCORT_SHIPS_ORDER = 11;
 
 	/**
-	 * The feature id for the '<em><b>Ships</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ESCORT_SHIPS_ORDER__SHIPS = ORDER_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Escort Ships Order</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ESCORT_SHIPS_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.BesiegePortOrderImpl <em>Besiege Port Order</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -460,24 +253,6 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	int BESIEGE_PORT_ORDER = 12;
-
-	/**
-	 * The feature id for the '<em><b>Port</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BESIEGE_PORT_ORDER__PORT = ORDER_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Besiege Port Order</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BESIEGE_PORT_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.
@@ -561,6 +336,231 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUTE_FEATURE_COUNT = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP__DESTINATION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP__CARGO = 2;
+
+	/**
+	 * The number of structural features of the '<em>Ship</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP_FEATURE_COUNT = 3;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ITEM__ARTICLE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ITEM_FEATURE_COUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM__WEIGHT = ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Large Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The feature id for the '<em><b>Quantity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS__QUANTITY = ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Small Items</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPTY_BOX__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The number of structural features of the '<em>Empty Box</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPTY_BOX_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__NAME = SHIP__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__DESTINATION = SHIP__DESTINATION;
+
+	/**
+	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__CARGO = SHIP__CARGO;
+
+	/**
+	 * The feature id for the '<em><b>Escort Order</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__ESCORT_ORDER = SHIP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Attack Orders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__ATTACK_ORDERS = SHIP_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Warship</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP_FEATURE_COUNT = SHIP_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Order</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Ships</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ESCORT_SHIPS_ORDER__SHIPS = ORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Escort Ships Order</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ESCORT_SHIPS_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BESIEGE_PORT_ORDER__PORT = ORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Besiege Port Order</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BESIEGE_PORT_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.

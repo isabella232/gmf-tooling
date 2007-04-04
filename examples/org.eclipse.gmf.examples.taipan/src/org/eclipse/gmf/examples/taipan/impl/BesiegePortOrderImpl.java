@@ -53,7 +53,7 @@ public class BesiegePortOrderImpl extends EObjectImpl implements BesiegePortOrde
 	 * @generated
 	 * @ordered
 	 */
-	protected Port port = null;
+	protected Port port;
 
 	/**
 	 * <!-- begin-user-doc -->

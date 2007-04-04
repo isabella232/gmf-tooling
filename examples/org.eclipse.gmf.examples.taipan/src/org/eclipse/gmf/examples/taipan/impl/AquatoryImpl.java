@@ -63,7 +63,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Port> ports = null;
+	protected EList<Port> ports;
 
 	/**
 	 * The cached value of the '{@link #getRoutes() <em>Routes</em>}' containment reference list.
@@ -73,7 +73,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Route> routes = null;
+	protected EList<Route> routes;
 
 	/**
 	 * The cached value of the '{@link #getShips() <em>Ships</em>}' containment reference list.
@@ -83,7 +83,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Ship> ships = null;
+	protected EList<Ship> ships;
 
 	/**
 	 * <!-- begin-user-doc -->

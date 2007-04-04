@@ -56,7 +56,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 * @ordered
 	 */
-	protected Port source = null;
+	protected Port source;
 
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
@@ -66,7 +66,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 * @ordered
 	 */
-	protected Port destination = null;
+	protected Port destination;
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.

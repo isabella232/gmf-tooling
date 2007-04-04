@@ -87,7 +87,7 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Building> buildings = null;
+	protected EList<Building> buildings;
 
 	/**
 	 * The cached value of the '{@link #getRegister() <em>Register</em>}' reference list.
@@ -97,7 +97,7 @@ public class PortImpl extends EObjectImpl implements Port {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Ship> register = null;
+	protected EList<Ship> register;
 
 	/**
 	 * <!-- begin-user-doc -->

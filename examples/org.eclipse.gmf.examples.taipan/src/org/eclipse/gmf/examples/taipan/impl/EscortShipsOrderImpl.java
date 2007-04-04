@@ -50,7 +50,7 @@ public class EscortShipsOrderImpl extends EObjectImpl implements EscortShipsOrde
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Ship> ships = null;
+	protected EList<Ship> ships;
 
 	/**
 	 * <!-- begin-user-doc -->

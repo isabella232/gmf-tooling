@@ -84,7 +84,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @generated
 	 * @ordered
 	 */
-	protected Port destination = null;
+	protected Port destination;
 
 	/**
 	 * The cached value of the '{@link #getCargo() <em>Cargo</em>}' containment reference list.
@@ -94,7 +94,7 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Item> cargo = null;
+	protected EList<Item> cargo;
 
 	/**
 	 * <!-- begin-user-doc -->
