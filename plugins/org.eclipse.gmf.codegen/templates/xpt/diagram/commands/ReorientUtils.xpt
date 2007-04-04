@@ -15,21 +15,23 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 
 «EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::Utils»
+«EXTENSION xpt::diagram::Utils»
 
 «REM»
 	Generates canExecute() method for the command that reorients link.
 	Implementation should perform all static checks that command can be executed.
 «ENDREM»
-«DEFINE canReorient FOR gmfgen::LinkModelFacet-»
+«DEFINE canReorient(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean canExecute() {
 		«EXPAND checkLinkValidity-»
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-			«EXPAND checkSourceRequestValidity-»
+			«EXPAND checkSourceRequestValidity(link)-»
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			«EXPAND checkTargetRequestValidity-»
+			«EXPAND checkTargetRequestValidity(link)-»
 		}
 		return false;
 	}
@@ -42,6 +44,7 @@
 	if (!(getElementToEdit() instanceof «getQualifiedInterfaceName(metaClass)»)) {
 		return false;
 	}
+	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::FeatureLinkModelFacet-»
@@ -50,25 +53,80 @@
 	}
 «ENDDEFINE»
 
-«DEFINE checkSourceRequestValidity FOR gmfgen::LinkModelFacet-»
+«DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
 «ENDDEFINE»
 
-«DEFINE checkSourceRequestValidity FOR gmfgen::TypeLinkModelFacet-»
-	return oldEnd instanceof «getQualifiedInterfaceName(getSourceType())» &&
-			newEnd instanceof «getQualifiedInterfaceName(getSourceType())»;
+«DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+	if (!(oldEnd instanceof «getQualifiedInterfaceName(getSourceType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+		return false;
+	}
+	«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») newEnd;
+	«EXPAND extractFeatureWithCheck("link", "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
+	«EXPAND checkLinkConstraint(link)-»
 «ENDDEFINE»
 
 «REM»
 	When feature source is being reoriented oldEnd is the link target.
 «ENDREM»
-«DEFINE checkSourceRequestValidity FOR gmfgen::FeatureLinkModelFacet-»
-	return oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» &&
-			newEnd instanceof «getQualifiedInterfaceName(getSourceType())»;
+«DEFINE checkSourceRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
+	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+		return false;
+	}
+	return true;
 «ENDDEFINE»
 
-«DEFINE checkTargetRequestValidity FOR gmfgen::LinkModelFacet-»
-	return oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» &&
-			newEnd instanceof «getQualifiedInterfaceName(getTargetType())»;
+«DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getTargetType())»)) {
+		return false;
+	}
+	«IF sourceMetaFeature != null-»
+		«EXPAND extractFeatureWithCheck("link", "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
+	«ELSE-»
+		if (!(link.eContainer() instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+			return false;
+		}
+		«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») link.eContainer();
+	«ENDIF-»
+	«getQualifiedInterfaceName(getTargetType())» target = («getQualifiedInterfaceName(getTargetType())») newEnd;
+	«EXPAND checkLinkConstraint(link)-»
+«ENDDEFINE»
+
+«DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
+	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getTargetType())»)) {
+		return false;
+	}
+	return true;
+«ENDDEFINE»
+
+«DEFINE extractFeatureWithCheck(String containerVar, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
+	«IF ecoreFeature.many-»
+		if («EXPAND xpt::Common::getFeatureValue(containerVar, true)».size() != 1) {
+			return false;
+		}
+		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, true)».get(0);
+	«ELSE-»
+		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, true)»;
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkLinkConstraint(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+	«IF sourceMetaFeature != null-»
+		if (!(link.eContainer() instanceof «containmentMetaFeature.genClass.getQualifiedInterfaceName()»)) {
+			return false;
+		}
+		«containmentMetaFeature.genClass.getQualifiedInterfaceName()» container =
+				(«containmentMetaFeature.genClass.getQualifiedInterfaceName()») link.eContainer();
+		return «EXPAND checkLinkConstraintInvocation FOR link»(container, source, target);
+	«ELSE-»
+		return «EXPAND checkLinkConstraintInvocation FOR link»(source, target);
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkLinkConstraintInvocation FOR gmfgen::GenLink-»
+	«diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».canExist«getUniqueIdentifier()»
 «ENDDEFINE»
 
 «REM»
