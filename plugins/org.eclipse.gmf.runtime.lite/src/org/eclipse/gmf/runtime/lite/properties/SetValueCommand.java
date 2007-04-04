@@ -13,6 +13,8 @@ package org.eclipse.gmf.runtime.lite.properties;
 
 import java.text.MessageFormat;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -56,6 +58,11 @@ class SetValueCommand extends Command {
 			undoValue = ((IPropertySource) undoValue).getEditableValue();
 		} else if (undoValue instanceof IItemPropertySource) {
 			undoValue = ((IItemPropertySource) undoValue).getEditableValue(propertyName);
+			if (undoValue instanceof EList) {
+				EList theValue = new BasicEList();
+				theValue.addAll((EList) undoValue);
+				undoValue = theValue;
+			}
 		}
 		if (propertyValue instanceof IPropertySource) {
 			propertyValue = ((IPropertySource) propertyValue).getEditableValue();
