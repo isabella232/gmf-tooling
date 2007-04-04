@@ -15,8 +15,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -58,11 +60,30 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof Route)) {
 			return false;
 		}
+		Route link = (Route) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+				return false;
+			}
+			Port source = (Port) newEnd;
+			Port target = link.getDestination();
+			if (!(link.eContainer() instanceof Aquatory)) {
+				return false;
+			}
+			Aquatory container = (Aquatory) link.eContainer();
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, target);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+				return false;
+			}
+			Port source = link.getSource();
+			Port target = (Port) newEnd;
+			if (!(link.eContainer() instanceof Aquatory)) {
+				return false;
+			}
+			Aquatory container = (Aquatory) link.eContainer();
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, target);
 		}
 		return false;
 	}

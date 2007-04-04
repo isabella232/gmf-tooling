@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -59,11 +60,28 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof EscortShipsOrder)) {
 			return false;
 		}
+		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Warship && newEnd instanceof Warship;
+			if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
+				return false;
+			}
+			Warship source = (Warship) newEnd;
+			if (link.getShips().size() != 1) {
+				return false;
+			}
+			Ship target = (Ship) link.getShips().get(0);
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Ship && newEnd instanceof Ship;
+			if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+				return false;
+			}
+			if (!(link.eContainer() instanceof Warship)) {
+				return false;
+			}
+			Warship source = (Warship) link.eContainer();
+			Ship target = (Ship) newEnd;
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
 		}
 		return false;
 	}

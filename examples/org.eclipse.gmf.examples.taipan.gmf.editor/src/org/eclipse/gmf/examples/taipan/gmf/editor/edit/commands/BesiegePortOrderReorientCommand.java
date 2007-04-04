@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -59,11 +60,25 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof BesiegePortOrder)) {
 			return false;
 		}
+		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Warship && newEnd instanceof Warship;
+			if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
+				return false;
+			}
+			Warship source = (Warship) newEnd;
+			Port target = link.getPort();
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+				return false;
+			}
+			if (!(link.eContainer() instanceof Warship)) {
+				return false;
+			}
+			Warship source = (Warship) link.eContainer();
+			Port target = (Port) newEnd;
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
 		}
 		return false;
 	}

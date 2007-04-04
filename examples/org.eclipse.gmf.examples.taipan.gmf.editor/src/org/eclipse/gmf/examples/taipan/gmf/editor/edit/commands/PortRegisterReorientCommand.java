@@ -66,10 +66,16 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Ship && newEnd instanceof Port;
+			if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
+				return false;
+			}
+			return true;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Ship && newEnd instanceof Ship;
+			if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
