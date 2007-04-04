@@ -1,2 +1,0 @@
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.DIRECT_EDIT_ROLE,
-				new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy")%>());

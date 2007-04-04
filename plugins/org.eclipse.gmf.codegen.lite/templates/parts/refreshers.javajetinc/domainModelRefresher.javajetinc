@@ -1,4 +1,0 @@
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter")%> domainModelRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter")%>(this);

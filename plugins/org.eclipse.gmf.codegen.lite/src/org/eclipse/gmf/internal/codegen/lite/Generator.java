@@ -32,7 +32,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -125,14 +124,12 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateMetricProvider();
 		}
 
-		boolean hasExternalLabels = false;
 		for (GenNode next : (List<? extends GenNode>) myDiagram.getAllNodes()) {
 			if (!(next instanceof GenChildLabelNode)) {
 				internalGenerateJavaClass(myEmitters.getNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				generateGraphicalEditPolicy(next);
 				for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
 					final GenNodeLabel label = (GenNodeLabel) it2.next();
-					hasExternalLabels |= label instanceof GenExternalNodeLabel;
 					internalGenerateJavaClass(myEmitters.getNodeLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 					internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 				}
@@ -144,9 +141,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateCommands(next);
 			generateComponentEditPolicy(next);
 			generateLayoutEditPolicy(next);
-		}
-		if (hasExternalLabels) {
-			internalGenerateJavaClass(myEmitters.getDiagramExternalNodeLabelEditPartEmitter(), myDiagram.getEditPartsPackageName(), myDiagram.getBaseExternalNodeLabelEditPartClassName(), myDiagram);
 		}
 		for (GenLink next : (List<? extends GenLink>) myDiagram.getLinks()) {
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);

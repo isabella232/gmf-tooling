@@ -1,6 +1,0 @@
-		Refresher fontColorRefresher = new Refresher() {
-			public void refresh() {
-				refreshFontColor();
-			}
-		};
-		structuralFeatures2Refresher.put(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);

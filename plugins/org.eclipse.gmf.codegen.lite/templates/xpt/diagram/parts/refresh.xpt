@@ -1,0 +1,642 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::diagram::parts::Common»
+«EXTENSION xpt::diagram::parts::LabelController»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+
+«DEFINE refresher FOR gmfgen::GenCommonBase-»
+«EXPAND updatableEditPartRefresher-»
+«EXPAND refreshMethods-»
+«EXPAND refreshVisuals-»
+«ENDDEFINE»
+
+«DEFINE updatableEditPartRefresher FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private java.util.HashMap structuralFeatures2Refresher;
+
+«EXPAND xpt::Common::generatedMemberComment»
+public Refresher getRefresher(org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.common.notify.Notification msg) {
+	if (structuralFeatures2Refresher == null) {
+		createRefreshers();
+	}
+	return (Refresher) structuralFeatures2Refresher.get(feature);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+private void createRefreshers() {
+	structuralFeatures2Refresher = new java.util.HashMap();
+	«EXPAND fillRefreshers-»
+}
+«ENDDEFINE»
+
+«DEFINE updatableEditPartRefresher FOR gmfgen::GenLabel»«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenDiagram-»
+«EXPAND children-»
+«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenCompartment-»
+«EXPAND children-»
+«EXPAND visibility-»
+«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenNode-»
+«EXPAND children-»
+«EXPAND visibility-»
+«EXPAND sourceEdges-»
+«EXPAND targetEdges-»
+«EXPAND bounds-»
+«EXPAND font-»
+«EXPAND fontColor-»
+«EXPAND fillColor-»
+«EXPAND lineColor-»
+«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenChildLabelNode-»
+«EXPAND children-»
+«EXPAND visibility-»
+«EXPAND font-»
+«EXPAND fontColor-»
+«ENDDEFINE»
+
+«DEFINE fillRefreshers FOR gmfgen::GenLink-»
+«EXPAND children-»
+«EXPAND visibility-»
+«EXPAND bendpoints-»
+«EXPAND font-»
+«EXPAND fillColor-»
+«EXPAND lineColor-»
+«ENDDEFINE»
+
+«DEFINE children FOR gmfgen::GenCommonBase-»
+Refresher childrenRefresher = new Refresher() {
+	public void refresh() {
+		refreshChildren();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_PersistedChildren(), childrenRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_TransientChildren(), childrenRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Styles(), childrenRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle_Collapsed(), childrenRefresher);
+«ENDDEFINE»
+
+«DEFINE visibility FOR gmfgen::GenCommonBase-»
+Refresher visibilityRefresher = new Refresher() {
+	public void refresh() {
+		refreshVisibility();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_Visible(), visibilityRefresher);
+«ENDDEFINE»
+
+«DEFINE bendpoints FOR gmfgen::GenLink-»
+Refresher bendpointsRefresher = new Refresher() {
+	public void refresh() {
+		refreshBendpoints();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getEdge_Bendpoints(), bendpointsRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getRelativeBendpoints_Points(), bendpointsRefresher);
+«ENDDEFINE»
+
+«DEFINE bounds FOR gmfgen::GenCommonBase-»
+Refresher boundsRefresher = new Refresher() {
+	public void refresh() {
+		refreshBounds();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width(), boundsRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height(), boundsRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), boundsRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), boundsRefresher);
+«ENDDEFINE»
+
+«DEFINE sourceEdges FOR gmfgen::GenCommonBase-»
+Refresher sourceEdgesRefresher = new Refresher() {
+	public void refresh() {
+		refreshSourceConnections();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_SourceEdges(), sourceEdgesRefresher);
+«ENDDEFINE»
+
+«DEFINE targetEdges FOR gmfgen::GenCommonBase-»
+Refresher targetEdgesRefresher = new Refresher() {
+	public void refresh() {
+		refreshTargetConnections();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getView_TargetEdges(), targetEdgesRefresher);
+«ENDDEFINE»
+
+«DEFINE fillColor FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedBackground()-»
+Refresher backgroundColorRefresher = new Refresher() {
+	public void refresh() {
+		refreshBackgroundColor();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor(), backgroundColorRefresher);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE lineColor FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedForeground()-»
+Refresher foregroundColorRefresher = new Refresher() {
+	public void refresh() {
+		refreshForegroundColor();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle_LineColor(), foregroundColorRefresher);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE font FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedFont()-»
+Refresher fontRefresher = new Refresher() {
+	public void refresh() {
+		refreshFont();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight(), fontRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName(), fontRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold(), fontRefresher);
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic(), fontRefresher);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE fontColor FOR gmfgen::GenCommonBase-»
+Refresher fontColorRefresher = new Refresher() {
+	public void refresh() {
+		refreshFontColor();
+	}
+};
+structuralFeatures2Refresher.put(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
+«ENDDEFINE»
+
+«DEFINE labelRefresher FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher labelRefresher;
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher getLabelRefresher() {
+	if (labelRefresher == null && getDiagramNode() != null) {
+		labelRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController.ExternalRefresherAdapter(this, «EXPAND xpt::diagram::parts::Common::getViewCode».getElement());
+	}
+	return labelRefresher;
+}
+«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenCompartment-»
+«EXPAND refreshVisibility-»
+«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenNode-»
+«EXPAND refreshVisibility-»
+«EXPAND refreshBounds-»
+«EXPAND refreshFont-»
+«EXPAND refreshFontColor-»
+«EXPAND refreshBackgroundColor-»
+«EXPAND refreshForegroundColor-»
+«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenChildLabelNode-»
+«EXPAND refreshVisibility-»
+«EXPAND refreshFont-»
+«EXPAND refreshFontColor-»
+«EXPAND refreshLabel-»
+«EXPAND labelRefresher-»
+«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenLabel-»
+«EXPAND refreshFont-»
+«EXPAND refreshFontColor-»
+«EXPAND refreshLabel-»
+«EXPAND labelRefresher-»
+«EXPAND externalFontRefresher-»
+«EXPAND externalFontColorRefresher-»
+«EXPAND moreRefreshMethods-»
+«ENDDEFINE»
+
+«DEFINE moreRefreshMethods FOR gmfgen::GenLabel»«ENDDEFINE»
+
+«DEFINE moreRefreshMethods FOR gmfgen::GenLinkLabel-»
+«EXPAND refreshLocation-»
+«EXPAND externalLocationRefresher-»
+«ENDDEFINE»
+
+«DEFINE refreshMethods FOR gmfgen::GenLink-»
+«EXPAND refreshVisibility-»
+«EXPAND refreshBendpoints-»
+«EXPAND refreshFont-»
+«EXPAND refreshBackgroundColor-»
+«EXPAND refreshForegroundColor-»
+«ENDDEFINE»
+
+«DEFINE externalFontRefresher FOR gmfgen::GenLabel-»
+«IF !viewmap.isFixedFont()-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher fontRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher() {
+	public void refresh() {
+		refreshFont();
+	}
+};
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE externalFontColorRefresher FOR gmfgen::GenLabel-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher() {
+	public void refresh() {
+		refreshFontColor();
+	}
+};
+«ENDDEFINE»
+
+«DEFINE externalLocationRefresher FOR gmfgen::GenLinkLabel-»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher locationRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher() {
+	public void refresh() {
+		refreshLocation();
+	}
+};
+«ENDDEFINE»
+
+«DEFINE refreshVisibility FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisibility() {
+	boolean isVisible = «EXPAND xpt::diagram::parts::Common::getViewCode».isVisible();
+	boolean wasVisible = getFigure().isVisible();
+	if (isVisible == wasVisible) {
+		return;
+	}
+«IF isSelectable()-»
+	if (!isVisible && (getSelected() != SELECTED_NONE)) {
+		getViewer().deselect(this);
+	}
+«ENDIF-»
+	getFigure().setVisible(isVisible);
+	getFigure().revalidate();
+}
+«ENDDEFINE»
+
+«DEFINE refreshBendpoints FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshBendpoints() {
+	org.eclipse.gmf.runtime.notation.RelativeBendpoints bendpoints = (org.eclipse.gmf.runtime.notation.RelativeBendpoints) getDiagramEdge().getBendpoints();
+	if (bendpoints == null) {
+		getConnectionFigure().setRoutingConstraint(java.util.Collections.EMPTY_LIST);
+		return;
+	}
+	java.util.List modelConstraint = bendpoints.getPoints();
+	java.util.List figureConstraint = new java.util.ArrayList();
+	for (int i = 0; i < modelConstraint.size(); i++) {
+		org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint wbp = (org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint) modelConstraint.get(i);
+		org.eclipse.draw2d.RelativeBendpoint rbp = new org.eclipse.draw2d.RelativeBendpoint(getConnectionFigure());
+		rbp.setRelativeDimensions(new org.eclipse.draw2d.geometry.Dimension(wbp.getSourceX(), wbp.getSourceY()), new org.eclipse.draw2d.geometry.Dimension(wbp.getTargetX(), wbp.getTargetY()));
+		rbp.setWeight((i + 1) / ((float) modelConstraint.size() + 1));
+		figureConstraint.add(rbp);
+	}
+	getConnectionFigure().setRoutingConstraint(figureConstraint);
+}
+«ENDDEFINE»
+
+«DEFINE refreshLocation FOR gmfgen::GenLinkLabel-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshLocation() {
+	org.eclipse.gmf.runtime.notation.Node node = «EXPAND xpt::diagram::parts::Common::getViewCode»;
+	assert node.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Location;
+	final org.eclipse.gmf.runtime.notation.Location location = (org.eclipse.gmf.runtime.notation.Location) node.getLayoutConstraint();
+	«getLabelHostQualifiedClassName()» parent = getUpdatableParent();
+	org.eclipse.draw2d.Connection connection = (org.eclipse.draw2d.Connection) parent.getFigure();
+	((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this,
+			getFigure(), new org.eclipse.draw2d.ConnectionLocator(connection, org.eclipse.draw2d.ConnectionLocator.«alignment.literal») {
+				protected org.eclipse.draw2d.geometry.Point getReferencePoint() {
+					return super.getReferencePoint().translate(location.getX(), location.getY());
+				}
+			});
+}
+«ENDDEFINE»
+
+«DEFINE refreshBounds FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshBounds() {
+	org.eclipse.gmf.runtime.notation.Node node = «EXPAND xpt::diagram::parts::Common::getViewCode»;
+	if (node.getLayoutConstraint() == null) {
+		return;
+	}
+	assert node.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Bounds;
+	org.eclipse.gmf.runtime.notation.Bounds bounds = (org.eclipse.gmf.runtime.notation.Bounds) node.getLayoutConstraint();
+	int x = bounds.getX();
+	int y = bounds.getY();
+	int width = bounds.getWidth();
+	int height = bounds.getHeight();
+	if (width < 0) {
+		x -= width;
+		width = -width;
+	}
+	if (height < 0) {
+		y -= height;
+		height = -height;
+	}
+	((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), 
+		new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
+}
+«ENDDEFINE»
+
+«DEFINE refreshFont FOR gmfgen::GenCommonBase-»
+«IF !isFixedFont(viewmap)-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshFont() {
+	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle) «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
+	org.eclipse.swt.graphics.Font toDispose = createdFont;
+	if (style != null) {
+		String fontName = style.getFontName();
+		int fontHeight = style.getFontHeight();
+		int fontStyle = org.eclipse.swt.SWT.NORMAL;
+		if (style.isBold()) {
+			fontStyle |= org.eclipse.swt.SWT.BOLD;
+		}
+		if (style.isItalic()) {
+			fontStyle |= org.eclipse.swt.SWT.ITALIC;
+		}
+		org.eclipse.swt.graphics.Font currentFont = getFigure().getFont();
+		if (currentFont != null) {
+			org.eclipse.swt.graphics.FontData currentFontData = currentFont.getFontData()[0];
+			if (currentFontData.getName().equals(fontName) && currentFontData.getHeight() == fontHeight && currentFontData.getStyle() == fontStyle) {
+				return;
+			}
+		}
+		createdFont = new org.eclipse.swt.graphics.Font(null, fontName, fontHeight, fontStyle);
+		getFigure().setFont(createdFont);
+	} else {
+		//revert to the default font
+		getFigure().setFont(getViewer().getControl().getFont());
+		createdFont = null;
+	}
+	if (toDispose != null) {
+		toDispose.dispose();
+	}
+}
+
+«EXPAND xpt::Common::generatedMemberComment("The font (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).\n" + 
+ "Whenever another non-default font is assigned to it, it is safe to dispose the previous one.")»
+private org.eclipse.swt.graphics.Font createdFont;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE refreshFontColor FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshFontColor() {
+	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
+	org.eclipse.swt.graphics.Color toDispose = createdFontColor;
+	if (style != null) {
+		int fontColor = style.getFontColor();
+		int red = fontColor & 0x000000FF;
+		int green = (fontColor & 0x0000FF00) >> 8;
+		int blue = (fontColor & 0x00FF0000) >> 16;
+		org.eclipse.swt.graphics.Color currentColor = getFigure().getForegroundColor();
+		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
+			return;
+		}
+		createdFontColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
+		getFigure().setForegroundColor(createdFontColor);
+	} else {
+		getFigure().setForegroundColor(getViewer().getControl().getForeground());
+		createdFontColor = null;
+	}
+	if (toDispose != null) {
+		toDispose.dispose();
+	}
+}
+
+«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshFontColor()}) currently assigned to the label.\n" + 
+ "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
+private org.eclipse.swt.graphics.Color createdFontColor;
+«ENDDEFINE»
+
+«DEFINE refreshForegroundColor FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedForeground()-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshForegroundColor() {
+	org.eclipse.gmf.runtime.notation.LineStyle style = (org.eclipse.gmf.runtime.notation.LineStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle());
+	org.eclipse.swt.graphics.Color toDispose = createdForegroundColor;
+	if (style != null) {
+		int foregroundColor = style.getLineColor();
+		int red = foregroundColor & 0x000000FF;
+		int green = (foregroundColor & 0x0000FF00) >> 8;
+		int blue = (foregroundColor & 0x00FF0000) >> 16;
+		org.eclipse.swt.graphics.Color currentColor = getFigure().getForegroundColor();
+		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
+			return;
+		}
+		createdForegroundColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
+		getFigure().setForegroundColor(createdForegroundColor);
+	} else {
+		getFigure().setForegroundColor(getViewer().getControl().getForeground());
+		createdForegroundColor = null;
+	}
+	if (toDispose != null) {
+		toDispose.dispose();
+	}
+}
+
+«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshForegroundColor()}) currently assigned to the figure.\n" + 
+ "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
+private org.eclipse.swt.graphics.Color createdForegroundColor;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE refreshBackgroundColor FOR gmfgen::GenCommonBase-»
+«IF !viewmap.isFixedBackground()-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshBackgroundColor() {
+	org.eclipse.gmf.runtime.notation.FillStyle style = (org.eclipse.gmf.runtime.notation.FillStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle());
+	org.eclipse.swt.graphics.Color toDispose = createdBackgroundColor;
+	if (style != null) {
+		int backgroundColor = style.getFillColor();
+		int red = backgroundColor & 0x000000FF;
+		int green = (backgroundColor & 0x0000FF00) >> 8;
+		int blue = (backgroundColor & 0x00FF0000) >> 16;
+		org.eclipse.swt.graphics.Color currentColor = getFigure().getBackgroundColor();
+		if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
+			return;
+		}
+		createdBackgroundColor = new org.eclipse.swt.graphics.Color(null, red, green, blue);
+		getFigure().setBackgroundColor(createdBackgroundColor);
+	} else {
+		getFigure().setBackgroundColor(getViewer().getControl().getBackground());
+	}
+	if (toDispose != null) {
+		toDispose.dispose();
+	}
+}
+
+«EXPAND xpt::Common::generatedMemberComment("The color (created by {@link #refreshBackgroundColor()}) currently assigned to the figure.\n" + 
+  "Whenever another color is assigned to it, it is safe to dispose the previous one.")»
+private org.eclipse.swt.graphics.Color createdBackgroundColor;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE refreshLabel FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshLabel() {
+	getLabel().setText(getLabelText());
+	getLabel().setIcon(getLabelIcon());
+}
+«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenCompartment-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisuals() {
+	super.refreshVisuals();
+	refreshVisibility();
+}
+«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisuals() {
+	super.refreshVisuals();
+	refreshVisibility();
+	refreshBounds();
+«IF !viewmap.isFixedFont()-»
+	refreshFont();
+«ENDIF-»
+	refreshFontColor();
+«IF !viewmap.isFixedBackground()-»
+	refreshBackgroundColor();
+«ENDIF-»
+«IF !viewmap.isFixedForeground()-»
+	refreshForegroundColor();
+«ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenChildLabelNode-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisuals() {
+	super.refreshVisuals();
+	refreshVisibility();
+	refreshLabel();
+«IF !viewmap.isFixedFont()-»
+	refreshFont();
+«ENDIF-»
+	refreshFontColor();
+}
+«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenLabel-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisuals() {
+	super.refreshVisuals();
+	refreshLabel();
+«IF !viewmap.isFixedFont()-»
+	refreshFont();
+«ENDIF-»
+	refreshFontColor();
+	«EXPAND moreRefreshVisuals-»
+}
+«ENDDEFINE»
+
+«DEFINE moreRefreshVisuals FOR gmfgen::GenLabel»«ENDDEFINE»
+
+«DEFINE moreRefreshVisuals FOR gmfgen::GenLinkLabel-»
+refreshLocation();
+«ENDDEFINE»
+
+«DEFINE refreshVisuals FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshVisuals() {
+	super.refreshVisuals();
+	refreshVisibility();
+	refreshBendpoints();
+«IF !viewmap.isFixedFont()-»
+	refreshFont();
+«ENDIF-»
+«IF !viewmap.isFixedBackground()-»
+	refreshBackgroundColor();
+«ENDIF-»
+«IF !viewmap.isFixedForeground()-»
+	refreshForegroundColor();
+«ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE externalRefreshers FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private java.util.Collection externalRefreshers = new java.util.ArrayList();
+
+«EXPAND xpt::Common::generatedMemberComment»
+public java.util.Collection getExternalRefreshers() {
+	return externalRefreshers;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void addExternalRefresher(org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher externalRefresher) {
+	if (externalRefresher != null && !externalRefreshers.contains(externalRefresher)) {
+		externalRefreshers.add(externalRefresher);
+	}
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void removeExternalRefresher(org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher externalRefresher) {
+	externalRefreshers.remove(externalRefresher);
+}
+«ENDDEFINE»
+
+«DEFINE addRemove FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+public void addRefresher(org.eclipse.emf.ecore.EStructuralFeature feature, Refresher refresher) {
+	CompositeRefresher compositeRefresher = getCompositeRefresher(feature);
+	compositeRefresher.addRefresher(refresher);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void removeRefresher(org.eclipse.emf.ecore.EStructuralFeature feature, Refresher refresher) {
+	CompositeRefresher compositeRefresher = getCompositeRefresher(feature);
+	compositeRefresher.removeRefresher(refresher);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+private CompositeRefresher getCompositeRefresher(org.eclipse.emf.ecore.EStructuralFeature feature) {
+	if (structuralFeatures2Refresher == null) {
+		createRefreshers();
+	}
+	Refresher refresher = (Refresher) structuralFeatures2Refresher.get(feature);
+	if (refresher instanceof CompositeRefresher) {
+		return (CompositeRefresher) refresher;
+	}
+	CompositeRefresher result = new CompositeRefresher();
+	if (refresher != null) {
+		result.addRefresher(refresher);
+	}
+	structuralFeatures2Refresher.put(feature, result);
+	return result;
+}
+«ENDDEFINE»
+
+«DEFINE getStyleHolderCode FOR gmfgen::GenCommonBase»«EXPAND xpt::diagram::parts::Common::getViewCode»«ENDDEFINE»
+
+«DEFINE getStyleHolderCode FOR gmfgen::GenNodeLabel»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR node»«ENDDEFINE»
+
+«DEFINE getStyleHolderCode FOR gmfgen::GenLinkLabel»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR link»«ENDDEFINE»

@@ -1,0 +1,288 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::diagram::parts::LabelController»
+«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+
+«DEFINE directEditManager FOR gmfgen::GenCommonBase-»
+«IF !isReadOnly()-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gef.tools.DirectEditManager manager;
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.tools.DirectEditManager getManager() {
+	if (manager == null) {
+		manager = new org.eclipse.gef.tools.DirectEditManager(this, org.eclipse.jface.viewers.TextCellEditor.class, new org.eclipse.gmf.runtime.lite.services.LabelCellEditorLocator(getViewer(), getLabel())) {
+			protected void initCellEditor() {
+				getCellEditor().setValue(getLabelTextDisplayer().getEditText(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()));
+			}
+		};
+	}
+	return manager;
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE performDirectEdit FOR gmfgen::GenCommonBase-»
+«IF !isReadOnly()-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void performDirectEdit() {
+	if («getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()) || «getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode»)) {
+		return;
+	}
+	getManager().show();
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE labelDisplayer FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static final org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer LABEL_DISPLAYER = createLabelTextDisplayer();
+
+«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer getLabelTextDisplayer() {
+	return LABEL_DISPLAYER;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+private static org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer createLabelTextDisplayer() {
+«LET getLabelModelFacet() AS facet-»
+«IF facet == null-»
+«ERROR "Unexpected type"-»
+«ELSE-»
+«EXPAND createLabelTextDisplayer(isReadOnly()) FOR facet-»
+«ENDIF-»
+«ENDLET-»
+}
+«ENDDEFINE»
+
+«DEFINE createLabelTextDisplayer(Boolean isReadOnly) FOR gmfgen::LabelModelFacet-»
+// TODO: implement this method
+// Ensure that you remove @generated or mark it @generated NOT
+return null;
+«ENDDEFINE»
+
+«DEFINE createLabelTextDisplayer(Boolean isReadOnly) FOR gmfgen::FeatureLabelModelFacet-»
+return new org.eclipse.gmf.runtime.lite.edit.parts.labels.SimpleLabelTextDisplayer("«viewPattern»"«IF !isReadOnly», "«editPattern == null ? viewPattern : editPattern»"«ENDIF», «EXPAND features»);
+«ENDDEFINE»
+
+«DEFINE features FOR gmfgen::FeatureLabelModelFacet-»
+new org.eclipse.emf.ecore.EStructuralFeature[] {«EXPAND xpt::Common::metaFeatureAccessor FOREACH metaFeatures SEPARATOR ', '»}«-»
+«ENDDEFINE»
+
+«DEFINE labelText FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private String defaultText;
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void setLabelText(String text) {
+	getLabel().setText(text);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected String getLabelText() {
+	if (getLabelTextDisplayer() == null) {
+		return defaultText;
+	}
+	org.eclipse.emf.ecore.EObject element = «EXPAND xpt::diagram::parts::Common::getViewCode».getElement();
+	if (element == null) {
+		return defaultText;
+	}
+	String result = getLabelTextDisplayer().getDisplayText(element);
+	if (result == null || result.length() == 0) {
+		return defaultText;
+	}
+	return result;
+}
+«ENDDEFINE»
+
+«DEFINE labelFigure(gmfgen::GenCommonBase label) FOR gmfgen::ParentAssignedViewmap-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.draw2d.IFigure createFigure() {
+	// Parent should assign one using «EXPAND xpt::diagram::parts::NodeEditPart::setter» method
+	return null;
+}
+
+«EXPAND getLabel-»
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void «EXPAND xpt::diagram::parts::NodeEditPart::setter»(«getFigureQualifiedClassName()» label) {
+	unregisterVisuals();
+	setFigure(label);
+	«EXPAND initDefaultText-»
+	registerVisuals();
+	refreshVisuals();
+}
+«ENDDEFINE»
+
+«DEFINE labelFigure(gmfgen::GenCommonBase label) FOR gmfgen::Viewmap-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.draw2d.IFigure createFigure() {
+	«getFigureQualifiedClassName()» label = createLabel();
+	«EXPAND initDefaultText-»
+	return label;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+protected «getFigureQualifiedClassName()» createLabel() {
+	«EXPAND createLabel-»
+}
+
+«EXPAND getLabel-»
+«ENDDEFINE»
+
+«DEFINE createLabel FOR gmfgen::Viewmap»«ERROR "Unexpected viewmap type: " + this»«ENDDEFINE»
+
+«DEFINE createLabel FOR gmfgen::FigureViewmap-»
+return new «getFigureQualifiedClassName()»();
+«ENDDEFINE»
+
+«DEFINE createLabel FOR gmfgen::SnippetViewmap-»
+return «body»;
+«ENDDEFINE»
+
+«DEFINE createLabel FOR gmfgen::InnerClassViewmap-»
+return new «getFigureQualifiedClassName()»();
+«ENDDEFINE»
+
+«DEFINE initDefaultText FOR gmfgen::Viewmap-»
+«IF "org.eclipse.draw2d.Label" == getFigureQualifiedClassName()-»
+defaultText = label.getText();
+«ELSE-»
+if (label instanceof org.eclipse.draw2d.Label) {
+	defaultText = label.getText();
+} else {
+	defaultText = "";	«EXPAND xpt::Common::nonNLS»
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE initDefaultText FOR gmfgen::InnerClassViewmap-»
+defaultText = label.getText();
+«ENDDEFINE»
+
+«DEFINE getLabel FOR gmfgen::Viewmap-»
+«EXPAND getLabelComment-»
+public org.eclipse.draw2d.Label getLabel() {
+	return (org.eclipse.draw2d.Label) getFigure();
+}
+«ENDDEFINE»
+
+«DEFINE getLabelComment FOR gmfgen::Viewmap-»
+«IF ("org.eclipse.draw2d.Label" == getFigureQualifiedClassName())-»
+«EXPAND xpt::Common::generatedMemberComment»
+«ELSE-»
+«EXPAND xpt::Common::generatedMemberComment("TODO: reimplement, since the figure used by this editpart may not be a Label.")»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getLabelComment FOR gmfgen::InnerClassViewmap-»
+«EXPAND xpt::Common::generatedMemberComment»
+«ENDDEFINE»
+
+
+«DEFINE labelIcon FOR gmfgen::GenCommonBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.swt.graphics.Image getLabelIcon() {
+«IF isElementIcon()-»
+	return «getDiagram().getElementTypesQualifiedClassName()».getImage(«EXPAND getElement».eClass());
+«ELSE-»
+	return null;
+«ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE getElement FOR gmfgen::GenCommonBase»«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()«ENDDEFINE»
+
+«DEFINE getElement FOR gmfgen::GenLinkLabel-»
+«EXPAND getElement(link) FOR link.modelFacet-»
+«ENDDEFINE»
+
+«DEFINE getElement(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet»«ERROR "Unexpected model facet: " + this»«ENDDEFINE»
+
+«DEFINE getElement(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR link».getElement()«ENDDEFINE»
+
+«DEFINE getElement(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR link».getTarget().getElement()«ENDDEFINE»
+
+«DEFINE getUpdatableParent FOR gmfgen::GenLabel-»
+«EXPAND xpt::Common::generatedMemberComment»
+private «getLabelHostQualifiedClassName()» getUpdatableParent() {
+	assert getParent() instanceof «getLabelHostQualifiedClassName()»;
+	return («getLabelHostQualifiedClassName()») getParent();
+}
+«ENDDEFINE»
+
+«REM»
+The activate/deactivate pair for labels with updatable parents more belongs to the LabelController template.
+It is thus referenced from the common activate/deactivate mechanism.
+«ENDREM»
+«DEFINE activateAdditions FOR gmfgen::GenLabel-»
+«getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
+if (updatableParent != null) {
+«IF !viewmap.isFixedFont()-»
+	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
+	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight(), fontRefresher);
+	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName(), fontRefresher);
+	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold(), fontRefresher);
+	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic(), fontRefresher);
+«ENDIF-»
+	updatableParent.addExternalRefresher(getLabelRefresher());
+	«EXPAND activateMore-»
+}
+«ENDDEFINE»
+
+«DEFINE deactivateAdditions FOR gmfgen::GenLabel-»
+«getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
+if (updatableParent != null) {
+«IF !viewmap.isFixedFont()-»
+	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
+	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight(), fontRefresher);
+	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName(), fontRefresher);
+	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold(), fontRefresher);
+	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic(), fontRefresher);
+«ENDIF-»
+	updatableParent.removeExternalRefresher(getLabelRefresher());
+	«EXPAND deactivateMore-»
+}
+«ENDDEFINE»
+
+«DEFINE activateMore FOR gmfgen::GenLabel»«ENDDEFINE»
+«DEFINE deactivateMore FOR gmfgen::GenLabel»«ENDDEFINE»
+
+«DEFINE activateMore FOR gmfgen::GenExternalNodeLabel-»
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), boundsRefresher);
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), boundsRefresher);
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width(), boundsRefresher);
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height(), boundsRefresher);
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
+«ENDDEFINE»
+
+«DEFINE deactivateMore FOR gmfgen::GenExternalNodeLabel-»
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), boundsRefresher);
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), boundsRefresher);
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width(), boundsRefresher);
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height(), boundsRefresher);
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
+«ENDDEFINE»
+
+«DEFINE activateMore FOR gmfgen::GenLinkLabel-»
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), locationRefresher);
+updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), locationRefresher);
+«ENDDEFINE»
+
+«DEFINE deactivateMore FOR gmfgen::GenLinkLabel-»
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), locationRefresher);
+updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), locationRefresher);
+«ENDDEFINE»

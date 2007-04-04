@@ -1,5 +1,0 @@
-<%
-for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
-%>
-		installEditPolicy("<%=behaviour.getKey()%>", new <%=importManager.getImportedName(behaviour.getEditPolicyQualifiedClassName())%>()); //$NON-NLS-1$
-<%}%>

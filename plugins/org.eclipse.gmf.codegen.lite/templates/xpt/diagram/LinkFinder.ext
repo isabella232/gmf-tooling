@@ -14,14 +14,57 @@ import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 extension xpt::GenModelUtils;
+extension xpt::commands::CommandUtils;
 
-
-Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenNode node) :
+cached Collection[gmfgen::GenLink] incomingLinks(gmfgen::GenNode node) :
 	node.getDiagram().links.select(e| e.incomingGenClass().ecoreClass.isSuperTypeOf(node.modelFacet.metaClass.ecoreClass))
 ;
 
-Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenNode node) :
+cached Collection[gmfgen::GenLink] outgoingLinks(gmfgen::GenNode node) :
 	node.getDiagram().links.select(e| e.outgoingGenClass().ecoreClass.isSuperTypeOf(node.modelFacet.metaClass.ecoreClass))
+;
+
+cached Collection[gmfgen::GenLink] containedLinks(gmfgen::GenContainerBase gcb) :
+	let effectiveMetaClass = gcb.getEffectiveMetaClassForContainment() :
+		(effectiveMetaClass == null ? {} :
+			gcb.getDiagram().links.select(e | e.containerGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)))
+;
+
+cached Collection[gmfgen::GenLink] containedTypeModelFacetLinks(gmfgen::GenContainerBase gcb) :
+	gcb.containedLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::TypeLinkModelFacet).size() > 0)
+;
+
+cached Collection[gmfgen::GenLink] containedFeatureModelFacetLinks(gmfgen::GenContainerBase gcb) :
+	gcb.containedLinks().select(e| {e.modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0)
+;
+
+cached Collection[gmfgen::GenLink] containedLinksWithSelector(gmfgen::GenContainerBase gcb) :
+	gcb.containedTypeModelFacetLinks().select(e| e.modelFacet.getElementSelector() != null)
+;
+
+boolean needsSourceVisualID(gmfgen::GenContainerBase gcb) :
+	gcb.containedLinks().select(e| e.modelFacet != null && e.getDiagram().getRelatedChildLabelGenNodes(e.modelFacet.getSourceType()).size() > 0).size() > 0
+;
+
+boolean needsTargetVisualID(gmfgen::GenContainerBase gcb) :
+	gcb.containedLinks().select(e| e.modelFacet != null && e.getDiagram().getRelatedChildLabelGenNodes(e.modelFacet.getTargetType()).size() > 0).size() > 0
+;
+
+Collection[gmfgen::GenContainerBase] getPossibleContainers(gmfgen::GenLink link) :
+	let containerClass = link.containerGenClass().ecoreClass : 
+	(containerClass == null ? {} : 
+		{link.getDiagram(), link.getDiagram().getAllNodes()}.flatten()
+			.select(e| let effectiveMetaClass = ((gmfgen::GenContainerBase) e).getEffectiveMetaClassForContainment() : effectiveMetaClass == null ? false : 
+				containerClass.isSuperTypeOf(effectiveMetaClass.ecoreClass))
+	)
+;
+
+private gmfgen::GenConstraint getElementSelector(gmfgen::LinkModelFacet facet) :
+	null
+;
+
+private gmfgen::GenConstraint getElementSelector(gmfgen::TypeLinkModelFacet facet) :
+	facet.modelElementSelector
 ;
 
 private genmodel::GenClass incomingGenClass(gmfgen::GenLink link) :
@@ -59,4 +102,36 @@ private genmodel::GenClass outgoingGenClass(gmfgen::TypeLinkModelFacet facet) :
 
 private genmodel::GenClass getTypeGenClass(genmodel::GenFeature feature) :
 	findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)
+;
+
+private genmodel::GenClass containerGenClass(gmfgen::GenLink link) :
+	link.modelFacet.containerGenClass()
+;
+
+private genmodel::GenClass containerGenClass(gmfgen::LinkModelFacet facet) :
+	null
+;
+
+private genmodel::GenClass containerGenClass(gmfgen::TypeLinkModelFacet facet) :
+	facet.containmentMetaFeature.genClass
+;
+
+private genmodel::GenClass containerGenClass(gmfgen::FeatureLinkModelFacet facet) :
+	facet.metaFeature.genClass
+;
+
+private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenContainerBase gcb) :
+	null
+;
+
+private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenDiagram diagram) :
+	diagram.domainDiagramElement
+;
+
+private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenNode node) :
+	node.modelFacet.metaClass
+;
+
+private genmodel::GenClass getEffectiveMetaClassForContainment(gmfgen::GenChildLabelNode node) :
+	null
 ;

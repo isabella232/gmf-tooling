@@ -76,28 +76,27 @@ org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXP
 «ENDDEFINE»
 
 «DEFINE adjustConstraint FOR gmfgen::GenNode-»
-«LET defaultSizeWidth(viewmap, 40) AS defaultWidth-»
-«LET defaultSizeHeight(viewmap, 40) AS defaultHeight-»
 «LET getResizeConstraints(viewmap) AS rc-»
 «LET rc == null || rc.resizeHandleNames.select(e| e=="EAST" || e=="WEST").size() > 0 AS resizableWidth-»
 «LET rc == null || rc.resizeHandleNames.select(e| e=="NORTH" || e=="SOUTH").size() > 0 AS resizableHeight-»
 		if (constraint != null) {
 	«IF resizableWidth || resizableHeight-»
-			constraint.union(new org.eclipse.draw2d.geometry.Dimension(«defaultWidth», «defaultHeight»));
+			constraint.union(new org.eclipse.draw2d.geometry.Dimension(«EXPAND defaultWidth», «EXPAND defaultHeight»));
 	«ENDIF-»
 	«IF !resizableWidth-»
-			constraint.width = «defaultWidth»;
+			constraint.width = «EXPAND defaultWidth»;
 	«ENDIF-»
 	«IF !resizableHeight-»
-			constraint.height = «defaultHeight»;
+			constraint.height = «EXPAND defaultHeight»;
 	«ENDIF-»
 		}
 «ENDLET-»
 «ENDLET-»
 «ENDLET-»
-«ENDLET-»
-«ENDLET-»
 «ENDDEFINE»
+
+«DEFINE defaultWidth FOR gmfgen::GenNode»«defaultSizeWidth(viewmap, 40)»«ENDDEFINE»
+«DEFINE defaultHeight FOR gmfgen::GenNode»«defaultSizeHeight(viewmap, 40)»«ENDDEFINE»
 
 /*
  * TODO: replace with xpt::commands::DomainElementInitializer::qualifiedClassName.

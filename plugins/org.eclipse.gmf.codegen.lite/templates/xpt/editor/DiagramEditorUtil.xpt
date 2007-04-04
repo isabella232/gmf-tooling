@@ -1,0 +1,160 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE DiagramEditorUtil FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen»
+package «editorGen.editor.packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «diagramEditorUtilClassName» «EXPAND supertypes» {
+	«EXPAND openFilePathDialog-»
+«IF editorGen.editor.eclipseEditor-»
+	«EXPAND openEditor-»
+«ELSE-»
+	«EXPAND showView-»
+«ENDIF-»
+	«EXPAND initializeDiagram-»
+«IF !editorGen.sameFileForDiagramAndModel-»
+	«EXPAND convertURIs-»
+«ENDIF-»
+	«EXPAND isReadOnly-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
+
+«DEFINE openFilePathDialog FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static String openFilePathDialog(org.eclipse.swt.widgets.Shell shell, String fileExtensionFilter, int style) {
+	org.eclipse.swt.widgets.FileDialog fileDialog = new org.eclipse.swt.widgets.FileDialog(shell, style);
+	fileDialog.setFilterExtensions(new String[]{fileExtensionFilter});
+
+	fileDialog.open();
+	if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
+		return fileDialog.getFilterPath() + java.io.File.separator + fileDialog.getFileName();
+	}
+	else {
+		return null;
+	}
+}
+«ENDDEFINE»
+
+«DEFINE openEditor FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static org.eclipse.ui.IEditorPart openEditor(org.eclipse.emf.common.util.URI fileURI) {
+	org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+	org.eclipse.ui.IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+	org.eclipse.ui.IWorkbenchPage page = workbenchWindow.getActivePage();
+
+	org.eclipse.ui.IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.lastSegment());
+	if (editorDescriptor == null) {
+		org.eclipse.jface.dialogs.MessageDialog.openError(
+		workbenchWindow.getShell(),
+		"Error",
+		"There is no editor registered for the file " + fileURI.toFileString());
+		return null;
+	} else {
+		try {
+			return page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(fileURI), editorDescriptor.getId());
+		} catch (org.eclipse.ui.PartInitException exception) {
+			org.eclipse.jface.dialogs.MessageDialog.openError(
+				workbenchWindow.getShell(),
+				"Error Opening Editor",
+				exception.getMessage());
+			return null;
+		}
+	}
+}
+«ENDDEFINE»
+
+«DEFINE showView FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static org.eclipse.ui.IViewPart showView(org.eclipse.emf.common.util.URI fileURI) {
+	org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+	org.eclipse.ui.IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+	org.eclipse.ui.IWorkbenchPage page = workbenchWindow.getActivePage();
+
+	try {
+		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart diagramView = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart) page.showView(«editorGen.editor.getQualifiedClassName()».ID);
+		if (!diagramView.showDiagram(null, fileURI)) {
+			return null;
+		}
+		return diagramView;
+	} catch (org.eclipse.ui.PartInitException exception) {
+		org.eclipse.jface.dialogs.MessageDialog.openError(
+			workbenchWindow.getShell(),
+			"Error Opening View",
+			exception.getMessage());
+		return null;
+	}
+}
+«ENDDEFINE»
+
+«DEFINE convertURIs FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static org.eclipse.emf.common.util.URI getDiagramFileURI(org.eclipse.emf.common.util.URI modelFileURI) {
+	if (modelFileURI == null || !modelFileURI.isFile()) {
+		return null;
+	}
+	return modelFileURI.trimFileExtension().appendFileExtension("«editorGen.diagramFileExtension»");	«EXPAND xpt::Common::nonNLS»
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public static org.eclipse.emf.common.util.URI getModelFileURI(org.eclipse.emf.common.util.URI diagramFileURI) {
+	if (diagramFileURI == null || !diagramFileURI.isFile()) {
+		return null;
+	}
+	return diagramFileURI.trimFileExtension().appendFileExtension("«editorGen.domainFileExtension»");	«EXPAND xpt::Common::nonNLS»
+}
+«ENDDEFINE»
+
+«DEFINE isReadOnly FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment("Returns whether the given element is read only in its editing domain.")»
+public static boolean isReadOnly(org.eclipse.emf.ecore.EObject element) {
+	if (element == null) {
+		return true;
+	}
+	org.eclipse.emf.ecore.resource.Resource resource = element.eResource();
+	if (resource == null) {
+		return false;
+	}
+	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(resource);
+	if (editingDomain == null) {
+		return false;
+	}
+	return editingDomain.isReadOnly(resource);
+}
+«ENDDEFINE»
+
+«DEFINE initializeDiagram FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+public static org.eclipse.gmf.runtime.notation.Diagram createDiagramFor(org.eclipse.emf.ecore.EObject diagramRoot) {
+	if («getEditPartQualifiedClassName()».VISUAL_ID != «getVisualIDRegistryQualifiedClassName()».INSTANCE.getDiagramVisualID(diagramRoot)) {
+		return null;
+	}
+	org.eclipse.gmf.runtime.notation.Diagram result = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDiagram();
+	result.setElement(diagramRoot);
+	«getNotationViewFactoryQualifiedClassName()».INSTANCE.decorateView(result);
+	new DiagramInitializer().initDiagramContents(result);
+	return result;
+}
+
+«EXPAND xpt::editor::DiagramInitializer::DiagramInitializer-»
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»

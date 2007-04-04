@@ -1,7 +1,0 @@
-if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_OPEN.equals(req.getType())) {
-	<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> command = getCommand(req);
-	if (command != null && command.canExecute()) {
-		getViewer().getEditDomain().getCommandStack().execute(command);
-	}
-	return;
-}

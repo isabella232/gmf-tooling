@@ -11,6 +11,7 @@
  */
 
 import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 
 Collection[gmfgen::GenNode] getChildNodes(gmfgen::GenContainerBase parent) :
@@ -26,5 +27,13 @@ parent.childNodes
 ;
 
 Collection[gmfgen::GenNode] getRelatedGenNodes(gmfgen::GenNode node) :
-node.getDiagram().getAllNodes().select(e| node.getDomainMetaClass().ecoreClass.isSuperTypeOf(e.getDomainMetaClass().ecoreClass))
+node.getDiagram().getRelatedGenNodes(node.getDomainMetaClass())
+;
+
+Collection[gmfgen::GenNode] getRelatedGenNodes(gmfgen::GenDiagram diagram, genmodel::GenClass nodeClass) :
+diagram.getAllNodes().select(e| nodeClass.ecoreClass.isSuperTypeOf(e.getDomainMetaClass().ecoreClass))
+;
+
+Collection[gmfgen::GenNode] getRelatedChildLabelGenNodes(gmfgen::GenDiagram diagram, genmodel::GenClass nodeClass) :
+getRelatedGenNodes(diagram, nodeClass).typeSelect(gmfgen::GenChildLabelNode)
 ;

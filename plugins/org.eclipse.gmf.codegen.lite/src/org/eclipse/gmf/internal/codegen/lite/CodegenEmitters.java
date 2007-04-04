@@ -25,7 +25,6 @@ import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerat
 import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardPageGenerator;
-import org.eclipse.gmf.codegen.templates.lite.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
@@ -37,15 +36,7 @@ import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGe
 import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.lite.navigator.NavigatorLabelProviderGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.CompartmentEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.DiagramEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.EditPartFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.LinkEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.LinkLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.NodeEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.MetricProviderGenerator;
@@ -117,26 +108,16 @@ public class CodegenEmitters {
 
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class);
 		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
-		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
-		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
 		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		put(tr, "/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
 		// put(tr, "/editor/MatchingStrategy.javajet",
 		// MatchingStrategyGenerator.class);
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
-		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/OpenDiagramInViewAction.javajet", OpenDiagramFileInViewGenerator.class);
-		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
-		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
-		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
-		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
-		put(tr, "/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
-		// put(tr, "/editor/ModelCreationFactory.javajet", ModelCreationFactoryGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
@@ -210,15 +191,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getCompartmentEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CompartmentEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::CompartmentEditPart::CompartmentEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(DiagramEditPartGenerator.class);
-	}
-
-	public TextEmitter getDiagramExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramExternalNodeLabelEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::DiagramEditPart::DiagramEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getEditPartFactoryGenerator() throws UnexpectedBehaviourException {
@@ -226,23 +203,23 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getLinkEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(LinkEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::LinkEditPart::LinkEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getLinkLabelEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(LinkLabelEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::LinkLabelEditPart::LinkLabelEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getChildNodeEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ChildNodeEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::ChildNodeEditPart::ChildNodeEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(NodeEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::NodeEditPart::NodeEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getNodeLabelEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(NodeLabelEditPartGenerator.class);
+		return retrieveXpand("xpt::diagram::parts::NodeLabelEditPart::NodeLabelEditPart");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginGenerator() throws UnexpectedBehaviourException {
@@ -270,7 +247,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getDiagramEditorUtilGenerator() throws UnexpectedBehaviourException {
-		return retrieve(DiagramEditorUtilGenerator.class);
+		return retrieveXpand("xpt::editor::DiagramEditorUtil::DiagramEditorUtil");	//$NON-NLS-1$
 	}
 
 	public TextEmitter getPaletteFactoryGenerator() throws UnexpectedBehaviourException {

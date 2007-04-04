@@ -37,6 +37,11 @@ boolean needsXYLayout(gmfgen::GenNode node) :
 	node.hasDirectChildren() && node.isXYLayout()
 ;
 
+boolean needsXYLayout(gmfgen::GenChildLabelNode node) :
+	false
+;
+
+
 Collection[gmfgen::GenExternalNodeLabel] getExternalLabels(gmfgen::GenNode node) :
 	node.labels.typeSelect(gmfgen::GenExternalNodeLabel)
 ;

@@ -1,0 +1,174 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::diagram::parts::NotationModelRefresher»
+«EXTENSION xpt::commands::CommandUtils»
+
+«DEFINE installClause FOR gmfgen::GenContainerBase-»
+«IF needsNotationModelRefresher()-»
+installNotationModelRefresher();
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE uninstallClause FOR gmfgen::GenContainerBase-»
+«IF needsNotationModelRefresher()-»
+uninstallNotationModelRefresher();
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE all FOR gmfgen::GenContainerBase-»
+«IF needsNotationModelRefresher()-»
+«EXPAND install-»
+«EXPAND uninstall-»
+«EXPAND getNotationModelRefresher-»
+«EXPAND refresh-»
+«EXPAND NotationModelRefresher-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE install FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private void installNotationModelRefresher() {
+	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher refresher = getNotationModelRefresher();
+	if (refresher.isInstalled()) {
+		return;
+	}
+	org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND xpt::diagram::parts::Common::getDiagramElementCode»);
+	refresher.install(domainModelEditDomain);
+	refreshNotationModel();
+}
+«ENDDEFINE»
+
+«DEFINE uninstall FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private void uninstallNotationModelRefresher() {
+	getNotationModelRefresher().uninstall();
+}
+«ENDDEFINE»
+
+«DEFINE getNotationModelRefresher FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher notationModelRefresher;
+
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher getNotationModelRefresher() {
+	if (notationModelRefresher == null) {
+		notationModelRefresher = new «EXPAND className»();
+	}
+	return notationModelRefresher;
+}
+«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenContainerBase»NotationModelRefresher«ENDDEFINE»
+
+«DEFINE refresh FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshNotationModel() {
+	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher childRefresher = getNotationModelRefresher();
+	if (!childRefresher.isInstalled()) {
+		return;
+	}
+	org.eclipse.emf.common.command.Command command = childRefresher.buildRefreshNotationModelCommand();
+	if (command == null) {
+		return;
+	}
+	org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND xpt::diagram::parts::Common::getDiagramElementCode»);
+	getViewer().getEditDomain().getCommandStack().execute(new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(domainModelEditDomain, command));
+}
+«ENDDEFINE»
+
+«DEFINE NotationModelRefresher FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedClassComment»
+private class «EXPAND className» «EXPAND supertypes» {
+	«EXPAND getConstrainedChildrenFilter-»
+	«EXPAND createFilter-»
+	«EXPAND getCreateNotationalElementCommand-»
+	«EXPAND getSemanticChildNodes-»
+	«EXPAND shouldCreateView-»
+	«EXPAND getHost-»
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE supertypes FOR gmfgen::GenContainerBase»extends org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher«ENDDEFINE»
+
+«DEFINE getConstrainedChildrenFilter FOR gmfgen::GenContainerBase-»
+«IF getConstraintsInChildren().size() > 0-»
+«EXPAND xpt::Common::generatedMemberComment("TODO: Children of this element are selected based on constraint declared in " + getDiagram().getVisualIDRegistryQualifiedClassName() + ". \n" + 
+  "Since no assumptions may be made concerning the runtime behavior of the constraint, <b>any</b> non-touch notification may result in \n" + 
+  "notational model having to be updated.\n" + 
+  "<p/>User is encouraged to change implementation of this method to provide an optimization if it is safe to assume that not all notifications\n" + 
+  "result in such an update.")»
+private org.eclipse.emf.transaction.NotificationFilter getConstrainedChildrenFilter() {
+	return org.eclipse.emf.transaction.NotificationFilter.NOT_TOUCH;
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE createFilter FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment("Creates a notification filter which filters notifications that may possibly affect the notational model")»
+protected org.eclipse.emf.transaction.NotificationFilter createFilter() {
+«LET getChildFeatures() AS genChildFeatures-»
+	«FOREACH genChildFeatures AS nextFeature ITERATOR it-»
+		«IF it.isFirstIteration()»org.eclipse.emf.transaction.NotificationFilter filter = «EXPAND createFeatureFilter FOR nextFeature»;«ELSE-»
+		filter = filter.or(«EXPAND createFeatureFilter FOR nextFeature»);«ENDIF-»
+	«ENDFOREACH-»
+	«IF genChildFeatures.size() > 0»filter = filter.and(«EXPAND createNotifierFilter»);«ELSE-»
+	org.eclipse.emf.transaction.NotificationFilter filter = «EXPAND createNotifierFilter»;«ENDIF-»
+	«IF getConstraintsInChildren().size() > 0-»
+	filter = getConstrainedChildrenFilter().or(filter);
+	«ENDIF-»
+«ENDLET-»
+	return filter;
+}
+«ENDDEFINE»
+
+«DEFINE createFeatureFilter FOR genmodel::GenFeature»org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(«EXPAND xpt::Common::metaFeatureAccessor»)«ENDDEFINE»
+
+«DEFINE createNotifierFilter FOR gmfgen::GenContainerBase»org.eclipse.emf.transaction.NotificationFilter.createNotifierFilter(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement())«ENDDEFINE»
+
+«DEFINE getCreateNotationalElementCommand FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateNotationalElementCommand(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
+«EXPAND xpt::commands::createNotationalElementCommand::createNotationalNodeCommand("getHost()")-»
+}
+«ENDDEFINE»
+
+«DEFINE getSemanticChildNodes FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected java.util.List getSemanticChildNodes() {
+«EXPAND xpt::diagram::parts::semanticChildren::semanticChildren("getHost()")-»
+}
+«ENDDEFINE»
+
+«DEFINE shouldCreateView FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment("Returns whether a notational element should be created for the given domain element. \n" + 
+  "The generated code always returns " + (getDiagram().synchronized ? "true" : "false") + ". \n" + 
+  "User can change implementation of this method to handle a more sophisticated logic.")»
+protected boolean shouldCreateView(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
+	return «getDiagram().synchronized»;
+}
+«ENDDEFINE»
+
+«DEFINE getHost FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gmf.runtime.notation.View getHost() {
+	return «EXPAND xpt::diagram::parts::Common::getViewCode»;
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»
+
