@@ -112,22 +112,22 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 
 		// We assume there's only one OpenDiagramBehaviour per GenCommonBase, hence do not attempt to match anything but metaclass
 		setMatcher(GMFGEN.getOpenDiagramBehaviour(), ALWAYS_MATCH);
-		class NewValueNotByPatternDecision extends StringPatternDecision {
-			NewValueNotByPatternDecision(EAttribute feature, String pattern) {
+		class KeepOldIfNewIsByPatternOrNotSet extends StringPatternDecision {
+			KeepOldIfNewIsByPatternOrNotSet(EAttribute feature, String pattern) {
 				super(pattern, feature);
 			}
 			@Override
 			public void apply(EObject current, EObject old) {
 				String newValue = (String) current.eGet(getFeature());
-				if (newValue != null && isValueSet(old) && myPattern.matcher(newValue).matches()){
+				if (isValueSet(old) && (newValue == null || myPattern.matcher(newValue).matches())){
 					preserveOld(current, old);
 				} else {
 					acceptNew(current, old);
 				}
 			}
 		};
-		addDecision(GMFGEN.getOpenDiagramBehaviour(), new NewValueNotByPatternDecision(GMFGEN.getOpenDiagramBehaviour_DiagramKind(), "^FIXME.*")); //$NON-NLS-1$
-		addDecision(GMFGEN.getOpenDiagramBehaviour(), new NewValueNotByPatternDecision(GMFGEN.getOpenDiagramBehaviour_EditorID(), "^FIXME.*")); //$NON-NLS-1$
+		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_DiagramKind(), "^FIXME.*")); //$NON-NLS-1$
+		addDecision(GMFGEN.getOpenDiagramBehaviour(), new KeepOldIfNewIsByPatternOrNotSet(GMFGEN.getOpenDiagramBehaviour_EditorID(), "^FIXME.*")); //$NON-NLS-1$
 		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_EditPolicyClassName());
 		preserveIfSet(GMFGEN.getOpenDiagramBehaviour(), GMFGEN.getOpenDiagramBehaviour_OpenAsEclipseEditor());
 
