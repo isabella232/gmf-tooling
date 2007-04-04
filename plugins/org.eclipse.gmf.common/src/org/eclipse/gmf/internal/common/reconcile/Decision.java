@@ -56,4 +56,8 @@ public abstract class Decision {
 		Object oldValue = old.eGet(getFeature(), true);
 		current.eSet(getFeature(), oldValue);
 	}
+
+	protected final boolean isValueSet(EObject obj) {
+		return obj.eIsSet(getFeature());
+	}
 }

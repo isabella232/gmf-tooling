@@ -30,11 +30,10 @@ public class DefaultDecision extends Decision {
 	
 	public void apply(EObject current, EObject old) {
 		assert current.eClass().equals(old.eClass());
-		if (!(myInverted ^ current.eIsSet(getFeature())) && (myInverted ^ old.eIsSet(getFeature()))) {
+		if (!(myInverted ^ isValueSet(current)) && (myInverted ^ isValueSet(old))) {
 			preserveOld(current, old);
 		} else {
 			acceptNew(current, old);
 		}
 	}
-
 }
