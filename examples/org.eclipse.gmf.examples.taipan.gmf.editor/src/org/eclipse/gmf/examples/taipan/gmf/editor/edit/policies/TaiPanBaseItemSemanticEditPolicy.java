@@ -291,7 +291,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated 
 	 */
-	protected static class LinkConstraints {
+	public static class LinkConstraints {
 
 		/**
 		 * @generated 

@@ -105,7 +105,6 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-
 		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (nodeVID) {
 		case PortEditPart.VISUAL_ID:
