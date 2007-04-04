@@ -72,7 +72,7 @@ public abstract class CompilationTest extends TestCase {
 
 	protected DiaGenSource getLibraryGen(boolean rcp) throws Exception {
 		MapDefSource mmSource = getLibraryMap(); 
-		return new GenASetup(mmSource.getMapping(), rcp);
+		return new GenASetup(mmSource.getMapping(), getViewmapProducer(), rcp);
 	}
 
 	// avoid requests like #174171

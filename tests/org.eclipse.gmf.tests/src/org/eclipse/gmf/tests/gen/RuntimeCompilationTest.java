@@ -42,7 +42,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 	public void testCompilePureDesignDiagram() throws Exception {
 		MapDefASetup mmSource = getLibraryMap();
 		mmSource.detachFromDomainModel();
-		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), false);
+		DiaGenSource gmfGenSource = new GenASetup(mmSource.getMapping(), getViewmapProducer(), false);
 		gmfGenSource.getGenDiagram().getEditorGen().setPackageNamePrefix("org.eclipse.gmf.examples.library.diagram"); //$NON-NLS-1$
 		generateAndCompile(gmfGenSource, NO_MUTATORS);
 	}

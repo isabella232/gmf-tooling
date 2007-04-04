@@ -23,6 +23,7 @@ import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tests.Utils;
@@ -39,9 +40,12 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 
 	protected GenEditorGenerator gen;
 
-	public GenASetup(Mapping mapping, boolean rcp) {
+	protected ViewmapProducer viewmapProducer;
+
+	public GenASetup(Mapping mapping, ViewmapProducer viewmapProducer, boolean rcp) {
 		this.mapping = mapping;
 		this.rcp = rcp;
+		this.viewmapProducer = viewmapProducer;
 	}
 
 	protected Iterator<EObject> getAllDomainModelContents() {
@@ -52,7 +56,7 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 
 	public GenDiagram getGenDiagram() {
 		if (gen == null) {
-			DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediatorImpl(), new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediatorImpl(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
 			EPackage ePackage = mapping.getDiagram().getDomainModel();
 			if (ePackage != null) {
 				t.setEMFGenModel(Utils.createGenModel(ePackage));
