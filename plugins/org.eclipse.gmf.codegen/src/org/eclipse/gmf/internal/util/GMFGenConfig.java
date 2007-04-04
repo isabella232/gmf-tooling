@@ -153,10 +153,11 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenPropertySheet(), GMFGEN.getGenPropertySheet_LabelProviderClassName());
 
 		setMatcherForAllSubclasses(GMFGEN.getGenPropertyTab(), new ReflectiveMatcher(GMFGEN.getGenPropertyTab_ID()));
-		preserveIfSet(GMFGEN.getGenStandardPropertyTab(),GMFGEN.getGenPropertyTab_Label());
+		preserveIfSet(GMFGEN.getGenStandardPropertyTab(), GMFGEN.getGenPropertyTab_Label());
 
-		preserveIfSet(GMFGEN.getGenCustomPropertyTab(),GMFGEN.getGenPropertyTab_Label());
-		preserveIfSet(GMFGEN.getGenCustomPropertyTab(),GMFGEN.getGenCustomPropertyTab_ClassName());
+		preserveIfSet(GMFGEN.getGenCustomPropertyTab(), GMFGEN.getGenPropertyTab_Label());
+		preserveIfSet(GMFGEN.getGenCustomPropertyTab(), GMFGEN.getGenCustomPropertyTab_ClassName());
+		setCopier(GMFGEN.getGenCustomPropertyTab(), Copier.COMPLETE_COPY);
 		
 		setMatcher(GMFGEN.getGenNavigator(), ALWAYS_MATCH);
 		preserveIfRemoved(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_Navigator());
