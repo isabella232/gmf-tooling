@@ -18,8 +18,12 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 
+/**
+ * XXX [artem] actually, either StringPatternDecision should be abstract, or renamed to
+ * OldValueNotByPatternDecision to better reflect its implementation
+ */
 public class StringPatternDecision extends Decision {
-	private final Pattern myPattern;
+	protected final Pattern myPattern;
 	
 	public StringPatternDecision(String valuePattern, EAttribute attribute){
 		this(Pattern.compile(valuePattern), attribute);
