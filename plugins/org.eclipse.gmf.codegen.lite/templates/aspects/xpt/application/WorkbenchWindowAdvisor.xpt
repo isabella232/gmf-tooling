@@ -20,6 +20,6 @@
 		configurer.setInitialSize(new org.eclipse.swt.graphics.Point(600, 450));
 		configurer.setShowCoolBar(false);
 		configurer.setShowStatusLine(true);
-		configurer.setTitle(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundleString("_UI_Application_title"));	//$NON-NLS-1$
+		configurer.setTitle(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundleString("_UI_Application_title"));	«EXPAND xpt::Common::nonNLS»
 	}
 «ENDAROUND»

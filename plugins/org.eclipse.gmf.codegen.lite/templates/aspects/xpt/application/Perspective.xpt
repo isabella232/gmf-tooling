@@ -15,7 +15,7 @@
 
 «AROUND layoutAdditions FOR gmfgen::GenApplication-»
 «IF !editorGen.editor.eclipseEditor»
-		org.eclipse.ui.IFolderLayout top = layout.createFolder("top", org.eclipse.ui.IPageLayout.TOP, (float)0.5, layout.getEditorArea());	//$NON-NLS-1$
+		org.eclipse.ui.IFolderLayout top = layout.createFolder("top", org.eclipse.ui.IPageLayout.TOP, (float)0.5, layout.getEditorArea());	«EXPAND xpt::Common::nonNLS»
 		top.addView(«editorGen.editor.getQualifiedClassName()».ID);
 «ENDIF»
 «ENDAROUND»

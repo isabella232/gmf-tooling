@@ -21,8 +21,8 @@
 	public static class AboutAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 		«EXPAND xpt::Common::generatedMemberComment("@see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)")»
 		public void run(org.eclipse.jface.action.IAction action) {
-			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), getString("_UI_About_title"),	//$NON-NLS-1$
-			getString("_UI_About_text"));	//$NON-NLS-1$
+			org.eclipse.jface.dialogs.MessageDialog.openInformation(getWindow().getShell(), getString("_UI_About_title"),	«EXPAND xpt::Common::nonNLS»
+			getString("_UI_About_text"));	«EXPAND xpt::Common::nonNLS»
 		}
 	}
 «ENDAROUND»
@@ -32,7 +32,7 @@
 	public static class OpenAction extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate {
 		«EXPAND xpt::Common::generatedMemberComment("Opens the editors for the files selected using the file dialog.")»
 		public void run(org.eclipse.jface.action.IAction action) {
-			String filePath = «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openFilePathDialog(getWindow().getShell(), "*.«editorGen.diagramFileExtension»", org.eclipse.swt.SWT.OPEN);	//$NON-NLS-1$
+			String filePath = «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openFilePathDialog(getWindow().getShell(), "*.«editorGen.diagramFileExtension»", org.eclipse.swt.SWT.OPEN);	«EXPAND xpt::Common::nonNLS»
 			if (filePath != null) {
 «IF editorGen.editor.eclipseEditor-»
 				«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openEditor(org.eclipse.emf.common.util.URI.createFileURI(filePath));

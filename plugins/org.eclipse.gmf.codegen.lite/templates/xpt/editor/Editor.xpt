@@ -96,7 +96,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 
 «DEFINE partId FOR gmfgen::GenEditorView-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String ID = "«iD»"; //$NON-NLS-1$
+	public static final String ID = "«iD»"; «EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE ResourceTracker FOR gmfgen::GenEditorView-»
@@ -434,8 +434,8 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		}
 		org.eclipse.emf.common.util.URI uri = getURIFromInput(input);
 		if (uri != null) {
-			if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { //$NON-NLS-1$
-				if ("resource".equals(uri.segment(0))) { //$NON-NLS-1$
+			if ("platform".equals(uri.scheme()) && (uri.segmentCount() > 2)) { «EXPAND xpt::Common::nonNLS»
+				if ("resource".equals(uri.segment(0))) { «EXPAND xpt::Common::nonNLS»
 					org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1);
 					return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 				}
@@ -626,7 +626,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		// configure the context menu
 		org.eclipse.gef.ContextMenuProvider provider = new «className»ContextMenuProvider(viewer);
 		viewer.setContextMenu(provider);
-		getSite().registerContextMenu(«editorGen.plugin.getActivatorQualifiedClassName()».ID + ".editor.contextmenu", provider, getSite().getSelectionProvider()); //$NON-NLS-1$
+		getSite().registerContextMenu(«editorGen.plugin.getActivatorQualifiedClassName()».ID + ".editor.contextmenu", provider, getSite().getSelectionProvider()); «EXPAND xpt::Common::nonNLS»
 
 		org.eclipse.gef.KeyHandler keyHandler = new org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler(viewer);
 		viewer.setKeyHandler(keyHandler);

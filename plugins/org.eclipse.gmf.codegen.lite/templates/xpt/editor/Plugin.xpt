@@ -24,7 +24,7 @@ package «editorGen.editor.packageName»;
 public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String ID = "«iD»"; //$NON-NLS-1$
+	public static final String ID = "«iD»"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static «activatorClassName» instance;
@@ -221,7 +221,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		try {
 			return org.eclipse.core.runtime.Platform.getResourceBundle(getBundle()).getString(key);
 		} catch (java.util.MissingResourceException e) {
-			return "!" + key + "!";	//$NON-NLS-1$	//$NON-NLS-2$
+			return "!" + key + "!";	«EXPAND xpt::Common::nonNLS»	«EXPAND xpt::Common::nonNLS(2)»
 		}
 	}
 «ENDDEFINE»
