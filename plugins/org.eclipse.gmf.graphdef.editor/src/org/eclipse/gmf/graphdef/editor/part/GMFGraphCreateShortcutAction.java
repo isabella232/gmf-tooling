@@ -73,6 +73,27 @@ public class GMFGraphCreateShortcutAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		mySelectedElement = null;
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof CanvasEditPart) {
+				mySelectedElement = (CanvasEditPart) structuredSelection.getFirstElement();
+			}
+		}
+		action.setEnabled(isEnabled());
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isEnabled() {
+		return mySelectedElement != null;
+	}
+
+	/**
+	 * @generated
+	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
 		GMFGraphElementChooserDialog elementChooser = new GMFGraphElementChooserDialog(myShell, view);
@@ -102,26 +123,4 @@ public class GMFGraphCreateShortcutAction implements IObjectActionDelegate {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
 		}
 	}
-
-	/**
-	 * @generated
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		mySelectedElement = null;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof CanvasEditPart) {
-				mySelectedElement = (CanvasEditPart) structuredSelection.getFirstElement();
-			}
-		}
-		action.setEnabled(isEnabled());
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isEnabled() {
-		return mySelectedElement != null;
-	}
-
 }

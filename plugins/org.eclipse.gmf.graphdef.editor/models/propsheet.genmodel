@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.graphdef.propsheet/src"
+    editDirectory="/org.eclipse.gmf.graphdef.propsheet.edit/src" editorDirectory="/org.eclipse.gmf.graphdef.propsheet.edit/src"
+    modelPluginID="org.eclipse.gmf.graphdef.propsheet" modelName="Propsheet" importerID="org.eclipse.emf.importer.ecore"
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel platform:/plugin/org.eclipse.gmf.codegen/models/gmfgen.genmodel#//gmfgen">
+  <foreignModel>propsheet.ecore</foreignModel>
+  <genPackages prefix="Propsheet" basePackage="org.eclipse.gmf.graphdef" disposableProviderFactory="true"
+      ecorePackage="propsheet.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="propsheet.ecore#//Positions">
+      <genEnumLiterals ecoreEnumLiteral="propsheet.ecore#//Positions/LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="propsheet.ecore#//Positions/RIGHT"/>
+      <genEnumLiterals ecoreEnumLiteral="propsheet.ecore#//Positions/TOP"/>
+      <genEnumLiterals ecoreEnumLiteral="propsheet.ecore#//Positions/BOTTOM"/>
+    </genEnums>
+    <genClasses ecoreClass="propsheet.ecore#//PropertySectionContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//PropertySectionContainer/customSections"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="propsheet.ecore#//CustomPropertySection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//CustomPropertySection/genTab"/>
+    </genClasses>
+    <genClasses provider="Stateful" ecoreClass="propsheet.ecore#//Sectionable">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference propsheet.ecore#//Sectionable/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Sectionable/layoutConstraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Sectionable/name"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//CustomControl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//CustomControl/implementationClass"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Labeled">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Labeled/text"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Labeled/grayed"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Iconed">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Iconed/iconPath"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Group">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Group/contents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Group/modelMediator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Group/expandable"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Label"/>
+    <genClasses ecoreClass="propsheet.ecore#//Checkbox">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Checkbox/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Radio">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Radio/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Spin">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Spin/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Spin/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Spin/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Spin/inc"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//TextField">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//TextField/modelElement"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="propsheet.ecore#//LayoutConstraints"/>
+    <genClasses ecoreClass="propsheet.ecore#//FormLayoutConstraints">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//FormLayoutConstraints/anchorControl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//FormLayoutConstraints/relativePosition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//FormLayoutConstraints/rightmost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//FormLayoutConstraints/lowermost"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//Text">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Text/overridedItemProviderText"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//Text/createLabel"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="propsheet.ecore#//Reference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference propsheet.ecore#//Reference/customCode"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//ModelMediatorFeature">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//ModelMediatorFeature/cast"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//ModelMediatorFeature/visibleOnlyForTargets"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//FeatureReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//FeatureReference/feature"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="propsheet.ecore#//BooleanCondition"/>
+    <genClasses ecoreClass="propsheet.ecore#//IntValue"/>
+    <genClasses ecoreClass="propsheet.ecore#//StringValue"/>
+    <genClasses ecoreClass="propsheet.ecore#//IsFeatureOfTypeReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//IsFeatureOfTypeReference/isOfType"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//IsFeatureIsOfKindReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference propsheet.ecore#//IsFeatureIsOfKindReference/isOfValue"/>
+    </genClasses>
+    <genClasses ecoreClass="propsheet.ecore#//AdditionalModelTuning">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//AdditionalModelTuning/afterGettingValueFromModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute propsheet.ecore#//AdditionalModelTuning/afterSettingValueToModel"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

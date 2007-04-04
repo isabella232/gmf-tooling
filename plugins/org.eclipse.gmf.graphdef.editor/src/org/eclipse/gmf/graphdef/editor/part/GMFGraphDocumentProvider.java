@@ -29,7 +29,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -39,6 +41,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
@@ -61,7 +64,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	/**
 	 * @generated
 	 */
-	protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException, CoreException {
+	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
 			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
 					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
@@ -90,14 +93,12 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	}
 
 	/**
-	 * Sets up the given document as it would be provided for the given element.
-	 * The content of the document is not changed. This default implementation
-	 * is empty. Subclasses may reimplement.
+	 * Sets up the given document as it would be provided for the given element. The
+	 * content of the document is not changed. This default implementation is empty.
+	 * Subclasses may reimplement.
 	 * 
-	 * @param element
-	 *            the blue-print element
-	 * @param document
-	 *            the document to set up
+	 * @param element the blue-print element
+	 * @param document the document to set up
 	 * @generated
 	 */
 	protected void setupDocument(Object element, IDocument document) {
@@ -132,18 +133,19 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		return document;
 	}
 
-	private org.eclipse.emf.transaction.TransactionalEditingDomain createEditingDomain() {
-		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory.getInstance().createEditingDomain();
+	/**
+	 * @generated
+	 */
+	private TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain editingDomain = DiagramEditingDomainFactory.getInstance().createEditingDomain();
 		editingDomain.setID("org.eclipse.gmf.graphdef.editor.EditingDomain"); //$NON-NLS-1$
-		final org.eclipse.emf.transaction.NotificationFilter diagramResourceModifiedFilter = org.eclipse.emf.transaction.NotificationFilter.createNotifierFilter(editingDomain.getResourceSet()).and(
-				org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.ADD)).and(
-				org.eclipse.emf.transaction.NotificationFilter
-						.createFeatureFilter(org.eclipse.emf.ecore.resource.ResourceSet.class, org.eclipse.emf.ecore.resource.ResourceSet.RESOURCE_SET__RESOURCES));
-		editingDomain.getResourceSet().eAdapters().add(new org.eclipse.emf.common.notify.Adapter() {
+		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
+				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
+		editingDomain.getResourceSet().eAdapters().add(new Adapter() {
 
-			private org.eclipse.emf.common.notify.Notifier myTarger;
+			private Notifier myTarger;
 
-			public org.eclipse.emf.common.notify.Notifier getTarget() {
+			public Notifier getTarget() {
 				return myTarger;
 			}
 
@@ -151,16 +153,16 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 				return false;
 			}
 
-			public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
+			public void notifyChanged(Notification notification) {
 				if (diagramResourceModifiedFilter.matches(notification)) {
 					Object value = notification.getNewValue();
-					if (value instanceof org.eclipse.emf.ecore.resource.Resource) {
-						((org.eclipse.emf.ecore.resource.Resource) value).setTrackingModification(true);
+					if (value instanceof Resource) {
+						((Resource) value).setTrackingModification(true);
 					}
 				}
 			}
 
-			public void setTarget(org.eclipse.emf.common.notify.Notifier newTarget) {
+			public void setTarget(Notifier newTarget) {
 				myTarger = newTarget;
 			}
 
@@ -190,9 +192,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 				if (!resource.isLoaded()) {
 					try {
 						Map options = new HashMap(GMFResourceFactory.getDefaultLoadOptions());
-						// @see 171060
-						// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE,
-						// Boolean.TRUE);
+						// @see 171060 
+						// options.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 						resource.load(options);
 					} catch (IOException e) {
 						resource.unload();
@@ -281,7 +282,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	/**
 	 * @generated
 	 */
-	protected void doValidateState(Object element, Object computationContext) throws org.eclipse.core.runtime.CoreException, CoreException {
+	protected void doValidateState(Object element, Object computationContext) throws CoreException {
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			Collection files2Validate = new ArrayList();
@@ -619,12 +620,12 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		/**
 		 * @generated
 		 */
-		private IDiagramDocument myDocument;
+		private Collection myUnSynchronizedResources = new ArrayList();
 
 		/**
 		 * @generated
 		 */
-		private Collection myUnSynchronizedResources = new ArrayList();
+		private IDiagramDocument myDocument;
 
 		/**
 		 * @generated
@@ -888,7 +889,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 			if (notification.getNotifier() instanceof ResourceSet) {
 				super.notifyChanged(notification);
 			}
-			if (myModifiedFilter.matches(notification)) {
+			if (!notification.isTouch() && myModifiedFilter.matches(notification)) {
 				if (notification.getNotifier() instanceof Resource) {
 					Resource resource = (Resource) notification.getNotifier();
 					if (resource.isLoaded()) {

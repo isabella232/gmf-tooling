@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <!--
- Copyright (c) 2006 Borland Software Corporation and others.
+ Copyright (c) 2006, 2007 Borland Software Corporation and others.
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
@@ -57,7 +57,35 @@
    <extension point="org.eclipse.ui.popupMenus">
       <?gmfgen generated="true"?>
       <objectContribution
-            id="org.eclipse.gmf.graphdef.editor.ui.objectContribution.IFile1"
+            adaptable="false"
+            id="org.eclipse.gmf.graphdef.editor.CreateShortcut"
+            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
+         <action
+               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.graphdef.editor.CreateShortcutAction"
+               label="%createShortcutActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.graphdef.editor.LoadResource"
+            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
+         <action
+               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.graphdef.editor.LoadResourceAction"
+               label="%loadResourceActionLabel"
+               menubarPath="additions">
+         </action>
+      </objectContribution>           
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="org.eclipse.gmf.graphdef.editor.InitDiagram"
             nameFilter="*.gmfgraph"
             objectClass="org.eclipse.core.resources.IFile">
          <action
@@ -65,35 +93,11 @@
                class="org.eclipse.gmf.graphdef.editor.part.GMFGraphInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.graphdef.editor.part.GMFGraphInitDiagramFileActionID">
+               id="org.eclipse.gmf.graphdef.editor.InitDiagramAction">
          </action>
       </objectContribution>
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.graphdef.editor.ui.objectContribution.CanvasEditPart1"
-            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
-         <action
-               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreateShortcutAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreateShortcutActionID"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.graphdef.editor.ui.objectContribution.CanvasEditPart2"
-            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
-         <action
-               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphLoadResourceAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.graphdef.editor.part.GMFGraphLoadResourceActionID"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
    </extension>
-
+	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -213,16 +217,16 @@
              label="%tab.diagram"/>
           <propertyTab
              category="extra"
-             id="property.tab.custom"
-             label="%tab.custom"/>
-          <propertyTab
-             category="extra"
-             id="property.tab.layout"
-             label="%tab.layout"/>
-          <propertyTab
-             category="extra"
              id="property.tab.points"
              label="%tab.points"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.genStyles"
+             label="%tab.genStyles"/>
+          <propertyTab
+             category="extra"
+             id="property.tab.genLayout"
+             label="%tab.genLayout"/>
       </propertyTabs>
    </extension>
 
@@ -250,22 +254,22 @@
             tab="property.tab.DiagramPropertySection">
          </propertySection>     
          <propertySection
-            id="property.section.custom" 
-            tab="property.tab.custom"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.CustomPropertySection">
-         </propertySection>
-         <propertySection
-            id="property.section.layout" 
-            tab="property.tab.layout"
-            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
-            class="org.eclipse.gmf.graphdef.editor.sheet.LayoutPropertySection">
-         </propertySection>
-         <propertySection
             id="property.section.points" 
             tab="property.tab.points"
             filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$PolylineFilter"
             class="org.eclipse.gmf.graphdef.editor.sheet.PointsPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.genStyles" 
+            tab="property.tab.genStyles"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$ShapeFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedStylesPropertySection">
+         </propertySection>
+         <propertySection
+            id="property.section.genLayout" 
+            tab="property.tab.genLayout"
+            filter="org.eclipse.gmf.graphdef.editor.part.PropertySectionFilters$LayoutableFilter"
+            class="org.eclipse.gmf.graphdef.editor.sheet.GeneratedLayoutPropertySection">
          </propertySection>
       </propertySections>
    </extension>
@@ -486,8 +490,18 @@
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.graphdef.editor.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="org.eclipse.gmf.graphdef.editor"
+           properties="isURIEditorInput"
+           class="org.eclipse.gmf.graphdef.editor.part.GMFGraphUriEditorInputTester">
+       </propertyTester>
+   </extension>
 
-   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.graphdef.editor.ShortcutPropertyTester"
@@ -498,11 +512,23 @@
        </propertyTester>
    </extension>
 
-   <extension point="org.eclipse.ui.navigator.viewer">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.graphdef.editor.DomainModelElementPropertyTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.graphdef.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.graphdef.editor.part.GMFGraphDomainModelElementTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer">
       <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="org.eclipse.gmf.graphdef.editor.resourceContent"/>
+			<contentExtension pattern="org.eclipse.gmf.graphdef.editor.domainResourceContent"/>
             <contentExtension pattern="org.eclipse.gmf.graphdef.editor.navigatorLinkHelper"/>
          </includes>
       </viewerContentBinding>
@@ -557,6 +583,33 @@
             </parentExpression>
          </commonSorter>
       </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.gmf.graphdef.editor.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphDomainNavigatorLabelProvider"
+            icon="icons/obj16/GMFGraphDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="gmfgraph"/>
+               </and>
+               <and>
+                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
+                  <test property="org.eclipse.gmf.graphdef.editor.isDomainModelElement"/>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <and>
+       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
+       	       <test property="org.eclipse.gmf.graphdef.editor.isDomainModelElement"/>
+       	    </and>
+         </possibleChildren>
+      </navigatorContent>
       <actionProvider
             id="org.eclipse.gmf.graphdef.editor.navigatorActionProvider"
             class="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorActionProvider">
@@ -571,13 +624,16 @@
       </actionProvider>
    </extension>
    
-   <extension point="org.eclipse.ui.navigator.linkHelper">
+	   <extension point="org.eclipse.ui.navigator.linkHelper">
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.graphdef.editor.navigatorLinkHelper"
             class="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorLinkHelper">
          <editorInputEnablement>
-            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.graphdef.editor.isURIEditorInput"/>
+            </and>
          </editorInputEnablement>
          <selectionEnablement>
             <instanceof value="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphAbstractNavigatorItem"/>

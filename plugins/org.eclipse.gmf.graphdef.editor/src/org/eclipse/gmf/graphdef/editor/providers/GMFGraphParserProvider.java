@@ -51,6 +51,8 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser createCompartmentCompartmentName_5001Parser() {
 		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -74,6 +76,8 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser createNodeNodeName_5002Parser() {
 		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -97,6 +101,8 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser createConnectionConnectionName_5003Parser() {
 		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
@@ -120,6 +126,8 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser createFigureGalleryFigureGalleryName_5004Parser() {
 		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 

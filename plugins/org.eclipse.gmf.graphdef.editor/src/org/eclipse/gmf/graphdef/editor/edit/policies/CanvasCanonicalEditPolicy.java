@@ -119,7 +119,18 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
+		}
+		int nodeVID = GMFGraphVisualIDRegistry.getVisualID(view);
+		switch (nodeVID) {
+		case CompartmentEditPart.VISUAL_ID:
+		case NodeEditPart.VISUAL_ID:
+		case ConnectionEditPart.VISUAL_ID:
+		case FigureGalleryEditPart.VISUAL_ID:
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -296,7 +307,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
@@ -311,7 +322,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 

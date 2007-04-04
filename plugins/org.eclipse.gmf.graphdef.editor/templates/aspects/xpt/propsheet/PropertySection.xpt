@@ -9,125 +9,49 @@
  * Contributors:
  *    Anna Karjakina (Borland) - initial API and implementation
  */
+«IMPORT "http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet"»
+«IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::EMFUtils»
+«EXTENSION xpt::GenModelUtils»
 «EXTENSION aspects::xpt::propsheet::Utils»
 
-«AROUND extendsList FOR gmfgen::GenCustomPropertyTab»«IF isCustomTab()»org.eclipse.gmf.graphdef.editor.sheet.AbstractCustomPropertySection«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+«AROUND extendsList FOR gmfgen::GenCustomPropertyTab»«IF isGeneratedTab()»org.eclipse.gmf.graphdef.editor.sheet.AbstractCustomSectionParent
+«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 
-«AROUND implementsClause FOR gmfgen::GenCustomPropertyTab»«IF isCustomTab()»«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+«AROUND implementsClause FOR gmfgen::GenCustomPropertyTab»«IF !isGeneratedTab()»«targetDef.proceed()»«ENDIF»«ENDAROUND»
 
 «AROUND transfromSelectionMethod FOR gmfgen::GenCustomPropertyTab»
-«IF isLayoutTab() || isViewTab() || isPointTab() || isCustomTab()»
+«IF isPointTab()-»
 	«EXPAND xpt::Common::generatedMemberComment("Modify/unwrap selection.")»
 	protected Object transformSelection(Object selected) {
-«IF isViewTab() -»
-		if (selected instanceof org.eclipse.gef.EditPart) {
-			return ((org.eclipse.gef.EditPart) selected).getModel();
-		}
-		if (selected instanceof org.eclipse.gmf.runtime.notation.View || selected instanceof org.eclipse.gmf.runtime.notation.Style) {
-			return selected;
-		}
-		if (selected instanceof org.eclipse.core.runtime.IAdaptable) {
-			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) selected).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-			if (view != null) {
-				return view;
-			}
-		}
-«ELSE-»
-		if (selected instanceof org.eclipse.gef.EditPart) {
-			Object model = ((org.eclipse.gef.EditPart) selected).getModel();
-			return model instanceof org.eclipse.gmf.runtime.notation.View ? ((org.eclipse.gmf.runtime.notation.View) model).getElement() : null;
-		}
-		if (selected instanceof org.eclipse.gmf.runtime.notation.View) {
-			return ((org.eclipse.gmf.runtime.notation.View) selected).getElement();
-		}
-		if (selected instanceof org.eclipse.core.runtime.IAdaptable) {
-			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) selected).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
-			if (view != null) {
-				return view.getElement();
-			}
-		}
-«ENDIF-»
+		«EXPAND xpt::propsheet::PropertySection::transfromSelectionMethodBodyDefault-»
 		return selected;
 	}
-«ELSE-»
-«targetDef.proceed()»
-«ENDIF-»
+«ELSEIF !isGeneratedTab()»«targetDef.proceed()»«ENDIF-»
 «ENDAROUND»
 
 «AROUND getPropertySourceMethod FOR gmfgen::GenCustomPropertyTab-»
-«IF isLayoutTab() || isViewTab() || isPointTab()»
+«IF isPointTab()»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.ui.views.properties.IPropertySource getPropertySource(Object object) {
-		«IF isLayoutTab()-»
-		«EXPAND createLayoutSources»
-		«ELSEIF isPointTab()-»
 		«EXPAND createTemplatePointSources»
-		«ELSE-»
-		if (object instanceof org.eclipse.ui.views.properties.IPropertySource) {
-			return (org.eclipse.ui.views.properties.IPropertySource) object;
-		}
-		org.eclipse.emf.common.notify.AdapterFactory af = getAdapterFactory(object);
-		if (af != null) {
-			org.eclipse.emf.edit.provider.IItemPropertySource ips = (org.eclipse.emf.edit.provider.IItemPropertySource) af.adapt(object, org.eclipse.emf.edit.provider.IItemPropertySource.class);
-			if (ips != null) {
-				return createPropertySource(object, ips);
-			}
-		}
-		if (object instanceof org.eclipse.core.runtime.IAdaptable) {
-			return (org.eclipse.ui.views.properties.IPropertySource) ((org.eclipse.core.runtime.IAdaptable) object).getAdapter(org.eclipse.ui.views.properties.IPropertySource.class);
-		}
-		return null;
-		«ENDIF-»
 	}
-«ELSEIF isCustomTab()»
-«ELSE-»
+«ELSEIF !isGeneratedTab()»
 «targetDef.proceed()»
 «ENDIF-»
 «ENDAROUND»
 
 «AROUND getPropertySourceProviderMethod FOR gmfgen::GenCustomPropertyTab»
-«IF isCustomTab()»
-«ELSE-»
-«targetDef.proceed()»
-«ENDIF-»
+«IF !isGeneratedTab()»«targetDef.proceed()»«ENDIF-»
 «ENDAROUND»
 
 «AROUND getAdapterFactoryMethod FOR gmfgen::GenCustomPropertyTab»
-«IF isLayoutTab() || isViewTab() || isPointTab()»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.emf.common.notify.AdapterFactory getAdapterFactory(Object object) {
-		if (getEditingDomain() instanceof org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) {
-			return ((org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();
-		}
-		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(object);
-		if (editingDomain != null) {
-			return ((org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
-		}
-		return null;
-	}
-«ELSEIF isCustomTab()»
-«ELSE-»
-«targetDef.proceed()»
-«ENDIF-»
+«IF isPointTab() || !isGeneratedTab()»«targetDef.proceed()»«ENDIF-»
 «ENDAROUND»
-
-«DEFINE createLayoutSources FOR gmfgen::GenCustomPropertyTab-»
-if (object instanceof org.eclipse.gmf.gmfgraph.Layoutable) {
-	org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource compositeSource = new org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource(object);
-		
-	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutPropertyDescriptor = new LayoutItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Manager", "Layout Manager", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_Layout(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createFlowLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createStackLayout(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayout()});
-	compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutPropertyDescriptor), "EMF")); //$NON-NLS-1$
-
-	org.eclipse.emf.edit.provider.IItemPropertyDescriptor layoutDataPropertyDescriptor = new LayoutItemPropertyDescriptor(«this.sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory(), "Layout Data", "Layout Data", org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), true, new org.eclipse.emf.ecore.EObject[] {org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createBorderLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createCustomLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createGridLayoutData(), org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createXYLayoutData()});
-	compositeSource.addPropertySource(new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, new SingleDescriptorPropertySource(layoutDataPropertyDescriptor), "EMF")); //$NON-NLS-1$
-	
-	return compositeSource;
-}
-return null;
-«ENDDEFINE»
 
 «DEFINE createTemplatePointSources FOR gmfgen::GenCustomPropertyTab-»
 if (object instanceof org.eclipse.gmf.gmfgraph.Polyline) {
@@ -167,27 +91,19 @@ return null;
 «ENDDEFINE»
 
 «AROUND additions FOR gmfgen::GenCustomPropertyTab-»
-	«IF isLayoutTab() || isPointTab()»
+	«IF isPointTab()»
 		«EXPAND SingleDescriptorPropertySourceClass-»
-		«IF isLayoutTab()»
-			«EXPAND LayoutItemPropertyDescriptorClass-»
-		«ENDIF»
-	«ELSEIF isCustomTab()»
-	    «EXPAND getImageRegistry-»
+	«ELSEIF isGeneratedTab()»
 	«ELSE»
 		«EXPAND createPropertySource»
 	«ENDIF»
+	«EXPAND modelExtensionExample-»
 «ENDAROUND»
-
 
 «DEFINE createPropertySource FOR gmfgen::GenCustomPropertyTab-»
 «EXPAND xpt::Common::generatedMemberComment»
     protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
-«IF isViewTab()-»
-        return new org.eclipse.gmf.runtime.diagram.ui.properties.descriptors.NotationPropertySource(object, itemPropertySource, "View");
-«ELSE-»
         return new org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource(object, itemPropertySource, "EMF");
-«ENDIF-»    
     }
 «ENDDEFINE»
 
@@ -224,111 +140,689 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 }
 «ENDDEFINE»
 
-«DEFINE LayoutItemPropertyDescriptorClass FOR gmfgen::GenCustomPropertyTab»
+«AROUND setInputMethod FOR gmfgen::GenCustomPropertyTab»
+«IF !isGeneratedTab()»«targetDef.proceed()»«ENDIF-»
+«ENDAROUND»
+
+«REM»
+///////////////////////////////// Model Customization Example /////////////////////////////////
+«ENDREM»
+
+«DEFINE modelExtensionExample FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND processModelExtensionExample FOREACH getReferencingObjects(this).typeSelect(propsheet::CustomPropertySection)»
+«ENDDEFINE»
+
+«DEFINE processModelExtensionExample FOR propsheet::CustomPropertySection-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private ModelHelper myModelHelper;
+	
+	«EXPAND initVars FOREACH contents-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void doCreateControls(org.eclipse.swt.widgets.Composite parent, org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage tabbedPropertySheetPage) {
+		org.eclipse.swt.widgets.Composite mainComposite = createMainWidget(parent);
+		«EXPAND createControls("mainComposite") FOREACH contents-»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void doDispose() {
+		«EXPAND disposeControl FOREACH contents-»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void refresh() {
+		getListener().startNonUserChange();
+		for (java.util.Iterator it = getSavedSelection().iterator(); it.hasNext();) {
+			Object next = it.next();
+			if (next instanceof «getTarget().getQualifiedInterfaceName()») {
+				final «getTarget().getQualifiedInterfaceName()» target = («getTarget().getQualifiedInterfaceName()»)next;
+				executeAsReadAction(new Runnable() {
+					public void run() {
+						updateFromModel(target);
+					}
+				});
+			}
+		}
+		getListener().finishNonUserChange();
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void updateFromModel(«getTarget().getQualifiedInterfaceName()» target) {
+		boolean needToRelayoutExpandBar = false;
+		«EXPAND updateFromModel("target") FOREACH contents-»
+		if (needToRelayoutExpandBar) {
+			relayoutExpandBar(null);
+		}
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public ModelUpdater createModelUpdater() {
+		return new ModelUpdater() {
+			public void applyChangesFrom(org.eclipse.swt.widgets.Widget widget, int kind) {
+				«genTab.className».this.applyChangesFrom(widget, kind);
+			}
+		};
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void applyChangesFrom(final org.eclipse.swt.widgets.Widget widget, int kind) {
+		String commandName = "Modifying model with ui data from "+widget.toString();
+		java.util.ArrayList commands = new java.util.ArrayList(getSavedSelection().size());
+		for (java.util.Iterator it = getSavedSelection().iterator(); it.hasNext();) {
+			Object next = it.next();
+			if (next instanceof «getTarget().getQualifiedInterfaceName()») {
+				final «getTarget().getQualifiedInterfaceName()» target = («getTarget().getQualifiedInterfaceName()»)next;
+				commands.add(createCommand(commandName, target, getModelModifierFor(target, widget, kind)));
+			}
+		}
+		executeAsCompositeCommand(commandName, commands);
+		//refresh();
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public Runnable getModelModifierFor(final «getTarget().getQualifiedInterfaceName()» target, final org.eclipse.swt.widgets.Widget widget, int kind) {
+		«EXPAND wrapModelHelperWithRunnable("target", "widget") FOREACH contents-»
+		// default:
+		return new Runnable() {
+			public void run() {
+				// does nothing
+			}
+		};
+	}
+
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected ModelHelper getModelHelper() {
+		if (myModelHelper == null) {
+			myModelHelper = new ModelHelper();
+		}
+		return myModelHelper;
+	}
+	
+	«EXPAND modelHelperInnerClass»
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Radio-»
 «EXPAND xpt::Common::generatedMemberComment»
-public static class LayoutItemPropertyDescriptor extends org.eclipse.emf.edit.provider.ItemPropertyDescriptor {
+private org.eclipse.swt.widgets.Button «name()»;
+«IF null != iconPath»«EXPAND initImage»«ENDIF»
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.ecore.EObject[] myValues;
+«DEFINE initVars FOR propsheet::Checkbox-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.Button «name()»;
+«IF null != iconPath»«EXPAND initImage»«ENDIF»
+«ENDDEFINE»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	LayoutItemPropertyDescriptor(org.eclipse.emf.common.notify.AdapterFactory adapterFactory, String displayName, String description, org.eclipse.emf.ecore.EStructuralFeature feature, boolean isSettable, org.eclipse.emf.ecore.EObject[] valueInstances) {
-		super(adapterFactory, displayName, description, feature, isSettable);
-		myValues = valueInstances;
-	}
-	
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected java.util.Collection getComboBoxObjects(Object object) {
-		if (object instanceof org.eclipse.emf.ecore.EObject) {
-			org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) object;
-			Object currentValue = getValue(eObject, feature);
-			java.util.Collection result = new java.util.ArrayList();
-			result.add(currentValue);	
-			org.eclipse.emf.ecore.EClass valueEClass = currentValue instanceof org.eclipse.emf.ecore.EObject ? ((org.eclipse.emf.ecore.EObject) currentValue).eClass() : null;
-			for (int i = 0; i < myValues.length; i++) {
-				if (myValues[i].eClass() == valueEClass) {
-					continue;
-				}
-				result.add(myValues[i]);	
-			}
-			if (currentValue != null) {
-				result.add(null);
-			}
-			return result;
+«DEFINE initVars FOR propsheet::Spin-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.Spinner «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::TextField-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.Text «name()»;
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Label-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.custom.CLabel «name()»;
+«IF null != iconPath»«EXPAND initImage»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Group-»
+«EXPAND xpt::Common::generatedMemberComment»
+private «IF createLabel(text)»«IF isExpandable()»org.eclipse.ui.forms.widgets.ExpandableComposite«ELSE»org.eclipse.swt.widgets.Group«ENDIF»«ELSE»org.eclipse.swt.widgets.Composite«ENDIF» «name()»;
+«EXPAND initVars FOREACH contents-»
+«ENDDEFINE»
+
+«DEFINE initVars FOR propsheet::Sectionable-»
+«ERROR "Unsupported Graphical Control"»
+«ENDDEFINE»
+
+«DEFINE initImage FOR propsheet::Sectionable-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.graphics.Image «name()»_image;
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Group-»
+«IF createLabel(text)-»
+	«IF isExpandable()-»
+«name()» = createExpandableComposite(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+org.eclipse.swt.widgets.Composite «name()»Control = createCompositeWidget(«name()», "", «EXPAND layoutArgs»);
+	«ELSE-»
+«name()» = createGroupWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+	«ENDIF»
+«ELSE-»
+«name()» = createCompositeWidget(«parentVar», "", «EXPAND layoutArgs»);
+«ENDIF»
+«IF createLabel(text) && isExpandable()-»
+	«EXPAND createControls(name()+"Control") FOREACH contents-»
+	«name()».setClient(«name()»Control);
+	«name()».addExpansionListener(getExpansionListener(«parentVar»));
+«ELSE-»
+	«EXPAND createControls(name()) FOREACH contents-»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Radio-»
+«name()» = createRadioButton(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != iconPath»«EXPAND createImage(iconPath)»«ENDIF»
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Checkbox-»
+«name()» = createCheckboxButton(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != iconPath»«EXPAND createImage(iconPath)»«ENDIF»
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Spin-»
+«name()» = createSpinnerWidget(«parentVar», «EXPAND createLabel», «min», «max», «inc», 100, «EXPAND layoutArgs»);
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::TextField-»
+«name()» = createTextWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != modelElement»«EXPAND installListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Label-»
+«name()» = createLabelWidget(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
+«IF null != iconPath»«EXPAND createImage(iconPath)»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createControls(String parentVar) FOR propsheet::Sectionable-»
+«ERROR "Cannot create Abstract Graphical Control"»
+«ENDDEFINE»
+
+«DEFINE createLabel FOR propsheet::Labeled-»
+«IF createLabel(text)»«IF null != text && null != text.overridedItemProviderText && "" != text.overridedItemProviderText»"«text.overridedItemProviderText»"«ELSE»«EXPAND callStringsAccessor»«ENDIF»«ELSE»""«ENDIF»«ENDDEFINE»
+
+«DEFINE createImage(String iconPath) FOR propsheet::Sectionable-»
+«name()»_image = «getCustomPropertySection().genTab.sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("«iconPath»").createImage();
+«name()».setImage(«name()»_image);
+«ENDDEFINE»
+
+«DEFINE installListener FOR propsheet::Sectionable-»
+getListener().startListeningTo(«name()»);
+«ENDDEFINE»
+
+«DEFINE layoutArgs FOR Sectionable-»
+«IF null != layoutConstraints-»
+«EXPAND processLeftAndTopLayoutConstraints FOR layoutConstraints-»
+«ELSE-»
+null, null, null, null, true, true, false, false
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE processLeftAndTopLayoutConstraints FOR propsheet::LayoutConstraints-»
+«ERROR "Abstract definition"»
+«ENDDEFINE»
+
+«DEFINE processLeftAndTopLayoutConstraints FOR propsheet::FormLayoutConstraints-»
+«IF null != anchorControl-»
+	«IF Positions::LEFT.value == relativePosition.value-»
+«anchorControl.name()», null, null, null, true, false, «lowermost», «rightmost»
+	«ELSEIF Positions::RIGHT.value == relativePosition.value-»
+null, null, «anchorControl.name()», null, false, false, «lowermost», «rightmost»
+	«ELSEIF Positions::TOP.value == relativePosition.value-»
+null, «anchorControl.name()», null, null, false, true, «lowermost», «rightmost»
+	«ELSEIF Positions::BOTTOM.value == relativePosition.value-»
+null, null, null, «anchorControl.name()», false, false, «lowermost», «rightmost»
+	«ENDIF-»
+«ELSE-»
+null, null, null, null, false, false, «lowermost», «rightmost»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Group-»
+«EXPAND disposeControl FOREACH contents-»
+«IF createLabel(text) && isExpandable()-»
+«name()».removeExpansionListener(getExpansionListener(null));«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Radio-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«IF null != iconPath-»«EXPAND disposeImage»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Checkbox-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«IF null != iconPath-»«EXPAND disposeImage»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Spin-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::TextField-»
+«IF null != modelElement»«EXPAND deinstallListener»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Label-»
+«IF null != iconPath-»«EXPAND disposeImage»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE disposeControl FOR propsheet::Sectionable-»
+«ERROR "Cannot dispose Abstract Graphical Control"»
+«ENDDEFINE»
+
+«DEFINE disposeImage FOR propsheet::Sectionable-»
+«name()»_image.dispose();
+«name()»_image = null;
+«ENDDEFINE»
+
+«DEFINE deinstallListener FOR propsheet::Sectionable-»
+getListener().stopListeningTo(«name()»);
+«ENDDEFINE»
+
+«DEFINE wrapModelHelperWithRunnable(String modelVar, String widgetVar) FOR propsheet::Sectionable-»
+«IF null != getModelElement()-»
+if («widgetVar» == «name()» && «name()».isVisible()) {
+	return new Runnable() {
+		public void run() {
+			«EXPAND applyChanges(modelVar, widgetVar)-»
 		}
-		return null;
-	}
-	
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void setPropertyValue(Object object, Object value) {
-		if (value instanceof org.eclipse.emf.ecore.EObject) {
-			org.eclipse.emf.ecore.EClass eClass =  ((org.eclipse.emf.ecore.EObject) value).eClass();
-			value = eClass.getEPackage().getEFactoryInstance().create(eClass);
-			if (value instanceof org.eclipse.gmf.gmfgraph.XYLayoutData) {
-				org.eclipse.gmf.gmfgraph.XYLayoutData xyLayoutData = (org.eclipse.gmf.gmfgraph.XYLayoutData) value;
-				xyLayoutData.setTopLeft(org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createPoint());
-				xyLayoutData.getTopLeft().setX(0);
-				xyLayoutData.getTopLeft().setY(0);
-				xyLayoutData.setSize(org.eclipse.gmf.gmfgraph.GMFGraphFactory.eINSTANCE.createDimension());
-				xyLayoutData.getSize().setDx(40);
-				xyLayoutData.getSize().setDy(40);
-			}
-		}
-		super.setPropertyValue(object, value);
-	}
+	};
+}
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE wrapModelHelperWithRunnable(String modelVar, String widgetVar) FOR propsheet::Group-»
+«EXPAND wrapModelHelperWithRunnable(modelVar, widgetVar) FOREACH contents-»«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Sectionable-»
+«ERROR "Cannot make appliance of changes for Abstract control"»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Group-»
+«EXPAND applyChanges(modelVar, widgetVar) FOREACH contents-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Label-»
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Radio-»
+final boolean value = «name()».getSelection();
+if (value) {
+	«EXPAND callSetterForModelProperty(modelVar, "value")»;
 }
 «ENDDEFINE»
 
-«DEFINE getImageRegistry FOR gmfgen::GenCustomPropertyTab-»
-  «EXPAND xpt::Common::generatedMemberComment»
-  private static org.eclipse.jface.resource.ImageRegistry ourImageRegistry = new org.eclipse.jface.resource.ImageRegistry();
-  
-  «EXPAND xpt::Common::generatedMemberComment»
-  static {
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_SOLID_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_solid.png"));
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASH_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dash.png"));
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dot.png"));
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASHDOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dashdot.png"));
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_DASHDOTDOT_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_dashdotdot.png"));
-      ourImageRegistry.put(org.eclipse.gmf.gmfgraph.LineKind.LINE_CUSTOM_LITERAL.getLiteral(), «sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("icons/line_custom.png"));
-  }
-
-  «EXPAND xpt::Common::generatedMemberComment»
-  public org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
-      return ourImageRegistry;
-  }
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Checkbox-»
+final boolean value = «name()».getSelection();
+«EXPAND callSetterForModelProperty(modelVar, "value")»;
 «ENDDEFINE»
 
-«AROUND setInputMethod FOR gmfgen::GenCustomPropertyTab»
-«IF isCustomTab()-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private java.util.Collection mySavedSelection = new java.util.ArrayList();
-	
-	«EXPAND xpt::Common::generatedMemberComment»
-	public java.util.Collection getSavedSelection() {
-	    //StructuredSelection structured = (StructuredSelection) super.getSelection();
-	    //return structured.toList();
-	    return mySavedSelection;
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Spin-»
+final int value = «name()».getSelection();
+«EXPAND callSetterForModelProperty(modelVar, "value")»;
+«ENDDEFINE»
+
+«DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::TextField-»
+final String value = «name()».getText();
+«EXPAND callSetterForModelProperty(modelVar, "value")»;
+«ENDDEFINE»
+
+«DEFINE callSetterForModelProperty(String targetVar, String valueVar) FOR propsheet::Sectionable»getModelHelper().setValueFor«name().toFirstUpper()»(«targetVar», «valueVar»)«ENDDEFINE»
+
+«DEFINE callGetterForModelProperty(String targetVar) FOR propsheet::Sectionable»getModelHelper().getValueFor«name().toFirstUpper()»(«targetVar»)«ENDDEFINE»
+
+«DEFINE callVisibilityTester(String targetVar) FOR propsheet::Group»getModelHelper().isVisible«name().toFirstUpper()»(«targetVar»)«ENDDEFINE»
+
+«DEFINE callStringsAccessor FOR propsheet::Labeled»getModelHelper().getName«name().toFirstUpper()»FromMetamodel()«ENDDEFINE»
+
+«DEFINE updateFromModel(String targetVar) FOR propsheet::Sectionable-»
+{
+	«EXPAND updateUIValue(targetVar)-»
+}«ENDDEFINE»
+
+«DEFINE updateFromModel(String targetVar) FOR propsheet::Group»
+«IF isVisibleOnlyForTargets()-»
+boolean is«name().toFirstUpper()»Visible = «EXPAND callVisibilityTester(targetVar)»;
+«IF expandable-»
+if («name()».isExpanded() != is«name().toFirstUpper()»Visible) {
+	needToRelayoutExpandBar = true;
+}
+«ENDIF»
+«name()».«IF expandable»setExpanded«ELSE»setVisible«ENDIF»(is«name().toFirstUpper()»Visible);
+if (is«name().toFirstUpper()»Visible)«ENDIF» {
+	«EXPAND updateUIValue(targetVar)-»
+}«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Group-»
+«EXPAND updateFromModel(targetVar) FOREACH contents-»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Radio-»
+«IF null != modelElement-»
+«name()».setSelection(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Checkbox-»
+«IF null != modelElement-»
+«name()».setSelection(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Spin-»
+«IF null != modelElement-»
+«name()».setSelection(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::TextField-»
+«IF null != modelElement-»
+String modelText = «EXPAND callGetterForModelProperty(targetVar)»;
+if (modelText == null) {
+	modelText = EMPTY_STRING;
+}
+«name()».setText(modelText);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Label-»
+«IF createLabel(text)-»
+String modelText = «EXPAND createLabel»;
+if (modelText == null) {
+	modelText = EMPTY_STRING;
+}
+«name()».setText(modelText);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE updateUIValue(String targetVar) FOR propsheet::Sectionable»
+«ERROR "Cannot update Abstract UI Definition"»
+«ENDDEFINE»
+
+«DEFINE modelHelperInnerClass FOR propsheet::CustomPropertySection-»
+«EXPAND xpt::Common::generatedMemberComment»
+public final class ModelHelper {
+«EXPAND createAccessors-»
+«EXPAND modelHelperAdditions-»
+}
+«ENDDEFINE»
+
+«DEFINE modelHelperAdditions FOR propsheet::CustomPropertySection-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.emf.ecore.EObject cloneVars(org.eclipse.emf.ecore.EObject target) {
+	return target;
+}
+«ENDDEFINE»
+
+«DEFINE createAccessors FOR propsheet::Group-»
+«IF isVisibleOnlyForTargets()»«EXPAND createVisibilityTesters»«ENDIF-»
+«EXPAND createMetamodelNameGetter(this) FOR getModelElement()-»
+«EXPAND createAccessors FOREACH contents-»
+«ENDDEFINE»
+
+«DEFINE createAccessors FOR propsheet::Sectionable-»
+«EXPAND createGetterForModelProperty(this) FOR getModelElement()-»
+«EXPAND createSetterForModelProperty(this) FOR getModelElement()-»
+«ENDDEFINE»
+
+«DEFINE createAccessors FOR propsheet::Labeled-»
+«EXPAND createGetterForModelProperty(this) FOR getModelElement()-»
+«EXPAND createSetterForModelProperty(this) FOR getModelElement()-»
+«EXPAND createMetamodelNameGetter(this) FOR getModelElement()-»
+«ENDDEFINE»
+
+«DEFINE createVisibilityTesters FOR propsheet::Group-»
+«EXPAND xpt::Common::generatedMemberComment»
+public boolean isVisible«name().toFirstUpper()»(«getCustomPropertySection().getTarget().getQualifiedInterfaceName()» targetVar) {
+	boolean value = false;
+	«EXPAND isVisibleModelElement("targetVar", "value")-»
+	return value;
+}
+«ENDDEFINE»
+
+«DEFINE createMetamodelNameGetter(propsheet::Labeled sectionable) FOR propsheet::FeatureReference-»
+«IF createLabel(sectionable.text) && (null == sectionable.text || null == sectionable.text.overridedItemProviderText || "" == sectionable.text.overridedItemProviderText)»
+«EXPAND xpt::Common::generatedMemberComment»
+public String getName«sectionable.name().toFirstUpper()»FromMetamodel() {
+	return "«EXPAND createNameFromMetamodelElement(sectionable)»";
+}
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE createNameFromMetamodelElement(propsheet::Sectionable sectionable) FOR propsheet::FeatureReference-»
+«getFormattedName(feature)»«ENDDEFINE»
+
+«DEFINE createNameFromMetamodelElement(propsheet::Sectionable sectionable) FOR propsheet::IsFeatureIsOfKindReference-»
+«getEnumLiteralFriendlyName(isOfValue)»«ENDDEFINE»
+
+«DEFINE createNameFromMetamodelElement(propsheet::Sectionable sectionable) FOR propsheet::IsFeatureOfTypeReference-»
+«getFormattedName(isOfType)»«ENDDEFINE»
+
+«DEFINE createNameFromMetamodelElement(propsheet::Sectionable sectionable) FOR propsheet::ModelMediatorFeature-»
+«IF null != cast»«getFormattedName(cast)»«ELSEIF null != feature»«getFormattedName(feature)»«ENDIF»«ENDDEFINE»
+
+«DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::FeatureReference-»
+«ERROR "Unexpected getter model reference kind"»
+«ENDDEFINE»
+
+«DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::FeatureReference-»
+«ERROR "Unexpected setter model reference kind"»
+«ENDDEFINE»
+
+«DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::BooleanCondition-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public boolean getValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar») {
+	boolean value = false;
+	«EXPAND extractModelElement(targetVar, "value") FOR sectionable-»
+	return value;
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::BooleanCondition-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar», boolean value) {
+	«EXPAND intractModelElement(targetVar, "value") FOR sectionable-»
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::IntValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public int getValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar») {
+	int value = 0;
+	«EXPAND extractModelElement(targetVar, "value") FOR sectionable-»
+	return value;
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::IntValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar», int value) {
+	«EXPAND intractModelElement(targetVar, "value") FOR sectionable-»
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createGetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::StringValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public String getValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar») {
+	String value = EMPTY_STRING;
+	«EXPAND extractModelElement(targetVar, "value") FOR sectionable-»
+	return value;
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE createSetterForModelProperty(propsheet::Sectionable sectionable) FOR propsheet::StringValue-»
+«LET sectionable.getCustomPropertySection().getTarget().getName().toFirstLower() AS targetVar-»
+«EXPAND xpt::Common::generatedMemberComment»
+public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar», String value) {
+	«EXPAND intractModelElement(targetVar, "value") FOR sectionable-»
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE	isVisibleModelElement(String varName, String valueVarName) FOR propsheet::Group-»
+«EXPAND isVisibleModelVar(varName, valueVarName, this) FOR collectAllParentGroups().select(e| e.modelMediator != null)-»
+«ENDDEFINE»
+
+«DEFINE isVisibleModelVar(String varName, String valueVarName, propsheet::Sectionable sectionable) FOR List[propsheet::Group]-»
+«LET sectionable.getModelElement() AS valueElement-»
+«IF size() == 1 && null == valueElement»
+	«EXPAND makeModelCall(varName, valueVarName) FOR ((propsheet::Group)get(0)).modelMediator-»
+«ELSEIF size() > 0-»
+	«LET ((propsheet::Group)get(0)).modelMediator AS modelElement-»
+	if («EXPAND instanceofOrNullCheck(varName) FOR modelElement») {
+		«EXPAND castedVarDeclaration(varName, modelElement.expectedTypeVar()) FOR modelElement-»
+		«EXPAND isVisibleModelVar(modelElement.expectedTypeVar(), valueVarName, sectionable) FOR (List[propsheet::Group])withoutFirst()-»
 	}
-	
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void setInput(org.eclipse.ui.IWorkbenchPart part, org.eclipse.jface.viewers.ISelection selection) {
-		if (selection.isEmpty() || false == selection instanceof org.eclipse.jface.viewers.StructuredSelection) {
-			super.setInput(part, selection);
-			return;
-		}
-		final org.eclipse.jface.viewers.StructuredSelection structuredSelection = ((org.eclipse.jface.viewers.StructuredSelection) selection);
-		java.util.ArrayList transformedSelection = new java.util.ArrayList(structuredSelection.size());
-		for (java.util.Iterator it = structuredSelection.iterator();  it.hasNext();) {
-			Object r = transformSelection(it.next());
-			if (r != null) {
-				transformedSelection.add(r);
-			}
-		}
-		mySavedSelection = transformedSelection;
-		super.setInput(part, new org.eclipse.jface.viewers.StructuredSelection(transformedSelection));
-	}
+	«ENDLET»
 «ELSE-»
-«targetDef.proceed()»
-«ENDIF-»
-«ENDAROUND»
+	«EXPAND makeModelCall(varName, valueVarName) FOR valueElement-»
+«ENDIF»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE	extractModelElement(String varName, String valueVarName) FOR propsheet::Sectionable-»
+«EXPAND extractModelVar(varName, valueVarName, this) FOR collectAllParentGroups().select(e| e.modelMediator != null)-»
+«ENDDEFINE»
+
+«DEFINE extractModelVar(String varName, String valueVarName, propsheet::Sectionable sectionable) FOR List[propsheet::Group]-»
+«IF size() > 0-»
+	«LET ((propsheet::Group)get(0)).modelMediator AS modelElement-»
+	«IF size() == 1 && isNullCheck(sectionable.getModelElement())»«ELSE-»
+	if («EXPAND instanceofOrNullCheck(varName) FOR modelElement») {	«ENDIF»
+		«EXPAND castedVarDeclaration(varName, modelElement.expectedTypeVar()) FOR modelElement-»
+		«EXPAND extractModelVar(modelElement.expectedTypeVar(), valueVarName, sectionable) FOR (List[propsheet::Group])withoutFirst()-»
+	«IF size() == 1 && isNullCheck(sectionable.getModelElement())»«ELSE-»
+	}«ENDIF»
+	«ENDLET»
+«ELSE-»
+	«LET sectionable.getModelElement() AS valueElement-»
+	«IF null != valueElement-»
+		«EXPAND makeModelCall(varName, valueVarName) FOR valueElement-»
+	«ELSE-»
+		«ERROR "Cannot make a model call for abstract Sectionable item"»
+	«ENDIF»
+	«ENDLET»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE castedVarDeclaration(String varName, String newVarName) FOR propsheet::ModelMediatorFeature-»
+«expectedTypeName()» «newVarName» = «castedVarCall(varName)»«addFeatureCall()»;
+«ENDDEFINE»
+
+«DEFINE castedVarModification(String elementName, String newVarName) FOR propsheet::ModelMediatorFeature-»
+«IF null != feature-»
+«elementName».«feature.getSetterAccessor()»((«expectedTypeName()»)cloneVars(«newVarName»))»);«ENDIF»
+«ENDDEFINE»
+
+«DEFINE instanceofOrNullCheck(String varName) FOR propsheet::ModelMediatorFeature-»
+«varName»«addFeatureCall()» «IF null != cast»instanceof «cast.getQualifiedInterfaceName()»«ELSEIF feature != null»!= null«ELSE»== null«ENDIF»
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::FeatureReference-»
+«ERROR "Cannot make a model call for this type of FeatureReference"»
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::ModelMediatorFeature-»
+«valueVarName» = («varName»«addFeatureCall()» «IF null != cast»instanceof «cast.getQualifiedInterfaceName()»«ELSE»!= null«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::IntValue-»
+«valueVarName» = «varName».«feature.getGetAccessor()»();
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::StringValue-»
+«valueVarName» = «varName».«feature.getGetAccessor()»();
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::BooleanCondition-»
+«valueVarName» = «IF null != feature»«varName».«feature.getGetAccessor()»()«ELSE»«varName»«ENDIF»;
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::IsFeatureOfTypeReference-»
+«valueVarName» = («varName»«addFeatureCall()» «IF null != isOfType» instanceof «isOfType.getQualifiedInterfaceName()»«ELSE» == null«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE makeModelCall(String varName, String valueVarName) FOR propsheet::IsFeatureIsOfKindReference-»
+«valueVarName» = («varName»«addFeatureCall()» «IF null != isOfValue» == «getQualifiedInterfaceName(isOfValue.genEnum)».«isOfValue.ecoreEnumLiteral.name»«ELSE»«ERROR "Found no type definition for model element reference of "+varName»«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE	intractModelElement(String elementName, String valueName) FOR propsheet::Sectionable-»
+«EXPAND intractModelVar(elementName, valueName, this) FOR collectAllParentGroups().select(e| e.modelMediator != null)-»
+«ENDDEFINE»
+
+«DEFINE intractModelVar(String elementName, String valueName, propsheet::Sectionable sectionable) FOR List[propsheet::Group]-»
+«IF size() > 1-»
+	«LET (propsheet::Group)first() AS element»
+	«LET element.modelMediator AS modelElement-»
+	if («EXPAND instanceofOrNullCheck(elementName) FOR modelElement») {
+		«EXPAND castedVarDeclaration(elementName, modelElement.expectedTypeVar()) FOR modelElement-»
+		«EXPAND intractModelVar(modelElement.expectedTypeVar(), valueName, sectionable) FOR (List[propsheet::Group])withoutFirst()-»
+	}
+	«ENDLET»
+	«ENDLET»
+«ELSE-»
+	«IF null != sectionable.getModelElement()-»
+		«EXPAND prepareModelCall(elementName, valueName, (propsheet::Group)get(0)) FOR sectionable.getModelElement()-»
+	«ELSE-»
+		«ERROR "Cannot make a model call for abstract Sectionable item"»
+	«ENDIF»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::FeatureReference»
+«LET parent.getModelMediator() AS modelElement»
+	«IF null != modelElement.feature»
+		if («elementName».«modelElement.feature.getGetAccessor()»() == null) {
+			«elementName».«modelElement.feature.getSetterAccessor()»(«modelElement.expectedType().getQualifiedClassifierCreaterName()»);
+		}
+	«ENDIF»
+	«IF parent != parent.getCustomPropertySection()-»
+	if («EXPAND instanceofOrNullCheck(elementName) FOR modelElement») {
+		«EXPAND castedVarDeclaration(elementName, modelElement.expectedTypeVar()) FOR modelElement-»
+		«EXPAND saveModelCall(modelElement.expectedTypeVar(), valueName, modelElement)-»
+		«EXPAND castedVarModification(elementName, modelElement.expectedTypeVar()) FOR modelElement-»
+	}«ELSE-»
+	«EXPAND saveModelCall(elementName, valueName, modelElement)-»
+	«ENDIF»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureIsOfKindReference»
+«EXPAND saveModelCall(elementName, valueName, parent.getModelMediator())-»
+«ENDDEFINE»
+
+«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureOfTypeReference»
+«EXPAND saveModelCall(elementName, valueName, parent.getModelMediator())-»
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::FeatureReference-»
+«ERROR "Cannot make a model call for this type of FeatureReference"»
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IntValue-»
+«elementName».«feature.getSetterAccessor()»(«valueName»);
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::StringValue-»
+«elementName».«feature.getSetterAccessor()»(«valueName»);
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::BooleanCondition-»
+«elementName».«feature.getSetterAccessor()»(«valueName»);
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IsFeatureOfTypeReference-»
+«IF null != isOfType-»
+	«isOfType.getQualifiedInterfaceName()» newInstance = «isOfType.getQualifiedClassifierCreaterName()»;
+	«elementName».«parentModelElement.feature.getSetterAccessor()»(newInstance);
+«ELSE-»
+	«elementName».«parentModelElement.feature.getSetterAccessor()»(null);
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IsFeatureIsOfKindReference-»
+«elementName».«parentModelElement.feature.getSetterAccessor()»(«isOfValue.genEnum.getQualifiedInterfaceName()».«getEnumLiteralInstanceConstantName(isOfValue)»);
+«ENDDEFINE»

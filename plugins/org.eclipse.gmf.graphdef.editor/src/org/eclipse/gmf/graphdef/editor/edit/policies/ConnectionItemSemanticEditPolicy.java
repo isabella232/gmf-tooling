@@ -22,12 +22,15 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -93,4 +96,17 @@ public class ConnectionItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 		};
 	}
 
+	/**
+	 * Returns command to reorient EReference based link. New link target or source
+	 * should be the domain model element associated with this node.
+	 * 
+	 * @generated
+	 */
+	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
+		switch (getVisualID(req)) {
+		case DiagramElementFigureEditPart.VISUAL_ID:
+			return getMSLWrapper(new DiagramElementFigureReorientCommand(req));
+		}
+		return super.getReorientReferenceRelationshipCommand(req);
+	}
 }

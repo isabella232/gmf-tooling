@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="propsheet"
+    nsURI="http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet" nsPrefix="propsheet">
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySectionContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customSections" upperBound="-1"
+        eType="#//CustomPropertySection" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomPropertySection" eSuperTypes="#//Group">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="genTab" eType="ecore:EClass platform:/plugin/org.eclipse.gmf.codegen/models/gmfgen.ecore#//GenCustomPropertyTab"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Sectionable" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Group"
+        changeable="false" eOpposite="#//Group/contents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layoutConstraints" eType="#//LayoutConstraints"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomControl" eSuperTypes="#//Sectionable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementationClass" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Labeled" abstract="true" eSuperTypes="#//Sectionable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="grayed" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Iconed" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Group" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contents" upperBound="-1"
+        eType="#//Sectionable" containment="true" eOpposite="#//Sectionable/parent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelMediator" eType="#//ModelMediatorFeature"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expandable" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//Iconed"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Checkbox" eSuperTypes="#//Iconed">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//BooleanCondition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Radio" eSuperTypes="#//Iconed">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//BooleanCondition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Spin" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//IntValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+        defaultValueLiteral="999"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inc" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+        defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextField" eSuperTypes="#//Labeled">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="#//StringValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutConstraints" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FormLayoutConstraints" eSuperTypes="#//LayoutConstraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="anchorControl" eType="#//Sectionable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="relativePosition" eType="#//Positions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rightmost" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowermost" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Positions">
+    <eLiterals name="LEFT"/>
+    <eLiterals name="RIGHT" value="1"/>
+    <eLiterals name="TOP" value="2"/>
+    <eLiterals name="BOTTOM" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Text">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overridedItemProviderText"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createLabel" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customCode" eType="#//AdditionalModelTuning"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelMediatorFeature" eSuperTypes="#//FeatureReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cast" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibleOnlyForTargets"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureReference" abstract="true" eSuperTypes="#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanCondition" eSuperTypes="#//FeatureReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntValue" eSuperTypes="#//FeatureReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//FeatureReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsFeatureOfTypeReference" eSuperTypes="#//BooleanCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isOfType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IsFeatureIsOfKindReference" eSuperTypes="#//BooleanCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isOfValue" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenEnumLiteral"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdditionalModelTuning">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="afterGettingValueFromModel"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="afterSettingValueToModel"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

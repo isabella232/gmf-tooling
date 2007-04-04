@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,9 +12,8 @@ package org.eclipse.gmf.graphdef.editor.navigator;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -30,8 +29,8 @@ public class GMFGraphNavigatorItem extends GMFGraphAbstractNavigatorItem {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof GMFGraphNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
-					return ((GMFGraphNavigatorItem) adaptableObject).getView();
+				if (adaptableObject instanceof org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem) adaptableObject).getView();
 				}
 				return null;
 			}
@@ -39,7 +38,7 @@ public class GMFGraphNavigatorItem extends GMFGraphAbstractNavigatorItem {
 			public Class[] getAdapterList() {
 				return supportedTypes;
 			}
-		}, GMFGraphNavigatorItem.class);
+		}, org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem.class);
 	}
 
 	/**
@@ -79,19 +78,17 @@ public class GMFGraphNavigatorItem extends GMFGraphAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof GMFGraphNavigatorItem) {
-			EObject eObject = getView().getElement();
-			EObject anotherEObject = ((GMFGraphNavigatorItem) obj).getView().getElement();
-			if (eObject == null) {
-				return anotherEObject == null;
-			} else if (anotherEObject == null) {
-				return false;
-			}
-			if (eObject.eResource() != null) {
-				return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
-			}
+		if (obj instanceof org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem) {
+			return EcoreUtil.getURI(getView()).equals(EcoreUtil.getURI(((org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem) obj).getView()));
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return EcoreUtil.getURI(getView()).hashCode();
 	}
 
 }

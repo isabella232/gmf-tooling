@@ -10,6 +10,7 @@
  */
 package org.eclipse.gmf.graphdef.editor.providers;
 
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 
 /**
  * @generated

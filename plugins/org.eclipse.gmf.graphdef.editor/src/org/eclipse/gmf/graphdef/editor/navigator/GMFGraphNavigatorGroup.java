@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -88,13 +88,20 @@ public class GMFGraphNavigatorGroup extends GMFGraphAbstractNavigatorItem {
 	 * @generated
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof GMFGraphNavigatorGroup) {
-			GMFGraphNavigatorGroup anotherGroup = (GMFGraphNavigatorGroup) obj;
+		if (obj instanceof org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorGroup) {
+			org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorGroup anotherGroup = (org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorGroup) obj;
 			if (getGroupName().equals(anotherGroup.getGroupName())) {
 				return getParent().equals(anotherGroup.getParent());
 			}
 		}
 		return super.equals(obj);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int hashCode() {
+		return getGroupName().hashCode();
 	}
 
 }

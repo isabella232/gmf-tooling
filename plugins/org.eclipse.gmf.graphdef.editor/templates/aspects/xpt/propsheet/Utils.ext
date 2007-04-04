@@ -10,23 +10,295 @@
  *    Anna Karjakina (Borland) - initial API and implementation
  */
  
+import "http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet";
 import "http://www.eclipse.org/gmf/2005/GraphicalDefinition";
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-boolean isLayoutTab(gmfgen::GenCustomPropertyTab tab) :
-"layout" == tab.iD
-;
+extension xpt::GenModelUtils;
 
 boolean isPointTab(gmfgen::GenCustomPropertyTab tab) :
 "points" == tab.iD
 ;
 
-boolean isViewTab(gmfgen::GenCustomPropertyTab tab) :
-"view" == tab.iD
+boolean isGeneratedTab(gmfgen::GenCustomPropertyTab tab) :
+"genLayout" == tab.iD || "genStyles" == tab.iD
 ;
 
-boolean isCustomTab(gmfgen::GenCustomPropertyTab tab) :
-"custom" == tab.iD
+cached List[propsheet::Sectionable] collectAllParents(propsheet::Sectionable sectionable) :
+sectionable.parent == null ? {sectionable} : collectAllParents(sectionable.parent, {sectionable})
+;
+
+private List[propsheet::Sectionable] collectAllParents(propsheet::Group target, List[propsheet::Sectionable] parents) :
+parents.add(target) -> (target.parent == null ? parents : collectAllParents(target.parent, parents))
+;
+
+private String concatReverse(Collection[Object] coll) :
+let list = coll.toList() :
+	list.isEmpty() ? "" : (((String) list.last()) + concatReverse(list.withoutLast()))
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Group modelElementOwner) :
+modelElementOwner.modelMediator
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Radio modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Checkbox modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Spin modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::TextField modelElementOwner) :
+modelElementOwner.modelElement
+;
+
+cached propsheet::FeatureReference getModelElement(propsheet::Sectionable modelElementOwner) :
+null
+;
+
+cached String getQualifiedInterfaceName(genmodel::GenClassifier classifier) :
+classifier.genPackage.basePackage+"."+classifier.genPackage.ecorePackage.name+(classifier.genPackage.interfacePackageSuffix != "" ? "."+classifier.genPackage.interfacePackageSuffix : "")+"."+getName(classifier)
+;
+
+cached String getQualifiedClassifierCreaterName(genmodel::GenClassifier classifier) :
+classifier == null ? "null" : getQualifiedFactoryInterfaceName(classifier.genPackage) + ".eINSTANCE.create" + getName(classifier) + "()"
+;
+
+cached String getName(genmodel::GenClass genClass) :
+getEClassifierName(genClass.ecoreClass)
+;
+
+cached String getName(genmodel::GenEnum enum) :
+getEClassifierName(enum.ecoreEnum)
+;
+
+cached String getName(genmodel::GenDataType dataType) :
+getEClassifierName(dataType.ecoreDataType)
+;
+
+cached String getName(genmodel::GenClassifier abstract) :
+"AAA"+abstract.toString()+"AAA"
+;
+
+private cached String getFeatureName(genmodel::GenFeature genFeature) :
+genFeature.ecoreFeature.name
+;
+
+private cached String getEClassifierName(ecore::EClassifier classifier) :
+	switch (classifier.name) {
+		case "Class" : "Class_"
+		case "Name" : "Name_"
+		default : classifier.name
+	}
+;
+
+// TODO: completely rewrite this very bad-styled function!!!
+cached String getSetterAccessor(genmodel::GenFeature feature) :
+feature == null ? "" : (
+let getAccessor = feature.getGetAccessor() :
+getAccessor.startsWith("get|is") ? getAccessor.replaceFirst("get|is", "set") : "set" + feature.ecoreFeature.name.toFirstUpper()
+)
+;
+
+// TODO: completely rewrite this very bad-styled function!!!
+cached String getSetterAccessor(String getAccessor, String accessorName) :
+getAccessor.replaceFirst("[.](get|is)" + accessorName + "[(][)]", ".set" + accessorName)
+;
+
+// TODO: add Java5 check: @see GenEnumLiteralImpl.getEnumLiteralInstanceConstantName()
+cached String getEnumLiteralInstanceConstantName(genmodel::GenEnumLiteral genLiteral) :
+genLiteral.getEnumLiteral().replaceAll(" ", "_").toUpperCase() + "_LITERAL"
+;
+
+cached propsheet::CustomPropertySection getCustomPropertySection(propsheet::Sectionable sectionable) :
+sectionable.parent == null ? ((propsheet::CustomPropertySection) sectionable) : getCustomPropertySection(sectionable.parent)
+;
+
+boolean createLabel(propsheet::Text text) :
+text != null ? text.createLabel : true
+;
+
+boolean isVisibleOnlyForTargets(propsheet::Group group) :
+group.modelMediator != null ? group.modelMediator.visibleOnlyForTargets : false  
+;
+
+String name(propsheet::Sectionable sectionable) :
+sectionable != null ? generateVarName(sectionable) : ""  
+;
+
+// TODO: implement generation of variable names
+private cached String generateVarName(propsheet::Sectionable sectionable) :
+((sectionable.name == null || "" == sectionable.name) && getModelElement(sectionable) == null && getText(sectionable) == null) ?
+	"UnableToGenerateName" : composeVarName(buildMiddlePart(sectionable), sectionable)
+;
+
+private cached propsheet::Text getText(propsheet::Sectionable sectionable) :
+null
+;
+
+private cached propsheet::Text getText(propsheet::Labeled sectionable) :
+sectionable.text
+;
+
+private getTextValueForVar(propsheet::Text text) :
+((String)text.overridedItemProviderText).replaceAll(" ", "")
+;
+
+private cached String composeVarName(String middlePart, propsheet::Sectionable sectionable) :
+getVarPrefix()+middlePart.toFirstUpper()+getSectionableKindSuffix(sectionable)
+;
+
+private cached String buildMiddlePart(propsheet::Sectionable sectionable) :
+getMiddlePart(sectionable).toFirstUpper().replaceAll("[ _]", "") + (sectionable.parent != null && sectionable.parent.parent != null ? buildMiddlePart(sectionable.parent) : "")
+;
+
+private cached String getMiddlePart(propsheet::Sectionable sectionable) :
+(sectionable.name == null || "" == sectionable.name || sectionable.name.matches("^\\d+$")) ?
+	(getModelElement(sectionable) == null ? 
+		(getText(sectionable) == null ? 
+			(sectionable.name == null || "" == sectionable.name ? "UnableToGenerateName" : sectionable.name) : 
+			getTextValueForVar(getText(sectionable))) : 
+		getModelElementNameForVar(getModelElement(sectionable))) :
+	sectionable.name
+;
+
+private cached String getVarPrefix() :
+"my"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Sectionable sectionable) :
+""
+;
+
+private cached String getSectionableKindSuffix(propsheet::Group sectionable) :
+createLabel(sectionable.text) ? (isExpandable(sectionable) ? "ExpandableComposite" : "Group") : "Composite"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Radio sectionable) :
+"Radio"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Checkbox sectionable) :
+"Checkbox"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Spin sectionable) :
+"Spin"
+;
+
+private cached String getSectionableKindSuffix(propsheet::TextField sectionable) :
+"Text"
+;
+
+private cached String getSectionableKindSuffix(propsheet::Label sectionable) :
+"Label"
+;
+
+private cached String getModelElementNameForVar(propsheet::IsFeatureOfTypeReference featureRef) :
+getName(featureRef.isOfType)
+;
+
+private cached String getModelElementNameForVar(propsheet::IsFeatureIsOfKindReference featureRef) :
+featureRef.isOfValue.getEnumLiteral().toFirstUpper()
+;
+
+private cached String getModelElementNameForVar(propsheet::ModelMediatorFeature featureRef) :
+(featureRef.cast != null ? getName(featureRef.cast) : "") +
+(featureRef.feature != null ? getFeatureName(featureRef.feature).toFirstUpper() : "")
+;
+
+private cached String getModelElementNameForVar(propsheet::FeatureReference featureRef) :
+getFeatureName(featureRef.feature).toFirstUpper()
+;
+
+cached String getFormattedName(genmodel::GenFeature genFeature) :
+getFeatureName(genFeature) == null ? "" : format(getFeatureName(genFeature).toFirstUpper())
+;
+
+cached String getFormattedName(genmodel::GenClassifier genClassifier) :
+getName(genClassifier) == null ? "" : format(getName(genClassifier))
+;
+
+//TODO: invoke CodeGenUtil.format(mixedCaseName, ' ', null, false, false), like GenFeatureImpl does 
+private String format(String mixedCaseString) :
+mixedCaseString
+;
+
+cached String getEnumLiteral(genmodel::GenEnumLiteral genLiteral) :
+genLiteral.ecoreEnumLiteral.literal
+;
+
+cached String getEnumLiteralFriendlyName(genmodel::GenEnumLiteral genLiteral) :
+getEnumLiteral(genLiteral).toLowerCase().toFirstUpper()
+;
+
+cached String composeModelCall(propsheet::Sectionable sectionable, String targetVar) :
+targetVar
+;
+
+cached genmodel::GenClassifier getTarget(propsheet::Group group) :
+group.getModelMediator().cast
+;
+
+cached List[propsheet::Group] collectAllParentGroups(propsheet::Sectionable sectionable) :
+sectionable.parent == null ? {} : collectAllParentGroups(sectionable.parent, {})
+;
+
+private cached List[propsheet::Group] collectAllParentGroups(propsheet::Group group, List[propsheet::Group] collected) :
+group.parent == null ? collected : collectAllParentGroups(group.parent, collected).add(group)
+;
+
+cached propsheet::ModelMediatorFeature findModelMediator(propsheet::Group group) :
+group.modelMediator == null ? (group.parent == null ? null : getModelMediator(group.parent)) : group.modelMediator
+;
+
+cached propsheet::ModelMediatorFeature getModelMediator(propsheet::Group group) :
+group.modelMediator
+;
+
+cached genmodel::GenClassifier expectedType(propsheet::ModelMediatorFeature modelElement) :
+modelElement.cast != null ? modelElement.cast : (modelElement.feature != null ? modelElement.feature.getTypeGenClassifier() : null)
+;
+
+cached genmodel::GenClassifier getTypeGenClassifier(genmodel::GenFeature genFeature) :
+findGenClassifier(genFeature.genClass.genPackage.genModel, genFeature.ecoreFeature.eType)
+;
+
+cached String expectedTypeName(propsheet::ModelMediatorFeature modelElement) :
+modelElement.expectedType() != null ? modelElement.expectedType().getQualifiedInterfaceName() : "/* XXX: Error: Useless ModelMediator with no feature or cast reference found*/ Object"
+;
+
+cached String expectedTypeVar(propsheet::ModelMediatorFeature modelElement) :
+modelElement.expectedType() != null ? modelElement.expectedType().getName().toFirstLower() : "unknownTypeVar"
+;
+
+cached String castedVarCall(propsheet::ModelMediatorFeature modelElement, String elementName) :
+modelElement.cast == null ? elementName : "(("+modelElement.cast.getQualifiedInterfaceName()+")"+elementName+")"
+;
+
+cached String castedVarFeatureCall(propsheet::ModelMediatorFeature modelElement, String varName) :
+modelElement.castedVarCall(varName) + modelElement.addFeatureCall()
+;
+
+cached String addFeatureCall(propsheet::FeatureReference modelElement) :
+modelElement.feature != null ? "."+modelElement.feature.getGetAccessor()+"()" : ""
+;
+
+boolean isExpandable(propsheet::Group group) :
+group.expandable
+;
+
+boolean isNullCheck(propsheet::IsFeatureOfTypeReference ofType) :
+ofType.feature == null && ofType.isOfType == null
+;
+
+boolean isNullCheck(propsheet::Reference ofType) :
+false
 ;
