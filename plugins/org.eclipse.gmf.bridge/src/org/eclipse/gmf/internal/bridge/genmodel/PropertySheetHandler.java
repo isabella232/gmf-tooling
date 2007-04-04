@@ -49,7 +49,6 @@ public class PropertySheetHandler {
 		addTab(t1);
 		t1 = GMFGenFactory.eINSTANCE.createGenStandardPropertyTab();
 		t1.setID(DIAGRAM);
-		t1.setLabel("Rulers & Grid"); // to match original from the runtime
 		addTab(t1);
 	}
 
