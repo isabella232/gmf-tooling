@@ -40,7 +40,6 @@ import org.eclipse.ocl.Query;
 import org.eclipse.ocl.ecore.CallOperationAction;
 import org.eclipse.ocl.ecore.CollectionType;
 import org.eclipse.ocl.ecore.Constraint;
-import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.ecore.TypeType;
@@ -82,7 +81,7 @@ class OCLExpressionAdapter extends AbstractExpression {
 				}
 			} else {
 				ocl = org.eclipse.ocl.ecore.OCL.newInstance(EcoreEnvironmentFactory.INSTANCE);
-				this.env = (EcoreEnvironment)ocl.getEnvironment();				
+				this.env = ocl.getEnvironment();				
 			}
 
 			org.eclipse.ocl.ecore.OCL.Helper helper = ocl.createOCLHelper();
