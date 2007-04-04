@@ -34,7 +34,15 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	}
 	
 	public final Matcher getMatcher(EClass eClass) {
-		return getRecord(eClass, false).getMatcher();
+		Matcher result = getRecord(eClass, false).getMatcher();
+		if (result != Matcher.FALSE) {
+			return result;
+		}
+		// XXX Correct strategy whould be to look up first *non-default*
+		// matcher in the hierarchy, however, for now, expect no more that
+		// two records per hierarchy chain (e.g. a nondefault matcher for superclass
+		// plus a record with default matcher for subclass
+		return getExistingRecordFromHierarchy(eClass).getMatcher();
 	}
 
 	public Copier getCopier(EClass eClass) {
@@ -88,13 +96,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 				result = new EClassRecord();
 				myEClass2Record.put(eClass, result);
 			} else {
-				result = EMPTY_RECORD;
-				for (Iterator<EClass> superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
-					EClass nextSuper = superClasses.next();
-					if (nextSuper.isAbstract()) {
-						result = getTemplateRecord(nextSuper, false);
-					}
-				}
+				result = getExistingRecordFromHierarchy(eClass);
 				if (result != EMPTY_RECORD){
 					//cache it for the next time
 					myEClass2Record.put(eClass, result);
@@ -103,7 +105,23 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Looks through the hierarchy of superclasses, checking for registered 
+	 * records for abstract classes. 
+	 * @return never null, {@link #EMPTY_RECORD} in case none found 
+	 */
+	private EClassRecord getExistingRecordFromHierarchy(EClass eClass) {
+		EClassRecord result= EMPTY_RECORD;
+		for (Iterator<EClass> superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
+			EClass nextSuper = superClasses.next();
+			if (nextSuper.isAbstract()) {
+				result = getTemplateRecord(nextSuper, false);
+			}
+		}
+		return result;
+	}
+
 	private EClassRecord getTemplateRecord(EClass abstractSuperClass, boolean force){
 		assert abstractSuperClass.isAbstract();
 		EClassRecord result = myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
