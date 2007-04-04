@@ -87,6 +87,13 @@ public class «className» extends «EXPAND extendsList» «EXPAND implementsClause»{
 	«EXPAND xpt::Common::generatedMemberComment("Modify/unwrap selection.")»
 	protected Object transformSelection(Object selected) {
 «IF "domain" == iD /*perhaps, override setInput should obey same condition?*/-»
+		«EXPAND transfromSelectionMethodBodyDefault-»
+«ENDIF-»
+		return selected;
+	}
+«ENDDEFINE»
+
+«DEFINE transfromSelectionMethodBodyDefault FOR gmfgen::GenCustomPropertyTab»
 		if (selected instanceof org.eclipse.gef.EditPart) {
 			Object model = ((org.eclipse.gef.EditPart) selected).getModel();
 			return model instanceof org.eclipse.gmf.runtime.notation.View ? ((org.eclipse.gmf.runtime.notation.View) model).getElement() : null;
@@ -100,9 +107,6 @@ public class «className» extends «EXPAND extendsList» «EXPAND implementsClause»{
 				return view.getElement();
 			}
 		}
-«ENDIF-»
-		return selected;
-	}
 «ENDDEFINE»
 
 «DEFINE setInputMethod FOR gmfgen::GenCustomPropertyTab»
