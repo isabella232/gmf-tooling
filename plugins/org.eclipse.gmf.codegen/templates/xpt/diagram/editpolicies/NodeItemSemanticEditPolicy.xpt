@@ -17,7 +17,6 @@
 «ENDREM»
  
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
-«EXTENSION xpt::diagram::editpolicies::Utils»
 
 «DEFINE NodeItemSemanticEditPolicy FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
