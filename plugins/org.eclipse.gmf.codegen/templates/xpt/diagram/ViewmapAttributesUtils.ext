@@ -17,6 +17,14 @@ Boolean isFixedFont(gmfgen::Viewmap viewmap) :
 	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedFont)
 ;
 
+Boolean isFixedForeground(gmfgen::Viewmap viewmap) :
+	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedForeground)
+;
+
+Boolean isFixedBackground(gmfgen::Viewmap viewmap) :
+	null != viewmap && viewmap.attributes.typeSelect(gmfgen::StyleAttributes).exists(e | e.fixedBackground)
+;
+
 gmfgen::ResizeConstraints getResizeConstraints(gmfgen::Viewmap viewmap) :
 	null == viewmap ? null : ((gmfgen::ResizeConstraints) viewmap.attributes.typeSelect(gmfgen::ResizeConstraints).first())
 ;

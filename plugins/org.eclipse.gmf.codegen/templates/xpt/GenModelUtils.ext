@@ -43,7 +43,7 @@ String getItemProviderAdapterFactoryClassName(genmodel::GenPackage gp) :
 //
 String getQualifiedInterfaceName(genmodel::GenClass gc) :
 	null != gc.ecoreClass.instanceClassName 
-		? gc.ecoreClass.instanceClassName
+		? gc.ecoreClass.instanceClassName.replaceAll('\\$', '\\.')
 		: (let gp = gc.genPackage
 			: (null != gp.basePackage && gp.basePackage.length() > 0 ? gp.basePackage + "." : "") 
 				+ safeName(gp.ecorePackage.name) 

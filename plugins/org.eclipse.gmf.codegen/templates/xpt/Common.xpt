@@ -95,3 +95,7 @@
 «DEFINE newInstanceAsEObject(String varName) FOR genmodel::GenClass-»
 org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«EXPAND newInstance»;
 «ENDDEFINE»
+
+«DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
+
+«DEFINE nonNLS(int i) FOR Object»//$NON-NLS-«i»$«ENDDEFINE»
