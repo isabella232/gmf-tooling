@@ -128,10 +128,38 @@ public class DefaultDiagramLayouter implements IDiagramLayouter {
 	}
 
 	protected org.eclipse.draw2d.graph.Node createNode(org.eclipse.draw2d.graph.Subgraph parent, GraphicalEditPart next) {
-		if (next.getChildren().isEmpty()) {
-			return new org.eclipse.draw2d.graph.Node(next, parent);
+		boolean hasChildren = hasChildren(next);
+		if (!hasChildren) {
+			if (isValidElementForLayout(next)) {
+				return new org.eclipse.draw2d.graph.Node(next, parent);
+			}
+			return null;
 		}
 		return new org.eclipse.draw2d.graph.Subgraph(next, parent);
+	}
+
+	protected boolean hasChildren(GraphicalEditPart gep) {
+		for (Iterator it = gep.getChildren().iterator(); it.hasNext(); ) {
+			GraphicalEditPart next = (GraphicalEditPart) it.next();
+			if (isValidElementForLayout(next)) {
+				return true;
+			}
+			if (hasChildren(next)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected boolean isValidElementForLayout(GraphicalEditPart gep) {
+		if (false == gep.getModel() instanceof Node) {
+			return false;
+		}
+		Node view = (Node) gep.getModel();
+		if (!view.isSetElement()) {
+			return false;
+		}
+		return view.getLayoutConstraint() instanceof Bounds;
 	}
 
 	protected void setNodePosition(org.eclipse.draw2d.graph.Node node) {

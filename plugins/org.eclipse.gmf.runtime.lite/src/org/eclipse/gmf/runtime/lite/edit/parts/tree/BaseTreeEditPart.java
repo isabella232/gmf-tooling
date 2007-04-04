@@ -86,7 +86,7 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 	}
 
 	protected List getModelChildren() {
-		return getNotationView().getChildren();
+		return getNotationView().getVisibleChildren();
 	}
 
 	protected Image getImage() {
