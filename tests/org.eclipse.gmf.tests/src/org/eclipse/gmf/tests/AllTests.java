@@ -94,8 +94,17 @@ public class AllTests {
 		 * beggining to get rid of the problems with runtime registries
 		 * reloading. In particular - ViewService.
 		 */
-		sessionSetup.getGenProject();
-		sessionSetup2.getGenProject();
+		try {
+			sessionSetup.getGenProject();
+			sessionSetup2.getGenProject();
+		} catch (final Exception e) {
+			suite.addTest(new TestCase("Session setup initialization problem") {
+				protected void runTest() throws Throwable {
+					fail(e.getMessage());
+				}
+			});
+			return suite;
+		}
 		/* [AS--] */
 		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests

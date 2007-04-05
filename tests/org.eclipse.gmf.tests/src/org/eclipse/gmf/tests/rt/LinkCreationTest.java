@@ -17,7 +17,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -205,6 +207,72 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		assertNotNull("Unable to create another nodeA", nodeA1);
 		checkLinkCreation(getSelfLink(false), myNodeA, nodeA1, false);
 	}
+	
+	public void testLink2Link() {
+		Edge link = createSourceTargetLink();
+		Node node = createNode(getNodeD(), getDiagram());
+		GenLink link2Link = getLink(true, 3);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, node, link, false);
+	}
+	
+	public void testLinkFromLink() {
+		Edge link = createSourceTargetLink();
+		Node node = createNode(getNodeD(), getDiagram());
+		GenLink link2Link = getLink(true, 4);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, link, node, false);
+	}
+	
+	public void testLinkCrossLink() {
+		Edge link = createSourceTargetLink();
+		GenLink link2Link = getLink(true, 5);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, link, link, false);
+	}
+	
+	public void testLink2LinkRef() {
+		Edge link = createSourceTargetLink();
+		Node node = createNode(getNodeD(), getDiagram());
+		GenLink link2Link = getLink(false, 3);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, node, link, false);
+	}
+	
+	public void testLinkFromLinkRef() {
+		Edge link = createSourceTargetLink();
+		Node node = createNode(getNodeD(), getDiagram());
+		GenLink link2Link = getLink(false, 4);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, link, node, false);
+	}
+	
+	public void testLinkCrossLinkRef() {
+		Edge link = createSourceTargetLink();
+		GenLink link2Link = getLink(false, 5);
+		assertNotNull(link2Link);
+		checkLinkCreation(link2Link, link, link, false);
+	}
+	
+	private GenCommonBase getNodeD() {
+		for (GenNode nextGenNode : getSetup().getGenModel().getGenDiagram().getTopLevelNodes()) {
+			if ("NodeTargetD".equals(nextGenNode.getDomainMetaClass().getName())) {
+				return nextGenNode;
+			}
+		}
+		fail("No NodeTargetD found");
+		return null;
+	}
+
+	private Edge createSourceTargetLink() {
+		Node nodeA = createNode(getSetup().getGenModel().getNodeA(), getDiagram());
+		assertNotNull("Unable to create nodeA", nodeA);
+		Node nodeB = createNode(getSetup().getGenModel().getNodeB(), getDiagram());
+		assertNotNull("Unable to create nodeB", nodeB);
+		Edge link = createLink(getSetup().getGenModel().getLinkC(), nodeA, nodeB);
+		assertNotNull("Unable to create link from nodeA to nodeB", link);
+		return link;
+	}
 
 	private void checkLinkCreationNotAllowed(GenLink genLink) {
 		checkLink(genLink, myNodeA, myNodeB, false, false);
@@ -256,7 +324,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		fail("Gen link was not found. Probably incorrect session setup used. type = " + typeLink + ", cardinality = " + cardinality);
 		return null;
 	}
-
+	
 	private void checkLinkCreation(GenLink link, boolean reversed) {
 		checkLinkCreation(link, reversed ? myNodeB : myNodeA, reversed ? myNodeA : myNodeB, reversed);
 	}

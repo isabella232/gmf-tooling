@@ -49,6 +49,12 @@ public class DomainModelSetup implements DomainModelSource {
 	private EReference myLinkAsRef_Cardinality1;
 	private LinkData mySelfLinkAsClass;
 	private EReference mySelfLinkAsRef;
+	private EReference myLink2LinkRef;
+	private EReference myLinkFromLinkRef;
+	private EReference myLinkCrossLinkRef;
+	private LinkData myLink2Link;
+	private LinkData myLinkFromLink;
+	private LinkData myLinkCrossLink;
 
 	public DomainModelSetup() {
 	}
@@ -100,6 +106,13 @@ public class DomainModelSetup implements DomainModelSource {
 		nodeLinkA2A.setName("LinkAtoA");
 		EClass childNode = EcoreFactory.eINSTANCE.createEClass();
 		childNode.setName("Child");
+		EClass link2Link = EcoreFactory.eINSTANCE.createEClass();
+		link2Link.setName("Link2Link");
+		EClass linkFromLink = EcoreFactory.eINSTANCE.createEClass();
+		linkFromLink.setName("LinkFromLink");
+		EClass linkCrossLink = EcoreFactory.eINSTANCE.createEClass();
+		linkCrossLink.setName("LinkCrossLink");
+
 
 		final EAttribute a1 = EcoreFactory.eINSTANCE.createEAttribute();
 		a1.setName("label");
@@ -135,6 +148,24 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToB3.setEType(nodeB);
 		linkToB3.setUpperBound(1);
 		nodeA.getEStructuralFeatures().add(linkToB3);
+		
+		EReference link2LinkRef = EcoreFactory.eINSTANCE.createEReference();
+		link2LinkRef.setName("refLinkToLink");
+		link2LinkRef.setEType(nodeLinkA2C);
+		link2LinkRef.setUpperBound(3);
+		nodeD.getEStructuralFeatures().add(link2LinkRef);
+		
+		EReference linkFromLinkRef = EcoreFactory.eINSTANCE.createEReference();
+		linkFromLinkRef.setName("refLinkFromLink");
+		linkFromLinkRef.setEType(nodeD);
+		linkFromLinkRef.setUpperBound(4);
+		nodeLinkA2C.getEStructuralFeatures().add(linkFromLinkRef);
+
+		EReference linkCrossLinkRef = EcoreFactory.eINSTANCE.createEReference();
+		linkCrossLinkRef.setName("refLinkCrossLink");
+		linkCrossLinkRef.setEType(nodeLinkA2C);
+		linkCrossLinkRef.setUpperBound(5);
+		nodeLinkA2C.getEStructuralFeatures().add(linkCrossLinkRef);
 		
 		EReference linkToARef = EcoreFactory.eINSTANCE.createEReference();
 		linkToARef.setName("refLinkToA");
@@ -228,7 +259,52 @@ public class DomainModelSetup implements DomainModelSource {
 		selfContainment.setName("innerChildrenOfBChild");
 		selfContainment.setEType(childNode);
 		selfContainment.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
-		childNode.getEStructuralFeatures().add(selfContainment);		
+		childNode.getEStructuralFeatures().add(selfContainment);
+		
+		EReference linkToLink2Link = EcoreFactory.eINSTANCE.createEReference();
+		linkToLink2Link.setName("classLinkToLink");
+		linkToLink2Link.setEType(link2Link);
+		linkToLink2Link.setUpperBound(3);
+		linkToLink2Link.setContainment(true);
+		linkToLink2Link.setUnique(false);
+		nodeD.getEStructuralFeatures().add(linkToLink2Link);
+
+		EReference refLinkFromLink2Link = EcoreFactory.eINSTANCE.createEReference();
+		refLinkFromLink2Link.setName("trg");
+		refLinkFromLink2Link.setEType(nodeLinkA2C);
+		refLinkFromLink2Link.setUpperBound(1);
+		refLinkFromLink2Link.setUnique(false);
+		link2Link.getEStructuralFeatures().add(refLinkFromLink2Link);
+		
+		EReference linkToLinkFromLink = EcoreFactory.eINSTANCE.createEReference();
+		linkToLinkFromLink.setName("classLinkFromLink");
+		linkToLinkFromLink.setEType(linkFromLink);
+		linkToLinkFromLink.setUpperBound(4);
+		linkToLinkFromLink.setContainment(true);
+		linkToLinkFromLink.setUnique(false);
+		nodeLinkA2C.getEStructuralFeatures().add(linkToLinkFromLink);
+
+		EReference refLinkFromLinkFromLink = EcoreFactory.eINSTANCE.createEReference();
+		refLinkFromLinkFromLink.setName("trg");
+		refLinkFromLinkFromLink.setEType(nodeD);
+		refLinkFromLinkFromLink.setUpperBound(1);
+		refLinkFromLinkFromLink.setUnique(false);
+		linkFromLink.getEStructuralFeatures().add(refLinkFromLinkFromLink);
+		
+		EReference linkToLinkCrossLink = EcoreFactory.eINSTANCE.createEReference();
+		linkToLinkCrossLink.setName("classLinkCrossLink");
+		linkToLinkCrossLink.setEType(linkCrossLink);
+		linkToLinkCrossLink.setUpperBound(5);
+		linkToLinkCrossLink.setContainment(true);
+		linkToLinkCrossLink.setUnique(false);
+		nodeLinkA2C.getEStructuralFeatures().add(linkToLinkCrossLink);
+
+		EReference refLinkFromLinkCorssLink = EcoreFactory.eINSTANCE.createEReference();
+		refLinkFromLinkCorssLink.setName("trg");
+		refLinkFromLinkCorssLink.setEType(nodeLinkA2C);
+		refLinkFromLinkCorssLink.setUpperBound(1);
+		refLinkFromLinkCorssLink.setUnique(false);
+		linkCrossLink.getEStructuralFeatures().add(refLinkFromLinkCorssLink);
 
 		p.getEClassifiers().add(superNode);
 		p.getEClassifiers().add(containmentNode);
@@ -241,6 +317,9 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeLinkA2C3);
 		p.getEClassifiers().add(nodeLinkA2A);
 		p.getEClassifiers().add(childNode);
+		p.getEClassifiers().add(link2Link);
+		p.getEClassifiers().add(linkFromLink);
+		p.getEClassifiers().add(linkCrossLink);
 
 		confineInResource(p);
 
@@ -259,6 +338,12 @@ public class DomainModelSetup implements DomainModelSource {
 		myLinkAsRef = linkToB;
 		myLinkAsRef_Cardinality2 = linkToB2;
 		myLinkAsRef_Cardinality1 = linkToB3;
+		myLink2Link = new LinkData(link2Link, refLinkFromLink2Link, linkToLink2Link);
+		myLinkFromLink = new LinkData(linkFromLink, refLinkFromLinkFromLink, linkToLinkFromLink);
+		myLinkCrossLink = new LinkData(linkCrossLink, refLinkFromLinkCorssLink, linkToLinkCrossLink);		
+		myLink2LinkRef = link2LinkRef;
+		myLinkFromLinkRef = linkFromLinkRef;
+		myLinkCrossLinkRef = linkCrossLinkRef;
 		mySelfLinkAsRef = linkToARef;
 		myDiagramElement = containmentNode;
 		return this;
@@ -329,6 +414,30 @@ public class DomainModelSetup implements DomainModelSource {
 	
 	public final EReference getLinkAsRef_Cardinality1() {
 		return myLinkAsRef_Cardinality1;
+	}
+	
+	public final LinkData getLink2Link() {
+		return myLink2Link;
+	}
+
+	public final LinkData getLinkFromLink() {
+		return myLinkFromLink;
+	}
+
+	public final LinkData getLinkCrossLink() {
+		return myLinkCrossLink;
+	}
+
+	public final EReference getLink2LinkRef() {
+		return myLink2LinkRef;
+	}
+	
+	public final EReference getLinkFromLinkRef() {
+		return myLinkFromLinkRef;
+	}
+
+	public final EReference getLinkCrossLinkRef() {
+		return myLinkCrossLinkRef;
 	}
 
 	public final EReference getSelfLinkAsRef() {

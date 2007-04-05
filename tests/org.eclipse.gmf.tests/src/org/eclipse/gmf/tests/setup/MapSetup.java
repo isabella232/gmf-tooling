@@ -66,6 +66,12 @@ public class MapSetup implements MapDefSource {
 	private LinkMapping myRefLink_Cardinality1;
 	private LinkMapping mySelfClassLink;
 	private LinkMapping mySelfRefLink;
+	private LinkMapping myClassLink2Link;
+	private LinkMapping myClassLinkFromLink;
+	private LinkMapping myClassLinkCrossLink;
+	private LinkMapping myRefLink2Link;
+	private LinkMapping myRefLinkFromLink;
+	private LinkMapping myRefLinkCrossLink;
 	
 	public MapSetup() {
 	}
@@ -98,6 +104,16 @@ public class MapSetup implements MapDefSource {
 		myRefLink_Cardinality2 = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkAsRef_Cardinality2(), null);
 		myRefLink_Cardinality1 = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkAsRef_Cardinality1(), null);
 		mySelfRefLink = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getSelfLinkAsRef(), null);
+		
+		myClassLink2Link = createLinkMapping(ddSetup.getLinkDef(), dmSetup.getLink2Link());
+		myClassLink2Link.setTool(toolDef.getLinkCreationTool());
+		myClassLinkFromLink = createLinkMapping(ddSetup.getLinkDef(), dmSetup.getLinkFromLink());
+		myClassLinkFromLink.setTool(toolDef.getLinkCreationTool());
+		myClassLinkCrossLink = createLinkMapping(ddSetup.getLinkDef(), dmSetup.getLinkCrossLink());
+		myClassLinkCrossLink.setTool(toolDef.getLinkCreationTool());
+		myRefLink2Link = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLink2LinkRef(), null);
+		myRefLinkFromLink = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkFromLinkRef(), null);
+		myRefLinkCrossLink = createLinkMapping(ddSetup.getLinkDef(), null, dmSetup.getLinkCrossLinkRef(), null);
 
 		ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
 		myNodeAChild = childReference.getOwnedChild();
@@ -346,6 +362,30 @@ public class MapSetup implements MapDefSource {
 
 	public CompartmentMapping getNodeBCompartment() {
 		return myNodeBCompartment;
+	}
+	
+	public LinkMapping getClassLink2Link() {
+		return myClassLink2Link;
+	}
+
+	public LinkMapping getClassLinkFromLink() {
+		return myClassLinkFromLink;
+	}
+
+	public LinkMapping getClassLinkCrossLink() {
+		return myClassLinkCrossLink;
+	}
+	
+	public LinkMapping getReferenceLink2Link() {
+		return myRefLink2Link;
+	}
+
+	public LinkMapping getReferenceLinkFromLink() {
+		return myRefLinkFromLink;
+	}
+
+	public LinkMapping getReferenceLinkCrossLink() {
+		return myRefLinkCrossLink;
 	}
 
 }
