@@ -104,7 +104,7 @@ class WorkspaceModelRegistry implements MetaModelSource {
 	private final ResourceSet resourceSet = new ResourceSetImpl();
 
 	private Resource attemptLoad(IFile file) throws IOException {
-		URI uri = URI.createPlatformResourceURI(file.getFullPath().toString());
+		URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), false);
 		Resource res = getResourceSet(file).getResource(uri, true);
 		if (res == null) {
 			throw new FileNotFoundException("Can't load model from " + file.getFullPath());
