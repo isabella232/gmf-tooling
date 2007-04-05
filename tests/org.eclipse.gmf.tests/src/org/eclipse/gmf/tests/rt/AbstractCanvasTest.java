@@ -44,13 +44,17 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 	}
 
 	protected void setUp() throws Exception {
+		System.out.println("Starting test " + getClass().getName() + ":" + getName());
 		super.setUp();
 		myGenProject = getSetup().getGenProject().getBundle();
+		System.out.println("Started test " + getClass().getName() + ":" + getName());
 	}
 
 	protected void tearDown() throws Exception {
+		System.out.println("Stopping test " + getClass().getName() + ":" + getName());
 		myViewerConfiguration = null;
 		super.tearDown();
+		System.out.println("Stopped test " + getClass().getName() + ":" + getName());
 	}
 
 	protected final EditPart findEditPart(View notationElement) {
