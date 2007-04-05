@@ -134,9 +134,8 @@
 	if (!(oldEnd instanceof «getQualifiedInterfaceName(getSourceType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
 		return false;
 	}
-	«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») newEnd;
 	«EXPAND extractFeatureWithCheck("getLink()", "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
-	«EXPAND checkLinkConstraint(link)-»
+	«EXPAND checkLinkConstraint(link, "getNewSource()", "target")-»
 «ENDDEFINE»
 
 «REM»
@@ -146,7 +145,7 @@
 	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
 		return false;
 	}
-	return true;
+	return «EXPAND checkLinkConstraintInvocation FOR link»(getNewSource(), getOldTarget());
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
@@ -164,15 +163,14 @@
 		}
 		«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») getLink().eContainer();
 	«ENDIF-»
-	«getQualifiedInterfaceName(getTargetType())» target = («getQualifiedInterfaceName(getTargetType())») newEnd;
-	«EXPAND checkLinkConstraint(link)-»
+	«EXPAND checkLinkConstraint(link, "source", "getNewTarget()")-»
 «ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
 	if (!(oldEnd instanceof «getQualifiedInterfaceName(getTargetType())» && newEnd instanceof «getQualifiedInterfaceName(getTargetType())»)) {
 		return false;
 	}
-	return true;
+	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
 «ENDDEFINE»
 
 «DEFINE extractFeatureWithCheck(String containerVar, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
@@ -186,16 +184,16 @@
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE checkLinkConstraint(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE checkLinkConstraint(gmfgen::GenLink link, String sourceVar, String targetVar) FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature != null-»
 		if (!(getLink().eContainer() instanceof «containmentMetaFeature.genClass.getQualifiedInterfaceName()»)) {
 			return false;
 		}
 		«containmentMetaFeature.genClass.getQualifiedInterfaceName()» container =
 				(«containmentMetaFeature.genClass.getQualifiedInterfaceName()») getLink().eContainer();
-		return «EXPAND checkLinkConstraintInvocation FOR link»(container, source, target);
+		return «EXPAND checkLinkConstraintInvocation FOR link»(container, «sourceVar», «targetVar»);
 	«ELSE-»
-		return «EXPAND checkLinkConstraintInvocation FOR link»(source, target);
+		return «EXPAND checkLinkConstraintInvocation FOR link»(«sourceVar», «targetVar»);
 	«ENDIF-»
 «ENDDEFINE»
 
