@@ -11,9 +11,15 @@
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
+import java.util.List;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
@@ -31,6 +37,8 @@ import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -59,242 +67,242 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Composite myMyLayoutKindGroupMyLayoutGroupComposite;
+	private Composite myMyLayoutKindGroupComposite;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyBorderLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyCustomLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyGridLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyFlowLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyStackLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyXYLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio;
+	private Button myMyNoLayoutRadioRadio;
 
 	/**
 	 * @generated
 	 */
-	private Composite myMyExpandBarMyLayoutGroupComposite;
+	private Composite myMyExpandBarComposite;
 
 	/**
 	 * @generated
 	 */
-	private ExpandableComposite myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite;
+	private ExpandableComposite myLayoutBorderExpandGroupExpandableComposite;
 
 	/**
 	 * @generated
 	 */
-	private Group mySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myBorderParamsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDxSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDySpin;
 
 	/**
 	 * @generated
 	 */
-	private ExpandableComposite myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite;
+	private ExpandableComposite myLayoutFlowExpandGroupExpandableComposite;
 
 	/**
 	 * @generated
 	 */
-	private Group myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myFlowParamsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Button mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox;
+	private Button mySingleLineCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox;
+	private Button myMinorSizeCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Group mySpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group mySpacingsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myMinorSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myMajorSpin;
 
 	/**
 	 * @generated
 	 */
-	private Group myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myMinorAlignGroup;
 
 	/**
 	 * @generated
 	 */
-	private CLabel myMinorTopEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel;
+	private CLabel myMinorTopELabel;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMinorNRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMinorERadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMinorCRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMinorWRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMinorSRadio;
 
 	/**
 	 * @generated
 	 */
-	private Group myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myMajorAlignGroup;
 
 	/**
 	 * @generated
 	 */
-	private CLabel myMajorTopEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel;
+	private CLabel myMajorTopELabel;
 
 	/**
 	 * @generated
 	 */
-	private Button myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMajorNRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMajorERadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMajorCRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMajorWRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio;
+	private Button myMajorSRadio;
 
 	/**
 	 * @generated
 	 */
-	private ExpandableComposite myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite;
+	private ExpandableComposite myLayoutGridExpandGroupExpandableComposite;
 
 	/**
 	 * @generated
 	 */
-	private Group myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myGridParamsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myNumColumnsSpin;
 
 	/**
 	 * @generated
 	 */
-	private Button myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox;
+	private Button myEqualWidthCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Group myMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myMarginsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDx$1Spin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDy$1Spin;
 
 	/**
 	 * @generated
 	 */
-	private Group mySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group mySpacingGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDx$2Spin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin;
+	private Spinner myDy$2Spin;
 
 	/**
 	 * @generated
 	 */
-	private ExpandableComposite myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite;
+	private ExpandableComposite myLayoutCustomExpandGroupExpandableComposite;
 
 	/**
 	 * @generated
 	 */
-	private Group myLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupGroup;
+	private Group myCustomParamsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Text myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText;
+	private Text myBundleNameText;
 
 	/**
 	 * @generated
 	 */
-	private Text myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText;
+	private Text myQualifiedClassNameText;
 
 	/**
 	 * @generated
@@ -304,192 +312,192 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Group myBorderLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myBorderLayoutDataGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Composite myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite;
+	private Composite myWorldPartsComposite;
 
 	/**
 	 * @generated
 	 */
-	private CLabel myUpperEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeLabel;
+	private CLabel myUpperELabel;
 
 	/**
 	 * @generated
 	 */
-	private Button myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBorderNRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBorderERadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBorderCRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBorderWRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBorderSRadio;
 
 	/**
 	 * @generated
 	 */
-	private Group myMyXYLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myMyXYLayoutDataGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Group myMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myMyXYDataTopLeftGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myMyXYDataXSpinSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myMyXYDataYSpinSpin;
 
 	/**
 	 * @generated
 	 */
-	private Group myMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myMyXYDataSizeGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myMyXYDataSizeXSpinSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myMyXYDataSizeYSpinSpin;
 
 	/**
 	 * @generated
 	 */
-	private Group myMyGridLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myMyGridLayoutDataGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Button myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox;
+	private Button myGrabExcessHorizontalSpaceCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Button myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox;
+	private Button myGrabExcessVerticalSpaceCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Group myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myVerticalAlignmentGroup;
 
 	/**
 	 * @generated
 	 */
-	private Button myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBEGINNINGRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myCENTERRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myENDRadio;
 
 	/**
 	 * @generated
 	 */
-	private Button myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myFILLRadio;
 
 	/**
 	 * @generated
 	 */
-	private Group myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myHorizontalAlignmentGroup;
 
 	/**
 	 * @generated
 	 */
-	private Button myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myBEGINNING$1Radio;
 
 	/**
 	 * @generated
 	 */
-	private Button myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myCENTER$1Radio;
 
 	/**
 	 * @generated
 	 */
-	private Button myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myEND$1Radio;
 
 	/**
 	 * @generated
 	 */
-	private Button myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio;
+	private Button myFILL$1Radio;
 
 	/**
 	 * @generated
 	 */
-	private Group mySpanningsMyGridLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group mySpanningsGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myVerticalSpanSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myHorizontalSpanSpin;
 
 	/**
 	 * @generated
 	 */
-	private Group mySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group mySizeHintGroup;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myDx$3Spin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myDy$3Spin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin;
+	private Spinner myHorizontalIndentSpin;
 
 	/**
 	 * @generated
 	 */
-	private Group myMyCustomLayoutDataGroupMyLayoutDataCompositeGroup;
+	private Group myMyCustomLayoutDataGroupGroup;
 
 	/**
 	 * @generated
 	 */
-	private Text myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText;
+	private Text myBundleName$1Text;
 
 	/**
 	 * @generated
 	 */
-	private Text myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText;
+	private Text myQualifiedClassName$1Text;
 
 	/**
 	 * @generated
@@ -498,397 +506,313 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		Composite mainComposite = createMainWidget(parent);
 		myMyLayoutGroupGroup = createGroupWidget(mainComposite, "Layout Manager", null, null, null, null, true, true, false, false);
 
-		myMyLayoutKindGroupMyLayoutGroupComposite = createCompositeWidget(myMyLayoutGroupGroup, "", null, null, null, null, true, true, false, false);
+		myMyLayoutKindGroupComposite = createCompositeWidget(myMyLayoutGroupGroup, "", null, null, null, null, true, true, false, false);
 
-		myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, null, null, null, true, true, false, false);
+		myMyBorderLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyBorderLayoutRadioRadioFromMetamodel(), null, null, null, null, true, true, false,
+				false);
 
-		getListener().startListeningTo(myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyBorderLayoutRadioRadio);
 
-		myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMyCustomLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyCustomLayoutRadioRadioFromMetamodel(), null, myMyBorderLayoutRadioRadio, null, null,
+				false, true, false, false);
 
-		getListener().startListeningTo(myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyCustomLayoutRadioRadio);
 
-		myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMyGridLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyGridLayoutRadioRadioFromMetamodel(), null, myMyCustomLayoutRadioRadio, null, null,
+				false, true, false, false);
 
-		getListener().startListeningTo(myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyGridLayoutRadioRadio);
 
-		myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMyFlowLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyFlowLayoutRadioRadioFromMetamodel(), null, myMyGridLayoutRadioRadio, null, null, false,
+				true, false, false);
 
-		getListener().startListeningTo(myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyFlowLayoutRadioRadio);
 
-		myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMyStackLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyStackLayoutRadioRadioFromMetamodel(), null, myMyFlowLayoutRadioRadio, null, null,
+				false, true, false, false);
 
-		getListener().startListeningTo(myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyStackLayoutRadioRadio);
 
-		myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel(), null, myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMyXYLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, getModelHelper().getNameMyMyXYLayoutRadioRadioFromMetamodel(), null, myMyStackLayoutRadioRadio, null, null, false,
+				true, false, false);
 
-		getListener().startListeningTo(myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyXYLayoutRadioRadio);
 
-		myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio = createRadioButton(myMyLayoutKindGroupMyLayoutGroupComposite, "No Layout", null, myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio,
-				null, null, false, true, false, false);
+		myMyNoLayoutRadioRadio = createRadioButton(myMyLayoutKindGroupComposite, "No Layout", null, myMyXYLayoutRadioRadio, null, null, false, true, false, false);
 
-		getListener().startListeningTo(myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().startListeningTo(myMyNoLayoutRadioRadio);
 
-		myMyExpandBarMyLayoutGroupComposite = createCompositeWidget(myMyLayoutGroupGroup, "", myMyLayoutKindGroupMyLayoutGroupComposite, null, null, null, true, false, false, false);
+		myMyExpandBarComposite = createCompositeWidget(myMyLayoutGroupGroup, "", myMyLayoutKindGroupComposite, null, null, null, true, false, false, false);
 
-		myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite = createExpandableComposite(myMyExpandBarMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel(), null, null, null, null, true, true, false, false);
-		Composite myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl = createCompositeWidget(myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, "",
-				null, null, null, null, true, true, false, false);
-
-		mySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl, getModelHelper()
-				.getNameMySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel(), null, null, null, null, true, true, false, false);
-
-		myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroup, "Horizontal", 0, 999, 1, 100, null,
+		myLayoutBorderExpandGroupExpandableComposite = createExpandableComposite(myMyExpandBarComposite, getModelHelper().getNameMyLayoutBorderExpandGroupExpandableCompositeFromMetamodel(), null,
 				null, null, null, true, true, false, false);
-		getListener().startListeningTo(myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin);
+		Composite myLayoutBorderExpandGroupExpandableCompositeControl = createCompositeWidget(myLayoutBorderExpandGroupExpandableComposite, "", null, null, null, null, true, true, false, false);
 
-		myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroup, "Vertical", 0, 999, 1, 100,
-				myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin);
+		myBorderParamsGroup = createGroupWidget(myLayoutBorderExpandGroupExpandableCompositeControl, getModelHelper().getNameMyBorderParamsGroupFromMetamodel(), null, null, null, null, true, true,
+				false, false);
 
-		myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setClient(myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl);
-		myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarMyLayoutGroupComposite));
+		myDxSpin = createSpinnerWidget(myBorderParamsGroup, "Horizontal", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myDxSpin);
 
-		myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite = createExpandableComposite(myMyExpandBarMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel(), null, myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null,
-				false, true, false, false);
-		Composite myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl = createCompositeWidget(myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, "", null,
-				myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null, false, true, false, false);
+		myDySpin = createSpinnerWidget(myBorderParamsGroup, "Vertical", 0, 999, 1, 100, myDxSpin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myDySpin);
 
-		myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl, "Layout Parameters",
-				null, null, null, null, true, true, false, false);
+		myLayoutBorderExpandGroupExpandableComposite.setClient(myLayoutBorderExpandGroupExpandableCompositeControl);
+		myLayoutBorderExpandGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarComposite));
 
-		mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox = createCheckboxButton(myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				getModelHelper().getNameMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel(), null, null, null, null, true, true, false, false);
+		myLayoutFlowExpandGroupExpandableComposite = createExpandableComposite(myMyExpandBarComposite, getModelHelper().getNameMyLayoutFlowExpandGroupExpandableCompositeFromMetamodel(), null,
+				myLayoutBorderExpandGroupExpandableComposite, null, null, false, true, false, false);
+		Composite myLayoutFlowExpandGroupExpandableCompositeControl = createCompositeWidget(myLayoutFlowExpandGroupExpandableComposite, "", null, myLayoutBorderExpandGroupExpandableComposite, null,
+				null, false, true, false, false);
 
-		getListener().startListeningTo(mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		myFlowParamsGroup = createGroupWidget(myLayoutFlowExpandGroupExpandableCompositeControl, "Layout Parameters", null, null, null, null, true, true, false, false);
 
-		myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox = createCheckboxButton(myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				getModelHelper().getNameMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel(),
-				mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox, null, null, null, true, false, false, false);
+		mySingleLineCheckbox = createCheckboxButton(myFlowParamsGroup, getModelHelper().getNameMySingleLineCheckboxFromMetamodel(), null, null, null, null, true, true, false, false);
 
-		getListener().startListeningTo(myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		getListener().startListeningTo(mySingleLineCheckbox);
 
-		mySpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup, "Spacings", null,
-				mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox, null, null, false, true, false, false);
+		myMinorSizeCheckbox = createCheckboxButton(myFlowParamsGroup, getModelHelper().getNameMyMinorSizeCheckboxFromMetamodel(), mySingleLineCheckbox, null, null, null, true, false, false, false);
 
-		myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"Minor", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().startListeningTo(myMinorSizeCheckbox);
 
-		myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"Major", 0, 999, 1, 100, myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin);
+		mySpacingsGroup = createGroupWidget(myFlowParamsGroup, "Spacings", null, mySingleLineCheckbox, null, null, false, true, false, false);
 
-		myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMyMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel(), null,
-				mySpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup, null, null, false, true, false, false);
+		myMinorSpin = createSpinnerWidget(mySpacingsGroup, "Minor", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myMinorSpin);
 
-		myMinorTopEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel = createLabelWidget(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"       ", null, null, null, null, true, true, false, false);
+		myMajorSpin = createSpinnerWidget(mySpacingsGroup, "Major", 0, 999, 1, 100, myMinorSpin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myMajorSpin);
 
-		myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"N", myMinorTopEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel, null, null, null, true, false, false, false);
+		myMinorAlignGroup = createGroupWidget(myFlowParamsGroup, getModelHelper().getNameMyMinorAlignGroupFromMetamodel(), null, mySpacingsGroup, null, null, false, true, false, false);
 
-		getListener().startListeningTo(myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		myMinorTopELabel = createLabelWidget(myMinorAlignGroup, "       ", null, null, null, null, true, true, false, false);
 
-		myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"E", null, myMinorTopEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel, null, null, false, true, false, false);
+		myMinorNRadio = createRadioButton(myMinorAlignGroup, "N", myMinorTopELabel, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMinorNRadio);
 
-		myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"C", myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, null, true, false, false, false);
+		myMinorERadio = createRadioButton(myMinorAlignGroup, "E", null, myMinorTopELabel, null, null, false, true, false, false);
 
-		getListener().startListeningTo(myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMinorERadio);
 
-		myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"W", myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, null, true, false, false, false);
+		myMinorCRadio = createRadioButton(myMinorAlignGroup, "C", myMinorERadio, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMinorCRadio);
 
-		myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"S", null, myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMinorWRadio = createRadioButton(myMinorAlignGroup, "W", myMinorCRadio, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMinorWRadio);
 
-		myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMyMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel(),
-				myMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup, null, null, null, true, false, false, false);
+		myMinorSRadio = createRadioButton(myMinorAlignGroup, "S", null, myMinorCRadio, null, null, false, true, false, false);
 
-		myMajorTopEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel = createLabelWidget(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"       ", null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myMinorSRadio);
 
-		myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"N", myMajorTopEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel, null, null, null, true, false, false, false);
+		myMajorAlignGroup = createGroupWidget(myFlowParamsGroup, getModelHelper().getNameMyMajorAlignGroupFromMetamodel(), myMinorAlignGroup, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		myMajorTopELabel = createLabelWidget(myMajorAlignGroup, "       ", null, null, null, null, true, true, false, false);
 
-		myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"E", null, myMajorTopEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel, null, null, false, true, false, false);
+		myMajorNRadio = createRadioButton(myMajorAlignGroup, "N", myMajorTopELabel, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMajorNRadio);
 
-		myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"C", myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, null, true, false, false, false);
+		myMajorERadio = createRadioButton(myMajorAlignGroup, "E", null, myMajorTopELabel, null, null, false, true, false, false);
 
-		getListener().startListeningTo(myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMajorERadio);
 
-		myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"W", myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, null, true, false, false, false);
+		myMajorCRadio = createRadioButton(myMajorAlignGroup, "C", myMajorERadio, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMajorCRadio);
 
-		myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio = createRadioButton(myMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"S", null, myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio, null, null, false, true, false, false);
+		myMajorWRadio = createRadioButton(myMajorAlignGroup, "W", myMajorCRadio, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().startListeningTo(myMajorWRadio);
 
-		myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setClient(myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl);
-		myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarMyLayoutGroupComposite));
+		myMajorSRadio = createRadioButton(myMajorAlignGroup, "S", null, myMajorCRadio, null, null, false, true, false, false);
 
-		myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite = createExpandableComposite(myMyExpandBarMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel(), null, myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null,
-				false, true, false, false);
-		Composite myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl = createCompositeWidget(myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, "", null,
-				myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null, false, true, false, false);
+		getListener().startListeningTo(myMajorSRadio);
 
-		myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl, "Layout Parameters",
-				null, null, null, null, true, true, false, false);
+		myLayoutFlowExpandGroupExpandableComposite.setClient(myLayoutFlowExpandGroupExpandableCompositeControl);
+		myLayoutFlowExpandGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarComposite));
 
-		myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpinFromMetamodel(), 1, 99, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		myLayoutGridExpandGroupExpandableComposite = createExpandableComposite(myMyExpandBarComposite, getModelHelper().getNameMyLayoutGridExpandGroupExpandableCompositeFromMetamodel(), null,
+				myLayoutFlowExpandGroupExpandableComposite, null, null, false, true, false, false);
+		Composite myLayoutGridExpandGroupExpandableCompositeControl = createCompositeWidget(myLayoutGridExpandGroupExpandableComposite, "", null, myLayoutFlowExpandGroupExpandableComposite, null,
+				null, false, true, false, false);
 
-		myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox = createCheckboxButton(myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup,
-				getModelHelper().getNameMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel(),
-				myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, null, true, false, false, false);
+		myGridParamsGroup = createGroupWidget(myLayoutGridExpandGroupExpandableCompositeControl, "Layout Parameters", null, null, null, null, true, true, false, false);
 
-		getListener().startListeningTo(myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		myNumColumnsSpin = createSpinnerWidget(myGridParamsGroup, getModelHelper().getNameMyNumColumnsSpinFromMetamodel(), 1, 99, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myNumColumnsSpin);
 
-		myMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel(), null,
-				myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, false, true, false, false);
+		myEqualWidthCheckbox = createCheckboxButton(myGridParamsGroup, getModelHelper().getNameMyEqualWidthCheckboxFromMetamodel(), myNumColumnsSpin, null, null, null, true, false, false, false);
 
-		myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(myMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup,
-				"Horizontal", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().startListeningTo(myEqualWidthCheckbox);
 
-		myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(myMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, "Vertical",
-				0, 999, 1, 100, myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		myMarginsGroup = createGroupWidget(myGridParamsGroup, getModelHelper().getNameMyMarginsGroupFromMetamodel(), null, myNumColumnsSpin, null, null, false, true, false, false);
 
-		mySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel(), null,
-				myMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, null, null, false, true, false, false);
+		myDx$1Spin = createSpinnerWidget(myMarginsGroup, "Horizontal", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myDx$1Spin);
 
-		myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, "X", 0,
-				999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		myDy$1Spin = createSpinnerWidget(myMarginsGroup, "Vertical", 0, 999, 1, 100, myDx$1Spin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myDy$1Spin);
 
-		myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin = createSpinnerWidget(mySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroup, "Y", 0,
-				999, 1, 100, myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		mySpacingGroup = createGroupWidget(myGridParamsGroup, getModelHelper().getNameMySpacingGroupFromMetamodel(), null, myMarginsGroup, null, null, false, true, false, false);
 
-		myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setClient(myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl);
-		myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarMyLayoutGroupComposite));
+		myDx$2Spin = createSpinnerWidget(mySpacingGroup, "X", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myDx$2Spin);
 
-		myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite = createExpandableComposite(myMyExpandBarMyLayoutGroupComposite, getModelHelper()
-				.getNameMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel(), null, myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null,
-				false, true, false, false);
-		Composite myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl = createCompositeWidget(myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, "",
-				null, myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite, null, null, false, true, false, false);
+		myDy$2Spin = createSpinnerWidget(mySpacingGroup, "Y", 0, 999, 1, 100, myDx$2Spin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myDy$2Spin);
 
-		myLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupGroup = createGroupWidget(myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl,
-				"Layout Parameters", null, null, null, null, true, true, false, false);
+		myLayoutGridExpandGroupExpandableComposite.setClient(myLayoutGridExpandGroupExpandableCompositeControl);
+		myLayoutGridExpandGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarComposite));
 
-		myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText = createTextWidget(myLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupGroup, getModelHelper()
-				.getNameMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupTextFromMetamodel(), null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText);
+		myLayoutCustomExpandGroupExpandableComposite = createExpandableComposite(myMyExpandBarComposite, getModelHelper().getNameMyLayoutCustomExpandGroupExpandableCompositeFromMetamodel(), null,
+				myLayoutGridExpandGroupExpandableComposite, null, null, false, true, false, false);
+		Composite myLayoutCustomExpandGroupExpandableCompositeControl = createCompositeWidget(myLayoutCustomExpandGroupExpandableComposite, "", null, myLayoutGridExpandGroupExpandableComposite, null,
+				null, false, true, false, false);
 
-		myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText = createTextWidget(myLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupGroup,
-				getModelHelper().getNameMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupTextFromMetamodel(), null,
-				myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText, null, null, false, true, false, false);
-		getListener().startListeningTo(myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText);
+		myCustomParamsGroup = createGroupWidget(myLayoutCustomExpandGroupExpandableCompositeControl, "Layout Parameters", null, null, null, null, true, true, false, false);
 
-		myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setClient(myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeControl);
-		myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarMyLayoutGroupComposite));
+		myBundleNameText = createTextWidget(myCustomParamsGroup, getModelHelper().getNameMyBundleNameTextFromMetamodel(), null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myBundleNameText);
+
+		myQualifiedClassNameText = createTextWidget(myCustomParamsGroup, getModelHelper().getNameMyQualifiedClassNameTextFromMetamodel(), null, myBundleNameText, null, null, false, true, false, false);
+		getListener().startListeningTo(myQualifiedClassNameText);
+
+		myLayoutCustomExpandGroupExpandableComposite.setClient(myLayoutCustomExpandGroupExpandableCompositeControl);
+		myLayoutCustomExpandGroupExpandableComposite.addExpansionListener(getExpansionListener(myMyExpandBarComposite));
 
 		myMyLayoutDataCompositeComposite = createCompositeWidget(mainComposite, "", myMyLayoutGroupGroup, null, null, null, true, false, false, true);
 
-		myBorderLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper()
-				.getNameMyBorderLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), null, null, null, null, true, true, false, false);
+		myBorderLayoutDataGroupGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyBorderLayoutDataGroupGroupFromMetamodel(), null, null, null, null, true, true,
+				false, false);
 
-		myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite = createCompositeWidget(myBorderLayoutDataGroupMyLayoutDataCompositeGroup, "", null, null, null, null, true, true, false, false);
+		myWorldPartsComposite = createCompositeWidget(myBorderLayoutDataGroupGroup, "", null, null, null, null, true, true, false, false);
 
-		myUpperEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeLabel = createLabelWidget(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "       ", null, null, null, null, true,
-				true, false, false);
+		myUpperELabel = createLabelWidget(myWorldPartsComposite, "       ", null, null, null, null, true, true, false, false);
 
-		myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "N",
-				myUpperEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeLabel, null, null, null, true, false, false, false);
+		myBorderNRadio = createRadioButton(myWorldPartsComposite, "N", myUpperELabel, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().startListeningTo(myBorderNRadio);
 
-		myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "E", null,
-				myUpperEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeLabel, null, null, false, true, false, false);
+		myBorderERadio = createRadioButton(myWorldPartsComposite, "E", null, myUpperELabel, null, null, false, true, false, false);
 
-		getListener().startListeningTo(myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().startListeningTo(myBorderERadio);
 
-		myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "C",
-				myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio, null, null, null, true, false, false, false);
+		myBorderCRadio = createRadioButton(myWorldPartsComposite, "C", myBorderERadio, null, null, null, true, false, false, false);
 
-		getListener().startListeningTo(myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().startListeningTo(myBorderCRadio);
 
-		myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "W",
-				myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio, null, null, null, true, false, false, true);
+		myBorderWRadio = createRadioButton(myWorldPartsComposite, "W", myBorderCRadio, null, null, null, true, false, false, true);
 
-		getListener().startListeningTo(myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().startListeningTo(myBorderWRadio);
 
-		myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeComposite, "S", null,
-				myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio, null, null, false, true, true, false);
+		myBorderSRadio = createRadioButton(myWorldPartsComposite, "S", null, myBorderCRadio, null, null, false, true, true, false);
 
-		getListener().startListeningTo(myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().startListeningTo(myBorderSRadio);
 
-		myMyXYLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyMyXYLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(),
-				null, null, null, null, true, true, false, false);
-
-		myMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyXYLayoutDataGroupMyLayoutDataCompositeGroup, "Top Left Position", null, null, null, null, true,
-				true, false, false);
-
-		myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(myMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel(), 0, 999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(myMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel(), 0, 999, 1, 100,
-				myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		myMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyXYLayoutDataGroupMyLayoutDataCompositeGroup, "Size Constraints", null,
-				myMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup, null, null, false, true, false, false);
-
-		myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(myMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup, "X", 0, 999, 1, 100,
-				null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(myMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeGroup, "Y", 0, 999, 1, 100,
-				myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		myMyGridLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper()
-				.getNameMyMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), null, null, null, null, true, true, false, false);
-
-		myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox = createCheckboxButton(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckboxFromMetamodel(), null, null, null, null, true, true, false, false);
-
-		getListener().startListeningTo(myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox);
-
-		myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox = createCheckboxButton(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckboxFromMetamodel(), null,
-				myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox, null, null, false, true, false, false);
-
-		getListener().startListeningTo(myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox);
-
-		myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), null, myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox, null,
-				null, false, true, false, false);
-
-		myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, null, null, null, true, true, false, false);
-
-		getListener().startListeningTo(myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio,
-				null, null, false, true, false, false);
-
-		getListener().startListeningTo(myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio, null,
-				null, false, true, false, false);
-
-		getListener().startListeningTo(myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio, null, null,
-				false, true, false, false);
-
-		getListener().startListeningTo(myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, null, null, null,
-				true, false, false, false);
-
-		myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, null, null, null, true, true, false, false);
-
-		getListener().startListeningTo(myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio,
-				null, null, false, true, false, false);
-
-		getListener().startListeningTo(myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio, null,
-				null, false, true, false, false);
-
-		getListener().startListeningTo(myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio = createRadioButton(myHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel(), null, myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio, null,
-				null, false, true, false, false);
-
-		getListener().startListeningTo(myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
-
-		mySpanningsMyGridLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, "Spannings", null,
-				myVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroup, null, null, false, true, false, false);
-
-		myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(mySpanningsMyGridLayoutDataGroupMyLayoutDataCompositeGroup, "Vertical", 1, 99, 1, 100, null, null,
-				null, null, true, true, false, false);
-		getListener().startListeningTo(myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(mySpanningsMyGridLayoutDataGroupMyLayoutDataCompositeGroup, "Horizontal", 1, 99, 1, 100,
-				myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
-
-		mySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), null, mySpanningsMyGridLayoutDataGroupMyLayoutDataCompositeGroup, null, null, false, true, false,
+		myMyXYLayoutDataGroupGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyMyXYLayoutDataGroupGroupFromMetamodel(), null, null, null, null, true, true, false,
 				false);
 
-		myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(mySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroup, "X", 0, 999, 1, 100, null, null, null, null, true,
-				true, false, false);
-		getListener().startListeningTo(myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		myMyXYDataTopLeftGroupGroup = createGroupWidget(myMyXYLayoutDataGroupGroup, "Top Left Position", null, null, null, null, true, true, false, false);
 
-		myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(mySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroup, "Y", 0, 999, 1, 100,
-				myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		myMyXYDataXSpinSpin = createSpinnerWidget(myMyXYDataTopLeftGroupGroup, getModelHelper().getNameMyMyXYDataXSpinSpinFromMetamodel(), 0, 999, 1, 100, null, null, null, null, true, true, false,
+				false);
+		getListener().startListeningTo(myMyXYDataXSpinSpin);
 
-		myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin = createSpinnerWidget(myMyGridLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel(), 0, 99, 1, 100, null, mySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroup, null, null,
+		myMyXYDataYSpinSpin = createSpinnerWidget(myMyXYDataTopLeftGroupGroup, getModelHelper().getNameMyMyXYDataYSpinSpinFromMetamodel(), 0, 999, 1, 100, myMyXYDataXSpinSpin, null, null, null, true,
+				false, false, false);
+		getListener().startListeningTo(myMyXYDataYSpinSpin);
+
+		myMyXYDataSizeGroupGroup = createGroupWidget(myMyXYLayoutDataGroupGroup, "Size Constraints", null, myMyXYDataTopLeftGroupGroup, null, null, false, true, false, false);
+
+		myMyXYDataSizeXSpinSpin = createSpinnerWidget(myMyXYDataSizeGroupGroup, "X", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myMyXYDataSizeXSpinSpin);
+
+		myMyXYDataSizeYSpinSpin = createSpinnerWidget(myMyXYDataSizeGroupGroup, "Y", 0, 999, 1, 100, myMyXYDataSizeXSpinSpin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myMyXYDataSizeYSpinSpin);
+
+		myMyGridLayoutDataGroupGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyMyGridLayoutDataGroupGroupFromMetamodel(), null, null, null, null, true, true,
+				false, false);
+
+		myGrabExcessHorizontalSpaceCheckbox = createCheckboxButton(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMyGrabExcessHorizontalSpaceCheckboxFromMetamodel(), null, null, null, null,
+				true, true, false, false);
+
+		getListener().startListeningTo(myGrabExcessHorizontalSpaceCheckbox);
+
+		myGrabExcessVerticalSpaceCheckbox = createCheckboxButton(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMyGrabExcessVerticalSpaceCheckboxFromMetamodel(), null,
+				myGrabExcessHorizontalSpaceCheckbox, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myGrabExcessVerticalSpaceCheckbox);
+
+		myVerticalAlignmentGroup = createGroupWidget(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMyVerticalAlignmentGroupFromMetamodel(), null, myGrabExcessVerticalSpaceCheckbox, null,
+				null, false, true, false, false);
+
+		myBEGINNINGRadio = createRadioButton(myVerticalAlignmentGroup, getModelHelper().getNameMyBEGINNINGRadioFromMetamodel(), null, null, null, null, true, true, false, false);
+
+		getListener().startListeningTo(myBEGINNINGRadio);
+
+		myCENTERRadio = createRadioButton(myVerticalAlignmentGroup, getModelHelper().getNameMyCENTERRadioFromMetamodel(), null, myBEGINNINGRadio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myCENTERRadio);
+
+		myENDRadio = createRadioButton(myVerticalAlignmentGroup, getModelHelper().getNameMyENDRadioFromMetamodel(), null, myCENTERRadio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myENDRadio);
+
+		myFILLRadio = createRadioButton(myVerticalAlignmentGroup, getModelHelper().getNameMyFILLRadioFromMetamodel(), null, myENDRadio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myFILLRadio);
+
+		myHorizontalAlignmentGroup = createGroupWidget(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMyHorizontalAlignmentGroupFromMetamodel(), myVerticalAlignmentGroup, null, null, null,
+				true, false, false, false);
+
+		myBEGINNING$1Radio = createRadioButton(myHorizontalAlignmentGroup, getModelHelper().getNameMyBEGINNING$1RadioFromMetamodel(), null, null, null, null, true, true, false, false);
+
+		getListener().startListeningTo(myBEGINNING$1Radio);
+
+		myCENTER$1Radio = createRadioButton(myHorizontalAlignmentGroup, getModelHelper().getNameMyCENTER$1RadioFromMetamodel(), null, myBEGINNING$1Radio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myCENTER$1Radio);
+
+		myEND$1Radio = createRadioButton(myHorizontalAlignmentGroup, getModelHelper().getNameMyEND$1RadioFromMetamodel(), null, myCENTER$1Radio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myEND$1Radio);
+
+		myFILL$1Radio = createRadioButton(myHorizontalAlignmentGroup, getModelHelper().getNameMyFILL$1RadioFromMetamodel(), null, myEND$1Radio, null, null, false, true, false, false);
+
+		getListener().startListeningTo(myFILL$1Radio);
+
+		mySpanningsGroup = createGroupWidget(myMyGridLayoutDataGroupGroup, "Spannings", null, myVerticalAlignmentGroup, null, null, false, true, false, false);
+
+		myVerticalSpanSpin = createSpinnerWidget(mySpanningsGroup, "Vertical", 1, 99, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myVerticalSpanSpin);
+
+		myHorizontalSpanSpin = createSpinnerWidget(mySpanningsGroup, "Horizontal", 1, 99, 1, 100, myVerticalSpanSpin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myHorizontalSpanSpin);
+
+		mySizeHintGroup = createGroupWidget(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMySizeHintGroupFromMetamodel(), null, mySpanningsGroup, null, null, false, true, false, false);
+
+		myDx$3Spin = createSpinnerWidget(mySizeHintGroup, "X", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myDx$3Spin);
+
+		myDy$3Spin = createSpinnerWidget(mySizeHintGroup, "Y", 0, 999, 1, 100, myDx$3Spin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myDy$3Spin);
+
+		myHorizontalIndentSpin = createSpinnerWidget(myMyGridLayoutDataGroupGroup, getModelHelper().getNameMyHorizontalIndentSpinFromMetamodel(), 0, 99, 1, 100, null, mySizeHintGroup, null, null,
 				false, true, false, false);
-		getListener().startListeningTo(myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().startListeningTo(myHorizontalIndentSpin);
 
-		myMyCustomLayoutDataGroupMyLayoutDataCompositeGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper()
-				.getNameMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel(), null, null, null, null, true, true, false, false);
+		myMyCustomLayoutDataGroupGroup = createGroupWidget(myMyLayoutDataCompositeComposite, getModelHelper().getNameMyMyCustomLayoutDataGroupGroupFromMetamodel(), null, null, null, null, true, true,
+				false, false);
 
-		myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText = createTextWidget(myMyCustomLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeTextFromMetamodel(), null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText);
+		myBundleName$1Text = createTextWidget(myMyCustomLayoutDataGroupGroup, getModelHelper().getNameMyBundleName$1TextFromMetamodel(), null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myBundleName$1Text);
 
-		myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText = createTextWidget(myMyCustomLayoutDataGroupMyLayoutDataCompositeGroup, getModelHelper()
-				.getNameMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeTextFromMetamodel(), null, myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText, null, null, false,
+		myQualifiedClassName$1Text = createTextWidget(myMyCustomLayoutDataGroupGroup, getModelHelper().getNameMyQualifiedClassName$1TextFromMetamodel(), null, myBundleName$1Text, null, null, false,
 				true, false, false);
-		getListener().startListeningTo(myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText);
+		getListener().startListeningTo(myQualifiedClassName$1Text);
 
 	}
 
@@ -896,124 +820,124 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	 * @generated
 	 */
 	public void doDispose() {
-		getListener().stopListeningTo(myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyBorderLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyCustomLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyGridLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyFlowLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyStackLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyXYLayoutRadioRadio);
 
-		getListener().stopListeningTo(myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMyNoLayoutRadioRadio);
 
-		getListener().stopListeningTo(myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDxSpin);
 
-		getListener().stopListeningTo(myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDySpin);
 
-		myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
-		getListener().stopListeningTo(mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		myLayoutBorderExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
+		getListener().stopListeningTo(mySingleLineCheckbox);
 
-		getListener().stopListeningTo(myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		getListener().stopListeningTo(myMinorSizeCheckbox);
 
-		getListener().stopListeningTo(myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myMinorSpin);
 
-		getListener().stopListeningTo(myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myMajorSpin);
 
-		getListener().stopListeningTo(myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMinorNRadio);
 
-		getListener().stopListeningTo(myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMinorERadio);
 
-		getListener().stopListeningTo(myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMinorCRadio);
 
-		getListener().stopListeningTo(myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMinorWRadio);
 
-		getListener().stopListeningTo(myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMinorSRadio);
 
-		getListener().stopListeningTo(myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMajorNRadio);
 
-		getListener().stopListeningTo(myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMajorERadio);
 
-		getListener().stopListeningTo(myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMajorCRadio);
 
-		getListener().stopListeningTo(myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMajorWRadio);
 
-		getListener().stopListeningTo(myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio);
+		getListener().stopListeningTo(myMajorSRadio);
 
-		myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
-		getListener().stopListeningTo(myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		myLayoutFlowExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
+		getListener().stopListeningTo(myNumColumnsSpin);
 
-		getListener().stopListeningTo(myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox);
+		getListener().stopListeningTo(myEqualWidthCheckbox);
 
-		getListener().stopListeningTo(myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDx$1Spin);
 
-		getListener().stopListeningTo(myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDy$1Spin);
 
-		getListener().stopListeningTo(myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDx$2Spin);
 
-		getListener().stopListeningTo(myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin);
+		getListener().stopListeningTo(myDy$2Spin);
 
-		myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
-		getListener().stopListeningTo(myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText);
+		myLayoutGridExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
+		getListener().stopListeningTo(myBundleNameText);
 
-		getListener().stopListeningTo(myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText);
+		getListener().stopListeningTo(myQualifiedClassNameText);
 
-		myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
+		myLayoutCustomExpandGroupExpandableComposite.removeExpansionListener(getExpansionListener(null));
 
-		getListener().stopListeningTo(myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBorderNRadio);
 
-		getListener().stopListeningTo(myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBorderERadio);
 
-		getListener().stopListeningTo(myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBorderCRadio);
 
-		getListener().stopListeningTo(myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBorderWRadio);
 
-		getListener().stopListeningTo(myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBorderSRadio);
 
-		getListener().stopListeningTo(myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myMyXYDataXSpinSpin);
 
-		getListener().stopListeningTo(myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myMyXYDataYSpinSpin);
 
-		getListener().stopListeningTo(myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myMyXYDataSizeXSpinSpin);
 
-		getListener().stopListeningTo(myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myMyXYDataSizeYSpinSpin);
 
-		getListener().stopListeningTo(myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox);
+		getListener().stopListeningTo(myGrabExcessHorizontalSpaceCheckbox);
 
-		getListener().stopListeningTo(myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox);
+		getListener().stopListeningTo(myGrabExcessVerticalSpaceCheckbox);
 
-		getListener().stopListeningTo(myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBEGINNINGRadio);
 
-		getListener().stopListeningTo(myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myCENTERRadio);
 
-		getListener().stopListeningTo(myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myENDRadio);
 
-		getListener().stopListeningTo(myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myFILLRadio);
 
-		getListener().stopListeningTo(myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myBEGINNING$1Radio);
 
-		getListener().stopListeningTo(myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myCENTER$1Radio);
 
-		getListener().stopListeningTo(myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myEND$1Radio);
 
-		getListener().stopListeningTo(myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio);
+		getListener().stopListeningTo(myFILL$1Radio);
 
-		getListener().stopListeningTo(myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myVerticalSpanSpin);
 
-		getListener().stopListeningTo(myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myHorizontalSpanSpin);
 
-		getListener().stopListeningTo(myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myDx$3Spin);
 
-		getListener().stopListeningTo(myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myDy$3Spin);
 
-		getListener().stopListeningTo(myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin);
+		getListener().stopListeningTo(myHorizontalIndentSpin);
 
-		getListener().stopListeningTo(myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText);
+		getListener().stopListeningTo(myBundleName$1Text);
 
-		getListener().stopListeningTo(myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText);
+		getListener().stopListeningTo(myQualifiedClassName$1Text);
 
 	}
 
@@ -1046,357 +970,165 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		{
 
 			{
-				{
-					myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
-				{
-					myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.setSelection(getModelHelper().getValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target));
-				}
+				myMyBorderLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyBorderLayoutRadioRadio(target));
+				myMyCustomLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyCustomLayoutRadioRadio(target));
+				myMyGridLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyGridLayoutRadioRadio(target));
+				myMyFlowLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyFlowLayoutRadioRadio(target));
+				myMyStackLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyStackLayoutRadioRadio(target));
+				myMyXYLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyXYLayoutRadioRadio(target));
+				myMyNoLayoutRadioRadio.setSelection(getModelHelper().getValueForMyMyNoLayoutRadioRadio(target));
 			}
 			{
 
-				boolean isMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible = getModelHelper()
-						.isVisibleMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(target);
-				if (myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.isExpanded() != isMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				boolean isMyLayoutBorderExpandGroupExpandableCompositeVisible = getModelHelper().isVisibleMyLayoutBorderExpandGroupExpandableComposite(target);
+				if (myLayoutBorderExpandGroupExpandableComposite.isExpanded() != isMyLayoutBorderExpandGroupExpandableCompositeVisible) {
 					needToRelayoutExpandBar = true;
 				}
 
-				myMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setExpanded(isMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible);
-				if (isMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				myLayoutBorderExpandGroupExpandableComposite.setExpanded(isMyLayoutBorderExpandGroupExpandableCompositeVisible);
+				if (isMyLayoutBorderExpandGroupExpandableCompositeVisible) {
 
 					{
+						myDxSpin.setSelection(getModelHelper().getValueForMyDxSpin(target));
+						myDySpin.setSelection(getModelHelper().getValueForMyDySpin(target));
+					}
+				}
+				boolean isMyLayoutFlowExpandGroupExpandableCompositeVisible = getModelHelper().isVisibleMyLayoutFlowExpandGroupExpandableComposite(target);
+				if (myLayoutFlowExpandGroupExpandableComposite.isExpanded() != isMyLayoutFlowExpandGroupExpandableCompositeVisible) {
+					needToRelayoutExpandBar = true;
+				}
+
+				myLayoutFlowExpandGroupExpandableComposite.setExpanded(isMyLayoutFlowExpandGroupExpandableCompositeVisible);
+				if (isMyLayoutFlowExpandGroupExpandableCompositeVisible) {
+
+					{
+						mySingleLineCheckbox.setSelection(getModelHelper().getValueForMySingleLineCheckbox(target));
+						myMinorSizeCheckbox.setSelection(getModelHelper().getValueForMyMinorSizeCheckbox(target));
+
 						{
-							myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper().getValueForMyDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(
-									target));
+							myMinorSpin.setSelection(getModelHelper().getValueForMyMinorSpin(target));
+							myMajorSpin.setSelection(getModelHelper().getValueForMyMajorSpin(target));
 						}
 						{
-							myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper().getValueForMyDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(
-									target));
+							myMinorTopELabel.setText("       ");
+							myMinorNRadio.setSelection(getModelHelper().getValueForMyMinorNRadio(target));
+							myMinorERadio.setSelection(getModelHelper().getValueForMyMinorERadio(target));
+							myMinorCRadio.setSelection(getModelHelper().getValueForMyMinorCRadio(target));
+							myMinorWRadio.setSelection(getModelHelper().getValueForMyMinorWRadio(target));
+							myMinorSRadio.setSelection(getModelHelper().getValueForMyMinorSRadio(target));
+						}
+						{
+							myMajorTopELabel.setText("       ");
+							myMajorNRadio.setSelection(getModelHelper().getValueForMyMajorNRadio(target));
+							myMajorERadio.setSelection(getModelHelper().getValueForMyMajorERadio(target));
+							myMajorCRadio.setSelection(getModelHelper().getValueForMyMajorCRadio(target));
+							myMajorWRadio.setSelection(getModelHelper().getValueForMyMajorWRadio(target));
+							myMajorSRadio.setSelection(getModelHelper().getValueForMyMajorSRadio(target));
 						}
 					}
 				}
-				boolean isMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible = getModelHelper().isVisibleMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(
-						target);
-				if (myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.isExpanded() != isMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				boolean isMyLayoutGridExpandGroupExpandableCompositeVisible = getModelHelper().isVisibleMyLayoutGridExpandGroupExpandableComposite(target);
+				if (myLayoutGridExpandGroupExpandableComposite.isExpanded() != isMyLayoutGridExpandGroupExpandableCompositeVisible) {
 					needToRelayoutExpandBar = true;
 				}
 
-				myMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setExpanded(isMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible);
-				if (isMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				myLayoutGridExpandGroupExpandableComposite.setExpanded(isMyLayoutGridExpandGroupExpandableCompositeVisible);
+				if (isMyLayoutGridExpandGroupExpandableCompositeVisible) {
 
 					{
+						myNumColumnsSpin.setSelection(getModelHelper().getValueForMyNumColumnsSpin(target));
+						myEqualWidthCheckbox.setSelection(getModelHelper().getValueForMyEqualWidthCheckbox(target));
+
 						{
-							mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.setSelection(getModelHelper()
-									.getValueForMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(target));
+							myDx$1Spin.setSelection(getModelHelper().getValueForMyDx$1Spin(target));
+							myDy$1Spin.setSelection(getModelHelper().getValueForMyDy$1Spin(target));
 						}
 						{
-							myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.setSelection(getModelHelper()
-									.getValueForMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(target));
-						}
-						{
-							{
-								myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-							{
-								myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-						}
-						{
-							{
-								String modelText = "       ";
-								if (modelText == null) {
-									modelText = EMPTY_STRING;
-								}
-								myMinorTopEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel.setText(modelText);
-							}
-							{
-								myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-						}
-						{
-							{
-								String modelText = "       ";
-								if (modelText == null) {
-									modelText = EMPTY_STRING;
-								}
-								myMajorTopEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupLabel.setText(modelText);
-							}
-							{
-								myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
-							{
-								myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.setSelection(getModelHelper()
-										.getValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target));
-							}
+							myDx$2Spin.setSelection(getModelHelper().getValueForMyDx$2Spin(target));
+							myDy$2Spin.setSelection(getModelHelper().getValueForMyDy$2Spin(target));
 						}
 					}
 				}
-				boolean isMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible = getModelHelper().isVisibleMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(
-						target);
-				if (myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.isExpanded() != isMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				boolean isMyLayoutCustomExpandGroupExpandableCompositeVisible = getModelHelper().isVisibleMyLayoutCustomExpandGroupExpandableComposite(target);
+				if (myLayoutCustomExpandGroupExpandableComposite.isExpanded() != isMyLayoutCustomExpandGroupExpandableCompositeVisible) {
 					needToRelayoutExpandBar = true;
 				}
 
-				myMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setExpanded(isMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible);
-				if (isMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
+				myLayoutCustomExpandGroupExpandableComposite.setExpanded(isMyLayoutCustomExpandGroupExpandableCompositeVisible);
+				if (isMyLayoutCustomExpandGroupExpandableCompositeVisible) {
 
 					{
-						{
-							myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-									.getValueForMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-						}
-						{
-							myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox.setSelection(getModelHelper()
-									.getValueForMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox(target));
-						}
-						{
-							{
-								myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-							{
-								myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-						}
-						{
-							{
-								myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-							{
-								myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.setSelection(getModelHelper()
-										.getValueForMyDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target));
-							}
-						}
-					}
-				}
-				boolean isMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible = getModelHelper()
-						.isVisibleMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(target);
-				if (myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.isExpanded() != isMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
-					needToRelayoutExpandBar = true;
-				}
-
-				myMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite.setExpanded(isMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible);
-				if (isMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeVisible) {
-
-					{
-						{
-							String modelText = getModelHelper().getValueForMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(target);
-							if (modelText == null) {
-								modelText = EMPTY_STRING;
-							}
-							myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.setText(modelText);
-						}
-						{
-							String modelText = getModelHelper().getValueForMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(target);
-							if (modelText == null) {
-								modelText = EMPTY_STRING;
-							}
-							myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.setText(modelText);
-						}
+						myBundleNameText.setText(getModelHelper().getValueForMyBundleNameText(target));
+						myQualifiedClassNameText.setText(getModelHelper().getValueForMyQualifiedClassNameText(target));
 					}
 				}
 			}
 		}
 		{
 
-			boolean isMyBorderLayoutDataGroupMyLayoutDataCompositeGroupVisible = getModelHelper().isVisibleMyBorderLayoutDataGroupMyLayoutDataCompositeGroup(target);
+			boolean isMyBorderLayoutDataGroupGroupVisible = getModelHelper().isVisibleMyBorderLayoutDataGroupGroup(target);
 
-			myBorderLayoutDataGroupMyLayoutDataCompositeGroup.setVisible(isMyBorderLayoutDataGroupMyLayoutDataCompositeGroupVisible);
-			if (isMyBorderLayoutDataGroupMyLayoutDataCompositeGroupVisible) {
+			myBorderLayoutDataGroupGroup.setVisible(isMyBorderLayoutDataGroupGroupVisible);
+			if (isMyBorderLayoutDataGroupGroupVisible) {
 
 				{
-					{
-						String modelText = "       ";
-						if (modelText == null) {
-							modelText = EMPTY_STRING;
-						}
-						myUpperEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeLabel.setText(modelText);
-					}
-					{
-						myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper().getValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(
-								target));
-					}
-					{
-						myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper().getValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(
-								target));
-					}
-					{
-						myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper().getValueForMyBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(
-								target));
-					}
-					{
-						myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper().getValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(
-								target));
-					}
-					{
-						myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper().getValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(
-								target));
-					}
+					myUpperELabel.setText("       ");
+					myBorderNRadio.setSelection(getModelHelper().getValueForMyBorderNRadio(target));
+					myBorderERadio.setSelection(getModelHelper().getValueForMyBorderERadio(target));
+					myBorderCRadio.setSelection(getModelHelper().getValueForMyBorderCRadio(target));
+					myBorderWRadio.setSelection(getModelHelper().getValueForMyBorderWRadio(target));
+					myBorderSRadio.setSelection(getModelHelper().getValueForMyBorderSRadio(target));
 				}
 			}
-			boolean isMyMyXYLayoutDataGroupMyLayoutDataCompositeGroupVisible = getModelHelper().isVisibleMyMyXYLayoutDataGroupMyLayoutDataCompositeGroup(target);
+			boolean isMyMyXYLayoutDataGroupGroupVisible = getModelHelper().isVisibleMyMyXYLayoutDataGroupGroup(target);
 
-			myMyXYLayoutDataGroupMyLayoutDataCompositeGroup.setVisible(isMyMyXYLayoutDataGroupMyLayoutDataCompositeGroupVisible);
-			if (isMyMyXYLayoutDataGroupMyLayoutDataCompositeGroupVisible) {
+			myMyXYLayoutDataGroupGroup.setVisible(isMyMyXYLayoutDataGroupGroupVisible);
+			if (isMyMyXYLayoutDataGroupGroupVisible) {
 
 				{
-					{
-						myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-					{
-						myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
+					myMyXYDataXSpinSpin.setSelection(getModelHelper().getValueForMyMyXYDataXSpinSpin(target));
+					myMyXYDataYSpinSpin.setSelection(getModelHelper().getValueForMyMyXYDataYSpinSpin(target));
 				}
 				{
-					{
-						myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-					{
-						myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
+					myMyXYDataSizeXSpinSpin.setSelection(getModelHelper().getValueForMyMyXYDataSizeXSpinSpin(target));
+					myMyXYDataSizeYSpinSpin.setSelection(getModelHelper().getValueForMyMyXYDataSizeYSpinSpin(target));
 				}
 			}
-			boolean isMyMyGridLayoutDataGroupMyLayoutDataCompositeGroupVisible = getModelHelper().isVisibleMyMyGridLayoutDataGroupMyLayoutDataCompositeGroup(target);
+			boolean isMyMyGridLayoutDataGroupGroupVisible = getModelHelper().isVisibleMyMyGridLayoutDataGroupGroup(target);
 
-			myMyGridLayoutDataGroupMyLayoutDataCompositeGroup.setVisible(isMyMyGridLayoutDataGroupMyLayoutDataCompositeGroupVisible);
-			if (isMyMyGridLayoutDataGroupMyLayoutDataCompositeGroupVisible) {
+			myMyGridLayoutDataGroupGroup.setVisible(isMyMyGridLayoutDataGroupGroupVisible);
+			if (isMyMyGridLayoutDataGroupGroupVisible) {
+				myGrabExcessHorizontalSpaceCheckbox.setSelection(getModelHelper().getValueForMyGrabExcessHorizontalSpaceCheckbox(target));
+				myGrabExcessVerticalSpaceCheckbox.setSelection(getModelHelper().getValueForMyGrabExcessVerticalSpaceCheckbox(target));
+
 				{
-					myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.setSelection(getModelHelper()
-							.getValueForMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(target));
+					myBEGINNINGRadio.setSelection(getModelHelper().getValueForMyBEGINNINGRadio(target));
+					myCENTERRadio.setSelection(getModelHelper().getValueForMyCENTERRadio(target));
+					myENDRadio.setSelection(getModelHelper().getValueForMyENDRadio(target));
+					myFILLRadio.setSelection(getModelHelper().getValueForMyFILLRadio(target));
 				}
 				{
-					myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.setSelection(getModelHelper()
-							.getValueForMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(target));
+					myBEGINNING$1Radio.setSelection(getModelHelper().getValueForMyBEGINNING$1Radio(target));
+					myCENTER$1Radio.setSelection(getModelHelper().getValueForMyCENTER$1Radio(target));
+					myEND$1Radio.setSelection(getModelHelper().getValueForMyEND$1Radio(target));
+					myFILL$1Radio.setSelection(getModelHelper().getValueForMyFILL$1Radio(target));
 				}
 				{
-					{
-						myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
+					myVerticalSpanSpin.setSelection(getModelHelper().getValueForMyVerticalSpanSpin(target));
+					myHorizontalSpanSpin.setSelection(getModelHelper().getValueForMyHorizontalSpanSpin(target));
 				}
 				{
-					{
-						myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
-					{
-						myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.setSelection(getModelHelper()
-								.getValueForMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target));
-					}
+					myDx$3Spin.setSelection(getModelHelper().getValueForMyDx$3Spin(target));
+					myDy$3Spin.setSelection(getModelHelper().getValueForMyDy$3Spin(target));
 				}
-				{
-					{
-						myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-					{
-						myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper()
-								.getValueForMyHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-				}
-				{
-					{
-						myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper().getValueForMyDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-					{
-						myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper().getValueForMyDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target));
-					}
-				}
-				{
-					myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin.setSelection(getModelHelper().getValueForMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target));
-				}
+				myHorizontalIndentSpin.setSelection(getModelHelper().getValueForMyHorizontalIndentSpin(target));
 			}
-			boolean isMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroupVisible = getModelHelper().isVisibleMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroup(target);
+			boolean isMyMyCustomLayoutDataGroupGroupVisible = getModelHelper().isVisibleMyMyCustomLayoutDataGroupGroup(target);
 
-			myMyCustomLayoutDataGroupMyLayoutDataCompositeGroup.setVisible(isMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroupVisible);
-			if (isMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroupVisible) {
-				{
-					String modelText = getModelHelper().getValueForMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(target);
-					if (modelText == null) {
-						modelText = EMPTY_STRING;
-					}
-					myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.setText(modelText);
-				}
-				{
-					String modelText = getModelHelper().getValueForMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(target);
-					if (modelText == null) {
-						modelText = EMPTY_STRING;
-					}
-					myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.setText(modelText);
-				}
+			myMyCustomLayoutDataGroupGroup.setVisible(isMyMyCustomLayoutDataGroupGroupVisible);
+			if (isMyMyCustomLayoutDataGroupGroupVisible) {
+				myBundleName$1Text.setText(getModelHelper().getValueForMyBundleName$1Text(target));
+				myQualifiedClassName$1Text.setText(getModelHelper().getValueForMyQualifiedClassName$1Text(target));
 			}
 		}
 		if (needToRelayoutExpandBar) {
@@ -1419,14 +1151,25 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public void applyChangesFrom(final Widget widget, int kind) {
-		String commandName = "Modifying model with ui data from " + widget.toString();
+	public void applyChangesFrom(final Widget widget, int kindP) {
+		final String commandName = "Modifying model with ui data from " + widget.toString();
+		final int kind = kindP; // just to overcome jmerge limitation
 		ArrayList commands = new ArrayList(getSavedSelection().size());
 		for (Iterator it = getSavedSelection().iterator(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof Layoutable) {
 				final Layoutable target = (Layoutable) next;
-				commands.add(createCommand(commandName, target, getModelModifierFor(target, widget, kind)));
+				final List files = Collections.singletonList(WorkspaceSynchronizer.getFile(target.eResource()));
+				AbstractTransactionalCommand command = new AbstractTransactionalCommand(getEditingDomain(), commandName, files) {
+
+					protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+						// XXX perhaps, should pass collection of targets instead of multiple commands?
+						applyModelModifier(target, widget, kind);
+						return CommandResult.newOKCommandResult();
+					}
+				};
+
+				commands.add(command);
 			}
 		}
 		executeAsCompositeCommand(commandName, commands);
@@ -1436,661 +1179,295 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public Runnable getModelModifierFor(final Layoutable target, final Widget widget, int kind) {
-		if (widget == myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio && myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin && myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin && myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox
-				&& mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = mySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.getSelection();
-					getModelHelper().setValueForMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox
-				&& myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox.getSelection();
-					getModelHelper().setValueForMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin
-				&& myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin
-				&& myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio
-				&& myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin && myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox
-				&& myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox.getSelection();
-					getModelHelper().setValueForMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin && myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin && myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin && myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin && myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin.getSelection();
-					getModelHelper().setValueForMyDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText
-				&& myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final String value = myBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.getText();
-					getModelHelper().setValueForMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(target, value);
-				}
-			};
-		}
-
-		if (widget == myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText
-				&& myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final String value = myQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText.getText();
-					getModelHelper().setValueForMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(target, value);
-				}
-			};
-		}
-
-		if (widget == myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio && myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio && myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio && myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio && myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio && myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin && myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin && myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin && myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin && myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox && myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.getSelection();
-					getModelHelper().setValueForMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox && myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox.getSelection();
-					getModelHelper().setValueForMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio && myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin && myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin && myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin && myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin && myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin && myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin.getSelection();
-					getModelHelper().setValueForMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText && myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final String value = myBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.getText();
-					getModelHelper().setValueForMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(target, value);
-				}
-			};
-		}
-
-		if (widget == myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText && myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final String value = myQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText.getText();
-					getModelHelper().setValueForMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(target, value);
-				}
-			};
-		}
-
-		// default:
-		return new Runnable() {
-
-			public void run() {
-				// does nothing
+	void applyModelModifier(final Layoutable target, final Widget widget, int kind) {
+		if (widget == myMyBorderLayoutRadioRadio && myMyBorderLayoutRadioRadio.isVisible()) {
+			if (myMyBorderLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyBorderLayoutRadioRadio(target, true);
 			}
-		};
+			return;
+		}
+		if (widget == myMyCustomLayoutRadioRadio && myMyCustomLayoutRadioRadio.isVisible()) {
+			if (myMyCustomLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyCustomLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyGridLayoutRadioRadio && myMyGridLayoutRadioRadio.isVisible()) {
+			if (myMyGridLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyGridLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyFlowLayoutRadioRadio && myMyFlowLayoutRadioRadio.isVisible()) {
+			if (myMyFlowLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyFlowLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyStackLayoutRadioRadio && myMyStackLayoutRadioRadio.isVisible()) {
+			if (myMyStackLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyStackLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyXYLayoutRadioRadio && myMyXYLayoutRadioRadio.isVisible()) {
+			if (myMyXYLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyXYLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyNoLayoutRadioRadio && myMyNoLayoutRadioRadio.isVisible()) {
+			if (myMyNoLayoutRadioRadio.getSelection()) {
+				getModelHelper().setValueForMyMyNoLayoutRadioRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myDxSpin && myDxSpin.isVisible()) {
+			getModelHelper().setValueForMyDxSpin(target, myDxSpin.getSelection());
+			return;
+		}
+		if (widget == myDySpin && myDySpin.isVisible()) {
+			getModelHelper().setValueForMyDySpin(target, myDySpin.getSelection());
+			return;
+		}
+		if (widget == mySingleLineCheckbox && mySingleLineCheckbox.isVisible()) {
+			getModelHelper().setValueForMySingleLineCheckbox(target, mySingleLineCheckbox.getSelection());
+			return;
+		}
+		if (widget == myMinorSizeCheckbox && myMinorSizeCheckbox.isVisible()) {
+			getModelHelper().setValueForMyMinorSizeCheckbox(target, myMinorSizeCheckbox.getSelection());
+			return;
+		}
+		if (widget == myMinorSpin && myMinorSpin.isVisible()) {
+			getModelHelper().setValueForMyMinorSpin(target, myMinorSpin.getSelection());
+			return;
+		}
+		if (widget == myMajorSpin && myMajorSpin.isVisible()) {
+			getModelHelper().setValueForMyMajorSpin(target, myMajorSpin.getSelection());
+			return;
+		}
+		if (widget == myMinorNRadio && myMinorNRadio.isVisible()) {
+			if (myMinorNRadio.getSelection()) {
+				getModelHelper().setValueForMyMinorNRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMinorERadio && myMinorERadio.isVisible()) {
+			if (myMinorERadio.getSelection()) {
+				getModelHelper().setValueForMyMinorERadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMinorCRadio && myMinorCRadio.isVisible()) {
+			if (myMinorCRadio.getSelection()) {
+				getModelHelper().setValueForMyMinorCRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMinorWRadio && myMinorWRadio.isVisible()) {
+			if (myMinorWRadio.getSelection()) {
+				getModelHelper().setValueForMyMinorWRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMinorSRadio && myMinorSRadio.isVisible()) {
+			if (myMinorSRadio.getSelection()) {
+				getModelHelper().setValueForMyMinorSRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMajorNRadio && myMajorNRadio.isVisible()) {
+			if (myMajorNRadio.getSelection()) {
+				getModelHelper().setValueForMyMajorNRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMajorERadio && myMajorERadio.isVisible()) {
+			if (myMajorERadio.getSelection()) {
+				getModelHelper().setValueForMyMajorERadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMajorCRadio && myMajorCRadio.isVisible()) {
+			if (myMajorCRadio.getSelection()) {
+				getModelHelper().setValueForMyMajorCRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMajorWRadio && myMajorWRadio.isVisible()) {
+			if (myMajorWRadio.getSelection()) {
+				getModelHelper().setValueForMyMajorWRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMajorSRadio && myMajorSRadio.isVisible()) {
+			if (myMajorSRadio.getSelection()) {
+				getModelHelper().setValueForMyMajorSRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myNumColumnsSpin && myNumColumnsSpin.isVisible()) {
+			getModelHelper().setValueForMyNumColumnsSpin(target, myNumColumnsSpin.getSelection());
+			return;
+		}
+		if (widget == myEqualWidthCheckbox && myEqualWidthCheckbox.isVisible()) {
+			getModelHelper().setValueForMyEqualWidthCheckbox(target, myEqualWidthCheckbox.getSelection());
+			return;
+		}
+		if (widget == myDx$1Spin && myDx$1Spin.isVisible()) {
+			getModelHelper().setValueForMyDx$1Spin(target, myDx$1Spin.getSelection());
+			return;
+		}
+		if (widget == myDy$1Spin && myDy$1Spin.isVisible()) {
+			getModelHelper().setValueForMyDy$1Spin(target, myDy$1Spin.getSelection());
+			return;
+		}
+		if (widget == myDx$2Spin && myDx$2Spin.isVisible()) {
+			getModelHelper().setValueForMyDx$2Spin(target, myDx$2Spin.getSelection());
+			return;
+		}
+		if (widget == myDy$2Spin && myDy$2Spin.isVisible()) {
+			getModelHelper().setValueForMyDy$2Spin(target, myDy$2Spin.getSelection());
+			return;
+		}
+		if (widget == myBundleNameText && myBundleNameText.isVisible()) {
+			getModelHelper().setValueForMyBundleNameText(target, myBundleNameText.getText());
+			return;
+		}
+		if (widget == myQualifiedClassNameText && myQualifiedClassNameText.isVisible()) {
+			getModelHelper().setValueForMyQualifiedClassNameText(target, myQualifiedClassNameText.getText());
+			return;
+		}
+		if (widget == myBorderNRadio && myBorderNRadio.isVisible()) {
+			if (myBorderNRadio.getSelection()) {
+				getModelHelper().setValueForMyBorderNRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myBorderERadio && myBorderERadio.isVisible()) {
+			if (myBorderERadio.getSelection()) {
+				getModelHelper().setValueForMyBorderERadio(target, true);
+			}
+			return;
+		}
+		if (widget == myBorderCRadio && myBorderCRadio.isVisible()) {
+			if (myBorderCRadio.getSelection()) {
+				getModelHelper().setValueForMyBorderCRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myBorderWRadio && myBorderWRadio.isVisible()) {
+			if (myBorderWRadio.getSelection()) {
+				getModelHelper().setValueForMyBorderWRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myBorderSRadio && myBorderSRadio.isVisible()) {
+			if (myBorderSRadio.getSelection()) {
+				getModelHelper().setValueForMyBorderSRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myMyXYDataXSpinSpin && myMyXYDataXSpinSpin.isVisible()) {
+			getModelHelper().setValueForMyMyXYDataXSpinSpin(target, myMyXYDataXSpinSpin.getSelection());
+			return;
+		}
+		if (widget == myMyXYDataYSpinSpin && myMyXYDataYSpinSpin.isVisible()) {
+			getModelHelper().setValueForMyMyXYDataYSpinSpin(target, myMyXYDataYSpinSpin.getSelection());
+			return;
+		}
+		if (widget == myMyXYDataSizeXSpinSpin && myMyXYDataSizeXSpinSpin.isVisible()) {
+			getModelHelper().setValueForMyMyXYDataSizeXSpinSpin(target, myMyXYDataSizeXSpinSpin.getSelection());
+			return;
+		}
+		if (widget == myMyXYDataSizeYSpinSpin && myMyXYDataSizeYSpinSpin.isVisible()) {
+			getModelHelper().setValueForMyMyXYDataSizeYSpinSpin(target, myMyXYDataSizeYSpinSpin.getSelection());
+			return;
+		}
+		if (widget == myGrabExcessHorizontalSpaceCheckbox && myGrabExcessHorizontalSpaceCheckbox.isVisible()) {
+			getModelHelper().setValueForMyGrabExcessHorizontalSpaceCheckbox(target, myGrabExcessHorizontalSpaceCheckbox.getSelection());
+			return;
+		}
+		if (widget == myGrabExcessVerticalSpaceCheckbox && myGrabExcessVerticalSpaceCheckbox.isVisible()) {
+			getModelHelper().setValueForMyGrabExcessVerticalSpaceCheckbox(target, myGrabExcessVerticalSpaceCheckbox.getSelection());
+			return;
+		}
+		if (widget == myBEGINNINGRadio && myBEGINNINGRadio.isVisible()) {
+			if (myBEGINNINGRadio.getSelection()) {
+				getModelHelper().setValueForMyBEGINNINGRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myCENTERRadio && myCENTERRadio.isVisible()) {
+			if (myCENTERRadio.getSelection()) {
+				getModelHelper().setValueForMyCENTERRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myENDRadio && myENDRadio.isVisible()) {
+			if (myENDRadio.getSelection()) {
+				getModelHelper().setValueForMyENDRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myFILLRadio && myFILLRadio.isVisible()) {
+			if (myFILLRadio.getSelection()) {
+				getModelHelper().setValueForMyFILLRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myBEGINNING$1Radio && myBEGINNING$1Radio.isVisible()) {
+			if (myBEGINNING$1Radio.getSelection()) {
+				getModelHelper().setValueForMyBEGINNING$1Radio(target, true);
+			}
+			return;
+		}
+		if (widget == myCENTER$1Radio && myCENTER$1Radio.isVisible()) {
+			if (myCENTER$1Radio.getSelection()) {
+				getModelHelper().setValueForMyCENTER$1Radio(target, true);
+			}
+			return;
+		}
+		if (widget == myEND$1Radio && myEND$1Radio.isVisible()) {
+			if (myEND$1Radio.getSelection()) {
+				getModelHelper().setValueForMyEND$1Radio(target, true);
+			}
+			return;
+		}
+		if (widget == myFILL$1Radio && myFILL$1Radio.isVisible()) {
+			if (myFILL$1Radio.getSelection()) {
+				getModelHelper().setValueForMyFILL$1Radio(target, true);
+			}
+			return;
+		}
+		if (widget == myVerticalSpanSpin && myVerticalSpanSpin.isVisible()) {
+			getModelHelper().setValueForMyVerticalSpanSpin(target, myVerticalSpanSpin.getSelection());
+			return;
+		}
+		if (widget == myHorizontalSpanSpin && myHorizontalSpanSpin.isVisible()) {
+			getModelHelper().setValueForMyHorizontalSpanSpin(target, myHorizontalSpanSpin.getSelection());
+			return;
+		}
+		if (widget == myDx$3Spin && myDx$3Spin.isVisible()) {
+			getModelHelper().setValueForMyDx$3Spin(target, myDx$3Spin.getSelection());
+			return;
+		}
+		if (widget == myDy$3Spin && myDy$3Spin.isVisible()) {
+			getModelHelper().setValueForMyDy$3Spin(target, myDy$3Spin.getSelection());
+			return;
+		}
+		if (widget == myHorizontalIndentSpin && myHorizontalIndentSpin.isVisible()) {
+			getModelHelper().setValueForMyHorizontalIndentSpin(target, myHorizontalIndentSpin.getSelection());
+			return;
+		}
+		if (widget == myBundleName$1Text && myBundleName$1Text.isVisible()) {
+			getModelHelper().setValueForMyBundleName$1Text(target, myBundleName$1Text.getText());
+			return;
+		}
+		if (widget == myQualifiedClassName$1Text && myQualifiedClassName$1Text.isVisible()) {
+			getModelHelper().setValueForMyQualifiedClassName$1Text(target, myQualifiedClassName$1Text.getText());
+			return;
+		}
 	}
 
 	/**
@@ -2209,86 +1586,86 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyBorderLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setLayoutDataToChildren(layoutable, GMFGraphFactory.eINSTANCE.createBorderLayoutData());
-			setValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyBorderLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyCustomLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setLayoutDataToChildren(layoutable, GMFGraphFactory.eINSTANCE.createCustomLayoutData());
-			setValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyCustomLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyGridLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setLayoutDataToChildren(layoutable, GMFGraphFactory.eINSTANCE.createGridLayoutData());
-			setValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyGridLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyFlowLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 
-			setValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyFlowLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyStackLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 
-			setValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyStackLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyXYLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setLayoutDataToChildren(layoutable, GMFGraphFactory.eINSTANCE.createXYLayoutData());
-			setValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyXYLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMyNoLayoutRadioRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 
-			setValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMyNoLayoutRadioRadioGen(layoutable, valueToSet);
 			GeneratedLayoutPropertySection.this.refresh();
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMinorNRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMinorNRadioGen(layoutable);
 			result = result && getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2296,19 +1673,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorNRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, true);
-			setValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMinorNRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMinorERadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMinorERadioGen(layoutable);
 			result = result && !getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2316,19 +1693,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorERadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, false);
-			setValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMinorERadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMinorWRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMinorWRadioGen(layoutable);
 			result = result && !getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2336,19 +1713,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorWRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, false);
-			setValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMinorWRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMinorSRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMinorSRadioGen(layoutable);
 			result = result && getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2356,19 +1733,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorSRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, true);
-			setValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMinorSRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMajorNRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMajorNRadioGen(layoutable);
 			result = result && getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2376,19 +1753,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorNRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, true);
-			setValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMajorNRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMajorERadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMajorERadioGen(layoutable);
 			result = result && !getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2396,19 +1773,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorERadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, false);
-			setValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMajorERadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMajorWRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMajorWRadioGen(layoutable);
 			result = result && !getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2416,19 +1793,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorWRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, false);
-			setValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMajorWRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMajorSRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable);
+			result = getValueForMyMajorSRadioGen(layoutable);
 			result = result && getFlowLayoutVerticalKind(layoutable);
 			return result;
 		}
@@ -2436,19 +1813,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorSRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setFlowLayoutVerticalKind(layoutable, true);
-			setValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(layoutable, valueToSet);
+			setValueForMyMajorSRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBorderNRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable);
+			result = getValueForMyBorderNRadioGen(layoutable);
 			result = result && getBorderLayoutDataVerticalKind(layoutable);
 			return result;
 		}
@@ -2456,19 +1833,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderNRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setBorderLayoutDataVerticalKind(layoutable, true);
-			setValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable, valueToSet);
+			setValueForMyBorderNRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBorderERadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable);
+			result = getValueForMyBorderERadioGen(layoutable);
 			result = result && !getBorderLayoutDataVerticalKind(layoutable);
 			return result;
 		}
@@ -2476,19 +1853,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderERadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setBorderLayoutDataVerticalKind(layoutable, false);
-			setValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable, valueToSet);
+			setValueForMyBorderERadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBorderWRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable);
+			result = getValueForMyBorderWRadioGen(layoutable);
 			result = result && !getBorderLayoutDataVerticalKind(layoutable);
 			return result;
 		}
@@ -2496,19 +1873,19 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderWRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setBorderLayoutDataVerticalKind(layoutable, false);
-			setValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable, valueToSet);
+			setValueForMyBorderWRadioGen(layoutable, valueToSet);
 		}
 
 		/**
 		 * @generated NOT
 		 */
-		public boolean getValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBorderSRadio(Layoutable layoutable) {
 			boolean result;
-			result = getValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable);
+			result = getValueForMyBorderSRadioGen(layoutable);
 			result = result && getBorderLayoutDataVerticalKind(layoutable);
 			return result;
 		}
@@ -2516,11 +1893,11 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated NOT
 		 */
-		public void setValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderSRadio(Layoutable layoutable, boolean value) {
 			boolean valueToSet;
 			valueToSet = value;
 			setBorderLayoutDataVerticalKind(layoutable, true);
-			setValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(layoutable, valueToSet);
+			setValueForMyBorderSRadioGen(layoutable, valueToSet);
 		}
 
 		/*############################ end additions ############################*/
@@ -2535,7 +1912,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyBorderLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2549,24 +1926,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			BorderLayout newInstance = GMFGraphFactory.eINSTANCE.createBorderLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyBorderLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createBorderLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyBorderLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyBorderLayoutRadioRadioFromMetamodel() {
 			return "BorderLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyCustomLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2580,24 +1955,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			CustomLayout newInstance = GMFGraphFactory.eINSTANCE.createCustomLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyCustomLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createCustomLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyCustomLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyCustomLayoutRadioRadioFromMetamodel() {
 			return "CustomLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyGridLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2611,24 +1984,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			GridLayout newInstance = GMFGraphFactory.eINSTANCE.createGridLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyGridLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createGridLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyGridLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyGridLayoutRadioRadioFromMetamodel() {
 			return "GridLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyFlowLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2642,24 +2013,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			FlowLayout newInstance = GMFGraphFactory.eINSTANCE.createFlowLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyFlowLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createFlowLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyFlowLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyFlowLayoutRadioRadioFromMetamodel() {
 			return "FlowLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyStackLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2673,24 +2042,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			StackLayout newInstance = GMFGraphFactory.eINSTANCE.createStackLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyStackLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createStackLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyStackLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyStackLayoutRadioRadioFromMetamodel() {
 			return "StackLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyXYLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2704,24 +2071,22 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
-			XYLayout newInstance = GMFGraphFactory.eINSTANCE.createXYLayout();
-			layoutable.setLayout(newInstance);
+		public void setValueForMyMyXYLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
+			layoutable.setLayout(GMFGraphFactory.eINSTANCE.createXYLayout());
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyXYLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioFromMetamodel() {
+		public String getNameMyMyXYLayoutRadioRadioFromMetamodel() {
 			return "XYLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMyNoLayoutRadioRadio(Layoutable layoutable) {
 			boolean value = false;
 
 			Layout layout = layoutable.getLayout();
@@ -2733,8 +2098,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyNoLayoutRadioMyLayoutKindGroupMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
-
+		public void setValueForMyMyNoLayoutRadioRadioGen(Layoutable layoutable, boolean value) {
 			layoutable.setLayout(null);
 
 		}
@@ -2742,7 +2106,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(Layoutable targetVar) {
+		public boolean isVisibleMyLayoutBorderExpandGroupExpandableComposite(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayout() != null) {
 				Layout layout = targetVar.getLayout();
@@ -2756,21 +2120,21 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel() {
+		public String getNameMyLayoutBorderExpandGroupExpandableCompositeFromMetamodel() {
 			return "BorderLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel() {
+		public String getNameMyBorderParamsGroupFromMetamodel() {
 			return "Spacing";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDxSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2792,7 +2156,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDxSpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDxSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2803,7 +2167,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (borderLayout.getSpacing() == null) {
 						borderLayout.setSpacing(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (borderLayout.getSpacing() != null) {
 						Dimension dimension = borderLayout.getSpacing();
 						dimension.setDx(value);
@@ -2819,7 +2182,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDySpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2841,7 +2204,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDySpacingMyLayoutBorderExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDySpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2852,7 +2215,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (borderLayout.getSpacing() == null) {
 						borderLayout.setSpacing(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (borderLayout.getSpacing() != null) {
 						Dimension dimension = borderLayout.getSpacing();
 						dimension.setDy(value);
@@ -2868,7 +2230,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(Layoutable targetVar) {
+		public boolean isVisibleMyLayoutFlowExpandGroupExpandableComposite(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayout() != null) {
 				Layout layout = targetVar.getLayout();
@@ -2882,14 +2244,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel() {
+		public String getNameMyLayoutFlowExpandGroupExpandableCompositeFromMetamodel() {
 			return "FlowLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable) {
+		public boolean getValueForMySingleLineCheckbox(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2907,7 +2269,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable, boolean value) {
+		public void setValueForMySingleLineCheckbox(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2925,14 +2287,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMySingleLineLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel() {
+		public String getNameMySingleLineCheckboxFromMetamodel() {
 			return "ForceSingleLine";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable) {
+		public boolean getValueForMyMinorSizeCheckbox(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2950,7 +2312,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorSizeCheckbox(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2968,14 +2330,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMinorSizeLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel() {
+		public String getNameMyMinorSizeCheckboxFromMetamodel() {
 			return "MatchMinorSize";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyMinorSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -2993,7 +2355,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMinorSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3011,7 +2373,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyMajorSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3029,7 +2391,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorSpacingsLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMajorSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3047,14 +2409,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel() {
+		public String getNameMyMinorAlignGroupFromMetamodel() {
 			return "MinorAlignment";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMinorNRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3076,14 +2438,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorNMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorNRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMinorAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3095,7 +2456,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMinorERadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3117,14 +2478,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorEMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorERadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMinorAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3136,7 +2496,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMinorCRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3158,14 +2518,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorCMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorCRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMinorAlignment(Alignment.CENTER_LITERAL);
 
 				}
@@ -3177,7 +2536,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMinorWRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3199,14 +2558,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorWMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorWRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMinorAlignment(Alignment.END_LITERAL);
 
 				}
@@ -3218,7 +2576,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMinorSRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3240,14 +2598,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMinorSMinorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMinorSRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMinorAlignment(Alignment.END_LITERAL);
 
 				}
@@ -3259,14 +2616,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel() {
+		public String getNameMyMajorAlignGroupFromMetamodel() {
 			return "MajorAlignment";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMajorNRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3288,14 +2645,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorNMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorNRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMajorAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3307,7 +2663,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMajorERadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3329,14 +2685,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorEMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorERadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMajorAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3348,7 +2703,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable) {
+		public boolean getValueForMyMajorCRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3370,14 +2725,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorCMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorCRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMajorAlignment(Alignment.CENTER_LITERAL);
 
 				}
@@ -3389,7 +2743,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMajorWRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3411,14 +2765,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorWMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorWRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMajorAlignment(Alignment.END_LITERAL);
 
 				}
@@ -3430,7 +2783,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyMajorSRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3452,14 +2805,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMajorSMajorAlignLayoutParametersMyLayoutFlowExpandGroupMyExpandBarMyLayoutGroupRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyMajorSRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
 
 				if (layout instanceof FlowLayout) {
 					FlowLayout flowLayout = ((FlowLayout) layout);
-
 					flowLayout.setMajorAlignment(Alignment.END_LITERAL);
 
 				}
@@ -3471,7 +2823,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(Layoutable targetVar) {
+		public boolean isVisibleMyLayoutGridExpandGroupExpandableComposite(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayout() != null) {
 				Layout layout = targetVar.getLayout();
@@ -3485,14 +2837,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel() {
+		public String getNameMyLayoutGridExpandGroupExpandableCompositeFromMetamodel() {
 			return "GridLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyNumColumnsSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3510,7 +2862,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyNumColumnsSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3528,14 +2880,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyNumColumnsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpinFromMetamodel() {
+		public String getNameMyNumColumnsSpinFromMetamodel() {
 			return "NumColumns";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable) {
+		public boolean getValueForMyEqualWidthCheckbox(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3553,7 +2905,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckbox(Layoutable layoutable, boolean value) {
+		public void setValueForMyEqualWidthCheckbox(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3571,21 +2923,21 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyEqualWidthLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupCheckboxFromMetamodel() {
+		public String getNameMyEqualWidthCheckboxFromMetamodel() {
 			return "EqualWidth";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel() {
+		public String getNameMyMarginsGroupFromMetamodel() {
 			return "Margins";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDx$1Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3607,7 +2959,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDxMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDx$1Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3618,7 +2970,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayout.getMargins() == null) {
 						gridLayout.setMargins(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayout.getMargins() != null) {
 						Dimension dimension = gridLayout.getMargins();
 						dimension.setDx(value);
@@ -3634,7 +2985,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDy$1Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3656,7 +3007,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDyMarginsLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDy$1Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3667,7 +3018,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayout.getMargins() == null) {
 						gridLayout.setMargins(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayout.getMargins() != null) {
 						Dimension dimension = gridLayout.getMargins();
 						dimension.setDy(value);
@@ -3683,14 +3033,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupGroupFromMetamodel() {
+		public String getNameMySpacingGroupFromMetamodel() {
 			return "Spacing";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDx$2Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3712,7 +3062,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDxSpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDx$2Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3723,7 +3073,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayout.getSpacing() == null) {
 						gridLayout.setSpacing(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayout.getSpacing() != null) {
 						Dimension dimension = gridLayout.getSpacing();
 						dimension.setDx(value);
@@ -3739,7 +3088,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable) {
+		public int getValueForMyDy$2Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3761,7 +3110,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDySpacingLayoutParametersMyLayoutGridExpandGroupMyExpandBarMyLayoutGroupSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDy$2Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3772,7 +3121,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayout.getSpacing() == null) {
 						gridLayout.setSpacing(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayout.getSpacing() != null) {
 						Dimension dimension = gridLayout.getSpacing();
 						dimension.setDy(value);
@@ -3788,7 +3136,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableComposite(Layoutable targetVar) {
+		public boolean isVisibleMyLayoutCustomExpandGroupExpandableComposite(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayout() != null) {
 				Layout layout = targetVar.getLayout();
@@ -3802,14 +3150,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupExpandableCompositeFromMetamodel() {
+		public String getNameMyLayoutCustomExpandGroupExpandableCompositeFromMetamodel() {
 			return "CustomLayout";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getValueForMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(Layoutable layoutable) {
+		public String getValueForMyBundleNameText(Layoutable layoutable) {
 			String value = EMPTY_STRING;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3821,13 +3169,16 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 			}
 
-			return value;
+			if (value != null) {
+				return value;
+			}
+			return EMPTY_STRING;
 		}
 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(Layoutable layoutable, String value) {
+		public void setValueForMyBundleNameText(Layoutable layoutable, String value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3845,14 +3196,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyBundleNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupTextFromMetamodel() {
+		public String getNameMyBundleNameTextFromMetamodel() {
 			return "BundleName";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getValueForMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(Layoutable layoutable) {
+		public String getValueForMyQualifiedClassNameText(Layoutable layoutable) {
 			String value = EMPTY_STRING;
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3864,13 +3215,16 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 			}
 
-			return value;
+			if (value != null) {
+				return value;
+			}
+			return EMPTY_STRING;
 		}
 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupText(Layoutable layoutable, String value) {
+		public void setValueForMyQualifiedClassNameText(Layoutable layoutable, String value) {
 
 			if (layoutable.getLayout() != null) {
 				Layout layout = layoutable.getLayout();
@@ -3888,14 +3242,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyQualifiedClassNameLayoutParametersMyLayoutCustomExpandGroupMyExpandBarMyLayoutGroupTextFromMetamodel() {
+		public String getNameMyQualifiedClassNameTextFromMetamodel() {
 			return "QualifiedClassName";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyBorderLayoutDataGroupMyLayoutDataCompositeGroup(Layoutable targetVar) {
+		public boolean isVisibleMyBorderLayoutDataGroupGroup(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayoutData() != null) {
 				LayoutData layoutData = targetVar.getLayoutData();
@@ -3909,14 +3263,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyBorderLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyBorderLayoutDataGroupGroupFromMetamodel() {
 			return "BorderLayoutData";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyBorderNRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -3938,14 +3292,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBorderNWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderNRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-
 					borderLayoutData.setAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3957,7 +3310,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyBorderERadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -3979,14 +3332,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBorderEWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderERadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-
 					borderLayoutData.setAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -3998,7 +3350,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBorderCRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4020,14 +3372,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBorderCWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderCRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-
 					borderLayoutData.setAlignment(Alignment.CENTER_LITERAL);
 
 				}
@@ -4039,7 +3390,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyBorderWRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4061,14 +3412,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBorderWWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderWRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-
 					borderLayoutData.setAlignment(Alignment.END_LITERAL);
 
 				}
@@ -4080,7 +3430,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable) {
+		public boolean getValueForMyBorderSRadioGen(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4102,14 +3452,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBorderSWorldPartsBorderLayoutDataGroupMyLayoutDataCompositeRadioGen(Layoutable layoutable, boolean value) {
+		public void setValueForMyBorderSRadioGen(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof BorderLayoutData) {
 					BorderLayoutData borderLayoutData = ((BorderLayoutData) layoutData);
-
 					borderLayoutData.setAlignment(Alignment.END_LITERAL);
 
 				}
@@ -4121,7 +3470,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyXYLayoutDataGroupMyLayoutDataCompositeGroup(Layoutable targetVar) {
+		public boolean isVisibleMyMyXYLayoutDataGroupGroup(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayoutData() != null) {
 				LayoutData layoutData = targetVar.getLayoutData();
@@ -4135,14 +3484,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyXYLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyMyXYLayoutDataGroupGroupFromMetamodel() {
 			return "XYLayoutData";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyMyXYDataXSpinSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4164,7 +3513,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMyXYDataXSpinSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4175,7 +3524,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (xYLayoutData.getTopLeft() == null) {
 						xYLayoutData.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
 					}
-
 					if (xYLayoutData.getTopLeft() != null) {
 						Point point = xYLayoutData.getTopLeft();
 						point.setX(value);
@@ -4191,14 +3539,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyXYDataXSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel() {
+		public String getNameMyMyXYDataXSpinSpinFromMetamodel() {
 			return "X";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyMyXYDataYSpinSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4220,7 +3568,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMyXYDataYSpinSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4231,7 +3579,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (xYLayoutData.getTopLeft() == null) {
 						xYLayoutData.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
 					}
-
 					if (xYLayoutData.getTopLeft() != null) {
 						Point point = xYLayoutData.getTopLeft();
 						point.setY(value);
@@ -4247,14 +3594,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyXYDataYSpinMyXYDataTopLeftGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel() {
+		public String getNameMyMyXYDataYSpinSpinFromMetamodel() {
 			return "Y";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyMyXYDataSizeXSpinSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4276,7 +3623,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyXYDataSizeXSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMyXYDataSizeXSpinSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4287,7 +3634,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (xYLayoutData.getSize() == null) {
 						xYLayoutData.setSize(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (xYLayoutData.getSize() != null) {
 						Dimension dimension = xYLayoutData.getSize();
 						dimension.setDx(value);
@@ -4303,7 +3649,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyMyXYDataSizeYSpinSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4325,7 +3671,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyMyXYDataSizeYSpinMyXYDataSizeGroupMyXYLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyMyXYDataSizeYSpinSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4336,7 +3682,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (xYLayoutData.getSize() == null) {
 						xYLayoutData.setSize(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (xYLayoutData.getSize() != null) {
 						Dimension dimension = xYLayoutData.getSize();
 						dimension.setDy(value);
@@ -4352,7 +3697,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyGridLayoutDataGroupMyLayoutDataCompositeGroup(Layoutable targetVar) {
+		public boolean isVisibleMyMyGridLayoutDataGroupGroup(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayoutData() != null) {
 				LayoutData layoutData = targetVar.getLayoutData();
@@ -4366,14 +3711,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyMyGridLayoutDataGroupGroupFromMetamodel() {
 			return "GridLayoutData";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(Layoutable layoutable) {
+		public boolean getValueForMyGrabExcessHorizontalSpaceCheckbox(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4391,7 +3736,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(Layoutable layoutable, boolean value) {
+		public void setValueForMyGrabExcessHorizontalSpaceCheckbox(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4409,14 +3754,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyGrabExcessHorizontalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckboxFromMetamodel() {
+		public String getNameMyGrabExcessHorizontalSpaceCheckboxFromMetamodel() {
 			return "GrabExcessHorizontalSpace";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(Layoutable layoutable) {
+		public boolean getValueForMyGrabExcessVerticalSpaceCheckbox(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4434,7 +3779,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckbox(Layoutable layoutable, boolean value) {
+		public void setValueForMyGrabExcessVerticalSpaceCheckbox(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4452,21 +3797,21 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyGrabExcessVerticalSpaceMyGridLayoutDataGroupMyLayoutDataCompositeCheckboxFromMetamodel() {
+		public String getNameMyGrabExcessVerticalSpaceCheckboxFromMetamodel() {
 			return "GrabExcessVerticalSpace";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyVerticalAlignmentGroupFromMetamodel() {
 			return "VerticalAlignment";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBEGINNINGRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4488,14 +3833,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBEGINNINGRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setVerticalAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -4507,14 +3851,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyBEGINNINGVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyBEGINNINGRadioFromMetamodel() {
 			return "Beginning";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyCENTERRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4536,14 +3880,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyCENTERRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setVerticalAlignment(Alignment.CENTER_LITERAL);
 
 				}
@@ -4555,14 +3898,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyCENTERVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyCENTERRadioFromMetamodel() {
 			return "Center";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyENDRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4584,14 +3927,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyENDRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setVerticalAlignment(Alignment.END_LITERAL);
 
 				}
@@ -4603,14 +3945,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyENDVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyENDRadioFromMetamodel() {
 			return "End";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyFILLRadio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4632,14 +3974,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyFILLRadio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setVerticalAlignment(Alignment.FILL_LITERAL);
 
 				}
@@ -4651,21 +3992,21 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyFILLVerticalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyFILLRadioFromMetamodel() {
 			return "Fill";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getNameMyHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyHorizontalAlignmentGroupFromMetamodel() {
 			return "HorizontalAlignment";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyBEGINNING$1Radio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4687,14 +4028,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyBEGINNING$1Radio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setHorizontalAlignment(Alignment.BEGINNING_LITERAL);
 
 				}
@@ -4706,14 +4046,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyBEGINNINGHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyBEGINNING$1RadioFromMetamodel() {
 			return "Beginning";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyCENTER$1Radio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4735,14 +4075,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyCENTER$1Radio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setHorizontalAlignment(Alignment.CENTER_LITERAL);
 
 				}
@@ -4754,14 +4093,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyCENTERHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyCENTER$1RadioFromMetamodel() {
 			return "Center";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyEND$1Radio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4783,14 +4122,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyEND$1Radio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setHorizontalAlignment(Alignment.END_LITERAL);
 
 				}
@@ -4802,14 +4140,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyENDHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyEND$1RadioFromMetamodel() {
 			return "End";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable) {
+		public boolean getValueForMyFILL$1Radio(Layoutable layoutable) {
 			boolean value = false;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4831,14 +4169,13 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadio(Layoutable layoutable, boolean value) {
+		public void setValueForMyFILL$1Radio(Layoutable layoutable, boolean value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
 
 				if (layoutData instanceof GridLayoutData) {
 					GridLayoutData gridLayoutData = ((GridLayoutData) layoutData);
-
 					gridLayoutData.setHorizontalAlignment(Alignment.FILL_LITERAL);
 
 				}
@@ -4850,14 +4187,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyFILLHorizontalAlignmentMyGridLayoutDataGroupMyLayoutDataCompositeRadioFromMetamodel() {
+		public String getNameMyFILL$1RadioFromMetamodel() {
 			return "Fill";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyVerticalSpanSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4875,7 +4212,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyVerticalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyVerticalSpanSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4893,7 +4230,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyHorizontalSpanSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4911,7 +4248,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyHorizontalSpanSpanningsMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyHorizontalSpanSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4929,14 +4266,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMySizeHintGroupFromMetamodel() {
 			return "SizeHint";
 		}
 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyDx$3Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4958,7 +4295,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDxSizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDx$3Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -4969,7 +4306,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayoutData.getSizeHint() == null) {
 						gridLayoutData.setSizeHint(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayoutData.getSizeHint() != null) {
 						Dimension dimension = gridLayoutData.getSizeHint();
 						dimension.setDx(value);
@@ -4985,7 +4321,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyDy$3Spin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5007,7 +4343,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyDySizeHintMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyDy$3Spin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5018,7 +4354,6 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 					if (gridLayoutData.getSizeHint() == null) {
 						gridLayoutData.setSizeHint(GMFGraphFactory.eINSTANCE.createDimension());
 					}
-
 					if (gridLayoutData.getSizeHint() != null) {
 						Dimension dimension = gridLayoutData.getSizeHint();
 						dimension.setDy(value);
@@ -5034,7 +4369,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable) {
+		public int getValueForMyHorizontalIndentSpin(Layoutable layoutable) {
 			int value = 0;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5052,7 +4387,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpin(Layoutable layoutable, int value) {
+		public void setValueForMyHorizontalIndentSpin(Layoutable layoutable, int value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5070,14 +4405,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyHorizontalIndentMyGridLayoutDataGroupMyLayoutDataCompositeSpinFromMetamodel() {
+		public String getNameMyHorizontalIndentSpinFromMetamodel() {
 			return "HorizontalIndent";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean isVisibleMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroup(Layoutable targetVar) {
+		public boolean isVisibleMyMyCustomLayoutDataGroupGroup(Layoutable targetVar) {
 			boolean value = false;
 			if (targetVar.getLayoutData() != null) {
 				LayoutData layoutData = targetVar.getLayoutData();
@@ -5091,14 +4426,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyMyCustomLayoutDataGroupMyLayoutDataCompositeGroupFromMetamodel() {
+		public String getNameMyMyCustomLayoutDataGroupGroupFromMetamodel() {
 			return "CustomLayoutData";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getValueForMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(Layoutable layoutable) {
+		public String getValueForMyBundleName$1Text(Layoutable layoutable) {
 			String value = EMPTY_STRING;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5110,13 +4445,16 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 			}
 
-			return value;
+			if (value != null) {
+				return value;
+			}
+			return EMPTY_STRING;
 		}
 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(Layoutable layoutable, String value) {
+		public void setValueForMyBundleName$1Text(Layoutable layoutable, String value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5134,14 +4472,14 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyBundleNameMyCustomLayoutDataGroupMyLayoutDataCompositeTextFromMetamodel() {
+		public String getNameMyBundleName$1TextFromMetamodel() {
 			return "BundleName";
 		}
 
 		/**
 		 * @generated
 		 */
-		public String getValueForMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(Layoutable layoutable) {
+		public String getValueForMyQualifiedClassName$1Text(Layoutable layoutable) {
 			String value = EMPTY_STRING;
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5153,13 +4491,16 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 
 			}
 
-			return value;
+			if (value != null) {
+				return value;
+			}
+			return EMPTY_STRING;
 		}
 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeText(Layoutable layoutable, String value) {
+		public void setValueForMyQualifiedClassName$1Text(Layoutable layoutable, String value) {
 
 			if (layoutable.getLayoutData() != null) {
 				LayoutData layoutData = layoutable.getLayoutData();
@@ -5177,7 +4518,7 @@ public class GeneratedLayoutPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyQualifiedClassNameMyCustomLayoutDataGroupMyLayoutDataCompositeTextFromMetamodel() {
+		public String getNameMyQualifiedClassName$1TextFromMetamodel() {
 			return "QualifiedClassName";
 		}
 

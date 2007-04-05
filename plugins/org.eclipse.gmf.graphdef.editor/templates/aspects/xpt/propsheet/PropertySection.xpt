@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Anna Karjakina (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - cleaned and simplified outcome 
  */
 «IMPORT "http://www.eclipse.org/gmf/2007/GmfGraph/PropSheet"»
 «IMPORT "http://www.eclipse.org/gmf/2005/GraphicalDefinition"»
@@ -177,6 +178,7 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 			if (next instanceof «getTarget().getQualifiedInterfaceName()») {
 				final «getTarget().getQualifiedInterfaceName()» target = («getTarget().getQualifiedInterfaceName()»)next;
 				executeAsReadAction(new Runnable() {
+
 					public void run() {
 						updateFromModel(target);
 					}
@@ -198,6 +200,7 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 	«EXPAND xpt::Common::generatedMemberComment»
 	public ModelUpdater createModelUpdater() {
 		return new ModelUpdater() {
+
 			public void applyChangesFrom(org.eclipse.swt.widgets.Widget widget, int kind) {
 				«genTab.className».this.applyChangesFrom(widget, kind);
 			}
@@ -205,14 +208,25 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public void applyChangesFrom(final org.eclipse.swt.widgets.Widget widget, int kind) {
-		String commandName = "Modifying model with ui data from "+widget.toString();
+	public void applyChangesFrom(final org.eclipse.swt.widgets.Widget widget, final int kindP) {
+		final String commandName = "Modifying model with ui data from "+widget.toString();
+		final int kind = kindP; // just to overcome jmerge limitation
 		java.util.ArrayList commands = new java.util.ArrayList(getSavedSelection().size());
 		for (java.util.Iterator it = getSavedSelection().iterator(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof «getTarget().getQualifiedInterfaceName()») {
 				final «getTarget().getQualifiedInterfaceName()» target = («getTarget().getQualifiedInterfaceName()»)next;
-				commands.add(createCommand(commandName, target, getModelModifierFor(target, widget, kind)));
+				final java.util.List files = java.util.Collections.singletonList(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(target.eResource()));
+				org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(getEditingDomain(), commandName, files) {
+
+		            protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+		            	// XXX perhaps, should pass collection of targets instead of multiple commands?
+		            	applyModelModifier(target, widget, kind);
+		            	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+					}
+				};
+
+				commands.add(command);
 			}
 		}
 		executeAsCompositeCommand(commandName, commands);
@@ -220,14 +234,8 @@ private static class SingleDescriptorPropertySource implements org.eclipse.emf.e
 	}
 	
 	«EXPAND xpt::Common::generatedMemberComment»
-	public Runnable getModelModifierFor(final «getTarget().getQualifiedInterfaceName()» target, final org.eclipse.swt.widgets.Widget widget, int kind) {
-		«EXPAND wrapModelHelperWithRunnable("target", "widget") FOREACH contents-»
-		// default:
-		return new Runnable() {
-			public void run() {
-				// does nothing
-			}
-		};
+	void applyModelModifier(final «getTarget().getQualifiedInterfaceName()» target, final org.eclipse.swt.widgets.Widget widget, int kind) {
+		«EXPAND applyModelChangesHelper("target", "widget") FOREACH contents-»
 	}
 
 
@@ -417,20 +425,17 @@ null, null, null, null, false, false, «lowermost», «rightmost»
 getListener().stopListeningTo(«name()»);
 «ENDDEFINE»
 
-«DEFINE wrapModelHelperWithRunnable(String modelVar, String widgetVar) FOR propsheet::Sectionable-»
+«DEFINE applyModelChangesHelper(String modelVar, String widgetVar) FOR propsheet::Sectionable-»
 «IF null != getModelElement()-»
 if («widgetVar» == «name()» && «name()».isVisible()) {
-	return new Runnable() {
-		public void run() {
-			«EXPAND applyChanges(modelVar, widgetVar)-»
-		}
-	};
+	«EXPAND applyChanges(modelVar, widgetVar)-»
+	return;
 }
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE wrapModelHelperWithRunnable(String modelVar, String widgetVar) FOR propsheet::Group-»
-«EXPAND wrapModelHelperWithRunnable(modelVar, widgetVar) FOREACH contents-»«ENDDEFINE»
+«DEFINE applyModelChangesHelper(String modelVar, String widgetVar) FOR propsheet::Group-»
+«EXPAND applyModelChangesHelper(modelVar, widgetVar) FOREACH contents-»«ENDDEFINE»
 
 «DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Sectionable-»
 «ERROR "Cannot make appliance of changes for Abstract control"»
@@ -444,25 +449,27 @@ if («widgetVar» == «name()» && «name()».isVisible()) {
 «ENDDEFINE»
 
 «DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Radio-»
-final boolean value = «name()».getSelection();
-if (value) {
-	«EXPAND callSetterForModelProperty(modelVar, "value")»;
+if («name()».getSelection()) {
+	«EXPAND callSetterForModelProperty(modelVar, "true")»;
 }
 «ENDDEFINE»
 
 «DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Checkbox-»
-final boolean value = «name()».getSelection();
-«EXPAND callSetterForModelProperty(modelVar, "value")»;
+«LET name() + ".getSelection()" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::Spin-»
-final int value = «name()».getSelection();
-«EXPAND callSetterForModelProperty(modelVar, "value")»;
+«LET name() + ".getSelection()" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE applyChanges(String modelVar, String widgetVar) FOR propsheet::TextField-»
-final String value = «name()».getText();
-«EXPAND callSetterForModelProperty(modelVar, "value")»;
+«LET name() + ".getText()" AS value-»
+«EXPAND callSetterForModelProperty(modelVar, value)»;
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE callSetterForModelProperty(String targetVar, String valueVar) FOR propsheet::Sectionable»getModelHelper().setValueFor«name().toFirstUpper()»(«targetVar», «valueVar»)«ENDDEFINE»
@@ -474,9 +481,8 @@ final String value = «name()».getText();
 «DEFINE callStringsAccessor FOR propsheet::Labeled»getModelHelper().getName«name().toFirstUpper()»FromMetamodel()«ENDDEFINE»
 
 «DEFINE updateFromModel(String targetVar) FOR propsheet::Sectionable-»
-{
 	«EXPAND updateUIValue(targetVar)-»
-}«ENDDEFINE»
+«ENDDEFINE»
 
 «DEFINE updateFromModel(String targetVar) FOR propsheet::Group»
 «IF isVisibleOnlyForTargets()-»
@@ -512,20 +518,12 @@ if (is«name().toFirstUpper()»Visible)«ENDIF» {
 
 «DEFINE updateUIValue(String targetVar) FOR propsheet::TextField-»
 «IF null != modelElement-»
-String modelText = «EXPAND callGetterForModelProperty(targetVar)»;
-if (modelText == null) {
-	modelText = EMPTY_STRING;
-}
-«name()».setText(modelText);«ENDIF»
+«name()».setText(«EXPAND callGetterForModelProperty(targetVar)»);«ENDIF»
 «ENDDEFINE»
 
 «DEFINE updateUIValue(String targetVar) FOR propsheet::Label-»
 «IF createLabel()-»
-String modelText = «EXPAND createLabel»;
-if (modelText == null) {
-	modelText = EMPTY_STRING;
-}
-«name()».setText(modelText);«ENDIF»
+«name()».setText(«EXPAND createLabel»);«ENDIF»
 «ENDDEFINE»
 
 «DEFINE updateUIValue(String targetVar) FOR propsheet::Sectionable»
@@ -648,7 +646,10 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 public String getValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCustomPropertySection().getTarget().getQualifiedInterfaceName()» «targetVar») {
 	String value = EMPTY_STRING;
 	«EXPAND extractModelElement(targetVar, "value") FOR sectionable-»
-	return value;
+	if (value != null) {
+		return value;
+	}
+	return EMPTY_STRING;
 }
 «ENDLET»
 «ENDDEFINE»
@@ -773,12 +774,12 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 «ENDDEFINE»
 
 «DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::FeatureReference»
-«LET parent.getModelMediator() AS modelElement»
-	«IF null != modelElement.feature»
+«LET parent.getModelMediator() AS modelElement-»
+	«IF null != modelElement.feature-»
 		if («elementName».«modelElement.feature.getGetAccessor()»() == null) {
 			«elementName».«modelElement.feature.getSetterAccessor()»(«modelElement.expectedType().getQualifiedClassifierCreaterName()»);
 		}
-	«ENDIF»
+	«ENDIF-»
 	«IF parent != parent.getCustomPropertySection()-»
 	if («EXPAND instanceofOrNullCheck(elementName) FOR modelElement») {
 		«EXPAND castedVarDeclaration(elementName, modelElement.expectedTypeVar()) FOR modelElement-»
@@ -786,15 +787,15 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 		«EXPAND castedVarModification(elementName, modelElement.expectedTypeVar()) FOR modelElement-»
 	}«ELSE-»
 	«EXPAND saveModelCall(elementName, valueName, modelElement)-»
-	«ENDIF»
-«ENDLET»
+	«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureIsOfKindReference»
+«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureIsOfKindReference-»
 «EXPAND saveModelCall(elementName, valueName, parent.getModelMediator())-»
 «ENDDEFINE»
 
-«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureOfTypeReference»
+«DEFINE prepareModelCall(String elementName, String valueName, propsheet::Group parent) FOR propsheet::IsFeatureOfTypeReference-»
 «EXPAND saveModelCall(elementName, valueName, parent.getModelMediator())-»
 «ENDDEFINE»
 
@@ -816,11 +817,10 @@ public void setValueFor«sectionable.name().toFirstUpper()»(«sectionable.getCusto
 
 «DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IsFeatureOfTypeReference-»
 «IF null != isOfType-»
-	«isOfType.getQualifiedInterfaceName()» newInstance = «isOfType.getQualifiedClassifierCreaterName()»;
-	«elementName».«parentModelElement.feature.getSetterAccessor()»(newInstance);
+	«elementName».«parentModelElement.feature.getSetterAccessor()»(«isOfType.getQualifiedClassifierCreaterName()»);
 «ELSE-»
 	«elementName».«parentModelElement.feature.getSetterAccessor()»(null);
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE saveModelCall(String elementName, String valueName, propsheet::ModelMediatorFeature parentModelElement) FOR propsheet::IsFeatureIsOfKindReference-»

@@ -11,13 +11,21 @@
 package org.eclipse.gmf.graphdef.editor.sheet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
+import java.util.List;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -44,62 +52,62 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Button myLINESOLIDLineKindRadio;
+	private Button myLINESOLIDRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINESOLIDLineKindRadio_image;
+	private Image myLINESOLIDRadio_image;
 
 	/**
 	 * @generated
 	 */
-	private Button myLINEDASHLineKindRadio;
+	private Button myLINEDASHRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINEDASHLineKindRadio_image;
+	private Image myLINEDASHRadio_image;
 
 	/**
 	 * @generated
 	 */
-	private Button myLINEDOTLineKindRadio;
+	private Button myLINEDOTRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINEDOTLineKindRadio_image;
+	private Image myLINEDOTRadio_image;
 
 	/**
 	 * @generated
 	 */
-	private Button myLINEDASHDOTLineKindRadio;
+	private Button myLINEDASHDOTRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINEDASHDOTLineKindRadio_image;
+	private Image myLINEDASHDOTRadio_image;
 
 	/**
 	 * @generated
 	 */
-	private Button myLINEDASHDOTDOTLineKindRadio;
+	private Button myLINEDASHDOTDOTRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINEDASHDOTDOTLineKindRadio_image;
+	private Image myLINEDASHDOTDOTRadio_image;
 
 	/**
 	 * @generated
 	 */
-	private Button myLINECUSTOMLineKindRadio;
+	private Button myLINECUSTOMRadio;
 
 	/**
 	 * @generated
 	 */
-	private Image myLINECUSTOMLineKindRadio_image;
+	private Image myLINECUSTOMRadio_image;
 
 	/**
 	 * @generated
@@ -109,7 +117,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Spinner myLineWidthLineWidthSpin;
+	private Spinner myLineWidthSpin;
 
 	/**
 	 * @generated
@@ -119,22 +127,22 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Button myFillMixStylesCheckbox;
+	private Button myFillCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Button myOutlineMixStylesCheckbox;
+	private Button myOutlineCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Button myXorFillMixStylesCheckbox;
+	private Button myXorFillCheckbox;
 
 	/**
 	 * @generated
 	 */
-	private Button myXorOutlineMixStylesCheckbox;
+	private Button myXorOutlineCheckbox;
 
 	/**
 	 * @generated
@@ -144,12 +152,12 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	private Spinner myCornerWidthRoundedRectangleSpin;
+	private Spinner myCornerWidthSpin;
 
 	/**
 	 * @generated
 	 */
-	private Spinner myCornerHeightRoundedRectangleSpin;
+	private Spinner myCornerHeightSpin;
 
 	/**
 	 * @generated
@@ -158,75 +166,72 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		Composite mainComposite = createMainWidget(parent);
 		myLineKindGroup = createGroupWidget(mainComposite, "Line Style", null, null, null, null, true, true, false, false);
 
-		myLINESOLIDLineKindRadio = createRadioButton(myLineKindGroup, "", null, null, null, null, true, true, false, false);
-		myLINESOLIDLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_solid.png").createImage();
-		myLINESOLIDLineKindRadio.setImage(myLINESOLIDLineKindRadio_image);
+		myLINESOLIDRadio = createRadioButton(myLineKindGroup, "", null, null, null, null, true, true, false, false);
+		myLINESOLIDRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_solid.png").createImage();
+		myLINESOLIDRadio.setImage(myLINESOLIDRadio_image);
 
-		getListener().startListeningTo(myLINESOLIDLineKindRadio);
+		getListener().startListeningTo(myLINESOLIDRadio);
 
-		myLINEDASHLineKindRadio = createRadioButton(myLineKindGroup, "", null, myLINESOLIDLineKindRadio, null, null, false, true, false, false);
-		myLINEDASHLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dash.png").createImage();
-		myLINEDASHLineKindRadio.setImage(myLINEDASHLineKindRadio_image);
+		myLINEDASHRadio = createRadioButton(myLineKindGroup, "", null, myLINESOLIDRadio, null, null, false, true, false, false);
+		myLINEDASHRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dash.png").createImage();
+		myLINEDASHRadio.setImage(myLINEDASHRadio_image);
 
-		getListener().startListeningTo(myLINEDASHLineKindRadio);
+		getListener().startListeningTo(myLINEDASHRadio);
 
-		myLINEDOTLineKindRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHLineKindRadio, null, null, false, true, false, false);
-		myLINEDOTLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dot.png").createImage();
-		myLINEDOTLineKindRadio.setImage(myLINEDOTLineKindRadio_image);
+		myLINEDOTRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHRadio, null, null, false, true, false, false);
+		myLINEDOTRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dot.png").createImage();
+		myLINEDOTRadio.setImage(myLINEDOTRadio_image);
 
-		getListener().startListeningTo(myLINEDOTLineKindRadio);
+		getListener().startListeningTo(myLINEDOTRadio);
 
-		myLINEDASHDOTLineKindRadio = createRadioButton(myLineKindGroup, "", null, myLINEDOTLineKindRadio, null, null, false, true, false, false);
-		myLINEDASHDOTLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dashdot.png").createImage();
-		myLINEDASHDOTLineKindRadio.setImage(myLINEDASHDOTLineKindRadio_image);
+		myLINEDASHDOTRadio = createRadioButton(myLineKindGroup, "", null, myLINEDOTRadio, null, null, false, true, false, false);
+		myLINEDASHDOTRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dashdot.png").createImage();
+		myLINEDASHDOTRadio.setImage(myLINEDASHDOTRadio_image);
 
-		getListener().startListeningTo(myLINEDASHDOTLineKindRadio);
+		getListener().startListeningTo(myLINEDASHDOTRadio);
 
-		myLINEDASHDOTDOTLineKindRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHDOTLineKindRadio, null, null, false, true, false, false);
-		myLINEDASHDOTDOTLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dashdotdot.png").createImage();
-		myLINEDASHDOTDOTLineKindRadio.setImage(myLINEDASHDOTDOTLineKindRadio_image);
+		myLINEDASHDOTDOTRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHDOTRadio, null, null, false, true, false, false);
+		myLINEDASHDOTDOTRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_dashdotdot.png").createImage();
+		myLINEDASHDOTDOTRadio.setImage(myLINEDASHDOTDOTRadio_image);
 
-		getListener().startListeningTo(myLINEDASHDOTDOTLineKindRadio);
+		getListener().startListeningTo(myLINEDASHDOTDOTRadio);
 
-		myLINECUSTOMLineKindRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHDOTDOTLineKindRadio, null, null, false, true, false, false);
-		myLINECUSTOMLineKindRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_custom.png").createImage();
-		myLINECUSTOMLineKindRadio.setImage(myLINECUSTOMLineKindRadio_image);
+		myLINECUSTOMRadio = createRadioButton(myLineKindGroup, "", null, myLINEDASHDOTDOTRadio, null, null, false, true, false, false);
+		myLINECUSTOMRadio_image = GMFGraphDiagramEditorPlugin.findImageDescriptor("icons/line_custom.png").createImage();
+		myLINECUSTOMRadio.setImage(myLINECUSTOMRadio_image);
 
-		getListener().startListeningTo(myLINECUSTOMLineKindRadio);
+		getListener().startListeningTo(myLINECUSTOMRadio);
 
 		myLineWidthGroup = createGroupWidget(mainComposite, "Line Width", myLineKindGroup, null, null, null, true, false, false, false);
 
-		myLineWidthLineWidthSpin = createSpinnerWidget(myLineWidthGroup, "", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myLineWidthLineWidthSpin);
+		myLineWidthSpin = createSpinnerWidget(myLineWidthGroup, "", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myLineWidthSpin);
 
 		myMixStylesGroup = createGroupWidget(mainComposite, "Mix Styles", null, myLineWidthGroup, null, null, false, true, false, false);
 
-		myFillMixStylesCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyFillMixStylesCheckboxFromMetamodel(), null, null, null, null, true, true, false, false);
+		myFillCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyFillCheckboxFromMetamodel(), null, null, null, null, true, true, false, false);
 
-		getListener().startListeningTo(myFillMixStylesCheckbox);
+		getListener().startListeningTo(myFillCheckbox);
 
-		myOutlineMixStylesCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyOutlineMixStylesCheckboxFromMetamodel(), null, myFillMixStylesCheckbox, null, null, false, true,
-				true, false);
+		myOutlineCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyOutlineCheckboxFromMetamodel(), null, myFillCheckbox, null, null, false, true, true, false);
 
-		getListener().startListeningTo(myOutlineMixStylesCheckbox);
+		getListener().startListeningTo(myOutlineCheckbox);
 
-		myXorFillMixStylesCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyXorFillMixStylesCheckboxFromMetamodel(), myFillMixStylesCheckbox, null, null, null, true, false,
-				false, true);
+		myXorFillCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyXorFillCheckboxFromMetamodel(), myFillCheckbox, null, null, null, true, false, false, true);
 
-		getListener().startListeningTo(myXorFillMixStylesCheckbox);
+		getListener().startListeningTo(myXorFillCheckbox);
 
-		myXorOutlineMixStylesCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyXorOutlineMixStylesCheckboxFromMetamodel(), myOutlineMixStylesCheckbox, null, null, null,
-				true, false, true, true);
+		myXorOutlineCheckbox = createCheckboxButton(myMixStylesGroup, getModelHelper().getNameMyXorOutlineCheckboxFromMetamodel(), myOutlineCheckbox, null, null, null, true, false, true, true);
 
-		getListener().startListeningTo(myXorOutlineMixStylesCheckbox);
+		getListener().startListeningTo(myXorOutlineCheckbox);
 
 		myRoundedRectangleGroup = createGroupWidget(mainComposite, "Corner Dimensions", null, myMixStylesGroup, null, null, false, true, false, false);
 
-		myCornerWidthRoundedRectangleSpin = createSpinnerWidget(myRoundedRectangleGroup, "Width", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
-		getListener().startListeningTo(myCornerWidthRoundedRectangleSpin);
+		myCornerWidthSpin = createSpinnerWidget(myRoundedRectangleGroup, "Width", 0, 999, 1, 100, null, null, null, null, true, true, false, false);
+		getListener().startListeningTo(myCornerWidthSpin);
 
-		myCornerHeightRoundedRectangleSpin = createSpinnerWidget(myRoundedRectangleGroup, "Height", 0, 999, 1, 100, myCornerWidthRoundedRectangleSpin, null, null, null, true, false, false, false);
-		getListener().startListeningTo(myCornerHeightRoundedRectangleSpin);
+		myCornerHeightSpin = createSpinnerWidget(myRoundedRectangleGroup, "Height", 0, 999, 1, 100, myCornerWidthSpin, null, null, null, true, false, false, false);
+		getListener().startListeningTo(myCornerHeightSpin);
 
 	}
 
@@ -234,49 +239,49 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	 * @generated
 	 */
 	public void doDispose() {
-		getListener().stopListeningTo(myLINESOLIDLineKindRadio);
+		getListener().stopListeningTo(myLINESOLIDRadio);
 
-		myLINESOLIDLineKindRadio_image.dispose();
-		myLINESOLIDLineKindRadio_image = null;
+		myLINESOLIDRadio_image.dispose();
+		myLINESOLIDRadio_image = null;
 
-		getListener().stopListeningTo(myLINEDASHLineKindRadio);
+		getListener().stopListeningTo(myLINEDASHRadio);
 
-		myLINEDASHLineKindRadio_image.dispose();
-		myLINEDASHLineKindRadio_image = null;
+		myLINEDASHRadio_image.dispose();
+		myLINEDASHRadio_image = null;
 
-		getListener().stopListeningTo(myLINEDOTLineKindRadio);
+		getListener().stopListeningTo(myLINEDOTRadio);
 
-		myLINEDOTLineKindRadio_image.dispose();
-		myLINEDOTLineKindRadio_image = null;
+		myLINEDOTRadio_image.dispose();
+		myLINEDOTRadio_image = null;
 
-		getListener().stopListeningTo(myLINEDASHDOTLineKindRadio);
+		getListener().stopListeningTo(myLINEDASHDOTRadio);
 
-		myLINEDASHDOTLineKindRadio_image.dispose();
-		myLINEDASHDOTLineKindRadio_image = null;
+		myLINEDASHDOTRadio_image.dispose();
+		myLINEDASHDOTRadio_image = null;
 
-		getListener().stopListeningTo(myLINEDASHDOTDOTLineKindRadio);
+		getListener().stopListeningTo(myLINEDASHDOTDOTRadio);
 
-		myLINEDASHDOTDOTLineKindRadio_image.dispose();
-		myLINEDASHDOTDOTLineKindRadio_image = null;
+		myLINEDASHDOTDOTRadio_image.dispose();
+		myLINEDASHDOTDOTRadio_image = null;
 
-		getListener().stopListeningTo(myLINECUSTOMLineKindRadio);
+		getListener().stopListeningTo(myLINECUSTOMRadio);
 
-		myLINECUSTOMLineKindRadio_image.dispose();
-		myLINECUSTOMLineKindRadio_image = null;
+		myLINECUSTOMRadio_image.dispose();
+		myLINECUSTOMRadio_image = null;
 
-		getListener().stopListeningTo(myLineWidthLineWidthSpin);
+		getListener().stopListeningTo(myLineWidthSpin);
 
-		getListener().stopListeningTo(myFillMixStylesCheckbox);
+		getListener().stopListeningTo(myFillCheckbox);
 
-		getListener().stopListeningTo(myOutlineMixStylesCheckbox);
+		getListener().stopListeningTo(myOutlineCheckbox);
 
-		getListener().stopListeningTo(myXorFillMixStylesCheckbox);
+		getListener().stopListeningTo(myXorFillCheckbox);
 
-		getListener().stopListeningTo(myXorOutlineMixStylesCheckbox);
+		getListener().stopListeningTo(myXorOutlineCheckbox);
 
-		getListener().stopListeningTo(myCornerWidthRoundedRectangleSpin);
+		getListener().stopListeningTo(myCornerWidthSpin);
 
-		getListener().stopListeningTo(myCornerHeightRoundedRectangleSpin);
+		getListener().stopListeningTo(myCornerHeightSpin);
 
 	}
 
@@ -307,54 +312,28 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		boolean needToRelayoutExpandBar = false;
 
 		{
-			{
-				myLINESOLIDLineKindRadio.setSelection(getModelHelper().getValueForMyLINESOLIDLineKindRadio(target));
-			}
-			{
-				myLINEDASHLineKindRadio.setSelection(getModelHelper().getValueForMyLINEDASHLineKindRadio(target));
-			}
-			{
-				myLINEDOTLineKindRadio.setSelection(getModelHelper().getValueForMyLINEDOTLineKindRadio(target));
-			}
-			{
-				myLINEDASHDOTLineKindRadio.setSelection(getModelHelper().getValueForMyLINEDASHDOTLineKindRadio(target));
-			}
-			{
-				myLINEDASHDOTDOTLineKindRadio.setSelection(getModelHelper().getValueForMyLINEDASHDOTDOTLineKindRadio(target));
-			}
-			{
-				myLINECUSTOMLineKindRadio.setSelection(getModelHelper().getValueForMyLINECUSTOMLineKindRadio(target));
-			}
+			myLINESOLIDRadio.setSelection(getModelHelper().getValueForMyLINESOLIDRadio(target));
+			myLINEDASHRadio.setSelection(getModelHelper().getValueForMyLINEDASHRadio(target));
+			myLINEDOTRadio.setSelection(getModelHelper().getValueForMyLINEDOTRadio(target));
+			myLINEDASHDOTRadio.setSelection(getModelHelper().getValueForMyLINEDASHDOTRadio(target));
+			myLINEDASHDOTDOTRadio.setSelection(getModelHelper().getValueForMyLINEDASHDOTDOTRadio(target));
+			myLINECUSTOMRadio.setSelection(getModelHelper().getValueForMyLINECUSTOMRadio(target));
 		}
 		{
-			{
-				myLineWidthLineWidthSpin.setSelection(getModelHelper().getValueForMyLineWidthLineWidthSpin(target));
-			}
+			myLineWidthSpin.setSelection(getModelHelper().getValueForMyLineWidthSpin(target));
 		}
 		{
-			{
-				myFillMixStylesCheckbox.setSelection(getModelHelper().getValueForMyFillMixStylesCheckbox(target));
-			}
-			{
-				myOutlineMixStylesCheckbox.setSelection(getModelHelper().getValueForMyOutlineMixStylesCheckbox(target));
-			}
-			{
-				myXorFillMixStylesCheckbox.setSelection(getModelHelper().getValueForMyXorFillMixStylesCheckbox(target));
-			}
-			{
-				myXorOutlineMixStylesCheckbox.setSelection(getModelHelper().getValueForMyXorOutlineMixStylesCheckbox(target));
-			}
+			myFillCheckbox.setSelection(getModelHelper().getValueForMyFillCheckbox(target));
+			myOutlineCheckbox.setSelection(getModelHelper().getValueForMyOutlineCheckbox(target));
+			myXorFillCheckbox.setSelection(getModelHelper().getValueForMyXorFillCheckbox(target));
+			myXorOutlineCheckbox.setSelection(getModelHelper().getValueForMyXorOutlineCheckbox(target));
 		}
 		boolean isMyRoundedRectangleGroupVisible = getModelHelper().isVisibleMyRoundedRectangleGroup(target);
 
 		myRoundedRectangleGroup.setVisible(isMyRoundedRectangleGroupVisible);
 		if (isMyRoundedRectangleGroupVisible) {
-			{
-				myCornerWidthRoundedRectangleSpin.setSelection(getModelHelper().getValueForMyCornerWidthRoundedRectangleSpin(target));
-			}
-			{
-				myCornerHeightRoundedRectangleSpin.setSelection(getModelHelper().getValueForMyCornerHeightRoundedRectangleSpin(target));
-			}
+			myCornerWidthSpin.setSelection(getModelHelper().getValueForMyCornerWidthSpin(target));
+			myCornerHeightSpin.setSelection(getModelHelper().getValueForMyCornerHeightSpin(target));
 		}
 		if (needToRelayoutExpandBar) {
 			relayoutExpandBar(null);
@@ -376,14 +355,25 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public void applyChangesFrom(final Widget widget, int kind) {
-		String commandName = "Modifying model with ui data from " + widget.toString();
+	public void applyChangesFrom(final Widget widget, int kindP) {
+		final String commandName = "Modifying model with ui data from " + widget.toString();
+		final int kind = kindP; // just to overcome jmerge limitation
 		ArrayList commands = new ArrayList(getSavedSelection().size());
 		for (Iterator it = getSavedSelection().iterator(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof Shape) {
 				final Shape target = (Shape) next;
-				commands.add(createCommand(commandName, target, getModelModifierFor(target, widget, kind)));
+				final List files = Collections.singletonList(WorkspaceSynchronizer.getFile(target.eResource()));
+				AbstractTransactionalCommand command = new AbstractTransactionalCommand(getEditingDomain(), commandName, files) {
+
+					protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+						// XXX perhaps, should pass collection of targets instead of multiple commands?
+						applyModelModifier(target, widget, kind);
+						return CommandResult.newOKCommandResult();
+					}
+				};
+
+				commands.add(command);
 			}
 		}
 		executeAsCompositeCommand(commandName, commands);
@@ -393,156 +383,71 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 	/**
 	 * @generated
 	 */
-	public Runnable getModelModifierFor(final Shape target, final Widget widget, int kind) {
-		if (widget == myLINESOLIDLineKindRadio && myLINESOLIDLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINESOLIDLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINESOLIDLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLINEDASHLineKindRadio && myLINEDASHLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINEDASHLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINEDASHLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLINEDOTLineKindRadio && myLINEDOTLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINEDOTLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINEDOTLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLINEDASHDOTLineKindRadio && myLINEDASHDOTLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINEDASHDOTLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINEDASHDOTLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLINEDASHDOTDOTLineKindRadio && myLINEDASHDOTDOTLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINEDASHDOTDOTLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINEDASHDOTDOTLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLINECUSTOMLineKindRadio && myLINECUSTOMLineKindRadio.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myLINECUSTOMLineKindRadio.getSelection();
-					if (value) {
-						getModelHelper().setValueForMyLINECUSTOMLineKindRadio(target, value);
-					}
-				}
-			};
-		}
-
-		if (widget == myLineWidthLineWidthSpin && myLineWidthLineWidthSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myLineWidthLineWidthSpin.getSelection();
-					getModelHelper().setValueForMyLineWidthLineWidthSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myFillMixStylesCheckbox && myFillMixStylesCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myFillMixStylesCheckbox.getSelection();
-					getModelHelper().setValueForMyFillMixStylesCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myOutlineMixStylesCheckbox && myOutlineMixStylesCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myOutlineMixStylesCheckbox.getSelection();
-					getModelHelper().setValueForMyOutlineMixStylesCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myXorFillMixStylesCheckbox && myXorFillMixStylesCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myXorFillMixStylesCheckbox.getSelection();
-					getModelHelper().setValueForMyXorFillMixStylesCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myXorOutlineMixStylesCheckbox && myXorOutlineMixStylesCheckbox.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final boolean value = myXorOutlineMixStylesCheckbox.getSelection();
-					getModelHelper().setValueForMyXorOutlineMixStylesCheckbox(target, value);
-				}
-			};
-		}
-
-		if (widget == myCornerWidthRoundedRectangleSpin && myCornerWidthRoundedRectangleSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myCornerWidthRoundedRectangleSpin.getSelection();
-					getModelHelper().setValueForMyCornerWidthRoundedRectangleSpin(target, value);
-				}
-			};
-		}
-
-		if (widget == myCornerHeightRoundedRectangleSpin && myCornerHeightRoundedRectangleSpin.isVisible()) {
-			return new Runnable() {
-
-				public void run() {
-					final int value = myCornerHeightRoundedRectangleSpin.getSelection();
-					getModelHelper().setValueForMyCornerHeightRoundedRectangleSpin(target, value);
-				}
-			};
-		}
-
-		// default:
-		return new Runnable() {
-
-			public void run() {
-				// does nothing
+	void applyModelModifier(final Shape target, final Widget widget, int kind) {
+		if (widget == myLINESOLIDRadio && myLINESOLIDRadio.isVisible()) {
+			if (myLINESOLIDRadio.getSelection()) {
+				getModelHelper().setValueForMyLINESOLIDRadio(target, true);
 			}
-		};
+			return;
+		}
+		if (widget == myLINEDASHRadio && myLINEDASHRadio.isVisible()) {
+			if (myLINEDASHRadio.getSelection()) {
+				getModelHelper().setValueForMyLINEDASHRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myLINEDOTRadio && myLINEDOTRadio.isVisible()) {
+			if (myLINEDOTRadio.getSelection()) {
+				getModelHelper().setValueForMyLINEDOTRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myLINEDASHDOTRadio && myLINEDASHDOTRadio.isVisible()) {
+			if (myLINEDASHDOTRadio.getSelection()) {
+				getModelHelper().setValueForMyLINEDASHDOTRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myLINEDASHDOTDOTRadio && myLINEDASHDOTDOTRadio.isVisible()) {
+			if (myLINEDASHDOTDOTRadio.getSelection()) {
+				getModelHelper().setValueForMyLINEDASHDOTDOTRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myLINECUSTOMRadio && myLINECUSTOMRadio.isVisible()) {
+			if (myLINECUSTOMRadio.getSelection()) {
+				getModelHelper().setValueForMyLINECUSTOMRadio(target, true);
+			}
+			return;
+		}
+		if (widget == myLineWidthSpin && myLineWidthSpin.isVisible()) {
+			getModelHelper().setValueForMyLineWidthSpin(target, myLineWidthSpin.getSelection());
+			return;
+		}
+		if (widget == myFillCheckbox && myFillCheckbox.isVisible()) {
+			getModelHelper().setValueForMyFillCheckbox(target, myFillCheckbox.getSelection());
+			return;
+		}
+		if (widget == myOutlineCheckbox && myOutlineCheckbox.isVisible()) {
+			getModelHelper().setValueForMyOutlineCheckbox(target, myOutlineCheckbox.getSelection());
+			return;
+		}
+		if (widget == myXorFillCheckbox && myXorFillCheckbox.isVisible()) {
+			getModelHelper().setValueForMyXorFillCheckbox(target, myXorFillCheckbox.getSelection());
+			return;
+		}
+		if (widget == myXorOutlineCheckbox && myXorOutlineCheckbox.isVisible()) {
+			getModelHelper().setValueForMyXorOutlineCheckbox(target, myXorOutlineCheckbox.getSelection());
+			return;
+		}
+		if (widget == myCornerWidthSpin && myCornerWidthSpin.isVisible()) {
+			getModelHelper().setValueForMyCornerWidthSpin(target, myCornerWidthSpin.getSelection());
+			return;
+		}
+		if (widget == myCornerHeightSpin && myCornerHeightSpin.isVisible()) {
+			getModelHelper().setValueForMyCornerHeightSpin(target, myCornerHeightSpin.getSelection());
+			return;
+		}
 	}
 
 	/**
@@ -570,7 +475,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINESOLIDLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINESOLIDRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -584,8 +489,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINESOLIDLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINESOLIDRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_SOLID_LITERAL);
 
 		}
@@ -593,7 +497,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINEDASHLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINEDASHRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -607,8 +511,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINEDASHLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINEDASHRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_DASH_LITERAL);
 
 		}
@@ -616,7 +519,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINEDOTLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINEDOTRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -630,8 +533,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINEDOTLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINEDOTRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_DOT_LITERAL);
 
 		}
@@ -639,7 +541,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINEDASHDOTLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINEDASHDOTRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -653,8 +555,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINEDASHDOTLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINEDASHDOTRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_DASHDOT_LITERAL);
 
 		}
@@ -662,7 +563,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINEDASHDOTDOTLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINEDASHDOTDOTRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -676,8 +577,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINEDASHDOTDOTLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINEDASHDOTDOTRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_DASHDOTDOT_LITERAL);
 
 		}
@@ -685,7 +585,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyLINECUSTOMLineKindRadio(Shape shape) {
+		public boolean getValueForMyLINECUSTOMRadio(Shape shape) {
 			boolean value = false;
 			if (shape.getLineKind() != null) {
 				LineKind lineKind = shape.getLineKind();
@@ -699,8 +599,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLINECUSTOMLineKindRadio(Shape shape, boolean value) {
-
+		public void setValueForMyLINECUSTOMRadio(Shape shape, boolean value) {
 			shape.setLineKind(LineKind.LINE_CUSTOM_LITERAL);
 
 		}
@@ -708,7 +607,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyLineWidthLineWidthSpin(Shape shape) {
+		public int getValueForMyLineWidthSpin(Shape shape) {
 			int value = 0;
 			value = shape.getLineWidth();
 
@@ -718,7 +617,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyLineWidthLineWidthSpin(Shape shape, int value) {
+		public void setValueForMyLineWidthSpin(Shape shape, int value) {
 
 			shape.setLineWidth(value);
 
@@ -727,7 +626,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyFillMixStylesCheckbox(Shape shape) {
+		public boolean getValueForMyFillCheckbox(Shape shape) {
 			boolean value = false;
 			value = shape.isFill();
 
@@ -737,7 +636,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyFillMixStylesCheckbox(Shape shape, boolean value) {
+		public void setValueForMyFillCheckbox(Shape shape, boolean value) {
 
 			shape.setFill(value);
 
@@ -746,14 +645,14 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyFillMixStylesCheckboxFromMetamodel() {
+		public String getNameMyFillCheckboxFromMetamodel() {
 			return "Fill";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyOutlineMixStylesCheckbox(Shape shape) {
+		public boolean getValueForMyOutlineCheckbox(Shape shape) {
 			boolean value = false;
 			value = shape.isOutline();
 
@@ -763,7 +662,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyOutlineMixStylesCheckbox(Shape shape, boolean value) {
+		public void setValueForMyOutlineCheckbox(Shape shape, boolean value) {
 
 			shape.setOutline(value);
 
@@ -772,14 +671,14 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyOutlineMixStylesCheckboxFromMetamodel() {
+		public String getNameMyOutlineCheckboxFromMetamodel() {
 			return "Outline";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyXorFillMixStylesCheckbox(Shape shape) {
+		public boolean getValueForMyXorFillCheckbox(Shape shape) {
 			boolean value = false;
 			value = shape.isXorFill();
 
@@ -789,7 +688,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyXorFillMixStylesCheckbox(Shape shape, boolean value) {
+		public void setValueForMyXorFillCheckbox(Shape shape, boolean value) {
 
 			shape.setXorFill(value);
 
@@ -798,14 +697,14 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyXorFillMixStylesCheckboxFromMetamodel() {
+		public String getNameMyXorFillCheckboxFromMetamodel() {
 			return "XorFill";
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean getValueForMyXorOutlineMixStylesCheckbox(Shape shape) {
+		public boolean getValueForMyXorOutlineCheckbox(Shape shape) {
 			boolean value = false;
 			value = shape.isXorOutline();
 
@@ -815,7 +714,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyXorOutlineMixStylesCheckbox(Shape shape, boolean value) {
+		public void setValueForMyXorOutlineCheckbox(Shape shape, boolean value) {
 
 			shape.setXorOutline(value);
 
@@ -824,7 +723,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public String getNameMyXorOutlineMixStylesCheckboxFromMetamodel() {
+		public String getNameMyXorOutlineCheckboxFromMetamodel() {
 			return "XorOutline";
 		}
 
@@ -841,7 +740,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyCornerWidthRoundedRectangleSpin(Shape shape) {
+		public int getValueForMyCornerWidthSpin(Shape shape) {
 			int value = 0;
 			if (shape instanceof RoundedRectangle) {
 				RoundedRectangle roundedRectangle = ((RoundedRectangle) shape);
@@ -855,7 +754,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyCornerWidthRoundedRectangleSpin(Shape shape, int value) {
+		public void setValueForMyCornerWidthSpin(Shape shape, int value) {
 
 			if (shape instanceof RoundedRectangle) {
 				RoundedRectangle roundedRectangle = ((RoundedRectangle) shape);
@@ -868,7 +767,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public int getValueForMyCornerHeightRoundedRectangleSpin(Shape shape) {
+		public int getValueForMyCornerHeightSpin(Shape shape) {
 			int value = 0;
 			if (shape instanceof RoundedRectangle) {
 				RoundedRectangle roundedRectangle = ((RoundedRectangle) shape);
@@ -882,7 +781,7 @@ public class GeneratedStylesPropertySection extends AbstractCustomSectionParent 
 		/**
 		 * @generated
 		 */
-		public void setValueForMyCornerHeightRoundedRectangleSpin(Shape shape, int value) {
+		public void setValueForMyCornerHeightSpin(Shape shape, int value) {
 
 			if (shape instanceof RoundedRectangle) {
 				RoundedRectangle roundedRectangle = ((RoundedRectangle) shape);

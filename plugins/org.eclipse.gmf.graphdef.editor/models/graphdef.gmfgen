@@ -1307,10 +1307,11 @@
               createLabel="false"/>
           <contents
               xsi:type="propsheet:Group"
-              name="myLayoutBorderExpandGroup"
+              name="LayoutBorderExpandGroup"
               expandable="true">
             <contents
-                xsi:type="propsheet:Group">
+                xsi:type="propsheet:Group"
+                name="BorderParams">
               <contents
                   xsi:type="propsheet:Spin">
                 <text
@@ -1346,14 +1347,15 @@
           </contents>
           <contents
               xsi:type="propsheet:Group"
-              name="myLayoutFlowExpandGroup"
+              name="LayoutFlowExpandGroup"
               expandable="true">
             <layoutConstraints
                 xsi:type="propsheet:FormLayoutConstraints"
                 anchorControl="/1/@customSections.1/@contents.0/@contents.1/@contents.0"
                 relativePosition="TOP"/>
             <contents
-                xsi:type="propsheet:Group">
+                xsi:type="propsheet:Group"
+                name="FlowParams">
               <text
                   overridedItemProviderText="Layout Parameters"/>
               <contents
@@ -1617,14 +1619,15 @@
           </contents>
           <contents
               xsi:type="propsheet:Group"
-              name="myLayoutGridExpandGroup"
+              name="LayoutGridExpandGroup"
               expandable="true">
             <layoutConstraints
                 xsi:type="propsheet:FormLayoutConstraints"
                 anchorControl="/1/@customSections.1/@contents.0/@contents.1/@contents.1"
                 relativePosition="TOP"/>
             <contents
-                xsi:type="propsheet:Group">
+                xsi:type="propsheet:Group"
+                name="GridParams">
               <text
                   overridedItemProviderText="Layout Parameters"/>
               <contents
@@ -1720,14 +1723,15 @@
           </contents>
           <contents
               xsi:type="propsheet:Group"
-              name="myLayoutCustomExpandGroup"
+              name="LayoutCustomExpandGroup"
               expandable="true">
             <layoutConstraints
                 xsi:type="propsheet:FormLayoutConstraints"
                 anchorControl="/1/@customSections.1/@contents.0/@contents.1/@contents.2"
                 relativePosition="TOP"/>
             <contents
-                xsi:type="propsheet:Group">
+                xsi:type="propsheet:Group"
+                name="CustomParams">
               <text
                   overridedItemProviderText="Layout Parameters"/>
               <contents
