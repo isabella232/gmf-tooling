@@ -19,6 +19,24 @@
 «EXTENSION xpt::diagram::Utils»
 
 «REM»
+	Expands to all accessor methods for link and it's ends.
+«ENDREM»
+«DEFINE accessors FOR gmfgen::GenLink-»
+	«EXPAND linkAccessor FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE linkAccessor FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE linkAccessor FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(metaClass)» getLink() {
+		return («getQualifiedInterfaceName(metaClass)») getElementToEdit();
+	}
+«ENDDEFINE»
+
+«REM»
 	Generates canExecute() method for the command that reorients link.
 	Implementation should perform all static checks that command can be executed.
 «ENDREM»
@@ -28,12 +46,22 @@
 	public boolean canExecute() {
 		«EXPAND checkLinkValidity-»
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
-			«EXPAND checkSourceRequestValidity(link)-»
+			return canReorientSource();
 		}
 		if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_TARGET) {
-			«EXPAND checkTargetRequestValidity(link)-»
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected boolean canReorientSource() {
+		«EXPAND checkSourceRequestValidity(link)-»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected boolean canReorientTarget() {
+		«EXPAND checkTargetRequestValidity(link)-»
 	}
 «ENDDEFINE»
 
@@ -44,7 +72,6 @@
 	if (!(getElementToEdit() instanceof «getQualifiedInterfaceName(metaClass)»)) {
 		return false;
 	}
-	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
 «ENDDEFINE»
 
 «DEFINE checkLinkValidity FOR gmfgen::FeatureLinkModelFacet-»
@@ -61,7 +88,7 @@
 		return false;
 	}
 	«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») newEnd;
-	«EXPAND extractFeatureWithCheck("link", "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
+	«EXPAND extractFeatureWithCheck("getLink()", "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
 	«EXPAND checkLinkConstraint(link)-»
 «ENDDEFINE»
 
@@ -83,12 +110,12 @@
 		return false;
 	}
 	«IF sourceMetaFeature != null-»
-		«EXPAND extractFeatureWithCheck("link", "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
+		«EXPAND extractFeatureWithCheck("getLink()", "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
 	«ELSE-»
-		if (!(link.eContainer() instanceof «getQualifiedInterfaceName(getSourceType())»)) {
+		if (!(getLink().eContainer() instanceof «getQualifiedInterfaceName(getSourceType())»)) {
 			return false;
 		}
-		«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») link.eContainer();
+		«getQualifiedInterfaceName(getSourceType())» source = («getQualifiedInterfaceName(getSourceType())») getLink().eContainer();
 	«ENDIF-»
 	«getQualifiedInterfaceName(getTargetType())» target = («getQualifiedInterfaceName(getTargetType())») newEnd;
 	«EXPAND checkLinkConstraint(link)-»
@@ -114,11 +141,11 @@
 
 «DEFINE checkLinkConstraint(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature != null-»
-		if (!(link.eContainer() instanceof «containmentMetaFeature.genClass.getQualifiedInterfaceName()»)) {
+		if (!(getLink().eContainer() instanceof «containmentMetaFeature.genClass.getQualifiedInterfaceName()»)) {
 			return false;
 		}
 		«containmentMetaFeature.genClass.getQualifiedInterfaceName()» container =
-				(«containmentMetaFeature.genClass.getQualifiedInterfaceName()») link.eContainer();
+				(«containmentMetaFeature.genClass.getQualifiedInterfaceName()») getLink().eContainer();
 		return «EXPAND checkLinkConstraintInvocation FOR link»(container, source, target);
 	«ELSE-»
 		return «EXPAND checkLinkConstraintInvocation FOR link»(source, target);
@@ -152,13 +179,13 @@
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.common.core.command.CommandResult reorientSource()
+	protected org.eclipse.gmf.runtime.common.core.command.CommandResult reorientSource()
 			throws org.eclipse.core.commands.ExecutionException {
 		«EXPAND reorientSource-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.common.core.command.CommandResult reorientTarget()
+	protected org.eclipse.gmf.runtime.common.core.command.CommandResult reorientTarget()
 			throws org.eclipse.core.commands.ExecutionException {
 		«EXPAND reorientTarget-»
 	}

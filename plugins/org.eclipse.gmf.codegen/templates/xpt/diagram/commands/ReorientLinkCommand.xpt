@@ -41,5 +41,6 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 	}
 	«EXPAND xpt::diagram::commands::ReorientUtils::canReorient(this) FOR modelFacet-»
 	«EXPAND xpt::diagram::commands::ReorientUtils::reorient FOR modelFacet-»
+	«EXPAND xpt::diagram::commands::ReorientUtils::accessors-»
 }
 «ENDDEFINE»
