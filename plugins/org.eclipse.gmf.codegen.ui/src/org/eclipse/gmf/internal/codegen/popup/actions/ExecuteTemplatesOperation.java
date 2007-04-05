@@ -172,13 +172,17 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 	}
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		Generator g = new Generator(getGenModel(), CodeGenUIPlugin.getDefault().getEmitters(getGenModel()));
+		Generator g = createGenerator();
 		g.run(monitor);
 		myRunStatus = g.getRunStatus();
 	}
 
 	private IStatus getRunStatus() {
 		return myRunStatus;
+	}
+	
+	protected Generator createGenerator() {
+		return new Generator(getGenModel(), CodeGenUIPlugin.getDefault().getEmitters(getGenModel()));
 	}
 
 	protected final GenEditorGenerator getGenModel() {
