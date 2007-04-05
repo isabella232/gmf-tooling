@@ -3,7 +3,6 @@
 	<name>org.eclipse.gmf.graphdef.editor</name>
 	<comment></comment>
 	<projects>
-		<project>org.eclipse.gmf.codegen</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
