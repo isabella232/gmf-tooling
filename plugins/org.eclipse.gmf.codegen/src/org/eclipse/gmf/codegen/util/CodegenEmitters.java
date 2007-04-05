@@ -82,7 +82,6 @@ import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
-import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
@@ -110,15 +109,11 @@ public class CodegenEmitters {
 	private ResourceManager myResourceManager;
 
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
-		TemplateRegistry registry = initRegistry();
-		String[] variables = new String[] {
-		        "org.eclipse.emf.codegen", //$NON-NLS-1$
-				"org.eclipse.emf.codegen.ecore", //$NON-NLS-1$
-				"org.eclipse.emf.common", //$NON-NLS-1$
-				"org.eclipse.emf.ecore", //$NON-NLS-1$
-				"org.eclipse.gmf.common", //$NON-NLS-1$
-				"org.eclipse.gmf.codegen" //$NON-NLS-1$
-		};
+		this(usePrecompiled, templateDirectory, getDefaultVariables(), new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader()));
+	}
+	
+	public CodegenEmitters(boolean usePrecompiled, String templateDirectory, String[] variables, StaticTemplateRegistry registry) {
+		initRegistry(registry);
 		final URL baseURL = getTemplatesBundle().getEntry("/templates/"); //$NON-NLS-1$
 		final URL dynamicURL = usePrecompiled ? null : getDynamicTemplatesURL(templateDirectory);
 		
@@ -149,8 +144,7 @@ public class CodegenEmitters {
 		return null;
 	}
 
-	private static TemplateRegistry initRegistry() {
-		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
+	private static void initRegistry(StaticTemplateRegistry tr) {
 		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
 		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
@@ -202,13 +196,12 @@ public class CodegenEmitters {
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/WizardNewFileCreationPage.javajet", WizardNewFileCreationPageGenerator.class); //$NON-NLS-1$
-		return tr;
 	}
 
 	/**
 	 * @see #retrieve(Class)
 	 */
-	private static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
+	protected static void put(StaticTemplateRegistry tr, String path, Class<?> precompiledTemplate) {
 		tr.put(precompiledTemplate, path, precompiledTemplate);
 	}
 
@@ -800,7 +793,19 @@ public class CodegenEmitters {
 		return templateLocation;
 	}
 
-	private TextEmitter newXpandEmitter(String definition) {
+	protected TextEmitter newXpandEmitter(String definition) {
 		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader());
 	}
+
+	protected static String[] getDefaultVariables(){
+		return new String[] {
+		        "org.eclipse.emf.codegen", //$NON-NLS-1$
+				"org.eclipse.emf.codegen.ecore", //$NON-NLS-1$
+				"org.eclipse.emf.common", //$NON-NLS-1$
+				"org.eclipse.emf.ecore", //$NON-NLS-1$
+				"org.eclipse.gmf.common", //$NON-NLS-1$
+				"org.eclipse.gmf.codegen", //$NON-NLS-1$
+		};
+	}
+
 }
