@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -511,14 +510,12 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 			List resources = info.getResourceSet().getResources();
 			try {
 				monitor.beginTask("Saving diagram", resources.size() + 1);
-				Map options = new HashMap();
-				options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName("Saving " + nextResource.getURI());
-					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+					if (nextResource.isLoaded()) {
 						try {
-							nextResource.save(options);
+							nextResource.save(EcoreDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
 							fireElementStateChangeFailed(element);
 							throw new CoreException(new Status(IStatus.ERROR, EcoreDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));

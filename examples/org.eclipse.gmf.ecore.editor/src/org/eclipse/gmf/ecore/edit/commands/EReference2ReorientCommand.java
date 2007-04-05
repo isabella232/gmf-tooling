@@ -60,27 +60,38 @@ public class EReference2ReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof EReference)) {
 			return false;
 		}
-		EReference link = (EReference) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
-				return false;
-			}
-			EClass source = (EClass) newEnd;
-			EClassifier target = link.getEType();
-			return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(source, target);
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof EClassifier && newEnd instanceof EClassifier)) {
-				return false;
-			}
-			if (!(link.eContainer() instanceof EClass)) {
-				return false;
-			}
-			EClass source = (EClass) link.eContainer();
-			EClassifier target = (EClassifier) newEnd;
-			return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(source, target);
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+			return false;
+		}
+		EClassifier target = getLink().getEType();
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(getNewSource(), target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof EClassifier && newEnd instanceof EClassifier)) {
+			return false;
+		}
+		if (!(getLink().eContainer() instanceof EClass)) {
+			return false;
+		}
+		EClass source = (EClass) getLink().eContainer();
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(source, getNewTarget());
 	}
 
 	/**
@@ -102,25 +113,52 @@ public class EReference2ReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		EReference link = (EReference) getElementToEdit();
-		EClass oldSource = (EClass) oldEnd;
-		EClass newSource = (EClass) newEnd;
-
-		oldSource.getEStructuralFeatures().remove(link);
-		newSource.getEStructuralFeatures().add(link);
-		return CommandResult.newOKCommandResult(link);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().getEStructuralFeatures().remove(getLink());
+		getNewSource().getEStructuralFeatures().add(getLink());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		EReference link = (EReference) getElementToEdit();
-		EClassifier oldTarget = (EClassifier) oldEnd;
-		EClassifier newTarget = (EClassifier) newEnd;
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getLink().setEType(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
+	}
 
-		link.setEType(newTarget);
-		return CommandResult.newOKCommandResult(link);
+	/**
+	 * @generated
+	 */
+	protected EReference getLink() {
+		return (EReference) getElementToEdit();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getOldSource() {
+		return (EClass) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getNewSource() {
+		return (EClass) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClassifier getOldTarget() {
+		return (EClassifier) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClassifier getNewTarget() {
+		return (EClassifier) newEnd;
 	}
 }

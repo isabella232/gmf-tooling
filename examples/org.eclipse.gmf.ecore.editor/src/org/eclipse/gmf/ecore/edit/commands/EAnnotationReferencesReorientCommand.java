@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -65,18 +66,32 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof EObject && newEnd instanceof EAnnotation)) {
-				return false;
-			}
-			return true;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof EObject && newEnd instanceof EObject)) {
-				return false;
-			}
-			return true;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof EObject && newEnd instanceof EAnnotation)) {
+			return false;
+		}
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEAnnotationReferences_4001(getNewSource(), getOldTarget());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof EObject && newEnd instanceof EObject)) {
+			return false;
+		}
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEAnnotationReferences_4001(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -98,26 +113,46 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		EAnnotation oldSource = (EAnnotation) referenceOwner;
-		EAnnotation newSource = (EAnnotation) newEnd;
-		EObject target = (EObject) oldEnd;
-
-		oldSource.getReferences().remove(target);
-		newSource.getReferences().add(target);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().getReferences().remove(getOldTarget());
+		getNewSource().getReferences().add(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		EAnnotation source = (EAnnotation) referenceOwner;
-		EObject oldTarget = (EObject) oldEnd;
-		EObject newTarget = (EObject) newEnd;
-
-		source.getReferences().remove(oldTarget);
-		source.getReferences().add(newTarget);
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getOldSource().getReferences().remove(getOldTarget());
+		getOldSource().getReferences().add(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EAnnotation getOldSource() {
+		return (EAnnotation) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EAnnotation getNewSource() {
+		return (EAnnotation) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EObject getOldTarget() {
+		return (EObject) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EObject getNewTarget() {
+		return (EObject) newEnd;
 	}
 }

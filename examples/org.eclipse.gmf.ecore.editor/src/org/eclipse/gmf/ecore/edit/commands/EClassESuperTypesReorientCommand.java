@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -65,18 +66,32 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
-				return false;
-			}
-			return true;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
-				return false;
-			}
-			return true;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+			return false;
+		}
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEClassESuperTypes_4004(getNewSource(), getOldTarget());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+			return false;
+		}
+		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEClassESuperTypes_4004(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -98,26 +113,46 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		EClass oldSource = (EClass) referenceOwner;
-		EClass newSource = (EClass) newEnd;
-		EClass target = (EClass) oldEnd;
-
-		oldSource.getESuperTypes().remove(target);
-		newSource.getESuperTypes().add(target);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().getESuperTypes().remove(getOldTarget());
+		getNewSource().getESuperTypes().add(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		EClass source = (EClass) referenceOwner;
-		EClass oldTarget = (EClass) oldEnd;
-		EClass newTarget = (EClass) newEnd;
-
-		source.getESuperTypes().remove(oldTarget);
-		source.getESuperTypes().add(newTarget);
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getOldSource().getESuperTypes().remove(getOldTarget());
+		getOldSource().getESuperTypes().add(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getOldSource() {
+		return (EClass) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getNewSource() {
+		return (EClass) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getOldTarget() {
+		return (EClass) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EClass getNewTarget() {
+		return (EClass) newEnd;
 	}
 }

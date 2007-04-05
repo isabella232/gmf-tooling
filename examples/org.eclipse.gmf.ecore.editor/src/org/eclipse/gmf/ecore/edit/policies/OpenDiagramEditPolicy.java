@@ -13,7 +13,6 @@ package org.eclipse.gmf.ecore.edit.policies;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -31,6 +30,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditor;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorUtil;
 import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
@@ -139,8 +139,8 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 						try {
 							for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 								Resource nextResource = (Resource) it.next();
-								if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
-									nextResource.save(Collections.EMPTY_MAP);
+								if (nextResource.isLoaded()) {
+									nextResource.save(EcoreDiagramEditorUtil.getSaveOptions());
 								}
 							}
 						} catch (IOException ex) {
