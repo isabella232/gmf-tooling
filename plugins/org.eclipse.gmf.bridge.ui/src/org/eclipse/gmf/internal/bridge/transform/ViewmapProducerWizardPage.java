@@ -103,6 +103,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 		c.setBackground(parent.getBackground());
         templatesPathControl = new Text(c, SWT.SINGLE | SWT.BORDER);
 		templatesPathControl.addModifyListener(new ModifyListener() {
+			@SuppressWarnings("synthetic-access")
 			public void modifyText(ModifyEvent e) {
 				validatePage();
 			}
