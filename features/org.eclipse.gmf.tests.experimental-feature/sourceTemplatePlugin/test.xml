@@ -23,7 +23,7 @@
 		
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
 		<echo message="Running tests for ${testPlugin}..."/>
-		<java jar="${baseLocation}//plugins/${equinoxLauncherJar}" fork="true" failonerror="false" timeout="1400000" maxmemory="1024m">
+		<java jar="${baseLocation}//plugins/${equinoxLauncherJar}" fork="true" failonerror="false" timeout="2500000" maxmemory="1024m">
 			<jvmarg value="-XX:MaxPermSize=128m"/>
 			<assertions>
 				<enable/>
