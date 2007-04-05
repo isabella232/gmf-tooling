@@ -4,25 +4,18 @@
 
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
+      <!-- objectContribution
             adaptable="true"
             id="gmf.codegen.ui.transformToGenModelFile"
             nameFilter="*.gmfmap"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               class="org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModelAction"
-               enablesFor="1"
-               id="gmf.codegen.ui.transformToGenModelFileAction"
-               label="%transform.action"
-               menubarPath="additions">
-         </action>
-         <!-- action
                class="org.eclipse.gmf.internal.codegen.popup.actions.CreateSpecificDiagramRunTimeModelAction"
                enablesFor="1"
                id="gmf.codegen.ui.newAction5"
                label="GMF: Step 0(opt) - Create specific DiagramRT model"
-               menubarPath="additions"/ -->
-      </objectContribution>
+               menubarPath="additions"/>
+      </objectContribution -->
       <objectContribution
             adaptable="true"
             id="gmf.codegen.ui.executeTemplates"
@@ -47,9 +40,7 @@
 				enablesFor="1"
 				id="gmf.codegen.ui.migrateAction">
 		</action>
-    <filter
-        name="extension"
-        value="gmfgen"/>
+		<filter name="extension" value="gmfgen"/>
 	</objectContribution>
 	<objectContribution
     		adaptable="true"
@@ -67,11 +58,6 @@
    </extension>
 
    <extension point="org.eclipse.gmf.bridge.ui.dashboard.actions">
-      <action
-         label="%dashboard.gengm"
-         class="org.eclipse.gmf.internal.codegen.dashboard.GenerateGMAction"
-         location="map_model-genmodel">
-      </action>
       <action
          label="%dashboard.gende"
          class="org.eclipse.gmf.internal.codegen.dashboard.GenerateDEAction"
