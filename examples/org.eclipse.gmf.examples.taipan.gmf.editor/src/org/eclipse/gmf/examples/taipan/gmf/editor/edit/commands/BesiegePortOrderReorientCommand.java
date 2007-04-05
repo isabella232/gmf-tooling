@@ -116,25 +116,23 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		Warship oldSource = (Warship) oldEnd;
 		Warship newSource = (Warship) newEnd;
 
-		oldSource.getAttackOrders().remove(link);
-		newSource.getAttackOrders().add(link);
-		return CommandResult.newOKCommandResult(link);
+		oldSource.getAttackOrders().remove(getLink());
+		newSource.getAttackOrders().add(getLink());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
-		link.setPort(newTarget);
-		return CommandResult.newOKCommandResult(link);
+		getLink().setPort(newTarget);
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
