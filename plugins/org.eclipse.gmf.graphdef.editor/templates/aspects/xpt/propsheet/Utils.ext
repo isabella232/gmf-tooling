@@ -26,19 +26,6 @@ boolean isGeneratedTab(gmfgen::GenCustomPropertyTab tab) :
 "genLayout" == tab.iD || "genStyles" == tab.iD
 ;
 
-cached List[propsheet::Sectionable] collectAllParents(propsheet::Sectionable sectionable) :
-sectionable.parent == null ? {sectionable} : collectAllParents(sectionable.parent, {sectionable})
-;
-
-private List[propsheet::Sectionable] collectAllParents(propsheet::Group target, List[propsheet::Sectionable] parents) :
-parents.add(target) -> (target.parent == null ? parents : collectAllParents(target.parent, parents))
-;
-
-private String concatReverse(Collection[Object] coll) :
-let list = coll.toList() :
-	list.isEmpty() ? "" : (((String) list.last()) + concatReverse(list.withoutLast()))
-;
-
 cached propsheet::FeatureReference getModelElement(propsheet::Group modelElementOwner) :
 modelElementOwner.modelMediator
 ;
@@ -87,7 +74,7 @@ cached String getName(genmodel::GenClassifier abstract) :
 "AAA"+abstract.toString()+"AAA"
 ;
 
-private cached String getFeatureName(genmodel::GenFeature genFeature) :
+private cached String getName(genmodel::GenFeature genFeature) :
 genFeature.ecoreFeature.name
 ;
 
@@ -121,8 +108,8 @@ cached propsheet::CustomPropertySection getCustomPropertySection(propsheet::Sect
 sectionable.parent == null ? ((propsheet::CustomPropertySection) sectionable) : getCustomPropertySection(sectionable.parent)
 ;
 
-boolean createLabel(propsheet::Text text) :
-text != null ? text.createLabel : true
+boolean createLabel(propsheet::Labeled labeled) :
+labeled.text != null ? labeled.text.createLabel : true
 ;
 
 boolean isVisibleOnlyForTargets(propsheet::Group group) :
@@ -136,7 +123,7 @@ sectionable != null ? generateVarName(sectionable) : ""
 // TODO: implement generation of variable names
 private cached String generateVarName(propsheet::Sectionable sectionable) :
 ((sectionable.name == null || "" == sectionable.name) && getModelElement(sectionable) == null && getText(sectionable) == null) ?
-	"UnableToGenerateName" : composeVarName(buildMiddlePart(sectionable), sectionable)
+	"UnableToGenerateName" : composeVarName(sectionable)
 ;
 
 private cached propsheet::Text getText(propsheet::Sectionable sectionable) :
@@ -151,8 +138,8 @@ private getTextValueForVar(propsheet::Text text) :
 ((String)text.overridedItemProviderText).replaceAll(" ", "")
 ;
 
-private cached String composeVarName(String middlePart, propsheet::Sectionable sectionable) :
-getVarPrefix()+middlePart.toFirstUpper()+getSectionableKindSuffix(sectionable)
+private cached String composeVarName(propsheet::Sectionable sectionable) :
+getVarPrefix()+buildMiddlePart(sectionable).toFirstUpper()+getSectionableKindSuffix(sectionable)
 ;
 
 private cached String buildMiddlePart(propsheet::Sectionable sectionable) :
@@ -178,7 +165,7 @@ private cached String getSectionableKindSuffix(propsheet::Sectionable sectionabl
 ;
 
 private cached String getSectionableKindSuffix(propsheet::Group sectionable) :
-createLabel(sectionable.text) ? (isExpandable(sectionable) ? "ExpandableComposite" : "Group") : "Composite"
+createLabel(sectionable) ? (isExpandable(sectionable) ? "ExpandableComposite" : "Group") : "Composite"
 ;
 
 private cached String getSectionableKindSuffix(propsheet::Radio sectionable) :
@@ -211,15 +198,15 @@ featureRef.isOfValue.getEnumLiteral().toFirstUpper()
 
 private cached String getModelElementNameForVar(propsheet::ModelMediatorFeature featureRef) :
 (featureRef.cast != null ? getName(featureRef.cast) : "") +
-(featureRef.feature != null ? getFeatureName(featureRef.feature).toFirstUpper() : "")
+(featureRef.feature != null ? getName(featureRef.feature).toFirstUpper() : "")
 ;
 
 private cached String getModelElementNameForVar(propsheet::FeatureReference featureRef) :
-getFeatureName(featureRef.feature).toFirstUpper()
+getName(featureRef.feature).toFirstUpper()
 ;
 
 cached String getFormattedName(genmodel::GenFeature genFeature) :
-getFeatureName(genFeature) == null ? "" : format(getFeatureName(genFeature).toFirstUpper())
+getName(genFeature) == null ? "" : format(getName(genFeature).toFirstUpper())
 ;
 
 cached String getFormattedName(genmodel::GenClassifier genClassifier) :
@@ -237,10 +224,6 @@ genLiteral.ecoreEnumLiteral.literal
 
 cached String getEnumLiteralFriendlyName(genmodel::GenEnumLiteral genLiteral) :
 getEnumLiteral(genLiteral).toLowerCase().toFirstUpper()
-;
-
-cached String composeModelCall(propsheet::Sectionable sectionable, String targetVar) :
-targetVar
 ;
 
 cached genmodel::GenClassifier getTarget(propsheet::Group group) :

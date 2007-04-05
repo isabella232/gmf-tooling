@@ -272,7 +272,7 @@ private org.eclipse.swt.custom.CLabel «name()»;
 
 «DEFINE initVars FOR propsheet::Group-»
 «EXPAND xpt::Common::generatedMemberComment»
-private «IF createLabel(text)»«IF isExpandable()»org.eclipse.ui.forms.widgets.ExpandableComposite«ELSE»org.eclipse.swt.widgets.Group«ENDIF»«ELSE»org.eclipse.swt.widgets.Composite«ENDIF» «name()»;
+private «IF createLabel()»«IF isExpandable()»org.eclipse.ui.forms.widgets.ExpandableComposite«ELSE»org.eclipse.swt.widgets.Group«ENDIF»«ELSE»org.eclipse.swt.widgets.Composite«ENDIF» «name()»;
 «EXPAND initVars FOREACH contents-»
 «ENDDEFINE»
 
@@ -286,7 +286,7 @@ private org.eclipse.swt.graphics.Image «name()»_image;
 «ENDDEFINE»
 
 «DEFINE createControls(String parentVar) FOR propsheet::Group-»
-«IF createLabel(text)-»
+«IF createLabel()-»
 	«IF isExpandable()-»
 «name()» = createExpandableComposite(«parentVar», «EXPAND createLabel», «EXPAND layoutArgs»);
 org.eclipse.swt.widgets.Composite «name()»Control = createCompositeWidget(«name()», "", «EXPAND layoutArgs»);
@@ -296,7 +296,7 @@ org.eclipse.swt.widgets.Composite «name()»Control = createCompositeWidget(«name(
 «ELSE-»
 «name()» = createCompositeWidget(«parentVar», "", «EXPAND layoutArgs»);
 «ENDIF»
-«IF createLabel(text) && isExpandable()-»
+«IF createLabel() && isExpandable()-»
 	«EXPAND createControls(name()+"Control") FOREACH contents-»
 	«name()».setClient(«name()»Control);
 	«name()».addExpansionListener(getExpansionListener(«parentVar»));
@@ -337,7 +337,7 @@ org.eclipse.swt.widgets.Composite «name()»Control = createCompositeWidget(«name(
 «ENDDEFINE»
 
 «DEFINE createLabel FOR propsheet::Labeled-»
-«IF createLabel(text)»«IF null != text && null != text.overridedItemProviderText && "" != text.overridedItemProviderText»"«text.overridedItemProviderText»"«ELSE»«EXPAND callStringsAccessor»«ENDIF»«ELSE»""«ENDIF»«ENDDEFINE»
+«IF createLabel()»«IF null != text && null != text.overridedItemProviderText && "" != text.overridedItemProviderText»"«text.overridedItemProviderText»"«ELSE»«EXPAND callStringsAccessor»«ENDIF»«ELSE»""«ENDIF»«ENDDEFINE»
 
 «DEFINE createImage(String iconPath) FOR propsheet::Sectionable-»
 «name()»_image = «getCustomPropertySection().genTab.sheet.editorGen.plugin.getActivatorQualifiedClassName()».findImageDescriptor("«iconPath»").createImage();
@@ -378,7 +378,7 @@ null, null, null, null, false, false, «lowermost», «rightmost»
 
 «DEFINE disposeControl FOR propsheet::Group-»
 «EXPAND disposeControl FOREACH contents-»
-«IF createLabel(text) && isExpandable()-»
+«IF createLabel() && isExpandable()-»
 «name()».removeExpansionListener(getExpansionListener(null));«ENDIF»
 «ENDDEFINE»
 
@@ -520,7 +520,7 @@ if (modelText == null) {
 «ENDDEFINE»
 
 «DEFINE updateUIValue(String targetVar) FOR propsheet::Label-»
-«IF createLabel(text)-»
+«IF createLabel()-»
 String modelText = «EXPAND createLabel»;
 if (modelText == null) {
 	modelText = EMPTY_STRING;
@@ -574,7 +574,7 @@ public boolean isVisible«name().toFirstUpper()»(«getCustomPropertySection().getT
 «ENDDEFINE»
 
 «DEFINE createMetamodelNameGetter(propsheet::Labeled sectionable) FOR propsheet::FeatureReference-»
-«IF createLabel(sectionable.text) && (null == sectionable.text || null == sectionable.text.overridedItemProviderText || "" == sectionable.text.overridedItemProviderText)»
+«IF createLabel(sectionable) && (null == sectionable.text || null == sectionable.text.overridedItemProviderText || "" == sectionable.text.overridedItemProviderText)»
 «EXPAND xpt::Common::generatedMemberComment»
 public String getName«sectionable.name().toFirstUpper()»FromMetamodel() {
 	return "«EXPAND createNameFromMetamodelElement(sectionable)»";
