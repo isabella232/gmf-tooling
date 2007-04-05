@@ -79,12 +79,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		java.util.List affectedFiles = new java.util.LinkedList();
 		«IF null == editorGen.application-»
 		org.eclipse.core.resources.IFile diagramFile = myFileCreationPage.createNewFile();
-		try {
-			diagramFile.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor()); «EXPAND xpt::Common::nonNLS»
-		} catch (org.eclipse.core.runtime.CoreException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-				"Unable to set charset for diagram file", e); «EXPAND xpt::Common::nonNLS»
-		}
+		«EXPAND xpt::Common::setCharset("diagramFile")-»
 		affectedFiles.add(diagramFile);
 		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		«ELSE-»
@@ -122,7 +117,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		try {
 			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 				command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
-			diagramResource.save(java.util.Collections.EMPTY_MAP);
+			diagramResource.save(«EXPAND xpt::Common::getSaveOptions»);
 			«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagramResource);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(

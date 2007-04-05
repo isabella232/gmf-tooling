@@ -21,14 +21,18 @@ package «editorGen.editor.packageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «diagramEditorUtilClassName» {
-«EXPAND openDiagramMethod»
 
-«IF editorGen.application == null»
-	«EXPAND setCharsetMethod»
-	«EXPAND getFileMethod»
-«ENDIF»
+«EXPAND saveOptions-»
 
-«EXPAND getUniqueFileNameMethod»
+«EXPAND openDiagramMethod-»
+«IF editorGen.application == null-»
+
+	«EXPAND setCharsetMethods-»
+	
+	«EXPAND getFileMethod-»
+«ENDIF-»
+
+«EXPAND getUniqueFileNameMethod-»
 
 «IF editorGen.application != null»
 	/**
@@ -80,7 +84,7 @@ public class «diagramEditorUtilClassName» {
 		dialog.open();
 	}
 
-«EXPAND createDiagramMethod»
+«EXPAND createDiagramMethod-»
 «IF domainDiagramElement != null»
 	«EXPAND createInitialModelMethod»
 	«EXPAND attachModelMethod»
@@ -97,6 +101,22 @@ public class «diagramEditorUtilClassName» {
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
 
+«DEFINE saveOptions FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private static java.util.Map ourSaveOptions = null;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+public static java.util.Map getSaveOptions() {
+	if (ourSaveOptions == null) {
+		ourSaveOptions = new java.util.HashMap();
+		ourSaveOptions.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
+		ourSaveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+		ourSaveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+	}
+	return ourSaveOptions;
+}
+«ENDDEFINE»
+
 «DEFINE openDiagramMethod FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static boolean openDiagram(org.eclipse.emf.ecore.resource.Resource diagram) throws org.eclipse.ui.PartInitException {
@@ -110,11 +130,14 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
-// XXX private visibility?
-«DEFINE setCharsetMethod FOR gmfgen::GenDiagram»
+«DEFINE setCharsetMethods FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
-		org.eclipse.core.resources.IFile file = getFile(uri);
+		setCharset(getFile(uri));
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static void setCharset(org.eclipse.core.resources.IFile file) {
 		if (file == null) {
 			return;
 		}
@@ -123,13 +146,13 @@ public class «diagramEditorUtilClassName» {
 		} catch (org.eclipse.core.runtime.CoreException e) {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); «EXPAND xpt::Common::nonNLS»
 		}
-	}
+	}	
 «ENDDEFINE»
 
 // XXX private visibility? seems only setCharset is using this method
-«DEFINE getFileMethod FOR gmfgen::GenDiagram»
+«DEFINE getFileMethod FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.common.util.URI uri) {
+	private static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.common.util.URI uri) {
 		if (uri.toString().startsWith("platform:/resource")) { «EXPAND xpt::Common::nonNLS»
 			String path = uri.toString().substring("platform:/resource".length()); «EXPAND xpt::Common::nonNLS»
 			org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
@@ -141,7 +164,7 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
-«DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram»
+«DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static String getUniqueFileName(org.eclipse.core.runtime.IPath containerFullPath, String fileName, String extension) {
 		if (containerFullPath == null) {
@@ -174,7 +197,7 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
-«DEFINE createDiagramMethod FOR gmfgen::GenDiagram»
+«DEFINE createDiagramMethod FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment(editorGen.application == null ? "This method should be called within a workspace modify operation since it creates resources." : "")»
 	public static org.eclipse.emf.ecore.resource.Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI,«IF standaloneDomainModel()» org.eclipse.emf.common.util.URI modelURI,«ENDIF» org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
@@ -204,10 +227,8 @@ public class «diagramEditorUtilClassName» {
 				}
 				
 				try {
-					java.util.Map options = new java.util.HashMap();
-					options.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
-					«IF standaloneDomainModel()»modelResource.save(options);«ENDIF»
-					diagramResource.save(options);
+					«IF standaloneDomainModel()»modelResource.save(«EXPAND xpt::Common::getSaveOptions»);«ENDIF»
+					diagramResource.save(«EXPAND xpt::Common::getSaveOptions»);
 				} catch (java.io.IOException e) {
 					«/* TODO CommandResult.newErrorCommandResult(e) would be better? Or even throw ExecutionEx?*/»
 					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to store model and diagram resources", e); «EXPAND xpt::Common::nonNLS»
