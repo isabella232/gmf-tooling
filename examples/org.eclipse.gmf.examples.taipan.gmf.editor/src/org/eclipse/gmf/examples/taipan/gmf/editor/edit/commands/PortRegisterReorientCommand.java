@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -81,7 +82,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
 			return false;
 		}
-		return true;
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4007(getNewSource(), getOldTarget());
 	}
 
 	/**
@@ -91,7 +92,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
 			return false;
 		}
-		return true;
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4007(getOldSource(), getNewTarget());
 	}
 
 	/**
