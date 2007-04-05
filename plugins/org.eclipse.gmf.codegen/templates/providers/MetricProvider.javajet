@@ -222,14 +222,13 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */		
-		private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramURI;
+		private <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource;
 		/**
 		 * @generated
 		 */	    
 	    void setInput(IDiagramWorkbenchPart diagramPart) {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = diagramPart.getDiagram().eResource();
-			this.diagramURI = resource.getURI();
-			setTitleToolTip(diagramURI.path());
+			diagramResource = diagramPart.getDiagram().eResource();
+			setTitleToolTip(diagramResource.getURI().path());
 			
 			<%=importManager.getImportedName("java.util.List")%> metrics = calculateMetrics(diagramPart);
 	    	adjustLayout(metrics);
@@ -334,7 +333,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		private void handleOpen(OpenEvent event) {
 			try {
 				<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editorPart = getSite().getPage()
-					.openEditor(new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getFile(diagramURI)),
+					.openEditor(new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(<%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagramResource)),
 							<%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
 				if(editorPart == null) {
 					return;
