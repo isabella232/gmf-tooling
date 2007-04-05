@@ -23,6 +23,10 @@
 «ENDREM»
 «DEFINE accessors FOR gmfgen::GenLink-»
 	«EXPAND linkAccessor FOR modelFacet-»
+	«EXPAND oldSourceAccessor FOR modelFacet-»
+	«EXPAND newSourceAccessor FOR modelFacet-»
+	«EXPAND oldTargetAccessor FOR modelFacet-»
+	«EXPAND newTargetAccessor FOR modelFacet-»
 «ENDDEFINE»
 
 «DEFINE linkAccessor FOR gmfgen::LinkModelFacet-»
@@ -33,6 +37,50 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «getQualifiedInterfaceName(metaClass)» getLink() {
 		return («getQualifiedInterfaceName(metaClass)») getElementToEdit();
+	}
+«ENDDEFINE»
+
+«DEFINE oldSourceAccessor FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE oldSourceAccessor FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(getSourceType())» getOldSource() {
+		return («getQualifiedInterfaceName(getSourceType())») oldEnd;
+	}
+«ENDDEFINE»
+
+«DEFINE newSourceAccessor FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE newSourceAccessor FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(getSourceType())» getNewSource() {
+		return («getQualifiedInterfaceName(getSourceType())») newEnd;
+	}
+«ENDDEFINE»
+
+«DEFINE oldTargetAccessor FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE oldTargetAccessor FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(getTargetType())» getOldTarget() {
+		return («getQualifiedInterfaceName(getTargetType())») oldEnd;
+	}
+«ENDDEFINE»
+
+«DEFINE newTargetAccessor FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE newTargetAccessor FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(getTargetType())» getNewTarget() {
+		return («getQualifiedInterfaceName(getTargetType())») newEnd;
 	}
 «ENDDEFINE»
 
@@ -197,25 +245,21 @@
 «DEFINE reorientTarget FOR gmfgen::LinkModelFacet-»
 «ENDDEFINE»
 
+«REM»
+	Shouldn't we change link container here?
+«ENDREM»
 «DEFINE reorientSource FOR gmfgen::TypeLinkModelFacet-»
-	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
-	«getQualifiedInterfaceName(getSourceType())» oldSource = («getQualifiedInterfaceName(getSourceType())») oldEnd;
-	«getQualifiedInterfaceName(getSourceType())» newSource = («getQualifiedInterfaceName(getSourceType())») newEnd;
 	«IF null != sourceMetaFeature-»
-		«EXPAND changeTarget("link", "oldSource", "newSource") FOR sourceMetaFeature-»
-		«REM»Shouldn't we change link container here?«ENDREM»
+		«EXPAND changeTarget("getLink()", "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
 	«ELSE-»
-		«EXPAND changeSource("oldSource", "newSource", "link") FOR containmentMetaFeature-»
+		«EXPAND changeSource("getOldSource()", "getNewSource()", "getLink()") FOR containmentMetaFeature-»
 	«ENDIF-»
-	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::TypeLinkModelFacet-»
-	«getQualifiedInterfaceName(metaClass)» link = («getQualifiedInterfaceName(metaClass)») getElementToEdit();
-	«getQualifiedInterfaceName(getTargetType())» oldTarget = («getQualifiedInterfaceName(getTargetType())») oldEnd;
-	«getQualifiedInterfaceName(getTargetType())» newTarget = («getQualifiedInterfaceName(getTargetType())») newEnd;
-	«EXPAND changeTarget("link", "oldTarget", "newTarget") FOR targetMetaFeature-»
-	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(link);
+	«EXPAND changeTarget("getLink()", "getOldTarget()", "getNewTarget()") FOR targetMetaFeature-»
+	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
 «ENDDEFINE»
 
 «REM»
@@ -240,7 +284,7 @@
 «REM»
 	Replace old target with the new one in the source.
 «ENDREM»
-«DEFINE changeTarget(String sourceVar, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature»
+«DEFINE changeTarget(String sourceVar, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
 		«EXPAND xpt::Common::getFeatureValue(sourceVar, true)».remove(«oldTargetVar»);
 		«EXPAND xpt::Common::getFeatureValue(sourceVar, true)».add(«newTargetVar»);
@@ -252,7 +296,7 @@
 «REM»
 	Move target from old source to the new one.
 «ENDREM»
-«DEFINE changeSource(String oldSourceVar, String newSourceVar, String targetVar) FOR genmodel::GenFeature»
+«DEFINE changeSource(String oldSourceVar, String newSourceVar, String targetVar) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
 		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, true)».remove(«targetVar»);
 		«EXPAND xpt::Common::getFeatureValue(newSourceVar, true)».add(«targetVar»);
