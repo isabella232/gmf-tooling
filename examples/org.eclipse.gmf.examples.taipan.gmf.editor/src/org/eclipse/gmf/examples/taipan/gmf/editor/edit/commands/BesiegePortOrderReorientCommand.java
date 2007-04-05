@@ -76,9 +76,8 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
 			return false;
 		}
-		Warship source = (Warship) newEnd;
 		Port target = getLink().getPort();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(getNewSource(), target);
 	}
 
 	/**
@@ -92,8 +91,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Warship source = (Warship) getLink().eContainer();
-		Port target = (Port) newEnd;
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, getNewTarget());
 	}
 
 	/**

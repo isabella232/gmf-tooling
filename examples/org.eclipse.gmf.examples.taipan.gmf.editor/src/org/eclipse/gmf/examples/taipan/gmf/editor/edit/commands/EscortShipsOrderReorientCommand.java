@@ -76,12 +76,11 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
 			return false;
 		}
-		Warship source = (Warship) newEnd;
 		if (getLink().getShips().size() != 1) {
 			return false;
 		}
 		Ship target = (Ship) getLink().getShips().get(0);
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(getNewSource(), target);
 	}
 
 	/**
@@ -95,8 +94,7 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Warship source = (Warship) getLink().eContainer();
-		Ship target = (Ship) newEnd;
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, getNewTarget());
 	}
 
 	/**

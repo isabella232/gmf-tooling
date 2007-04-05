@@ -76,13 +76,12 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
 			return false;
 		}
-		Port source = (Port) newEnd;
 		Port target = getLink().getDestination();
 		if (!(getLink().eContainer() instanceof Aquatory)) {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, getNewSource(), target);
 	}
 
 	/**
@@ -93,12 +92,11 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Port source = getLink().getSource();
-		Port target = (Port) newEnd;
 		if (!(getLink().eContainer() instanceof Aquatory)) {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, target);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, getNewTarget());
 	}
 
 	/**
