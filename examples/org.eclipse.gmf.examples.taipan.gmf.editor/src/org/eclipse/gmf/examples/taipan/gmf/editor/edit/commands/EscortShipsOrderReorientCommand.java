@@ -60,30 +60,43 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof EscortShipsOrder)) {
 			return false;
 		}
-		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
-				return false;
-			}
-			Warship source = (Warship) newEnd;
-			if (link.getShips().size() != 1) {
-				return false;
-			}
-			Ship target = (Ship) link.getShips().get(0);
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
-				return false;
-			}
-			if (!(link.eContainer() instanceof Warship)) {
-				return false;
-			}
-			Warship source = (Warship) link.eContainer();
-			Ship target = (Ship) newEnd;
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
+			return false;
+		}
+		Warship source = (Warship) newEnd;
+		if (getLink().getShips().size() != 1) {
+			return false;
+		}
+		Ship target = (Ship) getLink().getShips().get(0);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+			return false;
+		}
+		if (!(getLink().eContainer() instanceof Warship)) {
+			return false;
+		}
+		Warship source = (Warship) getLink().eContainer();
+		Ship target = (Ship) newEnd;
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4006(source, target);
 	}
 
 	/**
@@ -105,7 +118,7 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
+	protected CommandResult reorientSource() throws ExecutionException {
 		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		Warship oldSource = (Warship) oldEnd;
 		Warship newSource = (Warship) newEnd;
@@ -118,7 +131,7 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
+	protected CommandResult reorientTarget() throws ExecutionException {
 		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
 		Ship oldTarget = (Ship) oldEnd;
 		Ship newTarget = (Ship) newEnd;
@@ -126,5 +139,12 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 		link.getShips().remove(oldTarget);
 		link.getShips().add(newTarget);
 		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EscortShipsOrder getLink() {
+		return (EscortShipsOrder) getElementToEdit();
 	}
 }

@@ -60,27 +60,40 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof BesiegePortOrder)) {
 			return false;
 		}
-		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
-				return false;
-			}
-			Warship source = (Warship) newEnd;
-			Port target = link.getPort();
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
-				return false;
-			}
-			if (!(link.eContainer() instanceof Warship)) {
-				return false;
-			}
-			Warship source = (Warship) link.eContainer();
-			Port target = (Port) newEnd;
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
+			return false;
+		}
+		Warship source = (Warship) newEnd;
+		Port target = getLink().getPort();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		if (!(getLink().eContainer() instanceof Warship)) {
+			return false;
+		}
+		Warship source = (Warship) getLink().eContainer();
+		Port target = (Port) newEnd;
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, target);
 	}
 
 	/**
@@ -102,7 +115,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
+	protected CommandResult reorientSource() throws ExecutionException {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		Warship oldSource = (Warship) oldEnd;
 		Warship newSource = (Warship) newEnd;
@@ -115,12 +128,19 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
+	protected CommandResult reorientTarget() throws ExecutionException {
 		BesiegePortOrder link = (BesiegePortOrder) getElementToEdit();
 		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
 		link.setPort(newTarget);
 		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected BesiegePortOrder getLink() {
+		return (BesiegePortOrder) getElementToEdit();
 	}
 }

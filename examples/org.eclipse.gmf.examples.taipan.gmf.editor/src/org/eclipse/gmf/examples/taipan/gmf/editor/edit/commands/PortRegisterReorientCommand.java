@@ -66,18 +66,32 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
-				return false;
-			}
-			return true;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
-				return false;
-			}
-			return true;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -99,7 +113,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
+	protected CommandResult reorientSource() throws ExecutionException {
 		Port oldSource = (Port) referenceOwner;
 		Port newSource = (Port) newEnd;
 		Ship target = (Ship) oldEnd;
@@ -112,7 +126,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
+	protected CommandResult reorientTarget() throws ExecutionException {
 		Port source = (Port) referenceOwner;
 		Ship oldTarget = (Ship) oldEnd;
 		Ship newTarget = (Ship) newEnd;

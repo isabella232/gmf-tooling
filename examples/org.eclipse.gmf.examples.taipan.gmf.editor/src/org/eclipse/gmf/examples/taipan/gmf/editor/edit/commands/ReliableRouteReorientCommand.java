@@ -60,32 +60,45 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof Route)) {
 			return false;
 		}
-		Route link = (Route) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
-				return false;
-			}
-			Port source = (Port) newEnd;
-			Port target = link.getDestination();
-			if (!(link.eContainer() instanceof Aquatory)) {
-				return false;
-			}
-			Aquatory container = (Aquatory) link.eContainer();
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, source, target);
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
-				return false;
-			}
-			Port source = link.getSource();
-			Port target = (Port) newEnd;
-			if (!(link.eContainer() instanceof Aquatory)) {
-				return false;
-			}
-			Aquatory container = (Aquatory) link.eContainer();
-			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, source, target);
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		Port source = (Port) newEnd;
+		Port target = getLink().getDestination();
+		if (!(getLink().eContainer() instanceof Aquatory)) {
+			return false;
+		}
+		Aquatory container = (Aquatory) getLink().eContainer();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, source, target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		Port source = getLink().getSource();
+		Port target = (Port) newEnd;
+		if (!(getLink().eContainer() instanceof Aquatory)) {
+			return false;
+		}
+		Aquatory container = (Aquatory) getLink().eContainer();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4002(container, source, target);
 	}
 
 	/**
@@ -107,7 +120,7 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
+	protected CommandResult reorientSource() throws ExecutionException {
 		Route link = (Route) getElementToEdit();
 		Port oldSource = (Port) oldEnd;
 		Port newSource = (Port) newEnd;
@@ -120,12 +133,19 @@ public class ReliableRouteReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
+	protected CommandResult reorientTarget() throws ExecutionException {
 		Route link = (Route) getElementToEdit();
 		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
 
 		link.setDestination(newTarget);
 		return CommandResult.newOKCommandResult(link);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Route getLink() {
+		return (Route) getElementToEdit();
 	}
 }
