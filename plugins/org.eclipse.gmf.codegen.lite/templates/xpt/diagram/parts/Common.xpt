@@ -143,7 +143,7 @@ public org.eclipse.draw2d.IFigure getContentPane() {
 «DEFINE ctors(String expectedModelType) FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 public «editPartClassName»(org.eclipse.gmf.runtime.notation.View model) {
-	assert model instanceof org.eclipse.gmf.runtime.notation.Node;
+	assert model instanceof «expectedModelType»;
 	setModel(model);
 }
 «ENDDEFINE»
