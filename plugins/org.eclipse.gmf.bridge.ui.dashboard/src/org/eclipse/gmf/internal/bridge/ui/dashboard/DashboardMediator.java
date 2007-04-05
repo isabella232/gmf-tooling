@@ -32,6 +32,7 @@ import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.ui.dashboard.DashboardActionRegistry.DashboardActionDescriptor;
+import org.eclipse.gmf.internal.bridge.ui.dashboard.actions.TransformMap2GenModelAction;
 import org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard;
@@ -117,6 +118,10 @@ public class DashboardMediator implements DashboardFacade {
 		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Combine, new CombineMMAction()));
+		// XXX Dima, the contract of DashboardAction#init is broken for all actions added above!
+		final TransformMap2GenModelAction transformAction = new TransformMap2GenModelAction();
+		transformAction.init(this);
+		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Transform, transformAction));
 		for (DashboardActionDescriptor descriptor : Plugin.getDefault().getDashboardActionRegistry().getDescriptors()) {
 			addDashboardAction(descriptor);
 		}

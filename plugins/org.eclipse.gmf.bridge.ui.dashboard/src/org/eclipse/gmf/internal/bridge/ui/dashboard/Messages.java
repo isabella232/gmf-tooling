@@ -49,6 +49,8 @@ public class Messages extends NLS {
 
 	public static String DashboardMediator_SelectProject;
 
+	public static String DashboardMediator_Transform;
+
 	public static String DashboardPart_Synchronize;
 
 	public static String DashboardPart_SynchronizeSelection;
