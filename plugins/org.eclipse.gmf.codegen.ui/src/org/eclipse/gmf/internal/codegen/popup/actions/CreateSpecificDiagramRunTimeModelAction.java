@@ -32,7 +32,6 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		myPart = targetPart;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void run(IAction action) {
 		final ResourceSetImpl resSet = new ResourceSetImpl();
 		final Mapping m = (Mapping) resSet.getResource(getMapModelURI(), true).getContents().get(0);
@@ -85,7 +84,7 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		genModel.getForeignModel().add(model.eResource().getURI().toString());
 		genModel.getUsedGenPackages().add(getDiagramRunTimeGenPackage());
 
-		GenPackage genPackage = (GenPackage)genModel.getGenPackages().get(0);
+		GenPackage genPackage = genModel.getGenPackages().get(0);
 		genPackage.setPrefix(model.getName() + "DRT");
 		return genModel;
 	}

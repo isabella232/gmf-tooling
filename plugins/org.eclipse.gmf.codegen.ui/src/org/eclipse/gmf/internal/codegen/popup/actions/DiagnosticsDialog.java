@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -82,7 +81,6 @@ import org.eclipse.ui.part.FileEditorInput;
 public class DiagnosticsDialog extends IconAndMessageDialog {
 
     private static class DiagnosticLabelProvider extends LabelProvider {
-
 		@Override
 		public Image getImage(Object element) {
 			if (!(element instanceof Diagnostic)) {
@@ -535,17 +533,12 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
             populateCopyBuffer(BasicDiagnostic.toDiagnostic(ce), buffer, nesting + 1);
         }
         
-        List children = buildingDiagnostic.getChildren();
-        for (Iterator it = children.iterator(); it.hasNext();) {
-            populateCopyBuffer((Diagnostic)it.next(), buffer, nesting + 1);
+        List<Diagnostic> children = buildingDiagnostic.getChildren();
+        for (Diagnostic next : children) {
+            populateCopyBuffer(next, buffer, nesting + 1);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.window.Window#close()
-     */
     public boolean close() {
         if (clipboard != null) {
 			clipboard.dispose();
@@ -633,16 +626,10 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
         MenuItem copyItem = new MenuItem(diagnosticMenu, SWT.NONE);
         copyItem.setText(Messages.DiagnosticsDialog_Copy_menuItem);        
         copyItem.addSelectionListener(new SelectionListener() {
-            /*
-             * @see SelectionListener.widgetSelected (SelectionEvent)
-             */
             public void widgetSelected(SelectionEvent e) {
                 copyToClipboard();
             }
 
-            /*
-             * @see SelectionListener.widgetDefaultSelected(SelectionEvent)
-             */
             public void widgetDefaultSelected(SelectionEvent e) {
                 copyToClipboard();
             }
@@ -652,16 +639,10 @@ public class DiagnosticsDialog extends IconAndMessageDialog {
 	        MenuItem gotoItem = new MenuItem(diagnosticMenu, SWT.NONE);
 	        gotoItem.setText(Messages.DiagnosticsDialog_gotoProblem_menuItem);
 	        gotoItem.addSelectionListener(new SelectionListener() {
-	            /*
-	             * @see SelectionListener.widgetSelected (SelectionEvent)
-	             */
 	            public void widgetSelected(SelectionEvent e) {
 	            	gotoProblem();
 	            }
 	
-	            /*
-	             * @see SelectionListener.widgetDefaultSelected(SelectionEvent)
-	             */
 	            public void widgetDefaultSelected(SelectionEvent e) {
 	            	gotoProblem();
 	            }
