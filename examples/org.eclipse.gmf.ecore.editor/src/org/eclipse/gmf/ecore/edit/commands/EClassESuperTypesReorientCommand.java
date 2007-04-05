@@ -65,10 +65,16 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof EClass && newEnd instanceof EClass;
+			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+				return false;
+			}
+			return true;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof EClass && newEnd instanceof EClass;
+			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}

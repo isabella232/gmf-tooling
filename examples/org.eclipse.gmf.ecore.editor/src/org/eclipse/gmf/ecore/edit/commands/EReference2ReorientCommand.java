@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -59,11 +60,25 @@ public class EReference2ReorientCommand extends EditElementCommand {
 		if (!(getElementToEdit() instanceof EReference)) {
 			return false;
 		}
+		EReference link = (EReference) getElementToEdit();
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof EClass && newEnd instanceof EClass;
+			if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
+				return false;
+			}
+			EClass source = (EClass) newEnd;
+			EClassifier target = link.getEType();
+			return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(source, target);
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof EClassifier && newEnd instanceof EClassifier;
+			if (!(oldEnd instanceof EClassifier && newEnd instanceof EClassifier)) {
+				return false;
+			}
+			if (!(link.eContainer() instanceof EClass)) {
+				return false;
+			}
+			EClass source = (EClass) link.eContainer();
+			EClassifier target = (EClassifier) newEnd;
+			return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4003(source, target);
 		}
 		return false;
 	}

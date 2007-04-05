@@ -290,7 +290,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected static class LinkConstraints {
+	public static class LinkConstraints {
 
 		/**
 		 * @generated
@@ -349,27 +349,21 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
-			return true;
+			return canExistEAnnotationReferences_4001(source, target);
 		}
 
 		/**
 		 * @generated
 		 */
 		public static boolean canCreateEReference_4002(EClass source, EClassifier target) {
-			if (!evaluate(EReference_4002_TargetExpression, target, source, true)) {
-				return false;
-			}
-			return true;
+			return canExistEReference_4002(source, target);
 		}
 
 		/**
 		 * @generated
 		 */
 		public static boolean canCreateEReference_4003(EClass source, EClassifier target) {
-			if (!evaluate(EReference_4003_TargetExpression, target, source, true)) {
-				return false;
-			}
-			return true;
+			return canExistEReference_4003(source, target);
 		}
 
 		/**
@@ -381,6 +375,40 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+			return canExistEClassESuperTypes_4004(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistEAnnotationReferences_4001(EAnnotation source, EObject target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistEReference_4002(EClass source, EClassifier target) {
+			if (!evaluate(EReference_4002_TargetExpression, target, source, true)) {
+				return false;
+			}
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistEReference_4003(EClass source, EClassifier target) {
+			if (!evaluate(EReference_4003_TargetExpression, target, source, true)) {
+				return false;
+			}
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistEClassESuperTypes_4004(EClass source, EClass target) {
 			if (!evaluate(EClassESuperTypes_4004_TargetExpression, target, source, true)) {
 				return false;
 			}

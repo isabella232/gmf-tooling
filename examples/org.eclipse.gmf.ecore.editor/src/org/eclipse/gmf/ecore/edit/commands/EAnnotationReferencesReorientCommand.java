@@ -65,10 +65,16 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof EObject && newEnd instanceof EAnnotation;
+			if (!(oldEnd instanceof EObject && newEnd instanceof EAnnotation)) {
+				return false;
+			}
+			return true;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof EObject && newEnd instanceof EObject;
+			if (!(oldEnd instanceof EObject && newEnd instanceof EObject)) {
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
