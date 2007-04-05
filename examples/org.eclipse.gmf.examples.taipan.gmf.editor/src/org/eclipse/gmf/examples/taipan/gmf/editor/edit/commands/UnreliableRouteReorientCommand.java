@@ -121,11 +121,7 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		Port oldSource = (Port) oldEnd;
-		Port newSource = (Port) newEnd;
-
-		getLink().setSource(newSource);
-
+		getLink().setSource(getNewSource());
 		return CommandResult.newOKCommandResult(getLink());
 	}
 
@@ -133,10 +129,7 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		Port oldTarget = (Port) oldEnd;
-		Port newTarget = (Port) newEnd;
-
-		getLink().setDestination(newTarget);
+		getLink().setDestination(getNewTarget());
 		return CommandResult.newOKCommandResult(getLink());
 	}
 
@@ -145,5 +138,33 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 	 */
 	protected Route getLink() {
 		return (Route) getElementToEdit();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldSource() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewSource() {
+		return (Port) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldTarget() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewTarget() {
+		return (Port) newEnd;
 	}
 }

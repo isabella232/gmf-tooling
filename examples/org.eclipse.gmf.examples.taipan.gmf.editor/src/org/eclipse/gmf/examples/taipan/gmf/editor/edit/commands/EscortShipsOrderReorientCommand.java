@@ -119,11 +119,8 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		Warship oldSource = (Warship) oldEnd;
-		Warship newSource = (Warship) newEnd;
-
-		oldSource.setEscortOrder(null);
-		newSource.setEscortOrder(getLink());
+		getOldSource().setEscortOrder(null);
+		getNewSource().setEscortOrder(getLink());
 		return CommandResult.newOKCommandResult(getLink());
 	}
 
@@ -131,11 +128,8 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		Ship oldTarget = (Ship) oldEnd;
-		Ship newTarget = (Ship) newEnd;
-
-		getLink().getShips().remove(oldTarget);
-		getLink().getShips().add(newTarget);
+		getLink().getShips().remove(getOldTarget());
+		getLink().getShips().add(getNewTarget());
 		return CommandResult.newOKCommandResult(getLink());
 	}
 
@@ -144,5 +138,33 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	 */
 	protected EscortShipsOrder getLink() {
 		return (EscortShipsOrder) getElementToEdit();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Warship getOldSource() {
+		return (Warship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Warship getNewSource() {
+		return (Warship) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldTarget() {
+		return (Ship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewTarget() {
+		return (Ship) newEnd;
 	}
 }

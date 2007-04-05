@@ -117,7 +117,6 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		Port oldSource = (Port) referenceOwner;
 		Port newSource = (Port) newEnd;
 		Ship target = (Ship) oldEnd;
-
 		oldSource.getRegister().remove(target);
 		newSource.getRegister().add(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
@@ -130,7 +129,6 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		Port source = (Port) referenceOwner;
 		Ship oldTarget = (Ship) oldEnd;
 		Ship newTarget = (Ship) newEnd;
-
 		source.getRegister().remove(oldTarget);
 		source.getRegister().add(newTarget);
 		return CommandResult.newOKCommandResult(referenceOwner);

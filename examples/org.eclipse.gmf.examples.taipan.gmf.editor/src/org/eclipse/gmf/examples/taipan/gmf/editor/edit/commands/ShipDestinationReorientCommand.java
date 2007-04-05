@@ -117,7 +117,6 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 		Ship oldSource = (Ship) referenceOwner;
 		Ship newSource = (Ship) newEnd;
 		Port target = (Port) oldEnd;
-
 		oldSource.setDestination(null);
 		newSource.setDestination(target);
 		return CommandResult.newOKCommandResult(referenceOwner);
@@ -130,7 +129,6 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 		Ship source = (Ship) referenceOwner;
 		Port oldTarget = (Port) oldEnd;
 		Port newTarget = (Port) newEnd;
-
 		source.setDestination(newTarget);
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
