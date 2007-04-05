@@ -114,11 +114,8 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		Ship oldSource = (Ship) referenceOwner;
-		Ship newSource = (Ship) newEnd;
-		Port target = (Port) oldEnd;
-		oldSource.setDestination(null);
-		newSource.setDestination(target);
+		getOldSource().setDestination(null);
+		getNewSource().setDestination(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -126,10 +123,35 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		Ship source = (Ship) referenceOwner;
-		Port oldTarget = (Port) oldEnd;
-		Port newTarget = (Port) newEnd;
-		source.setDestination(newTarget);
+		getOldSource().setDestination(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldSource() {
+		return (Ship) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewSource() {
+		return (Ship) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldTarget() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewTarget() {
+		return (Port) newEnd;
 	}
 }

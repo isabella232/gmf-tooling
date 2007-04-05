@@ -114,11 +114,8 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		Port oldSource = (Port) referenceOwner;
-		Port newSource = (Port) newEnd;
-		Ship target = (Ship) oldEnd;
-		oldSource.getRegister().remove(target);
-		newSource.getRegister().add(target);
+		getOldSource().getRegister().remove(getOldTarget());
+		getNewSource().getRegister().add(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
@@ -126,11 +123,36 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		Port source = (Port) referenceOwner;
-		Ship oldTarget = (Ship) oldEnd;
-		Ship newTarget = (Ship) newEnd;
-		source.getRegister().remove(oldTarget);
-		source.getRegister().add(newTarget);
+		getOldSource().getRegister().remove(getOldTarget());
+		getOldSource().getRegister().add(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldSource() {
+		return (Port) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewSource() {
+		return (Port) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldTarget() {
+		return (Ship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewTarget() {
+		return (Ship) newEnd;
 	}
 }
