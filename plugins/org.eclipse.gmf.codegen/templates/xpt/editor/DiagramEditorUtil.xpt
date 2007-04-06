@@ -259,7 +259,7 @@ public static java.util.Map getSaveOptions() {
 «DEFINE attachModelMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment("Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->")»
 	private static void attachModelToResource(«domainDiagramElement.getQualifiedInterfaceName()» model, org.eclipse.emf.ecore.resource.Resource resource) {
-		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»model«ENDIF»);
+		resource.getContents().add(«IF hasDocumentRoot()»createDocumentRoot(model)«ELSE»«IF domainDiagramElement.isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»model«ENDIF»);
 	}
 «ENDDEFINE»
 
