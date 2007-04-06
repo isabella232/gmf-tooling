@@ -46,13 +46,13 @@
 				<echo message="@{file}"/>
 	            <antcontrib:propertyregex property="feature.id"                                                                                                                            
 	                input="@{file}"                                                                                                                                                              
-	                regexp="([^/]*)_.*\.jar"                                                                                                                                                        
+	                regexp="([^/^_]*)_"                                                                                                                                                        
 	                select="\1"                                                                                                                                                                  
 	                override="true"/>                                                                                                                                                            
 	                <echo message="${feature.id}"/>
 				<antcontrib:propertyregex property="feature.version!${feature.id}"
 				    input="@{file}"
-				    regexp="([^\_]*)\.jar"
+				    regexp="[^/^_]*_(.*).jar"
 				    select="\1" 
 				    override="true"/>
 			    <antcontrib:propertycopy name="feature.version" from="feature.version!${feature.id}" override="true"/>
