@@ -28,8 +28,6 @@ public class «diagramEditorUtilClassName» {
 «IF editorGen.application == null-»
 
 	«EXPAND setCharsetMethods-»
-	
-	«EXPAND getFileMethod-»
 «ENDIF-»
 
 «EXPAND getUniqueFileNameMethod-»
@@ -132,11 +130,6 @@ public static java.util.Map getSaveOptions() {
 
 «DEFINE setCharsetMethods FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
-		setCharset(getFile(uri));
-	}
-	
-	«EXPAND xpt::Common::generatedMemberComment»
 	public static void setCharset(org.eclipse.core.resources.IFile file) {
 		if (file == null) {
 			return;
@@ -147,21 +140,6 @@ public static java.util.Map getSaveOptions() {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); «EXPAND xpt::Common::nonNLS»
 		}
 	}	
-«ENDDEFINE»
-
-// XXX private visibility? seems only setCharset is using this method
-«DEFINE getFileMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.common.util.URI uri) {
-		if (uri.toString().startsWith("platform:/resource")) { «EXPAND xpt::Common::nonNLS»
-			String path = uri.toString().substring("platform:/resource".length()); «EXPAND xpt::Common::nonNLS»
-			org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
-			if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
-				return (org.eclipse.core.resources.IFile) workspaceResource;
-			}
-		}
-		return null;
-	}
 «ENDDEFINE»
 
 «DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram-»
@@ -242,8 +220,8 @@ public static java.util.Map getSaveOptions() {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
 		}
 «IF editorGen.application == null-»
-		«IF standaloneDomainModel()»setCharset(modelURI);«ENDIF»
-		setCharset(diagramURI);
+		«IF standaloneDomainModel()»setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(modelResource));«ENDIF»
+		setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource));
 «ENDIF-»
 		return diagramResource;
 	}
