@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
@@ -45,7 +44,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		Reader r = null;
 		try {
 			r = new StreamConverter().toContentsReader(file);
-			return remember(file, super.loadXtendResource(r, toFullyQualifiedName(file)));
+			return super.loadXtendResource(r, toFullyQualifiedName(file));
 		} finally {
 			if (r != null) {
 				r.close();
@@ -61,7 +60,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		Reader r = null;
 		try {
 			r = new StreamConverter().toContentsReader(file);
-			return remember(file, super.loadXpandResource(r, toFullyQualifiedName(file)));
+			return super.loadXpandResource(r, toFullyQualifiedName(file));
 		} finally {
 			if (r != null) {
 				r.close();
@@ -69,15 +68,14 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		}
 	}
 
-	protected <T extends ResourceMarker> T remember(IFile resource, T loadedResource) {
-		// TODO cache.
-		// TODO move to superclass - odd if caching will happen to templates accessed via IFile only
-		// XXX Do I need cache?
-		return loadedResource;
+	@Override
+	protected boolean shouldCache() {
+		// we don't cache workspace resources for now (for the sake of reducing 
+		// underemined problems that may arise), although may do this later
+		return false;
 	}
 
 	public void forget(IFile resource) {
-		// TODO Auto-generated method stub
 		// implement when caching
 	}
 

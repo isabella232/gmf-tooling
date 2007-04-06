@@ -44,6 +44,11 @@ public class BundleResourceManager extends ResourceManagerImpl {
 	}
 
 	@Override
+	protected boolean shouldCache() {
+		return true;
+	}
+
+	@Override
 	protected Reader resolve(String fullyQualifiedName, String extension) throws IOException {
 		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
 		for (int i = 0; i < paths.length; i++) {

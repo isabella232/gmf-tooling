@@ -11,6 +11,8 @@ package org.eclipse.gmf.internal.xpand.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -19,13 +21,23 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
+	private final Map<String, XtendResource> cachedXtend = new TreeMap<String, XtendResource>();
+	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 
 	public XtendResource loadXtendResource(String fullyQualifiedName) {
 		Reader r = null;
 		try {
+			if (hasCachedXtend(fullyQualifiedName)) {
+				return cachedXtend.get(fullyQualifiedName);
+			}
 			r = resolve(fullyQualifiedName, XtendResource.FILE_EXTENSION);
 			assert r != null;
-			return loadXtendResource(r, fullyQualifiedName);
+			final XtendResource loaded = loadXtendResource(r, fullyQualifiedName);
+			assert loaded != null; // this is the contract of loadXtendResource
+			if (shouldCache()) {
+				cachedXtend.put(fullyQualifiedName, loaded);
+			}
+			return loaded;
 		} catch (FileNotFoundException ex) {
 			return delegateLoadXtendResource(fullyQualifiedName);
 		} catch (IOException ex) {
@@ -45,9 +57,17 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
 		Reader r = null;
 		try {
+			if (hasCachedXpand(fullyQualifiedName)) {
+				return cachedXpand.get(fullyQualifiedName);
+			}
 			r = resolve(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
 			assert r != null; // exception should be thrown to indicate issues with resolve
-			return loadXpandResource(r, fullyQualifiedName);
+			final XpandResource loaded = loadXpandResource(r, fullyQualifiedName);
+			assert loaded != null; // this is the contract of loadXpandResource
+			if (shouldCache()) {
+				cachedXpand.put(fullyQualifiedName, loaded);
+			}
+			return loaded;
 		} catch (FileNotFoundException ex) {
 			return delegateLoadXpandResource(fullyQualifiedName);
 		} catch (IOException ex) {
@@ -109,5 +129,24 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	protected XpandResource loadXpandResource(Reader reader, String fullyQualifiedName) throws IOException, ParserException {
 		return new XpandResourceParser().parse(reader, fullyQualifiedName);
+	}
+
+	protected abstract boolean shouldCache();
+
+	protected final boolean hasCachedXpand(String fullyQualifiedName) {
+		return shouldCache() && cachedXpand.containsKey(fullyQualifiedName);
+	}
+	protected final boolean hasCachedXtend(String fullyQualifiedName) {
+		return shouldCache() && cachedXtend.containsKey(fullyQualifiedName);
+	}
+	protected final void forgetCachedXpand(String fullyQualifiedName) {
+		cachedXpand.remove(fullyQualifiedName);
+	}
+	protected final void forgetCachedXtend(String fullyQualifiedName) {
+		cachedXtend.remove(fullyQualifiedName);
+	}
+	protected final void forgetAll() {
+		cachedXpand.clear();
+		cachedXtend.clear();
 	}
 }
