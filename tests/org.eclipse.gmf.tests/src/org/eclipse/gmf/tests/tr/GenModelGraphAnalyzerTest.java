@@ -39,7 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.util.GenModelGraphAnalyzer;
+import org.eclipse.gmf.internal.codegen.util.GenModelGraphAnalyzer;
 
 public class GenModelGraphAnalyzerTest extends TestCase {
 
