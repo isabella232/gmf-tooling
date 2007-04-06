@@ -31,7 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPath;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
-import org.eclipse.gmf.codegen.util.GenModelGraphAnalyzer;
+import org.eclipse.gmf.internal.codegen.util.GenModelGraphAnalyzer;
 
 /**
  * <!-- begin-user-doc -->

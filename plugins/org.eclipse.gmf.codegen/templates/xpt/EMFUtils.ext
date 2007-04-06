@@ -13,5 +13,5 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 List[Object] getReferencingObjects(Object target) :
-JAVA org.eclipse.gmf.codegen.util.EmfUtils.getReferencingObjects(org.eclipse.emf.ecore.EObject)
+JAVA org.eclipse.gmf.internal.codegen.util.EmfUtils.getReferencingObjects(org.eclipse.emf.ecore.EObject)
 ;

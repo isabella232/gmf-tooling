@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.codegen.util;
+package org.eclipse.gmf.internal.codegen.util;
 
 import java.util.Collection;
 import java.util.Collections;

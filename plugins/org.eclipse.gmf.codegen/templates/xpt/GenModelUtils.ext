@@ -91,17 +91,17 @@ String getAccessorName(genmodel::GenFeature gf) :
 
 // GenPackage#getDocumentRoot
 genmodel::GenClass getDocumentRoot(genmodel::GenPackage gp) :
-JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getDocumentRoot(org.eclipse.emf.codegen.ecore.genmodel.GenPackage)
+JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.getDocumentRoot(org.eclipse.emf.codegen.ecore.genmodel.GenPackage)
 ;
 
 // GenFeature#getGetAccessor()
 String getGetAccessor(genmodel::GenFeature gf) :
-JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getGetAccessor(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.getGetAccessor(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
 // GenModel#findGenClassifier()
 genmodel::GenClassifier findGenClassifier(genmodel::GenModel genModel, ecore::EClassifier eClassifier) :
-JAVA org.eclipse.gmf.codegen.util.GenModelUtils.findGenClassifier(org.eclipse.emf.codegen.ecore.genmodel.GenModel, org.eclipse.emf.ecore.EClassifier)
+JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.findGenClassifier(org.eclipse.emf.codegen.ecore.genmodel.GenModel, org.eclipse.emf.ecore.EClassifier)
 ;
 
 //GenFeature#getReverse
@@ -117,12 +117,12 @@ genmodel::GenFeature getReverse(genmodel::GenFeature feature) :
 
 // GenFeature#isListType()
 boolean isListType(genmodel::GenFeature feature) :
-JAVA org.eclipse.gmf.codegen.util.GenModelUtils.isListType(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.isListType(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
 // GenFeature#getTypeGenClass()
 genmodel::GenClass getTypeGenClassX(genmodel::GenFeature feature) :
-JAVA org.eclipse.gmf.codegen.util.GenModelUtils.getTypeGenClass(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
+JAVA org.eclipse.gmf.internal.codegen.util.GenModelUtils.getTypeGenClass(org.eclipse.emf.codegen.ecore.genmodel.GenFeature)
 ;
 
 // GenClass#isExternalInterface()
