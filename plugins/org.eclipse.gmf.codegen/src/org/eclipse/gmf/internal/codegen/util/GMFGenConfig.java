@@ -9,7 +9,7 @@
  * Contributors:
  *    Michael Golubev (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.util;
+package org.eclipse.gmf.internal.codegen.util;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
