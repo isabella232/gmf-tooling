@@ -15,7 +15,6 @@
 	</target>
 	
 	<target name="main" depends="init,checkArgs">
-		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building europa feature..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="europa" />
@@ -25,22 +24,9 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
-		<antcall target="publish" />
 		<!-- Removing auto-deployment of stable builds - better do deploy them manually
 		<ant antfile="deploy.xml" target="deploy.updates.europa" />		
 		-->
 	</target>
 
-	<target name="publish" depends="">
-		<property file="build.properties" />
-		<!-- Only update site is published -->
-		<copy todir="${buildRoot}/artifacts/updates/europa/${buildLabel}/features">
-			<fileset dir="${buildUpdateSitePath}/features" />
-		</copy>
-		<copy todir="${buildRoot}/artifacts/updates/europa/${buildLabel}/plugins">
-			<fileset dir="${buildUpdateSitePath}/plugins" />
-		</copy>
-	</target>
-		
 </project>
