@@ -26,7 +26,7 @@ import org.eclipse.gmf.internal.bridge.trace.*;
  * @see org.eclipse.gmf.internal.bridge.trace.TracePackage
  * @generated
  */
-public class TraceSwitch {
+public class TraceSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class TraceSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -65,16 +65,16 @@ public class TraceSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -85,30 +85,30 @@ public class TraceSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case TracePackage.TRACE_MODEL: {
 				TraceModel traceModel = (TraceModel)theEObject;
-				Object result = caseTraceModel(traceModel);
+				T result = caseTraceModel(traceModel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TracePackage.ABSTRACT_TRACE: {
 				AbstractTrace abstractTrace = (AbstractTrace)theEObject;
-				Object result = caseAbstractTrace(abstractTrace);
+				T result = caseAbstractTrace(abstractTrace);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TracePackage.MATCHING_TRACE: {
 				MatchingTrace matchingTrace = (MatchingTrace)theEObject;
-				Object result = caseMatchingTrace(matchingTrace);
+				T result = caseMatchingTrace(matchingTrace);
 				if (result == null) result = caseAbstractTrace(matchingTrace);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TracePackage.GEN_NODE_TRACE: {
 				GenNodeTrace genNodeTrace = (GenNodeTrace)theEObject;
-				Object result = caseGenNodeTrace(genNodeTrace);
+				T result = caseGenNodeTrace(genNodeTrace);
 				if (result == null) result = caseMatchingTrace(genNodeTrace);
 				if (result == null) result = caseAbstractTrace(genNodeTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -116,7 +116,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.GEN_CHILD_NODE_TRACE: {
 				GenChildNodeTrace genChildNodeTrace = (GenChildNodeTrace)theEObject;
-				Object result = caseGenChildNodeTrace(genChildNodeTrace);
+				T result = caseGenChildNodeTrace(genChildNodeTrace);
 				if (result == null) result = caseGenNodeTrace(genChildNodeTrace);
 				if (result == null) result = caseMatchingTrace(genChildNodeTrace);
 				if (result == null) result = caseAbstractTrace(genChildNodeTrace);
@@ -125,7 +125,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.GEN_NODE_LABEL_TRACE: {
 				GenNodeLabelTrace genNodeLabelTrace = (GenNodeLabelTrace)theEObject;
-				Object result = caseGenNodeLabelTrace(genNodeLabelTrace);
+				T result = caseGenNodeLabelTrace(genNodeLabelTrace);
 				if (result == null) result = caseMatchingTrace(genNodeLabelTrace);
 				if (result == null) result = caseAbstractTrace(genNodeLabelTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -133,7 +133,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.GEN_LINK_TRACE: {
 				GenLinkTrace genLinkTrace = (GenLinkTrace)theEObject;
-				Object result = caseGenLinkTrace(genLinkTrace);
+				T result = caseGenLinkTrace(genLinkTrace);
 				if (result == null) result = caseMatchingTrace(genLinkTrace);
 				if (result == null) result = caseAbstractTrace(genLinkTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -141,7 +141,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.GEN_COMPARTMENT_TRACE: {
 				GenCompartmentTrace genCompartmentTrace = (GenCompartmentTrace)theEObject;
-				Object result = caseGenCompartmentTrace(genCompartmentTrace);
+				T result = caseGenCompartmentTrace(genCompartmentTrace);
 				if (result == null) result = caseMatchingTrace(genCompartmentTrace);
 				if (result == null) result = caseAbstractTrace(genCompartmentTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -149,7 +149,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.GEN_LINK_LABEL_TRACE: {
 				GenLinkLabelTrace genLinkLabelTrace = (GenLinkLabelTrace)theEObject;
-				Object result = caseGenLinkLabelTrace(genLinkLabelTrace);
+				T result = caseGenLinkLabelTrace(genLinkLabelTrace);
 				if (result == null) result = caseMatchingTrace(genLinkLabelTrace);
 				if (result == null) result = caseAbstractTrace(genLinkLabelTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -157,7 +157,7 @@ public class TraceSwitch {
 			}
 			case TracePackage.TOOL_GROUP_TRACE: {
 				ToolGroupTrace toolGroupTrace = (ToolGroupTrace)theEObject;
-				Object result = caseToolGroupTrace(toolGroupTrace);
+				T result = caseToolGroupTrace(toolGroupTrace);
 				if (result == null) result = caseMatchingTrace(toolGroupTrace);
 				if (result == null) result = caseAbstractTrace(toolGroupTrace);
 				if (result == null) result = defaultCase(theEObject);
@@ -178,7 +178,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTraceModel(TraceModel object) {
+	public T caseTraceModel(TraceModel object) {
 		return null;
 	}
 
@@ -193,7 +193,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAbstractTrace(AbstractTrace object) {
+	public T caseAbstractTrace(AbstractTrace object) {
 		return null;
 	}
 
@@ -208,7 +208,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMatchingTrace(MatchingTrace object) {
+	public T caseMatchingTrace(MatchingTrace object) {
 		return null;
 	}
 
@@ -223,7 +223,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenNodeTrace(GenNodeTrace object) {
+	public T caseGenNodeTrace(GenNodeTrace object) {
 		return null;
 	}
 
@@ -238,7 +238,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenChildNodeTrace(GenChildNodeTrace object) {
+	public T caseGenChildNodeTrace(GenChildNodeTrace object) {
 		return null;
 	}
 
@@ -253,7 +253,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenNodeLabelTrace(GenNodeLabelTrace object) {
+	public T caseGenNodeLabelTrace(GenNodeLabelTrace object) {
 		return null;
 	}
 
@@ -268,7 +268,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenLinkTrace(GenLinkTrace object) {
+	public T caseGenLinkTrace(GenLinkTrace object) {
 		return null;
 	}
 
@@ -283,7 +283,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenCompartmentTrace(GenCompartmentTrace object) {
+	public T caseGenCompartmentTrace(GenCompartmentTrace object) {
 		return null;
 	}
 
@@ -298,7 +298,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenLinkLabelTrace(GenLinkLabelTrace object) {
+	public T caseGenLinkLabelTrace(GenLinkLabelTrace object) {
 		return null;
 	}
 
@@ -313,7 +313,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToolGroupTrace(ToolGroupTrace object) {
+	public T caseToolGroupTrace(ToolGroupTrace object) {
 		return null;
 	}
 
@@ -328,7 +328,7 @@ public class TraceSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

@@ -52,6 +52,7 @@ public class TraceAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,39 +69,50 @@ public class TraceAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TraceSwitch modelSwitch =
-		new TraceSwitch() {
-			public Object caseTraceModel(TraceModel object) {
+	protected TraceSwitch<Adapter> modelSwitch =
+		new TraceSwitch<Adapter>() {
+			@Override
+			public Adapter caseTraceModel(TraceModel object) {
 				return createTraceModelAdapter();
 			}
-			public Object caseAbstractTrace(AbstractTrace object) {
+			@Override
+			public Adapter caseAbstractTrace(AbstractTrace object) {
 				return createAbstractTraceAdapter();
 			}
-			public Object caseMatchingTrace(MatchingTrace object) {
+			@Override
+			public Adapter caseMatchingTrace(MatchingTrace object) {
 				return createMatchingTraceAdapter();
 			}
-			public Object caseGenNodeTrace(GenNodeTrace object) {
+			@Override
+			public Adapter caseGenNodeTrace(GenNodeTrace object) {
 				return createGenNodeTraceAdapter();
 			}
-			public Object caseGenChildNodeTrace(GenChildNodeTrace object) {
+			@Override
+			public Adapter caseGenChildNodeTrace(GenChildNodeTrace object) {
 				return createGenChildNodeTraceAdapter();
 			}
-			public Object caseGenNodeLabelTrace(GenNodeLabelTrace object) {
+			@Override
+			public Adapter caseGenNodeLabelTrace(GenNodeLabelTrace object) {
 				return createGenNodeLabelTraceAdapter();
 			}
-			public Object caseGenLinkTrace(GenLinkTrace object) {
+			@Override
+			public Adapter caseGenLinkTrace(GenLinkTrace object) {
 				return createGenLinkTraceAdapter();
 			}
-			public Object caseGenCompartmentTrace(GenCompartmentTrace object) {
+			@Override
+			public Adapter caseGenCompartmentTrace(GenCompartmentTrace object) {
 				return createGenCompartmentTraceAdapter();
 			}
-			public Object caseGenLinkLabelTrace(GenLinkLabelTrace object) {
+			@Override
+			public Adapter caseGenLinkLabelTrace(GenLinkLabelTrace object) {
 				return createGenLinkLabelTraceAdapter();
 			}
-			public Object caseToolGroupTrace(ToolGroupTrace object) {
+			@Override
+			public Adapter caseToolGroupTrace(ToolGroupTrace object) {
 				return createToolGroupTraceAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -113,8 +125,9 @@ public class TraceAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 
