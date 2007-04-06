@@ -38,6 +38,7 @@ public class GenLinkLabelTraceImpl extends MatchingTraceImpl implements GenLinkL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_LINK_LABEL_TRACE;
 	}

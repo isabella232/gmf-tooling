@@ -38,6 +38,7 @@ public class ToolGroupTraceImpl extends MatchingTraceImpl implements ToolGroupTr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.TOOL_GROUP_TRACE;
 	}

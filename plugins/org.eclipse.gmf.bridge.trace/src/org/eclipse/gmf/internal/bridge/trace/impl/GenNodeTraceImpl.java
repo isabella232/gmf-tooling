@@ -47,7 +47,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList nodeLabelTraces = null;
+	protected EList<GenNodeLabelTrace> nodeLabelTraces;
 
 	/**
 	 * The cached value of the '{@link #getCompartmentTraces() <em>Compartment Traces</em>}' containment reference list.
@@ -57,7 +57,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList compartmentTraces = null;
+	protected EList<GenCompartmentTrace> compartmentTraces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,6 +73,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_NODE_TRACE;
 	}
@@ -82,9 +83,9 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNodeLabelTraces() {
+	public EList<GenNodeLabelTrace> getNodeLabelTraces() {
 		if (nodeLabelTraces == null) {
-			nodeLabelTraces = new EObjectContainmentEList(GenNodeLabelTrace.class, this, TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES);
+			nodeLabelTraces = new EObjectContainmentEList<GenNodeLabelTrace>(GenNodeLabelTrace.class, this, TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES);
 		}
 		return nodeLabelTraces;
 	}
@@ -94,9 +95,9 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCompartmentTraces() {
+	public EList<GenCompartmentTrace> getCompartmentTraces() {
 		if (compartmentTraces == null) {
-			compartmentTraces = new EObjectContainmentEList(GenCompartmentTrace.class, this, TracePackage.GEN_NODE_TRACE__COMPARTMENT_TRACES);
+			compartmentTraces = new EObjectContainmentEList<GenCompartmentTrace>(GenCompartmentTrace.class, this, TracePackage.GEN_NODE_TRACE__COMPARTMENT_TRACES);
 		}
 		return compartmentTraces;
 	}
@@ -134,12 +135,13 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES:
-				return ((InternalEList)getNodeLabelTraces()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getNodeLabelTraces()).basicRemove(otherEnd, msgs);
 			case TracePackage.GEN_NODE_TRACE__COMPARTMENT_TRACES:
-				return ((InternalEList)getCompartmentTraces()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCompartmentTraces()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -149,6 +151,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES:
@@ -164,15 +167,17 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES:
 				getNodeLabelTraces().clear();
-				getNodeLabelTraces().addAll((Collection)newValue);
+				getNodeLabelTraces().addAll((Collection<? extends GenNodeLabelTrace>)newValue);
 				return;
 			case TracePackage.GEN_NODE_TRACE__COMPARTMENT_TRACES:
 				getCompartmentTraces().clear();
-				getCompartmentTraces().addAll((Collection)newValue);
+				getCompartmentTraces().addAll((Collection<? extends GenCompartmentTrace>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -183,6 +188,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES:
@@ -200,6 +206,7 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracePackage.GEN_NODE_TRACE__NODE_LABEL_TRACES:

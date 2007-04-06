@@ -38,6 +38,7 @@ public class GenNodeLabelTraceImpl extends MatchingTraceImpl implements GenNodeL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_NODE_LABEL_TRACE;
 	}

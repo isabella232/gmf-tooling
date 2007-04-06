@@ -59,7 +59,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * @generated
 	 * @ordered
 	 */
-	protected Query query = null;
+	protected Query query;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,6 +75,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.MATCHING_TRACE;
 	}
@@ -176,6 +177,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY:
@@ -189,6 +191,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
@@ -204,6 +207,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
@@ -218,6 +222,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
@@ -232,6 +237,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracePackage.MATCHING_TRACE__QUERY_TEXT:
@@ -247,6 +253,7 @@ public abstract class MatchingTraceImpl extends AbstractTraceImpl implements Mat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -34,6 +34,7 @@ public class GenChildNodeTraceImpl extends GenNodeTraceImpl implements GenChildN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_CHILD_NODE_TRACE;
 	}

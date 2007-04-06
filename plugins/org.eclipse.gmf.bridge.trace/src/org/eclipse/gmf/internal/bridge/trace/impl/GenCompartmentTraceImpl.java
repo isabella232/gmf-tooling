@@ -38,6 +38,7 @@ public class GenCompartmentTraceImpl extends MatchingTraceImpl implements GenCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_COMPARTMENT_TRACE;
 	}
