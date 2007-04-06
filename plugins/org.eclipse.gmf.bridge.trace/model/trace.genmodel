@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.bridge.trace/src"
     modelPluginID="org.eclipse.gmf.bridge.trace" modelName="Trace" importerID="org.eclipse.emf.importer.ecore"
-    usedGenPackages="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../org.eclipse.gmf.codegen/models/gmfgen.genmodel#//gmfgen ../../org.eclipse.emf.ocl/model/OCL.genmodel#//ocl">
+    complianceLevel="5.0" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../org.eclipse.gmf.codegen/models/gmfgen.genmodel#//gmfgen platform:/plugin/org.eclipse.emf.ocl/model/OCL.genmodel#//ocl">
   <foreignModel>trace.ecore</foreignModel>
   <genPackages prefix="Trace" basePackage="org.eclipse.gmf.internal.bridge" disposableProviderFactory="true"
       ecorePackage="trace.ecore#/">

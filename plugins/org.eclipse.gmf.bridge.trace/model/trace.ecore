@@ -28,7 +28,7 @@
         transient="true" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MatchingTrace" abstract="true" eSuperTypes="#//AbstractTrace">
-    <eOperations name="createQuery" eType="ecore:EClass ../../org.eclipse.emf.ocl/model/OCL.ecore#//query/Query"/>
+    <eOperations name="createQuery" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ocl/model/OCL.ecore#//query/Query"/>
     <eOperations name="getEClassComparision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eParameters name="varName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eParameters name="eClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
@@ -39,7 +39,7 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="ecore:EClass ../../org.eclipse.emf.ocl/model/OCL.ecore#//query/Query"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ocl/model/OCL.ecore#//query/Query"
         changeable="false" transient="true" derived="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNodeTrace" eSuperTypes="#//MatchingTrace">
