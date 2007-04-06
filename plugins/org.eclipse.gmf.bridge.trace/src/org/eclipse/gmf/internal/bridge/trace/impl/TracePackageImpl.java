@@ -464,6 +464,10 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		QueryPackage theQueryPackage = (QueryPackage)EPackage.Registry.INSTANCE.getEPackage(QueryPackage.eNS_URI);
 		GMFGenPackage theGMFGenPackage = (GMFGenPackage)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 		matchingTraceEClass.getESuperTypes().add(this.getAbstractTrace());
 		genNodeTraceEClass.getESuperTypes().add(this.getMatchingTrace());
