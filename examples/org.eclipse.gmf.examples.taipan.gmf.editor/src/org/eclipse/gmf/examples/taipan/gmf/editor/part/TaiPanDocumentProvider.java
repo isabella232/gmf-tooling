@@ -511,14 +511,12 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			List resources = info.getResourceSet().getResources();
 			try {
 				monitor.beginTask("Saving diagram", resources.size() + 1);
-				Map options = new HashMap();
-				options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName("Saving " + nextResource.getURI());
-					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+					if (nextResource.isLoaded()) {
 						try {
-							nextResource.save(options);
+							nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
 							fireElementStateChangeFailed(element);
 							throw new CoreException(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));

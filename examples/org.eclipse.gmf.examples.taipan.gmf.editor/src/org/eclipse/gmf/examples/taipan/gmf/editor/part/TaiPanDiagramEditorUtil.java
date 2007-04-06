@@ -68,6 +68,24 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
+	private static Map ourSaveOptions = null;
+
+	/**
+	 * @generated
+	 */
+	public static Map getSaveOptions() {
+		if (ourSaveOptions == null) {
+			ourSaveOptions = new HashMap();
+			ourSaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			ourSaveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+			ourSaveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		}
+		return ourSaveOptions;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static boolean openDiagram(Resource diagram) throws PartInitException {
 		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
 	}
@@ -76,7 +94,13 @@ public class TaiPanDiagramEditorUtil {
 	 * @generated
 	 */
 	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
-		IFile file = getFile(uri);
+		setCharset(getFile(uri));
+	}
+
+	/**
+	 * @generated
+	 */
+	public static void setCharset(IFile file) {
 		if (file == null) {
 			return;
 		}
@@ -90,7 +114,7 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static IFile getFile(org.eclipse.emf.common.util.URI uri) {
+	private static IFile getFile(org.eclipse.emf.common.util.URI uri) {
 		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
 			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
@@ -170,10 +194,8 @@ public class TaiPanDiagramEditorUtil {
 				}
 
 				try {
-					Map options = new HashMap();
-					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-					modelResource.save(options);
-					diagramResource.save(options);
+					modelResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
+					diagramResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
 				} catch (IOException e) {
 
 					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$

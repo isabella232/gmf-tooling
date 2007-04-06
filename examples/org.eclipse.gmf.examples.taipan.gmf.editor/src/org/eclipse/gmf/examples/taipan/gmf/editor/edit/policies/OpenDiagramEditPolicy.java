@@ -30,6 +30,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -135,8 +136,8 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 						try {
 							for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 								Resource nextResource = (Resource) it.next();
-								if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
-									nextResource.save(Collections.EMPTY_MAP);
+								if (nextResource.isLoaded()) {
+									nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 								}
 							}
 						} catch (IOException ex) {

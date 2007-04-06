@@ -121,11 +121,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	public boolean performFinish() {
 		List affectedFiles = new LinkedList();
 		IFile diagramFile = myFileCreationPage.createNewFile();
-		try {
-			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
-		} catch (CoreException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
+		TaiPanDiagramEditorUtil.setCharset(diagramFile);
 		affectedFiles.add(diagramFile);
 		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
@@ -144,7 +140,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		};
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
-			diagramResource.save(Collections.EMPTY_MAP);
+			diagramResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 			TaiPanDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
