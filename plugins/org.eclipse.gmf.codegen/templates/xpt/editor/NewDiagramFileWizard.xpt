@@ -14,6 +14,8 @@
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
+«EXTENSION xpt::editor::Utils»
+
 «DEFINE className FOR gmfgen::GenDiagram»«newDiagramFileWizardClassName»«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
@@ -42,10 +44,11 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	    assert diagramRoot != null : "Doagram root element must be specified"; «EXPAND xpt::Common::nonNLS»
 	    assert editingDomain != null : "Editing domain must be specified"; «EXPAND xpt::Common::nonNLS»
 
-		myFileCreationPage = new «EXPAND creationPage»("Initialize new diagram file", org.eclipse.jface.viewers.StructuredSelection.EMPTY);
-		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription(
-			"Create new diagram based on " + «getEditPartQualifiedClassName()».MODEL_ID + " model content");
+		myFileCreationPage = new «EXPAND creationPage»(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().nameKey()) FOR editorGen», org.eclipse.jface.viewers.StructuredSelection.EMPTY);
+		myFileCreationPage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().titleKey()) FOR editorGen»);
+		myFileCreationPage.setDescription(org.eclipse.osgi.util.NLS.bind(
+				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().descriptionKey()) FOR editorGen», 
+				«getEditPartQualifiedClassName()».MODEL_ID));
 		org.eclipse.core.runtime.IPath filePath;
 		String fileName = domainModelURI.trimFileExtension().lastSegment();
 		if (domainModelURI.isPlatformResource()) {
@@ -54,15 +57,15 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 			filePath = new org.eclipse.core.runtime.Path(domainModelURI.trimSegments(1).toFileString());
 		} else {
 			// TODO : use some default path
-			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); «EXPAND xpt::Common::nonNLS»
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
 				filePath, fileName, "«editorGen.diagramFileExtension»")); «EXPAND xpt::Common::nonNLS»
 
-		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage("Select diagram root element");
-		diagramRootElementSelectionPage.setTitle("Diagram root element");
-		diagramRootElementSelectionPage.setDescription("Select semantic model element to be depicted on diagram");
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPage().nameKey()) FOR editorGen»);
+		diagramRootElementSelectionPage.setTitle(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPage().titleKey()) FOR editorGen»);
+		diagramRootElementSelectionPage.setDescription(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPage().descriptionKey()) FOR editorGen»);
 		diagramRootElementSelectionPage.setModelElement(diagramRoot);
 
 	   	myEditingDomain = editingDomain;
@@ -90,7 +93,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 		final org.eclipse.emf.ecore.resource.Resource diagramResource = resourceSet.createResource(diagramModelURI);
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command =
 			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(
-				myEditingDomain, "Initializing diagram contents", affectedFiles) { «EXPAND xpt::Common::nonNLS»
+				myEditingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardInitDiagramCommand()) FOR editorGen», affectedFiles) {
 
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 					org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
@@ -98,7 +101,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				int diagramVID = «getVisualIDRegistryQualifiedClassName()».getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != «getEditPartQualifiedClassName()».VISUAL_ID) {
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newErrorCommandResult(
-						"Incorrect model object stored as a root resource object"); «EXPAND xpt::Common::nonNLS»
+						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardIncorrectRootError()) FOR editorGen»);
 				}
 				org.eclipse.gmf.runtime.notation.Diagram diagram =
 					org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
@@ -142,13 +145,13 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected String getSelectionTitle() {
-			return "Select diagram root element:";
+			return «EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle()) FOR editorGen»;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected boolean validatePage() {
 			if (selectedModelElement == null) {
-				setErrorMessage("Diagram root element is not selected");
+				setErrorMessage(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage()) FOR editorGen»);
 				return false;
 			}
 			boolean result = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().provides(
@@ -156,7 +159,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 					new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedModelElement),
 					«getEditPartQualifiedClassName()».MODEL_ID,
 					«editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : "Invalid diagram root element is selected");
+			setErrorMessage(result ? null : «EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage()) FOR editorGen»);
 			return result;
 		}
 	}
@@ -167,4 +170,32 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 «IF null == editorGen.application-»
 org.eclipse.ui.dialogs.WizardNewFileCreationPage«ELSE-»
 «editorGen.application.packageName».WizardNewFileCreationPage«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardCreationPage().nameKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardCreationPage().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardCreationPage().descriptionKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPage().nameKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPage().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPage().descriptionKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardInitDiagramCommand())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForNewDiagramFileWizardIncorrectRootError())-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardCreationPage().nameKey(), "Initialize new diagram file")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardCreationPage().titleKey(), "Diagram file")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardCreationPage().descriptionKey(), "Create new diagram based on {0} model content")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPage().nameKey(), "Select diagram root element")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPage().titleKey(), "Diagram root element")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPage().descriptionKey(), "Select semantic model element to be depicted on diagram")-»"Select diagram root element:"
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle(), "Select diagram root element:")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage(), "Diagram root element is not selected")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage(), "Invalid diagram root element is selected")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardInitDiagramCommand(), "Initializing diagram contents")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForNewDiagramFileWizardIncorrectRootError(), "Incorrect model object stored as a root resource object")-»
 «ENDDEFINE»

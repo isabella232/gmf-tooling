@@ -115,7 +115,11 @@ if («IF null == editorGen.application»false == element instanceof «EXPAND fileEd
 «ENDDEFINE»
 
 «DEFINE throwIncorrectInputException FOR gmfgen::GenDiagram-»
-throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, "Incorrect element used: " + element + " instead of «IF null == editorGen.application»«EXPAND fileEditorInputClassFQName» or «ENDIF»«EXPAND uriEditorInputClassFQName»", null)); «EXPAND xpt::Common::nonNLS» «EXPAND xpt::Common::nonNLS(2)»
+throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, 
+		org.eclipse.osgi.util.NLS.bind(
+			«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIncorrectInputError()) FOR editorGen»,
+			new Object[] {element, «IF null == editorGen.application»"«EXPAND fileEditorInputClassFQName»", «ENDIF»"«EXPAND uriEditorInputClassFQName»"}), 
+		null));
 «ENDDEFINE»
 
 «DEFINE fileEditorInputClassFQName FOR gmfgen::GenDiagram»org.eclipse.ui.part.FileEditorInput«ENDDEFINE»
@@ -248,7 +252,7 @@ protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.e
 				}
 			}
 			if (resource == null) {
-				throw new RuntimeException("Unable to load diagram resource");
+				throw new RuntimeException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderUnableToLoadResourceError()) FOR editorGen»);
 			}
 			if (uri.fragment() != null) {
 				org.eclipse.emf.ecore.EObject rootElement = resource.getEObject(uri.fragment());
@@ -265,14 +269,15 @@ protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.e
 					}
 				}
 			}
-			throw new RuntimeException("Diagram is not present in resource");
+			throw new RuntimeException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderNoDiagramInResourceError()) FOR editorGen»);
 		} catch (Exception e) {
 			org.eclipse.core.runtime.CoreException thrownExcp = null;
 			if (e instanceof org.eclipse.core.runtime.CoreException) {
 				thrownExcp = (org.eclipse.core.runtime.CoreException) e;
 			} else {
 				String msg = e.getLocalizedMessage();
-				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, msg != null ? msg : "Error loading diagram", e)); «EXPAND xpt::Common::nonNLS»
+				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, 
+				msg != null ? msg : «EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderDiagramLoadingError()) FOR editorGen», e));
 			}
 			throw thrownExcp;
 		}
@@ -385,7 +390,8 @@ if (info.isUpdateCache()) {
 	try {
 		updateCache(element);
 	} catch (org.eclipse.core.runtime.CoreException ex) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nDocumentProviderKey("isModifiable")) FOR editorGen», ex);
+		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIsModifiable()) FOR editorGen», ex);
+		// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 	}
 }
 «ENDDEFINE»
@@ -560,7 +566,8 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 		try {
 			file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
 		} catch (org.eclipse.core.runtime.CoreException ex) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nDocumentProviderKey("handleElementContentChanged")) FOR editorGen», ex);
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderHandleElementContentChanged()) FOR editorGen», ex);
+			// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.FileDocumentProvider_handleElementContentChanged
 		}
 	}
 	«ENDIF-»
@@ -588,7 +595,9 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		if (!overwrite && !info.isSynchronized()) {
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.runtime.IStatus.OK, "The file has been changed on the file system", null)); «EXPAND xpt::Common::nonNLS»
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.core.runtime.IStatus.OK, 
+				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentUnsynchronizedFileSaveError()) FOR editorGen», 
+				null));
 		}
 	«IF null == editorGen.application-»
 		info.stopResourceListening();
@@ -596,10 +605,12 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		fireElementStateChanging(element);
 		java.util.List resources = info.getResourceSet().getResources();
 		try {
-			monitor.beginTask("Saving diagram", resources.size() + 1);
+			monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask()) FOR editorGen», resources.size() + 1); //"Saving diagram"
 			for (java.util.Iterator it = resources.iterator(); it.hasNext();) {
 				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-				monitor.setTaskName("Saving " + nextResource.getURI());
+				monitor.setTaskName(org.eclipse.osgi.util.NLS.bind(
+						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask()) FOR editorGen», 
+						nextResource.getURI()));
 				if (nextResource.isLoaded()) {
 					try {
 						nextResource.save(«EXPAND xpt::Common::getSaveOptions»);
@@ -674,13 +685,27 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Externalizer::accessorField(i18nDocumentProviderKey("isModifiable"))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nDocumentProviderKey("handleElementContentChanged"))-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIsModifiable())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderHandleElementContentChanged())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIncorrectInputError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderUnableToLoadResourceError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderNoDiagramInResourceError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderDiagramLoadingError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentUnsynchronizedFileSaveError())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveDiagramTask())-»
+	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveNextResourceTask())-»
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(i18nDocumentProviderKey("isModifiable"), i18nDocumentProviderKey("isModifiable"))-»
-«EXPAND xpt::Externalizer::messageEntry(i18nDocumentProviderKey("handleElementContentChanged"), i18nDocumentProviderKey("handleElementContentChanged"))-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIsModifiable(), "Updating cache failed")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderHandleElementContentChanged(), "Failed to refresh hierarchy for changed resource")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIncorrectInputError(), "Incorrect element used: {0} instead of " + editorGen.application == null ? "{1} or {2}" : "{1}")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderUnableToLoadResourceError(), "Unable to load diagram resource")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderNoDiagramInResourceError(), "Diagram is not present in resource")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderDiagramLoadingError(), "Error loading diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentUnsynchronizedFileSaveError(), "The file has been changed on the file system")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveDiagramTask(), "Saving diagram")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveNextResourceTask(), "Saving {0}")-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»

@@ -10,8 +10,126 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
+import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-String i18nDocumentProviderKey(String value) :
-	"DocumentProvider_" + value
+private String i18nKeyForDocumentProvider(gmfgen::GenDiagram diagram) :
+	diagram.documentProviderClassName
 ;
+
+String i18nKeyForDocumentProviderIsModifiable(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+"_isModifiable"
+;
+
+String i18nKeyForDocumentProviderHandleElementContentChanged(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+"_handleElementContentChanged"
+;
+
+String i18nKeyForDocumentProviderIncorrectInputError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".IncorrectInputError"
+;
+
+String i18nKeyForDocumentProviderUnableToLoadResourceError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".UnableToLoadResourceError"
+;
+
+String i18nKeyForDocumentProviderNoDiagramInResourceError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".NoDiagramInResourceError"
+;
+
+String i18nKeyForDocumentProviderDiagramLoadingError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".DiagramLoadingError"
+;
+
+String i18nKeyForDocumentUnsynchronizedFileSaveError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".UnsynchronizedFileSaveError"
+;
+
+String i18nKeyForDocumentSaveDiagramTask(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".SaveDiagramTask"
+;
+
+String i18nKeyForDocumentSaveNextResourceTask(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForDocumentProvider()+".SaveNextResourceTask"
+;
+
+private String i18nKeyForDiagramEditorUtil(gmfgen::GenDiagram diagram) :
+	diagram.diagramEditorUtilClassName
+;
+
+String i18nKeyForOpenModelResourceErrorDialog(gmfgen::GenDiagram diagram) :
+    diagram.i18nKeyForDiagramEditorUtil()+".OpenModelResourceErrorDialog"
+;
+
+String i18nKeyForCreateDiagramProgressTask(gmfgen::GenDiagram diagram) :
+    diagram.i18nKeyForDiagramEditorUtil()+".CreateDiagramProgressTask"
+;
+
+String i18nKeyForCreateDiagramCommandLabel(gmfgen::GenDiagram diagram) :
+    diagram.i18nKeyForDiagramEditorUtil()+".CreateDiagramCommandLabel"
+;
+
+private String i18nKeyForInitDiagramFileAction(gmfgen::GenDiagram diagram) :
+	diagram.initDiagramFileActionClassName
+;
+
+String i18nKeyForInitDiagramFileResourceErrorDialog(gmfgen::GenDiagram diagram) :
+    diagram.i18nKeyForInitDiagramFileAction()+".InitDiagramFileResourceErrorDialog"
+;
+
+String i18nKeyForInitDiagramFileWizardTitle(gmfgen::GenDiagram diagram) :
+    diagram.i18nKeyForInitDiagramFileAction()+".InitDiagramFileWizardTitle"
+;
+
+String i18nKeyForInitDiagramOpenFileDialogTitle(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForInitDiagramFileAction()+".OpenModelFileDialogTitle"
+;
+
+private String i18nKeyForNewDiagramFileWizard(gmfgen::GenDiagram diagram) :
+	diagram.newDiagramFileWizardClassName
+;
+
+String i18nKeyForNewDiagramFileWizardCreationPage(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizard()+".CreationPage"
+;
+
+String i18nKeyForNewDiagramFileWizardRootSelectionPage(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizard()+".RootSelectionPage"
+;
+
+String i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizardRootSelectionPage()+"SelectionTitle"
+;
+
+String i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizardRootSelectionPage()+"NoSelectionMessage"
+;
+
+String i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizardRootSelectionPage()+"InvalidSelectionMessage"
+;
+
+String i18nKeyForNewDiagramFileWizardInitDiagramCommand(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizard()+".InitDiagramCommand"
+;
+
+String i18nKeyForNewDiagramFileWizardIncorrectRootError(gmfgen::GenDiagram diagram) :
+	diagram.i18nKeyForNewDiagramFileWizard()+".IncorrectRootError"
+;
+
+String titleKey(String dialogKey) :
+    dialogKey+"Title"
+;
+
+String messageKey(String dialogKey) :
+    dialogKey+"Message"
+;
+
+String nameKey(String dialogKey) :
+    dialogKey+"Name"
+;
+
+String descriptionKey(String dialogKey) :
+    dialogKey+"Description"
+;
+

@@ -14,6 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «EXTENSION xpt::editor::GenDiagram»
 «EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::editor::Utils»
 
 «DEFINE DiagramEditorUtil FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -57,8 +58,12 @@ public class «diagramEditorUtilClassName» {
 		try {
 			resource = editingDomain.getResourceSet().getResource(uri, true);
 		} catch (org.eclipse.emf.common.util.WrappedException we) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + uri, we);
-			org.eclipse.jface.dialogs.MessageDialog.openError(shell, "Error", "Failed to load model file " + fileName);
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + uri, we); «EXPAND xpt::Common::nonNLS»
+			org.eclipse.jface.dialogs.MessageDialog.openError(shell, 
+                «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenModelResourceErrorDialog().titleKey()) FOR editorGen»,
+				org.eclipse.osgi.util.NLS.bind(
+				    «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenModelResourceErrorDialog().messageKey()) FOR editorGen»,
+				    fileName));
 		}
 		return resource;
 	}
@@ -179,13 +184,13 @@ public static java.util.Map getSaveOptions() {
 	«EXPAND xpt::Common::generatedMemberComment(editorGen.application == null ? "This method should be called within a workspace modify operation since it creates resources." : "")»
 	public static org.eclipse.emf.ecore.resource.Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI,«IF standaloneDomainModel()» org.eclipse.emf.common.util.URI modelURI,«ENDIF» org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3);
+		progressMonitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramProgressTask()) FOR editorGen», 3);
 		final org.eclipse.emf.ecore.resource.Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 «IF standaloneDomainModel()-»
 		final org.eclipse.emf.ecore.resource.Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 «ENDIF-»
 		final String diagramName = diagramURI.lastSegment();
-		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, "Creating diagram and model", java.util.Collections.EMPTY_LIST) { «EXPAND xpt::Common::nonNLS»
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramCommandLabel()) FOR editorGen», java.util.Collections.EMPTY_LIST) {
 			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 «IF domainDiagramElement != null-»
 				«domainDiagramElement.getQualifiedInterfaceName()» model = createInitialModel();
@@ -220,8 +225,8 @@ public static java.util.Map getSaveOptions() {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
 		}
 «IF editorGen.application == null-»
-		«IF standaloneDomainModel()»setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(modelResource));«ENDIF»
-		setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource));
+		«IF standaloneDomainModel()»setCharset(modelURI);«ENDIF»
+		setCharset(diagramURI);
 «ENDIF-»
 		return diagramResource;
 	}
@@ -398,4 +403,18 @@ public static java.util.Map getSaveOptions() {
 			return element2ViewMap;
 		}
 	} //LazyElement2ViewMap	
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenModelResourceErrorDialog().titleKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenModelResourceErrorDialog().messageKey())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreateDiagramProgressTask())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForCreateDiagramCommandLabel())-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenModelResourceErrorDialog().titleKey(), "Error")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenModelResourceErrorDialog().messageKey(), "Failed to load model file {0}")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreateDiagramProgressTask(), "Creating diagram and model files")-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCreateDiagramCommandLabel(), "Creating diagram and model")-»
 «ENDDEFINE»

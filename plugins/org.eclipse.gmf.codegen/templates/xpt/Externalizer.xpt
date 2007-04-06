@@ -37,7 +37,10 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 «ENDDEFINE»
 
 «DEFINE Fields FOR gmfgen::GenEditorGenerator»
+    «EXPAND xpt::editor::DiagramEditorUtil::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::DocumentProvider::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-»
+	«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-»
 	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-»
 	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
     «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
@@ -49,7 +52,10 @@ public class «getAccessorName()» extends org.eclipse.osgi.util.NLS {
 
 «DEFINE Values FOR gmfgen::GenEditorGenerator»
 # TODO: manually put keys and values
+«EXPAND xpt::editor::DiagramEditorUtil::i18nValues FOR diagram-»
 «EXPAND xpt::editor::DocumentProvider::i18nValues FOR diagram-»
+«EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-»
+«EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-»
 «EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-»
 «EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
 «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
