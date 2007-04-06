@@ -49,6 +49,7 @@ import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
 
@@ -185,7 +186,12 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		
 		public RGB getDefaultLinkColor() {
 			if (myDefaultLinkColor == null){
-				myDefaultLinkColor = new RGB(0, 0, 0);
+				if (getViewer() != null && getViewer().getControl() != null) {
+					Color color = getViewer().getControl().getForeground();
+					myDefaultLinkColor = color.getRGB();
+				} else {
+					myDefaultLinkColor = new RGB(0, 0, 0);
+				}
 			}
 			return myDefaultLinkColor;
 		}
