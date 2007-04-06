@@ -123,7 +123,7 @@ if (processChildFeature) {
 }
 
 if (modelFacet.getModelElementInitializer() != null) {%>
-			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=link.getUniqueIdentifier()%>.init(newElement);
+			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=link.getUniqueIdentifier()%>.init(<%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement);
 <%}%>
 		}
 		return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;

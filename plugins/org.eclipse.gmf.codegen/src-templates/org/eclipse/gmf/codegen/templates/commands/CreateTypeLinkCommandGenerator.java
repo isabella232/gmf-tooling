@@ -71,12 +71,15 @@ public class CreateTypeLinkCommandGenerator {
   protected final String TEXT_53 = "newElement);";
   protected final String TEXT_54 = NL + "\t\t\t";
   protected final String TEXT_55 = ".Initializers.";
-  protected final String TEXT_56 = ".init(newElement);";
-  protected final String TEXT_57 = NL + "\t\t}" + NL + "\t\treturn ";
-  protected final String TEXT_58 = "(";
-  protected final String TEXT_59 = ") ";
-  protected final String TEXT_60 = "newElement;" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_61 = NL;
+  protected final String TEXT_56 = ".init(";
+  protected final String TEXT_57 = "(";
+  protected final String TEXT_58 = ") ";
+  protected final String TEXT_59 = "newElement);";
+  protected final String TEXT_60 = NL + "\t\t}" + NL + "\t\treturn ";
+  protected final String TEXT_61 = "(";
+  protected final String TEXT_62 = ") ";
+  protected final String TEXT_63 = "newElement;" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_64 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -328,16 +331,22 @@ if (modelFacet.getModelElementInitializer() != null) {
     stringBuffer.append(TEXT_55);
     stringBuffer.append(link.getUniqueIdentifier());
     stringBuffer.append(TEXT_56);
-    }
-    stringBuffer.append(TEXT_57);
     if (modelFacet.getMetaClass().isExternalInterface()) {
-    stringBuffer.append(TEXT_58);
+    stringBuffer.append(TEXT_57);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_58);
+    }
     stringBuffer.append(TEXT_59);
     }
     stringBuffer.append(TEXT_60);
-    importManager.emitSortedImports();
+    if (modelFacet.getMetaClass().isExternalInterface()) {
     stringBuffer.append(TEXT_61);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_62);
+    }
+    stringBuffer.append(TEXT_63);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_64);
     return stringBuffer.toString();
   }
 }

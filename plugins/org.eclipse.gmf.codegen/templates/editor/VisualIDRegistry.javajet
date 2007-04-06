@@ -409,28 +409,28 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext() && expressionProvider
 } /* end of selector interation */
 
 if(selectorCounter > 0) { %>	
-		
+
 	/**
 	 * @generated	
 	 */
 	static class <%=matcherClassName%> {
-	
+
 		/**
 		 * @generated	
 		 */					
 		private <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> condition;
-					
+
 		/**
 		 * @generated	
 		 */				
 		<%=matcherClassName%>(<%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> conditionExpression) {			
 			this.condition = conditionExpression;
 		}
-	
+
 		/**
 		 * @generated	
 		 */						
-		boolean matches(EObject object) {
+		boolean matches(Object object) {
 			Object result = condition.evaluate(object);
 			return result instanceof Boolean && ((Boolean)result).booleanValue();			
 		}
@@ -441,7 +441,7 @@ if(selectorCounter > 0) { %>
 	/**
 	 * @generated
 	 */
-	 private static class <%=javaMatcherContainer%> {
+	private static class <%=javaMatcherContainer%> {
 <%
 		for(Iterator it = javaSelectorFacets.iterator(); it.hasNext();) {
 			TypeModelFacet modelFacet = (TypeModelFacet) it.next();

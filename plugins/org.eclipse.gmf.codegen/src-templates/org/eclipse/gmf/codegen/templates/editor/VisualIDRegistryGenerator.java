@@ -127,12 +127,12 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_108 = ", ";
   protected final String TEXT_109 = ");" + NL + "\t}" + NL + "}";
   protected final String TEXT_110 = NL + ");";
-  protected final String TEXT_111 = "\t" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated\t" + NL + "\t */" + NL + "\tstatic class ";
-  protected final String TEXT_112 = " {" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t" + NL + "\t\tprivate ";
-  protected final String TEXT_113 = " condition;" + NL + "\t\t\t\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t" + NL + "\t\t";
+  protected final String TEXT_111 = "\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated\t" + NL + "\t */" + NL + "\tstatic class ";
+  protected final String TEXT_112 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t" + NL + "\t\tprivate ";
+  protected final String TEXT_113 = " condition;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t" + NL + "\t\t";
   protected final String TEXT_114 = "(";
-  protected final String TEXT_115 = " conditionExpression) {\t\t\t" + NL + "\t\t\tthis.condition = conditionExpression;" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tboolean matches(EObject object) {" + NL + "\t\t\tObject result = condition.evaluate(object);" + NL + "\t\t\treturn result instanceof Boolean && ((Boolean)result).booleanValue();\t\t\t" + NL + "\t\t}" + NL + "\t}// ";
-  protected final String TEXT_116 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private static class ";
+  protected final String TEXT_115 = " conditionExpression) {\t\t\t" + NL + "\t\t\tthis.condition = conditionExpression;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tboolean matches(Object object) {" + NL + "\t\t\tObject result = condition.evaluate(object);" + NL + "\t\t\treturn result instanceof Boolean && ((Boolean)result).booleanValue();\t\t\t" + NL + "\t\t}" + NL + "\t}// ";
+  protected final String TEXT_116 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class ";
   protected final String TEXT_117 = " {";
   protected final String TEXT_118 = NL;
   protected final String TEXT_119 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
