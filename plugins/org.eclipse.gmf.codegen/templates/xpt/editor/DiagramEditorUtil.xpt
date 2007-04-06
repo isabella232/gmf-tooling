@@ -225,8 +225,8 @@ public static java.util.Map getSaveOptions() {
 			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
 		}
 «IF editorGen.application == null-»
-		«IF standaloneDomainModel()»setCharset(modelURI);«ENDIF»
-		setCharset(diagramURI);
+		«IF standaloneDomainModel()»setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(modelResource));«ENDIF»
+		setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource));
 «ENDIF-»
 		return diagramResource;
 	}
