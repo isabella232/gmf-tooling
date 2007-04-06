@@ -41,7 +41,7 @@ public interface GenLinkTrace extends MatchingTrace {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenLinkLabelTrace" containment="true"
 	 * @generated
 	 */
-	EList getLinkLabelTraces();
+	EList<GenLinkLabelTrace> getLinkLabelTraces();
 
 	/**
 	 * <!-- begin-user-doc -->

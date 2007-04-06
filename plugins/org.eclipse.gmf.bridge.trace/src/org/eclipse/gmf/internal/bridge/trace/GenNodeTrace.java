@@ -42,7 +42,7 @@ public interface GenNodeTrace extends MatchingTrace {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenNodeLabelTrace" containment="true"
 	 * @generated
 	 */
-	EList getNodeLabelTraces();
+	EList<GenNodeLabelTrace> getNodeLabelTraces();
 
 	/**
 	 * Returns the value of the '<em><b>Compartment Traces</b></em>' containment reference list.
@@ -58,7 +58,7 @@ public interface GenNodeTrace extends MatchingTrace {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenCompartmentTrace" containment="true"
 	 * @generated
 	 */
-	EList getCompartmentTraces();
+	EList<GenCompartmentTrace> getCompartmentTraces();
 
 	/**
 	 * <!-- begin-user-doc -->

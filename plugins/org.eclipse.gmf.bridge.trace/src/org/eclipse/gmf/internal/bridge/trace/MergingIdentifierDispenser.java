@@ -55,7 +55,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	private int myOverflowCount = OVERFLOW_COUNT_BASE;
 	
 	private TraceModel myTraceModel;
-	private Map mySavingOptions;
+	private Map<String, String> mySavingOptions;
 	
 	public void loadState(URI genModelFileURI) {
 		loadTraceModel(genModelFileURI);
@@ -72,9 +72,9 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		myTraceModel = null;
 	}
 	
-	private Map getSavingOptions() {
+	private Map<?, ?> getSavingOptions() {
 		if (mySavingOptions == null) {
-			mySavingOptions = new HashMap();
+			mySavingOptions = new HashMap<String, String>();
 			mySavingOptions.put(XMIResource.OPTION_ENCODING, "UTF-8");
 		}
 		return mySavingOptions;
@@ -106,28 +106,25 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		initNodeChildrenCounters(myTraceModel.getNodeTraces());
 		initNodeChildrenCounters(myTraceModel.getChildNodeTraces());
 
-		for (Iterator it = myTraceModel.getLinkTraces().iterator(); it.hasNext();) {
-			GenLinkTrace trace = (GenLinkTrace) it.next();
+		for (GenLinkTrace trace : myTraceModel.getLinkTraces()) {
 			myLinkLabelCount = Math.max(myLinkLabelCount, getMaxVid(trace.getLinkLabelTraces()));
 		}
 		
 		myToolGroupCount = Math.max(myToolGroupCount, getMaxVid(myTraceModel.getToolGroupTraces()));
 	}
 	
-	private void initNodeChildrenCounters(Collection nodeTraces) {
-		for (Iterator it = nodeTraces.iterator(); it.hasNext();) {
-			GenNodeTrace trace = (GenNodeTrace) it.next();
+	private void initNodeChildrenCounters(Collection<? extends GenNodeTrace> nodeTraces) {
+		for (GenNodeTrace trace : nodeTraces) {
 			myNodeLabelCount = Math.max(myNodeLabelCount, getMaxVid(trace.getNodeLabelTraces()));
 			myCompartmentCount = Math.max(myCompartmentCount, getMaxVid(trace.getCompartmentTraces()));
 		}
 	}
 	
-	private int getMaxVid(Collection abstractTraces) {
+	private int getMaxVid(Collection<? extends AbstractTrace> abstractTraces) {
 		int id = -1;
-		for (Iterator it = abstractTraces.iterator(); it.hasNext();) {
-			AbstractTrace nextTrace = (AbstractTrace) it.next();
-			id = Math.max(id, nextTrace.getVisualID());
-			myOverflowCount = Math.max(myOverflowCount, nextTrace.getVisualID());
+		for (AbstractTrace trace : abstractTraces) {
+			id = Math.max(id, trace.getVisualID());
+			myOverflowCount = Math.max(myOverflowCount, trace.getVisualID());
 		}
 		return id;
 	}
@@ -244,9 +241,8 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	private int getMatchingVID(Object context, Collection matchingTraces) {
-		for (Iterator it = matchingTraces.iterator(); it.hasNext();) {
-			MatchingTrace trace = (MatchingTrace) it.next();
+	private int getMatchingVID(Object context, Collection<? extends MatchingTrace> matchingTraces) {
+		for (MatchingTrace trace : matchingTraces) {
 			if (trace.isProcessed()) {
 				continue;
 			}

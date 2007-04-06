@@ -44,7 +44,7 @@ public interface TraceModel extends EObject {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenNodeTrace" containment="true"
 	 * @generated
 	 */
-	EList getNodeTraces();
+	EList<GenNodeTrace> getNodeTraces();
 
 	/**
 	 * Returns the value of the '<em><b>Child Node Traces</b></em>' containment reference list.
@@ -60,7 +60,7 @@ public interface TraceModel extends EObject {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenChildNodeTrace" containment="true"
 	 * @generated
 	 */
-	EList getChildNodeTraces();
+	EList<GenChildNodeTrace> getChildNodeTraces();
 
 	/**
 	 * Returns the value of the '<em><b>Link Traces</b></em>' containment reference list.
@@ -76,7 +76,7 @@ public interface TraceModel extends EObject {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.GenLinkTrace" containment="true"
 	 * @generated
 	 */
-	EList getLinkTraces();
+	EList<GenLinkTrace> getLinkTraces();
 
 	/**
 	 * Returns the value of the '<em><b>Tool Group Traces</b></em>' containment reference list.
@@ -92,7 +92,7 @@ public interface TraceModel extends EObject {
 	 * @model type="org.eclipse.gmf.internal.bridge.trace.ToolGroupTrace" containment="true"
 	 * @generated
 	 */
-	EList getToolGroupTraces();
+	EList<ToolGroupTrace> getToolGroupTraces();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -116,7 +116,7 @@ public interface TraceModel extends EObject {
 	 * @model kind="operation" type="org.eclipse.gmf.internal.bridge.trace.AbstractTrace"
 	 * @generated
 	 */
-	EList getAllAbstractTraces();
+	EList<AbstractTrace> getAllAbstractTraces();
 
 	/**
 	 * <!-- begin-user-doc -->
