@@ -47,7 +47,7 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList linkLabelTraces = null;
+	protected EList<GenLinkLabelTrace> linkLabelTraces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,6 +63,7 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracePackage.Literals.GEN_LINK_TRACE;
 	}
@@ -72,9 +73,9 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLinkLabelTraces() {
+	public EList<GenLinkLabelTrace> getLinkLabelTraces() {
 		if (linkLabelTraces == null) {
-			linkLabelTraces = new EObjectContainmentEList(GenLinkLabelTrace.class, this, TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES);
+			linkLabelTraces = new EObjectContainmentEList<GenLinkLabelTrace>(GenLinkLabelTrace.class, this, TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES);
 		}
 		return linkLabelTraces;
 	}
@@ -111,10 +112,11 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES:
-				return ((InternalEList)getLinkLabelTraces()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLinkLabelTraces()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -124,6 +126,7 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES:
@@ -137,11 +140,13 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+		@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES:
 				getLinkLabelTraces().clear();
-				getLinkLabelTraces().addAll((Collection)newValue);
+				getLinkLabelTraces().addAll((Collection<? extends GenLinkLabelTrace>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -152,6 +157,7 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES:
@@ -166,6 +172,7 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracePackage.GEN_LINK_TRACE__LINK_LABEL_TRACES:

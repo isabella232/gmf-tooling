@@ -11,16 +11,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.gmf.internal.bridge.trace.GenChildNodeTrace;
-import org.eclipse.gmf.internal.bridge.trace.GenCompartmentTrace;
-import org.eclipse.gmf.internal.bridge.trace.GenLinkLabelTrace;
-import org.eclipse.gmf.internal.bridge.trace.GenLinkTrace;
-import org.eclipse.gmf.internal.bridge.trace.GenNodeLabelTrace;
-import org.eclipse.gmf.internal.bridge.trace.GenNodeTrace;
-import org.eclipse.gmf.internal.bridge.trace.ToolGroupTrace;
-import org.eclipse.gmf.internal.bridge.trace.TraceFactory;
-import org.eclipse.gmf.internal.bridge.trace.TraceModel;
-import org.eclipse.gmf.internal.bridge.trace.TracePackage;
+import org.eclipse.gmf.internal.bridge.trace.*;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -63,6 +55,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case TracePackage.TRACE_MODEL: return createTraceModel();
@@ -173,6 +166,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static TracePackage getPackage() {
 		return TracePackage.eINSTANCE;
 	}
