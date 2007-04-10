@@ -364,8 +364,7 @@
 		<ant antfile="${publish.xml}" dir="${basedir}">
 			<property name="dropTemplateFileName" value="${basedir}/templateFiles/index.php.template" />
 			<property name="platformIdentifierToken" value="%platform%"/>
-			<property name="platformSpecificTemplateList"
-			value="Windows,index.html.template,index.html,Linux,index.html.template,index.html"/>
+			<property name="platformSpecificTemplateList" value=""/>
 			<property name="dropTokenList" value="%sdk%,%sdk-experimental%,%runtime%,%examples-pde%,%tests%" />
 			<property name="isBuildTested" value="true" />
 		</ant>
