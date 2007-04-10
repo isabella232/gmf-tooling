@@ -38,6 +38,8 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
+ * @deprecated use GenNamingMeditor; see http://wiki.eclipse.org/index.php/GMF_Reconciler
+ * 
  * @author artem
  */
 public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
