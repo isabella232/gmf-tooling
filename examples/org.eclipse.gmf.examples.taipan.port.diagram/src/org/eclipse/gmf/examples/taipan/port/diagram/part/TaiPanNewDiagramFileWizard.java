@@ -70,6 +70,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.layout.GridData;
@@ -111,9 +112,9 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
 		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new diagram file", StructuredSelection.EMPTY);
-		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram based on " + PortEditPart.MODEL_ID + " model content");
+		myFileCreationPage = new WizardNewFileCreationPage(Messages.TaiPanNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
+		myFileCreationPage.setTitle(Messages.TaiPanNewDiagramFileWizard_CreationPageTitle);
+		myFileCreationPage.setDescription(NLS.bind(Messages.TaiPanNewDiagramFileWizard_CreationPageDescription, PortEditPart.MODEL_ID));
 		IPath filePath;
 		String fileName = domainModelURI.trimFileExtension().lastSegment();
 		if (domainModelURI.isPlatformResource()) {
@@ -122,14 +123,14 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 			filePath = new Path(domainModelURI.trimSegments(1).toFileString());
 		} else {
 			// TODO : use some default path
-			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI);
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); //$NON-NLS-1$
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(TaiPanDiagramEditorUtil.getUniqueFileName(filePath, fileName, "port_diagram")); //$NON-NLS-1$
 
-		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage("Select diagram root element");
-		diagramRootElementSelectionPage.setTitle("Diagram root element");
-		diagramRootElementSelectionPage.setDescription("Select semantic model element to be depicted on diagram");
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageName);
+		diagramRootElementSelectionPage.setTitle(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageTitle);
+		diagramRootElementSelectionPage.setDescription(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageDescription);
 		diagramRootElementSelectionPage.setModelElement(diagramRoot);
 
 		myEditingDomain = editingDomain;
@@ -154,12 +155,12 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(diagramModelURI);
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, Messages.TaiPanNewDiagramFileWizard_InitDiagramCommand, affectedFiles) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != PortEditPart.VISUAL_ID) {
-					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
+					return CommandResult.newErrorCommandResult(Messages.TaiPanNewDiagramFileWizard_IncorrectRootError);
 				}
 				Diagram diagram = ViewService.createDiagram(diagramRootElementSelectionPage.getModelElement(), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
@@ -196,7 +197,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		 * @generated
 		 */
 		protected String getSelectionTitle() {
-			return "Select diagram root element:";
+			return Messages.TaiPanNewDiagramFileWizard_RootSelectionPageSelectionTitle;
 		}
 
 		/**
@@ -204,12 +205,12 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		 */
 		protected boolean validatePage() {
 			if (selectedModelElement == null) {
-				setErrorMessage("Diagram root element is not selected");
+				setErrorMessage(Messages.TaiPanNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
 					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), PortEditPart.MODEL_ID, PortDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null : "Invalid diagram root element is selected");
+			setErrorMessage(result ? null : Messages.TaiPanNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}
 	}

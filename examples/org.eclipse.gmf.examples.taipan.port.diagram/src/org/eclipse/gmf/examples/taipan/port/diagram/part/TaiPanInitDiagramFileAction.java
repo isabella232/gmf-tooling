@@ -39,6 +39,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
@@ -97,14 +98,15 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			Resource resource = resourceSet.getResource(domainModelURI, true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
-			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
+			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), "Error", "Model file loading failed");
+			MessageDialog.openError(getShell(), Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
+					Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
 			return;
 		}
 		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle("Initialize new " + PortEditPart.MODEL_ID + " diagram file");
+		wizard.setWindowTitle(NLS.bind(Messages.TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
 		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 

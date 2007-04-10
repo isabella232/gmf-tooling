@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,13 +106,6 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
-		setCharset(getFile(uri));
-	}
-
-	/**
-	 * @generated
-	 */
 	public static void setCharset(IFile file) {
 		if (file == null) {
 			return;
@@ -121,20 +115,6 @@ public class TaiPanDiagramEditorUtil {
 		} catch (CoreException e) {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static IFile getFile(org.eclipse.emf.common.util.URI uri) {
-		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
-			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
-			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
-			if (workspaceResource instanceof IFile) {
-				return (IFile) workspaceResource;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -188,11 +168,11 @@ public class TaiPanDiagramEditorUtil {
 	 */
 	public static Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI, org.eclipse.emf.common.util.URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3);
+		progressMonitor.beginTask(Messages.TaiPanDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.TaiPanDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Port model = createInitialModel();
@@ -220,8 +200,8 @@ public class TaiPanDiagramEditorUtil {
 		} catch (ExecutionException e) {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
-		setCharset(modelURI);
-		setCharset(diagramURI);
+		setCharset(WorkspaceSynchronizer.getFile(modelResource));
+		setCharset(WorkspaceSynchronizer.getFile(diagramResource));
 		return diagramResource;
 	}
 
