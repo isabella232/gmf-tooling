@@ -139,7 +139,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	private void setNodeGraphicalPolicy(NamingStrategy nodeGraphicalPolicy) {
 		myNodeGraphicalPolicy = nodeGraphicalPolicy;
 	}
-	
+
 	private void setNodeCreateCommand(NamingStrategy nodeCreateCommand) {
 		myNodeCreateCommand = nodeCreateCommand;
 	}
@@ -163,7 +163,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	public void setEditHelperAdvice(NamingStrategy editHelperAdvice) {
 		this.myEditHelperAdvice = editHelperAdvice;
 	}
-	
+
 	public NamingStrategy getEditHelperAdvice() {
 		return myEditHelperAdvice;
 	}
@@ -171,11 +171,11 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	public void setTypeLinkCreateCommand(NamingStrategy typeLinkCreateCommand) {
 		this.myTypeLinkCreateCommand = typeLinkCreateCommand;
 	}
-	
+
 	public NamingStrategy getTypeLinkCreateCommand() {
 		return myTypeLinkCreateCommand;
 	}
-	
+
 	public NamingStrategy getNodeCreateCommand() {
 		return myNodeCreateCommand;
 	}
@@ -183,7 +183,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	public NamingStrategy getLinkReorientCommand() {
 		return myLinkReorientCommand;
 	}
-	
+
 	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
 		genDiagram.setNotationViewFactoryClassName(getViewFactory().get(cme));
 		myDispenser.add(genDiagram.getBaseExternalNodeLabelEditPartClassName());
