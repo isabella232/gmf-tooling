@@ -4,7 +4,7 @@
 	if (generateSwitch) {%>
 	}
 <%	}
-	if (childMetaFeature.isListType()) {%>
+	if (childMetaFeature != null && childMetaFeature.isListType()) {%>
 	}
 <%	}
 }%>

@@ -25,7 +25,7 @@ public class <%=genCompartment.getItemSemanticEditPolicyClassName()%> extends <%
 <%
 // TODO: do not generate this edit policy for empty compartments.
 if (genCompartment.getChildNodes().size() > 0) {
-	Collection childNodes = genCompartment.getChildNodes();
+	Collection<GenChildNode> childNodes = genCompartment.getChildNodes();
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>

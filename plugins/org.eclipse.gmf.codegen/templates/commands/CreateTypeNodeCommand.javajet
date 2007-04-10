@@ -6,12 +6,11 @@ GenDiagram genDiagram = node.getDiagram();
 
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
-TypeModelFacet modelFacet = (TypeModelFacet) node.getModelFacet();
+TypeModelFacet modelFacet = node.getModelFacet();
 if (modelFacet == null) {
 	throw new IllegalArgumentException("TypeModelFacet required");
 }
 
-/*GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();*/
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -29,6 +28,19 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		public <%=importManager.getCompilationUnitName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%> req) {
 			super(req);
 		}
+
+<%if (modelFacet.getContainmentMetaFeature() == null && modelFacet.getChildMetaFeature() == null) {%>
+		false
+		/* 
+		FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually
+		If you rely on superclass behaviour, simply delete this comment
+		*/
+}
+<%
+	importManager.emitSortedImports();
+	return stringBuffer.toString(); // 	ATTENTION !!! CHANGE OF CONTROL FLOW - the template below is NOT processed when both features are null
+	// I don't want to wrap rest of the template into huge else block, hence this hack, which I believe will fade away with xpand. 
+} %>
 
 <%if (!modelFacet.isPhantomElement()) {
 	GenClass containerGenClass = modelFacet.getContainmentMetaFeature().getGenClass();%>

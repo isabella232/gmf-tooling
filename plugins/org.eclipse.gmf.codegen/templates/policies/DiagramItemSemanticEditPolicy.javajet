@@ -25,7 +25,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
  * @generated
  */
 public class <%=genDiagram.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
-<%Collection childNodes = genDiagram.getTopLevelNodes();%>
+<%Collection<GenTopLevelNode> childNodes = genDiagram.getTopLevelNodes();%>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>
 

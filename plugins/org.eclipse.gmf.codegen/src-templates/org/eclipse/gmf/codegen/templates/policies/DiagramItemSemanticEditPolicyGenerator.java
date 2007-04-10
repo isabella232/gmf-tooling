@@ -34,11 +34,13 @@ public class DiagramItemSemanticEditPolicyGenerator {
   protected final String TEXT_15 = " == req.getElementType()) {";
   protected final String TEXT_16 = "\t\t" + NL + "\t\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\t\treq.setContainmentFeature(";
   protected final String TEXT_17 = ".eINSTANCE.get";
-  protected final String TEXT_18 = "());" + NL + "\t\t\t}";
-  protected final String TEXT_19 = NL + "\t\t\treturn getMSLWrapper(new ";
-  protected final String TEXT_20 = "(req));" + NL + "\t\t}";
-  protected final String TEXT_21 = NL + "\t\treturn super.getCreateCommand(req);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_18 = "()";
+  protected final String TEXT_19 = "/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */";
+  protected final String TEXT_20 = ");" + NL + "\t\t\t}";
+  protected final String TEXT_21 = NL + "\t\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_22 = "(req));" + NL + "\t\t}";
+  protected final String TEXT_23 = NL + "\t\treturn super.getCreateCommand(req);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_24 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -172,7 +174,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    Collection childNodes = genDiagram.getTopLevelNodes();
+    Collection<GenTopLevelNode> childNodes = genDiagram.getTopLevelNodes();
     stringBuffer.append(TEXT_8);
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
@@ -180,8 +182,8 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest"));
     stringBuffer.append(TEXT_12);
-    for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
-	GenNode genChildNode = (GenNode) nodes.next();
+    for (Iterator<? extends GenNode> nodes = childNodes.iterator(); nodes.hasNext(); ) {
+	GenNode genChildNode = nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	if (modelFacet == null) {
 		continue;
@@ -193,18 +195,23 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_15);
     	if (!modelFacet.isPhantomElement()) {
     stringBuffer.append(TEXT_16);
+    if (modelFacet.getContainmentMetaFeature() != null) {
     stringBuffer.append(importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_17);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_18);
-    	}
+    										} else {
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName(genChildNode.getCreateCommandQualifiedClassName()));
-    stringBuffer.append(TEXT_20);
     }
+    stringBuffer.append(TEXT_20);
+    	}
     stringBuffer.append(TEXT_21);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genChildNode.getCreateCommandQualifiedClassName()));
     stringBuffer.append(TEXT_22);
+    }
+    stringBuffer.append(TEXT_23);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }

@@ -2,8 +2,8 @@
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%> req) {
-<%for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
-	GenNode genChildNode = (GenNode) nodes.next();
+<%for (Iterator<? extends GenNode> nodes = childNodes.iterator(); nodes.hasNext(); ) {
+	GenNode genChildNode = nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	if (modelFacet == null) {
 		continue;
@@ -11,7 +11,8 @@
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 <%	if (!modelFacet.isPhantomElement()) {%>		
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(<%=importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+				req.setContainmentFeature(<%if (modelFacet.getContainmentMetaFeature() != null) {%><%=importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>()
+<%										} else {%>/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */<%}%>);
 			}
 <%	}%>
 			return getMSLWrapper(new <%=importManager.getImportedName(genChildNode.getCreateCommandQualifiedClassName())%>(req));
