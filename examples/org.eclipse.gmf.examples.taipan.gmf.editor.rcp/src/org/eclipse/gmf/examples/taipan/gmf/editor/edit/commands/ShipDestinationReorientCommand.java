@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -66,12 +67,32 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Port && newEnd instanceof Ship;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Ship)) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipDestination_4001(getNewSource(), getOldTarget());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipDestination_4001(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -93,25 +114,45 @@ public class ShipDestinationReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		Ship oldSource = (Ship) referenceOwner;
-		Ship newSource = (Ship) newEnd;
-		Port target = (Port) oldEnd;
-
-		oldSource.setDestination(null);
-		newSource.setDestination(target);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().setDestination(null);
+		getNewSource().setDestination(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		Ship source = (Ship) referenceOwner;
-		Port oldTarget = (Port) oldEnd;
-		Port newTarget = (Port) newEnd;
-
-		source.setDestination(newTarget);
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getOldSource().setDestination(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldSource() {
+		return (Ship) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewSource() {
+		return (Ship) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldTarget() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewTarget() {
+		return (Port) newEnd;
 	}
 }

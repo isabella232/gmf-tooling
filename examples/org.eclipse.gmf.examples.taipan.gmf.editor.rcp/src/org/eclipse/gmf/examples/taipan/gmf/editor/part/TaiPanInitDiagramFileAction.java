@@ -25,6 +25,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -73,13 +74,13 @@ public class TaiPanInitDiagramFileAction implements IWorkbenchWindowActionDelega
 	 */
 	public void run(IAction action) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		Resource resource = TaiPanDiagramEditorUtil.openModel(getShell(), "Select domain model", editingDomain);
+		Resource resource = TaiPanDiagramEditorUtil.openModel(getShell(), Messages.TaiPanInitDiagramFileAction_OpenModelFileDialogTitle, editingDomain);
 		if (resource == null || resource.getContents().isEmpty()) {
 			return;
 		}
 		EObject diagramRoot = (EObject) resource.getContents().get(0);
 		Wizard wizard = new TaiPanNewDiagramFileWizard(resource.getURI(), diagramRoot, editingDomain);
-		wizard.setWindowTitle("Initialize new " + AquatoryEditPart.MODEL_ID + " diagram file");
+		wizard.setWindowTitle(NLS.bind(Messages.TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle, AquatoryEditPart.MODEL_ID));
 		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }

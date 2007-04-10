@@ -15,8 +15,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -59,12 +61,42 @@ public class Route2ReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Port && newEnd instanceof Port;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		Port target = getLink().getDestination();
+		if (!(getLink().eContainer() instanceof Aquatory)) {
+			return false;
+		}
+		Aquatory container = (Aquatory) getLink().eContainer();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, getNewSource(), target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
+			return false;
+		}
+		Port source = getLink().getSource();
+		if (!(getLink().eContainer() instanceof Aquatory)) {
+			return false;
+		}
+		Aquatory container = (Aquatory) getLink().eContainer();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, getNewTarget());
 	}
 
 	/**
@@ -86,25 +118,51 @@ public class Route2ReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		Route link = (Route) getElementToEdit();
-		Port oldSource = (Port) oldEnd;
-		Port newSource = (Port) newEnd;
-
-		link.setSource(newSource);
-
-		return CommandResult.newOKCommandResult(link);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getLink().setSource(getNewSource());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		Route link = (Route) getElementToEdit();
-		Port oldTarget = (Port) oldEnd;
-		Port newTarget = (Port) newEnd;
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getLink().setDestination(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
+	}
 
-		link.setDestination(newTarget);
-		return CommandResult.newOKCommandResult(link);
+	/**
+	 * @generated
+	 */
+	protected Route getLink() {
+		return (Route) getElementToEdit();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldSource() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewSource() {
+		return (Port) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldTarget() {
+		return (Port) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewTarget() {
+		return (Port) newEnd;
 	}
 }

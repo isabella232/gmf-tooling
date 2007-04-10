@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
@@ -60,12 +61,40 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Warship && newEnd instanceof Warship;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Ship && newEnd instanceof Ship;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Warship && newEnd instanceof Warship)) {
+			return false;
+		}
+		if (getLink().getShips().size() != 1) {
+			return false;
+		}
+		Ship target = (Ship) getLink().getShips().get(0);
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4004(getNewSource(), target);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+			return false;
+		}
+		if (!(getLink().eContainer() instanceof Warship)) {
+			return false;
+		}
+		Warship source = (Warship) getLink().eContainer();
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistEscortShipsOrder_4004(source, getNewTarget());
 	}
 
 	/**
@@ -87,26 +116,53 @@ public class EscortShipsOrderReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
-		Warship oldSource = (Warship) oldEnd;
-		Warship newSource = (Warship) newEnd;
-
-		oldSource.setEscortOrder(null);
-		newSource.setEscortOrder(link);
-		return CommandResult.newOKCommandResult(link);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().setEscortOrder(null);
+		getNewSource().setEscortOrder(getLink());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		EscortShipsOrder link = (EscortShipsOrder) getElementToEdit();
-		Ship oldTarget = (Ship) oldEnd;
-		Ship newTarget = (Ship) newEnd;
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getLink().getShips().remove(getOldTarget());
+		getLink().getShips().add(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
+	}
 
-		link.getShips().remove(oldTarget);
-		link.getShips().add(newTarget);
-		return CommandResult.newOKCommandResult(link);
+	/**
+	 * @generated
+	 */
+	protected EscortShipsOrder getLink() {
+		return (EscortShipsOrder) getElementToEdit();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Warship getOldSource() {
+		return (Warship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Warship getNewSource() {
+		return (Warship) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldTarget() {
+		return (Ship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewTarget() {
+		return (Ship) newEnd;
 	}
 }

@@ -292,7 +292,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated 
 	 */
-	protected static class LinkConstraints {
+	public static class LinkConstraints {
 
 		/**
 		 * @generated 
@@ -352,21 +352,21 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
-			return true;
+			return canExistShipDestination_4001(source, target);
 		}
 
 		/**
 		 * @generated
 		 */
 		public static boolean canCreateRoute_4002(Aquatory container, Port source, Port target) {
-			return true;
+			return canExistRoute_4002(container, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
 		public static boolean canCreateRoute_4003(Aquatory container, Port source, Port target) {
-			return true;
+			return canExistRoute_4003(container, source, target);
 		}
 
 		/**
@@ -378,6 +378,53 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+			return canExistEscortShipsOrder_4004(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
+			return canExistBesiegePortOrder_4005(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canCreatePortRegister_4006(Port source, Ship target) {
+			if (source != null) {
+				if (source.getRegister().contains(target)) {
+					return false;
+				}
+			}
+			return canExistPortRegister_4006(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistShipDestination_4001(Ship source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistRoute_4002(Aquatory container, Port source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistRoute_4003(Aquatory container, Port source, Port target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public static boolean canExistEscortShipsOrder_4004(Warship source, Ship target) {
 			if (!evaluate(EscortShipsOrder_4004_SourceExpression, source, target, false)) {
 				return false;
 			}
@@ -390,7 +437,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
+		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
 			if (!evaluate(BesiegePortOrder_4005_SourceExpression, source, target, false)) {
 				return false;
 			}
@@ -400,12 +447,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreatePortRegister_4006(Port source, Ship target) {
-			if (source != null) {
-				if (source.getRegister().contains(target)) {
-					return false;
-				}
-			}
+		public static boolean canExistPortRegister_4006(Port source, Ship target) {
 			return true;
 		}
 

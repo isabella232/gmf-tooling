@@ -60,6 +60,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -71,6 +72,24 @@ import org.eclipse.ui.PlatformUI;
  * @generated
  */
 public class TaiPanDiagramEditorUtil {
+
+	/**
+	 * @generated
+	 */
+	private static Map ourSaveOptions = null;
+
+	/**
+	 * @generated
+	 */
+	public static Map getSaveOptions() {
+		if (ourSaveOptions == null) {
+			ourSaveOptions = new HashMap();
+			ourSaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			ourSaveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+			ourSaveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		}
+		return ourSaveOptions;
+	}
 
 	/**
 	 * @generated
@@ -131,8 +150,9 @@ public class TaiPanDiagramEditorUtil {
 		try {
 			resource = editingDomain.getResourceSet().getResource(uri, true);
 		} catch (WrappedException we) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + uri, we);
-			MessageDialog.openError(shell, "Error", "Failed to load model file " + fileName);
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + uri, we); //$NON-NLS-1$
+			MessageDialog
+					.openError(shell, Messages.TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogTitle, NLS.bind(Messages.TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogMessage, fileName));
 		}
 		return resource;
 	}
@@ -160,11 +180,11 @@ public class TaiPanDiagramEditorUtil {
 	 */
 	public static Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI, org.eclipse.emf.common.util.URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3);
+		progressMonitor.beginTask(Messages.TaiPanDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.TaiPanDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Aquatory model = createInitialModel();
@@ -178,10 +198,8 @@ public class TaiPanDiagramEditorUtil {
 				}
 
 				try {
-					Map options = new HashMap();
-					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-					modelResource.save(options);
-					diagramResource.save(options);
+					modelResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
+					diagramResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
 				} catch (IOException e) {
 
 					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$

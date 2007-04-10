@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -66,12 +67,32 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof Ship && newEnd instanceof Port;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof Ship && newEnd instanceof Ship;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4006(getNewSource(), getOldTarget());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4006(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -93,26 +114,46 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		Port oldSource = (Port) referenceOwner;
-		Port newSource = (Port) newEnd;
-		Ship target = (Ship) oldEnd;
-
-		oldSource.getRegister().remove(target);
-		newSource.getRegister().add(target);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().getRegister().remove(getOldTarget());
+		getNewSource().getRegister().add(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		Port source = (Port) referenceOwner;
-		Ship oldTarget = (Ship) oldEnd;
-		Ship newTarget = (Ship) newEnd;
-
-		source.getRegister().remove(oldTarget);
-		source.getRegister().add(newTarget);
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getOldSource().getRegister().remove(getOldTarget());
+		getOldSource().getRegister().add(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getOldSource() {
+		return (Port) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Port getNewSource() {
+		return (Port) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getOldTarget() {
+		return (Ship) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getNewTarget() {
+		return (Ship) newEnd;
 	}
 }

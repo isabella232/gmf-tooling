@@ -64,7 +64,6 @@ public class ShipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-
 		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (nodeVID) {
 		case LargeItemEditPart.VISUAL_ID:
