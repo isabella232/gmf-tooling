@@ -12,8 +12,9 @@
 package org.eclipse.gmf.runtime.lite.parts;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EventObject;
-import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -78,8 +79,7 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 			}
 		}
 		private boolean isSaved() {
-			for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
-				Resource next = (Resource) it.next();
+			for(Resource next : getEditingDomain().getResourceSet().getResources()) {
 				if (!next.isLoaded()) {
 					continue;
 				}
@@ -92,7 +92,14 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	};
 
 	protected void save(IProgressMonitor monitor) throws CoreException {
-		myDiagramDisplayer.save(monitor);
+		myDiagramDisplayer.save(getSaveOptions(), monitor);
+	}
+
+	/**
+	 * Returns the options with which the resources will be saved. Subclasses should override.
+	 */
+	protected Map<?, ?> getSaveOptions() {
+		return Collections.emptyMap();
 	}
 
 	public final TransactionalEditingDomain getEditingDomain() {
@@ -346,11 +353,12 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 			super.setTarget(newTarget);
 			if (newTarget instanceof ResourceSet) {
 				ResourceSet resourceSet = (ResourceSet) newTarget;
-				for(Iterator it = resourceSet.getResources().iterator(); it.hasNext(); ) {
-					((Resource) it.next()).setTrackingModification(true);
+				for(Resource next : resourceSet.getResources()) {
+					next.setTrackingModification(true);
 				}
 			}
 		}
+
 		@Override
 		public void notifyChanged(Notification msg) {
 			if (msg.getNotifier() == getTarget() && msg.getFeatureID(ResourceSet.class) == ResourceSet.RESOURCE_SET__RESOURCES) {
@@ -363,9 +371,9 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 				break;
 				case Notification.ADD_MANY:
 				{
-					Collection resources = (Collection) msg.getNewValue();
-					for(Iterator it = resources.iterator(); it.hasNext(); ) {
-						((Resource) it.next()).setTrackingModification(true);
+					@SuppressWarnings("unchecked") Collection<Resource> resources = (Collection<Resource>) msg.getNewValue();
+					for(Resource next : resources) {
+						next.setTrackingModification(true);
 					}
 				}
 				}

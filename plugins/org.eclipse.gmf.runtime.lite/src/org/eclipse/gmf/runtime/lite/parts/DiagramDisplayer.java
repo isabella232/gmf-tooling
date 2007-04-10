@@ -14,7 +14,7 @@ package org.eclipse.gmf.runtime.lite.parts;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.EventObject;
-import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -396,16 +396,22 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #save(Map, IProgressMonitor)} instead.
+	 */
 	public void save(IProgressMonitor progressMonitor) throws CoreException {
+		save(Collections.emptyMap(), progressMonitor);
+	}
+
+	public void save(Map<?, ?> options, IProgressMonitor progressMonitor) throws CoreException {
 		if (progressMonitor == null) {
 			progressMonitor = new NullProgressMonitor();
 		}
 		progressMonitor.beginTask("Saving", getEditingDomain().getResourceSet().getResources().size());
 		try {
-			for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
-				Resource next = (Resource)it.next();
+			for(Resource next : getEditingDomain().getResourceSet().getResources()) {
 				if (next.isLoaded() && (next.isModified() || !next.isTrackingModification())) {
-					next.save(Collections.EMPTY_MAP);
+					next.save(options);
 				}
 				progressMonitor.worked(1);
 			}

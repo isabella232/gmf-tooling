@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.runtime.lite.parts;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.ColorConstants;
@@ -64,7 +67,7 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 			assert event.getSource() == myDiagramDisplayer.getCommandStack();
 			if (event.isPostChangeEvent()) {
 				try {
-					myDiagramDisplayer.save(new NullProgressMonitor());
+					myDiagramDisplayer.save(getSaveOptions(), new NullProgressMonitor());
 					myDiagramDisplayer.getCommandStack().markSaveLocation();
 				} catch (CoreException e) {
 					Activator.getDefault().getLog().log(e.getStatus());
@@ -76,6 +79,13 @@ public abstract class DiagramViewPart extends ViewPart implements IDiagramManage
 	@Override
 	public void init(IViewSite site) throws PartInitException {
 		super.init(site);
+	}
+
+	/**
+	 * Returns the options with which the resources will be saved. Subclasses should override.
+	 */
+	protected Map<?, ?> getSaveOptions() {
+		return Collections.emptyMap();
 	}
 
 	@Override
