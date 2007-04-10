@@ -13,15 +13,16 @@ package org.eclipse.gmf.internal.common.codegen;
 
 import org.eclipse.osgi.util.NLS;
 
-public class GeneratorBaseMessages extends NLS {
+// XXX try package-local class as it doesn't need to be exposed
+public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.common.codegen.messages"; //$NON-NLS-1$
 
-	private GeneratorBaseMessages() {
+	private Messages() {
 	}
 
 	static {
 		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, GeneratorBaseMessages.class);
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 
 	public static String merge;
@@ -37,4 +38,6 @@ public class GeneratorBaseMessages extends NLS {
 	public static String start;
 
 	public static String exception;
+
+	public static String organizeImportsFail;
 }

@@ -159,7 +159,8 @@ public class OrganizeImportsPostprocessor {
 		}
 
 		if (!checkForNoSyntaxErrors(astRoot)) {
-			throw new CoreException(new Status(IStatus.ERROR, Activator.getID(), 0, "Imports are unable to be organized due to syntax errors in the compilation unit", null));
+			String location = astRoot.getJavaElement() == null ? "<undefined>" : astRoot.getJavaElement().getElementName();
+			throw new CoreException(new Status(IStatus.ERROR, Activator.getID(), 0, Messages.bind(Messages.organizeImportsFail, location), null));
 		}
 
 		ArrayList<Name> qualifiedTypeReferences = new ArrayList<Name>();

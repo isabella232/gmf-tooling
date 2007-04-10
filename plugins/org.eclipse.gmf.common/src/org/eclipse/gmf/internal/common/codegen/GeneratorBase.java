@@ -95,7 +95,7 @@ public abstract class GeneratorBase implements Runnable {
 		try {
 			doRun();
 		} catch (InterruptedException ex) {
-			myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, GeneratorBaseMessages.interrupted, ex);
+			myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, Messages.interrupted, ex);
 		}
 	}
 
@@ -151,7 +151,7 @@ public abstract class GeneratorBase implements Runnable {
 
 	protected static IStatus newStatus(int severity, Throwable ex) {
 		final String msg = ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage();
-		return new Status(severity, Activator.getID(), 0, GeneratorBaseMessages.bind(GeneratorBaseMessages.exception, msg), ex);
+		return new Status(severity, Activator.getID(), 0, Messages.bind(Messages.exception, msg), ex);
 	}
 
 	protected final IProject getDestProject() {
@@ -172,7 +172,7 @@ public abstract class GeneratorBase implements Runnable {
 			return;
 			// no need to set it up
 		}
-		myProgress.beginTask(task == null ? GeneratorBaseMessages.start : task, total);
+		myProgress.beginTask(task == null ? Messages.start : task, total);
 	}
 
 	protected final IProgressMonitor getNextStepMonitor() throws InterruptedException {
@@ -204,7 +204,7 @@ public abstract class GeneratorBase implements Runnable {
 		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
 		final List<?> pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
-		setProgressTaskName(GeneratorBaseMessages.initproject);
+		setProgressTaskName(Messages.initproject);
 
 		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
 
@@ -405,7 +405,7 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	protected String mergeJavaCode(String oldContents, String generatedText, IProgressMonitor pm) throws JavaModelException {
-		pm.beginTask(GeneratorBaseMessages.merge, 1);
+		pm.beginTask(Messages.merge, 1);
 		try {
 			return getMergeService().mergeJava(oldContents, generatedText);
 		} finally {
@@ -414,7 +414,7 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	protected String mergePlainText(String oldText, String genText, IFile oldRes, IProgressMonitor pm) {
-		pm.beginTask(GeneratorBaseMessages.merge, 1);
+		pm.beginTask(Messages.merge, 1);
 		try {
 			return getMergeService().process(oldRes.getFileExtension(), oldText, genText);
 		} finally {
@@ -471,9 +471,9 @@ public abstract class GeneratorBase implements Runnable {
 					} catch (NullPointerException ex) {
 						myRunStatus = new Status(IStatus.ERROR, Activator.getID(), 0, NullPointerException.class.getName(), ex);
 					} catch (UnexpectedBehaviourException ex) {
-						myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, GeneratorBaseMessages.unexpected, ex);
+						myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, Messages.unexpected, ex);
 					} catch (InterruptedException ex) {
-						myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, GeneratorBaseMessages.interrupted, ex); 
+						myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, Messages.interrupted, ex); 
 					}
 				}
 			}, null);
@@ -511,7 +511,7 @@ public abstract class GeneratorBase implements Runnable {
 			return Status.OK_STATUS;
 		} else {
 			IStatus[] s = myExceptions.toArray(new IStatus[myExceptions.size()]);
-			return new MultiStatus(Activator.getID(), 0, s, GeneratorBaseMessages.problems, null);
+			return new MultiStatus(Activator.getID(), 0, s, Messages.problems, null);
 		}
 	}
 
