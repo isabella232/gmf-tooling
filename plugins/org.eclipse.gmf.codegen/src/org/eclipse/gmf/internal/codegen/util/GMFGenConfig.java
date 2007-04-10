@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
+import org.eclipse.gmf.internal.common.reconcile.Decision;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
@@ -71,17 +72,18 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationProviderPriority());
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderPriority());
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderClassName());
+		restore(GMFGEN.getGenDiagram(), GMFGEN.getGenCommonBase_EditPartClassName());
 
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX); //$NON-NLS-1$
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX); //$NON-NLS-1$
-		//[155332]preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
+		restore(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenCommonBase_EditPartClassName());
 		preserveIfSet(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
 
 		setMatcher(GMFGEN.getGenChildNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX); //$NON-NLS-1$
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX); //$NON-NLS-1$
-		//[155332]preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
+		restore(GMFGEN.getGenChildNode(), GMFGEN.getGenCommonBase_EditPartClassName());
 		preserveIfSet(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_PrimaryDragEditPolicyQualifiedClassName());
 
 		setMatcher(GMFGEN.getGenChildLabelNode(), getGenNodeMatcher());
@@ -95,7 +97,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());
-		//[155332]preserveIfNotByPattern(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
+		restore(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_EditPartClassName());
+
+		setMatcher(GMFGEN.getGenLink(), new VisualIDMatcher());
+		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_NotationViewFactoryClassName());
+		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_EditPartClassName());
+		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
 
 		//if parent node is matched, then viemap is matched automatically because it is [1] feature.
 		//there are nothing to reconcile for viewmaps, all their properties are derived
@@ -199,6 +206,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 				return genNode.getDomainMetaClass();
 			}
 		});
+	}
+
+	private void restore(EClass eClass, EAttribute feature) {
+		addDecision(eClass, new Decision.ALWAYS_OLD(feature));
 	}
 
 	private void preserveIfSet(EClass eClass, EAttribute feature) {
