@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.bridge.trace;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -76,6 +75,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		if (mySavingOptions == null) {
 			mySavingOptions = new HashMap<String, String>();
 			mySavingOptions.put(XMIResource.OPTION_ENCODING, "UTF-8");
+			mySavingOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 		}
 		return mySavingOptions;
 	}
