@@ -365,7 +365,7 @@
 			<property name="dropTemplateFileName" value="${basedir}/templateFiles/index.php.template" />
 			<property name="platformIdentifierToken" value="%platform%"/>
 			<property name="platformSpecificTemplateList"
-			value="Windows,index.php.template,index.php,Linux,index.php.template,php.html"/>
+			value="Windows,index.html.template,index.html,Linux,index.html.template,index.html"/>
 			<property name="dropTokenList" value="%sdk%,%sdk-experimental%,%runtime%,%examples-pde%,%tests%" />
 			<property name="isBuildTested" value="true" />
 		</ant>
