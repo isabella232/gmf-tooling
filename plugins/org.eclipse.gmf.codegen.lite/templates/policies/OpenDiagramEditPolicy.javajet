@@ -141,8 +141,8 @@ if (openAsEditor) {
 			try {
 				for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> next = (<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) it.next();
-					if (next.isLoaded() && (!next.isTrackingModification() || next.isModified())) {
-						next.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+					if (next.isLoaded()) {
+						next.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 					}
 				}
 			} catch (<%=importManager.getImportedName("java.io.IOException")%> e) {

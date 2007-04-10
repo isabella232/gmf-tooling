@@ -381,7 +381,7 @@ if (isRichClientPlatform) {
 			diagramFilePath = diagramFilePath.addFileExtension("<%=editorGen.getDiagramFileExtension()%>");		//$NON-NLS-1$
 		}
 		final IFile diagramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(diagramFilePath);
-		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFilePath.toString(), true));
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(diagramFilePath.toString(), true));
 <%
 }
 %>
@@ -395,7 +395,8 @@ if (standaloneDomainModel) {
 	} else {
 %>
 		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFilePath.toString(), true));
+		final IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+		final Resource modelResource = resourceSet.createResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(modelFilePath.toString(), true));
 <%
 	}
 }
@@ -421,7 +422,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 		}
 %>
 					try {
-						modelResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+						modelResource.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 					} catch (IOException e) {
 						handleSaveException(e);
 					}
@@ -438,7 +439,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 					<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(diagram);
 					diagramResource.getContents().add(diagram);
 					try {
-						diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+						diagramResource.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 					} catch (IOException e) {
 						handleSaveException(e);
 					}
@@ -451,6 +452,18 @@ if (genDiagram.getDomainDiagramElement() != null) {
 				<%=genPlugin.getActivatorClassName()%>.getInstance().logError("exception occurred while creating the diagram", e);
 				return null;
 			}
+<%
+if (!isRichClientPlatform) {
+%>
+			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.setCharset(diagramFile);
+<%
+	if (standaloneDomainModel) {
+%>
+			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.setCharset(modelFile);
+<%
+	}
+}
+%>
 		}
 <%
 if (isRichClientPlatform) {

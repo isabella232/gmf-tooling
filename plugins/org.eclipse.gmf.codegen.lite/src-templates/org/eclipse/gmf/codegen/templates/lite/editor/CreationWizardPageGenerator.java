@@ -88,73 +88,80 @@ public class CreationWizardPageGenerator
   protected final String TEXT_69 = " diagramResource = resourceSet.createResource(getDiagramFileURI());";
   protected final String TEXT_70 = NL + "\t\tIPath diagramFilePath = getContainerFullPath().append(getFileName());" + NL + "\t\tif (diagramFilePath.getFileExtension() == null) {" + NL + "\t\t\tdiagramFilePath = diagramFilePath.addFileExtension(\"";
   protected final String TEXT_71 = "\");\t\t//$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\tfinal IFile diagramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(diagramFilePath);" + NL + "\t\tfinal ";
-  protected final String TEXT_72 = " diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFilePath.toString(), true));";
-  protected final String TEXT_73 = NL + "\t\tfinal Resource modelResource = resourceSet.createResource(getModelFileURI());";
-  protected final String TEXT_74 = NL + "\t\tIPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension(\"";
-  protected final String TEXT_75 = "\"); //$NON-NLS-1$" + NL + "\t\tfinal Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFilePath.toString(), true));";
-  protected final String TEXT_76 = NL + NL + "\t\tif (diagramResource != null";
-  protected final String TEXT_77 = " && modelResource != null";
-  protected final String TEXT_78 = ") {" + NL + "\t\t\t";
-  protected final String TEXT_79 = " saveOperation = new ";
-  protected final String TEXT_80 = "(editingDomain, \"Create diagram\") {" + NL + "\t\t\t\tpublic ";
-  protected final String TEXT_81 = " doExecute(";
-  protected final String TEXT_82 = " monitor, ";
-  protected final String TEXT_83 = " info) throws ";
-  protected final String TEXT_84 = " {";
-  protected final String TEXT_85 = NL + "\t\t\t\t\t";
-  protected final String TEXT_86 = " model = ";
-  protected final String TEXT_87 = ".eINSTANCE.create";
-  protected final String TEXT_88 = "();";
-  protected final String TEXT_89 = NL + "\t\t\t\t\tmodelResource.getContents().add(createInitialRoot(model));";
-  protected final String TEXT_90 = NL + "\t\t\t\t\tmodelResource.getContents().add(";
-  protected final String TEXT_91 = "(";
-  protected final String TEXT_92 = ") ";
-  protected final String TEXT_93 = "model);";
-  protected final String TEXT_94 = NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tmodelResource.save(";
-  protected final String TEXT_95 = ".EMPTY_MAP);" + NL + "\t\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\t\thandleSaveException(e);" + NL + "\t\t\t\t\t}";
-  protected final String TEXT_96 = NL + "\t\t\t\t\tdiagramResource.getContents().add(";
-  protected final String TEXT_97 = "(";
-  protected final String TEXT_98 = ") ";
-  protected final String TEXT_99 = "model);";
-  protected final String TEXT_100 = NL + "\t\t\t\t\t";
-  protected final String TEXT_101 = " diagram = ";
-  protected final String TEXT_102 = ".eINSTANCE.createDiagram();" + NL + "\t\t\t\t\tdiagram.setElement(";
-  protected final String TEXT_103 = "(";
-  protected final String TEXT_104 = ") ";
-  protected final String TEXT_105 = "model);" + NL + "\t\t\t\t\t";
-  protected final String TEXT_106 = ".INSTANCE.decorateView(diagram);" + NL + "\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tdiagramResource.save(";
-  protected final String TEXT_107 = ".EMPTY_MAP);" + NL + "\t\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\t\thandleSaveException(e);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn ";
-  protected final String TEXT_108 = ".OK_STATUS;" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\ttry {" + NL + "\t\t\t\tsaveOperation.execute(new ";
-  protected final String TEXT_109 = "(), null);" + NL + "\t\t\t} catch (";
-  protected final String TEXT_110 = " e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_111 = ".getInstance().logError(\"exception occurred while creating the diagram\", e);" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_112 = NL + "\t\tboolean result = ";
-  protected final String TEXT_113 = ".openEditor(getDiagramFileURI()) != null;";
-  protected final String TEXT_114 = NL + "\t\tboolean result = ";
-  protected final String TEXT_115 = ".showView(getDiagramFileURI()) != null;";
-  protected final String TEXT_116 = NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn getDiagramFileURI();";
-  protected final String TEXT_117 = NL + "\t\ttry {" + NL + "\t\t\t";
-  protected final String TEXT_118 = ".openEditor(";
-  protected final String TEXT_119 = ".getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile);" + NL + "\t\t} catch (";
-  protected final String TEXT_120 = " e) {" + NL + "\t\t\t";
-  protected final String TEXT_121 = ".getInstance().getLog().log(e.getStatus());" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn diagramFile;";
-  protected final String TEXT_122 = NL + "\t\t";
-  protected final String TEXT_123 = " diagramFileURI = diagramResource.getURI();" + NL + "\t\tboolean result = ";
-  protected final String TEXT_124 = ".showView(diagramFileURI) != null;" + NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn diagramFile;";
-  protected final String TEXT_125 = NL + "\t}" + NL;
-  protected final String TEXT_126 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static ";
-  protected final String TEXT_127 = " createInitialRoot(";
-  protected final String TEXT_128 = " model) {";
+  protected final String TEXT_72 = " diagramResource = resourceSet.createResource(";
+  protected final String TEXT_73 = ".createPlatformResourceURI(diagramFilePath.toString(), true));";
+  protected final String TEXT_74 = NL + "\t\tfinal Resource modelResource = resourceSet.createResource(getModelFileURI());";
+  protected final String TEXT_75 = NL + "\t\tIPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension(\"";
+  protected final String TEXT_76 = "\"); //$NON-NLS-1$" + NL + "\t\tfinal IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);" + NL + "\t\tfinal Resource modelResource = resourceSet.createResource(";
+  protected final String TEXT_77 = ".createPlatformResourceURI(modelFilePath.toString(), true));";
+  protected final String TEXT_78 = NL + NL + "\t\tif (diagramResource != null";
+  protected final String TEXT_79 = " && modelResource != null";
+  protected final String TEXT_80 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_81 = " saveOperation = new ";
+  protected final String TEXT_82 = "(editingDomain, \"Create diagram\") {" + NL + "\t\t\t\tpublic ";
+  protected final String TEXT_83 = " doExecute(";
+  protected final String TEXT_84 = " monitor, ";
+  protected final String TEXT_85 = " info) throws ";
+  protected final String TEXT_86 = " {";
+  protected final String TEXT_87 = NL + "\t\t\t\t\t";
+  protected final String TEXT_88 = " model = ";
+  protected final String TEXT_89 = ".eINSTANCE.create";
+  protected final String TEXT_90 = "();";
+  protected final String TEXT_91 = NL + "\t\t\t\t\tmodelResource.getContents().add(createInitialRoot(model));";
+  protected final String TEXT_92 = NL + "\t\t\t\t\tmodelResource.getContents().add(";
+  protected final String TEXT_93 = "(";
+  protected final String TEXT_94 = ") ";
+  protected final String TEXT_95 = "model);";
+  protected final String TEXT_96 = NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tmodelResource.save(";
+  protected final String TEXT_97 = ".getSaveOptions());" + NL + "\t\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\t\thandleSaveException(e);" + NL + "\t\t\t\t\t}";
+  protected final String TEXT_98 = NL + "\t\t\t\t\tdiagramResource.getContents().add(";
+  protected final String TEXT_99 = "(";
+  protected final String TEXT_100 = ") ";
+  protected final String TEXT_101 = "model);";
+  protected final String TEXT_102 = NL + "\t\t\t\t\t";
+  protected final String TEXT_103 = " diagram = ";
+  protected final String TEXT_104 = ".eINSTANCE.createDiagram();" + NL + "\t\t\t\t\tdiagram.setElement(";
+  protected final String TEXT_105 = "(";
+  protected final String TEXT_106 = ") ";
+  protected final String TEXT_107 = "model);" + NL + "\t\t\t\t\t";
+  protected final String TEXT_108 = ".INSTANCE.decorateView(diagram);" + NL + "\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tdiagramResource.save(";
+  protected final String TEXT_109 = ".getSaveOptions());" + NL + "\t\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\t\thandleSaveException(e);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn ";
+  protected final String TEXT_110 = ".OK_STATUS;" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t\ttry {" + NL + "\t\t\t\tsaveOperation.execute(new ";
+  protected final String TEXT_111 = "(), null);" + NL + "\t\t\t} catch (";
+  protected final String TEXT_112 = " e) {" + NL + "\t\t\t\t";
+  protected final String TEXT_113 = ".getInstance().logError(\"exception occurred while creating the diagram\", e);" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}";
+  protected final String TEXT_114 = NL + "\t\t\t";
+  protected final String TEXT_115 = ".setCharset(diagramFile);";
+  protected final String TEXT_116 = NL + "\t\t\t";
+  protected final String TEXT_117 = ".setCharset(modelFile);";
+  protected final String TEXT_118 = NL + "\t\t}";
+  protected final String TEXT_119 = NL + "\t\tboolean result = ";
+  protected final String TEXT_120 = ".openEditor(getDiagramFileURI()) != null;";
+  protected final String TEXT_121 = NL + "\t\tboolean result = ";
+  protected final String TEXT_122 = ".showView(getDiagramFileURI()) != null;";
+  protected final String TEXT_123 = NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn getDiagramFileURI();";
+  protected final String TEXT_124 = NL + "\t\ttry {" + NL + "\t\t\t";
+  protected final String TEXT_125 = ".openEditor(";
+  protected final String TEXT_126 = ".getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile);" + NL + "\t\t} catch (";
+  protected final String TEXT_127 = " e) {" + NL + "\t\t\t";
+  protected final String TEXT_128 = ".getInstance().getLog().log(e.getStatus());" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn diagramFile;";
   protected final String TEXT_129 = NL + "\t\t";
-  protected final String TEXT_130 = " docRoot = ";
-  protected final String TEXT_131 = ".";
-  protected final String TEXT_132 = ".create";
-  protected final String TEXT_133 = "();" + NL + "\t\tdocRoot.set";
-  protected final String TEXT_134 = "(model);" + NL + "\t\treturn docRoot;" + NL + "\t}" + NL;
-  protected final String TEXT_135 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void handleSaveException(IOException e) throws ";
-  protected final String TEXT_136 = " {" + NL + "\t\tthrow new ";
-  protected final String TEXT_137 = "(\"Save failed\", e);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_138 = NL;
+  protected final String TEXT_130 = " diagramFileURI = diagramResource.getURI();" + NL + "\t\tboolean result = ";
+  protected final String TEXT_131 = ".showView(diagramFileURI) != null;" + NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn diagramFile;";
+  protected final String TEXT_132 = NL + "\t}" + NL;
+  protected final String TEXT_133 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static ";
+  protected final String TEXT_134 = " createInitialRoot(";
+  protected final String TEXT_135 = " model) {";
+  protected final String TEXT_136 = NL + "\t\t";
+  protected final String TEXT_137 = " docRoot = ";
+  protected final String TEXT_138 = ".";
+  protected final String TEXT_139 = ".create";
+  protected final String TEXT_140 = "();" + NL + "\t\tdocRoot.set";
+  protected final String TEXT_141 = "(model);" + NL + "\t\treturn docRoot;" + NL + "\t}" + NL;
+  protected final String TEXT_142 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void handleSaveException(IOException e) throws ";
+  protected final String TEXT_143 = " {" + NL + "\t\tthrow new ";
+  protected final String TEXT_144 = "(\"Save failed\", e);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_145 = NL;
 
   public String generate(Object argument)
   {
@@ -388,6 +395,8 @@ if (isRichClientPlatform) {
     stringBuffer.append(TEXT_71);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
     stringBuffer.append(TEXT_72);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_73);
     
 }
 
@@ -396,159 +405,178 @@ final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() 
 if (standaloneDomainModel) {
 	if (isRichClientPlatform) {
 
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_74);
     
 	} else {
 
-    stringBuffer.append(TEXT_74);
-    stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_75);
+    stringBuffer.append(editorGen.getDomainFileExtension());
+    stringBuffer.append(TEXT_76);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_77);
     
 	}
 }
 
-    stringBuffer.append(TEXT_76);
-    if (standaloneDomainModel) {
-    stringBuffer.append(TEXT_77);
-    }
     stringBuffer.append(TEXT_78);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation"));
+    if (standaloneDomainModel) {
     stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation"));
+    }
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IStatus"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation"));
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation"));
     stringBuffer.append(TEXT_82);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IStatus"));
     stringBuffer.append(TEXT_83);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor"));
     stringBuffer.append(TEXT_84);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(TEXT_85);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
+    stringBuffer.append(TEXT_86);
     
 if (genDiagram.getDomainDiagramElement() != null) {
 
-    stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName()));
     stringBuffer.append(TEXT_87);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_88);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName()));
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
+    stringBuffer.append(TEXT_90);
     
 	if (standaloneDomainModel) {
 		if (genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()) {
 
-    stringBuffer.append(TEXT_89);
+    stringBuffer.append(TEXT_91);
     
 		} else {
 
-    stringBuffer.append(TEXT_90);
-    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
-    stringBuffer.append(TEXT_91);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_92);
-    }
+    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
     stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_94);
+    }
+    stringBuffer.append(TEXT_95);
     
 		}
 
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
-    stringBuffer.append(TEXT_95);
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    stringBuffer.append(TEXT_97);
     
 	} else {
 
-    stringBuffer.append(TEXT_96);
-    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
-    stringBuffer.append(TEXT_97);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_98);
-    }
+    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
     stringBuffer.append(TEXT_99);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_100);
+    }
+    stringBuffer.append(TEXT_101);
     
 	}
 }
 
-    stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
-    stringBuffer.append(TEXT_101);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
     stringBuffer.append(TEXT_102);
-    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_103);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
     stringBuffer.append(TEXT_104);
-    }
+    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
     stringBuffer.append(TEXT_105);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
+    }
     stringBuffer.append(TEXT_107);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.Status"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.Status"));
     stringBuffer.append(TEXT_110);
-    stringBuffer.append(genPlugin.getActivatorClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor"));
     stringBuffer.append(TEXT_111);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
+    stringBuffer.append(TEXT_112);
+    stringBuffer.append(genPlugin.getActivatorClassName());
+    stringBuffer.append(TEXT_113);
+    
+if (!isRichClientPlatform) {
+
+    stringBuffer.append(TEXT_114);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    stringBuffer.append(TEXT_115);
+    
+	if (standaloneDomainModel) {
+
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    stringBuffer.append(TEXT_117);
+    
+	}
+}
+
+    stringBuffer.append(TEXT_118);
     
 if (isRichClientPlatform) {
 
     
 	if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 
-    stringBuffer.append(TEXT_112);
+    stringBuffer.append(TEXT_119);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
-    stringBuffer.append(TEXT_113);
+    stringBuffer.append(TEXT_120);
     
 	} else {
 
-    stringBuffer.append(TEXT_114);
+    stringBuffer.append(TEXT_121);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
-    stringBuffer.append(TEXT_115);
+    stringBuffer.append(TEXT_122);
     
 	}
 
-    stringBuffer.append(TEXT_116);
+    stringBuffer.append(TEXT_123);
     
 } else {
 
     
 	if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 
-    stringBuffer.append(TEXT_117);
+    stringBuffer.append(TEXT_124);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.ide.IDE"));
-    stringBuffer.append(TEXT_118);
+    stringBuffer.append(TEXT_125);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PlatformUI"));
-    stringBuffer.append(TEXT_119);
+    stringBuffer.append(TEXT_126);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
-    stringBuffer.append(TEXT_120);
+    stringBuffer.append(TEXT_127);
     stringBuffer.append(genPlugin.getActivatorClassName());
-    stringBuffer.append(TEXT_121);
+    stringBuffer.append(TEXT_128);
     
 	} else {
 
-    stringBuffer.append(TEXT_122);
+    stringBuffer.append(TEXT_129);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
-    stringBuffer.append(TEXT_123);
+    stringBuffer.append(TEXT_130);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
-    stringBuffer.append(TEXT_124);
+    stringBuffer.append(TEXT_131);
     
 	}
 
     
 }
 
-    stringBuffer.append(TEXT_125);
+    stringBuffer.append(TEXT_132);
     
 if (standaloneDomainModel && genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()) {
 
-    stringBuffer.append(TEXT_126);
+    stringBuffer.append(TEXT_133);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_127);
+    stringBuffer.append(TEXT_134);
     stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_128);
+    stringBuffer.append(TEXT_135);
     
 	// would be better to get GenClass for docRoot and directly use setter
 	GenClass docRoot = genDiagram.getDomainDiagramElement().getGenPackage().getDocumentRoot();
@@ -563,27 +591,27 @@ if (standaloneDomainModel && genDiagram.getDomainDiagramElement().getGenPackage(
 		}
 	} /*for*/
 
-    stringBuffer.append(TEXT_129);
+    stringBuffer.append(TEXT_136);
     stringBuffer.append(importManager.getImportedName(docRoot.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_130);
+    stringBuffer.append(TEXT_137);
     stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName()));
-    stringBuffer.append(TEXT_131);
+    stringBuffer.append(TEXT_138);
     stringBuffer.append(genDiagram.getDomainDiagramElement().getGenPackage().getFactoryInstanceName());
-    stringBuffer.append(TEXT_132);
+    stringBuffer.append(TEXT_139);
     stringBuffer.append(docRoot.getName());
-    stringBuffer.append(TEXT_133);
+    stringBuffer.append(TEXT_140);
     stringBuffer.append(featureAccessor);
-    stringBuffer.append(TEXT_134);
+    stringBuffer.append(TEXT_141);
     
 } /*if standaloneDomainModel && genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()*/
 
-    stringBuffer.append(TEXT_135);
+    stringBuffer.append(TEXT_142);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
-    stringBuffer.append(TEXT_136);
+    stringBuffer.append(TEXT_143);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
-    stringBuffer.append(TEXT_137);
+    stringBuffer.append(TEXT_144);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_138);
+    stringBuffer.append(TEXT_145);
     return stringBuffer.toString();
   }
 }

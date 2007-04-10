@@ -63,8 +63,8 @@ public class OpenDiagramPolicyGenerator
   protected final String TEXT_46 = ".eINSTANCE.createDiagram();" + NL + "\t\t\tmyAnnotation.getReferences().add(result);" + NL + "\t\t\tresult.setElement(getDiagramDomainElement());" + NL + "\t\t\taddToResource(result);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tfor (";
   protected final String TEXT_47 = " it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t\t";
   protected final String TEXT_48 = " next = (";
-  protected final String TEXT_49 = ") it.next();" + NL + "\t\t\t\t\tif (next.isLoaded() && (!next.isTrackingModification() || next.isModified())) {" + NL + "\t\t\t\t\t\tnext.save(";
-  protected final String TEXT_50 = ".EMPTY_MAP);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (";
+  protected final String TEXT_49 = ") it.next();" + NL + "\t\t\t\t\tif (next.isLoaded()) {" + NL + "\t\t\t\t\t\tnext.save(";
+  protected final String TEXT_50 = ".getSaveOptions());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (";
   protected final String TEXT_51 = " e) {" + NL + "\t\t\t\t";
   protected final String TEXT_52 = NL + "\t\t\t\tthrow new RuntimeException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\", e);" + NL + "\t\t\t}" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Returns the element that should be the underlying model element for the diagram." + NL + "\t\t * By default, the element associated with the edit part is returned." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_53 = " getDiagramDomainElement() {" + NL + "\t\t\treturn ((";
@@ -203,7 +203,7 @@ if (openAsEditor) {
     stringBuffer.append(TEXT_48);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
     stringBuffer.append(TEXT_49);
-    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_50);
     stringBuffer.append(importManager.getImportedName("java.io.IOException"));
     stringBuffer.append(TEXT_51);

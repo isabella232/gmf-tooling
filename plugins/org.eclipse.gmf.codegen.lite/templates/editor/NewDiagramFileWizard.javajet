@@ -169,12 +169,7 @@ if (isRichClientPlatform) {
 } else {
 %>
 		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile = myFileCreationPage.createNewFile();
-		try {
-			diagramFile.setCharset("UTF-8", new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>()); //$NON-NLS-1$
-		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
-			<%=pluginActivatorClass%>.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
-		}
-
+		<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.setCharset(diagramFile);
 		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 <%
 }
@@ -209,7 +204,7 @@ if (isRichClientPlatform) {
 		};
 		try {
 			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, command).execute();
-			diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+			diagramResource.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 <%
 if (!genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 %>
@@ -238,7 +233,7 @@ if (!genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 <%
 if (genDiagram.getEditorGen().getEditor().isEclipseEditor()) {
 %>
-							diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+							diagramResource.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 <%
 }
 %>

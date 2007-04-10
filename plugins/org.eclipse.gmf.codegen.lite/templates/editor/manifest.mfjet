@@ -55,6 +55,7 @@ if (genPlugin.getEditorGen().getApplication() == null) {
  org.eclipse.ui.views,
  org.eclipse.ui.workbench,
  org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
  org.eclipse.emf.workspace,<%/*XXX: introduces dependency on org.eclipse.core.resources which may be problematic for RCP*/%>
  org.eclipse.gef;visibility:=reexport,

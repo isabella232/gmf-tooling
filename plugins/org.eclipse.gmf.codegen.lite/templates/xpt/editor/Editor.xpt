@@ -49,6 +49,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramEdito
 «EXPAND initializeGraphicalViewer-»
 «EXPAND configureGraphicalViewer-»
 «EXPAND flyoutPalette-»
+«EXPAND getSaveOptions-»
 «IF editorGen.diagram.validationNeeded() && null == editorGen.application-»
 «EXPAND gotoMarker-»
 «ENDIF-»
@@ -77,6 +78,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «EXPAND initializeGraphicalViewer-»
 «EXPAND configureGraphicalViewer-»
 «EXPAND flyoutPalette-»
+«EXPAND getSaveOptions-»
 «EXPAND ContextMenuProvider-»
 «EXPAND additions-»
 }
@@ -523,7 +525,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 						diagramResource.getContents().add(0, diagram);
 						//Auxiliary creation should not be undoable.
 						try {
-							diagramResource.save(java.util.Collections.EMPTY_MAP);
+							diagramResource.save(getSaveOptions());
 						} catch (java.io.IOException e) {
 							diagram = null;
 							diagramRoot = null;
@@ -548,7 +550,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 						«resourceToUse».getContents().add(0, «unparenthesizedCast("diagramRoot", editorGen.diagram.domainDiagramElement, null)»);
 						//We don't want this auxiliary creation to be undoable.
 						try {
-							«resourceToUse».save(java.util.Collections.EMPTY_MAP);
+							«resourceToUse».save(getSaveOptions());
 						} catch (java.io.IOException e) {
 							diagram = null;
 							diagramRoot = null;
@@ -565,7 +567,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 					doSave(new org.eclipse.core.runtime.NullProgressMonitor());
 «ELSE-»
 						try {
-							diagramResource.save(java.util.Collections.EMPTY_MAP);
+							diagramResource.save(getSaveOptions());
 						} catch (java.io.IOException e) {
 							diagram = null;
 							diagramRoot = null;
@@ -642,6 +644,12 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		return «palette != null && palette.flyout»;
 «ENDLET-»
 	}
+«ENDDEFINE»
+
+«DEFINE getSaveOptions FOR gmfgen::GenEditorView-»
+protected java.util.Map getSaveOptions() {
+	return «editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».getSaveOptions();
+}
 «ENDDEFINE»
 
 «DEFINE gotoMarker FOR gmfgen::GenEditorView-»
