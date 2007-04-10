@@ -35,4 +35,6 @@ public class GeneratorBaseMessages extends NLS {
 	public static String initproject;
 
 	public static String start;
+
+	public static String exception;
 }

@@ -36,6 +36,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -121,7 +124,18 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	protected final void handleException(Throwable ex) {
-		handleException(newStatus(ex));
+		if (ex instanceof DiagnosticException) {
+			// unwind invocation target exceptions as much as possible 
+			final Diagnostic diagnostic = ((DiagnosticException) ex).getDiagnostic();
+			if (diagnostic.getException() instanceof InvocationTargetException) {
+				Throwable originalEx = ((InvocationTargetException) diagnostic.getException()).getCause();
+				handleException(newStatus(originalEx));
+			} else {
+				handleException(BasicDiagnostic.toIStatus(diagnostic));
+			}
+		} else {
+			handleException(newStatus(ex));
+		}
 	}
 
 	/**
@@ -136,7 +150,8 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	protected static IStatus newStatus(int severity, Throwable ex) {
-		return new Status(severity, Activator.getID(), 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
+		final String msg = ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage();
+		return new Status(severity, Activator.getID(), 0, GeneratorBaseMessages.bind(GeneratorBaseMessages.exception, msg), ex);
 	}
 
 	protected final IProject getDestProject() {
