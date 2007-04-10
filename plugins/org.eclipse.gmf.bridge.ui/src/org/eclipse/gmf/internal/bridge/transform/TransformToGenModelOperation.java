@@ -44,9 +44,8 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
-import org.eclipse.gmf.internal.bridge.naming.gen.NullNamingStrategy;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -324,9 +323,7 @@ public class TransformToGenModelOperation {
 	}
 
 	private GenModelProducer createGenModelProducer(GenModel domainGenModel, final DiagramRunTimeModelHelper drtModelHelper, final ViewmapProducer viewmapProducer, final VisualIdentifierDispenser idDespenser) {
-		GenModelNamingMediatorImpl namer = new GenModelNamingMediatorImpl();
-		namer.setEditPart(new NullNamingStrategy());
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, namer, viewmapProducer, idDespenser, getOptions().getGenerateRCP());
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediator.Empty(), viewmapProducer, idDespenser, getOptions().getGenerateRCP());
 		if (domainGenModel != null) {
 			t.setEMFGenModel(domainGenModel);
 		}
