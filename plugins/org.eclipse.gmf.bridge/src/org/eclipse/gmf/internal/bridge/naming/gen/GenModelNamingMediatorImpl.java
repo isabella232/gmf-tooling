@@ -54,8 +54,6 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	private NamingStrategy myNodeGraphicalPolicy;
 
-	private NamingStrategy myTextViewFactory;
-
 	private NamingStrategy myEditHelper;
 
 	private NamingStrategy myEditHelperAdvice;
@@ -126,14 +124,6 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	public NamingStrategy getCanonicalPolicy() {
 		return myCanonicalPolicy;
-	}
-
-	public void setTextViewFactory(NamingStrategy textViewFactory) {
-		myTextViewFactory = textViewFactory;
-	}
-
-	public NamingStrategy getTextViewFactory() {
-		return myTextViewFactory;
 	}
 
 	private void setNodeGraphicalPolicy(NamingStrategy nodeGraphicalPolicy) {
