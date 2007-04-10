@@ -46,6 +46,10 @@ public class ToolingResourceFactory extends XMIResourceFactoryImpl {
 
 			// Format xml so each attribute is positioned on it's own line.
 			getDefaultSaveOptions().put(XMLResource.OPTION_LINE_WIDTH, new Integer(1));
+
+			// Do not mark all resources referenced from resourceset as changed on any change
+			// (e.g. saving .gmfmap should not result in changed .gmfgraph and .gmftool)
+			getDefaultSaveOptions().put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 		}		
 	}	
 }
