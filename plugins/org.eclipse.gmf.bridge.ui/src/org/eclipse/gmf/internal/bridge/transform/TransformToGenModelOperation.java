@@ -45,12 +45,13 @@ import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.gen.NullNamingStrategy;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
-
 
 public class TransformToGenModelOperation {
 	
@@ -248,6 +249,11 @@ public class TransformToGenModelOperation {
 			if (Plugin.needsReconcile()) {
 				reconcile(rs, genEditor);
 			}
+			GenNamingMediatorImpl namer = new GenNamingMediatorImpl();
+			namer.setMode(GenNamingMediatorImpl.COLLECT_NAMES_MODE);
+			namer.traverse(genEditor); // collect reconciled names
+			namer.setMode(GenNamingMediatorImpl.DISPENSE_NAMES_MODE);
+			namer.traverse(genEditor); // dispense names to new elements
 			monitor.worked(20);
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -318,7 +324,9 @@ public class TransformToGenModelOperation {
 	}
 
 	private GenModelProducer createGenModelProducer(GenModel domainGenModel, final DiagramRunTimeModelHelper drtModelHelper, final ViewmapProducer viewmapProducer, final VisualIdentifierDispenser idDespenser) {
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer, idDespenser, getOptions().getGenerateRCP());
+		GenModelNamingMediatorImpl namer = new GenModelNamingMediatorImpl();
+		namer.setEditPart(new NullNamingStrategy());
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, namer, viewmapProducer, idDespenser, getOptions().getGenerateRCP());
 		if (domainGenModel != null) {
 			t.setEMFGenModel(domainGenModel);
 		}
