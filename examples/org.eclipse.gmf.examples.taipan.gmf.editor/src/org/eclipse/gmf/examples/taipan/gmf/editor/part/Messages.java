@@ -14,12 +14,142 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String DocumentProvider_isModifiable;
+	public static String TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String DocumentProvider_handleElementContentChanged;
+	public static String TaiPanDiagramEditorUtil_OpenModelResourceErrorDialogMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDiagramEditorUtil_CreateDiagramProgressTask;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDiagramEditorUtil_CreateDiagramCommandLabel;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_handleElementContentChanged;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_IncorrectInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_UnableToLoadResourceError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_NoDiagramInResourceError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_DiagramLoadingError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_UnsynchronizedFileSaveError;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_SaveDiagramTask;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanDocumentProvider_SaveNextResourceTask;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanInitDiagramFileAction_OpenModelFileDialogTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_CreationPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_CreationPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_CreationPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageSelectionTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageNoSelectionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_InitDiagramCommand;
+
+	/**
+	 * @generated
+	 */
+	public static String TaiPanNewDiagramFileWizard_IncorrectRootError;
 
 	//TODO: put accessor fields manually	
 	/**
