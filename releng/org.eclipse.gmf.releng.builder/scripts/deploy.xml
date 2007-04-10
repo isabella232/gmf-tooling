@@ -88,13 +88,16 @@
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
-		<ant antfile="updatesite.local.xml" target="rsync.up">
+		<ant antfile="updatesite.local.xml" target="rsync.down">
 			<property name="updatesite.name" value="milestone"/>
 		</ant>
 		<ant antfile="deploy.updates.xml" target="deploy.local">
 			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
 			<property name="updatesite.name" value="milestone"/>
 			<property name="features.list" value="*"/>
+		</ant>
+		<ant antfile="updatesite.local.xml" target="rsync.up">
+			<property name="updatesite.name" value="milestone"/>
 		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
@@ -108,13 +111,16 @@
 			dest="${buildRoot}/uploadsite"/>
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-tests-experimental-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
-		<ant antfile="updatesite.local.xml" target="rsync.up">
+		<ant antfile="updatesite.local.xml" target="rsync.down">
 			<property name="updatesite.name" value="releases"/>
 		</ant>
 		<ant antfile="deploy.updates.xml" target="deploy.local">
 			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
 			<property name="updatesite.name" value="releases"/>
 			<property name="features.list" value="*"/>
+		</ant>
+		<ant antfile="updatesite.local.xml" target="rsync.up">
+			<property name="updatesite.name" value="releases"/>
 		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
@@ -123,13 +129,16 @@
 		<unzip src="${buildRoot}/artifacts/updates/${buildLabel}/GMF-europa-${buildId}.zip"
 			dest="${buildRoot}/uploadsite"/>
 		<!-- PLACEHOLDER: Downloading EMTF plugins from the update site -->
-		<ant antfile="updatesite.local.xml" target="rsync.up">
+		<ant antfile="updatesite.local.xml" target="rsync.down">
 			<property name="updatesite.name" value="europa"/>
 		</ant>
 		<ant antfile="deploy.updates.xml" target="deploy.local">
 			<property name="updates.path" value="${buildRoot}/uploadsite/eclipse"/>
 			<property name="updatesite.name" value="europa"/>
 			<property name="features.list" value="*europa*"/>
+		</ant>
+		<ant antfile="updatesite.local.xml" target="rsync.up">
+			<property name="updatesite.name" value="europa"/>
 		</ant>
 		<delete dir="${buildRoot}/uploadsite" failonerror="false"/>
 	</target>
