@@ -25,7 +25,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.internal.bridge.naming.ClassGenNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DefaultGenNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DesignGenNamingStrategy;
@@ -62,7 +61,7 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 
 	private GenNamingStrategy editHelperAdvice;
 
-	private GenNamingStrategy typeLinkCreateCommand;
+	private GenNamingStrategy linkCreateCommand;
 
 	private GenNamingStrategy nodeCreateCommand;
 
@@ -82,7 +81,7 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 		setNodeGraphicalPolicy(createNamingStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX));
 		setEditHelper(createNamingStrategy(MetamodelType.EDIT_HELPER_SUFFIX));
 		setEditHelperAdvice(createNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX));
-		setTypeLinkCreateCommand(createNamingStrategy(TypeLinkModelFacet.CREATE_COMMAND_SUFFIX));
+		setLinkCreateCommand(createNamingStrategy(GenLink.CREATE_COMMAND_SUFFIX));
 		setNodeCreateCommand(createNamingStrategy(GenNode.CREATE_COMMAND_SUFFIX));
 		setLinkReorientCommand(createNamingStrategy(GenLink.REORIENT_COMMAND_SUFFIX));
 	}
@@ -156,10 +155,7 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 
 	public void feed(GenLink element) {
 		feedCommon(element);
-		if (element.getModelFacet() instanceof TypeLinkModelFacet) {
-			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) element.getModelFacet();
-			feedName(modelFacet, M.getTypeLinkModelFacet_CreateCommandClassName(), getTypeLinkCreateCommand(), element);
-		}
+		feedName(element, M.getGenLink_CreateCommandClassName(), getLinkCreateCommand());
 		feedName(element, M.getGenLink_ReorientCommandClassName(), getLinkReorientCommand());
 	}
 
@@ -282,12 +278,12 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 		this.editHelperAdvice = editHelperAdvice;
 	}
 
-	public GenNamingStrategy getTypeLinkCreateCommand() {
-		return typeLinkCreateCommand;
+	public GenNamingStrategy getLinkCreateCommand() {
+		return linkCreateCommand;
 	}
 
-	public void setTypeLinkCreateCommand(GenNamingStrategy typeLinkCreateCommand) {
-		this.typeLinkCreateCommand = typeLinkCreateCommand;
+	public void setLinkCreateCommand(GenNamingStrategy linkCreateCommand) {
+		this.linkCreateCommand = linkCreateCommand;
 	}
 
 	public GenNamingStrategy getNodeCreateCommand() {

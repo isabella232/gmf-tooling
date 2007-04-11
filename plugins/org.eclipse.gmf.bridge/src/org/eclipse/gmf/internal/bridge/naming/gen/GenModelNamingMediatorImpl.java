@@ -24,7 +24,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.internal.bridge.naming.ClassNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DefaultNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DesignNamingStrategy;
@@ -79,7 +78,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		setNodeGraphicalPolicy(createNamingStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX));
 		setEditHelper(createNamingStrategy(MetamodelType.EDIT_HELPER_SUFFIX));
 		setEditHelperAdvice(createNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX));
-		setTypeLinkCreateCommand(createNamingStrategy(TypeLinkModelFacet.CREATE_COMMAND_SUFFIX));
+		setTypeLinkCreateCommand(createNamingStrategy(GenLink.CREATE_COMMAND_SUFFIX));
 		setNodeCreateCommand(createNamingStrategy(GenNode.CREATE_COMMAND_SUFFIX));
 		setLinkReorientCommand(createNamingStrategy(GenLink.REORIENT_COMMAND_SUFFIX));
 	}
@@ -213,10 +212,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genLink.setEditPartClassName(getEditPart().get(lme));
 		genLink.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(lme));
 		feedElementType(genLink, lme);
-		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-			modelFacet.setCreateCommandClassName(getTypeLinkCreateCommand().get(lme));
-		}
+		genLink.setCreateCommandClassName(getTypeLinkCreateCommand().get(lme));
 		genLink.setReorientCommandClassName(getLinkReorientCommand().get(lme));
 	}
 
