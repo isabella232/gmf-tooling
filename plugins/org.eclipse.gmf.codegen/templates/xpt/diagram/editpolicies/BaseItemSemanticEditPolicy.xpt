@@ -60,7 +60,45 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	}
 
 	«EXPAND semanticPart-»
-	
+
+	/**
+	 * Returns editing domain from the host edit part.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
+		return ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
+	}
+
+	/**
+	 * Creates command to destroy the link.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.gef.commands.Command getDestroyEdgeCommand(org.eclipse.gmf.runtime.notation.Edge edge, boolean confirm) {
+		org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(edge);
+		org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest request =
+				new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), confirm);
+		return editPart.getCommand(new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(request, java.util.Collections.EMPTY_MAP));
+	}
+
+	/**
+	 * Creates commands to destroy all host incoming and outgoing links.
+	 * 
+	 * @generated
+	 */
+	protected org.eclipse.gef.commands.CompoundCommand getDestroyEdgesCommands(boolean confirm) {
+		org.eclipse.gef.commands.CompoundCommand cmd = new org.eclipse.gef.commands.CompoundCommand();
+		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+		for (java.util.Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
+			cmd.add(getDestroyEdgeCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
+		}
+		for (java.util.Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
+			cmd.add(getDestroyEdgeCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
+		}
+		return cmd;
+	}
+
 	«EXPAND linkConstraints-»
 
 	«EXPAND additions-»

@@ -39,23 +39,9 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «DEFINE getDestroyElementCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-	org.eclipse.gef.commands.CompoundCommand cc = new org.eclipse.gef.commands.CompoundCommand();
-	«EXPAND destroyAllLinks-»
+	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommands(req.isConfirmationRequired());
 	«EXPAND destroySemanticElement-»
-	return cc;
-}
-«ENDDEFINE»
-
-«DEFINE destroyAllLinks FOR gmfgen::GenNode-»
-java.util.Collection allEdges = new java.util.ArrayList();
-org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-allEdges.addAll(view.getSourceEdges());
-allEdges.addAll(view.getTargetEdges());
-for (java.util.Iterator it = allEdges.iterator(); it.hasNext();) {
-	org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
-	org.eclipse.gef.EditPart nextEditPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-	org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper editCommandRequest = new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(((«getEditPartQualifiedClassName()») getHost()).getEditingDomain(), req.isConfirmationRequired()), java.util.Collections.EMPTY_MAP);
-	cc.add(nextEditPart.getCommand(editCommandRequest));
+	return cc.unwrap();
 }
 «ENDDEFINE»
 
