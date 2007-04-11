@@ -39,7 +39,7 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «DEFINE getDestroyElementCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommands(req.isConfirmationRequired());
+	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
 	«EXPAND destroySemanticElement-»
 	return cc.unwrap();
 }

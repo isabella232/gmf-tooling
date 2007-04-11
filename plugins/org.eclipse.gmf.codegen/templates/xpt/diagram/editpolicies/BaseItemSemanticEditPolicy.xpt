@@ -87,7 +87,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	 * 
 	 * @generated
 	 */
-	protected org.eclipse.gef.commands.CompoundCommand getDestroyEdgesCommands(boolean confirm) {
+	protected org.eclipse.gef.commands.CompoundCommand getDestroyEdgesCommand(boolean confirm) {
 		org.eclipse.gef.commands.CompoundCommand cmd = new org.eclipse.gef.commands.CompoundCommand();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		for (java.util.Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
