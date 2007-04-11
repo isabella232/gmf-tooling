@@ -733,16 +733,17 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		return CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name));
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends Behaviour> List<T> getBehaviour(Class<T> behaviourClass) {
 		ArrayList<T> rv = new ArrayList<T>(getBehaviour().size());
-		for (Iterator it = getBehaviour().iterator(); it.hasNext(); ) {
+		for (Iterator<Behaviour> it = getBehaviour().iterator(); it.hasNext(); ) {
 			Object next = it.next();
 			if (next instanceof SharedBehaviour) {
 				next = ((SharedBehaviour) next).getDelegate();
 			}
 			if (behaviourClass.isInstance(next)) {
-				rv.add((T) next);
+				@SuppressWarnings("unchecked")
+				T tt = (T) next;
+				rv.add(tt);
 			}
 		}
 		return rv;
