@@ -11,14 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -35,9 +29,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEdi
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -45,7 +37,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -57,18 +48,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((WarshipEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommands(req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -81,7 +61,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 			}
 
 		}));
-		return cc;
+		return cc.unwrap();
 	}
 
 	/**

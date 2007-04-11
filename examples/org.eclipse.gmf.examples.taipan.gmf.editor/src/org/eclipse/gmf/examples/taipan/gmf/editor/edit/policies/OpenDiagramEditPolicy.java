@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionException;
