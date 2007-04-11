@@ -75,7 +75,7 @@
            	
 		</patternset>
 			
-		<pathconvert property="javadoc.classpath" targetos="windows">
+		<pathconvert property="javadoc.classpath" targetos="unix">
 			<path>				
 				<fileset dir="${baseLocation}">
 					<patternset refid="platform.classpath.pattern"/>
