@@ -223,10 +223,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertEquals(NEW_CANONICAL_EP, nodeA.getCanonicalEditPolicyClassName());
 				assertEquals(NEW_GRAPHICAL_EP, nodeA.getGraphicalNodeEditPolicyClassName());
 				
-				//FIXME: the checks below handle the problem with string-pattern reconciling approach
-				//remove this checks when we will be able to reconcile this correctly
-				assertFalse(BAD_CANONICAL_EP.equals(nodeB.getCanonicalEditPolicyClassName()));
-				assertFalse(BAD_GRAPHICAL_EP.equals(nodeB.getGraphicalNodeEditPolicyClassName()));
+				assertEquals(BAD_CANONICAL_EP, nodeB.getCanonicalEditPolicyClassName());
+				assertEquals(BAD_GRAPHICAL_EP, nodeB.getGraphicalNodeEditPolicyClassName());
 			}
 			
 			public ReconcilerConfigBase getReconcilerConfig() {
