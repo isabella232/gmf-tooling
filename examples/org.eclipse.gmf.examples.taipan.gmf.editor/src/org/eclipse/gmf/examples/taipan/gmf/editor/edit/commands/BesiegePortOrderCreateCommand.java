@@ -14,8 +14,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
-import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 
@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCommand {
+public class BesiegePortOrderCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -36,12 +36,12 @@ public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCom
 	/**
 	 * @generated
 	 */
-	private Ship myTarget;
+	private Port myTarget;
 
 	/**
 	 * @generated
 	 */
-	public EscortShipsOrderTypeLinkCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
+	public BesiegePortOrderCreateCommand(CreateRelationshipRequest req, Warship source, Port target) {
 		super(req);
 		super.setElementToEdit(source);
 		mySource = source;
@@ -80,9 +80,9 @@ public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCom
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
+		BesiegePortOrder newElement = (BesiegePortOrder) super.doDefaultElementCreation();
 		if (newElement != null) {
-			newElement.getShips().add(myTarget);
+			newElement.setPort(myTarget);
 		}
 		return newElement;
 	}
