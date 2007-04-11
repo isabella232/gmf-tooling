@@ -81,7 +81,7 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * @generated
 	 * @ordered
 	 */
-	protected LabelModelFacet labelModelFacet = null;
+	protected LabelModelFacet labelModelFacet;
 
 	/**
 	 * <!-- begin-user-doc -->

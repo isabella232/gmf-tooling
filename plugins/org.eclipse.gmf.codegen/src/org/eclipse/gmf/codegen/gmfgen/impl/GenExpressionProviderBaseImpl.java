@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.6 2007/03/14 14:39:34 atikhomirov Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.7 2007/04/11 08:10:23 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -50,7 +50,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ValueExpression> expressions = null;
+	protected EList<ValueExpression> expressions;
 
 	/**
 	 * <!-- begin-user-doc -->

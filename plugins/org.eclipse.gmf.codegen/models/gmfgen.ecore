@@ -727,6 +727,7 @@
         <details key="documentation" value="Returns link targets in this genmodel"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getReorientCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/links"/>
@@ -758,6 +759,8 @@
         <details key="documentation" value="Specifies additional restrictions on link creation"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -927,7 +930,6 @@
       <details key="ocl" value="not containmentMetaFeature.oclIsUndefined()"/>
       <details key="description" value="Link 'Containment Meta Feature' must be specified"/>
     </eAnnotations>
-    <eOperations name="getCreateCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceMetaFeature" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If source feature is not specified then link container is a link source"/>
@@ -944,8 +946,6 @@
         <details key="description" value="Link 'Target Meta Feature' must be owned by link 'Meta Class' or its super-class"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureLinkModelFacet" eSuperTypes="#//LinkModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

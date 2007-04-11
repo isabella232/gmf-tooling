@@ -82,7 +82,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFont defaultFont = null;
+	protected GenFont defaultFont;
 
 	/**
 	 * The cached value of the '{@link #getFontColor() <em>Font Color</em>}' containment reference.
@@ -92,7 +92,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenColor fontColor = null;
+	protected GenColor fontColor;
 
 	/**
 	 * The cached value of the '{@link #getFillColor() <em>Fill Color</em>}' containment reference.
@@ -102,7 +102,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenColor fillColor = null;
+	protected GenColor fillColor;
 
 	/**
 	 * The cached value of the '{@link #getLineColor() <em>Line Color</em>}' containment reference.
@@ -112,7 +112,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenColor lineColor = null;
+	protected GenColor lineColor;
 
 	/**
 	 * The cached value of the '{@link #getNoteFillColor() <em>Note Fill Color</em>}' containment reference.
@@ -122,7 +122,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenColor noteFillColor = null;
+	protected GenColor noteFillColor;
 
 	/**
 	 * The cached value of the '{@link #getNoteLineColor() <em>Note Line Color</em>}' containment reference.
@@ -132,7 +132,7 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 	 * @generated
 	 * @ordered
 	 */
-	protected GenColor noteLineColor = null;
+	protected GenColor noteLineColor;
 
 	/**
 	 * The default value of the '{@link #isShowConnectionHandles() <em>Show Connection Handles</em>}' attribute.

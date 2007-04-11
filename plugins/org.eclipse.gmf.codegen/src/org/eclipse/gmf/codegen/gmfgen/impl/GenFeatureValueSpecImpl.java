@@ -43,7 +43,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature feature = null;
+	protected GenFeature feature;
 
 	/**
 	 * <!-- begin-user-doc -->

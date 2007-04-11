@@ -43,7 +43,7 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	 * @generated
 	 * @ordered
 	 */
-	protected Behaviour delegate = null;
+	protected Behaviour delegate;
 
 	/**
 	 * <!-- begin-user-doc -->

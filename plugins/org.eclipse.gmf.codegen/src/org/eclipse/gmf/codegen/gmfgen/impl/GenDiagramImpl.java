@@ -1141,7 +1141,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> containsShortcutsTo = null;
+	protected EList<String> containsShortcutsTo;
 
 	/**
 	 * The cached value of the '{@link #getShortcutsProvidedFor() <em>Shortcuts Provided For</em>}' attribute list.
@@ -1151,7 +1151,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> shortcutsProvidedFor = null;
+	protected EList<String> shortcutsProvidedFor;
 
 	/**
 	 * The default value of the '{@link #getValidationProviderClassName() <em>Validation Provider Class Name</em>}' attribute.
@@ -1401,7 +1401,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass domainDiagramElement = null;
+	protected GenClass domainDiagramElement;
 
 	/**
 	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' containment reference list.
@@ -1411,7 +1411,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenChildNode> childNodes = null;
+	protected EList<GenChildNode> childNodes;
 
 	/**
 	 * The cached value of the '{@link #getTopLevelNodes() <em>Top Level Nodes</em>}' containment reference list.
@@ -1421,7 +1421,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenTopLevelNode> topLevelNodes = null;
+	protected EList<GenTopLevelNode> topLevelNodes;
 
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
@@ -1431,7 +1431,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenLink> links = null;
+	protected EList<GenLink> links;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -1441,7 +1441,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenCompartment> compartments = null;
+	protected EList<GenCompartment> compartments;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
@@ -1451,7 +1451,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected Palette palette = null;
+	protected Palette palette;
 
 	/**
 	 * The default value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
@@ -1481,7 +1481,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenDiagramPreferences preferences = null;
+	protected GenDiagramPreferences preferences;
 
 	/**
 	 * The cached value of the '{@link #getPreferencePages() <em>Preference Pages</em>}' containment reference list.
@@ -1491,7 +1491,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenPreferencePage> preferencePages = null;
+	protected EList<GenPreferencePage> preferencePages;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -59,7 +59,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenFeatureInitializer> initializers = null;
+	protected EList<GenFeatureInitializer> initializers;
 
 	/**
 	 * The cached value of the '{@link #getElementClass() <em>Element Class</em>}' reference.
@@ -69,7 +69,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass elementClass = null;
+	protected GenClass elementClass;
 
 	/**
 	 * <!-- begin-user-doc -->

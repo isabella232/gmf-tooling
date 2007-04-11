@@ -52,7 +52,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> types = null;
+	protected EList<String> types;
 
 	/**
 	 * The cached value of the '{@link #getGeneratedTypes() <em>Generated Types</em>}' attribute list.
@@ -62,7 +62,7 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GeneratedType> generatedTypes = null;
+	protected EList<GeneratedType> generatedTypes;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpecImpl.java,v 1.2 2007/03/14 14:39:35 atikhomirov Exp $
+ * $Id: GenReferenceNewElementSpecImpl.java,v 1.3 2007/04/11 08:10:23 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -48,7 +48,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature feature = null;
+	protected GenFeature feature;
 
 	/**
 	 * The cached value of the '{@link #getNewElementInitializers() <em>New Element Initializers</em>}' containment reference list.
@@ -57,7 +57,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenFeatureSeqInitializer> newElementInitializers = null;
+	protected EList<GenFeatureSeqInitializer> newElementInitializers;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

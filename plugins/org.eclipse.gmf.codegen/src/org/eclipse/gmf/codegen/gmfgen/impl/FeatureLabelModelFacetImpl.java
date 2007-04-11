@@ -42,7 +42,7 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenFeature> metaFeatures = null;
+	protected EList<GenFeature> metaFeatures;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.

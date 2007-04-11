@@ -91,7 +91,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenPreferencePage> children = null;
+	protected EList<GenPreferencePage> children;
 
 	/**
 	 * <!-- begin-user-doc -->

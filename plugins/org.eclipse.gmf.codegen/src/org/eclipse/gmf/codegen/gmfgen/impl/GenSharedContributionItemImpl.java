@@ -39,7 +39,7 @@ public class GenSharedContributionItemImpl extends GenContributionItemImpl imple
 	 * @generated
 	 * @ordered
 	 */
-	protected GenContributionItem actualItem = null;
+	protected GenContributionItem actualItem;
 
 	/**
 	 * <!-- begin-user-doc -->

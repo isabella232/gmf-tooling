@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  * </ul>
  * </p>
@@ -203,6 +204,34 @@ public interface GenLink extends GenCommonBase {
 	void setCreationConstraints(GenLinkConstraints value);
 
 	/**
+	 * Returns the value of the '<em><b>Create Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #setCreateCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_CreateCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreateCommandClassName();
+
+	public static final String CREATE_COMMAND_SUFFIX = "CreateCommand"; //$NON-NLS-1$
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Command Class Name</em>' attribute.
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 */
+	void setCreateCommandClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Reorient Command Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -218,7 +247,7 @@ public interface GenLink extends GenCommonBase {
 	 */
 	String getReorientCommandClassName();
 
-	String REORIENT_COMMAND_SUFFIX = "ReorientCommand"; //$NON-NLS-1$
+	public static final String REORIENT_COMMAND_SUFFIX = "ReorientCommand"; //$NON-NLS-1$
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}' attribute.
@@ -251,6 +280,14 @@ public interface GenLink extends GenCommonBase {
 	 * @generated
 	 */
 	EList<GenCommonBase> getAssistantTargets();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreateCommandQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

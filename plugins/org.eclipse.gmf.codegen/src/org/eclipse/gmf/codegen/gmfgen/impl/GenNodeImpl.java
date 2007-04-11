@@ -60,7 +60,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeModelFacet modelFacet = null;
+	protected TypeModelFacet modelFacet;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -70,7 +70,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenNodeLabel> labels = null;
+	protected EList<GenNodeLabel> labels;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' reference list.
@@ -80,7 +80,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenCompartment> compartments = null;
+	protected EList<GenCompartment> compartments;
 
 	/**
 	 * The default value of the '{@link #getPrimaryDragEditPolicyQualifiedClassName() <em>Primary Drag Edit Policy Qualified Class Name</em>}' attribute.

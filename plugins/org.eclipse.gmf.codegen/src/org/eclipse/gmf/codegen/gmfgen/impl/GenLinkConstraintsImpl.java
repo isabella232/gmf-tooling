@@ -47,7 +47,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 * @ordered
 	 */
-	protected GenConstraint sourceEnd = null;
+	protected GenConstraint sourceEnd;
 
 	/**
 	 * The cached value of the '{@link #getTargetEnd() <em>Target End</em>}' containment reference.
@@ -57,7 +57,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 * @ordered
 	 */
-	protected GenConstraint targetEnd = null;
+	protected GenConstraint targetEnd;
 
 	/**
 	 * <!-- begin-user-doc -->

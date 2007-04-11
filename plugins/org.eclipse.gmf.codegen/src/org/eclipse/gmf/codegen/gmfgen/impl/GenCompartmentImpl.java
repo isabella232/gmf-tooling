@@ -124,7 +124,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * @generated
 	 * @ordered
 	 */
-	protected GenNode node = null;
+	protected GenNode node;
 
 	/**
 	 * The default value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.

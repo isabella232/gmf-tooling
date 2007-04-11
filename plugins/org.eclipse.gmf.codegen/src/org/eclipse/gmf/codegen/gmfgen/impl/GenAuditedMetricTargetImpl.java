@@ -40,7 +40,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * @generated
 	 * @ordered
 	 */
-	protected GenMetricRule metric = null;
+	protected GenMetricRule metric;
 
 	/**
 	 * The cached value of the '{@link #getMetricValueContext() <em>Metric Value Context</em>}' reference.
@@ -50,7 +50,7 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * @generated
 	 * @ordered
 	 */
-	protected GenDataType metricValueContext = null;
+	protected GenDataType metricValueContext;
 
 	/**
 	 * <!-- begin-user-doc -->

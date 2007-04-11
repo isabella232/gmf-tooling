@@ -61,7 +61,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @generated
 	 * @ordered
 	 */
-	protected GenCommonBase parent = null;
+	protected GenCommonBase parent;
 
 	/**
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' reference.
@@ -71,7 +71,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @generated
 	 * @ordered
 	 */
-	protected GenCommonBase child = null;
+	protected GenCommonBase child;
 
 	/**
 	 * The default value of the '{@link #getReferenceType() <em>Reference Type</em>}' attribute.

@@ -39,7 +39,7 @@ public class GenNotationElementTargetImpl extends GenAuditableImpl implements Ge
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass element = null;
+	protected GenClass element;
 
 	/**
 	 * <!-- begin-user-doc -->

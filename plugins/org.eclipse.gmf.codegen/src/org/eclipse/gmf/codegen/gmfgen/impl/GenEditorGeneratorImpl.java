@@ -72,7 +72,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenAuditRoot audits = null;
+	protected GenAuditRoot audits;
 
 	/**
 	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
@@ -82,7 +82,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenMetricContainer metrics = null;
+	protected GenMetricContainer metrics;
 
 	/**
 	 * The cached value of the '{@link #getDiagram() <em>Diagram</em>}' containment reference.
@@ -92,7 +92,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenDiagram diagram = null;
+	protected GenDiagram diagram;
 
 	/**
 	 * The cached value of the '{@link #getPlugin() <em>Plugin</em>}' containment reference.
@@ -102,7 +102,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenPlugin plugin = null;
+	protected GenPlugin plugin;
 
 	/**
 	 * The cached value of the '{@link #getEditor() <em>Editor</em>}' containment reference.
@@ -112,7 +112,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenEditorView editor = null;
+	protected GenEditorView editor;
 
 	/**
 	 * The cached value of the '{@link #getNavigator() <em>Navigator</em>}' containment reference.
@@ -122,7 +122,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenNavigator navigator = null;
+	protected GenNavigator navigator;
 
 	/**
 	 * The cached value of the '{@link #getPropertySheet() <em>Property Sheet</em>}' containment reference.
@@ -132,7 +132,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenPropertySheet propertySheet = null;
+	protected GenPropertySheet propertySheet;
 
 	/**
 	 * The cached value of the '{@link #getApplication() <em>Application</em>}' containment reference.
@@ -142,7 +142,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenApplication application = null;
+	protected GenApplication application;
 
 	/**
 	 * The cached value of the '{@link #getDomainGenModel() <em>Domain Gen Model</em>}' reference.
@@ -152,7 +152,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenModel domainGenModel = null;
+	protected GenModel domainGenModel;
 
 	/**
 	 * The default value of the '{@link #getPackageNamePrefix() <em>Package Name Prefix</em>}' attribute.
@@ -322,7 +322,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 * @ordered
 	 */
-	protected GenExpressionProviderContainer expressionProviders = null;
+	protected GenExpressionProviderContainer expressionProviders;
 
 	/**
 	 * <!-- begin-user-doc -->

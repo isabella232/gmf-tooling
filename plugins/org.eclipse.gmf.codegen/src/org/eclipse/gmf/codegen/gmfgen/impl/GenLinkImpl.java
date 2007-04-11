@@ -46,6 +46,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getReorientCommandClassName <em>Reorient Command Class Name</em>}</li>
  * </ul>
  * </p>
@@ -61,7 +62,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected LinkModelFacet modelFacet = null;
+	protected LinkModelFacet modelFacet;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -71,7 +72,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenLinkLabel> labels = null;
+	protected EList<GenLinkLabel> labels;
 
 	/**
 	 * The default value of the '{@link #isOutgoingCreationAllowed() <em>Outgoing Creation Allowed</em>}' attribute.
@@ -141,7 +142,27 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenLinkConstraints creationConstraints = null;
+	protected GenLinkConstraints creationConstraints;
+
+	/**
+	 * The default value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATE_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreateCommandClassName() <em>Create Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String createCommandClassName = CREATE_COMMAND_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getReorientCommandClassName() <em>Reorient Command Class Name</em>}' attribute.
@@ -358,6 +379,31 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCreateCommandClassNameGen() {
+		return createCommandClassName;
+	}
+
+	public String getCreateCommandClassName() {
+		return GenCommonBaseImpl.getValidClassName(getCreateCommandClassNameGen(), this, CREATE_COMMAND_SUFFIX);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreateCommandClassName(String newCreateCommandClassName) {
+		String oldCreateCommandClassName = createCommandClassName;
+		createCommandClassName = newCreateCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME, oldCreateCommandClassName, createCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getReorientCommandClassNameGen() {
 		return reorientCommandClassName;
 	}
@@ -400,6 +446,15 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			return ECollections.emptyEList();
 		}
 		return getParticipants(getModelFacet().getAssistantTargetTypes());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getCreateCommandQualifiedClassName() {
+		return getDiagram().getEditCommandsPackageName() + '.' + getCreateCommandClassName();
 	}
 
 	/**
@@ -503,6 +558,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
+			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
+				return getCreateCommandClassName();
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				return getReorientCommandClassName();
 		}
@@ -537,6 +594,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				setReorientCommandClassName((String)newValue);
 				return;
@@ -570,6 +630,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)null);
 				return;
+			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
+				setCreateCommandClassName(CREATE_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				setReorientCommandClassName(REORIENT_COMMAND_CLASS_NAME_EDEFAULT);
 				return;
@@ -599,6 +662,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return viewDirectionAlignedWithModel != VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
+			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
+				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				return REORIENT_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientCommandClassName != null : !REORIENT_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientCommandClassName);
 		}
@@ -621,6 +686,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		result.append(incomingCreationAllowed);
 		result.append(", viewDirectionAlignedWithModel: ");
 		result.append(viewDirectionAlignedWithModel);
+		result.append(", createCommandClassName: ");
+		result.append(createCommandClassName);
 		result.append(", reorientCommandClassName: ");
 		result.append(reorientCommandClassName);
 		result.append(')');

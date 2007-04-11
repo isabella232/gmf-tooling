@@ -109,7 +109,7 @@ protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(t
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND completeLinkCommandCreatorName(typeModelFacet)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«EXPAND defineSourceTargetAndCheckConstraints(createCompleteOutgoingLinkCommand(typeModelFacet), true)-»
-	«EXPAND linkCreateCommand FOR this.modelFacet-»
+	«EXPAND linkCreateCommand(this) FOR this.modelFacet-»
 }
 «ENDDEFINE»
 
@@ -171,7 +171,7 @@ if (container == null) {
 «ENDDEFINE»
 
 «REM»create semantic command«ENDREM»
-«DEFINE linkCreateCommand FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE linkCreateCommand(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
 if (req.getContainmentFeature() == null) {
 	req.setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR containmentMetaFeature»);
 }
@@ -179,16 +179,16 @@ if (req.getContainmentFeature() == null) {
 	* Calling "linkCreationParameters(false, true)" because with these values result will be full set 
 	* of parameters including (container,) source and target
 «ENDREM»«-»
-return getMSLWrapper(new «getCreateCommandQualifiedClassName()»(req, «EXPAND linkCreationParameters(false, true)»));
+return getMSLWrapper(new «link.getCreateCommandQualifiedClassName()»(req, «EXPAND linkCreationParameters(false, true)»));
 «ENDDEFINE»
 
 «REM»create semantic command«ENDREM»
-«DEFINE linkCreateCommand FOR gmfgen::FeatureLinkModelFacet-»
+«DEFINE linkCreateCommand(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
 org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest setReq = new org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest(sourceEObject, «getQualifiedPackageInterfaceName(metaFeature.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(metaFeature)»(), target);
 return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(setReq));
 «ENDDEFINE»
 
-«DEFINE linkCreateCommand FOR gmfgen::LinkModelFacet-»
+«DEFINE linkCreateCommand(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
 	«EXPAND incorrectLinkModelFacet-»
 «ENDDEFINE»
 

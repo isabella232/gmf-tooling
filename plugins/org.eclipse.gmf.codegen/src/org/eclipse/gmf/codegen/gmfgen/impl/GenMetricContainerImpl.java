@@ -46,7 +46,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenMetricRule> metrics = null;
+	protected EList<GenMetricRule> metrics;
 
 	/**
 	 * <!-- begin-user-doc -->

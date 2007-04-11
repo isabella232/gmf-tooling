@@ -70,7 +70,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ToolGroup> groups = null;
+	protected EList<ToolGroup> groups;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.

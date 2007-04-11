@@ -99,6 +99,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_NotationViewFactoryClassName());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_EditPartClassName());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
+		restore(GMFGEN.getGenLink(), GMFGEN.getGenLink_CreateCommandClassName());
 		restore(GMFGEN.getGenLink(), GMFGEN.getGenLink_ReorientCommandClassName());
 
 		for (EClass label : new EClass[] { GMFGEN.getGenLinkLabel(), GMFGEN.getGenNodeLabel(), GMFGEN.getGenExternalNodeLabel() }) {

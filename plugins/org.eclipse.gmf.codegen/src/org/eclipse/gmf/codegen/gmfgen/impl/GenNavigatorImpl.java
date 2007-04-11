@@ -70,6 +70,226 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  */
 public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	/**
+	 * The default value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateDomainModelNavigator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateDomainModelNavigator()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean generateDomainModelNavigator = GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionID = DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionName = DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentExtensionPriority = DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainContentProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainContentProviderClassName = DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainLabelProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainLabelProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainLabelProviderClassName = DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainModelElementTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainModelElementTesterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainModelElementTesterClassName = DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainNavigatorItemClassName() <em>Domain Navigator Item Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainNavigatorItemClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainNavigatorItemClassName() <em>Domain Navigator Item Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainNavigatorItemClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainNavigatorItemClassName = DOMAIN_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTENT_EXTENSION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contentExtensionID = CONTENT_EXTENSION_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContentExtensionName() <em>Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTENT_EXTENSION_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContentExtensionName() <em>Content Extension Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contentExtensionName = CONTENT_EXTENSION_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensionPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected String contentExtensionPriority = CONTENT_EXTENSION_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getLinkHelperExtensionID() <em>Link Helper Extension ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -330,226 +550,6 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	protected String packageName = PACKAGE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isGenerateDomainModelNavigator()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT = true;
-
-	/**
-	 * The cached value of the '{@link #isGenerateDomainModelNavigator() <em>Generate Domain Model Navigator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isGenerateDomainModelNavigator()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean generateDomainModelNavigator = GENERATE_DOMAIN_MODEL_NAVIGATOR_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainContentExtensionID() <em>Domain Content Extension ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainContentExtensionID = DOMAIN_CONTENT_EXTENSION_ID_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainContentExtensionName() <em>Domain Content Extension Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainContentExtensionName = DOMAIN_CONTENT_EXTENSION_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainContentExtensionPriority() <em>Domain Content Extension Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentExtensionPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainContentExtensionPriority = DOMAIN_CONTENT_EXTENSION_PRIORITY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainContentProviderClassName() <em>Domain Content Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainContentProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainContentProviderClassName = DOMAIN_CONTENT_PROVIDER_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainLabelProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainLabelProviderClassName() <em>Domain Label Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainLabelProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainLabelProviderClassName = DOMAIN_LABEL_PROVIDER_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainModelElementTesterClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainModelElementTesterClassName() <em>Domain Model Element Tester Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainModelElementTesterClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainModelElementTesterClassName = DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDomainNavigatorItemClassName() <em>Domain Navigator Item Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainNavigatorItemClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DOMAIN_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainNavigatorItemClassName() <em>Domain Navigator Item Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainNavigatorItemClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String domainNavigatorItemClassName = DOMAIN_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTENT_EXTENSION_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContentExtensionID() <em>Content Extension ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String contentExtensionID = CONTENT_EXTENSION_ID_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getContentExtensionName() <em>Content Extension Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTENT_EXTENSION_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContentExtensionName() <em>Content Extension Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String contentExtensionName = CONTENT_EXTENSION_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTENT_EXTENSION_PRIORITY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContentExtensionPriority() <em>Content Extension Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentExtensionPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected String contentExtensionPriority = CONTENT_EXTENSION_PRIORITY_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getChildReferences() <em>Child References</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -557,7 +557,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenNavigatorChildReference> childReferences = null;
+	protected EList<GenNavigatorChildReference> childReferences;
 
 	/**
 	 * <!-- begin-user-doc -->

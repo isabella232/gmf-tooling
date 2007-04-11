@@ -38,7 +38,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenCommonBase> element = null;
+	protected EList<GenCommonBase> element;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -61,7 +61,7 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 	 * @generated
 	 * @ordered
 	 */
-	protected GenPropertyTabFilter filter = null;
+	protected GenPropertyTabFilter filter;
 
 	/**
 	 * <!-- begin-user-doc -->

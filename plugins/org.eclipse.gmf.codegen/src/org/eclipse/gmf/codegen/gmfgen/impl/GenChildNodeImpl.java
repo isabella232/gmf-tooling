@@ -40,7 +40,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenChildContainer> containers = null;
+	protected EList<GenChildContainer> containers;
 
 	/**
 	 * <!-- begin-user-doc -->

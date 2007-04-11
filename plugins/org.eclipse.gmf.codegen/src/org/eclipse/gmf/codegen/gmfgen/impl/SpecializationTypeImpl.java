@@ -43,7 +43,7 @@ public class SpecializationTypeImpl extends ElementTypeImpl implements Specializ
 	 * @generated
 	 * @ordered
 	 */
-	protected MetamodelType metamodelType = null;
+	protected MetamodelType metamodelType;
 
 	/**
 	 * The default value of the '{@link #getEditHelperAdviceClassName() <em>Edit Helper Advice Class Name</em>}' attribute.

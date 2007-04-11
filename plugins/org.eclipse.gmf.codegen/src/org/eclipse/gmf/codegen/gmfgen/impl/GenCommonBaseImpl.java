@@ -63,7 +63,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass diagramRunTimeClass = null;
+	protected GenClass diagramRunTimeClass;
 
 	/**
 	 * The default value of the '{@link #getVisualID() <em>Visual ID</em>}' attribute.
@@ -93,7 +93,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated
 	 * @ordered
 	 */
-	protected ElementType elementType = null;
+	protected ElementType elementType;
 
 	/**
 	 * The default value of the '{@link #getEditPartClassName() <em>Edit Part Class Name</em>}' attribute.
@@ -163,7 +163,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated
 	 * @ordered
 	 */
-	protected Viewmap viewmap = null;
+	protected Viewmap viewmap;
 
 	/**
 	 * The cached value of the '{@link #getBehaviour() <em>Behaviour</em>}' containment reference list.
@@ -173,7 +173,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Behaviour> behaviour = null;
+	protected EList<Behaviour> behaviour;
 
 	/**
 	 * The default value of the '{@link #isSansDomain() <em>Sans Domain</em>}' attribute.

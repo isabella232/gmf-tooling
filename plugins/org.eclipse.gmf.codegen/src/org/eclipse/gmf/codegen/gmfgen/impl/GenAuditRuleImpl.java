@@ -92,7 +92,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenConstraint rule = null;
+	protected GenConstraint rule;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
@@ -102,7 +102,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenAuditable target = null;
+	protected GenAuditable target;
 
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -182,7 +182,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenAuditContainer category = null;
+	protected GenAuditContainer category;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -4413,13 +4413,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LINK__CREATION_CONSTRAINTS = GEN_COMMON_BASE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Create Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__CREATE_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+
+	/**
 	 * The feature id for the '<em><b>Reorient Command Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+	int GEN_LINK__REORIENT_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Gen Link</em>' class.
@@ -4428,7 +4437,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 8;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -5396,22 +5405,13 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Create Command Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Type Link Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_LINK_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 3;
+	int TYPE_LINK_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLinkModelFacetImpl <em>Feature Link Model Facet</em>}' class.
@@ -7947,105 +7947,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR = 98;
 
 	/**
-	 * The feature id for the '<em><b>Action Provider ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__ACTION_PROVIDER_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Content Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Label Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Link Helper Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Sorter Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__SORTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Action Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__ACTION_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Navigator Group Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 13;
-
-	/**
-	 * The feature id for the '<em><b>Navigator Item Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 14;
-
-	/**
-	 * The feature id for the '<em><b>Uri Input Tester Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 15;
-
-	/**
-	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR__PACKAGE_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 16;
-
-	/**
 	 * The feature id for the '<em><b>Generate Domain Model Navigator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8170,6 +8071,105 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NAVIGATOR__SORTER_EXTENSION_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Action Provider ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__ACTION_PROVIDER_ID = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Content Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Label Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Link Helper Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Sorter Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__SORTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Action Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__ACTION_PROVIDER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Navigator Group Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 13;
+
+	/**
+	 * The feature id for the '<em><b>Navigator Item Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>Uri Input Tester Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__PACKAGE_NAME = GEN_DOMAIN_MODEL_NAVIGATOR_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Child References</b></em>' containment reference list.
@@ -11903,6 +11903,17 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenLink_CreationConstraints();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName <em>Create Command Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Create Command Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getCreateCommandClassName()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_CreateCommandClassName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getReorientCommandClassName <em>Reorient Command Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12198,17 +12209,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTypeLinkModelFacet_TargetMetaFeature();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Create Command Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet#getCreateCommandClassName()
-	 * @see #getTypeLinkModelFacet()
-	 * @generated
-	 */
-	EAttribute getTypeLinkModelFacet_CreateCommandClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet <em>Feature Link Model Facet</em>}'.

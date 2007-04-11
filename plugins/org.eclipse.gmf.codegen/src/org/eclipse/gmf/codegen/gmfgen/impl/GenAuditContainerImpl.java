@@ -113,7 +113,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenAuditContainer> path = null;
+	protected EList<GenAuditContainer> path;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' reference list.
@@ -123,7 +123,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenAuditRule> audits = null;
+	protected EList<GenAuditRule> audits;
 
 	/**
 	 * <!-- begin-user-doc -->

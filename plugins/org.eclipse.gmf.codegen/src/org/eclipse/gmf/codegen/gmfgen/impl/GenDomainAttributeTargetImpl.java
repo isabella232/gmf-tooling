@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenDomainAttributeTargetImpl.java,v 1.2 2007/03/14 14:39:34 atikhomirov Exp $
+ * $Id: GenDomainAttributeTargetImpl.java,v 1.3 2007/04/11 08:10:23 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -39,7 +39,7 @@ public class GenDomainAttributeTargetImpl extends GenAuditableImpl implements Ge
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature attribute = null;
+	protected GenFeature attribute;
 
 	/**
 	 * The default value of the '{@link #isNullAsError() <em>Null As Error</em>}' attribute.

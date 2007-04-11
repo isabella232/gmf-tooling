@@ -54,7 +54,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenPropertyTab> tabs = null;
+	protected EList<GenPropertyTab> tabs;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.

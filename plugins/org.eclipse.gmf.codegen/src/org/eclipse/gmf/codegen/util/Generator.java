@@ -503,11 +503,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (false == genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 			return;
 		}
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		internalGenerateJavaClass(
 				myEmitters.getCreateTypeLinkCommandEmitter(),
 				myDiagram.getEditCommandsPackageName(),
-				modelFacet.getCreateCommandClassName(),
+				genLink.getCreateCommandClassName(),
 				genLink
 			);
 	}

@@ -67,7 +67,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenChildNode> childNodes = null;
+	protected EList<GenChildNode> childNodes;
 
 	/**
 	 * <!-- begin-user-doc -->

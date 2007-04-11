@@ -63,7 +63,7 @@ public abstract class GenContributionManagerImpl extends GenContributionItemImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenContributionItem> items = null;
+	protected EList<GenContributionItem> items;
 
 	/**
 	 * <!-- begin-user-doc -->

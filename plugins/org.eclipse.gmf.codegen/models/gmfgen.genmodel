@@ -464,9 +464,11 @@
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
       <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/createCommandClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/reorientCommandClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantSources"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getAssistantTargets"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getCreateCommandQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getReorientCommandQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
@@ -520,8 +522,6 @@
     <genClasses ecoreClass="gmfgen.ecore#//TypeLinkModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeLinkModelFacet/sourceMetaFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeLinkModelFacet/targetMetaFeature"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//TypeLinkModelFacet/createCommandClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//TypeLinkModelFacet/getCreateCommandQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLinkModelFacet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLinkModelFacet/metaFeature"/>

@@ -48,7 +48,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Attributes> attributes = null;
+	protected EList<Attributes> attributes;
 
 	/**
 	 * The cached value of the '{@link #getRequiredPluginIDs() <em>Required Plugin IDs</em>}' attribute list.
@@ -58,7 +58,7 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> requiredPluginIDs = null;
+	protected EList<String> requiredPluginIDs;
 
 	/**
 	 * The default value of the '{@link #getLayoutType() <em>Layout Type</em>}' attribute.

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.4 2007/03/14 14:39:34 atikhomirov Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.5 2007/04/11 08:10:23 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -83,7 +83,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> requiredPluginIDs = null;
+	protected EList<String> requiredPluginIDs;
 
 	/**
 	 * <!-- begin-user-doc -->

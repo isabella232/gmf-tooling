@@ -219,7 +219,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenContributionItem> sharedContributionItems = null;
+	protected EList<GenContributionItem> sharedContributionItems;
 
 	/**
 	 * The cached value of the '{@link #getMainMenu() <em>Main Menu</em>}' containment reference.
@@ -229,7 +229,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenMenuManager mainMenu = null;
+	protected GenMenuManager mainMenu;
 
 	/**
 	 * The cached value of the '{@link #getMainToolBar() <em>Main Tool Bar</em>}' containment reference.
@@ -239,7 +239,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenToolBarManager mainToolBar = null;
+	protected GenToolBarManager mainToolBar;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -84,7 +84,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * @generated
 	 * @ordered
 	 */
-	protected LabelModelFacet modelFacet = null;
+	protected LabelModelFacet modelFacet;
 
 	/**
 	 * <!-- begin-user-doc -->

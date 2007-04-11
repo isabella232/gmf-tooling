@@ -44,7 +44,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * @generated
 	 * @ordered
 	 */
-	protected GenCommonBase from = null;
+	protected GenCommonBase from;
 
 	/**
 	 * The cached value of the '{@link #getTo() <em>To</em>}' reference.
@@ -54,7 +54,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * @generated
 	 * @ordered
 	 */
-	protected GenCommonBase to = null;
+	protected GenCommonBase to;
 
 	/**
 	 * <!-- begin-user-doc -->

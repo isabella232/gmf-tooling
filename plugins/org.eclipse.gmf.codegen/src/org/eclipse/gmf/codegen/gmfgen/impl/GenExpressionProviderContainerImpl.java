@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.5 2007/03/14 14:39:35 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.6 2007/04/11 08:10:23 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -89,7 +89,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenExpressionProviderBase> providers = null;
+	protected EList<GenExpressionProviderBase> providers;
 
 	/**
 	 * <!-- begin-user-doc -->

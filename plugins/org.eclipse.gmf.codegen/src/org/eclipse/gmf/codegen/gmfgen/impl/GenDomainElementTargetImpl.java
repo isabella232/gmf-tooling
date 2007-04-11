@@ -39,7 +39,7 @@ public class GenDomainElementTargetImpl extends GenAuditableImpl implements GenD
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass element = null;
+	protected GenClass element;
 
 	/**
 	 * <!-- begin-user-doc -->

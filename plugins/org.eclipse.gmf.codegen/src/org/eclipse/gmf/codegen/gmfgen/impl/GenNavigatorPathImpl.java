@@ -46,7 +46,7 @@ public class GenNavigatorPathImpl extends EObjectImpl implements GenNavigatorPat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenNavigatorPathSegment> segments = null;
+	protected EList<GenNavigatorPathSegment> segments;
 
 	/**
 	 * <!-- begin-user-doc -->

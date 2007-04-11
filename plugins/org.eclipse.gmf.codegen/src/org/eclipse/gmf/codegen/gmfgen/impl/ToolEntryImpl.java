@@ -43,7 +43,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenNode> genNodes = null;
+	protected EList<GenNode> genNodes;
 
 	/**
 	 * The cached value of the '{@link #getGenLinks() <em>Gen Links</em>}' reference list.
@@ -53,7 +53,7 @@ public class ToolEntryImpl extends AbstractToolEntryImpl implements ToolEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenLink> genLinks = null;
+	protected EList<GenLink> genLinks;
 
 	/**
 	 * <!-- begin-user-doc -->

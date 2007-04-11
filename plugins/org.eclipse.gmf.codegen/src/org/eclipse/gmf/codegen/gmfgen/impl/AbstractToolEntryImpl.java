@@ -93,7 +93,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap<String, String> properties = null;
+	protected EMap<String, String> properties;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -44,7 +44,7 @@ public class FeatureLinkModelFacetImpl extends EObjectImpl implements FeatureLin
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature metaFeature = null;
+	protected GenFeature metaFeature;
 
 	/**
 	 * <!-- begin-user-doc -->

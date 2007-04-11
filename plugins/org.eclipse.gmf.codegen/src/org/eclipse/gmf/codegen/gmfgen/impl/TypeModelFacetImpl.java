@@ -46,7 +46,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass metaClass = null;
+	protected GenClass metaClass;
 
 	/**
 	 * The cached value of the '{@link #getContainmentMetaFeature() <em>Containment Meta Feature</em>}' reference.
@@ -56,7 +56,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature containmentMetaFeature = null;
+	protected GenFeature containmentMetaFeature;
 
 	/**
 	 * The cached value of the '{@link #getChildMetaFeature() <em>Child Meta Feature</em>}' reference.
@@ -66,7 +66,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature childMetaFeature = null;
+	protected GenFeature childMetaFeature;
 
 	/**
 	 * The cached value of the '{@link #getModelElementSelector() <em>Model Element Selector</em>}' containment reference.
@@ -76,7 +76,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenConstraint modelElementSelector = null;
+	protected GenConstraint modelElementSelector;
 
 	/**
 	 * The cached value of the '{@link #getModelElementInitializer() <em>Model Element Initializer</em>}' containment reference.
@@ -86,7 +86,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected GenElementInitializer modelElementInitializer = null;
+	protected GenElementInitializer modelElementInitializer;
 
 	/**
 	 * <!-- begin-user-doc -->

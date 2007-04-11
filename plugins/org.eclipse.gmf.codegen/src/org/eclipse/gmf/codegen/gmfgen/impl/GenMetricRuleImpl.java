@@ -69,7 +69,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueExpression rule = null;
+	protected ValueExpression rule;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
@@ -79,7 +79,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 * @ordered
 	 */
-	protected GenMeasurable target = null;
+	protected GenMeasurable target;
 
 	/**
 	 * The default value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.

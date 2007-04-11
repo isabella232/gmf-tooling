@@ -89,7 +89,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ToolGroupItem> entries = null;
+	protected EList<ToolGroupItem> entries;
 
 	/**
 	 * The default value of the '{@link #isToolsOnly() <em>Tools Only</em>}' attribute.

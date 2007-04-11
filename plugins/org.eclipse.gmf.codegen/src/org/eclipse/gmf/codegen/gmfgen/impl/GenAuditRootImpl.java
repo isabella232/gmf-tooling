@@ -48,7 +48,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenAuditContainer> categories = null;
+	protected EList<GenAuditContainer> categories;
 
 	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
@@ -58,7 +58,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenAuditRule> rules = null;
+	protected EList<GenAuditRule> rules;
 
 	/**
 	 * <!-- begin-user-doc -->
