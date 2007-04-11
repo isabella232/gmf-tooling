@@ -25,7 +25,7 @@ public class SmallItemsItemSemanticEditPolicy extends TaiPanBaseItemSemanticEdit
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommands(req.isConfirmationRequired());
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}

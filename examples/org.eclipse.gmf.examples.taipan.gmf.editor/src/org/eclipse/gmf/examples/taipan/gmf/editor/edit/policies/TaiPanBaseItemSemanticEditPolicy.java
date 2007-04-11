@@ -319,7 +319,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected CompoundCommand getDestroyEdgesCommands(boolean confirm) {
+	protected CompoundCommand getDestroyEdgesCommand(boolean confirm) {
 		CompoundCommand cmd = new CompoundCommand();
 		View view = (View) getHost().getModel();
 		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
