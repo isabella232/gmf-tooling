@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
@@ -138,6 +139,7 @@ class PackageReferencesCollector extends ASTVisitor {
     protected void initializeDefaultHardcodedTypes(Collection<String> container) {
         container.add(SWT.class.getCanonicalName());
         container.add(NLS.class.getCanonicalName());
+        container.add(URI.class.getCanonicalName());
     }
 
     public boolean visit(ImportDeclaration node) {
