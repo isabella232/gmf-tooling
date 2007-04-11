@@ -63,7 +63,6 @@ public class TypeLinkModelFacetItemProvider
 
 			addSourceMetaFeaturePropertyDescriptor(object);
 			addTargetMetaFeaturePropertyDescriptor(object);
-			addCreateCommandClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -113,28 +112,6 @@ public class TypeLinkModelFacetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Create Command Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCreateCommandClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TypeLinkModelFacet_createCommandClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TypeLinkModelFacet_createCommandClassName_feature", "_UI_TypeLinkModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getTypeLinkModelFacet_CreateCommandClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns TypeLinkModelFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -153,10 +130,7 @@ public class TypeLinkModelFacetItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TypeLinkModelFacet)object).getCreateCommandClassName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_TypeLinkModelFacet_type") :
-			getString("_UI_TypeLinkModelFacet_type") + " " + label;
+		return getString("_UI_TypeLinkModelFacet_type");
 	}
 
 	/**
@@ -169,12 +143,6 @@ public class TypeLinkModelFacetItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(TypeLinkModelFacet.class)) {
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
