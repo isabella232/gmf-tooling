@@ -1006,11 +1006,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			}
 			if (nextEntity instanceof GenLink) {
 				GenLink genLink = (GenLink) nextEntity;
+				checkClassName(state, "GenLink:CreateCommand", genLink.getCreateCommandClassName(), genLink.getCreateCommandQualifiedClassName());
 				checkClassName(state, "GenLink:ReorientCommand", genLink.getReorientCommandClassName(), genLink.getReorientCommandQualifiedClassName());
-				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-					TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-					checkClassName(state, "TypeLinkModelFacet:CreateCommand", modelFacet.getCreateCommandClassName(), modelFacet.getCreateCommandQualifiedClassName());
-				}
 			}
 			for (Behaviour nextB : nextEntity.getBehaviour()) {
 				String epClassName = CodeGenUtil.getSimpleClassName(nextB.getEditPolicyQualifiedClassName()); // just for checkClassName to be happy
