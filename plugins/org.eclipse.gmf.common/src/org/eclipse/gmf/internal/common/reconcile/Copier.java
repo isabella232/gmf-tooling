@@ -75,7 +75,7 @@ public interface Copier {
 		 */
 		private void safetyCheck(EObject old){
 			if (!EcoreUtil.CrossReferencer.find(Collections.singleton(old)).isEmpty()){
-				throw new IllegalArgumentException("I am not intended to copy elements woth cross references");
+				throw new IllegalArgumentException("I am not intended to copy elements with cross references");
 			}
 		}
 	
