@@ -340,7 +340,7 @@
 	 		<javadoc 
 	 			verbose="true"
 	 			access="protected"
-				additionalparam="-breakiterator -tocFilename '${doc.plugin.dir}/toc-@{subsystem}.xml' -tocTitle '@{tocTitle}' -tocLinkTo '@{tocLinkTo}' -tocRefPrefix reference/api/@{subsystem}/"
+				additionalparam="-breakiterator"
 				maxmemory="512M"
 				classpath="${javadoc.classpath}"
 				useexternalfile="true"
