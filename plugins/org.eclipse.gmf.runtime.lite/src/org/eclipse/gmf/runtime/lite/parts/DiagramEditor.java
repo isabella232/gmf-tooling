@@ -51,9 +51,14 @@ import org.eclipse.gmf.runtime.lite.services.DefaultDiagramLayouter;
 import org.eclipse.gmf.runtime.lite.services.IDiagramLayouter;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorMatchingStrategy;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -163,8 +168,17 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 		setSite(site);
 		TransactionalEditingDomain editingDomain = getEditingDomain(input);
 		if (editingDomain == null) {
+			editingDomain = reuseEditingDomain(input);
+		}
+		if (editingDomain == null) {
 			editingDomain = createEditingDomain();
 		}
+		ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(editingDomain.getResourceSet(), ForceTrackingModificationAdapter.class);
+		if (adapter == null) {
+			adapter = new ForceTrackingModificationAdapter();
+			editingDomain.getResourceSet().eAdapters().add(adapter);
+		}
+		adapter.acquire();
 		myDiagramDisplayer = new DiagramDisplayer(this, createEditDomain(), editingDomain);
 		getCommandStack().addCommandStackListener(commandStackListener);
 		getCommandStack().addCommandStackEventListener(mySaveListener);
@@ -179,9 +193,9 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 			ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(getEditingDomain().getResourceSet(), ForceTrackingModificationAdapter.class);
 			if (adapter != null) {
 				adapter.release();
-			}
-			if (adapter.isReleased()) {
-				getEditingDomain().getResourceSet().eAdapters().remove(adapter);
+				if (adapter.isReleased()) {
+					getEditingDomain().getResourceSet().eAdapters().remove(adapter);
+				}
 			}
 			myDiagramDisplayer.dispose();
 			myDiagramDisplayer = null;
@@ -298,17 +312,45 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	protected TransactionalEditingDomain getEditingDomain(IEditorInput input) {
 		if (input instanceof DiagramEditorInput) {
 			TransactionalEditingDomain result = TransactionUtil.getEditingDomain(((DiagramEditorInput) input).getDiagram());
-			if (result != null) {
-				ForceTrackingModificationAdapter adapter = (ForceTrackingModificationAdapter) EcoreUtil.getExistingAdapter(result.getResourceSet(), ForceTrackingModificationAdapter.class);
-				if (adapter == null) {
-					adapter = new ForceTrackingModificationAdapter();
-					result.getResourceSet().eAdapters().add(adapter);
-				}
-				adapter.acquire();
-			}
 			return result;
 		}
 		return null;
+	}
+
+	/**
+	 * Returns the editing domain that is used by other editors with the same input. This is done to correctly support 
+	 * "New Editor" operation that is available in the context menu of the editor tab.
+	 * @return
+	 */
+	protected TransactionalEditingDomain reuseEditingDomain(IEditorInput input) {
+		IEditorRegistry editorRegistry = PlatformUI.getWorkbench().getEditorRegistry();
+		IEditorDescriptor editorDesc = editorRegistry.findEditor(getSite().getId());
+		IEditorMatchingStrategy matchingStrategy = editorDesc.getEditorMatchingStrategy();
+		IEditorReference[] editorRefs = getEditorSite().getPage().getEditorReferences();
+		for (int i = 0; i < editorRefs.length; i++) {
+			if (matches(matchingStrategy, editorRefs[i], input)) {
+				DiagramEditor anotherEditor = (DiagramEditor) editorRefs[i].getEditor(false);
+				if (anotherEditor != null) {
+					return anotherEditor.getEditingDomain();
+				}
+			}
+		}
+		return null;
+	}
+
+	private boolean matches(IEditorMatchingStrategy strategy, IEditorReference editorRef, IEditorInput input) {
+		if (strategy == null) {
+			if (getSite().getId().equals(editorRef.getId())) {
+				try {
+					return input.equals(editorRef.getEditorInput());
+				} catch (PartInitException e) {
+					return false;
+				}
+			}
+			return false;
+		} else {
+			return strategy.matches(editorRef, input);
+		}
 	}
 
 	/**
@@ -318,9 +360,6 @@ public abstract class DiagramEditor extends EditorPart implements IDiagramManage
 	protected TransactionalEditingDomain createEditingDomain() {
 		TransactionalEditingDomain editingDomain = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain();
 		editingDomain.getResourceSet().eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(editingDomain));
-		ForceTrackingModificationAdapter forceTrackingModificationAdapter = new ForceTrackingModificationAdapter();
-		editingDomain.getResourceSet().eAdapters().add(forceTrackingModificationAdapter);
-		forceTrackingModificationAdapter.acquire();
 		return editingDomain;
 	}
 
