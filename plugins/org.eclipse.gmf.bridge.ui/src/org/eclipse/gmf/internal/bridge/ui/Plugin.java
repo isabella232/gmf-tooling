@@ -136,17 +136,16 @@ public class Plugin extends AbstractUIPlugin {
 	}
 
 	public static boolean needsReconcile() {
-		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
+		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile")); //$NON-NLS-1$
 	}
 
 	/**
 	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
-	 * @param path
-	 *            the path
+	 * @param path the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.gmf.bridge.ui", path); //$NON-NLS-1$
+		return AbstractUIPlugin.imageDescriptorFromPlugin(getPluginID(), path);
 	}
 }
