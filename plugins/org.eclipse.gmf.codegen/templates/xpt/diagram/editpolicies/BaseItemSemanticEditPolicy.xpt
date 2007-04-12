@@ -75,8 +75,8 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	 * 
 	 * @generated
 	 */
-	protected org.eclipse.gef.commands.Command getDestroyEdgeCommand(org.eclipse.gmf.runtime.notation.Edge edge, boolean confirm) {
-		org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(edge);
+	protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.notation.View view, boolean confirm) {
+		org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest request =
 				new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), confirm);
 		return editPart.getCommand(new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(request, java.util.Collections.EMPTY_MAP));
@@ -91,10 +91,10 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 		org.eclipse.gef.commands.CompoundCommand cmd = new org.eclipse.gef.commands.CompoundCommand();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		for (java.util.Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
 		}
 		for (java.util.Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((org.eclipse.gmf.runtime.notation.Edge) it.next(), confirm));
 		}
 		return cmd;
 	}

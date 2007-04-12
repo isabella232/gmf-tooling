@@ -17,6 +17,9 @@
 «ENDREM»
  
 «IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION xpt::diagram::editpolicies::Utils»
 
 «DEFINE NodeItemSemanticEditPolicy FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
@@ -30,6 +33,9 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 	«ENDIF-»
 
 	«EXPAND getDestroyElementCommand-»
+	«IF hasChildren()-»
+		«EXPAND addDestroyChildNodesCommand-»
+	«ENDIF-»
 	«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands(getDiagram()) FOR modelFacet-»
 	
 	«EXPAND additions-»
@@ -40,6 +46,9 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+	«IF hasChildren()-»
+	addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
+	«ENDIF-»
 	«EXPAND destroySemanticElement-»
 	return cc.unwrap();
 }
@@ -59,7 +68,41 @@ cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyE
 	«ENDLET-»
 «ENDDEFINE»
 
-«REM»Method in anonimous inner class - should not be prefixed with @generated javadoc«ENDREM»
+«DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void addDestroyChildNodesCommand(org.eclipse.gef.commands.CompoundCommand cmd, boolean confirm) {
+		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+		for (java.util.Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) it.next();
+			switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(node)) {
+			«EXPAND destroyChildNodes("node")-»
+			«IF !compartments.isEmpty()-»
+				«FOREACH compartments AS compartment-»
+			case «compartment.getEditPartQualifiedClassName()».VISUAL_ID:
+				for (java.util.Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					org.eclipse.gmf.runtime.notation.Node cnode = (org.eclipse.gmf.runtime.notation.Node) cit.next();
+					switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(cnode)) {
+					«EXPAND destroyChildNodes("cnode") FOR compartment-»
+					}
+				}
+				break;
+				«ENDFOREACH-»
+			«ENDIF-»
+			}
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE destroyChildNodes(String nodeVar) FOR gmfgen::GenChildContainer-»
+	«FOREACH childNodes AS childNode-»
+	case «childNode.getEditPartQualifiedClassName()».VISUAL_ID:
+		cmd.add(getDestroyElementCommand(«nodeVar», confirm));
+		break;
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«REM»Method in anonymous inner class - should not be prefixed with @generated javadoc«ENDREM»
 «DEFINE destroyShortcut FOR gmfgen::GenTopLevelNode-»
 
 protected org.eclipse.emf.ecore.EObject getElementToDestroy() {
