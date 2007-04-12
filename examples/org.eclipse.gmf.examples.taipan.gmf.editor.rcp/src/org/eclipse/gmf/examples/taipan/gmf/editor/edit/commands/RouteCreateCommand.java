@@ -28,7 +28,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class Route2TypeLinkCreateCommand extends CreateRelationshipCommand {
+public class RouteCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -48,7 +48,7 @@ public class Route2TypeLinkCreateCommand extends CreateRelationshipCommand {
 	/**
 	 * @generated
 	 */
-	public Route2TypeLinkCreateCommand(CreateRelationshipRequest req, Aquatory container, Port source, Port target) {
+	public RouteCreateCommand(CreateRelationshipRequest req, Aquatory container, Port source, Port target) {
 		super(req);
 		super.setElementToEdit(container);
 		myContainer = container;
@@ -82,7 +82,7 @@ public class Route2TypeLinkCreateCommand extends CreateRelationshipCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return TaiPanPackage.eINSTANCE.getAquatory();
-	};
+	}
 
 	/**
 	 * @generated
@@ -99,7 +99,7 @@ public class Route2TypeLinkCreateCommand extends CreateRelationshipCommand {
 		if (newElement != null) {
 			newElement.setDestination(myTarget);
 			newElement.setSource(mySource);
-			TaiPanElementTypes.Initializers.Route_4003.init(newElement);
+			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
 		}
 		return newElement;
 	}

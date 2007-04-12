@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class BesiegePortOrderTypeLinkCreateCommand extends CreateRelationshipCommand {
+public class BesiegePortOrderCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -41,7 +41,7 @@ public class BesiegePortOrderTypeLinkCreateCommand extends CreateRelationshipCom
 	/**
 	 * @generated
 	 */
-	public BesiegePortOrderTypeLinkCreateCommand(CreateRelationshipRequest req, Warship source, Port target) {
+	public BesiegePortOrderCreateCommand(CreateRelationshipRequest req, Warship source, Port target) {
 		super(req);
 		super.setElementToEdit(source);
 		mySource = source;

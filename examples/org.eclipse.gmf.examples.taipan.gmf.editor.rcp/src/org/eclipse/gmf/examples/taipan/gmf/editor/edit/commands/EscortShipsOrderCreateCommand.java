@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCommand {
+public class EscortShipsOrderCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -41,7 +41,7 @@ public class EscortShipsOrderTypeLinkCreateCommand extends CreateRelationshipCom
 	/**
 	 * @generated
 	 */
-	public EscortShipsOrderTypeLinkCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
+	public EscortShipsOrderCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
 		super(req);
 		super.setElementToEdit(source);
 		mySource = source;

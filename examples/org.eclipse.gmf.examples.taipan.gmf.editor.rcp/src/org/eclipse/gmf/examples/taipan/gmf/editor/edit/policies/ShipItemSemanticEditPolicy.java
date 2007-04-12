@@ -11,15 +11,31 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
-import org.eclipse.gef.EditPart;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
+import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -27,26 +43,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gef.commands.UnexecutableCommand;
-
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Ship;
-
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderTypeLinkCreateCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EscortShipsOrderEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 /**
  * @generated
@@ -57,18 +55,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((ShipEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+		addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -81,7 +69,42 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			}
 
 		}));
-		return cc;
+		return cc.unwrap();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd, boolean confirm) {
+		View view = (View) getHost().getModel();
+		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			Node node = (Node) it.next();
+			switch (TaiPanVisualIDRegistry.getVisualID(node)) {
+			case ShipSmallCargoEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
+					case SmallItemsEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case ShipLargeCargoEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
+					case LargeItemEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					case EmptyBoxEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			}
+		}
 	}
 
 	/**
@@ -133,7 +156,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
-		return getMSLWrapper(new EscortShipsOrderTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EscortShipsOrderCreateCommand(req, source, target));
 	}
 
 	/**

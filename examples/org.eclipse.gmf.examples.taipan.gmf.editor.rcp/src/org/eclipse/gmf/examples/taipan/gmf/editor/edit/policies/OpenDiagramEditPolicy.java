@@ -12,48 +12,31 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionException;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.transaction.util.TransactionUtil;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy;
-
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -107,7 +90,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				org.eclipse.emf.common.util.URI uri = diagram.eResource().getURI();
+				URI uri = diagram.eResource().getURI();
 				uri = uri.appendFragment(diagram.eResource().getURIFragment(diagram));
 				IEditorInput editorInput = new URIEditorInput(uri);
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();

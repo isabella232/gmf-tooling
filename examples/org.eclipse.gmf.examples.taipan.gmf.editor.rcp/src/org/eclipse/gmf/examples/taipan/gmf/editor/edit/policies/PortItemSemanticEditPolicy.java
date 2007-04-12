@@ -11,53 +11,38 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
-import org.eclipse.gef.EditPart;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
-import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gef.commands.UnexecutableCommand;
-
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterReorientCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2CreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2ReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.Route2TypeLinkCreateCommand;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteReorientCommand;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.RouteTypeLinkCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipDestinationReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.BesiegePortOrderEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortRegisterEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
+import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -68,18 +53,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((PortEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -92,7 +66,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			}
 
 		}));
-		return cc;
+		return cc.unwrap();
 	}
 
 	/**
@@ -176,7 +150,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new RouteTypeLinkCreateCommand(req, container, source, target));
+		return getMSLWrapper(new RouteCreateCommand(req, container, source, target));
 	}
 
 	/**
@@ -220,7 +194,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new Route2TypeLinkCreateCommand(req, container, source, target));
+		return getMSLWrapper(new Route2CreateCommand(req, container, source, target));
 	}
 
 	/**
@@ -240,7 +214,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
 		}
-		return getMSLWrapper(new BesiegePortOrderTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new BesiegePortOrderCreateCommand(req, source, target));
 	}
 
 	/**
