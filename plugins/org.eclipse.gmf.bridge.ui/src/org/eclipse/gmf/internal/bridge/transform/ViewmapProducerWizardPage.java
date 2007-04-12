@@ -39,10 +39,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 
 /*
- * XXX: duplicates functionality of 
- * org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModelOptionsDialog 
- * and
- * org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog
+ * XXX: duplicates functionality of org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog
  */
 class ViewmapProducerWizardPage extends WizardPage {
 	
@@ -53,6 +50,8 @@ class ViewmapProducerWizardPage extends WizardPage {
 
 	protected ViewmapProducerWizardPage(String pageName) {
 		super(pageName);
+		setTitle(Messages.TransformToGenModelWizard_title_options);
+		setDescription(Messages.TransformToGenModelWizard_descr_options);
 	}
 	
 	public void createControl(Composite parent) {

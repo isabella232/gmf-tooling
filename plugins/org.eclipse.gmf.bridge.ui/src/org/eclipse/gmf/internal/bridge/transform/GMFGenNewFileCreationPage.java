@@ -27,7 +27,7 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
-public class GMFGenNewFileCreationPage extends WizardNewFileCreationPage {
+class GMFGenNewFileCreationPage extends WizardNewFileCreationPage {
 
 	static final String EXT_GMFGEN = "gmfgen"; //$NON-NLS-1$
 	
@@ -35,6 +35,8 @@ public class GMFGenNewFileCreationPage extends WizardNewFileCreationPage {
 
 	public GMFGenNewFileCreationPage(String pageId, IStructuredSelection selection) {
 		super(pageId, selection);
+		setTitle(Messages.TransformToGenModelWizard_title_gmfgen);
+		setDescription(Messages.TransformToGenModelWizard_descr_gmfgen);
 	}
 	
 	/* (non-Javadoc)

@@ -28,6 +28,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	private static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
 	private static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
 	private static final String PREF_IGNORE_MAPMODEL_VALIDATION = "ignore_mapmodel_validation"; //$NON-NLS-1$
+	private static final String PREF_IGNORE_GMFGEN_VALIDATION = "ignore_gmfgen_validation"; //$NON-NLS-1$
 	private static final String PREF_FIGURE_TEMPLATES = "dynamic_figure_templates"; //$NON-NLS-1$
 	
 	private static String[] PROP_NAMES = new String[] {
@@ -35,6 +36,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		PREF_USE_MAP_MODE, 
 		PREF_USE_RUNTIME_FIGURES,
 		PREF_IGNORE_MAPMODEL_VALIDATION,
+		PREF_IGNORE_GMFGEN_VALIDATION,
 		PREF_FIGURE_TEMPLATES
 		};
 	
@@ -84,6 +86,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		return getPreferences().getBoolean(PREF_IGNORE_MAPMODEL_VALIDATION);
 	}
 
+	public boolean getIgnoreGMFGenValidation() {
+		return getPreferences().getBoolean(PREF_IGNORE_GMFGEN_VALIDATION);
+	}
+
 	public URL getFigureTemplatesPath() {
 		final String value = getPreferences().getString(PREF_FIGURE_TEMPLATES);
 		if (value == null || value.length() == 0) {
@@ -113,6 +119,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		getPreferences().setValue(PREF_IGNORE_MAPMODEL_VALIDATION, value);
 	}
 
+	public void setIgnoreGMFGenValidation(boolean value) {
+		getPreferences().setValue(PREF_IGNORE_GMFGEN_VALIDATION, value);
+	}
+
 	public void setFigureTemplatesPath(URL path) {
 		getPreferences().setValue(PREF_FIGURE_TEMPLATES, path == null ? "" : path.toString()); //$NON-NLS-1$
 	}
@@ -125,6 +135,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		node.putBoolean(PREF_USE_MAP_MODE, true);
 		node.putBoolean(PREF_USE_RUNTIME_FIGURES, true);
 		node.putBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, false);
+		node.putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
 
 	}
 	

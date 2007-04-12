@@ -27,6 +27,8 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 
 	MapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
+		setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
+		setDescription(Messages.TransformToGenModelWizard_descr_mapmodel);
 	}
 
 	protected String getModelFileExtension() {

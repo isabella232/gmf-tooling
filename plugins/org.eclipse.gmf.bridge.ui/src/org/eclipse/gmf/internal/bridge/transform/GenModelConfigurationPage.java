@@ -54,6 +54,8 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	
 	GenModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
+		setTitle(Messages.TransformToGenModelWizard_title_genmodel);
+		setDescription(Messages.TransformToGenModelWizard_descr_genmodel);
 	}
 	
 	protected String getModelFileExtension() {

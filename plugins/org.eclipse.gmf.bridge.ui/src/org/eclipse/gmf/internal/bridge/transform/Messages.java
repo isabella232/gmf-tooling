@@ -93,6 +93,10 @@ public class Messages extends NLS {
 
 	public static String TransformToGenModelWizard_title_wizard;
 
+	public static String TransformToGenModelWizard_descr_gmfgendiagnostic;
+
+	public static String TransformToGenModelWizard_title_gmfgendiagnostic;
+
 	public static String ValidationHelper_e_marker_creation;
 
 	public static String ValidationHelper_task_validate;

@@ -67,6 +67,8 @@ public class TransformToGenModelOperation {
 	private GenModel myGenModel;
 	
 	private Diagnostic myMapmodelValidationResult = Diagnostic.CANCEL_INSTANCE;
+	private Diagnostic myGMFGenValidationResult = Diagnostic.CANCEL_INSTANCE;
+
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
 	
 	public TransformToGenModelOperation() {
@@ -100,10 +102,18 @@ public class TransformToGenModelOperation {
 		myGenModel = null;
 	}
 	
+	private void setGMFGenValidationResult(Diagnostic validationResult) {
+		this.myGMFGenValidationResult = validationResult;
+	}
+
 	public GenModelDetector getGenModelDetector() {
 		return myGMDetector;
 	}
 	
+	public Diagnostic getGMFGenValidationResult() {
+		return this.myGMFGenValidationResult;
+	}
+
 	public Diagnostic getMapmodelValidationResult() {
 		return this.myMapmodelValidationResult;
 	}
@@ -227,6 +237,7 @@ public class TransformToGenModelOperation {
 	
 	public IStatus executeTransformation(ResourceSet rs, IProgressMonitor pm) {
 		IProgressMonitor monitor = null;
+		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
 		try {
 			checkResourceSet(rs);
 			if (getGenURI() == null) {
@@ -270,11 +281,11 @@ public class TransformToGenModelOperation {
 				return Status.CANCEL_STATUS;
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_validate);
-			IStatus validate = validate(genEditor, monitor);
-			if (IStatus.CANCEL != validate.getSeverity()) {
+			validation = ValidationHelper.validate(genEditor, true, monitor);
+			if (Diagnostic.CANCEL != validation.getSeverity()) {
 				idDispenser.release();
 			}
-			return validate;
+			return Status.OK_STATUS;
 			
 		} catch (Exception ex) {
 			String message = ex.getMessage();
@@ -283,6 +294,7 @@ public class TransformToGenModelOperation {
 			}
 			return Plugin.createError(message, ex);
 		} finally {
+			setGMFGenValidationResult(validation);
 			if (monitor != null) {
 				monitor.done();
 			}
@@ -446,11 +458,6 @@ public class TransformToGenModelOperation {
 		return saveOptions;
 	}
 
-	private IStatus validate(GenEditorGenerator genBurdern, IProgressMonitor monitor) {
-		Diagnostic d = ValidationHelper.validate(genBurdern, true, monitor);
-		return getFirst(d);
-	}
-	
 	private static void subTask(IProgressMonitor monitor, int ticks, String name, String cancelMessage) throws CoreException{
 		if (monitor == null) {
 			return;

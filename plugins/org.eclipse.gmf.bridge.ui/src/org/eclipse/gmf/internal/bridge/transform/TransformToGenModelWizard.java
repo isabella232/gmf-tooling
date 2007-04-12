@@ -38,19 +38,14 @@ import org.eclipse.ui.IWorkbenchWizard;
 
 public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizard {
 	
-	private static final String PAGE_ID_GMFGEN = "gmfgen"; //$NON-NLS-1$
-	private static final String PAGE_ID_GENMODEL = "genmodel"; //$NON-NLS-1$
-	private static final String PAGE_ID_GMFMAP = "gmfmap"; //$NON-NLS-1$
-	private static final String PAGE_ID_GMFMAP_DIAGNOSTIC = "gmfmap_diagnostic"; //$NON-NLS-1$
-	private static final String PAGE_ID_TRANSFORM = "transform"; //$NON-NLS-1$
-	
 	private IStructuredSelection mySelection;
 
 	private GMFGenNewFileCreationPage newFileCreationPage;
 	private MapModelConfigurationPage mapModelPage;
-	private MapModelDiagnosticPage mapDiagnosticPage;
+	private ModelDiagnosticPage mapDiagnosticPage;
 	private GenModelConfigurationPage genModelPage;
 	private ViewmapProducerWizardPage transformOptionPage;
+	private ModelDiagnosticPage genDiagnosticPage;
 	
 	private WizardPage myErrorContainer;
 	
@@ -63,9 +58,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		super.addPages();
 		
 		final String defaultName = "My"; //$NON-NLS-1$
-		newFileCreationPage = new GMFGenNewFileCreationPage(PAGE_ID_GMFGEN, mySelection);
-		newFileCreationPage.setTitle(Messages.TransformToGenModelWizard_title_gmfgen);
-		newFileCreationPage.setDescription(Messages.TransformToGenModelWizard_descr_gmfgen);
+		newFileCreationPage = new GMFGenNewFileCreationPage(GMFGenNewFileCreationPage.class.getSimpleName(), mySelection);
 		IFile file = WizardUtil.findExistingFile(mySelection, GMFGenNewFileCreationPage.EXT_GMFGEN);
 		if (file != null) {
 			newFileCreationPage.setFileName(file.getName());
@@ -76,31 +69,30 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		
 		resourceSet = createResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
-		mapModelPage = new MapModelConfigurationPage(PAGE_ID_GMFMAP, rlp, resourceSet);
-		mapModelPage.setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
-		mapModelPage.setDescription(Messages.TransformToGenModelWizard_descr_mapmodel);
+		mapModelPage = new MapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		mapModelPage.setPageComplete(false);
 		mapModelPage.setModelRequired(true);
 		addPage(mapModelPage);
 		
-		mapDiagnosticPage = new MapModelDiagnosticPage(PAGE_ID_GMFMAP_DIAGNOSTIC);
-		mapDiagnosticPage.setTitle(Messages.TransformToGenModelWizard_title_mapdiagnostic);
-		mapDiagnosticPage.setDescription(Messages.TransformToGenModelWizard_descr_mapdiagnostic);
+		mapDiagnosticPage = new MapModelDiagnosticPage(MapModelDiagnosticPage.class.getSimpleName());
 		addPage(mapDiagnosticPage);
 
-		genModelPage = new GenModelConfigurationPage(PAGE_ID_GENMODEL, rlp, resourceSet);
-		genModelPage.setTitle(Messages.TransformToGenModelWizard_title_genmodel);
-		genModelPage.setDescription(Messages.TransformToGenModelWizard_descr_genmodel);
+		genModelPage = new GenModelConfigurationPage(GenModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		genModelPage.setPageComplete(false);
 		genModelPage.setModelRequired(false);
 		addPage(genModelPage);
 
-		transformOptionPage = new ViewmapProducerWizardPage(PAGE_ID_TRANSFORM);
-		transformOptionPage.setTitle(Messages.TransformToGenModelWizard_title_options);
-		transformOptionPage.setDescription(Messages.TransformToGenModelWizard_descr_options);
+		transformOptionPage = new ViewmapProducerWizardPage(ViewmapProducerWizardPage.class.getSimpleName());
 		transformOptionPage.setPageComplete(false);
 		addPage(transformOptionPage);
 		
+		genDiagnosticPage = new GMFGenModelDiagnosticPage(GMFGenModelDiagnosticPage.class.getSimpleName());
+		addPage(genDiagnosticPage);
+	}
+
+	private boolean checkGMFGenValidationResult() {
+		Diagnostic diagnostic = getTransformOperation().getGMFGenValidationResult();
+		return !(Diagnostic.ERROR == diagnostic.getSeverity());
 	}
 
 	protected ResourceSet createResourceSet() {
@@ -108,7 +100,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 		return rs;
 	}
-	
+
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
 		//clear error message
@@ -126,6 +118,11 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			return findNextPageAfterMapping();
 		} else if (page == mapDiagnosticPage) {
 			return findNextPageAfterMapping();
+		} else if (page == transformOptionPage) {
+			if (checkGMFGenValidationResult()) {
+				return null;
+			}
+			return genDiagnosticPage;
 		}
 		return super.getNextPage(page);
 	}
@@ -152,6 +149,11 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	
 	@Override
 	public boolean performFinish() {
+		if (getTransformOperation().getOptions().getIgnoreGMFGenValidation() && 
+				getContainer().getCurrentPage() == genDiagnosticPage) {
+			saveTransformOptions();
+			return true;
+		}
 		try {
 			final IStatus[] s = new IStatus[1];
 			IRunnableWithProgress iwr = new IRunnableWithProgress() {
@@ -164,9 +166,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			};
 			getContainer().run(false, false, iwr);
 			if (s[0].isOK()) {
-				setErrorMessage(null);
-				saveTransformOptions();
-				return true;
+				return processGMFGenValidationResult();
 			}
 			setErrorMessage(s[0].getMessage());
 			return false;
@@ -182,6 +182,16 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			setErrorMessage(Messages.TransformToGenModelWizard_e_operation_cancelled);
 			return false;
 		}
+	}
+	
+	private boolean processGMFGenValidationResult() {
+		if (checkGMFGenValidationResult()) {
+			setErrorMessage(null);
+			saveTransformOptions();
+			return true;
+		}
+		getContainer().showPage(genDiagnosticPage);
+		return false;
 	}
 	
 	private void saveTransformOptions() {
@@ -222,5 +232,4 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			myErrorContainer.setErrorMessage(message);
 		}
 	}
-
 }
