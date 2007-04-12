@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -69,17 +70,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private WizardNewFileCreationPage myFileCreationPage;
-
-	/**
-	 * @generated
-	 */
-	private ModelElementSelectionPage diagramRootElementSelectionPage;
-
-	/**
-	 * @generated
-	 */
-	public TaiPanNewDiagramFileWizard(org.eclipse.emf.common.util.URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public TaiPanNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
 		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
@@ -111,6 +102,16 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
+	private WizardNewFileCreationPage myFileCreationPage;
+
+	/**
+	 * @generated
+	 */
+	private ModelElementSelectionPage diagramRootElementSelectionPage;
+
+	/**
+	 * @generated
+	 */
 	public void addPages() {
 		addPage(myFileCreationPage);
 		addPage(diagramRootElementSelectionPage);
@@ -124,7 +125,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		IFile diagramFile = myFileCreationPage.createNewFile();
 		TaiPanDiagramEditorUtil.setCharset(diagramFile);
 		affectedFiles.add(diagramFile);
-		org.eclipse.emf.common.util.URI diagramModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
+		URI diagramModelURI = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(diagramModelURI);
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, Messages.TaiPanNewDiagramFileWizard_InitDiagramCommand, affectedFiles) {

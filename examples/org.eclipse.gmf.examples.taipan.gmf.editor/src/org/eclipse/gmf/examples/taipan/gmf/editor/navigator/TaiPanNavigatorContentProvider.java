@@ -19,6 +19,7 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -130,7 +131,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 				return true;
 			}
 
-			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+			public boolean handleResourceMoved(Resource resource, final URI newURI) {
 				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					nextResource.unload();
@@ -196,7 +197,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+			URI fileURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			Collection result = new ArrayList();
 			result.addAll(createNavigatorItems(selectViewsByType(resource.getContents(), AquatoryEditPart.MODEL_ID), file, false));
