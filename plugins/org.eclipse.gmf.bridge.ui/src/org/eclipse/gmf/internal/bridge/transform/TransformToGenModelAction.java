@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.transform;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -29,8 +30,8 @@ import org.eclipse.ui.PlatformUI;
  */
 public class TransformToGenModelAction implements IObjectActionDelegate {
 
-	private static final int WIZARD_WIDTH_INCH = 10;
-	private static final int WIZARD_HEIGHT_INCH = 8;
+	private static final int WIZARD_WIDTH_INCH = 6;
+	private static final int WIZARD_HEIGHT_INCH = 6;
 
 	private IWorkbenchPart myPart;
 
@@ -53,6 +54,9 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		wd.create();
 		Rectangle mb = getShell().getMonitor().getClientArea();
 		Point dpi = getShell().getDisplay().getDPI();
+		if (Platform.OS_MACOSX.equals(Platform.getOS())) {
+			dpi = new Point(110, 110); // OSX DPI is always 72; 110 is a common value for modern LCD screens
+		}
 		int width = dpi.x * WIZARD_WIDTH_INCH;
 		int height = dpi.y * WIZARD_HEIGHT_INCH;
 		int x = mb.x + (mb.width - width) / 2;
