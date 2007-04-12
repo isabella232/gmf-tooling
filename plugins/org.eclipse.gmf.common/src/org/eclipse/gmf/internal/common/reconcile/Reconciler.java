@@ -55,7 +55,7 @@ public class Reconciler {
 		reconcileContents(currentRoot, currentRoot.eContents(), oldRoot.eContents());
 	}
 	
-	private void reconcileVertex(EObject current, EObject old){
+	protected void reconcileVertex(EObject current, EObject old){
 		assert current.eClass().equals(old.eClass());
 		for (Decision decision : myConfig.getDecisions(current.eClass())){
 			decision.apply(current, old);
