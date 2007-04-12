@@ -139,6 +139,11 @@ public class Plugin extends AbstractUIPlugin {
 		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile")); //$NON-NLS-1$
 	}
 
+	public static boolean ignoreDanglingHrefOnSave() {
+		String v = Platform.getDebugOption(getPluginID() + "/transform/ignore-dangling-on-save"); //$NON-NLS-1$
+		return !Boolean.FALSE.toString().equals(v);
+	}
+
 	/**
 	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 

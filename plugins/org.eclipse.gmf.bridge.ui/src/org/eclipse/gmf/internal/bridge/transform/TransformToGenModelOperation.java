@@ -14,7 +14,9 @@ package org.eclipse.gmf.internal.bridge.transform;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +31,12 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.ExternalCrossReferencer;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
@@ -363,12 +369,78 @@ public class TransformToGenModelOperation {
 	}
 
 	private void save(ResourceSet rs, GenEditorGenerator genBurdern) throws IOException {
-		Resource dgmmRes = rs.createResource(getGenURI());
-		dgmmRes.getContents().add(genBurdern);
-		dgmmRes.save(getSaveOptions());
+		try {
+			Resource gmfgenRes = rs.getResource(getGenURI(), true);
+			updateExistingResource(gmfgenRes, genBurdern);
+			// one might want to ignore dangling href on save when there are more than one
+			// content object - there are chances we don't match them during reconcile and 
+			// failed update all the references.
+			final Map<String, Object> saveOptions = getSaveOptions();
+			if (gmfgenRes.getContents().size() > 1 && Plugin.ignoreDanglingHrefOnSave()) {
+				saveOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_RECORD);
+			}
+			gmfgenRes.save(saveOptions);
+		} catch (RuntimeException ex) {
+			Resource dgmmRes = rs.createResource(getGenURI());
+			dgmmRes.getContents().add(genBurdern);
+			dgmmRes.save(getSaveOptions());
+		}
 	}
 
-	private Map<?,?> getSaveOptions() {
+	private static void updateExistingResource(Resource gmfgenRes, GenEditorGenerator genBurden) {
+		boolean editorGenFound = false;
+		for (int i = 0; !editorGenFound && i < gmfgenRes.getContents().size(); i++) {
+			if (gmfgenRes.getContents().get(i) instanceof GenEditorGenerator) {
+				if (gmfgenRes.getContents().size() > 1) {
+					// chances there are other content eobjects that reference 
+					// some parts of old GenEditorGenerator, hence need update
+					LinkedList<EObject> rest = new LinkedList<EObject>(gmfgenRes.getContents());
+					GenEditorGenerator oldEditorGenerator = (GenEditorGenerator) rest.remove(i);
+					updateExternalReferences(genBurden, oldEditorGenerator, rest);
+				}
+				gmfgenRes.getContents().set(i, genBurden); // replace with new one
+				editorGenFound = true;
+			}
+		}
+		if (!editorGenFound) {
+			gmfgenRes.getContents().add(genBurden);
+		}
+	}
+
+	private static void updateExternalReferences(GenEditorGenerator newEditorGenerator, final GenEditorGenerator oldEditorGenerator, List<EObject> allContentButOldGenerator) {
+		// find references from rest of the content to old generator
+		final Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = new ExternalCrossReferencer(allContentButOldGenerator) {
+			@Override
+			protected boolean crossReference(EObject object, EReference reference, EObject crossReferencedEObject) {
+				return super.crossReference(object, reference, crossReferencedEObject) && EcoreUtil.isAncestor(oldEditorGenerator, crossReferencedEObject);
+			}
+
+			Map<EObject, Collection<EStructuralFeature.Setting>> find() {
+				return findExternalCrossReferences();
+			}
+		}.find();
+		// match new and old objects using reconciler without decisions
+		new Reconciler(new GMFGenConfig()) {
+			@Override
+			protected void handleNotMatchedCurrent(EObject current) {/*no-op*/};
+			@Override
+			protected EObject handleNotMatchedOld(EObject currentParent, EObject notMatchedOld) {
+				return null; /*no-op*/
+			};
+			@Override
+			protected void reconcileVertex(EObject current, EObject old) {
+				if (!crossReferences.containsKey(old)) {
+					return;
+				}
+				// and replace old values with new
+				for (EStructuralFeature.Setting s : crossReferences.get(old)) {
+					s.set(current);
+				}
+			}
+		}.reconcileTree(newEditorGenerator, oldEditorGenerator);
+	}
+
+	private Map<String,Object> getSaveOptions() {
 		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
 		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 		return saveOptions;
