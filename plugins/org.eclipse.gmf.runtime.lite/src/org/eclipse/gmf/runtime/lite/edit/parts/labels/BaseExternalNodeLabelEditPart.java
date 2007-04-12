@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.runtime.lite.edit.parts.labels;
 
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public abstract class BaseExternalNodeLabelEditPart extends AbstractGraphicalEditPart {
