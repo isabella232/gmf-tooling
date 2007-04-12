@@ -34,6 +34,7 @@
         extensions="«editorGen.diagramFileExtension»"
         default="true"
         class="«getQualifiedClassName()»"
+        matchingStrategy="«editorGen.diagram.getMatchingStrategyQualifiedClassName()»"
         contributorClass="«getActionBarContributorQualifiedClassName()»">
      </editor>
    </extension>

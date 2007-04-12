@@ -238,6 +238,10 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::editor::Editor::Editor");
 	}
 
+	public TextEmitter getMatchingStrategyEmitter() {
+		return retrieveXpand("xpt::editor::MatchingStrategy::MatchingStrategy"); //$NON-NLS-1$
+	}
+	
 	public TextEmitter getCreationWizardGenerator() throws UnexpectedBehaviourException {
 		return retrieve(CreationWizardGenerator.class);
 	}
