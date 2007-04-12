@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
@@ -55,7 +56,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	
 	private TransformToGenModelOperation myOperation;
 
-	ResourceSet resourceSet;
+	private ResourceSet resourceSet;
 	
 	@Override
 	public void addPages() {
@@ -73,7 +74,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		}
 		addPage(newFileCreationPage);
 		
-		resourceSet = new ResourceSetImpl();
+		resourceSet = createResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
 		mapModelPage = new MapModelConfigurationPage(PAGE_ID_GMFMAP, rlp, resourceSet);
 		mapModelPage.setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
@@ -100,6 +101,12 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		transformOptionPage.setPageComplete(false);
 		addPage(transformOptionPage);
 		
+	}
+
+	protected ResourceSet createResourceSet() {
+		final ResourceSetImpl rs = new ResourceSetImpl();
+		rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+		return rs;
 	}
 	
 	@Override
