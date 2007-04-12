@@ -308,8 +308,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected Command getDestroyEdgeCommand(Edge edge, boolean confirm) {
-		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(edge);
+	protected Command getDestroyElementCommand(View view, boolean confirm) {
+		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), confirm);
 		return editPart.getCommand(new EditCommandRequestWrapper(request, Collections.EMPTY_MAP));
 	}
@@ -323,10 +323,10 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		CompoundCommand cmd = new CompoundCommand();
 		View view = (View) getHost().getModel();
 		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
 		}
 		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyEdgeCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
 		}
 		return cmd;
 	}
