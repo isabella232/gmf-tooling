@@ -16,6 +16,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.lite.gef.DiagramEditorMatchingStrategyTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorOutlineTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementDeleteTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
@@ -47,6 +48,7 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 
 		SessionSetup.disallowSingleTestCaseUse();
 
+		suite.addTest(feed(DiagramEditorMatchingStrategyTest.class, sessionSetup3));
 		suite.addTest(feed(DiagramEditorOutlineTest.class, sessionSetup3));
 		suite.addTest(feed(DiagramElementDeleteTest.class, sessionSetup3));
 		suite.addTest(feed(ExternalNodeLabelsTest.class, sessionSetup3));
