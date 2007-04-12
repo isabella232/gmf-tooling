@@ -205,6 +205,14 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 
 		setMatcher(GMFGEN.getGenDiagramPreferences(), ALWAYS_MATCH);
 		setCopier(GMFGEN.getGenDiagramPreferences(), Copier.COMPLETE_COPY);
+
+		setMatcher(GMFGEN.getGenApplication(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_ID());
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_Title());
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PackageName());
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_ClassName());
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_PerspectiveId());
+		preserveIfSet(GMFGEN.getGenApplication(), GMFGEN.getGenApplication_SupportFiles());
 	}
 
 	private void restore(EClass eClass, EAttribute feature) {
