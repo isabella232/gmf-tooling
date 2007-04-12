@@ -365,6 +365,7 @@
         editPartClassName="ShipDestinationEditPart"
         itemSemanticEditPolicyClassName="ShipDestinationItemSemanticEditPolicy"
         notationViewFactoryClassName="ShipDestinationViewFactory"
+        createCommandClassName="ShipDestinationCreateCommand"
         reorientCommandClassName="ShipDestinationReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -410,6 +411,7 @@
         editPartClassName="RouteEditPart"
         itemSemanticEditPolicyClassName="RouteItemSemanticEditPolicy"
         notationViewFactoryClassName="RouteViewFactory"
+        createCommandClassName="RouteCreateCommand"
         reorientCommandClassName="RouteReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -425,8 +427,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="RouteTypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan_rcp.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -506,6 +507,7 @@
         editPartClassName="Route2EditPart"
         itemSemanticEditPolicyClassName="Route2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Route2ViewFactory"
+        createCommandClassName="Route2CreateCommand"
         reorientCommandClassName="Route2ReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -522,8 +524,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="Route2TypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan_rcp.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -603,6 +604,7 @@
         editPartClassName="EscortShipsOrderEditPart"
         itemSemanticEditPolicyClassName="EscortShipsOrderItemSemanticEditPolicy"
         notationViewFactoryClassName="EscortShipsOrderViewFactory"
+        createCommandClassName="EscortShipsOrderCreateCommand"
         reorientCommandClassName="EscortShipsOrderReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -618,8 +620,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="EscortShipsOrderTypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan_rcp.genmodel#//taipan/EscortShipsOrder"/>
         <containmentMetaFeature
@@ -641,6 +642,7 @@
         editPartClassName="BesiegePortOrderEditPart"
         itemSemanticEditPolicyClassName="BesiegePortOrderItemSemanticEditPolicy"
         notationViewFactoryClassName="BesiegePortOrderViewFactory"
+        createCommandClassName="BesiegePortOrderCreateCommand"
         reorientCommandClassName="BesiegePortOrderReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -655,8 +657,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="BesiegePortOrderTypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="taipan_rcp.genmodel#//taipan/BesiegePortOrder"/>
         <containmentMetaFeature
@@ -676,6 +677,7 @@
         editPartClassName="PortRegisterEditPart"
         itemSemanticEditPolicyClassName="PortRegisterItemSemanticEditPolicy"
         notationViewFactoryClassName="PortRegisterViewFactory"
+        createCommandClassName="PortRegisterCreateCommand"
         reorientCommandClassName="PortRegisterReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -853,7 +855,6 @@
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
-        <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
   </propertySheet>
