@@ -30,7 +30,7 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1000;
+	public static final int VISUAL_ID = 1;
 
 	/**
 	 * @generated

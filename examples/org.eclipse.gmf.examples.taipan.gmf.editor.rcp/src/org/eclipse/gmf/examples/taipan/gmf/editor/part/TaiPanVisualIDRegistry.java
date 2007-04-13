@@ -134,7 +134,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagramAquatory_1000((Aquatory) domainElement)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagramAquatory_1((Aquatory) domainElement)) {
 			return AquatoryEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -233,7 +233,7 @@ public class TaiPanVisualIDRegistry {
 					&& (domainElement == null || isNodeWarship_2003((Warship) domainElement))) {
 				return WarshipEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedAquatory_1000ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedAquatory_1ChildNodeID(domainElement, semanticHint);
 		case ShipDestinationEditPart.VISUAL_ID:
 			if (ShipDestinationMarkerEditPart.VISUAL_ID == nodeVisualID) {
 				return ShipDestinationMarkerEditPart.VISUAL_ID;
@@ -295,7 +295,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isDiagramAquatory_1000(Aquatory element) {
+	private static boolean isDiagramAquatory_1(Aquatory element) {
 		return true;
 	}
 
@@ -455,7 +455,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedAquatory_1000ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedAquatory_1ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
