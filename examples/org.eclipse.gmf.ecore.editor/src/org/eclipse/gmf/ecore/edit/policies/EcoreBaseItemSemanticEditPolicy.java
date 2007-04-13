@@ -13,6 +13,7 @@ package org.eclipse.gmf.ecore.edit.policies;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -21,8 +22,10 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
@@ -38,6 +41,7 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IEditHelperContext;
@@ -55,6 +59,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -285,6 +290,43 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Returns editing domain from the host edit part.
+	 * 
+	 * @generated
+	 */
+	protected TransactionalEditingDomain getEditingDomain() {
+		return ((IGraphicalEditPart) getHost()).getEditingDomain();
+	}
+
+	/**
+	 * Creates command to destroy the link.
+	 * 
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(View view, boolean confirm) {
+		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
+		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), confirm);
+		return editPart.getCommand(new EditCommandRequestWrapper(request, Collections.EMPTY_MAP));
+	}
+
+	/**
+	 * Creates commands to destroy all host incoming and outgoing links.
+	 * 
+	 * @generated
+	 */
+	protected CompoundCommand getDestroyEdgesCommand(boolean confirm) {
+		CompoundCommand cmd = new CompoundCommand();
+		View view = (View) getHost().getModel();
+		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
+			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
+		}
+		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
+			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
+		}
+		return cmd;
 	}
 
 	/**

@@ -11,30 +11,35 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageClassesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageDataTypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEnumsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackageAnnotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -46,18 +51,8 @@ public class EPackage2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((EPackage2EditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+		addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -68,9 +63,70 @@ public class EPackage2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 				}
 				return super.getElementToDestroy();
 			}
-
 		}));
-		return cc;
+		return cc.unwrap();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd, boolean confirm) {
+		View view = (View) getHost().getModel();
+		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			Node node = (Node) it.next();
+			switch (EcoreVisualIDRegistry.getVisualID(node)) {
+			case EPackageClassesEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EClass2EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EPackagePackagesEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EPackage3EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EPackageDataTypesEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EDataType2EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EPackageEnumsEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EEnum2EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EPackagePackageAnnotationsEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EAnnotation2EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			}
+		}
 	}
 
 	/**

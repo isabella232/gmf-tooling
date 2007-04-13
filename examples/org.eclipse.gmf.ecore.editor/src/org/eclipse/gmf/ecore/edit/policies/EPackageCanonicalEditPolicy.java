@@ -99,11 +99,11 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				result.add(nextValue);
 				break;
 			}
-			case EDataType2EditPart.VISUAL_ID: {
+			case EDataTypeEditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case EEnum2EditPart.VISUAL_ID: {
+			case EEnumEditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
@@ -119,7 +119,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (EAnnotation2EditPart.VISUAL_ID == nodeVID) {
+			if (EAnnotationEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -137,9 +137,9 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (nodeVID) {
 		case EClassEditPart.VISUAL_ID:
 		case EPackage2EditPart.VISUAL_ID:
-		case EAnnotation2EditPart.VISUAL_ID:
-		case EDataType2EditPart.VISUAL_ID:
-		case EEnum2EditPart.VISUAL_ID:
+		case EAnnotationEditPart.VISUAL_ID:
+		case EDataTypeEditPart.VISUAL_ID:
+		case EEnumEditPart.VISUAL_ID:
 			return true;
 		}
 		return false;
@@ -249,16 +249,16 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (diagramElementVisualID) {
 		case EClassEditPart.VISUAL_ID:
 		case EPackage2EditPart.VISUAL_ID:
-		case EAnnotation2EditPart.VISUAL_ID:
-		case EDataType2EditPart.VISUAL_ID:
-		case EEnum2EditPart.VISUAL_ID:
-		case EAttributeEditPart.VISUAL_ID:
-		case EOperationEditPart.VISUAL_ID:
 		case EAnnotationEditPart.VISUAL_ID:
-		case EClass2EditPart.VISUAL_ID:
-		case EPackage3EditPart.VISUAL_ID:
 		case EDataTypeEditPart.VISUAL_ID:
 		case EEnumEditPart.VISUAL_ID:
+		case EAttributeEditPart.VISUAL_ID:
+		case EOperationEditPart.VISUAL_ID:
+		case EAnnotation2EditPart.VISUAL_ID:
+		case EClass2EditPart.VISUAL_ID:
+		case EPackage3EditPart.VISUAL_ID:
+		case EDataType2EditPart.VISUAL_ID:
+		case EEnum2EditPart.VISUAL_ID:
 		case EStringToStringMapEntryEditPart.VISUAL_ID:
 		case EEnumLiteralEditPart.VISUAL_ID:
 		case EPackageEditPart.VISUAL_ID: {

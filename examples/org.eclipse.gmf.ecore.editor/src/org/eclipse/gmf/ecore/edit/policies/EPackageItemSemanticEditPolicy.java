@@ -18,10 +18,10 @@ import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsComma
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.gmf.ecore.edit.commands.EAnnotation2CreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EAnnotationCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EClassCreateCommand;
-import org.eclipse.gmf.ecore.edit.commands.EDataType2CreateCommand;
-import org.eclipse.gmf.ecore.edit.commands.EEnum2CreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EDataTypeCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EEnumCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EPackageCreateCommand;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -53,19 +53,19 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new EAnnotation2CreateCommand(req));
+			return getMSLWrapper(new EAnnotationCreateCommand(req));
 		}
 		if (EcoreElementTypes.EDataType_2004 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new EDataType2CreateCommand(req));
+			return getMSLWrapper(new EDataTypeCreateCommand(req));
 		}
 		if (EcoreElementTypes.EEnum_2005 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new EEnum2CreateCommand(req));
+			return getMSLWrapper(new EEnumCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

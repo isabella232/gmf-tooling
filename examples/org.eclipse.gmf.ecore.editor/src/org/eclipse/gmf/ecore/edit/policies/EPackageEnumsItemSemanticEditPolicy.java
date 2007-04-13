@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.ecore.edit.commands.EEnumCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EEnum2CreateCommand;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
@@ -34,7 +34,7 @@ public class EPackageEnumsItemSemanticEditPolicy extends EcoreBaseItemSemanticEd
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new EEnumCreateCommand(req));
+			return getMSLWrapper(new EEnum2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

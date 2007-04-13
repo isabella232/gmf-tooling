@@ -23,14 +23,14 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassNameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeNameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
@@ -517,15 +517,15 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getEAttributeEAttribute_3001Parser();
 		case EOperationEditPart.VISUAL_ID:
 			return getEOperationEOperation_3002Parser();
-		case EAnnotationEditPart.VISUAL_ID:
+		case EAnnotation2EditPart.VISUAL_ID:
 			return getEAnnotationEAnnotation_3003Parser();
 		case EClass2EditPart.VISUAL_ID:
 			return getEClassEClass_3004Parser();
 		case EPackage3EditPart.VISUAL_ID:
 			return getEPackageEPackage_3005Parser();
-		case EDataTypeEditPart.VISUAL_ID:
+		case EDataType2EditPart.VISUAL_ID:
 			return getEDataTypeEDataType_3006Parser();
-		case EEnumEditPart.VISUAL_ID:
+		case EEnum2EditPart.VISUAL_ID:
 			return getEEnumEEnum_3007Parser();
 		case EStringToStringMapEntryEditPart.VISUAL_ID:
 			return getEStringToStringMapEntryEStringToStringMapEntry_3008Parser();

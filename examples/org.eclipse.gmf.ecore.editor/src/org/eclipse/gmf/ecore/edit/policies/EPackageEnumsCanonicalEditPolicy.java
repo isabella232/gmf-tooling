@@ -20,7 +20,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
-import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
@@ -41,7 +41,7 @@ public class EPackageEnumsCanonicalEditPolicy extends CanonicalEditPolicy {
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (EEnumEditPart.VISUAL_ID == nodeVID) {
+			if (EEnum2EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -57,7 +57,7 @@ public class EPackageEnumsCanonicalEditPolicy extends CanonicalEditPolicy {
 		}
 		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (nodeVID) {
-		case EEnumEditPart.VISUAL_ID:
+		case EEnum2EditPart.VISUAL_ID:
 			return true;
 		}
 		return false;

@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -21,23 +18,27 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EClassESuperTypesReorientCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReference2CreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2ReorientCommand;
-import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReferenceCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceReorientCommand;
-import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassAttributesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassClassAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -45,7 +46,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -57,18 +58,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((EClassEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+		addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -79,9 +70,50 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				}
 				return super.getElementToDestroy();
 			}
-
 		}));
-		return cc;
+		return cc.unwrap();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd, boolean confirm) {
+		View view = (View) getHost().getModel();
+		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+			Node node = (Node) it.next();
+			switch (EcoreVisualIDRegistry.getVisualID(node)) {
+			case EClassAttributesEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EAttributeEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EClassOperationsEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EOperationEditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			case EClassClassAnnotationsEditPart.VISUAL_ID:
+				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+					Node cnode = (Node) cit.next();
+					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
+					case EAnnotation2EditPart.VISUAL_ID:
+						cmd.add(getDestroyElementCommand(cnode, confirm));
+						break;
+					}
+				}
+				break;
+			}
+		}
 	}
 
 	/**
@@ -154,7 +186,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReferenceTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EReferenceCreateCommand(req, source, target));
 	}
 
 	/**
@@ -190,7 +222,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReference2TypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EReference2CreateCommand(req, source, target));
 	}
 
 	/**

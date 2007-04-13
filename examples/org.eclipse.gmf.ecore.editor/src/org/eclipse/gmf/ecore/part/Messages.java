@@ -34,12 +34,142 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String DocumentProvider_isModifiable;
+	public static String EcoreDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String DocumentProvider_handleElementContentChanged;
+	public static String EcoreDiagramEditorUtil_OpenModelResourceErrorDialogMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditorUtil_CreateDiagramProgressTask;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDiagramEditorUtil_CreateDiagramCommandLabel;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_isModifiable;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_handleElementContentChanged;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_IncorrectInputError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_UnableToLoadResourceError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_NoDiagramInResourceError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_DiagramLoadingError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_UnsynchronizedFileSaveError;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_SaveDiagramTask;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreDocumentProvider_SaveNextResourceTask;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreInitDiagramFileAction_InitDiagramFileWizardTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreInitDiagramFileAction_OpenModelFileDialogTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_CreationPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_CreationPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_CreationPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageName;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageDescription;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageSelectionTitle;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageNoSelectionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_InitDiagramCommand;
+
+	/**
+	 * @generated
+	 */
+	public static String EcoreNewDiagramFileWizard_IncorrectRootError;
 
 	/**
 	 * @generated

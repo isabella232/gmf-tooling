@@ -11,31 +11,23 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReference2CreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2ReorientCommand;
-import org.eclipse.gmf.ecore.edit.commands.EReference2TypeLinkCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EReferenceCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReferenceReorientCommand;
-import org.eclipse.gmf.ecore.edit.commands.EReferenceTypeLinkCreateCommand;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -43,8 +35,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -55,31 +45,9 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((EDataType2EditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
-		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		}));
-		return cc;
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		return cc.unwrap();
 	}
 
 	/**
@@ -133,7 +101,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReferenceTypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EReferenceCreateCommand(req, source, target));
 	}
 
 	/**
@@ -153,7 +121,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReference2TypeLinkCreateCommand(req, source, target));
+		return getMSLWrapper(new EReference2CreateCommand(req, source, target));
 	}
 
 	/**

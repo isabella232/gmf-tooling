@@ -3,7 +3,6 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel/2.0" packageNamePrefix="org.eclipse.gmf.ecore"
-    modelID="Ecore"
     copyrightText=" Copyright (c) 2006, 2007 Borland Software Corp.&#xD;&#xA;&#xD;&#xA; All rights reserved. This program and the accompanying materials&#xD;&#xA; are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; which accompanies this distribution, and is available at&#xD;&#xA; http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;    Alexander Shatalin (Borland) - initial API and implementation">
   <diagram
       visualID="1000"
@@ -59,7 +58,7 @@
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet"
-          viewPattern=""
+          viewPattern="{0}"
           editPattern="">
         <metaFeatures
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
@@ -104,12 +103,12 @@
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
         visualID="3003"
-        editPartClassName="EAnnotationEditPart"
-        itemSemanticEditPolicyClassName="EAnnotationItemSemanticEditPolicy"
-        notationViewFactoryClassName="EAnnotationViewFactory"
-        canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy"
-        createCommandClassName="EAnnotationCreateCommand"
+        editPartClassName="EAnnotation2EditPart"
+        itemSemanticEditPolicyClassName="EAnnotation2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="EAnnotation2ViewFactory"
+        canonicalEditPolicyClassName="EAnnotation2CanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy"
+        createCommandClassName="EAnnotation2CreateCommand"
         containers="//@diagram/@compartments.2 //@diagram/@compartments.7 //@diagram/@compartments.9 //@diagram/@compartments.11"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -214,12 +213,12 @@
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
         visualID="3006"
-        editPartClassName="EDataTypeEditPart"
-        itemSemanticEditPolicyClassName="EDataTypeItemSemanticEditPolicy"
-        notationViewFactoryClassName="EDataTypeViewFactory"
-        canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy"
-        createCommandClassName="EDataTypeCreateCommand"
+        editPartClassName="EDataType2EditPart"
+        itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="EDataType2ViewFactory"
+        canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy"
+        createCommandClassName="EDataType2CreateCommand"
         containers="//@diagram/@compartments.5"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -252,12 +251,12 @@
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
         visualID="3007"
-        editPartClassName="EEnumEditPart"
-        itemSemanticEditPolicyClassName="EEnumItemSemanticEditPolicy"
-        notationViewFactoryClassName="EEnumViewFactory"
-        canonicalEditPolicyClassName="EEnumCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy"
-        createCommandClassName="EEnumCreateCommand"
+        editPartClassName="EEnum2EditPart"
+        itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="EEnum2ViewFactory"
+        canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy"
+        createCommandClassName="EEnum2CreateCommand"
         containers="//@diagram/@compartments.6"
         labelElementIcon="true">
       <diagramRunTimeClass
@@ -464,13 +463,13 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
-        editPartClassName="EAnnotation2EditPart"
-        itemSemanticEditPolicyClassName="EAnnotation2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="EAnnotation2ViewFactory"
-        canonicalEditPolicyClassName="EAnnotation2CanonicalEditPolicy"
+        editPartClassName="EAnnotationEditPart"
+        itemSemanticEditPolicyClassName="EAnnotationItemSemanticEditPolicy"
+        notationViewFactoryClassName="EAnnotationViewFactory"
+        canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy"
         compartments="//@diagram/@compartments.8"
-        graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy"
-        createCommandClassName="EAnnotation2CreateCommand">
+        graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy"
+        createCommandClassName="EAnnotationCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -514,13 +513,13 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2004"
-        editPartClassName="EDataType2EditPart"
-        itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="EDataType2ViewFactory"
-        canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy"
+        editPartClassName="EDataTypeEditPart"
+        itemSemanticEditPolicyClassName="EDataTypeItemSemanticEditPolicy"
+        notationViewFactoryClassName="EDataTypeViewFactory"
+        canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy"
         compartments="//@diagram/@compartments.9"
-        graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy"
-        createCommandClassName="EDataType2CreateCommand">
+        graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy"
+        createCommandClassName="EDataTypeCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -566,13 +565,13 @@
     </topLevelNodes>
     <topLevelNodes
         visualID="2005"
-        editPartClassName="EEnum2EditPart"
-        itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="EEnum2ViewFactory"
-        canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy"
+        editPartClassName="EEnumEditPart"
+        itemSemanticEditPolicyClassName="EEnumItemSemanticEditPolicy"
+        notationViewFactoryClassName="EEnumViewFactory"
+        canonicalEditPolicyClassName="EEnumCanonicalEditPolicy"
         compartments="//@diagram/@compartments.10 //@diagram/@compartments.11"
-        graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy"
-        createCommandClassName="EEnum2CreateCommand">
+        graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy"
+        createCommandClassName="EEnumCreateCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -619,6 +618,7 @@
         editPartClassName="EAnnotationReferencesEditPart"
         itemSemanticEditPolicyClassName="EAnnotationReferencesItemSemanticEditPolicy"
         notationViewFactoryClassName="EAnnotationReferencesViewFactory"
+        createCommandClassName="EAnnotationReferencesCreateCommand"
         reorientCommandClassName="EAnnotationReferencesReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -643,6 +643,7 @@
         editPartClassName="EReferenceEditPart"
         itemSemanticEditPolicyClassName="EReferenceItemSemanticEditPolicy"
         notationViewFactoryClassName="EReferenceViewFactory"
+        createCommandClassName="EReferenceCreateCommand"
         reorientCommandClassName="EReferenceReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -657,8 +658,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="EReferenceTypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference"/>
         <containmentMetaFeature
@@ -738,6 +738,7 @@
         editPartClassName="EReference2EditPart"
         itemSemanticEditPolicyClassName="EReference2ItemSemanticEditPolicy"
         notationViewFactoryClassName="EReference2ViewFactory"
+        createCommandClassName="EReference2CreateCommand"
         reorientCommandClassName="EReference2ReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -753,8 +754,7 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet"
-          createCommandClassName="EReference2TypeLinkCreateCommand">
+          xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference"/>
         <containmentMetaFeature
@@ -834,6 +834,7 @@
         editPartClassName="EClassESuperTypesEditPart"
         itemSemanticEditPolicyClassName="EClassESuperTypesItemSemanticEditPolicy"
         notationViewFactoryClassName="EClassESuperTypesViewFactory"
+        createCommandClassName="EClassESuperTypesCreateCommand"
         reorientCommandClassName="EClassESuperTypesReorientCommand">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
@@ -1703,8 +1704,7 @@
         iD="appearance"/>
     <tabs
         xsi:type="gmfgen:GenStandardPropertyTab"
-        iD="diagram"
-        label="Rulers &amp; Grid"/>
+        iD="diagram"/>
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"

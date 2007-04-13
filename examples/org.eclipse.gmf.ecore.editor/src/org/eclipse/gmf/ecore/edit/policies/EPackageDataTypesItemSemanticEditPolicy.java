@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.ecore.edit.commands.EDataTypeCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EDataType2CreateCommand;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
@@ -34,7 +34,7 @@ public class EPackageDataTypesItemSemanticEditPolicy extends EcoreBaseItemSemant
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new EDataTypeCreateCommand(req));
+			return getMSLWrapper(new EDataType2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

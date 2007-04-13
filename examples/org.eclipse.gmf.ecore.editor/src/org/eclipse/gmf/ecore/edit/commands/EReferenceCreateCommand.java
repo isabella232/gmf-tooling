@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 /**
  * @generated
  */
-public class EReference2TypeLinkCreateCommand extends CreateRelationshipCommand {
+public class EReferenceCreateCommand extends CreateRelationshipCommand {
 
 	/**
 	 * @generated
@@ -41,7 +41,7 @@ public class EReference2TypeLinkCreateCommand extends CreateRelationshipCommand 
 	/**
 	 * @generated
 	 */
-	public EReference2TypeLinkCreateCommand(CreateRelationshipRequest req, EClass source, EClassifier target) {
+	public EReferenceCreateCommand(CreateRelationshipRequest req, EClass source, EClassifier target) {
 		super(req);
 		super.setElementToEdit(source);
 		mySource = source;
@@ -83,7 +83,7 @@ public class EReference2TypeLinkCreateCommand extends CreateRelationshipCommand 
 		EReference newElement = (EReference) super.doDefaultElementCreation();
 		if (newElement != null) {
 			newElement.setEType(myTarget);
-			EcoreElementTypes.Initializers.EReference_4003.init(newElement);
+			EcoreElementTypes.Initializers.EReference_4002.init(newElement);
 		}
 		return newElement;
 	}

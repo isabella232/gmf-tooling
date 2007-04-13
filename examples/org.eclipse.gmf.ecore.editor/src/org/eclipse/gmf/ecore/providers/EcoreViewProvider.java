@@ -138,32 +138,32 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EPackage2ViewFactory.class;
 		case EPackageNameEditPart.VISUAL_ID:
 			return EPackageNameViewFactory.class;
-		case EAnnotation2EditPart.VISUAL_ID:
-			return EAnnotation2ViewFactory.class;
+		case EAnnotationEditPart.VISUAL_ID:
+			return EAnnotationViewFactory.class;
 		case EAnnotationSourceEditPart.VISUAL_ID:
 			return EAnnotationSourceViewFactory.class;
-		case EDataType2EditPart.VISUAL_ID:
-			return EDataType2ViewFactory.class;
+		case EDataTypeEditPart.VISUAL_ID:
+			return EDataTypeViewFactory.class;
 		case EDataTypeNameEditPart.VISUAL_ID:
 			return EDataTypeNameViewFactory.class;
-		case EEnum2EditPart.VISUAL_ID:
-			return EEnum2ViewFactory.class;
+		case EEnumEditPart.VISUAL_ID:
+			return EEnumViewFactory.class;
 		case EEnumNameEditPart.VISUAL_ID:
 			return EEnumNameViewFactory.class;
 		case EAttributeEditPart.VISUAL_ID:
 			return EAttributeViewFactory.class;
 		case EOperationEditPart.VISUAL_ID:
 			return EOperationViewFactory.class;
-		case EAnnotationEditPart.VISUAL_ID:
-			return EAnnotationViewFactory.class;
+		case EAnnotation2EditPart.VISUAL_ID:
+			return EAnnotation2ViewFactory.class;
 		case EClass2EditPart.VISUAL_ID:
 			return EClass2ViewFactory.class;
 		case EPackage3EditPart.VISUAL_ID:
 			return EPackage3ViewFactory.class;
-		case EDataTypeEditPart.VISUAL_ID:
-			return EDataTypeViewFactory.class;
-		case EEnumEditPart.VISUAL_ID:
-			return EEnumViewFactory.class;
+		case EDataType2EditPart.VISUAL_ID:
+			return EDataType2ViewFactory.class;
+		case EEnum2EditPart.VISUAL_ID:
+			return EEnum2ViewFactory.class;
 		case EStringToStringMapEntryEditPart.VISUAL_ID:
 			return EStringToStringMapEntryViewFactory.class;
 		case EEnumLiteralEditPart.VISUAL_ID:

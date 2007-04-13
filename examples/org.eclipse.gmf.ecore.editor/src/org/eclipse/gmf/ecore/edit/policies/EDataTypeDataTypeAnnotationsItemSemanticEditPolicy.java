@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.ecore.edit.commands.EAnnotationCreateCommand;
+import org.eclipse.gmf.ecore.edit.commands.EAnnotation2CreateCommand;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
@@ -34,7 +34,7 @@ public class EDataTypeDataTypeAnnotationsItemSemanticEditPolicy extends EcoreBas
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new EAnnotationCreateCommand(req));
+			return getMSLWrapper(new EAnnotation2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

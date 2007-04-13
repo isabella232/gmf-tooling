@@ -54,20 +54,20 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case EPackageNameEditPart.VISUAL_ID:
 				return new EPackageNameEditPart(view);
 
-			case EAnnotation2EditPart.VISUAL_ID:
-				return new EAnnotation2EditPart(view);
+			case EAnnotationEditPart.VISUAL_ID:
+				return new EAnnotationEditPart(view);
 
 			case EAnnotationSourceEditPart.VISUAL_ID:
 				return new EAnnotationSourceEditPart(view);
 
-			case EDataType2EditPart.VISUAL_ID:
-				return new EDataType2EditPart(view);
+			case EDataTypeEditPart.VISUAL_ID:
+				return new EDataTypeEditPart(view);
 
 			case EDataTypeNameEditPart.VISUAL_ID:
 				return new EDataTypeNameEditPart(view);
 
-			case EEnum2EditPart.VISUAL_ID:
-				return new EEnum2EditPart(view);
+			case EEnumEditPart.VISUAL_ID:
+				return new EEnumEditPart(view);
 
 			case EEnumNameEditPart.VISUAL_ID:
 				return new EEnumNameEditPart(view);
@@ -78,8 +78,8 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case EOperationEditPart.VISUAL_ID:
 				return new EOperationEditPart(view);
 
-			case EAnnotationEditPart.VISUAL_ID:
-				return new EAnnotationEditPart(view);
+			case EAnnotation2EditPart.VISUAL_ID:
+				return new EAnnotation2EditPart(view);
 
 			case EClass2EditPart.VISUAL_ID:
 				return new EClass2EditPart(view);
@@ -87,11 +87,11 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case EPackage3EditPart.VISUAL_ID:
 				return new EPackage3EditPart(view);
 
-			case EDataTypeEditPart.VISUAL_ID:
-				return new EDataTypeEditPart(view);
+			case EDataType2EditPart.VISUAL_ID:
+				return new EDataType2EditPart(view);
 
-			case EEnumEditPart.VISUAL_ID:
-				return new EEnumEditPart(view);
+			case EEnum2EditPart.VISUAL_ID:
+				return new EEnum2EditPart(view);
 
 			case EStringToStringMapEntryEditPart.VISUAL_ID:
 				return new EStringToStringMapEntryEditPart(view);
