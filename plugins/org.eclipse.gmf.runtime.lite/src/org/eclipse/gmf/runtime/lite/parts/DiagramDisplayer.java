@@ -410,7 +410,7 @@ public class DiagramDisplayer implements IDiagramOutlineHost {
 		progressMonitor.beginTask("Saving", getEditingDomain().getResourceSet().getResources().size());
 		try {
 			for(Resource next : getEditingDomain().getResourceSet().getResources()) {
-				if (next.isLoaded() && (next.isModified() || !next.isTrackingModification())) {
+				if (next.isLoaded() && !getEditingDomain().isReadOnly(next)) {
 					next.save(options);
 				}
 				progressMonitor.worked(1);
