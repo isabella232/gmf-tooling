@@ -44,7 +44,7 @@
     </rules>
   </audits>
   <diagram
-      visualID="1000"
+      visualID="1"
       editPartClassName="AquatoryEditPart"
       itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
       notationViewFactoryClassName="AquatoryViewFactory"
@@ -855,7 +855,8 @@
   </diagram>
   <plugin
       iD="org.eclipse.gmf.examples.taipan.gmf.editor"
-      name="taipan Plugin"
+      name="TaiPan Diagram"
+      provider="Eclipse.org"
       version="2.0.0.qualifier"/>
   <editor/>
   <navigator>
@@ -1101,7 +1102,7 @@
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"
-        label="Core">
+        label="Domain Model">
       <filter
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
