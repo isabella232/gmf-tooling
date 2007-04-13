@@ -19,6 +19,7 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -119,7 +120,7 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 				return true;
 			}
 
-			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+			public boolean handleResourceMoved(Resource resource, final URI newURI) {
 				for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					nextResource.unload();
@@ -185,7 +186,7 @@ public class TaiPanDomainNavigatorContentProvider implements ICommonContentProvi
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+			URI fileURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			return wrapEObjects(myAdapterFctoryContentProvier.getChildren(resource), parentElement);
 		}

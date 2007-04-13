@@ -218,7 +218,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
-			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			URI uri = ((URIEditorInput) element).getURI();
 			Resource resource = null;
 			try {
 				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
@@ -604,9 +604,9 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+	protected void handleElementMoved(IEditorInput input, URI uri) {
 		if (input instanceof FileEditorInput) {
-			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
+			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(URI.decode(uri.path())).removeFirstSegments(1));
 			fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
 			return;
 		}
@@ -853,7 +853,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 			/**
 			 * @generated
 			 */
-			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+			public boolean handleResourceMoved(Resource resource, final URI newURI) {
 				synchronized (ResourceSetInfo.this) {
 					if (ResourceSetInfo.this.fCanBeSaved) {
 						ResourceSetInfo.this.setUnSynchronized(resource);

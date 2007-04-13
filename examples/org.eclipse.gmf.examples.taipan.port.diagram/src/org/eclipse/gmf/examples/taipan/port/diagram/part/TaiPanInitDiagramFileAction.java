@@ -57,7 +57,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.emf.common.util.URI domainModelURI;
+	private URI domainModelURI;
 
 	/**
 	 * @generated
@@ -83,7 +83,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			return;
 		}
 		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
-		domainModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+		domainModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
 	}
 
