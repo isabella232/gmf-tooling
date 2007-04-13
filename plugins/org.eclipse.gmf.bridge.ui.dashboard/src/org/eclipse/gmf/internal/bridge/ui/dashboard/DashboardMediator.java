@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,6 +21,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.draw2d.ActionEvent;
+import org.eclipse.draw2d.ActionListener;
+import org.eclipse.draw2d.CheckBox;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
@@ -76,10 +80,13 @@ public class DashboardMediator implements DashboardFacade {
 
 	private Map<DashboardActionDescriptor, IFigure> contributions;
 
+	private Map<String, CheckBox> optionFigures;
+
 	public DashboardMediator(Shell shell) {
 		state = new DashboardState();
 		locations = new HashMap<String, ActionContainer>();
 		contributions = new HashMap<DashboardActionDescriptor, IFigure>();
+		optionFigures = new HashMap<String, CheckBox>();
 		this.shell = shell;
 	}
 
@@ -122,6 +129,7 @@ public class DashboardMediator implements DashboardFacade {
 		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Combine, new CombineMMAction()));
+		view.getMM2GMFigure().addAction(createOptionFigure(Messages.DashboardMediator_RCP, DashboardFacade.OPTION_RCP));
 		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Transform, new TransformMap2GenModelAction()));
 		for (DashboardActionDescriptor descriptor : Plugin.getDefault().getDashboardActionRegistry().getDescriptors()) {
 			addDashboardAction(descriptor);
@@ -167,6 +175,21 @@ public class DashboardMediator implements DashboardFacade {
 		return linkFigure;
 	}
 
+	protected IFigure createOptionFigure(String text, final String option) {
+		final CheckBox optionFigure = new CheckBox(text);
+		optionFigure.setRequestFocusEnabled(false);
+		optionFigure.setFocusTraversable(false);
+		optionFigure.setForegroundColor(ColorConstants.blue);
+		optionFigure.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent event) {
+				getState().setOption(option, optionFigure.isSelected());
+			}
+		});
+		optionFigures.put(option, optionFigure);
+		return optionFigure;
+	}
+
 	public IProject getProject() {
 		return project;
 	}
@@ -199,6 +222,7 @@ public class DashboardMediator implements DashboardFacade {
 		setModelName(view.getTDMFigure(), state.getTDM());
 		setModelName(view.getMMFigure(), state.getMM());
 		setModelName(view.getGMFigure(), state.getGM());
+		optionFigures.get(DashboardFacade.OPTION_RCP).setSelected(state.getOption(DashboardFacade.OPTION_RCP));
 		view.repaint(); // update hyperlinks
 	}
 

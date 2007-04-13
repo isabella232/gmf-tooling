@@ -15,11 +15,8 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.jface.action.Action;
@@ -36,8 +33,6 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.osgi.service.prefs.BackingStoreException;
-import org.osgi.service.prefs.Preferences;
 
 /**
  * @author dstadnik
@@ -47,8 +42,6 @@ public class DashboardPart extends ViewPart {
 	private static final String ACTIVE_PROJECT_KEY = "activeProject"; //$NON-NLS-1$
 
 	private static final String SYNC_SELECTION_KEY = "syncSelection"; //$NON-NLS-1$
-
-	private static final String PREF_KEY = "gmf_dashboard"; //$NON-NLS-1$
 
 	private FigureCanvas canvas;
 
@@ -183,36 +176,6 @@ public class DashboardPart extends ViewPart {
 	}
 
 	protected void updateDashboardProject(IProject project) {
-		mediator.setProjectAndState(project, new DashboardState(getPreferences(project)));
-	}
-
-	private Preferences getPreferences(IProject project) {
-		Preferences node = getExistingPreferences(project);
-		if (node != null) {
-			return node;
-		}
-		return new ProjectScope(project).getNode(Plugin.getPluginID()).node(PREF_KEY);
-	}
-
-	private Preferences getExistingPreferences(IProject project) {
-		Preferences node = Platform.getPreferencesService().getRootNode().node(ProjectScope.SCOPE);
-		try {
-			if (!node.nodeExists(project.getName())) {
-				return null;
-			}
-			node = node.node(project.getName());
-			if (!node.nodeExists(Plugin.getPluginID())) {
-				return null;
-			}
-			node = node.node(Plugin.getPluginID());
-			if (!node.nodeExists(PREF_KEY)) {
-				return null;
-			}
-			return node.node(PREF_KEY);
-		} catch (BackingStoreException e) {
-			IStatus status = Plugin.createError("Unable to read state", e);
-			Plugin.getDefault().getLog().log(status);
-		}
-		return null;
+		mediator.setProjectAndState(project, new DashboardState(project));
 	}
 }

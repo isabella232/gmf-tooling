@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Eclipse.org
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,11 +34,13 @@ public interface DashboardFacade {
 
 	public static final String LOCATION_MM2GM = "map_model-genmodel"; //$NON-NLS-1$
 
+	public static final String OPTION_RCP = "rcp"; //$NON-NLS-1$
+
 	public DashboardState getState();
 
 	public void updateStatus();
 
 	public boolean isStrict();
-	
+
 	public Shell getShell();
 }

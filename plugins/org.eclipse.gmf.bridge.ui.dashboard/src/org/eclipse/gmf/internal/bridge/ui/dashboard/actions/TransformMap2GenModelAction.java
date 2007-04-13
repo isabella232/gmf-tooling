@@ -70,6 +70,6 @@ public class TransformMap2GenModelAction implements DashboardAction {
 	protected void configureOptions(TransformOptions options) {
 		options.setUseRuntimeFigures(true);
 		options.setUseMapMode(true);
-		options.setGenerateRCP(false);
+		options.setGenerateRCP(context.getState().getOption(DashboardFacade.OPTION_RCP));
 	}
 }
