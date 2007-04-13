@@ -87,6 +87,10 @@ public class DashboardMediator implements DashboardFacade {
 		return STRICT;
 	}
 
+	public Shell getShell() {
+		return shell;
+	}
+
 	public void setView(DashboardFigure view) {
 		this.view = view;
 		locations.put(DashboardFacade.LOCATION_DM, view.getDMFigure());

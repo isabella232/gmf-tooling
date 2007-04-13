@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.bridge.ui.dashboard;
 
+import org.eclipse.swt.widgets.Shell;
+
 /**
  * EXPERIMENTAL
  * 
@@ -37,4 +39,6 @@ public interface DashboardFacade {
 	public void updateStatus();
 
 	public boolean isStrict();
+	
+	public Shell getShell();
 }

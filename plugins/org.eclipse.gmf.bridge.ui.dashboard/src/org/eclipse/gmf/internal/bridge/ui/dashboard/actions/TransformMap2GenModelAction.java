@@ -22,8 +22,6 @@ import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.gmf.internal.bridge.transform.TransformOptions;
 import org.eclipse.gmf.internal.bridge.transform.TransformToGenModelOperation;
 import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @author dstadnik
@@ -62,10 +60,8 @@ public class TransformMap2GenModelAction implements DashboardAction {
 			op.loadGenModel(rs, state.getDGM(), new NullProgressMonitor());
 			op.setGenURI(gm);
 			op.executeTransformation(rs, new NullProgressMonitor());
-		} catch (CoreException ex) {
-			// XXX Is it legal to show UI from the action? Provide shell from context then.
-			final Shell s = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-			ErrorDialog.openError(s, null, ex.getMessage(), ex.getStatus());
+		} catch (CoreException ce) {
+			ErrorDialog.openError(context.getShell(), null, ce.getMessage(), ce.getStatus());
 		} finally {
 			context.updateStatus();
 		}
