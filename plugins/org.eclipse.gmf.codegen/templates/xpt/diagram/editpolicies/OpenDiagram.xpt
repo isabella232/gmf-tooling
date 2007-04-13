@@ -110,7 +110,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			«ENDIF-»
 				for (java.util.Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 					org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-					if (nextResource.isLoaded()) {
+					if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
 						nextResource.save(«EXPAND xpt::Common::getSaveOptions FOR subject.getDiagram()»);
 					}
 				}

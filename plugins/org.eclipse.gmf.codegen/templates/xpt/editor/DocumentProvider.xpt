@@ -611,7 +611,7 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 				monitor.setTaskName(org.eclipse.osgi.util.NLS.bind(
 						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask()) FOR editorGen», 
 						nextResource.getURI()));
-				if (nextResource.isLoaded()) {
+				if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 					try {
 						nextResource.save(«EXPAND xpt::Common::getSaveOptions»);
 					} catch (java.io.IOException e) {

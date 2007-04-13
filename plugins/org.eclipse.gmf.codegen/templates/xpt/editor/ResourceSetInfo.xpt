@@ -24,6 +24,8 @@ protected class ResourceSetInfo extends ElementInfo {
 	«EXPAND getModificationStamp-»
 
 	«EXPAND setModificationStamp-»
+	
+	«EXPAND getEditingDomain-»
 
 	«EXPAND getResourceSet-»
 
@@ -122,10 +124,17 @@ public void setModificationStamp(long modificationStamp) {
 }
 «ENDDEFINE»
 
+«DEFINE getEditingDomain FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
+	return myDocument.getEditingDomain();
+}
+«ENDDEFINE»
+
 «DEFINE getResourceSet FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
-	return myDocument.getEditingDomain().getResourceSet();
+	return getEditingDomain().getResourceSet();
 }
 «ENDDEFINE»
 
@@ -186,7 +195,7 @@ public final void stopResourceListening() {
 «DEFINE startResourceListening FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public final void startResourceListening() {
-	mySynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
+	mySynchronizer = new org.eclipse.emf.workspace.util.WorkspaceSynchronizer(getEditingDomain(), new SynchronizerDelegate());
 }
 «ENDDEFINE»
 
