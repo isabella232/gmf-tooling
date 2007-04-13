@@ -151,7 +151,7 @@ public class TaiPanDiagramEditorUtil {
 		if (fileDialog.getFilterPath() != null) {
 			fileName = fileDialog.getFilterPath() + File.separator + fileName;
 		}
-		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createFileURI(fileName);
+		URI uri = URI.createFileURI(fileName);
 		Resource resource = null;
 		try {
 			resource = editingDomain.getResourceSet().getResource(uri, true);
@@ -184,7 +184,7 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI, org.eclipse.emf.common.util.URI modelURI, IProgressMonitor progressMonitor) {
+	public static Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		progressMonitor.beginTask(Messages.TaiPanDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);

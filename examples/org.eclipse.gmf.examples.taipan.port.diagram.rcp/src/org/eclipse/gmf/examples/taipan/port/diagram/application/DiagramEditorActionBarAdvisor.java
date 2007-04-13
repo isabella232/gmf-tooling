@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.Messages;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanCreationWizard;
@@ -271,7 +272,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 	/**
 	 * @generated
 	 */
-	private static boolean openEditor(IWorkbench workbench, org.eclipse.emf.common.util.URI fileURI) {
+	private static boolean openEditor(IWorkbench workbench, URI fileURI) {
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
@@ -318,7 +319,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 			LoadResourceAction.LoadResourceDialog loadResourceDialog = new LoadResourceAction.LoadResourceDialog(getWindow().getShell());
 			if (Dialog.OK == loadResourceDialog.open()) {
 				for (Iterator i = loadResourceDialog.getURIs().iterator(); i.hasNext();) {
-					openEditor(getWindow().getWorkbench(), (org.eclipse.emf.common.util.URI) i.next());
+					openEditor(getWindow().getWorkbench(), (URI) i.next());
 				}
 			}
 		}
@@ -336,7 +337,7 @@ public class DiagramEditorActionBarAdvisor extends ActionBarAdvisor {
 			FileDialog fileDialog = new FileDialog(getWindow().getShell(), SWT.OPEN);
 			fileDialog.open();
 			if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
-				openEditor(getWindow().getWorkbench(), org.eclipse.emf.common.util.URI.createFileURI(fileDialog.getFilterPath() + File.separator + fileDialog.getFileName()));
+				openEditor(getWindow().getWorkbench(), URI.createFileURI(fileDialog.getFilterPath() + File.separator + fileDialog.getFileName()));
 			}
 		}
 	}

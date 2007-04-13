@@ -26,6 +26,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -164,7 +165,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
 		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
 		if (element instanceof URIEditorInput) {
-			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			URI uri = ((URIEditorInput) element).getURI();
 			Resource resource = null;
 			try {
 				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
@@ -420,7 +421,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+	protected void handleElementMoved(IEditorInput input, URI uri) {
 
 		// TODO: append suffix to the URI! (use diagram as a parameter)
 		fireElementMoved(input, new URIEditorInput(uri));
@@ -455,7 +456,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 	 * @generated
 	 */
 	private static File getFile(Resource resource) {
-		org.eclipse.emf.common.util.URI resourceUri = resource.getURI();
+		URI resourceUri = resource.getURI();
 		if (resourceUri != null && resourceUri.isFile()) {
 			File file = new File(resourceUri.toFileString());
 			if (!file.isDirectory()) {
