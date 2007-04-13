@@ -64,6 +64,10 @@ cc.add(getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyE
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addDestroyChildNodesCommand(org.eclipse.gef.commands.CompoundCommand cmd, boolean confirm) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+		if (annotation != null) {
+			return;
+		}
 		for (java.util.Iterator it = view.getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) it.next();
 			switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(node)) {
