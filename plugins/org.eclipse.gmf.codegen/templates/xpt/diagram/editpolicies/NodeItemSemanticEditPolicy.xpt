@@ -56,7 +56,7 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 
 «DEFINE destroySemanticElement FOR gmfgen::GenNode-»
 	«EXPAND fixElementToDeleteIfShortcut-»
-cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req)));
+cc.add(getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req)));
 «ENDDEFINE»
 
 «DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»

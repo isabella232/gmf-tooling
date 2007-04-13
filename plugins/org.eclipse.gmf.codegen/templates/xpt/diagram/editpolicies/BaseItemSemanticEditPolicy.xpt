@@ -132,6 +132,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND getReorientRelationshipCommand-»
 	
+	«EXPAND getGEFWrapper-»
 	«EXPAND getMSLWrapper-»
 
 	«EXPAND getSemanticElement-»
@@ -295,10 +296,18 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 }
 «ENDDEFINE»
 
-«DEFINE getMSLWrapper FOR gmfgen::GenDiagram-»
+«DEFINE getGEFWrapper FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.gef.commands.Command getMSLWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
+	protected final org.eclipse.gef.commands.Command getGEFWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(cmd);
+	}
+«ENDDEFINE»
+
+«DEFINE getMSLWrapper FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment("@deprecated use getGEFWrapper() instead")»
+	protected final org.eclipse.gef.commands.Command getMSLWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
+		// XXX deprecated: use getGEFWrapper() instead
+		return getGEFWrapper(cmd);
 	}
 «ENDDEFINE»
 

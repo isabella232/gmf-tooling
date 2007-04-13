@@ -179,13 +179,13 @@ if (req.getContainmentFeature() == null) {
 	* Calling "linkCreationParameters(false, true)" because with these values result will be full set 
 	* of parameters including (container,) source and target
 «ENDREM»«-»
-return getMSLWrapper(new «link.getCreateCommandQualifiedClassName()»(req, «EXPAND linkCreationParameters(false, true)»));
+return getGEFWrapper(new «link.getCreateCommandQualifiedClassName()»(req, «EXPAND linkCreationParameters(false, true)»));
 «ENDDEFINE»
 
 «REM»create semantic command«ENDREM»
 «DEFINE linkCreateCommand(gmfgen::GenLink link) FOR gmfgen::FeatureLinkModelFacet-»
 org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest setReq = new org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest(sourceEObject, «getQualifiedPackageInterfaceName(metaFeature.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(metaFeature)»(), target);
-return getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(setReq));
+return getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(setReq));
 «ENDDEFINE»
 
 «DEFINE linkCreateCommand(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
@@ -227,5 +227,5 @@ protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipComma
 
 «DEFINE caseReorientCommand FOR gmfgen::GenLink-»
 case «getEditPartQualifiedClassName()».VISUAL_ID:
-	return getMSLWrapper(new «getReorientCommandQualifiedClassName()»(req));
+	return getGEFWrapper(new «getReorientCommandQualifiedClassName()»(req));
 «ENDDEFINE»

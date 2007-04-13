@@ -29,7 +29,7 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 		req.setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR modelFacet.containmentMetaFeature»);
 	}
 		«ENDIF-»
-	return getMSLWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
 }
 	«ENDIF-»
 «ENDDEFINE»
