@@ -122,10 +122,7 @@ public class DashboardMediator implements DashboardFacade {
 		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Combine, new CombineMMAction()));
-		// XXX Dima, the contract of DashboardAction#init is broken for all actions added above!
-		final TransformMap2GenModelAction transformAction = new TransformMap2GenModelAction();
-		transformAction.init(this);
-		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Transform, transformAction));
+		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Transform, new TransformMap2GenModelAction()));
 		for (DashboardActionDescriptor descriptor : Plugin.getDefault().getDashboardActionRegistry().getDescriptors()) {
 			addDashboardAction(descriptor);
 		}
@@ -142,7 +139,6 @@ public class DashboardMediator implements DashboardFacade {
 		if (action == null) {
 			return;
 		}
-		action.init(this);
 		IFigure actionFigure = createLinkFigure(descriptor.getLabel(), action);
 		location.addAction(actionFigure, descriptor.isStandard());
 		contributions.put(descriptor, actionFigure);
@@ -161,7 +157,11 @@ public class DashboardMediator implements DashboardFacade {
 		location.removeAction(actionFigure, descriptor.isStandard());
 	}
 
-	public IFigure createLinkFigure(String text, DashboardAction action) {
+	/**
+	 * Also initializes the action.
+	 */
+	protected IFigure createLinkFigure(String text, DashboardAction action) {
+		action.init(this);
 		HyperlinkFigure linkFigure = new HyperlinkFigure(action);
 		linkFigure.setText(text);
 		return linkFigure;
