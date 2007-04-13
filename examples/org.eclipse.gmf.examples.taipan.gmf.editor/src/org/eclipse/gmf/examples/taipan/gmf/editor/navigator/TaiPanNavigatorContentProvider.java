@@ -240,7 +240,7 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 		case AquatoryEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
-			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Aquatory_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TaiPanNavigatorGroup links = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Aquatory_1_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection connectedViews = getChildrenByType(Collections.singleton(view), PortEditPart.VISUAL_ID);
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), ShipEditPart.VISUAL_ID);

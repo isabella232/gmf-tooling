@@ -327,12 +327,12 @@
       <?gmfgen generated="true"?>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"
-               name="%metatype.name.Aquatory_1000"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1"
+               name="%metatype.name.Aquatory_1"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Aquatory"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.AquatoryEditHelper">
-            <param name="semanticHint" value="1000"/>
+            <param name="semanticHint" value="1"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
@@ -467,7 +467,7 @@
          </enablement>
       </clientContext> 
       <binding context="TaiPanClientContext">
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"/>
          <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Warship_2003"/>
@@ -634,7 +634,7 @@
       </MarkerNavigationProvider>
    </extension>
 
-   <extension id="diagnostic" name="taipan Plugin problems" point="org.eclipse.core.resources.markers">
+   <extension id="diagnostic" name="TaiPan Diagram problems" point="org.eclipse.core.resources.markers">
       <?gmfgen generated="true"?>
       <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>

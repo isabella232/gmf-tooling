@@ -125,7 +125,7 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 		case EmptyBoxEditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?EmptyBox", TaiPanElementTypes.EmptyBox_3003);
 		case AquatoryEditPart.VISUAL_ID:
-			return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/taipan?Aquatory", TaiPanElementTypes.Aquatory_1000);
+			return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/taipan?Aquatory", TaiPanElementTypes.Aquatory_1);
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Ship?destination", TaiPanElementTypes.ShipDestination_4001);
 		case ReliableRouteEditPart.VISUAL_ID:
@@ -209,7 +209,7 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 		case EmptyBoxEditPart.VISUAL_ID:
 			return getEmptyBox_3003Text(view);
 		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1000Text(view);
+			return getAquatory_1Text(view);
 		case ShipDestinationEditPart.VISUAL_ID:
 			return getShipDestination_4001Text(view);
 		case ReliableRouteEditPart.VISUAL_ID:
@@ -363,7 +363,7 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	/**
 	 * @generated
 	 */
-	private String getAquatory_1000Text(View view) {
+	private String getAquatory_1Text(View view) {
 		return "";
 	}
 

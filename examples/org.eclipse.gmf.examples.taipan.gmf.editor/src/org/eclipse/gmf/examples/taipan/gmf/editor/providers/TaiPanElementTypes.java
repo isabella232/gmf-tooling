@@ -156,7 +156,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 		if (elements == null) {
 			elements = new IdentityHashMap();
 
-			elements.put(Aquatory_1000, TaiPanPackage.eINSTANCE.getAquatory());
+			elements.put(Aquatory_1, TaiPanPackage.eINSTANCE.getAquatory());
 
 			elements.put(Port_2001, TaiPanPackage.eINSTANCE.getPort());
 
@@ -184,11 +184,6 @@ public class TaiPanElementTypes extends ElementInitializers {
 		}
 		return (ENamedElement) elements.get(type);
 	}
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType Aquatory_1000 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -265,10 +260,15 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Aquatory_1 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static boolean isKnownElementType(IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
-			KNOWN_ELEMENT_TYPES.add(Aquatory_1000);
+			KNOWN_ELEMENT_TYPES.add(Aquatory_1);
 			KNOWN_ELEMENT_TYPES.add(Port_2001);
 			KNOWN_ELEMENT_TYPES.add(Ship_2002);
 			KNOWN_ELEMENT_TYPES.add(Warship_2003);

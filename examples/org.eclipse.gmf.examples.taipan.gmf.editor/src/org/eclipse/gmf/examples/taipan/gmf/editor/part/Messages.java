@@ -300,7 +300,7 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_Aquatory_1000_links;
+	public static String NavigatorGroupName_Aquatory_1_links;
 
 	/**
 	 * @generated
