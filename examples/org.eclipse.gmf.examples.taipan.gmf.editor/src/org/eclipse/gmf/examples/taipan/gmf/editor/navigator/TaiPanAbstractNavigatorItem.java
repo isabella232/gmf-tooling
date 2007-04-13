@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.PlatformObject;
