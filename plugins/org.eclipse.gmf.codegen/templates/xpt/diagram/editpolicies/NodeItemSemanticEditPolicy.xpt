@@ -56,14 +56,10 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 
 «DEFINE destroySemanticElement FOR gmfgen::GenNode-»
 	«LET !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty() AS isTopLevel-»
-cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel || modelFacet.isPhantomElement()»{
+cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel»{
 		«IF isTopLevel-»
 			«EXPAND destroyShortcut-»
 		«ENDIF-»
-		«IF modelFacet.isPhantomElement()-»
-			«EXPAND destroyPhantomElement-»
-		«ENDIF-»
-			
 }«ENDIF»));
 	«ENDLET-»
 «ENDDEFINE»
@@ -117,20 +113,5 @@ protected org.eclipse.emf.ecore.EObject getElementToDestroy() {
 
 «REM»Chortcuts supported only for top-level elements«ENDREM»
 «DEFINE destroyShortcut FOR gmfgen::GenNode»«ENDDEFINE»
-
-«REM»Method in anonimous inner class - should not be prefixed with @generated javadoc«ENDREM»
-«DEFINE destroyPhantomElement FOR gmfgen::GenNode-»
-
-protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-	org.eclipse.emf.ecore.EObject eObject = getElementToDestroy();
-	boolean removeFromResource = eObject.eContainer() == null;
-	org.eclipse.gmf.runtime.common.core.command.CommandResult result = super.doExecuteWithResult(progressMonitor, info);
-	org.eclipse.emf.ecore.resource.Resource resource = eObject.eResource();
-	if (removeFromResource && resource != null) {
-		resource.getContents().remove(eObject);
-	}
-	return result;
-}
-«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
