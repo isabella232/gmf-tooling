@@ -53,19 +53,12 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		}));
+		CompoundCommand cc = getDestroyEdgesCommand();
+		View view = (View) getHost().getModel();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			req.setElementToDestroy(view);
+		}
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
@@ -106,7 +99,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getShip_Destination(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return getGEFWrapper(new SetValueCommand(setReq));
 	}
 
 	/**
@@ -150,7 +143,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new RouteCreateCommand(req, container, source, target));
+		return getGEFWrapper(new RouteCreateCommand(req, container, source, target));
 	}
 
 	/**
@@ -194,7 +187,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new Route2CreateCommand(req, container, source, target));
+		return getGEFWrapper(new Route2CreateCommand(req, container, source, target));
 	}
 
 	/**
@@ -214,7 +207,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
 		}
-		return getMSLWrapper(new BesiegePortOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req, source, target));
 	}
 
 	/**
@@ -242,11 +235,11 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case RouteEditPart.VISUAL_ID:
-			return getMSLWrapper(new RouteReorientCommand(req));
+			return getGEFWrapper(new RouteReorientCommand(req));
 		case Route2EditPart.VISUAL_ID:
-			return getMSLWrapper(new Route2ReorientCommand(req));
+			return getGEFWrapper(new Route2ReorientCommand(req));
 		case BesiegePortOrderEditPart.VISUAL_ID:
-			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
+			return getGEFWrapper(new BesiegePortOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}
@@ -260,9 +253,9 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
-			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+			return getGEFWrapper(new ShipDestinationReorientCommand(req));
 		case PortRegisterEditPart.VISUAL_ID:
-			return getMSLWrapper(new PortRegisterReorientCommand(req));
+			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

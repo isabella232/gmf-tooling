@@ -26,6 +26,6 @@ public class BesiegePortOrderItemSemanticEditPolicy extends TaiPanBaseItemSemant
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req));
+		return getGEFWrapper(new DestroyElementCommand(req));
 	}
 }

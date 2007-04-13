@@ -55,28 +55,25 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		}));
+		CompoundCommand cc = getDestroyEdgesCommand();
+		addDestroyChildNodesCommand(cc);
+		View view = (View) getHost().getModel();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			req.setElementToDestroy(view);
+		}
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void addDestroyChildNodesCommand(CompoundCommand cmd, boolean confirm) {
+	protected void addDestroyChildNodesCommand(CompoundCommand cmd) {
 		View view = (View) getHost().getModel();
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation != null) {
+			return;
+		}
 		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
 			Node node = (Node) it.next();
 			switch (TaiPanVisualIDRegistry.getVisualID(node)) {
@@ -85,7 +82,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 					Node cnode = (Node) cit.next();
 					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
 					case SmallItemsEditPart.VISUAL_ID:
-						cmd.add(getDestroyElementCommand(cnode, confirm));
+						cmd.add(getDestroyElementCommand(cnode));
 						break;
 					}
 				}
@@ -95,10 +92,10 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 					Node cnode = (Node) cit.next();
 					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
 					case LargeItemEditPart.VISUAL_ID:
-						cmd.add(getDestroyElementCommand(cnode, confirm));
+						cmd.add(getDestroyElementCommand(cnode));
 						break;
 					case EmptyBoxEditPart.VISUAL_ID:
-						cmd.add(getDestroyElementCommand(cnode, confirm));
+						cmd.add(getDestroyElementCommand(cnode));
 						break;
 					}
 				}
@@ -156,7 +153,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
-		return getMSLWrapper(new EscortShipsOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req, source, target));
 	}
 
 	/**
@@ -174,7 +171,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getPort_Register(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return getGEFWrapper(new SetValueCommand(setReq));
 	}
 
 	/**
@@ -186,7 +183,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getMSLWrapper(new EscortShipsOrderReorientCommand(req));
+			return getGEFWrapper(new EscortShipsOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}
@@ -200,9 +197,9 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
-			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+			return getGEFWrapper(new ShipDestinationReorientCommand(req));
 		case PortRegisterEditPart.VISUAL_ID:
-			return getMSLWrapper(new PortRegisterReorientCommand(req));
+			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}
