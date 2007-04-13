@@ -517,7 +517,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName(NLS.bind(Messages.EcoreDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
-					if (nextResource.isLoaded()) {
+					if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 						try {
 							nextResource.save(EcoreDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
@@ -684,8 +684,15 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		/**
 		 * @generated
 		 */
+		public TransactionalEditingDomain getEditingDomain() {
+			return myDocument.getEditingDomain();
+		}
+
+		/**
+		 * @generated
+		 */
 		public ResourceSet getResourceSet() {
-			return myDocument.getEditingDomain().getResourceSet();
+			return getEditingDomain().getResourceSet();
 		}
 
 		/**
@@ -740,7 +747,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 		 * @generated
 		 */
 		public final void startResourceListening() {
-			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
+			mySynchronizer = new WorkspaceSynchronizer(getEditingDomain(), new SynchronizerDelegate());
 		}
 
 		/**

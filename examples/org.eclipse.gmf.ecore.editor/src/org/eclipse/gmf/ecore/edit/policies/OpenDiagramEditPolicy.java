@@ -140,7 +140,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 						try {
 							for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 								Resource nextResource = (Resource) it.next();
-								if (nextResource.isLoaded()) {
+								if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
 									nextResource.save(EcoreDiagramEditorUtil.getSaveOptions());
 								}
 							}
