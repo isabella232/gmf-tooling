@@ -45,9 +45,9 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «DEFINE getDestroyElementCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand();
 	«IF hasChildren()-»
-	addDestroyChildNodesCommand(cc, req.isConfirmationRequired());
+	addDestroyChildNodesCommand(cc);
 	«ENDIF-»
 	«EXPAND destroySemanticElement-»
 	return cc.unwrap();
@@ -62,7 +62,7 @@ cc.add(getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyE
 «DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected void addDestroyChildNodesCommand(org.eclipse.gef.commands.CompoundCommand cmd, boolean confirm) {
+	protected void addDestroyChildNodesCommand(org.eclipse.gef.commands.CompoundCommand cmd) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
 		if (annotation != null) {
@@ -92,7 +92,7 @@ cc.add(getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyE
 «DEFINE destroyChildNodes(String nodeVar) FOR gmfgen::GenChildContainer-»
 	«FOREACH childNodes AS childNode-»
 	case «childNode.getEditPartQualifiedClassName()».VISUAL_ID:
-		cmd.add(getDestroyElementCommand(«nodeVar», confirm));
+		cmd.add(getDestroyElementCommand(«nodeVar»));
 		break;
 	«ENDFOREACH-»
 «ENDDEFINE»
