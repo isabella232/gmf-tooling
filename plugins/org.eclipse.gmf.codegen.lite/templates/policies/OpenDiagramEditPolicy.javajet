@@ -141,7 +141,7 @@ if (openAsEditor) {
 			try {
 				for (<%=importManager.getImportedName("java.util.Iterator")%> it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> next = (<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>) it.next();
-					if (next.isLoaded()) {
+					if (next.isLoaded() && !<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.isReadOnly(next)) {
 						next.save(<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.getSaveOptions());
 					}
 				}

@@ -63,26 +63,27 @@ public class OpenDiagramPolicyGenerator
   protected final String TEXT_46 = ".eINSTANCE.createDiagram();" + NL + "\t\t\tmyAnnotation.getReferences().add(result);" + NL + "\t\t\tresult.setElement(getDiagramDomainElement());" + NL + "\t\t\taddToResource(result);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tfor (";
   protected final String TEXT_47 = " it = myAnnotation.eResource().getResourceSet().getResources().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t\t";
   protected final String TEXT_48 = " next = (";
-  protected final String TEXT_49 = ") it.next();" + NL + "\t\t\t\t\tif (next.isLoaded()) {" + NL + "\t\t\t\t\t\tnext.save(";
-  protected final String TEXT_50 = ".getSaveOptions());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (";
-  protected final String TEXT_51 = " e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_52 = NL + "\t\t\t\tthrow new RuntimeException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\", e);" + NL + "\t\t\t}" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Returns the element that should be the underlying model element for the diagram." + NL + "\t\t * By default, the element associated with the edit part is returned." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_53 = " getDiagramDomainElement() {" + NL + "\t\t\treturn ((";
-  protected final String TEXT_54 = ") myAnnotation.getEModelElement()).getElement();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Adds the created diagram to a resource. By default, the diagram is added to the resource which contains the annotation." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void addToResource(";
-  protected final String TEXT_55 = " diagram) {" + NL + "\t\t\tassert diagram.eResource() == null;" + NL + "\t\t\tassert myAnnotation.eResource() != null;" + NL + "\t\t\tmyAnnotation.eResource().getContents().add(diagram);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getDiagramKind() {";
-  protected final String TEXT_56 = NL + "\t\t\treturn ";
-  protected final String TEXT_57 = ".MODEL_ID;";
-  protected final String TEXT_58 = NL + "\t\t\treturn \"";
-  protected final String TEXT_59 = "\";";
-  protected final String TEXT_60 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */";
-  protected final String TEXT_61 = NL + "\t\tprotected String getEditorID() {";
-  protected final String TEXT_62 = NL + "\t\tprotected String getViewID() {";
-  protected final String TEXT_63 = NL + "\t\t\treturn ";
-  protected final String TEXT_64 = ".ID;";
-  protected final String TEXT_65 = NL + "\t\t\treturn \"";
-  protected final String TEXT_66 = "\";";
-  protected final String TEXT_67 = NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_68 = NL;
+  protected final String TEXT_49 = ") it.next();" + NL + "\t\t\t\t\tif (next.isLoaded() && !";
+  protected final String TEXT_50 = ".isReadOnly(next)) {" + NL + "\t\t\t\t\t\tnext.save(";
+  protected final String TEXT_51 = ".getSaveOptions());" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t} catch (";
+  protected final String TEXT_52 = " e) {" + NL + "\t\t\t\t";
+  protected final String TEXT_53 = NL + "\t\t\t\tthrow new RuntimeException(\"Can't create diagram of '\" + getDiagramKind() + \"' kind\", e);" + NL + "\t\t\t}" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Returns the element that should be the underlying model element for the diagram." + NL + "\t\t * By default, the element associated with the edit part is returned." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_54 = " getDiagramDomainElement() {" + NL + "\t\t\treturn ((";
+  protected final String TEXT_55 = ") myAnnotation.getEModelElement()).getElement();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Adds the created diagram to a resource. By default, the diagram is added to the resource which contains the annotation." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void addToResource(";
+  protected final String TEXT_56 = " diagram) {" + NL + "\t\t\tassert diagram.eResource() == null;" + NL + "\t\t\tassert myAnnotation.eResource() != null;" + NL + "\t\t\tmyAnnotation.eResource().getContents().add(diagram);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getDiagramKind() {";
+  protected final String TEXT_57 = NL + "\t\t\treturn ";
+  protected final String TEXT_58 = ".MODEL_ID;";
+  protected final String TEXT_59 = NL + "\t\t\treturn \"";
+  protected final String TEXT_60 = "\";";
+  protected final String TEXT_61 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */";
+  protected final String TEXT_62 = NL + "\t\tprotected String getEditorID() {";
+  protected final String TEXT_63 = NL + "\t\tprotected String getViewID() {";
+  protected final String TEXT_64 = NL + "\t\t\treturn ";
+  protected final String TEXT_65 = ".ID;";
+  protected final String TEXT_66 = NL + "\t\t\treturn \"";
+  protected final String TEXT_67 = "\";";
+  protected final String TEXT_68 = NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_69 = NL;
 
   public String generate(Object argument)
   {
@@ -205,49 +206,51 @@ if (openAsEditor) {
     stringBuffer.append(TEXT_49);
     stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(importManager.getImportedName("java.io.IOException"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_51);
-    /*XXX: Throwing runtime exceptions is definitely not the most elegant way*/
+    stringBuffer.append(importManager.getImportedName("java.io.IOException"));
     stringBuffer.append(TEXT_52);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    /*XXX: Throwing runtime exceptions is definitely not the most elegant way*/
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_54);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_55);
-    if (behaviour.getDiagramKind() == null) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_56);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    if (behaviour.getDiagramKind() == null) {
     stringBuffer.append(TEXT_57);
-    } else {
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(behaviour.getDiagramKind());
+    } else {
     stringBuffer.append(TEXT_59);
-    }
+    stringBuffer.append(behaviour.getDiagramKind());
     stringBuffer.append(TEXT_60);
+    }
+    stringBuffer.append(TEXT_61);
     
 if (openAsEditor) {
 
-    stringBuffer.append(TEXT_61);
+    stringBuffer.append(TEXT_62);
     
 } else {
 
-    stringBuffer.append(TEXT_62);
+    stringBuffer.append(TEXT_63);
     
 }
 
     if (behaviour.getEditorID() == null) { 
-    stringBuffer.append(TEXT_63);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
     stringBuffer.append(TEXT_64);
-    } else {
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
     stringBuffer.append(TEXT_65);
-    stringBuffer.append(behaviour.getEditorID());
+    } else {
     stringBuffer.append(TEXT_66);
-    }
+    stringBuffer.append(behaviour.getEditorID());
     stringBuffer.append(TEXT_67);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_68);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_69);
     return stringBuffer.toString();
   }
 }

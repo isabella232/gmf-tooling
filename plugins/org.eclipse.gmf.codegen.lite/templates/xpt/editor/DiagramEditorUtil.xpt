@@ -137,6 +137,11 @@ public static boolean isReadOnly(org.eclipse.emf.ecore.EObject element) {
 	if (resource == null) {
 		return false;
 	}
+	return isReadOnly(resource);
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public static boolean isReadOnly(org.eclipse.emf.ecore.resource.Resource resource) {
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(resource);
 	if (editingDomain == null) {
 		return false;
