@@ -24,6 +24,6 @@ public class PortRegisterItemSemanticEditPolicy extends TaiPanBaseItemSemanticEd
 	 * @generated
 	 */
 	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
-		return getMSLWrapper(new DestroyReferenceCommand(req));
+		return getGEFWrapper(new DestroyReferenceCommand(req));
 	}
 }

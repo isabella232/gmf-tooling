@@ -24,6 +24,6 @@ public class UnreliableRouteItemSemanticEditPolicy extends TaiPanBaseItemSemanti
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new DestroyElementCommand(req));
+		return getGEFWrapper(new DestroyElementCommand(req));
 	}
 }

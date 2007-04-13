@@ -24,6 +24,6 @@ public class ShipDestinationItemSemanticEditPolicy extends TaiPanBaseItemSemanti
 	 * @generated
 	 */
 	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
-		return getMSLWrapper(new DestroyReferenceCommand(req));
+		return getGEFWrapper(new DestroyReferenceCommand(req));
 	}
 }

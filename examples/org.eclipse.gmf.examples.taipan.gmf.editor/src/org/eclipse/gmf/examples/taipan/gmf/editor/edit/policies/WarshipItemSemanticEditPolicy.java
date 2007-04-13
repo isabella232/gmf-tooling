@@ -48,12 +48,12 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
+		CompoundCommand cc = getDestroyEdgesCommand();
 		View view = (View) getHost().getModel();
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			req.setElementToDestroy(view);
 		}
-		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
@@ -125,7 +125,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
-		return getMSLWrapper(new EscortShipsOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req, source, target));
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(sourceEObject, TaiPanPackage.eINSTANCE.getPort_Register(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return getGEFWrapper(new SetValueCommand(setReq));
 	}
 
 	/**
@@ -171,9 +171,9 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case EscortShipsOrderEditPart.VISUAL_ID:
-			return getMSLWrapper(new EscortShipsOrderReorientCommand(req));
+			return getGEFWrapper(new EscortShipsOrderReorientCommand(req));
 		case BesiegePortOrderEditPart.VISUAL_ID:
-			return getMSLWrapper(new BesiegePortOrderReorientCommand(req));
+			return getGEFWrapper(new BesiegePortOrderReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}
@@ -187,9 +187,9 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case ShipDestinationEditPart.VISUAL_ID:
-			return getMSLWrapper(new ShipDestinationReorientCommand(req));
+			return getGEFWrapper(new ShipDestinationReorientCommand(req));
 		case PortRegisterEditPart.VISUAL_ID:
-			return getMSLWrapper(new PortRegisterReorientCommand(req));
+			return getGEFWrapper(new PortRegisterReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}
