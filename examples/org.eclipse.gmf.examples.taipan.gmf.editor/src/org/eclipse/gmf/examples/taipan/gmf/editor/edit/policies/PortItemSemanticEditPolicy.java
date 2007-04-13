@@ -54,18 +54,11 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
-
-			protected EObject getElementToDestroy() {
-				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-				if (annotation != null) {
-					return view;
-				}
-				return super.getElementToDestroy();
-			}
-
-		}));
+		View view = (View) getHost().getModel();
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			req.setElementToDestroy(view);
+		}
+		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
