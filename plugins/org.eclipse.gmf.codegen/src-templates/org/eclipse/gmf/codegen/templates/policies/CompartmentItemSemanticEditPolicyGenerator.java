@@ -37,7 +37,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   protected final String TEXT_18 = "()";
   protected final String TEXT_19 = "/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */";
   protected final String TEXT_20 = ");" + NL + "\t\t\t}";
-  protected final String TEXT_21 = NL + "\t\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_21 = NL + "\t\t\treturn getGEFWrapper(new ";
   protected final String TEXT_22 = "(req));" + NL + "\t\t}";
   protected final String TEXT_23 = NL + "\t\treturn super.getCreateCommand(req);" + NL + "\t}";
   protected final String TEXT_24 = NL + "}";

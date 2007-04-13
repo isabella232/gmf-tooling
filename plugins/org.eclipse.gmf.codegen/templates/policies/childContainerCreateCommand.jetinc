@@ -15,7 +15,7 @@
 <%										} else {%>/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */<%}%>);
 			}
 <%	}%>
-			return getMSLWrapper(new <%=importManager.getImportedName(genChildNode.getCreateCommandQualifiedClassName())%>(req));
+			return getGEFWrapper(new <%=importManager.getImportedName(genChildNode.getCreateCommandQualifiedClassName())%>(req));
 		}
 <%}%>
 		return super.getCreateCommand(req);
