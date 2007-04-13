@@ -17,6 +17,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -59,6 +60,16 @@ public class ClassGenNamingStrategy extends AbstractGenNamingStrategy {
 			if (!isEmpty(name)) {
 				return createClassName(name);
 			}
+		}
+		return super.get(element);
+	}
+
+	public String get(GenCompartment element) {
+		String name = element.getTitle();
+		if (!isEmpty(name)) {
+			name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+			name = getCompartmentHostPrefix(element) + name;
+			return createClassName(name);
 		}
 		return super.get(element);
 	}
