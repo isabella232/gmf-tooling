@@ -55,13 +55,8 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 «ENDDEFINE»
 
 «DEFINE destroySemanticElement FOR gmfgen::GenNode-»
-	«LET !{}.add(this).typeSelect(gmfgen::GenTopLevelNode).isEmpty() AS isTopLevel-»
-cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req) «IF isTopLevel»{
-		«IF isTopLevel-»
-			«EXPAND destroyShortcut-»
-		«ENDIF-»
-}«ENDIF»));
-	«ENDLET-»
+	«EXPAND fixElementToDeleteIfShortcut-»
+cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req)));
 «ENDDEFINE»
 
 «DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»
@@ -98,20 +93,15 @@ cc.add(getMSLWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyE
 	«ENDFOREACH-»
 «ENDDEFINE»
 
-«REM»Method in anonymous inner class - should not be prefixed with @generated javadoc«ENDREM»
-«DEFINE destroyShortcut FOR gmfgen::GenTopLevelNode-»
 
-protected org.eclipse.emf.ecore.EObject getElementToDestroy() {
+«DEFINE fixElementToDeleteIfShortcut FOR gmfgen::GenTopLevelNode-»
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
-	if (annotation != null) {
-		return view;
+	if (view.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
+		req.setElementToDestroy(view);
 	}
-	return super.getElementToDestroy();
-}		
 «ENDDEFINE»
 
-«REM»Chortcuts supported only for top-level elements«ENDREM»
-«DEFINE destroyShortcut FOR gmfgen::GenNode»«ENDDEFINE»
+«REM»Shortcuts supported only for top-level elements«ENDREM»
+«DEFINE fixElementToDeleteIfShortcut FOR gmfgen::GenNode»«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
