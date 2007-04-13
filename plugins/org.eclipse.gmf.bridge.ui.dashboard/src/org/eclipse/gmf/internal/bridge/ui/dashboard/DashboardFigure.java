@@ -220,7 +220,10 @@ public class DashboardFigure extends RectangleFigure {
 
 	protected FlowActionFigure createFlowActionFigure() {
 		FlowActionFigure flowActionFigure = new FlowActionFigure();
-		flowActionFigure.setLayoutManager(new ToolbarLayout());
+		ToolbarLayout flowActionLayout = new ToolbarLayout();
+		flowActionLayout.setStretchMinorAxis(false);
+		flowActionLayout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+		flowActionFigure.setLayoutManager(flowActionLayout);
 		flowActionFigure.setBackgroundColor(MODEL_BG);
 		flowActionFigure.setForegroundColor(DASHBOARD_FG);
 		flowActionFigure.setLineWidth(LINE_WIDTH / 3);
