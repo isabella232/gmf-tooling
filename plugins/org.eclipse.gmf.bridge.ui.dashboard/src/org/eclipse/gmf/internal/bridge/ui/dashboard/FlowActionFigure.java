@@ -19,6 +19,7 @@ import org.eclipse.draw2d.ToolbarLayout;
  * @author dstadnik
  */
 public class FlowActionFigure extends RectangleFigure implements ActionContainer {
+
 	public FlowActionFigure() {
 		setLayoutManager(new ToolbarLayout());
 	}
