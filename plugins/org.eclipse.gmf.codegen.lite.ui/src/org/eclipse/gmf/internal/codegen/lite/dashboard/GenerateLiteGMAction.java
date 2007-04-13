@@ -18,8 +18,8 @@ import org.eclipse.gmf.internal.bridge.ui.dashboard.actions.TransformMap2GenMode
 public class GenerateLiteGMAction extends TransformMap2GenModelAction {
 
 	protected void configureOptions(TransformOptions options) {
+		super.configureOptions(options);
 		options.setUseRuntimeFigures(false);
 		options.setUseMapMode(false);
-		options.setGenerateRCP(false);
 	}
 }
