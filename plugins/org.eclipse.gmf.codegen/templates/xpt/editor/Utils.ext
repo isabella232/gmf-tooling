@@ -14,6 +14,9 @@ import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 private String i18nKeyForDocumentProvider(gmfgen::GenDiagram diagram) :
+	// XXX might not be the best idea - as long as doc provider is single, no reason
+	// to have property names based on its name (stale properties in messages.properties once 
+	// the class gets renamed
 	diagram.documentProviderClassName
 ;
 
