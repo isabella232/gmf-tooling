@@ -294,6 +294,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateNodeItemSemanticEditPolicy(child);
 		generateNodeCreateCommand(child);
 		generateEditSupport(child);
+		generateBehaviours(child);
 
 		generateChildNodeLabelEditPart(child);
 	}
