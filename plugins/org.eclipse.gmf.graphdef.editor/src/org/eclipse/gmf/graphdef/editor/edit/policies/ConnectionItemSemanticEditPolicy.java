@@ -10,28 +10,19 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureReorientCommand;
-import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -43,18 +34,7 @@ public class ConnectionItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = new CompoundCommand();
-		Collection allEdges = new ArrayList();
-		View view = (View) getHost().getModel();
-		allEdges.addAll(view.getSourceEdges());
-		allEdges.addAll(view.getTargetEdges());
-		for (Iterator it = allEdges.iterator(); it.hasNext();) {
-			Edge nextEdge = (Edge) it.next();
-			EditPart nextEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(nextEdge);
-			EditCommandRequestWrapper editCommandRequest = new EditCommandRequestWrapper(new DestroyElementRequest(((ConnectionEditPart) getHost()).getEditingDomain(), req.isConfirmationRequired()),
-					Collections.EMPTY_MAP);
-			cc.add(nextEditPart.getCommand(editCommandRequest));
-		}
+		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
 		cc.add(getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
@@ -67,7 +47,7 @@ public class ConnectionItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEd
 			}
 
 		}));
-		return cc;
+		return cc.unwrap();
 	}
 
 	/**

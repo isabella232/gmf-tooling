@@ -12,19 +12,16 @@ package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
 import org.eclipse.gmf.graphdef.editor.edit.commands.CompartmentCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ConnectionCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.FigureGalleryCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.NodeCreateCommand;
-
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
-
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 
 /**
  * @generated

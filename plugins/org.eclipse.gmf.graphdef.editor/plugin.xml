@@ -640,4 +640,20 @@
          </selectionEnablement>
       </linkHelper>
    </extension>
+   
+   <extension id="SelectStackedElementsPopup" name="StackedElements"
+		point="org.eclipse.ui.popupMenus">
+        <?gmfgen generated="false"?>
+		<objectContribution adaptable="false" id="org.eclipse.gmf.graphdef.editor.SelectStackedElements"
+		    objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.AbstractFigureEditPart">
+            <action
+                  class="org.eclipse.gmf.graphdef.editor.edit.parts.SelectStackedElementsAction"
+                  enablesFor="1"
+                  id="org.eclipse.gmf.graphdef.editor.SelectStackedElementsAction"
+                  label="Select Stacked Elements"
+                  menubarPath="additions">
+            </action>
+		</objectContribution>
+	</extension>
+
 </plugin>

@@ -10,22 +10,19 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
-
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

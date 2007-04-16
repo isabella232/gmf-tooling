@@ -10,8 +10,10 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -21,10 +23,13 @@ import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
@@ -35,10 +40,15 @@ import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionHandleEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.handles.ConnectionHandle;
 import org.eclipse.gmf.runtime.notation.View;
 
 public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
+	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	public AbstractFigureEditPart(View view) {
 		super(view);
@@ -201,15 +211,13 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			// not implemented yet in .gmfgraph
 			// GridLayout gridLayout = (GridLayout) layout;
 			/*
-			 * < % =
-			 * importManager.getImportedName("org.eclipse.gmf.internal.codegen.draw2d.GridLayout")%>
-			 * layoutManager; if (myFigure.getLayoutManager() instanceof < % =
-			 * importManager.getImportedName("org.eclipse.gmf.internal.codegen.draw2d.GridLayout")%>) {
-			 * layoutManager = (< % =
-			 * importManager.getImportedName("org.eclipse.gmf.internal.codegen.draw2d.GridLayout")%>)
-			 * myFigure.getLayoutManager(); } else { layoutManager = new < % =
-			 * importManager.getImportedName("org.eclipse.gmf.internal.codegen.draw2d.GridLayout")%>();
-			 * myFigure.setLayoutManager(layoutManager); }
+			org.eclipse.gmf.internal.codegen.draw2d.GridLayout layoutManager;
+			if (getFigureLayoutManager() instanceof org.eclipse.gmf.internal.codegen.draw2d.GridLayout) {
+				layoutManager = (org.eclipse.gmf.internal.codegen.draw2d.GridLayout)getFigureLayoutManager();
+			} else {
+				layoutManager = new org.eclipse.gmf.internal.codegen.draw2d.GridLayout();
+			}
+			setFigureLayoutManager(layoutManager); }
 			 */
 			break;
 		}
@@ -284,5 +292,65 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		}
 		return result;
 	}
+	
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		
+		// override default connection handles behavior, that could be installed by parent
+		installEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE, new MyConnectionHandleEditPolicy());
+	}
 
+	private static class MyConnectionHandleEditPolicy extends ConnectionHandleEditPolicy {
+
+		protected List getHandleFigures() {
+			IGraphicalEditPart selectedPart = (IGraphicalEditPart) getHost();
+			List result = new ArrayList(selectedPart.getChildren().size());
+			for (int i=0; i<selectedPart.getChildren().size(); i++) {
+				final EditPart next = (EditPart) selectedPart.getChildren().get(i);
+				String tooltip = EMPTY_STRING;
+				if (next instanceof AbstractFigureEditPart) {
+					final AbstractFigureEditPart nextAF = (AbstractFigureEditPart) next;
+					View model = (View) nextAF.getModel();
+					Figure modelElement = (Figure) model.getElement();
+					String name = modelElement.getName();
+					tooltip = modelElement.eClass().getName()+":"+(name != null && name.length() != 0? name : String.valueOf(i+1));
+				}
+				result.add(new MyConnectionHandle(selectedPart, next, tooltip));
+			}
+			return result;
+		}
+	}
+	
+	private static class MyConnectionHandle extends ConnectionHandle {
+		private final MyHandleTool myTool;
+
+		public MyConnectionHandle(IGraphicalEditPart ownerEditPart, EditPart nextChild, String tooltip) {
+			super(ownerEditPart, HandleDirection.INCOMING, tooltip);
+			myTool = new MyHandleTool(nextChild, tooltip);
+		}
+
+		protected DragTracker createDragTracker() {
+			return myTool;
+		}
+	}
+
+	private static class MyHandleTool extends AbstractTool implements DragTracker {
+		private final EditPart myTarget;
+		private final String myCommandName;
+
+		public MyHandleTool(EditPart target, String commandName) {
+			super();
+			myTarget = target;
+			myCommandName = commandName;
+		}
+		
+		protected boolean handleButtonUp(int button) {
+			myTarget.getViewer().select(myTarget);
+			return true;
+		}
+
+		protected String getCommandName() {
+			return myCommandName;
+		}
+	}
 }

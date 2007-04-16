@@ -511,6 +511,18 @@ protected org.eclipse.draw2d.geometry.Point getLayoutOrigin() {
 «ENDDEFINE»
 
 «AROUND setupNodePlate FOR gmfgen::GenNode-»
-«IF generateSyncronizationCode(metaclass()) && isInnerClassViewmap(viewmap)»myNodeFigure = result;«ELSE»«targetDef.proceed()»«ENDIF-»
-«ENDAROUND»
+«IF generateSyncronizationCode(metaclass()) && isInnerClassViewmap(viewmap)-»
+«EXPAND setInsets-»
+myNodeFigure = result;
+«ELSE»«targetDef.proceed()-»«ENDIF»«ENDAROUND»
+
+«DEFINE setInsets FOR gmfgen::GenChildNode-»
+«IF containers.typeSelect(gmfgen::GenCompartment).size() > 0-»
+org.eclipse.draw2d.LineBorder contourBorder = new org.eclipse.draw2d.LineBorder(org.eclipse.swt.widgets.Display.getDefault().getSystemColor(org.eclipse.swt.SWT.COLOR_WIDGET_NORMAL_SHADOW));
+org.eclipse.draw2d.MarginBorder marginBorder = new org.eclipse.draw2d.MarginBorder(5);
+org.eclipse.draw2d.CompoundBorder compoundBorder = new org.eclipse.draw2d.CompoundBorder(contourBorder, marginBorder);
+result.setBorder(compoundBorder);«ENDIF»«ENDDEFINE»
+
+«DEFINE setInsets FOR gmfgen::GenNode-»
+«ENDDEFINE»
 

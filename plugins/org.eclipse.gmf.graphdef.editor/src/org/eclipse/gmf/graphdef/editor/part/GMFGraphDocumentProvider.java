@@ -33,11 +33,11 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -52,6 +52,7 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.Diagram
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
@@ -66,8 +67,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	 */
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
-					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, NLS.bind(Messages.GMFGraphDocumentProvider_IncorrectInputError, new Object[] { element,
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), null));
 		}
 		IEditorInput editorInput = (IEditorInput) element;
 		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
@@ -83,8 +84,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	 */
 	protected IDocument createDocument(Object element) throws CoreException {
 		if (false == element instanceof FileEditorInput && false == element instanceof URIEditorInput) {
-			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
-					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, NLS.bind(Messages.GMFGraphDocumentProvider_IncorrectInputError, new Object[] { element,
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), null));
 		}
 		IDocument document = createEmptyDocument();
 		setDocumentContent(document, (IEditorInput) element);
@@ -182,7 +183,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
-			org.eclipse.emf.common.util.URI uri = ((URIEditorInput) element).getURI();
+			URI uri = ((URIEditorInput) element).getURI();
 			Resource resource = null;
 			try {
 				resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
@@ -201,7 +202,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 					}
 				}
 				if (resource == null) {
-					throw new RuntimeException("Unable to load diagram resource");
+					throw new RuntimeException(Messages.GMFGraphDocumentProvider_UnableToLoadResourceError);
 				}
 				if (uri.fragment() != null) {
 					EObject rootElement = resource.getEObject(uri.fragment());
@@ -218,20 +219,20 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 						}
 					}
 				}
-				throw new RuntimeException("Diagram is not present in resource");
+				throw new RuntimeException(Messages.GMFGraphDocumentProvider_NoDiagramInResourceError);
 			} catch (Exception e) {
 				CoreException thrownExcp = null;
 				if (e instanceof CoreException) {
 					thrownExcp = (CoreException) e;
 				} else {
 					String msg = e.getLocalizedMessage();
-					thrownExcp = new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, msg != null ? msg : "Error loading diagram", e)); //$NON-NLS-1$
+					thrownExcp = new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, msg != null ? msg : Messages.GMFGraphDocumentProvider_DiagramLoadingError, e));
 				}
 				throw thrownExcp;
 			}
 		} else {
-			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0,
-					"Incorrect element used: " + element + " instead of org.eclipse.ui.part.FileEditorInput or org.eclipse.emf.common.ui.URIEditorInput", null)); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, 0, NLS.bind(Messages.GMFGraphDocumentProvider_IncorrectInputError, new Object[] { element,
+					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), null));
 		}
 	}
 
@@ -309,7 +310,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
+					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.GMFGraphDocumentProvider_isModifiable, ex);
+					// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 				}
 			}
 			return info.isReadOnly();
@@ -332,7 +334,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 				try {
 					updateCache(element);
 				} catch (CoreException ex) {
-					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_isModifiable, ex);
+					GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.GMFGraphDocumentProvider_isModifiable, ex);
+					// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 				}
 			}
 			return info.isModifiable();
@@ -503,21 +506,19 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 		ResourceSetInfo info = getResourceSetInfo(element);
 		if (info != null) {
 			if (!overwrite && !info.isSynchronized()) {
-				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IStatus.OK, "The file has been changed on the file system", null)); //$NON-NLS-1$
+				throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, IStatus.OK, Messages.GMFGraphDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
 			info.stopResourceListening();
 			fireElementStateChanging(element);
 			List resources = info.getResourceSet().getResources();
 			try {
-				monitor.beginTask("Saving diagram", resources.size() + 1);
-				Map options = new HashMap();
-				options.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+				monitor.beginTask(Messages.GMFGraphDocumentProvider_SaveDiagramTask, resources.size() + 1); //"Saving diagram"
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
-					monitor.setTaskName("Saving " + nextResource.getURI());
-					if (nextResource.isLoaded() && (!nextResource.isTrackingModification() || nextResource.isModified())) {
+					monitor.setTaskName(NLS.bind(Messages.GMFGraphDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
+					if (nextResource.isLoaded()) {
 						try {
-							nextResource.save(options);
+							nextResource.save(GMFGraphDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
 							fireElementStateChangeFailed(element);
 							throw new CoreException(new Status(IStatus.ERROR, GMFGraphDiagramEditorPlugin.ID, EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
@@ -544,7 +545,8 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 			try {
 				file.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (CoreException ex) {
-				GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.DocumentProvider_handleElementContentChanged, ex);
+				GMFGraphDiagramEditorPlugin.getInstance().logError(Messages.GMFGraphDocumentProvider_handleElementContentChanged, ex);
+				// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.FileDocumentProvider_handleElementContentChanged
 			}
 		}
 		changedResource.unload();
@@ -567,9 +569,9 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 	/**
 	 * @generated
 	 */
-	protected void handleElementMoved(IEditorInput input, org.eclipse.emf.common.util.URI uri) {
+	protected void handleElementMoved(IEditorInput input, URI uri) {
 		if (input instanceof FileEditorInput) {
-			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
+			IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(URI.decode(uri.path())).removeFirstSegments(1));
 			fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
 			return;
 		}
@@ -834,7 +836,7 @@ public class GMFGraphDocumentProvider extends AbstractDocumentProvider implement
 			/**
 			 * @generated
 			 */
-			public boolean handleResourceMoved(Resource resource, final org.eclipse.emf.common.util.URI newURI) {
+			public boolean handleResourceMoved(Resource resource, final URI newURI) {
 				synchronized (ResourceSetInfo.this) {
 					if (ResourceSetInfo.this.fCanBeSaved) {
 						ResourceSetInfo.this.setUnSynchronized(resource);

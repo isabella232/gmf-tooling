@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureHandle;
+import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
@@ -65,12 +66,32 @@ public class DiagramElementFigureReorientCommand extends EditElementCommand {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
-			return oldEnd instanceof FigureHandle && newEnd instanceof DiagramElement;
+			return canReorientSource();
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_TARGET) {
-			return oldEnd instanceof FigureHandle && newEnd instanceof FigureHandle;
+			return canReorientTarget();
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientSource() {
+		if (!(oldEnd instanceof FigureHandle && newEnd instanceof DiagramElement)) {
+			return false;
+		}
+		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4001(getNewSource(), getOldTarget());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean canReorientTarget() {
+		if (!(oldEnd instanceof FigureHandle && newEnd instanceof FigureHandle)) {
+			return false;
+		}
+		return GMFGraphBaseItemSemanticEditPolicy.LinkConstraints.canExistDiagramElementFigure_4001(getOldSource(), getNewTarget());
 	}
 
 	/**
@@ -92,25 +113,45 @@ public class DiagramElementFigureReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientSource() throws ExecutionException {
-		DiagramElement oldSource = (DiagramElement) referenceOwner;
-		DiagramElement newSource = (DiagramElement) newEnd;
-		FigureHandle target = (FigureHandle) oldEnd;
-
-		oldSource.setFigure(null);
-		newSource.setFigure(target);
+	protected CommandResult reorientSource() throws ExecutionException {
+		getOldSource().setFigure(null);
+		getNewSource().setFigure(getOldTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
 	 * @generated
 	 */
-	private CommandResult reorientTarget() throws ExecutionException {
-		DiagramElement source = (DiagramElement) referenceOwner;
-		FigureHandle oldTarget = (FigureHandle) oldEnd;
-		FigureHandle newTarget = (FigureHandle) newEnd;
-
-		source.setFigure(newTarget);
+	protected CommandResult reorientTarget() throws ExecutionException {
+		getOldSource().setFigure(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected DiagramElement getOldSource() {
+		return (DiagramElement) referenceOwner;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected DiagramElement getNewSource() {
+		return (DiagramElement) newEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected FigureHandle getOldTarget() {
+		return (FigureHandle) oldEnd;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected FigureHandle getNewTarget() {
+		return (FigureHandle) newEnd;
 	}
 }

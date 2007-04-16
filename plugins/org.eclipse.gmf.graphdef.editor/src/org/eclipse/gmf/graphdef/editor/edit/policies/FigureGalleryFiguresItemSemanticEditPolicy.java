@@ -11,16 +11,12 @@
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
 import org.eclipse.gmf.graphdef.editor.edit.commands.Ellipse2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.Polyline2CreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RectangleCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.RoundedRectangle2CreateCommand;
-
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
 /**

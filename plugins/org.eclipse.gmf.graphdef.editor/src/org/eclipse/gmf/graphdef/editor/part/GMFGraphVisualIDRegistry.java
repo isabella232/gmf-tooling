@@ -11,11 +11,9 @@
 package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -26,7 +24,6 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
@@ -48,7 +45,6 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 

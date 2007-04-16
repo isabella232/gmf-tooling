@@ -22,7 +22,6 @@ import java.util.Set;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -31,12 +30,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -67,6 +68,24 @@ public class GMFGraphDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
+	private static Map ourSaveOptions = null;
+
+	/**
+	 * @generated
+	 */
+	public static Map getSaveOptions() {
+		if (ourSaveOptions == null) {
+			ourSaveOptions = new HashMap();
+			ourSaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			ourSaveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+			ourSaveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		}
+		return ourSaveOptions;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static boolean openDiagram(Resource diagram) throws PartInitException {
 		return EditUIUtil.openEditor((EObject) diagram.getContents().get(0));
 	}
@@ -74,8 +93,7 @@ public class GMFGraphDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static void setCharset(org.eclipse.emf.common.util.URI uri) {
-		IFile file = getFile(uri);
+	public static void setCharset(IFile file) {
 		if (file == null) {
 			return;
 		}
@@ -84,20 +102,6 @@ public class GMFGraphDiagramEditorUtil {
 		} catch (CoreException e) {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static IFile getFile(org.eclipse.emf.common.util.URI uri) {
-		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
-			String path = uri.toString().substring("platform:/resource".length()); //$NON-NLS-1$
-			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
-			if (workspaceResource instanceof IFile) {
-				return (IFile) workspaceResource;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -149,13 +153,13 @@ public class GMFGraphDiagramEditorUtil {
 	 * This method should be called within a workspace modify operation since it creates resources.
 	 * @generated
 	 */
-	public static Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI, org.eclipse.emf.common.util.URI modelURI, IProgressMonitor progressMonitor) {
+	public static Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask("Creating diagram and model files", 3);
+		progressMonitor.beginTask(Messages.GMFGraphDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", Collections.EMPTY_LIST) { //$NON-NLS-1$
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.GMFGraphDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				Canvas model = createInitialModel();
@@ -169,10 +173,8 @@ public class GMFGraphDiagramEditorUtil {
 				}
 
 				try {
-					Map options = new HashMap();
-					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-					modelResource.save(options);
-					diagramResource.save(options);
+					modelResource.save(org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorUtil.getSaveOptions());
+					diagramResource.save(org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorUtil.getSaveOptions());
 				} catch (IOException e) {
 
 					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
@@ -185,8 +187,8 @@ public class GMFGraphDiagramEditorUtil {
 		} catch (ExecutionException e) {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
-		setCharset(modelURI);
-		setCharset(diagramURI);
+		setCharset(WorkspaceSynchronizer.getFile(modelResource));
+		setCharset(WorkspaceSynchronizer.getFile(diagramResource));
 		return diagramResource;
 	}
 

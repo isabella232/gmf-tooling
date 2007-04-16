@@ -11,6 +11,7 @@
 package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,6 +24,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
@@ -40,7 +42,7 @@ public class GMFGraphInitDiagramFileAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private org.eclipse.emf.common.util.URI domainModelURI;
+	private URI domainModelURI;
 
 	/**
 	 * @generated
@@ -59,7 +61,7 @@ public class GMFGraphInitDiagramFileAction implements IObjectActionDelegate {
 			return;
 		}
 		IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
-		domainModelURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+		domainModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		action.setEnabled(true);
 	}
 
@@ -81,14 +83,15 @@ public class GMFGraphInitDiagramFileAction implements IObjectActionDelegate {
 			Resource resource = resourceSet.getResource(domainModelURI, true);
 			diagramRoot = (EObject) resource.getContents().get(0);
 		} catch (WrappedException ex) {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex);
+			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), "Error", "Model file loading failed");
+			MessageDialog.openError(getShell(), Messages.GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
+					Messages.GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
 			return;
 		}
 		Wizard wizard = new GMFGraphNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle("Initialize new " + CanvasEditPart.MODEL_ID + " diagram file");
+		wizard.setWindowTitle(NLS.bind(Messages.GMFGraphInitDiagramFileAction_InitDiagramFileWizardTitle, CanvasEditPart.MODEL_ID));
 		GMFGraphDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }
