@@ -38,22 +38,11 @@ public interface GenNodeLabel extends GenLabel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node</em>' container reference.
-	 * @see #setNode(GenNode)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNodeLabel_Node()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels
-	 * @model opposite="labels" required="true"
+	 * @model opposite="labels" required="true" changeable="false"
 	 * @generated
 	 */
 	GenNode getNode();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel#getNode <em>Node</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Node</em>' container reference.
-	 * @see #getNode()
-	 * @generated
-	 */
-	void setNode(GenNode value);
 
 } // GenNodeLabel

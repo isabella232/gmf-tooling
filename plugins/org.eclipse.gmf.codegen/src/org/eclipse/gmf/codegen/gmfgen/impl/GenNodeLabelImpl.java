@@ -6,12 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -65,44 +62,13 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetNode(GenNode newNode, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newNode, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNode(GenNode newNode) {
-		if (newNode != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_NODE_LABEL__NODE && newNode != null)) {
-			if (EcoreUtil.isAncestor(this, newNode))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newNode != null)
-				msgs = ((InternalEObject)newNode).eInverseAdd(this, GMFGenPackage.GEN_NODE__LABELS, GenNode.class, msgs);
-			msgs = basicSetNode(newNode, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE_LABEL__NODE, newNode, newNode));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE_LABEL__NODE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetNode((GenNode)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -116,7 +82,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE_LABEL__NODE:
-				return basicSetNode(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -147,36 +113,6 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 				return getNode();
 		}
 		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case GMFGenPackage.GEN_NODE_LABEL__NODE:
-				setNode((GenNode)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case GMFGenPackage.GEN_NODE_LABEL__NODE:
-				setNode((GenNode)null);
-				return;
-		}
-		super.eUnset(featureID);
 	}
 
 	/**

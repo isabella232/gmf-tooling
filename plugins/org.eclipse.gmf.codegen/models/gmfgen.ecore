@@ -791,7 +791,7 @@
       <details key="description" value="Node label meta features must be owned by the node 'Meta Class' or its super-classes"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
-        eOpposite="#//GenNode/labels"/>
+        changeable="false" eOpposite="#//GenNode/labels"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExternalNodeLabel" eSuperTypes="#//GenNodeLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
