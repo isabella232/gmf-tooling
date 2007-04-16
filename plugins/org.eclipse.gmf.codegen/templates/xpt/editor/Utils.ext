@@ -29,10 +29,6 @@ String i18nKeyForDocumentProviderIncorrectInputError(gmfgen::GenDiagram diagram)
 	diagram.i18nKeyForDocumentProvider()+".IncorrectInputError"
 ;
 
-String i18nKeyForDocumentProviderUnableToLoadResourceError(gmfgen::GenDiagram diagram) :
-	diagram.i18nKeyForDocumentProvider()+".UnableToLoadResourceError"
-;
-
 String i18nKeyForDocumentProviderNoDiagramInResourceError(gmfgen::GenDiagram diagram) :
 	diagram.i18nKeyForDocumentProvider()+".NoDiagramInResourceError"
 ;

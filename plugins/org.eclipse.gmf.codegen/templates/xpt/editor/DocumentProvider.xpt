@@ -251,9 +251,6 @@ protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.e
 					throw e;
 				}
 			}
-			if (resource == null) {
-				throw new RuntimeException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderUnableToLoadResourceError()) FOR editorGen»);
-			}
 			if (uri.fragment() != null) {
 				org.eclipse.emf.ecore.EObject rootElement = resource.getEObject(uri.fragment());
 				if (rootElement instanceof org.eclipse.gmf.runtime.notation.Diagram) {
@@ -688,7 +685,6 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIsModifiable())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderHandleElementContentChanged())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIncorrectInputError())-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderUnableToLoadResourceError())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderNoDiagramInResourceError())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderDiagramLoadingError())-»
 	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentUnsynchronizedFileSaveError())-»
@@ -700,7 +696,6 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIsModifiable(), "Updating cache failed")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderHandleElementContentChanged(), "Failed to refresh hierarchy for changed resource")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIncorrectInputError(), "Incorrect element used: {0} instead of " + editorGen.application == null ? "{1} or {2}" : "{1}")-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderUnableToLoadResourceError(), "Unable to load diagram resource")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderNoDiagramInResourceError(), "Diagram is not present in resource")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderDiagramLoadingError(), "Error loading diagram")-»
 «EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentUnsynchronizedFileSaveError(), "The file has been changed on the file system")-»
