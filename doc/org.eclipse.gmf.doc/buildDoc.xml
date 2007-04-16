@@ -338,6 +338,7 @@
 			<echo level="info" message="***"/>
 		
 	 		<javadoc 
+	 			verbose="false"
 	 			access="protected"
 				additionalparam="-breakiterator"
 				maxmemory="512M"
