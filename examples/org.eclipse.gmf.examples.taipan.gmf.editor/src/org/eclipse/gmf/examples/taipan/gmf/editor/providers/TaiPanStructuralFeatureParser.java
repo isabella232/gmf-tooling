@@ -94,7 +94,7 @@ public class TaiPanStructuralFeatureParser extends TaiPanAbstractParser {
 	/**
 	 * @generated
 	 */
-	protected IParserEditStatus validateValues(Object[] values) {
+	protected IParserEditStatus validateNewValues(Object[] values) {
 		if (values.length > 1) {
 			return ParserEditStatus.UNEDITABLE_STATUS;
 		}
