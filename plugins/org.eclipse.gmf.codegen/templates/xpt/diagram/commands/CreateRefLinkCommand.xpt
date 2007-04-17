@@ -1,0 +1,86 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE CreateRefLinkCommand FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::copyright FOR diagram.editorGen-»
+package «diagram.editCommandsPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EObject source;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final org.eclipse.emf.ecore.EObject target;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request) {
+		super(request.getLabel(), null, request);
+		source = request.getSource();
+		target = request.getTarget();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean canExecute() {
+		if (!(source instanceof «getQualifiedInterfaceName(modelFacet.getSourceType())» &&
+				(target == null || target instanceof «getQualifiedInterfaceName(modelFacet.getTargetType())»))) {
+			return false;
+		}
+		return «diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».
+				canCreate«getUniqueIdentifier()»(getSource(), getTarget());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
+			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+			throws org.eclipse.core.commands.ExecutionException {
+		if (!canExecute()) {
+			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+		}
+		if (getTarget() != null) {
+			«EXPAND setValue FOR modelFacet-»
+		}
+		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getSource());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(modelFacet.getSourceType())» getSource() {
+		return («getQualifiedInterfaceName(modelFacet.getSourceType())») source;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «getQualifiedInterfaceName(modelFacet.getTargetType())» getTarget() {
+		return («getQualifiedInterfaceName(modelFacet.getTargetType())») target;
+	}
+}
+«ENDDEFINE»
+
+«DEFINE setValue FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«REM»
+	Code to update reference.
+«ENDREM»
+«DEFINE setValue FOR gmfgen::FeatureLinkModelFacet-»
+	«IF metaFeature.ecoreFeature.many-»
+		«EXPAND xpt::Common::getFeatureValue("getSource()", true) FOR metaFeature».add(getTarget());
+	«ELSE-»
+		«EXPAND xpt::Common::setFeatureValue("getSource()", true, "getTarget()", true) FOR metaFeature»;
+	«ENDIF-»
+«ENDDEFINE»

@@ -248,6 +248,10 @@ public class CodegenEmitters {
 		return retrieve(ReorientConnectionViewCommandGenerator.class);
 	}
 
+	public TextEmitter getCreateRefLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::diagram::commands::CreateRefLinkCommand::CreateRefLinkCommand"); //$NON-NLS-1$
+	}
+
 	public TextEmitter getReorientLinkCommandEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("xpt::diagram::commands::ReorientLinkCommand::ReorientLinkCommand"); //$NON-NLS-1$
 	}

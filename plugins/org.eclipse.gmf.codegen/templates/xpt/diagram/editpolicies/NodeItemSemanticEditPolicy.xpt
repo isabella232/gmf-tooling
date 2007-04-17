@@ -28,7 +28,7 @@ package «getDiagram().editPoliciesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
 	«IF childNodes.size() > 0-»
-	
+
 		«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR childNodes-»
 	«ENDIF-»
 
@@ -37,7 +37,7 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 		«EXPAND addDestroyChildNodesCommand-»
 	«ENDIF-»
 	«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands(getDiagram()) FOR modelFacet-»
-	
+
 	«EXPAND additions-»
 }
 «ENDDEFINE»

@@ -51,11 +51,11 @@
 
 «DEFINE getReorientLinkCommands(gmfgen::GenDiagram diagram) FOR gmfgen::TypeModelFacet-»
 	«IF getReroutableLinks(diagram).size() > 0-»
-	
+
 		«EXPAND getReorientTypeLinkCommand(diagram)-»
 	«ENDIF-»
 	«IF getReroutableRefLinks(diagram).size() > 0-»
-	
+
 		«EXPAND getReorientRefLinkCommand(diagram)-»
 	«ENDIF-»
 «ENDDEFINE»
@@ -70,13 +70,9 @@ protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(org.ecli
 
 «DEFINE callLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
-	return req.getTarget() == null ? «IF createStartLinkCommand(typeModelFacet)-»
-		«EXPAND startLinkCommandCreatorName(typeModelFacet)»(req)«ELSE-»
-		null«ENDIF-»
-	: «IF createCompleteLinkCommand(typeModelFacet)-»
-	 	«EXPAND completeLinkCommandCreatorName(typeModelFacet)»(req)«ELSE-»
-		null«ENDIF-»
-;
+	return req.getTarget() == null ?
+		«IF createStartLinkCommand(typeModelFacet)»«EXPAND startLinkCommandCreatorName(typeModelFacet)»(req)«ELSE»null«ENDIF»:
+		«IF createCompleteLinkCommand(typeModelFacet)»«EXPAND completeLinkCommandCreatorName(typeModelFacet)»(req)«ELSE»null«ENDIF»;
 }
 «ENDDEFINE»
 
@@ -86,11 +82,11 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 
 «DEFINE createLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 	«IF createStartLinkCommand(typeModelFacet)-»
-	
+
 		«EXPAND createStartLinkCommand(typeModelFacet)-»
 	«ENDIF-»
 	«IF createCompleteLinkCommand(typeModelFacet)-»
-	
+
 		«EXPAND createCompleteLinkCommand(typeModelFacet)-»
 	«ENDIF-»
 «ENDDEFINE»
@@ -98,18 +94,26 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 «DEFINE createStartLinkCommand(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(typeModelFacet)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
+	«IF {modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0-»
+	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	«ELSE-»
 	«EXPAND defineSourceTargetAndCheckConstraints(createStartIncomingLinkCommand(typeModelFacet), false)-»
 «REM»create always executable command«ENDREM»«-»
 	return new org.eclipse.gef.commands.Command() {
 	};
+	«ENDIF-»
 }
 «ENDDEFINE»
 
 «DEFINE createCompleteLinkCommand(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND completeLinkCommandCreatorName(typeModelFacet)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
+	«IF {modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0-»
+	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	«ELSE-»
 	«EXPAND defineSourceTargetAndCheckConstraints(createCompleteOutgoingLinkCommand(typeModelFacet), true)-»
 	«EXPAND linkCreateCommand(this) FOR this.modelFacet-»
+	«ENDIF-»
 }
 «ENDDEFINE»
 
