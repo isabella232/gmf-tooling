@@ -30,7 +30,7 @@ public class ShipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemantic
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new SmallItemsCreateCommand(req));
+			return getGEFWrapper(new SmallItemsCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

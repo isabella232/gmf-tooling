@@ -36,19 +36,19 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ports());
 			}
-			return getMSLWrapper(new PortCreateCommand(req));
+			return getGEFWrapper(new PortCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Ship_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
-			return getMSLWrapper(new ShipCreateCommand(req));
+			return getGEFWrapper(new ShipCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Warship_2003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
-			return getMSLWrapper(new WarshipCreateCommand(req));
+			return getGEFWrapper(new WarshipCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -58,7 +58,7 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	 */
 	protected Command getDuplicateCommand(DuplicateElementsRequest req) {
 		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		return getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));
+		return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
 	}
 
 	/**

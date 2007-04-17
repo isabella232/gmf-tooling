@@ -31,13 +31,13 @@ public class ShipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSemantic
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new LargeItemCreateCommand(req));
+			return getGEFWrapper(new LargeItemCreateCommand(req));
 		}
 		if (TaiPanElementTypes.EmptyBox_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new EmptyBoxCreateCommand(req));
+			return getGEFWrapper(new EmptyBoxCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

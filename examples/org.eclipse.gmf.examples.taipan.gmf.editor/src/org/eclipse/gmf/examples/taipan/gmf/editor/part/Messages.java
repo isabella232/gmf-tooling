@@ -49,11 +49,6 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
-	public static String TaiPanDocumentProvider_UnableToLoadResourceError;
-
-	/**
-	 * @generated
-	 */
 	public static String TaiPanDocumentProvider_NoDiagramInResourceError;
 
 	/**
