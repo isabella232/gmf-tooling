@@ -27,19 +27,16 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		return (FigureLayoutSetup) mySessionSetup;
 	}
 	
-	public void disabled_XXX_testGridLayout(){
-		//XXX: This test now fails due to absence of the GridLayout.
-		//However, some less restictive checks done for grid layout in the performGridLayputTests() method    	
-		//If this test passes, it is safe to replace performGridLayputTests() with perfromTests() in the whole class.
+	public void testGridLayout(){
 		doPerformTests(getSessionSetup().getParent4());
 	}
 	
 	public void testConcreteShapeLayoutAllProperties(){
-		performGridLayoutTests(getSessionSetup().getParent5());
+		doPerformTests(getSessionSetup().getParent5());
 	}
 	
 	public void testCustomFigureLayoutAllProperties(){
-		performGridLayoutTests(getSessionSetup().getParent6());
+		doPerformTests(getSessionSetup().getParent6());
 	}
 	
 	public void testDeepChildrenLayout(){
@@ -47,11 +44,11 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	public void testLayoutDefaults(){
-		performGridLayoutTests(getSessionSetup().getParent7());
+		doPerformTests(getSessionSetup().getParent7());
 	}
 	
 	public void off_UnlessSupportFigureRef_testLayoutForReferencedChild(){
-		performGridLayoutTests(getSessionSetup().getParent8());
+		doPerformTests(getSessionSetup().getParent8());
 	}
 	
 	public void testMissedLayoutPresentLayoutData(){
@@ -97,10 +94,6 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	
 	public void testXYLayoutForCustomFigure(){
 		doPerformTests(getSessionSetup().getGroup5());
-	}
-	
-	private void performGridLayoutTests(Figure figure){
-		FigureGeneratorUtil.generateAndParse(figure);
 	}
 	
 	protected void doPerformTests(Figure f) {

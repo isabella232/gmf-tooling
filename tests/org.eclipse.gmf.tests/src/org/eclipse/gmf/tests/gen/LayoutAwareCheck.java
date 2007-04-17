@@ -12,6 +12,7 @@
 
 package org.eclipse.gmf.tests.gen;
 
+import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -23,6 +24,8 @@ import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.StackLayout;
@@ -96,6 +99,25 @@ public class LayoutAwareCheck extends GenericFigureCheck {
 			XYLayoutData gmfData = (XYLayoutData)gmf;
 			checkDimension(gmfData.getSize(), d2dBounds.getSize());
 			checkPoint(gmfData.getTopLeft(), d2dBounds.getTopLeft());
+		} else if (gmf instanceof GridLayoutData){
+			assertTrue(constraint instanceof GridData);
+			GridLayoutData gmfData = (GridLayoutData)gmf;
+			GridData d2dData = (GridData)constraint;
+			
+			assertEquals(gmfData.isGrabExcessHorizontalSpace(), d2dData.grabExcessHorizontalSpace);
+			assertEquals(gmfData.isGrabExcessVerticalSpace(), d2dData.grabExcessVerticalSpace);
+			
+			assertEquals(gmfData.getHorizontalSpan(), d2dData.horizontalSpan);
+			assertEquals(gmfData.getVerticalSpan(), d2dData.verticalSpan);
+			assertEquals(gmfData.getHorizontalIndent(), d2dData.horizontalIndent);
+
+			if (gmfData.getSizeHint() != null) {
+				checkDimension(gmfData.getSizeHint(), new Dimension(d2dData.widthHint, d2dData.heightHint));
+			}
+
+			AlignmentCheck alignmentChecker = new AlignmentCheck(GridData.BEGINNING, GridData.CENTER, GridData.END, GridData.FILL);
+			alignmentChecker.checkAlignment(gmfData.getHorizontalAlignment(), d2dData.horizontalAlignment);
+			alignmentChecker.checkAlignment(gmfData.getVerticalAlignment(), d2dData.verticalAlignment);
 		}
 	}
 
@@ -121,6 +143,20 @@ public class LayoutAwareCheck extends GenericFigureCheck {
 				assertTrue(d2dLayout instanceof org.eclipse.draw2d.FlowLayout);
 				checkFlowLayout(gmfFlow, (org.eclipse.draw2d.FlowLayout)d2dLayout);
 			}
+		} else if (gmfLayout instanceof GridLayout){
+			assertTrue(d2dLayout instanceof org.eclipse.draw2d.GridLayout);
+			checkGridLayout((GridLayout)gmfLayout, (org.eclipse.draw2d.GridLayout)d2dLayout);
+		}
+	}
+
+	protected void checkGridLayout(GridLayout gmfLayout, org.eclipse.draw2d.GridLayout d2dLayout) {
+		assertEquals(gmfLayout.isEqualWidth(), d2dLayout.makeColumnsEqualWidth);
+		assertEquals(gmfLayout.getNumColumns(), d2dLayout.numColumns);
+		if (gmfLayout.getMargins() != null) {
+			checkDimension(gmfLayout.getMargins(), new Dimension(d2dLayout.marginWidth, d2dLayout.marginHeight));
+		}
+		if (gmfLayout.getSpacing() != null) {
+			checkDimension(gmfLayout.getSpacing(), new Dimension(d2dLayout.horizontalSpacing, d2dLayout.verticalSpacing));
 		}
 	}
 

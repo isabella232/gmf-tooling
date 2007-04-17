@@ -62,12 +62,11 @@ public class FigureLayoutSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getParent1());
 		gallery.getFigures().add(getParent2());
 		gallery.getFigures().add(getParent3());
-// Uncomment then layout code will be generatable.
-//		gallery.getFigures().add(getParent4());
-//		gallery.getFigures().add(getParent5());
-//		gallery.getFigures().add(getParent6());
-//		gallery.getFigures().add(getParent7());
-//		gallery.getFigures().add(getParent8());
+		gallery.getFigures().add(getParent4());
+		gallery.getFigures().add(getParent5());
+		gallery.getFigures().add(getParent6());
+		gallery.getFigures().add(getParent7());
+		gallery.getFigures().add(getParent8());
 //		gallery.getFigures().add(getParent9());
 		gallery.getFigures().add(getGroup());
 		gallery.getFigures().add(getGroup1());
