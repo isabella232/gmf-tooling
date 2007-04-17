@@ -21,6 +21,12 @@ import org.eclipse.gmf.internal.bridge.resolver.TypePattern;
  */
 public class ResolvedItem {
 
+	public enum Resolution {
+		NODE,
+		LINK,
+		LABEL
+	}
+
 	public static final Resolution[] NO_RESOLUTIONS = { null };
 
 	public static final Resolution[] ALL_RESOLUTIONS = { null, Resolution.NODE, Resolution.LINK, Resolution.LABEL };

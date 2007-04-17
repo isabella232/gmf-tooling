@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.ResolvedItem.Resolution;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;

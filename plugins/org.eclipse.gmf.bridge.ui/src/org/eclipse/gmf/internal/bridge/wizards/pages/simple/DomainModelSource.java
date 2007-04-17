@@ -22,6 +22,9 @@ public interface DomainModelSource {
 
 	public EPackage getContents();
 
+	/**
+	 * EClass mapped to diagram canvas.
+	 */
 	public EClass getDiagramElement();
 
 	/**

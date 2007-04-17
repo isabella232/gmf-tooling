@@ -17,6 +17,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.ResolvedItem.Resolution;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -35,16 +36,22 @@ import org.eclipse.swt.widgets.TreeItem;
  */
 class DomainModelViewerFactory {
 
+	private static final String P_NODE = "Node"; //$NON-NLS-1$
+
+	private static final String P_LINK = "Link"; //$NON-NLS-1$
+
+	private static final String P_LABEL = "Label"; //$NON-NLS-1$
+
 	public static TreeViewer createViewer(Tree tree, boolean withLabes) {
 		TreeViewer viewer = new TreeViewer(tree);
 		viewer.setContentProvider(new ResolverContentProvider());
 		AdapterFactory adapterFactory = new EcoreItemProviderAdapterFactory();
 		viewer.setLabelProvider(new ResolverLabelProvider(new AdapterFactoryLabelProvider(adapterFactory)));
 		if (withLabes) {
-			viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() }); //$NON-NLS-1$
+			viewer.setColumnProperties(new String[] { "no", P_NODE, P_LINK, P_LABEL }); //$NON-NLS-1$
 			viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor(), new CheckboxCellEditor() });
 		} else {
-			viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName() }); //$NON-NLS-1$
+			viewer.setColumnProperties(new String[] { "no", P_NODE, P_LINK }); //$NON-NLS-1$
 			viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor() });
 		}
 		viewer.setCellModifier(new ResolverCellModifier(viewer, withLabes));
@@ -64,7 +71,7 @@ class DomainModelViewerFactory {
 
 		public Object getValue(Object element, String property) {
 			ResolvedItem item = (ResolvedItem) element;
-			return Boolean.valueOf(item.getResolution() == Resolution.getByName(property));
+			return Boolean.valueOf(item.getResolution() == getResolution(property));
 		}
 
 		public boolean canModify(Object element, String property) {
@@ -74,16 +81,27 @@ class DomainModelViewerFactory {
 
 		public void modify(Object element, String property, Object value) {
 			ResolvedItem item = (ResolvedItem) ((TreeItem) element).getData();
-			Resolution resolution = Resolution.getByName(property);
+			Resolution resolution = getResolution(property);
 			if (!item.isPossibleResolution(resolution)) {
 				return;
 			}
 			item.setResolution(((Boolean) value).booleanValue() ? resolution : null);
 			if (withLabels) {
-				viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
+				viewer.update(item, new String[] { P_NODE, P_LINK, P_LABEL });
 			} else {
-				viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName() });
+				viewer.update(item, new String[] { P_NODE, P_LINK });
 			}
+		}
+		
+		private Resolution getResolution(String property) {
+			if (P_NODE.equals(property)) {
+				return Resolution.NODE;
+			} else if (P_LINK.equals(property)) {
+				return Resolution.LINK;
+			} else if (P_LABEL.equals(property)) {
+				return Resolution.LABEL;
+			}
+			return null;
 		}
 	}
 

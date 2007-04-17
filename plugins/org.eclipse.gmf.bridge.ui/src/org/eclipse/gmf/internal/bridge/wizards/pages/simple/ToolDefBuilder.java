@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.ResolvedItem.Resolution;
 import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.gmf.tooldef.AbstractTool;
