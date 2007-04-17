@@ -18,8 +18,6 @@ import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.GridLayout;
-import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 
@@ -50,14 +48,6 @@ public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 		return false;
 	}
 
-	public String caseGridLayout(GridLayout object) {
-		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayout";
-	}
-
-	public String caseGridLayoutData(GridLayoutData object) {
-		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayoutData";
-	}
-	
 	public String casePolylineConnection(PolylineConnection object) {
 		return "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"; //$NON-NLS-1$
 	}

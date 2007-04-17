@@ -19,6 +19,8 @@ import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.Polygon;
@@ -137,4 +139,13 @@ class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch<String> implements
 	public String casePolylineConnection(PolylineConnection object) {
 		return "org.eclipse.draw2d.PolylineConnection"; //$NON-NLS-1$
 	}
+	
+	public String caseGridLayout(GridLayout object) {
+		return "org.eclipse.draw2d.GridLayout";
+	}
+
+	public String caseGridLayoutData(GridLayoutData object) {
+		return "org.eclipse.draw2d.GridData";
+	}
+	
 }
