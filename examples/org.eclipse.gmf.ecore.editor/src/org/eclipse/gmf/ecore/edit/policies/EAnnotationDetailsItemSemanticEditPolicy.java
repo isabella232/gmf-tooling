@@ -34,7 +34,7 @@ public class EAnnotationDetailsItemSemanticEditPolicy extends EcoreBaseItemSeman
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEAnnotation_Details());
 			}
-			return getMSLWrapper(new EStringToStringMapEntryCreateCommand(req));
+			return getGEFWrapper(new EStringToStringMapEntryCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

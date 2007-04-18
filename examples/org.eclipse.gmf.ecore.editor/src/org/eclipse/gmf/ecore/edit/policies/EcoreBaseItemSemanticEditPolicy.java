@@ -75,6 +75,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	public static final String VISUAL_ID_KEY = "visual_id"; //$NON-NLS-1$
 
 	/**
+	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
 	 * It is done in those cases when it's not possible to deduce diagram
@@ -261,8 +262,17 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Command getMSLWrapper(ICommand cmd) {
+	protected final Command getGEFWrapper(ICommand cmd) {
 		return new ICommandProxy(cmd);
+	}
+
+	/**
+	 * @deprecated use getGEFWrapper() instead
+	 * @generated
+	 */
+	protected final Command getMSLWrapper(ICommand cmd) {
+		// XXX deprecated: use getGEFWrapper() instead
+		return getGEFWrapper(cmd);
 	}
 
 	/**
@@ -306,9 +316,9 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected Command getDestroyElementCommand(View view, boolean confirm) {
+	protected Command getDestroyElementCommand(View view) {
 		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
-		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), confirm);
+		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), false);
 		return editPart.getCommand(new EditCommandRequestWrapper(request, Collections.EMPTY_MAP));
 	}
 
@@ -317,14 +327,14 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * 
 	 * @generated
 	 */
-	protected CompoundCommand getDestroyEdgesCommand(boolean confirm) {
+	protected CompoundCommand getDestroyEdgesCommand() {
 		CompoundCommand cmd = new CompoundCommand();
 		View view = (View) getHost().getModel();
 		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next()));
 		}
 		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next(), confirm));
+			cmd.add(getDestroyElementCommand((Edge) it.next()));
 		}
 		return cmd;
 	}

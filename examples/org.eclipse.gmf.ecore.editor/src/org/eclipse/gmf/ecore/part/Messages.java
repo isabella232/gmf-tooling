@@ -69,11 +69,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String EcoreDocumentProvider_UnableToLoadResourceError;
-
-	/**
-	 * @generated
-	 */
 	public static String EcoreDocumentProvider_NoDiagramInResourceError;
 
 	/**

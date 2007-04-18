@@ -34,7 +34,7 @@ public class EPackagePackagesItemSemanticEditPolicy extends EcoreBaseItemSemanti
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
 			}
-			return getMSLWrapper(new EPackage2CreateCommand(req));
+			return getGEFWrapper(new EPackage2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

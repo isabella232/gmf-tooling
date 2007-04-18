@@ -34,7 +34,7 @@ public class EPackageEnumsItemSemanticEditPolicy extends EcoreBaseItemSemanticEd
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new EEnum2CreateCommand(req));
+			return getGEFWrapper(new EEnum2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

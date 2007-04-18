@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -19,7 +18,9 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
+import org.eclipse.gmf.ecore.edit.commands.EClassESuperTypesCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EClassESuperTypesReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2CreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2ReorientCommand;
@@ -31,12 +32,10 @@ import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 
 /**
  * @generated
@@ -47,8 +46,8 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		CompoundCommand cc = getDestroyEdgesCommand();
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
@@ -75,18 +74,7 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEAnnotationReferences_4001Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EAnnotation || false == targetEObject instanceof EObject) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EAnnotation source = (EAnnotation) sourceEObject;
-		EObject target = (EObject) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEAnnotationReferences_4001(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(sourceEObject, EcorePackage.eINSTANCE.getEAnnotation_References(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return getGEFWrapper(new EAnnotationReferencesCreateCommand(req));
 	}
 
 	/**
@@ -122,7 +110,7 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReferenceCreateCommand(req, source, target));
+		return getGEFWrapper(new EReferenceCreateCommand(req, source, target));
 	}
 
 	/**
@@ -158,41 +146,21 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new EReference2CreateCommand(req, source, target));
+		return getGEFWrapper(new EReference2CreateCommand(req, source, target));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEClassESuperTypes_4004Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof EClass) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EClass source = (EClass) sourceEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEClassESuperTypes_4004(source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return getGEFWrapper(new EClassESuperTypesCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEClassESuperTypes_4004Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClass) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EClass source = (EClass) sourceEObject;
-		EClass target = (EClass) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEClassESuperTypes_4004(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(sourceEObject, EcorePackage.eINSTANCE.getEClass_ESuperTypes(), target);
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return getGEFWrapper(new EClassESuperTypesCreateCommand(req));
 	}
 
 	/**
@@ -204,9 +172,9 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	protected Command getReorientRelationshipCommand(ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case EReferenceEditPart.VISUAL_ID:
-			return getMSLWrapper(new EReferenceReorientCommand(req));
+			return getGEFWrapper(new EReferenceReorientCommand(req));
 		case EReference2EditPart.VISUAL_ID:
-			return getMSLWrapper(new EReference2ReorientCommand(req));
+			return getGEFWrapper(new EReference2ReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}
@@ -220,9 +188,9 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	protected Command getReorientReferenceRelationshipCommand(ReorientReferenceRelationshipRequest req) {
 		switch (getVisualID(req)) {
 		case EAnnotationReferencesEditPart.VISUAL_ID:
-			return getMSLWrapper(new EAnnotationReferencesReorientCommand(req));
+			return getGEFWrapper(new EAnnotationReferencesReorientCommand(req));
 		case EClassESuperTypesEditPart.VISUAL_ID:
-			return getMSLWrapper(new EClassESuperTypesReorientCommand(req));
+			return getGEFWrapper(new EClassESuperTypesReorientCommand(req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

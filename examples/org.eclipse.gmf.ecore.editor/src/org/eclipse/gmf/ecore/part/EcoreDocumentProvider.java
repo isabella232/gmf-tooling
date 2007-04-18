@@ -202,9 +202,6 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 						throw e;
 					}
 				}
-				if (resource == null) {
-					throw new RuntimeException(Messages.EcoreDocumentProvider_UnableToLoadResourceError);
-				}
 				if (uri.fragment() != null) {
 					EObject rootElement = resource.getEObject(uri.fragment());
 					if (rootElement instanceof Diagram) {

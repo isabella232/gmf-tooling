@@ -25,8 +25,8 @@ public class EStringToStringMapEntryItemSemanticEditPolicy extends EcoreBaseItem
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand(req.isConfirmationRequired());
-		cc.add(getMSLWrapper(new DestroyElementCommand(req)));
+		CompoundCommand cc = getDestroyEdgesCommand();
+		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
 		return cc.unwrap();
 	}
 
