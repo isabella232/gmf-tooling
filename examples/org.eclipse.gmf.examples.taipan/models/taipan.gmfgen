@@ -677,6 +677,7 @@
         editPartClassName="PortRegisterEditPart"
         itemSemanticEditPolicyClassName="PortRegisterItemSemanticEditPolicy"
         notationViewFactoryClassName="PortRegisterViewFactory"
+        incomingCreationAllowed="true"
         createCommandClassName="PortRegisterCreateCommand"
         reorientCommandClassName="PortRegisterReorientCommand">
       <diagramRunTimeClass
