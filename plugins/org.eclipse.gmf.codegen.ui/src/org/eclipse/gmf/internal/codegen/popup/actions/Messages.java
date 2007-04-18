@@ -22,6 +22,16 @@ public class Messages extends NLS {
 
 	public static String DiagnosticsDialog_gotoProblem_menuItem;
 
+	public static String GMFGenExtensionModelWizard_classChooserLabel;
+
+	public static String GMFGenExtensionModelWizard_pageDescription;
+
+	public static String GMFGenExtensionModelWizard_pageTitle;
+
+	public static String GMFGenExtensionModelWizard_unnamedClassName;
+
+	public static String GMFGenExtensionModelWizard_windowTitle;
+
 	public static String migration_confirmModelOverwriteMessage;
 
 	public static String migration_confirmModelOverwriteTitle;

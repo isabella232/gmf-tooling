@@ -28,6 +28,13 @@
                enablesFor="1"
                id="gmf.codegen.ui.executeTemplatesAction">
          </action>
+         <action
+               label="%addextensionmodel.action"
+               class="org.eclipse.gmf.internal.codegen.popup.actions.AddExtensionModelAction"
+               menubarPath="additions"
+               enablesFor="+"
+               id="gmf.codegen.ui.addExtensionModelAction">
+         </action>
       </objectContribution>
 	<objectContribution
     		adaptable="true"
