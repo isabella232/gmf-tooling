@@ -37,11 +37,11 @@ import org.eclipse.gmf.internal.common.NamesDispenser;
  */
 public class GenNamingMediatorImpl implements GenNamingMediator {
 
-	private static final GMFGenPackage M = GMFGenPackage.eINSTANCE;
-
 	public static final int COLLECT_NAMES_MODE = 0;
 
 	public static final int DISPENSE_NAMES_MODE = 1;
+
+	private final GMFGenPackage M = GMFGenPackage.eINSTANCE;
 
 	private int mode;
 
@@ -175,9 +175,13 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 		if (element.getElementType() instanceof MetamodelType) {
 			MetamodelType type = (MetamodelType) element.getElementType();
 			feedName(type, M.getMetamodelType_EditHelperClassName(), getEditHelper(), element);
-		} else if (element.getElementType() instanceof SpecializationType) {
-			SpecializationType type = (SpecializationType) element.getElementType();
-			feedName(type, M.getSpecializationType_EditHelperAdviceClassName(), getEditHelperAdvice(), element);
+//		} else if (element.getElementType() instanceof SpecializationType) {
+//			/*
+//			 * Uncoment once we generate anything reasonable in the advice's body;
+//			 * otherwise no reason to generate empty class
+//			 */
+//			SpecializationType type = (SpecializationType) element.getElementType();
+//			feedName(type, M.getSpecializationType_EditHelperAdviceClassName(), getEditHelperAdvice(), element);
 		}
 	}
 
