@@ -85,12 +85,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addDomainPage(Wizard wizard, ResourceLocationProvider rloc) {
-		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc, getResourceSet()) { //$NON-NLS-1$
-
-			protected String getModelFileExtension() {
-				return "ecore"; //$NON-NLS-1$
-			}
-		};
+		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc, getResourceSet(), "ecore"); //$NON-NLS-1$ //$NON-NLS-2$
 		domainModelSelectionPage.setTitle("Select Domain Model");
 		domainModelSelectionPage.setDescription("Load domain model and select element for canvas mapping.");
 		List<URI> uris = rloc.getSelectedURIs("ecore"); //$NON-NLS-1$
@@ -138,12 +133,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addGraphPage(Wizard wizard, ResourceLocationProvider rloc) {
-		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc, getResourceSet()) { //$NON-NLS-1$
-
-			protected String getModelFileExtension() {
-				return "gmfgraph"; //$NON-NLS-1$
-			}
-		};
+		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc, getResourceSet(), "gmfgraph"); //$NON-NLS-1$ //$NON-NLS-2$
 		graphModelSelectionPage.setTitle("Select Diagram Canvas");
 		graphModelSelectionPage.setDescription("Load graphical definition model and select diagram canvas for canvas mapping.");
 		List<URI> uris = rloc.getSelectedURIs("gmfgraph"); //$NON-NLS-1$
@@ -173,11 +163,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addToolPage(Wizard wizard, ResourceLocationProvider rloc) {
-		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc, getResourceSet()) { //$NON-NLS-1$
-
-			protected String getModelFileExtension() {
-				return "gmftool"; //$NON-NLS-1$
-			}
+		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc, getResourceSet(), "gmftool") { //$NON-NLS-1$ //$NON-NLS-2$
 
 			public void validatePage() {
 				CreateNewModelExtension ext = (CreateNewModelExtension) getExtension("new"); //$NON-NLS-1$
