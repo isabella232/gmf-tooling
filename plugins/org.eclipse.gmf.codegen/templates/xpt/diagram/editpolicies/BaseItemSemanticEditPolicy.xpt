@@ -436,7 +436,7 @@ if («EXPAND featureBoundComparator(getContainerVariable(modelFacet), modelFacet.
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE featureBoundComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass, true)»«IF ecoreFeature.upperBound == 1» != null«ELSE».size() >= «ecoreFeature.upperBound»«ENDIF»«ENDDEFINE»
+«DEFINE featureBoundComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass)»«IF ecoreFeature.upperBound == 1» != null«ELSE».size() >= «ecoreFeature.upperBound»«ENDIF»«ENDDEFINE»
 
 «DEFINE checkEMFConstraints FOR gmfgen::FeatureLinkModelFacet-»
 	«LET "source" AS sourceVar-»
@@ -454,7 +454,7 @@ if («sourceVar» != null) {
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE featureUniquenessComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass, true) FOR this».contains(target)«ENDDEFINE»
+«DEFINE featureUniquenessComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass) FOR this».contains(target)«ENDDEFINE»
 
 «DEFINE checkEMFConstraints FOR gmfgen::LinkModelFacet-»
 	«EXPAND incorrectLinkModelFacet-»

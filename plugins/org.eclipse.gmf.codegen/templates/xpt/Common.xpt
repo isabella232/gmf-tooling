@@ -64,23 +64,19 @@
 «getDiagramEditorUtilQualifiedClassName()».setCharset(«varName»);
 «ENDDEFINE»
 
-«REM»
-	containerClass parameter was added because GenFeature.genClass could be a super-class of containerClass.
-«ENDREM»
-«DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass, boolean typedContainer) FOR genmodel::GenFeature-»
+«DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass) FOR genmodel::GenFeature-»
 	«IF isExternalInterface(containerClass)-»
-((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
+((«getFeatureTargetType()») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND metaFeatureAccessor»))«-»
 	«ELSE-»
-«IF !typedContainer»((«getQualifiedInterfaceName(genClass)»)«ENDIF»«containerVar»«IF !typedContainer»)«ENDIF».«getGetAccessor()»()«-»
+«containerVar».«getGetAccessor()»()«-»
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE setFeatureValue(String containerVar, boolean typedContainer, String valueVar, boolean typedValue) FOR genmodel::GenFeature-»
-	«IF isExternalInterface(genClass)-»
-«IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eSet(«EXPAND metaFeatureAccessor», «valueVar»)«-»
+«DEFINE setFeatureValue(String containerVar, genmodel::GenClass containerGenClass, String valueVar) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(containerGenClass)-»
+((org.eclipse.emf.ecore.EObject) «containerVar»).eSet(«EXPAND metaFeatureAccessor», «valueVar»)«-»
 	«ELSE-»
-«IF !typedContainer»((«getQualifiedInterfaceName(genClass)»)«ENDIF»«containerVar»«IF !typedContainer»)«ENDIF».set«getAccessorName(this)»(
-		«IF !typedValue»(«getQualifiedInterfaceName(getTypeGenClassX(this))»)«ENDIF»«valueVar»«IF !typedValue»«ENDIF»)«-»
+«containerVar».set«getAccessorName(this)»(«valueVar»)«-»
 	«ENDIF-»
 «ENDDEFINE»
 

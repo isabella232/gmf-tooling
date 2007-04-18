@@ -79,8 +79,8 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 «ENDREM»
 «DEFINE setValue FOR gmfgen::FeatureLinkModelFacet-»
 	«IF metaFeature.ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue("getSource()", getSourceType(), true) FOR metaFeature».add(getTarget());
+		«EXPAND xpt::Common::getFeatureValue("getSource()", getSourceType()) FOR metaFeature».add(getTarget());
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue("getSource()", true, "getTarget()", true) FOR metaFeature»;
+		«EXPAND xpt::Common::setFeatureValue("getSource()", getSourceType(), "getTarget()") FOR metaFeature»;
 	«ENDIF-»
 «ENDDEFINE»

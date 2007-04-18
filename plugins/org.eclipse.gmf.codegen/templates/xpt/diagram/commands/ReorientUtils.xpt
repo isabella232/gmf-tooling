@@ -175,12 +175,12 @@
 
 «DEFINE extractFeatureWithCheck(String containerVar, genmodel::GenClass containerGenClass, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)».size() != 1) {
+		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)».size() != 1) {
 			return false;
 		}
-		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)».get(0);
+		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)».get(0);
 	«ELSE-»
-		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)»;
+		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass)»;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -277,12 +277,12 @@
 «REM»
 	Replace old target with the new one in the source.
 «ENDREM»
-«DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
+«DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceVarGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceGenClass, true)».remove(«oldTargetVar»);
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceGenClass, true)».add(«newTargetVar»);
+		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».remove(«oldTargetVar»);
+		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».add(«newTargetVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(sourceVar, true, newTargetVar, true)»;
+		«EXPAND xpt::Common::setFeatureValue(sourceVar, sourceVarGenClass, newTargetVar)»;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -291,10 +291,10 @@
 «ENDREM»
 «DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar, genmodel::GenClass sourceVarGenClass) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, sourceVarGenClass, true)».remove(«targetVar»);
-		«EXPAND xpt::Common::getFeatureValue(newSourceVar, sourceVarGenClass, true)».add(«targetVar»);
+		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, sourceVarGenClass)».remove(«targetVar»);
+		«EXPAND xpt::Common::getFeatureValue(newSourceVar, sourceVarGenClass)».add(«targetVar»);
 	«ELSE-»
-		«EXPAND xpt::Common::setFeatureValue(oldSourceVar, true, "null", true)»;
-		«EXPAND xpt::Common::setFeatureValue(newSourceVar, true, targetVar, true)»;
+		«EXPAND xpt::Common::setFeatureValue(oldSourceVar, sourceVarGenClass, "null")»;
+		«EXPAND xpt::Common::setFeatureValue(newSourceVar, sourceVarGenClass, targetVar)»;
 	«ENDIF-»
 «ENDDEFINE»

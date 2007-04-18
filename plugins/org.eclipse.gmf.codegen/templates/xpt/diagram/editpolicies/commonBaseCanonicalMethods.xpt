@@ -63,9 +63,9 @@ java.util.List allValues = new java.util.LinkedList();
 		«IF null == childFeature-»
 allValues.add(/*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/);
 		«ELSEIF isListType(childFeature)-»
-allValues.addAll(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenClass, true) FOR childFeature»);
+allValues.addAll(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenClass) FOR childFeature»);
 		«ELSE-»
-allValues.add(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenClass, true) FOR childFeature»);
+allValues.add(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenClass) FOR childFeature»);
 		«ENDIF-»
 	«ENDFOREACH-»
 «ENDDEFINE»

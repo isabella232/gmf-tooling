@@ -78,9 +78,9 @@ private java.util.Collection refreshPhantoms() {
 «DEFINE collectPotentialPhantoms(genmodel::GenClass containerGenClass) FOR gmfgen::GenLink-»
 	«LET ((gmfgen::FeatureLinkModelFacet) modelFacet).metaFeature AS genFeature-»
 		«IF isListType(genFeature)-»
-phantomNodes.addAll(«EXPAND xpt::Common::getFeatureValue("container", containerGenClass, true) FOR genFeature»);
+phantomNodes.addAll(«EXPAND xpt::Common::getFeatureValue("container", containerGenClass) FOR genFeature»);
 		«ELSE-»
-phantomNodes.add(«EXPAND xpt::Common::getFeatureValue("container", containerGenClass, true) FOR genFeature»);
+phantomNodes.add(«EXPAND xpt::Common::getFeatureValue("container", containerGenClass) FOR genFeature»);
 		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
