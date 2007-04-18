@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -48,7 +48,7 @@ public abstract class ListElementSelectorExtension extends ElementSelectorExtens
 			GridData data = new GridData();
 			label.setLayoutData(data);
 		}
-		list = new List(plate, SWT.SINGLE | SWT.V_SCROLL);
+		list = new List(plate, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 		list.setEnabled(false);
 		{
 			GridData data = new GridData();
