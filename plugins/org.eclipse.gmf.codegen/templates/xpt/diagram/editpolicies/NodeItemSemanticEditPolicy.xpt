@@ -33,7 +33,7 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 	«ENDIF-»
 
 	«EXPAND getDestroyElementCommand-»
-	«IF hasChildren()-»
+	«IF hasChildrenOrCompartments()-»
 		«EXPAND addDestroyChildNodesCommand-»
 	«ENDIF-»
 	«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands(getDiagram()) FOR modelFacet-»
@@ -46,7 +46,7 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand();
-	«IF hasChildren()-»
+	«IF hasChildrenOrCompartments()-»
 	addDestroyChildNodesCommand(cc);
 	«ENDIF-»
 	«EXPAND destroySemanticElement-»

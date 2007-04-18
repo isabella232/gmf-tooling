@@ -23,21 +23,16 @@ package «getDiagram().editPoliciesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
-	/**
-	 * Extended request data key to hold editpart visual id.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Extended request data key to hold editpart visual id.\n")»
 	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
 
-	/**
-	 * Add visual id of edited editpart to extended data of the request
-	 * so command switch can decide what kind of diagram element is being edited.
-	 * It is done in those cases when it's not possible to deduce diagram
-	 * element kind from domain element.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment(
+		"Extended request data key to hold editpart visual id.\n" +
+		"Add visual id of edited editpart to extended data of the request\n" +
+		"so command switch can decide what kind of diagram element is being edited.\n" +
+		"It is done in those cases when it\'s not possible to deduce diagram\n" +
+		"element kind from domain element.\n"
+	)»
 	public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
 		if (request instanceof org.eclipse.gef.requests.ReconnectRequest) {
 			Object view = ((org.eclipse.gef.requests.ReconnectRequest) request).getConnectionEditPart().getModel();
@@ -48,12 +43,8 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 		}
 		return super.getCommand(request);
 	}
-
-	/**
-	 * Returns visual id from request parameters.
-	 * 
-	 * @generated
-	 */
+	
+	«EXPAND xpt::Common::generatedMemberComment("Returns visual id from request parameters.\n")»
 	protected int getVisualID(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		Object id = request.getParameter(VISUAL_ID_KEY);
 		return id instanceof Integer ? ((Integer) id).intValue() : -1;
@@ -61,20 +52,12 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 
 	«EXPAND semanticPart-»
 
-	/**
-	 * Returns editing domain from the host edit part.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Returns editing domain from the host edit part.\n")»
 	protected org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
 		return ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 	}
 
-	/**
-	 * Creates command to destroy the link.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Creates command to destroy the link.\n")»
 	protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.notation.View view) {
 		org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest request =
@@ -83,11 +66,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 				new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(request, java.util.Collections.EMPTY_MAP));
 	}
 
-	/**
-	 * Creates commands to destroy all host incoming and outgoing links.
-	 * 
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment("Creates commands to destroy all host incoming and outgoing links.\n")»
 	protected org.eclipse.gef.commands.CompoundCommand getDestroyEdgesCommand() {
 		org.eclipse.gef.commands.CompoundCommand cmd = new org.eclipse.gef.commands.CompoundCommand();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
@@ -451,31 +430,31 @@ if («getContainerVariable()» != null) {
 
 «DEFINE checkEMFConstraints(gmfgen::TypeLinkModelFacet modelFacet) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.upperBound > 0-»
-if («EXPAND featureBoundComparator(getContainerVariable(modelFacet))») {
+if («EXPAND featureBoundComparator(getContainerVariable(modelFacet), modelFacet.getSourceType())») {
 	return false;
 }
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE featureBoundComparator(String featureVar) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, true)»«IF ecoreFeature.upperBound == 1» != null«ELSE».size() >= «ecoreFeature.upperBound»«ENDIF»«ENDDEFINE»
+«DEFINE featureBoundComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass, true)»«IF ecoreFeature.upperBound == 1» != null«ELSE».size() >= «ecoreFeature.upperBound»«ENDIF»«ENDDEFINE»
 
 «DEFINE checkEMFConstraints FOR gmfgen::FeatureLinkModelFacet-»
 	«LET "source" AS sourceVar-»
 if («sourceVar» != null) {
 	if (
 		«REM»Checking uper bounds if was specified in MM«ENDREM»«-»
-		«IF metaFeature.ecoreFeature.upperBound > 0»«EXPAND featureBoundComparator(sourceVar) FOR metaFeature»«ENDIF-»
+		«IF metaFeature.ecoreFeature.upperBound > 0»«EXPAND featureBoundComparator(sourceVar, getSourceType()) FOR metaFeature»«ENDIF-»
 		«REM»Checking uniqueness in addition if uper bounds > 1«ENDREM»«-»
 		«IF metaFeature.ecoreFeature.upperBound > 1» || «ENDIF-»
 		«REM»Checking uniqueness in if uper bounds > 1 or < 0«ENDREM»«-»
-		«IF metaFeature.ecoreFeature.upperBound != 1»«EXPAND featureUniquenessComparator(sourceVar) FOR metaFeature»«ENDIF») {
+		«IF metaFeature.ecoreFeature.upperBound != 1»«EXPAND featureUniquenessComparator(sourceVar, getSourceType()) FOR metaFeature»«ENDIF») {
 		return false;
 	}
 }
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE featureUniquenessComparator(String featureVar) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, true) FOR this».contains(target)«ENDDEFINE»
+«DEFINE featureUniquenessComparator(String featureVar, genmodel::GenClass featureVarGenClass) FOR genmodel::GenFeature»«EXPAND xpt::Common::getFeatureValue(featureVar, featureVarGenClass, true) FOR this».contains(target)«ENDDEFINE»
 
 «DEFINE checkEMFConstraints FOR gmfgen::LinkModelFacet-»
 	«EXPAND incorrectLinkModelFacet-»

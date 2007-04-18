@@ -64,8 +64,11 @@
 «getDiagramEditorUtilQualifiedClassName()».setCharset(«varName»);
 «ENDDEFINE»
 
-«DEFINE getFeatureValue(String containerVar, boolean typedContainer) FOR genmodel::GenFeature-»
-	«IF isExternalInterface(genClass)-»
+«REM»
+	containerClass parameter was added because GenFeature.genClass could be a super-class of containerClass.
+«ENDREM»
+«DEFINE getFeatureValue(String containerVar, genmodel::GenClass containerClass, boolean typedContainer) FOR genmodel::GenFeature-»
+	«IF isExternalInterface(containerClass)-»
 ((«getFeatureTargetType()») «IF typedContainer»((org.eclipse.emf.ecore.EObject) «ENDIF»«containerVar»«IF typedContainer»)«ENDIF».eGet(«EXPAND metaFeatureAccessor»))«-»
 	«ELSE-»
 «IF !typedContainer»((«getQualifiedInterfaceName(genClass)»)«ENDIF»«containerVar»«IF !typedContainer»)«ENDIF».«getGetAccessor()»()«-»

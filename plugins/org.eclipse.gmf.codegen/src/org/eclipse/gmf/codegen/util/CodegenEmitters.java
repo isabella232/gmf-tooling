@@ -52,7 +52,6 @@ import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
-import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
@@ -151,7 +150,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
-		put(tr, "/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
@@ -326,8 +324,8 @@ public class CodegenEmitters {
 		return retrieve(DiagramCanonicalEditPolicyGenerator.class);
 	}
 
-	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ChildContainerCanonicalEditPolicyGenerator.class);
+	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
+		return newXpandEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy");
 	}
 
 	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {

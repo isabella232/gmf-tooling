@@ -218,7 +218,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest"));
     stringBuffer.append(TEXT_9);
-    if (modelFacet.getContainmentMetaFeature() == null && modelFacet.getChildMetaFeature() == null) {
+    if (!modelFacet.isPhantomElement() && modelFacet.getContainmentMetaFeature() == null && modelFacet.getChildMetaFeature() == null) {
     stringBuffer.append(TEXT_10);
     
 	importManager.emitSortedImports();

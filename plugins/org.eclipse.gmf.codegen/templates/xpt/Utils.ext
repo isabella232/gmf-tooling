@@ -17,7 +17,7 @@ extension xpt::GenModelUtils;
 // move it to static java method
 String getFeatureTargetType(genmodel::GenFeature feature) :
 	isListType(feature)
-		? "java.util.Collection"
+		? "java.util.List"
 		: (let classifier = findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)
 			: {classifier}.typeSelect(genmodel::GenClass).isEmpty() 
 				? ((genmodel::GenDataType) classifier).ecoreDataType.instanceClassName

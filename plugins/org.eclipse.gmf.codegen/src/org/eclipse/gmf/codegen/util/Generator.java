@@ -436,13 +436,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateChildContainerCanonicalEditPolicy(GenChildContainer genContainer) throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getChildContainerCanonicalEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			genContainer.getCanonicalEditPolicyClassName(),
-			genContainer
-		);
+	private void generateChildContainerCanonicalEditPolicy(GenChildContainer genContainer) throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getChildContainerCanonicalEditPolicyEmitter(), genContainer.getCanonicalEditPolicyQualifiedClassName(), genContainer);
 	}
 
 	private void generateDiagramItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

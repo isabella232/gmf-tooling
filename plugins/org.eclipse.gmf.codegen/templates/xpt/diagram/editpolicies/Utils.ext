@@ -13,8 +13,57 @@
 import "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
+extension xpt::GenModelUtils;
 
-boolean hasChildren(gmfgen::GenNode node) :
+genmodel::GenClass getModelElementType(gmfgen::GenCommonBase commonBase) :
+	null
+;
+
+genmodel::GenClass getModelElementType(gmfgen::GenDiagram diagram) :
+	diagram.domainDiagramElement
+;
+
+genmodel::GenClass getModelElementType(gmfgen::GenCompartment compartment) :
+	getModelElementType(compartment.node)
+;
+
+genmodel::GenClass getModelElementType(gmfgen::GenNode node) :
+	node.modelFacet.metaClass
+;
+
+cached List[gmfgen::GenNode] getConnectedPhantomNodes(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	diagram.topLevelNodes.select(node | null != node.modelFacet && node.modelFacet.isPhantomElement()).select(node | canBePhantomLinkTarget(node, typeModelFacet, diagram))
+;
+
+private boolean canBePhantomLinkTarget(gmfgen::GenNode node, gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	!getOutgoingPhantomLinks(typeModelFacet, diagram).select(link | canBeTarget(link, node.modelFacet)).isEmpty()
+;
+
+cached List[gmfgen::GenLink] getOutgoingPhantomLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | isPhantom(link.modelFacet) && canBeSource(link, typeModelFacet))
+;
+
+private boolean isPhantom(gmfgen::FeatureLinkModelFacet modelFacet) :
+	modelFacet.metaFeature.isContains()
+;
+
+private boolean isPhantom(gmfgen::LinkModelFacet modelFacet) :
+	false
+;
+
+cached Set[genmodel::GenFeature] getChildFeatures(List[gmfgen::GenNode] childNodes) :
+	selectSemanticChildren(childNodes).collect(node | node.modelFacet.childMetaFeature).union({})
+;
+
+cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] childNodes) :
+	childNodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
+;
+
+cached List[gmfgen::GenNode] selectNotationChildren(List[gmfgen::GenNode] childNodes) :
+	childNodes.select(node | null == node.modelFacet || !node.modelFacet.isPhantomElement())
+;
+
+boolean hasChildrenOrCompartments(gmfgen::GenNode node) :
 	!node.childNodes.isEmpty() || !node.compartments.isEmpty()
 ;
 

@@ -134,7 +134,7 @@
 	if (!(oldEnd instanceof «getQualifiedInterfaceName(getSourceType())» && newEnd instanceof «getQualifiedInterfaceName(getSourceType())»)) {
 		return false;
 	}
-	«EXPAND extractFeatureWithCheck("getLink()", "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
+	«EXPAND extractFeatureWithCheck("getLink()", metaClass, "target", getQualifiedInterfaceName(getTargetType())) FOR targetMetaFeature-»
 	«EXPAND checkLinkConstraint(link, "getNewSource()", "target")-»
 «ENDDEFINE»
 
@@ -156,7 +156,7 @@
 		return false;
 	}
 	«IF sourceMetaFeature != null-»
-		«EXPAND extractFeatureWithCheck("getLink()", "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
+		«EXPAND extractFeatureWithCheck("getLink()", metaClass, "source", getQualifiedInterfaceName(getSourceType())) FOR sourceMetaFeature-»
 	«ELSE-»
 		if (!(«EXPAND extractContainer("getLink()") FOR metaClass» instanceof «getQualifiedInterfaceName(getSourceType())»)) {
 			return false;
@@ -173,14 +173,14 @@
 	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
 «ENDDEFINE»
 
-«DEFINE extractFeatureWithCheck(String containerVar, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
+«DEFINE extractFeatureWithCheck(String containerVar, genmodel::GenClass containerGenClass, String featureVar, String featureTypeFQN) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		if («EXPAND xpt::Common::getFeatureValue(containerVar, true)».size() != 1) {
+		if («EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)».size() != 1) {
 			return false;
 		}
-		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, true)».get(0);
+		«featureTypeFQN» «featureVar» = («featureTypeFQN») «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)».get(0);
 	«ELSE-»
-		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, true)»;
+		«featureTypeFQN» «featureVar» = «EXPAND xpt::Common::getFeatureValue(containerVar, containerGenClass, true)»;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -246,9 +246,9 @@
 «ENDREM»
 «DEFINE reorientSource FOR gmfgen::TypeLinkModelFacet-»
 	«IF sourceMetaFeature != null-»
-		«EXPAND changeTarget("getLink()", "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
+		«EXPAND changeTarget("getLink()", metaClass, "getOldSource()", "getNewSource()") FOR sourceMetaFeature-»
 	«ELSE-»
-		«EXPAND changeSource("getLink()", "getOldSource()", "getNewSource()") FOR containmentMetaFeature-»
+		«EXPAND changeSource("getLink()", "getOldSource()", "getNewSource()", getSourceType()) FOR containmentMetaFeature-»
 	«ENDIF-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
 «ENDDEFINE»
@@ -257,7 +257,7 @@
 	When feature source is being reoriented oldEnd is the link target.
 «ENDREM»
 «DEFINE reorientSource FOR gmfgen::FeatureLinkModelFacet-»
-	«EXPAND changeSource("getOldTarget()", "getOldSource()", "getNewSource()") FOR metaFeature-»
+	«EXPAND changeSource("getOldTarget()", "getOldSource()", "getNewSource()", getSourceType()) FOR metaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 «ENDDEFINE»
 
@@ -265,22 +265,22 @@
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::TypeLinkModelFacet-»
-	«EXPAND changeTarget("getLink()", "getOldTarget()", "getNewTarget()") FOR targetMetaFeature-»
+	«EXPAND changeTarget("getLink()", metaClass, "getOldTarget()", "getNewTarget()") FOR targetMetaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getLink());
 «ENDDEFINE»
 
 «DEFINE reorientTarget FOR gmfgen::FeatureLinkModelFacet-»
-	«EXPAND changeTarget("getOldSource()", "getOldTarget()", "getNewTarget()") FOR metaFeature-»
+	«EXPAND changeTarget("getOldSource()", getSourceType(), "getOldTarget()", "getNewTarget()") FOR metaFeature-»
 	return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(referenceOwner);
 «ENDDEFINE»
 
 «REM»
 	Replace old target with the new one in the source.
 «ENDREM»
-«DEFINE changeTarget(String sourceVar, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
+«DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, true)».remove(«oldTargetVar»);
-		«EXPAND xpt::Common::getFeatureValue(sourceVar, true)».add(«newTargetVar»);
+		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceGenClass, true)».remove(«oldTargetVar»);
+		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceGenClass, true)».add(«newTargetVar»);
 	«ELSE-»
 		«EXPAND xpt::Common::setFeatureValue(sourceVar, true, newTargetVar, true)»;
 	«ENDIF-»
@@ -289,10 +289,10 @@
 «REM»
 	Move target from old source to the new one.
 «ENDREM»
-«DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar) FOR genmodel::GenFeature-»
+«DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar, genmodel::GenClass sourceVarGenClass) FOR genmodel::GenFeature-»
 	«IF ecoreFeature.many-»
-		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, true)».remove(«targetVar»);
-		«EXPAND xpt::Common::getFeatureValue(newSourceVar, true)».add(«targetVar»);
+		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, sourceVarGenClass, true)».remove(«targetVar»);
+		«EXPAND xpt::Common::getFeatureValue(newSourceVar, sourceVarGenClass, true)».add(«targetVar»);
 	«ELSE-»
 		«EXPAND xpt::Common::setFeatureValue(oldSourceVar, true, "null", true)»;
 		«EXPAND xpt::Common::setFeatureValue(newSourceVar, true, targetVar, true)»;
