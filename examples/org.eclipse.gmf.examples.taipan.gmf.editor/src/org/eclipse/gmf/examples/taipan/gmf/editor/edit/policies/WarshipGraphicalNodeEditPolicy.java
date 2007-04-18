@@ -38,14 +38,14 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 /**
  * @generated
  */
-public class PortGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
+public class WarshipGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
 		IElementType elementType = getElementType(request);
-		if (TaiPanElementTypes.PortRegister_4007 == elementType) {
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == elementType) {
 			if (request.getSourceEditPart() != getHost()) {
 				return getConnectionWithReorientedViewCompleteCommand(request);
 			}

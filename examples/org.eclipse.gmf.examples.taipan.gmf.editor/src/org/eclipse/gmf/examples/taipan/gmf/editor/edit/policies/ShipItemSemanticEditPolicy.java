@@ -111,7 +111,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
 		}
 		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
+			return req.getTarget() == null ? getCreateStartIncomingEscortShipsOrder_4006Command(req) : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartIncomingPortRegister_4007Command(req) : getCreateCompleteIncomingPortRegister_4007Command(req);
@@ -124,6 +124,22 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 */
 	protected Command getCreateStartOutgoingShipDestination_4001Command(CreateRelationshipRequest req) {
 		return getGEFWrapper(new ShipDestinationCreateCommand(req));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
+		EObject targetEObject = req.getSource();
+		if (false == targetEObject instanceof Ship) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Ship target = (Ship) targetEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(null, target)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		return new Command() {
+		};
 	}
 
 	/**

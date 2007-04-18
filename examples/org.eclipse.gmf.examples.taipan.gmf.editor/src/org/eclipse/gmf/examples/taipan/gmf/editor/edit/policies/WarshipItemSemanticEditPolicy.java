@@ -15,9 +15,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
@@ -66,7 +68,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 			return req.getTarget() == null ? getCreateStartOutgoingEscortShipsOrder_4006Command(req) : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingBesiegePortOrder_4005Command(req) : null;
+			return req.getTarget() == null ? getCreateStartOutgoingBesiegePortOrder_4005Command(req) : getCreateCompleteOutgoingBesiegePortOrder_4005Command(req);
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartIncomingPortRegister_4007Command(req) : getCreateCompleteIncomingPortRegister_4007Command(req);
@@ -131,6 +133,26 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		}
 		return new Command() {
 		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
+		EObject sourceEObject = req.getTarget();
+		EObject targetEObject = req.getSource();
+		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Port) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Warship source = (Warship) sourceEObject;
+		Port target = (Port) targetEObject;
+		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
+		}
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req, source, target));
 	}
 
 	/**
