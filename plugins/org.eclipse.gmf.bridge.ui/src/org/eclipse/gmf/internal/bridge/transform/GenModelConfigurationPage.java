@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -46,8 +46,6 @@ import org.eclipse.ui.PlatformUI;
 class GenModelConfigurationPage extends ModelConfigurationPage {
 	
 	private static final String FILE_EXT_ECORE = "ecore"; //$NON-NLS-1$
-	private static final String FILE_EXT_GENMODEL = "genmodel"; //$NON-NLS-1$
-
 	private Button createWizardBtn;
 	private Button createDefaultBtn;
 	private Button refreshStaleBtn;
@@ -56,10 +54,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		super(pageId, rlp, resourceSet);
 		setTitle(Messages.TransformToGenModelWizard_title_genmodel);
 		setDescription(Messages.TransformToGenModelWizard_descr_genmodel);
-	}
-	
-	protected String getModelFileExtension() {
-		return FILE_EXT_GENMODEL;
+		setModelFileExtension("genmodel"); //$NON-NLS-1$
 	}
 	
 	@Override

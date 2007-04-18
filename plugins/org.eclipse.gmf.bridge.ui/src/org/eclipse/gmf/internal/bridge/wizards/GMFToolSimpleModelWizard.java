@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,8 +10,6 @@
  *    Dmitry Stadnik - initial API and implementation
  */
 package org.eclipse.gmf.internal.bridge.wizards;
-
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
@@ -79,10 +77,9 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		return builder.process(toolingDefinitionPage.getModel());
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void reconcileModel() {
 		ToolRegistry existingToolRegistry = null;
-		for (EObject element : (List<? extends EObject>) toolingModelSelectionPage.getResource().getContents()) {
+		for (EObject element : toolingModelSelectionPage.getResource().getContents()) {
 			if (element instanceof ToolRegistry) {
 				existingToolRegistry = (ToolRegistry) element;
 				break;
@@ -99,12 +96,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
 		ResourceSet resourceSet = new ResourceSetImpl();
 		if (mode.detectReconcile(rloc)) {
-			toolingModelSelectionPage = new ModelSelectionPage("ToolingModelSelectionPage", rloc, resourceSet) { //$NON-NLS-1$
-
-				protected String getModelFileExtension() {
-					return "gmftool"; //$NON-NLS-1$
-				}
-			};
+			toolingModelSelectionPage = new ModelSelectionPage("ToolingModelSelectionPage", rloc, resourceSet, "gmftool"); //$NON-NLS-1$ //$NON-NLS-2$
 			toolingModelSelectionPage.setPageComplete(false);
 			toolingModelSelectionPage.setModelRequired(true);
 			toolingModelSelectionPage.setTitle(Messages.SimpleModelWizardToolModelSelectionPageTitle);

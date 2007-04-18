@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -99,12 +99,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
 		ResourceSet resourceSet = new ResourceSetImpl();
 		if (mode.detectReconcile(rloc)) {
-			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc, resourceSet) { //$NON-NLS-1$
-
-				protected String getModelFileExtension() {
-					return "gmfgraph"; //$NON-NLS-1$
-				}
-			};
+			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc, resourceSet, "gmfgraph"); //$NON-NLS-1$ //$NON-NLS-2$
 			graphicalModelSelectionPage.setPageComplete(false);
 			graphicalModelSelectionPage.setModelRequired(true);
 			graphicalModelSelectionPage.setTitle(Messages.SimpleModelWizardGraphModelSelectionPageTitle);

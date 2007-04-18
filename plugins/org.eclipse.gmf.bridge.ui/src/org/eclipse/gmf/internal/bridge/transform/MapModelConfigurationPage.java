@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,18 +23,13 @@ import org.eclipse.gmf.mappings.Mapping;
 
 class MapModelConfigurationPage extends ModelConfigurationPage {
 	
-	private static final String FILE_EXT_GMFMAP = "gmfmap"; //$NON-NLS-1$
-
 	MapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
 		setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
 		setDescription(Messages.TransformToGenModelWizard_descr_mapmodel);
+		setModelFileExtension("gmfmap"); //$NON-NLS-1$
 	}
 
-	protected String getModelFileExtension() {
-		return FILE_EXT_GMFMAP;
-	}
-	
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
 		TransformToGenModelOperation o = getOperation();
