@@ -130,8 +130,8 @@
 «IF null != displayName-»
                name="%metatype.name.«diagramElement.getUniqueIdentifier()»"
 «ENDIF-»
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="«getEditHelperAdviceQualifiedClassName()»">
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"«IF editHelperAdviceClassName != null»
+               edithelperadvice="«getEditHelperAdviceQualifiedClassName()»"«ENDIF»>
             <specializes id="«null == metamodelType ? "org.eclipse.gmf.runtime.emf.type.core.null" : metamodelType.uniqueIdentifier»"/>
             <param name="semanticHint" value="«diagramElement.visualID»"/>
          </specializationType>

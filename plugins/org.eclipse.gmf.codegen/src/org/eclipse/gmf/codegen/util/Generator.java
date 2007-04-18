@@ -344,6 +344,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditHelperAdvice(SpecializationType genType) throws UnexpectedBehaviourException, InterruptedException {
+		if (!genType.eIsSet(GMFGenPackage.eINSTANCE.getSpecializationType_EditHelperAdviceClassName())) {
+			return;
+		}
 		internalGenerateJavaClass(
 			myEmitters.getEditHelperAdviceEmitter(),
 			myDiagram.getEditHelpersPackageName(),

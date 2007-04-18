@@ -127,12 +127,8 @@ public class SpecializationTypeImpl extends ElementTypeImpl implements Specializ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getEditHelperAdviceClassNameGen() {
-		return editHelperAdviceClassName;
-	}
-
 	public String getEditHelperAdviceClassName() {
-		return GenCommonBaseImpl.getValidClassName(getEditHelperAdviceClassNameGen(), getDiagramElement(), EDIT_HELPER_ADVICE_SUFFIX);
+		return editHelperAdviceClassName;
 	}
 
 	/**
