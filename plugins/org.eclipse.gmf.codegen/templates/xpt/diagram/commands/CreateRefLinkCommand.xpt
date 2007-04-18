@@ -56,7 +56,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		if (getTarget() != null) {
 			«EXPAND setValue FOR modelFacet-»
 		}
-		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(getSource());
+		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
