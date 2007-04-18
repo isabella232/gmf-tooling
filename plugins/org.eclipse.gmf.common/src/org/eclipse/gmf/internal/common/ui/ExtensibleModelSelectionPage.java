@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,7 +25,11 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 	private Map<String, ModelSelectionPageExtension> extensions; // id -> extension
 
 	public ExtensibleModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
-		super(pageId, rloc, resourceSet);
+		this(pageId, rloc, resourceSet, null);
+	}
+
+	public ExtensibleModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet, String modelFileExtension) {
+		super(pageId, rloc, resourceSet, modelFileExtension);
 		extensions = new LinkedHashMap<String, ModelSelectionPageExtension>();
 		addExtensions();
 	}

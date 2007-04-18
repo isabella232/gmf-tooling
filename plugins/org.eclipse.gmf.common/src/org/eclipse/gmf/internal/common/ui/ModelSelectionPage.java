@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -69,10 +69,17 @@ public class ModelSelectionPage extends WizardPage {
 
 	private boolean initialized;
 
+	private String modelFileExtension;
+
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
+		this(pageId, rloc, resourceSet, null);
+	}
+
+	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet, String modelFileExtension) {
 		super(pageId);
 		this.rloc = rloc;
 		this.resourceSet = resourceSet;
+		setModelFileExtension(modelFileExtension);
 	}
 
 	protected ResourceSet getResourceSet() {
@@ -82,8 +89,15 @@ public class ModelSelectionPage extends WizardPage {
 		return resourceSet;
 	}
 
+	public void setModelFileExtension(String fileExtension) {
+		this.modelFileExtension = fileExtension;
+	}
+
+	/**
+	 * @return <code>null</code> if none set
+	 */
 	protected String getModelFileExtension() {
-		return null;
+		return modelFileExtension;
 	}
 
 	public final void createControl(Composite parent) {
