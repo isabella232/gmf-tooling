@@ -604,6 +604,7 @@
         editPartClassName="EscortShipsOrderEditPart"
         itemSemanticEditPolicyClassName="EscortShipsOrderItemSemanticEditPolicy"
         notationViewFactoryClassName="EscortShipsOrderViewFactory"
+        incomingCreationAllowed="true"
         createCommandClassName="EscortShipsOrderCreateCommand"
         reorientCommandClassName="EscortShipsOrderReorientCommand">
       <diagramRunTimeClass
@@ -642,6 +643,7 @@
         editPartClassName="BesiegePortOrderEditPart"
         itemSemanticEditPolicyClassName="BesiegePortOrderItemSemanticEditPolicy"
         notationViewFactoryClassName="BesiegePortOrderViewFactory"
+        incomingCreationAllowed="true"
         createCommandClassName="BesiegePortOrderCreateCommand"
         reorientCommandClassName="BesiegePortOrderReorientCommand">
       <diagramRunTimeClass
@@ -678,6 +680,7 @@
         itemSemanticEditPolicyClassName="PortRegisterItemSemanticEditPolicy"
         notationViewFactoryClassName="PortRegisterViewFactory"
         incomingCreationAllowed="true"
+        viewDirectionAlignedWithModel="false"
         createCommandClassName="PortRegisterCreateCommand"
         reorientCommandClassName="PortRegisterReorientCommand">
       <diagramRunTimeClass
