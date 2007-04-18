@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
@@ -39,12 +38,10 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -117,7 +114,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return req.getTarget() == null ? null : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingPortRegister_4007Command(req);
+			return req.getTarget() == null ? getCreateStartIncomingPortRegister_4007Command(req) : getCreateCompleteIncomingPortRegister_4007Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -152,12 +149,19 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
+	protected Command getCreateStartIncomingPortRegister_4007Command(CreateRelationshipRequest req) {
+		return getGEFWrapper(new PortRegisterCreateCommand(req));
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCompleteIncomingPortRegister_4007Command(CreateRelationshipRequest req) {
 		return getGEFWrapper(new PortRegisterCreateCommand(req));
 	}
 
 	/**
-	 * Returns command to reorient link. New link target or source
+	 * Returns command to reorient EClass based link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
 	 * @generated

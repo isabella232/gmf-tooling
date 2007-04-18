@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,17 +11,20 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gmf.examples.taipan.Ship;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated

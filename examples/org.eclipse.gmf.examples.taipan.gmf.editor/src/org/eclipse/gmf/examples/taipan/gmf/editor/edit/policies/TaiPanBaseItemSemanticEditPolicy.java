@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ *  Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -268,6 +268,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
+	 * @deprecated use getGEFWrapper() instead
 	 * @generated
 	 */
 	protected final Command getMSLWrapper(ICommand cmd) {
@@ -340,12 +341,12 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * @generated 
+	 * @generated
 	 */
 	public static class LinkConstraints {
 
 		/**
-		 * @generated 
+		 * @generated
 		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
@@ -517,6 +518,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				return false;
 			}
 		}
+
 	}
 
 }
