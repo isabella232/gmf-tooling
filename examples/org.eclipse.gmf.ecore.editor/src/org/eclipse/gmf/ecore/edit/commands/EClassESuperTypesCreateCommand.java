@@ -65,7 +65,7 @@ public class EClassESuperTypesCreateCommand extends EditElementCommand {
 		if (getTarget() != null) {
 			getSource().getESuperTypes().add(getTarget());
 		}
-		return CommandResult.newOKCommandResult(getSource());
+		return CommandResult.newOKCommandResult();
 	}
 
 	/**

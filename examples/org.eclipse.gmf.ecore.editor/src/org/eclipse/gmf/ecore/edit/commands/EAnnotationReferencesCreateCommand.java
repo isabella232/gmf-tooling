@@ -65,7 +65,7 @@ public class EAnnotationReferencesCreateCommand extends EditElementCommand {
 		if (getTarget() != null) {
 			getSource().getReferences().add(getTarget());
 		}
-		return CommandResult.newOKCommandResult(getSource());
+		return CommandResult.newOKCommandResult();
 	}
 
 	/**
