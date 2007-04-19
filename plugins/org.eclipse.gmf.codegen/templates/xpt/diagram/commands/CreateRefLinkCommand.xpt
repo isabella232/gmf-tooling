@@ -38,12 +38,20 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean canExecute() {
-		if (!(source instanceof «getQualifiedInterfaceName(modelFacet.getSourceType())» &&
-				(target == null || target instanceof «getQualifiedInterfaceName(modelFacet.getTargetType())»))) {
+		if (source == null && target == null) {
 			return false;
 		}
-		return «diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».
-				canCreate«getUniqueIdentifier()»(getSource(), getTarget());
+		if (source != null && !(source instanceof «getQualifiedInterfaceName(modelFacet.getSourceType())»)) {
+			return false;
+		}
+		if (target != null && !(target instanceof «getQualifiedInterfaceName(modelFacet.getTargetType())»)) {
+			return false;
+		}
+		if (getSource() != null) {
+			return «diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».
+					canCreate«getUniqueIdentifier()»(getSource(), getTarget());
+		}
+		return true; // link creation is in progress; only one end is defined
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -53,7 +61,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		if (!canExecute()) {
 			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		if (getTarget() != null) {
+		if (getSource() != null && getTarget() != null) {
 			«EXPAND setValue FOR modelFacet-»
 		}
 		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();

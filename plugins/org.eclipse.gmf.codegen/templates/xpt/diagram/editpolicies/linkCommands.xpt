@@ -95,6 +95,10 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(typeModelFacet)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«IF {modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0-»
+		«IF createStartIncomingLinkCommand(typeModelFacet)-»
+	req = new org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest(
+			req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+		«ENDIF-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
 	«ELSE-»
 	«EXPAND defineSourceTargetAndCheckConstraints(createStartIncomingLinkCommand(typeModelFacet), false)-»
@@ -109,6 +113,10 @@ protected org.eclipse.gef.commands.Command «EXPAND startLinkCommandCreatorName(t
 	«EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command «EXPAND completeLinkCommandCreatorName(typeModelFacet)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	«IF {modelFacet}.typeSelect(gmfgen::FeatureLinkModelFacet).size() > 0-»
+		«IF createCompleteOutgoingLinkCommand(typeModelFacet)-»
+	req = new org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest(
+			req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+		«ENDIF-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
 	«ELSE-»
 	«EXPAND defineSourceTargetAndCheckConstraints(createCompleteOutgoingLinkCommand(typeModelFacet), true)-»
