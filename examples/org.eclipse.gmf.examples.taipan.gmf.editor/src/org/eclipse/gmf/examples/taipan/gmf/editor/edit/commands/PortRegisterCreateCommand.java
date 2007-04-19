@@ -50,10 +50,19 @@ public class PortRegisterCreateCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(source instanceof Port && (target == null || target instanceof Ship))) {
+		if (source == null && target == null) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4007(getSource(), getTarget());
+		if (source != null && !(source instanceof Port)) {
+			return false;
+		}
+		if (target != null && !(target instanceof Ship)) {
+			return false;
+		}
+		if (getSource() != null && getTarget() != null) {
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4007(getSource(), getTarget());
+		}
+		return true; // link creation is in progress; only one end is defined
 	}
 
 	/**
@@ -63,10 +72,10 @@ public class PortRegisterCreateCommand extends EditElementCommand {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		if (getTarget() != null) {
+		if (getSource() != null && getTarget() != null) {
 			getSource().getRegister().add(getTarget());
 		}
-		return CommandResult.newOKCommandResult(getSource());
+		return CommandResult.newOKCommandResult();
 	}
 
 	/**

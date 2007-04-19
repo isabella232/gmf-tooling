@@ -224,6 +224,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateCompleteOutgoingPortRegister_4007Command(CreateRelationshipRequest req) {
+		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
 		return getGEFWrapper(new PortRegisterCreateCommand(req));
 	}
 

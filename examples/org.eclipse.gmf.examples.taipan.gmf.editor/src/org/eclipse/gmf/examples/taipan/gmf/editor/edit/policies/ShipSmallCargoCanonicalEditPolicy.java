@@ -35,14 +35,14 @@ public class ShipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (SmallItemsEditPart.VISUAL_ID == nodeVID) {
+		Ship modelObject = (Ship) viewObject.getElement();
+		List allValues = new LinkedList();
+		allValues.addAll(modelObject.getCargo());
+		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
+			EObject nextValue = (EObject) valuesIterator.next();
+			switch (TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
+			case SmallItemsEditPart.VISUAL_ID:
 				result.add(nextValue);
 			}
 		}
@@ -53,11 +53,7 @@ public class ShipSmallCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
-		}
-		int nodeVID = TaiPanVisualIDRegistry.getVisualID(view);
-		switch (nodeVID) {
+		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case SmallItemsEditPart.VISUAL_ID:
 			return true;
 		}

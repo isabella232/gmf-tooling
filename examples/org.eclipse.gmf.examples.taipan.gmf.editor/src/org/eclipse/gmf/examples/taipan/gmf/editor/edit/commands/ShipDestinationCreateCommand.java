@@ -50,10 +50,19 @@ public class ShipDestinationCreateCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(source instanceof Ship && (target == null || target instanceof Port))) {
+		if (source == null && target == null) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(getSource(), getTarget());
+		if (source != null && !(source instanceof Ship)) {
+			return false;
+		}
+		if (target != null && !(target instanceof Port)) {
+			return false;
+		}
+		if (getSource() != null && getTarget() != null) {
+			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(getSource(), getTarget());
+		}
+		return true; // link creation is in progress; only one end is defined
 	}
 
 	/**
@@ -63,10 +72,10 @@ public class ShipDestinationCreateCommand extends EditElementCommand {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		if (getTarget() != null) {
+		if (getSource() != null && getTarget() != null) {
 			getSource().setDestination(getTarget());
 		}
-		return CommandResult.newOKCommandResult(getSource());
+		return CommandResult.newOKCommandResult();
 	}
 
 	/**
