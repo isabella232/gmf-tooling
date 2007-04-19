@@ -346,7 +346,7 @@
 				author="false"
 	        	destdir="${doc.plugin.dir}/reference/api/@{subsystem}"
 	 			windowtitle="Eclipse GMF Documentation"
-	 			source="1.5" 
+	 			source="1.4" 
 	        	noindex="false"
 	        	nonavbar="false"
 	        	executable="${javadoc.exe}"
@@ -354,8 +354,8 @@
 	        	splitindex="true"
 	        	stylesheetfile="${doc.plugin.dir}/stylesheet.css"
 	        	use="true"
-	 			doclet="org.eclipse.gmf.doclet.Doclet"
-	 			docletpath="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.doclet/doclet.jar"
+	 			doclet="org.eclipse.gmf.runtime.doclet.AuroraDoclet"
+	 			docletpath="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/aurora-doclet.jar"
 	        	version="false">
 				    <doctitle><![CDATA[<h2>Eclipse Graphical Modeling Framework (GMF)</h2><h2>@{tocTitle} API Specification</h2>]]></doctitle>				    
 	 				<bottom><![CDATA[<font size="-1"><p><a href="/help/topic/org.eclipse.platform.doc.isv/reference/misc/api-usage-rules.html">Guidelines for using Eclipse APIs</a>.</p><p>Copyright (c) IBM Corp., Borland Software Corp., and others 2005,2006. All rights reserved.</font></p>]]></bottom>	
