@@ -266,9 +266,9 @@ public class TransformToGenModelOperation {
 				reconcile(rs, genEditor);
 			}
 			GenNamingMediatorImpl namer = new GenNamingMediatorImpl();
-			namer.setMode(GenNamingMediatorImpl.COLLECT_NAMES_MODE);
+			namer.setMode(GenNamingMediatorImpl.Mode.COLLECT_NAMES);
 			namer.traverse(genEditor); // collect reconciled names
-			namer.setMode(GenNamingMediatorImpl.DISPENSE_NAMES_MODE);
+			namer.setMode(GenNamingMediatorImpl.Mode.DISPENSE_NAMES);
 			namer.traverse(genEditor); // dispense names to new elements
 			monitor.worked(20);
 			if (monitor.isCanceled()) {
