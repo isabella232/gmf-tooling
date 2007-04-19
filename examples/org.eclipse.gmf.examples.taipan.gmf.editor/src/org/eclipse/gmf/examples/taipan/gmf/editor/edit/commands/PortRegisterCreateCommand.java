@@ -59,7 +59,7 @@ public class PortRegisterCreateCommand extends EditElementCommand {
 		if (target != null && !(target instanceof Ship)) {
 			return false;
 		}
-		if (getSource() != null && getTarget() != null) {
+		if (getSource() != null) {
 			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreatePortRegister_4007(getSource(), getTarget());
 		}
 		return true; // link creation is in progress; only one end is defined

@@ -59,7 +59,7 @@ public class ShipDestinationCreateCommand extends EditElementCommand {
 		if (target != null && !(target instanceof Port)) {
 			return false;
 		}
-		if (getSource() != null && getTarget() != null) {
+		if (getSource() != null) {
 			return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateShipDestination_4001(getSource(), getTarget());
 		}
 		return true; // link creation is in progress; only one end is defined
