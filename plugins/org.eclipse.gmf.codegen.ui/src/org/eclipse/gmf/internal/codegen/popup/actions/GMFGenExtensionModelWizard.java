@@ -12,9 +12,7 @@ package org.eclipse.gmf.internal.codegen.popup.actions;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,7 +23,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.ui.ElementSelectorExtension;
@@ -50,7 +47,6 @@ public class GMFGenExtensionModelWizard extends Wizard implements IWorkbenchWiza
 	private ElementSelectorExtension myRootElementSelectorExtension;
 	private ResourceSet myResourceSet;
 	private ResourceLocationProvider myResourceLocationProvider;
-	private Map<String, Object> myGmfgenResourceSaveOptions;
 	
 	public GMFGenExtensionModelWizard() {
 		super();
@@ -75,14 +71,6 @@ public class GMFGenExtensionModelWizard extends Wizard implements IWorkbenchWiza
 			myResourceSet = new ResourceSetImpl();
 		}
 		return myResourceSet;
-	}
-
-	private Map<String, Object> getGmfgenResourceSaveOptions() {
-		if (myGmfgenResourceSaveOptions == null) {
-			myGmfgenResourceSaveOptions = new HashMap<String, Object>();
-			myGmfgenResourceSaveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-		}
-		return myGmfgenResourceSaveOptions;
 	}
 
 	public ElementSelectorExtension getRootElementSelectorExtension() {
@@ -179,7 +167,7 @@ public class GMFGenExtensionModelWizard extends Wizard implements IWorkbenchWiza
 		Resource gmfgenModel = getResourceSet().createResource(nextGmfgenURI);
 		gmfgenModel.load(getResourceSet().getLoadOptions());
 		gmfgenModel.getContents().add(instantiated);
-		gmfgenModel.save(getGmfgenResourceSaveOptions());
+		gmfgenModel.save(null);
 		gmfgenModel.unload();
 	}
 
