@@ -47,6 +47,7 @@ public class CollectionTypesSupport {
 		COLLECTION_OF_OBJECT = newCollectionType(EcorePackage.eINSTANCE.getEJavaObject());
 		LIST_OF_OBJECT = newListType(EcorePackage.eINSTANCE.getEJavaObject());
 		SET_OF_OBJECT = newSetType(EcorePackage.eINSTANCE.getEJavaObject());
+		// XXX why didn't I put LIST_OF_* into collectionsM1, listsM1 and setsM1?
 		// treat collections without type, like {}, as collections of 'void' which is assignable to anything  
 		collectionsM1.put(null, newCollectionType(BuiltinMetaModel.VOID));
 		listsM1.put(null, newListType(BuiltinMetaModel.VOID));

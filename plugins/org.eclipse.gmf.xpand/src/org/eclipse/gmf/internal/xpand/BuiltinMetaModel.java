@@ -687,7 +687,7 @@ public class BuiltinMetaModel {
 		collectionOps.add(new InternalOperation<Collection>(opf.create("toSet", CollectionTypesSupport.SET_OF_OBJECT)) {
 			@Override
 			public Object evaluate(Collection target, Object[] params) {
-				return new HashSet<Object>(target);
+				return new LinkedHashSet<Object>(target);
 			}
 		});
 		collectionOps.add(new InternalOperation<Collection>(opf.create("toList", CollectionTypesSupport.LIST_OF_OBJECT)) {
@@ -731,7 +731,7 @@ public class BuiltinMetaModel {
 				return target.isEmpty() ? null : target.get(target.size() - 1);
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("withoutFirst", collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		listOps.add(new InternalOperation<List>(opf.create("withoutFirst", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
@@ -742,7 +742,7 @@ public class BuiltinMetaModel {
 				return target;
 			}
 		});
-		listOps.add(new InternalOperation<List>(opf.create("withoutLast", collectionTypes.getCollectionType(ecorePkg.getEJavaObject()))) {
+		listOps.add(new InternalOperation<List>(opf.create("withoutLast", CollectionTypesSupport.LIST_OF_OBJECT)) {
 			@Override
 			public Object evaluate(List target, Object[] params) {
 				if (!target.isEmpty()) {
@@ -751,6 +751,15 @@ public class BuiltinMetaModel {
 					return rv;
 				}
 				return target;
+			}
+		});
+		listOps.add(new InternalOperation<List>(opf.create("purgeDups", CollectionTypesSupport.LIST_OF_OBJECT)) {
+			@Override
+			public Object evaluate(List target, Object[] params) {
+				if (target.isEmpty()) {
+					return target;
+				}
+				return new LinkedList<Object>(new LinkedHashSet<Object>(target));
 			}
 		});
 		internalOperationsMap.put(CollectionTypesSupport.LIST_TYPE, Collections.unmodifiableList(listOps));
