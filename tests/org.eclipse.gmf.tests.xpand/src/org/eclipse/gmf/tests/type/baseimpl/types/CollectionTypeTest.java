@@ -165,6 +165,20 @@ public class CollectionTypeTest extends TestCase {
         assertEquals("Immutable withoutLast", masterCopy, ef.evaluate("x.withoutLast()->x", Collections.singletonMap("x", l)));
     }
 
+    public final void testPurgeDups() {
+        List<String> l = new ArrayList<String>();
+        l.add("a");
+        l.add("b");
+        l.add("a");
+        List<String> masterCopy = new ArrayList<String>(l);
+        List<String> noDupsList = new ArrayList<String>(l);
+        noDupsList.remove(2);
+        assertEquals("Immutable purgeDups", masterCopy, ef.evaluate("x.purgeDups()->x", Collections.singletonMap("x", l)));
+        assertEquals(new Integer(2), ef.evaluate("x.purgeDups().size()", Collections.singletonMap("x", l)));
+        assertEquals(Boolean.TRUE, ef.evaluate("x.purgeDups().get(1) == \"b\"", Collections.singletonMap("x", l)));
+        assertEquals("purgeDups should remove duplicates", noDupsList, ef.evaluate("x.purgeDups()", Collections.singletonMap("x", l)));
+    }
+
     public final void testSetType() {
     	analyzeCollectionExpression(false, true, "Set");
     }
