@@ -37,13 +37,14 @@ import org.eclipse.gmf.internal.common.NamesDispenser;
  */
 public class GenNamingMediatorImpl implements GenNamingMediator {
 
-	public static final int COLLECT_NAMES_MODE = 0;
-
-	public static final int DISPENSE_NAMES_MODE = 1;
+	public enum Mode {
+		COLLECT_NAMES,
+		DISPENSE_NAMES
+	}
 
 	private final GMFGenPackage M = GMFGenPackage.eINSTANCE;
 
-	private int mode;
+	private Mode mode;
 
 	private NamesDispenser dispenser;
 
@@ -73,7 +74,7 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 
 	public GenNamingMediatorImpl(NamesDispenser dispenser) {
 		this.dispenser = dispenser;
-		mode = DISPENSE_NAMES_MODE;
+		mode = Mode.DISPENSE_NAMES;
 		setViewFactory(createNamingStrategy(GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
 		setEditPart(createNamingStrategy(GenCommonBase.EDIT_PART_SUFFIX));
 		setItemSemanticPolicy(createNamingStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
@@ -104,25 +105,22 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 		}
 	}
 
-	public final int getMode() {
+	public final Mode getMode() {
 		return mode;
 	}
 
-	public void setMode(int mode) {
-		if (mode != COLLECT_NAMES_MODE && mode != DISPENSE_NAMES_MODE) {
-			throw new IllegalArgumentException();
-		}
+	public void setMode(Mode mode) {
 		this.mode = mode;
 	}
 
 	protected void feedName(EObject element, EAttribute feature, GenNamingStrategy strategy, EObject refElement) {
 		switch (getMode()) {
-		case COLLECT_NAMES_MODE:
+		case COLLECT_NAMES:
 			if (element.eIsSet(feature)) {
 				dispenser.add((String) element.eGet(feature));
 			}
 			break;
-		case DISPENSE_NAMES_MODE:
+		case DISPENSE_NAMES:
 			if (!element.eIsSet(feature)) {
 				element.eSet(feature, getName(refElement, strategy));
 			}
