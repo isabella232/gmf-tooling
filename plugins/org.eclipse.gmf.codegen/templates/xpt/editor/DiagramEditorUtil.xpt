@@ -188,6 +188,9 @@ public static java.util.Map getSaveOptions() {
 		final org.eclipse.emf.ecore.resource.Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 «IF standaloneDomainModel()-»
 		final org.eclipse.emf.ecore.resource.Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
+«ELSEIF hasDocumentRoot() /*for standalone models, we assume its resourcefactory would be able to set extendedMetaData option*/-»
+		((org.eclipse.emf.ecore.xmi.XMLResource) diagramResource).getDefaultSaveOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		((org.eclipse.emf.ecore.xmi.XMLResource) diagramResource).getDefaultLoadOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 «ENDIF-»
 		final String diagramName = diagramURI.lastSegment();
 		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramCommandLabel()) FOR editorGen», java.util.Collections.EMPTY_LIST) {
