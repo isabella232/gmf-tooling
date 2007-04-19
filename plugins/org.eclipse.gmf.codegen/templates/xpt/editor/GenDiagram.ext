@@ -23,7 +23,7 @@ boolean hasDocumentRoot(gmfgen::GenDiagram genDiagram) :
 ;
 
 genmodel::GenClass getDocumentRoot(gmfgen::GenDiagram genDiagram) :
-	genDiagram.domainDiagramElement.genPackage.getDocumentRoot()
+	genDiagram.domainDiagramElement == null ? null : genDiagram.domainDiagramElement.genPackage.getDocumentRoot()
 ;
 
 genmodel::GenFeature getDocumentRootSetFeature(gmfgen::GenDiagram genDiagram) :
