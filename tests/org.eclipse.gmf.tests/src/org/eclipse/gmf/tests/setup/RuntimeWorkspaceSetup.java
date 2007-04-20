@@ -11,9 +11,11 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +25,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import junit.framework.Assert;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -41,26 +45,35 @@ import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.osgi.framework.internal.core.FrameworkProperties;
 import org.osgi.framework.Bundle;
 
 /**
- * ALMOST TRUE: With PDE, we need source code in the running workspace to allow compilation of our code 
- * (because PDE doesn't reexport set of plugins from it's running configuration, and it's no longer possible 
- * to set Target Platform to "same as running" as it was back in Eclipse 2.x).
+ * Running tests within PDE, we face two major problems:
+ * <ol>
+ * <li>Compile generated plugins against projects in our development workspaces. We are not alone here, suffice 
+ * it to mention {@linkplain https://bugs.eclipse.org/bugs/show_bug.cgi?id=109137} and 
+ * {@linkplain https://bugs.eclipse.org/bugs/show_bug.cgi?id=182537}. 
+ * Though it's possible to inject development plugins into target configuration
+ * <pre>
+ *  URL url = FileLocator.resolve(Platform.getBundle("org.eclipse.gmf.validate").getEntry("/"));
+ * 	TargetPlatformHelper.getPDEState().addAdditionalBundles(new URL[] {});
+ * </pre> 
+ * it doesn't help, unless <code>org.eclipse.jdt.internal.core.builder.NameEnvironment#computeClasspathLocations<code> 
+ * [can be|is] modified to support folders with classes.
  * 
- * !!! NEW !!!
- * 
- * Now, we managed to compile against linked binary folders, although using linked content instead of plugins 
- * requires us to explicitly add some plugins earlier available through plugin re-export (namely, oe.jface.text) 
+ * <p> For now, we managed to compile against linked binary folders, although using linked content instead of plugins 
+ * requires us to explicitly add some plugins earlier available through plugin re-export (namely, oe.jface.text)</p>
  *  
+ * <li>Loading compiled classes. This can be solved either with "-dev bin" command-line argument or using 
+ * {@link #getReadyToStartAsBundle(IProject)} hack that updates classpath specified in manifest.mf.
+ * Eclipse Testing Framework used to specify "-dev bin, runtime" (org.eclipse.test_3.1.0/library.xml), but 
+ * these days (as of 3.3 M6) seem to abandon this practice.  
+ * </ol>
  * 
- * Classloading works because there's -dev argument in the command line. With PDE launch, it's done by PDE.
- * Without PDE, running tests as part of the build relies on Eclipse Testing Framework's org.eclipse.test_3.1.0/library.xml
- * which specifies "-dev bin,runtime". Once it's not specified, or new format (properties file with plugin-id=binfolder) 
- * is in use, classloading of the generated code will fail and another mechanism should be invented then.
+ * Running tests as part of the build, we don't experience troubles with compiling, and classloading is 
+ * solved with {@link #getReadyToStartAsBundle(IProject)} hack now.
  * 
- * If you get ClassNotFoundException while running tests in PDE environment, try to set read-only attribute for the next file:
- * 'development-workspace'\.metadata\.plugins\org.eclipse.pde.core\'JUnitLaunchConfigName'\dev.properties
  * @author artem
  */
 public class RuntimeWorkspaceSetup {
@@ -70,12 +83,21 @@ public class RuntimeWorkspaceSetup {
 	 */
 	private static final String PLUGIN_CONTAINER_ID = "org.eclipse.pde.core.requiredPlugins"; //$NON-NLS-1$
 
-	private boolean isDevLaunchMode;
+	private final boolean isDevLaunchMode;
+	private final boolean isDevBinPresent;
 
 	public static RuntimeWorkspaceSetup INSTANCE;
 
 	public RuntimeWorkspaceSetup() {
 		isDevLaunchMode = isDevLaunchMode();
+		List<String> l = Arrays.asList(Platform.getCommandLineArgs());
+		int i;
+		if ((i = l.indexOf("-dev")) != -1) {
+			isDevBinPresent = i + 1 < l.size() && l.get(i+1).startsWith("bin");
+		} else {
+			isDevBinPresent = FrameworkProperties.getProperty("osgi.dev", "").contains("bin");
+		}
+		System.err.println("isDevBinPresent:" + isDevBinPresent);
 	}
 
 	/**
@@ -210,6 +232,42 @@ public class RuntimeWorkspaceSetup {
 	}
 
 	/**
+	 * a substiture for "-dev bin" command-line argument - update
+	 * a manifest.mf with explicit bin/ classpath for classloading to work 
+	 */
+	public void getReadyToStartAsBundle(IProject project) {
+		if (isDevBinPresent) {
+			return; // no sense
+		}
+		try {
+			IFile manifest = project.getFile("META-INF/MANIFEST.MF");
+			if (manifest.exists()) {
+				BufferedReader r = new BufferedReader(new InputStreamReader(manifest.getContents(), manifest.getCharset()));
+				String line;
+				boolean found = false;
+				StringBuilder result = new StringBuilder();
+				while ((line = r.readLine()) != null) {
+					result.append(line);
+					if (!found && line.startsWith("Bundle-ClassPath:")) {
+						if (line.indexOf("bin/") == -1) {
+							result.append(", bin/");
+						}
+						found = true;
+					}
+					result.append("\n");
+				}
+				if (!found) {
+					result.insert(0, "Bundle-ClassPath: bin/, .\n");
+				}
+				manifest.setContents(new ByteArrayInputStream(result.toString().getBytes(manifest.getCharset())), true, false, new NullProgressMonitor());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Assert.fail("Can't get project " + project.getName() + " ready to be started as bundle:" + ex);
+		}
+	}
+
+	/**
 	 * TODO uniqueClassPathEntries is not needed if diagramProj gets here only once. It's not the case
 	 * now - refactor LinkCreationConstraintsTest to utilize genProject created in AuditRulesTest (?)
 	 * TODO refactor with ClasspathContainerInitializer - just for the sake of fixing the knowledge 
@@ -282,6 +340,7 @@ public class RuntimeWorkspaceSetup {
 		wd.setMaxFileStates(0);
 		wd.setMaxFileStateSize(0);
 		wd.setSnapshotInterval(60*60*1000);
+		wd.setAutoBuilding(false);
 		ResourcesPlugin.getWorkspace().setDescription(wd);
 	}
 

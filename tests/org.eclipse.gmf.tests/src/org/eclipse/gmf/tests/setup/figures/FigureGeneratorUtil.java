@@ -114,6 +114,7 @@ public class FigureGeneratorUtil {
 		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
 		IStatus compileStatus = new CompileUtil().build(project);
 		Assert.assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
+		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);
 		String url = project.getLocation().toFile().toURL().toExternalForm();
 		return Plugin.getBundleContext().installBundle(url);
 	}
