@@ -100,6 +100,7 @@ public class AllTests {
 		} catch (final Exception e) {
 			suite.addTest(new TestCase("Session setup initialization problem") {
 				protected void runTest() throws Throwable {
+					e.printStackTrace();
 					fail(e.getMessage());
 				}
 			});
