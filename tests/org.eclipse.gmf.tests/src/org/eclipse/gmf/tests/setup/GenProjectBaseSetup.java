@@ -13,11 +13,9 @@ package org.eclipse.gmf.tests.setup;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +29,6 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -94,7 +91,9 @@ public class GenProjectBaseSetup {
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
-		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
+		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId);
+		RuntimeWorkspaceSetup.INSTANCE.updateClassPath(project);
+		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(project);
 
 		projectsToInit.add(gmfEditorId);
 		hookJDTStatus(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
@@ -107,6 +106,26 @@ public class GenProjectBaseSetup {
         gen.generate(domainGenModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, new BasicMonitor());
         gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
         
+		fixInstanceClasses(domainGenModel);
+		RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getModelPluginID()));
+		if (!domainGenModel.getModelPluginID().equals(domainGenModel.getEditPluginID())) {
+			RuntimeWorkspaceSetup.INSTANCE.getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getEditPluginID()));
+		}
+	}
+
+	private void fixInstanceClasses(GenModel domainGenModel) {
+		final Set<String> allInstanceClassNames = new HashSet<String>();
+		for (GenPackage nextPackage : domainGenModel.getGenPackages()) {
+			for (GenClassifier nextGenClassifier : nextPackage.getGenClassifiers()) {
+				if (nextGenClassifier.getEcoreClassifier().eIsSet(EcorePackage.Literals.ECLASSIFIER__INSTANCE_CLASS_NAME)) {
+					allInstanceClassNames.add(nextGenClassifier.getEcoreClassifier().getInstanceClassName());
+				}
+			}
+		}
+		if (allInstanceClassNames.isEmpty()) {
+			return;
+		}
+
 		IPackageFragmentRoot theRoot = null;
 		IFile manifestFile = null;
 		try {
@@ -122,46 +141,24 @@ public class GenProjectBaseSetup {
 			}
 			
 			manifestFile = pluginProject.getFile(JarFile.MANIFEST_NAME);
-		} catch (JavaModelException e) {
-			Plugin.logError("Compilation error", e);
-			Assert.fail(e.getMessage());
-		}
-		Assert.assertNotNull("Writable project root not found in the generated project", theRoot);
-		Assert.assertTrue("Manifest was not generated", manifestFile != null && manifestFile.exists());
+			Assert.assertNotNull("Writable project root not found in the generated project", theRoot);
+			Assert.assertTrue("Manifest was not generated", manifestFile != null && manifestFile.exists());
 
-		Manifest manifest;
-		try {
-			manifest = new Manifest(manifestFile.getContents());
-		} catch (IOException e) {
-			Assert.fail(e.getMessage());
-			return;
-		} catch (CoreException e) {
-			Assert.fail(e.getMessage());
-			return;
-		}
-		
-		Attributes attributes = manifest.getMainAttributes();
-		StringBuffer exportedPackages = new StringBuffer(attributes.getValue(Constants.EXPORT_PACKAGE));
-		
-        Collection<GenClassifier> genClassifiers = new ArrayList<GenClassifier>();
-        for (GenPackage nextPackage : domainGenModel.getGenPackages()) {
-			genClassifiers.addAll(nextPackage.getGenClassifiers());
-		}
-        
-        for (GenClassifier nextGenClassifier : genClassifiers) {
-			if (nextGenClassifier.getEcoreClassifier().eIsSet(EcorePackage.Literals.ECLASSIFIER__INSTANCE_CLASS_NAME)) {
-				generateUserInterface(nextGenClassifier.getEcoreClassifier().getInstanceClassName(), theRoot, exportedPackages);
+			Manifest manifest = new Manifest(manifestFile.getContents());
+
+			Attributes attributes = manifest.getMainAttributes();
+			StringBuffer exportedPackages = new StringBuffer(attributes.getValue(Constants.EXPORT_PACKAGE));
+
+			for (String instanceClassName : allInstanceClassNames) {
+				generateUserInterface(instanceClassName, theRoot, exportedPackages);
 			}
-		}
-        
-        attributes.putValue(Constants.EXPORT_PACKAGE, exportedPackages.toString());
-        try {
-        	ByteArrayOutputStream contents = new ByteArrayOutputStream();
+
+			attributes.putValue(Constants.EXPORT_PACKAGE, exportedPackages.toString());
+			ByteArrayOutputStream contents = new ByteArrayOutputStream();
 			manifest.write(contents);
 			manifestFile.setContents(new ByteArrayInputStream(contents.toByteArray()), true, true, new NullProgressMonitor());
-		} catch (IOException e) {
-			Assert.fail(e.getMessage());
-		} catch (CoreException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 	}
