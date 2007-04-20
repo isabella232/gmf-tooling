@@ -4,13 +4,13 @@
 feature@org.eclipse.gmf.tests=v20070403-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.tests=v20070413-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
+plugin@org.eclipse.gmf.tests=v20070420-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
 plugin@org.eclipse.gmf.tests.runtime.common.core=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
-plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=v20070420-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
 plugin@org.eclipse.gmf.tests.runtime.common.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui
-plugin@org.eclipse.gmf.tests.runtime.diagram.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui
+plugin@org.eclipse.gmf.tests.runtime.diagram.ui=v20070420-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui
 plugin@org.eclipse.gmf.tests.runtime.draw2d.ui.render=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui.render
 plugin@org.eclipse.gmf.tests.runtime.draw2d.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui
 plugin@org.eclipse.gmf.tests.runtime.gef.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.gef.ui
