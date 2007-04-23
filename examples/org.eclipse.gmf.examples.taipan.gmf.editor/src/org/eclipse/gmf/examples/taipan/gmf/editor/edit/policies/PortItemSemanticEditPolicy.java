@@ -127,10 +127,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(container, source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
-		}
-		return getGEFWrapper(new ReliableRouteCreateCommand(req, container, source, target));
+		return getGEFWrapper(new ReliableRouteCreateCommand(req, container));
 	}
 
 	/**
@@ -171,10 +168,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(container, source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
-		}
-		return getGEFWrapper(new UnreliableRouteCreateCommand(req, container, source, target));
+		return getGEFWrapper(new UnreliableRouteCreateCommand(req, container));
 	}
 
 	/**
@@ -207,10 +201,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
-		}
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 
 	/**

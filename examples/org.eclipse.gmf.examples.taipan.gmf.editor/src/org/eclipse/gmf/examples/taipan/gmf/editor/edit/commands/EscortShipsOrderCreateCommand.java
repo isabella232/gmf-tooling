@@ -11,52 +11,68 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class EscortShipsOrderCreateCommand extends CreateRelationshipCommand {
+public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 
 	/**
 	 * @generated
 	 */
-	private Warship mySource;
+	private final EObject source;
 
 	/**
 	 * @generated
 	 */
-	private Ship myTarget;
+	private final EObject target;
 
 	/**
 	 * @generated
 	 */
-	public EscortShipsOrderCreateCommand(CreateRelationshipRequest req, Warship source, Ship target) {
-		super(req);
+	public EscortShipsOrderCreateCommand(CreateRelationshipRequest request) {
+		super(request);
+		source = request.getSource();
+		target = request.getTarget();
+		if (request.getContainmentFeature() == null) {
+			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
+		}
 		super.setElementToEdit(source);
-		mySource = source;
-		myTarget = target;
 	}
 
 	/**
 	 * @generated
 	 */
-	public EObject getSource() {
-		return mySource;
+	public boolean canExecute() {
+		return getSource() != null && getTarget() != null && super.canExecute();
 	}
 
 	/**
 	 * @generated
 	 */
-	public EObject getTarget() {
-		return myTarget;
+	protected Warship getSource() {
+		return (Warship) source;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Ship getTarget() {
+		return (Ship) target;
 	}
 
 	/**
@@ -64,6 +80,26 @@ public class EscortShipsOrderCreateCommand extends CreateRelationshipCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return TaiPanPackage.eINSTANCE.getWarship();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+		}
+		return super.doExecuteWithResult(monitor, info);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ConfigureRequest createConfigureRequest() {
+		ConfigureRequest request = super.createConfigureRequest();
+		request.setParameter(CreateRelationshipRequest.SOURCE, getSource());
+		request.setParameter(CreateRelationshipRequest.TARGET, getTarget());
+		return request;
 	}
 
 	/**
@@ -79,7 +115,7 @@ public class EscortShipsOrderCreateCommand extends CreateRelationshipCommand {
 	protected EObject doDefaultElementCreation() {
 		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
 		if (newElement != null) {
-			newElement.getShips().add(myTarget);
+			newElement.getShips().add(getTarget());
 		}
 		return newElement;
 	}

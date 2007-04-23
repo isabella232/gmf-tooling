@@ -156,10 +156,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
-		}
-		return getGEFWrapper(new EscortShipsOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
 	/**

@@ -113,10 +113,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
-		}
-		return getGEFWrapper(new EscortShipsOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
 	/**
@@ -149,10 +146,7 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
-		}
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req, source, target));
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 
 	/**

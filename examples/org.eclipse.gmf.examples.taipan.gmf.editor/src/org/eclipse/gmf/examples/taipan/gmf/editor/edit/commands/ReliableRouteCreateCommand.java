@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
@@ -18,59 +21,72 @@ import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class ReliableRouteCreateCommand extends CreateRelationshipCommand {
+public class ReliableRouteCreateCommand extends CreateElementCommand {
 
 	/**
 	 * @generated
 	 */
-	private Aquatory myContainer;
+	private final EObject source;
 
 	/**
 	 * @generated
 	 */
-	private Port mySource;
+	private final EObject target;
 
 	/**
 	 * @generated
 	 */
-	private Port myTarget;
+	private final Aquatory container;
 
 	/**
 	 * @generated
 	 */
-	public ReliableRouteCreateCommand(CreateRelationshipRequest req, Aquatory container, Port source, Port target) {
-		super(req);
+	public ReliableRouteCreateCommand(CreateRelationshipRequest request, Aquatory container) {
+		super(request);
+		source = request.getSource();
+		target = request.getTarget();
+		if (request.getContainmentFeature() == null) {
+			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
+		}
 		super.setElementToEdit(container);
-		myContainer = container;
-		mySource = source;
-		myTarget = target;
+		this.container = container;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean canExecute() {
+		return getSource() != null && getTarget() != null && super.canExecute();
 	}
 
 	/**
 	 * @generated
 	 */
 	public Aquatory getContainer() {
-		return myContainer;
+		return container;
 	}
 
 	/**
 	 * @generated
 	 */
-	public EObject getSource() {
-		return mySource;
+	protected Port getSource() {
+		return (Port) source;
 	}
 
 	/**
 	 * @generated
 	 */
-	public EObject getTarget() {
-		return myTarget;
+	protected Port getTarget() {
+		return (Port) target;
 	}
 
 	/**
@@ -78,6 +94,26 @@ public class ReliableRouteCreateCommand extends CreateRelationshipCommand {
 	 */
 	protected EClass getEClassToEdit() {
 		return TaiPanPackage.eINSTANCE.getAquatory();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+		}
+		return super.doExecuteWithResult(monitor, info);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ConfigureRequest createConfigureRequest() {
+		ConfigureRequest request = super.createConfigureRequest();
+		request.setParameter(CreateRelationshipRequest.SOURCE, getSource());
+		request.setParameter(CreateRelationshipRequest.TARGET, getTarget());
+		return request;
 	}
 
 	/**
@@ -93,8 +129,8 @@ public class ReliableRouteCreateCommand extends CreateRelationshipCommand {
 	protected EObject doDefaultElementCreation() {
 		Route newElement = (Route) super.doDefaultElementCreation();
 		if (newElement != null) {
-			newElement.setDestination(myTarget);
-			newElement.setSource(mySource);
+			newElement.setSource(getSource());
+			newElement.setDestination(getTarget());
 			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
 		}
 		return newElement;
