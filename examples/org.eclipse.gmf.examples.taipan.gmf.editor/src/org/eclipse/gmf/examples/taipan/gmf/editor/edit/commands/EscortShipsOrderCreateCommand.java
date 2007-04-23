@@ -20,6 +20,7 @@ import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
@@ -58,7 +59,20 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		return getSource() != null && getTarget() != null && super.canExecute();
+		if (source == null && target == null) {
+			return false;
+		}
+		if (source != null && !(source instanceof Warship)) {
+			return false;
+		}
+		if (target != null && !(target instanceof Ship)) {
+			return false;
+		}
+		if (getSource() == null) {
+			return true; // link creation is in progress; source is not defined yet
+		}
+		// target may be null here but it's possible to check constraint
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(getSource(), getTarget());
 	}
 
 	/**

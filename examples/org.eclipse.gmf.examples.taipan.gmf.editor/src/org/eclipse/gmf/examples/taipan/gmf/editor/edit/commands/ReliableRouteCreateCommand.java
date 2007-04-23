@@ -20,6 +20,7 @@ import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
@@ -50,22 +51,42 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public ReliableRouteCreateCommand(CreateRelationshipRequest request, Aquatory container) {
+	public ReliableRouteCreateCommand(CreateRelationshipRequest request) {
 		super(request);
 		source = request.getSource();
 		target = request.getTarget();
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		super.setElementToEdit(container);
-		this.container = container;
+		if (source != null) {
+			container = (Aquatory) findLinkContainer(source, TaiPanPackage.eINSTANCE.getAquatory());
+			super.setElementToEdit(container);
+		} else {
+			container = null;
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	public boolean canExecute() {
-		return getSource() != null && getTarget() != null && super.canExecute();
+		if (source == null && target == null) {
+			return false;
+		}
+		if (source != null && !(source instanceof Port)) {
+			return false;
+		}
+		if (target != null && !(target instanceof Port)) {
+			return false;
+		}
+		if (getSource() == null) {
+			return true; // link creation is in progress; source is not defined yet
+		}
+		// target may be null here but it's possible to check constraint
+		if (getContainer() == null) {
+			return false;
+		}
+		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(getContainer(), getSource(), getTarget());
 	}
 
 	/**
@@ -134,6 +155,26 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
 		}
 		return newElement;
+	}
+
+	/**
+	 * Finds container element for the new link.
+	 * Default implementation goes up by containment hierarchy starting from
+	 * the specified element and returns the first element that is instance of
+	 * the container class.
+	 * 
+	 * @generated
+	 */
+	protected EObject findLinkContainer(Object uelement, EClass containerClass) {
+		if (uelement instanceof EObject) {
+			EObject element = (EObject) uelement;
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
+			}
+		}
+		return null;
 	}
 
 }

@@ -93,114 +93,42 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingRoute_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return getGEFWrapper(new ReliableRouteCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingRoute_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Port target = (Port) targetEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return getGEFWrapper(new ReliableRouteCreateCommand(req, container));
+		return getGEFWrapper(new ReliableRouteCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingRoute_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(container, source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return getGEFWrapper(new UnreliableRouteCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingRoute_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Port || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port source = (Port) sourceEObject;
-		Port target = (Port) targetEObject;
-		Aquatory container = (Aquatory) getRelationshipContainer(source, TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
-		if (container == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4003(container, source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return getGEFWrapper(new UnreliableRouteCreateCommand(req, container));
+		return getGEFWrapper(new UnreliableRouteCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateStartIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		EObject targetEObject = req.getSource();
-		if (false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Port target = (Port) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(null, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		Port target = (Port) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
 		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 

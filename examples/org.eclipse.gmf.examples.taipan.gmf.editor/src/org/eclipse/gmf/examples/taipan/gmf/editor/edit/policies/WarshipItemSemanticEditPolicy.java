@@ -87,32 +87,13 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Warship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
 		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
@@ -120,32 +101,14 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof Warship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getTarget();
-		EObject targetEObject = req.getSource();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Port) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		Port target = (Port) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
+		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
 		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 	}
 

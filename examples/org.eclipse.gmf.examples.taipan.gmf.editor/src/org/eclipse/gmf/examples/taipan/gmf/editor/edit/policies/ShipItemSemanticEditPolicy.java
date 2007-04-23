@@ -130,32 +130,14 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateStartIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		EObject targetEObject = req.getSource();
-		if (false == targetEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(null, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
+		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCompleteIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof Warship || false == targetEObject instanceof Ship) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Warship source = (Warship) sourceEObject;
-		Ship target = (Ship) targetEObject;
-		if (!TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateEscortShipsOrder_4006(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
 		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 	}
 
