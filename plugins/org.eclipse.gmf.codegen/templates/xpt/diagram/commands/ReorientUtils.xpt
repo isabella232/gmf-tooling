@@ -278,7 +278,7 @@
 	Replace old target with the new one in the source.
 «ENDREM»
 «DEFINE changeTarget(String sourceVar, genmodel::GenClass sourceVarGenClass, String oldTargetVar, String newTargetVar) FOR genmodel::GenFeature-»
-	«IF ecoreFeature.many-»
+	«IF isListType()-»
 		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».remove(«oldTargetVar»);
 		«EXPAND xpt::Common::getFeatureValue(sourceVar, sourceVarGenClass)».add(«newTargetVar»);
 	«ELSE-»
@@ -290,7 +290,7 @@
 	Move target from old source to the new one.
 «ENDREM»
 «DEFINE changeSource(String targetVar, String oldSourceVar, String newSourceVar, genmodel::GenClass sourceVarGenClass) FOR genmodel::GenFeature-»
-	«IF ecoreFeature.many-»
+	«IF isListType()-»
 		«EXPAND xpt::Common::getFeatureValue(oldSourceVar, sourceVarGenClass)».remove(«targetVar»);
 		«EXPAND xpt::Common::getFeatureValue(newSourceVar, sourceVarGenClass)».add(«targetVar»);
 	«ELSE-»
