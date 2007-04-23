@@ -27,7 +27,6 @@ import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.application.WizardNewFileCreationPageGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateShortcutDecorationsCommand;
-import org.eclipse.gmf.codegen.templates.commands.CreateTypeLinkCommandGenerator;
 import org.eclipse.gmf.codegen.templates.commands.CreateTypeNodeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
@@ -153,7 +152,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
-		put(tr, "/commands/CreateTypeLinkCommand.javajet", CreateTypeLinkCommandGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
@@ -244,6 +242,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getReorientConnectionViewCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ReorientConnectionViewCommandGenerator.class);
+	}
+
+	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::diagram::commands::CreateLinkCommand::CreateLinkCommand"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getCreateRefLinkCommandEmitter() throws UnexpectedBehaviourException {
@@ -350,10 +352,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getLinkItemSemanticEditPolicyEmitter() {
 		return newXpandEmitter("xpt::diagram::editpolicies::LinkItemSemanticEditPolicy::LinkItemSemanticEditPolicy"); //$NON-NLS-1$
-	}
-	
-	public TextEmitter getCreateTypeLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return retrieve(CreateTypeLinkCommandGenerator.class);
 	}
 
 	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {

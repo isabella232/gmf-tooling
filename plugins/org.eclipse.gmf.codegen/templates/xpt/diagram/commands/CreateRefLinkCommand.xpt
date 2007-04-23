@@ -22,37 +22,14 @@ package «diagram.editCommandsPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private final org.eclipse.emf.ecore.EObject source;
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private final org.eclipse.emf.ecore.EObject target;
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::fields FOR modelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request) {
 		super(request.getLabel(), null, request);
-		source = request.getSource();
-		target = request.getTarget();
+		«EXPAND xpt::diagram::commands::CreateLinkUtils::init FOR modelFacet-»
 	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean canExecute() {
-		if (source == null && target == null) {
-			return false;
-		}
-		if (source != null && !(source instanceof «getQualifiedInterfaceName(modelFacet.getSourceType())»)) {
-			return false;
-		}
-		if (target != null && !(target instanceof «getQualifiedInterfaceName(modelFacet.getTargetType())»)) {
-			return false;
-		}
-		if (getSource() != null) {
-			return «diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».
-					canCreate«getUniqueIdentifier()»(getSource(), getTarget());
-		}
-		return true; // link creation is in progress; only one end is defined
-	}
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::canCreate(this) FOR modelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
@@ -66,16 +43,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		}
 		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected «getQualifiedInterfaceName(modelFacet.getSourceType())» getSource() {
-		return («getQualifiedInterfaceName(modelFacet.getSourceType())») source;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected «getQualifiedInterfaceName(modelFacet.getTargetType())» getTarget() {
-		return («getQualifiedInterfaceName(modelFacet.getTargetType())») target;
-	}
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::accessors FOR modelFacet-»
 }
 «ENDDEFINE»
 

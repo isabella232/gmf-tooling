@@ -116,8 +116,6 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	«EXPAND getMSLWrapper-»
 
 	«EXPAND getSemanticElement-»
-
-	«EXPAND getRelationshipContainer-»
 «ENDDEFINE»
 
 «DEFINE getSemanticCommand FOR gmfgen::GenDiagram-»
@@ -295,26 +293,6 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.emf.ecore.EObject getSemanticElement() {
 	return org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
-}
-«ENDDEFINE»
-
-«DEFINE getRelationshipContainer FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment(
-	"Finds container element for the new relationship of the specified type.\n" +
-	"Default implementation goes up by containment hierarchy starting from\n" +
-	"the specified element and returns the first element that is instance of\n" +
-	"the specified container class.\n"
-)»
-protected org.eclipse.emf.ecore.EObject getRelationshipContainer(Object uelement, org.eclipse.emf.ecore.EClass containerClass, org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
-	if (uelement instanceof org.eclipse.emf.ecore.EObject) {
-		org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) uelement;
-		for (; element != null; element = element.eContainer()) {
-			if (containerClass.isSuperTypeOf(element.eClass())) {
-				return element;
-			}
-		}
-	}
-	return null;
 }
 «ENDDEFINE»
 

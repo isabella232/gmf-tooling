@@ -1,0 +1,121 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE CreateLinkCommand FOR gmfgen::GenLink-»
+«EXPAND xpt::Common::copyright FOR diagram.editorGen-»
+package «diagram.editCommandsPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand {
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::fields FOR modelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request) {
+		super(request);
+		«EXPAND xpt::diagram::commands::CreateLinkUtils::init FOR modelFacet-»
+	}
+	«EXPAND body(this) FOR modelFacet-»
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::canCreate(this) FOR modelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
+			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
+			throws org.eclipse.core.commands.ExecutionException {
+		if (!canExecute()) {
+			throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+		}
+		return super.doExecuteWithResult(monitor, info);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest createConfigureRequest() {
+		org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest request = super.createConfigureRequest();
+		request.setParameter(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest.SOURCE, getSource());
+		request.setParameter(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest.TARGET, getTarget());
+		return request;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void setElementToEdit(org.eclipse.emf.ecore.EObject element) {
+		throw new UnsupportedOperationException();
+	}
+	«EXPAND xpt::diagram::commands::CreateLinkUtils::accessors FOR modelFacet-»
+}
+«ENDDEFINE»
+
+«DEFINE body(gmfgen::GenLink link) FOR gmfgen::LinkModelFacet-»
+«ENDDEFINE»
+
+«DEFINE body(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
+		«getQualifiedInterfaceName(metaClass)» newElement = («getQualifiedInterfaceName(metaClass)») super.doDefaultElementCreation();
+		if (newElement != null) {
+		«IF sourceMetaFeature != null-»
+			«EXPAND addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
+		«ENDIF-»
+		«EXPAND addValue("newElement", metaClass, "getTarget()") FOR targetMetaFeature-»
+		«IF !childMetaFeature.ecoreFeature.derived && childMetaFeature != containmentMetaFeature-»
+			«IF sourceMetaFeature != null-»
+				«EXPAND addValue("getContainer()", containmentMetaFeature.genClass, "newElement") FOR childMetaFeature-»
+			«ELSE-»
+				«EXPAND addValue("getSource()", getSourceType(), "newElement") FOR childMetaFeature-»
+			«ENDIF-»
+		«ENDIF-»
+		«IF modelElementInitializer != null-»
+			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(
+					«IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement);
+		«ENDIF-»
+		}
+		return «IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement;
+	}
+	«IF sourceMetaFeature != null-»
+
+	«EXPAND xpt::Common::generatedClassComment(
+	"Finds container element for the new link.\n" +
+	"Default implementation goes up by containment hierarchy starting from\n" +
+	"the specified element and returns the first element that is instance of\n" +
+	"the container class.\n"
+	)»
+	protected org.eclipse.emf.ecore.EObject findLinkContainer(Object uelement, org.eclipse.emf.ecore.EClass containerClass) {
+		if (uelement instanceof org.eclipse.emf.ecore.EObject) {
+			org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) uelement;
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
+			}
+		}
+		return null;
+	}
+	«ENDIF-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {
+		return «getQualifiedClassifierAccessor(containmentMetaFeature.genClass)»();
+	}
+«ENDDEFINE»
+
+«DEFINE addValue(String containerVar, genmodel::GenClass containerClass, String valueVar) FOR genmodel::GenFeature-»
+	«IF isListType()-»
+		«EXPAND xpt::Common::getFeatureValue(containerVar, containerClass)».add(«valueVar»);
+	«ELSE-»
+		«EXPAND xpt::Common::setFeatureValue(containerVar, containerClass, valueVar)»;
+	«ENDIF-»
+«ENDDEFINE»
