@@ -14,13 +14,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortRegisterCreateCommand;

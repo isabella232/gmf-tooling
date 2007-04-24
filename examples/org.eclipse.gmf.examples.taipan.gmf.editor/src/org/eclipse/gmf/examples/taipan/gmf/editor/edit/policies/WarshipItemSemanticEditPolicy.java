@@ -11,14 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.taipan.Port;
-import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.BesiegePortOrderReorientCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.EscortShipsOrderCreateCommand;
