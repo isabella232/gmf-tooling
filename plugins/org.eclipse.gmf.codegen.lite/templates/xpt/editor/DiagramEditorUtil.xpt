@@ -182,17 +182,12 @@ public static void setCharset(org.eclipse.core.resources.IFile file) {
 
 «DEFINE saveOptions FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Map ourSaveOptions = null;
-
-«EXPAND xpt::Common::generatedMemberComment»
 public static java.util.Map getSaveOptions() {
-	if (ourSaveOptions == null) {
-		ourSaveOptions = new java.util.HashMap();
-		ourSaveOptions.put(org.eclipse.emf.ecore.xmi.XMIResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
-		ourSaveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-		ourSaveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-	}
-	return ourSaveOptions;
+	java.util.Map saveOptions = new java.util.HashMap();
+	saveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
+	saveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+	saveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+	return saveOptions;
 }
 «ENDDEFINE»
 

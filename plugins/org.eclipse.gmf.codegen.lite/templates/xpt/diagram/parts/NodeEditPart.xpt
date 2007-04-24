@@ -84,10 +84,9 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::all-»
 	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::all-»
-	«EXPAND xpt::diagram::parts::domainModelRefresher::field-»
+	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
 	«EXPAND xpt::diagram::parts::refresh::refresher-»
 	«EXPAND xpt::diagram::parts::refresh::externalRefreshers-»
-	«EXPAND xpt::diagram::parts::refresh::addRemove-»
 
 	«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-»
 	«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-»
@@ -341,7 +340,7 @@ public boolean isExternalLabel(org.eclipse.gef.EditPart childEditPart) {
 «DEFINE isDirectChild FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 public boolean isDirectChild(org.eclipse.gef.EditPart childEditPart) {
-«EXPAND returnInstanceof("childEditPart") FOREACH childNodes-»
+«EXPAND returnInstanceof("childEditPart") FOREACH getDirectChildren()-»
 	return false;
 }
 «ENDDEFINE»

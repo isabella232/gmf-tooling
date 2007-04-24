@@ -38,6 +38,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND setupCompartmentHolder-»
 	«EXPAND xpt::diagram::parts::Common::activate-»
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
+	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::all-»
 	«EXPAND xpt::diagram::parts::refresh::refresher-»
 	«EXPAND additions-»

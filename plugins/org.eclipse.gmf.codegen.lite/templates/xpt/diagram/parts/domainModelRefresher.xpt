@@ -15,24 +15,15 @@
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::diagram::parts::Common»
 
-«DEFINE field FOR gmfgen::GenCommonBase-»
-«IF needsDomainModelRefresher()-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter domainModelRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter(this);
-«ENDIF-»
-«ENDDEFINE»
-
 «DEFINE activate FOR gmfgen::GenCommonBase-»
 «IF needsDomainModelRefresher()-»
-if (!«EXPAND xpt::diagram::parts::Common::getViewCode».getElement().eAdapters().contains(domainModelRefresher)) {
-	«EXPAND xpt::diagram::parts::Common::getViewCode».getElement().eAdapters().add(domainModelRefresher);
-}
+getTransactionalUpdateManager().addUpdatableEditPart(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement(), this);
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE deactivate FOR gmfgen::GenCommonBase-»
 «IF needsDomainModelRefresher()-»
-«EXPAND xpt::diagram::parts::Common::getViewCode».getElement().eAdapters().remove(domainModelRefresher);
+getTransactionalUpdateManager().removeUpdatableEditPart(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement(), this);
 «ENDIF-»
 «ENDDEFINE»
 

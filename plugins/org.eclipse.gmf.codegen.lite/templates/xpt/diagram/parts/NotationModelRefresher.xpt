@@ -43,19 +43,15 @@ uninstallNotationModelRefresher();
 «EXPAND xpt::Common::generatedMemberComment»
 private void installNotationModelRefresher() {
 	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher refresher = getNotationModelRefresher();
-	if (refresher.isInstalled()) {
-		return;
-	}
-	org.eclipse.emf.transaction.TransactionalEditingDomain domainModelEditDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND xpt::diagram::parts::Common::getDiagramElementCode»);
-	refresher.install(domainModelEditDomain);
-	refreshNotationModel();
+	getTransactionalUpdateManager().addNotationModelRefresher(refresher);
 }
 «ENDDEFINE»
 
 «DEFINE uninstall FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 private void uninstallNotationModelRefresher() {
-	getNotationModelRefresher().uninstall();
+	org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher refresher = getNotationModelRefresher();
+	getTransactionalUpdateManager().removeNotationModelRefresher(refresher);
 }
 «ENDDEFINE»
 
@@ -156,10 +152,14 @@ protected java.util.List getSemanticChildNodes() {
 
 «DEFINE shouldCreateView FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment("Returns whether a notational element should be created for the given domain element. \n" + 
-  "The generated code always returns " + (getDiagram().synchronized ? "true" : "false") + ". \n" + 
+  "The generated code respects canonical style. If the canonycal style is not present, " + (getDiagram().synchronized ? "true" : "false") + " is always returned. \n" + 
   "User can change implementation of this method to handle a more sophisticated logic.")»
 protected boolean shouldCreateView(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
-	return «getDiagram().synchronized»;
+	org.eclipse.gmf.runtime.notation.CanonicalStyle style = (org.eclipse.gmf.runtime.notation.CanonicalStyle) «EXPAND xpt::diagram::parts::Common::getViewCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getCanonicalStyle());
+	if (style == null) {
+		return «getDiagram().synchronized»;
+	}
+	return style.isCanonical();
 }
 «ENDDEFINE»
 

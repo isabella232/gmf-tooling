@@ -33,3 +33,8 @@ String primaryShapeQualifiedClassName(gmfgen::FigureViewmap viewmap) :
 String primaryShapeQualifiedClassName(gmfgen::InnerClassViewmap viewmap) :
 	viewmap.className
 ;
+
+List[gmfgen::GenChildSideAffixedNode] getSideAffixedChildren(gmfgen::GenNode node) :
+	node.childNodes.typeSelect(gmfgen::GenChildSideAffixedNode)
+;
+

@@ -347,6 +347,7 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 	public void dispose() {
 «EXPAND unhookResourceTracker-»
 «EXPAND unhookValidation-»
+«EXPAND disposeTransactionalUpdateManager-»
 		// important: always call super implementation of dispose
 		super.dispose();
 	}
@@ -358,9 +359,17 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		myActionBarContributor.dispose();
 		myActionBarContributor = null;
 «EXPAND unhookValidation-»
+«EXPAND disposeTransactionalUpdateManager-»
 		// important: always call super implementation of dispose
 		super.dispose();
 	}
+«ENDDEFINE»
+
+«DEFINE disposeTransactionalUpdateManager FOR GenEditorView-»
+org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getGraphicalViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
+if (updateManager != null) {
+	updateManager.dispose();
+}
 «ENDDEFINE»
 
 «DEFINE save FOR gmfgen::GenEditorView-»
@@ -607,9 +616,15 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 		org.eclipse.gef.editparts.ScalableFreeformRootEditPart root = new org.eclipse.gef.editparts.ScalableFreeformRootEditPart();
 		getGraphicalViewer().setRootEditPart(root);
 		getGraphicalViewer().setEditPartFactory(new «editorGen.diagram.getEditPartFactoryQualifiedClassName()»());
+		org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = new org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager(getGraphicalViewer());
+		getGraphicalViewer().setProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName(), updateManager);
 
 «EXPAND addLayers-»
 		getGraphicalViewer().setContents(getDiagram());
+		org.eclipse.emf.common.command.Command updateCommand = updateManager.buildRefreshNotationModelCommand();
+		if (updateCommand != null && updateCommand.canExecute()) {
+			getCommandStack().execute(new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(getEditingDomain(), updateCommand));
+		}
 	}
 «ENDDEFINE»
 

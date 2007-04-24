@@ -101,29 +101,22 @@ installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.g
 
 «DEFINE listeners FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
+	protected void register() {
+		super.register();
+		getViewer().setProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName(), new org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager(getViewer()));
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void activate() {
 		super.activate();
-		if (!getNotationView().eAdapters().contains(getTreeUpdateManager())) {
-			getNotationView().eAdapters().add(getTreeUpdateManager());
-		}
+		getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getNotationView()));
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void deactivate() {
-		getNotationView().eAdapters().remove(getTreeUpdateManager());
+		getTransactionalUpdateManager().uninstall();
 		super.deactivate();
 	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager getTreeUpdateManager() {
-		if (treeUpdateManager == null) {
-			treeUpdateManager = new org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager(getViewer());
-		}
-		return treeUpdateManager;
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager treeUpdateManager;
 «ENDDEFINE»
 
 «REM»Nodes and links share the same template«ENDREM»

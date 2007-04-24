@@ -28,7 +28,6 @@ public class «editPartClassName» «EXPAND supertypes» {
 
 	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
 	«EXPAND xpt::diagram::parts::Common::registerModel-»
-	«EXPAND addNotify-»
 	«EXPAND createEditPolicies-»
 	«EXPAND createFigure-»
 	«EXPAND xpt::diagram::parts::Common::getAdapter-»
@@ -39,8 +38,7 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::all-»
 	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::all-»
-	«EXPAND xpt::diagram::parts::domainModelRefresher::field-»
-	«EXPAND getUpdateManager-»
+	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
 	«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-»
 	«EXPAND additions-»
 }
@@ -58,19 +56,6 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 }
 «ENDDEFINE»
 
-«DEFINE getUpdateManager FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager updateManager;
-
-«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager getUpdateManager() {
-	if (updateManager == null) {
-		updateManager = new org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager(getViewer());
-	}
-	return updateManager;
-}
-«ENDDEFINE»
-
 «DEFINE createEditPolicies FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void createEditPolicies() {
@@ -79,15 +64,6 @@ protected void createEditPolicies() {
 	«EXPAND xpt::diagram::parts::Common::behaviour-»
 	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
 	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
-}
-«ENDDEFINE»
-
-«DEFINE addNotify FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public void addNotify() {
-	super.addNotify();
-	«EXPAND xpt::diagram::parts::Common::getViewCode».eAdapters().add(getUpdateManager());
-	«EXPAND xpt::diagram::parts::Common::getViewCode».getElement().eAdapters().add(domainModelRefresher);
 }
 «ENDDEFINE»
 

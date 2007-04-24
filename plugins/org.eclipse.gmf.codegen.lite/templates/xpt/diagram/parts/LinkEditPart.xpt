@@ -39,10 +39,9 @@ public class «editPartClassName» «EXPAND supertypes» {
 	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
 	«EXPAND xpt::diagram::parts::Common::activate-»
 	«EXPAND xpt::diagram::parts::Common::deactivate-»
-	«EXPAND xpt::diagram::parts::domainModelRefresher::field-»
+	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
 	«EXPAND xpt::diagram::parts::refresh::refresher-»
 	«EXPAND xpt::diagram::parts::refresh::externalRefreshers-»
-	«EXPAND xpt::diagram::parts::refresh::addRemove-»
 
 	«EXPAND addNotify-»
 	«EXPAND createFigure-»

@@ -18,7 +18,11 @@ boolean isXYLayout(gmfgen::GenNode node) :
 ;
 
 boolean hasDirectChildren(gmfgen::GenNode node) :
-	node.childNodes.size() > 0
+	node.getDirectChildren().size() > 0
+;
+
+Collection[gmfgen::GenNode] getDirectChildren(gmfgen::GenNode node) :
+	node.childNodes.select(e| {e}.typeSelect(gmfgen::GenChildSideAffixedNode).size() == 0)
 ;
 
 boolean needsXYLayout(gmfgen::GenContainerBase container) :

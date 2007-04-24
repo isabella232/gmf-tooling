@@ -75,7 +75,7 @@ return null;
 «ENDDEFINE»
 
 «DEFINE createLabelTextDisplayer(Boolean isReadOnly) FOR gmfgen::FeatureLabelModelFacet-»
-return new org.eclipse.gmf.runtime.lite.edit.parts.labels.SimpleLabelTextDisplayer("«viewPattern»"«IF !isReadOnly», "«editPattern == null ? viewPattern : editPattern»"«ENDIF», «EXPAND features»);
+return new org.eclipse.gmf.runtime.lite.edit.parts.labels.SimpleLabelTextDisplayer("«viewPattern»"«IF !isReadOnly», "«(editPattern == null || editPattern.length() == 0) ? viewPattern : editPattern»"«ENDIF», «EXPAND features»);
 «ENDDEFINE»
 
 «DEFINE features FOR gmfgen::FeatureLabelModelFacet-»
@@ -232,11 +232,8 @@ It is thus referenced from the common activate/deactivate mechanism.
 «getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
 «IF !viewmap.isFixedFont()-»
-	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
-	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight(), fontRefresher);
-	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName(), fontRefresher);
-	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold(), fontRefresher);
-	updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic(), fontRefresher);
+	updatableParent.addExternalRefresher(fontColorRefresher);
+	updatableParent.addExternalRefresher(fontRefresher);
 «ENDIF-»
 	updatableParent.addExternalRefresher(getLabelRefresher());
 	«EXPAND activateMore-»
@@ -247,11 +244,8 @@ if (updatableParent != null) {
 «getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
 «IF !viewmap.isFixedFont()-»
-	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);
-	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontHeight(), fontRefresher);
-	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontName(), fontRefresher);
-	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Bold(), fontRefresher);
-	updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_Italic(), fontRefresher);
+	updatableParent.removeExternalRefresher(fontColorRefresher);
+	updatableParent.removeExternalRefresher(fontRefresher);
 «ENDIF-»
 	updatableParent.removeExternalRefresher(getLabelRefresher());
 	«EXPAND deactivateMore-»
@@ -262,27 +256,17 @@ if (updatableParent != null) {
 «DEFINE deactivateMore FOR gmfgen::GenLabel»«ENDDEFINE»
 
 «DEFINE activateMore FOR gmfgen::GenExternalNodeLabel-»
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), boundsRefresher);
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), boundsRefresher);
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width(), boundsRefresher);
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height(), boundsRefresher);
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
+updatableParent.addExternalRefresher(boundsRefresher);
 «ENDDEFINE»
 
 «DEFINE deactivateMore FOR gmfgen::GenExternalNodeLabel-»
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), boundsRefresher);
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), boundsRefresher);
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width(), boundsRefresher);
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height(), boundsRefresher);
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getNode_LayoutConstraint(), boundsRefresher);
+updatableParent.removeExternalRefresher(boundsRefresher);
 «ENDDEFINE»
 
 «DEFINE activateMore FOR gmfgen::GenLinkLabel-»
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), locationRefresher);
-updatableParent.addRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), locationRefresher);
+updatableParent.addExternalRefresher(locationRefresher);
 «ENDDEFINE»
 
 «DEFINE deactivateMore FOR gmfgen::GenLinkLabel-»
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X(), locationRefresher);
-updatableParent.removeRefresher(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y(), locationRefresher);
+updatableParent.removeExternalRefresher(locationRefresher);
 «ENDDEFINE»

@@ -225,6 +225,15 @@ public boolean isSelectable() {
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE getTransactionalUpdateManager FOR gmfgen::GenCommonBase-»
+«IF needsTransactionalUpdateManager()-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager getTransactionalUpdateManager() {
+	return (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
+}
+«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE activate FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 public void activate() {
@@ -253,15 +262,13 @@ public void deactivate() {
 «ENDDEFINE»
 
 «DEFINE activateAdditions FOR gmfgen::GenDiagram-»
-if (!«EXPAND getViewCode».eAdapters().contains(getUpdateManager())) {
-	«EXPAND getViewCode».eAdapters().add(getUpdateManager());
-}
 «EXPAND activateRefreshers-»
+getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND getViewCode»));
 «ENDDEFINE»
 
 «DEFINE deactivateAdditions FOR gmfgen::GenDiagram-»
+getTransactionalUpdateManager().uninstall();
 «EXPAND deactivateRefreshers-»
-«EXPAND getViewCode».eAdapters().remove(getUpdateManager());
 «ENDDEFINE»
 
 «DEFINE activateAdditions FOR gmfgen::GenChildLabelNode-»
