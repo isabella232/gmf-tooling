@@ -107,6 +107,15 @@ installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.g
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	protected void unregister() {
+		org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager updateManager = (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
+		if (updateManager != null) {
+			updateManager.dispose();
+		}
+		super.unregister();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void activate() {
 		super.activate();
 		getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(getNotationView()));
