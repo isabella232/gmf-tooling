@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <!--
- Copyright (c) 2006 Borland Software Corporation
- 
- All rights reserved. This program and the accompanying materials
- are made available under the terms of the Eclipse Public License v1.0
- which accompanies this distribution, and is available at
- http://www.eclipse.org/legal/epl-v10.html
- 
- Contributors:
-    Dmitry Stadnik (Borland) - initial API and implementation
+Copyright (c) 2006, 2007 Borland Software Corporation
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+   Dmitry Stadnik (Borland) - initial API and implementation
 -->
 <plugin>
 
@@ -83,6 +83,22 @@
       </objectContribution>           
    </extension>
 
+   <extension point="org.eclipse.ui.popupMenus">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagram"
+            nameFilter="*.taipan"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -169,6 +185,43 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
       </contributionItemProvider>
+   </extension>
+
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <?gmfgen generated="true"?>
+      <contributionItemProvider checkPluginLoaded="true"
+         class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
+         <Priority name="Low"/>
+         <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMarkerNavigationProvider">
+         <MarkerType name="org.eclipse.gmf.examples.taipan.gmf.editor.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="diagnostic" name="TaiPan Diagram problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
    </extension>
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -314,12 +367,10 @@
       </ParserProvider>
    </extension>
 
-   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       <?gmfgen generated="true"?>
-      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationDecoratorProvider">
+      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanShortcutsDecoratorProvider">
          <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
-         <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
 
@@ -483,8 +534,7 @@
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
-
-   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.examples.taipan.gmf.editor.URIEditorInputPropertyTester"
@@ -495,7 +545,29 @@
        </propertyTester>
    </extension>
 
-   <extension point="org.eclipse.ui.navigator.viewer">
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
+           properties="isShortcut"
+           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.taipan.gmf.editor.DomainModelElementPropertyTester"
+           type="org.eclipse.emf.ecore.EObject"
+           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
+           properties="isDomainModelElement"
+           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDomainModelElementTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer">
       <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
@@ -596,7 +668,7 @@
       </actionProvider>
    </extension>
    
-   <extension point="org.eclipse.ui.navigator.linkHelper">
+	   <extension point="org.eclipse.ui.navigator.linkHelper">
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorLinkHelper"
@@ -612,42 +684,6 @@
          </selectionEnablement>
       </linkHelper>
    </extension>
-
-   <extension id="ValidationContributionItemProvider" name="Validation"
-      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <?gmfgen generated="true"?>
-      <contributionItemProvider checkPluginLoaded="true"
-         class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanValidationProvider">
-         <Priority name="Low"/>
-         <partContribution id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
-            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
-         </partContribution>
-      </contributionItemProvider>
-   </extension>
-
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
-      <?gmfgen generated="true"?>
-      <MarkerNavigationProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMarkerNavigationProvider">
-         <MarkerType name="org.eclipse.gmf.examples.taipan.gmf.editor.diagnostic"/>
-         <Priority name="Lowest"/>
-      </MarkerNavigationProvider>
-   </extension>
-
-   <extension id="diagnostic" name="TaiPan Diagram problems" point="org.eclipse.core.resources.markers">
-      <?gmfgen generated="true"?>
-      <super type="org.eclipse.core.resources.problemmarker"/>
-      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
-      <persistent value="true"/>
-   </extension>
-
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
-      <?gmfgen generated="true"?>
-      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanShortcutsDecoratorProvider">
-         <Priority name="Lowest"/>
-      </decoratorProvider>
-   </extension>
-
    <extension point="org.eclipse.emf.validation.constraintProviders">
       <?gmfgen generated="true"?>
             <category id="taipan" mandatory="false" name="TaiPan Audits">
@@ -691,41 +727,4 @@
                   <constraint ref="org.eclipse.gmf.examples.taipan.gmf.editor.ship_name"/>
                </binding>
                </extension>
-
-   <extension point="org.eclipse.ui.popupMenus">
-      <?gmfgen generated="true"?>
-      <objectContribution
-            id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagram"
-            nameFilter="*.taipan"
-            objectClass="org.eclipse.core.resources.IFile">
-         <action
-               label="%initDiagramActionLabel"
-               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
-               menubarPath="additions"
-               enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.InitDiagramAction">
-         </action>
-      </objectContribution>
-   </extension>
-
-   <extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.examples.taipan.gmf.editor.ShortcutPropertyTester"
-           type="org.eclipse.gmf.runtime.notation.View"
-           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
-           properties="isShortcut"
-           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanShortcutPropertyTester">
-       </propertyTester>
-   </extension><extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.examples.taipan.gmf.editor.DomainModelElementPropertyTester"
-           type="org.eclipse.emf.ecore.EObject"
-           namespace="org.eclipse.gmf.examples.taipan.gmf.editor"
-           properties="isDomainModelElement"
-           class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDomainModelElementTester">
-       </propertyTester>
-   </extension>
-
 </plugin>
