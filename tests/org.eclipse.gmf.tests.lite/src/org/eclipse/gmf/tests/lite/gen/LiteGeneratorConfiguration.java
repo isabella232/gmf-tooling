@@ -37,6 +37,7 @@ import org.eclipse.gmf.internal.codegen.lite.Generator;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
+import org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager;
 import org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.CreateRequestEx;
 import org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory;
@@ -49,8 +50,12 @@ import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 
 public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
@@ -205,6 +210,17 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 	}
 
 	private static class FakeLiteViewer extends AbstractFakeViewer {
-		//that is
+		@Override
+		public Control createControl(Composite composite) {
+			Control result = super.createControl(composite);
+			final TransactionalUpdateManager updateManager = new TransactionalUpdateManager(this);
+			setProperty(TransactionalUpdateManager.class.getName(), updateManager);
+			result.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					updateManager.dispose();
+				}
+			});
+			return result;
+		}
 	}
 }

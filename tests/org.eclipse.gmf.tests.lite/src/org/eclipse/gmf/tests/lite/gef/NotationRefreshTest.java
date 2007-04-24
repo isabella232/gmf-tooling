@@ -30,9 +30,12 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.EMFCommandOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.notation.Bounds;
+import org.eclipse.gmf.runtime.notation.CanonicalStyle;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
@@ -376,6 +379,38 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 		EditPart newAuthorEP = findEditPart(newAuthor);
 		assertNotNull(newAuthorEP);
 		assertTrue(newAuthorEP.isActive());
+	}
+
+	public void testCanonicalStyle() throws Exception {
+		EditPart diagramEP = getDiagramEditPart();
+		Diagram diagram = (Diagram) diagramEP.getModel();
+		EObject diagramElement = diagram.getElement();
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(diagramElement);
+		EStructuralFeature feature = getCanvasInstance().getNodeA().getElement().eContainmentFeature();
+		EClass newChildClass = getCanvasInstance().getNodeA().getElement().eClass();
+		EObject newChild = newChildClass.getEPackage().getEFactoryInstance().create(newChildClass);
+
+		CanonicalStyle style = NotationFactory.eINSTANCE.createCanonicalStyle();
+		style.setCanonical(false);
+		Command uncanonicalizeCommand = AddCommand.create(editingDomain, diagram, NotationPackage.eINSTANCE.getView_Styles(), style);
+		new EMFCommandOperation(editingDomain, uncanonicalizeCommand).execute(new NullProgressMonitor(), null);
+
+		Command command = AddCommand.create(editingDomain, diagramElement, feature, newChild);
+		assertTrue("Failed to obtain command to create a new instance of the domain model element", command != null && command.canExecute());
+		new EMFCommandOperation(editingDomain, command).execute(new NullProgressMonitor(), null);
+		assertSame("AddCommand not executed properly", diagramElement, newChild.eContainer());
+		View newChildView = findView(diagram, newChild);
+		assertNull("Notational child created for a view whose isCanonical() is false", newChildView);
+
+		Command canonicalizeCommand = SetCommand.create(editingDomain, style, NotationPackage.eINSTANCE.getCanonicalStyle_Canonical(), Boolean.TRUE);
+		new EMFCommandOperation(editingDomain, canonicalizeCommand).execute(new NullProgressMonitor(), null);
+
+		newChildView = findView(diagram, newChild);
+		assertNotNull("Setting view's isCanonical() to true should create missing notational children", newChildView);
+		int visualId = getType(newChildView);
+		assertEquals(getSetup().getGenModel().getNodeA().getVisualID(), visualId);
+		EditPart newChildEP = findEditPart(newChildView);
+		assertNotNull("EditPart not created automatically", newChildEP);
 	}
 
 	private void checkLinkEnd(Edge edge, Node node) {
