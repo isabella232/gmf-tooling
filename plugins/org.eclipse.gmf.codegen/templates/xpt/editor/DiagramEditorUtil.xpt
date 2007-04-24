@@ -119,7 +119,7 @@ public class «diagramEditorUtilClassName» {
 	public static boolean openDiagram(org.eclipse.emf.ecore.resource.Resource diagram) throws org.eclipse.ui.PartInitException {
 «IF editorGen.application == null-»
 		String path = diagram.getURI().toPlatformString(true);
-		org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+		org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
 		if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
 			org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			return null != page.openEditor(new org.eclipse.ui.part.FileEditorInput((org.eclipse.core.resources.IFile) workspaceResource), «editorGen.editor.getQualifiedClassName()».ID);
