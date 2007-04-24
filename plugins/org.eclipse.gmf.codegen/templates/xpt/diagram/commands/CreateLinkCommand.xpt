@@ -29,8 +29,8 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		super(request);
 		«EXPAND xpt::diagram::commands::CreateLinkUtils::init FOR modelFacet-»
 	}
-	«EXPAND body(this) FOR modelFacet-»
 	«EXPAND xpt::diagram::commands::CreateLinkUtils::canCreate(this) FOR modelFacet-»
+	«EXPAND body(this) FOR modelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
