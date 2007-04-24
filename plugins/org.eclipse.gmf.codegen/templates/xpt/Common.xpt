@@ -104,3 +104,7 @@ org.eclipse.emf.ecore.EObject «varName» = «IF !isMapEntry() && isExternalInterfa
 «DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
 
 «DEFINE nonNLS(int i) FOR Object»//$NON-NLS-«i»$«ENDDEFINE»
+
+«DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «getEditPartQualifiedClassName()».VISUAL_ID:«ENDDEFINE»
+
+«DEFINE castToEObject FOR genmodel::GenClass»«IF isExternalInterface()»(org.eclipse.emf.ecore.EObject) «ENDIF»«ENDDEFINE»

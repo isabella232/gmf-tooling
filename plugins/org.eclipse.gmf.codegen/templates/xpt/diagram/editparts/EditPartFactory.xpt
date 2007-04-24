@@ -131,6 +131,6 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 «ENDDEFINE»
 
 «DEFINE createEditPart FOR gmfgen::GenCommonBase»
-	case «getEditPartQualifiedClassName()».VISUAL_ID:
+	«EXPAND xpt::Common::caseVisualID»
 		return new «getEditPartQualifiedClassName()»(view);
 «ENDDEFINE»

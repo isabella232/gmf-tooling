@@ -136,6 +136,6 @@ protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipComma
 «ENDDEFINE»
 
 «DEFINE reorientLinkCommand FOR gmfgen::GenLink-»
-case «getEditPartQualifiedClassName()».VISUAL_ID:
+«EXPAND xpt::Common::caseVisualID»
 	return getGEFWrapper(new «getReorientCommandQualifiedClassName()»(req));
 «ENDDEFINE»

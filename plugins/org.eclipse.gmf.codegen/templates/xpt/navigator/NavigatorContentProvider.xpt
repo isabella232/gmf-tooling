@@ -425,7 +425,7 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 «DEFINE getChildViewType FOR gmfgen::GenCommonBase»«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«getEditPartQualifiedClassName()».VISUAL_ID)«ENDDEFINE»
 
 «DEFINE caseNavigatorNode(gmfgen::GenNavigator navigator) FOR gmfgen::GenCommonBase»
-case «getEditPartQualifiedClassName()».VISUAL_ID: {
+«EXPAND xpt::Common::caseVisualID» {
 	java.util.Collection result = new java.util.ArrayList();
 	«EXPAND addForeignShortcuts FOR this-»
 	«LET getChildReferencesFrom(navigator, this) AS references-»

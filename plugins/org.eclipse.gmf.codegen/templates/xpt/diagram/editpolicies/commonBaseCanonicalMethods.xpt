@@ -16,7 +16,7 @@
 «EXTENSION xpt::diagram::editpolicies::Utils»
 «EXTENSION xpt::GenModelUtils»
 
-«DEFINE commonBaseCanonicalMethods(List[gmfgen::GenChildNode] childNodes) FOR gmfgen::GenCommonBase-»
+«DEFINE commonBaseCanonicalMethods(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
 	«IF null == getModelElementType()-»
 		«REM»
 			Supported "this" parameter types:
@@ -26,25 +26,25 @@
 		«ENDREM»
 		«ERROR "Unrecognized GenCommonBase: " + this»
 	«ENDIF-»
-	«EXPAND getSemanticChildrenList(childNodes)-»
+	«EXPAND getSemanticChildrenList(nodes)-»
 	
-	«EXPAND shouldDeleteView(childNodes)-»
+	«EXPAND shouldDeleteView(nodes)-»
 	
 	«EXPAND getDefaultFactoryHint-»
 «ENDDEFINE»
 
-«DEFINE getSemanticChildrenList(List[gmfgen::GenChildNode] childNodes) FOR gmfgen::GenCommonBase-»
+«DEFINE getSemanticChildrenList(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getSemanticChildrenList() {
-	«IF getChildFeatures(childNodes).size() > 0-»
+	«IF getChildFeatures(nodes).size() > 0-»
 	java.util.List result = new java.util.LinkedList();
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	«EXPAND getModelelementType» modelObject = («EXPAND getModelelementType») viewObject.getElement();
-	«EXPAND collectAllFeatureFalues(getModelElementType()) FOR getChildFeatures(childNodes)-»
+	«EXPAND collectAllFeatureFalues(getModelElementType()) FOR getChildFeatures(nodes)-»
 	for (java.util.Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextValue = (org.eclipse.emf.ecore.EObject) valuesIterator.next();
 		switch(«getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, nextValue)) {
-		«EXPAND caseNodeVID FOREACH selectSemanticChildren(childNodes)-»
+		«EXPAND xpt::Common::caseVisualID FOREACH selectSemanticChildren(nodes)»
 			result.add(nextValue);
 		}
 	}
@@ -70,13 +70,13 @@ allValues.add(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenCl
 	«ENDFOREACH-»
 «ENDDEFINE»
 
-«DEFINE shouldDeleteView(List[gmfgen::GenNode] childNodes) FOR gmfgen::GenCommonBase-»
+«DEFINE shouldDeleteView(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected boolean shouldDeleteView(org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND checkShortcutProperty-»
-	«IF !selectNotationChildren(childNodes).isEmpty()-»
+	«IF !selectNotationChildren(nodes).isEmpty()-»
 	switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
-		«EXPAND caseNodeVID FOREACH selectNotationChildren(childNodes)-»	
+	«EXPAND xpt::Common::caseVisualID FOREACH selectNotationChildren(nodes)»	
 		return true;
 	}
 	«ENDIF-»
@@ -91,10 +91,6 @@ if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 «ENDDEFINE»
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenCommonBase»«ENDDEFINE»
-
-«DEFINE caseNodeVID FOR gmfgen::GenNode-»
-case «getEditPartQualifiedClassName()».VISUAL_ID:
-«ENDDEFINE»
 
 «DEFINE getDefaultFactoryHint FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»

@@ -52,7 +52,6 @@ import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenera
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
@@ -148,7 +147,6 @@ public class CodegenEmitters {
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
-		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
@@ -322,8 +320,8 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::editpolicies::OpenDiagram::OpenDiagram"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(DiagramCanonicalEditPolicyGenerator.class);
+	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
+		return newXpandEmitter("xpt::diagram::editpolicies::DiagramCanonicalEditPolicy::DiagramCanonicalEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {

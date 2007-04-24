@@ -32,7 +32,11 @@ genmodel::GenClass getModelElementType(gmfgen::GenNode node) :
 ;
 
 cached List[gmfgen::GenNode] getConnectedPhantomNodes(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.topLevelNodes.select(node | null != node.modelFacet && node.modelFacet.isPhantomElement()).select(node | canBePhantomLinkTarget(node, typeModelFacet, diagram))
+	getPhantomNodes(diagram).select(node | canBePhantomLinkTarget(node, typeModelFacet, diagram))
+;
+
+cached List[gmfgen::GenNode] getPhantomNodes(gmfgen::GenDiagram diagram) :
+	diagram.topLevelNodes.select(node | null != node.modelFacet && node.modelFacet.isPhantomElement())
 ;
 
 private boolean canBePhantomLinkTarget(gmfgen::GenNode node, gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
@@ -40,7 +44,11 @@ private boolean canBePhantomLinkTarget(gmfgen::GenNode node, gmfgen::TypeModelFa
 ;
 
 cached List[gmfgen::GenLink] getOutgoingPhantomLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
-	diagram.links.select(link | isPhantom(link.modelFacet) && canBeSource(link, typeModelFacet))
+	diagram.links.select(link | canBeSource(link, typeModelFacet) && isPhantom(link.modelFacet))
+;
+
+cached List[gmfgen::GenLink] getContainedLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+	diagram.links.select(link | canBeContainer(link, typeModelFacet))
 ;
 
 private boolean isPhantom(gmfgen::FeatureLinkModelFacet modelFacet) :
@@ -51,16 +59,16 @@ private boolean isPhantom(gmfgen::LinkModelFacet modelFacet) :
 	false
 ;
 
-cached Set[genmodel::GenFeature] getChildFeatures(List[gmfgen::GenNode] childNodes) :
-	selectSemanticChildren(childNodes).collect(node | node.modelFacet.childMetaFeature).union({})
+cached Set[genmodel::GenFeature] getChildFeatures(List[gmfgen::GenNode] nodes) :
+	selectSemanticChildren(nodes).collect(node | node.modelFacet.childMetaFeature).toSet()
 ;
 
-cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] childNodes) :
-	childNodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
+cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] nodes) :
+	nodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
 ;
 
-cached List[gmfgen::GenNode] selectNotationChildren(List[gmfgen::GenNode] childNodes) :
-	childNodes.select(node | null == node.modelFacet || !node.modelFacet.isPhantomElement())
+cached List[gmfgen::GenNode] selectNotationChildren(List[gmfgen::GenNode] nodes) :
+	nodes.select(node | null == node.modelFacet || !node.modelFacet.isPhantomElement())
 ;
 
 boolean hasChildrenOrCompartments(gmfgen::GenNode node) :
@@ -171,11 +179,28 @@ private boolean isIncoming(gmfgen::GenLink link, gmfgen::TypeModelFacet typeMode
 ;
 
 private boolean canBeSource(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	canBeLinkEnd(link.modelFacet.getSourceType(), typeModelFacet)
+	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getSourceType(), typeModelFacet)
 ;
 
 private boolean canBeTarget(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
-	canBeLinkEnd(link.modelFacet.getTargetType(), typeModelFacet)
+	null != link.modelFacet && canBeLinkEnd(link.modelFacet.getTargetType(), typeModelFacet)
+;
+
+boolean canBeContainer(gmfgen::GenLink link, gmfgen::TypeModelFacet typeModelFacet) :
+	null != link.modelFacet && null != getContainerClass(link.modelFacet) && canBeLinkEnd(getContainerClass(link.modelFacet), typeModelFacet)
+;
+
+genmodel::GenClass getContainerClass(gmfgen::LinkModelFacet modelFacet) :
+// Should not be called
+	null
+;
+
+genmodel::GenClass getContainerClass(gmfgen::TypeLinkModelFacet modelFacet) :
+	modelFacet.containmentMetaFeature.genClass
+;
+
+genmodel::GenClass getContainerClass(gmfgen::FeatureLinkModelFacet modelFacet) :
+	modelFacet.metaFeature.genClass
 ;
 
 private boolean canBeLinkEnd(genmodel::GenClass endType, gmfgen::TypeModelFacet typeModelFacet) :
