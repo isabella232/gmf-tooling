@@ -33,6 +33,7 @@ import org.eclipse.gmf.runtime.lite.edit.parts.labels.ItemProviderLabelTextDispl
 import org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart;
 import org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter;
+import org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager;
 import org.eclipse.gmf.runtime.lite.services.TreeDirectEditManager;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
@@ -73,16 +74,30 @@ public class BaseTreeEditPart extends AbstractTreeEditPart implements IUpdatable
 	public void activate() {
 		super.activate();
 		if (getElement() != null) {
-			getElement().eAdapters().add(myDomainModelRefresher);
+			TransactionalUpdateManager updateManager = getTransactionalUpdateManager();
+			if (updateManager == null) {
+					getElement().eAdapters().add(myDomainModelRefresher);
+			} else {
+				updateManager.addUpdatableEditPart(getElement(), this);
+			}
 		}
 	}
 
 	@Override
 	public void deactivate() {
+		TransactionalUpdateManager updateManager = getTransactionalUpdateManager();
 		if (getElement() != null) {
-			getElement().eAdapters().remove(myDomainModelRefresher);
+			if (updateManager == null) {
+				getElement().eAdapters().remove(myDomainModelRefresher);
+			} else {
+				updateManager.removeUpdatableEditPart(getElement(), this);
+			}
 		}
 		super.deactivate();
+	}
+
+	protected final TransactionalUpdateManager getTransactionalUpdateManager() {
+		return (TransactionalUpdateManager) getViewer().getProperty(TransactionalUpdateManager.class.getName());
 	}
 
 	protected List getModelChildren() {

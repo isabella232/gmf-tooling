@@ -11,26 +11,38 @@
  */
 package org.eclipse.gmf.runtime.lite.edit.parts.labels;
 
+import org.eclipse.draw2d.AbstractLocator;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart;
+import org.eclipse.gmf.runtime.lite.edit.parts.update.UpdaterUtil;
+import org.eclipse.gmf.runtime.notation.Location;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.View;
 
 public abstract class BaseExternalNodeLabelEditPart extends AbstractGraphicalEditPart {
-	public BaseExternalNodeLabelEditPart(org.eclipse.gmf.runtime.notation.View view) {
+	public BaseExternalNodeLabelEditPart(View view) {
 		setModel(view);
 	}
 
 	public void refreshBounds() {
-		org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) getModel();
+		Node node = (Node) getModel();
 		if (node.getLayoutConstraint() == null) {
 			return;
 		}
-		assert node.getLayoutConstraint() instanceof org.eclipse.gmf.runtime.notation.Location;
-		final org.eclipse.gmf.runtime.notation.Location location = (org.eclipse.gmf.runtime.notation.Location) node.getLayoutConstraint();
-		getFigure().getParent().setConstraint(getFigure(), new org.eclipse.draw2d.AbstractLocator() {
-			protected org.eclipse.draw2d.geometry.Point getReferencePoint() {
-				return getLabelLocation(((org.eclipse.gef.GraphicalEditPart) getParent()).getFigure()).translate(location.getX(), location.getY());
+		assert node.getLayoutConstraint() instanceof Location;
+		final Location location = (Location) node.getLayoutConstraint();
+		getFigure().getParent().setConstraint(getFigure(), new AbstractLocator() {
+			protected Point getReferencePoint() {
+				return getLabelLocation(((GraphicalEditPart) getParent()).getFigure()).translate(location.getX(), location.getY());
 			}
 			public int getRelativePosition() {
-				return org.eclipse.draw2d.PositionConstants.SOUTH;
+				return PositionConstants.SOUTH;
 			}
 		});
 	}
@@ -40,18 +52,27 @@ public abstract class BaseExternalNodeLabelEditPart extends AbstractGraphicalEdi
 		refreshBounds();
 	}
 
-	protected org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher boundsRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart.Refresher() {
+	protected IExternallyUpdatableEditPart.ExternalRefresher boundsRefresher = new IExternallyUpdatableEditPart.ExternalRefresher() {
 		public void refresh() {
 			refreshBounds();
 		}
+		public boolean isAffectingEvent(Notification msg) {
+			if (NotationPackage.eINSTANCE.getLocation().getEStructuralFeatures().contains(msg.getFeature())) {
+				return true;
+			}
+			if (NotationPackage.eINSTANCE.getNode_LayoutConstraint() == msg.getFeature()) {
+				return UpdaterUtil.affects(msg, NotationPackage.eINSTANCE.getLocation());
+			}
+			return false;
+		}
 	};
 
-	public org.eclipse.draw2d.geometry.Point getReferencePoint() {
-		return getLabelLocation(((org.eclipse.gef.GraphicalEditPart) getParent()).getFigure());
+	public Point getReferencePoint() {
+		return getLabelLocation(((GraphicalEditPart) getParent()).getFigure());
 	}
 
-	protected org.eclipse.draw2d.geometry.Point getLabelLocation(org.eclipse.draw2d.IFigure parent) {
-		org.eclipse.draw2d.geometry.Point result = parent.getBounds().getBottom();
+	protected Point getLabelLocation(IFigure parent) {
+		Point result = parent.getBounds().getBottom();
 		parent.translateToAbsolute(result);
 		return result;
 	}

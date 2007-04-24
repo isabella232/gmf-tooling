@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.runtime.lite.edit.parts.update;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 
 public class UpdateManager extends EContentAdapter {
@@ -57,8 +59,12 @@ public class UpdateManager extends EContentAdapter {
 			if (view != null) {
 				EditPart affectedEditPart = (EditPart) myViewer.getEditPartRegistry().get(view);
 				if (affectedEditPart instanceof IUpdatableEditPart) {
+					if (msg.getFeature() == NotationPackage.eINSTANCE.getView_Visible() && affectedEditPart.getParent() instanceof IUpdatableEditPart) {
+						return Arrays.asList((IUpdatableEditPart) affectedEditPart, (IUpdatableEditPart) affectedEditPart.getParent());
+					}
 					return Collections.singleton((IUpdatableEditPart) affectedEditPart);
 				}
+				return Collections.emptyList();
 			}
 		}
 		return Collections.emptyList();

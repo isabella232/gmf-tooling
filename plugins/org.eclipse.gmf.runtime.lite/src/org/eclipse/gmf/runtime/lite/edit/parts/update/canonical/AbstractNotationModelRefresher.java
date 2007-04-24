@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,12 +25,16 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * Listens to the given transactional editing domain in order to update the notational model to reflect changes in the domain model.
  */
-public abstract class AbstractNotationModelRefresher extends ResourceSetListenerImpl {
+public abstract class AbstractNotationModelRefresher extends ResourceSetListenerImpl implements INotationModelRefresher {
 	private NotificationFilter myFilter;
 	private TransactionalEditingDomain myEditingDomain;
 
 	public AbstractNotationModelRefresher() {
 		myFilter = createFilter();
+	}
+
+	public final View getView() {
+		return getHost();
 	}
 
 	public void install(TransactionalEditingDomain editingDomain) {
@@ -73,6 +77,9 @@ public abstract class AbstractNotationModelRefresher extends ResourceSetListener
 	public abstract Command buildRefreshNotationModelCommand();
 
 	private boolean shouldHandleNotification(ResourceSetChangeEvent event) {
+		if (getHost() == null || getHost().getElement() == null) {
+			return false;
+		}
 		for(Iterator it = event.getNotifications().iterator(); it.hasNext(); ) {
 			Notification next = (Notification) it.next();
 			if (shouldHandleNotification(next)) {

@@ -13,6 +13,7 @@ package org.eclipse.gmf.runtime.lite.edit.parts.update;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -24,17 +25,25 @@ public interface IUpdatableEditPart {
 		public void refresh();
 	}
 
+	public interface ComposeableRefresher extends Refresher, Iterable<Refresher> {
+		public void addRefresher(Refresher refresher);
+	}
+
 	public class CompositeRefresher implements Refresher {
 		public void addRefresher(Refresher refresher) {
-			refreshers.add(refresher);
+			if (refresher != null) {
+				refreshers.add(refresher);
+			}
 		}
 
 		public void removeRefresher(Refresher refresher) {
-			refreshers.remove(refresher);
+			if (refresher != null) {
+				refreshers.remove(refresher);
+			}
 		}
 
 		public void refresh() {
-			for(Refresher next : refreshers) {
+			for(Refresher next : new LinkedHashSet<Refresher>(refreshers)) {
 				next.refresh();
 			}
 		}
