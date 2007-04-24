@@ -97,7 +97,6 @@ public class RuntimeWorkspaceSetup {
 		} else {
 			isDevBinPresent = FrameworkProperties.getProperty("osgi.dev", "").contains("bin");
 		}
-		System.err.println("isDevBinPresent:" + isDevBinPresent);
 	}
 
 	/**
