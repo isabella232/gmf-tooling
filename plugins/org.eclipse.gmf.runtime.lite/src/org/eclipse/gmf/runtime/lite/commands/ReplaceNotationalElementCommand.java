@@ -66,9 +66,9 @@ public class ReplaceNotationalElementCommand extends AbstractCommand {
 		View createdView = createCommand.getCreatedView();
 		if (createdView != null && obsoleteView != null && createdView.eClass().equals(obsoleteView.eClass())) {
 			if (NotationPackage.eINSTANCE.getNode().equals(createdView.eClass())) {
-				copy(obsoleteView, createdView, NotationPackage.eINSTANCE.getNode_LayoutConstraint());
+				copy(createdView, obsoleteView, NotationPackage.eINSTANCE.getNode_LayoutConstraint());
 			} else if (NotationPackage.eINSTANCE.getEdge().equals(createdView.eClass())) {
-				copy(obsoleteView, createdView, NotationPackage.eINSTANCE.getEdge_Bendpoints());
+				copy(createdView, obsoleteView, NotationPackage.eINSTANCE.getEdge_Bendpoints());
 			}
 		}
 		removeCommand.undo();
