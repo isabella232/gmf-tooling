@@ -105,7 +105,7 @@ List[gmfgen::GenLink] getAllPotentialLinks(gmfgen::TypeModelFacet typeModelFacet
 	selectValidLinks(diagram.links).select(l | isSelf(l, typeModelFacet) || isOutgoing(l, typeModelFacet) || isIncoming(l, typeModelFacet))
 ;
 
-List[gmfgen::GenLink] getReroutableLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
+List[gmfgen::GenLink] getReroutableTypeLinks(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
 	diagram.links.select(link | isTypeLink(link) && (canBeSource(link, typeModelFacet) || canBeTarget(link, typeModelFacet)))
 ;
 
