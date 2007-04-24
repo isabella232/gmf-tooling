@@ -23,7 +23,6 @@ import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
@@ -78,15 +77,12 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected Warship getSource() {
-		return (Warship) source;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Ship getTarget() {
-		return (Ship) target;
+	protected EObject doDefaultElementCreation() {
+		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
+		if (newElement != null) {
+			newElement.getShips().add(getTarget());
+		}
+		return newElement;
 	}
 
 	/**
@@ -126,12 +122,14 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.getShips().add(getTarget());
-		}
-		return newElement;
+	protected Warship getSource() {
+		return (Warship) source;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected Ship getTarget() {
+		return (Ship) target;
+	}
 }

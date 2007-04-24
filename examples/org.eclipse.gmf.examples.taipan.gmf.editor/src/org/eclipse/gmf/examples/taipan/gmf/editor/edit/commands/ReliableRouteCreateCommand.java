@@ -24,7 +24,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSe
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
@@ -92,22 +91,34 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public Aquatory getContainer() {
-		return container;
+	protected EObject doDefaultElementCreation() {
+		Route newElement = (Route) super.doDefaultElementCreation();
+		if (newElement != null) {
+			newElement.setSource(getSource());
+			newElement.setDestination(getTarget());
+			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
+		}
+		return newElement;
 	}
 
 	/**
+	 * Finds container element for the new link.
+	 * Default implementation goes up by containment hierarchy starting from
+	 * the specified element and returns the first element that is instance of
+	 * the container class.
+	 * 
 	 * @generated
 	 */
-	protected Port getSource() {
-		return (Port) source;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Port getTarget() {
-		return (Port) target;
+	protected EObject findLinkContainer(Object uelement, EClass containerClass) {
+		if (uelement instanceof EObject) {
+			EObject element = (EObject) uelement;
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -147,34 +158,21 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		Route newElement = (Route) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.setSource(getSource());
-			newElement.setDestination(getTarget());
-			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
-		}
-		return newElement;
+	protected Port getSource() {
+		return (Port) source;
 	}
 
 	/**
-	 * Finds container element for the new link.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the container class.
-	 * 
 	 * @generated
 	 */
-	protected EObject findLinkContainer(Object uelement, EClass containerClass) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
+	protected Port getTarget() {
+		return (Port) target;
 	}
 
+	/**
+	 * @generated
+	 */
+	public Aquatory getContainer() {
+		return container;
+	}
 }
