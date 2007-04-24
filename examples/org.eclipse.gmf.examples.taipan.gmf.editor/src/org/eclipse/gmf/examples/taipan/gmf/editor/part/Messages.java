@@ -285,6 +285,11 @@ public class Messages extends org.eclipse.osgi.util.NLS {
 	/**
 	 * @generated
 	 */
+	public static String WarshipLargeCargoEditPart_title;
+
+	/**
+	 * @generated
+	 */
 	public static String EvaluateOCLLinkConstraintError;
 
 	/**

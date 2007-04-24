@@ -39,6 +39,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditP
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.Messages;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
@@ -323,7 +324,10 @@ public class TaiPanNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			TaiPanNavigatorGroup outgoinglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Warship_2003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			TaiPanNavigatorGroup incominglinks = new TaiPanNavigatorGroup(Messages.NavigatorGroupName_Warship_2003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getOutgoingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
+			Collection connectedViews = getChildrenByType(Collections.singleton(view), WarshipLargeCargoEditPart.VISUAL_ID);
+			connectedViews = getChildrenByType(connectedViews, LargeItemEditPart.VISUAL_ID);
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(view), ShipDestinationEditPart.VISUAL_ID);
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), EscortShipsOrderEditPart.VISUAL_ID);
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));

@@ -49,6 +49,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteDesc
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelbEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
@@ -191,6 +192,9 @@ public class TaiPanVisualIDRegistry {
 			if (WarshipNameEditPart.VISUAL_ID == nodeVisualID) {
 				return WarshipNameEditPart.VISUAL_ID;
 			}
+			if (WarshipLargeCargoEditPart.VISUAL_ID == nodeVisualID) {
+				return WarshipLargeCargoEditPart.VISUAL_ID;
+			}
 			return getUnrecognizedWarship_2003ChildNodeID(domainElement, semanticHint);
 		case SmallItemsEditPart.VISUAL_ID:
 			return getUnrecognizedSmallItems_3001ChildNodeID(domainElement, semanticHint);
@@ -220,6 +224,12 @@ public class TaiPanVisualIDRegistry {
 				return EmptyBoxEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipLargeCargo_7002ChildNodeID(domainElement, semanticHint);
+		case WarshipLargeCargoEditPart.VISUAL_ID:
+			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeLargeItem_3002((LargeItem) domainElement))) {
+				return LargeItemEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedWarshipLargeCargo_7003ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
 			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePort_2001((Port) domainElement))) {
@@ -446,6 +456,16 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getUnrecognizedShipLargeCargo_7002ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedWarshipLargeCargo_7003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

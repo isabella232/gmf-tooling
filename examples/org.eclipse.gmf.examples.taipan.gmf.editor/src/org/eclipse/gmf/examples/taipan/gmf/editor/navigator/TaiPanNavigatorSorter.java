@@ -22,12 +22,12 @@ public class TaiPanNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int GROUP_CATEGORY = 7004;
+	private static final int GROUP_CATEGORY = 7005;
 
 	/**
 	 * @generated
 	 */
-	private static final int SHORTCUTS_CATEGORY = 7002;
+	private static final int SHORTCUTS_CATEGORY = 7003;
 
 	/**
 	 * @generated
