@@ -55,70 +55,48 @@ public class WarshipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingShipDestination_4001Command(req) : null;
+			return getGEFWrapper(new ShipDestinationCreateCommand(req));
 		}
 		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEscortShipsOrder_4006Command(req) : getCreateCompleteIncomingEscortShipsOrder_4006Command(req);
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingBesiegePortOrder_4005Command(req) : getCreateCompleteOutgoingBesiegePortOrder_4005Command(req);
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartIncomingPortRegister_4007Command(req) : getCreateCompleteIncomingPortRegister_4007Command(req);
+			req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+			return getGEFWrapper(new PortRegisterCreateCommand(req));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingShipDestination_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new ShipDestinationCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEscortShipsOrder_4006Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteOutgoingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartIncomingPortRegister_4007Command(CreateRelationshipRequest req) {
-		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
-		return getGEFWrapper(new PortRegisterCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingPortRegister_4007Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new PortRegisterCreateCommand(req));
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return null;
+		}
+		if (TaiPanElementTypes.EscortShipsOrder_4006 == req.getElementType()) {
+			return getGEFWrapper(new EscortShipsOrderCreateCommand(req));
+		}
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
+			req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
+		}
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			return getGEFWrapper(new PortRegisterCreateCommand(req));
+		}
+		return null;
 	}
 
 	/**

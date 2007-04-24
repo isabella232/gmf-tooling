@@ -58,87 +58,54 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingShipDestination_4001Command(req);
+			return null;
 		}
 		if (TaiPanElementTypes.Route_4002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute_4002Command(req) : getCreateCompleteIncomingRoute_4002Command(req);
+			return getGEFWrapper(new ReliableRouteCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute_4003Command(req) : getCreateCompleteIncomingRoute_4003Command(req);
+			return getGEFWrapper(new UnreliableRouteCreateCommand(req));
 		}
 		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartIncomingBesiegePortOrder_4005Command(req) : getCreateCompleteIncomingBesiegePortOrder_4005Command(req);
+			req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
 		}
 		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingPortRegister_4007Command(req) : getCreateCompleteOutgoingPortRegister_4007Command(req);
+			return getGEFWrapper(new PortRegisterCreateCommand(req));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingShipDestination_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new ShipDestinationCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRoute_4002Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new ReliableRouteCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRoute_4002Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new ReliableRouteCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingRoute_4003Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new UnreliableRouteCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingRoute_4003Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new UnreliableRouteCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingBesiegePortOrder_4005Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingPortRegister_4007Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new PortRegisterCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteOutgoingPortRegister_4007Command(CreateRelationshipRequest req) {
-		req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
-		return getGEFWrapper(new PortRegisterCreateCommand(req));
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return getGEFWrapper(new ShipDestinationCreateCommand(req));
+		}
+		if (TaiPanElementTypes.Route_4002 == req.getElementType()) {
+			return getGEFWrapper(new ReliableRouteCreateCommand(req));
+		}
+		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
+			return getGEFWrapper(new UnreliableRouteCreateCommand(req));
+		}
+		if (TaiPanElementTypes.BesiegePortOrder_4005 == req.getElementType()) {
+			return getGEFWrapper(new BesiegePortOrderCreateCommand(req));
+		}
+		if (TaiPanElementTypes.PortRegister_4007 == req.getElementType()) {
+			req = new CreateRelationshipRequest(req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(), req.getElementType(), req.getContainmentFeature());
+			return getGEFWrapper(new PortRegisterCreateCommand(req));
+		}
+		return null;
 	}
 
 	/**
