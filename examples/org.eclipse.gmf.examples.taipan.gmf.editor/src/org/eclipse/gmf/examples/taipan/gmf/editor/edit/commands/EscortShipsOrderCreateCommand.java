@@ -44,10 +44,10 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public EscortShipsOrderCreateCommand(CreateRelationshipRequest request) {
+	public EscortShipsOrderCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}

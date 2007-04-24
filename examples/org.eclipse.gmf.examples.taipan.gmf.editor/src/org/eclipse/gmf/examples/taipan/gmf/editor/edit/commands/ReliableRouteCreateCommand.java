@@ -50,10 +50,10 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public ReliableRouteCreateCommand(CreateRelationshipRequest request) {
+	public ReliableRouteCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}

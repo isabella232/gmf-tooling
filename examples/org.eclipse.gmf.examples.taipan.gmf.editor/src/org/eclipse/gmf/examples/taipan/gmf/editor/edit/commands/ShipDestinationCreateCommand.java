@@ -40,10 +40,10 @@ public class ShipDestinationCreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public ShipDestinationCreateCommand(CreateRelationshipRequest request) {
+	public ShipDestinationCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request.getLabel(), null, request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 	}
 
 	/**

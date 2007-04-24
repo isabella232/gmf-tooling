@@ -44,10 +44,10 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	public BesiegePortOrderCreateCommand(CreateRelationshipRequest request) {
+	public BesiegePortOrderCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
 		}

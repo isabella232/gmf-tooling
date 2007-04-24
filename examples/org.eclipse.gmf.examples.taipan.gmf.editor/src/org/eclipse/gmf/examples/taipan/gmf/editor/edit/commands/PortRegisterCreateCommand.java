@@ -40,10 +40,10 @@ public class PortRegisterCreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public PortRegisterCreateCommand(CreateRelationshipRequest request) {
+	public PortRegisterCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request.getLabel(), null, request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 	}
 
 	/**
