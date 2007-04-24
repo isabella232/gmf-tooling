@@ -559,7 +559,7 @@
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Viewmap">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Viewmap/attributes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Viewmap/requiredPluginIDs"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Viewmap/layoutType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Viewmap/layoutType"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Viewmap/find">
         <genParameters ecoreParameter="gmfgen.ecore#//Viewmap/find/attributesClass"/>
       </genOperations>
