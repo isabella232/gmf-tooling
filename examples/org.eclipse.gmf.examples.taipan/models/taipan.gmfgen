@@ -116,7 +116,7 @@
         canonicalEditPolicyClassName="LargeItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="LargeItemGraphicalNodeEditPolicy"
         createCommandClassName="LargeItemCreateCommand"
-        containers="//@diagram/@compartments.1">
+        containers="//@diagram/@compartments.1 //@diagram/@compartments.2">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -319,6 +319,7 @@
         itemSemanticEditPolicyClassName="WarshipItemSemanticEditPolicy"
         notationViewFactoryClassName="WarshipViewFactory"
         canonicalEditPolicyClassName="WarshipCanonicalEditPolicy"
+        compartments="//@diagram/@compartments.2"
         graphicalNodeEditPolicyClassName="WarshipGraphicalNodeEditPolicy"
         createCommandClassName="WarshipCreateCommand">
       <diagramRunTimeClass
@@ -740,6 +741,27 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </compartments>
+    <compartments
+        visualID="7003"
+        editPartClassName="WarshipLargeCargoEditPart"
+        itemSemanticEditPolicyClassName="WarshipLargeCargoItemSemanticEditPolicy"
+        notationViewFactoryClassName="WarshipLargeCargoViewFactory"
+        canonicalEditPolicyClassName="WarshipLargeCargoCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1"
+        title="LargeCargo"
+        canCollapse="false"
+        needsTitle="false"
+        node="//@diagram/@topLevelNodes.2"
+        listLayout="false">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+    </compartments>
     <palette>
       <groups
           title="taipan">
@@ -881,6 +903,9 @@
     <childReferences
         parent="//@diagram"
         child="//@diagram/@topLevelNodes.1"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.2"
+        child="//@diagram/@childNodes.1"/>
     <childReferences
         parent="//@diagram"
         child="//@diagram/@topLevelNodes.2"/>

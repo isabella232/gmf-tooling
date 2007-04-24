@@ -142,6 +142,17 @@
           href="taipan.gmftool#//@palette/@tools.0/@tools.8"/>
       <diagramNode
           href="taipan.gmfgraph#Ship"/>
+      <children
+          compartment="//@nodes.2/@ownedChild/@compartments.0"
+          referencedChild="//@nodes.1/@ownedChild/@children.1/@ownedChild">
+        <containmentFeature
+            href="taipan.ecore#//Ship/cargo"/>
+      </children>
+      <compartments
+          children="//@nodes.2/@ownedChild/@children.0">
+        <compartment
+            href="taipan.gmfgraph#LargeCargo"/>
+      </compartments>
     </ownedChild>
   </nodes>
   <links>

@@ -28,6 +28,9 @@
     <nodeLabelTraces
         visualID="5005"
         queryText="true"/>
+    <compartmentTraces
+        visualID="7003"
+        queryText="true"/>
   </nodeTraces>
   <childNodeTraces
       visualID="3001"
