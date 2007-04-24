@@ -76,12 +76,13 @@ protected org.eclipse.gef.commands.Command getCompleteCreateRelationshipCommand(
 «DEFINE startLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
 	«IF createStartLinkCommand(typeModelFacet)-»
+	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 		«IF createStartIncomingLinkCommand(typeModelFacet)-»
-	req = new org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest(
-			req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(),
-			req.getElementType(), req.getContainmentFeature());
+			req.getTarget(), req.getSource()
+		«ELSE-»
+			req.getSource(), req.getTarget()
 		«ENDIF-»
-	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	));
 	«ELSE-»
 	return null;
 	«ENDIF-»
@@ -91,12 +92,13 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 «DEFINE completeLinkCommands(gmfgen::TypeModelFacet typeModelFacet) FOR gmfgen::GenLink-»
 if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
 	«IF createCompleteLinkCommand(typeModelFacet)-»
+	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 		«IF createCompleteOutgoingLinkCommand(typeModelFacet)-»
-	req = new org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest(
-			req.getEditingDomain(), req.getContainer(), req.getTarget(), req.getSource(),
-			req.getElementType(), req.getContainmentFeature());
+			req.getTarget(), req.getSource()
+		«ELSE-»
+			req.getSource(), req.getTarget()
 		«ENDIF-»
-	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req));
+	));
 	«ELSE-»
 	return null;
 	«ENDIF-»

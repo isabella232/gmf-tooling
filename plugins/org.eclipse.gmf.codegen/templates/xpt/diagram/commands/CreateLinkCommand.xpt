@@ -25,7 +25,8 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	«EXPAND xpt::diagram::commands::CreateLinkUtils::fields FOR modelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request) {
+	public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request,
+			org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
 		super(request);
 		«EXPAND xpt::diagram::commands::CreateLinkUtils::init FOR modelFacet-»
 	}

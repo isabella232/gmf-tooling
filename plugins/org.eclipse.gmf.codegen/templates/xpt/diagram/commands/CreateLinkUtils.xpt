@@ -119,8 +119,8 @@
 	Part of the constructor that performs initialization.
 «ENDREM»
 «DEFINE init FOR gmfgen::LinkModelFacet-»
-	source = request.getSource();
-	target = request.getTarget();
+	this.source = source;
+	this.target = target;
 	«EXPAND initContainment-»
 «ENDDEFINE»
 
