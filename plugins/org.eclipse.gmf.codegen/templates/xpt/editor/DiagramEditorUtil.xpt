@@ -118,7 +118,13 @@ public class «diagramEditorUtilClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static boolean openDiagram(org.eclipse.emf.ecore.resource.Resource diagram) throws org.eclipse.ui.PartInitException {
 «IF editorGen.application == null-»
-		return org.eclipse.emf.edit.ui.util.EditUIUtil.openEditor((org.eclipse.emf.ecore.EObject) diagram.getContents().get(0));
+		String path = diagram.getURI().toPlatformString(true);
+		org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+		if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
+			org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			return null != page.openEditor(new org.eclipse.ui.part.FileEditorInput((org.eclipse.core.resources.IFile) workspaceResource), «editorGen.editor.getQualifiedClassName()».ID);
+		}
+		return false;
 «ELSE-»
 		org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(diagram.getURI()), «editorGen.editor.getQualifiedClassName()».ID);
