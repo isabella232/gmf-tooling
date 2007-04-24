@@ -107,7 +107,7 @@ public class ViewmapItemProvider
 				 getString("_UI_Viewmap_layoutType_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_layoutType_feature", "_UI_Viewmap_type"),
 				 GMFGenPackage.eINSTANCE.getViewmap_LayoutType(),
-				 false,
+				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
