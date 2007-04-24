@@ -85,26 +85,6 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 		}
 		return «IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement;
 	}
-	«IF sourceMetaFeature != null-»
-
-	«EXPAND xpt::Common::generatedClassComment(
-	"Finds container element for the new link.\n" +
-	"Default implementation goes up by containment hierarchy starting from\n" +
-	"the specified element and returns the first element that is instance of\n" +
-	"the container class.\n"
-	)»
-	protected org.eclipse.emf.ecore.EObject findLinkContainer(Object uelement, org.eclipse.emf.ecore.EClass containerClass) {
-		if (uelement instanceof org.eclipse.emf.ecore.EObject) {
-			org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
-	}
-	«ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EClass getEClassToEdit() {

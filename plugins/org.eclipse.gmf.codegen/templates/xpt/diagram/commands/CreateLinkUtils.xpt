@@ -81,7 +81,7 @@
 	«IF sourceMetaFeature != null-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final «getQualifiedInterfaceName(containmentMetaFeature.genClass)» container;
+	private «getQualifiedInterfaceName(containmentMetaFeature.genClass)» container;
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -132,13 +132,15 @@
 		setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR containmentMetaFeature»);
 	}
 	«IF sourceMetaFeature != null-»
-	if (source != null) {
-		container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») findLinkContainer(source,
-				«getQualifiedPackageInterfaceName(containmentMetaFeature.genClass.genPackage)».eINSTANCE.
-					get«getClassifierAccessorName(containmentMetaFeature.genClass)»());
-		super.«EXPAND setElementToEdit("container") FOR containmentMetaFeature-»
-	} else {
-		container = null;
+	// Find container element for the new link.
+	// Climb up by containment hierarchy starting from the source
+	// and return the first element that is instance of the container class.
+	for (org.eclipse.emf.ecore.EObject element = source; element != null; element = element.eContainer()) {
+		if (element instanceof «getQualifiedInterfaceName(containmentMetaFeature.genClass)») {
+			container = («getQualifiedInterfaceName(containmentMetaFeature.genClass)») element;
+			super.«EXPAND setElementToEdit("container") FOR containmentMetaFeature-»
+			break;
+		}
 	}
 	«ELSE-»
 	super.«EXPAND setElementToEdit("source") FOR containmentMetaFeature-»
