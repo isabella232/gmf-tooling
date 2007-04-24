@@ -236,9 +236,6 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 						throw e;
 					}
 				}
-				if (resource == null) {
-					throw new RuntimeException(Messages.TaiPanDocumentProvider_UnableToLoadResourceError);
-				}
 				if (uri.fragment() != null) {
 					EObject rootElement = resource.getEObject(uri.fragment());
 					if (rootElement instanceof Diagram) {
@@ -551,7 +548,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 				for (Iterator it = resources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					monitor.setTaskName(NLS.bind(Messages.TaiPanDocumentProvider_SaveNextResourceTask, nextResource.getURI()));
-					if (nextResource.isLoaded()) {
+					if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 						try {
 							nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
 						} catch (IOException e) {
@@ -718,8 +715,15 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		/**
 		 * @generated
 		 */
+		public TransactionalEditingDomain getEditingDomain() {
+			return myDocument.getEditingDomain();
+		}
+
+		/**
+		 * @generated
+		 */
 		public ResourceSet getResourceSet() {
-			return myDocument.getEditingDomain().getResourceSet();
+			return getEditingDomain().getResourceSet();
 		}
 
 		/**
@@ -774,7 +778,7 @@ public class TaiPanDocumentProvider extends AbstractDocumentProvider implements 
 		 * @generated
 		 */
 		public final void startResourceListening() {
-			mySynchronizer = new WorkspaceSynchronizer(myDocument.getEditingDomain(), new SynchronizerDelegate());
+			mySynchronizer = new WorkspaceSynchronizer(getEditingDomain(), new SynchronizerDelegate());
 		}
 
 		public boolean isUpdateCache() {

@@ -271,26 +271,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the specified container class.
-	 * 
-	 * @generated
-	 */
-	protected EObject getRelationshipContainer(Object uelement, EClass containerClass, IElementType relationshipType) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Returns editing domain from the host edit part.
 	 * 
 	 * @generated

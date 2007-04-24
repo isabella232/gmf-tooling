@@ -81,19 +81,11 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	private static Map ourSaveOptions = null;
-
-	/**
-	 * @generated
-	 */
 	public static Map getSaveOptions() {
-		if (ourSaveOptions == null) {
-			ourSaveOptions = new HashMap();
-			ourSaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-			ourSaveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
-			ourSaveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-		}
-		return ourSaveOptions;
+		Map saveOptions = new HashMap();
+		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		return saveOptions;
 	}
 
 	/**
