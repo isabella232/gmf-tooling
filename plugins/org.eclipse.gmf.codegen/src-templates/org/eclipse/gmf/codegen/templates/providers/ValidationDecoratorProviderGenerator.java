@@ -16,7 +16,7 @@ public class ValidationDecoratorProviderGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/*" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + "/** " + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends AbstractProvider implements IDecoratorProvider {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static final String KEY = \"validationStatus\"; //$NON-NLS-1$" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static final String MARKER_TYPE = ";
@@ -68,7 +68,7 @@ String copyrightText = genDiagram.getEditorGen().getCopyrightText();
 if (copyrightText != null && copyrightText.trim().length() > 0) {
 
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(copyrightText.replaceAll("\n", "\n *"));
+    stringBuffer.append(copyrightText.replaceAll("\n", "\n * "));
     stringBuffer.append(TEXT_3);
     }
     

@@ -19,7 +19,7 @@
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
 «IF copyrightText != null-»
 /*
- * «copyrightText.replaceAll("\n", "\n *")»
+ * «copyrightText.replaceAll("\n", "\n * ")»
  */
 «ENDIF-»
 «ENDDEFINE»

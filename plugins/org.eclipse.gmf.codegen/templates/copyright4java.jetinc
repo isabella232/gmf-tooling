@@ -3,6 +3,6 @@ String copyrightText = genDiagram.getEditorGen().getCopyrightText();
 if (copyrightText != null && copyrightText.trim().length() > 0) {
 %>
 /*
- *<%=copyrightText.replaceAll("\n", "\n *")%>
+ * <%=copyrightText.replaceAll("\n", "\n * ")%>
  */
 <%}%>
