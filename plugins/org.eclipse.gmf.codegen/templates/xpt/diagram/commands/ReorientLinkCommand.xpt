@@ -39,8 +39,8 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
-	«EXPAND xpt::diagram::commands::ReorientUtils::canReorient(this) FOR modelFacet-»
-	«EXPAND xpt::diagram::commands::ReorientUtils::reorient FOR modelFacet-»
-	«EXPAND xpt::diagram::commands::ReorientUtils::accessors-»
+	«EXPAND xpt::diagram::commands::ReorientLinkUtils::canReorient(this) FOR modelFacet-»
+	«EXPAND xpt::diagram::commands::ReorientLinkUtils::reorient FOR modelFacet-»
+	«EXPAND xpt::diagram::commands::ReorientLinkUtils::accessors-»
 }
 «ENDDEFINE»
