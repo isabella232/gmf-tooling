@@ -1,23 +1,18 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * Copyright (c) 2006, 2007 Borland Software Corp.
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EClassESuperTypesCreateCommand;
@@ -55,112 +50,46 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEAnnotationReferences_4001Command(req);
+			return null;
 		}
 		if (EcoreElementTypes.EReference_4002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEReference_4002Command(req) : getCreateCompleteIncomingEReference_4002Command(req);
+			return getGEFWrapper(new EReferenceCreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (EcoreElementTypes.EReference_4003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEReference_4003Command(req) : getCreateCompleteIncomingEReference_4003Command(req);
+			return getGEFWrapper(new EReference2CreateCommand(req, req.getSource(), req.getTarget()));
 		}
 		if (EcoreElementTypes.EClassESuperTypes_4004 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEClassESuperTypes_4004Command(req) : getCreateCompleteIncomingEClassESuperTypes_4004Command(req);
+			return getGEFWrapper(new EClassESuperTypesCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEAnnotationReferences_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EAnnotationReferencesCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingEReference_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof EClass) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
+			return getGEFWrapper(new EAnnotationReferencesCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		EClass source = (EClass) sourceEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4002(source, null)) {
-			return UnexecutableCommand.INSTANCE;
+		if (EcoreElementTypes.EReference_4002 == req.getElementType()) {
+			return getGEFWrapper(new EReferenceCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEReference_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
-			return UnexecutableCommand.INSTANCE;
+		if (EcoreElementTypes.EReference_4003 == req.getElementType()) {
+			return getGEFWrapper(new EReference2CreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		EClass source = (EClass) sourceEObject;
-		EClassifier target = (EClassifier) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4002(source, target)) {
-			return UnexecutableCommand.INSTANCE;
+		if (EcoreElementTypes.EClassESuperTypes_4004 == req.getElementType()) {
+			return getGEFWrapper(new EClassESuperTypesCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
-		}
-		return getGEFWrapper(new EReferenceCreateCommand(req, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingEReference_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		if (false == sourceEObject instanceof EClass) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EClass source = (EClass) sourceEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4003(source, null)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		return new Command() {
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEReference_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EClass source = (EClass) sourceEObject;
-		EClassifier target = (EClassifier) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4003(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
-		}
-		return getGEFWrapper(new EReference2CreateCommand(req, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartOutgoingEClassESuperTypes_4004Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EClassESuperTypesCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEClassESuperTypes_4004Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EClassESuperTypesCreateCommand(req));
+		return null;
 	}
 
 	/**

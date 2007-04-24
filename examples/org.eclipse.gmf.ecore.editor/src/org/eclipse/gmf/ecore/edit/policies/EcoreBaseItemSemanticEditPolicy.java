@@ -1,11 +1,11 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * Copyright (c) 2006, 2007 Borland Software Corp.
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
@@ -280,26 +280,6 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected EObject getSemanticElement() {
 		return ViewUtil.resolveSemanticElement((View) getHost().getModel());
-	}
-
-	/**
-	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the specified container class.
-	 * 
-	 * @generated
-	 */
-	protected EObject getRelationshipContainer(Object uelement, EClass containerClass, IElementType relationshipType) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**

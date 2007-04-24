@@ -1,11 +1,11 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * Copyright (c) 2006, 2007 Borland Software Corp.
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
@@ -39,19 +39,29 @@ public class EClassESuperTypesCreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public EClassESuperTypesCreateCommand(CreateRelationshipRequest request) {
+	public EClassESuperTypesCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request.getLabel(), null, request);
-		source = request.getSource();
-		target = request.getTarget();
+		this.source = source;
+		this.target = target;
 	}
 
 	/**
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (!(source instanceof EClass && (target == null || target instanceof EClass))) {
+		if (source == null && target == null) {
 			return false;
 		}
+		if (source != null && !(source instanceof EClass)) {
+			return false;
+		}
+		if (target != null && !(target instanceof EClass)) {
+			return false;
+		}
+		if (getSource() == null) {
+			return true; // link creation is in progress; source is not defined yet
+		}
+		// target may be null here but it's possible to check constraint
 		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEClassESuperTypes_4004(getSource(), getTarget());
 	}
 
@@ -62,7 +72,7 @@ public class EClassESuperTypesCreateCommand extends EditElementCommand {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		if (getTarget() != null) {
+		if (getSource() != null && getTarget() != null) {
 			getSource().getESuperTypes().add(getTarget());
 		}
 		return CommandResult.newOKCommandResult();

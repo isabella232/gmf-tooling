@@ -1,39 +1,33 @@
 /*
  * Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.ETypedElement;
-import org.eclipse.emf.ecore.EcorePackage;
-
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.EditPart;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
@@ -49,32 +43,22 @@ import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
-
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -87,39 +71,20 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		EObject modelObject = ((View) getHost().getModel()).getElement();
 		View viewObject = (View) getHost().getModel();
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			switch (nodeVID) {
-			case EClassEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			case EDataTypeEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			case EEnumEditPart.VISUAL_ID: {
-				result.add(nextValue);
-				break;
-			}
-			}
-		}
-		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (EPackage2EditPart.VISUAL_ID == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (EAnnotationEditPart.VISUAL_ID == nodeVID) {
+		EPackage modelObject = (EPackage) viewObject.getElement();
+		List allValues = new LinkedList();
+		allValues.addAll(modelObject.getEClassifiers());
+		allValues.addAll(modelObject.getESubpackages());
+		allValues.addAll(modelObject.getEAnnotations());
+		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
+			EObject nextValue = (EObject) valuesIterator.next();
+			switch (EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
+			case EClassEditPart.VISUAL_ID:
+			case EPackage2EditPart.VISUAL_ID:
+			case EAnnotationEditPart.VISUAL_ID:
+			case EDataTypeEditPart.VISUAL_ID:
+			case EEnumEditPart.VISUAL_ID:
 				result.add(nextValue);
 			}
 		}
@@ -133,8 +98,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-		int nodeVID = EcoreVisualIDRegistry.getVisualID(view);
-		switch (nodeVID) {
+		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EClassEditPart.VISUAL_ID:
 		case EPackage2EditPart.VISUAL_ID:
 		case EAnnotationEditPart.VISUAL_ID:
@@ -203,89 +167,182 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection myLinkDescriptors = new LinkedList();
-
-	/**
-	 * @generated
-	 */
-	private Map myEObject2ViewMap = new HashMap();
+	private Diagram getDiagram() {
+		return ((View) getHost().getModel()).getDiagram();
+	}
 
 	/**
 	 * @generated
 	 */
 	private Collection refreshConnections() {
-		try {
-			collectAllLinks(getDiagram());
-			Collection existingLinks = new LinkedList(getDiagram().getEdges());
-			for (Iterator diagramLinks = existingLinks.iterator(); diagramLinks.hasNext();) {
-				Edge nextDiagramLink = (Edge) diagramLinks.next();
-				EObject diagramLinkObject = nextDiagramLink.getElement();
-				EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
-				EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-				int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
-				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
-					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
-					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
-							&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
-						diagramLinks.remove();
-						modelLinkDescriptors.remove();
-					}
+		Map domain2NotationMap = new HashMap();
+		Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+		Collection existingLinks = new LinkedList(getDiagram().getEdges());
+		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
+			Edge nextDiagramLink = (Edge) linksIterator.next();
+			EObject diagramLinkObject = nextDiagramLink.getElement();
+			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
+			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
+			int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
+			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
+				LinkDescriptor nextLinkDescriptor = (LinkDescriptor) LinkDescriptorsIterator.next();
+				if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
+						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+					linksIterator.remove();
+					LinkDescriptorsIterator.remove();
 				}
 			}
-			deleteViews(existingLinks.iterator());
-			return createConnections(myLinkDescriptors);
-		} finally {
-			myLinkDescriptors.clear();
-			myEObject2ViewMap.clear();
 		}
+		deleteViews(existingLinks.iterator());
+		return createConnections(linkDescriptors, domain2NotationMap);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void collectAllLinks(View view) {
-		EObject modelElement = view.getElement();
-		int diagramElementVisualID = EcoreVisualIDRegistry.getVisualID(view);
-		switch (diagramElementVisualID) {
-		case EClassEditPart.VISUAL_ID:
-		case EPackage2EditPart.VISUAL_ID:
-		case EAnnotationEditPart.VISUAL_ID:
-		case EDataTypeEditPart.VISUAL_ID:
-		case EEnumEditPart.VISUAL_ID:
-		case EAttributeEditPart.VISUAL_ID:
-		case EOperationEditPart.VISUAL_ID:
-		case EAnnotation2EditPart.VISUAL_ID:
-		case EClass2EditPart.VISUAL_ID:
-		case EPackage3EditPart.VISUAL_ID:
-		case EDataType2EditPart.VISUAL_ID:
-		case EEnum2EditPart.VISUAL_ID:
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-		case EEnumLiteralEditPart.VISUAL_ID:
-		case EPackageEditPart.VISUAL_ID: {
-			myEObject2ViewMap.put(modelElement, view);
-			storeLinks(modelElement, getDiagram());
+	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+		Collection result = new LinkedList();
+		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EClassEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			EClass modelElement = (EClass) view.getElement();
+			result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+			result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
+			result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+			break;
 		}
-		default: {
+		case EPackage2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
 		}
-			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
-				View childView = (View) children.next();
-				collectAllLinks(childView);
+		case EAnnotationEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			EAnnotation modelElement = (EAnnotation) view.getElement();
+			result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+			break;
+		}
+		case EDataTypeEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EEnumEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EAttributeEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EOperationEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EAnnotation2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			EAnnotation modelElement = (EAnnotation) view.getElement();
+			result.addAll(getContainedFeatureModelFacetLinks_EAnnotation_References_4001(modelElement));
+			break;
+		}
+		case EClass2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			EClass modelElement = (EClass) view.getElement();
+			result.addAll(getContainedTypeModelFacetLinks_EReference_4002(modelElement));
+			result.addAll(getContainedTypeModelFacetLinks_EReference_4003(modelElement));
+			result.addAll(getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(modelElement));
+			break;
+		}
+		case EPackage3EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EDataType2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EEnum2EditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EStringToStringMapEntryEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		case EEnumLiteralEditPart.VISUAL_ID: {
+			domain2NotationMap.put(view.getElement(), view);
+			break;
+		}
+		}
+		for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
+			result.addAll(collectAllLinks((View) children.next(), domain2NotationMap));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getContainedFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation container) {
+		Collection result = new LinkedList();
+		for (Iterator destinations = container.getReferences().iterator(); destinations.hasNext();) {
+			EObject destination = (EObject) destinations.next();
+			result.add(new LinkDescriptor(container, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+			EStructuralFeature link = (EStructuralFeature) links.next();
+			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
+			if (linkVID == EReferenceEditPart.VISUAL_ID) {
+				EClassifier dst = link.getEType();
+				result.add(new LinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4002, linkVID));
 			}
 		}
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection createConnections(Collection linkDescriptors) {
-		if (linkDescriptors.isEmpty()) {
-			return Collections.EMPTY_LIST;
+	private Collection getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+			EStructuralFeature link = (EStructuralFeature) links.next();
+			int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(link);
+			if (linkVID == EReference2EditPart.VISUAL_ID) {
+				EClassifier dst = link.getEType();
+				result.add(new LinkDescriptor(container, dst, link, EcoreElementTypes.EReference_4003, linkVID));
+			}
 		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection getContainedFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass container) {
+		Collection result = new LinkedList();
+		for (Iterator destinations = container.getESuperTypes().iterator(); destinations.hasNext();) {
+			EClass destination = (EClass) destinations.next();
+			result.add(new LinkDescriptor(container, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection createConnections(Collection linkDescriptors, Map domain2NotationMap) {
 		List adapters = new LinkedList();
 		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
 			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
-			EditPart sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
-			EditPart targetEditPart = getEditPartFor(nextLinkDescriptor.getDestination());
+			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
+			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
@@ -312,98 +369,12 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private EditPart getEditPartFor(EObject modelElement) {
-		View view = (View) myEObject2ViewMap.get(modelElement);
+	private EditPart getEditPart(EObject domainModelElement, Map domain2NotationMap) {
+		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
 		}
 		return null;
-	}
-
-	/**
-	 *@generated
-	 */
-	private void storeLinks(EObject container, Diagram diagram) {
-		EClass containerMetaclass = container.eClass();
-		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
-		storeTypeModelFacetLinks_EReference_4002(container, containerMetaclass);
-		storeTypeModelFacetLinks_EReference_4003(container, containerMetaclass);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_EReference_4002(EObject container, EClass containerMetaclass) {
-		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (EReferenceEditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						EObject src = container;
-						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, EcoreElementTypes.EReference_4002, linkVID));
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void storeTypeModelFacetLinks_EReference_4003(EObject container, EClass containerMetaclass) {
-		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
-				EObject nextValue = ((EObject) values.next());
-				int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-				if (EReference2EditPart.VISUAL_ID == linkVID) {
-					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
-					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						EObject src = container;
-						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, EcoreElementTypes.EReference_4003, linkVID));
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 *@generated
-	 */
-	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
-
-		if (EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator destinations = ((EAnnotation) container).getReferences().iterator(); destinations.hasNext();) {
-				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
-
-			}
-		}
-
-		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
-			for (Iterator destinations = ((EClass) container).getESuperTypes().iterator(); destinations.hasNext();) {
-				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
-
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private Diagram getDiagram() {
-		return ((View) getHost().getModel()).getDiagram();
 	}
 
 	/**
@@ -439,19 +410,10 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
-			this(source, destination, linkVID);
-			myLinkElement = linkElement;
-			final IElementType elementTypeCopy = elementType;
-			mySemanticAdapter = new EObjectAdapter(linkElement) {
-
-				public Object getAdapter(Class adapter) {
-					if (IElementType.class.equals(adapter)) {
-						return elementTypeCopy;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+		private LinkDescriptor(EObject source, EObject destination, int linkVID) {
+			mySource = source;
+			myDestination = destination;
+			myVisualID = linkVID;
 		}
 
 		/**
@@ -459,8 +421,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		 */
 		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
 			this(source, destination, linkVID);
-			myLinkElement = null;
 			final IElementType elementTypeCopy = elementType;
+			myLinkElement = null;
 			mySemanticAdapter = new IAdaptable() {
 
 				public Object getAdapter(Class adapter) {
@@ -475,10 +437,19 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		/**
 		 * @generated
 		 */
-		private LinkDescriptor(EObject source, EObject destination, int linkVID) {
-			mySource = source;
-			myDestination = destination;
-			myVisualID = linkVID;
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
+			this(source, destination, linkVID);
+			final IElementType elementTypeCopy = elementType;
+			myLinkElement = linkElement;
+			mySemanticAdapter = new EObjectAdapter(linkElement) {
+
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return super.getAdapter(adapter);
+				}
+			};
 		}
 
 		/**
@@ -515,6 +486,6 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		protected IAdaptable getSemanticAdapter() {
 			return mySemanticAdapter;
 		}
-	}
 
+	}
 }

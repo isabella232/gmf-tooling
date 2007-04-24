@@ -1,11 +1,11 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * Copyright (c) 2006, 2007 Borland Software Corp.
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
@@ -14,13 +14,8 @@ package org.eclipse.gmf.ecore.edit.policies;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesCreateCommand;
 import org.eclipse.gmf.ecore.edit.commands.EAnnotationReferencesReorientCommand;
 import org.eclipse.gmf.ecore.edit.commands.EReference2CreateCommand;
@@ -103,63 +98,40 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEAnnotationReferences_4001Command(req);
+			return null;
 		}
 		if (EcoreElementTypes.EReference_4002 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference_4002Command(req);
+			return null;
 		}
 		if (EcoreElementTypes.EReference_4003 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference_4003Command(req);
+			return null;
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEAnnotationReferences_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EAnnotationReferencesCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEReference_4002Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
-			return UnexecutableCommand.INSTANCE;
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
+			return getGEFWrapper(new EAnnotationReferencesCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		EClass source = (EClass) sourceEObject;
-		EClassifier target = (EClassifier) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4002(source, target)) {
-			return UnexecutableCommand.INSTANCE;
+		if (EcoreElementTypes.EReference_4002 == req.getElementType()) {
+			return getGEFWrapper(new EReferenceCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
+		if (EcoreElementTypes.EReference_4003 == req.getElementType()) {
+			return getGEFWrapper(new EReference2CreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return getGEFWrapper(new EReferenceCreateCommand(req, source, target));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEReference_4003Command(CreateRelationshipRequest req) {
-		EObject sourceEObject = req.getSource();
-		EObject targetEObject = req.getTarget();
-		if (false == sourceEObject instanceof EClass || false == targetEObject instanceof EClassifier) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		EClass source = (EClass) sourceEObject;
-		EClassifier target = (EClassifier) targetEObject;
-		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4003(source, target)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
-		}
-		return getGEFWrapper(new EReference2CreateCommand(req, source, target));
+		return null;
 	}
 
 	/**

@@ -1,11 +1,11 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corp.
- *
+ * Copyright (c) 2006, 2007 Borland Software Corp.
+ * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * 
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
@@ -79,24 +79,28 @@ public class EAnnotationItemSemanticEditPolicy extends EcoreBaseItemSemanticEdit
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		Command command = req.getTarget() == null ? getStartCreateRelationshipCommand(req) : getCompleteCreateRelationshipCommand(req);
+		return command != null ? command : super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getStartCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEAnnotationReferences_4001Command(req) : getCreateCompleteIncomingEAnnotationReferences_4001Command(req);
+			return getGEFWrapper(new EAnnotationReferencesCreateCommand(req, req.getSource(), req.getTarget()));
 		}
-		return super.getCreateRelationshipCommand(req);
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingEAnnotationReferences_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EAnnotationReferencesCreateCommand(req));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteIncomingEAnnotationReferences_4001Command(CreateRelationshipRequest req) {
-		return getGEFWrapper(new EAnnotationReferencesCreateCommand(req));
+	protected Command getCompleteCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
+			return getGEFWrapper(new EAnnotationReferencesCreateCommand(req, req.getSource(), req.getTarget()));
+		}
+		return null;
 	}
 
 	/**
