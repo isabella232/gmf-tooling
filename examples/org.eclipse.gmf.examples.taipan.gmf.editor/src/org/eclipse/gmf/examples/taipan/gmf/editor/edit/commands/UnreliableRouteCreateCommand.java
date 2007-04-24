@@ -45,7 +45,7 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	private final Aquatory container;
+	private Aquatory container;
 
 	/**
 	 * @generated
@@ -57,11 +57,15 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		if (source != null) {
-			container = (Aquatory) findLinkContainer(source, TaiPanPackage.eINSTANCE.getAquatory());
-			super.setElementToEdit(container);
-		} else {
-			container = null;
+		// Find container element for the new link.
+		// Climb up by containment hierarchy starting from the source
+		// and return the first element that is instance of the container class.
+		for (EObject element = source; element != null; element = element.eContainer()) {
+			if (element instanceof Aquatory) {
+				container = (Aquatory) element;
+				super.setElementToEdit(container);
+				break;
+			}
 		}
 	}
 
@@ -99,26 +103,6 @@ public class UnreliableRouteCreateCommand extends CreateElementCommand {
 			TaiPanElementTypes.Initializers.Route_4003.init(newElement);
 		}
 		return newElement;
-	}
-
-	/**
-	 * Finds container element for the new link.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the container class.
-	 * 
-	 * @generated
-	 */
-	protected EObject findLinkContainer(Object uelement, EClass containerClass) {
-		if (uelement instanceof EObject) {
-			EObject element = (EObject) uelement;
-			for (; element != null; element = element.eContainer()) {
-				if (containerClass.isSuperTypeOf(element.eClass())) {
-					return element;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
