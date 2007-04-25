@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,11 +31,14 @@ public class DefaultTextMerger extends TextMerger {
 
 	private final PluginXMLTextMerger myPluginXmlMerger;
 
+	private final ManifestFileMerge myManifestMerge;
+
 	public DefaultTextMerger(JControlModel jModel) {
 		assert jModel != null;
 		myControlModel = jModel;
 		myXmlMerger = new TaggedTextMerger("<!-- " + BEGIN_TAG + " -->", "<!-- " + END_TAG + " -->");
 		myPluginXmlMerger = new PluginXMLTextMerger("gmfgen", "generated", "true");
+		myManifestMerge = new ManifestFileMerge();
 	}
 
 	@Override
@@ -70,6 +73,11 @@ public class DefaultTextMerger extends TextMerger {
 			return myPluginXmlMerger.process(oldText, newText);
 		}
 		return mergeXML(oldText, newText);
+	}
+
+	@Override
+	public String mergeManifestMF(String oldText, String newText) {
+		return myManifestMerge.process(oldText, newText);
 	}
 
 	private JControlModel getJControlModel() {
