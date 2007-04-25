@@ -37,7 +37,6 @@ import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
@@ -84,7 +83,9 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	@Override
 	protected void tearDown() throws Exception {
 		closeEditor(myEditor);
-		deleteProject();
+// Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
+// Leaving editor open till bundle uninstallation
+//		deleteProject();
 		myProject = null;
 		myDiagramFile = null;
 		super.tearDown();
@@ -93,7 +94,9 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected void closeEditor(IEditorPart editor) {
 		myEditor.doSave(new NullProgressMonitor());
 		redispatchEvents();
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
+// Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
+// Leaving editor open till bundle uninstallation
+//		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
 	}
 	
 	protected void redispatchEvents() {
@@ -197,13 +200,7 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected IEditorPart openEditor(IFile diagramFile) {
 		try {
 	        IEditorDescriptor editorDesc = IDE.getEditorDescriptor(diagramFile, true);
-	        IEditorPart result = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile) {
-	        	@Override
-	        	public IPersistableElement getPersistable() {
-	        		//Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-	        		return null;
-	        	}
-	        }, editorDesc.getId(), true);
+	        IEditorPart result = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(diagramFile), editorDesc.getId(), true);
 	        return result;
 		} catch (PartInitException e) {
 			fail(e.getMessage());
