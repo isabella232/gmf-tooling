@@ -193,6 +193,11 @@ public class GenProjectBaseSetup {
 		IStatus s = compileUtil.build(p);
 		if (!s.isOK()) {
 			Plugin.getInstance().getLog().log(s);
+			if (s.getException() != null) {
+				s.getException().printStackTrace(System.err);
+			} else {
+				System.err.println("hookProjectBuild failed without exception:" + s);
+			}
 			Assert.fail(s.getMessage());
 		}
 	}
