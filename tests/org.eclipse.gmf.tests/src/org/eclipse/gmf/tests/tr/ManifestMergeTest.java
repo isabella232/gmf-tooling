@@ -70,6 +70,15 @@ public class ManifestMergeTest extends TestCase {
 		assertEquals(expected, result);
 	}
 
+	public void testPreserveMultivaluedAttributes() {
+		MessageFormat pattern = newPattern();
+		String valueTail = ";directive:=one;attr=\"two\"";
+		String oldText = format(pattern, "Bundle-ClassPath: bin/" + valueTail + ",\n runtime/\n");
+		String newText = format(pattern, "Bundle-ClassPath: bin/,\n runtime/\n" );
+		String result = manifestMerge.process(oldText, newText);
+		assertEquals(oldText, result);
+	}
+
 	public void testOverwrite() {
 		MessageFormat pattern = newPattern();
 		String oldText = format(pattern, "Bundle-ClassPath: bin/\n");
