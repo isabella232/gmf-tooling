@@ -61,10 +61,15 @@ public class DefaultTextMerger extends TextMerger {
 
 	@Override
 	public String mergeXML(String oldText, String newText) {
+		return myXmlMerger.process(oldText, newText);
+	}
+
+	@Override
+	public String mergePluginXML(String oldText, String newText) {
 		if (myPluginXmlMerger.isRecognizedDocument(oldText)) {
 			return myPluginXmlMerger.process(oldText, newText);
 		}
-		return myXmlMerger.process(oldText, newText);
+		return mergeXML(oldText, newText);
 	}
 
 	private JControlModel getJControlModel() {

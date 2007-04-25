@@ -416,7 +416,7 @@ public abstract class GeneratorBase implements Runnable {
 	protected String mergePlainText(String oldText, String genText, IFile oldRes, IProgressMonitor pm) {
 		pm.beginTask(Messages.merge, 1);
 		try {
-			return getMergeService().process(oldRes.getFileExtension(), oldText, genText);
+			return getMergeService().process(oldRes.getName(), oldText, genText);
 		} finally {
 			pm.done();
 		}

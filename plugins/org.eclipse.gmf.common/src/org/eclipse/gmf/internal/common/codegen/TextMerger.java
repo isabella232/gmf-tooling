@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,13 +27,29 @@ public class TextMerger {
 		return newText;
 	}
 
-	public String process(String fileNameExt, String oldText, String newText) {
-		if ("java".equals(fileNameExt)) {
+	public String mergePluginXML(String oldText, String newText) {
+		return newText;
+	}
+
+	public String mergeManifestMF(String oldText, String newText) {
+		return newText;
+	}
+
+	public String process(String fileName, String oldText, String newText) {
+		if (fileName == null) {
+			return newText;
+		}
+		if (fileName.endsWith(".java")) {
 			return mergeJava(oldText, newText);
-		} else if ("xml".equals(fileNameExt)) {
+		} else if (fileName.endsWith(".xml")) {
+			if (fileName.equals("plugin.xml")) {
+				return mergePluginXML(oldText, newText);
+			}
 			return mergeXML(oldText, newText);
-		} else if ("properties".equals(fileNameExt)) {
+		} else if (fileName.endsWith(".properties")) {
 			return mergeProperties(oldText, newText);
+		} else if (fileName.equals("MANIFEST.MF")) {
+			return mergeManifestMF(oldText, newText);
 		}
 		return newText;
 	}
