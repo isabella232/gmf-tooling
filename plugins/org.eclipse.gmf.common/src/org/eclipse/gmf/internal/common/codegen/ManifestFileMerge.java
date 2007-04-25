@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -82,31 +82,62 @@ public class ManifestFileMerge {
 		}
 	}
 
-	protected String format(Map<String, String> oldHeaders) {
+	protected String format(Map<String, String> oldHeaders) throws BundleException {
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<String,String> e : oldHeaders.entrySet()) {
 			sb.append(e.getKey());
 			sb.append(':');
 			sb.append(' ');
-			sb.append(formatValue(e.getValue()));
+			sb.append(formatValue(e.getKey(), e.getValue()));
 			sb.append(myLineSeparator);
 		}
 		return sb.toString();
 	}
 
-	protected CharSequence formatValue(String value) {
+	protected CharSequence formatValue(String headerHint, String value) throws BundleException {
 		if (!isMultivalued(value)) {
 			return value;
 		}
-		String[] values = ManifestElement.getArrayFromList(value);
+		ManifestElement[] values = ManifestElement.parseHeader(headerHint, value);
 		assert values.length > 0; // otherwise, it won't be multivalued
 		StringBuilder sb = new StringBuilder();
-		sb.append(values[0]);
+		sb.append(formatValue(values[0]));
 		for (int i = 1; i < values.length; i++) {
 			sb.append(',');
 			sb.append(myLineSeparator);
 			sb.append(' ');
-			sb.append(values[i]);
+			sb.append(formatValue(values[i]));
+		}
+		return sb;
+	}
+
+	protected CharSequence formatValue(ManifestElement element) {
+		StringBuilder sb = new StringBuilder(element.getValue());
+		// using tokens for directives and quoted strings for attributes
+		// seems to be PDE convention, though I didn't find exact code that does that.
+		// Without such a convention, it's very hard to tell whether original
+		// directive or attribute was quoted or not - specialized Tokenizer from 
+		// ManifestElement rips this information out.
+		for (Enumeration<?> en = element.getDirectiveKeys(); en != null && en.hasMoreElements();) {
+			final String directiveKey = (String) en.nextElement();
+			for (String v : element.getDirectives(directiveKey)) {
+				sb.append(';');
+				sb.append(directiveKey);
+				sb.append(':');
+				sb.append('=');
+				sb.append(v);
+			}
+		}
+		for (Enumeration<?> en = element.getKeys(); en != null && en.hasMoreElements();) {
+			final String attrKey = (String) en.nextElement();
+			for (String v : element.getAttributes(attrKey)) {
+				sb.append(';');
+				sb.append(attrKey);
+				sb.append('=');
+				sb.append('"');
+				sb.append(v);
+				sb.append('"');
+			}
 		}
 		return sb;
 	}
@@ -140,41 +171,43 @@ public class ManifestFileMerge {
 	}
 
 	private boolean isMultivalued(String value) {
-		// ManifestElement.getArrayFromList(value).length > 1;
+		// quick-and-dirty way. in rare cases may give false answer (i.e. when ;att="[1.0,2.0)"
+		// but it's ok
 		return value.indexOf(',') > 0;
 	}
 
+	/**
+	 * TODO rewrite to return ManifestElements instead of serializing result to String
+	 * which will be parsed once again at {@link #format(Map)}. 
+	 */
 	private String mergeMultivalued(String header, String oldValue, String newValue) throws BundleException {
-		String[] oldValues = ManifestElement.getArrayFromList(oldValue);
-		LinkedList<String> returnValue = new LinkedList<String>();
+		ManifestElement[] oldValues = ManifestElement.parseHeader(header, oldValue);
+		if (oldValues == null || oldValues.length == 0) {
+			return newValue;
+		}
 		String[] lookupValues = new String[oldValues.length]; // value parts of manifest entry only, no attributes or directives
 		for (int i = 0; i < oldValues.length; i++) {
-			returnValue.add(oldValues[i]);
-			ManifestElement[] parsed = ManifestElement.parseHeader(header, oldValues[i]);
-			assert parsed != null && parsed.length > 0;
-			lookupValues[i] = parsed.length == 1 ? parsed[0].getValue() : oldValues[i];
+			lookupValues[i] = oldValues[i].getValue();
 		}
 		Arrays.sort(lookupValues);
-		for (String n : ManifestElement.getArrayFromList(newValue)) {
-			ManifestElement[] parsed = ManifestElement.parseHeader(header, n);
-			assert parsed != null && parsed.length > 0;
-			String toLookUp;
-			if (parsed.length == 1) {
-				toLookUp = parsed[0].getValue(); // look for directive-less part
-			} else {
-				toLookUp = n; // try the string itself
-			}
-			if (Arrays.binarySearch(lookupValues, toLookUp) < 0) {
-				returnValue.add(n);
+		LinkedList<ManifestElement> additionalElements = new LinkedList<ManifestElement>();
+		for (ManifestElement n :  ManifestElement.parseHeader(header, newValue)) {
+			if (Arrays.binarySearch(lookupValues, n.getValue()) < 0) {
+				additionalElements.add(n);
 			}
 		}
 		StringBuilder sb = new StringBuilder();
-		for (Iterator<String> it = returnValue.iterator(); it.hasNext();) {
-			sb.append(it.next());
-			if (it.hasNext()) {
-				sb.append(',');
-			}
+		// we don't care about newlines as this is intermediate result
+		for (ManifestElement me : oldValues) {
+			sb.append(formatValue(me));
+			sb.append(',');
 		}
+		for (ManifestElement me : additionalElements) {
+			sb.append(formatValue(me));
+			sb.append(',');
+		}
+		assert sb.charAt(sb.length() - 1) == ',';
+		sb.setLength(sb.length() - 1);
 		return sb.toString();
 	}
 }
