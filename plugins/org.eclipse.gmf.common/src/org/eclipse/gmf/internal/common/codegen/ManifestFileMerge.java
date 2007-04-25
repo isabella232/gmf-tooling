@@ -63,7 +63,7 @@ public class ManifestFileMerge {
 						String oldValue = oldHeaders.get(newHeader);
 						String newValue = newHeaders.get(newHeader);
 						if (isMultivalued(oldValue) || isMultivalued(newValue)) {
-							oldHeaders.put(newHeader, mergeMultivalued(oldValue, newValue));
+							oldHeaders.put(newHeader, mergeMultivalued(newHeader, oldValue, newValue));
 						} else {
 							// just overwrite simple attributes
 							oldHeaders.put(newHeader, newValue);
@@ -144,15 +144,27 @@ public class ManifestFileMerge {
 		return value.indexOf(',') > 0;
 	}
 
-	private String mergeMultivalued(String oldValue, String newValue) {
+	private String mergeMultivalued(String header, String oldValue, String newValue) throws BundleException {
 		String[] oldValues = ManifestElement.getArrayFromList(oldValue);
 		LinkedList<String> returnValue = new LinkedList<String>();
-		for (String s : oldValues) {
-			returnValue.add(s);
+		String[] lookupValues = new String[oldValues.length]; // value parts of manifest entry only, no attributes or directives
+		for (int i = 0; i < oldValues.length; i++) {
+			returnValue.add(oldValues[i]);
+			ManifestElement[] parsed = ManifestElement.parseHeader(header, oldValues[i]);
+			assert parsed != null && parsed.length > 0;
+			lookupValues[i] = parsed.length == 1 ? parsed[0].getValue() : oldValues[i];
 		}
-		Arrays.sort(oldValues);
+		Arrays.sort(lookupValues);
 		for (String n : ManifestElement.getArrayFromList(newValue)) {
-			if (Arrays.binarySearch(oldValues, n) < 0) {
+			ManifestElement[] parsed = ManifestElement.parseHeader(header, n);
+			assert parsed != null && parsed.length > 0;
+			String toLookUp;
+			if (parsed.length == 1) {
+				toLookUp = parsed[0].getValue(); // look for directive-less part
+			} else {
+				toLookUp = n; // try the string itself
+			}
+			if (Arrays.binarySearch(lookupValues, toLookUp) < 0) {
 				returnValue.add(n);
 			}
 		}
