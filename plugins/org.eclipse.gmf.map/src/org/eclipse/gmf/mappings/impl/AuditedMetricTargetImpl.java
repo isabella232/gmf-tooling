@@ -40,7 +40,7 @@ public class AuditedMetricTargetImpl extends EObjectImpl implements AuditedMetri
 	 * @generated
 	 * @ordered
 	 */
-	protected MetricRule metric = null;
+	protected MetricRule metric;
 
 	/**
 	 * <!-- begin-user-doc -->

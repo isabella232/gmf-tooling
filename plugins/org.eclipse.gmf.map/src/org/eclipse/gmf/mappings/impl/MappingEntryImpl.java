@@ -51,7 +51,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainMetaElement = null;
+	protected EClass domainMetaElement;
 
 	/**
 	 * The cached value of the '{@link #getDomainSpecialization() <em>Domain Specialization</em>}' containment reference.
@@ -61,7 +61,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint domainSpecialization = null;
+	protected Constraint domainSpecialization;
 
 	/**
 	 * The cached value of the '{@link #getDomainInitializer() <em>Domain Initializer</em>}' containment reference.
@@ -71,7 +71,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected ElementInitializer domainInitializer = null;
+	protected ElementInitializer domainInitializer;
 
 	/**
 	 * The cached value of the '{@link #getLabelMappings() <em>Label Mappings</em>}' containment reference list.
@@ -81,7 +81,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<LabelMapping> labelMappings = null;
+	protected EList<LabelMapping> labelMappings;
 
 	/**
 	 * The cached value of the '{@link #getRelatedDiagrams() <em>Related Diagrams</em>}' reference list.
@@ -91,7 +91,7 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<CanvasMapping> relatedDiagrams = null;
+	protected EList<CanvasMapping> relatedDiagrams;
 
 	/**
 	 * <!-- begin-user-doc -->

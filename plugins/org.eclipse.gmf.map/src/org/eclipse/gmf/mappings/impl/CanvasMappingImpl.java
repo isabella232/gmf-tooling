@@ -50,7 +50,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected Canvas diagramCanvas = null;
+	protected Canvas diagramCanvas;
 
 	/**
 	 * The cached value of the '{@link #getDomainModel() <em>Domain Model</em>}' reference.
@@ -60,7 +60,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EPackage domainModel = null;
+	protected EPackage domainModel;
 
 	/**
 	 * The cached value of the '{@link #getDomainMetaElement() <em>Domain Meta Element</em>}' reference.
@@ -70,7 +70,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainMetaElement = null;
+	protected EClass domainMetaElement;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' reference.
@@ -80,7 +80,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected Palette palette = null;
+	protected Palette palette;
 
 	/**
 	 * The cached value of the '{@link #getMenuContributions() <em>Menu Contributions</em>}' reference list.
@@ -90,7 +90,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<MainMenu> menuContributions = null;
+	protected EList<MainMenu> menuContributions;
 
 	/**
 	 * The cached value of the '{@link #getToolbarContributions() <em>Toolbar Contributions</em>}' reference list.
@@ -100,7 +100,7 @@ public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Toolbar> toolbarContributions = null;
+	protected EList<Toolbar> toolbarContributions;
 
 	/**
 	 * <!-- begin-user-doc -->

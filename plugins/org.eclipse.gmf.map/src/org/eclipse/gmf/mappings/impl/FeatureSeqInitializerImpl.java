@@ -50,7 +50,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FeatureInitializer> initializers = null;
+	protected EList<FeatureInitializer> initializers;
 
 	/**
 	 * The cached value of the '{@link #getElementClass() <em>Element Class</em>}' reference.
@@ -60,7 +60,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass elementClass = null;
+	protected EClass elementClass;
 
 	/**
 	 * <!-- begin-user-doc -->

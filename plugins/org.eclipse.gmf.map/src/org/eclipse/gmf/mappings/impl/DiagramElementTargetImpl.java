@@ -41,7 +41,7 @@ public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElem
 	 * @generated
 	 * @ordered
 	 */
-	protected MappingEntry element = null;
+	protected MappingEntry element;
 
 	/**
 	 * <!-- begin-user-doc -->

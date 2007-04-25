@@ -46,7 +46,7 @@ public class MetricContainerImpl extends EObjectImpl implements MetricContainer 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<MetricRule> metrics = null;
+	protected EList<MetricRule> metrics;
 
 	/**
 	 * <!-- begin-user-doc -->

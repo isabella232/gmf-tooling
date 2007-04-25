@@ -112,7 +112,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueExpression rule = null;
+	protected ValueExpression rule;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
@@ -122,7 +122,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected Measurable target = null;
+	protected Measurable target;
 
 	/**
 	 * The default value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.

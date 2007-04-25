@@ -40,7 +40,7 @@ public class DomainElementTargetImpl extends EObjectImpl implements DomainElemen
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass element = null;
+	protected EClass element;
 
 	/**
 	 * <!-- begin-user-doc -->

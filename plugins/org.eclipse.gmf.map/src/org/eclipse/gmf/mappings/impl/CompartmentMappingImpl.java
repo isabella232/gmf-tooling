@@ -47,7 +47,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * @generated
 	 * @ordered
 	 */
-	protected Compartment compartment = null;
+	protected Compartment compartment;
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' reference list.
@@ -57,7 +57,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ChildReference> children = null;
+	protected EList<ChildReference> children;
 
 	/**
 	 * <!-- begin-user-doc -->

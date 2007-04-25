@@ -54,7 +54,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EReference containmentFeature = null;
+	protected EReference containmentFeature;
 
 	/**
 	 * The cached value of the '{@link #getContextMenu() <em>Context Menu</em>}' reference.
@@ -64,7 +64,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected ContextMenu contextMenu = null;
+	protected ContextMenu contextMenu;
 
 	/**
 	 * The cached value of the '{@link #getTool() <em>Tool</em>}' reference.
@@ -74,7 +74,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractTool tool = null;
+	protected AbstractTool tool;
 
 	/**
 	 * The cached value of the '{@link #getAppearanceStyle() <em>Appearance Style</em>}' reference.
@@ -84,7 +84,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected StyleSelector appearanceStyle = null;
+	protected StyleSelector appearanceStyle;
 
 	/**
 	 * The cached value of the '{@link #getDiagramLink() <em>Diagram Link</em>}' reference.
@@ -94,7 +94,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected Connection diagramLink = null;
+	protected Connection diagramLink;
 
 	/**
 	 * The cached value of the '{@link #getSourceMetaFeature() <em>Source Meta Feature</em>}' reference.
@@ -104,7 +104,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EStructuralFeature sourceMetaFeature = null;
+	protected EStructuralFeature sourceMetaFeature;
 
 	/**
 	 * The cached value of the '{@link #getLinkMetaFeature() <em>Link Meta Feature</em>}' reference.
@@ -114,7 +114,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EStructuralFeature linkMetaFeature = null;
+	protected EStructuralFeature linkMetaFeature;
 
 	/**
 	 * The cached value of the '{@link #getCreationConstraints() <em>Creation Constraints</em>}' containment reference.
@@ -124,7 +124,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected LinkConstraints creationConstraints = null;
+	protected LinkConstraints creationConstraints;
 
 	/**
 	 * <!-- begin-user-doc -->

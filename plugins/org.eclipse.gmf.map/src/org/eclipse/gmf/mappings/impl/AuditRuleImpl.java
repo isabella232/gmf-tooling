@@ -110,7 +110,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint rule = null;
+	protected Constraint rule;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
@@ -120,7 +120,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected Auditable target = null;
+	protected Auditable target;
 
 	/**
 	 * The default value of the '{@link #getSeverity() <em>Severity</em>}' attribute.

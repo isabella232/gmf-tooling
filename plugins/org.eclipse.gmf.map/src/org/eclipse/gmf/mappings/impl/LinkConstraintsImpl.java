@@ -41,7 +41,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint sourceEnd = null;
+	protected Constraint sourceEnd;
 
 	/**
 	 * The cached value of the '{@link #getTargetEnd() <em>Target End</em>}' containment reference.
@@ -51,7 +51,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint targetEnd = null;
+	protected Constraint targetEnd;
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -40,7 +40,7 @@ public class NotationElementTargetImpl extends EObjectImpl implements NotationEl
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass element = null;
+	protected EClass element;
 
 	/**
 	 * <!-- begin-user-doc -->

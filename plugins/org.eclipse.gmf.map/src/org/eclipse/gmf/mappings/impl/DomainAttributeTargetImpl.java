@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainAttributeTargetImpl.java,v 1.2 2007/03/14 13:00:04 atikhomirov Exp $
+ * $Id: DomainAttributeTargetImpl.java,v 1.3 2007/04/25 08:08:29 dstadnik Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
@@ -41,7 +41,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute attribute = null;
+	protected EAttribute attribute;
 
 	/**
 	 * The default value of the '{@link #isNullAsError() <em>Null As Error</em>}' attribute.

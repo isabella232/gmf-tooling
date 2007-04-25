@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecImpl.java,v 1.2 2007/03/14 13:00:04 atikhomirov Exp $
+ * $Id: ReferenceNewElementSpecImpl.java,v 1.3 2007/04/25 08:08:29 dstadnik Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
@@ -51,7 +51,7 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 	 * @generated
 	 * @ordered
 	 */
-	protected EStructuralFeature feature = null;
+	protected EStructuralFeature feature;
 
 	/**
 	 * The cached value of the '{@link #getNewElementInitializers() <em>New Element Initializers</em>}' containment reference list.
@@ -61,7 +61,7 @@ public class ReferenceNewElementSpecImpl extends EObjectImpl implements Referenc
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FeatureSeqInitializer> newElementInitializers = null;
+	protected EList<FeatureSeqInitializer> newElementInitializers;
 
 	/**
 	 * <!-- begin-user-doc -->

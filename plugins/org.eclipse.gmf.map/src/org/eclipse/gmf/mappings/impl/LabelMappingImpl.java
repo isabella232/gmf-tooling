@@ -41,7 +41,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected DiagramLabel diagramLabel = null;
+	protected DiagramLabel diagramLabel;
 
 	/**
 	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.

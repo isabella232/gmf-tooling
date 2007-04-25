@@ -46,7 +46,7 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EAttribute> features = null;
+	protected EList<EAttribute> features;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.

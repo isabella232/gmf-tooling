@@ -40,7 +40,7 @@ public class TopNodeReferenceImpl extends NodeReferenceImpl implements TopNodeRe
 	 * @generated
 	 * @ordered
 	 */
-	protected NodeMapping ownedChild = null;
+	protected NodeMapping ownedChild;
 
 	/**
 	 * <!-- begin-user-doc -->

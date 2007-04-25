@@ -60,7 +60,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected ContextMenu contextMenu = null;
+	protected ContextMenu contextMenu;
 
 	/**
 	 * The cached value of the '{@link #getTool() <em>Tool</em>}' reference.
@@ -70,7 +70,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractTool tool = null;
+	protected AbstractTool tool;
 
 	/**
 	 * The cached value of the '{@link #getAppearanceStyle() <em>Appearance Style</em>}' reference.
@@ -80,7 +80,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected StyleSelector appearanceStyle = null;
+	protected StyleSelector appearanceStyle;
 
 	/**
 	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
@@ -90,7 +90,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected Node diagramNode = null;
+	protected Node diagramNode;
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
@@ -100,7 +100,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ChildReference> children = null;
+	protected EList<ChildReference> children;
 
 	/**
 	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
@@ -110,7 +110,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<CompartmentMapping> compartments = null;
+	protected EList<CompartmentMapping> compartments;
 
 	/**
 	 * <!-- begin-user-doc -->

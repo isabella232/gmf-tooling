@@ -40,7 +40,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * @generated
 	 * @ordered
 	 */
-	protected EStructuralFeature feature = null;
+	protected EStructuralFeature feature;
 
 	/**
 	 * <!-- begin-user-doc -->

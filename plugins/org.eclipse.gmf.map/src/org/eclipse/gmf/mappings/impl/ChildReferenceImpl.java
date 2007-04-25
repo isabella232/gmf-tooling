@@ -46,7 +46,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * @generated
 	 * @ordered
 	 */
-	protected CompartmentMapping compartment = null;
+	protected CompartmentMapping compartment;
 
 	/**
 	 * The cached value of the '{@link #getOwnedChild() <em>Owned Child</em>}' containment reference.
@@ -56,7 +56,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * @generated
 	 * @ordered
 	 */
-	protected NodeMapping ownedChild = null;
+	protected NodeMapping ownedChild;
 
 	/**
 	 * The cached value of the '{@link #getReferencedChild() <em>Referenced Child</em>}' reference.
@@ -66,7 +66,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * @generated
 	 * @ordered
 	 */
-	protected NodeMapping referencedChild = null;
+	protected NodeMapping referencedChild;
 
 	/**
 	 * <!-- begin-user-doc -->

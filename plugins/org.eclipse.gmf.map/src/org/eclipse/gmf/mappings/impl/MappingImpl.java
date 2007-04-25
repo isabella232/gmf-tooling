@@ -53,7 +53,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TopNodeReference> nodes = null;
+	protected EList<TopNodeReference> nodes;
 
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
@@ -63,7 +63,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<LinkMapping> links = null;
+	protected EList<LinkMapping> links;
 
 	/**
 	 * The cached value of the '{@link #getDiagram() <em>Diagram</em>}' containment reference.
@@ -73,7 +73,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected CanvasMapping diagram = null;
+	protected CanvasMapping diagram;
 
 	/**
 	 * The cached value of the '{@link #getAppearanceStyles() <em>Appearance Styles</em>}' containment reference list.
@@ -83,7 +83,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<StyleSelector> appearanceStyles = null;
+	protected EList<StyleSelector> appearanceStyles;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
@@ -93,7 +93,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected AuditContainer audits = null;
+	protected AuditContainer audits;
 
 	/**
 	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
@@ -103,7 +103,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected MetricContainer metrics = null;
+	protected MetricContainer metrics;
 
 	/**
 	 * <!-- begin-user-doc -->

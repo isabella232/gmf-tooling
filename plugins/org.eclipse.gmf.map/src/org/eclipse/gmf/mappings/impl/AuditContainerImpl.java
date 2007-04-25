@@ -109,7 +109,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AuditRule> audits = null;
+	protected EList<AuditRule> audits;
 
 	/**
 	 * The cached value of the '{@link #getChildContainers() <em>Child Containers</em>}' containment reference list.
@@ -119,7 +119,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AuditContainer> childContainers = null;
+	protected EList<AuditContainer> childContainers;
 
 	/**
 	 * <!-- begin-user-doc -->

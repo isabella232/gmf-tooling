@@ -43,7 +43,7 @@ public abstract class NodeReferenceImpl extends EObjectImpl implements NodeRefer
 	 * @generated
 	 * @ordered
 	 */
-	protected EReference containmentFeature = null;
+	protected EReference containmentFeature;
 
 	/**
 	 * The cached value of the '{@link #getChildrenFeature() <em>Children Feature</em>}' reference.
@@ -53,7 +53,7 @@ public abstract class NodeReferenceImpl extends EObjectImpl implements NodeRefer
 	 * @generated
 	 * @ordered
 	 */
-	protected EReference childrenFeature = null;
+	protected EReference childrenFeature;
 
 	/**
 	 * <!-- begin-user-doc -->
