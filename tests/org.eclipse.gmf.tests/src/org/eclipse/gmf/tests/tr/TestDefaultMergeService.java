@@ -22,6 +22,7 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 /**
  * @author artem
@@ -46,6 +47,42 @@ public class TestDefaultMergeService extends TestCase {
 
 	protected final DefaultTextMerger createMergeService(JControlModel controlModel) {
 		return new DefaultTextMerger(controlModel);
+	}
+
+	public void testProcessHitRightMethod() {
+		final boolean[] hitXML = new boolean[1];
+		final boolean[] hitPluginXML = new boolean[1];
+		final boolean[] hitManifestMF = new boolean[1];
+		class TextMergeHitTest extends TextMerger {
+			@Override
+			public String mergeXML(String oldText, String newText) {
+				hitXML[0] = true;
+				return super.mergeXML(oldText, newText);
+			}
+			@Override
+			public String mergePluginXML(String oldText, String newText) {
+				hitPluginXML[0] = true;
+				return super.mergePluginXML(oldText, newText);
+			}
+			@Override
+			public String mergeManifestMF(String oldText, String newText) {
+				hitManifestMF[0] = true;
+				return super.mergeManifestMF(oldText, newText);
+			}
+		}
+		TextMergeHitTest hitTest = new TextMergeHitTest();
+
+		hitXML[0] = hitPluginXML[0] = hitManifestMF[0] = false;
+		hitTest.process("MANIFEST.MF", "", "");
+		assertTrue(!hitXML[0] && !hitPluginXML[0] && hitManifestMF[0]);
+
+		hitXML[0] = hitPluginXML[0] = hitManifestMF[0] = false;
+		hitTest.process("sample.xml", "", "");
+		assertTrue(hitXML[0] && !hitPluginXML[0] && !hitManifestMF[0]);
+
+		hitXML[0] = hitPluginXML[0] = hitManifestMF[0] = false;
+		hitTest.process("plugin.xml", "", "");
+		assertTrue(!hitXML[0] && hitPluginXML[0] && !hitManifestMF[0]);
 	}
 
 	public void testProperties() throws Exception {
@@ -81,21 +118,21 @@ public class TestDefaultMergeService extends TestCase {
 	}
 
 	public void testProcessJava() {
-		final String javaResult = myMergeService.process("java", getJavaOldText(), getJavaNewText());
+		final String javaResult = myMergeService.process("Sample.java", getJavaOldText(), getJavaNewText());
 		assertEquals(myMergeService.mergeJava(getJavaOldText(), getJavaNewText()), javaResult);
 	}
 
 	public void testProcessXml() {
 		final String xmlOld = "<p>aaa<i>bbb</i>ccc</p>";
 		final String xmlNew = "<p>ddd<b>e</b>ccc</p>";
-		final String xmlResult = myMergeService.process("xml", xmlOld, xmlNew);
+		final String xmlResult = myMergeService.process("sample.xml", xmlOld, xmlNew);
 		assertEquals(myMergeService.mergeXML(xmlOld, xmlNew), xmlResult);
 	}
 
 	public void testProcessProperties() {
 		final String propOld = "p1=v1\np2=v2\n#p3=\n";
 		final String propNew = "p1=v1\np2=nv\np3=v3\n";
-		final String propResult = myMergeService.process("properties", propOld, propNew);
+		final String propResult = myMergeService.process("sample.properties", propOld, propNew);
 		assertEquals(myMergeService.mergeProperties(propOld, propNew), propResult);
 	}
 
