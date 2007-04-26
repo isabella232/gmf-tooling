@@ -99,6 +99,16 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/TARGET"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/SOURCE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LabelViewMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/PRINTF"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/NATIVE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LabelEditMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/REGEXP"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/NATIVE"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//ViewmapLayoutType">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ViewmapLayoutType/UNKNOWN"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ViewmapLayoutType/XY_LAYOUT"/>
@@ -529,7 +539,9 @@
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLabelModelFacet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/metaFeatures"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>

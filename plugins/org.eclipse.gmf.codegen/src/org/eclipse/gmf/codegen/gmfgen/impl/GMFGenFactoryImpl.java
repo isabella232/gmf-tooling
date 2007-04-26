@@ -218,6 +218,10 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createProviderPriorityFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
+			case GMFGenPackage.LABEL_VIEW_METHOD:
+				return createLabelViewMethodFromString(eDataType, initialValue);
+			case GMFGenPackage.LABEL_EDIT_METHOD:
+				return createLabelEditMethodFromString(eDataType, initialValue);
 			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
 				return createViewmapLayoutTypeFromString(eDataType, initialValue);
 			case GMFGenPackage.STANDARD_ENTRY_KIND:
@@ -259,6 +263,10 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertProviderPriorityToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
+			case GMFGenPackage.LABEL_VIEW_METHOD:
+				return convertLabelViewMethodToString(eDataType, instanceValue);
+			case GMFGenPackage.LABEL_EDIT_METHOD:
+				return convertLabelEditMethodToString(eDataType, instanceValue);
 			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
 				return convertViewmapLayoutTypeToString(eDataType, instanceValue);
 			case GMFGenPackage.STANDARD_ENTRY_KIND:
@@ -1233,6 +1241,46 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertLinkLabelAlignmentToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelViewMethod createLabelViewMethodFromString(EDataType eDataType, String initialValue) {
+		LabelViewMethod result = LabelViewMethod.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLabelViewMethodToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelEditMethod createLabelEditMethodFromString(EDataType eDataType, String initialValue) {
+		LabelEditMethod result = LabelEditMethod.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLabelEditMethodToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
