@@ -245,6 +245,11 @@ public class RuntimeWorkspaceSetup {
 				String line;
 				boolean found = false;
 				StringBuilder result = new StringBuilder();
+				// XXX not so good assumption that Bundle-ClassPath fits single line
+				// If classpath spans few lines, we might not notice bin/ and
+				// append it twice, with some bogus empty entries in between, 
+				// which may lead to smth like 
+				// java.lang.IllegalArgumentException: Path must include project and resource name: /org.sample.prim.diagram
 				while ((line = r.readLine()) != null) {
 					result.append(line);
 					if (!found && line.startsWith("Bundle-ClassPath:")) {
