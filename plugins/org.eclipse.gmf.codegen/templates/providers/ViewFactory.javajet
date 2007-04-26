@@ -59,24 +59,23 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	protected List createStyles(View view) {
 		<%=importManager.getImportedName("java.util.List")%> styles = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 <%if (isLink) {%>
+<%	if (!fixedForeground) {%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createConnectorStyle());
+<%	} else { /*only routing, no line style*/ %>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createRoutingStyle());
+<%	} %>
 <%	if (!fixedFont) {%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFontStyle());
 <%	}%>
-<%	if (!fixedForeground) {%>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
-<%	}%>
 <%
-}
+} /*isLink*/
 if (isLabel) {
 	//no styles for label
 	//FIXME: throw new IllegalStateExcpetion("Labels to be processed in the LabelTextViewFactory/LabelViewFactory");
 }
 if (isDiagram) {
 %>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createPageStyle());
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createGuideStyle());
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagramStyle());
 <%
 }
 if (isCompartment) {
@@ -97,12 +96,13 @@ if (isCompartment) {
 if (isShape || isCompartmentWithOwnBounds) {
 %>
 <%	if (!fixedFont) {%>
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFontStyle());
-<%	}%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle());
+<%	} else { /*all but font style*/%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFillStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
-<%}%>
+<%	}
+} /*isShape || isCompartmentWithOwnBounds*/ %>
 		return styles;
 	}
 
