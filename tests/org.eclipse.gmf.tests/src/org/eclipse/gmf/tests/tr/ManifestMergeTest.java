@@ -73,8 +73,8 @@ public class ManifestMergeTest extends TestCase {
 	public void testPreserveMultivaluedAttributes() {
 		MessageFormat pattern = newPattern();
 		String valueTail = ";directive:=one;attr=\"two\"";
-		String oldText = format(pattern, "Bundle-ClassPath: bin/" + valueTail + ",\n runtime/\n");
-		String newText = format(pattern, "Bundle-ClassPath: bin/,\n runtime/\n" );
+		String oldText = format(pattern, "Bundle-ClassPath: bin/" + valueTail + ",runtime/\n");
+		String newText = format(pattern, "Bundle-ClassPath: bin/, runtime/\n" );
 		String result = manifestMerge.process(oldText, newText);
 		assertEquals(oldText, result);
 	}
@@ -82,8 +82,8 @@ public class ManifestMergeTest extends TestCase {
 	public void testPreserveAttributeWithComma() {
 		MessageFormat pattern = newPattern();
 		String valueTail = ";attr=\"[1.0,2.0)\"";
-		String oldText = format(pattern, "Bundle-ClassPath: bin/" + valueTail + ",\n runtime/\n");
-		String newText = format(pattern, "Bundle-ClassPath: bin/,\n runtime/\n" );
+		String oldText = format(pattern, "Bundle-ClassPath: bin/" + valueTail + ",runtime/\n");
+		String newText = format(pattern, "Bundle-ClassPath: bin/, runtime/\n" );
 		String result = manifestMerge.process(oldText, newText);
 		assertEquals(oldText, result);
 	}
