@@ -41,11 +41,11 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.Generator;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.osgi.framework.internal.core.FrameworkProperties;
 import org.osgi.framework.Bundle;
 
 /**
@@ -95,7 +95,8 @@ public class RuntimeWorkspaceSetup {
 		if ((i = l.indexOf("-dev")) != -1) {
 			isDevBinPresent = i + 1 < l.size() && l.get(i+1).startsWith("bin");
 		} else {
-			isDevBinPresent = FrameworkProperties.getProperty("osgi.dev", "").contains("bin");
+			String osgiDevProp = Plugin.getBundleContext().getProperty("osgi.dev");
+			isDevBinPresent = osgiDevProp!= null && osgiDevProp.contains("bin");
 		}
 	}
 
