@@ -64,7 +64,9 @@ public class FeatureLabelModelFacetItemProvider
 
 			addMetaFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
+			addViewMethodPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
+			addEditMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,6 +116,28 @@ public class FeatureLabelModelFacetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the View Method feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addViewMethodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_viewMethod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_viewMethod_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_ViewMethod(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Edit Pattern feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -127,6 +151,28 @@ public class FeatureLabelModelFacetItemProvider
 				 getString("_UI_FeatureLabelModelFacet_editPattern_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_editPattern_feature", "_UI_FeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_EditPattern(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Method feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditMethodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_editMethod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_editMethod_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_EditMethod(),
 				 true,
 				 false,
 				 false,
@@ -173,7 +219,9 @@ public class FeatureLabelModelFacetItemProvider
 
 		switch (notification.getFeatureID(FeatureLabelModelFacet.class)) {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
