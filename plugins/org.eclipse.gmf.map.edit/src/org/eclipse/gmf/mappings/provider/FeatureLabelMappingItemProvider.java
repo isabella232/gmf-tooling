@@ -63,7 +63,9 @@ public class FeatureLabelMappingItemProvider
 
 			addFeaturesPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
+			addViewMethodPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
+			addEditMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -117,6 +119,28 @@ public class FeatureLabelMappingItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the View Method feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addViewMethodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelMapping_viewMethod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_viewMethod_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewMethod(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Edit Pattern feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,6 +154,28 @@ public class FeatureLabelMappingItemProvider
 				 getString("_UI_FeatureLabelMapping_editPattern_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editPattern_feature", "_UI_FeatureLabelMapping_type"),
 				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditPattern(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Method feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditMethodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelMapping_editMethod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelMapping_editMethod_feature", "_UI_FeatureLabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditMethod(),
 				 true,
 				 false,
 				 false,
@@ -174,7 +220,9 @@ public class FeatureLabelMappingItemProvider
 
 		switch (notification.getFeatureID(FeatureLabelMapping.class)) {
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
