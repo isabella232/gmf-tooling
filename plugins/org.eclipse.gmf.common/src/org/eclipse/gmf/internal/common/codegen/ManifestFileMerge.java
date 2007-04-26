@@ -88,10 +88,21 @@ public class ManifestFileMerge {
 			sb.append(e.getKey());
 			sb.append(':');
 			sb.append(' ');
-			sb.append(formatValue(e.getKey(), e.getValue()));
+			if (valueFitsSingleLine(e.getKey(), e.getValue())) {
+				sb.append(e.getValue());
+			} else {
+				sb.append(formatValue(e.getKey(), e.getValue()));
+			}
 			sb.append(myLineSeparator);
 		}
 		return sb.toString();
+	}
+
+	protected boolean valueFitsSingleLine(String headerHint, String value) {
+		// manifest.mf line is limited to 72 bytes. Though value is not necessarily
+		// fits into bytes (e.g. native symbols in UTF8 might be longer), with '70' we 
+		// assume in most cases values are plain old ascii.
+		return headerHint.length() + 2 /* colon space */ + value.length() < 70;
 	}
 
 	protected CharSequence formatValue(String headerHint, String value) throws BundleException {
