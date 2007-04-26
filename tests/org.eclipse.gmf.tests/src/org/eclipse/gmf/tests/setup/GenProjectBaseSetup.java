@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.setup;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -197,6 +198,15 @@ public class GenProjectBaseSetup {
 				s.getException().printStackTrace(System.err);
 			} else {
 				System.err.println("hookProjectBuild failed without exception:" + s);
+				LinkedList<IStatus> ch = new LinkedList<IStatus>(Arrays.asList(s.getChildren())); 
+				while (!ch.isEmpty()) {
+					IStatus f = ch.removeFirst();
+					if (f.getException() != null) {
+						System.err.println("============> Nested exception in the status:");
+						f.getException().printStackTrace(System.err);
+					}
+					ch.addAll(Arrays.asList(f.getChildren())); 
+				}
 			}
 			Assert.fail(s.getMessage());
 		}

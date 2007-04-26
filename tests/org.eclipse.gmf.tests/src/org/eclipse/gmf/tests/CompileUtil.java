@@ -41,6 +41,8 @@ public class CompileUtil {
 			}
 			return Status.OK_STATUS;
 		} catch (CoreException ex) {
+			System.err.println("============> CompileUtil.build:");
+			ex.printStackTrace(System.err);
 			return ex.getStatus();
 		} catch (Exception ex) {
 			return Status.CANCEL_STATUS;
