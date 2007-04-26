@@ -89,8 +89,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelEditMethod;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
+import org.eclipse.gmf.codegen.gmfgen.LabelViewMethod;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -628,6 +630,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 			modelFacet.setViewPattern(flMapping.getViewPattern());
 			modelFacet.setEditPattern(flMapping.getEditPattern());
+			if (flMapping.getViewMethod() != null) {
+				modelFacet.setViewMethod(LabelViewMethod.get(flMapping.getViewMethod().getValue()));
+			}
+			if (flMapping.getEditMethod() != null) {
+				modelFacet.setEditMethod(LabelEditMethod.get(flMapping.getEditMethod().getValue()));
+			}
 			return modelFacet;
 		}
 		if (mapping instanceof DesignLabelMapping) {
