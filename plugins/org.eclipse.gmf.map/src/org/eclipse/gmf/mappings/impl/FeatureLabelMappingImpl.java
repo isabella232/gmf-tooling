@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelEditMethod;
+import org.eclipse.gmf.mappings.LabelViewMethod;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +33,9 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getViewPattern <em>View Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureLabelMappingImpl#getEditMethod <em>Edit Method</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +73,26 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	protected String viewPattern = VIEW_PATTERN_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LabelViewMethod VIEW_METHOD_EDEFAULT = LabelViewMethod.MESSAGE_FORMAT;
+
+	/**
+	 * The cached value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected LabelViewMethod viewMethod = VIEW_METHOD_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getEditPattern() <em>Edit Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,6 +111,26 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * @ordered
 	 */
 	protected String editPattern = EDIT_PATTERN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditMethod() <em>Edit Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LabelEditMethod EDIT_METHOD_EDEFAULT = LabelEditMethod.MESSAGE_FORMAT;
+
+	/**
+	 * The cached value of the '{@link #getEditMethod() <em>Edit Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected LabelEditMethod editMethod = EDIT_METHOD_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,6 +189,27 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LabelViewMethod getViewMethod() {
+		return viewMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setViewMethod(LabelViewMethod newViewMethod) {
+		LabelViewMethod oldViewMethod = viewMethod;
+		viewMethod = newViewMethod == null ? VIEW_METHOD_EDEFAULT : newViewMethod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD, oldViewMethod, viewMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditPattern() {
 		return editPattern;
 	}
@@ -166,6 +231,27 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LabelEditMethod getEditMethod() {
+		return editMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditMethod(LabelEditMethod newEditMethod) {
+		LabelEditMethod oldEditMethod = editMethod;
+		editMethod = newEditMethod == null ? EDIT_METHOD_EDEFAULT : newEditMethod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD, oldEditMethod, editMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -173,8 +259,12 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 				return getFeatures();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				return getViewPattern();
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
+				return getViewMethod();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
 				return getEditPattern();
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
+				return getEditMethod();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -195,8 +285,14 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
+				setViewMethod((LabelViewMethod)newValue);
+				return;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
 				setEditPattern((String)newValue);
+				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
+				setEditMethod((LabelEditMethod)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -216,8 +312,14 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
+				setViewMethod(VIEW_METHOD_EDEFAULT);
+				return;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
 				setEditPattern(EDIT_PATTERN_EDEFAULT);
+				return;
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
+				setEditMethod(EDIT_METHOD_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -235,8 +337,12 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 				return features != null && !features.isEmpty();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__VIEW_METHOD:
+				return viewMethod != VIEW_METHOD_EDEFAULT;
 			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_PATTERN:
 				return EDIT_PATTERN_EDEFAULT == null ? editPattern != null : !EDIT_PATTERN_EDEFAULT.equals(editPattern);
+			case GMFMapPackage.FEATURE_LABEL_MAPPING__EDIT_METHOD:
+				return editMethod != EDIT_METHOD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -253,8 +359,12 @@ public class FeatureLabelMappingImpl extends LabelMappingImpl implements Feature
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (viewPattern: ");
 		result.append(viewPattern);
+		result.append(", viewMethod: ");
+		result.append(viewMethod);
 		result.append(", editPattern: ");
 		result.append(editPattern);
+		result.append(", editMethod: ");
+		result.append(editMethod);
 		result.append(')');
 		return result.toString();
 	}

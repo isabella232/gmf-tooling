@@ -8,6 +8,16 @@
   <foreignModel>gmfmap.ecore</foreignModel>
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfmap.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfmap.ecore#//LabelViewMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/PRINTF"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/NATIVE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfmap.ecore#//LabelEditMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/REGEXP"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/NATIVE"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfmap.ecore#//Severity">
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/INFO"/>
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/WARNING"/>
@@ -95,7 +105,9 @@
     <genClasses ecoreClass="gmfmap.ecore#//FeatureLabelMapping">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureLabelMapping/features"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/viewPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editMethod"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//DesignLabelMapping"/>
     <genClasses ecoreClass="gmfmap.ecore#//Constraint" labelFeature="#//mappings/ValueExpression/body"/>

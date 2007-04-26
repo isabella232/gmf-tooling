@@ -115,6 +115,10 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFMapPackage.LABEL_VIEW_METHOD:
+				return createLabelViewMethodFromString(eDataType, initialValue);
+			case GMFMapPackage.LABEL_EDIT_METHOD:
+				return createLabelEditMethodFromString(eDataType, initialValue);
 			case GMFMapPackage.SEVERITY:
 				return createSeverityFromString(eDataType, initialValue);
 			case GMFMapPackage.LANGUAGE:
@@ -132,6 +136,10 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFMapPackage.LABEL_VIEW_METHOD:
+				return convertLabelViewMethodToString(eDataType, instanceValue);
+			case GMFMapPackage.LABEL_EDIT_METHOD:
+				return convertLabelEditMethodToString(eDataType, instanceValue);
 			case GMFMapPackage.SEVERITY:
 				return convertSeverityToString(eDataType, instanceValue);
 			case GMFMapPackage.LANGUAGE:
@@ -389,6 +397,46 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public AuditedMetricTarget createAuditedMetricTarget() {
 		AuditedMetricTargetImpl auditedMetricTarget = new AuditedMetricTargetImpl();
 		return auditedMetricTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelViewMethod createLabelViewMethodFromString(EDataType eDataType, String initialValue) {
+		LabelViewMethod result = LabelViewMethod.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLabelViewMethodToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelEditMethod createLabelEditMethodFromString(EDataType eDataType, String initialValue) {
+		LabelEditMethod result = LabelEditMethod.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLabelEditMethodToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
