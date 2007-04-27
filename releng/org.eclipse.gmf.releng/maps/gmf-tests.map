@@ -4,7 +4,7 @@
 feature@org.eclipse.gmf.tests=v20070403-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.tests=v20070420-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
+plugin@org.eclipse.gmf.tests=v20070427-0600,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
 plugin@org.eclipse.gmf.tests.runtime.common.core=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=v20070420-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
@@ -18,5 +18,5 @@ plugin@org.eclipse.gmf.tests.runtime.emf.clipboard.core=v20070330-1300,:pserver:
 plugin@org.eclipse.gmf.tests.runtime.emf.commands.core=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.commands.core
 plugin@org.eclipse.gmf.tests.runtime.emf.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui
 plugin@org.eclipse.gmf.tests.runtime.emf.ui.properties=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui.properties
-plugin@org.eclipse.gmf.tests.runtime.emf.type.core=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.core
+plugin@org.eclipse.gmf.tests.runtime.emf.type.core=v20070427-0600,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.core
 plugin@org.eclipse.gmf.tests.runtime.emf.type.ui=v20070330-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.ui
