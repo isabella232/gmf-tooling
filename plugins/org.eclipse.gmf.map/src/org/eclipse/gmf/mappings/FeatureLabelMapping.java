@@ -78,7 +78,7 @@ public interface FeatureLabelMapping extends LabelMapping {
 
 	/**
 	 * Returns the value of the '<em><b>View Method</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.mappings.LabelViewMethod}.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.mappings.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>View Method</em>' attribute isn't clear,
@@ -86,24 +86,24 @@ public interface FeatureLabelMapping extends LabelMapping {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>View Method</em>' attribute.
-	 * @see org.eclipse.gmf.mappings.LabelViewMethod
-	 * @see #setViewMethod(LabelViewMethod)
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
+	 * @see #setViewMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureLabelMapping_ViewMethod()
 	 * @model
 	 * @generated
 	 */
-	LabelViewMethod getViewMethod();
+	LabelTextAccessMethod getViewMethod();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getViewMethod <em>View Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>View Method</em>' attribute.
-	 * @see org.eclipse.gmf.mappings.LabelViewMethod
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
 	 * @see #getViewMethod()
 	 * @generated
 	 */
-	void setViewMethod(LabelViewMethod value);
+	void setViewMethod(LabelTextAccessMethod value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Pattern</b></em>' attribute.
@@ -132,7 +132,7 @@ public interface FeatureLabelMapping extends LabelMapping {
 
 	/**
 	 * Returns the value of the '<em><b>Edit Method</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.mappings.LabelEditMethod}.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.mappings.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Edit Method</em>' attribute isn't clear,
@@ -140,23 +140,23 @@ public interface FeatureLabelMapping extends LabelMapping {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Edit Method</em>' attribute.
-	 * @see org.eclipse.gmf.mappings.LabelEditMethod
-	 * @see #setEditMethod(LabelEditMethod)
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
+	 * @see #setEditMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureLabelMapping_EditMethod()
 	 * @model
 	 * @generated
 	 */
-	LabelEditMethod getEditMethod();
+	LabelTextAccessMethod getEditMethod();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.mappings.FeatureLabelMapping#getEditMethod <em>Edit Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Edit Method</em>' attribute.
-	 * @see org.eclipse.gmf.mappings.LabelEditMethod
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
 	 * @see #getEditMethod()
 	 * @generated
 	 */
-	void setEditMethod(LabelEditMethod value);
+	void setEditMethod(LabelTextAccessMethod value);
 
 } // FeatureLabelMapping

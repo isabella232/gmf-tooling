@@ -34,9 +34,8 @@ import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelEditMethod;
 import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.LabelViewMethod;
+import org.eclipse.gmf.mappings.LabelTextAccessMethod;
 import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -326,14 +325,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum labelViewMethodEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum labelEditMethodEEnum = null;
+	private EEnum labelTextAccessMethodEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1540,17 +1532,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getLabelViewMethod() {
-		return labelViewMethodEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getLabelEditMethod() {
-		return labelEditMethodEEnum;
+	public EEnum getLabelTextAccessMethod() {
+		return labelTextAccessMethodEEnum;
 	}
 
 	/**
@@ -1759,8 +1742,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		measurableEClass = createEClass(MEASURABLE);
 
 		// Create enums
-		labelViewMethodEEnum = createEEnum(LABEL_VIEW_METHOD);
-		labelEditMethodEEnum = createEEnum(LABEL_EDIT_METHOD);
+		labelTextAccessMethodEEnum = createEEnum(LABEL_TEXT_ACCESS_METHOD);
 		severityEEnum = createEEnum(SEVERITY);
 		languageEEnum = createEEnum(LANGUAGE);
 	}
@@ -1893,9 +1875,9 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(featureLabelMappingEClass, FeatureLabelMapping.class, "FeatureLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureLabelMapping_Features(), ecorePackage.getEAttribute(), null, "features", null, 1, -1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelMapping_ViewMethod(), this.getLabelViewMethod(), "viewMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureLabelMapping_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelMapping_EditMethod(), this.getLabelEditMethod(), "editMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureLabelMapping_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelMappingEClass, DesignLabelMapping.class, "DesignLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1990,15 +1972,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(measurableEClass, Measurable.class, "Measurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
-		initEEnum(labelViewMethodEEnum, LabelViewMethod.class, "LabelViewMethod");
-		addEEnumLiteral(labelViewMethodEEnum, LabelViewMethod.MESSAGE_FORMAT);
-		addEEnumLiteral(labelViewMethodEEnum, LabelViewMethod.PRINTF);
-		addEEnumLiteral(labelViewMethodEEnum, LabelViewMethod.NATIVE);
-
-		initEEnum(labelEditMethodEEnum, LabelEditMethod.class, "LabelEditMethod");
-		addEEnumLiteral(labelEditMethodEEnum, LabelEditMethod.MESSAGE_FORMAT);
-		addEEnumLiteral(labelEditMethodEEnum, LabelEditMethod.REGEXP);
-		addEEnumLiteral(labelEditMethodEEnum, LabelEditMethod.NATIVE);
+		initEEnum(labelTextAccessMethodEEnum, LabelTextAccessMethod.class, "LabelTextAccessMethod");
+		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.MESSAGE_FORMAT);
+		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.NATIVE);
+		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.REGEXP);
+		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.PRINTF);
 
 		initEEnum(severityEEnum, Severity.class, "Severity");
 		addEEnumLiteral(severityEEnum, Severity.INFO_LITERAL);

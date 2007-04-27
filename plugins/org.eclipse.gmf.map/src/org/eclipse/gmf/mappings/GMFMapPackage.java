@@ -1938,24 +1938,14 @@ public interface GMFMapPackage extends EPackage {
 	int MEASURABLE_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.mappings.LabelViewMethod <em>Label View Method</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.mappings.LabelViewMethod
-	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelViewMethod()
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_VIEW_METHOD = 36;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.mappings.LabelEditMethod <em>Label Edit Method</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.mappings.LabelEditMethod
-	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelEditMethod()
-	 * @generated
-	 */
-	int LABEL_EDIT_METHOD = 37;
+	int LABEL_TEXT_ACCESS_METHOD = 36;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
@@ -1965,7 +1955,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 38;
+	int SEVERITY = 37;
 
 
 	/**
@@ -1976,7 +1966,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLanguage()
 	 * @generated
 	 */
-	int LANGUAGE = 39;
+	int LANGUAGE = 38;
 
 
 	/**
@@ -3297,24 +3287,14 @@ public interface GMFMapPackage extends EPackage {
 	EClass getMeasurable();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.LabelViewMethod <em>Label View Method</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.LabelTextAccessMethod <em>Label Text Access Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Label View Method</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelViewMethod
+	 * @return the meta object for enum '<em>Label Text Access Method</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelTextAccessMethod
 	 * @generated
 	 */
-	EEnum getLabelViewMethod();
-
-	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.LabelEditMethod <em>Label Edit Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Label Edit Method</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelEditMethod
-	 * @generated
-	 */
-	EEnum getLabelEditMethod();
+	EEnum getLabelTextAccessMethod();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}'.

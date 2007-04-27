@@ -14,14 +14,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Label Edit Method</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Label Text Access Method</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelEditMethod()
+ * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelTextAccessMethod()
  * @model
  * @generated
  */
-public enum LabelEditMethod implements Enumerator {
+public enum LabelTextAccessMethod implements Enumerator {
 	/**
 	 * The '<em><b>MESSAGE FORMAT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -33,16 +33,6 @@ public enum LabelEditMethod implements Enumerator {
 	MESSAGE_FORMAT(0, "MESSAGE_FORMAT", "MESSAGE_FORMAT"),
 
 	/**
-	 * The '<em><b>REGEXP</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REGEXP_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	REGEXP(1, "REGEXP", "REGEXP"),
-
-	/**
 	 * The '<em><b>NATIVE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -50,7 +40,27 @@ public enum LabelEditMethod implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NATIVE(2, "NATIVE", "NATIVE");
+	NATIVE(1, "NATIVE", "NATIVE"),
+
+	/**
+	 * The '<em><b>REGEXP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REGEXP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	REGEXP(2, "REGEXP", "REGEXP"),
+
+	/**
+	 * The '<em><b>PRINTF</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRINTF_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PRINTF(3, "PRINTF", "PRINTF");
 
 	/**
 	 * The '<em><b>MESSAGE FORMAT</b></em>' literal value.
@@ -68,21 +78,6 @@ public enum LabelEditMethod implements Enumerator {
 	public static final int MESSAGE_FORMAT_VALUE = 0;
 
 	/**
-	 * The '<em><b>REGEXP</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>REGEXP</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #REGEXP
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int REGEXP_VALUE = 1;
-
-	/**
 	 * The '<em><b>NATIVE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -95,38 +90,69 @@ public enum LabelEditMethod implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NATIVE_VALUE = 2;
+	public static final int NATIVE_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Label Edit Method</b></em>' enumerators.
+	 * The '<em><b>REGEXP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>REGEXP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #REGEXP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int REGEXP_VALUE = 2;
+
+	/**
+	 * The '<em><b>PRINTF</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>PRINTF</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PRINTF
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRINTF_VALUE = 3;
+
+	/**
+	 * An array of all the '<em><b>Label Text Access Method</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final LabelEditMethod[] VALUES_ARRAY =
-		new LabelEditMethod[] {
+	private static final LabelTextAccessMethod[] VALUES_ARRAY =
+		new LabelTextAccessMethod[] {
 			MESSAGE_FORMAT,
-			REGEXP,
 			NATIVE,
+			REGEXP,
+			PRINTF,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Label Edit Method</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Label Text Access Method</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<LabelEditMethod> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<LabelTextAccessMethod> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Label Edit Method</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Label Text Access Method</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LabelEditMethod get(String literal) {
+	public static LabelTextAccessMethod get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			LabelEditMethod result = VALUES_ARRAY[i];
+			LabelTextAccessMethod result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -135,14 +161,14 @@ public enum LabelEditMethod implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Label Edit Method</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Label Text Access Method</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LabelEditMethod getByName(String name) {
+	public static LabelTextAccessMethod getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			LabelEditMethod result = VALUES_ARRAY[i];
+			LabelTextAccessMethod result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -151,16 +177,17 @@ public enum LabelEditMethod implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Label Edit Method</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Label Text Access Method</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LabelEditMethod get(int value) {
+	public static LabelTextAccessMethod get(int value) {
 		switch (value) {
 			case MESSAGE_FORMAT_VALUE: return MESSAGE_FORMAT;
-			case REGEXP_VALUE: return REGEXP;
 			case NATIVE_VALUE: return NATIVE;
+			case REGEXP_VALUE: return REGEXP;
+			case PRINTF_VALUE: return PRINTF;
 		}
 		return null;
 	}
@@ -192,7 +219,7 @@ public enum LabelEditMethod implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private LabelEditMethod(int value, String name, String literal) {
+	private LabelTextAccessMethod(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -236,4 +263,4 @@ public enum LabelEditMethod implements Enumerator {
 		return literal;
 	}
 	
-} //LabelEditMethod
+} //LabelTextAccessMethod

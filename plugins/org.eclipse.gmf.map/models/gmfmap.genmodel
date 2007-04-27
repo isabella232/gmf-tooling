@@ -8,15 +8,11 @@
   <foreignModel>gmfmap.ecore</foreignModel>
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfmap.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfmap.ecore#//LabelViewMethod">
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/MESSAGE_FORMAT"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/PRINTF"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelViewMethod/NATIVE"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfmap.ecore#//LabelEditMethod">
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/MESSAGE_FORMAT"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/REGEXP"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelEditMethod/NATIVE"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfmap.ecore#//LabelTextAccessMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelTextAccessMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelTextAccessMethod/NATIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelTextAccessMethod/REGEXP"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LabelTextAccessMethod/PRINTF"/>
     </genEnums>
     <genEnums ecoreEnum="gmfmap.ecore#//Severity">
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/INFO"/>
