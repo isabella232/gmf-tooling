@@ -141,7 +141,6 @@
 			
 	<!-- TODO: do check installed for EMFT components as well. -->
 	<target name="installEMFT" unless="emftExists" depends="checkEMFTInstalled">
-		<!--
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
@@ -177,8 +176,7 @@
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
--->
-		<!-- Temporary switch to zips for OCL -->
+		<!--
 		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
 		<antcall target="getEMFOCL"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
@@ -195,6 +193,7 @@
 		<available file="${baseLocationRoot}/${emfTransactionZipName}" property="emfTransactionZipExists" />
 		<antcall target="getEMFTransaction"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfTransactionZipName}" />
+		-->
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
