@@ -558,6 +558,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getStructuralFeaturesParserEmitter(), myDiagram.getStructuralFeaturesParserQualifiedClassName(), myDiagram);
 	}
 
+	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myDiagram.getParserProviderQualifiedClassName(), myDiagram);
+	}
+
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getElementInitializersEmitter(),
@@ -611,14 +615,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getIconProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getIconProviderClassName(),
-			myDiagram);
-	}
-
-	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getParserProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getParserProviderClassName(),
 			myDiagram);
 	}
 

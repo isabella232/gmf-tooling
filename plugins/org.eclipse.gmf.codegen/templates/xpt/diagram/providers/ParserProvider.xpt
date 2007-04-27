@@ -1,0 +1,161 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«EXTENSION xpt::diagram::providers::ParserUtils»
+
+«DEFINE ParserProvider FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «providersPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.core.service.AbstractProvider
+		implements org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider {
+	«EXPAND parsers-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(int visualID) {
+		switch (visualID) {
+		«EXPAND getParsers-»
+		}
+		return null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(
+			org.eclipse.core.runtime.IAdaptable hint) {
+		String vid = (String) hint.getAdapter(String.class);
+		if (vid != null) {
+			return getParser(«getVisualIDRegistryQualifiedClassName()».getVisualID(vid));
+		}
+		org.eclipse.gmf.runtime.notation.View view =
+				(org.eclipse.gmf.runtime.notation.View) hint.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+		if (view != null) {
+			return getParser(«getVisualIDRegistryQualifiedClassName()».getVisualID(view));
+		}
+		return null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean provides(org.eclipse.gmf.runtime.common.core.service.IOperation operation) {
+		if (operation instanceof org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) {
+			org.eclipse.core.runtime.IAdaptable hint =
+					((org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) operation).getHint();
+			if («getElementTypesQualifiedClassName()».getElement(hint) == null) {
+				return false;
+			}
+			return getParser(hint) != null;
+		}
+		return false;
+	}
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE parsers FOR gmfgen::GenDiagram-»
+	«EXPAND parsers FOREACH topLevelNodes-»
+	«EXPAND parsers FOREACH childNodes-»
+	«EXPAND parsers FOREACH links-»
+«ENDDEFINE»
+
+«DEFINE parsers FOR gmfgen::GenNode-»
+	«EXPAND parser FOREACH labels-»
+«ENDDEFINE»
+
+«DEFINE parsers FOR gmfgen::GenChildLabelNode-»
+	«EXPAND parser(this) FOR labelModelFacet-»
+«ENDDEFINE»
+
+«DEFINE parsers FOR gmfgen::GenLink-»
+	«EXPAND parser FOREACH labels-»
+«ENDDEFINE»
+
+«DEFINE parser FOR gmfgen::GenLabel-»
+	«EXPAND parser(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE parser(gmfgen::GenCommonBase element) FOR gmfgen::LabelModelFacet-»
+«ENDDEFINE»
+
+«DEFINE parser(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLabelModelFacet-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		if («parserFieldName(element)» == null) {
+			«parserFieldName(element)» = «parserCreatorName(element)»();
+		}
+		return «parserFieldName(element)»;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserCreatorName(element)»() {
+		«IF metaFeatures.size() == 1-»
+		«element.getDiagram().getStructuralFeatureParserQualifiedClassName()» parser =
+				new «element.getDiagram().getStructuralFeatureParserQualifiedClassName()»(
+						«EXPAND xpt::Common::metaFeatureAccessor FOR (genmodel::GenFeature) metaFeatures.get(0)»);
+		«ELSE-»
+		java.util.List features = new java.util.ArrayList(«metaFeatures.size()»);
+			«FOREACH metaFeatures AS feature-»
+		features.add(«EXPAND xpt::Common::metaFeatureAccessor FOR feature»);
+			«ENDFOREACH-»
+		«element.getDiagram().getStructuralFeaturesParserQualifiedClassName()» parser =
+				new «element.getDiagram().getStructuralFeaturesParserQualifiedClassName()»(features);
+		«ENDIF-»
+		«IF isPatternSpecified(viewPattern)-»
+		parser.setViewPattern("«viewPattern»");
+		«ENDIF-»
+		«IF isPatternSpecified(editPattern)-»
+		parser.setEditPattern("«editPattern»");
+		«ELSE-»
+			«IF isPatternSpecified(viewPattern)-»
+		parser.setEditPattern("«viewPattern»");
+			«ENDIF-»
+		«ENDIF-»
+		return parser;
+	}
+«ENDDEFINE»
+
+«DEFINE getParsers FOR gmfgen::GenDiagram-»
+	«EXPAND getParsers FOREACH topLevelNodes-»
+	«EXPAND getParsers FOREACH childNodes-»
+	«EXPAND getParsers FOREACH links-»
+«ENDDEFINE»
+
+«DEFINE getParsers FOR gmfgen::GenNode-»
+	«EXPAND getParser FOREACH labels-»
+«ENDDEFINE»
+
+«DEFINE getParsers FOR gmfgen::GenChildLabelNode-»
+	«EXPAND getParser(this) FOR labelModelFacet-»
+«ENDDEFINE»
+
+«DEFINE getParsers FOR gmfgen::GenLink-»
+	«EXPAND getParser FOREACH labels-»
+«ENDDEFINE»
+
+«DEFINE getParser FOR gmfgen::GenLabel-»
+	«EXPAND getParser(this) FOR modelFacet-»
+«ENDDEFINE»
+
+«DEFINE getParser(gmfgen::GenCommonBase element) FOR gmfgen::LabelModelFacet-»
+«ENDDEFINE»
+
+«DEFINE getParser(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLabelModelFacet-»
+	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»

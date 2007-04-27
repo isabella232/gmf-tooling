@@ -63,7 +63,6 @@ import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
 import org.eclipse.gmf.codegen.templates.providers.ValidationDecoratorProviderGenerator;
@@ -155,7 +154,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
-		put(tr, "/providers/ParserProvider.javajet", ParserProviderGenerator.class);
 		put(tr, "/providers/ElementInitializers.javajet", ElementInitializersGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/ValidationDecoratorProvider.javajet", ValidationDecoratorProviderGenerator.class); //$NON-NLS-1$		
@@ -368,6 +366,10 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::providers::StructuralFeaturesParser::StructuralFeaturesParser"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("xpt::diagram::providers::ParserProvider::ParserProvider"); //$NON-NLS-1$
+	}
+
 	public TextEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ViewFactoryGenerator.class);
 	}
@@ -414,10 +416,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(IconProviderGenerator.class);
-	}
-
-	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ParserProviderGenerator.class);
 	}
 
 	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
