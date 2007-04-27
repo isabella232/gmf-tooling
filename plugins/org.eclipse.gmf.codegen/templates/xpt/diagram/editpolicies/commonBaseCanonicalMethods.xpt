@@ -31,6 +31,10 @@
 	«EXPAND shouldDeleteView(nodes)-»
 	
 	«EXPAND getDefaultFactoryHint-»
+	«IF !selectNotationChildren(nodes).isEmpty()-»
+	
+	«EXPAND isOrphaned(nodes)-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenList(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
@@ -96,5 +100,20 @@ if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 	«EXPAND xpt::Common::generatedMemberComment»
 protected String getDefaultFactoryHint() {
 	return null;
+}
+«ENDDEFINE»
+
+«REM»Create different implementation for the diagram«ENDREM»
+«DEFINE isOrphaned(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
+	if (semanticChildren.contains(view.getElement())) {
+		switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+		«EXPAND xpt::Common::caseVisualID FOREACH selectNotationChildren(nodes)»	
+			return «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view) != «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement());
+		}
+		return false;
+	}
+	return true;
 }
 «ENDDEFINE»
