@@ -970,23 +970,19 @@
         <details key="documentation" value="Pattern to produce label on diagram, depends on view method"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelViewMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Pattern to produce text for inplace editor, depends on edit method; if not specified then viewPattern should be used"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelEditMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="LabelViewMethod">
+  <eClassifiers xsi:type="ecore:EEnum" name="LabelTextAccessMethod">
     <eLiterals name="MESSAGE_FORMAT"/>
-    <eLiterals name="PRINTF" value="1"/>
-    <eLiterals name="NATIVE" value="2"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="LabelEditMethod">
-    <eLiterals name="MESSAGE_FORMAT"/>
-    <eLiterals name="REGEXP" value="1"/>
-    <eLiterals name="NATIVE" value="2"/>
+    <eLiterals name="NATIVE" value="1"/>
+    <eLiterals name="REGEXP" value="2"/>
+    <eLiterals name="PRINTF" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DesignLabelModelFacet" eSuperTypes="#//LabelModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

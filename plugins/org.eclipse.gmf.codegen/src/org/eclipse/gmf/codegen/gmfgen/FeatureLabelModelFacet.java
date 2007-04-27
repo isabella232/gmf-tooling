@@ -78,7 +78,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 
 	/**
 	 * Returns the value of the '<em><b>View Method</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LabelViewMethod}.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>View Method</em>' attribute isn't clear,
@@ -86,24 +86,24 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>View Method</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewMethod
-	 * @see #setViewMethod(LabelViewMethod)
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
+	 * @see #setViewMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_ViewMethod()
 	 * @model
 	 * @generated
 	 */
-	LabelViewMethod getViewMethod();
+	LabelTextAccessMethod getViewMethod();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewMethod <em>View Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>View Method</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewMethod
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 	 * @see #getViewMethod()
 	 * @generated
 	 */
-	void setViewMethod(LabelViewMethod value);
+	void setViewMethod(LabelTextAccessMethod value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Pattern</b></em>' attribute.
@@ -132,7 +132,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 
 	/**
 	 * Returns the value of the '<em><b>Edit Method</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LabelEditMethod}.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Edit Method</em>' attribute isn't clear,
@@ -140,23 +140,23 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Edit Method</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelEditMethod
-	 * @see #setEditMethod(LabelEditMethod)
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
+	 * @see #setEditMethod(LabelTextAccessMethod)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_EditMethod()
 	 * @model
 	 * @generated
 	 */
-	LabelEditMethod getEditMethod();
+	LabelTextAccessMethod getEditMethod();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditMethod <em>Edit Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Edit Method</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelEditMethod
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 	 * @see #getEditMethod()
 	 * @generated
 	 */
-	void setEditMethod(LabelEditMethod value);
+	void setEditMethod(LabelTextAccessMethod value);
 
 } // FeatureLabelModelFacet

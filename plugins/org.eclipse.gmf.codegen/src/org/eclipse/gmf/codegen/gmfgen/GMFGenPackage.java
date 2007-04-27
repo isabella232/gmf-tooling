@@ -9324,24 +9324,14 @@ public interface GMFGenPackage extends EPackage {
 	int LINK_LABEL_ALIGNMENT = 125;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelViewMethod <em>Label View Method</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewMethod
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelViewMethod()
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_VIEW_METHOD = 126;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelEditMethod <em>Label Edit Method</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelEditMethod
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelEditMethod()
-	 * @generated
-	 */
-	int LABEL_EDIT_METHOD = 127;
+	int LABEL_TEXT_ACCESS_METHOD = 126;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -9351,7 +9341,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 128;
+	int VIEWMAP_LAYOUT_TYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -9361,7 +9351,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 129;
+	int STANDARD_ENTRY_KIND = 128;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -9371,7 +9361,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 130;
+	int GEN_SEVERITY = 129;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -9381,7 +9371,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 131;
+	int GEN_LANGUAGE = 130;
 
 
 	/**
@@ -9392,7 +9382,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 132;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 131;
 
 
 	/**
@@ -9403,7 +9393,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 133;
+	int GENERATED_TYPE = 132;
 
 
 	/**
@@ -15001,24 +14991,14 @@ public interface GMFGenPackage extends EPackage {
 	EEnum getLinkLabelAlignment();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LabelViewMethod <em>Label View Method</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod <em>Label Text Access Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Label View Method</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewMethod
+	 * @return the meta object for enum '<em>Label Text Access Method</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 	 * @generated
 	 */
-	EEnum getLabelViewMethod();
-
-	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LabelEditMethod <em>Label Edit Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Label Edit Method</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelEditMethod
-	 * @generated
-	 */
-	EEnum getLabelEditMethod();
+	EEnum getLabelTextAccessMethod();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}'.

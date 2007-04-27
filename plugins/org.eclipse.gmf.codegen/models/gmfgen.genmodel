@@ -99,15 +99,11 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/TARGET"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/SOURCE"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LabelViewMethod">
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/MESSAGE_FORMAT"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/PRINTF"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelViewMethod/NATIVE"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LabelEditMethod">
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/MESSAGE_FORMAT"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/REGEXP"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelEditMethod/NATIVE"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gmfgen.ecore#//LabelTextAccessMethod">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelTextAccessMethod/MESSAGE_FORMAT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelTextAccessMethod/NATIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelTextAccessMethod/REGEXP"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LabelTextAccessMethod/PRINTF"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//ViewmapLayoutType">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ViewmapLayoutType/UNKNOWN"/>
