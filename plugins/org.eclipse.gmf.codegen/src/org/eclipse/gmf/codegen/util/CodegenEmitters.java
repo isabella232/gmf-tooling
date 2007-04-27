@@ -66,7 +66,6 @@ import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGene
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsPropertyTester;
-import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeaturesParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
@@ -149,7 +148,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
-		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
@@ -323,7 +321,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
-		return newXpandEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy");
+		return newXpandEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
@@ -365,7 +363,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getStructuralFeatureParserEmitter() throws UnexpectedBehaviourException {
-		return retrieve(StructuralFeatureParserGenerator.class);
+		return newXpandEmitter("xpt::diagram::providers::StructuralFeatureParser::StructuralFeatureParser"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getStructuralFeaturesParserEmitter() throws UnexpectedBehaviourException {
