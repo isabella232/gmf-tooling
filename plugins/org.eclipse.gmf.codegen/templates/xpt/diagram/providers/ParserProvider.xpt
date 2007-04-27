@@ -108,12 +108,13 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 				new «element.getDiagram().getStructuralFeatureParserQualifiedClassName()»(
 						«EXPAND xpt::Common::metaFeatureAccessor FOR (genmodel::GenFeature) metaFeatures.get(0)»);
 		«ELSE-»
-		java.util.List features = new java.util.ArrayList(«metaFeatures.size()»);
-			«FOREACH metaFeatures AS feature-»
-		features.add(«EXPAND xpt::Common::metaFeatureAccessor FOR feature»);
-			«ENDFOREACH-»
 		«element.getDiagram().getStructuralFeaturesParserQualifiedClassName()» parser =
-				new «element.getDiagram().getStructuralFeaturesParserQualifiedClassName()»(features);
+				new «element.getDiagram().getStructuralFeaturesParserQualifiedClassName()»(
+						new org.eclipse.emf.ecore.EStructuralFeature[] {
+							«FOREACH metaFeatures AS feature-»
+								«EXPAND xpt::Common::metaFeatureAccessor FOR feature»,
+							«ENDFOREACH-»
+						});
 		«ENDIF-»
 		«IF isPatternSpecified(viewPattern)-»
 		parser.setViewPattern("«viewPattern»");

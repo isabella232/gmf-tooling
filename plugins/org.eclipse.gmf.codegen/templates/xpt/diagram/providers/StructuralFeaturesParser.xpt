@@ -22,10 +22,10 @@ package «providersPackageName»;
 public class «structuralFeaturesParserClassName» extends «getAbstractParserQualifiedClassName()» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private java.util.List features;
+	private org.eclipse.emf.ecore.EStructuralFeature[] features;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «structuralFeaturesParserClassName»(java.util.List features) {
+	public «structuralFeaturesParserClassName»(org.eclipse.emf.ecore.EStructuralFeature[] features) {
 		this.features = features;
 	}
 
@@ -34,24 +34,23 @@ public class «structuralFeaturesParserClassName» extends «getAbstractParserQuali
 			org.eclipse.core.runtime.IAdaptable adapter, int flags, String pattern, java.text.MessageFormat processor) {
 		org.eclipse.emf.ecore.EObject element =
 				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
-		java.util.List values = new java.util.ArrayList(features.size());
-		for (java.util.Iterator it = features.iterator(); it.hasNext();) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = (org.eclipse.emf.ecore.EStructuralFeature) it.next();
+		Object[] values = new Object[features.length];
+		for (int i = 0; i < features.length; i++) {
+			org.eclipse.emf.ecore.EStructuralFeature feature = features[i];
 			Object value = element.eGet(feature);
 			value = getValidValue(feature, value);
-			values.add(value);
+			values[i] = value;
 		}
-		return processor.format(values.toArray(new Object[values.size()]),
-				new StringBuffer(), new java.text.FieldPosition(0)).toString();
+		return processor.format(values, new StringBuffer(), new java.text.FieldPosition(0)).toString();
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus validateNewValues(Object[] values) {
-		if (values.length != features.size()) {
+		if (values.length != features.length) {
 			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
 		}
 		for (int i = 0; i < values.length; i++) {
-			Object value = getValidNewValue((org.eclipse.emf.ecore.EStructuralFeature) features.get(i), values[i]);
+			Object value = getValidNewValue(features[i], values[i]);
 			if (value instanceof InvalidValue) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
 						«editorGen.plugin.getActivatorQualifiedClassName()».ID,
@@ -79,9 +78,7 @@ public class «structuralFeaturesParserClassName» extends «getAbstractParserQuali
 				new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(
 						editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
-			org.eclipse.emf.ecore.EStructuralFeature feature =
-					(org.eclipse.emf.ecore.EStructuralFeature) features.get(i);
-			command.compose(getModificationCommand(element, feature, values[i]));
+			command.compose(getModificationCommand(element, features[i], values[i]));
 		}
 		return command;
 	}
@@ -90,8 +87,10 @@ public class «structuralFeaturesParserClassName» extends «getAbstractParserQuali
 	public boolean isAffectingEvent(Object event, int flags) {
 		if (event instanceof org.eclipse.emf.common.notify.Notification) {
 			Object feature = ((org.eclipse.emf.common.notify.Notification) event).getFeature();
-			if (features.contains(feature)) {
-				return true;
+			for (int i = 0; i < features.length; i++) {
+				if (features[i] == feature) {
+					return true;
+				}
 			}
 		}
 		return false;
