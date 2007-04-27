@@ -108,7 +108,10 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 			notationContainer.eAdapters().remove(adapter);
 		}
 		assertTrue("Faile to create notation model Node", newObjHolder[0] instanceof Node); //$NON-NLS-1$
-		return (Node) newObjHolder[0];
+		Node createdNode = (Node) newObjHolder[0];
+		assertTrue("Node was not created", createdNode.eContainer() == notationContainer);
+		assertEquals("Incorrect node type used", String.valueOf(nodeType.getVisualID()), createdNode.getType());
+		return createdNode;
 	}
 	
 	protected Edge createLink(GenLink linkType, View source, View target) {

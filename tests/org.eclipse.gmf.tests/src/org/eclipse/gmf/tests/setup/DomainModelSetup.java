@@ -106,6 +106,8 @@ public class DomainModelSetup implements DomainModelSource {
 		nodeLinkA2A.setName("LinkAtoA");
 		EClass childNode = EcoreFactory.eINSTANCE.createEClass();
 		childNode.setName("Child");
+		EClass childNode2 = EcoreFactory.eINSTANCE.createEClass();
+		childNode2.setName("Child2");
 		EClass link2Link = EcoreFactory.eINSTANCE.createEClass();
 		link2Link.setName("Link2Link");
 		EClass linkFromLink = EcoreFactory.eINSTANCE.createEClass();
@@ -130,6 +132,11 @@ public class DomainModelSetup implements DomainModelSource {
 		childLabel.setName("childLabel");
 		childLabel.setEType(EcorePackage.eINSTANCE.getEString());
 		childNode.getEStructuralFeatures().add(childLabel);
+		
+		final EAttribute childLabel2 = EcoreFactory.eINSTANCE.createEAttribute();
+		childLabel2.setName("childLabel");
+		childLabel2.setEType(EcorePackage.eINSTANCE.getEString());
+		childNode2.getEStructuralFeatures().add(childLabel2);
 
 		EReference linkToB = EcoreFactory.eINSTANCE.createEReference();
 		linkToB.setName("refLinkToB");
@@ -243,7 +250,7 @@ public class DomainModelSetup implements DomainModelSource {
 		EReference containment2ForA = EcoreFactory.eINSTANCE.createEReference();
 		containment2ForA.setContainment(true);
 		containment2ForA.setName("children2OfA");
-		containment2ForA.setEType(childNode);
+		containment2ForA.setEType(childNode2);
 		containment2ForA.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
 		nodeA.getEStructuralFeatures().add(containment2ForA);
 		
@@ -317,6 +324,7 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeLinkA2C3);
 		p.getEClassifiers().add(nodeLinkA2A);
 		p.getEClassifiers().add(childNode);
+		p.getEClassifiers().add(childNode2);
 		p.getEClassifiers().add(link2Link);
 		p.getEClassifiers().add(linkFromLink);
 		p.getEClassifiers().add(linkCrossLink);
@@ -326,7 +334,7 @@ public class DomainModelSetup implements DomainModelSource {
 		myModelPackage = p;
 		myNodeA = new NodeData(nodeA, a1, r0);
 		myChild1OfA = new NodeData(childNode, childLabel, containment1ForA);
-		myChild2OfA = new NodeData(childNode, childLabel, containment2ForA);
+		myChild2OfA = new NodeData(childNode2, childLabel2, containment2ForA);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
 		myLinkA2C_Cardinalyty2 = new LinkData(nodeLinkA2C2, refCfromLink2, linkToC2);
 		myLinkA2C_Cardinality1 = new LinkData(nodeLinkA2C3, refCfromLink3, linkToC3);
