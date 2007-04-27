@@ -144,37 +144,44 @@
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
-			<property name="updateSite" value="${emfOCLUpdateSite}" />
+			<property name="from.updatesite" value="${emfOCLUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
-			<property name="updateSite" value="${emfQueryUpdateSite}" />
+			<property name="from.updatesite" value="${emfQueryUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQueryOCLFeatureId}" />
 			<property name="version" value="${emfQueryOCLUpdateVersion}" />
-			<property name="updateSite" value="${emfQueryOCLUpdateSite}" />
+			<property name="from.updatesite" value="${emfQueryUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfValidationFeatureId}" />
 			<property name="version" value="${emfValidationUpdateVersion}" />
-			<property name="updateSite" value="${emfValidationUpdateSite}" />
+			<property name="from.updatesite" value="${emfValidationUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfValidationOCLFeatureId}" />
 			<property name="version" value="${emfValidationOCLUpdateVersion}" />
-			<property name="updateSite" value="${emfValidationOCLUpdateSite}" />
+			<property name="from.updatesite" value="${emfValidationOCLUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfTransactionFeatureId}" />
 			<property name="version" value="${emfTransactionUpdateVersion}" />
-			<property name="updateSite" value="${emfTransactionUpdateSite}" />
+			<property name="from.updatesite" value="${emfTransactionUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfWorkspaceFeatureId}" />
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
-			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
+			<property name="from.updatesite" value="${emfWorkspaceUpdateSite}" />
+			<property name="updatesite.name" value="requirements" />
 		</ant>
 		<!--
 		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
