@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -366,12 +366,21 @@ public abstract class TaiPanAbstractParser implements IParser {
 	 */
 	protected class InvalidValue {
 
+		/**
+		 * @generated
+		 */
 		private String description;
 
+		/**
+		 * @generated
+		 */
 		public InvalidValue(String description) {
 			this.description = description;
 		}
 
+		/**
+		 * @generated
+		 */
 		public String toString() {
 			return description;
 		}
