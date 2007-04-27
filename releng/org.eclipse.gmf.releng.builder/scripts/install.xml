@@ -147,6 +147,7 @@
 			<property name="from.updatesite" value="${emfOCLUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
+		<!--
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
@@ -183,11 +184,11 @@
 			<property name="from.updatesite" value="${emfWorkspaceUpdateSite}" />
 			<property name="updatesite.name" value="requirements" />
 		</ant>
-		<!--
+
 		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
 		<antcall target="getEMFOCL"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
-		
+		-->		
 		
 		<available file="${baseLocationRoot}/${emfQueryZipName}" property="emfQueryZipExists" />
 		<antcall target="getEMFQuery"/>
@@ -200,7 +201,6 @@
 		<available file="${baseLocationRoot}/${emfTransactionZipName}" property="emfTransactionZipExists" />
 		<antcall target="getEMFTransaction"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfTransactionZipName}" />
-		-->
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
