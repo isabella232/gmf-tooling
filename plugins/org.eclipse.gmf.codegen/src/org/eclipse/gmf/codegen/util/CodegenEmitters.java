@@ -54,7 +54,6 @@ import org.eclipse.gmf.codegen.templates.navigator.NavigatorSorterGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementInitializersGenerator;
@@ -150,7 +149,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
 		put(tr, "/commands/CreateTypeNodeCommand.javajet", CreateTypeNodeCommandGenerator.class);
-		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
@@ -363,7 +361,7 @@ public class CodegenEmitters {
 	// providers
 
 	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
-		return retrieve(AbstractParserGenerator.class);
+		return newXpandEmitter("xpt::diagram::providers::AbstractParser::AbstractParser"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getStructuralFeatureParserEmitter() throws UnexpectedBehaviourException {

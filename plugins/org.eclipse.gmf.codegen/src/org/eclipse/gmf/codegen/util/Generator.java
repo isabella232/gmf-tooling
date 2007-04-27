@@ -547,12 +547,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// providers
 
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getAbstractParserEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getAbstractParserClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myDiagram.getAbstractParserQualifiedClassName(), myDiagram);
 	}
 
 	private void generateStructuralFeatureParser() throws UnexpectedBehaviourException, InterruptedException {

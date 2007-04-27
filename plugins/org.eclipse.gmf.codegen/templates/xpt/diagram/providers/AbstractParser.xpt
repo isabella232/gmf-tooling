@@ -1,195 +1,150 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="AbstractParserGenerator"
-  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%
-final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
-final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-%>
-<%@ include file="../copyright4java.jetinc"%>
-<%importManager.emitPackageStatement(stringBuffer);%>
-
-import java.text.MessageFormat;
-import java.text.ParsePosition;
-
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
-import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-<%importManager.markImportLocation(stringBuffer);%>
-
-/**
- * @generated
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IParser {
 
-	/**
-	 * @generated
-	 */
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE AbstractParser FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «providersPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public abstract class «abstractParserClassName» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser {
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	private String viewPattern;
 
-	/**
-	 * @generated
-	 */
-	private MessageFormat viewProcessor;
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.text.MessageFormat viewProcessor;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	private String editPattern;
 
-	/**
-	 * @generated
-	 */
-	private MessageFormat editProcessor;
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.text.MessageFormat editProcessor;
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getViewPattern() {
 		return viewPattern;
 	}
 
-	/**
-	 * @generated
-	 */
-	protected MessageFormat getViewProcessor() {
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.text.MessageFormat getViewProcessor() {
 		return viewProcessor;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void setViewPattern(String viewPattern) {
 		this.viewPattern = viewPattern;
 		viewProcessor = createViewProcessor(viewPattern);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected MessageFormat createViewProcessor(String viewPattern) {
-		return new MessageFormat(viewPattern);
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.text.MessageFormat createViewProcessor(String viewPattern) {
+		return new java.text.MessageFormat(viewPattern);
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditPattern() {
 		return editPattern;
 	}
 
-	/**
-	 * @generated
-	 */
-	protected MessageFormat getEditProcessor() {
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.text.MessageFormat getEditProcessor() {
 		return editProcessor;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	public void setEditPattern(String editPattern) {
 		this.editPattern = editPattern;
 		editProcessor = createEditProcessor(editPattern);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected MessageFormat createEditProcessor(String editPattern) {
-		return new MessageFormat(editPattern);
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.text.MessageFormat createEditProcessor(String editPattern) {
+		return new java.text.MessageFormat(editPattern);
 	}
 
-	/**
-	 * @generated
-	 */
-	public String getPrintString(IAdaptable adapter, int flags) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getPrintString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
 		return getStringByPattern(adapter, flags, getViewPattern(), getViewProcessor());
 	}
 
-	/**
-	 * @generated
-	 */
-	public String getEditString(IAdaptable adapter, int flags) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getEditString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
 		return getStringByPattern(adapter, flags, getEditPattern(), getEditProcessor());
 	}
 
-	/**
-	 * @generated
-	 */
-	protected abstract String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor);
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected abstract String getStringByPattern(org.eclipse.core.runtime.IAdaptable adapter,
+			int flags, String pattern, java.text.MessageFormat processor);
 
-	/**
-	 * @generated
-	 */
-	public IParserEditStatus isValidEditString(IAdaptable element, String editString) {
-		ParsePosition pos = new ParsePosition(0);
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus isValidEditString(
+			org.eclipse.core.runtime.IAdaptable element, String editString) {
+		java.text.ParsePosition pos = new java.text.ParsePosition(0);
 		Object[] values = getEditProcessor().parse(editString, pos);
 		if (values == null) {
-			return new ParserEditStatus(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.ID,
-				IParserEditStatus.UNEDITABLE, "Invalid input at " + pos.getErrorIndex());
+			return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
+					«editorGen.plugin.getActivatorQualifiedClassName()».ID,
+					org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
+					"Invalid input at " + pos.getErrorIndex());
 		}
 		return validateNewValues(values);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected IParserEditStatus validateNewValues(Object[] values) {
-		return ParserEditStatus.EDITABLE_STATUS;
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus validateNewValues(Object[] values) {
+		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.EDITABLE_STATUS;
 	}
 
-	/**
-	 * @generated
-	 */
-	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
-		Object[] values = getEditProcessor().parse(newString, new ParsePosition(0));
-		if (values == null || validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
-			return UnexecutableCommand.INSTANCE;
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(
+			org.eclipse.core.runtime.IAdaptable adapter, String newString, int flags) {
+		Object[] values = getEditProcessor().parse(newString, new java.text.ParsePosition(0));
+		if (values == null || validateNewValues(values).getCode() !=
+				org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.EDITABLE) {
+			return org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE;
 		}
 		return getParseCommand(adapter, values);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected abstract ICommand getParseCommand(IAdaptable adapter, Object[] values);
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected abstract org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(
+			org.eclipse.core.runtime.IAdaptable adapter, Object[] values);
 
-	/**
-	 * @generated
-	 */
-	public IContentAssistProcessor getCompletionProcessor(IAdaptable element) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor(
+			org.eclipse.core.runtime.IAdaptable element) {
 		return null;
 	}
 
-	/**
-	 * @generated
-	 */
-	protected ICommand getModificationCommand(EObject element, EStructuralFeature feature, Object value) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.ICommand getModificationCommand(
+			org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EStructuralFeature feature, Object value) {
 		value = getValidNewValue(feature, value);
 		if (value instanceof InvalidValue) {
-			return UnexecutableCommand.INSTANCE;
+			return org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE;
 		}
-		SetRequest request = new SetRequest(element, feature, value);
-		return new SetValueCommand(request);
+		org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest request =
+				new org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest(element, feature, value);
+		return new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(request);
 	}
 
-	/**
-	 * @generated
-	 */
-	protected Object getValidValue(EStructuralFeature feature, Object value) {
-		EClassifier type = feature.getEType();
-		if (type instanceof EDataType) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected Object getValidValue(org.eclipse.emf.ecore.EStructuralFeature feature, Object value) {
+		org.eclipse.emf.ecore.EClassifier type = feature.getEType();
+		if (type instanceof org.eclipse.emf.ecore.EDataType) {
 			Class iClass = type.getInstanceClass();
 			if (String.class.equals(iClass)) {
 				if (value == null) {
@@ -200,12 +155,10 @@ public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IP
 		return value;
 	}
 
-	/**
-	 * @generated
-	 */
-	protected Object getValidNewValue(EStructuralFeature feature, Object value) {
-		EClassifier type = feature.getEType();
-		if (type instanceof EDataType) {
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected Object getValidNewValue(org.eclipse.emf.ecore.EStructuralFeature feature, Object value) {
+		org.eclipse.emf.ecore.EClassifier type = feature.getEType();
+		if (type instanceof org.eclipse.emf.ecore.EDataType) {
 			Class iClass = type.getInstanceClass();
 			if (Boolean.TYPE.equals(iClass)) {
 				if (value instanceof Boolean) {
@@ -342,9 +295,10 @@ public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IP
 				} else {
 					value = new InvalidValue("Value of type Double is expected");
 				}
-			} else if (type instanceof EEnum) {
+			} else if (type instanceof org.eclipse.emf.ecore.EEnum) {
 				if (value instanceof String) {
-					EEnumLiteral literal = ((EEnum) type).getEEnumLiteralByLiteral((String) value);
+					org.eclipse.emf.ecore.EEnumLiteral literal =
+							((org.eclipse.emf.ecore.EEnum) type).getEEnumLiteralByLiteral((String) value);
 					if (literal == null) {
 						value = new InvalidValue("Unknown literal: " + value);
 					} else {
@@ -358,29 +312,24 @@ public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IP
 		return value;
 	}
 
-	/**
-	 * @generated
-	 */
+	«EXPAND xpt::Common::generatedMemberComment»
 	protected class InvalidValue {
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		private String description;
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public InvalidValue(String description) {
 			this.description = description;
 		}
 
-		/**
-		 * @generated
-		 */
+		«EXPAND xpt::Common::generatedMemberComment»
 		public String toString() {
 			return description;
 		}
 	}
+	«EXPAND additions-»
 }
-<%importManager.emitSortedImports();%>
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»
