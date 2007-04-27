@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -42,22 +42,97 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser smallItemsSmallItems_3001Parser;
+	private IParser portLocation_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getSmallItemsSmallItems_3001Parser() {
-		if (smallItemsSmallItems_3001Parser == null) {
-			smallItemsSmallItems_3001Parser = createSmallItemsSmallItems_3001Parser();
+	private IParser getPortLocation_5001Parser() {
+		if (portLocation_5001Parser == null) {
+			portLocation_5001Parser = createPortLocation_5001Parser();
 		}
-		return smallItemsSmallItems_3001Parser;
+		return portLocation_5001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createSmallItemsSmallItems_3001Parser() {
+	protected IParser createPortLocation_5001Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getPort_Location());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser shipName_5004Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getShipName_5004Parser() {
+		if (shipName_5004Parser == null) {
+			shipName_5004Parser = createShipName_5004Parser();
+		}
+		return shipName_5004Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createShipName_5004Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser warshipName_5005Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getWarshipName_5005Parser() {
+		if (warshipName_5005Parser == null) {
+			warshipName_5005Parser = createWarshipName_5005Parser();
+		}
+		return warshipName_5005Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createWarshipName_5005Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser smallItems_3001Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getSmallItems_3001Parser() {
+		if (smallItems_3001Parser == null) {
+			smallItems_3001Parser = createSmallItems_3001Parser();
+		}
+		return smallItems_3001Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createSmallItems_3001Parser() {
 		List features = new ArrayList(2);
 		features.add(TaiPanPackage.eINSTANCE.getItem_Article());
 		features.add(TaiPanPackage.eINSTANCE.getSmallItems_Quantity());
@@ -70,22 +145,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser largeItemLargeItemArticle_5002Parser;
+	private IParser largeItemArticle_5002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getLargeItemLargeItemArticle_5002Parser() {
-		if (largeItemLargeItemArticle_5002Parser == null) {
-			largeItemLargeItemArticle_5002Parser = createLargeItemLargeItemArticle_5002Parser();
+	private IParser getLargeItemArticle_5002Parser() {
+		if (largeItemArticle_5002Parser == null) {
+			largeItemArticle_5002Parser = createLargeItemArticle_5002Parser();
 		}
-		return largeItemLargeItemArticle_5002Parser;
+		return largeItemArticle_5002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createLargeItemLargeItemArticle_5002Parser() {
+	protected IParser createLargeItemArticle_5002Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getItem_Article());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -95,22 +170,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser largeItemLargeItemWeight_5003Parser;
+	private IParser largeItemWeight_5003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getLargeItemLargeItemWeight_5003Parser() {
-		if (largeItemLargeItemWeight_5003Parser == null) {
-			largeItemLargeItemWeight_5003Parser = createLargeItemLargeItemWeight_5003Parser();
+	private IParser getLargeItemWeight_5003Parser() {
+		if (largeItemWeight_5003Parser == null) {
+			largeItemWeight_5003Parser = createLargeItemWeight_5003Parser();
 		}
-		return largeItemLargeItemWeight_5003Parser;
+		return largeItemWeight_5003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createLargeItemLargeItemWeight_5003Parser() {
+	protected IParser createLargeItemWeight_5003Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getLargeItem_Weight());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -120,97 +195,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser portPortLocation_5001Parser;
+	private IParser routeDescription_6002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getPortPortLocation_5001Parser() {
-		if (portPortLocation_5001Parser == null) {
-			portPortLocation_5001Parser = createPortPortLocation_5001Parser();
+	private IParser getRouteDescription_6002Parser() {
+		if (routeDescription_6002Parser == null) {
+			routeDescription_6002Parser = createRouteDescription_6002Parser();
 		}
-		return portPortLocation_5001Parser;
+		return routeDescription_6002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createPortPortLocation_5001Parser() {
-		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getPort_Location());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser shipShipName_5004Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getShipShipName_5004Parser() {
-		if (shipShipName_5004Parser == null) {
-			shipShipName_5004Parser = createShipShipName_5004Parser();
-		}
-		return shipShipName_5004Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createShipShipName_5004Parser() {
-		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser warshipWarshipName_5005Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getWarshipWarshipName_5005Parser() {
-		if (warshipWarshipName_5005Parser == null) {
-			warshipWarshipName_5005Parser = createWarshipWarshipName_5005Parser();
-		}
-		return warshipWarshipName_5005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createWarshipWarshipName_5005Parser() {
-		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser routeRouteDescription_6002Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getRouteRouteDescription_6002Parser() {
-		if (routeRouteDescription_6002Parser == null) {
-			routeRouteDescription_6002Parser = createRouteRouteDescription_6002Parser();
-		}
-		return routeRouteDescription_6002Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRouteRouteDescription_6002Parser() {
+	protected IParser createRouteDescription_6002Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute_Description());
 		parser.setViewPattern("route : {0}");
 		parser.setEditPattern("{0}");
@@ -220,22 +220,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser routeRouteReliability_6003Parser;
+	private IParser routeReliability_6003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteRouteReliability_6003Parser() {
-		if (routeRouteReliability_6003Parser == null) {
-			routeRouteReliability_6003Parser = createRouteRouteReliability_6003Parser();
+	private IParser getRouteReliability_6003Parser() {
+		if (routeReliability_6003Parser == null) {
+			routeReliability_6003Parser = createRouteReliability_6003Parser();
 		}
-		return routeRouteReliability_6003Parser;
+		return routeReliability_6003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteRouteReliability_6003Parser() {
+	protected IParser createRouteReliability_6003Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute_Reliability());
 		parser.setViewPattern("reliability : {0,number,percent}");
 		parser.setEditPattern("{0,number,percent}");
@@ -245,22 +245,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser routeRouteDescription_6004Parser;
+	private IParser routeDescription_6004Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteRouteDescription_6004Parser() {
-		if (routeRouteDescription_6004Parser == null) {
-			routeRouteDescription_6004Parser = createRouteRouteDescription_6004Parser();
+	private IParser getRouteDescription_6004Parser() {
+		if (routeDescription_6004Parser == null) {
+			routeDescription_6004Parser = createRouteDescription_6004Parser();
 		}
-		return routeRouteDescription_6004Parser;
+		return routeDescription_6004Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteRouteDescription_6004Parser() {
+	protected IParser createRouteDescription_6004Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute_Description());
 		parser.setViewPattern("route : {0}");
 		parser.setEditPattern("{0}");
@@ -270,22 +270,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser routeRouteReliability_6005Parser;
+	private IParser routeReliability_6005Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteRouteReliability_6005Parser() {
-		if (routeRouteReliability_6005Parser == null) {
-			routeRouteReliability_6005Parser = createRouteRouteReliability_6005Parser();
+	private IParser getRouteReliability_6005Parser() {
+		if (routeReliability_6005Parser == null) {
+			routeReliability_6005Parser = createRouteReliability_6005Parser();
 		}
-		return routeRouteReliability_6005Parser;
+		return routeReliability_6005Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteRouteReliability_6005Parser() {
+	protected IParser createRouteReliability_6005Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute_Reliability());
 		parser.setViewPattern("reliability : {0,number,percent}");
 		parser.setEditPattern("{0,number,percent}");
@@ -297,26 +297,26 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
-		case SmallItemsEditPart.VISUAL_ID:
-			return getSmallItemsSmallItems_3001Parser();
-		case LargeItemArticleEditPart.VISUAL_ID:
-			return getLargeItemLargeItemArticle_5002Parser();
-		case LargeItemWeightEditPart.VISUAL_ID:
-			return getLargeItemLargeItemWeight_5003Parser();
 		case PortLocationEditPart.VISUAL_ID:
-			return getPortPortLocation_5001Parser();
+			return getPortLocation_5001Parser();
 		case ShipNameEditPart.VISUAL_ID:
-			return getShipShipName_5004Parser();
+			return getShipName_5004Parser();
 		case WarshipNameEditPart.VISUAL_ID:
-			return getWarshipWarshipName_5005Parser();
+			return getWarshipName_5005Parser();
+		case SmallItemsEditPart.VISUAL_ID:
+			return getSmallItems_3001Parser();
+		case LargeItemArticleEditPart.VISUAL_ID:
+			return getLargeItemArticle_5002Parser();
+		case LargeItemWeightEditPart.VISUAL_ID:
+			return getLargeItemWeight_5003Parser();
 		case ReliableRouteDescEditPart.VISUAL_ID:
-			return getRouteRouteDescription_6002Parser();
+			return getRouteDescription_6002Parser();
 		case ReliableRouteRelbEditPart.VISUAL_ID:
-			return getRouteRouteReliability_6003Parser();
+			return getRouteReliability_6003Parser();
 		case UnreliableRouteDescEditPart.VISUAL_ID:
-			return getRouteRouteDescription_6004Parser();
+			return getRouteDescription_6004Parser();
 		case UnreliableRouteRelbEditPart.VISUAL_ID:
-			return getRouteRouteReliability_6005Parser();
+			return getRouteReliability_6005Parser();
 		}
 		return null;
 	}
