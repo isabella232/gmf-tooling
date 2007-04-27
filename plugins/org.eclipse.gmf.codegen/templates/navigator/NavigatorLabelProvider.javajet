@@ -305,24 +305,18 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 		
 		if (elementTypeHolder != null) {
 /* 1. Label was detected. */%>
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(new <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>() {
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return <%
-			if (labelModelFacet instanceof DesignLabelModelFacet) {
-				%><%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint")%>.DESCRIPTION<%
-			} else {
-				%><%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(hintHolder.getEditPartQualifiedClassName())%>.VISUAL_ID)<%
-			}%>;
-				}
-				if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
-					return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=elementTypeHolder.getUniqueIdentifier()%>;
-				}
-				return null;
-			}
-		});
+		<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> hintAdapter = new <%=importManager.getImportedName(genDiagram.getParserProviderQualifiedClassName())%>.HintAdapter(
+				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=elementTypeHolder.getUniqueIdentifier()%>,
+				(view.getElement() != null ? view.getElement() : view),
+<%if (labelModelFacet instanceof DesignLabelModelFacet) {%>
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint")%>.DESCRIPTION
+<%} else {%>
+				<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(hintHolder.getEditPartQualifiedClassName())%>.VISUAL_ID)
+<%}%>);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(hintAdapter);
+		
 		if (parser != null) {
-			return parser.getPrintString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(view.getElement() != null ? view.getElement() : view), <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions")%>.NONE.intValue());
+			return parser.getPrintString(hintAdapter, <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions")%>.NONE.intValue());
 		} else {
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Parser was not found for label " + <%=String.valueOf(hintHolder.getVisualID())%>);
 			return "";

@@ -59,6 +59,7 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 		}
 		return false;
 	}
+	«EXPAND HintAdapterClass»
 	«EXPAND additions-»
 }
 «ENDDEFINE»
@@ -157,6 +158,26 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 
 «DEFINE getParser(gmfgen::GenCommonBase element) FOR gmfgen::FeatureLabelModelFacet-»
 	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
+
+«DEFINE HintAdapterClass FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static class HintAdapter extends org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter {
+		private final org.eclipse.gmf.runtime.emf.type.core.IElementType elementType;
+
+		public HintAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType type, org.eclipse.emf.ecore.EObject object, String parserHint) {
+			super(object, parserHint);
+			assert type != null;
+			elementType = type;
+		}
+
+		public Object getAdapter(Class adapter) {
+			if (org.eclipse.gmf.runtime.emf.type.core.IElementType.class.equals(adapter)) {
+				return elementType;
+			}
+			return super.getAdapter(adapter);
+		}
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»

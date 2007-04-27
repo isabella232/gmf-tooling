@@ -97,41 +97,42 @@ public class NavigatorLabelProviderGenerator {
   protected final String TEXT_77 = "Text(";
   protected final String TEXT_78 = " view) {";
   protected final String TEXT_79 = NL + "\t\t";
-  protected final String TEXT_80 = " parser = ";
-  protected final String TEXT_81 = ".getInstance().getParser(new ";
-  protected final String TEXT_82 = "() {" + NL + "\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\tif (String.class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
-  protected final String TEXT_83 = ".DESCRIPTION";
-  protected final String TEXT_84 = ".getType(";
-  protected final String TEXT_85 = ".VISUAL_ID)";
-  protected final String TEXT_86 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif (";
-  protected final String TEXT_87 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\treturn ";
-  protected final String TEXT_88 = ".";
-  protected final String TEXT_89 = ";" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tif (parser != null) {" + NL + "\t\t\treturn parser.getPrintString(new ";
-  protected final String TEXT_90 = "(view.getElement() != null ? view.getElement() : view), ";
-  protected final String TEXT_91 = ".NONE.intValue());" + NL + "\t\t} else {" + NL + "\t\t\t";
-  protected final String TEXT_92 = ".getInstance().logError(\"Parser was not found for label \" + ";
-  protected final String TEXT_93 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
-  protected final String TEXT_94 = NL + "\t\treturn \"";
-  protected final String TEXT_95 = "\";";
-  protected final String TEXT_96 = NL + "\t\t";
-  protected final String TEXT_97 = " domainModelElement = view.getElement();" + NL + "\t\tif (domainModelElement != null) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_98 = "String.valueOf(";
-  protected final String TEXT_99 = ")";
-  protected final String TEXT_100 = ";" + NL + "\t\t} else {" + NL + "\t\t\t";
-  protected final String TEXT_101 = ".getInstance().logError(\"No domain element for view with visualID = \" + ";
-  protected final String TEXT_102 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
-  protected final String TEXT_103 = NL + "\t\treturn \"\";";
-  protected final String TEXT_104 = NL + "\t}";
-  protected final String TEXT_105 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnknownElementText(";
-  protected final String TEXT_106 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnresolvedDomainElementProxyText(";
-  protected final String TEXT_107 = " view) {" + NL + "\t\treturn \"<Unresolved domain element Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
-  protected final String TEXT_108 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
-  protected final String TEXT_109 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
-  protected final String TEXT_110 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
-  protected final String TEXT_111 = " view) {" + NL + "\t\treturn ";
-  protected final String TEXT_112 = ".MODEL_ID.equals(";
-  protected final String TEXT_113 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_114 = NL;
+  protected final String TEXT_80 = " hintAdapter = new ";
+  protected final String TEXT_81 = ".HintAdapter(" + NL + "\t\t\t\t";
+  protected final String TEXT_82 = ".";
+  protected final String TEXT_83 = "," + NL + "\t\t\t\t(view.getElement() != null ? view.getElement() : view),";
+  protected final String TEXT_84 = NL + "\t\t\t\t";
+  protected final String TEXT_85 = ".DESCRIPTION";
+  protected final String TEXT_86 = NL + "\t\t\t\t";
+  protected final String TEXT_87 = ".getType(";
+  protected final String TEXT_88 = ".VISUAL_ID)";
+  protected final String TEXT_89 = ");" + NL + "\t\t";
+  protected final String TEXT_90 = " parser = ";
+  protected final String TEXT_91 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t" + NL + "\t\tif (parser != null) {" + NL + "\t\t\treturn parser.getPrintString(hintAdapter, ";
+  protected final String TEXT_92 = ".NONE.intValue());" + NL + "\t\t} else {" + NL + "\t\t\t";
+  protected final String TEXT_93 = ".getInstance().logError(\"Parser was not found for label \" + ";
+  protected final String TEXT_94 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
+  protected final String TEXT_95 = NL + "\t\treturn \"";
+  protected final String TEXT_96 = "\";";
+  protected final String TEXT_97 = NL + "\t\t";
+  protected final String TEXT_98 = " domainModelElement = view.getElement();" + NL + "\t\tif (domainModelElement != null) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_99 = "String.valueOf(";
+  protected final String TEXT_100 = ")";
+  protected final String TEXT_101 = ";" + NL + "\t\t} else {" + NL + "\t\t\t";
+  protected final String TEXT_102 = ".getInstance().logError(\"No domain element for view with visualID = \" + ";
+  protected final String TEXT_103 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";
+  protected final String TEXT_104 = NL + "\t\treturn \"\";";
+  protected final String TEXT_105 = NL + "\t}";
+  protected final String TEXT_106 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnknownElementText(";
+  protected final String TEXT_107 = " view) {" + NL + "\t\treturn \"<UnknownElement Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getUnresolvedDomainElementProxyText(";
+  protected final String TEXT_108 = " view) {" + NL + "\t\treturn \"<Unresolved domain element Visual_ID = \" + view.getType() + \">\";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(";
+  protected final String TEXT_109 = " aConfig) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void restoreState(";
+  protected final String TEXT_110 = " aMemento) {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void saveState(";
+  protected final String TEXT_111 = " aMemento) {" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getDescription(Object anElement) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isOwnView(";
+  protected final String TEXT_112 = " view) {" + NL + "\t\treturn ";
+  protected final String TEXT_113 = ".MODEL_ID.equals(";
+  protected final String TEXT_114 = ".getModelID(view));" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_115 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -563,46 +564,41 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 		if (elementTypeHolder != null) {
 /* 1. Label was detected. */
     stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
-    stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
-    stringBuffer.append(TEXT_81);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_82);
-    
-			if (labelModelFacet instanceof DesignLabelModelFacet) {
-				
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint"));
-    stringBuffer.append(TEXT_83);
-    
-			} else {
-				
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName(hintHolder.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_85);
-    
-			}
-    stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_87);
+    stringBuffer.append(TEXT_80);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getParserProviderQualifiedClassName()));
+    stringBuffer.append(TEXT_81);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_88);
+    stringBuffer.append(TEXT_82);
     stringBuffer.append(elementTypeHolder.getUniqueIdentifier());
+    stringBuffer.append(TEXT_83);
+    if (labelModelFacet instanceof DesignLabelModelFacet) {
+    stringBuffer.append(TEXT_84);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint"));
+    stringBuffer.append(TEXT_85);
+    } else {
+    stringBuffer.append(TEXT_86);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_87);
+    stringBuffer.append(importManager.getImportedName(hintHolder.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_88);
+    }
     stringBuffer.append(TEXT_89);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
     stringBuffer.append(TEXT_91);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions"));
     stringBuffer.append(TEXT_92);
-    stringBuffer.append(String.valueOf(hintHolder.getVisualID()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_93);
+    stringBuffer.append(String.valueOf(hintHolder.getVisualID()));
+    stringBuffer.append(TEXT_94);
     		} else if (nextCommonBase instanceof GenCompartment) {
 /* 2. Compartment was detected. */
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(((GenCompartment) nextCommonBase).getTitle());
     stringBuffer.append(TEXT_95);
+    stringBuffer.append(((GenCompartment) nextCommonBase).getTitle());
+    stringBuffer.append(TEXT_96);
     		} else {
 			GenClass domainElement = null;
 			if (nextCommonBase instanceof GenDiagram) {
@@ -622,48 +618,48 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 /* 3. Underlying doman model element recognized. */
 				GenFeature labelFeature = domainElement.getLabelFeature();
 				boolean notString = EcorePackage.eINSTANCE.getEString() != labelFeature.getEcoreFeature().getEType();
-    stringBuffer.append(TEXT_96);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_97);
-    if (notString) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_98);
-    }
-    stringBuffer.append(getFeatureValueGetter("domainModelElement", domainElement.getLabelFeature(), true, importManager));
     if (notString) {
     stringBuffer.append(TEXT_99);
     }
+    stringBuffer.append(getFeatureValueGetter("domainModelElement", domainElement.getLabelFeature(), true, importManager));
+    if (notString) {
     stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    }
     stringBuffer.append(TEXT_101);
-    stringBuffer.append(String.valueOf(nextCommonBase.getVisualID()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_102);
+    stringBuffer.append(String.valueOf(nextCommonBase.getVisualID()));
+    stringBuffer.append(TEXT_103);
     			} else {
 /* 4. None of above. */
-    stringBuffer.append(TEXT_103);
+    stringBuffer.append(TEXT_104);
     			}
 		}
-    stringBuffer.append(TEXT_104);
+    stringBuffer.append(TEXT_105);
     	}
 }
-    stringBuffer.append(TEXT_105);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_106);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_107);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite"));
     stringBuffer.append(TEXT_109);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
     stringBuffer.append(TEXT_110);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IMemento"));
     stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_112);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_113);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_114);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_115);
     return stringBuffer.toString();
   }
 }

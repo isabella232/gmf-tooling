@@ -203,16 +203,8 @@
                 «ELSE-»
                     «EXPAND parserHint FOR modelFacet-»
                 «ENDIF-»
-			org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter hintAdapter =
-				new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(getParserElement(), parserHint) {
-
-				public Object getAdapter(Class adapter) {
-					if (org.eclipse.gmf.runtime.emf.type.core.IElementType.class.equals(adapter)) {
-						return «diagram.getElementTypesQualifiedClassName()».«host.getUniqueIdentifier()»;
-					}
-					return super.getAdapter(adapter);
-				}
-			};
+			org.eclipse.core.runtime.IAdaptable hintAdapter = new «diagram.getParserProviderQualifiedClassName()».HintAdapter(
+				«diagram.getElementTypesQualifiedClassName()».«host.getUniqueIdentifier()», getParserElement(), parserHint);
 			parser = org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
