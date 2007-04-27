@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,9 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import java.text.FieldPosition;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
@@ -38,12 +35,12 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 	/**
 	 * @generated
 	 */
-	private List features;
+	private EStructuralFeature[] features;
 
 	/**
 	 * @generated
 	 */
-	public TaiPanStructuralFeaturesParser(List features) {
+	public TaiPanStructuralFeaturesParser(EStructuralFeature[] features) {
 		this.features = features;
 	}
 
@@ -52,25 +49,25 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 	 */
 	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		List values = new ArrayList(features.size());
-		for (Iterator it = features.iterator(); it.hasNext();) {
-			EStructuralFeature feature = (EStructuralFeature) it.next();
+		Object[] values = new Object[features.length];
+		for (int i = 0; i < features.length; i++) {
+			EStructuralFeature feature = features[i];
 			Object value = element.eGet(feature);
 			value = getValidValue(feature, value);
-			values.add(value);
+			values[i] = value;
 		}
-		return processor.format(values.toArray(new Object[values.size()]), new StringBuffer(), new FieldPosition(0)).toString();
+		return processor.format(values, new StringBuffer(), new FieldPosition(0)).toString();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected IParserEditStatus validateNewValues(Object[] values) {
-		if (values.length != features.size()) {
+		if (values.length != features.length) {
 			return ParserEditStatus.UNEDITABLE_STATUS;
 		}
 		for (int i = 0; i < values.length; i++) {
-			Object value = getValidNewValue((EStructuralFeature) features.get(i), values[i]);
+			Object value = getValidNewValue(features[i], values[i]);
 			if (value instanceof InvalidValue) {
 				return new ParserEditStatus(TaiPanDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
 			}
@@ -92,8 +89,7 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 		}
 		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
-			EStructuralFeature feature = (EStructuralFeature) features.get(i);
-			command.compose(getModificationCommand(element, feature, values[i]));
+			command.compose(getModificationCommand(element, features[i], values[i]));
 		}
 		return command;
 	}
@@ -104,8 +100,10 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 	public boolean isAffectingEvent(Object event, int flags) {
 		if (event instanceof Notification) {
 			Object feature = ((Notification) event).getFeature();
-			if (features.contains(feature)) {
-				return true;
+			for (int i = 0; i < features.length; i++) {
+				if (features[i] == feature) {
+					return true;
+				}
 			}
 		}
 		return false;

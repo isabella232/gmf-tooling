@@ -11,10 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
@@ -133,10 +131,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 * @generated
 	 */
 	protected IParser createSmallItems_3001Parser() {
-		List features = new ArrayList(2);
-		features.add(TaiPanPackage.eINSTANCE.getItem_Article());
-		features.add(TaiPanPackage.eINSTANCE.getSmallItems_Quantity());
-		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
+		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(new EStructuralFeature[] { TaiPanPackage.eINSTANCE.getItem_Article(),
+				TaiPanPackage.eINSTANCE.getSmallItems_Quantity(), });
 		parser.setViewPattern("- {0} [{1,number,integer}]");
 		parser.setEditPattern("{0} : {1,number,integer}");
 		return parser;
