@@ -551,28 +551,18 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateStructuralFeatureParser() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getStructuralFeatureParserEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getStructuralFeatureParserClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getStructuralFeatureParserEmitter(), myDiagram.getStructuralFeatureParserQualifiedClassName(), myDiagram);
 	}
 
 	private void generateStructuralFeaturesParser() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getStructuralFeaturesParserEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getStructuralFeaturesParserClassName(),
-			myDiagram
-		);
+		doGenerateJavaClass(myEmitters.getStructuralFeaturesParserEmitter(), myDiagram.getStructuralFeaturesParserQualifiedClassName(), myDiagram);
 	}
 
 	private void generateElementInitializers() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getElementInitializersEmitter(),
 			myDiagram.getProvidersPackageName(),
-			"ElementInitializers",
+			"ElementInitializers", //$NON-NLS-1$
 			myDiagram
 		);
 	}
@@ -733,7 +723,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(
 					myEmitters.getDiagramContentsInitializerEmitter(),
 					myEditorGen.getEditor().getPackageName(),
-					"DiagramContentsInitializer",
+					"DiagramContentsInitializer", //$NON-NLS-1$
 					myDiagram);
 		}
 		doGenerateJavaClass(myEmitters.getNewDiagramFileWizardEmitter(), myEmitters.getNewDiagramFileWizardName(myDiagram), myDiagram);
@@ -1085,11 +1075,13 @@ public class Generator extends GeneratorBase implements Runnable {
 
     private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
         String packageName = myEditorGen.getEditor().getPackageName();
-        String messagesClassName = "Messages";
-        doGenerateJavaClass(myEmitters.getExternalizeEmitter(), packageName, messagesClassName, new Object[] { myEditorGen });
-        doGenerateFile(myEmitters.getMessagesEmitter(), new Path(messagesClassName.toLowerCase()+".properties"), new Object[] { myEditorGen });
+        String messagesClassName = "Messages"; //$NON-NLS-1$
+        doGenerateJavaClass(myEmitters.getExternalizeEmitter(),
+        		packageName, messagesClassName, new Object[] { myEditorGen });
+        doGenerateFile(myEmitters.getMessagesEmitter(),
+        		new Path(messagesClassName.toLowerCase() + ".properties"), new Object[] { myEditorGen }); //$NON-NLS-1$
     }
-    
+
 	// util
 
 	/**

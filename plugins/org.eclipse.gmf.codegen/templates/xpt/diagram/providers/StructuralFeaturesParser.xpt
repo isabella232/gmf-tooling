@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«DEFINE StructuralFeaturesParser FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «providersPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «structuralFeaturesParserClassName» extends «getAbstractParserQualifiedClassName()» {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.util.List features;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «structuralFeaturesParserClassName»(java.util.List features) {
+		this.features = features;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getStringByPattern(
+			org.eclipse.core.runtime.IAdaptable adapter, int flags, String pattern, java.text.MessageFormat processor) {
+		org.eclipse.emf.ecore.EObject element =
+				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		java.util.List values = new java.util.ArrayList(features.size());
+		for (java.util.Iterator it = features.iterator(); it.hasNext();) {
+			org.eclipse.emf.ecore.EStructuralFeature feature = (org.eclipse.emf.ecore.EStructuralFeature) it.next();
+			Object value = element.eGet(feature);
+			value = getValidValue(feature, value);
+			values.add(value);
+		}
+		return processor.format(values.toArray(new Object[values.size()]),
+				new StringBuffer(), new java.text.FieldPosition(0)).toString();
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus validateNewValues(Object[] values) {
+		if (values.length != features.size()) {
+			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
+		}
+		for (int i = 0; i < values.length; i++) {
+			Object value = getValidNewValue((org.eclipse.emf.ecore.EStructuralFeature) features.get(i), values[i]);
+			if (value instanceof InvalidValue) {
+				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
+						«editorGen.plugin.getActivatorQualifiedClassName()».ID,
+						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
+						value.toString());
+			}
+		}
+		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.EDITABLE_STATUS;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(
+			org.eclipse.core.runtime.IAdaptable adapter, Object[] values) {
+		org.eclipse.emf.ecore.EObject element =
+				(org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		if (element == null) {
+			return org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE;
+		}
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
+				org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(element);
+		if (editingDomain == null) {
+			return org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE;
+		}
+		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand command =
+				new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(
+						editingDomain, "Set Values"); //$NON-NLS-1$
+		for (int i = 0; i < values.length; i++) {
+			org.eclipse.emf.ecore.EStructuralFeature feature =
+					(org.eclipse.emf.ecore.EStructuralFeature) features.get(i);
+			command.compose(getModificationCommand(element, feature, values[i]));
+		}
+		return command;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean isAffectingEvent(Object event, int flags) {
+		if (event instanceof org.eclipse.emf.common.notify.Notification) {
+			Object feature = ((org.eclipse.emf.common.notify.Notification) event).getFeature();
+			if (features.contains(feature)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»«ENDDEFINE»
