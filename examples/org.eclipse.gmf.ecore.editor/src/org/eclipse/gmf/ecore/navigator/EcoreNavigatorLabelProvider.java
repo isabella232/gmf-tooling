@@ -48,11 +48,10 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
+import org.eclipse.gmf.ecore.providers.EcoreParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
-
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -274,20 +273,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEClass_2001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EClass_2001, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EClassNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EClassNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EClass_2001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5001);
 			return "";
@@ -298,20 +289,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEPackage_2002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EPackage_2002, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EPackageNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EPackage_2002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5002);
 			return "";
@@ -322,20 +305,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEAnnotation_2003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EAnnotation_2003, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EAnnotationSourceEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EAnnotationSourceEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EAnnotation_2003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5003);
 			return "";
@@ -346,20 +321,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEDataType_2004Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EDataType_2004, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EDataTypeNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EDataTypeNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EDataType_2004;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5004);
 			return "";
@@ -370,20 +337,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEEnum_2005Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EEnum_2005, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EEnumNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EEnumNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EEnum_2005;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005);
 			return "";
@@ -394,20 +353,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEAttribute_3001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EAttribute_3001, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EAttributeEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EAttribute_3001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3001);
 			return "";
@@ -418,20 +369,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEOperation_3002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EOperation_3002, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EOperationEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EOperation_3002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3002);
 			return "";
@@ -442,20 +385,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEAnnotation_3003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EAnnotation_3003, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EAnnotation2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EAnnotation_3003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3003);
 			return "";
@@ -466,20 +401,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEClass_3004Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EClass_3004, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EClass2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EClass_3004;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3004);
 			return "";
@@ -490,20 +417,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEPackage_3005Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EPackage_3005, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EPackage3EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EPackage_3005;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3005);
 			return "";
@@ -514,20 +433,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEDataType_3006Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EDataType_3006, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EDataType2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EDataType_3006;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3006);
 			return "";
@@ -538,20 +449,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEEnum_3007Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EEnum_3007, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EEnum2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EEnum_3007;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3007);
 			return "";
@@ -562,20 +465,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEStringToStringMapEntry_3008Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EStringToStringMapEntry_3008, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EStringToStringMapEntryEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EStringToStringMapEntryEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EStringToStringMapEntry_3008;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3008);
 			return "";
@@ -586,20 +481,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEEnumLiteral_3009Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EEnumLiteral_3009, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EEnumLiteralEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EEnumLiteral_3009;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3009);
 			return "";
@@ -630,20 +517,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEReference_4002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EReference_4002, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EReferenceNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EReference_4002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6001);
 			return "";
@@ -654,20 +533,12 @@ public class EcoreNavigatorLabelProvider extends LabelProvider implements ICommo
 	 * @generated
 	 */
 	private String getEReference_4003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new EcoreParserProvider.HintAdapter(EcoreElementTypes.EReference_4003, (view.getElement() != null ? view.getElement() : view), EcoreVisualIDRegistry
+				.getType(EReferenceName2EditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return EcoreElementTypes.EReference_4003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			EcoreDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6002);
 			return "";

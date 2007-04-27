@@ -12,14 +12,16 @@
 package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.emf.ecore.EcorePackage;
 
@@ -52,22 +54,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eAttributeEAttribute_3001Parser;
+	private IParser eClassName_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEAttributeEAttribute_3001Parser() {
-		if (eAttributeEAttribute_3001Parser == null) {
-			eAttributeEAttribute_3001Parser = createEAttributeEAttribute_3001Parser();
+	private IParser getEClassName_5001Parser() {
+		if (eClassName_5001Parser == null) {
+			eClassName_5001Parser = createEClassName_5001Parser();
 		}
-		return eAttributeEAttribute_3001Parser;
+		return eClassName_5001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEAttributeEAttribute_3001Parser() {
+	protected IParser createEClassName_5001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -77,22 +79,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eOperationEOperation_3002Parser;
+	private IParser ePackageName_5002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEOperationEOperation_3002Parser() {
-		if (eOperationEOperation_3002Parser == null) {
-			eOperationEOperation_3002Parser = createEOperationEOperation_3002Parser();
+	private IParser getEPackageName_5002Parser() {
+		if (ePackageName_5002Parser == null) {
+			ePackageName_5002Parser = createEPackageName_5002Parser();
 		}
-		return eOperationEOperation_3002Parser;
+		return ePackageName_5002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEOperationEOperation_3002Parser() {
+	protected IParser createEPackageName_5002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -102,22 +104,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eAnnotationEAnnotation_3003Parser;
+	private IParser eAnnotationSource_5003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEAnnotationEAnnotation_3003Parser() {
-		if (eAnnotationEAnnotation_3003Parser == null) {
-			eAnnotationEAnnotation_3003Parser = createEAnnotationEAnnotation_3003Parser();
+	private IParser getEAnnotationSource_5003Parser() {
+		if (eAnnotationSource_5003Parser == null) {
+			eAnnotationSource_5003Parser = createEAnnotationSource_5003Parser();
 		}
-		return eAnnotationEAnnotation_3003Parser;
+		return eAnnotationSource_5003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEAnnotationEAnnotation_3003Parser() {
+	protected IParser createEAnnotationSource_5003Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAnnotation_Source());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -127,22 +129,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eClassEClass_3004Parser;
+	private IParser eDataTypeName_5004Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEClassEClass_3004Parser() {
-		if (eClassEClass_3004Parser == null) {
-			eClassEClass_3004Parser = createEClassEClass_3004Parser();
+	private IParser getEDataTypeName_5004Parser() {
+		if (eDataTypeName_5004Parser == null) {
+			eDataTypeName_5004Parser = createEDataTypeName_5004Parser();
 		}
-		return eClassEClass_3004Parser;
+		return eDataTypeName_5004Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEClassEClass_3004Parser() {
+	protected IParser createEDataTypeName_5004Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -152,22 +154,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser ePackageEPackage_3005Parser;
+	private IParser eEnumName_5005Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEPackageEPackage_3005Parser() {
-		if (ePackageEPackage_3005Parser == null) {
-			ePackageEPackage_3005Parser = createEPackageEPackage_3005Parser();
+	private IParser getEEnumName_5005Parser() {
+		if (eEnumName_5005Parser == null) {
+			eEnumName_5005Parser = createEEnumName_5005Parser();
 		}
-		return ePackageEPackage_3005Parser;
+		return eEnumName_5005Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEPackageEPackage_3005Parser() {
+	protected IParser createEEnumName_5005Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -177,22 +179,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eDataTypeEDataType_3006Parser;
+	private IParser eAttribute_3001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEDataTypeEDataType_3006Parser() {
-		if (eDataTypeEDataType_3006Parser == null) {
-			eDataTypeEDataType_3006Parser = createEDataTypeEDataType_3006Parser();
+	private IParser getEAttribute_3001Parser() {
+		if (eAttribute_3001Parser == null) {
+			eAttribute_3001Parser = createEAttribute_3001Parser();
 		}
-		return eDataTypeEDataType_3006Parser;
+		return eAttribute_3001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEDataTypeEDataType_3006Parser() {
+	protected IParser createEAttribute_3001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -202,22 +204,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eEnumEEnum_3007Parser;
+	private IParser eOperation_3002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEEnumEEnum_3007Parser() {
-		if (eEnumEEnum_3007Parser == null) {
-			eEnumEEnum_3007Parser = createEEnumEEnum_3007Parser();
+	private IParser getEOperation_3002Parser() {
+		if (eOperation_3002Parser == null) {
+			eOperation_3002Parser = createEOperation_3002Parser();
 		}
-		return eEnumEEnum_3007Parser;
+		return eOperation_3002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEEnumEEnum_3007Parser() {
+	protected IParser createEOperation_3002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -227,26 +229,149 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eStringToStringMapEntryEStringToStringMapEntry_3008Parser;
+	private IParser eAnnotation_3003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEStringToStringMapEntryEStringToStringMapEntry_3008Parser() {
-		if (eStringToStringMapEntryEStringToStringMapEntry_3008Parser == null) {
-			eStringToStringMapEntryEStringToStringMapEntry_3008Parser = createEStringToStringMapEntryEStringToStringMapEntry_3008Parser();
+	private IParser getEAnnotation_3003Parser() {
+		if (eAnnotation_3003Parser == null) {
+			eAnnotation_3003Parser = createEAnnotation_3003Parser();
 		}
-		return eStringToStringMapEntryEStringToStringMapEntry_3008Parser;
+		return eAnnotation_3003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEStringToStringMapEntryEStringToStringMapEntry_3008Parser() {
-		List features = new ArrayList(2);
-		features.add(EcorePackage.eINSTANCE.getEStringToStringMapEntry_Key());
-		features.add(EcorePackage.eINSTANCE.getEStringToStringMapEntry_Value());
-		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(features);
+	protected IParser createEAnnotation_3003Parser() {
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAnnotation_Source());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser eClass_3004Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEClass_3004Parser() {
+		if (eClass_3004Parser == null) {
+			eClass_3004Parser = createEClass_3004Parser();
+		}
+		return eClass_3004Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEClass_3004Parser() {
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser ePackage_3005Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEPackage_3005Parser() {
+		if (ePackage_3005Parser == null) {
+			ePackage_3005Parser = createEPackage_3005Parser();
+		}
+		return ePackage_3005Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEPackage_3005Parser() {
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser eDataType_3006Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEDataType_3006Parser() {
+		if (eDataType_3006Parser == null) {
+			eDataType_3006Parser = createEDataType_3006Parser();
+		}
+		return eDataType_3006Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEDataType_3006Parser() {
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser eEnum_3007Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEEnum_3007Parser() {
+		if (eEnum_3007Parser == null) {
+			eEnum_3007Parser = createEEnum_3007Parser();
+		}
+		return eEnum_3007Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEEnum_3007Parser() {
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
+		parser.setViewPattern("{0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser eStringToStringMapEntry_3008Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEStringToStringMapEntry_3008Parser() {
+		if (eStringToStringMapEntry_3008Parser == null) {
+			eStringToStringMapEntry_3008Parser = createEStringToStringMapEntry_3008Parser();
+		}
+		return eStringToStringMapEntry_3008Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createEStringToStringMapEntry_3008Parser() {
+		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(new EStructuralFeature[] { EcorePackage.eINSTANCE.getEStringToStringMapEntry_Key(),
+				EcorePackage.eINSTANCE.getEStringToStringMapEntry_Value(), });
 		parser.setViewPattern("{0} : {1}");
 		parser.setEditPattern("{0} : {1}");
 		return parser;
@@ -255,22 +380,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eEnumLiteralEEnumLiteral_3009Parser;
+	private IParser eEnumLiteral_3009Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEEnumLiteralEEnumLiteral_3009Parser() {
-		if (eEnumLiteralEEnumLiteral_3009Parser == null) {
-			eEnumLiteralEEnumLiteral_3009Parser = createEEnumLiteralEEnumLiteral_3009Parser();
+	private IParser getEEnumLiteral_3009Parser() {
+		if (eEnumLiteral_3009Parser == null) {
+			eEnumLiteral_3009Parser = createEEnumLiteral_3009Parser();
 		}
-		return eEnumLiteralEEnumLiteral_3009Parser;
+		return eEnumLiteral_3009Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEEnumLiteralEEnumLiteral_3009Parser() {
+	protected IParser createEEnumLiteral_3009Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -280,22 +405,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eClassEClassName_5001Parser;
+	private IParser eReferenceName_6001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEClassEClassName_5001Parser() {
-		if (eClassEClassName_5001Parser == null) {
-			eClassEClassName_5001Parser = createEClassEClassName_5001Parser();
+	private IParser getEReferenceName_6001Parser() {
+		if (eReferenceName_6001Parser == null) {
+			eReferenceName_6001Parser = createEReferenceName_6001Parser();
 		}
-		return eClassEClassName_5001Parser;
+		return eReferenceName_6001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEClassEClassName_5001Parser() {
+	protected IParser createEReferenceName_6001Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -305,151 +430,24 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser ePackageEPackageName_5002Parser;
+	private IParser eReferenceLowerBoundUpperBound_6003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEPackageEPackageName_5002Parser() {
-		if (ePackageEPackageName_5002Parser == null) {
-			ePackageEPackageName_5002Parser = createEPackageEPackageName_5002Parser();
+	private IParser getEReferenceLowerBoundUpperBound_6003Parser() {
+		if (eReferenceLowerBoundUpperBound_6003Parser == null) {
+			eReferenceLowerBoundUpperBound_6003Parser = createEReferenceLowerBoundUpperBound_6003Parser();
 		}
-		return ePackageEPackageName_5002Parser;
+		return eReferenceLowerBoundUpperBound_6003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEPackageEPackageName_5002Parser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eAnnotationEAnnotationSource_5003Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEAnnotationEAnnotationSource_5003Parser() {
-		if (eAnnotationEAnnotationSource_5003Parser == null) {
-			eAnnotationEAnnotationSource_5003Parser = createEAnnotationEAnnotationSource_5003Parser();
-		}
-		return eAnnotationEAnnotationSource_5003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createEAnnotationEAnnotationSource_5003Parser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAnnotation_Source());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eDataTypeEDataTypeName_5004Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEDataTypeEDataTypeName_5004Parser() {
-		if (eDataTypeEDataTypeName_5004Parser == null) {
-			eDataTypeEDataTypeName_5004Parser = createEDataTypeEDataTypeName_5004Parser();
-		}
-		return eDataTypeEDataTypeName_5004Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createEDataTypeEDataTypeName_5004Parser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eEnumEEnumName_5005Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEEnumEEnumName_5005Parser() {
-		if (eEnumEEnumName_5005Parser == null) {
-			eEnumEEnumName_5005Parser = createEEnumEEnumName_5005Parser();
-		}
-		return eEnumEEnumName_5005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createEEnumEEnumName_5005Parser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eReferenceEReferenceName_6001Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEReferenceEReferenceName_6001Parser() {
-		if (eReferenceEReferenceName_6001Parser == null) {
-			eReferenceEReferenceName_6001Parser = createEReferenceEReferenceName_6001Parser();
-		}
-		return eReferenceEReferenceName_6001Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createEReferenceEReferenceName_6001Parser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
-		parser.setViewPattern("{0}");
-		parser.setEditPattern("{0}");
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eReferenceEReferenceLowerBoundUpperBound_6003Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEReferenceEReferenceLowerBoundUpperBound_6003Parser() {
-		if (eReferenceEReferenceLowerBoundUpperBound_6003Parser == null) {
-			eReferenceEReferenceLowerBoundUpperBound_6003Parser = createEReferenceEReferenceLowerBoundUpperBound_6003Parser();
-		}
-		return eReferenceEReferenceLowerBoundUpperBound_6003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createEReferenceEReferenceLowerBoundUpperBound_6003Parser() {
-		List features = new ArrayList(2);
-		features.add(EcorePackage.eINSTANCE.getETypedElement_LowerBound());
-		features.add(EcorePackage.eINSTANCE.getETypedElement_UpperBound());
-		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(features);
+	protected IParser createEReferenceLowerBoundUpperBound_6003Parser() {
+		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(new EStructuralFeature[] { EcorePackage.eINSTANCE.getETypedElement_LowerBound(),
+				EcorePackage.eINSTANCE.getETypedElement_UpperBound(), });
 		parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}");
 		parser.setEditPattern("{0}..{1}");
 		return parser;
@@ -458,22 +456,22 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eReferenceEReferenceName_6002Parser;
+	private IParser eReferenceName_6002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEReferenceEReferenceName_6002Parser() {
-		if (eReferenceEReferenceName_6002Parser == null) {
-			eReferenceEReferenceName_6002Parser = createEReferenceEReferenceName_6002Parser();
+	private IParser getEReferenceName_6002Parser() {
+		if (eReferenceName_6002Parser == null) {
+			eReferenceName_6002Parser = createEReferenceName_6002Parser();
 		}
-		return eReferenceEReferenceName_6002Parser;
+		return eReferenceName_6002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEReferenceEReferenceName_6002Parser() {
+	protected IParser createEReferenceName_6002Parser() {
 		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement_Name());
 		parser.setViewPattern("{0}");
 		parser.setEditPattern("{0}");
@@ -483,26 +481,24 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eReferenceEReferenceLowerBoundUpperBound_6004Parser;
+	private IParser eReferenceLowerBoundUpperBound_6004Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEReferenceEReferenceLowerBoundUpperBound_6004Parser() {
-		if (eReferenceEReferenceLowerBoundUpperBound_6004Parser == null) {
-			eReferenceEReferenceLowerBoundUpperBound_6004Parser = createEReferenceEReferenceLowerBoundUpperBound_6004Parser();
+	private IParser getEReferenceLowerBoundUpperBound_6004Parser() {
+		if (eReferenceLowerBoundUpperBound_6004Parser == null) {
+			eReferenceLowerBoundUpperBound_6004Parser = createEReferenceLowerBoundUpperBound_6004Parser();
 		}
-		return eReferenceEReferenceLowerBoundUpperBound_6004Parser;
+		return eReferenceLowerBoundUpperBound_6004Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createEReferenceEReferenceLowerBoundUpperBound_6004Parser() {
-		List features = new ArrayList(2);
-		features.add(EcorePackage.eINSTANCE.getETypedElement_LowerBound());
-		features.add(EcorePackage.eINSTANCE.getETypedElement_UpperBound());
-		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(features);
+	protected IParser createEReferenceLowerBoundUpperBound_6004Parser() {
+		EcoreStructuralFeaturesParser parser = new EcoreStructuralFeaturesParser(new EStructuralFeature[] { EcorePackage.eINSTANCE.getETypedElement_LowerBound(),
+				EcorePackage.eINSTANCE.getETypedElement_UpperBound(), });
 		parser.setViewPattern("{0}..{1,choice,-1#*|-1<{1}}");
 		parser.setEditPattern("{0}..{1}");
 		return parser;
@@ -513,42 +509,42 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
-		case EAttributeEditPart.VISUAL_ID:
-			return getEAttributeEAttribute_3001Parser();
-		case EOperationEditPart.VISUAL_ID:
-			return getEOperationEOperation_3002Parser();
-		case EAnnotation2EditPart.VISUAL_ID:
-			return getEAnnotationEAnnotation_3003Parser();
-		case EClass2EditPart.VISUAL_ID:
-			return getEClassEClass_3004Parser();
-		case EPackage3EditPart.VISUAL_ID:
-			return getEPackageEPackage_3005Parser();
-		case EDataType2EditPart.VISUAL_ID:
-			return getEDataTypeEDataType_3006Parser();
-		case EEnum2EditPart.VISUAL_ID:
-			return getEEnumEEnum_3007Parser();
-		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return getEStringToStringMapEntryEStringToStringMapEntry_3008Parser();
-		case EEnumLiteralEditPart.VISUAL_ID:
-			return getEEnumLiteralEEnumLiteral_3009Parser();
 		case EClassNameEditPart.VISUAL_ID:
-			return getEClassEClassName_5001Parser();
+			return getEClassName_5001Parser();
 		case EPackageNameEditPart.VISUAL_ID:
-			return getEPackageEPackageName_5002Parser();
+			return getEPackageName_5002Parser();
 		case EAnnotationSourceEditPart.VISUAL_ID:
-			return getEAnnotationEAnnotationSource_5003Parser();
+			return getEAnnotationSource_5003Parser();
 		case EDataTypeNameEditPart.VISUAL_ID:
-			return getEDataTypeEDataTypeName_5004Parser();
+			return getEDataTypeName_5004Parser();
 		case EEnumNameEditPart.VISUAL_ID:
-			return getEEnumEEnumName_5005Parser();
+			return getEEnumName_5005Parser();
+		case EAttributeEditPart.VISUAL_ID:
+			return getEAttribute_3001Parser();
+		case EOperationEditPart.VISUAL_ID:
+			return getEOperation_3002Parser();
+		case EAnnotation2EditPart.VISUAL_ID:
+			return getEAnnotation_3003Parser();
+		case EClass2EditPart.VISUAL_ID:
+			return getEClass_3004Parser();
+		case EPackage3EditPart.VISUAL_ID:
+			return getEPackage_3005Parser();
+		case EDataType2EditPart.VISUAL_ID:
+			return getEDataType_3006Parser();
+		case EEnum2EditPart.VISUAL_ID:
+			return getEEnum_3007Parser();
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+			return getEStringToStringMapEntry_3008Parser();
+		case EEnumLiteralEditPart.VISUAL_ID:
+			return getEEnumLiteral_3009Parser();
 		case EReferenceNameEditPart.VISUAL_ID:
-			return getEReferenceEReferenceName_6001Parser();
+			return getEReferenceName_6001Parser();
 		case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
-			return getEReferenceEReferenceLowerBoundUpperBound_6003Parser();
+			return getEReferenceLowerBoundUpperBound_6003Parser();
 		case EReferenceName2EditPart.VISUAL_ID:
-			return getEReferenceEReferenceName_6002Parser();
+			return getEReferenceName_6002Parser();
 		case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
-			return getEReferenceEReferenceLowerBoundUpperBound_6004Parser();
+			return getEReferenceLowerBoundUpperBound_6004Parser();
 		}
 		return null;
 	}
@@ -580,5 +576,26 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getParser(hint) != null;
 		}
 		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class HintAdapter extends ParserHintAdapter {
+
+		private final IElementType elementType;
+
+		public HintAdapter(IElementType type, EObject object, String parserHint) {
+			super(object, parserHint);
+			assert type != null;
+			elementType = type;
+		}
+
+		public Object getAdapter(Class adapter) {
+			if (IElementType.class.equals(adapter)) {
+				return elementType;
+			}
+			return super.getAdapter(adapter);
+		}
 	}
 }
