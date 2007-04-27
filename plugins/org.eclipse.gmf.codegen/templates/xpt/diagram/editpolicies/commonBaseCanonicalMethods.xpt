@@ -26,15 +26,23 @@
 		«ENDREM»
 		«ERROR "Unrecognized GenCommonBase: " + this»
 	«ENDIF-»
+	«EXPAND attributes FOR nodes-»
 	«EXPAND getSemanticChildrenList(nodes)-»
-	
-	«EXPAND shouldDeleteView(nodes)-»
-	
-	«EXPAND getDefaultFactoryHint-»
-	«IF !selectNotationChildren(nodes).isEmpty()-»
+	«EXPAND shouldDeleteView-»
 	
 	«EXPAND isOrphaned(nodes)-»
-	«ENDIF-»
+	«EXPAND isDomainMetaChild(nodes)-»
+	
+	«EXPAND getDefaultFactoryHint-»
+	«EXPAND getFeaturesToSynchronize(nodes)-»
+«ENDDEFINE»
+
+«DEFINE attributes FOR List[gmfgen::GenNode]-»
+«IF getContainmentFeatures(this).size() > 0-»
+	«EXPAND xpt::Common::generatedMemberComment»
+java.util.Set myFeaturesToSynchronize;
+
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenList(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
@@ -47,8 +55,7 @@ protected java.util.List getSemanticChildrenList() {
 	«EXPAND collectAllFeatureFalues(getModelElementType()) FOR getChildFeatures(nodes)-»
 	for (java.util.Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextValue = (org.eclipse.emf.ecore.EObject) valuesIterator.next();
-		switch(«getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, nextValue)) {
-		«EXPAND xpt::Common::caseVisualID FOREACH selectSemanticChildren(nodes)»
+		if (isDomainMetaChild(«getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(viewObject, nextValue))) {
 			result.add(nextValue);
 		}
 	}
@@ -74,24 +81,22 @@ allValues.add(«EXPAND xpt::Common::getFeatureValue("modelObject", containerGenCl
 	«ENDFOREACH-»
 «ENDDEFINE»
 
-«DEFINE shouldDeleteView(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
+«DEFINE shouldDeleteView FOR gmfgen::GenCommonBase»«ENDDEFINE»
+
+«DEFINE shouldDeleteView FOR gmfgen::GenDiagram-»
+
 	«EXPAND xpt::Common::generatedMemberComment»
 protected boolean shouldDeleteView(org.eclipse.gmf.runtime.notation.View view) {
-	«EXPAND checkShortcutProperty-»
-	«IF !selectNotationChildren(nodes).isEmpty()-»
-	switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
-	«EXPAND xpt::Common::caseVisualID FOREACH selectNotationChildren(nodes)»	
-		return true;
-	}
-	«ENDIF-»
-	return false;
+	return true;
 }
 «ENDDEFINE»
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenDiagram-»
+	«IF !containsShortcutsTo.isEmpty()-»
 if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 	return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 }
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenCommonBase»«ENDDEFINE»
@@ -103,17 +108,47 @@ protected String getDefaultFactoryHint() {
 }
 «ENDDEFINE»
 
-«REM»Create different implementation for the diagram«ENDREM»
 «DEFINE isOrphaned(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
-	if (semanticChildren.contains(view.getElement())) {
-		switch («getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
-		«EXPAND xpt::Common::caseVisualID FOREACH selectNotationChildren(nodes)»	
-			return «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view) != «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement());
-		}
-		return false;
-	}
-	return true;
+	«EXPAND checkShortcutProperty-»
+	«IF !selectSemanticChildren(nodes).isEmpty()-»
+	int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(view);
+	return isDomainMetaChild(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement()));
+	«ELSE-»
+	return false;
+	«ENDIF-»	
 }
+«ENDDEFINE»
+
+«DEFINE isDomainMetaChild(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
+	«IF !selectSemanticChildren(nodes).isEmpty()-»
+
+		«EXPAND xpt::Common::generatedMemberComment»
+private boolean isDomainMetaChild(int visualID) {
+	switch (visualID) {
+	«EXPAND xpt::Common::caseVisualID FOREACH selectSemanticChildren(nodes)»
+		return true;
+	}
+	return false;
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getFeaturesToSynchronize(List[gmfgen::GenNode] nodes) FOR gmfgen::GenCommonBase-»
+«IF getContainmentFeatures(nodes).size() > 0-»
+
+		«EXPAND xpt::Common::generatedMemberComment»
+protected java.util.Set getFeaturesToSynchronize(){
+	if (myFeaturesToSynchronize == null) {
+		myFeaturesToSynchronize = new java.util.HashSet();
+		«EXPAND addContainmentFeature FOREACH getContainmentFeatures(nodes)-»
+	}
+	return myFeaturesToSynchronize;
+}
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE addContainmentFeature FOR genmodel::GenFeature-»
+myFeaturesToSynchronize.add(«EXPAND xpt::Common::metaFeatureAccessor»);
 «ENDDEFINE»

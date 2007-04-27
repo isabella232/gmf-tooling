@@ -63,12 +63,12 @@ cached Set[genmodel::GenFeature] getChildFeatures(List[gmfgen::GenNode] nodes) :
 	selectSemanticChildren(nodes).collect(node | node.modelFacet.childMetaFeature).toSet()
 ;
 
-cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] nodes) :
-	nodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
+cached Set[genmodel::GenFeature] getContainmentFeatures(List[gmfgen::GenNode] nodes) :
+	selectSemanticChildren(nodes).collect(node | node.modelFacet.containmentMetaFeature).toSet()
 ;
 
-cached List[gmfgen::GenNode] selectNotationChildren(List[gmfgen::GenNode] nodes) :
-	nodes.select(node | null == node.modelFacet || !node.modelFacet.isPhantomElement())
+cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] nodes) :
+	nodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
 ;
 
 boolean hasChildrenOrCompartments(gmfgen::GenNode node) :
