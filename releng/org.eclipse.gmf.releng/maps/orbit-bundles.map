@@ -12,3 +12,4 @@ plugin@org.apache.batik.util,1.6.0=GET,http://download.eclipse.org/tools/orbit/d
 plugin@org.apache.batik.util.gui,1.6.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/S200703161546/bundles/org.apache.batik.util.gui_1.6.0.v200703161519.jar
 plugin@org.apache.batik.xml,1.6.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/S200703161546/bundles/org.apache.batik.xml_1.6.0.v200703161519.jar
 plugin@org.apache.xerces,2.8.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/S200703161546/bundles/org.apache.xerces_2.8.0.v200702082200.jar
+plugin@org.w3c.dom.svg,1.1.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/S200703161546/bundles/org.w3c.dom.svg_1.1.0.v200703161519.jar
