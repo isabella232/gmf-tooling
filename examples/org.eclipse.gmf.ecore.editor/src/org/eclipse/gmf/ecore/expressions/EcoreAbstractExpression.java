@@ -46,17 +46,12 @@ public abstract class EcoreAbstractExpression {
 	/**
 	 * @generated
 	 */
-	private String body;
+	private final String body;
 
 	/**
 	 * @generated
 	 */
-	private EClassifier context;
-
-	/**
-	 * @generated
-	 */
-	private Map env;
+	private final EClassifier context;
 
 	/**
 	 * @generated
@@ -67,16 +62,15 @@ public abstract class EcoreAbstractExpression {
 	 * @generated
 	 */
 	protected EcoreAbstractExpression(EClassifier context) {
-		this.context = context;
+		this(null, context);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected EcoreAbstractExpression(String body, EClassifier context, Map env) {
+	protected EcoreAbstractExpression(String body, EClassifier context) {
 		this.body = body;
 		this.context = context;
-		this.env = env;
 	}
 
 	/**
@@ -139,13 +133,6 @@ public abstract class EcoreAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Map environment() {
-		return env;
 	}
 
 	/**

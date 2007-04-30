@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.ecore.edit.parts, 
+Export-Package: org.eclipse.gmf.ecore.edit.parts,
  org.eclipse.gmf.ecore.part,
  org.eclipse.gmf.ecore.providers
 Require-Bundle: org.eclipse.core.runtime,
@@ -36,8 +36,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.notation.providers,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit;visibility:=reexport,
- org.eclipse.emf.query.ocl;visibility:=reexport,
- org.eclipse.emf.ocl;visibility:=reexport,
+ org.eclipse.ocl.ecore,
  org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexport,
  org.eclipse.draw2d;visibility:=reexport
 Eclipse-LazyStart: true
