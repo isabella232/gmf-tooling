@@ -58,18 +58,21 @@ public class <%=factoryClassName%> {
 		/**
 		 * @generated 
 		 */
-		private Pattern pattern;
+		private final Pattern pattern;
 
 		/**
 		 * @generated 
 		 */
 		public Expression(String body, EClassifier context, Map environment) {
-			super(body, context, environment);
+			super(body, context);
+			Pattern p;
 			try {
-				this.pattern = Pattern.compile(body);
+				p = Pattern.compile(body);
 			} catch (PatternSyntaxException e) {
 				setStatus(IStatus.ERROR, e.getMessage(), e);
+				p = null;
 			}
+			this.pattern = p;
 		}
 
 		/**
