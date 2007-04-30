@@ -131,6 +131,10 @@
 	if (request.getContainmentFeature() == null) {
 		setContainmentFeature(«EXPAND xpt::Common::metaFeatureAccessor FOR containmentMetaFeature»);
 	}
+	«REM»XXX!!! 
+	(1) why getContainer() only when sourceMetaFeature is set 
+	(2) FIXME - do not need to setElementToEdit unless use doDefaultElementCreation (no) and canExecute from [Create|Edit]ElementCommand (no, IMO)
+	«ENDREM»
 	«IF sourceMetaFeature != null-»
 	// Find container element for the new link.
 	// Climb up by containment hierarchy starting from the source

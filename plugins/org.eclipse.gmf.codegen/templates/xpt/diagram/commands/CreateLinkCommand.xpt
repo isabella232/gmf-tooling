@@ -66,8 +66,9 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.ecore.EObject doDefaultElementCreation() {
-		«getQualifiedInterfaceName(metaClass)» newElement = («getQualifiedInterfaceName(metaClass)») super.doDefaultElementCreation();
-		if (newElement != null) {
+		// «getQualifiedInterfaceName(metaClass)» newElement = («getQualifiedInterfaceName(metaClass)») super.doDefaultElementCreation();
+		«EXPAND xpt::Common::newInstance("newElement") FOR metaClass-»
+		«EXPAND addValue(sourceMetaFeature != null ? "getContainer()" : "getSource()", containmentMetaFeature.genClass, "newElement") FOR containmentMetaFeature-»
 		«IF sourceMetaFeature != null-»
 			«EXPAND addValue("newElement", metaClass, "getSource()") FOR sourceMetaFeature-»
 		«ENDIF-»
@@ -83,8 +84,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 			«link.diagram.getElementTypesQualifiedClassName()».Initializers.«link.getUniqueIdentifier()».init(
 					«IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement);
 		«ENDIF-»
-		}
-		return «IF isExternalInterface(metaClass)»(org.eclipse.emf.ecore.EObject) «ENDIF»newElement;
+		return «EXPAND xpt::Common::castToEObject FOR metaClass»newElement;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
