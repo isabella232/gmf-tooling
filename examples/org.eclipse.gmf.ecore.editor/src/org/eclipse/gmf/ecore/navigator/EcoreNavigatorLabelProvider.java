@@ -47,8 +47,8 @@ import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-
 import org.eclipse.gmf.ecore.providers.EcoreParserProvider;
+
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;

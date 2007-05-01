@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -51,6 +52,7 @@ public class EReferenceCreateCommand extends CreateElementCommand {
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
+
 		super.setElementToEdit(source);
 	}
 
@@ -78,11 +80,11 @@ public class EReferenceCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		EReference newElement = (EReference) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.setEType(getTarget());
-			EcoreElementTypes.Initializers.EReference_4002.init(newElement);
-		}
+		// org.eclipse.emf.ecore.EReference newElement = (org.eclipse.emf.ecore.EReference) super.doDefaultElementCreation();
+		EReference newElement = EcoreFactory.eINSTANCE.createEReference();
+		getSource().getEStructuralFeatures().add(newElement);
+		newElement.setEType(getTarget());
+		EcoreElementTypes.Initializers.EReference_4002.init(newElement);
 		return newElement;
 	}
 

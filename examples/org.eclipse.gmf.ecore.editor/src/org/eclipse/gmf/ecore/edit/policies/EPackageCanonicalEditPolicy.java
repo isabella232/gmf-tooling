@@ -14,18 +14,20 @@ package org.eclipse.gmf.ecore.edit.policies;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
@@ -46,6 +48,7 @@ import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -69,44 +72,31 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
-		EPackage modelObject = (EPackage) viewObject.getElement();
-		List allValues = new LinkedList();
-		allValues.addAll(modelObject.getEClassifiers());
-		allValues.addAll(modelObject.getESubpackages());
-		allValues.addAll(modelObject.getEAnnotations());
-		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
-			EObject nextValue = (EObject) valuesIterator.next();
-			switch (EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
-			case EClassEditPart.VISUAL_ID:
-			case EPackage2EditPart.VISUAL_ID:
-			case EAnnotationEditPart.VISUAL_ID:
-			case EDataTypeEditPart.VISUAL_ID:
-			case EEnumEditPart.VISUAL_ID:
-				result.add(nextValue);
-			}
-		}
-		return result;
+		return EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject);
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
-		}
-		switch (EcoreVisualIDRegistry.getVisualID(view)) {
-		case EClassEditPart.VISUAL_ID:
-		case EPackage2EditPart.VISUAL_ID:
-		case EAnnotationEditPart.VISUAL_ID:
-		case EDataTypeEditPart.VISUAL_ID:
-		case EEnumEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		EcoreDiagramUpdater.isShortcutOrphaned(view);
+		int visualID = EcoreVisualIDRegistry.getVisualID(view);
+		return EcoreDiagramUpdater.isEPackage_1000DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**
@@ -114,6 +104,19 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
+			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
+			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 	/**

@@ -12,11 +12,13 @@
 package org.eclipse.gmf.ecore.expressions;
 
 import java.lang.ref.WeakReference;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -73,6 +75,10 @@ public class EcoreOCLFactory {
 		 * @generated 
 		 */
 		private WeakReference queryRef;
+
+		/**
+		 * @generated 
+		 */
 		private final OCL oclInstance;
 
 		/**
@@ -81,7 +87,7 @@ public class EcoreOCLFactory {
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context);
 			oclInstance = OCL.newInstance();
-			createCustomEnv(oclInstance.getEnvironment(), environment);
+			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
 		/**
@@ -178,7 +184,7 @@ public class EcoreOCLFactory {
 		/**
 		 * @generated 
 		 */
-		private static void createCustomEnv(Environment ecoreEnv, Map environment) {
+		private static void initCustomEnv(Environment ecoreEnv, Map environment) {
 			for (Iterator it = environment.keySet().iterator(); it.hasNext();) {
 				String varName = (String) it.next();
 				EClassifier varType = (EClassifier) environment.get(varName);

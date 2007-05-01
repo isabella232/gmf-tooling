@@ -11,13 +11,13 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -30,31 +30,23 @@ public class EPackageDataTypesCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
-		EPackage modelObject = (EPackage) viewObject.getElement();
-		List allValues = new LinkedList();
-		allValues.addAll(modelObject.getEClassifiers());
-		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
-			EObject nextValue = (EObject) valuesIterator.next();
-			switch (EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
-			case EDataType2EditPart.VISUAL_ID:
-				result.add(nextValue);
-			}
-		}
-		return result;
+		return EcoreDiagramUpdater.getEPackageDataTypes_7006SemanticChildren(viewObject);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected boolean shouldDeleteView(View view) {
-		switch (EcoreVisualIDRegistry.getVisualID(view)) {
-		case EDataType2EditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		int visualID = EcoreVisualIDRegistry.getVisualID(view);
+		return EcoreDiagramUpdater.isEPackageDataTypes_7006DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != EcoreVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**
@@ -62,6 +54,17 @@ public class EPackageDataTypesCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 }
