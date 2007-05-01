@@ -19,7 +19,7 @@ package «getDiagram().editPoliciesPackageName»;
 	«EXPAND xpt::Common::generatedClassComment»
 public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy {
 
-	«EXPAND xpt::diagram::editpolicies::commonBaseCanonicalMethods::commonBaseCanonicalMethods(childNodes)-»
+	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::containerBaseCanonicalMethods-»
 	
 	«EXPAND xpt::diagram::editpolicies::phantomsSupport::canonicalRefresh-»
 	«EXPAND additions-»

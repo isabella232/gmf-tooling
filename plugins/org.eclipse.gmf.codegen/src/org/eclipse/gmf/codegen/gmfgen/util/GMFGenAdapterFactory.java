@@ -153,6 +153,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createMeasurementUnitAdapter();
 			}
 			@Override
+			public Adapter caseUpdater(Updater object) {
+				return createUpdaterAdapter();
+			}
+			@Override
 			public Adapter caseGenPlugin(GenPlugin object) {
 				return createGenPluginAdapter();
 			}
@@ -851,6 +855,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMeasurementUnitAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.Updater <em>Updater</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Updater
+	 * @generated
+	 */
+	public Adapter createUpdaterAdapter() {
 		return null;
 	}
 

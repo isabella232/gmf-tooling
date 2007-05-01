@@ -15,22 +15,6 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/emf/2002/Ecore";
 extension xpt::GenModelUtils;
 
-genmodel::GenClass getModelElementType(gmfgen::GenCommonBase commonBase) :
-	null
-;
-
-genmodel::GenClass getModelElementType(gmfgen::GenDiagram diagram) :
-	diagram.domainDiagramElement
-;
-
-genmodel::GenClass getModelElementType(gmfgen::GenCompartment compartment) :
-	getModelElementType(compartment.node)
-;
-
-genmodel::GenClass getModelElementType(gmfgen::GenNode node) :
-	node.modelFacet.metaClass
-;
-
 cached List[gmfgen::GenNode] getConnectedPhantomNodes(gmfgen::TypeModelFacet typeModelFacet, gmfgen::GenDiagram diagram) :
 	getPhantomNodes(diagram).select(node | canBePhantomLinkTarget(node, typeModelFacet, diagram))
 ;
@@ -57,18 +41,6 @@ private boolean isPhantom(gmfgen::FeatureLinkModelFacet modelFacet) :
 
 private boolean isPhantom(gmfgen::LinkModelFacet modelFacet) :
 	false
-;
-
-cached Set[genmodel::GenFeature] getChildFeatures(List[gmfgen::GenNode] nodes) :
-	selectSemanticChildren(nodes).collect(node | node.modelFacet.childMetaFeature).toSet()
-;
-
-cached Set[genmodel::GenFeature] getContainmentFeatures(List[gmfgen::GenNode] nodes) :
-	selectSemanticChildren(nodes).collect(node | node.modelFacet.containmentMetaFeature).toSet()
-;
-
-cached List[gmfgen::GenNode] selectSemanticChildren(List[gmfgen::GenNode] nodes) :
-	nodes.select(node | null != node.modelFacet && !node.modelFacet.isPhantomElement())
 ;
 
 boolean hasChildrenOrCompartments(gmfgen::GenNode node) :

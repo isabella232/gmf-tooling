@@ -208,6 +208,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateShortcutCreationWizard();
 			}
 		}
+		generateDiagramUpdater();
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		if (myEditorGen.getNavigator() != null) {
@@ -829,6 +830,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateDocumentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDocumentProviderEmitter(), myDiagram.getDocumentProviderQualifiedClassName(), myDiagram);
+	}
+	
+	private void generateDiagramUpdater() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myDiagram.getDiagramUpdaterQualifiedClassName(), myDiagram);
 	}
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {

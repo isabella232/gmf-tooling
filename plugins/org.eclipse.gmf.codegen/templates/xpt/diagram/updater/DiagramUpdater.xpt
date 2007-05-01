@@ -1,0 +1,134 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2005/GenModel/2.0"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+
+«EXTENSION xpt::diagram::updater::Utils»
+«EXTENSION xpt::GenModelUtils»
+
+«DEFINE DiagramUpdater FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «editorGen.editor.packageName»;
+
+	«EXPAND xpt::Common::generatedClassComment»
+public class «diagramUpdaterClassName» {
+	«EXPAND isShortcutOrphaned-»
+«LET getAllContainers().select(container | !container.sansDomain && !container.containedNodes.isEmpty()) AS semanticContainers-»
+
+	«EXPAND getGenericSemanticChildrenOfView(semanticContainers)-»
+
+	«EXPAND getSemanticChildrenOfView FOREACH semanticContainers-»
+
+	«EXPAND getSemanticChildrenOfModelElement FOREACH semanticContainers-»
+	
+	«EXPAND isDomainMetaChild FOREACH semanticContainers-»
+«ENDLET-»
+
+	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+«DEFINE isShortcutOrphaned FOR gmfgen::GenDiagram-»
+	«IF !containsShortcutsTo.isEmpty()-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View view) {
+	return view.getEAnnotation("Shortcut") != null && view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy()); //$NON-NLS-1$
+}
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getGenericSemanticChildrenOfView(List[gmfgen::GenContainerBase] semanticContainers) FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
+	switch («getVisualIDRegistryQualifiedClassName()».getVisualID(view)) {
+		«EXPAND getSemanticChildrenCase FOREACH semanticContainers-»
+	}
+	return java.util.Collections.EMPTY_LIST;
+}
+«ENDDEFINE»
+
+«DEFINE getSemanticChildrenCase FOR gmfgen::GenContainerBase-»
+«EXPAND xpt::Common::caseVisualID»
+	return «EXPAND getSemanticChildrenMethodName»(view);
+«ENDDEFINE»
+
+«DEFINE getSemanticChildrenOfView FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+	«IF getSemanticChildrenChildFeatures(this).size() > 0-»
+	«EXPAND getModelelementType» modelElement = («EXPAND getModelelementType») view.getElement();
+	java.util.List semanticChildren = «EXPAND getSemanticChildrenMethodName»(modelElement);
+	java.util.List result = new java.util.LinkedList();
+	for (java.util.Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
+		org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
+		if («EXPAND isDomainMetaChildMethodName»(«getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement))) {
+			result.add(nextElement);
+		}
+	}
+	return result;
+	«ELSE-»
+	return java.util.Collections.EMPTY_LIST;
+	«ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE getSemanticChildrenOfModelElement FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private static java.util.List «EXPAND getSemanticChildrenMethodName»(«EXPAND getModelelementType» modelElement) {
+	«IF getSemanticChildrenChildFeatures(this).size() > 0-»
+	java.util.List allValues = new java.util.LinkedList();
+	«EXPAND collectAllFeatureFalues(getModelElementType()) FOR getSemanticChildrenChildFeatures(this)-»
+	return allValues;
+	«ELSE-»
+	return java.util.Collections.EMPTY_LIST;
+	«ENDIF-»
+}
+«ENDDEFINE»
+
+«DEFINE getSemanticChildrenMethodName FOR gmfgen::GenContainerBase»get«getUniqueIdentifier()»SemanticChildren«ENDDEFINE»
+
+«DEFINE getSemanticChildrenMethodCall FOR gmfgen::GenContainerBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND getSemanticChildrenMethodName»«ENDDEFINE»
+
+«DEFINE getModelelementType FOR gmfgen::GenContainerBase»«getQualifiedInterfaceName(getModelElementType())»«ENDDEFINE»
+
+«DEFINE collectAllFeatureFalues(genmodel::GenClass containerGenClass) FOR Set[genmodel::GenFeature]-»
+	«FOREACH this AS childFeature-»
+		«IF null == childFeature-»
+allValues.add(/*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/);
+		«ELSEIF isListType(childFeature)-»
+allValues.addAll(«EXPAND xpt::Common::getFeatureValue("modelElement", containerGenClass) FOR childFeature»);
+		«ELSE-»
+allValues.add(«EXPAND xpt::Common::getFeatureValue("modelElement", containerGenClass) FOR childFeature»);
+		«ENDIF-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE isDomainMetaChild FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static boolean «EXPAND isDomainMetaChildMethodName»(int visualID) {
+	«IF !getSemanticChildren(this).isEmpty()-»
+	switch (visualID) {
+	«EXPAND xpt::Common::caseVisualID FOREACH getSemanticChildren(this)»
+		return true;
+	}
+	«ENDIF-»
+	return false;
+}
+«ENDDEFINE»
+
+«DEFINE isDomainMetaChildMethodName FOR gmfgen::GenContainerBase»is«getUniqueIdentifier()»DomainMetaChild«ENDDEFINE»
+
+«DEFINE isDomainMetaChildMethodCall FOR gmfgen::GenContainerBase»«getDiagram().getDiagramUpdaterQualifiedClassName()».«EXPAND isDomainMetaChildMethodName»«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenContainerBase»«ENDDEFINE»

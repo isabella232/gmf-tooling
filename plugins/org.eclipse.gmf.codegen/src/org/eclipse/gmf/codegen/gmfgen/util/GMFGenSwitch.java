@@ -104,6 +104,7 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = caseShortcuts(genDiagram);
 				if (result == null) result = caseBatchValidation(genDiagram);
 				if (result == null) result = caseMeasurementUnit(genDiagram);
+				if (result == null) result = caseUpdater(genDiagram);
 				if (result == null) result = caseGenCommonBase(genDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -225,6 +226,12 @@ public class GMFGenSwitch<T> {
 			case GMFGenPackage.MEASUREMENT_UNIT: {
 				MeasurementUnit measurementUnit = (MeasurementUnit)theEObject;
 				T result = caseMeasurementUnit(measurementUnit);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.UPDATER: {
+				Updater updater = (Updater)theEObject;
+				T result = caseUpdater(updater);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1238,6 +1245,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseMeasurementUnit(MeasurementUnit object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Updater</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Updater</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUpdater(Updater object) {
 		return null;
 	}
 

@@ -21,7 +21,7 @@ package «editPoliciesPackageName»;
 	«EXPAND xpt::Common::generatedClassComment»
 public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy {
 
-	«EXPAND xpt::diagram::editpolicies::commonBaseCanonicalMethods::commonBaseCanonicalMethods(topLevelNodes)-»
+	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::containerBaseCanonicalMethods-»
 
 	«EXPAND getSemanticConnectionsList-»
 	

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.6 2007/03/14 14:39:35 atikhomirov Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.7 2007/05/01 13:28:04 ashatalin Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -84,23 +84,12 @@ public interface GenExpressionProviderBase extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Container</em>' container reference.
-	 * @see #setContainer(GenExpressionProviderContainer)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionProviderBase_Container()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer#getProviders
-	 * @model opposite="providers" required="true"
+	 * @model opposite="providers" required="true" changeable="false"
 	 * @generated
 	 */
 	GenExpressionProviderContainer getContainer();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase#getContainer <em>Container</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Container</em>' container reference.
-	 * @see #getContainer()
-	 * @generated
-	 */
-	void setContainer(GenExpressionProviderContainer value);
 
 	/**
 	 * <!-- begin-user-doc -->

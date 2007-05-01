@@ -50,6 +50,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
+import org.eclipse.gmf.codegen.gmfgen.Updater;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -126,6 +127,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isLiveValidationUIFeedback <em>Live Validation UI Feedback</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
@@ -1394,6 +1396,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String units = UNITS_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getDiagramUpdaterClassName() <em>Diagram Updater Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramUpdaterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDiagramUpdaterClassName() <em>Diagram Updater Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramUpdaterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String diagramUpdaterClassName = DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getDomainDiagramElement() <em>Domain Diagram Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2477,6 +2499,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDiagramUpdaterClassNameGen() {
+		return diagramUpdaterClassName;
+	}
+
+	public String getDiagramUpdaterClassName() {
+		String value = getDiagramUpdaterClassNameGen();
+		if(isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramUpdater"; //$NON-NLS-1$						
+		}
+		return value;		
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramUpdaterClassName(String newDiagramUpdaterClassName) {
+		String oldDiagramUpdaterClassName = diagramUpdaterClassName;
+		diagramUpdaterClassName = newDiagramUpdaterClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME, oldDiagramUpdaterClassName, diagramUpdaterClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
@@ -3490,7 +3541,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public boolean needsCanonicalEditPolicy() {
-		return !isSansDomain() && isSynchronized();
+		return !isSansDomain() && isSynchronized() && !getContainedNodes().isEmpty();
 	}
 
 	/**
@@ -3879,6 +3930,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return isLiveValidationUIFeedback() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return getUnits();
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
+				return getDiagramUpdaterClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -4103,6 +4156,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
+				setDiagramUpdaterClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
@@ -4337,6 +4393,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits(UNITS_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
+				setDiagramUpdaterClassName(DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);
 				return;
@@ -4506,6 +4565,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return liveValidationUIFeedback != LIVE_VALIDATION_UI_FEEDBACK_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
+				return DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT == null ? diagramUpdaterClassName != null : !DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT.equals(diagramUpdaterClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen() != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -4640,6 +4701,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				default: return -1;
 			}
 		}
+		if (baseClass == Updater.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME: return GMFGenPackage.UPDATER__DIAGRAM_UPDATER_CLASS_NAME;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -4750,6 +4817,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == MeasurementUnit.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.MEASUREMENT_UNIT__UNITS: return GMFGenPackage.GEN_DIAGRAM__UNITS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Updater.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.UPDATER__DIAGRAM_UPDATER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -5038,6 +5111,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getDiagramUpdaterQualifiedClassName() {
+		return getEditorPackageName() + '.' + getDiagramUpdaterClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -5171,6 +5253,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(liveValidationUIFeedback);
 		result.append(", units: ");
 		result.append(units);
+		result.append(", diagramUpdaterClassName: ");
+		result.append(diagramUpdaterClassName);
 		result.append(", synchronized: ");
 		result.append(synchronized_);
 		result.append(')');

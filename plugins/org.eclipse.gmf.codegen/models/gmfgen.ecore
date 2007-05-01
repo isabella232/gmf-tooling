@@ -73,7 +73,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressionProviders" eType="#//GenExpressionProviderContainer"
         containment="true" eOpposite="#//GenExpressionProviderContainer/editorGen"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit #//Updater">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')"/>
       <details key="description" value="'Diagram Runtime Class' must be a notation::Diagram or sub-class"/>
@@ -496,6 +496,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="MeasurementUnit" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="Pixel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Updater" abstract="true" interface="true">
+    <eOperations name="getDiagramUpdaterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramUpdaterClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPlugin">
     <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -1678,7 +1683,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//ValueExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
-        eType="#//GenExpressionProviderContainer" eOpposite="#//GenExpressionProviderContainer/providers"/>
+        eType="#//GenExpressionProviderContainer" changeable="false" eOpposite="#//GenExpressionProviderContainer/providers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenJavaExpressionProvider" eSuperTypes="#//GenExpressionProviderBase">
     <eOperations name="getOperationName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
