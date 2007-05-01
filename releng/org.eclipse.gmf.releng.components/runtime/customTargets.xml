@@ -34,6 +34,7 @@
 		<property name="targetConfigTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
+		<get src="${orbitMapURL}" dest="${buildDirectory}/maps" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="checkLocalMaps">
