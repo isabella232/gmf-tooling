@@ -107,8 +107,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEClassAttributes_7001DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEClassAttributes_7001DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -123,8 +124,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEClassOperations_7002DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEClassOperations_7002DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -139,8 +141,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEClassClassAnnotations_7003DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEClassClassAnnotations_7003DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -155,8 +158,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackageClasses_7004DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackageClasses_7004DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -171,8 +175,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackagePackages_7005DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackagePackages_7005DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -187,8 +192,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackageDataTypes_7006DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackageDataTypes_7006DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -203,8 +209,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackageEnums_7007DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackageEnums_7007DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -219,8 +226,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackagePackageAnnotations_7008DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackagePackageAnnotations_7008DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -235,8 +243,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEAnnotationDetails_7009DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEAnnotationDetails_7009DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -251,8 +260,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEDataTypeDataTypeAnnotations_7010DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEDataTypeDataTypeAnnotations_7010DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -267,8 +277,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEEnumLiterals_7011DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEEnumLiterals_7011DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -283,8 +294,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEEnumEnumAnnotations_7012DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEEnumEnumAnnotations_7012DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;
@@ -299,8 +311,9 @@ public class EcoreDiagramUpdater {
 		List result = new LinkedList();
 		for (Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 			EObject nextElement = (EObject) semanticIterator.next();
-			if (isEPackage_1000DomainMetaChild(EcoreVisualIDRegistry.getNodeVisualID(view, nextElement))) {
-				result.add(nextElement);
+			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, nextElement);
+			if (isEPackage_1000DomainMetaChild(visualID)) {
+				result.add(new EcoreNodeDescriptor(nextElement, visualID));
 			}
 		}
 		return result;

@@ -13,11 +13,14 @@ package org.eclipse.gmf.ecore.edit.policies;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
+import org.eclipse.gmf.ecore.part.EcoreNodeDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -37,7 +40,11 @@ public class EPackagePackageAnnotationsCanonicalEditPolicy extends CanonicalEdit
 	 */
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
-		return EcoreDiagramUpdater.getEPackagePackageAnnotations_7008SemanticChildren(viewObject);
+		List result = new LinkedList();
+		for (Iterator it = EcoreDiagramUpdater.getEPackagePackageAnnotations_7008SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
+		}
+		return result;
 	}
 
 	/**

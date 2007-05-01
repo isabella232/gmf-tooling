@@ -49,6 +49,7 @@ import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
+import org.eclipse.gmf.ecore.part.EcoreNodeDescriptor;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -79,7 +80,11 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
-		return EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject);
+		List result = new LinkedList();
+		for (Iterator it = EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
+		}
+		return result;
 	}
 
 	/**
