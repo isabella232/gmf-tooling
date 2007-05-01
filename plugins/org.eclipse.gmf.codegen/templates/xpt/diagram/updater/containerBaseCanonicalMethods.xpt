@@ -40,7 +40,11 @@ java.util.Set myFeaturesToSynchronize;
 	«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getSemanticChildrenList() {
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	return «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject);
+	java.util.List result = new java.util.LinkedList();
+	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
+		result.add(((«getDiagram().getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
+	}
+	return result;
 }
 «ENDDEFINE»
 

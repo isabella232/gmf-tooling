@@ -540,6 +540,10 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::updater::DiagramUpdater::DiagramUpdater"); //$NON-NLS-1$
 	}
 	
+	public TextEmitter getNodeDescriptorEmitter() {
+		return newXpandEmitter("xpt::diagram::updater::NodeDescriptor::NodeDescriptor"); //$NON-NLS-1$
+	}
+	
 	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ActionBarContributorGenerator.class);
 	}

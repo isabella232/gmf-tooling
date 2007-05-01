@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Updater#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Updater#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,11 +53,45 @@ public interface Updater extends EObject {
 	void setDiagramUpdaterClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Node Descriptor Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Node Descriptor Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Node Descriptor Class Name</em>' attribute.
+	 * @see #setNodeDescriptorClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getUpdater_NodeDescriptorClassName()
+	 * @model
+	 * @generated
+	 */
+	String getNodeDescriptorClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Updater#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Node Descriptor Class Name</em>' attribute.
+	 * @see #getNodeDescriptorClassName()
+	 * @generated
+	 */
+	void setNodeDescriptorClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
 	String getDiagramUpdaterQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getNodeDescriptorQualifiedClassName();
 
 } // Updater

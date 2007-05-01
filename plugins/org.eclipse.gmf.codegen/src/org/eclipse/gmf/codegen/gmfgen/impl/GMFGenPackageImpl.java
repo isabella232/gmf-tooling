@@ -2444,6 +2444,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getUpdater_NodeDescriptorClassName() {
+		return (EAttribute)updaterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenPlugin() {
 		return genPluginEClass;
 	}
@@ -6009,6 +6018,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		updaterEClass = createEClass(UPDATER);
 		createEAttribute(updaterEClass, UPDATER__DIAGRAM_UPDATER_CLASS_NAME);
+		createEAttribute(updaterEClass, UPDATER__NODE_DESCRIPTOR_CLASS_NAME);
 
 		genPluginEClass = createEClass(GEN_PLUGIN);
 		createEReference(genPluginEClass, GEN_PLUGIN__EDITOR_GEN);
@@ -6890,8 +6900,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(updaterEClass, Updater.class, "Updater", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUpdater_DiagramUpdaterClassName(), ecorePackage.getEString(), "diagramUpdaterClassName", null, 0, 1, Updater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUpdater_NodeDescriptorClassName(), ecorePackage.getEString(), "nodeDescriptorClassName", null, 0, 1, Updater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(updaterEClass, ecorePackage.getEString(), "getDiagramUpdaterQualifiedClassName", 0, 1);
+
+		addEOperation(updaterEClass, ecorePackage.getEString(), "getNodeDescriptorQualifiedClassName", 0, 1);
 
 		initEClass(genPluginEClass, GenPlugin.class, "GenPlugin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPlugin_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Plugin(), "editorGen", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

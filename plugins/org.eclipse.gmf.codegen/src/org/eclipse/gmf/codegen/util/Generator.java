@@ -209,6 +209,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 		generateDiagramUpdater();
+		generateNodeDescriptor();
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		if (myEditorGen.getNavigator() != null) {
@@ -834,6 +835,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateDiagramUpdater() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myDiagram.getDiagramUpdaterQualifiedClassName(), myDiagram);
+	}
+	
+	private void generateNodeDescriptor() throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getNodeDescriptorEmitter(), myDiagram.getNodeDescriptorQualifiedClassName(), myDiagram);
 	}
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {

@@ -128,6 +128,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isLiveValidationUIFeedback <em>Live Validation UI Feedback</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramUpdaterClassName <em>Diagram Updater Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNodeDescriptorClassName <em>Node Descriptor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
@@ -1416,6 +1417,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String diagramUpdaterClassName = DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getNodeDescriptorClassName() <em>Node Descriptor Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNodeDescriptorClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNodeDescriptorClassName() <em>Node Descriptor Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNodeDescriptorClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String nodeDescriptorClassName = NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getDomainDiagramElement() <em>Domain Diagram Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2521,6 +2542,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		diagramUpdaterClassName = newDiagramUpdaterClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME, oldDiagramUpdaterClassName, diagramUpdaterClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNodeDescriptorClassNameGen() {
+		return nodeDescriptorClassName;
+	}
+	
+	public String getNodeDescriptorClassName() {
+		String value = getNodeDescriptorClassNameGen();
+		if(isEmpty(value)) {
+			value = getDomainPackageCapName() + "NodeDescriptor"; //$NON-NLS-1$						
+		}
+		return value;		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNodeDescriptorClassName(String newNodeDescriptorClassName) {
+		String oldNodeDescriptorClassName = nodeDescriptorClassName;
+		nodeDescriptorClassName = newNodeDescriptorClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME, oldNodeDescriptorClassName, nodeDescriptorClassName));
 	}
 
 	/**
@@ -3932,6 +3982,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
 				return getDiagramUpdaterClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
+				return getNodeDescriptorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -4159,6 +4211,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
 				setDiagramUpdaterClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
+				setNodeDescriptorClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
@@ -4396,6 +4451,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
 				setDiagramUpdaterClassName(DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
+				setNodeDescriptorClassName(NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);
 				return;
@@ -4567,6 +4625,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
 				return DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT == null ? diagramUpdaterClassName != null : !DIAGRAM_UPDATER_CLASS_NAME_EDEFAULT.equals(diagramUpdaterClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
+				return NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT == null ? nodeDescriptorClassName != null : !NODE_DESCRIPTOR_CLASS_NAME_EDEFAULT.equals(nodeDescriptorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen() != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -4704,6 +4764,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == Updater.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME: return GMFGenPackage.UPDATER__DIAGRAM_UPDATER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME: return GMFGenPackage.UPDATER__NODE_DESCRIPTOR_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -4823,6 +4884,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == Updater.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.UPDATER__DIAGRAM_UPDATER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME;
+				case GMFGenPackage.UPDATER__NODE_DESCRIPTOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -5120,6 +5182,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getNodeDescriptorQualifiedClassName() {
+		return getEditorPackageName() + '.' + getNodeDescriptorClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -5255,6 +5326,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(units);
 		result.append(", diagramUpdaterClassName: ");
 		result.append(diagramUpdaterClassName);
+		result.append(", nodeDescriptorClassName: ");
+		result.append(nodeDescriptorClassName);
 		result.append(", synchronized: ");
 		result.append(synchronized_);
 		result.append(')');

@@ -72,8 +72,9 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.
 	java.util.List result = new java.util.LinkedList();
 	for (java.util.Iterator semanticIterator = semanticChildren.iterator(); semanticIterator.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
-		if («EXPAND isDomainMetaChildMethodName»(«getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement))) {
-			result.add(nextElement);
+		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getNodeVisualID(view, nextElement);
+		if («EXPAND isDomainMetaChildMethodName»(visualID)) {
+			result.add(new «getDiagram().getNodeDescriptorQualifiedClassName()»(nextElement, visualID));
 		}
 	}
 	return result;
