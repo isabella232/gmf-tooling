@@ -11,11 +11,15 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -30,6 +34,11 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
@@ -38,8 +47,7 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 		allValues.addAll(modelObject.getCargo());
 		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
 			EObject nextValue = (EObject) valuesIterator.next();
-			switch (TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
-			case LargeItemEditPart.VISUAL_ID:
+			if (isDomainMetaChild(TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue))) {
 				result.add(nextValue);
 			}
 		}
@@ -49,8 +57,16 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected boolean shouldDeleteView(View view) {
-		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
+		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
+		return isDomainMetaChild(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isDomainMetaChild(int visualID) {
+		switch (visualID) {
 		case LargeItemEditPart.VISUAL_ID:
 			return true;
 		}
@@ -62,6 +78,17 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getShip_Cargo());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 }

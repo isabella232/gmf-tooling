@@ -36,6 +36,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
@@ -231,20 +232,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getPort_2001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Port_2001, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(PortLocationEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Port_2001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5001);
 			return "";
@@ -255,20 +248,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getShip_2002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Ship_2002, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(ShipNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(ShipNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Ship_2002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5004);
 			return "";
@@ -279,20 +264,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getWarship_2003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Warship_2003, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(WarshipNameEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(WarshipNameEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Warship_2003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005);
 			return "";
@@ -303,20 +280,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getSmallItems_3001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.SmallItems_3001, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(SmallItemsEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(SmallItemsEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.SmallItems_3001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3001);
 			return "";
@@ -327,20 +296,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getLargeItem_3002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.LargeItem_3002, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(LargeItemArticleEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.LargeItem_3002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5002);
 			return "";
@@ -371,20 +332,11 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getShipDestination_4001Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.ShipDestination_4001, (view.getElement() != null ? view.getElement() : view), CommonParserHint.DESCRIPTION);
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return CommonParserHint.DESCRIPTION;
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.ShipDestination_4001;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6001);
 			return "";
@@ -395,20 +347,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getRoute_4002Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Route_4002, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(ReliableRouteDescEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(ReliableRouteDescEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Route_4002;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6002);
 			return "";
@@ -419,20 +363,12 @@ public class TaiPanNavigatorLabelProvider extends LabelProvider implements IComm
 	 * @generated
 	 */
 	private String getRoute_4003Text(View view) {
-		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+		IAdaptable hintAdapter = new TaiPanParserProvider.HintAdapter(TaiPanElementTypes.Route_4003, (view.getElement() != null ? view.getElement() : view), TaiPanVisualIDRegistry
+				.getType(UnreliableRouteDescEditPart.VISUAL_ID));
+		IParser parser = ParserService.getInstance().getParser(hintAdapter);
 
-			public Object getAdapter(Class adapter) {
-				if (String.class.equals(adapter)) {
-					return TaiPanVisualIDRegistry.getType(UnreliableRouteDescEditPart.VISUAL_ID);
-				}
-				if (IElementType.class.equals(adapter)) {
-					return TaiPanElementTypes.Route_4003;
-				}
-				return null;
-			}
-		});
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
 		} else {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6004);
 			return "";

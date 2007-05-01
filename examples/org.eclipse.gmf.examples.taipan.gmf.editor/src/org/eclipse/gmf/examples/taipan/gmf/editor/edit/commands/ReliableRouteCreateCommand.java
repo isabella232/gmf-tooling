@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
+import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -57,6 +58,7 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
+
 		// Find container element for the new link.
 		// Climb up by containment hierarchy starting from the source
 		// and return the first element that is instance of the container class.
@@ -96,12 +98,12 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		Route newElement = (Route) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.setSource(getSource());
-			newElement.setDestination(getTarget());
-			TaiPanElementTypes.Initializers.Route_4002.init(newElement);
-		}
+		// org.eclipse.gmf.examples.taipan.Route newElement = (org.eclipse.gmf.examples.taipan.Route) super.doDefaultElementCreation();
+		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
+		getContainer().getRoutes().add(newElement);
+		newElement.setSource(getSource());
+		newElement.setDestination(getTarget());
+		TaiPanElementTypes.Initializers.Route_4002.init(newElement);
 		return newElement;
 	}
 

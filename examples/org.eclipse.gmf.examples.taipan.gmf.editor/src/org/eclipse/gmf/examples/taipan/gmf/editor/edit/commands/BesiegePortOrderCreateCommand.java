@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
@@ -51,6 +52,7 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
 		}
+
 		super.setElementToEdit(source);
 	}
 
@@ -78,10 +80,10 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		BesiegePortOrder newElement = (BesiegePortOrder) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.setPort(getTarget());
-		}
+		// org.eclipse.gmf.examples.taipan.BesiegePortOrder newElement = (org.eclipse.gmf.examples.taipan.BesiegePortOrder) super.doDefaultElementCreation();
+		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
+		getSource().getAttackOrders().add(newElement);
+		newElement.setPort(getTarget());
 		return newElement;
 	}
 

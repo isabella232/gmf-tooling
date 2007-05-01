@@ -17,10 +17,12 @@ import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
+import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EClass;
@@ -83,6 +85,11 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	Set myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
@@ -92,10 +99,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		allValues.addAll(modelObject.getShips());
 		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
 			EObject nextValue = (EObject) valuesIterator.next();
-			switch (TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue)) {
-			case PortEditPart.VISUAL_ID:
-			case ShipEditPart.VISUAL_ID:
-			case WarshipEditPart.VISUAL_ID:
+			if (isDomainMetaChild(TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue))) {
 				result.add(nextValue);
 			}
 		}
@@ -106,10 +110,25 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
 		}
-		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
+		return isDomainMetaChild(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean isDomainMetaChild(int visualID) {
+		switch (visualID) {
 		case PortEditPart.VISUAL_ID:
 		case ShipEditPart.VISUAL_ID:
 		case WarshipEditPart.VISUAL_ID:
@@ -123,6 +142,18 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected String getDefaultFactoryHint() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getAquatory_Ports());
+			myFeaturesToSynchronize.add(TaiPanPackage.eINSTANCE.getAquatory_Ships());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 	/**

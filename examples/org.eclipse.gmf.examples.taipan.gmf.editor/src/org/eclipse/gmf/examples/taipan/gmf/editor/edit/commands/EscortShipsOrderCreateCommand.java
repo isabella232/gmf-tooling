@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
@@ -51,6 +52,7 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 		if (request.getContainmentFeature() == null) {
 			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_EscortOrder());
 		}
+
 		super.setElementToEdit(source);
 	}
 
@@ -78,10 +80,10 @@ public class EscortShipsOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	protected EObject doDefaultElementCreation() {
-		EscortShipsOrder newElement = (EscortShipsOrder) super.doDefaultElementCreation();
-		if (newElement != null) {
-			newElement.getShips().add(getTarget());
-		}
+		// org.eclipse.gmf.examples.taipan.EscortShipsOrder newElement = (org.eclipse.gmf.examples.taipan.EscortShipsOrder) super.doDefaultElementCreation();
+		EscortShipsOrder newElement = TaiPanFactory.eINSTANCE.createEscortShipsOrder();
+		getSource().setEscortOrder(newElement);
+		newElement.getShips().add(getTarget());
 		return newElement;
 	}
 
