@@ -35,7 +35,7 @@
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
-		<get src="${orbitMapURL}" dest="${buildDirectory}/maps" verbose="true" usetimestamp="true" />
+		<get src="${orbitMapURL}" dest="${buildDirectory}/maps/${orbitMapName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="checkLocalMaps">
