@@ -128,6 +128,7 @@ public class GenDiagramItemProvider
 			addLiveValidationUIFeedbackPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDiagramUpdaterClassNamePropertyDescriptor(object);
+			addNodeDescriptorClassNamePropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addSynchronizedPropertyDescriptor(object);
 		}
@@ -808,6 +809,28 @@ public class GenDiagramItemProvider
 				 getString("_UI_Updater_diagramUpdaterClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Updater_diagramUpdaterClassName_feature", "_UI_Updater_type"),
 				 GMFGenPackage.eINSTANCE.getUpdater_DiagramUpdaterClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Node Descriptor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNodeDescriptorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Updater_nodeDescriptorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Updater_nodeDescriptorClassName_feature", "_UI_Updater_type"),
+				 GMFGenPackage.eINSTANCE.getUpdater_NodeDescriptorClassName(),
 				 true,
 				 false,
 				 false,
@@ -1746,6 +1769,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_UPDATER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__NODE_DESCRIPTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
