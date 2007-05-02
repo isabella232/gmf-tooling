@@ -87,9 +87,6 @@
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFT" />
-<!--
-		<ant antfile="${scripts}/install.xml" target="installXerces" />
-		<ant antfile="${scripts}/install.xml" target="installBatik" /> -->
 	</target>
 
 	<!-- ===================================================================== -->
@@ -181,10 +178,6 @@
 		<copy file="${buildDirectory}/${buildLabel}/${archiveName}" todir="${artifacts}/updates/${buildLabel}"/>
 		<!-- Unpacking jars to produce downloadable zips -->
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsAndRepack" />
-<!--		
-			<property name="packageBatik" value="true"/>
-			<property name="packageXerces" value="true"/>
-		</ant> -->
 		<!-- Publishing downloadable bits -->
 		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/drops/${buildLabel}"/>
 		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
