@@ -28,16 +28,6 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <includes
-         id="org.eclipse.gmf.sdk.source"
-         version="0.0.0"
-         name="GMF SDK Developer Resources"/>
-
-   <includes
-         id="org.eclipse.gmf.source"
-         version="0.0.0"
-         name="GMF Runtime Developer Resources"/>
-
-   <includes
          id="org.eclipse.gmf"
          version="0.0.0"
          name="GMF Runtime"/>
@@ -49,6 +39,16 @@ http://www.eclipse.org/legal/epl-v10.html
    <includes
          id="org.eclipse.gmf.examples.pde"
          version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.gmf.source"
+         version="0.0.0"
+         name="GMF Runtime Developer Resources"/>
+
+   <includes
+         id="org.eclipse.gmf.sdk.source"
+         version="0.0.0"
+         name="GMF SDK Developer Resources"/>
 
    <requires>
       <import plugin="org.eclipse.core.runtime" version="3.3.0" match="compatible"/>
