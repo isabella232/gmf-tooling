@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -40,16 +42,10 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
-		Warship modelObject = (Warship) viewObject.getElement();
-		List allValues = new LinkedList();
-		allValues.addAll(modelObject.getCargo());
-		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
-			EObject nextValue = (EObject) valuesIterator.next();
-			if (isDomainMetaChild(TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue))) {
-				result.add(nextValue);
-			}
+		List result = new LinkedList();
+		for (Iterator it = TaiPanDiagramUpdater.getWarshipLargeCargo_7003SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -59,18 +55,8 @@ public class WarshipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
-		return isDomainMetaChild(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isDomainMetaChild(int visualID) {
-		switch (visualID) {
-		case LargeItemEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+		return TaiPanDiagramUpdater.isWarshipLargeCargo_7003DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**

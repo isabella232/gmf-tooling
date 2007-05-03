@@ -54,6 +54,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramUpdater;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanNodeDescriptor;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -91,17 +93,10 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		List result = new LinkedList();
 		View viewObject = (View) getHost().getModel();
-		Aquatory modelObject = (Aquatory) viewObject.getElement();
-		List allValues = new LinkedList();
-		allValues.addAll(modelObject.getPorts());
-		allValues.addAll(modelObject.getShips());
-		for (Iterator valuesIterator = allValues.iterator(); valuesIterator.hasNext();) {
-			EObject nextValue = (EObject) valuesIterator.next();
-			if (isDomainMetaChild(TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue))) {
-				result.add(nextValue);
-			}
+		List result = new LinkedList();
+		for (Iterator it = TaiPanDiagramUpdater.getAquatory_1SemanticChildren(viewObject).iterator(); it.hasNext();) {
+			result.add(((TaiPanNodeDescriptor) it.next()).getModelElement());
 		}
 		return result;
 	}
@@ -117,24 +112,10 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return view.isSetElement() && (view.getElement() == null || view.getElement().eIsProxy());
-		}
+		TaiPanDiagramUpdater.isShortcutOrphaned(view);
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
-		return isDomainMetaChild(visualID) && (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
-	}
-
-	/**
-	 * @generated
-	 */
-	private boolean isDomainMetaChild(int visualID) {
-		switch (visualID) {
-		case PortEditPart.VISUAL_ID:
-		case ShipEditPart.VISUAL_ID:
-		case WarshipEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+		return TaiPanDiagramUpdater.isAquatory_1DomainMetaChild(visualID)
+				&& (!semanticChildren.contains(view.getElement()) || visualID != TaiPanVisualIDRegistry.getNodeVisualID((View) getHost().getModel(), view.getElement()));
 	}
 
 	/**
