@@ -23,23 +23,20 @@ importManager.addImport("org.eclipse.emf.ecore.EClassifier");
 importManager.addImport("org.eclipse.emf.ecore.EEnum");
 importManager.addImport("org.eclipse.emf.ecore.EEnumLiteral");
 importManager.addImport("org.eclipse.emf.ecore.ETypedElement");
-importManager.addImport("org.eclipse.emf.ocl.expressions.ExpressionsFactory");
-importManager.addImport("org.eclipse.emf.ocl.expressions.OCLExpression");
-importManager.addImport("org.eclipse.emf.ocl.expressions.Variable");
-importManager.addImport("org.eclipse.emf.ocl.expressions.OperationCallExp");
-importManager.addImport("org.eclipse.emf.ocl.expressions.util.AbstractVisitor");
-importManager.addImport("org.eclipse.emf.ocl.utilities.PredefinedType");
 
-importManager.addImport("org.eclipse.emf.ocl.helper.HelperUtil");
-importManager.addImport("org.eclipse.emf.ocl.helper.IOCLHelper");
-importManager.addImport("org.eclipse.emf.ocl.helper.OCLParsingException");
-importManager.addImport("org.eclipse.emf.ocl.parser.EcoreEnvironment");
-importManager.addImport("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory");
-importManager.addImport("org.eclipse.emf.ocl.parser.EvaluationEnvironment");
-importManager.addImport("org.eclipse.emf.ocl.parser.Environment");
-importManager.addImport("org.eclipse.emf.ocl.query.Query");
-importManager.addImport("org.eclipse.emf.ocl.query.QueryFactory");
-importManager.addImport("org.eclipse.emf.ocl.types.util.Types");
+importManager.addImport("org.eclipse.ocl.Environment");
+importManager.addImport("org.eclipse.ocl.EvaluationEnvironment");
+importManager.addImport("org.eclipse.ocl.ParserException");
+importManager.addImport("org.eclipse.ocl.Query");
+importManager.addImport("org.eclipse.ocl.ecore.EcoreFactory");
+importManager.addImport("org.eclipse.ocl.ecore.OCL");
+importManager.addImport("org.eclipse.ocl.expressions.OCLExpression");
+importManager.addImport("org.eclipse.ocl.expressions.OperationCallExp");
+importManager.addImport("org.eclipse.ocl.expressions.Variable");
+importManager.addImport("org.eclipse.ocl.helper.OCLHelper");
+importManager.addImport("org.eclipse.ocl.utilities.AbstractVisitor");
+importManager.addImport("org.eclipse.ocl.utilities.PredefinedType");
+
 %>
 
 /**
@@ -77,11 +74,19 @@ public class <%=factoryClassName%> {
 		 * @generated 
 		 */		
 		private WeakReference queryRef;
+
+		/**
+		 * @generated 
+		 */		
+		private final OCL oclInstance;
+
 		/**
 		 * @generated 
 		 */			
 		public Expression(String body, EClassifier context, Map environment) {
-			super(body, context, environment);
+			super(body, context);
+			oclInstance = OCL.newInstance();
+			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
 		/**
@@ -93,16 +98,14 @@ public class <%=factoryClassName%> {
 				oclQuery = (Query)this.queryRef.get();
 			}
 			if(oclQuery == null) {
-				IOCLHelper oclHelper = (environment().isEmpty()) ? 
-						HelperUtil	.createOCLHelper() :
-						HelperUtil.createOCLHelper(createCustomEnv(environment()));
+				OCLHelper oclHelper = oclInstance.createOCLHelper();
 				oclHelper.setContext(context());
 				try {
 					OCLExpression oclExpression = oclHelper.createQuery(body());
-					oclQuery = QueryFactory.eINSTANCE.createQuery(oclExpression);
+					oclQuery = oclInstance.createQuery(oclExpression);
 					this.queryRef = new WeakReference(oclQuery);
 					setStatus(IStatus.OK, null, null);
-				} catch (OCLParsingException e) {
+				} catch (ParserException e) {
 					setStatus(IStatus.ERROR, e.getMessage(), e);
 				}
 			}
@@ -127,10 +130,10 @@ public class <%=factoryClassName%> {
 			try {
 				initExtentMap(context);
 				Object result = oclQuery.evaluate(context);
-				return (result != Types.OCL_INVALID) ? result : null;
+				return (result != oclInstance.getEnvironment().getOCLStandardLibrary().getOclInvalid()) ? result : null;
 			} finally {				
 				evalEnv.clear();
-				oclQuery.setExtentMap(Collections.EMPTY_MAP);
+				oclQuery.getExtentMap().clear();
 			}
 		}
 		
@@ -157,8 +160,8 @@ public class <%=factoryClassName%> {
 			final Query queryToInit = getQuery();
 			final Object extentContext = context;
 			
-			queryToInit.setExtentMap(Collections.EMPTY_MAP);
-			if(queryToInit.queryText() != null && queryToInit.queryText().indexOf("allInstances") >= 0) {			
+			queryToInit.getExtentMap().clear();
+			if (queryToInit.queryText() != null && queryToInit.queryText().indexOf(PredefinedType.ALL_INSTANCES_NAME) >= 0) {
 				AbstractVisitor visitior = new AbstractVisitor() {
 					private boolean usesAllInstances  = false;
 					
@@ -166,7 +169,7 @@ public class <%=factoryClassName%> {
 						if(!usesAllInstances) {
 							usesAllInstances = PredefinedType.ALL_INSTANCES == oc.getOperationCode();
 							if(usesAllInstances) {
-								queryToInit.setExtentMap(EcoreEnvironmentFactory.ECORE_INSTANCE.createExtentMap(extentContext));
+								queryToInit.getExtentMap().putAll(oclInstance.getEvaluationEnvironment().createExtentMap(extentContext));
 							}
 						}
 						return super.visitOperationCallExp(oc);
@@ -179,28 +182,21 @@ public class <%=factoryClassName%> {
 		/**
 		 * @generated 
 		 */		
-		private static EcoreEnvironmentFactory createCustomEnv(Map environment) {
-			final Map env = environment;
-			return new EcoreEnvironmentFactory() {					
-				public Environment createClassifierContext(Object context) {
-					Environment ecoreEnv = super.createClassifierContext(context);
-					for (Iterator it = env.keySet().iterator(); it.hasNext();) {
+		private static void initCustomEnv(Environment ecoreEnv, Map environment) {
+			for (Iterator it = environment.keySet().iterator(); it.hasNext();) {
 						String varName = (String)it.next();
-						EClassifier varType = (EClassifier)env.get(varName);
-						ecoreEnv.addElement(varName, createVar(varName, varType), false);
-					}
-					return ecoreEnv;
+				EClassifier varType = (EClassifier) environment.get(varName);
+				ecoreEnv.addElement(varName, createVar(ecoreEnv, varName, varType), false);
 				}
-			};				
 		}
 		
 		/**
 		 * @generated 
 		 */		
-		private static Variable createVar(String name, EClassifier type) {
-			Variable var = ExpressionsFactory.eINSTANCE.createVariable();
+		private static Variable createVar(Environment ecoreEnv, String name, EClassifier type) {
+			Variable var = EcoreFactory.eINSTANCE.createVariable(); // or ecoreEnv.getOCLFactory().createVariable()?
 			var.setName(name);
-			var.setType(EcoreEnvironment.getOCLType(type));
+			var.setType(ecoreEnv.getUMLReflection().getOCLType(type));
 			return var;
 		}		
 	}

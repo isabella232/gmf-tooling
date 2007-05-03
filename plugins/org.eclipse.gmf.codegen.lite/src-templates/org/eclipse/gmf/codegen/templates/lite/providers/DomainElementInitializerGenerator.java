@@ -352,7 +352,6 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_25);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
-		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -362,7 +361,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_26);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_28);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_29);
@@ -375,7 +374,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_31);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_33);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_34);
@@ -615,8 +614,9 @@ if (genDiagram.hasLinkCreationConstraints() && expressionProviders != null) {
     
 { /*begin the scope*/
 /*
-java.util.Map __exprEnvVariables
+java.util.Map __exprEnvVariables;
 String __outEnvVarName;
+ValueExpression __genValueExpression;
 */
 if(!__exprEnvVariables.isEmpty() && genDiagram.getEditorGen().getExpressionProviders() != null && 
 	genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) 
@@ -673,7 +673,6 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_109);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
-		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -683,7 +682,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_110);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_111);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_112);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_113);
@@ -696,7 +695,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_115);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_116);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_117);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_118);
@@ -765,8 +764,9 @@ String __javaOperationContainer;
     
 { /*begin the scope*/
 /*
-java.util.Map __exprEnvVariables
+java.util.Map __exprEnvVariables;
 String __outEnvVarName;
+ValueExpression __genValueExpression;
 */
 if(!__exprEnvVariables.isEmpty() && genDiagram.getEditorGen().getExpressionProviders() != null && 
 	genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) 
@@ -823,7 +823,6 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_146);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
-		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -833,7 +832,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_147);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_148);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_149);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_150);
@@ -846,7 +845,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_152);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_153);
-    stringBuffer.append(__bodyLiteral);
+    stringBuffer.append(__genValueExpression.getBodyString());
     stringBuffer.append(TEXT_154);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_155);
