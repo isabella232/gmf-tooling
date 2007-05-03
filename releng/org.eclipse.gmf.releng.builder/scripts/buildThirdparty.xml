@@ -20,6 +20,7 @@
 			<property name="component" value="runtime-thirdparty" />
 			<property name="wipe" value="true" />
 			<property name="cleanBase" value="true" />
+			<property name="buildType" value="S" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
