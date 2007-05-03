@@ -352,19 +352,25 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
 	}
 
-	// providers
+	// parsers
 
 	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::AbstractParser::AbstractParser"); //$NON-NLS-1$
+		return getPrimaryEmitter("xpt::parsers::AbstractParser"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getStructuralFeatureParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::StructuralFeatureParser::StructuralFeatureParser"); //$NON-NLS-1$
+	public String getAbstractParserName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::parsers::AbstractParser", input); //$NON-NLS-1$
 	}
 
-	public TextEmitter getStructuralFeaturesParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::providers::StructuralFeaturesParser::StructuralFeaturesParser"); //$NON-NLS-1$
+	public TextEmitter getMessageFormatParserEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryEmitter("xpt::parsers::MessageFormatParser"); //$NON-NLS-1$
 	}
+
+	public String getMessageFormatParserName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::parsers::MessageFormatParser", input); //$NON-NLS-1$
+	}
+
+	// providers
 
 	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("xpt::diagram::providers::ParserProvider::ParserProvider"); //$NON-NLS-1$

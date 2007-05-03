@@ -24,8 +24,9 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getMetaFeatures <em>Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewMethod <em>View Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditMethod <em>Edit Method</em>}</li>
  * </ul>
  * </p>
@@ -77,6 +78,31 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	void setViewPattern(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Editor Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Pattern to produce text for inplace editor, depends on view method; if not specified then viewPattern should be used
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Editor Pattern</em>' attribute.
+	 * @see #setEditorPattern(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_EditorPattern()
+	 * @model
+	 * @generated
+	 */
+	String getEditorPattern();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditorPattern <em>Editor Pattern</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editor Pattern</em>' attribute.
+	 * @see #getEditorPattern()
+	 * @generated
+	 */
+	void setEditorPattern(String value);
+
+	/**
 	 * Returns the value of the '<em><b>View Method</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod}.
 	 * <!-- begin-user-doc -->
@@ -110,7 +136,7 @@ public interface FeatureLabelModelFacet extends LabelModelFacet {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Pattern to produce text for inplace editor, depends on edit method; if not specified then viewPattern should be used
+	 * Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Edit Pattern</em>' attribute.
 	 * @see #setEditPattern(String)

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getPreferencesPackageName <em>Preferences Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getProvidersPackageName <em>Providers Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getParsersPackageName <em>Parsers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  * </ul>
  * </p>
@@ -186,6 +187,32 @@ public interface PackageNames extends EObject {
 	 * @generated
 	 */
 	void setProvidersPackageName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parsers Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parsers Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parsers Package Name</em>' attribute.
+	 * @see #setParsersPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPackageNames_ParsersPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getParsersPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getParsersPackageName <em>Parsers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parsers Package Name</em>' attribute.
+	 * @see #getParsersPackageName()
+	 * @generated
+	 */
+	void setParsersPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Notation View Factories Package Name</b></em>' attribute.

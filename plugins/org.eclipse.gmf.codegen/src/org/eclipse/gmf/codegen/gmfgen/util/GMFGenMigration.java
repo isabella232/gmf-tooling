@@ -58,6 +58,9 @@ public class GMFGenMigration {
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getEditorCandies(), "diagramFileCreatorClassName"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getEditorCandies(), "preferenceInitializerClassName"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet(), "metaFeature"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "abstractParserClassName"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "structuralFeatureParserClassName"); //$NON-NLS-1$
+		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "structuralFeaturesParserClassName"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "paletteProviderClassName"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "paletteProviderPriority"); //$NON-NLS-1$
 		config.registerDeletedAttribute(GMFGenPackage.eINSTANCE.getProviderClassNames(), "propertyProviderClassName"); //$NON-NLS-1$

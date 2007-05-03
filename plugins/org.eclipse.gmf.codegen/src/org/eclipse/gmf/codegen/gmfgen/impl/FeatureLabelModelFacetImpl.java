@@ -28,8 +28,9 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getMetaFeatures <em>Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewMethod <em>View Method</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditorPattern <em>Editor Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewMethod <em>View Method</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditMethod <em>Edit Method</em>}</li>
  * </ul>
  * </p>
@@ -68,24 +69,24 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	protected String viewPattern = VIEW_PATTERN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * The default value of the '{@link #getEditorPattern() <em>Editor Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getViewMethod()
+	 * @see #getEditorPattern()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final LabelTextAccessMethod VIEW_METHOD_EDEFAULT = LabelTextAccessMethod.MESSAGE_FORMAT;
+	protected static final String EDITOR_PATTERN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * The cached value of the '{@link #getEditorPattern() <em>Editor Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getViewMethod()
+	 * @see #getEditorPattern()
 	 * @generated
 	 * @ordered
 	 */
-	protected LabelTextAccessMethod viewMethod = VIEW_METHOD_EDEFAULT;
+	protected String editorPattern = EDITOR_PATTERN_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditPattern() <em>Edit Pattern</em>}' attribute.
@@ -106,6 +107,26 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * @ordered
 	 */
 	protected String editPattern = EDIT_PATTERN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LabelTextAccessMethod VIEW_METHOD_EDEFAULT = LabelTextAccessMethod.MESSAGE_FORMAT;
+
+	/**
+	 * The cached value of the '{@link #getViewMethod() <em>View Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected LabelTextAccessMethod viewMethod = VIEW_METHOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditMethod() <em>Edit Method</em>}' attribute.
@@ -200,6 +221,27 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditorPattern() {
+		return editorPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorPattern(String newEditorPattern) {
+		String oldEditorPattern = editorPattern;
+		editorPattern = newEditorPattern;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN, oldEditorPattern, editorPattern));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LabelTextAccessMethod getViewMethod() {
 		return viewMethod;
 	}
@@ -270,10 +312,12 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 				return getMetaFeatures();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
-				return getViewMethod();
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
+				return getEditorPattern();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				return getEditPattern();
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
+				return getViewMethod();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				return getEditMethod();
 		}
@@ -296,11 +340,14 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
-				setViewMethod((LabelTextAccessMethod)newValue);
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
+				setEditorPattern((String)newValue);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				setEditPattern((String)newValue);
+				return;
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
+				setViewMethod((LabelTextAccessMethod)newValue);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				setEditMethod((LabelTextAccessMethod)newValue);
@@ -323,11 +370,14 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
-				setViewMethod(VIEW_METHOD_EDEFAULT);
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
+				setEditorPattern(EDITOR_PATTERN_EDEFAULT);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				setEditPattern(EDIT_PATTERN_EDEFAULT);
+				return;
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
+				setViewMethod(VIEW_METHOD_EDEFAULT);
 				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				setEditMethod(EDIT_METHOD_EDEFAULT);
@@ -348,10 +398,12 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 				return metaFeatures != null && !metaFeatures.isEmpty();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
-			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
-				return viewMethod != VIEW_METHOD_EDEFAULT;
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN:
+				return EDITOR_PATTERN_EDEFAULT == null ? editorPattern != null : !EDITOR_PATTERN_EDEFAULT.equals(editorPattern);
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				return EDIT_PATTERN_EDEFAULT == null ? editPattern != null : !EDIT_PATTERN_EDEFAULT.equals(editPattern);
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_METHOD:
+				return viewMethod != VIEW_METHOD_EDEFAULT;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_METHOD:
 				return editMethod != EDIT_METHOD_EDEFAULT;
 		}
@@ -370,10 +422,12 @@ public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLa
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (viewPattern: ");
 		result.append(viewPattern);
-		result.append(", viewMethod: ");
-		result.append(viewMethod);
+		result.append(", editorPattern: ");
+		result.append(editorPattern);
 		result.append(", editPattern: ");
 		result.append(editPattern);
+		result.append(", viewMethod: ");
+		result.append(viewMethod);
 		result.append(", editMethod: ");
 		result.append(editMethod);
 		result.append(')');

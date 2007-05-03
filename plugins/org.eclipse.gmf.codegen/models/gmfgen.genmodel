@@ -272,9 +272,6 @@
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderPriority"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderPriority"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
-      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/contributionItemProviderClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
@@ -282,9 +279,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getModelingAssistantProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getIconProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getParserProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getAbstractParserQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeatureParserQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeaturesParserQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getContributionItemProviderQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Shortcuts">
@@ -309,6 +303,7 @@
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/preferencesPackageName"/>
       <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/parsersPackageName"/>
       <genFeatures createChild="false" propertyCategory="View Factories" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//LinkConstraints">
@@ -541,8 +536,9 @@
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLabelModelFacet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/metaFeatures"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editorPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>

@@ -99,8 +99,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		
 		// edit parts, edit policies and providers
 		generateAbstractParser();
-		generateStructuralFeatureParser();
-		generateStructuralFeaturesParser();
+		generateMessageFormatParser();
 		generateBaseItemSemanticEditPolicy();
 		generateBehaviours(myDiagram);
 		if (myDiagram.needsCanonicalEditPolicy()) {
@@ -546,19 +545,17 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getRulersAndGridPreferencePageEmitter(), myEmitters.getRulersAndGridPreferencePageName(myDiagram), myDiagram);
 	}
 
-	// providers
+	// parsers
 
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myDiagram.getAbstractParserQualifiedClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);
 	}
 
-	private void generateStructuralFeatureParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getStructuralFeatureParserEmitter(), myDiagram.getStructuralFeatureParserQualifiedClassName(), myDiagram);
+	private void generateMessageFormatParser() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getMessageFormatParserEmitter(), myEmitters.getMessageFormatParserName(myDiagram), myDiagram);
 	}
 
-	private void generateStructuralFeaturesParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getStructuralFeaturesParserEmitter(), myDiagram.getStructuralFeaturesParserQualifiedClassName(), myDiagram);
-	}
+	// providers
 
 	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myDiagram.getParserProviderQualifiedClassName(), myDiagram);

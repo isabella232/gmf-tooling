@@ -104,21 +104,22 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserCreatorName(element)»() {
-		«IF metaFeatures.size() == 1-»
-		«element.getDiagram().getStructuralFeatureParserQualifiedClassName()» parser =
-				new «element.getDiagram().getStructuralFeatureParserQualifiedClassName()»(
-						«EXPAND xpt::Common::metaFeatureAccessor FOR (genmodel::GenFeature) metaFeatures.get(0)»);
-		«ELSE-»
-		«element.getDiagram().getStructuralFeaturesParserQualifiedClassName()» parser =
-				new «element.getDiagram().getStructuralFeaturesParserQualifiedClassName()»(
-						new org.eclipse.emf.ecore.EStructuralFeature[] {
+		«EXPAND xpt::parsers::MessageFormatParser::qualifiedClassName FOR element.getDiagram()» parser =
+				new «EXPAND xpt::parsers::MessageFormatParser::qualifiedClassName FOR element.getDiagram()»(
+						new org.eclipse.emf.ecore.EAttribute[] {
 							«FOREACH metaFeatures AS feature-»
 								«EXPAND xpt::Common::metaFeatureAccessor FOR feature»,
 							«ENDFOREACH-»
 						});
-		«ENDIF-»
 		«IF isPatternSpecified(viewPattern)-»
 		parser.setViewPattern("«viewPattern»");
+		«ENDIF-»
+		«IF isPatternSpecified(editorPattern)-»
+		parser.setEditorPattern("«editorPattern»");
+		«ELSE-»
+			«IF isPatternSpecified(viewPattern)-»
+		parser.setEditorPattern("«viewPattern»");
+			«ENDIF-»
 		«ENDIF-»
 		«IF isPatternSpecified(editPattern)-»
 		parser.setEditPattern("«editPattern»");
@@ -160,12 +161,14 @@ public class «parserProviderClassName» extends org.eclipse.gmf.runtime.common.co
 	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
 «ENDDEFINE»
 
-«DEFINE HintAdapterClass FOR gmfgen::GenDiagram»
+«DEFINE HintAdapterClass FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static class HintAdapter extends org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter {
+
 		private final org.eclipse.gmf.runtime.emf.type.core.IElementType elementType;
 
-		public HintAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType type, org.eclipse.emf.ecore.EObject object, String parserHint) {
+		public HintAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType type,
+				org.eclipse.emf.ecore.EObject object, String parserHint) {
 			super(object, parserHint);
 			assert type != null;
 			elementType = type;
