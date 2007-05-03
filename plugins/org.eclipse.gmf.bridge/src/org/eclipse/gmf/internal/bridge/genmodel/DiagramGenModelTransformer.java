@@ -628,6 +628,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				modelFacet.getMetaFeatures().add(findGenFeature(attr));
 			}
 			modelFacet.setViewPattern(flMapping.getViewPattern());
+			modelFacet.setEditorPattern(flMapping.getEditorPattern());
 			modelFacet.setEditPattern(flMapping.getEditPattern());
 			if (flMapping.getViewMethod() != null) {
 				modelFacet.setViewMethod(LabelTextAccessMethod.get(flMapping.getViewMethod().getValue()));
