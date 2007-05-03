@@ -96,10 +96,14 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		// edit helpers
 		generateBaseEditHelper();
-		
-		// edit parts, edit policies and providers
+
+		// parsers
 		generateAbstractParser();
+		generateCompositeParser();
 		generateMessageFormatParser();
+		generateNativeParser();
+
+		// edit parts, edit policies and providers
 		generateBaseItemSemanticEditPolicy();
 		generateBehaviours(myDiagram);
 		if (myDiagram.needsCanonicalEditPolicy()) {
@@ -551,8 +555,16 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myDiagram), myDiagram);
 	}
 
+	private void generateCompositeParser() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getCompositeParserEmitter(), myEmitters.getCompositeParserName(myDiagram), myDiagram);
+	}
+
 	private void generateMessageFormatParser() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getMessageFormatParserEmitter(), myEmitters.getMessageFormatParserName(myDiagram), myDiagram);
+	}
+
+	private void generateNativeParser() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getNativeParserEmitter(), myEmitters.getNativeParserName(myDiagram), myDiagram);
 	}
 
 	// providers
