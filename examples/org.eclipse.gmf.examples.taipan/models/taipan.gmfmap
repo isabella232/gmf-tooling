@@ -12,7 +12,9 @@
       <domainMetaElement
           href="taipan.ecore#//Port"/>
       <labelMappings
-          xsi:type="gmfmap:FeatureLabelMapping">
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewMethod="NATIVE"
+          editMethod="NATIVE">
         <diagramLabel
             href="taipan.gmfgraph#PortLocation"/>
         <features
@@ -54,8 +56,11 @@
               href="taipan.ecore#//SmallItems"/>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
-              viewPattern="- {0} [{1,number,integer}]"
-              editPattern="{0} : {1,number,integer}">
+              viewPattern="- %1$s [%2$d]"
+              editorPattern="%1$s:%2$s"
+              editPattern=":"
+              viewMethod="PRINTF"
+              editMethod="REGEXP">
             <diagramLabel
                 href="taipan.gmfgraph#SmallItems"/>
             <features
@@ -188,6 +193,7 @@
     <labelMappings
         xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="route : {0}"
+        editorPattern="{0}"
         editPattern="{0}">
       <diagramLabel
           href="taipan.gmfgraph#ReliableRouteDescription"/>
@@ -197,6 +203,7 @@
     <labelMappings
         xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="reliability : {0,number,percent}"
+        editorPattern="{0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
           href="taipan.gmfgraph#ReliableRouteReliability"/>
@@ -235,6 +242,7 @@
     <labelMappings
         xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="route : {0}"
+        editorPattern="{0}"
         editPattern="{0}">
       <diagramLabel
           href="taipan.gmfgraph#UnreliableRouteDescription"/>
@@ -244,6 +252,7 @@
     <labelMappings
         xsi:type="gmfmap:FeatureLabelMapping"
         viewPattern="reliability : {0,number,percent}"
+        editorPattern="{0,number,percent}"
         editPattern="{0,number,percent}">
       <diagramLabel
           href="taipan.gmfgraph#UnreliableRouteReliability"/>
